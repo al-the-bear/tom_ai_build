@@ -21,23 +21,67 @@ std::string SomList::addGenerated(long long month, long long day) {
   return doc().addListItemWithSectionId(path(), id);
 }
 
-std::string SomList::add() {
-  if (pattern_.empty()) {
-    return doc().addListItem(path());
-  }
-  auto md = specTodayMonthDay();
-  return addGenerated(md.first, md.second);
-}
-
-std::string SomList::addOn(long long month, long long day) {
+// Shared append-and-derive-path helper (Dart reference `_addItemPath`): a plain
+// append when the list has no pattern, otherwise an append carrying a section id
+// generated from the pattern for `(month, day)`.
+std::string SomList::addItemPath(long long month, long long day) {
   if (pattern_.empty()) {
     return doc().addListItem(path());
   }
   return addGenerated(month, day);
 }
 
-std::string SomList::addWithId(const std::string& sectionId) {
+// Explicit-id variant of the shared helper: always appends carrying `sectionId`.
+std::string SomList::addItemPathWithId(const std::string& sectionId) {
   return doc().addListItemWithSectionId(path(), sectionId);
+}
+
+std::string SomList::add() {
+  auto md = specTodayMonthDay();
+  return addItemPath(md.first, md.second);
+}
+
+std::string SomList::addOn(long long month, long long day) {
+  return addItemPath(month, day);
+}
+
+std::string SomList::addWithId(const std::string& sectionId) {
+  return addItemPathWithId(sectionId);
+}
+
+// addContent* mirror the add* trio, additionally writing the new item's nested
+// `<item>/content` leaf. Scalar lists are out of scope — this targets the
+// nested content leaf only.
+std::string SomList::addContent(const std::string& content) {
+  auto md = specTodayMonthDay();
+  std::string itemPath = addItemPath(md.first, md.second);
+  doc().setContent(joinPath(itemPath, "content"), content);
+  return itemPath;
+}
+
+std::string SomList::addContentOn(const std::string& content, long long month,
+                                  long long day) {
+  std::string itemPath = addItemPath(month, day);
+  doc().setContent(joinPath(itemPath, "content"), content);
+  return itemPath;
+}
+
+std::string SomList::addContentWithId(const std::string& content,
+                                      const std::string& sectionId) {
+  std::string itemPath = addItemPathWithId(sectionId);
+  doc().setContent(joinPath(itemPath, "content"), content);
+  return itemPath;
+}
+
+// Ordered, read-only view of every item's nested `<item>/content` leaf; a
+// missing leaf coalesces to "" (content() already returns "" for an absent
+// leaf).
+std::vector<std::string> SomList::contents() const {
+  std::vector<std::string> out;
+  for (const std::string& itemPath : doc().listItems(path())) {
+    out.push_back(doc().content(joinPath(itemPath, "content")));
+  }
+  return out;
 }
 
 /* ---- model-version guard ------------------------------------------------ */

@@ -89,8 +89,71 @@ public final class SomList<T> {
    * two-letter-date component. A pattern-less list ignores both arguments.
    */
   public T add(String sectionId, LocalDate date) {
+    return factory.create(doc, addItemPath(sectionId, date));
+  }
+
+  /**
+   * Appends a content-only item and sets its {@code content} leaf in one call,
+   * returning the new item's element facade. Equivalent to {@link #add()}
+   * followed by writing {@code content} to the item's nested
+   * {@code <itemPath>/content} leaf.
+   *
+   * <p>Targets the nested {@code <item>/content} leaf; scalar (pattern-less
+   * value) lists are out of scope for this convenience.
+   */
+  public T addContent(String content) {
+    return addContent(content, null, null);
+  }
+
+  /**
+   * Appends a content-only item with an explicit section-id override (AA1
+   * criterion 5) and sets its {@code content} leaf in one call. See
+   * {@link #add(String)} for the section-id semantics.
+   */
+  public T addContent(String content, String sectionId) {
+    return addContent(content, sectionId, null);
+  }
+
+  /**
+   * Appends a content-only item, writes {@code content} to its nested
+   * {@code <itemPath>/content} leaf, and returns the new item's element facade.
+   *
+   * <p>Section-id handling mirrors {@link #add(String, LocalDate)}: with a
+   * {@link #pattern}, {@code sectionId} is an override (validated unique —
+   * raises {@link SpecSectionIdCollision}) else a section id is generated from
+   * the pattern using {@code date} (defaulting to today); a pattern-less list
+   * ignores both arguments. Targets the nested {@code <item>/content} leaf;
+   * scalar lists are out of scope.
+   */
+  public T addContent(String content, String sectionId, LocalDate date) {
+    String itemPath = addItemPath(sectionId, date);
+    doc.setContent(itemPath + "/content", content); // nested <item>/content leaf
+    return factory.create(doc, itemPath);
+  }
+
+  /**
+   * An ordered read-only view of every item's {@code content} leaf; a missing
+   * leaf coalesces to {@code ""}. Reads the nested {@code <item>/content} leaf.
+   */
+  public List<String> contents() {
+    List<String> out = new ArrayList<>();
+    for (String p : doc.listItems(listPath)) {
+      String value = doc.content(p + "/content");
+      out.add(value == null ? "" : value);
+    }
+    return out;
+  }
+
+  /**
+   * Appends an item and returns its path, deriving the section id the same way
+   * for {@link #add} and {@link #addContent}: a pattern-less list ignores
+   * section ids; otherwise {@code sectionId} is used as an override when given,
+   * else one is generated from the {@link #pattern} using {@code date}
+   * (defaulting to today) for the two-letter-date component.
+   */
+  private String addItemPath(String sectionId, LocalDate date) {
     if (pattern == null) {
-      return factory.create(doc, doc.addListItem(listPath));
+      return doc.addListItem(listPath);
     }
     String id;
     if (sectionId != null) {
@@ -101,7 +164,7 @@ public final class SomList<T> {
           SpecSectionId.generateListItemSectionId(
               pattern, when.getMonthValue(), when.getDayOfMonth(), doc.listItemSectionIds(listPath));
     }
-    return factory.create(doc, doc.addListItem(listPath, id));
+    return doc.addListItem(listPath, id);
   }
 
   /** Removes the item at {@code index} and every value nested beneath it. */

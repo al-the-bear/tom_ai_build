@@ -8,5 +8,7 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 rm -rf "$here/build"
 mkdir -p "$here/build"
-javac -Xlint:all -d "$here/build" "$here"/src/tom_som_runtime/*.java "$here"/tests/SomFacadeTest.java
+javac -Xlint:all -d "$here/build" "$here"/src/tom_som_runtime/*.java \
+  "$here"/tests/SomFacadeTest.java "$here"/tests/SomListContentTest.java
 java -cp "$here/build" SomFacadeTest
+java -cp "$here/build" SomListContentTest

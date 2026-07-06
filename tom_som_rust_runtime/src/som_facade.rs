@@ -185,23 +185,96 @@ impl<T> SomList<T> {
     /// (generate, today), [`SomList::add_on`] (generate, explicit date) and
     /// [`SomList::add_with_id`] (explicit override). See decision AG-D2.
     pub fn add(&self) -> T {
-        if self.pattern.is_empty() {
-            let path = self.doc.borrow_mut().add_list_item(&self.list_path);
-            return (self.factory)(Rc::clone(&self.doc), path);
-        }
         let (month, day) = today_month_day();
-        self.add_generated(month, day)
+        (self.factory)(Rc::clone(&self.doc), self.add_item_path(month, day))
     }
 
     /// Appends a new item whose generated section id uses the given `(month,
     /// day)` for the two-letter-date component (AA1 criteria 3–4). For a
     /// pattern-less list it behaves like [`SomList::add`] (the date is ignored).
     pub fn add_on(&self, month: i64, day: i64) -> T {
+        (self.factory)(Rc::clone(&self.doc), self.add_item_path(month, day))
+    }
+
+    /// Appends a content-only item and sets its nested `<item>/content` leaf in
+    /// one call, returning the new item's element facade — the mirror of
+    /// [`SomList::add`] for the common "one content value per item" shape.
+    ///
+    /// Like [`SomList::add`], the item is assigned a generated section id (from
+    /// the list's pattern, using today's date) when the list has a pattern, or
+    /// appended without one otherwise. The `content` string is written to the
+    /// nested `<item_path>/content` leaf, immediately visible through both the
+    /// typed handle and the generic document path.
+    ///
+    /// Scalar (pattern-less string) lists store their value at the item path
+    /// itself, not a nested `content` leaf, so this convenience is aimed at
+    /// complex-item lists; see [`SomList::add_content_on`] /
+    /// [`SomList::add_content_with_id`] for the explicit-date / override forms.
+    pub fn add_content(&self, content: &str) -> T {
+        let (month, day) = today_month_day();
+        self.add_content_on(content, month, day)
+    }
+
+    /// Like [`SomList::add_content`] but the generated section id uses the given
+    /// `(month, day)` for the two-letter-date component (AA1 criteria 3–4). For
+    /// a pattern-less list the date is ignored.
+    pub fn add_content_on(&self, content: &str, month: i64, day: i64) -> T {
+        let item_path = self.add_item_path(month, day);
+        self.doc
+            .borrow_mut()
+            .set_content(&format!("{}/content", item_path), content);
+        (self.factory)(Rc::clone(&self.doc), item_path)
+    }
+
+    /// Like [`SomList::add_content`] but with an explicit section id override
+    /// (AA1 criterion 5), validated unique within the list. Returns
+    /// [`SpecSectionIdError::Collision`] on a duplicate.
+    pub fn add_content_with_id(
+        &self,
+        content: &str,
+        section_id: &str,
+    ) -> Result<T, SpecSectionIdError> {
+        let item_path = self
+            .doc
+            .borrow_mut()
+            .add_list_item_with_section_id(&self.list_path, section_id)?;
+        self.doc
+            .borrow_mut()
+            .set_content(&format!("{}/content", item_path), content);
+        Ok((self.factory)(Rc::clone(&self.doc), item_path))
+    }
+
+    /// Ordered read-only view of every item's nested `<item>/content` leaf,
+    /// coalescing a missing/unset leaf to `""` (the empty-string sentinel).
+    ///
+    /// The read-only companion to [`SomList::add_content`]: it targets the same
+    /// nested `content` leaf, so an item added via `add_content` (or one whose
+    /// typed `content` accessor was set) surfaces here in item order. Scalar
+    /// (pattern-less) lists keep their value at the item path itself, not a
+    /// nested leaf, so those items read as `""`.
+    pub fn contents(&self) -> Vec<String> {
+        let doc = self.doc.borrow();
+        doc.list_items(&self.list_path)
+            .into_iter()
+            .map(|p| doc.content_or(&format!("{}/content", p)))
+            .collect()
+    }
+
+    /// Shared derivation for the `add*` family: appends an item and returns its
+    /// path, assigning a generated section id (from the list's pattern, using
+    /// the given `(month, day)`) when the list has a pattern, or appending
+    /// without one otherwise. Both [`SomList::add`] and [`SomList::add_content`]
+    /// build on this so the section-id/append logic lives in one place.
+    fn add_item_path(&self, month: i64, day: i64) -> String {
         if self.pattern.is_empty() {
-            let path = self.doc.borrow_mut().add_list_item(&self.list_path);
-            return (self.factory)(Rc::clone(&self.doc), path);
+            return self.doc.borrow_mut().add_list_item(&self.list_path);
         }
-        self.add_generated(month, day)
+        let existing = self.doc.borrow().list_item_section_ids(&self.list_path);
+        let id = generate_list_item_section_id(&self.pattern, month, day, &existing);
+        self.doc
+            .borrow_mut()
+            .add_list_item_with_section_id(&self.list_path, &id)
+            .expect("generated section id is unique by construction")
     }
 
     /// Appends a new item with an explicit section id override (AA1 criterion 5),
@@ -214,17 +287,6 @@ impl<T> SomList<T> {
             .borrow_mut()
             .add_list_item_with_section_id(&self.list_path, section_id)?;
         Ok((self.factory)(Rc::clone(&self.doc), item_path))
-    }
-
-    fn add_generated(&self, month: i64, day: i64) -> T {
-        let existing = self.doc.borrow().list_item_section_ids(&self.list_path);
-        let id = generate_list_item_section_id(&self.pattern, month, day, &existing);
-        let item_path = self
-            .doc
-            .borrow_mut()
-            .add_list_item_with_section_id(&self.list_path, &id)
-            .expect("generated section id is unique by construction");
-        (self.factory)(Rc::clone(&self.doc), item_path)
     }
 
     /// Removes the item at `index` and every value nested beneath it.

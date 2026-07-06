@@ -150,6 +150,48 @@ int som_list_add_with_id(SomList *l, const char *section_id,
   return 1;
 }
 
+/* Builds the nested `<item_path>/content` leaf path (owned). */
+static char *content_leaf_path(const char *item_path) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, item_path);
+  som_buf_puts(&b, "/content");
+  return som_buf_take(&b);
+}
+
+/* Shared body for the add-content variants: `item_path` is an owned path just
+ * returned by an add; writes `content` to its nested `<item>/content` leaf and
+ * returns the same (owned) item path. */
+static char *set_content_leaf(SomList *l, char *item_path, const char *content) {
+  char *leaf = content_leaf_path(item_path);
+  spec_document_set_content(l->doc, leaf, content);
+  free(leaf);
+  return item_path;
+}
+
+char *som_list_add_content(SomList *l, const char *content) {
+  return set_content_leaf(l, som_list_add(l), content);
+}
+
+char *som_list_add_content_on(SomList *l, const char *content, long long month,
+                              long long day) {
+  return set_content_leaf(l, som_list_add_on(l, month, day), content);
+}
+
+void som_list_contents(const SomList *l, SomStrList *out) {
+  som_strlist_init(out);
+  const SomStrList *items = spec_document_list_items(l->doc, l->list_path);
+  if (items == NULL) {
+    return;
+  }
+  for (size_t i = 0; i < items->len; i++) {
+    char *leaf = content_leaf_path(items->items[i]);
+    const char *v = spec_document_content(l->doc, leaf);
+    free(leaf);
+    som_strlist_push_copy(out, v != NULL ? v : "");
+  }
+}
+
 void som_list_remove_at(SomList *l, size_t index) {
   const char *path = som_list_item_path_at(l, index);
   if (path == NULL) {

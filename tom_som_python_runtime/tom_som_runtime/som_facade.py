@@ -148,6 +148,35 @@ class SomList(Generic[_T]):
         order."""
         return self.doc.list_item_section_ids(self.list_path)
 
+    def _add_item_path(
+        self,
+        section_id: Optional[str] = None,
+        date: Optional[_DateLike] = None,
+    ) -> str:
+        """Appends a new item and returns its stable item path, applying the
+        list's section-id logic (AA1 criteria 3–5).
+
+        The single source of the append/section-id derivation shared by
+        :meth:`add` and :meth:`add_content` (mirrors the Dart
+        ``_addItemPath``): when the list has a :attr:`pattern`, *section_id* is
+        used as an override (validated unique — raises
+        :class:`SpecSectionIdCollision` on a collision), otherwise one is
+        generated from the pattern using *date* (defaulting to today). A
+        pattern-less list ignores both arguments."""
+        if self.pattern is None:
+            return self.doc.add_list_item(self.list_path)
+        if section_id is not None:
+            id = section_id
+        else:
+            when = date or _dt.date.today()
+            id = generate_list_item_section_id(
+                self.pattern,
+                when.month,
+                when.day,
+                self.doc.list_item_section_ids(self.list_path),
+            )
+        return self.doc.add_list_item(self.list_path, section_id=id)
+
     def add(
         self,
         section_id: Optional[str] = None,
@@ -161,21 +190,45 @@ class SomList(Generic[_T]):
         otherwise one generated from the pattern using *date* (defaulting to
         today) for the two-letter-date component. A pattern-less list ignores
         both arguments."""
-        if self.pattern is None:
-            return self._factory(self.doc, self.doc.add_list_item(self.list_path))
-        if section_id is not None:
-            id = section_id
-        else:
-            when = date or _dt.date.today()
-            id = generate_list_item_section_id(
-                self.pattern,
-                when.month,
-                when.day,
-                self.doc.list_item_section_ids(self.list_path),
-            )
         return self._factory(
-            self.doc, self.doc.add_list_item(self.list_path, section_id=id)
+            self.doc, self._add_item_path(section_id=section_id, date=date)
         )
+
+    def add_content(
+        self,
+        content: str,
+        section_id: Optional[str] = None,
+        date: Optional[_DateLike] = None,
+    ) -> _T:
+        """Appends a content-only item and sets its content leaf in one call,
+        returning the new item's element facade (§ item 9).
+
+        A convenience over :meth:`add`: it appends with the *same* section-id
+        logic (*section_id* override / pattern generation / pattern-less — see
+        :meth:`_add_item_path`) and writes *content* to the item's **nested**
+        ``<item_path>/content`` leaf via :meth:`SpecDocument.set_content`.
+
+        Targets the nested ``<item>/content`` leaf, not the item path itself, so
+        it is meant for complex list elements that carry a ``content`` field.
+        Scalar lists (whose value *is* the item path) are out of scope — use
+        :attr:`SomScalar.value` for those."""
+        item_path = self._add_item_path(section_id=section_id, date=date)
+        self.doc.set_content(f"{item_path}/content", content)
+        return self._factory(self.doc, item_path)
+
+    @property
+    def contents(self) -> List[str]:
+        """An ordered, read-only view of every item's ``<item_path>/content``
+        leaf, coalescing a missing leaf to ``''`` (§ item 9).
+
+        Mirrors the element ``content`` getter's ``None`` → ``''`` coalescing so
+        the list-level view agrees with reading each item individually. Reads
+        the nested ``<item>/content`` leaf, so it is meant for complex list
+        elements carrying a ``content`` field, not scalar lists."""
+        return [
+            self.doc.content(f"{p}/content") or ""
+            for p in self.doc.list_items(self.list_path)
+        ]
 
     def remove_at(self, index: int) -> None:
         """Removes the item at ``index`` and every value nested beneath it."""

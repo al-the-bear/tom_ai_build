@@ -152,8 +152,51 @@ export class SomList<T> {
    * the two-letter-date component. A pattern-less list ignores both arguments.
    */
   add(sectionId: string | null = null, date: Date | null = null): T {
+    return this._factory(this.doc, this._addItemPath(sectionId, date));
+  }
+
+  /**
+   * Appends a content-only item and sets its content leaf in one call, then
+   * returns the item's element facade.
+   *
+   * The section-id logic is identical to {@link add} (`sectionId`/`date` honour
+   * the list {@link pattern}, AA1 criteria 3–5); `content` is written to the
+   * item's **nested `<itemPath>/content` leaf**. Scalar (pattern-less) lists
+   * still target that nested leaf — they are out of scope for this convenience.
+   */
+  addContent(
+    content: string,
+    sectionId: string | null = null,
+    date: Date | null = null,
+  ): T {
+    const itemPath = this._addItemPath(sectionId, date);
+    this.doc.setContent(`${itemPath}/content`, content); // nested <item>/content leaf
+    return this._factory(this.doc, itemPath);
+  }
+
+  /**
+   * An ordered, read-only view of every item's nested `<itemPath>/content` leaf,
+   * coalescing a missing/unset leaf to `''`. Companion read to
+   * {@link addContent}; scalar (pattern-less) lists are out of scope.
+   */
+  get contents(): string[] {
+    return this.doc
+      .listItems(this.listPath)
+      .map((p) => this.doc.content(`${p}/content`) || '');
+  }
+
+  /**
+   * Appends a new item and returns its stable item path, deriving the section id
+   * exactly as {@link add}/{@link addContent} do: a pattern-less list appends
+   * plainly, otherwise `sectionId` (an override) is used or one is generated
+   * from the {@link pattern} using `date` (defaulting to today).
+   */
+  private _addItemPath(
+    sectionId: string | null = null,
+    date: Date | null = null,
+  ): string {
     if (this.pattern === null || this.pattern === undefined) {
-      return this._factory(this.doc, this.doc.addListItem(this.listPath));
+      return this.doc.addListItem(this.listPath);
     }
     let id: string;
     if (sectionId !== null && sectionId !== undefined) {
@@ -167,7 +210,7 @@ export class SomList<T> {
         this.doc.listItemSectionIds(this.listPath),
       );
     }
-    return this._factory(this.doc, this.doc.addListItem(this.listPath, id));
+    return this.doc.addListItem(this.listPath, id);
   }
 
   /** Removes the item at `index` and every value nested beneath it. */

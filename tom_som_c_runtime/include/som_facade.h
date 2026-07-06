@@ -98,6 +98,27 @@ char *som_list_add_on(SomList *l, long long month, long long day);
  * returns 1. `err` may be NULL. */
 int som_list_add_with_id(SomList *l, const char *section_id,
                          char **out_item_path, SpecSectionIdError *err);
+/* Appends a content-only item and sets its nested `<item>/content` leaf in one
+ * call (SOM convenience item 9). Delegates to `som_list_add` for the append —
+ * so a pattern-carrying list assigns a section id from today's date just as a
+ * bare add does — then writes `content` to the item's nested `<item>/content`
+ * leaf via `spec_document_set_content`. Returns the item's stable path (owned;
+ * caller frees), the same handle `som_list_add` returns. Targets the nested
+ * content leaf only; scalar (bare-string) lists are out of scope. */
+char *som_list_add_content(SomList *l, const char *content);
+/* The `(month, day)` companion to `som_list_add_content`, delegating the append
+ * to `som_list_add_on` so the generated section id uses the given date for its
+ * two-letter-date component (ignored for a pattern-less list). Returns the
+ * item's stable path (owned; caller frees). */
+char *som_list_add_content_on(SomList *l, const char *content, long long month,
+                              long long day);
+/* Ordered read-only view of every item's nested `<item>/content` leaf, written
+ * into `out` (initialised by callee; caller frees with `som_strlist_free`). A
+ * missing leaf is coalesced to the empty string "" (C's absent-content
+ * sentinel), so `out` always has exactly `som_list_length(l)` entries in item
+ * order. Mirrors the Dart `SomList.contents` accessor. Nested content leaf
+ * only; scalar lists are out of scope. */
+void som_list_contents(const SomList *l, SomStrList *out);
 /* Removes the item at `index` and everything nested beneath it. */
 void som_list_remove_at(SomList *l, size_t index);
 

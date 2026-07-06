@@ -149,8 +149,57 @@ class SomList {
    * @param {Date|null} [date]
    */
   add(sectionId = null, date = null) {
+    return this._factory(this.doc, this._addItemPath(sectionId, date));
+  }
+
+  /**
+   * Appends a content-only item and sets its nested `<item>/content` leaf in one
+   * call, returning the new item's element facade.
+   *
+   * Uses the *same* section-id logic as {@link add} (`sectionId`/`date` honour
+   * the list {@link pattern} identically), then writes `content` to the item's
+   * nested `content` leaf via {@link SpecDocument#setContent}. Targets the
+   * **nested** `<item>/content` leaf — scalar lists (whose value lives on the
+   * item path itself) are out of scope.
+   *
+   * @param {string} content
+   * @param {string|null} [sectionId]
+   * @param {Date|null} [date]
+   */
+  addContent(content, sectionId = null, date = null) {
+    const itemPath = this._addItemPath(sectionId, date);
+    this.doc.setContent(`${itemPath}/content`, content); // nested <item>/content leaf
+    return this._factory(this.doc, itemPath);
+  }
+
+  /**
+   * An ordered, read-only view of every item's nested `<item>/content` leaf, a
+   * missing leaf coalescing to `''`. Targets the **nested** `content` leaf, so
+   * scalar lists are out of scope.
+   *
+   * @returns {string[]}
+   */
+  get contents() {
+    return this.doc
+      .listItems(this.listPath)
+      .map((p) => this.doc.content(`${p}/content`) || '');
+  }
+
+  /**
+   * Derives the item path for an appended item, applying the list's section-id
+   * logic (AA1 criteria 3–5). Shared by {@link add} and {@link addContent}: a
+   * pattern-less list ignores both arguments; otherwise `sectionId` (an
+   * override, validated unique — throws {@link SpecSectionIdCollision}) is used
+   * when given, else one generated from the {@link pattern} using `date` (a
+   * `Date`, defaulting to today).
+   *
+   * @param {string|null} [sectionId]
+   * @param {Date|null} [date]
+   * @returns {string}
+   */
+  _addItemPath(sectionId = null, date = null) {
     if (this.pattern === null || this.pattern === undefined) {
-      return this._factory(this.doc, this.doc.addListItem(this.listPath));
+      return this.doc.addListItem(this.listPath);
     }
     let id;
     if (sectionId !== null && sectionId !== undefined) {
@@ -164,7 +213,7 @@ class SomList {
         this.doc.listItemSectionIds(this.listPath),
       );
     }
-    return this._factory(this.doc, this.doc.addListItem(this.listPath, id));
+    return this.doc.addListItem(this.listPath, id);
   }
 
   /** Removes the item at `index` and every value nested beneath it. */

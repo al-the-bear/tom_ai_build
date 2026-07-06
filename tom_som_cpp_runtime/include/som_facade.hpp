@@ -104,6 +104,27 @@ class SomList : public SomNode {
    * Returns the new item's stable path. */
   std::string addWithId(const std::string& sectionId);
 
+  /* Appends a content-only item and sets its nested `<item>/content` leaf in one
+   * call, then returns the new item's stable path. Mirrors add(): when the list
+   * has a `@SectionIdPattern` the item is assigned a generated section id for
+   * today's date, otherwise it is a plain append. (Scalar lists are out of scope
+   * — this targets the nested content leaf.) */
+  std::string addContent(const std::string& content);
+
+  /* Like addContent() but for an explicit (month, day) — deterministic,
+   * clock-free (mirrors addOn()). */
+  std::string addContentOn(const std::string& content, long long month,
+                           long long day);
+
+  /* Like addContent() but carrying the explicit `sectionId` (mirrors
+   * addWithId()). Throws SomSectionIdError (Collision) on a sibling id clash. */
+  std::string addContentWithId(const std::string& content,
+                               const std::string& sectionId);
+
+  /* An ordered, read-only view of every item's nested `<item>/content` leaf; a
+   * missing leaf coalesces to "" (the runtime's absent-content value). */
+  std::vector<std::string> contents() const;
+
   /* Removes the item at `index` and everything nested beneath it. */
   void removeAt(std::size_t index) {
     std::string p = itemPathAt(index);
@@ -118,6 +139,13 @@ class SomList : public SomNode {
   /* Generates a section id from the pattern for `(month, day)` and appends an
    * item carrying it. The generated id is unique by construction. */
   std::string addGenerated(long long month, long long day);
+
+  /* Shared append-and-derive-path helper backing both add()/addOn()/addWithId()
+   * and their addContent* companions (Dart reference `_addItemPath`): a plain
+   * append when the list has no pattern and no explicit id, otherwise an append
+   * carrying the derived-or-explicit section id. Returns the new item's path. */
+  std::string addItemPath(long long month, long long day);
+  std::string addItemPathWithId(const std::string& sectionId);
 };
 
 /* ---- path join ---------------------------------------------------------- */

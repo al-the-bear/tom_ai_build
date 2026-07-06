@@ -151,21 +151,72 @@ func (l *SomList[T]) SectionIDs() []string {
 // AddOn (generate, explicit date) and AddWithID (explicit override). See
 // decision AF-D2.
 func (l *SomList[T]) Add() T {
-	if l.pattern == "" {
-		return l.factory(l.doc, l.doc.AddListItem(l.listPath))
-	}
 	now := time.Now()
-	return l.addGenerated(int(now.Month()), now.Day())
+	return l.factory(l.doc, l.addItemPath(int(now.Month()), now.Day()))
 }
 
 // AddOn appends a new item whose generated section id uses the given (month,
 // day) for the two-letter-date component (AA1 criteria 3–4). For a pattern-less
 // list it behaves like Add (the date is ignored).
 func (l *SomList[T]) AddOn(month, day int) T {
-	if l.pattern == "" {
-		return l.factory(l.doc, l.doc.AddListItem(l.listPath))
+	return l.factory(l.doc, l.addItemPath(month, day))
+}
+
+// AddContent appends a content-only item and sets its nested content leaf in one
+// call, then returns the new item's element facade — the Go port of the Dart
+// SomList.addContent (SOM roadmap § item 9).
+//
+// The item's section id follows the same rules as Add: when the list has a
+// @SectionIdPattern the id is generated from that pattern using today's date for
+// the two-letter-date component (AA1 criteria 3–4); a pattern-less list appends
+// without a section id. content is written to the item's nested "<itemPath>/content"
+// leaf, so it is immediately visible both through the returned handle and via the
+// generic document path. (Scalar/string lists — whose value lives at the item
+// path itself rather than a nested content leaf — are out of scope.)
+func (l *SomList[T]) AddContent(content string) T {
+	now := time.Now()
+	itemPath := l.addItemPath(int(now.Month()), now.Day())
+	l.doc.SetContent(itemPath+"/content", content) // nested <item>/content leaf
+	return l.factory(l.doc, itemPath)
+}
+
+// AddContentOn is the explicit-date companion to AddContent: it appends a
+// content-only item whose generated section id uses the given (month, day) for
+// the two-letter-date component, writes content to the item's nested
+// "<itemPath>/content" leaf, and returns the new item's element facade. For a
+// pattern-less list the date is ignored (it appends without a section id).
+func (l *SomList[T]) AddContentOn(content string, month, day int) T {
+	itemPath := l.addItemPath(month, day)
+	l.doc.SetContent(itemPath+"/content", content) // nested <item>/content leaf
+	return l.factory(l.doc, itemPath)
+}
+
+// Contents returns an ordered, read-only view of every item's nested content
+// leaf ("<itemPath>/content"), in item order — the Go port of the Dart
+// SomList.contents (SOM roadmap § item 9). A missing leaf reads as "" (the Go
+// empty-string sentinel for absent content, so this is natural). Scalar/string
+// lists are out of scope (their value lives at the item path itself).
+func (l *SomList[T]) Contents() []string {
+	paths := l.doc.ListItems(l.listPath)
+	out := make([]string, len(paths))
+	for i, p := range paths {
+		out[i] = l.doc.ContentOr(p + "/content")
 	}
-	return l.addGenerated(month, day)
+	return out
+}
+
+// addItemPath is the shared append-and-derive-section-id helper behind Add /
+// AddOn / AddContent (mirrors the Dart _addItemPath). A pattern-less list
+// appends without a section id; a patterned list generates one from the pattern
+// using the given (month, day) for the two-letter-date component (AA1
+// criteria 3–4) and appends under it.
+func (l *SomList[T]) addItemPath(month, day int) string {
+	if l.pattern == "" {
+		return l.doc.AddListItem(l.listPath)
+	}
+	id := GenerateListItemSectionID(l.pattern, month, day, l.doc.ListItemSectionIDs(l.listPath))
+	itemPath, _ := l.doc.AddListItemWithSectionID(l.listPath, id)
+	return itemPath
 }
 
 // AddWithID appends a new item with an explicit section id override (AA1
@@ -179,12 +230,6 @@ func (l *SomList[T]) AddWithID(sectionID string) (T, error) {
 		return zero, err
 	}
 	return l.factory(l.doc, itemPath), nil
-}
-
-func (l *SomList[T]) addGenerated(month, day int) T {
-	id := GenerateListItemSectionID(l.pattern, month, day, l.doc.ListItemSectionIDs(l.listPath))
-	itemPath, _ := l.doc.AddListItemWithSectionID(l.listPath, id)
-	return l.factory(l.doc, itemPath)
 }
 
 // RemoveAt removes the item at index and every value nested beneath it.
