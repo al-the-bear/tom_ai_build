@@ -22,5 +22,5 @@ dart run tool/build_shared_sample.dart
 
 The generated YAML stamps `modelVersion: "0.0"` to match the current
 `tom_som_dart_v0` facade version (see
-`tom_specs_clitool/doc/som_convenience_feature_suggestions.md` §3 for why this
-is `0.0` rather than the model meta-data's `1.0`).
+`_ai/quests/tom_specs/som_convenience_feature_suggestions.md`, roadmap item 2,
+for why this is `0.0` rather than the model meta-data's `1.0`).

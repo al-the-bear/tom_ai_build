@@ -34,5 +34,5 @@ every language's SOM examples. They read the same key sections two ways and prin
 | **(e)** Sample via generic API | [`e_sample_generic_access.dart`](e_sample_generic_access.dart) | Reads the same shared sample through the generic `SpecDocument` string-path API only — no dependency on the generated facade. | `dart run example/e_sample_generic_access.dart` |
 
 An evaluation of how convenient these two access paths are in practice — and
-concrete suggestions for closing the friction — lives in
-[`tom_specs_clitool/doc/som_convenience_feature_suggestions.md`](../../tom_specs_clitool/doc/som_convenience_feature_suggestions.md).
+concrete suggestions for closing the friction — lives in the TomSpecs quest
+folder: `_ai/quests/tom_specs/som_convenience_feature_suggestions.md`.
