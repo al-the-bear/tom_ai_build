@@ -189,6 +189,8 @@ class SomCEmitter {
       if (isRoot) {
         plan.lifecycleFn = _alloc(_funcNames, '${prefix}_new');
         plan.omvFn = _alloc(_funcNames, '${prefix}_object_model_version');
+        plan.loadYamlFn = _alloc(_funcNames, '${prefix}_load_yaml');
+        plan.loadFileFn = _alloc(_funcNames, '${prefix}_load_file');
         plan.mvConst = mvConst[n];
         final root = model.roots.firstWhere((r) => r.type == n);
         plan.rootSeg = _ref.rootSegment(root);
@@ -331,7 +333,31 @@ class SomCEmitter {
             'const char *document_version, char **err);')
         ..writeln("// Returns this object model's own model version "
             '(major.minor), per §2.1.')
-        ..writeln('const char *${plan.omvFn}(const $t *self);');
+        ..writeln('const char *${plan.omvFn}(const $t *self);')
+        ..writeln('// Loads a `*.docspecs.yaml` document in one call: decode the '
+            'YAML, populate the')
+        ..writeln('// sparse stores, and bind this typed root at the document '
+            "root with the document's")
+        ..writeln('// retained authoring stamp — one call for the former decode '
+            '→ load_json →')
+        ..writeln('// thread-`document_version` sequence (§ item 4). The owned '
+            'heap document is')
+        ..writeln('// written to `*out_doc` (which the facade borrows; free it '
+            'with')
+        ..writeln('// spec_document_free + free once the root is done). Returns '
+            '0 on success; on a')
+        ..writeln('// non-editable stamp returns non-zero and, when `err` is '
+            'non-NULL, writes an')
+        ..writeln('// owned message (and frees the document).')
+        ..writeln('int ${plan.loadYamlFn}($t *self, const char *yaml, '
+            'SpecDocument **out_doc, char **err);')
+        ..writeln('// Loads a `*.docspecs.yaml` document from the file at `path` '
+            '— the file companion')
+        ..writeln('// to ${plan.loadYamlFn}. Returns non-zero (without writing '
+            '`*out_doc`) when the')
+        ..writeln('// file cannot be read.')
+        ..writeln('int ${plan.loadFileFn}($t *self, const char *path, '
+            'SpecDocument **out_doc, char **err);');
     } else {
       b.writeln('// Binds a $t facade to a document and a path (path copied).');
       b.writeln('void ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
@@ -464,6 +490,33 @@ class SomCEmitter {
         ..writeln('const char *${plan.omvFn}(const $t *self) {')
         ..writeln('\t(void)self;')
         ..writeln('\treturn ${plan.mvConst};')
+        ..writeln('}')
+        ..writeln('int ${plan.loadYamlFn}($t *self, const char *yaml, '
+            'SpecDocument **out_doc, char **err) {')
+        ..writeln('\tSpecDocument *doc = spec_document_from_yaml(yaml);')
+        ..writeln('\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
+            '!= 0) {')
+        ..writeln('\t\tspec_document_free(doc);')
+        ..writeln('\t\tfree(doc);')
+        ..writeln('\t\treturn 1;')
+        ..writeln('\t}')
+        ..writeln('\t*out_doc = doc;')
+        ..writeln('\treturn 0;')
+        ..writeln('}')
+        ..writeln('int ${plan.loadFileFn}($t *self, const char *path, '
+            'SpecDocument **out_doc, char **err) {')
+        ..writeln('\tSpecDocument *doc = spec_document_from_file(path);')
+        ..writeln('\tif (doc == NULL) {')
+        ..writeln('\t\treturn 1;')
+        ..writeln('\t}')
+        ..writeln('\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
+            '!= 0) {')
+        ..writeln('\t\tspec_document_free(doc);')
+        ..writeln('\t\tfree(doc);')
+        ..writeln('\t\treturn 1;')
+        ..writeln('\t}')
+        ..writeln('\t*out_doc = doc;')
+        ..writeln('\treturn 0;')
         ..writeln('}');
     } else {
       b
@@ -742,6 +795,8 @@ class _ClassPlan {
   String? omvFn;
   String? mvConst;
   String? rootSeg;
+  String? loadYamlFn; // `_load_yaml` (root only)
+  String? loadFileFn; // `_load_file` (root only)
   final Map<String, String> getFn = {};
   final Map<String, String> setFn = {};
   final Map<String, String> formTypeFor = {};

@@ -41,6 +41,51 @@ class SpecDocument {
     this._listSeq = new Map();
     /** @type {Map<string, string>} */
     this._itemSectionId = new Map();
+    /**
+     * The authoring object-model version (`major.minor`) this document was
+     * loaded from, or `null` for a brand-new / unstamped document. Retained
+     * here by {@link SpecDocument.fromYaml} so a consumer need not thread
+     * `decoded.modelVersion` to the typed facade by hand (the "forgot the
+     * stamp" class of bug); the generated `loadYaml` / `loadFile` statics apply
+     * it automatically.
+     *
+     * @type {string|null}
+     */
+    this.modelVersion = null;
+  }
+
+  // --- loading ------------------------------------------------------------
+
+  /**
+   * Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
+   * the sparse stores ({@link loadJson}), and retain the parsed
+   * {@link modelVersion} on the document. Collapses the former three-step
+   * `decode` → `loadJson` → thread-`documentVersion` incantation (§ item 4).
+   *
+   * The yaml codec is required lazily to sidestep any load-order/circular
+   * require between this module and `spec_document_yaml.js`.
+   *
+   * @param {string} yaml
+   * @returns {SpecDocument}
+   */
+  static fromYaml(yaml) {
+    const { decode } = require('./spec_document_yaml');
+    const decoded = decode(yaml);
+    const doc = new SpecDocument();
+    doc.loadJson(decoded.document);
+    doc.modelVersion = decoded.modelVersion;
+    return doc;
+  }
+
+  /**
+   * Loads a `*.docspecs.yaml` document from the file at `path` — the file
+   * companion to {@link fromYaml} the generated `loadFile` static delegates to.
+   *
+   * @param {string} path
+   * @returns {SpecDocument}
+   */
+  static fromFile(path) {
+    return SpecDocument.fromYaml(require('fs').readFileSync(path, 'utf8'));
   }
 
   // --- content ------------------------------------------------------------

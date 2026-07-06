@@ -11479,6 +11479,19 @@ void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
 int d00_solution_blueprint_new(D00SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d00_solution_blueprint_object_model_version(const D00SolutionBlueprint *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d00_solution_blueprint_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d00_solution_blueprint_load_file(D00SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);
 void d00_solution_blueprint_free(D00SolutionBlueprint *self);
 char *d00_solution_blueprint_content(const D00SolutionBlueprint *self);
 void d00_solution_blueprint_set_content(D00SolutionBlueprint *self, const char *value);
@@ -11522,6 +11535,19 @@ DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_roll
 int d01_current_landscape_assessment_new(D01CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d01_current_landscape_assessment_object_model_version(const D01CurrentLandscapeAssessment *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d01_current_landscape_assessment_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d01_current_landscape_assessment_load_file(D01CurrentLandscapeAssessment *self, const char *path, SpecDocument **out_doc, char **err);
 void d01_current_landscape_assessment_free(D01CurrentLandscapeAssessment *self);
 char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessment *self);
 void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value);
@@ -11556,6 +11582,19 @@ MigrationConsiderations d01_current_landscape_assessment_migration_consideration
 int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d02_target_operating_model_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d02_target_operating_model_load_file(D02TargetOperatingModel *self, const char *path, SpecDocument **out_doc, char **err);
 void d02_target_operating_model_free(D02TargetOperatingModel *self);
 char *d02_target_operating_model_content(const D02TargetOperatingModel *self);
 void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value);
@@ -11596,6 +11635,19 @@ SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOpera
 int d03_information_model_new(D03InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d03_information_model_object_model_version(const D03InformationModel *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d03_information_model_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d03_information_model_load_file(D03InformationModel *self, const char *path, SpecDocument **out_doc, char **err);
 void d03_information_model_free(D03InformationModel *self);
 char *d03_information_model_content(const D03InformationModel *self);
 void d03_information_model_set_content(D03InformationModel *self, const char *value);
@@ -11649,6 +11701,19 @@ IntegrityConstraints d03_information_model_integrity_constraints(const D03Inform
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d04_requirements_specification_object_model_version(const D04RequirementsSpecification *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d04_requirements_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d04_requirements_specification_load_file(D04RequirementsSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d04_requirements_specification_free(D04RequirementsSpecification *self);
 char *d04_requirements_specification_content(const D04RequirementsSpecification *self);
 void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value);
@@ -11686,6 +11751,19 @@ RequirementCoverage d04_requirements_specification_requirement_coverage(const D0
 int d05_interaction_scenarios_new(D05InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d05_interaction_scenarios_object_model_version(const D05InteractionScenarios *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d05_interaction_scenarios_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d05_interaction_scenarios_load_file(D05InteractionScenarios *self, const char *path, SpecDocument **out_doc, char **err);
 void d05_interaction_scenarios_free(D05InteractionScenarios *self);
 char *d05_interaction_scenarios_content(const D05InteractionScenarios *self);
 void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value);
@@ -11719,6 +11797,19 @@ UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05Int
 int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnologySpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d06_architecture_technology_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d06_architecture_technology_specification_load_file(D06ArchitectureTechnologySpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d06_architecture_technology_specification_free(D06ArchitectureTechnologySpecification *self);
 char *d06_architecture_technology_specification_content(const D06ArchitectureTechnologySpecification *self);
 void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value);
@@ -11760,6 +11851,19 @@ TranslationRequirements d06_architecture_technology_specification_translation_re
 int d07_integration_interface_specification_new(D07IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d07_integration_interface_specification_object_model_version(const D07IntegrationInterfaceSpecification *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d07_integration_interface_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d07_integration_interface_specification_load_file(D07IntegrationInterfaceSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d07_integration_interface_specification_free(D07IntegrationInterfaceSpecification *self);
 char *d07_integration_interface_specification_content(const D07IntegrationInterfaceSpecification *self);
 void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value);
@@ -11801,6 +11905,19 @@ CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundar
 int d08_security_access_specification_new(D08SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d08_security_access_specification_object_model_version(const D08SecurityAccessSpecification *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d08_security_access_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d08_security_access_specification_load_file(D08SecurityAccessSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d08_security_access_specification_free(D08SecurityAccessSpecification *self);
 char *d08_security_access_specification_content(const D08SecurityAccessSpecification *self);
 void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value);
@@ -11835,6 +11952,19 @@ ComplianceFramework d08_security_access_specification_compliance_framework(const
 int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecification *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d09_experience_design_specification_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d09_experience_design_specification_load_file(D09ExperienceDesignSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d09_experience_design_specification_free(D09ExperienceDesignSpecification *self);
 char *d09_experience_design_specification_content(const D09ExperienceDesignSpecification *self);
 void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value);
@@ -11877,6 +12007,19 @@ WireframesAndMockups d09_experience_design_specification_wireframes_and_mockups(
 int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d10_quality_acceptance_plan_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d10_quality_acceptance_plan_load_file(D10QualityAcceptancePlan *self, const char *path, SpecDocument **out_doc, char **err);
 void d10_quality_acceptance_plan_free(D10QualityAcceptancePlan *self);
 char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self);
 void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value);
@@ -11933,6 +12076,19 @@ WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePla
 int d11_delivery_roadmap_new(D11DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d11_delivery_roadmap_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d11_delivery_roadmap_load_file(D11DeliveryRoadmap *self, const char *path, SpecDocument **out_doc, char **err);
 void d11_delivery_roadmap_free(D11DeliveryRoadmap *self);
 char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self);
 void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value);
@@ -11970,6 +12126,19 @@ UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11Deli
 int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self);
+// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+// sparse stores, and bind this typed root at the document root with the document's
+// retained authoring stamp — one call for the former decode → load_json →
+// thread-`document_version` sequence (§ item 4). The owned heap document is
+// written to `*out_doc` (which the facade borrows; free it with
+// spec_document_free + free once the root is done). Returns 0 on success; on a
+// non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
+// owned message (and frees the document).
+int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const char *yaml, SpecDocument **out_doc, char **err);
+// Loads a `*.docspecs.yaml` document from the file at `path` — the file companion
+// to d12_transition_rollout_plan_load_yaml. Returns non-zero (without writing `*out_doc`) when the
+// file cannot be read.
+int d12_transition_rollout_plan_load_file(D12TransitionRolloutPlan *self, const char *path, SpecDocument **out_doc, char **err);
 void d12_transition_rollout_plan_free(D12TransitionRolloutPlan *self);
 char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self);
 void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value);

@@ -83,10 +83,28 @@ typedef struct {
   size_t list_items_cap;
   SomMap list_seq;         /* list path → decimal seq counter */
   SomMap item_section_id;  /* item path → assigned section id (criteria 3–6) */
+  char *model_version;     /* owned; the authoring object-model version
+                            * (major.minor) this document was loaded from, "" for
+                            * a brand-new / unstamped document. Retained by
+                            * `spec_document_from_yaml` so a consumer need not
+                            * thread `decoded.model_version` to the typed facade
+                            * by hand; the generated `<root>_load_yaml` /
+                            * `<root>_load_file` functions apply it automatically. */
 } SpecDocument;
 
 void spec_document_init(SpecDocument *d);
 void spec_document_free(SpecDocument *d);
+
+/* Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
+ * sparse stores (`spec_document_load_json`), and retain the parsed model version
+ * on the document. Collapses the former three-step `decode_yaml` →
+ * `spec_document_load_json` → thread-`document_version` incantation (§ item 4).
+ * Returns an owned heap document; free with `spec_document_free` + `free`. */
+SpecDocument *spec_document_from_yaml(const char *yaml);
+/* Loads a `*.docspecs.yaml` document from the file at `path` — the file
+ * companion to `spec_document_from_yaml` the generated `<root>_load_file`
+ * functions delegate to. Returns NULL when the file cannot be read. */
+SpecDocument *spec_document_from_file(const char *path);
 
 /* content: returns the value at `path` or NULL; set with empty value to clear. */
 const char *spec_document_content(const SpecDocument *d, const char *path);

@@ -14705,6 +14705,23 @@ impl D00SolutionBlueprint {
         D00_SOLUTION_BLUEPRINT_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D00SolutionBlueprint, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D00SolutionBlueprint::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D00SolutionBlueprint::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D00SolutionBlueprint, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D00SolutionBlueprint::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14811,6 +14828,23 @@ impl D01CurrentLandscapeAssessment {
         D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D01CurrentLandscapeAssessment, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D01CurrentLandscapeAssessment::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D01CurrentLandscapeAssessment::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D01CurrentLandscapeAssessment, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D01CurrentLandscapeAssessment::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14895,6 +14929,23 @@ impl D02TargetOperatingModel {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D02_TARGET_OPERATING_MODEL_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D02TargetOperatingModel, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D02TargetOperatingModel::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D02TargetOperatingModel::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D02TargetOperatingModel, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D02TargetOperatingModel::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -14997,6 +15048,23 @@ impl D03InformationModel {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D03_INFORMATION_MODEL_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D03InformationModel, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D03InformationModel::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D03InformationModel::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D03InformationModel, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D03InformationModel::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -15128,6 +15196,23 @@ impl D04RequirementsSpecification {
         D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D04RequirementsSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D04RequirementsSpecification::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D04RequirementsSpecification::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D04RequirementsSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D04RequirementsSpecification::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15218,6 +15303,23 @@ impl D05InteractionScenarios {
         D05_INTERACTION_SCENARIOS_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D05InteractionScenarios, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D05InteractionScenarios::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D05InteractionScenarios::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D05InteractionScenarios, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D05InteractionScenarios::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15298,6 +15400,23 @@ impl D06ArchitectureTechnologySpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D06ArchitectureTechnologySpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D06ArchitectureTechnologySpecification::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D06ArchitectureTechnologySpecification::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D06ArchitectureTechnologySpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D06ArchitectureTechnologySpecification::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -15399,6 +15518,23 @@ impl D07IntegrationInterfaceSpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D07IntegrationInterfaceSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D07IntegrationInterfaceSpecification::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D07IntegrationInterfaceSpecification::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D07IntegrationInterfaceSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D07IntegrationInterfaceSpecification::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -15508,6 +15644,23 @@ impl D08SecurityAccessSpecification {
         D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D08SecurityAccessSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D08SecurityAccessSpecification::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D08SecurityAccessSpecification::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D08SecurityAccessSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D08SecurityAccessSpecification::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15588,6 +15741,23 @@ impl D09ExperienceDesignSpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D09ExperienceDesignSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D09ExperienceDesignSpecification::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D09ExperienceDesignSpecification::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D09ExperienceDesignSpecification, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D09ExperienceDesignSpecification::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -15690,6 +15860,23 @@ impl D10QualityAcceptancePlan {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D10QualityAcceptancePlan, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D10QualityAcceptancePlan::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D10QualityAcceptancePlan::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D10QualityAcceptancePlan, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D10QualityAcceptancePlan::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {
@@ -15829,6 +16016,23 @@ impl D11DeliveryRoadmap {
         D11_DELIVERY_ROADMAP_MODEL_VERSION
     }
 
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D11DeliveryRoadmap, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D11DeliveryRoadmap::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D11DeliveryRoadmap::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D11DeliveryRoadmap, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D11DeliveryRoadmap::new(som::doc_ref(doc), &version)
+    }
+
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15919,6 +16123,23 @@ impl D12TransitionRolloutPlan {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<D12TransitionRolloutPlan, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        D12TransitionRolloutPlan::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`D12TransitionRolloutPlan::load_yaml`].
+    pub fn load_file(path: &str) -> Result<D12TransitionRolloutPlan, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        D12TransitionRolloutPlan::new(som::doc_ref(doc), &version)
     }
 
     pub fn content(&self) -> String {

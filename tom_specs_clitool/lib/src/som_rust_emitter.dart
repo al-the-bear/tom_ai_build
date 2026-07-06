@@ -345,6 +345,29 @@ class SomRustEmitter {
             '(major.minor), per §2.1.')
         ..writeln('\tpub fn object_model_version(&self) -> &\'static str {')
         ..writeln('\t\t$mvConst')
+        ..writeln('\t}')
+        ..writeln()
+        ..writeln('\t/// Loads a `*.docspecs.yaml` document and returns the '
+            'typed root with the')
+        ..writeln("\t/// document's authoring stamp already applied (§ item 4) "
+            '— one call for')
+        ..writeln('\t/// the former decode → load_json → thread-'
+            '`document_version` sequence.')
+        ..writeln('\tpub fn load_yaml(yaml: &str) '
+            '-> Result<${cls.name}, som::SomVersionError> {')
+        ..writeln('\t\tlet doc = som::SpecDocument::from_yaml(yaml);')
+        ..writeln('\t\tlet version = doc.model_version.clone();')
+        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)')
+        ..writeln('\t}')
+        ..writeln()
+        ..writeln('\t/// Loads a `*.docspecs.yaml` document from the file at '
+            '`path` — the file')
+        ..writeln('\t/// companion to [`${cls.name}::load_yaml`].')
+        ..writeln('\tpub fn load_file(path: &str) '
+            '-> Result<${cls.name}, som::SomVersionError> {')
+        ..writeln('\t\tlet doc = som::SpecDocument::from_file(path);')
+        ..writeln('\t\tlet version = doc.model_version.clone();')
+        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)')
         ..writeln('\t}');
     } else {
       b

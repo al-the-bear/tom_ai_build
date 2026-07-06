@@ -1,5 +1,9 @@
 package tom_som_runtime;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -29,6 +33,52 @@ public final class SpecDocument {
   // edits (never renumbered), while the section id is what the document exposes
   // and may be overridden or reused same-day after the last item is deleted.
   private final Map<String, String> itemSectionId = new LinkedHashMap<>();
+
+  // The authoring object-model version (`major.minor`) this document was loaded
+  // from, or null for a brand-new / unstamped document. Retained here by
+  // fromYaml so a consumer need not thread decoded.modelVersion to the typed
+  // facade by hand; the generated loadYaml / loadFile statics apply it
+  // automatically.
+  private String modelVersion;
+
+  // --- one-call loading ---------------------------------------------------
+
+  /** The authoring model-version stamp this document was loaded from, or null. */
+  public String modelVersion() {
+    return modelVersion;
+  }
+
+  /** Sets the authoring model-version stamp retained on this document. */
+  public void setModelVersion(String modelVersion) {
+    this.modelVersion = modelVersion;
+  }
+
+  /**
+   * Loads a {@code *.docspecs.yaml} document in one call: decode the YAML,
+   * populate the sparse stores ({@link #loadJson}), and retain the parsed
+   * {@link #modelVersion} on the document. Collapses the former three-step
+   * decode → loadJson → thread-{@code documentVersion} incantation.
+   */
+  public static SpecDocument fromYaml(String yaml) {
+    SpecYamlContents decoded = SpecDocumentYaml.decode(yaml);
+    SpecDocument doc = new SpecDocument();
+    doc.loadJson(decoded.document);
+    doc.modelVersion = decoded.modelVersion;
+    return doc;
+  }
+
+  /**
+   * Loads a {@code *.docspecs.yaml} document from the file at {@code path} — the
+   * file companion to {@link #fromYaml} the generated {@code loadFile} static
+   * delegates to.
+   */
+  public static SpecDocument fromFile(String path) {
+    try {
+      return fromYaml(Files.readString(Path.of(path)));
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 
   // --- content ------------------------------------------------------------
 

@@ -157,26 +157,26 @@ fn section_ids() {
 
 #[test]
 fn model_version() {
-    assert_eq!(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "0.0");
+    assert_eq!(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.0");
     let pd = D00SolutionBlueprint::new(new_doc(), "").unwrap();
-    assert_eq!(pd.object_model_version(), "0.0");
+    assert_eq!(pd.object_model_version(), "1.0");
 }
 
 #[test]
 fn version_check() {
     // New / equal-stamp document → accepted.
     assert!(D00SolutionBlueprint::new(new_doc(), "").is_ok(), "empty stamp");
-    assert!(D00SolutionBlueprint::new(new_doc(), "0.0").is_ok(), "equal stamp");
+    assert!(D00SolutionBlueprint::new(new_doc(), "1.0").is_ok(), "equal stamp");
 
     // Newer minor → rejected with a SomVersionError.
     assert!(
-        D00SolutionBlueprint::new(new_doc(), "0.1").is_err(),
+        D00SolutionBlueprint::new(new_doc(), "1.1").is_err(),
         "newer-minor stamp must be rejected"
     );
 
     // Different major → rejected with a SomVersionError.
     assert!(
-        D00SolutionBlueprint::new(new_doc(), "1.0").is_err(),
+        D00SolutionBlueprint::new(new_doc(), "2.0").is_err(),
         "cross-major stamp must be rejected"
     );
 }

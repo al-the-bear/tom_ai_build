@@ -39,6 +39,37 @@ class SpecDocument:
         self._list_items: dict[str, list[str]] = {}
         self._list_seq: dict[str, int] = {}
         self._item_section_id: dict[str, str] = {}
+        #: The authoring object-model version (``major.minor``) this document was
+        #: loaded from, or ``None`` for a brand-new / unstamped document. Retained
+        #: here by :meth:`from_yaml` so a consumer need not thread
+        #: ``decoded.model_version`` to the typed facade by hand (the "forgot the
+        #: stamp" class of bug); the generated ``load_yaml`` / ``load_file``
+        #: classmethods apply it automatically.
+        self.model_version: Optional[str] = None
+
+    # --- one-call loading (§ item 4) ---------------------------------------
+
+    @classmethod
+    def from_yaml(cls, yaml: str) -> "SpecDocument":
+        """Loads a ``*.docspecs.yaml`` document in one call: decode the YAML,
+        populate the sparse stores (:meth:`load_json`), and retain the parsed
+        :attr:`model_version`. Collapses the former three-step decode →
+        ``load_json`` → thread-``document_version`` incantation (§ item 4)."""
+        from .spec_document_yaml import decode
+
+        decoded = decode(yaml)
+        doc = cls()
+        doc.load_json(decoded.document)
+        doc.model_version = decoded.model_version
+        return doc
+
+    @classmethod
+    def from_file(cls, path: str) -> "SpecDocument":
+        """Loads a ``*.docspecs.yaml`` document from the file at *path* — the file
+        companion to :meth:`from_yaml` the generated ``load_file`` classmethod
+        delegates to."""
+        with open(path, "r", encoding="utf-8") as f:
+            return cls.from_yaml(f.read())
 
     # --- content ------------------------------------------------------------
 

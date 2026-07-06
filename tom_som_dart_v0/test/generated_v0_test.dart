@@ -150,4 +150,61 @@ void main() {
       }
     });
   });
+
+  group('one-call loading (§ item 4)', () {
+    const samplePath =
+        '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+
+    test('loadYaml collapses decode → loadJson → thread-version to one call', () {
+      final yaml = File(samplePath).readAsStringSync();
+
+      // The former three-step incantation.
+      final decoded = SpecDocumentYaml.decode(yaml);
+      final manualDoc = SpecDocument()..loadJson(decoded.document);
+      final manual =
+          D00SolutionBlueprint(manualDoc, documentVersion: decoded.modelVersion);
+
+      // The one-call convenience.
+      final oneCall = D00SolutionBlueprint.loadYaml(yaml);
+
+      // The document stamp is applied automatically — no manual threading.
+      expect(oneCall.doc.modelVersion, decoded.modelVersion);
+      // Both paths read identical content from the shared sample.
+      expect(oneCall.content, manual.content);
+      expect(oneCall.introductionAndScope.goals.content,
+          manual.introductionAndScope.goals.content);
+      expect(oneCall.currentLandscape.operationalMetrics.length,
+          manual.currentLandscape.operationalMetrics.length);
+    });
+
+    test('loadFile reads the file then delegates to loadYaml', () {
+      final fromFile = D00SolutionBlueprint.loadFile(samplePath);
+      final fromYaml =
+          D00SolutionBlueprint.loadYaml(File(samplePath).readAsStringSync());
+      expect(fromFile.doc.modelVersion, fromYaml.doc.modelVersion);
+      expect(fromFile.content, fromYaml.content);
+    });
+
+    test('SpecDocument.fromYaml retains the parsed model version', () {
+      const yaml = '''
+version: 1
+modelVersion: "1.0"
+document:
+  content:
+    "SBP/content": |2-
+      Hello
+''';
+      final doc = SpecDocument.fromYaml(yaml);
+      expect(doc.modelVersion, '1.0');
+      expect(doc.content('SBP/content'), 'Hello');
+    });
+
+    test('a document with no modelVersion stamp loads with a null stamp', () {
+      const yaml = 'version: 1\ndocument: {}\n';
+      final doc = SpecDocument.fromYaml(yaml);
+      expect(doc.modelVersion, isNull);
+      // A null stamp is accepted by the facade (a new document is editable).
+      expect(() => D00SolutionBlueprint.loadYaml(yaml), returnsNormally);
+    });
+  });
 }

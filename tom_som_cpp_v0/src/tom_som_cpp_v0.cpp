@@ -5918,6 +5918,14 @@ D00SolutionBlueprint::D00SolutionBlueprint(som::SpecDocument& doc, const std::st
     : som::SomNode(doc, "SBP") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D00SolutionBlueprint D00SolutionBlueprint::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D00SolutionBlueprint(doc, doc.modelVersion);
+}
+D00SolutionBlueprint D00SolutionBlueprint::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D00SolutionBlueprint(doc, doc.modelVersion);
+}
 std::string D00SolutionBlueprint::objectModelVersion() const {
   return kModelVersion;
 }
@@ -5974,6 +5982,14 @@ D01CurrentLandscapeAssessment::D01CurrentLandscapeAssessment(som::SpecDocument& 
     : som::SomNode(doc, "CLA") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D01CurrentLandscapeAssessment D01CurrentLandscapeAssessment::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D01CurrentLandscapeAssessment(doc, doc.modelVersion);
+}
+D01CurrentLandscapeAssessment D01CurrentLandscapeAssessment::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D01CurrentLandscapeAssessment(doc, doc.modelVersion);
+}
 std::string D01CurrentLandscapeAssessment::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6014,6 +6030,14 @@ MigrationConsiderations D01CurrentLandscapeAssessment::migrationConsiderations()
 D02TargetOperatingModel::D02TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "TOM") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+D02TargetOperatingModel D02TargetOperatingModel::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D02TargetOperatingModel(doc, doc.modelVersion);
+}
+D02TargetOperatingModel D02TargetOperatingModel::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D02TargetOperatingModel(doc, doc.modelVersion);
 }
 std::string D02TargetOperatingModel::objectModelVersion() const {
   return kModelVersion;
@@ -6062,6 +6086,14 @@ D03InformationModel::D03InformationModel(som::SpecDocument& doc, const std::stri
     : som::SomNode(doc, "IFM") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D03InformationModel D03InformationModel::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D03InformationModel(doc, doc.modelVersion);
+}
+D03InformationModel D03InformationModel::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D03InformationModel(doc, doc.modelVersion);
+}
 std::string D03InformationModel::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6109,6 +6141,14 @@ D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& do
     : som::SomNode(doc, "RSP") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D04RequirementsSpecification D04RequirementsSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D04RequirementsSpecification(doc, doc.modelVersion);
+}
+D04RequirementsSpecification D04RequirementsSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D04RequirementsSpecification(doc, doc.modelVersion);
+}
 std::string D04RequirementsSpecification::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6150,6 +6190,14 @@ D05InteractionScenarios::D05InteractionScenarios(som::SpecDocument& doc, const s
     : som::SomNode(doc, "ISC") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D05InteractionScenarios D05InteractionScenarios::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D05InteractionScenarios(doc, doc.modelVersion);
+}
+D05InteractionScenarios D05InteractionScenarios::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D05InteractionScenarios(doc, doc.modelVersion);
+}
 std::string D05InteractionScenarios::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6187,6 +6235,14 @@ UseCaseTraceability D05InteractionScenarios::useCaseTraceability() const {
 D06ArchitectureTechnologySpecification::D06ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "ATS") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+D06ArchitectureTechnologySpecification D06ArchitectureTechnologySpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D06ArchitectureTechnologySpecification(doc, doc.modelVersion);
+}
+D06ArchitectureTechnologySpecification D06ArchitectureTechnologySpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D06ArchitectureTechnologySpecification(doc, doc.modelVersion);
 }
 std::string D06ArchitectureTechnologySpecification::objectModelVersion() const {
   return kModelVersion;
@@ -6241,6 +6297,14 @@ D07IntegrationInterfaceSpecification::D07IntegrationInterfaceSpecification(som::
     : som::SomNode(doc, "IIS") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D07IntegrationInterfaceSpecification D07IntegrationInterfaceSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D07IntegrationInterfaceSpecification(doc, doc.modelVersion);
+}
+D07IntegrationInterfaceSpecification D07IntegrationInterfaceSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D07IntegrationInterfaceSpecification(doc, doc.modelVersion);
+}
 std::string D07IntegrationInterfaceSpecification::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6288,6 +6352,14 @@ D08SecurityAccessSpecification::D08SecurityAccessSpecification(som::SpecDocument
     : som::SomNode(doc, "SAS") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D08SecurityAccessSpecification D08SecurityAccessSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D08SecurityAccessSpecification(doc, doc.modelVersion);
+}
+D08SecurityAccessSpecification D08SecurityAccessSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D08SecurityAccessSpecification(doc, doc.modelVersion);
+}
 std::string D08SecurityAccessSpecification::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6328,6 +6400,14 @@ ComplianceFramework D08SecurityAccessSpecification::complianceFramework() const 
 D09ExperienceDesignSpecification::D09ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "XDS") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+D09ExperienceDesignSpecification D09ExperienceDesignSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D09ExperienceDesignSpecification(doc, doc.modelVersion);
+}
+D09ExperienceDesignSpecification D09ExperienceDesignSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D09ExperienceDesignSpecification(doc, doc.modelVersion);
 }
 std::string D09ExperienceDesignSpecification::objectModelVersion() const {
   return kModelVersion;
@@ -6381,6 +6461,14 @@ WireframesAndMockups D09ExperienceDesignSpecification::wireframesAndMockups() co
 D10QualityAcceptancePlan::D10QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "QAP") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+D10QualityAcceptancePlan D10QualityAcceptancePlan::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D10QualityAcceptancePlan(doc, doc.modelVersion);
+}
+D10QualityAcceptancePlan D10QualityAcceptancePlan::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D10QualityAcceptancePlan(doc, doc.modelVersion);
 }
 std::string D10QualityAcceptancePlan::objectModelVersion() const {
   return kModelVersion;
@@ -6456,6 +6544,14 @@ D11DeliveryRoadmap::D11DeliveryRoadmap(som::SpecDocument& doc, const std::string
     : som::SomNode(doc, "DRM") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+D11DeliveryRoadmap D11DeliveryRoadmap::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D11DeliveryRoadmap(doc, doc.modelVersion);
+}
+D11DeliveryRoadmap D11DeliveryRoadmap::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D11DeliveryRoadmap(doc, doc.modelVersion);
+}
 std::string D11DeliveryRoadmap::objectModelVersion() const {
   return kModelVersion;
 }
@@ -6499,6 +6595,14 @@ UpgradeCycleFramework D11DeliveryRoadmap::upgradeCycleFramework() const {
 D12TransitionRolloutPlan::D12TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "TRP") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+D12TransitionRolloutPlan D12TransitionRolloutPlan::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return D12TransitionRolloutPlan(doc, doc.modelVersion);
+}
+D12TransitionRolloutPlan D12TransitionRolloutPlan::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return D12TransitionRolloutPlan(doc, doc.modelVersion);
 }
 std::string D12TransitionRolloutPlan::objectModelVersion() const {
   return kModelVersion;

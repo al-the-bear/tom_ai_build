@@ -1,9 +1,30 @@
 #include "spec_document.hpp"
 
+#include <fstream>
+#include <sstream>
+
 #include "som_util.hpp"
+#include "spec_document_yaml.hpp"
 #include "spec_section_id.hpp"
 
 namespace som {
+
+/* ---- one-call document loading (item 4) --------------------------------- */
+
+SpecDocument SpecDocument::fromYaml(const std::string& yaml) {
+  SpecYamlContents decoded = decodeYaml(yaml);
+  SpecDocument doc;
+  doc.loadJson(decoded.document);
+  doc.modelVersion = decoded.modelVersion;
+  return doc;
+}
+
+SpecDocument SpecDocument::fromFile(const std::string& path) {
+  std::ifstream in(path, std::ios::binary);
+  std::stringstream buffer;
+  buffer << in.rdbuf();
+  return fromYaml(buffer.str());
+}
 
 /* ---- is_under ----------------------------------------------------------- */
 

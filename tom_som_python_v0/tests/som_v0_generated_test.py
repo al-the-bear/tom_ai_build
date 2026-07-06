@@ -11,7 +11,7 @@ over the shared document (spec §3):
   * the ``D00SolutionBlueprint`` root is anchored at the ``PD`` segment;
   * a content leaf round-trips typed -> generic and generic -> typed;
   * a nested complex section derives its path under the root;
-  * the generated model-version accessor returns ``0.0``;
+  * the generated model-version accessor returns ``1.0``;
   * the instantiation-time version check (§2.2) accepts an editable stamp and
     rejects a newer-minor / cross-major stamp.
 
@@ -93,10 +93,10 @@ def test_root_and_parity() -> None:
 
 
 def test_model_version() -> None:
-    _check("version.classattr", m.D00SolutionBlueprint.model_version == "0.0",
+    _check("version.classattr", m.D00SolutionBlueprint.model_version == "1.0",
            m.D00SolutionBlueprint.model_version)
     pd = m.D00SolutionBlueprint(SpecDocument())
-    _check("version.accessor", pd.object_model_version == "0.0",
+    _check("version.accessor", pd.object_model_version == "1.0",
            pd.object_model_version)
 
 
@@ -104,21 +104,21 @@ def test_version_check() -> None:
     # New / equal-stamp document → accepted.
     try:
         m.D00SolutionBlueprint(SpecDocument())
-        m.D00SolutionBlueprint(SpecDocument(), document_version="0.0")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="1.0")
         _check("version.editable", True)
     except SomVersionError as e:  # pragma: no cover
         _check("version.editable", False, str(e))
 
     # Newer minor → rejected.
     try:
-        m.D00SolutionBlueprint(SpecDocument(), document_version="0.1")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="1.1")
         _check("version.newer-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.newer-rejected", True)
 
     # Different major → rejected.
     try:
-        m.D00SolutionBlueprint(SpecDocument(), document_version="1.0")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="2.0")
         _check("version.cross-major-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.cross-major-rejected", True)

@@ -201,12 +201,42 @@ pub struct SpecDocument {
     list_items: BTreeMap<String, Vec<String>>,
     list_seq: BTreeMap<String, i64>,
     item_section_id: BTreeMap<String, String>,
+    /// The authoring object-model version (`major.minor`) this document was
+    /// loaded from, or `""` for a brand-new / unstamped document. Retained here
+    /// by [`SpecDocument::from_yaml`] so a consumer need not thread
+    /// `decoded.model_version` to the typed facade by hand (the "forgot the
+    /// stamp" class of bug); the generated `load_yaml` / `load_file` associated
+    /// functions apply it automatically. Empty means "none", matching how
+    /// [`decode_yaml`](crate::decode_yaml) reports the stamp.
+    pub model_version: String,
 }
 
 impl SpecDocument {
     /// Returns an empty document.
     pub fn new() -> SpecDocument {
         SpecDocument::default()
+    }
+
+    /// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
+    /// the sparse stores ([`SpecDocument::load_json`]), and retain the parsed
+    /// `model_version` on the document. Collapses the former three-step
+    /// `decode_yaml` → `load_json` → thread-`document_version` incantation
+    /// (§ item 4).
+    pub fn from_yaml(yaml: &str) -> SpecDocument {
+        let decoded = crate::spec_document_yaml::decode_yaml(yaml);
+        let mut doc = SpecDocument::new();
+        doc.load_json(&decoded.document);
+        doc.model_version = decoded.model_version;
+        doc
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`SpecDocument::from_yaml`] the generated `load_file`
+    /// associated function delegates to.
+    pub fn from_file(path: &str) -> SpecDocument {
+        let yaml = std::fs::read_to_string(path)
+            .unwrap_or_else(|e| panic!("failed to read {}: {}", path, e));
+        SpecDocument::from_yaml(&yaml)
     }
 
     // --- content -----------------------------------------------------------

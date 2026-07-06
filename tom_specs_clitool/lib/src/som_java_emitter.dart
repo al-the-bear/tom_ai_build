@@ -245,6 +245,25 @@ class SomJavaEmitter {
         ..writeln('${_i3}this(doc, null);')
         ..writeln('$_i2}')
         ..writeln()
+        ..writeln('$_i2// Loads a *.docspecs.yaml document and returns the typed '
+            'root with the')
+        ..writeln("$_i2// document's authoring stamp already applied (§ item 4) "
+            '— one call for')
+        ..writeln('$_i2// the former decode → loadJson → thread-documentVersion '
+            'sequence.')
+        ..writeln('${_i2}public static ${cls.name} loadYaml(String yaml) {')
+        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('${_i3}return new ${cls.name}(doc, doc.modelVersion());')
+        ..writeln('$_i2}')
+        ..writeln()
+        ..writeln('$_i2// Loads a *.docspecs.yaml document from the file at '
+            'path — the file')
+        ..writeln('$_i2// companion to loadYaml.')
+        ..writeln('${_i2}public static ${cls.name} loadFile(String path) {')
+        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromFile(path);')
+        ..writeln('${_i3}return new ${cls.name}(doc, doc.modelVersion());')
+        ..writeln('$_i2}')
+        ..writeln()
         ..writeln("$_i2// This object model's own model version (major.minor), "
             'per §2.1.')
         ..writeln('${_i2}public String objectModelVersion() {')

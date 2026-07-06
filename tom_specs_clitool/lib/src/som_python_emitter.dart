@@ -222,6 +222,25 @@ class SomPythonEmitter {
         ..writeln('        check_som_model_version('
             '${cls.name}.model_version, document_version)')
         ..writeln()
+        ..writeln('    @classmethod')
+        ..writeln('    def load_yaml(cls, yaml):')
+        ..writeln('        """Loads a `*.docspecs.yaml` document and returns the '
+            'typed root with the')
+        ..writeln("        document's authoring stamp already applied (§ item 4) "
+            '— one call for')
+        ..writeln('        the former decode → load_json → thread-'
+            '`document_version` sequence."""')
+        ..writeln('        doc = SpecDocument.from_yaml(yaml)')
+        ..writeln('        return cls(doc, document_version=doc.model_version)')
+        ..writeln()
+        ..writeln('    @classmethod')
+        ..writeln('    def load_file(cls, path):')
+        ..writeln('        """Loads a `*.docspecs.yaml` document from the file at '
+            '*path* — the file')
+        ..writeln('        companion to :meth:`load_yaml`."""')
+        ..writeln('        doc = SpecDocument.from_file(path)')
+        ..writeln('        return cls(doc, document_version=doc.model_version)')
+        ..writeln()
         ..writeln('    @property')
         ..writeln('    def object_model_version(self):')
         ..writeln("        \"\"\"This object model's own model version "

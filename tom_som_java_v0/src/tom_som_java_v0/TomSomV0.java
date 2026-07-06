@@ -11096,6 +11096,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D00SolutionBlueprint loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D00SolutionBlueprint(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D00SolutionBlueprint loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D00SolutionBlueprint(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11201,6 +11216,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D01CurrentLandscapeAssessment loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D01CurrentLandscapeAssessment(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D01CurrentLandscapeAssessment loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D01CurrentLandscapeAssessment(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11279,6 +11309,21 @@ public final class TomSomV0 {
 
     public D02TargetOperatingModel(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D02TargetOperatingModel loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D02TargetOperatingModel(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D02TargetOperatingModel loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D02TargetOperatingModel(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.
@@ -11370,6 +11415,21 @@ public final class TomSomV0 {
 
     public D03InformationModel(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D03InformationModel loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D03InformationModel(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D03InformationModel loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D03InformationModel(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.
@@ -11475,6 +11535,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D04RequirementsSpecification loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D04RequirementsSpecification(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D04RequirementsSpecification loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D04RequirementsSpecification(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11559,6 +11634,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D05InteractionScenarios loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D05InteractionScenarios(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D05InteractionScenarios loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D05InteractionScenarios(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11633,6 +11723,21 @@ public final class TomSomV0 {
 
     public D06ArchitectureTechnologySpecification(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D06ArchitectureTechnologySpecification loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D06ArchitectureTechnologySpecification(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D06ArchitectureTechnologySpecification loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D06ArchitectureTechnologySpecification(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.
@@ -11735,6 +11840,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D07IntegrationInterfaceSpecification loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D07IntegrationInterfaceSpecification(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D07IntegrationInterfaceSpecification loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D07IntegrationInterfaceSpecification(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11826,6 +11946,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D08SecurityAccessSpecification loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D08SecurityAccessSpecification(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D08SecurityAccessSpecification loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D08SecurityAccessSpecification(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -11905,6 +12040,21 @@ public final class TomSomV0 {
 
     public D09ExperienceDesignSpecification(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D09ExperienceDesignSpecification loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D09ExperienceDesignSpecification(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D09ExperienceDesignSpecification loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D09ExperienceDesignSpecification(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.
@@ -12006,6 +12156,21 @@ public final class TomSomV0 {
 
     public D10QualityAcceptancePlan(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D10QualityAcceptancePlan loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D10QualityAcceptancePlan(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D10QualityAcceptancePlan loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D10QualityAcceptancePlan(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.
@@ -12144,6 +12309,21 @@ public final class TomSomV0 {
       this(doc, null);
     }
 
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D11DeliveryRoadmap loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D11DeliveryRoadmap(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D11DeliveryRoadmap loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D11DeliveryRoadmap(doc, doc.modelVersion());
+    }
+
     // This object model's own model version (major.minor), per §2.1.
     public String objectModelVersion() {
       return MODEL_VERSION;
@@ -12228,6 +12408,21 @@ public final class TomSomV0 {
 
     public D12TransitionRolloutPlan(SpecDocument doc) {
       this(doc, null);
+    }
+
+    // Loads a *.docspecs.yaml document and returns the typed root with the
+    // document's authoring stamp already applied (§ item 4) — one call for
+    // the former decode → loadJson → thread-documentVersion sequence.
+    public static D12TransitionRolloutPlan loadYaml(String yaml) {
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      return new D12TransitionRolloutPlan(doc, doc.modelVersion());
+    }
+
+    // Loads a *.docspecs.yaml document from the file at path — the file
+    // companion to loadYaml.
+    public static D12TransitionRolloutPlan loadFile(String path) {
+      SpecDocument doc = SpecDocument.fromFile(path);
+      return new D12TransitionRolloutPlan(doc, doc.modelVersion());
     }
 
     // This object model's own model version (major.minor), per §2.1.

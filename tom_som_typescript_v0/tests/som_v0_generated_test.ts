@@ -12,7 +12,7 @@
  *   * the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   * a content leaf round-trips typed → generic and generic → typed;
  *   * a nested complex section derives its path under the root;
- *   * the generated model-version accessor returns `0.0`;
+ *   * the generated model-version accessor returns `1.0`;
  *   * the instantiation-time version check (§2.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp.
  *
@@ -82,18 +82,18 @@ function testRootAndParity(): void {
 function testModelVersion(): void {
   check(
     'version.classattr',
-    D00SolutionBlueprint.MODEL_VERSION === '0.0',
+    D00SolutionBlueprint.MODEL_VERSION === '1.0',
     D00SolutionBlueprint.MODEL_VERSION,
   );
   const pd = new D00SolutionBlueprint(new SpecDocument());
-  check('version.accessor', pd.objectModelVersion === '0.0', pd.objectModelVersion);
+  check('version.accessor', pd.objectModelVersion === '1.0', pd.objectModelVersion);
 }
 
 function testVersionCheck(): void {
   // New / equal-stamp document → accepted.
   try {
     new D00SolutionBlueprint(new SpecDocument());
-    new D00SolutionBlueprint(new SpecDocument(), '0.0');
+    new D00SolutionBlueprint(new SpecDocument(), '1.0');
     check('version.editable', true);
   } catch (e) {
     check('version.editable', false, String(e));
@@ -101,7 +101,7 @@ function testVersionCheck(): void {
 
   // Newer minor → rejected.
   try {
-    new D00SolutionBlueprint(new SpecDocument(), '0.1');
+    new D00SolutionBlueprint(new SpecDocument(), '1.1');
     check('version.newer-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.newer-rejected', e instanceof SomVersionError, String(e));
@@ -109,7 +109,7 @@ function testVersionCheck(): void {
 
   // Different major → rejected.
   try {
-    new D00SolutionBlueprint(new SpecDocument(), '1.0');
+    new D00SolutionBlueprint(new SpecDocument(), '2.0');
     check('version.cross-major-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.cross-major-rejected', e instanceof SomVersionError, String(e));

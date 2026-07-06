@@ -181,13 +181,13 @@ func sliceEqual(a, b []string) bool {
 }
 
 func TestModelVersion(t *testing.T) {
-	if D00SolutionBlueprintModelVersion != "0.0" {
-		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 0.0",
+	if D00SolutionBlueprintModelVersion != "1.0" {
+		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 1.0",
 			D00SolutionBlueprintModelVersion)
 	}
 	pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
-	if pd.ObjectModelVersion() != "0.0" {
-		t.Errorf("ObjectModelVersion() = %q, want 0.0", pd.ObjectModelVersion())
+	if pd.ObjectModelVersion() != "1.0" {
+		t.Errorf("ObjectModelVersion() = %q, want 1.0", pd.ObjectModelVersion())
 	}
 }
 
@@ -196,19 +196,19 @@ func TestVersionCheck(t *testing.T) {
 	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), ""); err != nil {
 		t.Errorf("empty stamp rejected: %v", err)
 	}
-	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "0.0"); err != nil {
+	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.0"); err != nil {
 		t.Errorf("equal stamp rejected: %v", err)
 	}
 
 	// Newer minor → rejected with a SomVersionError.
-	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "0.1")
+	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "1.1")
 	var verr *som.SomVersionError
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("newer-minor stamp: got %v, want *SomVersionError", err)
 	}
 
 	// Different major → rejected with a SomVersionError.
-	_, err = NewD00SolutionBlueprint(som.NewSpecDocument(), "1.0")
+	_, err = NewD00SolutionBlueprint(som.NewSpecDocument(), "2.0")
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("cross-major stamp: got %v, want *SomVersionError", err)
 	}

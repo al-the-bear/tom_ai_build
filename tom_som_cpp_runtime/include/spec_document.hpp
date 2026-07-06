@@ -59,6 +59,23 @@ class SpecDocument {
  public:
   SpecDocument() = default;
 
+  /* The authoring object-model version (major.minor) this document was loaded
+   * from, or "" for a brand-new / unstamped document. Retained here by fromYaml
+   * so a consumer need not thread decodeYaml(...).modelVersion to the typed
+   * facade by hand; the generated loadYaml / loadFile statics apply it
+   * automatically. */
+  std::string modelVersion;
+
+  /* Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
+   * the sparse stores (loadJson), and retain the parsed model version on the
+   * document. Collapses the former three-step decode -> loadJson ->
+   * thread-documentVersion sequence (item 4). */
+  static SpecDocument fromYaml(const std::string& yaml);
+
+  /* Loads a `*.docspecs.yaml` document from the file at `path` — the file
+   * companion to fromYaml the generated loadFile static delegates to. */
+  static SpecDocument fromFile(const std::string& path);
+
   // content leaves
   std::string content(const std::string& path) const;  // "" when unset
   void setContent(const std::string& path,

@@ -12069,6 +12069,15 @@ class D00SolutionBlueprint : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D00SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D00SolutionBlueprint loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D00SolutionBlueprint loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12116,6 +12125,15 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D01CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D01CurrentLandscapeAssessment loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D01CurrentLandscapeAssessment loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12154,6 +12172,15 @@ class D02TargetOperatingModel : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D02TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D02TargetOperatingModel loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D02TargetOperatingModel loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12198,6 +12225,15 @@ class D03InformationModel : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D03InformationModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D03InformationModel loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D03InformationModel loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12255,6 +12291,15 @@ class D04RequirementsSpecification : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D04RequirementsSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D04RequirementsSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12296,6 +12341,15 @@ class D05InteractionScenarios : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D05InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D05InteractionScenarios loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D05InteractionScenarios loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12333,6 +12387,15 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D06ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D06ArchitectureTechnologySpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D06ArchitectureTechnologySpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12378,6 +12441,15 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D07IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D07IntegrationInterfaceSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D07IntegrationInterfaceSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12423,6 +12495,15 @@ class D08SecurityAccessSpecification : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D08SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D08SecurityAccessSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D08SecurityAccessSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12461,6 +12542,15 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D09ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D09ExperienceDesignSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D09ExperienceDesignSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12507,6 +12597,15 @@ class D10QualityAcceptancePlan : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D10QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D10QualityAcceptancePlan loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D10QualityAcceptancePlan loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12567,6 +12666,15 @@ class D11DeliveryRoadmap : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D11DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D11DeliveryRoadmap loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D11DeliveryRoadmap loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;
@@ -12608,6 +12716,15 @@ class D12TransitionRolloutPlan : public som::SomNode {
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
   explicit D12TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
+  // returns the typed root with the document's authoring stamp already
+  // applied (§ item 4) — one call for the former decode → loadJson →
+  // thread-documentVersion sequence. `doc` is borrowed by the returned
+  // root and must outlive it (RAII ownership model).
+  static D12TransitionRolloutPlan loadYaml(som::SpecDocument& doc, const std::string& yaml);
+  // Loads a `*.docspecs.yaml` document from the file at `path` into the
+  // caller-owned `doc` — the file companion to loadYaml.
+  static D12TransitionRolloutPlan loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
   std::string content() const;

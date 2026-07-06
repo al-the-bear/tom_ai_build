@@ -13,7 +13,7 @@
 //   * a nested complex section derives its path under the root;
 //   * the typed SomList collection parity (add / length / get) lands in the
 //     same generic store;
-//   * the generated model-version accessor returns `0.0`;
+//   * the generated model-version accessor returns `1.0`;
 //   * the instantiation-time version check (§2.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp.
 //
@@ -89,10 +89,10 @@ public final class GeneratedModelTest {
   }
 
   private static void testModelVersion() {
-    check("version.classattr", TomSomV0.D00SolutionBlueprint.MODEL_VERSION.equals("0.0"),
+    check("version.classattr", TomSomV0.D00SolutionBlueprint.MODEL_VERSION.equals("1.0"),
         TomSomV0.D00SolutionBlueprint.MODEL_VERSION);
     TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(new SpecDocument());
-    check("version.accessor", pd.objectModelVersion().equals("0.0"),
+    check("version.accessor", pd.objectModelVersion().equals("1.0"),
         pd.objectModelVersion());
   }
 
@@ -100,7 +100,7 @@ public final class GeneratedModelTest {
     // New / equal-stamp document → accepted.
     try {
       new TomSomV0.D00SolutionBlueprint(new SpecDocument());
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "0.0");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.0");
       check("version.editable", true);
     } catch (SomVersionError e) {
       check("version.editable", false, e.getMessage());
@@ -108,7 +108,7 @@ public final class GeneratedModelTest {
 
     // Newer minor → rejected.
     try {
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "0.1");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.1");
       check("version.newer-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.newer-rejected", true);
@@ -116,7 +116,7 @@ public final class GeneratedModelTest {
 
     // Different major → rejected.
     try {
-      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.0");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "2.0");
       check("version.cross-major-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.cross-major-rejected", true);

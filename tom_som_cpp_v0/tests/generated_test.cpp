@@ -10,7 +10,7 @@
 //   - a content leaf round-trips typed -> generic and generic -> typed;
 //   - a nested complex section derives its path under the root;
 //   - the path-based `som::SomList` collection maps onto the generic list store;
-//   - the generated model-version accessor / constant return "0.0";
+//   - the generated model-version accessor / constant return "1.0";
 //   - the instantiation-time version check (§2.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp by throwing som::SomVersionError.
 //
@@ -214,12 +214,12 @@ void testSectionIds() {
 
 // The generated model version is reported by both the constant and the accessor.
 void testModelVersion() {
-  eqStr(tom_som_v0::D00SolutionBlueprint::kModelVersion, "0.0",
+  eqStr(tom_som_v0::D00SolutionBlueprint::kModelVersion, "1.0",
         "kModelVersion constant");
 
   som::SpecDocument doc;
   tom_som_v0::D00SolutionBlueprint pd(doc);
-  eqStr(pd.objectModelVersion(), "0.0", "objectModelVersion accessor");
+  eqStr(pd.objectModelVersion(), "1.0", "objectModelVersion accessor");
 }
 
 // The instantiation-time §2.2 version check accepts editable stamps and rejects
@@ -237,7 +237,7 @@ void testVersionCheck() {
 
   bool equalOk = true;
   try {
-    tom_som_v0::D00SolutionBlueprint b(doc, "0.0");
+    tom_som_v0::D00SolutionBlueprint b(doc, "1.0");
   } catch (const som::SomVersionError&) {
     equalOk = false;
   }
@@ -247,7 +247,7 @@ void testVersionCheck() {
   bool minorRejected = false;
   std::string minorMsg;
   try {
-    tom_som_v0::D00SolutionBlueprint c(doc, "0.1");
+    tom_som_v0::D00SolutionBlueprint c(doc, "1.1");
   } catch (const som::SomVersionError& e) {
     minorRejected = true;
     minorMsg = e.what();
@@ -258,7 +258,7 @@ void testVersionCheck() {
   // Different major -> rejected.
   bool majorRejected = false;
   try {
-    tom_som_v0::D00SolutionBlueprint d(doc, "1.0");
+    tom_som_v0::D00SolutionBlueprint d(doc, "2.0");
   } catch (const som::SomVersionError&) {
     majorRejected = true;
   }

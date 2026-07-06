@@ -18,7 +18,10 @@ package somruntime
 // List item paths are "<listPath>-<seq>" where seq is a per-list monotonic
 // counter that never reuses a number.
 
-import "sort"
+import (
+	"os"
+	"sort"
+)
 
 // ListJson is the plain-data shape of a single list store entry. Ids maps an
 // item path to its assigned section id; it is present only for lists that carry
@@ -52,6 +55,16 @@ type SpecDocument struct {
 	listItems     map[string][]string
 	listSeq       map[string]int
 	itemSectionID map[string]string
+
+	// ModelVersion is the authoring object-model version (major.minor) this
+	// document was loaded from, or "" for a brand-new / unstamped document. Go's
+	// idiomatic nullable string is the empty string, matching DecodeYaml's
+	// SpecYamlContents.ModelVersion and CheckSomModelVersion's documentVersion.
+	// It is retained here by FromYaml so a consumer need not thread
+	// decoded.ModelVersion to the typed facade by hand (the "forgot the stamp"
+	// class of bug); the generated LoadYaml / LoadFile funcs apply it
+	// automatically.
+	ModelVersion string
 }
 
 // NewSpecDocument returns an empty document.
@@ -63,6 +76,29 @@ func NewSpecDocument() *SpecDocument {
 		listSeq:       map[string]int{},
 		itemSectionID: map[string]string{},
 	}
+}
+
+// FromYaml loads a `*.docspecs.yaml` document in one call: decode the YAML,
+// populate the sparse stores (LoadJSON), and retain the parsed ModelVersion on
+// the document. Collapses the former three-step DecodeYaml → LoadJSON →
+// thread-documentVersion incantation (§ item 4).
+func FromYaml(yaml string) *SpecDocument {
+	decoded := DecodeYaml(yaml)
+	d := NewSpecDocument()
+	d.LoadJSON(decoded.Document)
+	d.ModelVersion = decoded.ModelVersion
+	return d
+}
+
+// FromFile loads a `*.docspecs.yaml` document from the file at path — the file
+// companion to FromYaml the generated LoadFile funcs delegate to. A read error
+// is returned to the caller (Go has no exceptions).
+func FromFile(path string) (*SpecDocument, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return FromYaml(string(data)), nil
 }
 
 func (d *SpecDocument) ensure() {

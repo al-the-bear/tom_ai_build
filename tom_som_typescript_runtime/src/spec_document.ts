@@ -27,7 +27,9 @@
  * keyed by the internal item path.
  */
 
+import { readFileSync } from 'fs';
 import { SpecSectionIdCollision } from './spec_section_id';
+import { decode } from './spec_document_yaml';
 
 /** The plain-data shape of a single list store entry. */
 export interface ListJson {
@@ -49,6 +51,37 @@ export class SpecDocument {
   private _listItems: Map<string, string[]> = new Map();
   private _listSeq: Map<string, number> = new Map();
   private _itemSectionId: Map<string, string> = new Map();
+
+  /**
+   * The authoring object-model version (`major.minor`) this document was loaded
+   * from, or `null` for a brand-new / unstamped document. Retained here by
+   * {@link fromYaml} so a consumer need not thread `decoded.modelVersion` to the
+   * typed facade by hand (the "forgot the stamp" class of bug); the generated
+   * `loadYaml` / `loadFile` statics apply it automatically.
+   */
+  modelVersion: string | null = null;
+
+  /**
+   * Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
+   * the sparse stores ({@link loadJson}), and retain the parsed
+   * {@link modelVersion} on the document. Collapses the former three-step
+   * `decode` → `loadJson` → thread-`documentVersion` incantation (§ item 4).
+   */
+  static fromYaml(yaml: string): SpecDocument {
+    const decoded = decode(yaml);
+    const doc = new SpecDocument();
+    doc.loadJson(decoded.document);
+    doc.modelVersion = decoded.modelVersion;
+    return doc;
+  }
+
+  /**
+   * Loads a `*.docspecs.yaml` document from the file at `path` — the file
+   * companion to {@link fromYaml} the generated `loadFile` static delegates to.
+   */
+  static fromFile(path: string): SpecDocument {
+    return SpecDocument.fromYaml(readFileSync(path, 'utf8'));
+  }
 
   // --- content ------------------------------------------------------------
 

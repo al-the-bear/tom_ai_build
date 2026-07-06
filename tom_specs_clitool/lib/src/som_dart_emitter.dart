@@ -210,6 +210,27 @@ class SomDartEmitter {
         ..writeln('    checkSomModelVersion(modelVersion, documentVersion);')
         ..writeln('  }')
         ..writeln()
+        ..writeln('  /// Loads a `*.docspecs.yaml` document and returns the typed '
+            'root with the')
+        ..writeln('  /// document\'s authoring stamp already applied (§ item 4) '
+            '— one call for')
+        ..writeln('  /// the former decode → loadJson → thread-`documentVersion` '
+            'sequence.')
+        ..writeln('  static ${cls.name} loadYaml(String yaml) {')
+        ..writeln('    final doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('    return ${cls.name}(doc, '
+            'documentVersion: doc.modelVersion);')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  /// Loads a `*.docspecs.yaml` document from the file at '
+            '[path] — the file')
+        ..writeln('  /// companion to [loadYaml].')
+        ..writeln('  static ${cls.name} loadFile(String path) {')
+        ..writeln('    final doc = SpecDocument.fromFile(path);')
+        ..writeln('    return ${cls.name}(doc, '
+            'documentVersion: doc.modelVersion);')
+        ..writeln('  }')
+        ..writeln()
         ..writeln('  /// This object model\'s own model version (`major.minor`),'
             ' per spec §2.1.')
         ..writeln('  String get objectModelVersion => modelVersion;');

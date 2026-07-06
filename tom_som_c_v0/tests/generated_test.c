@@ -9,7 +9,7 @@
  *   - a content leaf round-trips typed -> generic and generic -> typed;
  *   - a nested complex section derives its path under the root;
  *   - the path-based `SomList` collection maps onto the generic list store;
- *   - the generated model-version accessor / macro return "0.0";
+ *   - the generated model-version accessor / macro return "1.0";
  *   - the instantiation-time version check (§2.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp with a non-zero return + message.
  *
@@ -296,13 +296,13 @@ static void test_section_ids(void) {
 
 /* The generated model version is reported by both the macro and the accessor. */
 static void test_model_version(void) {
-  eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "0.0", "MODEL_VERSION macro");
+  eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.0", "MODEL_VERSION macro");
 
   SpecDocument doc;
   spec_document_init(&doc);
   D00SolutionBlueprint pd;
   d00_solution_blueprint_new(&pd, &doc, "", NULL);
-  eq_str(d00_solution_blueprint_object_model_version(&pd), "0.0",
+  eq_str(d00_solution_blueprint_object_model_version(&pd), "1.0",
          "object_model_version accessor");
   d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
@@ -319,13 +319,13 @@ static void test_version_check(void) {
   d00_solution_blueprint_free(&a);
 
   D00SolutionBlueprint b;
-  ok(d00_solution_blueprint_new(&b, &doc, "0.0", NULL) == 0, "equal stamp accepted");
+  ok(d00_solution_blueprint_new(&b, &doc, "1.0", NULL) == 0, "equal stamp accepted");
   d00_solution_blueprint_free(&b);
 
   /* Newer minor -> rejected (no node bound, so nothing to free on the facade). */
   char *err = NULL;
   D00SolutionBlueprint c;
-  ok(d00_solution_blueprint_new(&c, &doc, "0.1", &err) != 0,
+  ok(d00_solution_blueprint_new(&c, &doc, "1.1", &err) != 0,
      "newer-minor stamp rejected");
   ok(err != NULL, "rejection writes an owned message");
   free(err);
@@ -333,7 +333,7 @@ static void test_version_check(void) {
 
   /* Different major -> rejected. */
   D00SolutionBlueprint d;
-  ok(d00_solution_blueprint_new(&d, &doc, "1.0", &err) != 0,
+  ok(d00_solution_blueprint_new(&d, &doc, "2.0", &err) != 0,
      "cross-major stamp rejected");
   free(err);
 

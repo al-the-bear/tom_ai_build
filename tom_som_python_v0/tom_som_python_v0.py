@@ -10033,6 +10033,21 @@ class D00SolutionBlueprint(SomNode):
         super().__init__(doc, "SBP")
         check_som_model_version(D00SolutionBlueprint.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10130,6 +10145,21 @@ class D01CurrentLandscapeAssessment(SomNode):
         super().__init__(doc, "CLA")
         check_som_model_version(D01CurrentLandscapeAssessment.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10201,6 +10231,21 @@ class D02TargetOperatingModel(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
         check_som_model_version(D02TargetOperatingModel.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):
@@ -10284,6 +10329,21 @@ class D03InformationModel(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
         check_som_model_version(D03InformationModel.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):
@@ -10384,6 +10444,21 @@ class D04RequirementsSpecification(SomNode):
         super().__init__(doc, "RSP")
         check_som_model_version(D04RequirementsSpecification.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10459,6 +10534,21 @@ class D05InteractionScenarios(SomNode):
         super().__init__(doc, "ISC")
         check_som_model_version(D05InteractionScenarios.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10526,6 +10616,21 @@ class D06ArchitectureTechnologySpecification(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
         check_som_model_version(D06ArchitectureTechnologySpecification.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):
@@ -10619,6 +10724,21 @@ class D07IntegrationInterfaceSpecification(SomNode):
         super().__init__(doc, "IIS")
         check_som_model_version(D07IntegrationInterfaceSpecification.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10702,6 +10822,21 @@ class D08SecurityAccessSpecification(SomNode):
         super().__init__(doc, "SAS")
         check_som_model_version(D08SecurityAccessSpecification.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -10774,6 +10909,21 @@ class D09ExperienceDesignSpecification(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
         check_som_model_version(D09ExperienceDesignSpecification.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):
@@ -10867,6 +11017,21 @@ class D10QualityAcceptancePlan(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
         check_som_model_version(D10QualityAcceptancePlan.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):
@@ -10996,6 +11161,21 @@ class D11DeliveryRoadmap(SomNode):
         super().__init__(doc, "DRM")
         check_som_model_version(D11DeliveryRoadmap.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
@@ -11073,6 +11253,21 @@ class D12TransitionRolloutPlan(SomNode):
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
         check_som_model_version(D12TransitionRolloutPlan.model_version, document_version)
+
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
 
     @property
     def object_model_version(self):

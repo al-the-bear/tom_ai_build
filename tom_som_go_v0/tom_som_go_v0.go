@@ -13055,6 +13055,27 @@ func (x *D00SolutionBlueprint) ObjectModelVersion() string {
 	return D00SolutionBlueprintModelVersion
 }
 
+// LoadYamlD00SolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD00SolutionBlueprint(yaml string) (*D00SolutionBlueprint, error) {
+	doc := som.FromYaml(yaml)
+	return NewD00SolutionBlueprint(doc, doc.ModelVersion)
+}
+
+// LoadFileD00SolutionBlueprint loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD00SolutionBlueprint. A read error is returned to the
+// caller.
+func LoadFileD00SolutionBlueprint(path string) (*D00SolutionBlueprint, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD00SolutionBlueprint(doc, doc.ModelVersion)
+}
+
 func (x *D00SolutionBlueprint) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13162,6 +13183,27 @@ func (x *D01CurrentLandscapeAssessment) ObjectModelVersion() string {
 	return D01CurrentLandscapeAssessmentModelVersion
 }
 
+// LoadYamlD01CurrentLandscapeAssessment loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD01CurrentLandscapeAssessment(yaml string) (*D01CurrentLandscapeAssessment, error) {
+	doc := som.FromYaml(yaml)
+	return NewD01CurrentLandscapeAssessment(doc, doc.ModelVersion)
+}
+
+// LoadFileD01CurrentLandscapeAssessment loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD01CurrentLandscapeAssessment. A read error is returned to the
+// caller.
+func LoadFileD01CurrentLandscapeAssessment(path string) (*D01CurrentLandscapeAssessment, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD01CurrentLandscapeAssessment(doc, doc.ModelVersion)
+}
+
 func (x *D01CurrentLandscapeAssessment) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13244,6 +13286,27 @@ func NewD02TargetOperatingModel(doc *som.SpecDocument, documentVersion string) (
 // per §2.1.
 func (x *D02TargetOperatingModel) ObjectModelVersion() string {
 	return D02TargetOperatingModelModelVersion
+}
+
+// LoadYamlD02TargetOperatingModel loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD02TargetOperatingModel(yaml string) (*D02TargetOperatingModel, error) {
+	doc := som.FromYaml(yaml)
+	return NewD02TargetOperatingModel(doc, doc.ModelVersion)
+}
+
+// LoadFileD02TargetOperatingModel loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD02TargetOperatingModel. A read error is returned to the
+// caller.
+func LoadFileD02TargetOperatingModel(path string) (*D02TargetOperatingModel, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD02TargetOperatingModel(doc, doc.ModelVersion)
 }
 
 func (x *D02TargetOperatingModel) Content() string {
@@ -13341,6 +13404,27 @@ func NewD03InformationModel(doc *som.SpecDocument, documentVersion string) (*D03
 // per §2.1.
 func (x *D03InformationModel) ObjectModelVersion() string {
 	return D03InformationModelModelVersion
+}
+
+// LoadYamlD03InformationModel loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD03InformationModel(yaml string) (*D03InformationModel, error) {
+	doc := som.FromYaml(yaml)
+	return NewD03InformationModel(doc, doc.ModelVersion)
+}
+
+// LoadFileD03InformationModel loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD03InformationModel. A read error is returned to the
+// caller.
+func LoadFileD03InformationModel(path string) (*D03InformationModel, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD03InformationModel(doc, doc.ModelVersion)
 }
 
 func (x *D03InformationModel) Content() string {
@@ -13458,6 +13542,27 @@ func (x *D04RequirementsSpecification) ObjectModelVersion() string {
 	return D04RequirementsSpecificationModelVersion
 }
 
+// LoadYamlD04RequirementsSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD04RequirementsSpecification(yaml string) (*D04RequirementsSpecification, error) {
+	doc := som.FromYaml(yaml)
+	return NewD04RequirementsSpecification(doc, doc.ModelVersion)
+}
+
+// LoadFileD04RequirementsSpecification loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD04RequirementsSpecification. A read error is returned to the
+// caller.
+func LoadFileD04RequirementsSpecification(path string) (*D04RequirementsSpecification, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD04RequirementsSpecification(doc, doc.ModelVersion)
+}
+
 func (x *D04RequirementsSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13545,6 +13650,27 @@ func (x *D05InteractionScenarios) ObjectModelVersion() string {
 	return D05InteractionScenariosModelVersion
 }
 
+// LoadYamlD05InteractionScenarios loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD05InteractionScenarios(yaml string) (*D05InteractionScenarios, error) {
+	doc := som.FromYaml(yaml)
+	return NewD05InteractionScenarios(doc, doc.ModelVersion)
+}
+
+// LoadFileD05InteractionScenarios loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD05InteractionScenarios. A read error is returned to the
+// caller.
+func LoadFileD05InteractionScenarios(path string) (*D05InteractionScenarios, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD05InteractionScenarios(doc, doc.ModelVersion)
+}
+
 func (x *D05InteractionScenarios) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13623,6 +13749,27 @@ func NewD06ArchitectureTechnologySpecification(doc *som.SpecDocument, documentVe
 // per §2.1.
 func (x *D06ArchitectureTechnologySpecification) ObjectModelVersion() string {
 	return D06ArchitectureTechnologySpecificationModelVersion
+}
+
+// LoadYamlD06ArchitectureTechnologySpecification loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD06ArchitectureTechnologySpecification(yaml string) (*D06ArchitectureTechnologySpecification, error) {
+	doc := som.FromYaml(yaml)
+	return NewD06ArchitectureTechnologySpecification(doc, doc.ModelVersion)
+}
+
+// LoadFileD06ArchitectureTechnologySpecification loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD06ArchitectureTechnologySpecification. A read error is returned to the
+// caller.
+func LoadFileD06ArchitectureTechnologySpecification(path string) (*D06ArchitectureTechnologySpecification, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD06ArchitectureTechnologySpecification(doc, doc.ModelVersion)
 }
 
 func (x *D06ArchitectureTechnologySpecification) Content() string {
@@ -13727,6 +13874,27 @@ func (x *D07IntegrationInterfaceSpecification) ObjectModelVersion() string {
 	return D07IntegrationInterfaceSpecificationModelVersion
 }
 
+// LoadYamlD07IntegrationInterfaceSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD07IntegrationInterfaceSpecification(yaml string) (*D07IntegrationInterfaceSpecification, error) {
+	doc := som.FromYaml(yaml)
+	return NewD07IntegrationInterfaceSpecification(doc, doc.ModelVersion)
+}
+
+// LoadFileD07IntegrationInterfaceSpecification loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD07IntegrationInterfaceSpecification. A read error is returned to the
+// caller.
+func LoadFileD07IntegrationInterfaceSpecification(path string) (*D07IntegrationInterfaceSpecification, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD07IntegrationInterfaceSpecification(doc, doc.ModelVersion)
+}
+
 func (x *D07IntegrationInterfaceSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13826,6 +13994,27 @@ func (x *D08SecurityAccessSpecification) ObjectModelVersion() string {
 	return D08SecurityAccessSpecificationModelVersion
 }
 
+// LoadYamlD08SecurityAccessSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD08SecurityAccessSpecification(yaml string) (*D08SecurityAccessSpecification, error) {
+	doc := som.FromYaml(yaml)
+	return NewD08SecurityAccessSpecification(doc, doc.ModelVersion)
+}
+
+// LoadFileD08SecurityAccessSpecification loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD08SecurityAccessSpecification. A read error is returned to the
+// caller.
+func LoadFileD08SecurityAccessSpecification(path string) (*D08SecurityAccessSpecification, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD08SecurityAccessSpecification(doc, doc.ModelVersion)
+}
+
 func (x *D08SecurityAccessSpecification) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -13907,6 +14096,27 @@ func NewD09ExperienceDesignSpecification(doc *som.SpecDocument, documentVersion 
 // per §2.1.
 func (x *D09ExperienceDesignSpecification) ObjectModelVersion() string {
 	return D09ExperienceDesignSpecificationModelVersion
+}
+
+// LoadYamlD09ExperienceDesignSpecification loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD09ExperienceDesignSpecification(yaml string) (*D09ExperienceDesignSpecification, error) {
+	doc := som.FromYaml(yaml)
+	return NewD09ExperienceDesignSpecification(doc, doc.ModelVersion)
+}
+
+// LoadFileD09ExperienceDesignSpecification loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD09ExperienceDesignSpecification. A read error is returned to the
+// caller.
+func LoadFileD09ExperienceDesignSpecification(path string) (*D09ExperienceDesignSpecification, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD09ExperienceDesignSpecification(doc, doc.ModelVersion)
 }
 
 func (x *D09ExperienceDesignSpecification) Content() string {
@@ -14010,6 +14220,27 @@ func NewD10QualityAcceptancePlan(doc *som.SpecDocument, documentVersion string) 
 // per §2.1.
 func (x *D10QualityAcceptancePlan) ObjectModelVersion() string {
 	return D10QualityAcceptancePlanModelVersion
+}
+
+// LoadYamlD10QualityAcceptancePlan loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD10QualityAcceptancePlan(yaml string) (*D10QualityAcceptancePlan, error) {
+	doc := som.FromYaml(yaml)
+	return NewD10QualityAcceptancePlan(doc, doc.ModelVersion)
+}
+
+// LoadFileD10QualityAcceptancePlan loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD10QualityAcceptancePlan. A read error is returned to the
+// caller.
+func LoadFileD10QualityAcceptancePlan(path string) (*D10QualityAcceptancePlan, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD10QualityAcceptancePlan(doc, doc.ModelVersion)
 }
 
 func (x *D10QualityAcceptancePlan) Content() string {
@@ -14150,6 +14381,27 @@ func (x *D11DeliveryRoadmap) ObjectModelVersion() string {
 	return D11DeliveryRoadmapModelVersion
 }
 
+// LoadYamlD11DeliveryRoadmap loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD11DeliveryRoadmap(yaml string) (*D11DeliveryRoadmap, error) {
+	doc := som.FromYaml(yaml)
+	return NewD11DeliveryRoadmap(doc, doc.ModelVersion)
+}
+
+// LoadFileD11DeliveryRoadmap loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD11DeliveryRoadmap. A read error is returned to the
+// caller.
+func LoadFileD11DeliveryRoadmap(path string) (*D11DeliveryRoadmap, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD11DeliveryRoadmap(doc, doc.ModelVersion)
+}
+
 func (x *D11DeliveryRoadmap) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
@@ -14238,6 +14490,27 @@ func NewD12TransitionRolloutPlan(doc *som.SpecDocument, documentVersion string) 
 // per §2.1.
 func (x *D12TransitionRolloutPlan) ObjectModelVersion() string {
 	return D12TransitionRolloutPlanModelVersion
+}
+
+// LoadYamlD12TransitionRolloutPlan loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlD12TransitionRolloutPlan(yaml string) (*D12TransitionRolloutPlan, error) {
+	doc := som.FromYaml(yaml)
+	return NewD12TransitionRolloutPlan(doc, doc.ModelVersion)
+}
+
+// LoadFileD12TransitionRolloutPlan loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlD12TransitionRolloutPlan. A read error is returned to the
+// caller.
+func LoadFileD12TransitionRolloutPlan(path string) (*D12TransitionRolloutPlan, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewD12TransitionRolloutPlan(doc, doc.ModelVersion)
 }
 
 func (x *D12TransitionRolloutPlan) Content() string {

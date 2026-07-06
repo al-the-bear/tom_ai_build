@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'spec_document_yaml.dart';
 import 'spec_section_id.dart';
 
 /// A sparse, live instance of a TomSpecs document (§8, §13).
@@ -32,6 +35,29 @@ class SpecDocument {
   final Map<String, List<String>> _listItems = {};
   final Map<String, int> _listSeq = {};
   final Map<String, String> _itemSectionId = {};
+
+  /// The authoring object-model version (`major.minor`) this document was loaded
+  /// from, or `null` for a brand-new / unstamped document. Retained here by
+  /// [fromYaml] so a consumer need not thread `decoded.modelVersion` to the
+  /// typed facade by hand (the "forgot the stamp" class of bug); the generated
+  /// `loadYaml` / `loadFile` statics apply it automatically.
+  String? modelVersion;
+
+  /// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
+  /// the sparse stores ([loadJson]), and retain the parsed [modelVersion] on the
+  /// document. Collapses the former three-step `decode` → `loadJson` →
+  /// thread-`documentVersion` incantation (§ item 4).
+  static SpecDocument fromYaml(String yaml) {
+    final decoded = SpecDocumentYaml.decode(yaml);
+    return SpecDocument()
+      ..loadJson(decoded.document)
+      ..modelVersion = decoded.modelVersion;
+  }
+
+  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// companion to [fromYaml] the generated `loadFile` static delegates to.
+  static SpecDocument fromFile(String path) =>
+      fromYaml(File(path).readAsStringSync());
 
   /// The content string at [path], or `null` if unset.
   String? content(String path) => _content[path];

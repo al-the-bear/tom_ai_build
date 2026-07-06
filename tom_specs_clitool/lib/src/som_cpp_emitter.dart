@@ -267,6 +267,22 @@ class SomCppEmitter {
         ..writeln('  // when it is not.')
         ..writeln('  explicit $t(som::SpecDocument& doc, '
             'const std::string& documentVersion = "");')
+        ..writeln('  // Loads a `*.docspecs.yaml` document into the '
+            'caller-owned `doc` and')
+        ..writeln('  // returns the typed root with the document\'s authoring '
+            'stamp already')
+        ..writeln('  // applied (§ item 4) — one call for the former decode → '
+            'loadJson →')
+        ..writeln('  // thread-documentVersion sequence. `doc` is borrowed by '
+            'the returned')
+        ..writeln('  // root and must outlive it (RAII ownership model).')
+        ..writeln('  static $t loadYaml(som::SpecDocument& doc, '
+            'const std::string& yaml);')
+        ..writeln('  // Loads a `*.docspecs.yaml` document from the file at '
+            '`path` into the')
+        ..writeln('  // caller-owned `doc` — the file companion to loadYaml.')
+        ..writeln('  static $t loadFile(som::SpecDocument& doc, '
+            'const std::string& path);')
         ..writeln("  // This object model's own model version (major.minor), "
             'per §2.1.')
         ..writeln('  std::string objectModelVersion() const;');
@@ -404,6 +420,16 @@ class SomCppEmitter {
         ..writeln('    : som::SomNode(doc, "${_cppStr(plan.rootSeg!)}") {')
         ..writeln('  som::checkSomModelVersion(kModelVersion, '
             'documentVersion);')
+        ..writeln('}')
+        ..writeln('$t $t::loadYaml(som::SpecDocument& doc, '
+            'const std::string& yaml) {')
+        ..writeln('  doc = som::SpecDocument::fromYaml(yaml);')
+        ..writeln('  return $t(doc, doc.modelVersion);')
+        ..writeln('}')
+        ..writeln('$t $t::loadFile(som::SpecDocument& doc, '
+            'const std::string& path) {')
+        ..writeln('  doc = som::SpecDocument::fromFile(path);')
+        ..writeln('  return $t(doc, doc.modelVersion);')
         ..writeln('}')
         ..writeln('std::string $t::objectModelVersion() const {')
         ..writeln('  return kModelVersion;')

@@ -340,6 +340,36 @@ class SomGoEmitter {
         ..writeln('// per §2.1.')
         ..writeln('func (x *${cls.name}) ObjectModelVersion() string {')
         ..writeln('\treturn $mvConst')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('// LoadYaml${cls.name} loads a `*.docspecs.yaml` document in '
+            'one call: decode the')
+        ..writeln('// YAML, populate the sparse stores, and construct the typed '
+            'root at the document')
+        ..writeln("// root with the document's retained authoring stamp — one "
+            'call for the former')
+        ..writeln('// decode → loadJson → thread-documentVersion sequence '
+            '(§ item 4). Returns a')
+        ..writeln('// *som.SomVersionError when the stamp is not editable '
+            '(§2.2).')
+        ..writeln('func LoadYaml${cls.name}(yaml string) (*${cls.name}, error) '
+            '{')
+        ..writeln('\tdoc := som.FromYaml(yaml)')
+        ..writeln('\treturn $ctor(doc, doc.ModelVersion)')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('// LoadFile${cls.name} loads a `*.docspecs.yaml` document '
+            'from the file at path —')
+        ..writeln('// the file companion to LoadYaml${cls.name}. A read error '
+            'is returned to the')
+        ..writeln('// caller.')
+        ..writeln('func LoadFile${cls.name}(path string) (*${cls.name}, error) '
+            '{')
+        ..writeln('\tdoc, err := som.FromFile(path)')
+        ..writeln('\tif err != nil {')
+        ..writeln('\t\treturn nil, err')
+        ..writeln('\t}')
+        ..writeln('\treturn $ctor(doc, doc.ModelVersion)')
         ..writeln('}');
     } else {
       b

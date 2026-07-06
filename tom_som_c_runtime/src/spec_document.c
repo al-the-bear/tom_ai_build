@@ -1,7 +1,10 @@
 #include "spec_document.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "spec_document_yaml.h"
 
 /* ---- is_under ----------------------------------------------------------- */
 
@@ -401,6 +404,7 @@ void spec_document_init(SpecDocument *d) {
   d->list_items_cap = 0;
   som_map_init(&d->list_seq);
   som_map_init(&d->item_section_id);
+  d->model_version = NULL;
 }
 
 void spec_document_free(SpecDocument *d) {
@@ -417,6 +421,7 @@ void spec_document_free(SpecDocument *d) {
   free(d->list_items);
   som_map_free(&d->list_seq);
   som_map_free(&d->item_section_id);
+  free(d->model_version);
   spec_document_init(d);
 }
 
@@ -821,4 +826,36 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
                   j->lists[i].ids.entries[k].val);
     }
   }
+}
+
+/* --- one-call loading (§ item 4) --- */
+
+SpecDocument *spec_document_from_yaml(const char *yaml) {
+  SpecYamlContents decoded;
+  decode_yaml(yaml, &decoded);
+  SpecDocument *d = (SpecDocument *)malloc(sizeof(SpecDocument));
+  spec_document_init(d);
+  spec_document_load_json(d, &decoded.document);
+  d->model_version = som_strdup(decoded.model_version);
+  spec_yaml_contents_free(&decoded);
+  return d;
+}
+
+SpecDocument *spec_document_from_file(const char *path) {
+  FILE *f = fopen(path, "rb");
+  if (f == NULL) {
+    return NULL;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  char chunk[4096];
+  size_t n;
+  while ((n = fread(chunk, 1, sizeof(chunk), f)) > 0) {
+    som_buf_putn(&b, chunk, n);
+  }
+  fclose(f);
+  char *text = som_buf_take(&b);
+  SpecDocument *d = spec_document_from_yaml(text);
+  free(text);
+  return d;
 }
