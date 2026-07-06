@@ -17,7 +17,9 @@
 // in this crate's Cargo.toml, so the test is portable across checkouts.
 
 use tom_som_rust_runtime as som;
-use tom_som_rust_v0::{D00SolutionBlueprint, D00_SOLUTION_BLUEPRINT_MODEL_VERSION};
+use tom_som_rust_v0::{
+    CurrentOperationalMetric, D00SolutionBlueprint, D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
+};
 
 /// A fresh `DocRef` over an empty document.
 fn new_doc() -> som::DocRef {
@@ -77,6 +79,80 @@ fn typed_list() {
     // Typed list writes land in the generic list store under the same path.
     let list_path = "SBP/currentLandscape/CUOPME-OPER-LST";
     assert_eq!(doc.borrow().list_item_count(list_path), 2);
+}
+
+/// A fresh `operationalMetrics` list — a `@SectionIdPattern` list
+/// (`CUOPME-OPER-xxx`) over an empty document — for the section-id scenarios.
+fn fresh_metrics() -> som::SomList<CurrentOperationalMetric> {
+    let pd = D00SolutionBlueprint::new(new_doc(), "").unwrap();
+    pd.current_landscape().operational_metrics()
+}
+
+/// Proves the generated typed facade drives section-id generation (AA1
+/// criteria 3–6) end-to-end: deterministic ids via `add_on`, override with
+/// uniqueness validation, and the delete/renumber rules. March 5 → the
+/// two-letter day code "CE" (C = month 3, E = day 5).
+#[test]
+fn section_ids() {
+    const MAR: i64 = 3;
+    const DAY: i64 = 5;
+
+    // Generation: consecutive same-day items number CE1, CE2 (criteria 3–4).
+    let metrics = fresh_metrics();
+    assert_eq!(metrics.add_on(MAR, DAY).node.section_id(), "CUOPME-OPER-CE1");
+    assert_eq!(metrics.add_on(MAR, DAY).node.section_id(), "CUOPME-OPER-CE2");
+
+    // Override to an arbitrary suffix, then a duplicate override raises a
+    // collision (criterion 5).
+    let metrics = fresh_metrics();
+    metrics.add_on(MAR, DAY); // CE1
+    let second = metrics.add_on(MAR, DAY);
+    second
+        .node
+        .set_section_id("CUOPME-OPER-ZZ9")
+        .expect("override should succeed");
+    assert!(
+        metrics.section_ids().contains(&"CUOPME-OPER-ZZ9".to_string()),
+        "override not applied: {:?}",
+        metrics.section_ids()
+    );
+    assert!(
+        matches!(
+            metrics.at(0).node.set_section_id("CUOPME-OPER-ZZ9"),
+            Err(ref e) if som::is_collision(e)
+        ),
+        "override collision expected"
+    );
+    // An explicit add with a duplicate id raises the same collision.
+    assert!(
+        matches!(
+            metrics.add_with_id("CUOPME-OPER-ZZ9"),
+            Err(ref e) if som::is_collision(e)
+        ),
+        "add collision expected"
+    );
+
+    // Delete a middle item: the remaining ids never renumber, and a new
+    // same-day item takes the next free number (criterion 6).
+    let metrics = fresh_metrics();
+    metrics.add_on(MAR, DAY); // CE1
+    metrics.add_on(MAR, DAY); // CE2
+    metrics.add_on(MAR, DAY); // CE3
+    metrics.remove_at(1); // drop CE2
+    assert_eq!(
+        metrics.section_ids(),
+        vec!["CUOPME-OPER-CE1".to_string(), "CUOPME-OPER-CE3".to_string()]
+    );
+    assert_eq!(metrics.add_on(MAR, DAY).node.section_id(), "CUOPME-OPER-CE4");
+
+    // Delete the last item: a new same-day item reuses the just-freed number
+    // (criterion 6).
+    let metrics = fresh_metrics();
+    metrics.add_on(MAR, DAY); // CE1
+    metrics.add_on(MAR, DAY); // CE2
+    metrics.add_on(MAR, DAY); // CE3
+    metrics.remove_at(2); // drop CE3 (the max)
+    assert_eq!(metrics.add_on(MAR, DAY).node.section_id(), "CUOPME-OPER-CE3");
 }
 
 #[test]

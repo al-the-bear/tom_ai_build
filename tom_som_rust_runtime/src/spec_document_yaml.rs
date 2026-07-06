@@ -16,6 +16,7 @@
 use std::collections::BTreeMap;
 
 use crate::spec_document::{DocumentJson, ListJson, SpecDocument};
+use crate::spec_serialization_order::SpecSerializationOrder;
 use crate::yaml::{yaml_parse, YamlValue};
 
 /// The on-disk format version (independent of the model-version stamp).
@@ -130,7 +131,22 @@ fn write_header(b: &mut YamlBuffer, model_version: &str) {
     }
 }
 
-fn write_document_pass(b: &mut YamlBuffer, doc: &DocumentJson) {
+// order_content_keys / order_form_keys order the map keys of the document
+// passes: by `@SerializationOrder` when `order` is `Some` (AA1 criterion 7),
+// else in the map's natural (alphabetical) order — the diff-stable default the
+// editor relies on.
+fn ordered_keys(keys: Vec<String>, order: Option<&SpecSerializationOrder>) -> Vec<String> {
+    match order {
+        Some(o) => o.order_paths(&keys),
+        None => keys,
+    }
+}
+
+fn write_document_pass(
+    b: &mut YamlBuffer,
+    doc: &DocumentJson,
+    order: Option<&SpecSerializationOrder>,
+) {
     if doc.content.is_empty() && doc.forms.is_empty() && doc.lists.is_empty() {
         b.writeln("document: {}");
         return;
@@ -139,28 +155,35 @@ fn write_document_pass(b: &mut YamlBuffer, doc: &DocumentJson) {
 
     if !doc.content.is_empty() {
         b.writeln("  content:");
-        for (k, v) in &doc.content {
-            write_scalar(b, 4, k, v);
+        for k in ordered_keys(doc.content.keys().cloned().collect(), order) {
+            write_scalar(b, 4, &k, &doc.content[&k]);
         }
     }
 
     if !doc.forms.is_empty() {
         b.writeln("  forms:");
-        for (k, fields) in &doc.forms {
+        for k in ordered_keys(doc.forms.keys().cloned().collect(), order) {
+            let fields = &doc.forms[&k];
             if fields.is_empty() {
                 continue;
             }
-            b.writeln(&format!("    {}:", yaml_key(k)));
-            for (f, v) in fields {
-                write_scalar(b, 6, f, v);
+            b.writeln(&format!("    {}:", yaml_key(&k)));
+            let field_keys: Vec<String> = fields.keys().cloned().collect();
+            let field_keys = match order {
+                Some(o) => o.order_form_fields(&k, &field_keys),
+                None => field_keys,
+            };
+            for f in field_keys {
+                write_scalar(b, 6, &f, &fields[&f]);
             }
         }
     }
 
     if !doc.lists.is_empty() {
         b.writeln("  lists:");
-        for (k, spec) in &doc.lists {
-            b.writeln(&format!("    {}:", yaml_key(k)));
+        for k in ordered_keys(doc.lists.keys().cloned().collect(), order) {
+            let spec = &doc.lists[&k];
+            b.writeln(&format!("    {}:", yaml_key(&k)));
             b.writeln(&format!("      seq: {}", spec.seq));
             if !spec.items.is_empty() {
                 b.writeln("      items:");
@@ -175,11 +198,23 @@ fn write_document_pass(b: &mut YamlBuffer, doc: &DocumentJson) {
 }
 
 /// Serializes `document` to a header + `version:` (+ `modelVersion:`) +
-/// `document:` pass.
+/// `document:` pass, with alphabetical member ordering (the diff-stable
+/// default).
 pub fn encode_yaml(document: &SpecDocument, model_version: &str) -> String {
+    encode_yaml_ordered(document, model_version, None)
+}
+
+/// [`encode_yaml`] with an optional [`SpecSerializationOrder`]: when `Some`, each
+/// class's members are emitted in `@SerializationOrder` order (AA1 criterion 7)
+/// instead of alphabetically.
+pub fn encode_yaml_ordered(
+    document: &SpecDocument,
+    model_version: &str,
+    order: Option<&SpecSerializationOrder>,
+) -> String {
     let mut b = YamlBuffer::new();
     write_header(&mut b, model_version);
-    write_document_pass(&mut b, &document.to_json());
+    write_document_pass(&mut b, &document.to_json(), order);
     b.out
 }
 
@@ -246,7 +281,14 @@ fn doc_json_from_yaml(v: &YamlValue) -> DocumentJson {
                         items.push(it.scalar_string());
                     }
                 }
-                out.lists.insert(k.clone(), ListJson { seq, items });
+                out.lists.insert(
+                    k.clone(),
+                    ListJson {
+                        seq,
+                        items,
+                        ids: BTreeMap::new(),
+                    },
+                );
             }
         }
     }

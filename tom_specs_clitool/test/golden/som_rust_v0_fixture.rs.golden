@@ -113,6 +113,7 @@ impl SolutionBlueprint {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "risks"),
             Box::new(|d, p| Risk::new(d, p)),
+            "RISK-ITEM-xxx".to_string(),
         )
     }
 
@@ -121,6 +122,7 @@ impl SolutionBlueprint {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "tags"),
             Box::new(|d, p| som::SomScalar::new(d, p)),
+            "".to_string(),
         )
     }
 

@@ -19,12 +19,17 @@
 use std::collections::BTreeMap;
 
 use crate::json::{encode_str, Json};
+use crate::spec_section_id::{SpecSectionIdCollision, SpecSectionIdError};
 
-/// The plain-data shape of a single list store entry.
+/// The plain-data shape of a single list store entry. `ids` maps an item path to
+/// its assigned section id; it is present only for lists that carry section ids
+/// (AA1 criteria 3–6) and is omitted (empty) otherwise, so byte-stable output
+/// stays identical for id-less lists.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ListJson {
     pub seq: i64,
     pub items: Vec<String>,
+    pub ids: BTreeMap<String, String>,
 }
 
 /// A `SpecDocument::to_json`-shaped plain-data view of a document. Only non-empty
@@ -71,7 +76,15 @@ impl DocumentJson {
                         }
                     }
                 }
-                out.lists.insert(k.clone(), ListJson { seq, items });
+                let mut ids = BTreeMap::new();
+                if let Some(obj) = val.get("ids").and_then(|s| s.as_object()) {
+                    for (ik, iv) in obj {
+                        if let Some(s) = iv.as_str() {
+                            ids.insert(ik.clone(), s.to_string());
+                        }
+                    }
+                }
+                out.lists.insert(k.clone(), ListJson { seq, items, ids });
             }
         }
         out
@@ -147,7 +160,22 @@ impl DocumentJson {
                     }
                     out.push_str(&encode_str(it));
                 }
-                out.push_str("]}");
+                out.push(']');
+                if !spec.ids.is_empty() {
+                    out.push_str(",\"ids\":{");
+                    let mut id_first = true;
+                    for (ik, iv) in &spec.ids {
+                        if !id_first {
+                            out.push(',');
+                        }
+                        id_first = false;
+                        out.push_str(&encode_str(ik));
+                        out.push(':');
+                        out.push_str(&encode_str(iv));
+                    }
+                    out.push('}');
+                }
+                out.push('}');
             }
             out.push('}');
         }
@@ -157,12 +185,22 @@ impl DocumentJson {
 }
 
 /// The sparse in-memory document.
+///
+/// Each list item also carries a **section id** (AA1 criteria 3–6): the
+/// document-semantic identity generated from the list field's
+/// `@SectionIdPattern`. This is distinct from the internal `-<seq>` path key:
+/// the seq path keeps nested values attached across edits (never renumbered),
+/// while the section id is what the document exposes and may be overridden
+/// ([`SpecDocument::set_item_section_id`], criterion 5) or reused same-day after
+/// the last item is deleted (criterion 6). Section ids live in
+/// `item_section_id`, keyed by the internal item path.
 #[derive(Debug, Clone, Default)]
 pub struct SpecDocument {
     content: BTreeMap<String, String>,
     form: BTreeMap<String, BTreeMap<String, String>>,
     list_items: BTreeMap<String, Vec<String>>,
     list_seq: BTreeMap<String, i64>,
+    item_section_id: BTreeMap<String, String>,
 }
 
 impl SpecDocument {
@@ -245,6 +283,109 @@ impl SpecDocument {
         item_path
     }
 
+    /// Appends a new item to the list at `list_path`, assigns it `section_id`,
+    /// and returns its stable path. The id is checked for uniqueness against the
+    /// list's other items (AA1 criterion 5); a collision returns
+    /// [`SpecSectionIdError::Collision`] and leaves the document untouched.
+    /// Section id *generation* from a `@SectionIdPattern` lives in the caller (it
+    /// needs the pattern); this layer only stores and guards uniqueness.
+    pub fn add_list_item_with_section_id(
+        &mut self,
+        list_path: &str,
+        section_id: &str,
+    ) -> Result<String, SpecSectionIdError> {
+        self.assert_section_id_free(list_path, section_id, "")?;
+        let item_path = self.add_list_item(list_path);
+        self.item_section_id
+            .insert(item_path.clone(), section_id.to_string());
+        Ok(item_path)
+    }
+
+    /// Returns the section id assigned to the list item at `item_path`, or `None`
+    /// when none has been set (AA1 criterion 1 read path).
+    pub fn item_section_id(&self, item_path: &str) -> Option<&String> {
+        self.item_section_id.get(item_path)
+    }
+
+    /// Returns the section id assigned to `item_path`, or `""` when none.
+    pub fn item_section_id_or(&self, item_path: &str) -> String {
+        self.item_section_id.get(item_path).cloned().unwrap_or_default()
+    }
+
+    /// Overrides the section id of the list item at `item_path` (AA1 criterion
+    /// 5). It validates that the new id is unique among the *other* items of the
+    /// same owning list; a collision returns [`SpecSectionIdError::Collision`].
+    /// Assigning an id equal to the item's current id is a no-op. Returns
+    /// [`SpecSectionIdError::NotLiveItem`] if `item_path` is not a live list item.
+    pub fn set_item_section_id(&mut self, item_path: &str, id: &str) -> Result<(), SpecSectionIdError> {
+        let owning_list = match self.owning_list_of(item_path) {
+            Some(k) => k,
+            None => {
+                return Err(SpecSectionIdError::NotLiveItem {
+                    item_path: item_path.to_string(),
+                })
+            }
+        };
+        if let Some(cur) = self.item_section_id.get(item_path) {
+            if cur == id {
+                return Ok(());
+            }
+        }
+        self.assert_section_id_free(&owning_list, id, item_path)?;
+        self.item_section_id.insert(item_path.to_string(), id.to_string());
+        Ok(())
+    }
+
+    /// Returns the section ids currently assigned within the list at `list_path`,
+    /// in item order (items without an id are skipped). Feeds both id generation
+    /// (`existing_ids`) and uniqueness checks.
+    pub fn list_item_section_ids(&self, list_path: &str) -> Vec<String> {
+        let mut out = Vec::new();
+        if let Some(items) = self.list_items.get(list_path) {
+            for item_path in items {
+                if let Some(id) = self.item_section_id.get(item_path) {
+                    out.push(id.clone());
+                }
+            }
+        }
+        out
+    }
+
+    /// Returns the `list_items` key that owns `item_path`, or `None` when none
+    /// does.
+    fn owning_list_of(&self, item_path: &str) -> Option<String> {
+        self.list_items
+            .iter()
+            .find(|(_, items)| items.iter().any(|it| it == item_path))
+            .map(|(k, _)| k.clone())
+    }
+
+    /// Returns [`SpecSectionIdError::Collision`] when `id` is already used by an
+    /// item of `list_path` other than `except_item_path` (`""` for none).
+    fn assert_section_id_free(
+        &self,
+        list_path: &str,
+        id: &str,
+        except_item_path: &str,
+    ) -> Result<(), SpecSectionIdError> {
+        if let Some(items) = self.list_items.get(list_path) {
+            for item_path in items {
+                if item_path == except_item_path {
+                    continue;
+                }
+                if let Some(cur) = self.item_section_id.get(item_path) {
+                    if cur == id {
+                        return Err(SpecSectionIdError::Collision(SpecSectionIdCollision {
+                            id: id.to_string(),
+                            list_path: list_path.to_string(),
+                        }));
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+
     /// Removes the list item at `item_path` along with every value nested
     /// beneath it. The counter is left untouched so future items keep getting
     /// fresh sequence numbers (no renumbering). Returns whether an item was
@@ -276,6 +417,7 @@ impl SpecDocument {
         self.form.retain(|k, _| !is_under(k, prefix));
         self.list_items.retain(|k, _| !is_under(k, prefix));
         self.list_seq.retain(|k, _| !is_under(k, prefix));
+        self.item_section_id.retain(|k, _| !is_under(k, prefix));
     }
 
     // --- queries -----------------------------------------------------------
@@ -343,11 +485,18 @@ impl SpecDocument {
                 .get(k)
                 .copied()
                 .unwrap_or_else(|| items.len() as i64);
+            let mut ids = BTreeMap::new();
+            for item_path in items {
+                if let Some(id) = self.item_section_id.get(item_path) {
+                    ids.insert(item_path.clone(), id.clone());
+                }
+            }
             out.lists.insert(
                 k.clone(),
                 ListJson {
                     seq,
                     items: items.clone(),
+                    ids,
                 },
             );
         }
@@ -361,6 +510,7 @@ impl SpecDocument {
         self.form.clear();
         self.list_items.clear();
         self.list_seq.clear();
+        self.item_section_id.clear();
         for (k, v) in &j.content {
             self.content.insert(k.clone(), v.clone());
         }
@@ -379,6 +529,9 @@ impl SpecDocument {
                     spec.items.len() as i64
                 };
                 self.list_seq.insert(k.clone(), seq);
+                for (item_path, id) in &spec.ids {
+                    self.item_section_id.insert(item_path.clone(), id.clone());
+                }
             }
         }
     }

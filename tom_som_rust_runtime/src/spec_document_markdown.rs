@@ -448,7 +448,14 @@ impl<'a> SpecDocumentMarkdown<'a> {
         let mut out = BTreeMap::new();
         for (key, value) in items {
             let s = seq.get(&key).copied().unwrap_or(value.len() as i64);
-            out.insert(key, ListJson { seq: s, items: value });
+            out.insert(
+                key,
+                ListJson {
+                    seq: s,
+                    items: value,
+                    ids: BTreeMap::new(),
+                },
+            );
         }
         out
     }

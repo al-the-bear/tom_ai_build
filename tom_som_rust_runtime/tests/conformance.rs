@@ -26,6 +26,10 @@ use tom_som_rust_runtime::spec_document_markdown::SpecDocumentMarkdown;
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
 use tom_som_rust_runtime::spec_model::SpecModel;
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
+use tom_som_rust_runtime::spec_section_id::{
+    encode_two_letter_date, generate_list_item_section_id, is_collision,
+};
+use tom_som_rust_runtime::spec_serialization_order::SpecSerializationOrder;
 use tom_som_rust_runtime::spec_validator::validate_document;
 
 const MODEL_VERSION: &str = "1.0";
@@ -133,6 +137,8 @@ fn conformance() {
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
+    test_section_id(&mut c);
+    test_serialization_order(&mut c);
 
     c.finish();
 }
@@ -399,6 +405,138 @@ fn test_operations(c: &mut Checker) {
             other => c.check(&format!("{}.unknown", tag), false, other),
         }
     }
+}
+
+// --- section-id conformance (AA1 criteria 3–6) -----------------------------
+
+fn str_list(v: Option<&Json>) -> Vec<String> {
+    v.and_then(|j| j.as_array())
+        .map(|a| a.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect())
+        .unwrap_or_default()
+}
+
+fn test_section_id(c: &mut Checker) {
+    let cases = read_json("section_id_cases.json");
+
+    // Criterion 4: the two-letter day code.
+    for tc in cases.get("twoLetterDate").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let month = tc.get("month").and_then(|v| v.as_i64()).unwrap_or(0);
+        let day = tc.get("day").and_then(|v| v.as_i64()).unwrap_or(0);
+        let expect = tc.str_or("expect");
+        let got = encode_two_letter_date(month, day);
+        c.check(
+            &format!("sectionId.twoLetterDate[{}/{}]", month, day),
+            got == expect,
+            &format!("{} != {}", got, expect),
+        );
+    }
+
+    // Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+    for tc in cases.get("generate").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let pattern = tc.str_or("pattern");
+        let month = tc.get("month").and_then(|v| v.as_i64()).unwrap_or(0);
+        let day = tc.get("day").and_then(|v| v.as_i64()).unwrap_or(0);
+        let existing = str_list(tc.get("existing"));
+        let expect = tc.str_or("expect");
+        let got = generate_list_item_section_id(&pattern, month, day, &existing);
+        c.check(
+            &format!("sectionId.generate[{}]", pattern),
+            got == expect,
+            &format!("{} != {}", got, expect),
+        );
+    }
+
+    // Criteria 5 & 6 at the document level.
+    let mut doc = SpecDocument::new();
+    for (i, s) in cases.get("documentOps").and_then(|v| v.as_array()).unwrap_or(&[]).iter().enumerate() {
+        let op = s.str_or("op");
+        let tag = format!("sectionId.op[{}].{}", i, op);
+        match op.as_str() {
+            "addGen" => {
+                let list_path = s.str_or("listPath");
+                let pattern = s.str_or("pattern");
+                let month = s.get("month").and_then(|v| v.as_i64()).unwrap_or(0);
+                let day = s.get("day").and_then(|v| v.as_i64()).unwrap_or(0);
+                let expect_id = s.str_or("expectId");
+                let expect_path = s.str_or("expectPath");
+                let gen_id = generate_list_item_section_id(
+                    &pattern,
+                    month,
+                    day,
+                    &doc.list_item_section_ids(&list_path),
+                );
+                c.check(
+                    &format!("{}.id", tag),
+                    gen_id == expect_id,
+                    &format!("{} != {}", gen_id, expect_id),
+                );
+                match doc.add_list_item_with_section_id(&list_path, &gen_id) {
+                    Ok(p) => {
+                        c.check(
+                            &format!("{}.path", tag),
+                            p == expect_path,
+                            &format!("{} != {}", p, expect_path),
+                        );
+                    }
+                    Err(e) => c.check(&format!("{}.add", tag), false, &e.to_string()),
+                }
+            }
+            "sectionIds" => {
+                let exp = str_list(s.get("expect"));
+                let got = doc.list_item_section_ids(&s.str_or("listPath"));
+                c.check(&tag, got == exp, &format!("{} != {}", got.join(","), exp.join(",")));
+            }
+            "removeListItem" => {
+                let exp = s.get("expect").and_then(|v| v.as_bool()).unwrap_or(false);
+                c.check(&tag, doc.remove_list_item(&s.str_or("itemPath")) == exp, "");
+            }
+            "override" => match doc.set_item_section_id(&s.str_or("itemPath"), &s.str_or("id")) {
+                Ok(()) => {}
+                Err(e) => c.check(&tag, false, &format!("unexpected error: {}", e)),
+            },
+            "overrideThrows" => {
+                let collided = matches!(
+                    doc.set_item_section_id(&s.str_or("itemPath"), &s.str_or("id")),
+                    Err(ref e) if is_collision(e)
+                );
+                c.check(&tag, collided, "expected collision");
+            }
+            "addExplicitThrows" => {
+                let collided = matches!(
+                    doc.add_list_item_with_section_id(&s.str_or("listPath"), &s.str_or("id")),
+                    Err(ref e) if is_collision(e)
+                );
+                c.check(&tag, collided, "expected collision");
+            }
+            other => c.check(&format!("{}.unknown", tag), false, other),
+        }
+    }
+}
+
+// --- serialization-order conformance (AA1 criterion 7) ---------------------
+
+fn test_serialization_order(c: &mut Checker) {
+    let cases = read_json("serialization_order_cases.json");
+    let model = SpecModel::from_json(cases.get("model").expect("serialization order model"));
+    let order = SpecSerializationOrder::new(&model);
+
+    let content_paths = str_list(cases.get("contentPaths"));
+    let expected_order = str_list(cases.get("expectedOrder"));
+    let got_paths = order.order_paths(&content_paths);
+    c.check(
+        "serialOrder.orderPaths",
+        got_paths == expected_order,
+        &format!("{} != {}", got_paths.join(","), expected_order.join(",")),
+    );
+
+    let form_fields = str_list(cases.get("formFields"));
+    let expected_form_order = str_list(cases.get("expectedFormOrder"));
+    let got_fields = order.order_form_fields(&cases.str_or("formPath"), &form_fields);
+    c.check(
+        "serialOrder.orderFormFields",
+        got_fields == expected_form_order,
+        &format!("{} != {}", got_fields.join(","), expected_form_order.join(",")),
+    );
 }
 
 // --- small helpers ---------------------------------------------------------

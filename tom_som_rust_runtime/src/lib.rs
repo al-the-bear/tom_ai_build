@@ -21,6 +21,8 @@ pub mod spec_document_yaml;
 pub mod spec_model;
 pub mod spec_paths;
 pub mod spec_reflection;
+pub mod spec_section_id;
+pub mod spec_serialization_order;
 pub mod spec_validator;
 pub mod yaml;
 
@@ -36,7 +38,7 @@ pub use spec_document_markdown::{
     SpecDocumentMarkdown, SpecMarkdownRejection, SpecMarkdownResult,
 };
 pub use spec_document_yaml::{
-    decode_yaml, encode_yaml, js_json_string, SpecYamlContents, FORMAT_VERSION,
+    decode_yaml, encode_yaml, encode_yaml_ordered, js_json_string, SpecYamlContents, FORMAT_VERSION,
 };
 pub use spec_model::{
     parse_field_kind, FormFieldSpec, SpecAnnotation, SpecClass, SpecField, SpecModel, SpecRoot,
@@ -45,4 +47,9 @@ pub use spec_paths::{
     list_item_path, spec_path_join, spec_path_segments, split_list_item_segment, ListItemSegment,
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
+pub use spec_section_id::{
+    encode_two_letter_date, generate_list_item_section_id, is_collision, section_id_pattern_prefix,
+    today_month_day, SpecSectionIdCollision, SpecSectionIdError,
+};
+pub use spec_serialization_order::{SpecSerializationOrder, SERIALIZATION_UNORDERED_FALLBACK};
 pub use spec_validator::{validate_document, SpecValidationError};

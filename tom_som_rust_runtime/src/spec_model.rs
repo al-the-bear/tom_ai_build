@@ -83,6 +83,10 @@ pub struct SpecField {
     pub type_: String,
     pub form_fields: Vec<FormFieldSpec>,
     pub annotations: Vec<SpecAnnotation>,
+    /// The field's `@SerializationOrder` (its declaration order in the SOM
+    /// source), or `None` when unannotated. Drives model-aware YAML member
+    /// ordering (AA1 criterion 7).
+    pub serialization_order: Option<i64>,
 }
 
 impl SpecField {
@@ -261,6 +265,7 @@ fn field_from_json(f: &Json) -> SpecField {
         type_: f.str_or("type"),
         form_fields,
         annotations: annotations_from_json(f.get("annotations")),
+        serialization_order: f.get("serializationOrder").and_then(|v| v.as_i64()),
     }
 }
 

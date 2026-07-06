@@ -35,6 +35,7 @@ impl AcceptanceCriteriaList {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DACEN-ITEM-LST"),
             Box::new(|d, p| DeliveryAcceptanceCriterionEntry::new(d, p)),
+            "DACEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -215,6 +216,7 @@ impl AcceptanceProcess {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACST-STEP-LST"),
             Box::new(|d, p| AcceptanceStepEntry::new(d, p)),
+            "ACST-STEP-xxx".to_string(),
         )
     }
 }
@@ -415,6 +417,7 @@ impl AccessChannels {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ICE-CHAN-LST"),
             Box::new(|d, p| InteractionChannelEntry::new(d, p)),
+            "ICE-CHAN-xxx".to_string(),
         )
     }
 }
@@ -592,6 +595,7 @@ impl AccessLevels {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACLV-LEVE-LST"),
             Box::new(|d, p| AccessLevelEntry::new(d, p)),
+            "ACLV-LEVE-xxx".to_string(),
         )
     }
 
@@ -650,6 +654,7 @@ impl AccessUserCategories {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USCDF-ITEM-LST"),
             Box::new(|d, p| UserCategoryDefinition::new(d, p)),
+            "USCDF-ITEM-xxx".to_string(),
         )
     }
 }
@@ -815,6 +820,7 @@ impl AccessibilityChecklist {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACCH-ITEM-LST"),
             Box::new(|d, p| AccessibilityCheckEntry::new(d, p)),
+            "ACCH-ITEM-xxx".to_string(),
         )
     }
 }
@@ -1238,6 +1244,7 @@ impl ActorEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACGO-GOAL-LST"),
             Box::new(|d, p| ActorGoals::new(d, p)),
+            "ACGO-GOAL-xxx".to_string(),
         )
     }
 
@@ -1247,6 +1254,7 @@ impl ActorEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACPE-PERM-LST"),
             Box::new(|d, p| ActorPermissions::new(d, p)),
+            "ACPE-PERM-xxx".to_string(),
         )
     }
 
@@ -1343,6 +1351,7 @@ impl ActorOverview {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACEN-ACTO-LST"),
             Box::new(|d, p| ActorEntry::new(d, p)),
+            "ACEN-ACTO-xxx".to_string(),
         )
     }
 
@@ -2043,6 +2052,7 @@ impl AlertingConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ALRUEN-ALER-LST"),
             Box::new(|d, p| AlertRuleEntry::new(d, p)),
+            "ALRUEN-ALER-xxx".to_string(),
         )
     }
 
@@ -2057,6 +2067,7 @@ impl AlertingConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ALSURU-SUPP-LST"),
             Box::new(|d, p| AlertSuppressionRules::new(d, p)),
+            "ALSURU-SUPP-xxx".to_string(),
         )
     }
 
@@ -2187,6 +2198,7 @@ impl AlternativeFlowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ALST-STEP-LST"),
             Box::new(|d, p| AlternativeStepEntry::new(d, p)),
+            "ALST-STEP-xxx".to_string(),
         )
     }
 }
@@ -2686,6 +2698,7 @@ impl ApplicableRegulationEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMPL-COMP-LST"),
             Box::new(|d, p| ComplianceMeasureEntry::new(d, p)),
+            "COMPL-COMP-xxx".to_string(),
         )
     }
 }
@@ -3457,6 +3470,7 @@ impl ArchitectureStyle {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ARPR-PRIN-LST"),
             Box::new(|d, p| ArchitecturePrincipleEntry::new(d, p)),
+            "ARPR-PRIN-xxx".to_string(),
         )
     }
 
@@ -3471,6 +3485,7 @@ impl ArchitectureStyle {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ARCM-COMP-LST"),
             Box::new(|d, p| ArchitectureComponentEntry::new(d, p)),
+            "ARCM-COMP-xxx".to_string(),
         )
     }
 
@@ -3505,6 +3520,7 @@ impl ArchitectureStyle {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ARDE-DECI-LST"),
             Box::new(|d, p| ArchitectureDecisionRecord::new(d, p)),
+            "ARDE-DECI-xxx".to_string(),
         )
     }
 }
@@ -3535,6 +3551,7 @@ impl AssumptionConstraintDependencyRegister {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACRG-ASMP-LST"),
             Box::new(|d, p| AssumptionRegisterEntry::new(d, p)),
+            "ACRG-ASMP-xxx".to_string(),
         )
     }
 
@@ -3544,6 +3561,7 @@ impl AssumptionConstraintDependencyRegister {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACRG-CONS-LST"),
             Box::new(|d, p| ConstraintRegisterEntry::new(d, p)),
+            "ACRG-CONS-xxx".to_string(),
         )
     }
 
@@ -3554,6 +3572,7 @@ impl AssumptionConstraintDependencyRegister {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACRG-DEPS-LST"),
             Box::new(|d, p| DependencyRegisterEntry::new(d, p)),
+            "ACRG-DEPS-xxx".to_string(),
         )
     }
 }
@@ -3702,6 +3721,7 @@ impl AuditEvidenceRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AUEVTY-EVID-LST"),
             Box::new(|d, p| AuditEvidenceTypeEntry::new(d, p)),
+            "AUEVTY-EVID-xxx".to_string(),
         )
     }
 }
@@ -3797,6 +3817,7 @@ impl AuditRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AUD-AUDI-LST"),
             Box::new(|d, p| AuditEntry::new(d, p)),
+            "AUD-AUDI-xxx".to_string(),
         )
     }
 
@@ -3962,6 +3983,7 @@ impl AuthenticationFlow {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "LGFLS-LOGI-LST"),
             Box::new(|d, p| LoginFlowStepEntry::new(d, p)),
+            "LGFLS-LOGI-xxx".to_string(),
         )
     }
 }
@@ -4128,6 +4150,7 @@ impl AuthenticationMethods {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ATME-ITEM-LST"),
             Box::new(|d, p| AuthenticationMethodEntry::new(d, p)),
+            "ATME-ITEM-xxx".to_string(),
         )
     }
 }
@@ -4174,6 +4197,7 @@ impl AuthorizationGroupEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLREF-CONT-LST"),
             Box::new(|d, p| RoleReferenceEntry::new(d, p)),
+            "ROLREF-CONT-xxx".to_string(),
         )
     }
 }
@@ -4277,6 +4301,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPREF-RESP-LST"),
             Box::new(|d, p| ResponsibilityReferenceEntry::new(d, p)),
+            "RSPREF-RESP-xxx".to_string(),
         )
     }
 
@@ -4286,6 +4311,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENREFE-ENTI-LST"),
             Box::new(|d, p| EntitlementReferenceEntry::new(d, p)),
+            "ENREFE-ENTI-xxx".to_string(),
         )
     }
 
@@ -4295,6 +4321,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLPERM-DIRE-LST"),
             Box::new(|d, p| RolePermissionEntry::new(d, p)),
+            "ROLPERM-DIRE-xxx".to_string(),
         )
     }
 
@@ -4304,6 +4331,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLDSCP-DATA-LST"),
             Box::new(|d, p| RoleDataScopeEntry::new(d, p)),
+            "ROLDSCP-DATA-xxx".to_string(),
         )
     }
 
@@ -4313,6 +4341,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLEXC-MUTU-LST"),
             Box::new(|d, p| RoleExclusionEntry::new(d, p)),
+            "ROLEXC-MUTU-xxx".to_string(),
         )
     }
 
@@ -4322,6 +4351,7 @@ impl AuthorizationRoleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLHLD-TYPI-LST"),
             Box::new(|d, p| RoleHolderEntry::new(d, p)),
+            "ROLHLD-TYPI-xxx".to_string(),
         )
     }
 }
@@ -4530,6 +4560,7 @@ impl BackupAndRecoverySection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BAPOEN-BACK-LST"),
             Box::new(|d, p| BackupPolicyEntry::new(d, p)),
+            "BAPOEN-BACK-xxx".to_string(),
         )
     }
 
@@ -5450,6 +5481,7 @@ impl BoundaryAssumptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BOASEN-ITEM-LST"),
             Box::new(|d, p| BoundaryAssumptionEntry::new(d, p)),
+            "BOASEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -5618,6 +5650,7 @@ impl BreakpointConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BRE-BREA-LST"),
             Box::new(|d, p| BreakpointEntry::new(d, p)),
+            "BRE-BREA-xxx".to_string(),
         )
     }
 }
@@ -6462,6 +6495,7 @@ impl BusinessGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BGE-GOAL-LST"),
             Box::new(|d, p| BusinessGoalEntry::new(d, p)),
+            "BGE-GOAL-xxx".to_string(),
         )
     }
 }
@@ -6679,6 +6713,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BEHAV-BEHA-LST"),
             Box::new(|d, p| BehaviorRuleEntry::new(d, p)),
+            "BEHAV-BEHA-xxx".to_string(),
         )
     }
 
@@ -6691,6 +6726,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INTEG-INTE-LST"),
             Box::new(|d, p| IntegrationPointEntry::new(d, p)),
+            "INTEG-INTE-xxx".to_string(),
         )
     }
 
@@ -6700,6 +6736,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BIOBAT-ATTR-LST"),
             Box::new(|d, p| BusinessObjectAttributeEntry::new(d, p)),
+            "BIOBAT-ATTR-xxx".to_string(),
         )
     }
 
@@ -6709,6 +6746,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OBST-KEYS-LST"),
             Box::new(|d, p| ObjectStateEntry::new(d, p)),
+            "OBST-KEYS-xxx".to_string(),
         )
     }
 
@@ -6718,6 +6756,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BIRURE-KEYB-LST"),
             Box::new(|d, p| BusinessRuleReferenceEntry::new(d, p)),
+            "BIRURE-KEYB-xxx".to_string(),
         )
     }
 
@@ -6727,6 +6766,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "LFTRS-LIFE-LST"),
             Box::new(|d, p| LifecycleTransitionEntry::new(d, p)),
+            "LFTRS-LIFE-xxx".to_string(),
         )
     }
 
@@ -6736,6 +6776,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OBOP-OPER-LST"),
             Box::new(|d, p| ObjectOperationEntry::new(d, p)),
+            "OBOP-OPER-xxx".to_string(),
         )
     }
 
@@ -6745,6 +6786,7 @@ impl BusinessObjectEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OBINV-INVA-LST"),
             Box::new(|d, p| ObjectInvariantEntry::new(d, p)),
+            "OBINV-INVA-xxx".to_string(),
         )
     }
 }
@@ -6775,6 +6817,7 @@ impl BusinessObjectModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
             Box::new(|d, p| BusinessObjectEntry::new(d, p)),
+            "BJOEN-OBJE-xxx".to_string(),
         )
     }
 
@@ -6816,6 +6859,7 @@ impl BusinessPainPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BUPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
+            "BUPAPO-ITEM-xxx".to_string(),
         )
     }
 }
@@ -6896,6 +6940,7 @@ impl BusinessProcessDescriptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
             Box::new(|d, p| DetailedProcessWorkflow::new(d, p)),
+            "DEPRWO-DETA-xxx".to_string(),
         )
     }
 
@@ -6915,6 +6960,7 @@ impl BusinessProcessDescriptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
             Box::new(|d, p| ProcessMetric::new(d, p)),
+            "PMAK-PROC-xxx".to_string(),
         )
     }
 }
@@ -7024,6 +7070,7 @@ impl BusinessRuleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AFOB-AFFE-LST"),
             Box::new(|d, p| AffectedObjectEntry::new(d, p)),
+            "AFOB-AFFE-xxx".to_string(),
         )
     }
 
@@ -7033,6 +7080,7 @@ impl BusinessRuleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AFFN-AFFE-LST"),
             Box::new(|d, p| AffectedFunctionEntry::new(d, p)),
+            "AFFN-AFFE-xxx".to_string(),
         )
     }
 
@@ -7042,6 +7090,7 @@ impl BusinessRuleEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RULEXM-EXAM-LST"),
             Box::new(|d, p| RuleExampleEntry::new(d, p)),
+            "RULEXM-EXAM-xxx".to_string(),
         )
     }
 }
@@ -7759,6 +7808,7 @@ impl ChangeControlBoard {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CCME-MEMB-LST"),
             Box::new(|d, p| CcbMemberEntry::new(d, p)),
+            "CCME-MEMB-xxx".to_string(),
         )
     }
 }
@@ -7856,6 +7906,7 @@ impl ChangeImpactCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IMLEDE-IMPA-LST"),
             Box::new(|d, p| ImpactLevelDefinitions::new(d, p)),
+            "IMLEDE-IMPA-xxx".to_string(),
         )
     }
 
@@ -7865,6 +7916,7 @@ impl ChangeImpactCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHIMCR-ITEM-LST"),
             Box::new(|d, p| ChangeImpactCriterionEntry::new(d, p)),
+            "CHIMCR-ITEM-xxx".to_string(),
         )
     }
 }
@@ -8037,6 +8089,7 @@ impl ChangeProcedure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHCA-CHAN-LST"),
             Box::new(|d, p| ChangeCategoryEntry::new(d, p)),
+            "CHCA-CHAN-xxx".to_string(),
         )
     }
 }
@@ -8084,6 +8137,7 @@ impl ChangeProcess {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHST-STEP-LST"),
             Box::new(|d, p| ChangeStepEntry::new(d, p)),
+            "CHST-STEP-xxx".to_string(),
         )
     }
 
@@ -8093,6 +8147,7 @@ impl ChangeProcess {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHRO-ROLE-LST"),
             Box::new(|d, p| ChangeRoleEntry::new(d, p)),
+            "CHRO-ROLE-xxx".to_string(),
         )
     }
 
@@ -8107,6 +8162,7 @@ impl ChangeProcess {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHNORU-NOTI-LST"),
             Box::new(|d, p| ChangeNotificationRules::new(d, p)),
+            "CHNORU-NOTI-xxx".to_string(),
         )
     }
 }
@@ -8133,6 +8189,7 @@ impl ChangeReadinessAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RDRCE-READ-LST"),
             Box::new(|d, p| ReadinessCriteriaEntry::new(d, p)),
+            "RDRCE-READ-xxx".to_string(),
         )
     }
 }
@@ -8291,6 +8348,7 @@ impl ChangedRoleCompetencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLCP-NEWC-LST"),
             Box::new(|d, p| RoleCompetencyEntry::new(d, p)),
+            "ROLCP-NEWC-xxx".to_string(),
         )
     }
 
@@ -8300,6 +8358,7 @@ impl ChangedRoleCompetencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLCP-REMO-LST"),
             Box::new(|d, p| RoleCompetencyEntry::new(d, p)),
+            "ROLCP-REMO-xxx".to_string(),
         )
     }
 
@@ -8309,6 +8368,7 @@ impl ChangedRoleCompetencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COLVCH-CHAN-LST"),
             Box::new(|d, p| CompetencyLevelChangeEntry::new(d, p)),
+            "COLVCH-CHAN-xxx".to_string(),
         )
     }
 
@@ -8454,6 +8514,7 @@ impl ChangedRoleResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPCH-ADDE-LST"),
             Box::new(|d, p| ResponsibilityChangeEntry::new(d, p)),
+            "RSPCH-ADDE-xxx".to_string(),
         )
     }
 
@@ -8463,6 +8524,7 @@ impl ChangedRoleResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPCH-REMO-LST"),
             Box::new(|d, p| ResponsibilityChangeEntry::new(d, p)),
+            "RSPCH-REMO-xxx".to_string(),
         )
     }
 
@@ -8472,6 +8534,7 @@ impl ChangedRoleResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPCH-MODI-LST"),
             Box::new(|d, p| ResponsibilityChangeEntry::new(d, p)),
+            "RSPCH-MODI-xxx".to_string(),
         )
     }
 
@@ -8586,6 +8649,7 @@ impl ChangesFromCurrentStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ORGCE-ITEM-LST"),
             Box::new(|d, p| OrganizationalChangeEntry::new(d, p)),
+            "ORGCE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -8655,6 +8719,7 @@ impl CiCdPipelineConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PISTEN-STAG-LST"),
             Box::new(|d, p| PipelineStageEntry::new(d, p)),
+            "PISTEN-STAG-xxx".to_string(),
         )
     }
 
@@ -8664,6 +8729,7 @@ impl CiCdPipelineConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PIJOEN-JOBS-LST"),
             Box::new(|d, p| PipelineJobEntry::new(d, p)),
+            "PIJOEN-JOBS-xxx".to_string(),
         )
     }
 
@@ -8673,6 +8739,7 @@ impl CiCdPipelineConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEENEN-ENVI-LST"),
             Box::new(|d, p| DeploymentEnvironmentEntry::new(d, p)),
+            "DEENEN-ENVI-xxx".to_string(),
         )
     }
 }
@@ -9109,6 +9176,7 @@ impl ClientRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BRREEN-BROW-LST"),
             Box::new(|d, p| BrowserRequirementEntry::new(d, p)),
+            "BRREEN-BROW-xxx".to_string(),
         )
     }
 
@@ -9118,6 +9186,7 @@ impl ClientRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DORE1-DESK-LST"),
             Box::new(|d, p| DesktopOsRequirementEntry::new(d, p)),
+            "DORE1-DESK-xxx".to_string(),
         )
     }
 
@@ -9127,6 +9196,7 @@ impl ClientRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MDRE-MOBI-LST"),
             Box::new(|d, p| MobileDeviceRequirementEntry::new(d, p)),
+            "MDRE-MOBI-xxx".to_string(),
         )
     }
 
@@ -9969,6 +10039,7 @@ impl CommitteeMemberEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMRS-RESP-LST"),
             Box::new(|d, p| CommitteeResponsibilityEntry::new(d, p)),
+            "COMRS-RESP-xxx".to_string(),
         )
     }
 }
@@ -10100,6 +10171,7 @@ impl CommunicationMatrix {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COTY-COMM-LST"),
             Box::new(|d, p| CommunicationTypeEntry::new(d, p)),
+            "COTY-COMM-xxx".to_string(),
         )
     }
 }
@@ -10365,6 +10437,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OSCOEN-OSCO-LST"),
             Box::new(|d, p| OsCompatibilityEntry::new(d, p)),
+            "OSCOEN-OSCO-xxx".to_string(),
         )
     }
 
@@ -10374,6 +10447,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BRCOEN-BROW-LST"),
             Box::new(|d, p| BrowserCompatibilityEntry::new(d, p)),
+            "BRCOEN-BROW-xxx".to_string(),
         )
     }
 
@@ -10383,6 +10457,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DACOEN-DATA-LST"),
             Box::new(|d, p| DatabaseCompatibilityEntry::new(d, p)),
+            "DACOEN-DATA-xxx".to_string(),
         )
     }
 
@@ -10392,6 +10467,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ESCE-ENTE-LST"),
             Box::new(|d, p| EnterpriseSystemCompatibilityEntry::new(d, p)),
+            "ESCE-ENTE-xxx".to_string(),
         )
     }
 
@@ -10401,6 +10477,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "APCP-APIC-LST"),
             Box::new(|d, p| ApiCompatibilityEntry::new(d, p)),
+            "APCP-APIC-xxx".to_string(),
         )
     }
 
@@ -10410,6 +10487,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "LECOEN-LEGA-LST"),
             Box::new(|d, p| LegacyCompatibilityEntry::new(d, p)),
+            "LECOEN-LEGA-xxx".to_string(),
         )
     }
 
@@ -10419,6 +10497,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MOCOEN-MOBI-LST"),
             Box::new(|d, p| MobileCompatibilityEntry::new(d, p)),
+            "MOCOEN-MOBI-xxx".to_string(),
         )
     }
 
@@ -10428,6 +10507,7 @@ impl CompatibilityRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TPCE-THIR-LST"),
             Box::new(|d, p| ThirdPartyCompatibilityEntry::new(d, p)),
+            "TPCE-THIR-xxx".to_string(),
         )
     }
 
@@ -10485,6 +10565,7 @@ impl CompetencyFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMPE-CORE-LST"),
             Box::new(|d, p| CompetencyEntry::new(d, p)),
+            "COMPE-CORE-xxx".to_string(),
         )
     }
 
@@ -10494,6 +10575,7 @@ impl CompetencyFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMPE-TECH-LST"),
             Box::new(|d, p| CompetencyEntry::new(d, p)),
+            "COMPE-TECH-xxx".to_string(),
         )
     }
 
@@ -10503,6 +10585,7 @@ impl CompetencyFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMPE-LEAD-LST"),
             Box::new(|d, p| CompetencyEntry::new(d, p)),
+            "COMPE-LEAD-xxx".to_string(),
         )
     }
 }
@@ -11101,6 +11184,7 @@ impl ComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CODO-DOCS-LST"),
             Box::new(|d, p| ComponentDocs::new(d, p)),
+            "CODO-DOCS-xxx".to_string(),
         )
     }
 
@@ -11110,6 +11194,7 @@ impl ComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMIF-INTE-LST"),
             Box::new(|d, p| ComponentInterfaceEntry::new(d, p)),
+            "CMIF-INTE-xxx".to_string(),
         )
     }
 
@@ -11127,6 +11212,7 @@ impl ComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COREEN-RESP-LST"),
             Box::new(|d, p| ComponentResponsibilitiesEntry::new(d, p)),
+            "COREEN-RESP-xxx".to_string(),
         )
     }
 }
@@ -11157,6 +11243,7 @@ impl ComponentFamilyEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FAMREF-COMP-LST"),
             Box::new(|d, p| FamilyComponentRef::new(d, p)),
+            "FAMREF-COMP-xxx".to_string(),
         )
     }
 }
@@ -11403,6 +11490,7 @@ impl ComponentLibrary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DESIG-DESI-LST"),
             Box::new(|d, p| DesignFoundationEntry::new(d, p)),
+            "DESIG-DESI-xxx".to_string(),
         )
     }
 
@@ -11443,6 +11531,7 @@ impl ComponentLibrary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COPA-COLO-LST"),
             Box::new(|d, p| ColorPaletteEntry::new(d, p)),
+            "COPA-COLO-xxx".to_string(),
         )
     }
 
@@ -11452,6 +11541,7 @@ impl ComponentLibrary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TYST-TYPO-LST"),
             Box::new(|d, p| TypographyStyleEntry::new(d, p)),
+            "TYST-TYPO-xxx".to_string(),
         )
     }
 }
@@ -12058,6 +12148,7 @@ impl ComponentRiskAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMRS-RISK-LST"),
             Box::new(|d, p| ComponentRiskEntry::new(d, p)),
+            "CMRS-RISK-xxx".to_string(),
         )
     }
 
@@ -12343,6 +12434,7 @@ impl ComponentStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RGUSE-REUS-LST"),
             Box::new(|d, p| ReuseGoalEntry::new(d, p)),
+            "RGUSE-REUS-xxx".to_string(),
         )
     }
 
@@ -12579,6 +12671,7 @@ impl ComponentsAndDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMPNT-COMP-LST"),
             Box::new(|d, p| ComponentEntry::new(d, p)),
+            "CMPNT-COMP-xxx".to_string(),
         )
     }
 
@@ -12826,6 +12919,7 @@ impl ConfidentialityRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COINCA-CATE-LST"),
             Box::new(|d, p| ConfidentialInfoCategoryEntry::new(d, p)),
+            "COINCA-CATE-xxx".to_string(),
         )
     }
 
@@ -13298,6 +13392,7 @@ impl ContextualHelp {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FLDHP-FIEL-LST"),
             Box::new(|d, p| FieldHelpEntry::new(d, p)),
+            "FLDHP-FIEL-xxx".to_string(),
         )
     }
 }
@@ -13552,6 +13647,7 @@ impl ContingencyPlans {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COPL-ITEM-LST"),
             Box::new(|d, p| ContingencyPlanEntry::new(d, p)),
+            "COPL-ITEM-xxx".to_string(),
         )
     }
 }
@@ -14006,6 +14102,7 @@ impl CurrentArchitecture {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IPE-INTE-LST"),
             Box::new(|d, p| IntegrationPatternEntry::new(d, p)),
+            "IPE-INTE-xxx".to_string(),
         )
     }
 
@@ -14015,6 +14112,7 @@ impl CurrentArchitecture {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SHARE-SHAR-LST"),
             Box::new(|d, p| SharedServiceEntry::new(d, p)),
+            "SHARE-SHAR-xxx".to_string(),
         )
     }
 }
@@ -14114,6 +14212,7 @@ impl CurrentBusinessProcesses {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUBIPR-PROC-LST"),
             Box::new(|d, p| CurrentBusinessProcess::new(d, p)),
+            "CUBIPR-PROC-xxx".to_string(),
         )
     }
 }
@@ -14152,6 +14251,7 @@ impl CurrentDataClassification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DCLE-CLAS-LST"),
             Box::new(|d, p| DataClassificationLevelEntry::new(d, p)),
+            "DCLE-CLAS-xxx".to_string(),
         )
     }
 
@@ -14161,6 +14261,7 @@ impl CurrentDataClassification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DCSE-CLAS-LST"),
             Box::new(|d, p| DataClassificationStatusEntry::new(d, p)),
+            "DCSE-CLAS-xxx".to_string(),
         )
     }
 }
@@ -14314,6 +14415,7 @@ impl CurrentLandscape {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
             Box::new(|d, p| CurrentOperationalMetric::new(d, p)),
+            "CUOPME-OPER-xxx".to_string(),
         )
     }
 
@@ -14427,6 +14529,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WSE-STEP-LST"),
             Box::new(|d, p| WorkflowStepEntry::new(d, p)),
+            "WSE-STEP-xxx".to_string(),
         )
     }
 
@@ -14436,6 +14539,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WFAC-ACTO-LST"),
             Box::new(|d, p| WorkflowActorEntry::new(d, p)),
+            "WFAC-ACTO-xxx".to_string(),
         )
     }
 
@@ -14445,6 +14549,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOINEN-INPU-LST"),
             Box::new(|d, p| WorkflowInputEntry::new(d, p)),
+            "WOINEN-INPU-xxx".to_string(),
         )
     }
 
@@ -14454,6 +14559,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOOUEN-OUTP-LST"),
             Box::new(|d, p| WorkflowOutputEntry::new(d, p)),
+            "WOOUEN-OUTP-xxx".to_string(),
         )
     }
 
@@ -14463,6 +14569,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WODEPO-DECI-LST"),
             Box::new(|d, p| WorkflowDecisionPoint::new(d, p)),
+            "WODEPO-DECI-xxx".to_string(),
         )
     }
 
@@ -14472,6 +14579,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOBURU-BUSI-LST"),
             Box::new(|d, p| WorkflowBusinessRule::new(d, p)),
+            "WOBURU-BUSI-xxx".to_string(),
         )
     }
 
@@ -14481,6 +14589,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WSE-MANU-LST"),
             Box::new(|d, p| WorkflowStepEntry::new(d, p)),
+            "WSE-MANU-xxx".to_string(),
         )
     }
 
@@ -14490,6 +14599,7 @@ impl CurrentWorkflowEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WSE-ERRO-LST"),
             Box::new(|d, p| WorkflowStepEntry::new(d, p)),
+            "WSE-ERRO-xxx".to_string(),
         )
     }
 
@@ -14525,6 +14635,7 @@ impl CustomDistributionGroup {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSRC-MEMB-LST"),
             Box::new(|d, p| DistributionRecipientEntry::new(d, p)),
+            "DSRC-MEMB-xxx".to_string(),
         )
     }
 }
@@ -14740,6 +14851,7 @@ impl D01CurrentLandscapeAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
             Box::new(|d, p| CurrentOperationalMetric::new(d, p)),
+            "CUOPME-OPER-xxx".to_string(),
         )
     }
 
@@ -14835,6 +14947,7 @@ impl D02TargetOperatingModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
             Box::new(|d, p| DetailedProcessWorkflow::new(d, p)),
+            "DEPRWO-DETA-xxx".to_string(),
         )
     }
 
@@ -14854,6 +14967,7 @@ impl D02TargetOperatingModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
             Box::new(|d, p| ProcessMetric::new(d, p)),
+            "PMAK-PROC-xxx".to_string(),
         )
     }
 }
@@ -14905,6 +15019,7 @@ impl D03InformationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
             Box::new(|d, p| DataEntityEntry::new(d, p)),
+            "DAENT-ENTI-xxx".to_string(),
         )
     }
 
@@ -14927,6 +15042,7 @@ impl D03InformationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
             Box::new(|d, p| BusinessObjectEntry::new(d, p)),
+            "BJOEN-OBJE-xxx".to_string(),
         )
     }
 
@@ -14939,6 +15055,7 @@ impl D03InformationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
             Box::new(|d, p| FunctionEntry::new(d, p)),
+            "FUNCT-FUNC-xxx".to_string(),
         )
     }
 
@@ -14948,6 +15065,7 @@ impl D03InformationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FNDMX-FUNC-LST"),
             Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
+            "FNDMX-FUNC-xxx".to_string(),
         )
     }
 
@@ -14957,6 +15075,7 @@ impl D03InformationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
             Box::new(|d, p| BusinessRuleEntry::new(d, p)),
+            "BIRU-BUSI-xxx".to_string(),
         )
     }
 
@@ -15063,6 +15182,7 @@ impl D04RequirementsSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
             Box::new(|d, p| RequirementRelationships::new(d, p)),
+            "RERE-REQU-xxx".to_string(),
         )
     }
 
@@ -15143,6 +15263,7 @@ impl D05InteractionScenarios {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
             Box::new(|d, p| EndToEndTestScenario::new(d, p)),
+            "ETETS-ENDT-xxx".to_string(),
         )
     }
 
@@ -15320,6 +15441,7 @@ impl D07IntegrationInterfaceSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BOINPA-INTE-LST"),
             Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
+            "BOINPA-INTE-xxx".to_string(),
         )
     }
 
@@ -15339,6 +15461,7 @@ impl D07IntegrationInterfaceSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
             Box::new(|d, p| MigrationInteractions::new(d, p)),
+            "MIIN-MIGR-xxx".to_string(),
         )
     }
 
@@ -15348,6 +15471,7 @@ impl D07IntegrationInterfaceSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
             Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
+            "CBOC-OPER-xxx".to_string(),
         )
     }
 
@@ -15735,6 +15859,7 @@ impl D11DeliveryRoadmap {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
             Box::new(|d, p| StageEntry::new(d, p)),
+            "STAGE-STAG-xxx".to_string(),
         )
     }
 
@@ -16267,6 +16392,7 @@ impl DataAttributeEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DATAA-CONS-LST"),
             Box::new(|d, p| DataAttributeConstraintEntry::new(d, p)),
+            "DATAA-CONS-xxx".to_string(),
         )
     }
 
@@ -16287,6 +16413,7 @@ impl DataAttributeEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DISPL-DISP-LST"),
             Box::new(|d, p| DisplayPropertyEntry::new(d, p)),
+            "DISPL-DISP-xxx".to_string(),
         )
     }
 }
@@ -16312,6 +16439,7 @@ impl DataClassification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DCLSE-ITEM-LST"),
             Box::new(|d, p| DataClassificationEntry::new(d, p)),
+            "DCLSE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -16355,6 +16483,7 @@ impl DataClassificationEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "HNDRE-HAND-LST"),
             Box::new(|d, p| HandlingRequirementEntry::new(d, p)),
+            "HNDRE-HAND-xxx".to_string(),
         )
     }
 
@@ -16364,6 +16493,7 @@ impl DataClassificationEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACRSE-ACCE-LST"),
             Box::new(|d, p| AccessRestrictionEntry::new(d, p)),
+            "ACRSE-ACCE-xxx".to_string(),
         )
     }
 }
@@ -16484,6 +16614,7 @@ impl DataDuplicationAnalysis {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DADU-DUPL-LST"),
             Box::new(|d, p| DataDuplicationEntry::new(d, p)),
+            "DADU-DUPL-xxx".to_string(),
         )
     }
 }
@@ -16610,6 +16741,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VOLUM-VOLU-LST"),
             Box::new(|d, p| VolumeMetricEntry::new(d, p)),
+            "VOLUM-VOLU-xxx".to_string(),
         )
     }
 
@@ -16622,6 +16754,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CRE-COMP-LST"),
             Box::new(|d, p| ComplianceRequirementEntry::new(d, p)),
+            "CRE-COMP-xxx".to_string(),
         )
     }
 
@@ -16634,6 +16767,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TECHN-TECH-LST"),
             Box::new(|d, p| TechnicalCharacteristicEntry::new(d, p)),
+            "TECHN-TECH-xxx".to_string(),
         )
     }
 
@@ -16643,6 +16777,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAATT-ATTR-LST"),
             Box::new(|d, p| DataAttributeEntry::new(d, p)),
+            "DAATT-ATTR-xxx".to_string(),
         )
     }
 
@@ -16652,6 +16787,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KEATT-KEYA-LST"),
             Box::new(|d, p| KeyAttributeEntry::new(d, p)),
+            "KEATT-KEYA-xxx".to_string(),
         )
     }
 
@@ -16661,6 +16797,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENIDX-INDE-LST"),
             Box::new(|d, p| EntityIndexEntry::new(d, p)),
+            "ENIDX-INDE-xxx".to_string(),
         )
     }
 
@@ -16670,6 +16807,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENCNS-CONS-LST"),
             Box::new(|d, p| EntityConstraintEntry::new(d, p)),
+            "ENCNS-CONS-xxx".to_string(),
         )
     }
 
@@ -16679,6 +16817,7 @@ impl DataEntityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIGME-MIGR-LST"),
             Box::new(|d, p| MigrationMappingEntry::new(d, p)),
+            "MIGME-MIGR-xxx".to_string(),
         )
     }
 }
@@ -16867,6 +17006,7 @@ impl DataGovernance {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DGPE-GOVE-LST"),
             Box::new(|d, p| DataGovernancePolicyEntry::new(d, p)),
+            "DGPE-GOVE-xxx".to_string(),
         )
     }
 }
@@ -17205,6 +17345,7 @@ impl DataIntegrationPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAIN-INTE-LST"),
             Box::new(|d, p| DataIntegrationEntry::new(d, p)),
+            "DAIN-INTE-xxx".to_string(),
         )
     }
 }
@@ -17365,6 +17506,7 @@ impl DataMigrationStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MISY-SYST-LST"),
             Box::new(|d, p| MigrationSystems::new(d, p)),
+            "MISY-SYST-xxx".to_string(),
         )
     }
 
@@ -17384,6 +17526,7 @@ impl DataMigrationStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIEN-ENVI-LST"),
             Box::new(|d, p| MigrationEnvironments::new(d, p)),
+            "MIEN-ENVI-xxx".to_string(),
         )
     }
 
@@ -17413,6 +17556,7 @@ impl DataMigrationStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIST-STAK-LST"),
             Box::new(|d, p| MigrationStakeholders::new(d, p)),
+            "MIST-STAK-xxx".to_string(),
         )
     }
 
@@ -17422,6 +17566,7 @@ impl DataMigrationStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STMIRE-RESO-LST"),
             Box::new(|d, p| StageMigrationResources::new(d, p)),
+            "STMIRE-RESO-xxx".to_string(),
         )
     }
 
@@ -17470,6 +17615,7 @@ impl DataModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
             Box::new(|d, p| DataEntityEntry::new(d, p)),
+            "DAENT-ENTI-xxx".to_string(),
         )
     }
 
@@ -17552,6 +17698,7 @@ impl DataOwnership {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAOWEN-OWNE-LST"),
             Box::new(|d, p| DataOwnershipEntry::new(d, p)),
+            "DAOWEN-OWNE-xxx".to_string(),
         )
     }
 }
@@ -17941,6 +18088,7 @@ impl DataQualityAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAQLIS-QUAL-LST"),
             Box::new(|d, p| DataQualityIssueEntry::new(d, p)),
+            "DAQLIS-QUAL-xxx".to_string(),
         )
     }
 
@@ -17950,6 +18098,7 @@ impl DataQualityAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DQIE-IMPR-LST"),
             Box::new(|d, p| DataQualityInitiativeEntry::new(d, p)),
+            "DQIE-IMPR-xxx".to_string(),
         )
     }
 }
@@ -18178,6 +18327,7 @@ impl DataRetentionPolicies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REPOL-RETE-LST"),
             Box::new(|d, p| RetentionPolicyEntry::new(d, p)),
+            "REPOL-RETE-xxx".to_string(),
         )
     }
 }
@@ -18278,6 +18428,7 @@ impl DataSourceEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSEE-KEYE-LST"),
             Box::new(|d, p| DataSourceEntityEntry::new(d, p)),
+            "DSEE-KEYE-xxx".to_string(),
         )
     }
 }
@@ -18337,6 +18488,7 @@ impl DataSourceInventory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DASR-DATA-LST"),
             Box::new(|d, p| DataSourceEntry::new(d, p)),
+            "DASR-DATA-xxx".to_string(),
         )
     }
 }
@@ -18721,6 +18873,7 @@ impl DataVolumesAndGrowth {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAVOEN-VOLU-LST"),
             Box::new(|d, p| DataVolumeEntry::new(d, p)),
+            "DAVOEN-VOLU-xxx".to_string(),
         )
     }
 }
@@ -19254,6 +19407,7 @@ impl DecisionPointEntryResolution {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEOPEN-OPTI-LST"),
             Box::new(|d, p| DecisionOptionEntry::new(d, p)),
+            "DEOPEN-OPTI-xxx".to_string(),
         )
     }
 }
@@ -19303,6 +19457,7 @@ impl DecisionPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPOEN-ITEM-LST"),
             Box::new(|d, p| DecisionPointEntry::new(d, p)),
+            "DEPOEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -19354,6 +19509,7 @@ impl DeepLinking {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DELNPT-PATT-LST"),
             Box::new(|d, p| DeepLinkPatternEntry::new(d, p)),
+            "DELNPT-PATT-xxx".to_string(),
         )
     }
 }
@@ -19563,6 +19719,7 @@ impl DeliverableEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DLVDP-DEPE-LST"),
             Box::new(|d, p| DeliverableDependencies::new(d, p)),
+            "DLVDP-DEPE-xxx".to_string(),
         )
     }
 
@@ -21099,6 +21256,7 @@ impl DesignGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DGOEN-ITEM-LST"),
             Box::new(|d, p| DesignGoalEntry::new(d, p)),
+            "DGOEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -21256,6 +21414,7 @@ impl DesignPatternsAndStandards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSPT-DESI-LST"),
             Box::new(|d, p| DesignPatternEntry::new(d, p)),
+            "DSPT-DESI-xxx".to_string(),
         )
     }
 
@@ -21265,6 +21424,7 @@ impl DesignPatternsAndStandards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COSTEN-CODI-LST"),
             Box::new(|d, p| CodingStandardEntry::new(d, p)),
+            "COSTEN-CODI-xxx".to_string(),
         )
     }
 
@@ -21274,6 +21434,7 @@ impl DesignPatternsAndStandards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DECOEN-DEVE-LST"),
             Box::new(|d, p| DevelopmentConventionEntry::new(d, p)),
+            "DECOEN-DEVE-xxx".to_string(),
         )
     }
 
@@ -21283,6 +21444,7 @@ impl DesignPatternsAndStandards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INSTEN-INDU-LST"),
             Box::new(|d, p| IndustryStandardEntry::new(d, p)),
+            "INSTEN-INDU-xxx".to_string(),
         )
     }
 
@@ -21357,6 +21519,7 @@ impl DesignPrinciples {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UDPEN-ITEM-LST"),
             Box::new(|d, p| DesignPrincipleEntry::new(d, p)),
+            "UDPEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -21814,6 +21977,7 @@ impl DevelopmentEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDREEN-IDER-LST"),
             Box::new(|d, p| IdeRequirementEntry::new(d, p)),
+            "IDREEN-IDER-xxx".to_string(),
         )
     }
 
@@ -22440,6 +22604,7 @@ impl DistributionList {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CSDSGR-CUST-LST"),
             Box::new(|d, p| CustomDistributionGroup::new(d, p)),
+            "CSDSGR-CUST-xxx".to_string(),
         )
     }
 }
@@ -22521,6 +22686,7 @@ impl DistributionRecipientEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DIREPR-PREF-LST"),
             Box::new(|d, p| DistributionRecipientPreferences::new(d, p)),
+            "DIREPR-PREF-xxx".to_string(),
         )
     }
 
@@ -22874,6 +23040,7 @@ impl DocumentControl {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DOCTL-APRV-LST"),
             Box::new(|d, p| ApprovalRecord::new(d, p)),
+            "DOCTL-APRV-xxx".to_string(),
         )
     }
 
@@ -22933,6 +23100,7 @@ impl DocumentRelationships {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REDOEN-RELA-LST"),
             Box::new(|d, p| RelatedDocumentEntry::new(d, p)),
+            "REDOEN-RELA-xxx".to_string(),
         )
     }
 }
@@ -22958,6 +23126,7 @@ impl DocumentRelevantSections {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESEEN-SECT-LST"),
             Box::new(|d, p| RelevantSectionEntry::new(d, p)),
+            "RESEEN-SECT-xxx".to_string(),
         )
     }
 }
@@ -23020,6 +23189,7 @@ impl DocumentationDeliverables {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DCDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
+            "DCDLV-ITEM-xxx".to_string(),
         )
     }
 }
@@ -23351,6 +23521,7 @@ impl DomainBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DIE-INTE-LST"),
             Box::new(|d, p| DomainInterfaceEntry::new(d, p)),
+            "DIE-INTE-xxx".to_string(),
         )
     }
 }
@@ -23442,6 +23613,7 @@ impl DomainBusinessRules {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DOBIRU-RULE-LST"),
             Box::new(|d, p| DomainBusinessRuleEntry::new(d, p)),
+            "DOBIRU-RULE-xxx".to_string(),
         )
     }
 }
@@ -23491,6 +23663,7 @@ impl DomainEvents {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DOEV-EVEN-LST"),
             Box::new(|d, p| DomainEventEntry::new(d, p)),
+            "DOEV-EVEN-xxx".to_string(),
         )
     }
 }
@@ -23640,6 +23813,7 @@ impl DomainProcesses {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DOPR-PROC-LST"),
             Box::new(|d, p| DomainProcessEntry::new(d, p)),
+            "DOPR-PROC-xxx".to_string(),
         )
     }
 }
@@ -23689,6 +23863,7 @@ impl DomainVocabulary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DTE-TERM-LST"),
             Box::new(|d, p| DomainTermEntry::new(d, p)),
+            "DTE-TERM-xxx".to_string(),
         )
     }
 }
@@ -23928,6 +24103,7 @@ impl EncryptionAtRest {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENDACA-ENCR-LST"),
             Box::new(|d, p| EncryptedDataCategoryEntry::new(d, p)),
+            "ENDACA-ENCR-xxx".to_string(),
         )
     }
 
@@ -24019,6 +24195,7 @@ impl EncryptionInTransit {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COCHEN-COMM-LST"),
             Box::new(|d, p| CommunicationChannelEncryptionEntry::new(d, p)),
+            "COCHEN-COMM-xxx".to_string(),
         )
     }
 
@@ -24181,6 +24358,7 @@ impl EntitlementEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESKREF-RESO-LST"),
             Box::new(|d, p| ResourceKeyReferenceEntry::new(d, p)),
+            "RESKREF-RESO-xxx".to_string(),
         )
     }
 }
@@ -24259,6 +24437,7 @@ impl EntityRelationshipEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PARTI-PART-LST"),
             Box::new(|d, p| ParticipantEntry::new(d, p)),
+            "PARTI-PART-xxx".to_string(),
         )
     }
 
@@ -24279,6 +24458,7 @@ impl EntityRelationshipEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RELAT-RELA-LST"),
             Box::new(|d, p| RelationshipAttributeEntry::new(d, p)),
+            "RELAT-RELA-xxx".to_string(),
         )
     }
 
@@ -24327,6 +24507,7 @@ impl EntityRelationships {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENRLE-ITEM-LST"),
             Box::new(|d, p| EntityRelationshipEntry::new(d, p)),
+            "ENRLE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -24868,6 +25049,7 @@ impl Environments {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENVEN-ITEM-LST"),
             Box::new(|d, p| EnvironmentEntry::new(d, p)),
+            "ENVEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -24912,6 +25094,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COEQ-PRIM-LST"),
             Box::new(|d, p| ComputingEquipmentEntry::new(d, p)),
+            "COEQ-PRIM-xxx".to_string(),
         )
     }
 
@@ -24921,6 +25104,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSEQ-DISP-LST"),
             Box::new(|d, p| DisplayEquipmentEntry::new(d, p)),
+            "DSEQ-DISP-xxx".to_string(),
         )
     }
 
@@ -24930,6 +25114,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INPDE-INPU-LST"),
             Box::new(|d, p| InputDeviceEntry::new(d, p)),
+            "INPDE-INPU-xxx".to_string(),
         )
     }
 
@@ -24939,6 +25124,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PEREQ-PERI-LST"),
             Box::new(|d, p| PeripheralEquipmentEntry::new(d, p)),
+            "PEREQ-PERI-xxx".to_string(),
         )
     }
 
@@ -24948,6 +25134,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MOBDE-MOBI-LST"),
             Box::new(|d, p| MobileDeviceEntry::new(d, p)),
+            "MOBDE-MOBI-xxx".to_string(),
         )
     }
 
@@ -24957,6 +25144,7 @@ impl EquipmentRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SPEQ-SPEC-LST"),
             Box::new(|d, p| SpecializedEquipmentEntry::new(d, p)),
+            "SPEQ-SPEC-xxx".to_string(),
         )
     }
 }
@@ -25347,6 +25535,7 @@ impl ErrorRecovery {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECOV-RECO-LST"),
             Box::new(|d, p| RecoveryFlowEntry::new(d, p)),
+            "RECOV-RECO-xxx".to_string(),
         )
     }
 
@@ -25356,6 +25545,7 @@ impl ErrorRecovery {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RCVSCN-RECO-LST"),
             Box::new(|d, p| RecoveryScenarioEntry::new(d, p)),
+            "RCVSCN-RECO-xxx".to_string(),
         )
     }
 }
@@ -25490,6 +25680,7 @@ impl EvaluationCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EVCEN-ITEM-LST"),
             Box::new(|d, p| EvaluationCriterionEntry::new(d, p)),
+            "EVCEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -25631,6 +25822,7 @@ impl ExecutiveSummaryDistribution {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSRC-ITEM-LST"),
             Box::new(|d, p| DistributionRecipientEntry::new(d, p)),
+            "DSRC-ITEM-xxx".to_string(),
         )
     }
 }
@@ -25705,6 +25897,7 @@ impl ExistingSystemEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "LIMET-KNOW-LST"),
             Box::new(|d, p| LimitationEntry::new(d, p)),
+            "LIMET-KNOW-xxx".to_string(),
         )
     }
 
@@ -26160,6 +26353,7 @@ impl ExportFormatEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXSISE-SIZE-LST"),
             Box::new(|d, p| ExportSizeSettings::new(d, p)),
+            "EXSISE-SIZE-xxx".to_string(),
         )
     }
 
@@ -26184,6 +26378,7 @@ impl ExportFormatEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EFME-FIEL-LST"),
             Box::new(|d, p| ExportFieldMappingEntry::new(d, p)),
+            "EFME-FIEL-xxx".to_string(),
         )
     }
 }
@@ -26373,6 +26568,7 @@ impl ExtensionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXTST-STEP-LST"),
             Box::new(|d, p| ExtensionStepEntry::new(d, p)),
+            "EXTST-STEP-xxx".to_string(),
         )
     }
 }
@@ -26424,6 +26620,7 @@ impl ExternalActorEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INTER-INTE-LST"),
             Box::new(|d, p| InteractionScenarioEntry::new(d, p)),
+            "INTER-INTE-xxx".to_string(),
         )
     }
 }
@@ -26489,6 +26686,7 @@ impl ExternalActors {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EAE-ACTO-LST"),
             Box::new(|d, p| ExternalActorEntry::new(d, p)),
+            "EAE-ACTO-xxx".to_string(),
         )
     }
 }
@@ -26522,6 +26720,7 @@ impl ExternalConnectivitySection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EPCE-PART-LST"),
             Box::new(|d, p| ExternalPartnerConnectionEntry::new(d, p)),
+            "EPCE-PART-xxx".to_string(),
         )
     }
 
@@ -26645,6 +26844,7 @@ impl ExternalInterfaces {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXINEN-INTE-LST"),
             Box::new(|d, p| ExternalInterfaceEntry::new(d, p)),
+            "EXINEN-INTE-xxx".to_string(),
         )
     }
 }
@@ -26811,6 +27011,7 @@ impl ExternalPartnerConnectionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXPAOP-OPER-LST"),
             Box::new(|d, p| ExternalPartnerOperations::new(d, p)),
+            "EXPAOP-OPER-xxx".to_string(),
         )
     }
 }
@@ -26924,6 +27125,7 @@ impl ExternalServiceDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXSDE-ITEM-LST"),
             Box::new(|d, p| ExternalServiceDependencyEntry::new(d, p)),
+            "EXSDE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -27131,6 +27333,7 @@ impl ExternalSystemsContext {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXSYCOEN-SYST-LST"),
             Box::new(|d, p| ExternalSystemContextEntry::new(d, p)),
+            "EXSYCOEN-SYST-xxx".to_string(),
         )
     }
 }
@@ -27194,6 +27397,7 @@ impl FeatureDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FEDEEN-ITEM-LST"),
             Box::new(|d, p| FeatureDependencyEntry::new(d, p)),
+            "FEDEEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -27612,6 +27816,7 @@ impl FeaturePriorityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FEST-STAK-LST"),
             Box::new(|d, p| FeatureStakeholders::new(d, p)),
+            "FEST-STAK-xxx".to_string(),
         )
     }
 
@@ -27651,6 +27856,7 @@ impl FeaturePriorityRegister {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FEPREN-ITEM-LST"),
             Box::new(|d, p| FeaturePriorityEntry::new(d, p)),
+            "FEPREN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -27817,6 +28023,7 @@ impl FeatureStageMatrix {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FESTM1-ITEM-LST"),
             Box::new(|d, p| FeatureStageMapping::new(d, p)),
+            "FESTM1-ITEM-xxx".to_string(),
         )
     }
 }
@@ -27874,6 +28081,7 @@ impl FeatureTourEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TURST-STEP-LST"),
             Box::new(|d, p| TourStepEntry::new(d, p)),
+            "TURST-STEP-xxx".to_string(),
         )
     }
 }
@@ -28531,6 +28739,7 @@ impl FullDistribution {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DSRC-ITEM-LST"),
             Box::new(|d, p| DistributionRecipientEntry::new(d, p)),
+            "DSRC-ITEM-xxx".to_string(),
         )
     }
 }
@@ -28591,6 +28800,7 @@ impl FunctionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SUFN-SUBF-LST"),
             Box::new(|d, p| SubFunctionEntry::new(d, p)),
+            "SUFN-SUBF-xxx".to_string(),
         )
     }
 }
@@ -28670,6 +28880,7 @@ impl FunctionModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
             Box::new(|d, p| FunctionEntry::new(d, p)),
+            "FUNCT-FUNC-xxx".to_string(),
         )
     }
 
@@ -28679,6 +28890,7 @@ impl FunctionModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FNDMX-MATR-LST"),
             Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
+            "FNDMX-MATR-xxx".to_string(),
         )
     }
 
@@ -28688,6 +28900,7 @@ impl FunctionModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
             Box::new(|d, p| BusinessRuleEntry::new(d, p)),
+            "BIRU-BUSI-xxx".to_string(),
         )
     }
 }
@@ -28928,6 +29141,7 @@ impl FunctionalRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FRE-REQU-LST"),
             Box::new(|d, p| FunctionalRequirementEntry::new(d, p)),
+            "FRE-REQU-xxx".to_string(),
         )
     }
 }
@@ -28961,6 +29175,7 @@ impl FunctionalResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REEN1-ITEM-LST"),
             Box::new(|d, p| ResponsibilityEntry::new(d, p)),
+            "REEN1-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29128,6 +29343,7 @@ impl Gaps {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GAPE-ITEM-LST"),
             Box::new(|d, p| GapEntry::new(d, p)),
+            "GAPE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29298,6 +29514,7 @@ impl Glossary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GLOSS-ENTR-LST"),
             Box::new(|d, p| GlossaryEntry::new(d, p)),
+            "GLOSS-ENTR-xxx".to_string(),
         )
     }
 }
@@ -29372,6 +29589,7 @@ impl GoalDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GOLDE-ITEM-LST"),
             Box::new(|d, p| GoalDependencyEntry::new(d, p)),
+            "GOLDE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29431,6 +29649,7 @@ impl GoalKeyResults {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KRE-ITEM-LST"),
             Box::new(|d, p| KeyResultEntry::new(d, p)),
+            "KRE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29479,6 +29698,7 @@ impl GoalMilestones {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GOLMS-ITEM-LST"),
             Box::new(|d, p| GoalMilestoneEntry::new(d, p)),
+            "GOLMS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29516,6 +29736,7 @@ impl GoalResources {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REARS-ITEM-LST"),
             Box::new(|d, p| ResourceAllocationEntry::new(d, p)),
+            "REARS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29606,6 +29827,7 @@ impl GoalRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GOLRS-ITEM-LST"),
             Box::new(|d, p| GoalRiskEntry::new(d, p)),
+            "GOLRS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -29682,6 +29904,7 @@ impl GovernanceModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DCAUT-DECI-LST"),
             Box::new(|d, p| DecisionAuthorityEntry::new(d, p)),
+            "DCAUT-DECI-xxx".to_string(),
         )
     }
 }
@@ -30073,6 +30296,7 @@ impl Identification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDTSR-IDEN-LST"),
             Box::new(|d, p| IdentitySourceEntry::new(d, p)),
+            "IDTSR-IDEN-xxx".to_string(),
         )
     }
 
@@ -30087,6 +30311,7 @@ impl Identification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDTPV-IDEN-LST"),
             Box::new(|d, p| IdentityProviderEntry::new(d, p)),
+            "IDTPV-IDEN-xxx".to_string(),
         )
     }
 
@@ -30106,6 +30331,7 @@ impl Identification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDTAM-ATTR-LST"),
             Box::new(|d, p| IdentityAttributeMappingEntry::new(d, p)),
+            "IDTAM-ATTR-xxx".to_string(),
         )
     }
 }
@@ -30279,6 +30505,7 @@ impl IdentityProviderEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDPRDE-DETA-LST"),
             Box::new(|d, p| IdentityProviderDetails::new(d, p)),
+            "IDPRDE-DETA-xxx".to_string(),
         )
     }
 
@@ -30288,6 +30515,7 @@ impl IdentityProviderEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDPREN-ENDP-LST"),
             Box::new(|d, p| IdentityProviderEndpoints::new(d, p)),
+            "IDPREN-ENDP-xxx".to_string(),
         )
     }
 
@@ -31108,6 +31336,7 @@ impl InformationArchitecture {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GLOBA-GLOB-LST"),
             Box::new(|d, p| GlobalEntryPointEntry::new(d, p)),
+            "GLOBA-GLOB-xxx".to_string(),
         )
     }
 
@@ -31749,6 +31978,7 @@ impl InsuranceLiabilityRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INSURE-INSU-LST"),
             Box::new(|d, p| InsuranceEntry::new(d, p)),
+            "INSURE-INSU-xxx".to_string(),
         )
     }
 
@@ -31758,6 +31988,7 @@ impl InsuranceLiabilityRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "LILI-LIAB-LST"),
             Box::new(|d, p| LiabilityLimitations::new(d, p)),
+            "LILI-LIAB-xxx".to_string(),
         )
     }
 }
@@ -32009,6 +32240,7 @@ impl IntegrationHealthSummary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FRAGI-FRAG-LST"),
             Box::new(|d, p| FragilePointEntry::new(d, p)),
+            "FRAGI-FRAG-xxx".to_string(),
         )
     }
 }
@@ -32079,6 +32311,7 @@ impl Integrations {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYIN-ITEM-LST"),
             Box::new(|d, p| SystemIntegrationEntry::new(d, p)),
+            "SYIN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -32129,6 +32362,7 @@ impl IntellectualPropertyRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IPOWN-OWNE-LST"),
             Box::new(|d, p| IpOwnershipEntry::new(d, p)),
+            "IPOWN-OWNE-xxx".to_string(),
         )
     }
 }
@@ -32212,6 +32446,7 @@ impl InteractionCatalog {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INEN-INTE-LST"),
             Box::new(|d, p| InteractionEntry::new(d, p)),
+            "INEN-INTE-xxx".to_string(),
         )
     }
 
@@ -32286,6 +32521,7 @@ impl InteractionChannelEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CI-INTE-LST"),
             Box::new(|d, p| ChannelIntegrations::new(d, p)),
+            "CI-INTE-xxx".to_string(),
         )
     }
 }
@@ -32408,6 +32644,7 @@ impl InteractionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STANIN-STAK-LST"),
             Box::new(|d, p| StakeholdersAndInterests::new(d, p)),
+            "STANIN-STAK-xxx".to_string(),
         )
     }
 
@@ -32417,6 +32654,7 @@ impl InteractionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRANTR-PREC-LST"),
             Box::new(|d, p| PreconditionsAndTriggers::new(d, p)),
+            "PRANTR-PREC-xxx".to_string(),
         )
     }
 
@@ -32426,6 +32664,7 @@ impl InteractionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "POANGU-POST-LST"),
             Box::new(|d, p| PostconditionsAndGuarantees::new(d, p)),
+            "POANGU-POST-xxx".to_string(),
         )
     }
 
@@ -32445,6 +32684,7 @@ impl InteractionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TEDAVA-VARI-LST"),
             Box::new(|d, p| TechnologyDataVariations::new(d, p)),
+            "TEDAVA-VARI-xxx".to_string(),
         )
     }
 
@@ -32469,6 +32709,7 @@ impl InteractionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INBURU-BUSI-LST"),
             Box::new(|d, p| InteractionBusinessRules::new(d, p)),
+            "INBURU-BUSI-xxx".to_string(),
         )
     }
 
@@ -32626,6 +32867,7 @@ impl InteractionPatterns {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INPTN-PATT-LST"),
             Box::new(|d, p| InteractionPatternEntry::new(d, p)),
+            "INPTN-PATT-xxx".to_string(),
         )
     }
 }
@@ -32760,6 +33002,7 @@ impl InterfaceBusinessContext {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IBPE-DEPE-LST"),
             Box::new(|d, p| InterfaceBusinessProcessEntry::new(d, p)),
+            "IBPE-DEPE-xxx".to_string(),
         )
     }
 }
@@ -32817,6 +33060,7 @@ impl InterfaceDataSpec {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IDEE-DATA-LST"),
             Box::new(|d, p| InterfaceDataEntityEntry::new(d, p)),
+            "IDEE-DATA-xxx".to_string(),
         )
     }
 
@@ -32826,6 +33070,7 @@ impl InterfaceDataSpec {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MAPPI-MAPP-LST"),
             Box::new(|d, p| MappingRuleEntry::new(d, p)),
+            "MAPPI-MAPP-xxx".to_string(),
         )
     }
 
@@ -32835,6 +33080,7 @@ impl InterfaceDataSpec {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VALID-VALI-LST"),
             Box::new(|d, p| ValidationRuleEntry::new(d, p)),
+            "VALID-VALI-xxx".to_string(),
         )
     }
 }
@@ -32875,6 +33121,7 @@ impl InterfaceErrorHandling {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ERROR-ERRO-LST"),
             Box::new(|d, p| ErrorProcedureEntry::new(d, p)),
+            "ERROR-ERRO-xxx".to_string(),
         )
     }
 }
@@ -33040,6 +33287,7 @@ impl InterfaceOperational {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPEN-DEPE-LST"),
             Box::new(|d, p| DependencyEntry::new(d, p)),
+            "DEPEN-DEPE-xxx".to_string(),
         )
     }
 }
@@ -33305,6 +33553,7 @@ impl InterfaceTechnicalSpec {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INOPEN-OPER-LST"),
             Box::new(|d, p| InterfaceOperationEntry::new(d, p)),
+            "INOPEN-OPER-xxx".to_string(),
         )
     }
 
@@ -33393,6 +33642,7 @@ impl InterfaceTesting {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ITSE1-TEST-LST"),
             Box::new(|d, p| InterfaceTestScenarioEntry::new(d, p)),
+            "ITSE1-TEST-xxx".to_string(),
         )
     }
 }
@@ -33473,6 +33723,7 @@ impl InternalDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYDE-ITEM-LST"),
             Box::new(|d, p| SystemDependencyEntry::new(d, p)),
+            "SYDE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -33802,6 +34053,7 @@ impl Iso25010Coverage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "I25CV-CHAR-LST"),
             Box::new(|d, p| Iso25010CoverageEntry::new(d, p)),
+            "I25CV-CHAR-xxx".to_string(),
         )
     }
 }
@@ -33983,6 +34235,7 @@ impl ItSecurityStandardsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SESTEN-STAN-LST"),
             Box::new(|d, p| SecurityStandardEntry::new(d, p)),
+            "SESTEN-STAN-xxx".to_string(),
         )
     }
 
@@ -34159,6 +34412,7 @@ impl JobDescriptionsAndStaffing {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NWROL-NEWR-LST"),
             Box::new(|d, p| NewRoleEntry::new(d, p)),
+            "NWROL-NEWR-xxx".to_string(),
         )
     }
 
@@ -34168,6 +34422,7 @@ impl JobDescriptionsAndStaffing {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHAROL-CHAN-LST"),
             Box::new(|d, p| ChangedRoleEntry::new(d, p)),
+            "CHAROL-CHAN-xxx".to_string(),
         )
     }
 
@@ -34177,6 +34432,7 @@ impl JobDescriptionsAndStaffing {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REMROL-REMO-LST"),
             Box::new(|d, p| RemovedRoleEntry::new(d, p)),
+            "REMROL-REMO-xxx".to_string(),
         )
     }
 
@@ -34418,6 +34674,7 @@ impl KeyConcepts {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KECON-CONC-LST"),
             Box::new(|d, p| KeyConceptEntry::new(d, p)),
+            "KECON-CONC-xxx".to_string(),
         )
     }
 }
@@ -34594,6 +34851,7 @@ impl KeyScenarios {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCNRY-SCEN-LST"),
             Box::new(|d, p| ScenarioEntry::new(d, p)),
+            "SCNRY-SCEN-xxx".to_string(),
         )
     }
 }
@@ -34949,6 +35207,7 @@ impl LayeringAndModuleStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SOLAEN-SOFT-LST"),
             Box::new(|d, p| SoftwareLayerEntry::new(d, p)),
+            "SOLAEN-SOFT-xxx".to_string(),
         )
     }
 
@@ -34963,6 +35222,7 @@ impl LayeringAndModuleStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BOCOEN-BOUN-LST"),
             Box::new(|d, p| BoundedContextEntry::new(d, p)),
+            "BOCOEN-BOUN-xxx".to_string(),
         )
     }
 
@@ -34977,6 +35237,7 @@ impl LayeringAndModuleStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MOEN1-MODU-LST"),
             Box::new(|d, p| ModuleEntry::new(d, p)),
+            "MOEN1-MODU-xxx".to_string(),
         )
     }
 
@@ -34986,6 +35247,7 @@ impl LayeringAndModuleStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SHLIB-SHAR-LST"),
             Box::new(|d, p| SharedLibraryEntry::new(d, p)),
+            "SHLIB-SHAR-xxx".to_string(),
         )
     }
 
@@ -35005,6 +35267,7 @@ impl LayeringAndModuleStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FTRMOD-FEAT-LST"),
             Box::new(|d, p| FeatureModuleEntry::new(d, p)),
+            "FTRMOD-FEAT-xxx".to_string(),
         )
     }
 
@@ -35169,6 +35432,7 @@ impl LegalAndContractualRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OTAGR-OTHE-LST"),
             Box::new(|d, p| OtherAgreementEntry::new(d, p)),
+            "OTAGR-OTHE-xxx".to_string(),
         )
     }
 }
@@ -36063,6 +36327,7 @@ impl MainSuccessScenario {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MNSST-STEP-LST"),
             Box::new(|d, p| MainScenarioStepEntry::new(d, p)),
+            "MNSST-STEP-xxx".to_string(),
         )
     }
 }
@@ -36327,6 +36592,7 @@ impl MaintenanceDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MNDEP-ITEM-LST"),
             Box::new(|d, p| MaintenanceDependencyEntry::new(d, p)),
+            "MNDEP-ITEM-xxx".to_string(),
         )
     }
 }
@@ -36650,6 +36916,7 @@ impl MaintenanceWindowsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MAWIEN-MAIN-LST"),
             Box::new(|d, p| MaintenanceWindowEntry::new(d, p)),
+            "MAWIEN-MAIN-xxx".to_string(),
         )
     }
 
@@ -36808,6 +37075,7 @@ impl MasterDataManagement {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MSDDO-MAST-LST"),
             Box::new(|d, p| MasterDataDomainEntry::new(d, p)),
+            "MSDDO-MAST-xxx".to_string(),
         )
     }
 }
@@ -36991,6 +37259,7 @@ impl MetricsAndObservability {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUMEEN-CUST-LST"),
             Box::new(|d, p| CustomMetricEntry::new(d, p)),
+            "CUMEEN-CUST-xxx".to_string(),
         )
     }
 }
@@ -37037,6 +37306,7 @@ impl MetricsBaselineTable {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MEBAEN-ENTR-LST"),
             Box::new(|d, p| MetricsBaselineEntry::new(d, p)),
+            "MEBAEN-ENTR-xxx".to_string(),
         )
     }
 }
@@ -37268,6 +37538,7 @@ impl MfaConfiguration {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MFADE-MFAD-LST"),
             Box::new(|d, p| MfaDetailEntry::new(d, p)),
+            "MFADE-MFAD-xxx".to_string(),
         )
     }
 }
@@ -37366,6 +37637,7 @@ impl MigrationConsiderations {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MGMLS-MILE-LST"),
             Box::new(|d, p| MigrationMilestoneEntry::new(d, p)),
+            "MGMLS-MILE-xxx".to_string(),
         )
     }
 
@@ -37390,6 +37662,7 @@ impl MigrationConsiderations {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ESCAL-ESCA-LST"),
             Box::new(|d, p| EscalationProcedureEntry::new(d, p)),
+            "ESCAL-ESCA-xxx".to_string(),
         )
     }
 }
@@ -37617,6 +37890,7 @@ impl MigrationPhaseEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MPDR-DRYR-LST"),
             Box::new(|d, p| MigrationPhaseDryRuns::new(d, p)),
+            "MPDR-DRYR-xxx".to_string(),
         )
     }
 
@@ -37641,6 +37915,7 @@ impl MigrationPhaseEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIPHRE-RESO-LST"),
             Box::new(|d, p| MigrationPhaseResources::new(d, p)),
+            "MIPHRE-RESO-xxx".to_string(),
         )
     }
 
@@ -37807,6 +38082,7 @@ impl MigrationPhases {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MGPHS-ITEM-LST"),
             Box::new(|d, p| MigrationPhaseEntry::new(d, p)),
+            "MGPHS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -37931,6 +38207,7 @@ impl MigrationRiskEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIRIIN-INDI-LST"),
             Box::new(|d, p| MigrationRiskIndicators::new(d, p)),
+            "MIRIIN-INDI-xxx".to_string(),
         )
     }
 
@@ -38152,6 +38429,7 @@ impl MigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RISKC-RISK-LST"),
             Box::new(|d, p| RiskCategoryEntry::new(d, p)),
+            "RISKC-RISK-xxx".to_string(),
         )
     }
 
@@ -38161,6 +38439,7 @@ impl MigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RISKB-RISK-LST"),
             Box::new(|d, p| RiskBasedDecisionEntry::new(d, p)),
+            "RISKB-RISK-xxx".to_string(),
         )
     }
 
@@ -38170,6 +38449,7 @@ impl MigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MONIT-MONI-LST"),
             Box::new(|d, p| MonitoringProcedureEntry::new(d, p)),
+            "MONIT-MONI-xxx".to_string(),
         )
     }
 
@@ -38179,6 +38459,7 @@ impl MigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESPO-RESP-LST"),
             Box::new(|d, p| ResponseStrategyEntry::new(d, p)),
+            "RESPO-RESP-xxx".to_string(),
         )
     }
 
@@ -38197,6 +38478,7 @@ impl MigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MGRSK-ITEM-LST"),
             Box::new(|d, p| MigrationRiskEntry::new(d, p)),
+            "MGRSK-ITEM-xxx".to_string(),
         )
     }
 }
@@ -38960,6 +39242,7 @@ impl MonitoringAndAlertingSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ALDEEN-ALER-LST"),
             Box::new(|d, p| AlertDefinitionEntry::new(d, p)),
+            "ALDEEN-ALER-xxx".to_string(),
         )
     }
 
@@ -39042,6 +39325,7 @@ impl MonitoringDashboards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAEN-DASH-LST"),
             Box::new(|d, p| DashboardEntry::new(d, p)),
+            "DAEN-DASH-xxx".to_string(),
         )
     }
 
@@ -39051,6 +39335,7 @@ impl MonitoringDashboards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DATE-DASH-LST"),
             Box::new(|d, p| DashboardTemplates::new(d, p)),
+            "DATE-DASH-xxx".to_string(),
         )
     }
 }
@@ -39198,6 +39483,7 @@ impl MoscowAnalysis {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MOEN-ITEM-LST"),
             Box::new(|d, p| MoscowEntry::new(d, p)),
+            "MOEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -39369,6 +39655,7 @@ impl MultiLanguageSupport {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SULOEN-SUPP-LST"),
             Box::new(|d, p| SupportedLocaleEntry::new(d, p)),
+            "SULOEN-SUPP-xxx".to_string(),
         )
     }
 }
@@ -39399,6 +39686,7 @@ impl MustPassCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MSTPCR-ITEM-LST"),
             Box::new(|d, p| MustPassCriterionEntry::new(d, p)),
+            "MSTPCR-ITEM-xxx".to_string(),
         )
     }
 }
@@ -39672,6 +39960,7 @@ impl NavigationGroupEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NAVIIT-ITEM-LST"),
             Box::new(|d, p| NavigationItemEntry::new(d, p)),
+            "NAVIIT-ITEM-xxx".to_string(),
         )
     }
 }
@@ -39813,6 +40102,7 @@ impl NavigationGuards {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NAVGRD-GUAR-LST"),
             Box::new(|d, p| NavigationGuardEntry::new(d, p)),
+            "NAVGRD-GUAR-xxx".to_string(),
         )
     }
 }
@@ -39848,6 +40138,7 @@ impl NavigationHierarchy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NAVGRP-GROU-LST"),
             Box::new(|d, p| NavigationGroupEntry::new(d, p)),
+            "NAVGRP-GROU-xxx".to_string(),
         )
     }
 }
@@ -40433,6 +40724,7 @@ impl NetworkRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VPREEN-VPNR-LST"),
             Box::new(|d, p| VpnRequirementEntry::new(d, p)),
+            "VPREEN-VPNR-xxx".to_string(),
         )
     }
 
@@ -40858,6 +41150,7 @@ impl NewRoleQualifications {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ROLCP-REQU-LST"),
             Box::new(|d, p| RoleCompetencyEntry::new(d, p)),
+            "ROLCP-REQU-xxx".to_string(),
         )
     }
 }
@@ -40911,6 +41204,7 @@ impl NewRoleResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPDT-PRIM-LST"),
             Box::new(|d, p| ResponsibilityDetailEntry::new(d, p)),
+            "RSPDT-PRIM-xxx".to_string(),
         )
     }
 
@@ -40920,6 +41214,7 @@ impl NewRoleResponsibilities {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RSPDT-SECO-LST"),
             Box::new(|d, p| ResponsibilityDetailEntry::new(d, p)),
+            "RSPDT-SECO-xxx".to_string(),
         )
     }
 
@@ -41011,6 +41306,7 @@ impl NotificationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NTFCH-CHAN-LST"),
             Box::new(|d, p| NotificationChannelEntry::new(d, p)),
+            "NTFCH-CHAN-xxx".to_string(),
         )
     }
 
@@ -41020,6 +41316,7 @@ impl NotificationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NTFTY-NOTI-LST"),
             Box::new(|d, p| NotificationTypeEntry::new(d, p)),
+            "NTFTY-NOTI-xxx".to_string(),
         )
     }
 
@@ -41029,6 +41326,7 @@ impl NotificationModel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UNP-PREF-LST"),
             Box::new(|d, p| UserNotificationPreferences::new(d, p)),
+            "UNP-PREF-xxx".to_string(),
         )
     }
 }
@@ -41394,6 +41692,7 @@ impl OnboardingHelp {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FTRTUR-FEAT-LST"),
             Box::new(|d, p| FeatureTourEntry::new(d, p)),
+            "FTRTUR-FEAT-xxx".to_string(),
         )
     }
 }
@@ -41670,6 +41969,7 @@ impl OperationalPainPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OPPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
+            "OPPAPO-ITEM-xxx".to_string(),
         )
     }
 }
@@ -41921,6 +42221,7 @@ impl OrgRequirementImplementationPlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ORGIM-ACTI-LST"),
             Box::new(|d, p| OrgImplementationActivity::new(d, p)),
+            "ORGIM-ACTI-xxx".to_string(),
         )
     }
 }
@@ -42003,6 +42304,7 @@ impl OrganizationalChangeEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OCRSK-RISK-LST"),
             Box::new(|d, p| OrgChangeRisks::new(d, p)),
+            "OCRSK-RISK-xxx".to_string(),
         )
     }
 
@@ -42041,6 +42343,7 @@ impl OrganizationalContext {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OUCE-ORGA-LST"),
             Box::new(|d, p| OrganizationalUnitContextEntry::new(d, p)),
+            "OUCE-ORGA-xxx".to_string(),
         )
     }
 
@@ -42094,6 +42397,7 @@ impl OrganizationalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AFDEEN-AFFE-LST"),
             Box::new(|d, p| AffectedDepartmentEntry::new(d, p)),
+            "AFDEEN-AFFE-xxx".to_string(),
         )
     }
 
@@ -42106,6 +42410,7 @@ impl OrganizationalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEMAEN-DECI-LST"),
             Box::new(|d, p| DecisionMakerEntry::new(d, p)),
+            "DEMAEN-DECI-xxx".to_string(),
         )
     }
 
@@ -42115,6 +42420,7 @@ impl OrganizationalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CULTU-CULT-LST"),
             Box::new(|d, p| CulturalConsiderationEntry::new(d, p)),
+            "CULTU-CULT-xxx".to_string(),
         )
     }
 
@@ -42124,6 +42430,7 @@ impl OrganizationalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMMU-COMM-LST"),
             Box::new(|d, p| CommunicationPreferenceEntry::new(d, p)),
+            "COMMU-COMM-xxx".to_string(),
         )
     }
 
@@ -42136,6 +42443,7 @@ impl OrganizationalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHANG-CHAN-LST"),
             Box::new(|d, p| ChangeAdvocateEntry::new(d, p)),
+            "CHANG-CHAN-xxx".to_string(),
         )
     }
 }
@@ -42212,6 +42520,7 @@ impl OrganizationalFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WPDE-WORK-LST"),
             Box::new(|d, p| WorkplaceDescriptionEntry::new(d, p)),
+            "WPDE-WORK-xxx".to_string(),
         )
     }
 }
@@ -42349,6 +42658,7 @@ impl OrganizationalRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ORRQ-REQU-LST"),
             Box::new(|d, p| OrganizationalRequirementEntry::new(d, p)),
+            "ORRQ-REQU-xxx".to_string(),
         )
     }
 }
@@ -42379,6 +42689,7 @@ impl OrganizationalTransitionTimeline {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRPHE-PHAS-LST"),
             Box::new(|d, p| TransitionPhaseEntry::new(d, p)),
+            "TRPHE-PHAS-xxx".to_string(),
         )
     }
 
@@ -42388,6 +42699,7 @@ impl OrganizationalTransitionTimeline {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRMIL-MILE-LST"),
             Box::new(|d, p| TransitionMilestoneEntry::new(d, p)),
+            "TRMIL-MILE-xxx".to_string(),
         )
     }
 
@@ -42417,6 +42729,7 @@ impl OrganizationalTransitionTimeline {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRRS-TRAN-LST"),
             Box::new(|d, p| TransitionRiskEntry::new(d, p)),
+            "TRRS-TRAN-xxx".to_string(),
         )
     }
 }
@@ -42577,6 +42890,7 @@ impl OutOfScope {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OOSE-ITEM-LST"),
             Box::new(|d, p| OutOfScopeEntry::new(d, p)),
+            "OOSE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -42810,6 +43124,7 @@ impl PainPointEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PAPOR1-RELA-LST"),
             Box::new(|d, p| PainPointRelationships::new(d, p)),
+            "PAPOR1-RELA-xxx".to_string(),
         )
     }
 }
@@ -42866,6 +43181,7 @@ impl PainPointGapCorrelation {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PPGCE-CORR-LST"),
             Box::new(|d, p| PainPointGapCorrelationEntry::new(d, p)),
+            "PPGCE-CORR-xxx".to_string(),
         )
     }
 }
@@ -43142,6 +43458,7 @@ impl PasswordAndCredentialPolicy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MFACRQ-MFAC-LST"),
             Box::new(|d, p| MfaCategoryRequirementEntry::new(d, p)),
+            "MFACRQ-MFAC-xxx".to_string(),
         )
     }
 }
@@ -43688,6 +44005,7 @@ impl PersonaGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PGOEN-ITEM-LST"),
             Box::new(|d, p| PersonaGoalEntry::new(d, p)),
+            "PGOEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -43734,6 +44052,7 @@ impl PersonaPainPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PPPEN-ITEM-LST"),
             Box::new(|d, p| PersonaPainPointEntry::new(d, p)),
+            "PPPEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -43782,6 +44101,7 @@ impl PersonaScenarios {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PSCEN-ITEM-LST"),
             Box::new(|d, p| PersonaScenarioEntry::new(d, p)),
+            "PSCEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -43923,6 +44243,7 @@ impl PhaseGateReviewEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RVCRI-REVI-LST"),
             Box::new(|d, p| ReviewCriterionEntry::new(d, p)),
+            "RVCRI-REVI-xxx".to_string(),
         )
     }
 }
@@ -43965,6 +44286,7 @@ impl PhaseGateReviews {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PGRE-ITEM-LST"),
             Box::new(|d, p| PhaseGateReviewEntry::new(d, p)),
+            "PGRE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -44330,6 +44652,7 @@ impl PlatformAndLanguage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TGPLT-TARG-LST"),
             Box::new(|d, p| TargetPlatformEntry::new(d, p)),
+            "TGPLT-TARG-xxx".to_string(),
         )
     }
 
@@ -44339,6 +44662,7 @@ impl PlatformAndLanguage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PLGEN-PROG-LST"),
             Box::new(|d, p| ProgrammingLanguageEntry::new(d, p)),
+            "PLGEN-PROG-xxx".to_string(),
         )
     }
 
@@ -44348,6 +44672,7 @@ impl PlatformAndLanguage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FWREN-FRAM-LST"),
             Box::new(|d, p| FrameworkRequirementEntry::new(d, p)),
+            "FWREN-FRAM-xxx".to_string(),
         )
     }
 
@@ -44357,6 +44682,7 @@ impl PlatformAndLanguage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BTCEN-BUIL-LST"),
             Box::new(|d, p| BuildToolchainEntry::new(d, p)),
+            "BTCEN-BUIL-xxx".to_string(),
         )
     }
 
@@ -44366,6 +44692,7 @@ impl PlatformAndLanguage {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DETAEN-DEPL-LST"),
             Box::new(|d, p| DeploymentTargetEntry::new(d, p)),
+            "DETAEN-DEPL-xxx".to_string(),
         )
     }
 
@@ -44662,6 +44989,7 @@ impl PrintAndExportLayout {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REEN-REPO-LST"),
             Box::new(|d, p| ReportEntry::new(d, p)),
+            "REEN-REPO-xxx".to_string(),
         )
     }
 
@@ -44671,6 +44999,7 @@ impl PrintAndExportLayout {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXFOEN-EXPO-LST"),
             Box::new(|d, p| ExportFormatEntry::new(d, p)),
+            "EXFOEN-EXPO-xxx".to_string(),
         )
     }
 
@@ -44681,6 +45010,7 @@ impl PrintAndExportLayout {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXTEEN-EXPO-LST"),
             Box::new(|d, p| ExportTemplateEntry::new(d, p)),
+            "EXTEEN-EXPO-xxx".to_string(),
         )
     }
 }
@@ -44999,6 +45329,7 @@ impl ProblemStatement {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RPPE-RELA-LST"),
             Box::new(|d, p| RelatedPainPointEntry::new(d, p)),
+            "RPPE-RELA-xxx".to_string(),
         )
     }
 }
@@ -45049,6 +45380,7 @@ impl ProcessAdjustmentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCAED-DETA-LST"),
             Box::new(|d, p| ProcessAdjustmentDetails::new(d, p)),
+            "PCAED-DETA-xxx".to_string(),
         )
     }
 
@@ -45214,6 +45546,7 @@ impl ProcessAdjustments {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCAJE-ITEM-LST"),
             Box::new(|d, p| ProcessAdjustmentEntry::new(d, p)),
+            "PCAJE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -45247,6 +45580,7 @@ impl ProcessCatalog {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BPREN-PROC-LST"),
             Box::new(|d, p| BusinessProcessEntry::new(d, p)),
+            "BPREN-PROC-xxx".to_string(),
         )
     }
 }
@@ -45437,6 +45771,7 @@ impl ProcessControls {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCCTL-CONT-LST"),
             Box::new(|d, p| ProcessControlEntry::new(d, p)),
+            "PCCTL-CONT-xxx".to_string(),
         )
     }
 }
@@ -45513,6 +45848,7 @@ impl ProcessDesignPrinciples {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PDPEN-PRIN-LST"),
             Box::new(|d, p| ProcessDesignPrincipleEntry::new(d, p)),
+            "PDPEN-PRIN-xxx".to_string(),
         )
     }
 }
@@ -45652,6 +45988,7 @@ impl ProcessExceptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCEXC-EXCE-LST"),
             Box::new(|d, p| ProcessExceptionEntry::new(d, p)),
+            "PCEXC-EXCE-xxx".to_string(),
         )
     }
 }
@@ -45833,6 +46170,7 @@ impl ProcessImprovementSummary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCIMV-IMPR-LST"),
             Box::new(|d, p| ProcessImprovementEntry::new(d, p)),
+            "PCIMV-IMPR-xxx".to_string(),
         )
     }
 
@@ -45880,6 +46218,7 @@ impl ProcessInputsOutputs {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCINP-INPU-LST"),
             Box::new(|d, p| ProcessInputEntry::new(d, p)),
+            "PCINP-INPU-xxx".to_string(),
         )
     }
 
@@ -45889,6 +46228,7 @@ impl ProcessInputsOutputs {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCOUT-OUTP-LST"),
             Box::new(|d, p| ProcessOutputEntry::new(d, p)),
+            "PCOUT-OUTP-xxx".to_string(),
         )
     }
 }
@@ -45929,6 +46269,7 @@ impl ProcessInterdependencyMatrix {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRDEEN-DEPE-LST"),
             Box::new(|d, p| ProcessDependencyEntry::new(d, p)),
+            "PRDEEN-DEPE-xxx".to_string(),
         )
     }
 }
@@ -46040,6 +46381,7 @@ impl ProcessMetricCategory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PME-METR-LST"),
             Box::new(|d, p| ProcessMetricEntry::new(d, p)),
+            "PME-METR-xxx".to_string(),
         )
     }
 }
@@ -46142,6 +46484,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMECA-EFFI-LST"),
             Box::new(|d, p| ProcessMetricCategory::new(d, p)),
+            "PRMECA-EFFI-xxx".to_string(),
         )
     }
 
@@ -46151,6 +46494,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMECA-QUAL-LST"),
             Box::new(|d, p| ProcessMetricCategory::new(d, p)),
+            "PRMECA-QUAL-xxx".to_string(),
         )
     }
 
@@ -46160,6 +46504,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMECA-VOLU-LST"),
             Box::new(|d, p| ProcessMetricCategory::new(d, p)),
+            "PRMECA-VOLU-xxx".to_string(),
         )
     }
 
@@ -46169,6 +46514,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMECA-COST-LST"),
             Box::new(|d, p| ProcessMetricCategory::new(d, p)),
+            "PRMECA-COST-xxx".to_string(),
         )
     }
 
@@ -46178,6 +46524,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMECA-MANU-LST"),
             Box::new(|d, p| ProcessMetricCategory::new(d, p)),
+            "PRMECA-MANU-xxx".to_string(),
         )
     }
 
@@ -46187,6 +46534,7 @@ impl ProcessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PME-ITEM-LST"),
             Box::new(|d, p| ProcessMetricEntry::new(d, p)),
+            "PME-ITEM-xxx".to_string(),
         )
     }
 
@@ -46266,6 +46614,7 @@ impl ProcessPainPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CPIE-IMPR-LST"),
             Box::new(|d, p| CurrentProcessImprovementEntry::new(d, p)),
+            "CPIE-IMPR-xxx".to_string(),
         )
     }
 }
@@ -46292,6 +46641,7 @@ impl ProcessPerformance {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCKPI-KPIS-LST"),
             Box::new(|d, p| ProcessKpiEntry::new(d, p)),
+            "PCKPI-KPIS-xxx".to_string(),
         )
     }
 
@@ -46301,6 +46651,7 @@ impl ProcessPerformance {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCSLA-SLAS-LST"),
             Box::new(|d, p| ProcessSlaEntry::new(d, p)),
+            "PCSLA-SLAS-xxx".to_string(),
         )
     }
 }
@@ -46342,6 +46693,7 @@ impl ProcessPerformanceSummary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PME-KEYM-LST"),
             Box::new(|d, p| ProcessMetricEntry::new(d, p)),
+            "PME-KEYM-xxx".to_string(),
         )
     }
 }
@@ -46388,6 +46740,7 @@ impl ProcessRelationships {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCRLT-RELA-LST"),
             Box::new(|d, p| ProcessRelationshipEntry::new(d, p)),
+            "PCRLT-RELA-xxx".to_string(),
         )
     }
 }
@@ -46472,6 +46825,7 @@ impl ProcessRoles {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PCROL-ROLE-LST"),
             Box::new(|d, p| ProcessRoleEntry::new(d, p)),
+            "PCROL-ROLE-xxx".to_string(),
         )
     }
 }
@@ -46529,6 +46883,7 @@ impl ProcessScopeSummary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRSCEN-INSC-LST"),
             Box::new(|d, p| ProcessScopeEntry::new(d, p)),
+            "PRSCEN-INSC-xxx".to_string(),
         )
     }
 
@@ -46538,6 +46893,7 @@ impl ProcessScopeSummary {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRSCEN-OUTO-LST"),
             Box::new(|d, p| ProcessScopeEntry::new(d, p)),
+            "PRSCEN-OUTO-xxx".to_string(),
         )
     }
 }
@@ -46613,6 +46969,7 @@ impl ProcessStepsAndActorInteractions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
             Box::new(|d, p| EndToEndTestScenario::new(d, p)),
+            "ETETS-ENDT-xxx".to_string(),
         )
     }
 
@@ -46750,6 +47107,7 @@ impl ProcessTriggers {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PTREN-TRIG-LST"),
             Box::new(|d, p| ProcessTriggerEntry::new(d, p)),
+            "PTREN-TRIG-xxx".to_string(),
         )
     }
 
@@ -46759,6 +47117,7 @@ impl ProcessTriggers {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PEEVT-ENDE-LST"),
             Box::new(|d, p| ProcessEndEventEntry::new(d, p)),
+            "PEEVT-ENDE-xxx".to_string(),
         )
     }
 }
@@ -46790,6 +47149,7 @@ impl ProcessVision {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXIPR-EXPE-LST"),
             Box::new(|d, p| ExpectedImprovements::new(d, p)),
+            "EXIPR-EXPE-xxx".to_string(),
         )
     }
 
@@ -47061,6 +47421,7 @@ impl ProjectTeamStaffing {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TMMBE-MEMB-LST"),
             Box::new(|d, p| TeamMemberEntry::new(d, p)),
+            "TMMBE-MEMB-xxx".to_string(),
         )
     }
 
@@ -47070,6 +47431,7 @@ impl ProjectTeamStaffing {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RREQE-OPEN-LST"),
             Box::new(|d, p| ResourceRequirementEntry::new(d, p)),
+            "RREQE-OPEN-xxx".to_string(),
         )
     }
 }
@@ -47198,6 +47560,7 @@ impl ProtocolsAndStandardsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PREN-PROT-LST"),
             Box::new(|d, p| ProtocolEntry::new(d, p)),
+            "PREN-PROT-xxx".to_string(),
         )
     }
 
@@ -47339,6 +47702,7 @@ impl PrototypeFeatureSubset {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRFEEN-FEAT-LST"),
             Box::new(|d, p| PrototypeFeatureEntry::new(d, p)),
+            "PRFEEN-FEAT-xxx".to_string(),
         )
     }
 }
@@ -47427,6 +47791,7 @@ impl PrototypeGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRGOEN-GOAL-LST"),
             Box::new(|d, p| PrototypeGoalEntry::new(d, p)),
+            "PRGOEN-GOAL-xxx".to_string(),
         )
     }
 }
@@ -47831,6 +48196,7 @@ impl QualityFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QCATE-QUAL-LST"),
             Box::new(|d, p| QualityCategoryEntry::new(d, p)),
+            "QCATE-QUAL-xxx".to_string(),
         )
     }
 
@@ -47840,6 +48206,7 @@ impl QualityFramework {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CATEG-CATE-LST"),
             Box::new(|d, p| CategoryDependencyEntry::new(d, p)),
+            "CATEG-CATE-xxx".to_string(),
         )
     }
 }
@@ -47933,6 +48300,7 @@ impl QualityGateAdjustmentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QGAED-DETA-LST"),
             Box::new(|d, p| QualityGateAdjustmentDetails::new(d, p)),
+            "QGAED-DETA-xxx".to_string(),
         )
     }
 
@@ -48061,6 +48429,7 @@ impl QualityGateAdjustments {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QGAJE-ITEM-LST"),
             Box::new(|d, p| QualityGateAdjustmentEntry::new(d, p)),
+            "QGAJE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -48212,6 +48581,7 @@ impl QualityGateChecklist {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QGCHK-ITEM-LST"),
             Box::new(|d, p| QualityGateCheckEntry::new(d, p)),
+            "QGCHK-ITEM-xxx".to_string(),
         )
     }
 }
@@ -48357,6 +48727,7 @@ impl QualityScenarios {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QLSCN-ITEM-LST"),
             Box::new(|d, p| QualityScenarioEntry::new(d, p)),
+            "QLSCN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -48980,6 +49351,7 @@ impl ReferenceDocuments {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RFDOC-DOCU-LST"),
             Box::new(|d, p| ReferenceDocumentEntry::new(d, p)),
+            "RFDOC-DOCU-xxx".to_string(),
         )
     }
 }
@@ -49133,6 +49505,7 @@ impl RegulatoryComplianceRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REGRQ-REQU-LST"),
             Box::new(|d, p| RegulatoryRequirementEntry::new(d, p)),
+            "REGRQ-REQU-xxx".to_string(),
         )
     }
 
@@ -49142,6 +49515,7 @@ impl RegulatoryComplianceRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CPML-MILE-LST"),
             Box::new(|d, p| ComplianceMilestoneEntry::new(d, p)),
+            "CPML-MILE-xxx".to_string(),
         )
     }
 }
@@ -49175,6 +49549,7 @@ impl RegulatoryContext {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ARE-REGU-LST"),
             Box::new(|d, p| ApplicableRegulationEntry::new(d, p)),
+            "ARE-REGU-xxx".to_string(),
         )
     }
 }
@@ -49664,6 +50039,7 @@ impl ReplacementInventory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYTORE-SYST-LST"),
             Box::new(|d, p| SystemToReplaceEntry::new(d, p)),
+            "SYTORE-SYST-xxx".to_string(),
         )
     }
 }
@@ -49756,6 +50132,7 @@ impl ReportChartEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECHAX-AXES-LST"),
             Box::new(|d, p| ReportChartAxes::new(d, p)),
+            "RECHAX-AXES-xxx".to_string(),
         )
     }
 
@@ -50121,6 +50498,7 @@ impl ReportEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESEE1-SECT-LST"),
             Box::new(|d, p| ReportSectionEntry::new(d, p)),
+            "RESEE1-SECT-xxx".to_string(),
         )
     }
 
@@ -50130,6 +50508,7 @@ impl ReportEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REFIEN-FILT-LST"),
             Box::new(|d, p| ReportFilterEntry::new(d, p)),
+            "REFIEN-FILT-xxx".to_string(),
         )
     }
 
@@ -50139,6 +50518,7 @@ impl ReportEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESCEN-SCHE-LST"),
             Box::new(|d, p| ReportScheduleEntry::new(d, p)),
+            "RESCEN-SCHE-xxx".to_string(),
         )
     }
 
@@ -50148,6 +50528,7 @@ impl ReportEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REDIEN-DIST-LST"),
             Box::new(|d, p| ReportDistributionEntry::new(d, p)),
+            "REDIEN-DIST-xxx".to_string(),
         )
     }
 
@@ -50157,6 +50538,7 @@ impl ReportEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REREEN-RECI-LST"),
             Box::new(|d, p| ReportRecipientEntry::new(d, p)),
+            "REREEN-RECI-xxx".to_string(),
         )
     }
 }
@@ -50637,6 +51019,7 @@ impl ReportSectionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECOE1-COLU-LST"),
             Box::new(|d, p| ReportColumnEntry::new(d, p)),
+            "RECOE1-COLU-xxx".to_string(),
         )
     }
 
@@ -50646,6 +51029,7 @@ impl ReportSectionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECHEN-CHAR-LST"),
             Box::new(|d, p| ReportChartEntry::new(d, p)),
+            "RECHEN-CHAR-xxx".to_string(),
         )
     }
 }
@@ -50748,6 +51132,7 @@ impl RequirementAcceptanceCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACCR-CRIT-LST"),
             Box::new(|d, p| AcceptanceCriterionEntry::new(d, p)),
+            "ACCR-CRIT-xxx".to_string(),
         )
     }
 }
@@ -50796,6 +51181,7 @@ impl RequirementBusinessRules {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RQBIRU-RULE-LST"),
             Box::new(|d, p| RequirementBusinessRuleEntry::new(d, p)),
+            "RQBIRU-RULE-xxx".to_string(),
         )
     }
 }
@@ -50851,6 +51237,7 @@ impl RequirementDataRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DAENRE-ENTI-LST"),
             Box::new(|d, p| DataEntityReferenceEntry::new(d, p)),
+            "DAENRE-ENTI-xxx".to_string(),
         )
     }
 }
@@ -50883,6 +51270,7 @@ impl RequirementDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RQDEP-ITEM-LST"),
             Box::new(|d, p| RequirementDependencyEntry::new(d, p)),
+            "RQDEP-ITEM-xxx".to_string(),
         )
     }
 }
@@ -50958,6 +51346,7 @@ impl RequirementScreenActionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACPR-PARA-LST"),
             Box::new(|d, p| ActionParameterEntry::new(d, p)),
+            "ACPR-PARA-xxx".to_string(),
         )
     }
 }
@@ -51057,6 +51446,7 @@ impl RequirementTestCases {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RQTSC-TEST-LST"),
             Box::new(|d, p| RequirementTestCaseEntry::new(d, p)),
+            "RQTSC-TEST-xxx".to_string(),
         )
     }
 }
@@ -51186,6 +51576,7 @@ impl RequirementUiSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCFLD-FIEL-LST"),
             Box::new(|d, p| ScreenFieldEntry::new(d, p)),
+            "SCFLD-FIEL-xxx".to_string(),
         )
     }
 
@@ -51195,6 +51586,7 @@ impl RequirementUiSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RQSCAC-ACTI-LST"),
             Box::new(|d, p| RequirementScreenActionEntry::new(d, p)),
+            "RQSCAC-ACTI-xxx".to_string(),
         )
     }
 
@@ -51204,6 +51596,7 @@ impl RequirementUiSpecification {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCBHV-BEHA-LST"),
             Box::new(|d, p| ScreenBehaviorEntry::new(d, p)),
+            "SCBHV-BEHA-xxx".to_string(),
         )
     }
 }
@@ -51315,6 +51708,7 @@ impl RequirementsOverview {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
             Box::new(|d, p| RequirementRelationships::new(d, p)),
+            "RERE-REQU-xxx".to_string(),
         )
     }
 
@@ -51618,6 +52012,7 @@ impl ResponsibilityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REFUDE-FUNC-LST"),
             Box::new(|d, p| ResponsibilityFunctionDetails::new(d, p)),
+            "REFUDE-FUNC-xxx".to_string(),
         )
     }
 
@@ -51632,6 +52027,7 @@ impl ResponsibilityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECO-CONT-LST"),
             Box::new(|d, p| ResponsibilityContacts::new(d, p)),
+            "RECO-CONT-xxx".to_string(),
         )
     }
 
@@ -51641,6 +52037,7 @@ impl ResponsibilityEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESY-SYST-LST"),
             Box::new(|d, p| ResponsibilitySystems::new(d, p)),
+            "RESY-SYST-xxx".to_string(),
         )
     }
 
@@ -51792,6 +52189,7 @@ impl ResponsiveBehavior {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESPSR-SCRE-LST"),
             Box::new(|d, p| ResponsiveScreenRuleEntry::new(d, p)),
+            "RESPSR-SCRE-xxx".to_string(),
         )
     }
 }
@@ -52140,6 +52538,7 @@ impl ReusableComponentsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SHLCP-SHAR-LST"),
             Box::new(|d, p| SharedLibraryComponentEntry::new(d, p)),
+            "SHLCP-SHAR-xxx".to_string(),
         )
     }
 
@@ -52149,6 +52548,7 @@ impl ReusableComponentsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RUICMP-UICO-LST"),
             Box::new(|d, p| ReusableUiComponentEntry::new(d, p)),
+            "RUICMP-UICO-xxx".to_string(),
         )
     }
 
@@ -52158,6 +52558,7 @@ impl ReusableComponentsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BUCOEN-BUSI-LST"),
             Box::new(|d, p| BusinessComponentEntry::new(d, p)),
+            "BUCOEN-BUSI-xxx".to_string(),
         )
     }
 
@@ -52167,6 +52568,7 @@ impl ReusableComponentsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INCOEN-INFR-LST"),
             Box::new(|d, p| InfrastructureComponentEntry::new(d, p)),
+            "INCOEN-INFR-xxx".to_string(),
         )
     }
 
@@ -52176,6 +52578,7 @@ impl ReusableComponentsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "THPALI-THIR-LST"),
             Box::new(|d, p| ThirdPartyLibraryEntry::new(d, p)),
+            "THPALI-THIR-xxx".to_string(),
         )
     }
 
@@ -52580,6 +52983,7 @@ impl RevisionHistory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RVHST-REVS-LST"),
             Box::new(|d, p| RevisionEntry::new(d, p)),
+            "RVHST-REVS-xxx".to_string(),
         )
     }
 }
@@ -52751,6 +53155,7 @@ impl RiskEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RR-RELA-LST"),
             Box::new(|d, p| RiskRelationships::new(d, p)),
+            "RR-RELA-xxx".to_string(),
         )
     }
 }
@@ -52994,6 +53399,7 @@ impl RisksAndAssumptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RIEN-KEYR-LST"),
             Box::new(|d, p| RiskEntry::new(d, p)),
+            "RIEN-KEYR-xxx".to_string(),
         )
     }
 }
@@ -53200,6 +53606,7 @@ impl RoleAdjustments {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RLAJE-ITEM-LST"),
             Box::new(|d, p| RoleAdjustmentEntry::new(d, p)),
+            "RLAJE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -53352,6 +53759,7 @@ impl RoleHierarchy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RLINH-INHE-LST"),
             Box::new(|d, p| RoleInheritanceRuleEntry::new(d, p)),
+            "RLINH-INHE-xxx".to_string(),
         )
     }
 
@@ -53361,6 +53769,7 @@ impl RoleHierarchy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RLCMB-COMB-LST"),
             Box::new(|d, p| RoleCombinationConstraintEntry::new(d, p)),
+            "RLCMB-COMB-xxx".to_string(),
         )
     }
 
@@ -53370,6 +53779,7 @@ impl RoleHierarchy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GBRLX-GLOB-LST"),
             Box::new(|d, p| GlobalRoleExclusionEntry::new(d, p)),
+            "GBRLX-GLOB-xxx".to_string(),
         )
     }
 
@@ -53833,6 +54243,7 @@ impl RuntimeDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RNDEP-ITEM-LST"),
             Box::new(|d, p| RuntimeDependencyEntry::new(d, p)),
+            "RNDEP-ITEM-xxx".to_string(),
         )
     }
 }
@@ -54527,6 +54938,7 @@ impl ScenarioEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCNST-STEP-LST"),
             Box::new(|d, p| ScenarioStepEntry::new(d, p)),
+            "SCNST-STEP-xxx".to_string(),
         )
     }
 
@@ -54536,6 +54948,7 @@ impl ScenarioEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ALFL-ALTE-LST"),
             Box::new(|d, p| AlternativeFlowEntry::new(d, p)),
+            "ALFL-ALTE-xxx".to_string(),
         )
     }
 
@@ -54827,6 +55240,7 @@ impl ScopeBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCITE-INSC-LST"),
             Box::new(|d, p| ScopeItemEntry::new(d, p)),
+            "SCITE-INSC-xxx".to_string(),
         )
     }
 
@@ -54836,6 +55250,7 @@ impl ScopeBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCITE-OUTO-LST"),
             Box::new(|d, p| ScopeItemEntry::new(d, p)),
+            "SCITE-OUTO-xxx".to_string(),
         )
     }
 
@@ -54845,6 +55260,7 @@ impl ScopeBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DFSCP-DEFE-LST"),
             Box::new(|d, p| DeferredScopeItemEntry::new(d, p)),
+            "DFSCP-DEFE-xxx".to_string(),
         )
     }
 
@@ -54854,6 +55270,7 @@ impl ScopeBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCOPE-SCOP-LST"),
             Box::new(|d, p| ScopeAssumptionEntry::new(d, p)),
+            "SCOPE-SCOP-xxx".to_string(),
         )
     }
 }
@@ -54983,6 +55400,7 @@ impl ScreenActions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCRAC-ITEM-LST"),
             Box::new(|d, p| ScreenActionEntry::new(d, p)),
+            "SCRAC-ITEM-xxx".to_string(),
         )
     }
 }
@@ -55216,6 +55634,7 @@ impl ScreenElementEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EVRE-VALI-LST"),
             Box::new(|d, p| ElementValidationRuleEntry::new(d, p)),
+            "EVRE-VALI-xxx".to_string(),
         )
     }
 }
@@ -55448,6 +55867,7 @@ impl ScreenEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCRUSC-USER-LST"),
             Box::new(|d, p| ScreenUserCategoryEntry::new(d, p)),
+            "SCRUSC-USER-xxx".to_string(),
         )
     }
 
@@ -55457,6 +55877,7 @@ impl ScreenEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EPNT-ENTR-LST"),
             Box::new(|d, p| EntryPointEntry::new(d, p)),
+            "EPNT-ENTR-xxx".to_string(),
         )
     }
 
@@ -55466,6 +55887,7 @@ impl ScreenEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SRRE-RESP-LST"),
             Box::new(|d, p| ScreenResponsiveRuleEntry::new(d, p)),
+            "SRRE-RESP-xxx".to_string(),
         )
     }
 }
@@ -55609,6 +56031,7 @@ impl ScreenFieldEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FLDVL-VALI-LST"),
             Box::new(|d, p| FieldValidationRule::new(d, p)),
+            "FLDVL-VALI-xxx".to_string(),
         )
     }
 }
@@ -55706,6 +56129,7 @@ impl ScreenInventory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCREN-ITEM-LST"),
             Box::new(|d, p| ScreenEntry::new(d, p)),
+            "SCREN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -55761,6 +56185,7 @@ impl ScreenSectionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCREL-ELEM-LST"),
             Box::new(|d, p| ScreenElementEntry::new(d, p)),
+            "SCREL-ELEM-xxx".to_string(),
         )
     }
 }
@@ -55825,6 +56250,7 @@ impl ScreenSections {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCRSC-ITEM-LST"),
             Box::new(|d, p| ScreenSectionEntry::new(d, p)),
+            "SCRSC-ITEM-xxx".to_string(),
         )
     }
 }
@@ -55875,6 +56301,7 @@ impl ScreenStates {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCRST-ITEM-LST"),
             Box::new(|d, p| ScreenStateEntry::new(d, p)),
+            "SCRST-ITEM-xxx".to_string(),
         )
     }
 }
@@ -55926,6 +56353,7 @@ impl SecondaryNavigation {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TBDE-TABB-LST"),
             Box::new(|d, p| TabBarDefinitionEntry::new(d, p)),
+            "TBDE-TABB-xxx".to_string(),
         )
     }
 }
@@ -56172,6 +56600,7 @@ impl SecurityAuditRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SEAUEN-AUDI-LST"),
             Box::new(|d, p| SecurityAuditEntry::new(d, p)),
+            "SEAUEN-AUDI-xxx".to_string(),
         )
     }
 }
@@ -56547,6 +56976,7 @@ impl SecurityControls {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SECCT-CONT-LST"),
             Box::new(|d, p| SecurityControlEntry::new(d, p)),
+            "SECCT-CONT-xxx".to_string(),
         )
     }
 }
@@ -56726,6 +57156,7 @@ impl SecurityEventsDefinition {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SEVT-CUST-LST"),
             Box::new(|d, p| SecurityEventEntry::new(d, p)),
+            "SEVT-CUST-xxx".to_string(),
         )
     }
 }
@@ -56889,6 +57320,7 @@ impl SecurityRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SECRQ-REQU-LST"),
             Box::new(|d, p| SecurityRequirementEntry::new(d, p)),
+            "SECRQ-REQU-xxx".to_string(),
         )
     }
 }
@@ -57634,6 +58066,7 @@ impl ServerRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SEENEN-ENVI-LST"),
             Box::new(|d, p| ServerEnvironmentEntry::new(d, p)),
+            "SEENEN-ENVI-xxx".to_string(),
         )
     }
 
@@ -57643,6 +58076,7 @@ impl ServerRequirementsSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SEROEN-SERV-LST"),
             Box::new(|d, p| ServerRoleEntry::new(d, p)),
+            "SEROEN-SERV-xxx".to_string(),
         )
     }
 
@@ -57990,6 +58424,7 @@ impl ServiceLevel {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SLAE-SLAE-LST"),
             Box::new(|d, p| ServiceLevelAgreementEntry::new(d, p)),
+            "SLAE-SLAE-xxx".to_string(),
         )
     }
 }
@@ -58526,6 +58961,7 @@ impl SharedInfrastructureDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SHIEN-ITEM-LST"),
             Box::new(|d, p| SharedInfrastructureEntry::new(d, p)),
+            "SHIEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -59076,6 +59512,7 @@ impl SlaAndSloMonitoring {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SLEN-SLOS-LST"),
             Box::new(|d, p| SloEntry::new(d, p)),
+            "SLEN-SLOS-xxx".to_string(),
         )
     }
 
@@ -59269,6 +59706,7 @@ impl SoftwareDeliverables {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SWDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
+            "SWDLV-ITEM-xxx".to_string(),
         )
     }
 }
@@ -59729,6 +60167,7 @@ impl StaffingPlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STFE-ITEM-LST"),
             Box::new(|d, p| StaffingEntry::new(d, p)),
+            "STFE-ITEM-xxx".to_string(),
         )
     }
 
@@ -59828,6 +60267,7 @@ impl StageEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STDE-DEPE-LST"),
             Box::new(|d, p| StageDependencies::new(d, p)),
+            "STDE-DEPE-xxx".to_string(),
         )
     }
 
@@ -59837,6 +60277,7 @@ impl StageEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STRE-RESO-LST"),
             Box::new(|d, p| StageResources::new(d, p)),
+            "STRE-RESO-xxx".to_string(),
         )
     }
 
@@ -59856,6 +60297,7 @@ impl StageEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STST-STAK-LST"),
             Box::new(|d, p| StageStakeholders::new(d, p)),
+            "STST-STAK-xxx".to_string(),
         )
     }
 
@@ -59878,6 +60320,7 @@ impl StageEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SUSST-SUBS-LST"),
             Box::new(|d, p| SubStageEntry::new(d, p)),
+            "SUSST-SUBS-xxx".to_string(),
         )
     }
 
@@ -59890,6 +60333,7 @@ impl StageEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STGSUC-SUCC-LST"),
             Box::new(|d, p| StageSuccessCriterionEntry::new(d, p)),
+            "STGSUC-SUCC-xxx".to_string(),
         )
     }
 
@@ -60345,6 +60789,7 @@ impl StageMigrationRisks {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STGMRS-ITEM-LST"),
             Box::new(|d, p| StageMigrationRiskEntry::new(d, p)),
+            "STGMRS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -60433,6 +60878,7 @@ impl StageOverview {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGSE-STAG-LST"),
             Box::new(|d, p| StageSummaryEntry::new(d, p)),
+            "STAGSE-STAG-xxx".to_string(),
         )
     }
 
@@ -60900,6 +61346,7 @@ impl StageSummaryEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STSURE-RESO-LST"),
             Box::new(|d, p| StageSummaryResources::new(d, p)),
+            "STSURE-RESO-xxx".to_string(),
         )
     }
 
@@ -60909,6 +61356,7 @@ impl StageSummaryEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STSUDE-DEPE-LST"),
             Box::new(|d, p| StageSummaryDependencies::new(d, p)),
+            "STSUDE-DEPE-xxx".to_string(),
         )
     }
 
@@ -61249,6 +61697,7 @@ impl StagingStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGDR-DRIV-LST"),
             Box::new(|d, p| StagingDrivers::new(d, p)),
+            "STAGDR-DRIV-xxx".to_string(),
         )
     }
 
@@ -61293,6 +61742,7 @@ impl StagingStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGDP-DEPE-LST"),
             Box::new(|d, p| StagingDependencies::new(d, p)),
+            "STAGDP-DEPE-xxx".to_string(),
         )
     }
 
@@ -61313,6 +61763,7 @@ impl StagingStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KEYAS-KEYA-LST"),
             Box::new(|d, p| KeyAssumptionEntry::new(d, p)),
+            "KEYAS-KEYA-xxx".to_string(),
         )
     }
 
@@ -61322,6 +61773,7 @@ impl StagingStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGI-CONS-LST"),
             Box::new(|d, p| StagingStrategyConstraintEntry::new(d, p)),
+            "STAGI-CONS-xxx".to_string(),
         )
     }
 }
@@ -61414,6 +61866,7 @@ impl StakeholderRegister {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STKRG-STAK-LST"),
             Box::new(|d, p| StakeholderRegisterEntry::new(d, p)),
+            "STKRG-STAK-xxx".to_string(),
         )
     }
 }
@@ -61469,6 +61922,7 @@ impl StakeholdersAndBeneficiaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STKNT-PRIM-LST"),
             Box::new(|d, p| StakeholderEntry::new(d, p)),
+            "STKNT-PRIM-xxx".to_string(),
         )
     }
 
@@ -61478,6 +61932,7 @@ impl StakeholdersAndBeneficiaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STKNT-SECO-LST"),
             Box::new(|d, p| StakeholderEntry::new(d, p)),
+            "STKNT-SECO-xxx".to_string(),
         )
     }
 }
@@ -61624,6 +62079,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ISCE-ITST-LST"),
             Box::new(|d, p| ItStandardComplianceEntry::new(d, p)),
+            "ISCE-ITST-xxx".to_string(),
         )
     }
 
@@ -61633,6 +62089,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IPCE-INDU-LST"),
             Box::new(|d, p| IndustryProtocolComplianceEntry::new(d, p)),
+            "IPCE-INDU-xxx".to_string(),
         )
     }
 
@@ -61642,6 +62099,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INSPEN-INTE-LST"),
             Box::new(|d, p| InterfaceSpecificationEntry::new(d, p)),
+            "INSPEN-INTE-xxx".to_string(),
         )
     }
 
@@ -61651,6 +62109,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECOEN-REGU-LST"),
             Box::new(|d, p| RegulatoryComplianceEntry::new(d, p)),
+            "RECOEN-REGU-xxx".to_string(),
         )
     }
 
@@ -61660,6 +62119,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SSCE-SECU-LST"),
             Box::new(|d, p| SecurityStandardComplianceEntry::new(d, p)),
+            "SSCE-SECU-xxx".to_string(),
         )
     }
 
@@ -61669,6 +62129,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ACCSTD-ACCE-LST"),
             Box::new(|d, p| AccessibilityStandardEntry::new(d, p)),
+            "ACCSTD-ACCE-xxx".to_string(),
         )
     }
 
@@ -61678,6 +62139,7 @@ impl StandardsComplianceSection {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QLSTD-QUAL-LST"),
             Box::new(|d, p| QualityStandardEntry::new(d, p)),
+            "QLSTD-QUAL-xxx".to_string(),
         )
     }
 
@@ -61735,6 +62197,7 @@ impl SteeringCommittee {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMMB-MEMB-LST"),
             Box::new(|d, p| CommitteeMemberEntry::new(d, p)),
+            "COMMB-MEMB-xxx".to_string(),
         )
     }
 }
@@ -61768,6 +62231,7 @@ impl StepUpAuthenticationPolicy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STEPU-STEP-LST"),
             Box::new(|d, p| StepUpDetailEntry::new(d, p)),
+            "STEPU-STEP-xxx".to_string(),
         )
     }
 }
@@ -62062,6 +62526,7 @@ impl SuccessCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCE-ITEM-LST"),
             Box::new(|d, p| SuccessCriterionEntry::new(d, p)),
+            "SCE-ITEM-xxx".to_string(),
         )
     }
 
@@ -62236,6 +62701,7 @@ impl SuccessCriterionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SUCRRE-RELA-LST"),
             Box::new(|d, p| SuccessCriterionRelationships::new(d, p)),
+            "SUCRRE-RELA-xxx".to_string(),
         )
     }
 
@@ -62491,6 +62957,7 @@ impl SupportDeliverables {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SPDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
+            "SPDLV-ITEM-xxx".to_string(),
         )
     }
 }
@@ -62625,6 +63092,7 @@ impl SystemBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "BOINPA-BOUN-LST"),
             Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
+            "BOINPA-BOUN-xxx".to_string(),
         )
     }
 
@@ -62644,6 +63112,7 @@ impl SystemBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
             Box::new(|d, p| MigrationInteractions::new(d, p)),
+            "MIIN-MIGR-xxx".to_string(),
         )
     }
 
@@ -62653,6 +63122,7 @@ impl SystemBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
             Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
+            "CBOC-OPER-xxx".to_string(),
         )
     }
 
@@ -62693,6 +63163,7 @@ impl SystemBusinessCriticality {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SBUE-BUSI-LST"),
             Box::new(|d, p| SystemBusinessUnitEntry::new(d, p)),
+            "SBUE-BUSI-xxx".to_string(),
         )
     }
 
@@ -62702,6 +63173,7 @@ impl SystemBusinessCriticality {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SBPE-SUPP-LST"),
             Box::new(|d, p| SystemBusinessProcessEntry::new(d, p)),
+            "SBPE-SUPP-xxx".to_string(),
         )
     }
 }
@@ -62985,6 +63457,7 @@ impl SystemCostAnalysis {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NONFI-NONF-LST"),
             Box::new(|d, p| NonFinancialBenefitEntry::new(d, p)),
+            "NONFI-NONF-xxx".to_string(),
         )
     }
 }
@@ -63068,6 +63541,7 @@ impl SystemDataScope {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEME-ENTI-LST"),
             Box::new(|d, p| DataEntityMigrationEntry::new(d, p)),
+            "DEME-ENTI-xxx".to_string(),
         )
     }
 
@@ -63077,6 +63551,7 @@ impl SystemDataScope {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KNOWN-KNOW-LST"),
             Box::new(|d, p| KnownQualityIssueEntry::new(d, p)),
+            "KNOWN-KNOW-xxx".to_string(),
         )
     }
 }
@@ -63275,6 +63750,7 @@ impl SystemDescription {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USCA-USER-LST"),
             Box::new(|d, p| UserCategoryEntry::new(d, p)),
+            "USCA-USER-xxx".to_string(),
         )
     }
 
@@ -63493,6 +63969,7 @@ impl SystemErrorDisplay {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EPDE-ERRO-LST"),
             Box::new(|d, p| ErrorPageDesignEntry::new(d, p)),
+            "EPDE-ERRO-xxx".to_string(),
         )
     }
 
@@ -63502,6 +63979,7 @@ impl SystemErrorDisplay {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SECE-ERRO-LST"),
             Box::new(|d, p| SystemErrorCodeEntry::new(d, p)),
+            "SECE-ERRO-xxx".to_string(),
         )
     }
 }
@@ -63753,6 +64231,7 @@ impl SystemInventory {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ESENT-SYST-LST"),
             Box::new(|d, p| ExistingSystemEntry::new(d, p)),
+            "ESENT-SYST-xxx".to_string(),
         )
     }
 }
@@ -63778,6 +64257,7 @@ impl SystemKnowledgeTransfer {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CRITI-CRIT-LST"),
             Box::new(|d, p| CriticalKnowledgeAreaEntry::new(d, p)),
+            "CRITI-CRIT-xxx".to_string(),
         )
     }
 
@@ -63839,6 +64319,7 @@ impl SystemMigrationPlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SMRE-RISK-LST"),
             Box::new(|d, p| SystemMigrationRiskEntry::new(d, p)),
+            "SMRE-RISK-xxx".to_string(),
         )
     }
 
@@ -63928,6 +64409,7 @@ impl SystemOperation {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MAINT-MAIN-LST"),
             Box::new(|d, p| MaintenanceProcedureEntry::new(d, p)),
+            "MAINT-MAIN-xxx".to_string(),
         )
     }
 }
@@ -64089,6 +64571,7 @@ impl SystemQualityGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ATTRI-ATTR-LST"),
             Box::new(|d, p| AttributeInterdependencyEntry::new(d, p)),
+            "ATTRI-ATTR-xxx".to_string(),
         )
     }
 
@@ -64194,6 +64677,7 @@ impl SystemReplacementStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REPPHS-PHAS-LST"),
             Box::new(|d, p| ReplacementPhaseEntry::new(d, p)),
+            "REPPHS-PHAS-xxx".to_string(),
         )
     }
 
@@ -64203,6 +64687,7 @@ impl SystemReplacementStrategy {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PREDE-PRED-LST"),
             Box::new(|d, p| PredecessorDependencyEntry::new(d, p)),
+            "PREDE-PRED-xxx".to_string(),
         )
     }
 
@@ -64382,6 +64867,7 @@ impl SystemStagePlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
             Box::new(|d, p| StageEntry::new(d, p)),
+            "STAGE-STAG-xxx".to_string(),
         )
     }
 
@@ -64495,6 +64981,7 @@ impl SystemTaskEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYSTE-WORK-LST"),
             Box::new(|d, p| SystemTaskWorkflowStepEntry::new(d, p)),
+            "SYSTE-WORK-xxx".to_string(),
         )
     }
 
@@ -64504,6 +64991,7 @@ impl SystemTaskEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VARIA-VARI-LST"),
             Box::new(|d, p| VariationsAndExceptionEntry::new(d, p)),
+            "VARIA-VARI-xxx".to_string(),
         )
     }
 }
@@ -64613,6 +65101,7 @@ impl SystemTechnicalAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KIE-KNOW-LST"),
             Box::new(|d, p| KnownIssueEntry::new(d, p)),
+            "KIE-KNOW-xxx".to_string(),
         )
     }
 
@@ -64622,6 +65111,7 @@ impl SystemTechnicalAssessment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SECUR-SECU-LST"),
             Box::new(|d, p| SecurityConcernEntry::new(d, p)),
+            "SECUR-SECU-xxx".to_string(),
         )
     }
 }
@@ -64730,6 +65220,7 @@ impl SystemToReplaceEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REPSDEP-DEPE-LST"),
             Box::new(|d, p| ReplacementSystemDependencyEntry::new(d, p)),
+            "REPSDEP-DEPE-xxx".to_string(),
         )
     }
 
@@ -64901,6 +65392,7 @@ impl SystemUserImpact {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UGIE-USER-LST"),
             Box::new(|d, p| UserGroupImpactEntry::new(d, p)),
+            "UGIE-USER-xxx".to_string(),
         )
     }
 }
@@ -65016,6 +65508,7 @@ impl TabBarDefinitionEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TAITEN-TABS-LST"),
             Box::new(|d, p| TabItemEntry::new(d, p)),
+            "TAITEN-TABS-xxx".to_string(),
         )
     }
 }
@@ -65295,6 +65788,7 @@ impl TeamMemberEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TMMRP-RESP-LST"),
             Box::new(|d, p| TeamMemberResponsibilityEntry::new(d, p)),
+            "TMMRP-RESP-xxx".to_string(),
         )
     }
 }
@@ -65400,6 +65894,7 @@ impl TeamMemberSkills {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TMSKE-SKIL-LST"),
             Box::new(|d, p| TeamMemberSkillEntry::new(d, p)),
+            "TMSKE-SKIL-xxx".to_string(),
         )
     }
 }
@@ -65521,6 +66016,7 @@ impl TechnicalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DATAC-DATA-LST"),
             Box::new(|d, p| DatacenterEntry::new(d, p)),
+            "DATAC-DATA-xxx".to_string(),
         )
     }
 
@@ -65536,6 +66032,7 @@ impl TechnicalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TESTEN-TECH-LST"),
             Box::new(|d, p| TechnologyStandardEntry::new(d, p)),
+            "TESTEN-TECH-xxx".to_string(),
         )
     }
 
@@ -65548,6 +66045,7 @@ impl TechnicalEnvironment {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INCOE1-INTE-LST"),
             Box::new(|d, p| IntegrationConstraintEntry::new(d, p)),
+            "INCOE1-INTE-xxx".to_string(),
         )
     }
 }
@@ -65589,6 +66087,7 @@ impl TechnicalEnvironmentNetwork {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEVOP-DEVO-LST"),
             Box::new(|d, p| DevopsStandardEntry::new(d, p)),
+            "DEVOP-DEVO-xxx".to_string(),
         )
     }
 
@@ -65598,6 +66097,7 @@ impl TechnicalEnvironmentNetwork {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OBSER-OBSE-LST"),
             Box::new(|d, p| ObservabilityRequirementEntry::new(d, p)),
+            "OBSER-OBSE-xxx".to_string(),
         )
     }
 
@@ -65731,6 +66231,7 @@ impl TechnicalGoalConstraints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TECN-ITEM-LST"),
             Box::new(|d, p| TechnicalConstraintEntry::new(d, p)),
+            "TECN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -65763,6 +66264,7 @@ impl TechnicalGoalDependencies {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TEDE-ITEM-LST"),
             Box::new(|d, p| TechnicalDependencyEntry::new(d, p)),
+            "TEDE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -65897,6 +66399,7 @@ impl TechnicalGoalTestCriteria {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TEGOTS-ITEM-LST"),
             Box::new(|d, p| TechnicalGoalTestCaseEntry::new(d, p)),
+            "TEGOTS-ITEM-xxx".to_string(),
         )
     }
 }
@@ -65931,6 +66434,7 @@ impl TechnicalGoals {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TGE-GOAL-LST"),
             Box::new(|d, p| TechnicalGoalEntry::new(d, p)),
+            "TGE-GOAL-xxx".to_string(),
         )
     }
 }
@@ -65967,6 +66471,7 @@ impl TechnicalInfrastructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COTORE-COMM-LST"),
             Box::new(|d, p| CommunicationToolsRequirements::new(d, p)),
+            "COTORE-COMM-xxx".to_string(),
         )
     }
 }
@@ -66006,6 +66511,7 @@ impl TechnicalPainPoints {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TEPAPO-ITEM-LST"),
             Box::new(|d, p| PainPointEntry::new(d, p)),
+            "TEPAPO-ITEM-xxx".to_string(),
         )
     }
 }
@@ -66201,6 +66707,7 @@ impl TechnicalRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TERQ-REQU-LST"),
             Box::new(|d, p| TechnicalRequirementEntry::new(d, p)),
+            "TERQ-REQU-xxx".to_string(),
         )
     }
 }
@@ -66510,6 +67017,7 @@ impl TenantIsolation {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TNCS-TENA-LST"),
             Box::new(|d, p| TenantCustomizationEntry::new(d, p)),
+            "TNCS-TENA-xxx".to_string(),
         )
     }
 
@@ -66628,6 +67136,7 @@ impl TestScenarioEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TESCNO-NOTE-LST"),
             Box::new(|d, p| TestScenarioNotes::new(d, p)),
+            "TESCNO-NOTE-xxx".to_string(),
         )
     }
 
@@ -66637,6 +67146,7 @@ impl TestScenarioEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UATSST-TEST-LST"),
             Box::new(|d, p| UatTestStepEntry::new(d, p)),
+            "UATSST-TEST-xxx".to_string(),
         )
     }
 }
@@ -67825,6 +68335,7 @@ impl Tooling {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TOLEN-ITEM-LST"),
             Box::new(|d, p| ToolEntry::new(d, p)),
+            "TOLEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -68074,6 +68585,7 @@ impl TradeOffDecisions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TODE-ITEM-LST"),
             Box::new(|d, p| TradeOffDecisionEntry::new(d, p)),
+            "TODE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -68189,6 +68701,7 @@ impl TrainingDeliverableRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRMOEN-TRAI-LST"),
             Box::new(|d, p| TrainingModuleEntry::new(d, p)),
+            "TRMOEN-TRAI-xxx".to_string(),
         )
     }
 }
@@ -68219,6 +68732,7 @@ impl TrainingDeliverables {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRDLV-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
+            "TRDLV-ITEM-xxx".to_string(),
         )
     }
 }
@@ -68449,6 +68963,7 @@ impl TrainingRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INITR-INIT-LST"),
             Box::new(|d, p| InitialTrainingEntry::new(d, p)),
+            "INITR-INIT-xxx".to_string(),
         )
     }
 
@@ -68458,6 +68973,7 @@ impl TrainingRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ONGTR-ONGO-LST"),
             Box::new(|d, p| OngoingTrainingEntry::new(d, p)),
+            "ONGTR-ONGO-xxx".to_string(),
         )
     }
 
@@ -68467,6 +68983,7 @@ impl TrainingRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYTR-SYST-LST"),
             Box::new(|d, p| SystemTrainingEntry::new(d, p)),
+            "SYTR-SYST-xxx".to_string(),
         )
     }
 
@@ -68476,6 +68993,7 @@ impl TrainingRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CRT-CERT-LST"),
             Box::new(|d, p| CertificationEntry::new(d, p)),
+            "CRT-CERT-xxx".to_string(),
         )
     }
 
@@ -68544,6 +69062,7 @@ impl TransitionCommunicationPlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COEV-COMM-LST"),
             Box::new(|d, p| CommunicationEventEntry::new(d, p)),
+            "COEV-COMM-xxx".to_string(),
         )
     }
 
@@ -68553,6 +69072,7 @@ impl TransitionCommunicationPlan {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRCOCH-CHAN-LST"),
             Box::new(|d, p| TransitionCommunicationChannels::new(d, p)),
+            "TRCOCH-CHAN-xxx".to_string(),
         )
     }
 }
@@ -68840,6 +69360,7 @@ impl TransitionPhaseEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TPACT-ACTI-LST"),
             Box::new(|d, p| TransitionPhaseActivities::new(d, p)),
+            "TPACT-ACTI-xxx".to_string(),
         )
     }
 
@@ -68849,6 +69370,7 @@ impl TransitionPhaseEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TPSTK-STAK-LST"),
             Box::new(|d, p| TransitionPhaseStakeholders::new(d, p)),
+            "TPSTK-STAK-xxx".to_string(),
         )
     }
 
@@ -69028,6 +69550,7 @@ impl TransitionSuccessMetrics {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRME-METR-LST"),
             Box::new(|d, p| TransitionMetricEntry::new(d, p)),
+            "TRME-METR-xxx".to_string(),
         )
     }
 }
@@ -69086,6 +69609,7 @@ impl TransitionSupportStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRSPRE-SUPP-LST"),
             Box::new(|d, p| TransitionSupportResourceEntry::new(d, p)),
+            "TRSPRE-SUPP-xxx".to_string(),
         )
     }
 
@@ -69095,6 +69619,7 @@ impl TransitionSupportStructure {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRESPA-ESCA-LST"),
             Box::new(|d, p| TransitionEscalationPaths::new(d, p)),
+            "TRESPA-ESCA-xxx".to_string(),
         )
     }
 }
@@ -69161,6 +69686,7 @@ impl TranslationProcess {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRVEEN-VEND-LST"),
             Box::new(|d, p| TranslationVendorEntry::new(d, p)),
+            "TRVEEN-VEND-xxx".to_string(),
         )
     }
 }
@@ -69486,6 +70012,7 @@ impl TrustBoundaries {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRBN-BOUN-LST"),
             Box::new(|d, p| TrustBoundaryEntry::new(d, p)),
+            "TRBN-BOUN-xxx".to_string(),
         )
     }
 }
@@ -69898,6 +70425,7 @@ impl UiComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMST-STAT-LST"),
             Box::new(|d, p| ComponentStateEntry::new(d, p)),
+            "CMST-STAT-xxx".to_string(),
         )
     }
 
@@ -69907,6 +70435,7 @@ impl UiComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMVN-VARI-LST"),
             Box::new(|d, p| ComponentVariantEntry::new(d, p)),
+            "CMVN-VARI-xxx".to_string(),
         )
     }
 
@@ -69916,6 +70445,7 @@ impl UiComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMAC-ACTI-LST"),
             Box::new(|d, p| ComponentActionEntry::new(d, p)),
+            "CMAC-ACTI-xxx".to_string(),
         )
     }
 
@@ -69925,6 +70455,7 @@ impl UiComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMSL-SLOT-LST"),
             Box::new(|d, p| ComponentSlotEntry::new(d, p)),
+            "CMSL-SLOT-xxx".to_string(),
         )
     }
 
@@ -69934,6 +70465,7 @@ impl UiComponentEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMPR-PROP-LST"),
             Box::new(|d, p| ComponentPropertyEntry::new(d, p)),
+            "CMPR-PROP-xxx".to_string(),
         )
     }
 }
@@ -70111,6 +70643,7 @@ impl UiComponents {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UICOEN-COMP-LST"),
             Box::new(|d, p| UiComponentEntry::new(d, p)),
+            "UICOEN-COMP-xxx".to_string(),
         )
     }
 
@@ -70120,6 +70653,7 @@ impl UiComponents {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CMFA-COMP-LST"),
             Box::new(|d, p| ComponentFamilyEntry::new(d, p)),
+            "CMFA-COMP-xxx".to_string(),
         )
     }
 }
@@ -70293,6 +70827,7 @@ impl UseCaseExtensions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EXTEN-EXTE-LST"),
             Box::new(|d, p| ExtensionEntry::new(d, p)),
+            "EXTEN-EXTE-xxx".to_string(),
         )
     }
 }
@@ -70420,6 +70955,7 @@ impl UserAcceptanceTesting {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UATCY-TEST-LST"),
             Box::new(|d, p| UatTestCycleEntry::new(d, p)),
+            "UATCY-TEST-xxx".to_string(),
         )
     }
 
@@ -70429,6 +70965,7 @@ impl UserAcceptanceTesting {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TSSC-TEST-LST"),
             Box::new(|d, p| TestScenarioEntry::new(d, p)),
+            "TSSC-TEST-xxx".to_string(),
         )
     }
 }
@@ -70476,6 +71013,7 @@ impl UserAccessPermissions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PRMTX-PERM-LST"),
             Box::new(|d, p| PermissionMatrixEntry::new(d, p)),
+            "PRMTX-PERM-xxx".to_string(),
         )
     }
 }
@@ -70691,6 +71229,7 @@ impl UserAttributes {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USATE-ITEM-LST"),
             Box::new(|d, p| UserAttributeEntry::new(d, p)),
+            "USATE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -70728,6 +71267,7 @@ impl UserAuthorization {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AZGR-GROU-LST"),
             Box::new(|d, p| AuthorizationGroupEntry::new(d, p)),
+            "AZGR-GROU-xxx".to_string(),
         )
     }
 
@@ -70737,6 +71277,7 @@ impl UserAuthorization {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "AZRO-ROLE-LST"),
             Box::new(|d, p| AuthorizationRoleEntry::new(d, p)),
+            "AZRO-ROLE-xxx".to_string(),
         )
     }
 
@@ -70746,6 +71287,7 @@ impl UserAuthorization {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ENT-ENTI-LST"),
             Box::new(|d, p| EntitlementEntry::new(d, p)),
+            "ENT-ENTI-xxx".to_string(),
         )
     }
 
@@ -70755,6 +71297,7 @@ impl UserAuthorization {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESKEY-RESO-LST"),
             Box::new(|d, p| ResourceKeyEntry::new(d, p)),
+            "RESKEY-RESO-xxx".to_string(),
         )
     }
 
@@ -70829,6 +71372,7 @@ impl UserCategoryEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYTS-SYST-LST"),
             Box::new(|d, p| SystemTaskEntry::new(d, p)),
+            "SYTS-SYST-xxx".to_string(),
         )
     }
 
@@ -71154,6 +71698,7 @@ impl UserJourney {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "JRNST-STAG-LST"),
             Box::new(|d, p| JourneyStageEntry::new(d, p)),
+            "JRNST-STAG-xxx".to_string(),
         )
     }
 
@@ -71163,6 +71708,7 @@ impl UserJourney {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KEYTO-KEYT-LST"),
             Box::new(|d, p| KeyTouchpointEntry::new(d, p)),
+            "KEYTO-KEYT-xxx".to_string(),
         )
     }
 
@@ -71172,6 +71718,7 @@ impl UserJourney {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USERJ-PAIN-LST"),
             Box::new(|d, p| UserJourneyPainPointEntry::new(d, p)),
+            "USERJ-PAIN-xxx".to_string(),
         )
     }
 
@@ -71280,6 +71827,7 @@ impl UserLifecycle {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SACLC-SERV-LST"),
             Box::new(|d, p| ServiceAccountLifecycle::new(d, p)),
+            "SACLC-SERV-xxx".to_string(),
         )
     }
 }
@@ -71401,6 +71949,7 @@ impl UserLifecycleTransitions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ULTRE-ITEM-LST"),
             Box::new(|d, p| UserLifecycleTransitionEntry::new(d, p)),
+            "ULTRE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -71551,6 +72100,7 @@ impl UserPersonaDetails {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REPRE-REPR-LST"),
             Box::new(|d, p| RepresentativeQuoteEntry::new(d, p)),
+            "REPRE-REPR-xxx".to_string(),
         )
     }
 }
@@ -71635,6 +72185,7 @@ impl UserPersonas {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PEREN-ITEM-LST"),
             Box::new(|d, p| PersonaEntry::new(d, p)),
+            "PEREN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -71781,6 +72332,7 @@ impl UserTrainingRequirements {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "TRTP-TRAI-LST"),
             Box::new(|d, p| TrainingTopicEntry::new(d, p)),
+            "TRTP-TRAI-xxx".to_string(),
         )
     }
 }
@@ -71873,6 +72425,7 @@ impl UtilityNavigation {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UNIE-ITEM-LST"),
             Box::new(|d, p| UtilityNavigationItemEntry::new(d, p)),
+            "UNIE-ITEM-xxx".to_string(),
         )
     }
 }
@@ -71911,6 +72464,7 @@ impl UtilityNavigationItemEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "UMIE-MENU-LST"),
             Box::new(|d, p| UtilityMenuItemEntry::new(d, p)),
+            "UMIE-MENU-xxx".to_string(),
         )
     }
 }
@@ -72018,6 +72572,7 @@ impl ValidationFeedback {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VAMETE-MESS-LST"),
             Box::new(|d, p| ValidationMessageTemplate::new(d, p)),
+            "VAMETE-MESS-xxx".to_string(),
         )
     }
 
@@ -72027,6 +72582,7 @@ impl ValidationFeedback {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FIELD-FIEL-LST"),
             Box::new(|d, p| FieldValidationRuleEntry::new(d, p)),
+            "FIELD-FIEL-xxx".to_string(),
         )
     }
 }
@@ -72176,6 +72732,7 @@ impl ValueProposition {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KPIEN-KPIS-LST"),
             Box::new(|d, p| KpiEntry::new(d, p)),
+            "KPIEN-KPIS-xxx".to_string(),
         )
     }
 }
@@ -72766,6 +73323,7 @@ impl WarrantyTerms {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WASELE-SERV-LST"),
             Box::new(|d, p| WarrantyServiceLevels::new(d, p)),
+            "WASELE-SERV-xxx".to_string(),
         )
     }
 
@@ -72843,6 +73401,7 @@ impl WcagCompliance {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WSCE-SUCC-LST"),
             Box::new(|d, p| WcagSuccessCriterionEntry::new(d, p)),
+            "WSCE-SUCC-xxx".to_string(),
         )
     }
 }
@@ -72935,6 +73494,7 @@ impl WeightedQualityMatrix {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "QLWGT-WEIG-LST"),
             Box::new(|d, p| QualityWeightEntry::new(d, p)),
+            "QLWGT-WEIG-xxx".to_string(),
         )
     }
 
@@ -72989,6 +73549,7 @@ impl WorkflowActorEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "participatingSteps"),
             Box::new(|d, p| WorkflowStepEntry::new(d, p)),
+            "".to_string(),
         )
     }
 }
@@ -73072,6 +73633,7 @@ impl WorkflowDescriptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CUWF-WORK-LST"),
             Box::new(|d, p| CurrentWorkflowEntry::new(d, p)),
+            "CUWF-WORK-xxx".to_string(),
         )
     }
 }
@@ -73118,6 +73680,7 @@ impl WorkflowExceptions {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOEXEN-EXCE-LST"),
             Box::new(|d, p| WorkflowExceptionEntry::new(d, p)),
+            "WOEXEN-EXCE-xxx".to_string(),
         )
     }
 }
@@ -73177,6 +73740,7 @@ impl WorkflowStepEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOSTSY-SYST-LST"),
             Box::new(|d, p| WorkflowStepSystem::new(d, p)),
+            "WOSTSY-SYST-xxx".to_string(),
         )
     }
 
@@ -73186,6 +73750,7 @@ impl WorkflowStepEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOINEN-INPU-LST"),
             Box::new(|d, p| WorkflowInputEntry::new(d, p)),
+            "WOINEN-INPU-xxx".to_string(),
         )
     }
 
@@ -73195,6 +73760,7 @@ impl WorkflowStepEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOOUEN-OUTP-LST"),
             Box::new(|d, p| WorkflowOutputEntry::new(d, p)),
+            "WOOUEN-OUTP-xxx".to_string(),
         )
     }
 
@@ -73204,6 +73770,7 @@ impl WorkflowStepEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOBURU-BUSI-LST"),
             Box::new(|d, p| WorkflowBusinessRule::new(d, p)),
+            "WOBURU-BUSI-xxx".to_string(),
         )
     }
 
@@ -73213,6 +73780,7 @@ impl WorkflowStepEntry {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOSTIS-KNOW-LST"),
             Box::new(|d, p| WorkflowStepIssue::new(d, p)),
+            "WOSTIS-KNOW-xxx".to_string(),
         )
     }
 }
@@ -73291,6 +73859,7 @@ impl WorkflowSummaryTable {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOSUEN-ENTR-LST"),
             Box::new(|d, p| WorkflowSummaryEntry::new(d, p)),
+            "WOSUEN-ENTR-xxx".to_string(),
         )
     }
 }
@@ -73353,6 +73922,7 @@ impl WorkflowTriggers {
             self.node.doc(),
             format!("{}/{}", self.node.path(), "WOTREN-TRIG-LST"),
             Box::new(|d, p| WorkflowTriggerEntry::new(d, p)),
+            "WOTREN-TRIG-xxx".to_string(),
         )
     }
 }

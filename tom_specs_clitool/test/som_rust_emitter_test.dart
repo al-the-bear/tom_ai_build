@@ -45,6 +45,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'risks',
               'kind': 'list',
               'sectionId': 'risks',
+              'sectionIdPattern': 'RISK-ITEM-xxx',
               'elementType': 'Risk',
               'elementIsComplex': true,
               'min': 2,
@@ -412,6 +413,28 @@ void main() {
           contains('pub struct MigrationRisksGovernanceContentForm {'));
       expect(source,
           contains('pub struct MigrationRisksGovernanceContentForm2 {'));
+    });
+
+    test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '
+        'does not (AA1 criteria 3–5)', () {
+      final source = SomRustEmitter(_fixtureModel()).generateLibrary();
+      // The complex `risks` list carries a pattern → SomList::new is constructed
+      // with the trailing pattern argument so the facade can generate ids.
+      expect(
+          RegExp(r'pub fn risks\(&self\) -> som::SomList<Risk>[\s\S]*?'
+                  r'som::SomList::new\([\s\S]*?'
+                  r'"RISK-ITEM-xxx"\.to_string\(\),')
+              .hasMatch(source),
+          isTrue,
+          reason: 'risks getter must pass the pattern to SomList::new');
+      // The pattern-less scalar `tags` list must pass an empty pattern string.
+      final tagsBody = RegExp(
+              r'pub fn tags\(&self\) -> som::SomList<som::SomScalar>[\s\S]*?'
+              r'som::SomList::new\([\s\S]*?""\.to_string\(\),')
+          .firstMatch(source);
+      expect(tagsBody, isNotNull,
+          reason: 'scalar tags list must pass an empty pattern string');
+      expect(tagsBody!.group(0)!, isNot(contains('RISK-ITEM-xxx')));
     });
 
     test('documentRoots subsets the generated structs', () {

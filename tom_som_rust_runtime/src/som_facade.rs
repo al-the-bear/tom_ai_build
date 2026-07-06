@@ -19,6 +19,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use crate::spec_document::SpecDocument;
+use crate::spec_section_id::{generate_list_item_section_id, today_month_day, SpecSectionIdError};
 
 /// A shared, mutable handle to the one document every facade in a tree edits.
 pub type DocRef = Rc<RefCell<SpecDocument>>;
@@ -51,6 +52,25 @@ impl SomNode {
     /// Returns the globally-unique section path of this node.
     pub fn path(&self) -> &str {
         &self.path
+    }
+
+    /// Returns this node's section id when it is a list item (AA1 criterion 1
+    /// read), or `""` for non-list nodes (roots, complex/section children — their
+    /// id is the fixed `@SectionId` already embedded in [`SomNode::path`]).
+    pub fn section_id(&self) -> String {
+        self.doc.borrow().item_section_id_or(&self.path)
+    }
+
+    /// Overrides this list item's section id (AA1 criterion 5): an arbitrary
+    /// suffix, validated unique within the owning list. Returns
+    /// [`SpecSectionIdError::Collision`] on a duplicate, or
+    /// [`SpecSectionIdError::NotLiveItem`] if this node is not a live list item.
+    /// An empty id is a no-op.
+    pub fn set_section_id(&self, id: &str) -> Result<(), SpecSectionIdError> {
+        if id.is_empty() {
+            return Ok(());
+        }
+        self.doc.borrow_mut().set_item_section_id(&self.path, id)
     }
 }
 
@@ -90,15 +110,26 @@ pub struct SomList<T> {
     doc: DocRef,
     list_path: String,
     factory: Box<dyn Fn(DocRef, String) -> T>,
+    /// The list field's `@SectionIdPattern` (e.g. `DACEN-ITEM-xxx`), or `""` for
+    /// a pattern-less (scalar) list. It drives section-id generation on
+    /// [`SomList::add`] / [`SomList::add_on`] (AA1 criteria 3–5).
+    pattern: String,
 }
 
 impl<T> SomList<T> {
-    /// Binds a typed list view to a document, a list path and an element factory.
-    pub fn new(doc: DocRef, list_path: String, factory: Box<dyn Fn(DocRef, String) -> T>) -> SomList<T> {
+    /// Binds a typed list view to a document, a list path, an element factory and
+    /// the field's `@SectionIdPattern` (`""` when the field has none).
+    pub fn new(
+        doc: DocRef,
+        list_path: String,
+        factory: Box<dyn Fn(DocRef, String) -> T>,
+        pattern: String,
+    ) -> SomList<T> {
         SomList {
             doc,
             list_path,
             factory,
+            pattern,
         }
     }
 
@@ -122,10 +153,64 @@ impl<T> SomList<T> {
         (self.factory)(Rc::clone(&self.doc), path)
     }
 
+    /// Returns the section ids currently assigned within this list, in item
+    /// order (AA1 criterion 1 read).
+    pub fn section_ids(&self) -> Vec<String> {
+        self.doc.borrow().list_item_section_ids(&self.list_path)
+    }
+
     /// Appends a new item and returns its element facade.
+    ///
+    /// When the list has a pattern, the new item is assigned a section id
+    /// generated from that pattern using today's date for the two-letter-date
+    /// component (AA1 criteria 3–4). A pattern-less list appends without a
+    /// section id.
+    ///
+    /// Rust has no exceptions, optional parameters or overloading, so the JS/TS
+    /// `add(sectionId?, date?)` splits into three methods: [`SomList::add`]
+    /// (generate, today), [`SomList::add_on`] (generate, explicit date) and
+    /// [`SomList::add_with_id`] (explicit override). See decision AG-D2.
     pub fn add(&self) -> T {
-        let path = self.doc.borrow_mut().add_list_item(&self.list_path);
-        (self.factory)(Rc::clone(&self.doc), path)
+        if self.pattern.is_empty() {
+            let path = self.doc.borrow_mut().add_list_item(&self.list_path);
+            return (self.factory)(Rc::clone(&self.doc), path);
+        }
+        let (month, day) = today_month_day();
+        self.add_generated(month, day)
+    }
+
+    /// Appends a new item whose generated section id uses the given `(month,
+    /// day)` for the two-letter-date component (AA1 criteria 3–4). For a
+    /// pattern-less list it behaves like [`SomList::add`] (the date is ignored).
+    pub fn add_on(&self, month: i64, day: i64) -> T {
+        if self.pattern.is_empty() {
+            let path = self.doc.borrow_mut().add_list_item(&self.list_path);
+            return (self.factory)(Rc::clone(&self.doc), path);
+        }
+        self.add_generated(month, day)
+    }
+
+    /// Appends a new item with an explicit section id override (AA1 criterion 5),
+    /// validated unique within the list. Returns
+    /// [`SpecSectionIdError::Collision`] on a duplicate. For a pattern-less list
+    /// the id is still recorded (an explicit override is always honoured).
+    pub fn add_with_id(&self, section_id: &str) -> Result<T, SpecSectionIdError> {
+        let item_path = self
+            .doc
+            .borrow_mut()
+            .add_list_item_with_section_id(&self.list_path, section_id)?;
+        Ok((self.factory)(Rc::clone(&self.doc), item_path))
+    }
+
+    fn add_generated(&self, month: i64, day: i64) -> T {
+        let existing = self.doc.borrow().list_item_section_ids(&self.list_path);
+        let id = generate_list_item_section_id(&self.pattern, month, day, &existing);
+        let item_path = self
+            .doc
+            .borrow_mut()
+            .add_list_item_with_section_id(&self.list_path, &id)
+            .expect("generated section id is unique by construction");
+        (self.factory)(Rc::clone(&self.doc), item_path)
     }
 
     /// Removes the item at `index` and every value nested beneath it.

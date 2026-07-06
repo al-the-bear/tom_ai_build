@@ -418,6 +418,7 @@ class SomRustEmitter {
         break;
       case SpecFieldKind.list:
         _writeComment(b, f.doc);
+        final pat = '"${_rustStr(f.sectionIdPattern ?? '')}".to_string()';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           b
@@ -426,6 +427,7 @@ class SomRustEmitter {
             ..writeln('\t\t\tself.node.doc(),')
             ..writeln('\t\t\t${_childPath(seg)},')
             ..writeln('\t\t\tBox::new(|d, p| $et::new(d, p)),')
+            ..writeln('\t\t\t$pat,')
             ..writeln('\t\t)')
             ..writeln('\t}');
         } else {
@@ -435,6 +437,7 @@ class SomRustEmitter {
             ..writeln('\t\t\tself.node.doc(),')
             ..writeln('\t\t\t${_childPath(seg)},')
             ..writeln('\t\t\tBox::new(|d, p| som::SomScalar::new(d, p)),')
+            ..writeln('\t\t\t$pat,')
             ..writeln('\t\t)')
             ..writeln('\t}');
         }
