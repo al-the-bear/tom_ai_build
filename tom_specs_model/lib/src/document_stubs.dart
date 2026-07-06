@@ -3,15 +3,10 @@
 /// This file bridges the annotation-time Type references on SBP classes
 /// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` /
 /// `@SecondLevelSectionId(<DocName>, ...)`) to the actual target-doc root
-/// classes. All 12 Phase 3 document roots now live in their own folders
+/// classes. All 12 Phase 3 document roots live in their own folders
 /// under `lib/src/<document_name>/`; this file re-exports them so SBP
 /// source files can resolve the Type references via a single import
 /// (`import '../document_stubs.dart';`).
-///
-/// History: during Phase A the file held empty placeholder classes so
-/// that SBP annotations could compile before the real document roots
-/// existed. Phase B (Steps 8–19, see `doc/second_wave_documents.md` §11)
-/// replaced each stub with the re-export below.
 library;
 
 // D07 — Integration & Interface Specification.

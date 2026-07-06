@@ -6,8 +6,8 @@
 /// This implies a section level: the field is a section, each list item is a
 /// subsection.
 ///
-/// Example: `@SectionIdPattern('PD00-CSA-SYS-xx')` → first item is
-/// PD00-CSA-SYS-01, second PD00-CSA-SYS-02, etc.
+/// Example: `@SectionIdPattern('ACCH-ITEM-xxx')` → first item is
+/// ACCH-ITEM-001, second ACCH-ITEM-002, etc.
 class SectionIdPattern {
   final String pattern;
 

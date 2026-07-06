@@ -184,7 +184,7 @@ final class SpecRagGraph {
   /// Derives a node's structural parent path from the path string.
   ///
   /// A list-item segment ends with `-<n>`; its container is the path with that
-  /// suffix removed (`PD00/RSK-1` → `PD00/RSK`). Every other node's parent is
+  /// suffix removed (`SBP/RSK-1` → `SBP/RSK`). Every other node's parent is
   /// the path up to the last `/`. A candidate that is not itself a projected
   /// node is treated as no parent (the root, or a gap in the projection).
   static String? _parentOf(String path, Set<String> all) {

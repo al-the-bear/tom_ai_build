@@ -186,7 +186,7 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@ContentHelp` | No | Schema constraint only (content authoring guidance) |
 | `@Document` | No | Schema constraint only (document root metadata) |
 | `@SerializationOrder` | No | Meta-data only (member emission order) |
-| `@MapsTo`, `@DetailedIn` | No | Meta-data only (PD00 → Phase 3 traceability) |
+| `@MapsTo`, `@DetailedIn` | No | Meta-data only (Solution Blueprint → Phase 3 traceability) |
 | `@SecondLevelSectionId` | No | Meta-data only (document-scoped short ID) |
 | `@StandardReferences` | No | Meta-data only (standard provenance + connotation) |
 
@@ -300,7 +300,7 @@ Declares the **section type ID** of the annotated class or list field. IDs are g
 
 Every model class must have exactly one `@SectionId`. The ID is a **unique mnemonic** of up to 6 uppercase letters (shorter is allowed when the ID is still recognizable):
 
-- Document root classes use their existing short IDs: `PD`, `BSI`, `CS`, `RC`, `BP`, `UC`, `BDM`, `AC`, `PPP`, `TR`, `UP`, `SR`, `BQP`.
+- Document root classes use their existing short IDs: `SBP`, `CLA`, `TOM`, `IFM`, `RSP`, `ISC`, `ATS`, `IIS`, `SAS`, `XDS`, `QAP`, `DRM`, `TRP`.
 - Top-level section classes directly under a document root may use 3–4 letters: `SYOV`, `CURS`, `ORGA`, etc.
 - All other classes use up to 6 letters derived from the class name, e.g., `EXTSY` for `ExistingSystemEntry`.
 - Class-level IDs must be globally unique across all classes in the model. (List-field container IDs follow a separate, **field-suffixed** rule — see *Field-level usage* below.)
@@ -581,11 +581,11 @@ Marks a class as a document root in the specification model.
 - Applied to: top-level classes representing complete document types
   (e.g., `SolutionBlueprint`, `TechnicalRequirements`).
 - Parameters:
-  - `name`: Display name of the document (e.g., `'Project Definition'`).
+  - `name`: Display name of the document (e.g., `'Solution Blueprint'`).
   - `description`: Description of the document's purpose and scope.
   - `basedOn`: Optional list of upstream document types this document derives from.
 - Effect: Identifies document roots for generation, validation, and dependency tracking.
-- Example: `@Document(name: 'Project Definition', description: '...')`.
+- Example: `@Document(name: 'Solution Blueprint', description: '...')`.
 
 ### 7.24 `@SerializationOrder(int order)`
 
@@ -603,14 +603,15 @@ Pins a member's on-disk emission order.
 
 ### 7.25 `@MapsTo(Type documentClass)`
 
-Marks the seed node of a Phase 3 DocSpec inside the PD00 master model.
+Marks the seed node of a Phase 3 DocSpec inside the Solution Blueprint master
+model.
 
-- Applied to: the shallowest PD00 class whose entire subtree flows to a single
-  target document.
+- Applied to: the shallowest Solution Blueprint class whose entire subtree flows
+  to a single target document.
 - Effect: Declares that everything beneath this class belongs to that document
   and nothing else. May co-occur with `@DetailedIn` when the whole seed is kept
   as one top-level entry in the target.
-- Example: `@MapsTo(BusinessDataModel)` on `BusinessObjectAndDataModel`.
+- Example: `@MapsTo(D03InformationModel)` on `InformationAndDataModel`.
 
 ### 7.26 `@DetailedIn(Type documentClass)`
 
@@ -620,7 +621,7 @@ Marks a class that is promoted to a top-level entry of a Phase 3 DocSpec.
   or each direct child when the seed is flattened one level to fit the target's
   7–15 section budget.
 - Invariant: must have a `@MapsTo` ancestor (enforced by §8.6).
-- Example: `@DetailedIn(TechnicalRequirements)` on `BasicTechnicalRequirements`.
+- Example: `@DetailedIn(D06ArchitectureTechnologySpecification)` on `BasicTechnicalRequirements`.
 
 ### 7.27 `@SecondLevelSectionId(Type documentClass, String id)`
 
@@ -628,10 +629,10 @@ The document-scoped short section ID a class uses within a Phase 3 document.
 
 - Applied to: classes used as a top-level entry in a Phase 3 document; one
   annotation per target document.
-- Effect: supplies the document-prefixed short ID (e.g. `BDM-DAT` for global
-  `PD00-BUS-DAT`). Phase 3 documents initially inherit the global ID as-is; this
+- Effect: supplies the document-prefixed short ID (e.g. `QAP-FRA` for global
+  `QLFWK`). Phase 3 documents initially inherit the global ID as-is; this
   reserves the short-ID mechanism. Implies `@DetailedIn` (enforced by §8.6).
-- Example: `@SecondLevelSectionId(BusinessDataModel, 'BDM-DAT')`.
+- Example: `@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FRA')`.
 
 ### 7.28 `@StandardReferences(List<String> standards, String connotation)`
 
@@ -654,7 +655,7 @@ features. Hypothetical annotations are included to demonstrate the notation —
 they are not yet all applied to the model.
 
 ```
-# Project Definition Outline
+# Solution Blueprint Outline
 
 SolutionBlueprint
     -> header:DocumentHeader

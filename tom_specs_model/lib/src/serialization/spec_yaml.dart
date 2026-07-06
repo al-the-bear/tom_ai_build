@@ -3,23 +3,23 @@
 ///
 /// ## What this provides
 ///
-/// A spec is **one document** with thirteen entry points: the Project
-/// Definition master plus twelve Phase 3 *projection* roots that reference the
+/// A spec is **one document** with thirteen entry points: the Solution
+/// Blueprint master plus twelve Phase 3 *projection* roots that reference the
 /// same SBP sections (§14). Two serialization rules follow from that:
 ///
-///  - **Global save (`*.docspecs.yaml`) writes only the Project Definition.**
-///    Because every projection is a view over the same PD sections, serializing
-///    the PD tree alone emits each section **exactly once** — there are no
-///    duplicate subtrees (N9, §15.1). [SpecYaml.toYaml] of the PD root is that
+///  - **Global save (`*.docspecs.yaml`) writes only the Solution Blueprint.**
+///    Because every projection is a view over the same SBP sections, serializing
+///    the SBP tree alone emits each section **exactly once** — there are no
+///    duplicate subtrees (N9, §15.1). [SpecYaml.toYaml] of the SBP root is that
 ///    global `document:` pass.
 ///
 ///  - **An individual projection write runs a connect pass first.** A projection
-///    root references PD sections through its `@MapsTo` / `@DetailedIn` links;
-///    those references are bound to the **live** PD sections *immediately before*
+///    root references SBP sections through its `@MapsTo` / `@DetailedIn` links;
+///    those references are bound to the **live** SBP sections *immediately before*
 ///    writing the root's own file ([SpecYaml.toYamlForProjection]). Connecting
 ///    before write — rather than wiring at load and keeping copies in sync —
-///    means an individual write always reflects current PD content, and a
-///    section that is **null in PD is null in the projection too** (N12).
+///    means an individual write always reflects current SBP content, and a
+///    section that is **null in SBP is null in the projection too** (N12).
 ///
 /// ## Why this shape
 ///
@@ -36,16 +36,16 @@ library;
 import '../snapshot/spec_node.dart';
 
 /// A projection root that can bind its references onto a live source tree
-/// (the Project Definition) immediately before its individual file is written.
+/// (the Solution Blueprint) immediately before its individual file is written.
 ///
 /// Hand-written projections mix this in; generated projection roots supply the
 /// same binding through [SpecClassOps.connect]. [connect] re-points the
 /// projection's slots onto the matching sections of `source`; after it runs,
-/// serializing the projection reflects current PD content, and any section
-/// absent from PD is left null (N12 — one shared tree, no divergence).
+/// serializing the projection reflects current SBP content, and any section
+/// absent from SBP is left null (N12 — one shared tree, no divergence).
 mixin SpecProjection on SpecNode {
   /// Binds this projection's references onto the live sections of [source]
-  /// (the Project Definition root), in place. Called by
+  /// (the Solution Blueprint root), in place. Called by
   /// [SpecYaml.toYamlForProjection] right before serialization.
   void connect(Object source);
 }
@@ -67,25 +67,25 @@ bool connectProjection(Object projection, Object source) {
 /// Serializes node trees to YAML and orchestrates the connect-before-write
 /// pass for projection roots (N11, N12).
 abstract final class SpecYaml {
-  /// The global `document:` pass: the YAML of [projectDefinitionRoot] alone.
+  /// The global `document:` pass: the YAML of [solutionBlueprintRoot] alone.
   ///
-  /// Pass the Project Definition root here for the native `*.docspecs.yaml`
+  /// Pass the Solution Blueprint root here for the native `*.docspecs.yaml`
   /// save. Because the projection roots are views over the same sections, the
-  /// PD tree contains every section exactly once, so the output never duplicates
+  /// SBP tree contains every section exactly once, so the output never duplicates
   /// a subtree (§15.1).
-  static String toYaml(Object projectDefinitionRoot) {
+  static String toYaml(Object solutionBlueprintRoot) {
     final buffer = StringBuffer();
-    _emit(projectDefinitionRoot, 0, buffer);
+    _emit(solutionBlueprintRoot, 0, buffer);
     return buffer.toString();
   }
 
-  /// Connects [projection] onto the live [projectDefinitionRoot] (N11) and then
+  /// Connects [projection] onto the live [solutionBlueprintRoot] (N11) and then
   /// serializes the projection — the per-root individual-file write (§15.2).
   static String toYamlForProjection(
     Object projection,
-    Object projectDefinitionRoot,
+    Object solutionBlueprintRoot,
   ) {
-    connectProjection(projection, projectDefinitionRoot);
+    connectProjection(projection, solutionBlueprintRoot);
     return toYaml(projection);
   }
 

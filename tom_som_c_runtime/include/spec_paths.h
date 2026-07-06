@@ -27,7 +27,7 @@ char *spec_list_item_path(const char *list_path, long long seq);
 /* Splits a list-item segment `<base>-<digits>` into its base and seq when the
  * tail is all digits (and the dash is neither first nor last char). Returns 1
  * on success, writing an owned `*base` and `*seq`; 0 otherwise. A hyphenated
- * @SectionId such as `PD00-ROL` is never mis-read as a list item. */
+ * @SectionId such as `CUOPME-OPER-LST` is never mis-read as a list item. */
 int spec_split_list_item_segment(const char *segment, char **base, long long *seq);
 
 #endif /* SPEC_PATHS_H */

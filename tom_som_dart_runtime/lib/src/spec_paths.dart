@@ -46,7 +46,7 @@ String listItemPath(String listPath, int seq) => '$listPath-$seq';
 ///
 /// The numeric suffix is what disambiguates a list item from an ordinary
 /// segment whose name happens to contain a hyphen (e.g. a `@SectionId` like
-/// `PD00-ROL`): only an all-digit tail counts.
+/// `CUOPME-OPER-LST`): only an all-digit tail counts.
 ({String base, int seq})? splitListItemSegment(String segment) {
   final dash = segment.lastIndexOf('-');
   if (dash <= 0 || dash == segment.length - 1) return null;

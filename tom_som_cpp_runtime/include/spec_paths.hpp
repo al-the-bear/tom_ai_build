@@ -25,7 +25,7 @@ std::string specListItemPath(const std::string& listPath, long long seq);
 /* Splits a list-item segment `<base>-<digits>` into base and seq when the tail
  * is all digits (and the dash is neither first nor last char). Returns true and
  * writes `base`/`seq`; false otherwise. A hyphenated @SectionId such as
- * `PD00-ROL` is never mis-read as a list item. */
+ * `CUOPME-OPER-LST` is never mis-read as a list item. */
 bool specSplitListItemSegment(const std::string& segment, std::string* base,
                               long long* seq);
 

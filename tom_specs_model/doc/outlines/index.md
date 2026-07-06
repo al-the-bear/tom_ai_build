@@ -49,5 +49,3 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type SolutionBlue
 | [specs_model_outliner.md](../specs_model_outliner.md) | Design rules for the TomSpecs object model (§6–§8) — section IDs, annotations, structural invariants |
 | [field_classification.md](../field_classification.md) | Field classification rules and examples |
 | [form_decomposition.md](../form_decomposition.md) | Form decomposition guidelines |
-| [nested_lists_remodeling.md](../nested_lists_remodeling.md) | Nested list remodeling patterns |
-| [second_wave_documents.md](../second_wave_documents.md) | Second-wave document planning (historical PD00 → Phase 3 mapping record) |

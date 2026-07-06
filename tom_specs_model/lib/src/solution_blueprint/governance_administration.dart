@@ -1146,7 +1146,7 @@ class DistributionRecipientBackup {
 /// 3.4. Change Procedure.
 ///
 /// Procedure for requesting, evaluating, and approving changes to this
-/// Project Definition and other project documents. Defines the change
+/// Solution Blueprint and other project documents. Defines the change
 /// control workflow, impact assessment criteria, and approval authorities.
 @StandardReferences(
   [

@@ -3,7 +3,7 @@
 ///
 /// Applied to model classes.
 ///
-/// Example: `@SectionId('PD00-CSA')` maps the class to section PD00-CSA.
+/// Example: `@SectionId('INDM')` maps the class to section INDM.
 class SectionId {
   final String id;
 

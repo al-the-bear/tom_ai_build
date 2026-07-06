@@ -26,7 +26,7 @@ The component is split into a **fixed, hand-written runtime** and a
 | Layer | Project | Authored | Role |
 | --- | --- | --- | --- |
 | **Generic runtime** | `tom_som_<lang>_runtime` | by hand | Memory representation (`SpecDocument`), the meta-model "reflection" classes (`SpecModel` & friends), validation, and YAML/Markdown load-save. No version suffix. |
-| **Typed facade** | `tom_som_<lang>_v0` | generated | Typed, code-completed document-editing API (`ProjectDefinition` etc.) **over** the runtime's memory representation. Carries the version suffix (`_v0`, `_v1`, …). |
+| **Typed facade** | `tom_som_<lang>_v0` | generated | Typed, code-completed document-editing API (`D00SolutionBlueprint` etc.) **over** the runtime's memory representation. Carries the version suffix (`_v0`, `_v1`, …). |
 
 Both expose the **same document** through two parallel access paths (§3): the
 **type-safe** path (the generated classes) and the **generic / meta-model** path
@@ -58,8 +58,8 @@ tom-spec-object-model:
   output-base: ..              # optional, default "." — base for default output roots,
                                #   resolved RELATIVE TO THE CONFIG FILE'S DIRECTORY.
   document-roots:              # optional — absent/empty ⇒ generate ALL 13 document roots
-    - ProjectDefinition
-    - CsCurrentSituation
+    - D00SolutionBlueprint
+    - D01CurrentLandscapeAssessment
   languages:                   # required, non-empty
     - dart                     # short form ⇒ default output root
     - python
@@ -158,10 +158,10 @@ Each target lands at `<output-base>/tom_som_<slug>_<version-label>`. For Dart:
 ```
 tom_som_dart_v0/
 ├── pubspec.yaml              # depends on tom_som_dart_runtime
-├── lib/tom_som_dart_v0.dart  # the typed facade (ProjectDefinition + 3078 classes)
+├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3078 classes)
 ├── meta/spec_model.meta.json # lossless meta-data: every class, member, annotation
 ├── schemas/                  # 13 DocSpecs schema folders (one per document root)
-│   ├── project-definition/ … └── system-rollout/
+│   ├── solution-blueprint/ … └── transition-rollout-plan/
 ├── example/                  # hand-authored samples (a/b/c) — survives regen
 └── test/                     # hand-authored generated-tree suite — survives regen
 ```
@@ -189,7 +189,7 @@ language-native manifest that declares the runtime dependency:
   every field its type, nullability, list/enum-ness, render classification, and
   **all** annotation arguments.
 - **Typed facade** — typed document-editing classes (see §5). The
-  `ProjectDefinition` root plus every reachable section/form/list/enum class.
+  `D00SolutionBlueprint` root plus every reachable section/form/list/enum class.
 - **Schemas** — the DocSpecs schema and the `*.docspecs.yaml` YAML schema, per
   document root.
 
@@ -212,12 +212,12 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 final doc = SpecDocument();
-final pd = ProjectDefinition(doc);          // instantiation-time §2.2 check
-pd.content = 'The system vision …';          // typed setter → writes the store
-final csa = pd.currentStateAnalysis;         // nested section navigation
+final sbp = D00SolutionBlueprint(doc);       // instantiation-time §2.2 check
+sbp.content = 'The system vision …';          // typed setter → writes the store
+final csa = sbp.currentLandscape;            // nested section navigation
 final metrics = csa.operationalMetrics;      // typed SomList: add()/length/[i]/items
 metrics.add().content = 'Order turnaround: 4.2 days.';
-pd.objectModelVersion;                       // '0.0' — which _vN surface this is
+sbp.objectModelVersion;                      // '0.0' — which _vN surface this is
 ```
 
 Every typed root exposes `static const String modelVersion` and an
@@ -233,11 +233,11 @@ No typed classes required — address sections by string path:
 
 ```dart
 final doc = SpecDocument();
-doc.setContent('PD/content', 'The system vision …');
+doc.setContent('SBP/content', 'The system vision …');
 // List paths use the field's section-id (the meta-data names it):
-final item = doc.addListItem('PD/currentStateAnalysis/CUOPME-OPER-LST');
+final item = doc.addListItem('SBP/currentLandscape/CUOPME-OPER-LST');
 doc.setContent('$item/content', 'Order turnaround: 4.2 days.');
-doc.content('PD/content');                   // read back
+doc.content('SBP/content');                  // read back
 final yaml = SpecDocumentYaml.encode(document: doc, modelVersion: '0.0');
 final json = doc.toJson();
 ```
@@ -256,8 +256,8 @@ final meta = File('meta/spec_model.meta.json').readAsStringSync();
 final model = SpecModel.fromJson(json.decode(meta));
 final reflection = SpecReflection(model);
 for (final root in model.roots) { /* 13 roots: type, title, sectionId, doc */ }
-reflection.fieldsOf('ProjectDefinition');     // each SpecField: kind, type, …
-reflection.resolve('PD/currentStateAnalysis'); // path → model node
+reflection.fieldsOf('D00SolutionBlueprint'); // each SpecField: kind, type, …
+reflection.resolve('SBP/currentLandscape');  // path → model node
 ```
 
 This is what lets a consumer modify a document **generically and correctly** —

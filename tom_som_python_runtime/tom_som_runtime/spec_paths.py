@@ -48,7 +48,7 @@ def split_list_item_segment(segment: str) -> Optional[ListItemSegment]:
     when it ends in ``-<digits>``, or returns ``None`` otherwise.
 
     Only an all-digit tail counts, so a hyphenated ``@SectionId`` such as
-    ``PD00-ROL`` is never mis-read as a list item.
+    ``CUOPME-OPER-LST`` is never mis-read as a list item.
     """
     dash = segment.rfind("-")
     if dash <= 0 or dash == len(segment) - 1:

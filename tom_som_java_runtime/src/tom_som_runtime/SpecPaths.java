@@ -48,7 +48,7 @@ public final class SpecPaths {
    * when it ends in {@code -<digits>}, or returns {@code null} otherwise.
    *
    * <p>Only an all-digit tail counts, so a hyphenated {@code @SectionId} such as
-   * {@code PD00-ROL} is never mis-read as a list item.
+   * {@code CUOPME-OPER-LST} is never mis-read as a list item.
    */
   public static ListItemSegment splitListItemSegment(String segment) {
     int dash = segment.lastIndexOf('-');

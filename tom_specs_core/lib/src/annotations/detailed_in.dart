@@ -1,5 +1,5 @@
-/// Marks a PD00 section class as one whose content is taken over as a
-/// top-level entry in the named Phase 3 DocSpec document.
+/// Marks a Solution Blueprint section class as one whose content is taken
+/// over as a top-level entry in the named Phase 3 DocSpec document.
 ///
 /// The "take-off" level is the class that is promoted to a top-level entry
 /// of the target DocSpec. Two shapes are valid:
@@ -12,11 +12,12 @@
 ///   section budget), each child carries `@DetailedIn`; the seed keeps
 ///   `@MapsTo`.
 ///
-/// See `tom_specs_model/doc/second_wave_documents.md` for the full rule set.
+/// The §8.6 structural invariants in `tom_specs_clitool/lib/src/validator.dart`
+/// enforce the full rule set.
 ///
 /// Example:
 /// ```dart
-/// @DetailedIn(TechnicalRequirements)
+/// @DetailedIn(D06ArchitectureTechnologySpecification)
 /// class BasicTechnicalRequirements { ... }
 /// ```
 class DetailedIn {

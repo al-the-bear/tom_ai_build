@@ -47,7 +47,7 @@ export interface ListItemSegment {
  * Splits a list-item `segment` into its base segment and sequence number when it
  * ends in `-<digits>`, or returns `null` otherwise.
  *
- * Only an all-digit tail counts, so a hyphenated `@SectionId` such as `PD00-ROL`
+ * Only an all-digit tail counts, so a hyphenated `@SectionId` such as `CUOPME-OPER-LST`
  * is never mis-read as a list item.
  */
 export function splitListItemSegment(segment: string): ListItemSegment | null {

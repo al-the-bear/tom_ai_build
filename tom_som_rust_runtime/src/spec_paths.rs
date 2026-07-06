@@ -43,7 +43,7 @@ pub struct ListItemSegment {
 /// Splits a list-item segment into its base segment and sequence number when it
 /// ends in `-<digits>`, returning `None` otherwise.
 ///
-/// Only an all-digit tail counts, so a hyphenated `@SectionId` such as `PD00-ROL`
+/// Only an all-digit tail counts, so a hyphenated `@SectionId` such as `CUOPME-OPER-LST`
 /// is never mis-read as a list item.
 pub fn split_list_item_segment(segment: &str) -> Option<ListItemSegment> {
     let dash = segment.rfind('-')?;

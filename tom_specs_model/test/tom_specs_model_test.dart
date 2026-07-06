@@ -7,16 +7,16 @@ import 'package:test/test.dart';
 void main() {
   group('D00SolutionBlueprint', () {
     test('can be constructed with all defaults', () {
-      final pd = D00SolutionBlueprint();
-      expect(pd.documentControl.header.content, isNull);
-      expect(pd.currentLandscape.content, isNull);
-      expect(pd.introductionAndScope.content, isNull);
+      final sbp = D00SolutionBlueprint();
+      expect(sbp.documentControl.header.content, isNull);
+      expect(sbp.currentLandscape.content, isNull);
+      expect(sbp.introductionAndScope.content, isNull);
     });
 
     test('header has @Form annotation on content', () {
       final header = DocumentHeader()
-        ..content = 'PD00 — Test Project v0.1 by Test (Draft)';
-      expect(header.content, contains('PD00'));
+        ..content = 'SBP — Test Project v0.1 by Test (Draft)';
+      expect(header.content, contains('SBP'));
     });
 
     test('section classes have content field', () {

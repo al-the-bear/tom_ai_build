@@ -58,7 +58,7 @@ type ListItemSegment struct {
 // SplitListItemSegment splits a list-item segment into its base segment and
 // sequence number when it ends in "-<digits>", returning ok=false otherwise.
 //
-// Only an all-digit tail counts, so a hyphenated @SectionId such as PD00-ROL is
+// Only an all-digit tail counts, so a hyphenated @SectionId such as CUOPME-OPER-LST is
 // never mis-read as a list item.
 func SplitListItemSegment(segment string) (ListItemSegment, bool) {
 	dash := strings.LastIndex(segment, "-")

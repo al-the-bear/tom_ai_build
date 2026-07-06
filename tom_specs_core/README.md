@@ -62,7 +62,7 @@ class DataModel {
   /// Overview of the data model including all entity relationships.
   TextSection dataModelOverview = TextSection();
 
-  /// 7.1.3. ER Diagram [PD00-BUS-DAT-DIA].
+  /// Entity-relationship diagram of the data model.
   ErDiagramSection erDiagram = ErDiagramSection();
 }
 ```
@@ -81,7 +81,7 @@ target (class `C` / member `M`).
 
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
-| `@SectionId` | `SectionId(String id)` | C, M | The globally-unique section-type ID (`PD00-…`). On a list container field it takes the `<elemId>-<SUFFIX>-LST` form. |
+| `@SectionId` | `SectionId(String id)` | C, M | The globally-unique section-type ID (a short mnemonic code, e.g. `INDM`). On a list container field it takes the `<elemId>-<SUFFIX>-LST` form. |
 | `@SectionIdPattern` | `SectionIdPattern(String pattern)` | M | On a `List<T>` field: the instance-ID pattern (`<elemId>-<SUFFIX>-xxx`) for the elements. The element class carries no `@SectionId`. |
 | `@Document` | `Document({String name, String description, List<Type>? basedOn})` | C | Marks a document-root class; `basedOn` names the source document(s) it derives from. |
 | `@Prefix` | `Prefix(String prefix)` | C | Common section-ID prefix enabling two-stage (heading-prefix) ID resolution. |
@@ -121,18 +121,18 @@ target (class `C` / member `M`).
 | `@ForEach` | `ForEach(String registryType, String key)` | M | A list that must correspond 1:1 to entries in another registry. |
 | `@SeedFor` | `SeedFor(Type documentRootClass)` | M | Compile-time link from a section to the single Phase 3 document it seeds. |
 
-### Traceability (PD00 → Phase 3 DocSpecs)
+### Traceability (Solution Blueprint → Phase 3 DocSpecs)
 
-These four annotations encode how the `ProjectDefinition` (PD00) master model
+These four annotations encode how the `D00SolutionBlueprint` master model
 maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
-§8.6 structural invariants in `validator.dart`; the full rule set is in
-[`tom_specs_model/doc/second_wave_documents.md`](../tom_specs_model/doc/second_wave_documents.md).
+§8.6 structural invariants in
+[`tom_specs_clitool/lib/src/validator.dart`](../tom_specs_clitool/lib/src/validator.dart).
 
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
-| `@MapsTo` | `MapsTo(Type documentClass)` | C | The shallowest PD00 class whose entire subtree flows to one target DocSpec — the document's "seed node". |
+| `@MapsTo` | `MapsTo(Type documentClass)` | C | The shallowest Solution Blueprint class whose entire subtree flows to one target DocSpec — the document's "seed node". |
 | `@DetailedIn` | `DetailedIn(Type documentClass)` | C | A class promoted to a top-level entry of the target DocSpec (the "take-off" level). Either the whole seed (alongside `@MapsTo`) or each flattened child. Requires a `@MapsTo` ancestor. |
-| `@SecondLevelSectionId` | `SecondLevelSectionId(Type documentClass, String id)` | C | The document-scoped short ID a class uses as a top-level entry in a specific Phase 3 document (e.g. `BDM-DAT` for global `PD00-BUS-DAT`). One per target document; implies `@DetailedIn`. |
+| `@SecondLevelSectionId` | `SecondLevelSectionId(Type documentClass, String id)` | C | The document-scoped short ID a class uses as a top-level entry in a specific Phase 3 document (e.g. `QAP-FRA` for global `QLFWK`). One per target document; implies `@DetailedIn`. |
 | `@StandardReferences` | `StandardReferences(List<String> standards, String connotation)` | C, M | The public standard(s) the section derives from (ID + clause in the standard's wording) plus a short statement of what the section *means* (distinct from `@ContentHelp`/`Field.hint` authoring guidance). |
 
 ---

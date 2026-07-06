@@ -10,7 +10,7 @@
 /// @ContentHelp('Interview stakeholders to identify key pain points. '
 ///     'Document each pain point with severity (High/Medium/Low) and '
 ///     'estimated business impact.')
-/// @SectionID('PD00-CUR-PAI-OPE')
+/// @SectionId('BUPAPO')
 /// List<PainPoint> operationalPainPoints = [];
 /// ```
 class ContentHelp {
