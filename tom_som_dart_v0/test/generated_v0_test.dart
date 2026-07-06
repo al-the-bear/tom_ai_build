@@ -12,6 +12,8 @@
 // Run with `dart test` from this package (`tom_som_dart_v0`).
 library;
 
+import 'dart:io';
+
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:test/test.dart';
@@ -80,6 +82,72 @@ void main() {
     test('a different major document is rejected', () {
       expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
           throwsA(isA<SomVersionException>()));
+    });
+  });
+
+  group('shared sample: typed and generic access agree', () {
+    // Loads the language-agnostic shared sample authored by
+    // `tool/build_shared_sample.dart` and proves the concrete facade and the
+    // raw string-path API read the same values from a real, broad document —
+    // the same guarantee the d_/e_ examples demonstrate at runtime.
+    late SpecDocument doc;
+    late D00SolutionBlueprint sbp;
+
+    setUp(() {
+      final file = File(
+          '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml');
+      final decoded = SpecDocumentYaml.decode(file.readAsStringSync());
+      doc = SpecDocument()..loadJson(decoded.document);
+      sbp = D00SolutionBlueprint(doc, documentVersion: decoded.modelVersion);
+    });
+
+    test('top-level sections match generic reads', () {
+      expect(sbp.content, doc.content('SBP/content'));
+      expect(sbp.introductionAndScope.content,
+          doc.content('SBP/introductionAndScope/content'));
+      expect(sbp.requirements.content, doc.content('SBP/requirements/content'));
+      expect(sbp.targetOperatingModelConcept.content,
+          doc.content('SBP/targetOperatingModelConcept/content'));
+    });
+
+    test('nested section matches generic read', () {
+      expect(sbp.introductionAndScope.goals.content,
+          doc.content('SBP/introductionAndScope/goals/content'));
+    });
+
+    test('list is populated and elements match generic reads', () {
+      final metrics = sbp.currentLandscape.operationalMetrics;
+      final itemPaths = doc.listItems('SBP/currentLandscape/CUOPME-OPER-LST');
+      expect(metrics.length, itemPaths.length);
+      expect(metrics.length, greaterThanOrEqualTo(4));
+      for (var i = 0; i < metrics.length; i++) {
+        expect(metrics[i].content, doc.content('${itemPaths[i]}/content'));
+      }
+    });
+
+    test('sample exercises most of the blueprint breadth', () {
+      // Every top-level SBP section that carries a content leaf should be
+      // populated, so the sample is a genuine breadth fixture.
+      for (final path in const [
+        'SBP/content',
+        'SBP/documentControl/content',
+        'SBP/introductionAndScope/content',
+        'SBP/glossaryAndAbbreviations/content',
+        'SBP/stakeholdersAndGovernance/content',
+        'SBP/currentLandscape/content',
+        'SBP/assumptionsConstraintsDependencies/content',
+        'SBP/targetOperatingModelConcept/content',
+        'SBP/informationAndDataModel/content',
+        'SBP/requirements/content',
+        'SBP/solutionArchitectureAndTechnology/content',
+        'SBP/securityAndAccessModel/content',
+        'SBP/experienceAndInterfaceDesign/content',
+        'SBP/qualityAndAcceptanceModel/content',
+        'SBP/deliveryTransitionAndRollout/content',
+      ]) {
+        expect(doc.content(path), isNotNull, reason: 'missing $path');
+        expect(doc.content(path), isNotEmpty, reason: 'empty $path');
+      }
     });
   });
 }
