@@ -410,6 +410,7 @@ class SomGoEmitter {
         break;
       case SpecFieldKind.list:
         _writeComment(b, f.doc, '');
+        final pat = '"${_goStr(f.sectionIdPattern ?? '')}"';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           final etCtor = _ctorName[et] ?? 'New$et';
@@ -418,7 +419,7 @@ class SomGoEmitter {
             ..writeln('\treturn som.NewSomList(x.Doc(), $childPath, '
                 'func(d *som.SpecDocument, p string) *$et {')
             ..writeln('\t\treturn $etCtor(d, p)')
-            ..writeln('\t})')
+            ..writeln('\t}, $pat)')
             ..writeln('}');
         } else {
           b
@@ -427,7 +428,7 @@ class SomGoEmitter {
             ..writeln('\treturn som.NewSomList(x.Doc(), $childPath, '
                 'func(d *som.SpecDocument, p string) *som.SomScalar {')
             ..writeln('\t\treturn som.NewSomScalar(d, p)')
-            ..writeln('\t})')
+            ..writeln('\t}, $pat)')
             ..writeln('}');
         }
         break;
@@ -513,13 +514,18 @@ class SomGoEmitter {
   ///
   /// The base is the Pascal-cased field name. `Doc` / `Path` are reserved — a
   /// generated method of either name would shadow the embedded [SomNode]'s
-  /// promoted `Doc()` / `Path()` and self-recurse — so they gain a trailing
-  /// underscore. Both the getter base and its `Set<base>` setter form are
-  /// reserved so the getter and setter never collide across fields.
+  /// promoted `Doc()` / `Path()` and self-recurse. `SectionID` / `SetSectionID`
+  /// are likewise reserved: they are the structural section-id accessors on the
+  /// embedded [SomNode] (AA-6 decision AF-D1, the Go analogue of the Dart/TS
+  /// `$sectionId`), and a typed field of that name would shadow them. All gain a
+  /// trailing underscore. Both the getter base and its `Set<base>` setter form
+  /// are reserved so the getter and setter never collide across fields.
   String _allocAccessor(Set<String> used, String name) {
     var base = _pascal(name);
     if (base.isEmpty) base = 'Field';
-    if (base == 'Doc' || base == 'Path') base = '${base}_';
+    if (base == 'Doc' || base == 'Path' || base == 'SectionID') {
+      base = '${base}_';
+    }
     var cand = base;
     var n = 2;
     while (used.contains(cand) || used.contains('Set$cand')) {

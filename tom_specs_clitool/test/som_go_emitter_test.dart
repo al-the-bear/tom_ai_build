@@ -45,6 +45,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'risks',
               'kind': 'list',
               'sectionId': 'risks',
+              'sectionIdPattern': 'RISK-ITEM-xxx',
               'elementType': 'Risk',
               'elementIsComplex': true,
               'min': 2,
@@ -456,6 +457,27 @@ void main() {
       expect(source, contains('ProbabilityMedium = "medium"'));
       expect(source, contains('ProbabilityHigh = "high"'));
       expect(source, contains('func parseProbability(token string) string'));
+    });
+
+    test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '
+        'does not (AA1 criteria 3–5)', () {
+      final source = SomGoEmitter(_fixtureModel()).generateLibrary();
+      // The complex `risks` list carries a pattern → NewSomList is constructed
+      // with the trailing pattern argument so the facade can generate ids.
+      expect(
+          RegExp(r'func \(x \*SolutionBlueprint\) Risks\(\)[\s\S]*?'
+                  r'som\.NewSomList\([\s\S]*?\}, "RISK-ITEM-xxx"\)')
+              .hasMatch(source),
+          isTrue,
+          reason: 'risks getter must pass the pattern to NewSomList');
+      // The pattern-less scalar `tags` list must pass an empty pattern string.
+      final tagsBody = RegExp(
+              r'func \(x \*SolutionBlueprint\) Tags\(\)[\s\S]*?som\.NewSomList\('
+              r'[\s\S]*?\}, ""\)')
+          .firstMatch(source);
+      expect(tagsBody, isNotNull,
+          reason: 'scalar tags list must pass an empty pattern string');
+      expect(tagsBody!.group(0)!, isNot(contains('RISK-ITEM-xxx')));
     });
 
     test('colliding form-struct names are disambiguated (no duplicates)', () {

@@ -89,6 +89,97 @@ func TestTypedList(t *testing.T) {
 	}
 }
 
+// freshMetrics returns a new operationalMetrics list — a @SectionIdPattern list
+// (CUOPME-OPER-xxx) — over an empty document, for the section-id scenarios.
+func freshMetrics(t *testing.T) *som.SomList[*CurrentOperationalMetric] {
+	t.Helper()
+	pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
+	return pd.CurrentLandscape().OperationalMetrics()
+}
+
+// TestSectionIds proves the generated typed facade drives section-id generation
+// (AA1 criteria 3–6) end-to-end: deterministic ids via AddOn, override with
+// uniqueness validation, and the delete/renumber rules. March 5 → the two-letter
+// day code "CE" (C = month 3, E = day 5).
+func TestSectionIds(t *testing.T) {
+	const mar, day = 3, 5
+
+	// Generation: consecutive same-day items number CE1, CE2 (criteria 3–4).
+	metrics := freshMetrics(t)
+	if id := metrics.AddOn(mar, day).SectionID(); id != "CUOPME-OPER-CE1" {
+		t.Errorf("gen first = %q, want CUOPME-OPER-CE1", id)
+	}
+	if id := metrics.AddOn(mar, day).SectionID(); id != "CUOPME-OPER-CE2" {
+		t.Errorf("gen second = %q, want CUOPME-OPER-CE2", id)
+	}
+
+	// Override to an arbitrary suffix, then a duplicate override raises a
+	// *SpecSectionIDCollision (criterion 5).
+	metrics = freshMetrics(t)
+	metrics.AddOn(mar, day) // CE1
+	second := metrics.AddOn(mar, day)
+	if err := second.SetSectionID("CUOPME-OPER-ZZ9"); err != nil {
+		t.Fatalf("override: unexpected error %v", err)
+	}
+	if !contains(metrics.SectionIDs(), "CUOPME-OPER-ZZ9") {
+		t.Errorf("override not applied: %v", metrics.SectionIDs())
+	}
+	var coll *som.SpecSectionIDCollision
+	if err := metrics.At(0).SetSectionID("CUOPME-OPER-ZZ9"); !errors.As(err, &coll) {
+		t.Errorf("override collision: got %v, want *SpecSectionIDCollision", err)
+	}
+	// An explicit add with a duplicate id raises the same collision.
+	if _, err := metrics.AddWithID("CUOPME-OPER-ZZ9"); !errors.As(err, &coll) {
+		t.Errorf("add collision: got %v, want *SpecSectionIDCollision", err)
+	}
+
+	// Delete a middle item: the remaining ids never renumber, and a new same-day
+	// item takes the next free number (criterion 6).
+	metrics = freshMetrics(t)
+	metrics.AddOn(mar, day) // CE1
+	metrics.AddOn(mar, day) // CE2
+	metrics.AddOn(mar, day) // CE3
+	metrics.RemoveAt(1)     // drop CE2
+	if got := metrics.SectionIDs(); !sliceEqual(got, []string{"CUOPME-OPER-CE1", "CUOPME-OPER-CE3"}) {
+		t.Errorf("delete-middle ids = %v", got)
+	}
+	if id := metrics.AddOn(mar, day).SectionID(); id != "CUOPME-OPER-CE4" {
+		t.Errorf("delete-middle next = %q, want CUOPME-OPER-CE4", id)
+	}
+
+	// Delete the last item: a new same-day item reuses the just-freed number
+	// (criterion 6).
+	metrics = freshMetrics(t)
+	metrics.AddOn(mar, day) // CE1
+	metrics.AddOn(mar, day) // CE2
+	metrics.AddOn(mar, day) // CE3
+	metrics.RemoveAt(2)     // drop CE3 (the max)
+	if id := metrics.AddOn(mar, day).SectionID(); id != "CUOPME-OPER-CE3" {
+		t.Errorf("delete-last reuse = %q, want CUOPME-OPER-CE3", id)
+	}
+}
+
+func contains(xs []string, want string) bool {
+	for _, x := range xs {
+		if x == want {
+			return true
+		}
+	}
+	return false
+}
+
+func sliceEqual(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
 func TestModelVersion(t *testing.T) {
 	if D00SolutionBlueprintModelVersion != "0.0" {
 		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 0.0",

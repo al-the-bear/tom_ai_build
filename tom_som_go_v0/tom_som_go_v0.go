@@ -31,7 +31,7 @@ func (x *AcceptanceCriteriaList) SetContent(value string) {
 func (x *AcceptanceCriteriaList) Items() *som.SomList[*DeliveryAcceptanceCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DACEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliveryAcceptanceCriterionEntry {
 		return NewDeliveryAcceptanceCriterionEntry(d, p)
-	})
+	}, "DACEN-ITEM-xxx")
 }
 
 // 11.7. Acceptance Criteria Summary.
@@ -200,7 +200,7 @@ func (x *AcceptanceProcess) Documentation() *AcceptanceProcessDocumentation {
 func (x *AcceptanceProcess) Steps() *som.SomList[*AcceptanceStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACST-STEP-LST", func(d *som.SpecDocument, p string) *AcceptanceStepEntry {
 		return NewAcceptanceStepEntry(d, p)
-	})
+	}, "ACST-STEP-xxx")
 }
 
 // Decision framework.
@@ -376,7 +376,7 @@ func (x *AccessChannels) SetChannelDiagram(value string) {
 func (x *AccessChannels) Channels() *som.SomList[*InteractionChannelEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ICE-CHAN-LST", func(d *som.SpecDocument, p string) *InteractionChannelEntry {
 		return NewInteractionChannelEntry(d, p)
-	})
+	}, "ICE-CHAN-xxx")
 }
 
 // Access Constraint Policies (form).
@@ -533,7 +533,7 @@ func (x *AccessLevels) SetAccessLevelDiagram(value string) {
 func (x *AccessLevels) Levels() *som.SomList[*AccessLevelEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACLV-LEVE-LST", func(d *som.SpecDocument, p string) *AccessLevelEntry {
 		return NewAccessLevelEntry(d, p)
-	})
+	}, "ACLV-LEVE-xxx")
 }
 
 // Permission matrix linking access levels to features.
@@ -583,7 +583,7 @@ func (x *AccessUserCategories) SetContent(value string) {
 func (x *AccessUserCategories) Items() *som.SomList[*UserCategoryDefinition] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USCDF-ITEM-LST", func(d *som.SpecDocument, p string) *UserCategoryDefinition {
 		return NewUserCategoryDefinition(d, p)
-	})
+	}, "USCDF-ITEM-xxx")
 }
 
 // 10.9. Accessibility.
@@ -734,7 +734,7 @@ func (x *AccessibilityChecklist) ChecklistOverviewContent() *AccessibilityCheckl
 func (x *AccessibilityChecklist) Items() *som.SomList[*AccessibilityCheckEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACCH-ITEM-LST", func(d *som.SpecDocument, p string) *AccessibilityCheckEntry {
 		return NewAccessibilityCheckEntry(d, p)
-	})
+	}, "ACCH-ITEM-xxx")
 }
 
 // Accessibility standard entry (WCAG, Section 508, ADA).
@@ -1110,14 +1110,14 @@ func (x *ActorEntry) Characteristics() *ActorCharacteristics {
 func (x *ActorEntry) Goals() *som.SomList[*ActorGoals] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACGO-GOAL-LST", func(d *som.SpecDocument, p string) *ActorGoals {
 		return NewActorGoals(d, p)
-	})
+	}, "ACGO-GOAL-xxx")
 }
 
 // Actor permissions and access.
 func (x *ActorEntry) Permissions() *som.SomList[*ActorPermissions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACPE-PERM-LST", func(d *som.SpecDocument, p string) *ActorPermissions {
 		return NewActorPermissions(d, p)
-	})
+	}, "ACPE-PERM-xxx")
 }
 
 // Actor technology profile.
@@ -1202,7 +1202,7 @@ func (x *ActorOverview) Overview() *ActorOverviewNarrative {
 func (x *ActorOverview) Actors() *som.SomList[*ActorEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACEN-ACTO-LST", func(d *som.SpecDocument, p string) *ActorEntry {
 		return NewActorEntry(d, p)
-	})
+	}, "ACEN-ACTO-xxx")
 }
 
 // Actor categorization summary.
@@ -1831,7 +1831,7 @@ func (x *AlertingConfiguration) NotificationChannels() *AlertNotificationChannel
 func (x *AlertingConfiguration) AlertRules() *som.SomList[*AlertRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ALRUEN-ALER-LST", func(d *som.SpecDocument, p string) *AlertRuleEntry {
 		return NewAlertRuleEntry(d, p)
-	})
+	}, "ALRUEN-ALER-xxx")
 }
 
 // Escalation policies.
@@ -1843,7 +1843,7 @@ func (x *AlertingConfiguration) EscalationPolicies() *AlertEscalationPolicies {
 func (x *AlertingConfiguration) SuppressionRules() *som.SomList[*AlertSuppressionRules] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ALSURU-SUPP-LST", func(d *som.SpecDocument, p string) *AlertSuppressionRules {
 		return NewAlertSuppressionRules(d, p)
-	})
+	}, "ALSURU-SUPP-xxx")
 }
 
 // On-call schedule.
@@ -1959,7 +1959,7 @@ func (x *AlternativeFlowEntry) Content() *AlternativeFlowEntryContentForm {
 func (x *AlternativeFlowEntry) Steps() *som.SomList[*AlternativeStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ALST-STEP-LST", func(d *som.SpecDocument, p string) *AlternativeStepEntry {
 		return NewAlternativeStepEntry(d, p)
-	})
+	}, "ALST-STEP-xxx")
 }
 
 // An alternative step entry.
@@ -2408,7 +2408,7 @@ func (x *ApplicableRegulationEntry) Content() *ApplicableRegulationEntryContentF
 func (x *ApplicableRegulationEntry) ComplianceMeasures() *som.SomList[*ComplianceMeasureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMPL-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceMeasureEntry {
 		return NewComplianceMeasureEntry(d, p)
-	})
+	}, "COMPL-COMP-xxx")
 }
 
 // Application diagnostics.
@@ -3100,7 +3100,7 @@ func (x *ArchitectureStyle) Overview() *ArchitectureOverview {
 func (x *ArchitectureStyle) Principles() *som.SomList[*ArchitecturePrincipleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ARPR-PRIN-LST", func(d *som.SpecDocument, p string) *ArchitecturePrincipleEntry {
 		return NewArchitecturePrincipleEntry(d, p)
-	})
+	}, "ARPR-PRIN-xxx")
 }
 
 // System component organization and boundaries.
@@ -3112,7 +3112,7 @@ func (x *ArchitectureStyle) ComponentOrganization() *ComponentOrganization {
 func (x *ArchitectureStyle) Components() *som.SomList[*ArchitectureComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ARCM-COMP-LST", func(d *som.SpecDocument, p string) *ArchitectureComponentEntry {
 		return NewArchitectureComponentEntry(d, p)
-	})
+	}, "ARCM-COMP-xxx")
 }
 
 // Communication patterns between components.
@@ -3144,7 +3144,7 @@ func (x *ArchitectureStyle) DeploymentTopology() *DeploymentTopology {
 func (x *ArchitectureStyle) DecisionRecords() *som.SomList[*ArchitectureDecisionRecord] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ARDE-DECI-LST", func(d *som.SpecDocument, p string) *ArchitectureDecisionRecord {
 		return NewArchitectureDecisionRecord(d, p)
-	})
+	}, "ARDE-DECI-xxx")
 }
 
 // A consolidated register of assumptions and constraints.
@@ -3169,14 +3169,14 @@ func (x *AssumptionConstraintDependencyRegister) SetContent(value string) {
 func (x *AssumptionConstraintDependencyRegister) Assumptions() *som.SomList[*AssumptionRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-ASMP-LST", func(d *som.SpecDocument, p string) *AssumptionRegisterEntry {
 		return NewAssumptionRegisterEntry(d, p)
-	})
+	}, "ACRG-ASMP-xxx")
 }
 
 // Constraints the solution must operate within.
 func (x *AssumptionConstraintDependencyRegister) Constraints() *som.SomList[*ConstraintRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-CONS-LST", func(d *som.SpecDocument, p string) *ConstraintRegisterEntry {
 		return NewConstraintRegisterEntry(d, p)
-	})
+	}, "ACRG-CONS-xxx")
 }
 
 // Dependencies the solution relies on (external systems, teams, vendors,
@@ -3184,7 +3184,7 @@ func (x *AssumptionConstraintDependencyRegister) Constraints() *som.SomList[*Con
 func (x *AssumptionConstraintDependencyRegister) Dependencies() *som.SomList[*DependencyRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-DEPS-LST", func(d *som.SpecDocument, p string) *DependencyRegisterEntry {
 		return NewDependencyRegisterEntry(d, p)
-	})
+	}, "ACRG-DEPS-xxx")
 }
 
 // A single assumption register entry (form).
@@ -3315,7 +3315,7 @@ func (x *AuditEvidenceRequirements) Content() *AuditEvidenceRequirementsContentF
 func (x *AuditEvidenceRequirements) EvidenceTypes() *som.SomList[*AuditEvidenceTypeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AUEVTY-EVID-LST", func(d *som.SpecDocument, p string) *AuditEvidenceTypeEntry {
 		return NewAuditEvidenceTypeEntry(d, p)
-	})
+	}, "AUEVTY-EVID-xxx")
 }
 
 // An audit evidence type entry.
@@ -3400,7 +3400,7 @@ func (x *AuditRequirements) SetContent(value string) {
 func (x *AuditRequirements) Audits() *som.SomList[*AuditEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AUD-AUDI-LST", func(d *som.SpecDocument, p string) *AuditEntry {
 		return NewAuditEntry(d, p)
-	})
+	}, "AUD-AUDI-xxx")
 }
 
 // Audit evidence requirements.
@@ -3552,7 +3552,7 @@ func (x *AuthenticationFlow) StepUpAuthentication() *StepUpAuthenticationPolicy 
 func (x *AuthenticationFlow) LoginFlowSteps() *som.SomList[*LoginFlowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LGFLS-LOGI-LST", func(d *som.SpecDocument, p string) *LoginFlowStepEntry {
 		return NewLoginFlowStepEntry(d, p)
-	})
+	}, "LGFLS-LOGI-xxx")
 }
 
 // An authentication method entry (form).
@@ -3703,7 +3703,7 @@ func (x *AuthenticationMethods) ApiKeyManagement() *ApiKeyManagementPolicy {
 func (x *AuthenticationMethods) Items() *som.SomList[*AuthenticationMethodEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ATME-ITEM-LST", func(d *som.SpecDocument, p string) *AuthenticationMethodEntry {
 		return NewAuthenticationMethodEntry(d, p)
-	})
+	}, "ATME-ITEM-xxx")
 }
 
 // Authorization event policy (form).
@@ -3743,7 +3743,7 @@ func (x *AuthorizationGroupEntry) Content() *AuthorizationGroupEntryContentForm 
 func (x *AuthorizationGroupEntry) ContainedRoles() *som.SomList[*RoleReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLREF-CONT-LST", func(d *som.SpecDocument, p string) *RoleReferenceEntry {
 		return NewRoleReferenceEntry(d, p)
-	})
+	}, "ROLREF-CONT-xxx")
 }
 
 // 9.4.1. Authorization Model.
@@ -3839,42 +3839,42 @@ func (x *AuthorizationRoleEntry) Status() *AuthorizationRoleEntryStatus {
 func (x *AuthorizationRoleEntry) Responsibilities() *som.SomList[*ResponsibilityReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPREF-RESP-LST", func(d *som.SpecDocument, p string) *ResponsibilityReferenceEntry {
 		return NewResponsibilityReferenceEntry(d, p)
-	})
+	}, "RSPREF-RESP-xxx")
 }
 
 // Contains 0+× EntitlementReference.
 func (x *AuthorizationRoleEntry) EntitlementReferences() *som.SomList[*EntitlementReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENREFE-ENTI-LST", func(d *som.SpecDocument, p string) *EntitlementReferenceEntry {
 		return NewEntitlementReferenceEntry(d, p)
-	})
+	}, "ENREFE-ENTI-xxx")
 }
 
 // Contains 0+× RolePermission.
 func (x *AuthorizationRoleEntry) DirectPermissions() *som.SomList[*RolePermissionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLPERM-DIRE-LST", func(d *som.SpecDocument, p string) *RolePermissionEntry {
 		return NewRolePermissionEntry(d, p)
-	})
+	}, "ROLPERM-DIRE-xxx")
 }
 
 // Contains 0+× RoleDataScope.
 func (x *AuthorizationRoleEntry) DataScopes() *som.SomList[*RoleDataScopeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLDSCP-DATA-LST", func(d *som.SpecDocument, p string) *RoleDataScopeEntry {
 		return NewRoleDataScopeEntry(d, p)
-	})
+	}, "ROLDSCP-DATA-xxx")
 }
 
 // Contains 0+× RoleExclusion.
 func (x *AuthorizationRoleEntry) MutualExclusions() *som.SomList[*RoleExclusionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLEXC-MUTU-LST", func(d *som.SpecDocument, p string) *RoleExclusionEntry {
 		return NewRoleExclusionEntry(d, p)
-	})
+	}, "ROLEXC-MUTU-xxx")
 }
 
 // Contains 0+× RoleHolder.
 func (x *AuthorizationRoleEntry) TypicalHolders() *som.SomList[*RoleHolderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLHLD-TYPI-LST", func(d *som.SpecDocument, p string) *RoleHolderEntry {
 		return NewRoleHolderEntry(d, p)
-	})
+	}, "ROLHLD-TYPI-xxx")
 }
 
 // Risk and activation controls.
@@ -4059,7 +4059,7 @@ func (x *BackupAndRecoverySection) DataClassification() *BackupDataClassificatio
 func (x *BackupAndRecoverySection) BackupPolicies() *som.SomList[*BackupPolicyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BAPOEN-BACK-LST", func(d *som.SpecDocument, p string) *BackupPolicyEntry {
 		return NewBackupPolicyEntry(d, p)
-	})
+	}, "BAPOEN-BACK-xxx")
 }
 
 // RPO and RTO requirements.
@@ -4888,7 +4888,7 @@ func NewBoundaryAssumptions(doc *som.SpecDocument, path string) *BoundaryAssumpt
 func (x *BoundaryAssumptions) Items() *som.SomList[*BoundaryAssumptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOASEN-ITEM-LST", func(d *som.SpecDocument, p string) *BoundaryAssumptionEntry {
 		return NewBoundaryAssumptionEntry(d, p)
-	})
+	}, "BOASEN-ITEM-xxx")
 }
 
 // 4.5.5. Boundary Interaction Patterns.
@@ -5037,7 +5037,7 @@ func (x *BreakpointConfiguration) BreakpointOverview() *BreakpointConfigurationB
 func (x *BreakpointConfiguration) Breakpoints() *som.SomList[*BreakpointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BRE-BREA-LST", func(d *som.SpecDocument, p string) *BreakpointEntry {
 		return NewBreakpointEntry(d, p)
-	})
+	}, "BRE-BREA-xxx")
 }
 
 // A breakpoint entry.
@@ -5801,7 +5801,7 @@ func (x *BusinessGoals) SetContent(value string) {
 func (x *BusinessGoals) Goals() *som.SomList[*BusinessGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BGE-GOAL-LST", func(d *som.SpecDocument, p string) *BusinessGoalEntry {
 		return NewBusinessGoalEntry(d, p)
-	})
+	}, "BGE-GOAL-xxx")
 }
 
 // Business metrics specification.
@@ -5996,7 +5996,7 @@ func (x *BusinessObjectEntry) LifecycleSummary() *BusinessObjectEntryLifecycleSu
 func (x *BusinessObjectEntry) BehaviorRules() *som.SomList[*BehaviorRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BEHAV-BEHA-LST", func(d *som.SpecDocument, p string) *BehaviorRuleEntry {
 		return NewBehaviorRuleEntry(d, p)
-	})
+	}, "BEHAV-BEHA-xxx")
 }
 
 func (x *BusinessObjectEntry) Ownership() *BusinessObjectEntryOwnershipForm {
@@ -6006,49 +6006,49 @@ func (x *BusinessObjectEntry) Ownership() *BusinessObjectEntryOwnershipForm {
 func (x *BusinessObjectEntry) IntegrationPoints() *som.SomList[*IntegrationPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INTEG-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPointEntry {
 		return NewIntegrationPointEntry(d, p)
-	})
+	}, "INTEG-INTE-xxx")
 }
 
 // Contains 0+× BusinessObjectAttribute.
 func (x *BusinessObjectEntry) Attributes() *som.SomList[*BusinessObjectAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIOBAT-ATTR-LST", func(d *som.SpecDocument, p string) *BusinessObjectAttributeEntry {
 		return NewBusinessObjectAttributeEntry(d, p)
-	})
+	}, "BIOBAT-ATTR-xxx")
 }
 
 // Contains 0+× ObjectState.
 func (x *BusinessObjectEntry) KeyStates() *som.SomList[*ObjectStateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBST-KEYS-LST", func(d *som.SpecDocument, p string) *ObjectStateEntry {
 		return NewObjectStateEntry(d, p)
-	})
+	}, "OBST-KEYS-xxx")
 }
 
 // Contains 0+× BusinessRuleReference.
 func (x *BusinessObjectEntry) KeyBusinessRules() *som.SomList[*BusinessRuleReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIRURE-KEYB-LST", func(d *som.SpecDocument, p string) *BusinessRuleReferenceEntry {
 		return NewBusinessRuleReferenceEntry(d, p)
-	})
+	}, "BIRURE-KEYB-xxx")
 }
 
 // Contains 0+× LifecycleTransition.
 func (x *BusinessObjectEntry) LifecycleTransitions() *som.SomList[*LifecycleTransitionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LFTRS-LIFE-LST", func(d *som.SpecDocument, p string) *LifecycleTransitionEntry {
 		return NewLifecycleTransitionEntry(d, p)
-	})
+	}, "LFTRS-LIFE-xxx")
 }
 
 // Contains 0+× ObjectOperation.
 func (x *BusinessObjectEntry) Operations() *som.SomList[*ObjectOperationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBOP-OPER-LST", func(d *som.SpecDocument, p string) *ObjectOperationEntry {
 		return NewObjectOperationEntry(d, p)
-	})
+	}, "OBOP-OPER-xxx")
 }
 
 // Contains 0+× ObjectInvariant.
 func (x *BusinessObjectEntry) Invariants() *som.SomList[*ObjectInvariantEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBINV-INVA-LST", func(d *som.SpecDocument, p string) *ObjectInvariantEntry {
 		return NewObjectInvariantEntry(d, p)
-	})
+	}, "OBINV-INVA-xxx")
 }
 
 // 7.2. Business Object Model.
@@ -6073,7 +6073,7 @@ func (x *BusinessObjectModel) SetContent(value string) {
 func (x *BusinessObjectModel) Objects() *som.SomList[*BusinessObjectEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
 		return NewBusinessObjectEntry(d, p)
-	})
+	}, "BJOEN-OBJE-xxx")
 }
 
 // 7.2.2. Business Object Diagram (mermaid).
@@ -6109,7 +6109,7 @@ func (x *BusinessPainPoints) CategorySummary() *BusinessPainPointsSummary {
 func (x *BusinessPainPoints) Items() *som.SomList[*PainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BUPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
-	})
+	}, "BUPAPO-ITEM-xxx")
 }
 
 // Summary specific to business pain points.
@@ -6182,7 +6182,7 @@ func (x *BusinessProcessDescriptions) ProcessRelationships() *ProcessRelationshi
 func (x *BusinessProcessDescriptions) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflow] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflow {
 		return NewDetailedProcessWorkflow(d, p)
-	})
+	}, "DEPRWO-DETA-xxx")
 }
 
 // 6.1.8. Cross-Process Analysis.
@@ -6199,7 +6199,7 @@ func (x *BusinessProcessDescriptions) ExceptionHandling() *ProcessExceptionHandl
 func (x *BusinessProcessDescriptions) ProcessMetricsAndKpis() *som.SomList[*ProcessMetric] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetric {
 		return NewProcessMetric(d, p)
-	})
+	}, "PMAK-PROC-xxx")
 }
 
 // A business process entry.
@@ -6302,21 +6302,21 @@ func (x *BusinessRuleEntry) Governance() *BusinessRuleEntryGovernanceForm {
 func (x *BusinessRuleEntry) AffectedObjects() *som.SomList[*AffectedObjectEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AFOB-AFFE-LST", func(d *som.SpecDocument, p string) *AffectedObjectEntry {
 		return NewAffectedObjectEntry(d, p)
-	})
+	}, "AFOB-AFFE-xxx")
 }
 
 // Contains 0+× AffectedFunction.
 func (x *BusinessRuleEntry) AffectedFunctions() *som.SomList[*AffectedFunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AFFN-AFFE-LST", func(d *som.SpecDocument, p string) *AffectedFunctionEntry {
 		return NewAffectedFunctionEntry(d, p)
-	})
+	}, "AFFN-AFFE-xxx")
 }
 
 // Contains 0+× RuleExample.
 func (x *BusinessRuleEntry) Examples() *som.SomList[*RuleExampleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RULEXM-EXAM-LST", func(d *som.SpecDocument, p string) *RuleExampleEntry {
 		return NewRuleExampleEntry(d, p)
-	})
+	}, "RULEXM-EXAM-xxx")
 }
 
 // A business rule reference entry (form).
@@ -6961,7 +6961,7 @@ func (x *ChangeControlBoard) Records() *ChangeControlBoardRecords {
 func (x *ChangeControlBoard) Members() *som.SomList[*CcbMemberEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CCME-MEMB-LST", func(d *som.SpecDocument, p string) *CcbMemberEntry {
 		return NewCcbMemberEntry(d, p)
-	})
+	}, "CCME-MEMB-xxx")
 }
 
 // Decision-making and emergency governance.
@@ -7045,14 +7045,14 @@ func (x *ChangeImpactCriteria) SetContent(value string) {
 func (x *ChangeImpactCriteria) ImpactLevels() *som.SomList[*ImpactLevelDefinitions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IMLEDE-IMPA-LST", func(d *som.SpecDocument, p string) *ImpactLevelDefinitions {
 		return NewImpactLevelDefinitions(d, p)
-	})
+	}, "IMLEDE-IMPA-xxx")
 }
 
 // Contains 0+× ChangeImpactCriterion.
 func (x *ChangeImpactCriteria) Items() *som.SomList[*ChangeImpactCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHIMCR-ITEM-LST", func(d *som.SpecDocument, p string) *ChangeImpactCriterionEntry {
 		return NewChangeImpactCriterionEntry(d, p)
-	})
+	}, "CHIMCR-ITEM-xxx")
 }
 
 // A change impact criterion entry (form).
@@ -7207,7 +7207,7 @@ func (x *ChangeProcedure) ChangeControlBoard() *ChangeControlBoard {
 func (x *ChangeProcedure) ChangeCategories() *som.SomList[*ChangeCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHCA-CHAN-LST", func(d *som.SpecDocument, p string) *ChangeCategoryEntry {
 		return NewChangeCategoryEntry(d, p)
-	})
+	}, "CHCA-CHAN-xxx")
 }
 
 // Change procedure summary and metrics.
@@ -7248,14 +7248,14 @@ func (x *ChangeProcess) Content() *ChangeProcessContentForm {
 func (x *ChangeProcess) Steps() *som.SomList[*ChangeStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHST-STEP-LST", func(d *som.SpecDocument, p string) *ChangeStepEntry {
 		return NewChangeStepEntry(d, p)
-	})
+	}, "CHST-STEP-xxx")
 }
 
 // Roles involved in the change process — contains 0+× ChangeRole.
 func (x *ChangeProcess) Roles() *som.SomList[*ChangeRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHRO-ROLE-LST", func(d *som.SpecDocument, p string) *ChangeRoleEntry {
 		return NewChangeRoleEntry(d, p)
-	})
+	}, "CHRO-ROLE-xxx")
 }
 
 // Decision criteria for change approval.
@@ -7267,7 +7267,7 @@ func (x *ChangeProcess) DecisionCriteria() *ChangeDecisionCriteria {
 func (x *ChangeProcess) NotificationRules() *som.SomList[*ChangeNotificationRules] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHNORU-NOTI-LST", func(d *som.SpecDocument, p string) *ChangeNotificationRules {
 		return NewChangeNotificationRules(d, p)
-	})
+	}, "CHNORU-NOTI-xxx")
 }
 
 // Change readiness assessment approach.
@@ -7289,7 +7289,7 @@ func (x *ChangeReadinessAssessment) Overview() *ChangeReadinessOverview {
 func (x *ChangeReadinessAssessment) ReadinessCriteria() *som.SomList[*ReadinessCriteriaEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RDRCE-READ-LST", func(d *som.SpecDocument, p string) *ReadinessCriteriaEntry {
 		return NewReadinessCriteriaEntry(d, p)
-	})
+	}, "RDRCE-READ-xxx")
 }
 
 // Overview of change readiness assessment.
@@ -7429,21 +7429,21 @@ func NewChangedRoleCompetencies(doc *som.SpecDocument, path string) *ChangedRole
 func (x *ChangedRoleCompetencies) NewCompetencies() *som.SomList[*RoleCompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLCP-NEWC-LST", func(d *som.SpecDocument, p string) *RoleCompetencyEntry {
 		return NewRoleCompetencyEntry(d, p)
-	})
+	}, "ROLCP-NEWC-xxx")
 }
 
 // Competencies no longer required.
 func (x *ChangedRoleCompetencies) RemovedCompetencies() *som.SomList[*RoleCompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLCP-REMO-LST", func(d *som.SpecDocument, p string) *RoleCompetencyEntry {
 		return NewRoleCompetencyEntry(d, p)
-	})
+	}, "ROLCP-REMO-xxx")
 }
 
 // Competencies with changed proficiency levels.
 func (x *ChangedRoleCompetencies) ChangedLevels() *som.SomList[*CompetencyLevelChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COLVCH-CHAN-LST", func(d *som.SpecDocument, p string) *CompetencyLevelChangeEntry {
 		return NewCompetencyLevelChangeEntry(d, p)
-	})
+	}, "COLVCH-CHAN-xxx")
 }
 
 // Overall competency gap assessment.
@@ -7574,21 +7574,21 @@ func NewChangedRoleResponsibilities(doc *som.SpecDocument, path string) *Changed
 func (x *ChangedRoleResponsibilities) AddedResponsibilities() *som.SomList[*ResponsibilityChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPCH-ADDE-LST", func(d *som.SpecDocument, p string) *ResponsibilityChangeEntry {
 		return NewResponsibilityChangeEntry(d, p)
-	})
+	}, "RSPCH-ADDE-xxx")
 }
 
 // Responsibilities being removed.
 func (x *ChangedRoleResponsibilities) RemovedResponsibilities() *som.SomList[*ResponsibilityChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPCH-REMO-LST", func(d *som.SpecDocument, p string) *ResponsibilityChangeEntry {
 		return NewResponsibilityChangeEntry(d, p)
-	})
+	}, "RSPCH-REMO-xxx")
 }
 
 // Responsibilities being modified.
 func (x *ChangedRoleResponsibilities) ModifiedResponsibilities() *som.SomList[*ResponsibilityChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPCH-MODI-LST", func(d *som.SpecDocument, p string) *ResponsibilityChangeEntry {
 		return NewResponsibilityChangeEntry(d, p)
-	})
+	}, "RSPCH-MODI-xxx")
 }
 
 // Net impact summary.
@@ -7690,7 +7690,7 @@ func (x *ChangesFromCurrentStructure) OverviewContent() *ChangesFromCurrentStruc
 func (x *ChangesFromCurrentStructure) Items() *som.SomList[*OrganizationalChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ORGCE-ITEM-LST", func(d *som.SpecDocument, p string) *OrganizationalChangeEntry {
 		return NewOrganizationalChangeEntry(d, p)
-	})
+	}, "ORGCE-ITEM-xxx")
 }
 
 // Channel-specific integration requirements.
@@ -7749,21 +7749,21 @@ func (x *CiCdPipelineConfiguration) Content() *CiCdPipelineConfigurationContentF
 func (x *CiCdPipelineConfiguration) Stages() *som.SomList[*PipelineStageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PISTEN-STAG-LST", func(d *som.SpecDocument, p string) *PipelineStageEntry {
 		return NewPipelineStageEntry(d, p)
-	})
+	}, "PISTEN-STAG-xxx")
 }
 
 // Build jobs.
 func (x *CiCdPipelineConfiguration) Jobs() *som.SomList[*PipelineJobEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PIJOEN-JOBS-LST", func(d *som.SpecDocument, p string) *PipelineJobEntry {
 		return NewPipelineJobEntry(d, p)
-	})
+	}, "PIJOEN-JOBS-xxx")
 }
 
 // Deployment environments.
 func (x *CiCdPipelineConfiguration) Environments() *som.SomList[*DeploymentEnvironmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEENEN-ENVI-LST", func(d *som.SpecDocument, p string) *DeploymentEnvironmentEntry {
 		return NewDeploymentEnvironmentEntry(d, p)
-	})
+	}, "DEENEN-ENVI-xxx")
 }
 
 // CI/CD pipeline requirements.
@@ -8154,21 +8154,21 @@ func (x *ClientRequirementsSection) SetContent(value string) {
 func (x *ClientRequirementsSection) BrowserRequirements() *som.SomList[*BrowserRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BRREEN-BROW-LST", func(d *som.SpecDocument, p string) *BrowserRequirementEntry {
 		return NewBrowserRequirementEntry(d, p)
-	})
+	}, "BRREEN-BROW-xxx")
 }
 
 // Desktop operating system requirements.
 func (x *ClientRequirementsSection) DesktopOsRequirements() *som.SomList[*DesktopOsRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DORE1-DESK-LST", func(d *som.SpecDocument, p string) *DesktopOsRequirementEntry {
 		return NewDesktopOsRequirementEntry(d, p)
-	})
+	}, "DORE1-DESK-xxx")
 }
 
 // Mobile device requirements.
 func (x *ClientRequirementsSection) MobileRequirements() *som.SomList[*MobileDeviceRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MDRE-MOBI-LST", func(d *som.SpecDocument, p string) *MobileDeviceRequirementEntry {
 		return NewMobileDeviceRequirementEntry(d, p)
-	})
+	}, "MDRE-MOBI-xxx")
 }
 
 // Display and screen requirements.
@@ -8927,7 +8927,7 @@ func (x *CommitteeMemberEntry) Content() *CommitteeMemberEntryContentForm {
 func (x *CommitteeMemberEntry) Responsibilities() *som.SomList[*CommitteeResponsibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMRS-RESP-LST", func(d *som.SpecDocument, p string) *CommitteeResponsibilityEntry {
 		return NewCommitteeResponsibilityEntry(d, p)
-	})
+	}, "COMRS-RESP-xxx")
 }
 
 // A committee member responsibility entry.
@@ -9043,7 +9043,7 @@ func (x *CommunicationMatrix) SetCommunicationFlowDiagram(value string) {
 func (x *CommunicationMatrix) CommunicationTypes() *som.SomList[*CommunicationTypeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COTY-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationTypeEntry {
 		return NewCommunicationTypeEntry(d, p)
-	})
+	}, "COTY-COMM-xxx")
 }
 
 // Communication patterns between components.
@@ -9279,56 +9279,56 @@ func (x *CompatibilityRequirementsSection) SetContent(value string) {
 func (x *CompatibilityRequirementsSection) OsCompatibility() *som.SomList[*OsCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OSCOEN-OSCO-LST", func(d *som.SpecDocument, p string) *OsCompatibilityEntry {
 		return NewOsCompatibilityEntry(d, p)
-	})
+	}, "OSCOEN-OSCO-xxx")
 }
 
 // Browser compatibility requirements.
 func (x *CompatibilityRequirementsSection) BrowserCompatibility() *som.SomList[*BrowserCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BRCOEN-BROW-LST", func(d *som.SpecDocument, p string) *BrowserCompatibilityEntry {
 		return NewBrowserCompatibilityEntry(d, p)
-	})
+	}, "BRCOEN-BROW-xxx")
 }
 
 // Database compatibility requirements.
 func (x *CompatibilityRequirementsSection) DatabaseCompatibility() *som.SomList[*DatabaseCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DACOEN-DATA-LST", func(d *som.SpecDocument, p string) *DatabaseCompatibilityEntry {
 		return NewDatabaseCompatibilityEntry(d, p)
-	})
+	}, "DACOEN-DATA-xxx")
 }
 
 // Enterprise system compatibility requirements.
 func (x *CompatibilityRequirementsSection) EnterpriseSystemCompatibility() *som.SomList[*EnterpriseSystemCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ESCE-ENTE-LST", func(d *som.SpecDocument, p string) *EnterpriseSystemCompatibilityEntry {
 		return NewEnterpriseSystemCompatibilityEntry(d, p)
-	})
+	}, "ESCE-ENTE-xxx")
 }
 
 // API and protocol compatibility requirements.
 func (x *CompatibilityRequirementsSection) ApiCompatibility() *som.SomList[*ApiCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/APCP-APIC-LST", func(d *som.SpecDocument, p string) *ApiCompatibilityEntry {
 		return NewApiCompatibilityEntry(d, p)
-	})
+	}, "APCP-APIC-xxx")
 }
 
 // Legacy system compatibility requirements.
 func (x *CompatibilityRequirementsSection) LegacyCompatibility() *som.SomList[*LegacyCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LECOEN-LEGA-LST", func(d *som.SpecDocument, p string) *LegacyCompatibilityEntry {
 		return NewLegacyCompatibilityEntry(d, p)
-	})
+	}, "LECOEN-LEGA-xxx")
 }
 
 // Mobile device compatibility requirements.
 func (x *CompatibilityRequirementsSection) MobileCompatibility() *som.SomList[*MobileCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MOCOEN-MOBI-LST", func(d *som.SpecDocument, p string) *MobileCompatibilityEntry {
 		return NewMobileCompatibilityEntry(d, p)
-	})
+	}, "MOCOEN-MOBI-xxx")
 }
 
 // Third-party software compatibility requirements.
 func (x *CompatibilityRequirementsSection) ThirdPartyCompatibility() *som.SomList[*ThirdPartyCompatibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TPCE-THIR-LST", func(d *som.SpecDocument, p string) *ThirdPartyCompatibilityEntry {
 		return NewThirdPartyCompatibilityEntry(d, p)
-	})
+	}, "TPCE-THIR-xxx")
 }
 
 // Data format and encoding compatibility.
@@ -9379,21 +9379,21 @@ func (x *CompetencyFramework) Overview() *CompetencyFrameworkOverview {
 func (x *CompetencyFramework) CoreCompetencies() *som.SomList[*CompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMPE-CORE-LST", func(d *som.SpecDocument, p string) *CompetencyEntry {
 		return NewCompetencyEntry(d, p)
-	})
+	}, "COMPE-CORE-xxx")
 }
 
 // Technical/functional competencies by role family.
 func (x *CompetencyFramework) TechnicalCompetencies() *som.SomList[*CompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMPE-TECH-LST", func(d *som.SpecDocument, p string) *CompetencyEntry {
 		return NewCompetencyEntry(d, p)
-	})
+	}, "COMPE-TECH-xxx")
 }
 
 // Leadership competencies for management roles.
 func (x *CompetencyFramework) LeadershipCompetencies() *som.SomList[*CompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMPE-LEAD-LST", func(d *som.SpecDocument, p string) *CompetencyEntry {
 		return NewCompetencyEntry(d, p)
-	})
+	}, "COMPE-LEAD-xxx")
 }
 
 // Competency framework overview.
@@ -9930,14 +9930,14 @@ func (x *ComponentEntry) Risk() *ComponentRisk {
 func (x *ComponentEntry) Docs() *som.SomList[*ComponentDocs] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CODO-DOCS-LST", func(d *som.SpecDocument, p string) *ComponentDocs {
 		return NewComponentDocs(d, p)
-	})
+	}, "CODO-DOCS-xxx")
 }
 
 // Interfaces — contains 0+× ComponentInterface.
 func (x *ComponentEntry) Interfaces() *som.SomList[*ComponentInterfaceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMIF-INTE-LST", func(d *som.SpecDocument, p string) *ComponentInterfaceEntry {
 		return NewComponentInterfaceEntry(d, p)
-	})
+	}, "CMIF-INTE-xxx")
 }
 
 // Licensing (form).
@@ -9952,7 +9952,7 @@ func (x *ComponentEntry) Licensing() *ComponentLicensingEntry {
 func (x *ComponentEntry) Responsibilities() *som.SomList[*ComponentResponsibilitiesEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COREEN-RESP-LST", func(d *som.SpecDocument, p string) *ComponentResponsibilitiesEntry {
 		return NewComponentResponsibilitiesEntry(d, p)
-	})
+	}, "COREEN-RESP-xxx")
 }
 
 // A component family entry.
@@ -9978,7 +9978,7 @@ func (x *ComponentFamilyEntry) Content() *ComponentFamilyEntryContentForm {
 func (x *ComponentFamilyEntry) Components() *som.SomList[*FamilyComponentRef] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FAMREF-COMP-LST", func(d *som.SpecDocument, p string) *FamilyComponentRef {
 		return NewFamilyComponentRef(d, p)
-	})
+	}, "FAMREF-COMP-xxx")
 }
 
 // Component governance and maintenance policies.
@@ -10198,7 +10198,7 @@ func NewComponentLibrary(doc *som.SpecDocument, path string) *ComponentLibrary {
 func (x *ComponentLibrary) DesignFoundations() *som.SomList[*DesignFoundationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DESIG-DESI-LST", func(d *som.SpecDocument, p string) *DesignFoundationEntry {
 		return NewDesignFoundationEntry(d, p)
-	})
+	}, "DESIG-DESI-xxx")
 }
 
 // Color system.
@@ -10236,14 +10236,14 @@ func (x *ComponentLibrary) Visuals() *ComponentLibraryVisuals {
 func (x *ComponentLibrary) ColorPalettes() *som.SomList[*ColorPaletteEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COPA-COLO-LST", func(d *som.SpecDocument, p string) *ColorPaletteEntry {
 		return NewColorPaletteEntry(d, p)
-	})
+	}, "COPA-COLO-xxx")
 }
 
 // Typography styles.
 func (x *ComponentLibrary) TypographyStyles() *som.SomList[*TypographyStyleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TYST-TYPO-LST", func(d *som.SpecDocument, p string) *TypographyStyleEntry {
 		return NewTypographyStyleEntry(d, p)
-	})
+	}, "TYST-TYPO-xxx")
 }
 
 // Borders and corners.
@@ -10784,7 +10784,7 @@ func (x *ComponentRiskAssessment) SetContent(value string) {
 func (x *ComponentRiskAssessment) Risks() *som.SomList[*ComponentRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMRS-RISK-LST", func(d *som.SpecDocument, p string) *ComponentRiskEntry {
 		return NewComponentRiskEntry(d, p)
-	})
+	}, "CMRS-RISK-xxx")
 }
 
 // 12.6.2. Contingency Plans.
@@ -11043,7 +11043,7 @@ func (x *ComponentStrategy) Planning() *ComponentStrategyPlanning {
 func (x *ComponentStrategy) ReuseGoals() *som.SomList[*ReuseGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RGUSE-REUS-LST", func(d *som.SpecDocument, p string) *ReuseGoalEntry {
 		return NewReuseGoalEntry(d, p)
-	})
+	}, "RGUSE-REUS-xxx")
 }
 
 // 12.1.2. Evaluation Criteria.
@@ -11252,7 +11252,7 @@ func (x *ComponentsAndDependencies) Strategy() *ComponentStrategy {
 func (x *ComponentsAndDependencies) ComponentCatalog() *som.SomList[*ComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMPNT-COMP-LST", func(d *som.SpecDocument, p string) *ComponentEntry {
 		return NewComponentEntry(d, p)
-	})
+	}, "CMPNT-COMP-xxx")
 }
 
 // 12.3. Component Role In System.
@@ -11474,7 +11474,7 @@ func (x *ConfidentialityRequirements) Content() *ConfidentialityRequirementsCont
 func (x *ConfidentialityRequirements) Categories() *som.SomList[*ConfidentialInfoCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COINCA-CATE-LST", func(d *som.SpecDocument, p string) *ConfidentialInfoCategoryEntry {
 		return NewConfidentialInfoCategoryEntry(d, p)
-	})
+	}, "COINCA-CATE-xxx")
 }
 
 // Data handling procedures.
@@ -11899,7 +11899,7 @@ func (x *ContextualHelp) Rich() *ContextualHelpRich {
 func (x *ContextualHelp) FieldHelpCatalog() *som.SomList[*FieldHelpEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FLDHP-FIEL-LST", func(d *som.SpecDocument, p string) *FieldHelpEntry {
 		return NewFieldHelpEntry(d, p)
-	})
+	}, "FLDHP-FIEL-xxx")
 }
 
 // Inline help behavior.
@@ -12125,7 +12125,7 @@ func (x *ContingencyPlans) SetContent(value string) {
 func (x *ContingencyPlans) Items() *som.SomList[*ContingencyPlanEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COPL-ITEM-LST", func(d *som.SpecDocument, p string) *ContingencyPlanEntry {
 		return NewContingencyPlanEntry(d, p)
-	})
+	}, "COPL-ITEM-xxx")
 }
 
 // 11.2.3. Correctness quality.
@@ -12528,14 +12528,14 @@ func (x *CurrentArchitecture) SetDeploymentTopology(value string) {
 func (x *CurrentArchitecture) IntegrationPatterns() *som.SomList[*IntegrationPatternEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IPE-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPatternEntry {
 		return NewIntegrationPatternEntry(d, p)
-	})
+	}, "IPE-INTE-xxx")
 }
 
 // Shared services inventory.
 func (x *CurrentArchitecture) SharedServices() *som.SomList[*SharedServiceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SHARE-SHAR-LST", func(d *som.SpecDocument, p string) *SharedServiceEntry {
 		return NewSharedServiceEntry(d, p)
-	})
+	}, "SHARE-SHAR-xxx")
 }
 
 // A current business process.
@@ -12626,7 +12626,7 @@ func (x *CurrentBusinessProcesses) PerformanceSummary() *ProcessPerformanceSumma
 func (x *CurrentBusinessProcesses) Processes() *som.SomList[*CurrentBusinessProcess] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUBIPR-PROC-LST", func(d *som.SpecDocument, p string) *CurrentBusinessProcess {
 		return NewCurrentBusinessProcess(d, p)
-	})
+	}, "CUBIPR-PROC-xxx")
 }
 
 // 1.4.8. Data Classification.
@@ -12659,14 +12659,14 @@ func (x *CurrentDataClassification) ClassificationSummary() *DataClassificationS
 func (x *CurrentDataClassification) ClassificationLevels() *som.SomList[*DataClassificationLevelEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCLE-CLAS-LST", func(d *som.SpecDocument, p string) *DataClassificationLevelEntry {
 		return NewDataClassificationLevelEntry(d, p)
-	})
+	}, "DCLE-CLAS-xxx")
 }
 
 // Classification status by data domain.
 func (x *CurrentDataClassification) ClassificationStatus() *som.SomList[*DataClassificationStatusEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCSE-CLAS-LST", func(d *som.SpecDocument, p string) *DataClassificationStatusEntry {
 		return NewDataClassificationStatusEntry(d, p)
-	})
+	}, "DCSE-CLAS-xxx")
 }
 
 // 1.4. Current Data Landscape.
@@ -12809,7 +12809,7 @@ func (x *CurrentLandscape) CurrentDataLandscape() *CurrentDataLandscape {
 func (x *CurrentLandscape) OperationalMetrics() *som.SomList[*CurrentOperationalMetric] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetric {
 		return NewCurrentOperationalMetric(d, p)
-	})
+	}, "CUOPME-OPER-xxx")
 }
 
 // 1.6. Current State Risks.
@@ -12909,56 +12909,56 @@ func (x *CurrentWorkflowEntry) Triggers() *WorkflowTriggers {
 func (x *CurrentWorkflowEntry) Steps() *som.SomList[*WorkflowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WSE-STEP-LST", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
 		return NewWorkflowStepEntry(d, p)
-	})
+	}, "WSE-STEP-xxx")
 }
 
 // Workflow actors and responsibilities.
 func (x *CurrentWorkflowEntry) Actors() *som.SomList[*WorkflowActorEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WFAC-ACTO-LST", func(d *som.SpecDocument, p string) *WorkflowActorEntry {
 		return NewWorkflowActorEntry(d, p)
-	})
+	}, "WFAC-ACTO-xxx")
 }
 
 // Workflow inputs.
 func (x *CurrentWorkflowEntry) Inputs() *som.SomList[*WorkflowInputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOINEN-INPU-LST", func(d *som.SpecDocument, p string) *WorkflowInputEntry {
 		return NewWorkflowInputEntry(d, p)
-	})
+	}, "WOINEN-INPU-xxx")
 }
 
 // Workflow outputs.
 func (x *CurrentWorkflowEntry) Outputs() *som.SomList[*WorkflowOutputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOOUEN-OUTP-LST", func(d *som.SpecDocument, p string) *WorkflowOutputEntry {
 		return NewWorkflowOutputEntry(d, p)
-	})
+	}, "WOOUEN-OUTP-xxx")
 }
 
 // Decision points within the workflow.
 func (x *CurrentWorkflowEntry) DecisionPoints() *som.SomList[*WorkflowDecisionPoint] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WODEPO-DECI-LST", func(d *som.SpecDocument, p string) *WorkflowDecisionPoint {
 		return NewWorkflowDecisionPoint(d, p)
-	})
+	}, "WODEPO-DECI-xxx")
 }
 
 // Business rules governing the workflow.
 func (x *CurrentWorkflowEntry) BusinessRules() *som.SomList[*WorkflowBusinessRule] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOBURU-BUSI-LST", func(d *som.SpecDocument, p string) *WorkflowBusinessRule {
 		return NewWorkflowBusinessRule(d, p)
-	})
+	}, "WOBURU-BUSI-xxx")
 }
 
 // Manual steps requiring human intervention.
 func (x *CurrentWorkflowEntry) ManualSteps() *som.SomList[*WorkflowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WSE-MANU-LST", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
 		return NewWorkflowStepEntry(d, p)
-	})
+	}, "WSE-MANU-xxx")
 }
 
 // Error-prone steps with high failure rates.
 func (x *CurrentWorkflowEntry) ErrorProneSteps() *som.SomList[*WorkflowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WSE-ERRO-LST", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
 		return NewWorkflowStepEntry(d, p)
-	})
+	}, "WSE-ERRO-xxx")
 }
 
 // Workflow timing and performance.
@@ -12989,7 +12989,7 @@ func (x *CustomDistributionGroup) Content() *CustomDistributionGroupContentForm 
 func (x *CustomDistributionGroup) Members() *som.SomList[*DistributionRecipientEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSRC-MEMB-LST", func(d *som.SpecDocument, p string) *DistributionRecipientEntry {
 		return NewDistributionRecipientEntry(d, p)
-	})
+	}, "DSRC-MEMB-xxx")
 }
 
 // A custom metric entry.
@@ -13199,7 +13199,7 @@ func (x *D01CurrentLandscapeAssessment) CurrentDataLandscape() *CurrentDataLands
 func (x *D01CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetric] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetric {
 		return NewCurrentOperationalMetric(d, p)
-	})
+	}, "CUOPME-OPER-xxx")
 }
 
 // Current-state risk assessment.
@@ -13293,7 +13293,7 @@ func (x *D02TargetOperatingModel) ProcessRelationships() *ProcessRelationships {
 func (x *D02TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflow] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflow {
 		return NewDetailedProcessWorkflow(d, p)
-	})
+	}, "DEPRWO-DETA-xxx")
 }
 
 // Cross-process analysis.
@@ -13310,7 +13310,7 @@ func (x *D02TargetOperatingModel) ExceptionHandling() *ProcessExceptionHandling 
 func (x *D02TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetric] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetric {
 		return NewProcessMetric(d, p)
-	})
+	}, "PMAK-PROC-xxx")
 }
 
 // IFM00 Information Model.
@@ -13360,7 +13360,7 @@ func (x *D03InformationModel) Header() *DocumentHeader {
 func (x *D03InformationModel) Entities() *som.SomList[*DataEntityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
 		return NewDataEntityEntry(d, p)
-	})
+	}, "DAENT-ENTI-xxx")
 }
 
 // Entity relationships.
@@ -13380,7 +13380,7 @@ func (x *D03InformationModel) DataClassification() *DataClassification {
 func (x *D03InformationModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
 		return NewBusinessObjectEntry(d, p)
-	})
+	}, "BJOEN-OBJE-xxx")
 }
 
 // Business object diagram.
@@ -13390,21 +13390,21 @@ func (x *D03InformationModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry]
 func (x *D03InformationModel) FunctionDecomposition() *som.SomList[*FunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
 		return NewFunctionEntry(d, p)
-	})
+	}, "FUNCT-FUNC-xxx")
 }
 
 // Function-to-data matrix (list).
 func (x *D03InformationModel) FunctionToDataMatrix() *som.SomList[*FunctionDataMatrixEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
 		return NewFunctionDataMatrixEntry(d, p)
-	})
+	}, "FNDMX-FUNC-xxx")
 }
 
 // Business rules catalog (list).
 func (x *D03InformationModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
 		return NewBusinessRuleEntry(d, p)
-	})
+	}, "BIRU-BUSI-xxx")
 }
 
 // Data dictionary.
@@ -13508,7 +13508,7 @@ func (x *D04RequirementsSpecification) SetTraceabilityMatrix(value string) {
 func (x *D04RequirementsSpecification) RequirementRelationships() *som.SomList[*RequirementRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
 		return NewRequirementRelationships(d, p)
-	})
+	}, "RERE-REQU-xxx")
 }
 
 // Requirement coverage.
@@ -13587,7 +13587,7 @@ func (x *D05InteractionScenarios) ActorRelationshipDiagram() *ActorRelationshipD
 func (x *D05InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenario] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenario {
 		return NewEndToEndTestScenario(d, p)
-	})
+	}, "ETETS-ENDT-xxx")
 }
 
 // Use case traceability.
@@ -13764,7 +13764,7 @@ func (x *D07IntegrationInterfaceSpecification) SystemInventory() *SystemLandscap
 func (x *D07IntegrationInterfaceSpecification) InteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-INTE-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
 		return NewBoundaryInteractionPatterns(d, p)
-	})
+	}, "BOINPA-INTE-xxx")
 }
 
 // Interaction testing strategy.
@@ -13781,14 +13781,14 @@ func (x *D07IntegrationInterfaceSpecification) DependencyAnalysis() *Interaction
 func (x *D07IntegrationInterfaceSpecification) MigrationInteractions() *som.SomList[*MigrationInteractions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
 		return NewMigrationInteractions(d, p)
-	})
+	}, "MIIN-MIGR-xxx")
 }
 
 // Cross-boundary operational considerations.
 func (x *D07IntegrationInterfaceSpecification) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
 		return NewCrossBoundaryOperationalConsiderations(d, p)
-	})
+	}, "CBOC-OPER-xxx")
 }
 
 // Cross-boundary error handling.
@@ -14177,7 +14177,7 @@ func (x *D11DeliveryRoadmap) StageOverview() *StageOverview {
 func (x *D11DeliveryRoadmap) Stages() *som.SomList[*StageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
 		return NewStageEntry(d, p)
-	})
+	}, "STAGE-STAG-xxx")
 }
 
 // Feature prioritization.
@@ -14669,7 +14669,7 @@ func (x *DataAttributeEntry) DataTypeSpec() *DataAttributeEntryDataTypeSpecForm 
 func (x *DataAttributeEntry) Constraints() *som.SomList[*DataAttributeConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DATAA-CONS-LST", func(d *som.SpecDocument, p string) *DataAttributeConstraintEntry {
 		return NewDataAttributeConstraintEntry(d, p)
-	})
+	}, "DATAA-CONS-xxx")
 }
 
 func (x *DataAttributeEntry) Derivation() *DataAttributeEntryDerivationForm {
@@ -14687,7 +14687,7 @@ func (x *DataAttributeEntry) MigrationLineage() *DataAttributeEntryMigrationLine
 func (x *DataAttributeEntry) DisplayProperties() *som.SomList[*DisplayPropertyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DISPL-DISP-LST", func(d *som.SpecDocument, p string) *DisplayPropertyEntry {
 		return NewDisplayPropertyEntry(d, p)
-	})
+	}, "DISPL-DISP-xxx")
 }
 
 // 7.1.4. Data Classification.
@@ -14708,7 +14708,7 @@ func (x *DataClassification) Overview() *DataClassificationOverviewForm {
 func (x *DataClassification) Items() *som.SomList[*DataClassificationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCLSE-ITEM-LST", func(d *som.SpecDocument, p string) *DataClassificationEntry {
 		return NewDataClassificationEntry(d, p)
-	})
+	}, "DCLSE-ITEM-xxx")
 }
 
 // A data classification entry (form).
@@ -14747,14 +14747,14 @@ func (x *DataClassificationEntry) Compliance() *DataClassificationEntryComplianc
 func (x *DataClassificationEntry) HandlingRequirements() *som.SomList[*HandlingRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/HNDRE-HAND-LST", func(d *som.SpecDocument, p string) *HandlingRequirementEntry {
 		return NewHandlingRequirementEntry(d, p)
-	})
+	}, "HNDRE-HAND-xxx")
 }
 
 // Contains 0+× AccessRestriction.
 func (x *DataClassificationEntry) AccessRestrictions() *som.SomList[*AccessRestrictionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRSE-ACCE-LST", func(d *som.SpecDocument, p string) *AccessRestrictionEntry {
 		return NewAccessRestrictionEntry(d, p)
-	})
+	}, "ACRSE-ACCE-xxx")
 }
 
 // A data classification level definition.
@@ -14859,7 +14859,7 @@ func (x *DataDuplicationAnalysis) SetDuplicationDiagram(value string) {
 func (x *DataDuplicationAnalysis) DuplicationInstances() *som.SomList[*DataDuplicationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DADU-DUPL-LST", func(d *som.SpecDocument, p string) *DataDuplicationEntry {
 		return NewDataDuplicationEntry(d, p)
-	})
+	}, "DADU-DUPL-xxx")
 }
 
 // A data duplication instance entry.
@@ -14971,7 +14971,7 @@ func (x *DataEntityEntry) Classification() *DataEntityEntryClassificationForm {
 func (x *DataEntityEntry) VolumeMetrics() *som.SomList[*VolumeMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VOLUM-VOLU-LST", func(d *som.SpecDocument, p string) *VolumeMetricEntry {
 		return NewVolumeMetricEntry(d, p)
-	})
+	}, "VOLUM-VOLU-xxx")
 }
 
 func (x *DataEntityEntry) LifecyclePolicy() *DataEntityEntryLifecyclePolicyForm {
@@ -14981,7 +14981,7 @@ func (x *DataEntityEntry) LifecyclePolicy() *DataEntityEntryLifecyclePolicyForm 
 func (x *DataEntityEntry) ComplianceRequirements() *som.SomList[*ComplianceRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CRE-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceRequirementEntry {
 		return NewComplianceRequirementEntry(d, p)
-	})
+	}, "CRE-COMP-xxx")
 }
 
 func (x *DataEntityEntry) RelationshipSummary() *DataEntityEntryRelationshipSummaryForm {
@@ -14991,42 +14991,42 @@ func (x *DataEntityEntry) RelationshipSummary() *DataEntityEntryRelationshipSumm
 func (x *DataEntityEntry) TechnicalCharacteristics() *som.SomList[*TechnicalCharacteristicEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TECHN-TECH-LST", func(d *som.SpecDocument, p string) *TechnicalCharacteristicEntry {
 		return NewTechnicalCharacteristicEntry(d, p)
-	})
+	}, "TECHN-TECH-xxx")
 }
 
 // Contains 0+× DataAttribute.
 func (x *DataEntityEntry) Attributes() *som.SomList[*DataAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAATT-ATTR-LST", func(d *som.SpecDocument, p string) *DataAttributeEntry {
 		return NewDataAttributeEntry(d, p)
-	})
+	}, "DAATT-ATTR-xxx")
 }
 
 // Contains 0+× KeyAttribute.
 func (x *DataEntityEntry) KeyAttributes() *som.SomList[*KeyAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KEATT-KEYA-LST", func(d *som.SpecDocument, p string) *KeyAttributeEntry {
 		return NewKeyAttributeEntry(d, p)
-	})
+	}, "KEATT-KEYA-xxx")
 }
 
 // Contains 0+× EntityIndex.
 func (x *DataEntityEntry) Indexes() *som.SomList[*EntityIndexEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENIDX-INDE-LST", func(d *som.SpecDocument, p string) *EntityIndexEntry {
 		return NewEntityIndexEntry(d, p)
-	})
+	}, "ENIDX-INDE-xxx")
 }
 
 // Contains 0+× EntityConstraint.
 func (x *DataEntityEntry) Constraints() *som.SomList[*EntityConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENCNS-CONS-LST", func(d *som.SpecDocument, p string) *EntityConstraintEntry {
 		return NewEntityConstraintEntry(d, p)
-	})
+	}, "ENCNS-CONS-xxx")
 }
 
 // Contains 0+× MigrationMapping for data migration planning.
 func (x *DataEntityEntry) MigrationMappings() *som.SomList[*MigrationMappingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIGME-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationMappingEntry {
 		return NewMigrationMappingEntry(d, p)
-	})
+	}, "MIGME-MIGR-xxx")
 }
 
 // A data entity migration entry.
@@ -15193,7 +15193,7 @@ func (x *DataGovernance) SetGovernanceOrgChart(value string) {
 func (x *DataGovernance) GovernancePolicies() *som.SomList[*DataGovernancePolicyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DGPE-GOVE-LST", func(d *som.SpecDocument, p string) *DataGovernancePolicyEntry {
 		return NewDataGovernancePolicyEntry(d, p)
-	})
+	}, "DGPE-GOVE-xxx")
 }
 
 // Data governance maturity assessment.
@@ -15495,7 +15495,7 @@ func (x *DataIntegrationPoints) SetDataFlowDiagram(value string) {
 func (x *DataIntegrationPoints) IntegrationPoints() *som.SomList[*DataIntegrationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAIN-INTE-LST", func(d *som.SpecDocument, p string) *DataIntegrationEntry {
 		return NewDataIntegrationEntry(d, p)
-	})
+	}, "DAIN-INTE-xxx")
 }
 
 // Summary of data integration landscape.
@@ -15641,7 +15641,7 @@ func (x *DataMigrationStrategy) Scope() *MigrationScope {
 func (x *DataMigrationStrategy) Systems() *som.SomList[*MigrationSystems] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MISY-SYST-LST", func(d *som.SpecDocument, p string) *MigrationSystems {
 		return NewMigrationSystems(d, p)
-	})
+	}, "MISY-SYST-xxx")
 }
 
 // Data quality strategy.
@@ -15658,7 +15658,7 @@ func (x *DataMigrationStrategy) Tooling() *MigrationTooling {
 func (x *DataMigrationStrategy) Environments() *som.SomList[*MigrationEnvironments] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIEN-ENVI-LST", func(d *som.SpecDocument, p string) *MigrationEnvironments {
 		return NewMigrationEnvironments(d, p)
-	})
+	}, "MIEN-ENVI-xxx")
 }
 
 // Cutover planning.
@@ -15685,14 +15685,14 @@ func (x *DataMigrationStrategy) Metrics() *MigrationMetrics {
 func (x *DataMigrationStrategy) Stakeholders() *som.SomList[*MigrationStakeholders] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIST-STAK-LST", func(d *som.SpecDocument, p string) *MigrationStakeholders {
 		return NewMigrationStakeholders(d, p)
-	})
+	}, "MIST-STAK-xxx")
 }
 
 // Budget and resources.
 func (x *DataMigrationStrategy) Resources() *som.SomList[*StageMigrationResources] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STMIRE-RESO-LST", func(d *som.SpecDocument, p string) *StageMigrationResources {
 		return NewStageMigrationResources(d, p)
-	})
+	}, "STMIRE-RESO-xxx")
 }
 
 // Schedule overview.
@@ -15735,7 +15735,7 @@ func (x *DataModel) SetContent(value string) {
 func (x *DataModel) Entities() *som.SomList[*DataEntityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
 		return NewDataEntityEntry(d, p)
-	})
+	}, "DAENT-ENTI-xxx")
 }
 
 // 7.1.2. Entity Relationships.
@@ -15811,7 +15811,7 @@ func (x *DataOwnership) SetOwnershipMatrixDiagram(value string) {
 func (x *DataOwnership) OwnershipAssignments() *som.SomList[*DataOwnershipEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAOWEN-OWNE-LST", func(d *som.SpecDocument, p string) *DataOwnershipEntry {
 		return NewDataOwnershipEntry(d, p)
-	})
+	}, "DAOWEN-OWNE-xxx")
 }
 
 // Data ownership assignment for a domain or asset.
@@ -16163,14 +16163,14 @@ func (x *DataQualityAssessment) SetQualityIssuesSeverityChart(value string) {
 func (x *DataQualityAssessment) QualityIssues() *som.SomList[*DataQualityIssueEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAQLIS-QUAL-LST", func(d *som.SpecDocument, p string) *DataQualityIssueEntry {
 		return NewDataQualityIssueEntry(d, p)
-	})
+	}, "DAQLIS-QUAL-xxx")
 }
 
 // Quality improvement initiatives in progress.
 func (x *DataQualityAssessment) ImprovementInitiatives() *som.SomList[*DataQualityInitiativeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DQIE-IMPR-LST", func(d *som.SpecDocument, p string) *DataQualityInitiativeEntry {
 		return NewDataQualityInitiativeEntry(d, p)
-	})
+	}, "DQIE-IMPR-xxx")
 }
 
 // Summary of data quality across standard dimensions.
@@ -16373,7 +16373,7 @@ func (x *DataRetentionPolicies) PolicySummary() *RetentionPolicySummary {
 func (x *DataRetentionPolicies) RetentionPolicies() *som.SomList[*RetentionPolicyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REPOL-RETE-LST", func(d *som.SpecDocument, p string) *RetentionPolicyEntry {
 		return NewRetentionPolicyEntry(d, p)
-	})
+	}, "REPOL-RETE-xxx")
 }
 
 // Classification for data source.
@@ -16465,7 +16465,7 @@ func (x *DataSourceEntry) RetentionPolicy() *DataSourceRetentionPolicy {
 func (x *DataSourceEntry) KeyEntities() *som.SomList[*DataSourceEntityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSEE-KEYE-LST", func(d *som.SpecDocument, p string) *DataSourceEntityEntry {
 		return NewDataSourceEntityEntry(d, p)
-	})
+	}, "DSEE-KEYE-xxx")
 }
 
 // Integration for data source.
@@ -16516,7 +16516,7 @@ func (x *DataSourceInventory) SetDataSourceMapDiagram(value string) {
 func (x *DataSourceInventory) DataSources() *som.SomList[*DataSourceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DASR-DATA-LST", func(d *som.SpecDocument, p string) *DataSourceEntry {
 		return NewDataSourceEntry(d, p)
-	})
+	}, "DASR-DATA-xxx")
 }
 
 // Lifecycle for data source.
@@ -16858,7 +16858,7 @@ func (x *DataVolumesAndGrowth) SetGrowthTrendChart(value string) {
 func (x *DataVolumesAndGrowth) VolumeBySource() *som.SomList[*DataVolumeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAVOEN-VOLU-LST", func(d *som.SpecDocument, p string) *DataVolumeEntry {
 		return NewDataVolumeEntry(d, p)
-	})
+	}, "DAVOEN-VOLU-xxx")
 }
 
 // Database access policy (form).
@@ -17336,7 +17336,7 @@ func (x *DecisionPointEntryResolution) Content() *DecisionPointEntryResolutionCo
 func (x *DecisionPointEntryResolution) Options() *som.SomList[*DecisionOptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEOPEN-OPTI-LST", func(d *som.SpecDocument, p string) *DecisionOptionEntry {
 		return NewDecisionOptionEntry(d, p)
-	})
+	}, "DEOPEN-OPTI-xxx")
 }
 
 // Stakeholder assignments for decision point.
@@ -17379,7 +17379,7 @@ func (x *DecisionPoints) Content() *DecisionPointsContentForm {
 func (x *DecisionPoints) Items() *som.SomList[*DecisionPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEPOEN-ITEM-LST", func(d *som.SpecDocument, p string) *DecisionPointEntry {
 		return NewDecisionPointEntry(d, p)
-	})
+	}, "DEPOEN-ITEM-xxx")
 }
 
 // A deep link pattern entry (form).
@@ -17423,7 +17423,7 @@ func (x *DeepLinking) SetContent(value string) {
 func (x *DeepLinking) Patterns() *som.SomList[*DeepLinkPatternEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DELNPT-PATT-LST", func(d *som.SpecDocument, p string) *DeepLinkPatternEntry {
 		return NewDeepLinkPatternEntry(d, p)
-	})
+	}, "DELNPT-PATT-xxx")
 }
 
 // 14.2.4. Defect Resolution.
@@ -17612,7 +17612,7 @@ func (x *DeliverableEntry) Ownership() *DeliverableOwnership {
 func (x *DeliverableEntry) Dependencies() *som.SomList[*DeliverableDependencies] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DLVDP-DEPE-LST", func(d *som.SpecDocument, p string) *DeliverableDependencies {
 		return NewDeliverableDependencies(d, p)
-	})
+	}, "DLVDP-DEPE-xxx")
 }
 
 // Licensing and legal.
@@ -18999,7 +18999,7 @@ func (x *DesignGoals) SetContent(value string) {
 func (x *DesignGoals) Items() *som.SomList[*DesignGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DGOEN-ITEM-LST", func(d *som.SpecDocument, p string) *DesignGoalEntry {
 		return NewDesignGoalEntry(d, p)
-	})
+	}, "DGOEN-ITEM-xxx")
 }
 
 // Design pattern entry — a specific design pattern to be used.
@@ -19139,28 +19139,28 @@ func (x *DesignPatternsAndStandards) SetContent(value string) {
 func (x *DesignPatternsAndStandards) DesignPatterns() *som.SomList[*DesignPatternEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSPT-DESI-LST", func(d *som.SpecDocument, p string) *DesignPatternEntry {
 		return NewDesignPatternEntry(d, p)
-	})
+	}, "DSPT-DESI-xxx")
 }
 
 // Coding standards and style guidelines.
 func (x *DesignPatternsAndStandards) CodingStandards() *som.SomList[*CodingStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COSTEN-CODI-LST", func(d *som.SpecDocument, p string) *CodingStandardEntry {
 		return NewCodingStandardEntry(d, p)
-	})
+	}, "COSTEN-CODI-xxx")
 }
 
 // Development conventions and best practices.
 func (x *DesignPatternsAndStandards) DevelopmentConventions() *som.SomList[*DevelopmentConventionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DECOEN-DEVE-LST", func(d *som.SpecDocument, p string) *DevelopmentConventionEntry {
 		return NewDevelopmentConventionEntry(d, p)
-	})
+	}, "DECOEN-DEVE-xxx")
 }
 
 // Industry standards compliance requirements.
 func (x *DesignPatternsAndStandards) IndustryStandards() *som.SomList[*IndustryStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INSTEN-INDU-LST", func(d *som.SpecDocument, p string) *IndustryStandardEntry {
 		return NewIndustryStandardEntry(d, p)
-	})
+	}, "INSTEN-INDU-xxx")
 }
 
 // Code quality metrics and thresholds.
@@ -19227,7 +19227,7 @@ func (x *DesignPrinciples) SetContent(value string) {
 func (x *DesignPrinciples) Items() *som.SomList[*DesignPrincipleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UDPEN-ITEM-LST", func(d *som.SpecDocument, p string) *DesignPrincipleEntry {
 		return NewDesignPrincipleEntry(d, p)
-	})
+	}, "UDPEN-ITEM-xxx")
 }
 
 // Design principles overview.
@@ -19637,7 +19637,7 @@ func (x *DevelopmentEnvironment) SetContent(value string) {
 func (x *DevelopmentEnvironment) IdeRequirements() *som.SomList[*IdeRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDREEN-IDER-LST", func(d *som.SpecDocument, p string) *IdeRequirementEntry {
 		return NewIdeRequirementEntry(d, p)
-	})
+	}, "IDREEN-IDER-xxx")
 }
 
 // Build tools and automation.
@@ -20203,7 +20203,7 @@ func (x *DistributionList) ExecutiveSummary() *ExecutiveSummaryDistribution {
 func (x *DistributionList) CustomGroups() *som.SomList[*CustomDistributionGroup] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CSDSGR-CUST-LST", func(d *som.SpecDocument, p string) *CustomDistributionGroup {
 		return NewCustomDistributionGroup(d, p)
-	})
+	}, "CSDSGR-CUST-xxx")
 }
 
 // Access and information scope.
@@ -20274,7 +20274,7 @@ func (x *DistributionRecipientEntry) Contact() *DistributionRecipientContact {
 func (x *DistributionRecipientEntry) Preferences() *som.SomList[*DistributionRecipientPreferences] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DIREPR-PREF-LST", func(d *som.SpecDocument, p string) *DistributionRecipientPreferences {
 		return NewDistributionRecipientPreferences(d, p)
-	})
+	}, "DIREPR-PREF-xxx")
 }
 
 // Access and information scope.
@@ -20592,7 +20592,7 @@ func (x *DocumentControl) RevisionHistory() *RevisionHistory {
 func (x *DocumentControl) Approvals() *som.SomList[*ApprovalRecord] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DOCTL-APRV-LST", func(d *som.SpecDocument, p string) *ApprovalRecord {
 		return NewApprovalRecord(d, p)
-	})
+	}, "DOCTL-APRV-xxx")
 }
 
 // Reference documents — the catalogue of documents this specification draws
@@ -20644,7 +20644,7 @@ func (x *DocumentRelationships) SetContent(value string) {
 func (x *DocumentRelationships) RelatedDocuments() *som.SomList[*RelatedDocumentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REDOEN-RELA-LST", func(d *som.SpecDocument, p string) *RelatedDocumentEntry {
 		return NewRelatedDocumentEntry(d, p)
-	})
+	}, "REDOEN-RELA-xxx")
 }
 
 // Key sections within a reference document relevant to the project.
@@ -20665,7 +20665,7 @@ func (x *DocumentRelevantSections) Content() *DocumentRelevantSectionsContentFor
 func (x *DocumentRelevantSections) Sections() *som.SomList[*RelevantSectionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESEEN-SECT-LST", func(d *som.SpecDocument, p string) *RelevantSectionEntry {
 		return NewRelevantSectionEntry(d, p)
-	})
+	}, "RESEEN-SECT-xxx")
 }
 
 // Documentation deliverables provided to users.
@@ -20718,7 +20718,7 @@ func (x *DocumentationDeliverables) SetContent(value string) {
 func (x *DocumentationDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
-	})
+	}, "DCDLV-ITEM-xxx")
 }
 
 // 11.10. Documentation Quality (ISO/IEC 26514 annex).
@@ -21017,7 +21017,7 @@ func (x *DomainBoundaries) SetOutsideScope(value string) {
 func (x *DomainBoundaries) Interfaces() *som.SomList[*DomainInterfaceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DIE-INTE-LST", func(d *som.SpecDocument, p string) *DomainInterfaceEntry {
 		return NewDomainInterfaceEntry(d, p)
-	})
+	}, "DIE-INTE-xxx")
 }
 
 // A domain business rule entry (form).
@@ -21097,7 +21097,7 @@ func (x *DomainBusinessRules) SetContent(value string) {
 func (x *DomainBusinessRules) Rules() *som.SomList[*DomainBusinessRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DOBIRU-RULE-LST", func(d *som.SpecDocument, p string) *DomainBusinessRuleEntry {
 		return NewDomainBusinessRuleEntry(d, p)
-	})
+	}, "DOBIRU-RULE-xxx")
 }
 
 // A domain event entry (form).
@@ -21139,7 +21139,7 @@ func (x *DomainEvents) SetContent(value string) {
 func (x *DomainEvents) Events() *som.SomList[*DomainEventEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DOEV-EVEN-LST", func(d *som.SpecDocument, p string) *DomainEventEntry {
 		return NewDomainEventEntry(d, p)
-	})
+	}, "DOEV-EVEN-xxx")
 }
 
 // A domain interface entry (form).
@@ -21271,7 +21271,7 @@ func (x *DomainProcesses) SetProcessOverviewDiagram(value string) {
 func (x *DomainProcesses) Processes() *som.SomList[*DomainProcessEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DOPR-PROC-LST", func(d *som.SpecDocument, p string) *DomainProcessEntry {
 		return NewDomainProcessEntry(d, p)
-	})
+	}, "DOPR-PROC-xxx")
 }
 
 // A domain term entry (form).
@@ -21313,7 +21313,7 @@ func (x *DomainVocabulary) SetContent(value string) {
 func (x *DomainVocabulary) Terms() *som.SomList[*DomainTermEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DTE-TERM-LST", func(d *som.SpecDocument, p string) *DomainTermEntry {
 		return NewDomainTermEntry(d, p)
-	})
+	}, "DTE-TERM-xxx")
 }
 
 // 11.3.1. Efficiency quality.
@@ -21527,7 +21527,7 @@ func (x *EncryptionAtRest) EncryptionPolicy() *EncryptionAtRestPolicy {
 func (x *EncryptionAtRest) EncryptedDataCategories() *som.SomList[*EncryptedDataCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENDACA-ENCR-LST", func(d *som.SpecDocument, p string) *EncryptedDataCategoryEntry {
 		return NewEncryptedDataCategoryEntry(d, p)
-	})
+	}, "ENDACA-ENCR-xxx")
 }
 
 // Database Encryption Policy.
@@ -21610,7 +21610,7 @@ func (x *EncryptionInTransit) CertificateManagement() *CertificateManagementPoli
 func (x *EncryptionInTransit) CommunicationChannels() *som.SomList[*CommunicationChannelEncryptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COCHEN-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationChannelEncryptionEntry {
 		return NewCommunicationChannelEncryptionEntry(d, p)
-	})
+	}, "COCHEN-COMM-xxx")
 }
 
 // Mutual TLS Policy.
@@ -21755,7 +21755,7 @@ func (x *EntitlementEntry) Content() *EntitlementEntryContentForm {
 func (x *EntitlementEntry) ResourceKeyReferences() *som.SomList[*ResourceKeyReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESKREF-RESO-LST", func(d *som.SpecDocument, p string) *ResourceKeyReferenceEntry {
 		return NewResourceKeyReferenceEntry(d, p)
-	})
+	}, "RESKREF-RESO-xxx")
 }
 
 // An entitlement reference entry (form).
@@ -21823,7 +21823,7 @@ func (x *EntityRelationshipEntry) Identity() *EntityRelationshipEntryIdentityFor
 func (x *EntityRelationshipEntry) Participants() *som.SomList[*ParticipantEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PARTI-PART-LST", func(d *som.SpecDocument, p string) *ParticipantEntry {
 		return NewParticipantEntry(d, p)
-	})
+	}, "PARTI-PART-xxx")
 }
 
 func (x *EntityRelationshipEntry) Cardinality() *EntityRelationshipEntryCardinalityForm {
@@ -21841,7 +21841,7 @@ func (x *EntityRelationshipEntry) Navigation() *EntityRelationshipEntryNavigatio
 func (x *EntityRelationshipEntry) RelationshipAttributes() *som.SomList[*RelationshipAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RELAT-RELA-LST", func(d *som.SpecDocument, p string) *RelationshipAttributeEntry {
 		return NewRelationshipAttributeEntry(d, p)
-	})
+	}, "RELAT-RELA-xxx")
 }
 
 func (x *EntityRelationshipEntry) SourceEntityRef() string {
@@ -21882,7 +21882,7 @@ func (x *EntityRelationships) SetContent(value string) {
 func (x *EntityRelationships) Items() *som.SomList[*EntityRelationshipEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENRLE-ITEM-LST", func(d *som.SpecDocument, p string) *EntityRelationshipEntry {
 		return NewEntityRelationshipEntry(d, p)
-	})
+	}, "ENRLE-ITEM-xxx")
 }
 
 // An entry point entry (form).
@@ -22369,7 +22369,7 @@ func (x *Environments) Content() *EnvironmentsContentForm {
 func (x *Environments) Items() *som.SomList[*EnvironmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENVEN-ITEM-LST", func(d *som.SpecDocument, p string) *EnvironmentEntry {
 		return NewEnvironmentEntry(d, p)
-	})
+	}, "ENVEN-ITEM-xxx")
 }
 
 // Equipment overview and standards.
@@ -22407,42 +22407,42 @@ func (x *EquipmentRequirements) Overview() *EquipmentOverview {
 func (x *EquipmentRequirements) PrimaryComputing() *som.SomList[*ComputingEquipmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COEQ-PRIM-LST", func(d *som.SpecDocument, p string) *ComputingEquipmentEntry {
 		return NewComputingEquipmentEntry(d, p)
-	})
+	}, "COEQ-PRIM-xxx")
 }
 
 // Display and monitors.
 func (x *EquipmentRequirements) Displays() *som.SomList[*DisplayEquipmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSEQ-DISP-LST", func(d *som.SpecDocument, p string) *DisplayEquipmentEntry {
 		return NewDisplayEquipmentEntry(d, p)
-	})
+	}, "DSEQ-DISP-xxx")
 }
 
 // Input devices.
 func (x *EquipmentRequirements) InputDevices() *som.SomList[*InputDeviceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INPDE-INPU-LST", func(d *som.SpecDocument, p string) *InputDeviceEntry {
 		return NewInputDeviceEntry(d, p)
-	})
+	}, "INPDE-INPU-xxx")
 }
 
 // Peripheral equipment.
 func (x *EquipmentRequirements) Peripherals() *som.SomList[*PeripheralEquipmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PEREQ-PERI-LST", func(d *som.SpecDocument, p string) *PeripheralEquipmentEntry {
 		return NewPeripheralEquipmentEntry(d, p)
-	})
+	}, "PEREQ-PERI-xxx")
 }
 
 // Mobile devices.
 func (x *EquipmentRequirements) MobileDevices() *som.SomList[*MobileDeviceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MOBDE-MOBI-LST", func(d *som.SpecDocument, p string) *MobileDeviceEntry {
 		return NewMobileDeviceEntry(d, p)
-	})
+	}, "MOBDE-MOBI-xxx")
 }
 
 // Specialized equipment.
 func (x *EquipmentRequirements) SpecializedEquipment() *som.SomList[*SpecializedEquipmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SPEQ-SPEC-LST", func(d *som.SpecDocument, p string) *SpecializedEquipmentEntry {
 		return NewSpecializedEquipmentEntry(d, p)
-	})
+	}, "SPEQ-SPEC-xxx")
 }
 
 // Error budget tracking.
@@ -22796,14 +22796,14 @@ func (x *ErrorRecovery) SessionHandling() *ErrorRecoverySessionHandling {
 func (x *ErrorRecovery) RecoveryFlows() *som.SomList[*RecoveryFlowEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECOV-RECO-LST", func(d *som.SpecDocument, p string) *RecoveryFlowEntry {
 		return NewRecoveryFlowEntry(d, p)
-	})
+	}, "RECOV-RECO-xxx")
 }
 
 // Common recovery scenarios.
 func (x *ErrorRecovery) RecoveryScenarios() *som.SomList[*RecoveryScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RCVSCN-RECO-LST", func(d *som.SpecDocument, p string) *RecoveryScenarioEntry {
 		return NewRecoveryScenarioEntry(d, p)
-	})
+	}, "RCVSCN-RECO-xxx")
 }
 
 // Data preservation: draft auto-save settings.
@@ -22919,7 +22919,7 @@ func (x *EvaluationCriteria) SetContent(value string) {
 func (x *EvaluationCriteria) Items() *som.SomList[*EvaluationCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EVCEN-ITEM-LST", func(d *som.SpecDocument, p string) *EvaluationCriterionEntry {
 		return NewEvaluationCriterionEntry(d, p)
-	})
+	}, "EVCEN-ITEM-xxx")
 }
 
 // An evaluation criterion entry (form).
@@ -23045,7 +23045,7 @@ func (x *ExecutiveSummaryDistribution) GroupSummary() *DistributionGroupSummary 
 func (x *ExecutiveSummaryDistribution) Items() *som.SomList[*DistributionRecipientEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSRC-ITEM-LST", func(d *som.SpecDocument, p string) *DistributionRecipientEntry {
 		return NewDistributionRecipientEntry(d, p)
-	})
+	}, "DSRC-ITEM-xxx")
 }
 
 // Business context for an existing system.
@@ -23113,7 +23113,7 @@ func (x *ExistingSystemEntry) Infrastructure() *ExistingSystemInfrastructure {
 func (x *ExistingSystemEntry) KnownLimitations() *som.SomList[*LimitationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LIMET-KNOW-LST", func(d *som.SpecDocument, p string) *LimitationEntry {
 		return NewLimitationEntry(d, p)
-	})
+	}, "LIMET-KNOW-xxx")
 }
 
 // Quality and risk assessment.
@@ -23526,7 +23526,7 @@ func (x *ExportFormatEntry) DataFormat() *ExportDataFormat {
 func (x *ExportFormatEntry) SizeSettings() *som.SomList[*ExportSizeSettings] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXSISE-SIZE-LST", func(d *som.SpecDocument, p string) *ExportSizeSettings {
 		return NewExportSizeSettings(d, p)
-	})
+	}, "EXSISE-SIZE-xxx")
 }
 
 // Security settings.
@@ -23548,7 +23548,7 @@ func (x *ExportFormatEntry) Access() *ExportAccess {
 func (x *ExportFormatEntry) FieldMappings() *som.SomList[*ExportFieldMappingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EFME-FIEL-LST", func(d *som.SpecDocument, p string) *ExportFieldMappingEntry {
 		return NewExportFieldMappingEntry(d, p)
-	})
+	}, "EFME-FIEL-xxx")
 }
 
 // Export identity and data source.
@@ -23715,7 +23715,7 @@ func (x *ExtensionEntry) Content() *ExtensionEntryContentForm {
 func (x *ExtensionEntry) Steps() *som.SomList[*ExtensionStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXTST-STEP-LST", func(d *som.SpecDocument, p string) *ExtensionStepEntry {
 		return NewExtensionStepEntry(d, p)
-	})
+	}, "EXTST-STEP-xxx")
 }
 
 // An extension step entry.
@@ -23760,7 +23760,7 @@ func (x *ExternalActorEntry) Context() *ExternalActorEntryContext {
 func (x *ExternalActorEntry) InteractionScenarios() *som.SomList[*InteractionScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INTER-INTE-LST", func(d *som.SpecDocument, p string) *InteractionScenarioEntry {
 		return NewInteractionScenarioEntry(d, p)
-	})
+	}, "INTER-INTE-xxx")
 }
 
 // Access, authentication, and context details.
@@ -23816,7 +23816,7 @@ func (x *ExternalActors) SetContent(value string) {
 func (x *ExternalActors) Actors() *som.SomList[*ExternalActorEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EAE-ACTO-LST", func(d *som.SpecDocument, p string) *ExternalActorEntry {
 		return NewExternalActorEntry(d, p)
-	})
+	}, "EAE-ACTO-xxx")
 }
 
 // 8.6.2. External Connectivity.
@@ -23844,7 +23844,7 @@ func (x *ExternalConnectivitySection) SetContent(value string) {
 func (x *ExternalConnectivitySection) PartnerConnections() *som.SomList[*ExternalPartnerConnectionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EPCE-PART-LST", func(d *som.SpecDocument, p string) *ExternalPartnerConnectionEntry {
 		return NewExternalPartnerConnectionEntry(d, p)
-	})
+	}, "EPCE-PART-xxx")
 }
 
 // Cloud service integrations.
@@ -23961,7 +23961,7 @@ func NewExternalInterfaces(doc *som.SpecDocument, path string) *ExternalInterfac
 func (x *ExternalInterfaces) Interfaces() *som.SomList[*ExternalInterfaceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXINEN-INTE-LST", func(d *som.SpecDocument, p string) *ExternalInterfaceEntry {
 		return NewExternalInterfaceEntry(d, p)
-	})
+	}, "EXINEN-INTE-xxx")
 }
 
 // External network requirements.
@@ -24111,7 +24111,7 @@ func (x *ExternalPartnerConnectionEntry) DataHandling() *ExternalPartnerDataHand
 func (x *ExternalPartnerConnectionEntry) Operations() *som.SomList[*ExternalPartnerOperations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXPAOP-OPER-LST", func(d *som.SpecDocument, p string) *ExternalPartnerOperations {
 		return NewExternalPartnerOperations(d, p)
-	})
+	}, "EXPAOP-OPER-xxx")
 }
 
 // Data handling.
@@ -24209,7 +24209,7 @@ func (x *ExternalServiceDependencies) SetContent(value string) {
 func (x *ExternalServiceDependencies) Items() *som.SomList[*ExternalServiceDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXSDE-ITEM-LST", func(d *som.SpecDocument, p string) *ExternalServiceDependencyEntry {
 		return NewExternalServiceDependencyEntry(d, p)
-	})
+	}, "EXSDE-ITEM-xxx")
 }
 
 // An external service dependency entry (form).
@@ -24394,7 +24394,7 @@ func (x *ExternalSystemsContext) SetContent(value string) {
 func (x *ExternalSystemsContext) Systems() *som.SomList[*ExternalSystemContextEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXSYCOEN-SYST-LST", func(d *som.SpecDocument, p string) *ExternalSystemContextEntry {
 		return NewExternalSystemContextEntry(d, p)
-	})
+	}, "EXSYCOEN-SYST-xxx")
 }
 
 // A component reference within a family.
@@ -24449,7 +24449,7 @@ func (x *FeatureDependencies) Content() *FeatureDependenciesContentForm {
 func (x *FeatureDependencies) Items() *som.SomList[*FeatureDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FEDEEN-ITEM-LST", func(d *som.SpecDocument, p string) *FeatureDependencyEntry {
 		return NewFeatureDependencyEntry(d, p)
-	})
+	}, "FEDEEN-ITEM-xxx")
 }
 
 // Dependencies info for a feature priority entry.
@@ -24829,7 +24829,7 @@ func (x *FeaturePriorityEntry) Dependencies() *FeatureDependenciesInfo {
 func (x *FeaturePriorityEntry) Stakeholders() *som.SomList[*FeatureStakeholders] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FEST-STAK-LST", func(d *som.SpecDocument, p string) *FeatureStakeholders {
 		return NewFeatureStakeholders(d, p)
-	})
+	}, "FEST-STAK-xxx")
 }
 
 // Traceability.
@@ -24864,7 +24864,7 @@ func (x *FeaturePriorityRegister) Content() *FeaturePriorityRegisterContentForm 
 func (x *FeaturePriorityRegister) Items() *som.SomList[*FeaturePriorityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FEPREN-ITEM-LST", func(d *som.SpecDocument, p string) *FeaturePriorityEntry {
 		return NewFeaturePriorityEntry(d, p)
-	})
+	}, "FEPREN-ITEM-xxx")
 }
 
 // Priority scoring for a feature priority entry.
@@ -25012,7 +25012,7 @@ func (x *FeatureStageMatrix) Content() *FeatureStageMatrixContentForm {
 func (x *FeatureStageMatrix) Items() *som.SomList[*FeatureStageMapping] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FESTM1-ITEM-LST", func(d *som.SpecDocument, p string) *FeatureStageMapping {
 		return NewFeatureStageMapping(d, p)
-	})
+	}, "FESTM1-ITEM-xxx")
 }
 
 // Stakeholders for a feature priority entry.
@@ -25061,7 +25061,7 @@ func (x *FeatureTourEntry) Content() *FeatureTourEntryContentForm {
 func (x *FeatureTourEntry) Steps() *som.SomList[*TourStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TURST-STEP-LST", func(d *som.SpecDocument, p string) *TourStepEntry {
 		return NewTourStepEntry(d, p)
-	})
+	}, "TURST-STEP-xxx")
 }
 
 // Traceability for a feature priority entry.
@@ -25652,7 +25652,7 @@ func (x *FullDistribution) GroupSummary() *DistributionGroupSummary {
 func (x *FullDistribution) Items() *som.SomList[*DistributionRecipientEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DSRC-ITEM-LST", func(d *som.SpecDocument, p string) *DistributionRecipientEntry {
 		return NewDistributionRecipientEntry(d, p)
-	})
+	}, "DSRC-ITEM-xxx")
 }
 
 // A function-to-data matrix entry (form).
@@ -25706,7 +25706,7 @@ func (x *FunctionEntry) Implementation() *FunctionEntryImplementation {
 func (x *FunctionEntry) SubFunctions() *som.SomList[*SubFunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SUFN-SUBF-LST", func(d *som.SpecDocument, p string) *SubFunctionEntry {
 		return NewSubFunctionEntry(d, p)
-	})
+	}, "SUFN-SUBF-xxx")
 }
 
 // Decomposition position and classification.
@@ -25775,21 +25775,21 @@ func (x *FunctionModel) MatrixOverview() *FunctionModelMatrixOverviewForm {
 func (x *FunctionModel) Functions() *som.SomList[*FunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
 		return NewFunctionEntry(d, p)
-	})
+	}, "FUNCT-FUNC-xxx")
 }
 
 // 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
 func (x *FunctionModel) MatrixEntries() *som.SomList[*FunctionDataMatrixEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-MATR-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
 		return NewFunctionDataMatrixEntry(d, p)
-	})
+	}, "FNDMX-MATR-xxx")
 }
 
 // 7.3.3. Business Rules — contains 1+× Business Rule.
 func (x *FunctionModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
 		return NewBusinessRuleEntry(d, p)
-	})
+	}, "BIRU-BUSI-xxx")
 }
 
 // 11.2.2. Functional completeness quality.
@@ -26008,7 +26008,7 @@ func (x *FunctionalRequirements) SummaryForm() *FunctionalRequirementsSummaryFor
 func (x *FunctionalRequirements) Requirements() *som.SomList[*FunctionalRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FRE-REQU-LST", func(d *som.SpecDocument, p string) *FunctionalRequirementEntry {
 		return NewFunctionalRequirementEntry(d, p)
-	})
+	}, "FRE-REQU-xxx")
 }
 
 // 4.6.2. Functional Responsibilities.
@@ -26037,7 +26037,7 @@ func (x *FunctionalResponsibilities) Content() *FunctionalResponsibilitiesConten
 func (x *FunctionalResponsibilities) Items() *som.SomList[*ResponsibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REEN1-ITEM-LST", func(d *som.SpecDocument, p string) *ResponsibilityEntry {
 		return NewResponsibilityEntry(d, p)
-	})
+	}, "REEN1-ITEM-xxx")
 }
 
 // 11.2. Functional Suitability (ISO/IEC 25010:2023).
@@ -26187,7 +26187,7 @@ func (x *Gaps) SetContent(value string) {
 func (x *Gaps) Items() *som.SomList[*GapEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GAPE-ITEM-LST", func(d *som.SpecDocument, p string) *GapEntry {
 		return NewGapEntry(d, p)
-	})
+	}, "GAPE-ITEM-xxx")
 }
 
 // Geographic distribution requirements.
@@ -26337,7 +26337,7 @@ func (x *Glossary) SetContent(value string) {
 func (x *Glossary) Entries() *som.SomList[*GlossaryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GLOSS-ENTR-LST", func(d *som.SpecDocument, p string) *GlossaryEntry {
 		return NewGlossaryEntry(d, p)
-	})
+	}, "GLOSS-ENTR-xxx")
 }
 
 // SBP.3 Glossary & Abbreviations.
@@ -26401,7 +26401,7 @@ func (x *GoalDependencies) SetContent(value string) {
 func (x *GoalDependencies) Items() *som.SomList[*GoalDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GOLDE-ITEM-LST", func(d *som.SpecDocument, p string) *GoalDependencyEntry {
 		return NewGoalDependencyEntry(d, p)
-	})
+	}, "GOLDE-ITEM-xxx")
 }
 
 // A goal dependency entry (form).
@@ -26452,7 +26452,7 @@ func (x *GoalKeyResults) SetContent(value string) {
 func (x *GoalKeyResults) Items() *som.SomList[*KeyResultEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KRE-ITEM-LST", func(d *som.SpecDocument, p string) *KeyResultEntry {
 		return NewKeyResultEntry(d, p)
-	})
+	}, "KRE-ITEM-xxx")
 }
 
 // A goal milestone entry (form).
@@ -26493,7 +26493,7 @@ func (x *GoalMilestones) SetContent(value string) {
 func (x *GoalMilestones) Items() *som.SomList[*GoalMilestoneEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GOLMS-ITEM-LST", func(d *som.SpecDocument, p string) *GoalMilestoneEntry {
 		return NewGoalMilestoneEntry(d, p)
-	})
+	}, "GOLMS-ITEM-xxx")
 }
 
 // 4.2.1.n.5. Resources.
@@ -26525,7 +26525,7 @@ func (x *GoalResources) ResourcesForm() *GoalResourcesResourcesFormForm {
 func (x *GoalResources) Items() *som.SomList[*ResourceAllocationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REARS-ITEM-LST", func(d *som.SpecDocument, p string) *ResourceAllocationEntry {
 		return NewResourceAllocationEntry(d, p)
-	})
+	}, "REARS-ITEM-xxx")
 }
 
 // A goal risk entry (form).
@@ -26604,7 +26604,7 @@ func (x *GoalRisks) SetContent(value string) {
 func (x *GoalRisks) Items() *som.SomList[*GoalRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GOLRS-ITEM-LST", func(d *som.SpecDocument, p string) *GoalRiskEntry {
 		return NewGoalRiskEntry(d, p)
-	})
+	}, "GOLRS-ITEM-xxx")
 }
 
 // 4.2. Goals.
@@ -26672,7 +26672,7 @@ func (x *GovernanceModel) Content() *GovernanceModelContentForm {
 func (x *GovernanceModel) DecisionAuthorities() *som.SomList[*DecisionAuthorityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCAUT-DECI-LST", func(d *som.SpecDocument, p string) *DecisionAuthorityEntry {
 		return NewDecisionAuthorityEntry(d, p)
-	})
+	}, "DCAUT-DECI-xxx")
 }
 
 // A data handling requirement entry (form).
@@ -27025,7 +27025,7 @@ func (x *Identification) Content() *IdentificationContentForm {
 func (x *Identification) IdentitySources() *som.SomList[*IdentitySourceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDTSR-IDEN-LST", func(d *som.SpecDocument, p string) *IdentitySourceEntry {
 		return NewIdentitySourceEntry(d, p)
-	})
+	}, "IDTSR-IDEN-xxx")
 }
 
 // Identity Verification.
@@ -27037,7 +27037,7 @@ func (x *Identification) IdentityVerification() *IdentityVerificationPolicy {
 func (x *Identification) IdentityProviders() *som.SomList[*IdentityProviderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDTPV-IDEN-LST", func(d *som.SpecDocument, p string) *IdentityProviderEntry {
 		return NewIdentityProviderEntry(d, p)
-	})
+	}, "IDTPV-IDEN-xxx")
 }
 
 // Single Sign-On.
@@ -27054,7 +27054,7 @@ func (x *Identification) SelfRegistration() *SelfRegistrationPolicy {
 func (x *Identification) AttributeMappings() *som.SomList[*IdentityAttributeMappingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDTAM-ATTR-LST", func(d *som.SpecDocument, p string) *IdentityAttributeMappingEntry {
 		return NewIdentityAttributeMappingEntry(d, p)
-	})
+	}, "IDTAM-ATTR-xxx")
 }
 
 // 9.2. Identification and Authentication.
@@ -27208,14 +27208,14 @@ func (x *IdentityProviderEntry) Content() *IdentityProviderEntryContentForm {
 func (x *IdentityProviderEntry) Details() *som.SomList[*IdentityProviderDetails] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDPRDE-DETA-LST", func(d *som.SpecDocument, p string) *IdentityProviderDetails {
 		return NewIdentityProviderDetails(d, p)
-	})
+	}, "IDPRDE-DETA-xxx")
 }
 
 // Endpoint configuration.
 func (x *IdentityProviderEntry) Endpoints() *som.SomList[*IdentityProviderEndpoints] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDPREN-ENDP-LST", func(d *som.SpecDocument, p string) *IdentityProviderEndpoints {
 		return NewIdentityProviderEndpoints(d, p)
-	})
+	}, "IDPREN-ENDP-xxx")
 }
 
 // Attribute mapping.
@@ -27953,7 +27953,7 @@ func (x *InformationArchitecture) SetContent(value string) {
 func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*GlobalEntryPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GLOBA-GLOB-LST", func(d *som.SpecDocument, p string) *GlobalEntryPointEntry {
 		return NewGlobalEntryPointEntry(d, p)
-	})
+	}, "GLOBA-GLOB-xxx")
 }
 
 // 10.2.2.5. Information Architecture Diagram.
@@ -28527,14 +28527,14 @@ func (x *InsuranceLiabilityRequirements) SetContent(value string) {
 func (x *InsuranceLiabilityRequirements) InsuranceRequirements() *som.SomList[*InsuranceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INSURE-INSU-LST", func(d *som.SpecDocument, p string) *InsuranceEntry {
 		return NewInsuranceEntry(d, p)
-	})
+	}, "INSURE-INSU-xxx")
 }
 
 // Liability limitations.
 func (x *InsuranceLiabilityRequirements) LiabilityLimitations() *som.SomList[*LiabilityLimitations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LILI-LIAB-LST", func(d *som.SpecDocument, p string) *LiabilityLimitations {
 		return NewLiabilityLimitations(d, p)
-	})
+	}, "LILI-LIAB-xxx")
 }
 
 // Integration architecture with external systems.
@@ -28759,7 +28759,7 @@ func (x *IntegrationHealthSummary) Content() *IntegrationHealthSummaryContentFor
 func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*FragilePointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FRAGI-FRAG-LST", func(d *som.SpecDocument, p string) *FragilePointEntry {
 		return NewFragilePointEntry(d, p)
-	})
+	}, "FRAGI-FRAG-xxx")
 }
 
 // A single integration pattern entry.
@@ -28819,7 +28819,7 @@ func (x *Integrations) SetContent(value string) {
 func (x *Integrations) Items() *som.SomList[*SystemIntegrationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYIN-ITEM-LST", func(d *som.SpecDocument, p string) *SystemIntegrationEntry {
 		return NewSystemIntegrationEntry(d, p)
-	})
+	}, "SYIN-ITEM-xxx")
 }
 
 // 7.1.7. Integrity Constraints.
@@ -28862,7 +28862,7 @@ func (x *IntellectualPropertyRequirements) Content() *IntellectualPropertyRequir
 func (x *IntellectualPropertyRequirements) OwnershipDetails() *som.SomList[*IpOwnershipEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IPOWN-OWNE-LST", func(d *som.SpecDocument, p string) *IpOwnershipEntry {
 		return NewIpOwnershipEntry(d, p)
-	})
+	}, "IPOWN-OWNE-xxx")
 }
 
 // Business rules triggered by this interaction.
@@ -28936,7 +28936,7 @@ func (x *InteractionCatalog) Overview() *InteractionCatalogOverview {
 func (x *InteractionCatalog) Interactions() *som.SomList[*InteractionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INEN-INTE-LST", func(d *som.SpecDocument, p string) *InteractionEntry {
 		return NewInteractionEntry(d, p)
-	})
+	}, "INEN-INTE-xxx")
 }
 
 // Interaction prioritization matrix.
@@ -29004,7 +29004,7 @@ func (x *InteractionChannelEntry) UxSpecification() *ChannelUxSpecification {
 func (x *InteractionChannelEntry) Integrations() *som.SomList[*ChannelIntegrations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CI-INTE-LST", func(d *som.SpecDocument, p string) *ChannelIntegrations {
 		return NewChannelIntegrations(d, p)
-	})
+	}, "CI-INTE-xxx")
 }
 
 // Access and sync for interaction channel.
@@ -29111,21 +29111,21 @@ func (x *InteractionEntry) ScopeContext() *UseCaseScopeContext {
 func (x *InteractionEntry) Stakeholders() *som.SomList[*StakeholdersAndInterests] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STANIN-STAK-LST", func(d *som.SpecDocument, p string) *StakeholdersAndInterests {
 		return NewStakeholdersAndInterests(d, p)
-	})
+	}, "STANIN-STAK-xxx")
 }
 
 // Preconditions and triggers.
 func (x *InteractionEntry) Preconditions() *som.SomList[*PreconditionsAndTriggers] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRANTR-PREC-LST", func(d *som.SpecDocument, p string) *PreconditionsAndTriggers {
 		return NewPreconditionsAndTriggers(d, p)
-	})
+	}, "PRANTR-PREC-xxx")
 }
 
 // Postconditions and guarantees.
 func (x *InteractionEntry) Postconditions() *som.SomList[*PostconditionsAndGuarantees] {
 	return som.NewSomList(x.Doc(), x.Path() + "/POANGU-POST-LST", func(d *som.SpecDocument, p string) *PostconditionsAndGuarantees {
 		return NewPostconditionsAndGuarantees(d, p)
-	})
+	}, "POANGU-POST-xxx")
 }
 
 // Main success scenario (basic flow).
@@ -29142,7 +29142,7 @@ func (x *InteractionEntry) Extensions() *UseCaseExtensions {
 func (x *InteractionEntry) Variations() *som.SomList[*TechnologyDataVariations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TEDAVA-VARI-LST", func(d *som.SpecDocument, p string) *TechnologyDataVariations {
 		return NewTechnologyDataVariations(d, p)
-	})
+	}, "TEDAVA-VARI-xxx")
 }
 
 // UI requirements preview.
@@ -29164,7 +29164,7 @@ func (x *InteractionEntry) Security() *InteractionSecurity {
 func (x *InteractionEntry) BusinessRules() *som.SomList[*InteractionBusinessRules] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INBURU-BUSI-LST", func(d *som.SpecDocument, p string) *InteractionBusinessRules {
 		return NewInteractionBusinessRules(d, p)
-	})
+	}, "INBURU-BUSI-xxx")
 }
 
 // Related elements and traceability.
@@ -29304,7 +29304,7 @@ func (x *InteractionPatterns) SetContent(value string) {
 func (x *InteractionPatterns) Patterns() *som.SomList[*InteractionPatternEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INPTN-PATT-LST", func(d *som.SpecDocument, p string) *InteractionPatternEntry {
 		return NewInteractionPatternEntry(d, p)
-	})
+	}, "INPTN-PATT-xxx")
 }
 
 // Interaction performance requirements.
@@ -29420,7 +29420,7 @@ func (x *InterfaceBusinessContext) Content() *InterfaceBusinessContextContentFor
 func (x *InterfaceBusinessContext) DependentProcesses() *som.SomList[*InterfaceBusinessProcessEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IBPE-DEPE-LST", func(d *som.SpecDocument, p string) *InterfaceBusinessProcessEntry {
 		return NewInterfaceBusinessProcessEntry(d, p)
-	})
+	}, "IBPE-DEPE-xxx")
 }
 
 // Business process dependency entry.
@@ -29469,21 +29469,21 @@ func (x *InterfaceDataSpec) Content() *InterfaceDataSpecContentForm {
 func (x *InterfaceDataSpec) DataEntities() *som.SomList[*InterfaceDataEntityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IDEE-DATA-LST", func(d *som.SpecDocument, p string) *InterfaceDataEntityEntry {
 		return NewInterfaceDataEntityEntry(d, p)
-	})
+	}, "IDEE-DATA-xxx")
 }
 
 // Data mapping and transformation rules.
 func (x *InterfaceDataSpec) MappingRules() *som.SomList[*MappingRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MAPPI-MAPP-LST", func(d *som.SpecDocument, p string) *MappingRuleEntry {
 		return NewMappingRuleEntry(d, p)
-	})
+	}, "MAPPI-MAPP-xxx")
 }
 
 // Data validation rules.
 func (x *InterfaceDataSpec) ValidationRules() *som.SomList[*ValidationRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VALID-VALI-LST", func(d *som.SpecDocument, p string) *ValidationRuleEntry {
 		return NewValidationRuleEntry(d, p)
-	})
+	}, "VALID-VALI-xxx")
 }
 
 // Error handling specification.
@@ -29519,7 +29519,7 @@ func (x *InterfaceErrorHandling) Timeout() *InterfaceErrorHandlingTimeout {
 func (x *InterfaceErrorHandling) ErrorProcedures() *som.SomList[*ErrorProcedureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ERROR-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorProcedureEntry {
 		return NewErrorProcedureEntry(d, p)
-	})
+	}, "ERROR-ERRO-xxx")
 }
 
 // Fallback behavior and manual recovery.
@@ -29666,7 +29666,7 @@ func (x *InterfaceOperational) Support() *InterfaceOperationalSupport {
 func (x *InterfaceOperational) Dependencies() *som.SomList[*DependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEPEN-DEPE-LST", func(d *som.SpecDocument, p string) *DependencyEntry {
 		return NewDependencyEntry(d, p)
-	})
+	}, "DEPEN-DEPE-xxx")
 }
 
 // Monitoring configuration.
@@ -29903,7 +29903,7 @@ func (x *InterfaceTechnicalSpec) Endpoints() *InterfaceTechnicalSpecEndpoints {
 func (x *InterfaceTechnicalSpec) Operations() *som.SomList[*InterfaceOperationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INOPEN-OPER-LST", func(d *som.SpecDocument, p string) *InterfaceOperationEntry {
 		return NewInterfaceOperationEntry(d, p)
-	})
+	}, "INOPEN-OPER-xxx")
 }
 
 // Webhook/callback configurations if applicable.
@@ -29981,7 +29981,7 @@ func (x *InterfaceTesting) Strategy() *InterfaceTestingStrategy {
 func (x *InterfaceTesting) TestScenarios() *som.SomList[*InterfaceTestScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ITSE1-TEST-LST", func(d *som.SpecDocument, p string) *InterfaceTestScenarioEntry {
 		return NewInterfaceTestScenarioEntry(d, p)
-	})
+	}, "ITSE1-TEST-xxx")
 }
 
 // Test data strategy.
@@ -30050,7 +30050,7 @@ func (x *InternalDependencies) SetContent(value string) {
 func (x *InternalDependencies) Items() *som.SomList[*SystemDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYDE-ITEM-LST", func(d *som.SpecDocument, p string) *SystemDependencyEntry {
 		return NewSystemDependencyEntry(d, p)
-	})
+	}, "SYDE-ITEM-xxx")
 }
 
 // Internal network requirements.
@@ -30348,7 +30348,7 @@ func (x *Iso25010Coverage) SetContent(value string) {
 func (x *Iso25010Coverage) Characteristics() *som.SomList[*Iso25010CoverageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/I25CV-CHAR-LST", func(d *som.SpecDocument, p string) *Iso25010CoverageEntry {
 		return NewIso25010CoverageEntry(d, p)
-	})
+	}, "I25CV-CHAR-xxx")
 }
 
 // A single ISO/IEC 25010:2023 coverage entry (form).
@@ -30509,7 +30509,7 @@ func (x *ItSecurityStandardsSection) SetContent(value string) {
 func (x *ItSecurityStandardsSection) Standards() *som.SomList[*SecurityStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SESTEN-STAN-LST", func(d *som.SpecDocument, p string) *SecurityStandardEntry {
 		return NewSecurityStandardEntry(d, p)
-	})
+	}, "SESTEN-STAN-xxx")
 }
 
 // Application security requirements (OWASP).
@@ -30669,21 +30669,21 @@ func (x *JobDescriptionsAndStaffing) Overview() *JobDescriptionsOverview {
 func (x *JobDescriptionsAndStaffing) NewRoles() *som.SomList[*NewRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NWROL-NEWR-LST", func(d *som.SpecDocument, p string) *NewRoleEntry {
 		return NewNewRoleEntry(d, p)
-	})
+	}, "NWROL-NEWR-xxx")
 }
 
 // 5.2.2. Changed Roles — contains 0+× Changed Role.
 func (x *JobDescriptionsAndStaffing) ChangedRoles() *som.SomList[*ChangedRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHAROL-CHAN-LST", func(d *som.SpecDocument, p string) *ChangedRoleEntry {
 		return NewChangedRoleEntry(d, p)
-	})
+	}, "CHAROL-CHAN-xxx")
 }
 
 // 5.2.3. Removed Roles — contains 0+× role being eliminated.
 func (x *JobDescriptionsAndStaffing) RemovedRoles() *som.SomList[*RemovedRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REMROL-REMO-LST", func(d *som.SpecDocument, p string) *RemovedRoleEntry {
 		return NewRemovedRoleEntry(d, p)
-	})
+	}, "REMROL-REMO-xxx")
 }
 
 // 5.2.4. Staffing Plan.
@@ -30898,7 +30898,7 @@ func (x *KeyConcepts) SetConceptualModelDiagram(value string) {
 func (x *KeyConcepts) Concepts() *som.SomList[*KeyConceptEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KECON-CONC-LST", func(d *som.SpecDocument, p string) *KeyConceptEntry {
 		return NewKeyConceptEntry(d, p)
-	})
+	}, "KECON-CONC-xxx")
 }
 
 // Key escrow and backup policy (form).
@@ -31058,7 +31058,7 @@ func (x *KeyScenarios) Overview() *ScenarioOverview {
 func (x *KeyScenarios) Scenarios() *som.SomList[*ScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCNRY-SCEN-LST", func(d *som.SpecDocument, p string) *ScenarioEntry {
 		return NewScenarioEntry(d, p)
-	})
+	}, "SCNRY-SCEN-xxx")
 }
 
 // Key storage policy (form).
@@ -31373,7 +31373,7 @@ func (x *LayeringAndModuleStructure) SetContent(value string) {
 func (x *LayeringAndModuleStructure) SoftwareLayers() *som.SomList[*SoftwareLayerEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SOLAEN-SOFT-LST", func(d *som.SpecDocument, p string) *SoftwareLayerEntry {
 		return NewSoftwareLayerEntry(d, p)
-	})
+	}, "SOLAEN-SOFT-xxx")
 }
 
 // Layer communication rules and constraints.
@@ -31385,7 +31385,7 @@ func (x *LayeringAndModuleStructure) LayerCommunicationRules() *LayerCommunicati
 func (x *LayeringAndModuleStructure) BoundedContexts() *som.SomList[*BoundedContextEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOCOEN-BOUN-LST", func(d *som.SpecDocument, p string) *BoundedContextEntry {
 		return NewBoundedContextEntry(d, p)
-	})
+	}, "BOCOEN-BOUN-xxx")
 }
 
 // Package organization and structure.
@@ -31397,14 +31397,14 @@ func (x *LayeringAndModuleStructure) PackageOrganization() *PackageOrganization 
 func (x *LayeringAndModuleStructure) Modules() *som.SomList[*ModuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MOEN1-MODU-LST", func(d *som.SpecDocument, p string) *ModuleEntry {
 		return NewModuleEntry(d, p)
-	})
+	}, "MOEN1-MODU-xxx")
 }
 
 // Shared libraries and common code.
 func (x *LayeringAndModuleStructure) SharedLibraries() *som.SomList[*SharedLibraryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SHLIB-SHAR-LST", func(d *som.SpecDocument, p string) *SharedLibraryEntry {
 		return NewSharedLibraryEntry(d, p)
-	})
+	}, "SHLIB-SHAR-xxx")
 }
 
 // Dependency injection configuration.
@@ -31421,7 +31421,7 @@ func (x *LayeringAndModuleStructure) CrossCuttingConcerns() *CrossCuttingConcern
 func (x *LayeringAndModuleStructure) FeatureModules() *som.SomList[*FeatureModuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FTRMOD-FEAT-LST", func(d *som.SpecDocument, p string) *FeatureModuleEntry {
 		return NewFeatureModuleEntry(d, p)
-	})
+	}, "FTRMOD-FEAT-xxx")
 }
 
 // Module versioning and compatibility strategy.
@@ -31570,7 +31570,7 @@ func (x *LegalAndContractualRequirements) InsuranceLiability() *InsuranceLiabili
 func (x *LegalAndContractualRequirements) OtherAgreements() *som.SomList[*OtherAgreementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OTAGR-OTHE-LST", func(d *som.SpecDocument, p string) *OtherAgreementEntry {
 		return NewOtherAgreementEntry(d, p)
-	})
+	}, "OTAGR-OTHE-xxx")
 }
 
 // Liability limitations.
@@ -32373,7 +32373,7 @@ func (x *MainSuccessScenario) Content() *MainSuccessScenarioContentForm {
 func (x *MainSuccessScenario) Steps() *som.SomList[*MainScenarioStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MNSST-STEP-LST", func(d *som.SpecDocument, p string) *MainScenarioStepEntry {
 		return NewMainScenarioStepEntry(d, p)
-	})
+	}, "MNSST-STEP-xxx")
 }
 
 // 11.3.5. Maintainability quality.
@@ -32610,7 +32610,7 @@ func (x *MaintenanceDependencies) SetContent(value string) {
 func (x *MaintenanceDependencies) Items() *som.SomList[*MaintenanceDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MNDEP-ITEM-LST", func(d *som.SpecDocument, p string) *MaintenanceDependencyEntry {
 		return NewMaintenanceDependencyEntry(d, p)
-	})
+	}, "MNDEP-ITEM-xxx")
 }
 
 // A maintenance dependency entry (form).
@@ -32899,7 +32899,7 @@ func (x *MaintenanceWindowsSection) ScheduledMaintenance() *ScheduledMaintenance
 func (x *MaintenanceWindowsSection) MaintenanceWindows() *som.SomList[*MaintenanceWindowEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MAWIEN-MAIN-LST", func(d *som.SpecDocument, p string) *MaintenanceWindowEntry {
 		return NewMaintenanceWindowEntry(d, p)
-	})
+	}, "MAWIEN-MAIN-xxx")
 }
 
 // Emergency maintenance procedures.
@@ -33041,7 +33041,7 @@ func (x *MasterDataManagement) MdmSummary() *MdmSummary {
 func (x *MasterDataManagement) MasterDataDomains() *som.SomList[*MasterDataDomainEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MSDDO-MAST-LST", func(d *som.SpecDocument, p string) *MasterDataDomainEntry {
 		return NewMasterDataDomainEntry(d, p)
-	})
+	}, "MSDDO-MAST-xxx")
 }
 
 // Summary of MDM status and maturity.
@@ -33206,7 +33206,7 @@ func (x *MetricsAndObservability) DistributedTracing() *DistributedTracingSpec {
 func (x *MetricsAndObservability) CustomMetrics() *som.SomList[*CustomMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUMEEN-CUST-LST", func(d *som.SpecDocument, p string) *CustomMetricEntry {
 		return NewCustomMetricEntry(d, p)
-	})
+	}, "CUMEEN-CUST-xxx")
 }
 
 // A baseline entry for tracking metric changes.
@@ -33245,7 +33245,7 @@ func (x *MetricsBaselineTable) SetContent(value string) {
 func (x *MetricsBaselineTable) Entries() *som.SomList[*MetricsBaselineEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MEBAEN-ENTR-LST", func(d *som.SpecDocument, p string) *MetricsBaselineEntry {
 		return NewMetricsBaselineEntry(d, p)
-	})
+	}, "MEBAEN-ENTR-xxx")
 }
 
 // Metrics collection requirements.
@@ -33451,7 +33451,7 @@ func (x *MfaConfiguration) SetContent(value string) {
 func (x *MfaConfiguration) MfaDetails() *som.SomList[*MfaDetailEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MFADE-MFAD-LST", func(d *som.SpecDocument, p string) *MfaDetailEntry {
 		return NewMfaDetailEntry(d, p)
-	})
+	}, "MFADE-MFAD-xxx")
 }
 
 // A single mfa detail entry.
@@ -33538,7 +33538,7 @@ func (x *MigrationConsiderations) MigrationRisks() *MigrationRisks {
 func (x *MigrationConsiderations) Milestones() *som.SomList[*MigrationMilestoneEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MGMLS-MILE-LST", func(d *som.SpecDocument, p string) *MigrationMilestoneEntry {
 		return NewMigrationMilestoneEntry(d, p)
-	})
+	}, "MGMLS-MILE-xxx")
 }
 
 // Cross-system data mapping considerations.
@@ -33560,7 +33560,7 @@ func (x *MigrationConsiderations) Milestones() *som.SomList[*MigrationMilestoneE
 func (x *MigrationConsiderations) EscalationProcedures() *som.SomList[*EscalationProcedureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ESCAL-ESCA-LST", func(d *som.SpecDocument, p string) *EscalationProcedureEntry {
 		return NewEscalationProcedureEntry(d, p)
-	})
+	}, "ESCAL-ESCA-xxx")
 }
 
 // Cutover planning for migration.
@@ -33762,7 +33762,7 @@ func (x *MigrationPhaseEntry) Schedule() *MigrationPhaseSchedule {
 func (x *MigrationPhaseEntry) DryRuns() *som.SomList[*MigrationPhaseDryRuns] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MPDR-DRYR-LST", func(d *som.SpecDocument, p string) *MigrationPhaseDryRuns {
 		return NewMigrationPhaseDryRuns(d, p)
-	})
+	}, "MPDR-DRYR-xxx")
 }
 
 // Validation and reconciliation.
@@ -33784,7 +33784,7 @@ func (x *MigrationPhaseEntry) Rollback() *MigrationPhaseRollback {
 func (x *MigrationPhaseEntry) Resources() *som.SomList[*MigrationPhaseResources] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIPHRE-RESO-LST", func(d *som.SpecDocument, p string) *MigrationPhaseResources {
 		return NewMigrationPhaseResources(d, p)
-	})
+	}, "MIPHRE-RESO-xxx")
 }
 
 // Status.
@@ -33930,7 +33930,7 @@ func (x *MigrationPhases) Content() *MigrationPhasesContentForm {
 func (x *MigrationPhases) Items() *som.SomList[*MigrationPhaseEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MGPHS-ITEM-LST", func(d *som.SpecDocument, p string) *MigrationPhaseEntry {
 		return NewMigrationPhaseEntry(d, p)
-	})
+	}, "MGPHS-ITEM-xxx")
 }
 
 // 15.2. Migration Plan.
@@ -34043,7 +34043,7 @@ func (x *MigrationRiskEntry) Contingency() *MigrationRiskContingency {
 func (x *MigrationRiskEntry) Indicators() *som.SomList[*MigrationRiskIndicators] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIRIIN-INDI-LST", func(d *som.SpecDocument, p string) *MigrationRiskIndicators {
 		return NewMigrationRiskIndicators(d, p)
-	})
+	}, "MIRIIN-INDI-xxx")
 }
 
 // Ownership and tracking.
@@ -34242,28 +34242,28 @@ func (x *MigrationRisks) Reporting() *MigrationRisksReporting {
 func (x *MigrationRisks) RiskCategories() *som.SomList[*RiskCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RISKC-RISK-LST", func(d *som.SpecDocument, p string) *RiskCategoryEntry {
 		return NewRiskCategoryEntry(d, p)
-	})
+	}, "RISKC-RISK-xxx")
 }
 
 // Risk-based decision making criteria.
 func (x *MigrationRisks) RiskBasedDecisions() *som.SomList[*RiskBasedDecisionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RISKB-RISK-LST", func(d *som.SpecDocument, p string) *RiskBasedDecisionEntry {
 		return NewRiskBasedDecisionEntry(d, p)
-	})
+	}, "RISKB-RISK-xxx")
 }
 
 // Risk monitoring and control procedures.
 func (x *MigrationRisks) MonitoringProcedures() *som.SomList[*MonitoringProcedureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MONIT-MONI-LST", func(d *som.SpecDocument, p string) *MonitoringProcedureEntry {
 		return NewMonitoringProcedureEntry(d, p)
-	})
+	}, "MONIT-MONI-xxx")
 }
 
 // Risk response strategies by category.
 func (x *MigrationRisks) ResponseStrategies() *som.SomList[*ResponseStrategyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESPO-RESP-LST", func(d *som.SpecDocument, p string) *ResponseStrategyEntry {
 		return NewResponseStrategyEntry(d, p)
-	})
+	}, "RESPO-RESP-xxx")
 }
 
 // Risk aggregation and portfolio view.
@@ -34279,7 +34279,7 @@ func (x *MigrationRisks) ResponseStrategies() *som.SomList[*ResponseStrategyEntr
 func (x *MigrationRisks) Items() *som.SomList[*MigrationRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MGRSK-ITEM-LST", func(d *som.SpecDocument, p string) *MigrationRiskEntry {
 		return NewMigrationRiskEntry(d, p)
-	})
+	}, "MGRSK-ITEM-xxx")
 }
 
 // Assessment methodology settings.
@@ -34965,7 +34965,7 @@ func (x *MonitoringAndAlertingSection) Alerting() *AlertingRequirements {
 func (x *MonitoringAndAlertingSection) AlertDefinitions() *som.SomList[*AlertDefinitionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ALDEEN-ALER-LST", func(d *som.SpecDocument, p string) *AlertDefinitionEntry {
 		return NewAlertDefinitionEntry(d, p)
-	})
+	}, "ALDEEN-ALER-xxx")
 }
 
 // Dashboard requirements.
@@ -35039,14 +35039,14 @@ func (x *MonitoringDashboards) DashboardOverview() *MonitoringDashboardsDashboar
 func (x *MonitoringDashboards) Dashboards() *som.SomList[*DashboardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAEN-DASH-LST", func(d *som.SpecDocument, p string) *DashboardEntry {
 		return NewDashboardEntry(d, p)
-	})
+	}, "DAEN-DASH-xxx")
 }
 
 // Dashboard template specifications.
 func (x *MonitoringDashboards) DashboardTemplates() *som.SomList[*DashboardTemplates] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DATE-DASH-LST", func(d *som.SpecDocument, p string) *DashboardTemplates {
 		return NewDashboardTemplates(d, p)
-	})
+	}, "DATE-DASH-xxx")
 }
 
 // Monitoring infrastructure requirements.
@@ -35176,7 +35176,7 @@ func (x *MoscowAnalysis) Content() *MoscowAnalysisContentForm {
 func (x *MoscowAnalysis) Items() *som.SomList[*MoscowEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MOEN-ITEM-LST", func(d *som.SpecDocument, p string) *MoscowEntry {
 		return NewMoscowEntry(d, p)
-	})
+	}, "MOEN-ITEM-xxx")
 }
 
 // A MoSCoW classification entry (form).
@@ -35330,7 +35330,7 @@ func (x *MultiLanguageSupport) LanguageCountrySelection() *LanguageCountrySelect
 func (x *MultiLanguageSupport) SupportedLocales() *som.SomList[*SupportedLocaleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SULOEN-SUPP-LST", func(d *som.SpecDocument, p string) *SupportedLocaleEntry {
 		return NewSupportedLocaleEntry(d, p)
-	})
+	}, "SULOEN-SUPP-xxx")
 }
 
 // 11.7.1. Must-Pass Criteria.
@@ -35356,7 +35356,7 @@ func (x *MustPassCriteria) MustPassOverviewContent() *MustPassCriteriaMustPassOv
 func (x *MustPassCriteria) Items() *som.SomList[*MustPassCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MSTPCR-ITEM-LST", func(d *som.SpecDocument, p string) *MustPassCriterionEntry {
 		return NewMustPassCriterionEntry(d, p)
-	})
+	}, "MSTPCR-ITEM-xxx")
 }
 
 // A must-pass criterion entry (form).
@@ -35602,7 +35602,7 @@ func (x *NavigationGroupEntry) Structure() *NavigationGroupEntryStructure {
 func (x *NavigationGroupEntry) Items() *som.SomList[*NavigationItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NAVIIT-ITEM-LST", func(d *som.SpecDocument, p string) *NavigationItemEntry {
 		return NewNavigationItemEntry(d, p)
-	})
+	}, "NAVIIT-ITEM-xxx")
 }
 
 // Access-control settings.
@@ -35726,7 +35726,7 @@ func (x *NavigationGuards) SetContent(value string) {
 func (x *NavigationGuards) Guards() *som.SomList[*NavigationGuardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NAVGRD-GUAR-LST", func(d *som.SpecDocument, p string) *NavigationGuardEntry {
 		return NewNavigationGuardEntry(d, p)
-	})
+	}, "NAVGRD-GUAR-xxx")
 }
 
 // 10.3.1.2. Navigation Hierarchy.
@@ -35756,7 +35756,7 @@ func (x *NavigationHierarchy) SetContent(value string) {
 func (x *NavigationHierarchy) Groups() *som.SomList[*NavigationGroupEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NAVGRP-GROU-LST", func(d *som.SpecDocument, p string) *NavigationGroupEntry {
 		return NewNavigationGroupEntry(d, p)
-	})
+	}, "NAVGRP-GROU-xxx")
 }
 
 // A navigation item entry (form).
@@ -36287,7 +36287,7 @@ func (x *NetworkRequirementsSection) AvailabilityRequirements() *NetworkAvailabi
 func (x *NetworkRequirementsSection) VpnRequirements() *som.SomList[*VpnRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VPREEN-VPNR-LST", func(d *som.SpecDocument, p string) *VpnRequirementEntry {
 		return NewVpnRequirementEntry(d, p)
-	})
+	}, "VPREEN-VPNR-xxx")
 }
 
 // Firewall rules and policies.
@@ -36674,7 +36674,7 @@ func (x *NewRoleQualifications) Screening() *NewRoleQualificationsScreening {
 func (x *NewRoleQualifications) RequiredCompetencies() *som.SomList[*RoleCompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ROLCP-REQU-LST", func(d *som.SpecDocument, p string) *RoleCompetencyEntry {
 		return NewRoleCompetencyEntry(d, p)
-	})
+	}, "ROLCP-REQU-xxx")
 }
 
 // Credential and mobility requirements.
@@ -36719,14 +36719,14 @@ func NewNewRoleResponsibilities(doc *som.SpecDocument, path string) *NewRoleResp
 func (x *NewRoleResponsibilities) PrimaryResponsibilities() *som.SomList[*ResponsibilityDetailEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPDT-PRIM-LST", func(d *som.SpecDocument, p string) *ResponsibilityDetailEntry {
 		return NewResponsibilityDetailEntry(d, p)
-	})
+	}, "RSPDT-PRIM-xxx")
 }
 
 // Secondary responsibilities (supporting duties).
 func (x *NewRoleResponsibilities) SecondaryResponsibilities() *som.SomList[*ResponsibilityDetailEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RSPDT-SECO-LST", func(d *som.SpecDocument, p string) *ResponsibilityDetailEntry {
 		return NewResponsibilityDetailEntry(d, p)
-	})
+	}, "RSPDT-SECO-xxx")
 }
 
 // Decision-making authority.
@@ -36805,21 +36805,21 @@ func (x *NotificationModel) SetContent(value string) {
 func (x *NotificationModel) Channels() *som.SomList[*NotificationChannelEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NTFCH-CHAN-LST", func(d *som.SpecDocument, p string) *NotificationChannelEntry {
 		return NewNotificationChannelEntry(d, p)
-	})
+	}, "NTFCH-CHAN-xxx")
 }
 
 // Notification type entries — contains 1+× NotificationTypeEntry.
 func (x *NotificationModel) NotificationTypes() *som.SomList[*NotificationTypeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NTFTY-NOTI-LST", func(d *som.SpecDocument, p string) *NotificationTypeEntry {
 		return NewNotificationTypeEntry(d, p)
-	})
+	}, "NTFTY-NOTI-xxx")
 }
 
 // User notification preferences.
 func (x *NotificationModel) Preferences() *som.SomList[*UserNotificationPreferences] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UNP-PREF-LST", func(d *som.SpecDocument, p string) *UserNotificationPreferences {
 		return NewUserNotificationPreferences(d, p)
-	})
+	}, "UNP-PREF-xxx")
 }
 
 // A notification type entry.
@@ -37147,7 +37147,7 @@ func (x *OnboardingHelp) Reengagement() *OnboardingHelpReengagement {
 func (x *OnboardingHelp) FeatureTours() *som.SomList[*FeatureTourEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FTRTUR-FEAT-LST", func(d *som.SpecDocument, p string) *FeatureTourEntry {
 		return NewFeatureTourEntry(d, p)
-	})
+	}, "FTRTUR-FEAT-xxx")
 }
 
 // Getting started checklist configuration.
@@ -37396,7 +37396,7 @@ func (x *OperationalPainPoints) CategorySummary() *OperationalPainPointsSummary 
 func (x *OperationalPainPoints) Items() *som.SomList[*PainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OPPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
-	})
+	}, "OPPAPO-ITEM-xxx")
 }
 
 // Summary specific to operational pain points.
@@ -37618,7 +37618,7 @@ func (x *OrgRequirementImplementationPlan) PlanForm() *OrgRequirementImplementat
 func (x *OrgRequirementImplementationPlan) Activities() *som.SomList[*OrgImplementationActivity] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ORGIM-ACTI-LST", func(d *som.SpecDocument, p string) *OrgImplementationActivity {
 		return NewOrgImplementationActivity(d, p)
-	})
+	}, "ORGIM-ACTI-xxx")
 }
 
 // 3.1.1. Organization Structure.
@@ -37693,7 +37693,7 @@ func (x *OrganizationalChangeEntry) Transition() *OrgChangeTransition {
 func (x *OrganizationalChangeEntry) Risks() *som.SomList[*OrgChangeRisks] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OCRSK-RISK-LST", func(d *som.SpecDocument, p string) *OrgChangeRisks {
 		return NewOrgChangeRisks(d, p)
-	})
+	}, "OCRSK-RISK-xxx")
 }
 
 // Status tracking.
@@ -37726,7 +37726,7 @@ func (x *OrganizationalContext) SetContent(value string) {
 func (x *OrganizationalContext) OrganizationalUnits() *som.SomList[*OrganizationalUnitContextEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OUCE-ORGA-LST", func(d *som.SpecDocument, p string) *OrganizationalUnitContextEntry {
 		return NewOrganizationalUnitContextEntry(d, p)
-	})
+	}, "OUCE-ORGA-xxx")
 }
 
 // Business process coverage.
@@ -37774,7 +37774,7 @@ func (x *OrganizationalEnvironment) DecisionMakingContext() *OrganizationalEnvir
 func (x *OrganizationalEnvironment) AffectedDepartments() *som.SomList[*AffectedDepartmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AFDEEN-AFFE-LST", func(d *som.SpecDocument, p string) *AffectedDepartmentEntry {
 		return NewAffectedDepartmentEntry(d, p)
-	})
+	}, "AFDEEN-AFFE-xxx")
 }
 
 // Decision making processes and authority.
@@ -37784,21 +37784,21 @@ func (x *OrganizationalEnvironment) AffectedDepartments() *som.SomList[*Affected
 func (x *OrganizationalEnvironment) DecisionMakers() *som.SomList[*DecisionMakerEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEMAEN-DECI-LST", func(d *som.SpecDocument, p string) *DecisionMakerEntry {
 		return NewDecisionMakerEntry(d, p)
-	})
+	}, "DEMAEN-DECI-xxx")
 }
 
 // Cultural considerations and organizational dynamics.
 func (x *OrganizationalEnvironment) CulturalConsiderations() *som.SomList[*CulturalConsiderationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CULTU-CULT-LST", func(d *som.SpecDocument, p string) *CulturalConsiderationEntry {
 		return NewCulturalConsiderationEntry(d, p)
-	})
+	}, "CULTU-CULT-xxx")
 }
 
 // Stakeholder communication preferences.
 func (x *OrganizationalEnvironment) CommunicationPreferences() *som.SomList[*CommunicationPreferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMMU-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationPreferenceEntry {
 		return NewCommunicationPreferenceEntry(d, p)
-	})
+	}, "COMMU-COMM-xxx")
 }
 
 // Political dynamics and influence patterns.
@@ -37808,7 +37808,7 @@ func (x *OrganizationalEnvironment) CommunicationPreferences() *som.SomList[*Com
 func (x *OrganizationalEnvironment) ChangeAdvocates() *som.SomList[*ChangeAdvocateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHANG-CHAN-LST", func(d *som.SpecDocument, p string) *ChangeAdvocateEntry {
 		return NewChangeAdvocateEntry(d, p)
-	})
+	}, "CHANG-CHAN-xxx")
 }
 
 // Decision-making context.
@@ -37876,7 +37876,7 @@ func (x *OrganizationalFramework) JobDescriptions() *JobDescriptionsAndStaffing 
 func (x *OrganizationalFramework) WorkplaceDescriptions() *som.SomList[*WorkplaceDescriptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WPDE-WORK-LST", func(d *som.SpecDocument, p string) *WorkplaceDescriptionEntry {
 		return NewWorkplaceDescriptionEntry(d, p)
-	})
+	}, "WPDE-WORK-xxx")
 }
 
 // An organizational requirement entry.
@@ -38000,7 +38000,7 @@ func (x *OrganizationalRequirements) SummaryForm() *OrganizationalRequirementsSu
 func (x *OrganizationalRequirements) Requirements() *som.SomList[*OrganizationalRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ORRQ-REQU-LST", func(d *som.SpecDocument, p string) *OrganizationalRequirementEntry {
 		return NewOrganizationalRequirementEntry(d, p)
-	})
+	}, "ORRQ-REQU-xxx")
 }
 
 // 5.1.2. Organizational Transition Timeline.
@@ -38026,14 +38026,14 @@ func (x *OrganizationalTransitionTimeline) Overview() *TransitionOverview {
 func (x *OrganizationalTransitionTimeline) Phases() *som.SomList[*TransitionPhaseEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRPHE-PHAS-LST", func(d *som.SpecDocument, p string) *TransitionPhaseEntry {
 		return NewTransitionPhaseEntry(d, p)
-	})
+	}, "TRPHE-PHAS-xxx")
 }
 
 // Key transition milestones and decision gates.
 func (x *OrganizationalTransitionTimeline) Milestones() *som.SomList[*TransitionMilestoneEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRMIL-MILE-LST", func(d *som.SpecDocument, p string) *TransitionMilestoneEntry {
 		return NewTransitionMilestoneEntry(d, p)
-	})
+	}, "TRMIL-MILE-xxx")
 }
 
 // Change readiness assessment approach.
@@ -38060,7 +38060,7 @@ func (x *OrganizationalTransitionTimeline) SuccessMetrics() *TransitionSuccessMe
 func (x *OrganizationalTransitionTimeline) TransitionRisks() *som.SomList[*TransitionRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRRS-TRAN-LST", func(d *som.SpecDocument, p string) *TransitionRiskEntry {
 		return NewTransitionRiskEntry(d, p)
-	})
+	}, "TRRS-TRAN-xxx")
 }
 
 // An organizational unit context entry (form).
@@ -38202,7 +38202,7 @@ func NewOutOfScope(doc *som.SpecDocument, path string) *OutOfScope {
 func (x *OutOfScope) Items() *som.SomList[*OutOfScopeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OOSE-ITEM-LST", func(d *som.SpecDocument, p string) *OutOfScopeEntry {
 		return NewOutOfScopeEntry(d, p)
-	})
+	}, "OOSE-ITEM-xxx")
 }
 
 // An out-of-scope entry (form).
@@ -38413,7 +38413,7 @@ func (x *PainPointEntry) Resolution() *PainPointResolution {
 func (x *PainPointEntry) Relationships() *som.SomList[*PainPointRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PAPOR1-RELA-LST", func(d *som.SpecDocument, p string) *PainPointRelationships {
 		return NewPainPointRelationships(d, p)
-	})
+	}, "PAPOR1-RELA-xxx")
 }
 
 // Evidence for pain point.
@@ -38461,7 +38461,7 @@ func (x *PainPointGapCorrelation) SetCorrelationDiagram(value string) {
 func (x *PainPointGapCorrelation) CorrelationEntries() *som.SomList[*PainPointGapCorrelationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PPGCE-CORR-LST", func(d *som.SpecDocument, p string) *PainPointGapCorrelationEntry {
 		return NewPainPointGapCorrelationEntry(d, p)
-	})
+	}, "PPGCE-CORR-xxx")
 }
 
 // Individual pain point to gap correlation entry.
@@ -38711,7 +38711,7 @@ func (x *PasswordAndCredentialPolicy) ServiceAccountCredentials() *ServiceAccoun
 func (x *PasswordAndCredentialPolicy) MfaCategoryRequirements() *som.SomList[*MfaCategoryRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MFACRQ-MFAC-LST", func(d *som.SpecDocument, p string) *MfaCategoryRequirementEntry {
 		return NewMfaCategoryRequirementEntry(d, p)
-	})
+	}, "MFACRQ-MFAC-xxx")
 }
 
 // Password lifecycle policy (form).
@@ -39200,7 +39200,7 @@ func (x *PersonaGoals) SetContent(value string) {
 func (x *PersonaGoals) Items() *som.SomList[*PersonaGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PGOEN-ITEM-LST", func(d *som.SpecDocument, p string) *PersonaGoalEntry {
 		return NewPersonaGoalEntry(d, p)
-	})
+	}, "PGOEN-ITEM-xxx")
 }
 
 // A pain point entry (form).
@@ -39239,7 +39239,7 @@ func (x *PersonaPainPoints) SetContent(value string) {
 func (x *PersonaPainPoints) Items() *som.SomList[*PersonaPainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PPPEN-ITEM-LST", func(d *som.SpecDocument, p string) *PersonaPainPointEntry {
 		return NewPersonaPainPointEntry(d, p)
-	})
+	}, "PPPEN-ITEM-xxx")
 }
 
 // A persona scenario entry (form).
@@ -39280,7 +39280,7 @@ func (x *PersonaScenarios) SetContent(value string) {
 func (x *PersonaScenarios) Items() *som.SomList[*PersonaScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PSCEN-ITEM-LST", func(d *som.SpecDocument, p string) *PersonaScenarioEntry {
 		return NewPersonaScenarioEntry(d, p)
-	})
+	}, "PSCEN-ITEM-xxx")
 }
 
 // Authority and participants.
@@ -39407,7 +39407,7 @@ func (x *PhaseGateReviewEntry) Exit() *PhaseGateExit {
 func (x *PhaseGateReviewEntry) ReviewCriteria() *som.SomList[*ReviewCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RVCRI-REVI-LST", func(d *som.SpecDocument, p string) *ReviewCriterionEntry {
 		return NewReviewCriterionEntry(d, p)
-	})
+	}, "RVCRI-REVI-xxx")
 }
 
 // 13.6.1. Phase Gate Reviews.
@@ -39445,7 +39445,7 @@ func (x *PhaseGateReviews) Outcomes() *PhaseGateReviewsOutcomes {
 func (x *PhaseGateReviews) Items() *som.SomList[*PhaseGateReviewEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PGRE-ITEM-LST", func(d *som.SpecDocument, p string) *PhaseGateReviewEntry {
 		return NewPhaseGateReviewEntry(d, p)
-	})
+	}, "PGRE-ITEM-xxx")
 }
 
 // Gate decision outcomes and follow-up rules.
@@ -39770,35 +39770,35 @@ func (x *PlatformAndLanguage) SetContent(value string) {
 func (x *PlatformAndLanguage) TargetPlatforms() *som.SomList[*TargetPlatformEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TGPLT-TARG-LST", func(d *som.SpecDocument, p string) *TargetPlatformEntry {
 		return NewTargetPlatformEntry(d, p)
-	})
+	}, "TGPLT-TARG-xxx")
 }
 
 // Programming language requirements.
 func (x *PlatformAndLanguage) ProgrammingLanguages() *som.SomList[*ProgrammingLanguageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PLGEN-PROG-LST", func(d *som.SpecDocument, p string) *ProgrammingLanguageEntry {
 		return NewProgrammingLanguageEntry(d, p)
-	})
+	}, "PLGEN-PROG-xxx")
 }
 
 // Framework and library requirements.
 func (x *PlatformAndLanguage) Frameworks() *som.SomList[*FrameworkRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FWREN-FRAM-LST", func(d *som.SpecDocument, p string) *FrameworkRequirementEntry {
 		return NewFrameworkRequirementEntry(d, p)
-	})
+	}, "FWREN-FRAM-xxx")
 }
 
 // Build toolchain requirements.
 func (x *PlatformAndLanguage) BuildToolchain() *som.SomList[*BuildToolchainEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BTCEN-BUIL-LST", func(d *som.SpecDocument, p string) *BuildToolchainEntry {
 		return NewBuildToolchainEntry(d, p)
-	})
+	}, "BTCEN-BUIL-xxx")
 }
 
 // Deployment target specifications.
 func (x *PlatformAndLanguage) DeploymentTargets() *som.SomList[*DeploymentTargetEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DETAEN-DEPL-LST", func(d *som.SpecDocument, p string) *DeploymentTargetEntry {
 		return NewDeploymentTargetEntry(d, p)
-	})
+	}, "DETAEN-DEPL-xxx")
 }
 
 // Dependency management requirements.
@@ -40064,14 +40064,14 @@ func (x *PrintAndExportLayout) Archive() *PrintLayoutArchive {
 func (x *PrintAndExportLayout) Reports() *som.SomList[*ReportEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REEN-REPO-LST", func(d *som.SpecDocument, p string) *ReportEntry {
 		return NewReportEntry(d, p)
-	})
+	}, "REEN-REPO-xxx")
 }
 
 // 10.4.2. Export Formats — contains 0+× Export Format.
 func (x *PrintAndExportLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXFOEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportFormatEntry {
 		return NewExportFormatEntry(d, p)
-	})
+	}, "EXFOEN-EXPO-xxx")
 }
 
 // 10.4.3. Export Templates — contains 0+× Export
@@ -40079,7 +40079,7 @@ func (x *PrintAndExportLayout) ExportFormats() *som.SomList[*ExportFormatEntry] 
 func (x *PrintAndExportLayout) ExportTemplates() *som.SomList[*ExportTemplateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXTEEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportTemplateEntry {
 		return NewExportTemplateEntry(d, p)
-	})
+	}, "EXTEEN-EXPO-xxx")
 }
 
 // Archive and batch settings.
@@ -40362,7 +40362,7 @@ func (x *ProblemStatement) ProblemDetails() *ProblemStatementProblemDetailsForm 
 func (x *ProblemStatement) RelatedPainPoints() *som.SomList[*RelatedPainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RPPE-RELA-LST", func(d *som.SpecDocument, p string) *RelatedPainPointEntry {
 		return NewRelatedPainPointEntry(d, p)
-	})
+	}, "RPPE-RELA-xxx")
 }
 
 // Details for process adjustment.
@@ -40406,7 +40406,7 @@ func (x *ProcessAdjustmentEntry) Identity() *ProcessAdjustmentIdentity {
 func (x *ProcessAdjustmentEntry) Details() *som.SomList[*ProcessAdjustmentDetails] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCAED-DETA-LST", func(d *som.SpecDocument, p string) *ProcessAdjustmentDetails {
 		return NewProcessAdjustmentDetails(d, p)
-	})
+	}, "PCAED-DETA-xxx")
 }
 
 // Rationale.
@@ -40553,7 +40553,7 @@ func (x *ProcessAdjustments) SetProcessFlowDiagram(value string) {
 func (x *ProcessAdjustments) Items() *som.SomList[*ProcessAdjustmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCAJE-ITEM-LST", func(d *som.SpecDocument, p string) *ProcessAdjustmentEntry {
 		return NewProcessAdjustmentEntry(d, p)
-	})
+	}, "PCAJE-ITEM-xxx")
 }
 
 // 6.1.3. Process Catalog.
@@ -40582,7 +40582,7 @@ func (x *ProcessCatalog) Classification() *ProcessClassification {
 func (x *ProcessCatalog) Processes() *som.SomList[*BusinessProcessEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BPREN-PROC-LST", func(d *som.SpecDocument, p string) *BusinessProcessEntry {
 		return NewBusinessProcessEntry(d, p)
-	})
+	}, "BPREN-PROC-xxx")
 }
 
 // Process catalog overview.
@@ -40750,7 +40750,7 @@ func (x *ProcessControls) Overview() *ProcessControlsOverview {
 func (x *ProcessControls) Controls() *som.SomList[*ProcessControlEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCCTL-CONT-LST", func(d *som.SpecDocument, p string) *ProcessControlEntry {
 		return NewProcessControlEntry(d, p)
-	})
+	}, "PCCTL-CONT-xxx")
 }
 
 // Process controls overview.
@@ -40816,7 +40816,7 @@ func (x *ProcessDesignPrinciples) Overview() *DesignPrinciplesOverview {
 func (x *ProcessDesignPrinciples) Principles() *som.SomList[*ProcessDesignPrincipleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PDPEN-PRIN-LST", func(d *som.SpecDocument, p string) *ProcessDesignPrincipleEntry {
 		return NewProcessDesignPrincipleEntry(d, p)
-	})
+	}, "PDPEN-PRIN-xxx")
 }
 
 // Process diagram overview.
@@ -40938,7 +40938,7 @@ func (x *ProcessExceptions) Overview() *ProcessExceptionsOverview {
 func (x *ProcessExceptions) Exceptions() *som.SomList[*ProcessExceptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCEXC-EXCE-LST", func(d *som.SpecDocument, p string) *ProcessExceptionEntry {
 		return NewProcessExceptionEntry(d, p)
-	})
+	}, "PCEXC-EXCE-xxx")
 }
 
 // Process exceptions overview.
@@ -41099,7 +41099,7 @@ func (x *ProcessImprovementSummary) Overview() *ImprovementOverview {
 func (x *ProcessImprovementSummary) Improvements() *som.SomList[*ProcessImprovementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCIMV-IMPR-LST", func(d *som.SpecDocument, p string) *ProcessImprovementEntry {
 		return NewProcessImprovementEntry(d, p)
-	})
+	}, "PCIMV-IMPR-xxx")
 }
 
 // Business case summary.
@@ -41140,14 +41140,14 @@ func (x *ProcessInputsOutputs) Overview() *InputsOutputsOverview {
 func (x *ProcessInputsOutputs) Inputs() *som.SomList[*ProcessInputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCINP-INPU-LST", func(d *som.SpecDocument, p string) *ProcessInputEntry {
 		return NewProcessInputEntry(d, p)
-	})
+	}, "PCINP-INPU-xxx")
 }
 
 // Contains 0+× process output.
 func (x *ProcessInputsOutputs) Outputs() *som.SomList[*ProcessOutputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCOUT-OUTP-LST", func(d *som.SpecDocument, p string) *ProcessOutputEntry {
 		return NewProcessOutputEntry(d, p)
-	})
+	}, "PCOUT-OUTP-xxx")
 }
 
 // Process interdependency matrix showing how processes interact.
@@ -41181,7 +41181,7 @@ func (x *ProcessInterdependencyMatrix) SetDependencyDiagram(value string) {
 func (x *ProcessInterdependencyMatrix) Dependencies() *som.SomList[*ProcessDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRDEEN-DEPE-LST", func(d *som.SpecDocument, p string) *ProcessDependencyEntry {
 		return NewProcessDependencyEntry(d, p)
-	})
+	}, "PRDEEN-DEPE-xxx")
 }
 
 // A process KPI entry.
@@ -41278,7 +41278,7 @@ func (x *ProcessMetricCategory) SetContent(value string) {
 func (x *ProcessMetricCategory) Metrics() *som.SomList[*ProcessMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PME-METR-LST", func(d *som.SpecDocument, p string) *ProcessMetricEntry {
 		return NewProcessMetricEntry(d, p)
-	})
+	}, "PME-METR-xxx")
 }
 
 // A process metric entry (form).
@@ -41369,42 +41369,42 @@ func (x *ProcessMetrics) DashboardSummary() *MetricsDashboardSummary {
 func (x *ProcessMetrics) EfficiencyMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-EFFI-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
-	})
+	}, "PRMECA-EFFI-xxx")
 }
 
 // Quality metrics.
 func (x *ProcessMetrics) QualityMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-QUAL-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
-	})
+	}, "PRMECA-QUAL-xxx")
 }
 
 // Volume metrics.
 func (x *ProcessMetrics) VolumeMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-VOLU-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
-	})
+	}, "PRMECA-VOLU-xxx")
 }
 
 // Cost metrics.
 func (x *ProcessMetrics) CostMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-COST-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
-	})
+	}, "PRMECA-COST-xxx")
 }
 
 // Manual intervention metrics.
 func (x *ProcessMetrics) ManualInterventionMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-MANU-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
-	})
+	}, "PRMECA-MANU-xxx")
 }
 
 // Individual metric entries.
 func (x *ProcessMetrics) Items() *som.SomList[*ProcessMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PME-ITEM-LST", func(d *som.SpecDocument, p string) *ProcessMetricEntry {
 		return NewProcessMetricEntry(d, p)
-	})
+	}, "PME-ITEM-xxx")
 }
 
 // Baseline comparison table.
@@ -41474,7 +41474,7 @@ func (x *ProcessPainPoints) SetContent(value string) {
 func (x *ProcessPainPoints) Improvements() *som.SomList[*CurrentProcessImprovementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CPIE-IMPR-LST", func(d *som.SpecDocument, p string) *CurrentProcessImprovementEntry {
 		return NewCurrentProcessImprovementEntry(d, p)
-	})
+	}, "CPIE-IMPR-xxx")
 }
 
 // Process performance metrics.
@@ -41496,14 +41496,14 @@ func (x *ProcessPerformance) Overview() *ProcessPerformanceOverview {
 func (x *ProcessPerformance) Kpis() *som.SomList[*ProcessKpiEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCKPI-KPIS-LST", func(d *som.SpecDocument, p string) *ProcessKpiEntry {
 		return NewProcessKpiEntry(d, p)
-	})
+	}, "PCKPI-KPIS-xxx")
 }
 
 // Service Level Agreements.
 func (x *ProcessPerformance) Slas() *som.SomList[*ProcessSlaEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCSLA-SLAS-LST", func(d *som.SpecDocument, p string) *ProcessSlaEntry {
 		return NewProcessSlaEntry(d, p)
-	})
+	}, "PCSLA-SLAS-xxx")
 }
 
 // Process performance overview.
@@ -41538,7 +41538,7 @@ func (x *ProcessPerformanceSummary) Content() *ProcessPerformanceSummaryContentF
 func (x *ProcessPerformanceSummary) KeyMetrics() *som.SomList[*ProcessMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PME-KEYM-LST", func(d *som.SpecDocument, p string) *ProcessMetricEntry {
 		return NewProcessMetricEntry(d, p)
-	})
+	}, "PME-KEYM-xxx")
 }
 
 // A process relationship entry.
@@ -41577,7 +41577,7 @@ func (x *ProcessRelationships) SetContent(value string) {
 func (x *ProcessRelationships) Relationships() *som.SomList[*ProcessRelationshipEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCRLT-RELA-LST", func(d *som.SpecDocument, p string) *ProcessRelationshipEntry {
 		return NewProcessRelationshipEntry(d, p)
-	})
+	}, "PCRLT-RELA-xxx")
 }
 
 // A process role entry.
@@ -41651,7 +41651,7 @@ func (x *ProcessRoles) Overview() *ProcessRolesOverview {
 func (x *ProcessRoles) Roles() *som.SomList[*ProcessRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PCROL-ROLE-LST", func(d *som.SpecDocument, p string) *ProcessRoleEntry {
 		return NewProcessRoleEntry(d, p)
-	})
+	}, "PCROL-ROLE-xxx")
 }
 
 // Process roles overview.
@@ -41700,14 +41700,14 @@ func (x *ProcessScopeSummary) Content() *ProcessScopeSummaryContentForm {
 func (x *ProcessScopeSummary) InScopeProcesses() *som.SomList[*ProcessScopeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRSCEN-INSC-LST", func(d *som.SpecDocument, p string) *ProcessScopeEntry {
 		return NewProcessScopeEntry(d, p)
-	})
+	}, "PRSCEN-INSC-xxx")
 }
 
 // Processes explicitly out of scope.
 func (x *ProcessScopeSummary) OutOfScopeProcesses() *som.SomList[*ProcessScopeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRSCEN-OUTO-LST", func(d *som.SpecDocument, p string) *ProcessScopeEntry {
 		return NewProcessScopeEntry(d, p)
-	})
+	}, "PRSCEN-OUTO-xxx")
 }
 
 // A process SLA entry.
@@ -41775,7 +41775,7 @@ func (x *ProcessStepsAndActorInteractions) ActorRelationshipDiagram() *ActorRela
 func (x *ProcessStepsAndActorInteractions) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenario] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenario {
 		return NewEndToEndTestScenario(d, p)
-	})
+	}, "ETETS-ENDT-xxx")
 }
 
 // 6.2.5. Use Case Traceability.
@@ -41896,14 +41896,14 @@ func (x *ProcessTriggers) Overview() *TriggerOverview {
 func (x *ProcessTriggers) Triggers() *som.SomList[*ProcessTriggerEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PTREN-TRIG-LST", func(d *som.SpecDocument, p string) *ProcessTriggerEntry {
 		return NewProcessTriggerEntry(d, p)
-	})
+	}, "PTREN-TRIG-xxx")
 }
 
 // Process end events (outcomes).
 func (x *ProcessTriggers) EndEvents() *som.SomList[*ProcessEndEventEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PEEVT-ENDE-LST", func(d *som.SpecDocument, p string) *ProcessEndEventEntry {
 		return NewProcessEndEventEntry(d, p)
-	})
+	}, "PEEVT-ENDE-xxx")
 }
 
 // 6.1.1. Process Vision.
@@ -41930,7 +41930,7 @@ func (x *ProcessVision) Overview() *ProcessVisionOverview {
 func (x *ProcessVision) ExpectedImprovements() *som.SomList[*ExpectedImprovements] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXIPR-EXPE-LST", func(d *som.SpecDocument, p string) *ExpectedImprovements {
 		return NewExpectedImprovements(d, p)
-	})
+	}, "EXIPR-EXPE-xxx")
 }
 
 // Success criteria for process transformation.
@@ -42175,14 +42175,14 @@ func (x *ProjectTeamStaffing) TeamStructure() *TeamStructureOverview {
 func (x *ProjectTeamStaffing) Members() *som.SomList[*TeamMemberEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TMMBE-MEMB-LST", func(d *som.SpecDocument, p string) *TeamMemberEntry {
 		return NewTeamMemberEntry(d, p)
-	})
+	}, "TMMBE-MEMB-xxx")
 }
 
 // Resource requirements not yet filled.
 func (x *ProjectTeamStaffing) OpenRequirements() *som.SomList[*ResourceRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RREQE-OPEN-LST", func(d *som.SpecDocument, p string) *ResourceRequirementEntry {
 		return NewResourceRequirementEntry(d, p)
-	})
+	}, "RREQE-OPEN-xxx")
 }
 
 // Protocol compliance requirements.
@@ -42295,7 +42295,7 @@ func (x *ProtocolsAndStandardsSection) SetContent(value string) {
 func (x *ProtocolsAndStandardsSection) Protocols() *som.SomList[*ProtocolEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PREN-PROT-LST", func(d *som.SpecDocument, p string) *ProtocolEntry {
 		return NewProtocolEntry(d, p)
-	})
+	}, "PREN-PROT-xxx")
 }
 
 // TLS/SSL requirements.
@@ -42428,7 +42428,7 @@ func (x *PrototypeFeatureSubset) Fidelity() *PrototypeFeatureSubsetFidelity {
 func (x *PrototypeFeatureSubset) Features() *som.SomList[*PrototypeFeatureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRFEEN-FEAT-LST", func(d *som.SpecDocument, p string) *PrototypeFeatureEntry {
 		return NewPrototypeFeatureEntry(d, p)
-	})
+	}, "PRFEEN-FEAT-xxx")
 }
 
 // Fidelity expectations for the prototype.
@@ -42506,7 +42506,7 @@ func (x *PrototypeGoals) FeedbackProfile() *PrototypeGoalsFeedback {
 func (x *PrototypeGoals) Goals() *som.SomList[*PrototypeGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRGOEN-GOAL-LST", func(d *som.SpecDocument, p string) *PrototypeGoalEntry {
 		return NewPrototypeGoalEntry(d, p)
-	})
+	}, "PRGOEN-GOAL-xxx")
 }
 
 // User feedback objectives and intake.
@@ -42871,14 +42871,14 @@ func (x *QualityFramework) Verification() *QualityFrameworkVerification {
 func (x *QualityFramework) QualityCategories() *som.SomList[*QualityCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QCATE-QUAL-LST", func(d *som.SpecDocument, p string) *QualityCategoryEntry {
 		return NewQualityCategoryEntry(d, p)
-	})
+	}, "QCATE-QUAL-xxx")
 }
 
 // Quality dependencies map.
 func (x *QualityFramework) CategoryDependencies() *som.SomList[*CategoryDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CATEG-CATE-LST", func(d *som.SpecDocument, p string) *CategoryDependencyEntry {
 		return NewCategoryDependencyEntry(d, p)
-	})
+	}, "CATEG-CATE-xxx")
 }
 
 // Quality objective structure and alignment.
@@ -42959,7 +42959,7 @@ func (x *QualityGateAdjustmentEntry) Content() *QualityGateAdjustmentEntryConten
 func (x *QualityGateAdjustmentEntry) Details() *som.SomList[*QualityGateAdjustmentDetails] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QGAED-DETA-LST", func(d *som.SpecDocument, p string) *QualityGateAdjustmentDetails {
 		return NewQualityGateAdjustmentDetails(d, p)
-	})
+	}, "QGAED-DETA-xxx")
 }
 
 // Rationale.
@@ -43073,7 +43073,7 @@ func (x *QualityGateAdjustments) SetGateFlowDiagram(value string) {
 func (x *QualityGateAdjustments) Items() *som.SomList[*QualityGateAdjustmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QGAJE-ITEM-LST", func(d *som.SpecDocument, p string) *QualityGateAdjustmentEntry {
 		return NewQualityGateAdjustmentEntry(d, p)
-	})
+	}, "QGAJE-ITEM-xxx")
 }
 
 // A quality gate check entry (form).
@@ -43208,7 +43208,7 @@ func (x *QualityGateChecklist) ChecklistOverviewContent() *QualityGateChecklistC
 func (x *QualityGateChecklist) Items() *som.SomList[*QualityGateCheckEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QGCHK-ITEM-LST", func(d *som.SpecDocument, p string) *QualityGateCheckEntry {
 		return NewQualityGateCheckEntry(d, p)
-	})
+	}, "QGCHK-ITEM-xxx")
 }
 
 // Baseline and target settings.
@@ -43336,7 +43336,7 @@ func (x *QualityScenarios) SetContent(value string) {
 func (x *QualityScenarios) Items() *som.SomList[*QualityScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QLSCN-ITEM-LST", func(d *som.SpecDocument, p string) *QualityScenarioEntry {
 		return NewQualityScenarioEntry(d, p)
-	})
+	}, "QLSCN-ITEM-xxx")
 }
 
 // Quality standard entry (CMMI, ISO 9001).
@@ -43894,7 +43894,7 @@ func (x *ReferenceDocuments) SetContent(value string) {
 func (x *ReferenceDocuments) Documents() *som.SomList[*ReferenceDocumentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RFDOC-DOCU-LST", func(d *som.SpecDocument, p string) *ReferenceDocumentEntry {
 		return NewReferenceDocumentEntry(d, p)
-	})
+	}, "RFDOC-DOCU-xxx")
 }
 
 // Regulatory audit support (form).
@@ -44030,14 +44030,14 @@ func (x *RegulatoryComplianceRequirements) SetContent(value string) {
 func (x *RegulatoryComplianceRequirements) Requirements() *som.SomList[*RegulatoryRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REGRQ-REQU-LST", func(d *som.SpecDocument, p string) *RegulatoryRequirementEntry {
 		return NewRegulatoryRequirementEntry(d, p)
-	})
+	}, "REGRQ-REQU-xxx")
 }
 
 // Compliance milestones.
 func (x *RegulatoryComplianceRequirements) Milestones() *som.SomList[*ComplianceMilestoneEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CPML-MILE-LST", func(d *som.SpecDocument, p string) *ComplianceMilestoneEntry {
 		return NewComplianceMilestoneEntry(d, p)
-	})
+	}, "CPML-MILE-xxx")
 }
 
 // 4.1.2.8. Regulatory Context.
@@ -44065,7 +44065,7 @@ func (x *RegulatoryContext) SetContent(value string) {
 func (x *RegulatoryContext) Regulations() *som.SomList[*ApplicableRegulationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ARE-REGU-LST", func(d *som.SpecDocument, p string) *ApplicableRegulationEntry {
 		return NewApplicableRegulationEntry(d, p)
-	})
+	}, "ARE-REGU-xxx")
 }
 
 // A regulatory requirement entry.
@@ -44504,7 +44504,7 @@ func NewReplacementInventory(doc *som.SpecDocument, path string) *ReplacementInv
 func (x *ReplacementInventory) Systems() *som.SomList[*SystemToReplaceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYTORE-SYST-LST", func(d *som.SpecDocument, p string) *SystemToReplaceEntry {
 		return NewSystemToReplaceEntry(d, p)
-	})
+	}, "SYTORE-SYST-xxx")
 }
 
 // A replacement phase entry.
@@ -44584,7 +44584,7 @@ func (x *ReportChartEntry) Content() *ReportChartEntryContentForm {
 func (x *ReportChartEntry) Axes() *som.SomList[*ReportChartAxes] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECHAX-AXES-LST", func(d *som.SpecDocument, p string) *ReportChartAxes {
 		return NewReportChartAxes(d, p)
-	})
+	}, "RECHAX-AXES-xxx")
 }
 
 // Series and colors.
@@ -44917,35 +44917,35 @@ func (x *ReportEntry) Lifecycle() *ReportLifecycle {
 func (x *ReportEntry) Sections() *som.SomList[*ReportSectionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESEE1-SECT-LST", func(d *som.SpecDocument, p string) *ReportSectionEntry {
 		return NewReportSectionEntry(d, p)
-	})
+	}, "RESEE1-SECT-xxx")
 }
 
 // Contains 0+× Report Filter.
 func (x *ReportEntry) Filters() *som.SomList[*ReportFilterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REFIEN-FILT-LST", func(d *som.SpecDocument, p string) *ReportFilterEntry {
 		return NewReportFilterEntry(d, p)
-	})
+	}, "REFIEN-FILT-xxx")
 }
 
 // Contains 0+× Report Schedule.
 func (x *ReportEntry) Schedules() *som.SomList[*ReportScheduleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESCEN-SCHE-LST", func(d *som.SpecDocument, p string) *ReportScheduleEntry {
 		return NewReportScheduleEntry(d, p)
-	})
+	}, "RESCEN-SCHE-xxx")
 }
 
 // Contains 0+× Report Distribution.
 func (x *ReportEntry) Distributions() *som.SomList[*ReportDistributionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REDIEN-DIST-LST", func(d *som.SpecDocument, p string) *ReportDistributionEntry {
 		return NewReportDistributionEntry(d, p)
-	})
+	}, "REDIEN-DIST-xxx")
 }
 
 // Contains 0+× Recipient.
 func (x *ReportEntry) Recipients() *som.SomList[*ReportRecipientEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REREEN-RECI-LST", func(d *som.SpecDocument, p string) *ReportRecipientEntry {
 		return NewReportRecipientEntry(d, p)
-	})
+	}, "REREEN-RECI-xxx")
 }
 
 // A filter parameter for a report (form).
@@ -45373,14 +45373,14 @@ func (x *ReportSectionEntry) Aggregation() *ReportSectionAggregation {
 func (x *ReportSectionEntry) Columns() *som.SomList[*ReportColumnEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECOE1-COLU-LST", func(d *som.SpecDocument, p string) *ReportColumnEntry {
 		return NewReportColumnEntry(d, p)
-	})
+	}, "RECOE1-COLU-xxx")
 }
 
 // Contains 0+× Report Chart.
 func (x *ReportSectionEntry) Charts() *som.SomList[*ReportChartEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECHEN-CHAR-LST", func(d *som.SpecDocument, p string) *ReportChartEntry {
 		return NewReportChartEntry(d, p)
-	})
+	}, "RECHEN-CHAR-xxx")
 }
 
 // Layout and page settings.
@@ -45468,7 +45468,7 @@ func (x *RequirementAcceptanceCriteria) SetContent(value string) {
 func (x *RequirementAcceptanceCriteria) Criteria() *som.SomList[*AcceptanceCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACCR-CRIT-LST", func(d *som.SpecDocument, p string) *AcceptanceCriterionEntry {
 		return NewAcceptanceCriterionEntry(d, p)
-	})
+	}, "ACCR-CRIT-xxx")
 }
 
 // A business rule entry (form).
@@ -45509,7 +45509,7 @@ func (x *RequirementBusinessRules) SetContent(value string) {
 func (x *RequirementBusinessRules) Rules() *som.SomList[*RequirementBusinessRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RQBIRU-RULE-LST", func(d *som.SpecDocument, p string) *RequirementBusinessRuleEntry {
 		return NewRequirementBusinessRuleEntry(d, p)
-	})
+	}, "RQBIRU-RULE-xxx")
 }
 
 // 4.3.6. Requirement Coverage.
@@ -45556,7 +45556,7 @@ func (x *RequirementDataRequirements) SetContent(value string) {
 func (x *RequirementDataRequirements) Entities() *som.SomList[*DataEntityReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAENRE-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityReferenceEntry {
 		return NewDataEntityReferenceEntry(d, p)
-	})
+	}, "DAENRE-ENTI-xxx")
 }
 
 // 4.3.1.n.5. Dependencies.
@@ -45583,7 +45583,7 @@ func (x *RequirementDependencies) SetContent(value string) {
 func (x *RequirementDependencies) Items() *som.SomList[*RequirementDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RQDEP-ITEM-LST", func(d *som.SpecDocument, p string) *RequirementDependencyEntry {
 		return NewRequirementDependencyEntry(d, p)
-	})
+	}, "RQDEP-ITEM-xxx")
 }
 
 // A requirement dependency entry (form).
@@ -45648,7 +45648,7 @@ func (x *RequirementScreenActionEntry) Content() *RequirementScreenActionEntryCo
 func (x *RequirementScreenActionEntry) Parameters() *som.SomList[*ActionParameterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACPR-PARA-LST", func(d *som.SpecDocument, p string) *ActionParameterEntry {
 		return NewActionParameterEntry(d, p)
-	})
+	}, "ACPR-PARA-xxx")
 }
 
 // A test case entry for requirement verification (form).
@@ -45735,7 +45735,7 @@ func (x *RequirementTestCases) SetContent(value string) {
 func (x *RequirementTestCases) TestCases() *som.SomList[*RequirementTestCaseEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RQTSC-TEST-LST", func(d *som.SpecDocument, p string) *RequirementTestCaseEntry {
 		return NewRequirementTestCaseEntry(d, p)
-	})
+	}, "RQTSC-TEST-xxx")
 }
 
 // 4.3.1.n.6. Traceability.
@@ -45850,21 +45850,21 @@ func (x *RequirementUiSpecification) SetMockupDescription(value string) {
 func (x *RequirementUiSpecification) Fields() *som.SomList[*ScreenFieldEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCFLD-FIEL-LST", func(d *som.SpecDocument, p string) *ScreenFieldEntry {
 		return NewScreenFieldEntry(d, p)
-	})
+	}, "SCFLD-FIEL-xxx")
 }
 
 // Screen action entries — contains 0+× RequirementScreenActionEntry.
 func (x *RequirementUiSpecification) Actions() *som.SomList[*RequirementScreenActionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RQSCAC-ACTI-LST", func(d *som.SpecDocument, p string) *RequirementScreenActionEntry {
 		return NewRequirementScreenActionEntry(d, p)
-	})
+	}, "RQSCAC-ACTI-xxx")
 }
 
 // Screen behavior entries — contains 0+× ScreenBehaviorEntry.
 func (x *RequirementUiSpecification) Behaviors() *som.SomList[*ScreenBehaviorEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCBHV-BEHA-LST", func(d *som.SpecDocument, p string) *ScreenBehaviorEntry {
 		return NewScreenBehaviorEntry(d, p)
-	})
+	}, "SCBHV-BEHA-xxx")
 }
 
 // SBP.9 Requirements.
@@ -45966,7 +45966,7 @@ func (x *RequirementsOverview) OrganizationalRequirements() *OrganizationalRequi
 func (x *RequirementsOverview) RequirementRelationships() *som.SomList[*RequirementRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
 		return NewRequirementRelationships(d, p)
-	})
+	}, "RERE-REQU-xxx")
 }
 
 // 4.3.6. Requirement Coverage.
@@ -46235,7 +46235,7 @@ func (x *ResponsibilityEntry) Content() *ResponsibilityEntryContentForm {
 func (x *ResponsibilityEntry) FunctionDetails() *som.SomList[*ResponsibilityFunctionDetails] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REFUDE-FUNC-LST", func(d *som.SpecDocument, p string) *ResponsibilityFunctionDetails {
 		return NewResponsibilityFunctionDetails(d, p)
-	})
+	}, "REFUDE-FUNC-xxx")
 }
 
 // RACI assignment.
@@ -46247,14 +46247,14 @@ func (x *ResponsibilityEntry) Raci() *ResponsibilityRaci {
 func (x *ResponsibilityEntry) Contacts() *som.SomList[*ResponsibilityContacts] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECO-CONT-LST", func(d *som.SpecDocument, p string) *ResponsibilityContacts {
 		return NewResponsibilityContacts(d, p)
-	})
+	}, "RECO-CONT-xxx")
 }
 
 // Related systems and data.
 func (x *ResponsibilityEntry) Systems() *som.SomList[*ResponsibilitySystems] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESY-SYST-LST", func(d *som.SpecDocument, p string) *ResponsibilitySystems {
 		return NewResponsibilitySystems(d, p)
-	})
+	}, "RESY-SYST-xxx")
 }
 
 // Governance and transition.
@@ -46389,7 +46389,7 @@ func (x *ResponsiveBehavior) Content() *ResponsiveBehaviorContent {
 func (x *ResponsiveBehavior) ScreenRules() *som.SomList[*ResponsiveScreenRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESPSR-SCRE-LST", func(d *som.SpecDocument, p string) *ResponsiveScreenRuleEntry {
 		return NewResponsiveScreenRuleEntry(d, p)
-	})
+	}, "RESPSR-SCRE-xxx")
 }
 
 // Content reflow rules.
@@ -46700,35 +46700,35 @@ func (x *ReusableComponentsSection) Principles() *ReusabilityPrinciples {
 func (x *ReusableComponentsSection) SharedLibraries() *som.SomList[*SharedLibraryComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SHLCP-SHAR-LST", func(d *som.SpecDocument, p string) *SharedLibraryComponentEntry {
 		return NewSharedLibraryComponentEntry(d, p)
-	})
+	}, "SHLCP-SHAR-xxx")
 }
 
 // UI component library entries.
 func (x *ReusableComponentsSection) UiComponents() *som.SomList[*ReusableUiComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RUICMP-UICO-LST", func(d *som.SpecDocument, p string) *ReusableUiComponentEntry {
 		return NewReusableUiComponentEntry(d, p)
-	})
+	}, "RUICMP-UICO-xxx")
 }
 
 // Business logic components.
 func (x *ReusableComponentsSection) BusinessComponents() *som.SomList[*BusinessComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BUCOEN-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessComponentEntry {
 		return NewBusinessComponentEntry(d, p)
-	})
+	}, "BUCOEN-BUSI-xxx")
 }
 
 // Infrastructure components.
 func (x *ReusableComponentsSection) InfrastructureComponents() *som.SomList[*InfrastructureComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INCOEN-INFR-LST", func(d *som.SpecDocument, p string) *InfrastructureComponentEntry {
 		return NewInfrastructureComponentEntry(d, p)
-	})
+	}, "INCOEN-INFR-xxx")
 }
 
 // Third-party frameworks and libraries.
 func (x *ReusableComponentsSection) ThirdPartyLibraries() *som.SomList[*ThirdPartyLibraryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/THPALI-THIR-LST", func(d *som.SpecDocument, p string) *ThirdPartyLibraryEntry {
 		return NewThirdPartyLibraryEntry(d, p)
-	})
+	}, "THPALI-THIR-xxx")
 }
 
 // Component governance and maintenance.
@@ -47091,7 +47091,7 @@ func (x *RevisionHistory) SetContent(value string) {
 func (x *RevisionHistory) Revisions() *som.SomList[*RevisionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RVHST-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
 		return NewRevisionEntry(d, p)
-	})
+	}, "RVHST-REVS-xxx")
 }
 
 // Risk analysis — probability, impact, and risk scoring.
@@ -47244,7 +47244,7 @@ func (x *RiskEntry) BusinessImpact() *RiskBusinessImpact {
 func (x *RiskEntry) Relationships() *som.SomList[*RiskRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RR-RELA-LST", func(d *som.SpecDocument, p string) *RiskRelationships {
 		return NewRiskRelationships(d, p)
-	})
+	}, "RR-RELA-xxx")
 }
 
 // Risk identification details.
@@ -47461,7 +47461,7 @@ func (x *RisksAndAssumptions) Overview() *RisksOverview {
 func (x *RisksAndAssumptions) KeyRisks() *som.SomList[*RiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RIEN-KEYR-LST", func(d *som.SpecDocument, p string) *RiskEntry {
 		return NewRiskEntry(d, p)
-	})
+	}, "RIEN-KEYR-xxx")
 }
 
 // Overview of the risk management approach.
@@ -47645,7 +47645,7 @@ func (x *RoleAdjustments) SetRoleComparisonDiagram(value string) {
 func (x *RoleAdjustments) Items() *som.SomList[*RoleAdjustmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RLAJE-ITEM-LST", func(d *som.SpecDocument, p string) *RoleAdjustmentEntry {
 		return NewRoleAdjustmentEntry(d, p)
-	})
+	}, "RLAJE-ITEM-xxx")
 }
 
 // Role Certification Policy (form).
@@ -47779,21 +47779,21 @@ func (x *RoleHierarchy) HierarchyPolicy() *RoleHierarchyPolicy {
 func (x *RoleHierarchy) InheritanceRules() *som.SomList[*RoleInheritanceRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RLINH-INHE-LST", func(d *som.SpecDocument, p string) *RoleInheritanceRuleEntry {
 		return NewRoleInheritanceRuleEntry(d, p)
-	})
+	}, "RLINH-INHE-xxx")
 }
 
 // Contains 0+× RoleCombinationConstraint.
 func (x *RoleHierarchy) CombinationConstraints() *som.SomList[*RoleCombinationConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RLCMB-COMB-LST", func(d *som.SpecDocument, p string) *RoleCombinationConstraintEntry {
 		return NewRoleCombinationConstraintEntry(d, p)
-	})
+	}, "RLCMB-COMB-xxx")
 }
 
 // Contains 0+× GlobalRoleExclusion.
 func (x *RoleHierarchy) GlobalExclusions() *som.SomList[*GlobalRoleExclusionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/GBRLX-GLOB-LST", func(d *som.SpecDocument, p string) *GlobalRoleExclusionEntry {
 		return NewGlobalRoleExclusionEntry(d, p)
-	})
+	}, "GBRLX-GLOB-xxx")
 }
 
 // Role Certification and Review.
@@ -48206,7 +48206,7 @@ func (x *RuntimeDependencies) SetContent(value string) {
 func (x *RuntimeDependencies) Items() *som.SomList[*RuntimeDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RNDEP-ITEM-LST", func(d *som.SpecDocument, p string) *RuntimeDependencyEntry {
 		return NewRuntimeDependencyEntry(d, p)
-	})
+	}, "RNDEP-ITEM-xxx")
 }
 
 // A runtime dependency entry (form).
@@ -48830,14 +48830,14 @@ func (x *ScenarioEntry) Context() *ScenarioContext {
 func (x *ScenarioEntry) Steps() *som.SomList[*ScenarioStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCNST-STEP-LST", func(d *som.SpecDocument, p string) *ScenarioStepEntry {
 		return NewScenarioStepEntry(d, p)
-	})
+	}, "SCNST-STEP-xxx")
 }
 
 // Alternative flows — contains 0+× Alternative Flow.
 func (x *ScenarioEntry) AlternativeFlows() *som.SomList[*AlternativeFlowEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ALFL-ALTE-LST", func(d *som.SpecDocument, p string) *AlternativeFlowEntry {
 		return NewAlternativeFlowEntry(d, p)
-	})
+	}, "ALFL-ALTE-xxx")
 }
 
 // Scenario data.
@@ -49096,28 +49096,28 @@ func (x *ScopeBoundaries) SetContent(value string) {
 func (x *ScopeBoundaries) InScopeItems() *som.SomList[*ScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCITE-INSC-LST", func(d *som.SpecDocument, p string) *ScopeItemEntry {
 		return NewScopeItemEntry(d, p)
-	})
+	}, "SCITE-INSC-xxx")
 }
 
 // Out-of-Scope Items — contains 0+× ScopeItem.
 func (x *ScopeBoundaries) OutOfScopeItems() *som.SomList[*ScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCITE-OUTO-LST", func(d *som.SpecDocument, p string) *ScopeItemEntry {
 		return NewScopeItemEntry(d, p)
-	})
+	}, "SCITE-OUTO-xxx")
 }
 
 // Deferred Items — contains 0+× ScopeItem.
 func (x *ScopeBoundaries) DeferredItems() *som.SomList[*DeferredScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DFSCP-DEFE-LST", func(d *som.SpecDocument, p string) *DeferredScopeItemEntry {
 		return NewDeferredScopeItemEntry(d, p)
-	})
+	}, "DFSCP-DEFE-xxx")
 }
 
 // Scope Assumptions.
 func (x *ScopeBoundaries) ScopeAssumptions() *som.SomList[*ScopeAssumptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCOPE-SCOP-LST", func(d *som.SpecDocument, p string) *ScopeAssumptionEntry {
 		return NewScopeAssumptionEntry(d, p)
-	})
+	}, "SCOPE-SCOP-xxx")
 }
 
 // A scope item entry (in-scope or out-of-scope).
@@ -49231,7 +49231,7 @@ func (x *ScreenActions) SetContent(value string) {
 func (x *ScreenActions) Items() *som.SomList[*ScreenActionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCRAC-ITEM-LST", func(d *som.SpecDocument, p string) *ScreenActionEntry {
 		return NewScreenActionEntry(d, p)
-	})
+	}, "SCRAC-ITEM-xxx")
 }
 
 // A screen behavior entry (form).
@@ -49443,7 +49443,7 @@ func (x *ScreenElementEntry) DataDisplay() *ScreenElementDataDisplay {
 func (x *ScreenElementEntry) ValidationRules() *som.SomList[*ElementValidationRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EVRE-VALI-LST", func(d *som.SpecDocument, p string) *ElementValidationRuleEntry {
 		return NewElementValidationRuleEntry(d, p)
-	})
+	}, "EVRE-VALI-xxx")
 }
 
 // Visibility and permission rules for screen element.
@@ -49653,21 +49653,21 @@ func (x *ScreenEntry) States() *ScreenStates {
 func (x *ScreenEntry) UserCategories() *som.SomList[*ScreenUserCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCRUSC-USER-LST", func(d *som.SpecDocument, p string) *ScreenUserCategoryEntry {
 		return NewScreenUserCategoryEntry(d, p)
-	})
+	}, "SCRUSC-USER-xxx")
 }
 
 // Contains 0+× EntryPoint.
 func (x *ScreenEntry) EntryPoints() *som.SomList[*EntryPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EPNT-ENTR-LST", func(d *som.SpecDocument, p string) *EntryPointEntry {
 		return NewEntryPointEntry(d, p)
-	})
+	}, "EPNT-ENTR-xxx")
 }
 
 // Contains 0+× ScreenResponsiveRule.
 func (x *ScreenEntry) ResponsiveRules() *som.SomList[*ScreenResponsiveRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SRRE-RESP-LST", func(d *som.SpecDocument, p string) *ScreenResponsiveRuleEntry {
 		return NewScreenResponsiveRuleEntry(d, p)
-	})
+	}, "SRRE-RESP-xxx")
 }
 
 // Access control settings.
@@ -49794,7 +49794,7 @@ func (x *ScreenFieldEntry) Layout() *ScreenFieldLayout {
 func (x *ScreenFieldEntry) ValidationRules() *som.SomList[*FieldValidationRule] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FLDVL-VALI-LST", func(d *som.SpecDocument, p string) *FieldValidationRule {
 		return NewFieldValidationRule(d, p)
-	})
+	}, "FLDVL-VALI-xxx")
 }
 
 // UI and layout.
@@ -49879,7 +49879,7 @@ func (x *ScreenInventory) SetContent(value string) {
 func (x *ScreenInventory) Items() *som.SomList[*ScreenEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCREN-ITEM-LST", func(d *som.SpecDocument, p string) *ScreenEntry {
 		return NewScreenEntry(d, p)
-	})
+	}, "SCREN-ITEM-xxx")
 }
 
 // A responsive rule entry (form).
@@ -49928,7 +49928,7 @@ func (x *ScreenSectionEntry) Behavior() *ScreenSectionEntryBehavior {
 func (x *ScreenSectionEntry) Elements() *som.SomList[*ScreenElementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCREL-ELEM-LST", func(d *som.SpecDocument, p string) *ScreenElementEntry {
 		return NewScreenElementEntry(d, p)
-	})
+	}, "SCREL-ELEM-xxx")
 }
 
 // Visibility and collapse behavior.
@@ -49983,7 +49983,7 @@ func (x *ScreenSections) SetContent(value string) {
 func (x *ScreenSections) Items() *som.SomList[*ScreenSectionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCRSC-ITEM-LST", func(d *som.SpecDocument, p string) *ScreenSectionEntry {
 		return NewScreenSectionEntry(d, p)
-	})
+	}, "SCRSC-ITEM-xxx")
 }
 
 // A screen state entry (form).
@@ -50026,7 +50026,7 @@ func (x *ScreenStates) SetContent(value string) {
 func (x *ScreenStates) Items() *som.SomList[*ScreenStateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCRST-ITEM-LST", func(d *som.SpecDocument, p string) *ScreenStateEntry {
 		return NewScreenStateEntry(d, p)
-	})
+	}, "SCRST-ITEM-xxx")
 }
 
 // A user category entry (form).
@@ -50070,7 +50070,7 @@ func (x *SecondaryNavigation) SetContent(value string) {
 func (x *SecondaryNavigation) TabBars() *som.SomList[*TabBarDefinitionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TBDE-TABB-LST", func(d *som.SpecDocument, p string) *TabBarDefinitionEntry {
 		return NewTabBarDefinitionEntry(d, p)
-	})
+	}, "TBDE-TABB-xxx")
 }
 
 // 11.3.4. Security quality.
@@ -50298,7 +50298,7 @@ func (x *SecurityAuditRequirementsSection) SecurityTestingAutomation() *Security
 func (x *SecurityAuditRequirementsSection) AuditEntries() *som.SomList[*SecurityAuditEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SEAUEN-AUDI-LST", func(d *som.SpecDocument, p string) *SecurityAuditEntry {
 		return NewSecurityAuditEntry(d, p)
-	})
+	}, "SEAUEN-AUDI-xxx")
 }
 
 // Authentication controls.
@@ -50633,7 +50633,7 @@ func (x *SecurityControls) SetContent(value string) {
 func (x *SecurityControls) Controls() *som.SomList[*SecurityControlEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SECCT-CONT-LST", func(d *som.SpecDocument, p string) *SecurityControlEntry {
 		return NewSecurityControlEntry(d, p)
-	})
+	}, "SECCT-CONT-xxx")
 }
 
 // Security development lifecycle.
@@ -50795,7 +50795,7 @@ func (x *SecurityEventsDefinition) AdministrativeEvents() *AdministrativeEventPo
 func (x *SecurityEventsDefinition) CustomEvents() *som.SomList[*SecurityEventEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SEVT-CUST-LST", func(d *som.SpecDocument, p string) *SecurityEventEntry {
 		return NewSecurityEventEntry(d, p)
-	})
+	}, "SEVT-CUST-xxx")
 }
 
 // A security requirement entry.
@@ -50943,7 +50943,7 @@ func (x *SecurityRequirements) SummaryForm() *SecurityRequirementsSummaryFormFor
 func (x *SecurityRequirements) Requirements() *som.SomList[*SecurityRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SECRQ-REQU-LST", func(d *som.SpecDocument, p string) *SecurityRequirementEntry {
 		return NewSecurityRequirementEntry(d, p)
-	})
+	}, "SECRQ-REQU-xxx")
 }
 
 // Security standard compliance entry (SOC2, ISO 27001, CIS).
@@ -51613,14 +51613,14 @@ func (x *ServerRequirementsSection) SetContent(value string) {
 func (x *ServerRequirementsSection) Environments() *som.SomList[*ServerEnvironmentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SEENEN-ENVI-LST", func(d *som.SpecDocument, p string) *ServerEnvironmentEntry {
 		return NewServerEnvironmentEntry(d, p)
-	})
+	}, "SEENEN-ENVI-xxx")
 }
 
 // Server role definitions (app server, db server, web server).
 func (x *ServerRequirementsSection) ServerRoles() *som.SomList[*ServerRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SEROEN-SERV-LST", func(d *som.SpecDocument, p string) *ServerRoleEntry {
 		return NewServerRoleEntry(d, p)
-	})
+	}, "SEROEN-SERV-xxx")
 }
 
 // Compute resource requirements.
@@ -51937,7 +51937,7 @@ func (x *ServiceLevel) Restoration() *ServiceLevelRestoration {
 func (x *ServiceLevel) SlaEntries() *som.SomList[*ServiceLevelAgreementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SLAE-SLAE-LST", func(d *som.SpecDocument, p string) *ServiceLevelAgreementEntry {
 		return NewServiceLevelAgreementEntry(d, p)
-	})
+	}, "SLAE-SLAE-xxx")
 }
 
 // A service level agreement entry.
@@ -52417,7 +52417,7 @@ func (x *SharedInfrastructureDependencies) SetContent(value string) {
 func (x *SharedInfrastructureDependencies) Items() *som.SomList[*SharedInfrastructureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SHIEN-ITEM-LST", func(d *som.SpecDocument, p string) *SharedInfrastructureEntry {
 		return NewSharedInfrastructureEntry(d, p)
-	})
+	}, "SHIEN-ITEM-xxx")
 }
 
 // A shared infrastructure entry (form).
@@ -52912,7 +52912,7 @@ func (x *SlaAndSloMonitoring) Slis() *ServiceLevelIndicators {
 func (x *SlaAndSloMonitoring) Slos() *som.SomList[*SloEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SLEN-SLOS-LST", func(d *som.SpecDocument, p string) *SloEntry {
 		return NewSloEntry(d, p)
-	})
+	}, "SLEN-SLOS-xxx")
 }
 
 // Error budget tracking.
@@ -53084,7 +53084,7 @@ func (x *SoftwareDeliverables) SetContent(value string) {
 func (x *SoftwareDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SWDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
-	})
+	}, "SWDLV-ITEM-xxx")
 }
 
 // 8.2. Software Design Requirements.
@@ -53497,7 +53497,7 @@ func (x *StaffingPlan) Budget() *StaffingBudget {
 func (x *StaffingPlan) Items() *som.SomList[*StaffingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STFE-ITEM-LST", func(d *som.SpecDocument, p string) *StaffingEntry {
 		return NewStaffingEntry(d, p)
-	})
+	}, "STFE-ITEM-xxx")
 }
 
 // Recruitment timeline.
@@ -53586,14 +53586,14 @@ func (x *StageEntry) Scope() *StageScope {
 func (x *StageEntry) Dependencies() *som.SomList[*StageDependencies] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STDE-DEPE-LST", func(d *som.SpecDocument, p string) *StageDependencies {
 		return NewStageDependencies(d, p)
-	})
+	}, "STDE-DEPE-xxx")
 }
 
 // Resources and budget.
 func (x *StageEntry) Resources() *som.SomList[*StageResources] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STRE-RESO-LST", func(d *som.SpecDocument, p string) *StageResources {
 		return NewStageResources(d, p)
-	})
+	}, "STRE-RESO-xxx")
 }
 
 // Quality and governance.
@@ -53610,7 +53610,7 @@ func (x *StageEntry) Deployment() *StageDeployment {
 func (x *StageEntry) Stakeholders() *som.SomList[*StageStakeholders] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STST-STAK-LST", func(d *som.SpecDocument, p string) *StageStakeholders {
 		return NewStageStakeholders(d, p)
-	})
+	}, "STST-STAK-xxx")
 }
 
 // Risk.
@@ -53630,7 +53630,7 @@ func (x *StageEntry) Metrics() *StageMetrics {
 func (x *StageEntry) SubStagesAndMilestones() *som.SomList[*SubStageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SUSST-SUBS-LST", func(d *som.SpecDocument, p string) *SubStageEntry {
 		return NewSubStageEntry(d, p)
-	})
+	}, "SUSST-SUBS-xxx")
 }
 
 // Timeline narrative.
@@ -53640,7 +53640,7 @@ func (x *StageEntry) SubStagesAndMilestones() *som.SomList[*SubStageEntry] {
 func (x *StageEntry) SuccessCriteria() *som.SomList[*StageSuccessCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STGSUC-SUCC-LST", func(d *som.SpecDocument, p string) *StageSuccessCriterionEntry {
 		return NewStageSuccessCriterionEntry(d, p)
-	})
+	}, "STGSUC-SUCC-xxx")
 }
 
 // Rollout Plan narrative.
@@ -54051,7 +54051,7 @@ func (x *StageMigrationRisks) Content() *StageMigrationRisksContentForm {
 func (x *StageMigrationRisks) Items() *som.SomList[*StageMigrationRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STGMRS-ITEM-LST", func(d *som.SpecDocument, p string) *StageMigrationRiskEntry {
 		return NewStageMigrationRiskEntry(d, p)
-	})
+	}, "STGMRS-ITEM-xxx")
 }
 
 // 13.2. Stage Overview.
@@ -54135,7 +54135,7 @@ func (x *StageOverview) Constraints() *StageOverviewConstraints {
 func (x *StageOverview) StageSummaries() *som.SomList[*StageSummaryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGSE-STAG-LST", func(d *som.SpecDocument, p string) *StageSummaryEntry {
 		return NewStageSummaryEntry(d, p)
-	})
+	}, "STAGSE-STAG-xxx")
 }
 
 // Stage Summary narrative.
@@ -54550,14 +54550,14 @@ func (x *StageSummaryEntry) Scope() *StageSummaryScope {
 func (x *StageSummaryEntry) Resources() *som.SomList[*StageSummaryResources] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STSURE-RESO-LST", func(d *som.SpecDocument, p string) *StageSummaryResources {
 		return NewStageSummaryResources(d, p)
-	})
+	}, "STSURE-RESO-xxx")
 }
 
 // Dependencies and risks.
 func (x *StageSummaryEntry) Dependencies() *som.SomList[*StageSummaryDependencies] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STSUDE-DEPE-LST", func(d *som.SpecDocument, p string) *StageSummaryDependencies {
 		return NewStageSummaryDependencies(d, p)
-	})
+	}, "STSUDE-DEPE-xxx")
 }
 
 // Quality and acceptance.
@@ -54857,7 +54857,7 @@ func (x *StagingStrategy) Rationale() *StagingRationale {
 func (x *StagingStrategy) Drivers() *som.SomList[*StagingDrivers] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGDR-DRIV-LST", func(d *som.SpecDocument, p string) *StagingDrivers {
 		return NewStagingDrivers(d, p)
-	})
+	}, "STAGDR-DRIV-xxx")
 }
 
 // Risk assessment.
@@ -54899,7 +54899,7 @@ func (x *StagingStrategy) FrameworkAlignment() *StagingFrameworkAlignment {
 func (x *StagingStrategy) Dependencies() *som.SomList[*StagingDependencies] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGDP-DEPE-LST", func(d *som.SpecDocument, p string) *StagingDependencies {
 		return NewStagingDependencies(d, p)
-	})
+	}, "STAGDP-DEPE-xxx")
 }
 
 // Governance and approvals.
@@ -54917,14 +54917,14 @@ func (x *StagingStrategy) Governance() *StagingGovernance {
 func (x *StagingStrategy) KeyAssumptions() *som.SomList[*KeyAssumptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KEYAS-KEYA-LST", func(d *som.SpecDocument, p string) *KeyAssumptionEntry {
 		return NewKeyAssumptionEntry(d, p)
-	})
+	}, "KEYAS-KEYA-xxx")
 }
 
 // 13.1.4. Constraints.
 func (x *StagingStrategy) Constraints() *som.SomList[*StagingStrategyConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGI-CONS-LST", func(d *som.SpecDocument, p string) *StagingStrategyConstraintEntry {
 		return NewStagingStrategyConstraintEntry(d, p)
-	})
+	}, "STAGI-CONS-xxx")
 }
 
 // A single constraint entry.
@@ -55004,7 +55004,7 @@ func (x *StakeholderRegister) SetContent(value string) {
 func (x *StakeholderRegister) Stakeholders() *som.SomList[*StakeholderRegisterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STKRG-STAK-LST", func(d *som.SpecDocument, p string) *StakeholderRegisterEntry {
 		return NewStakeholderRegisterEntry(d, p)
-	})
+	}, "STKRG-STAK-xxx")
 }
 
 // A single stakeholder register entry (form).
@@ -55052,14 +55052,14 @@ func (x *StakeholdersAndBeneficiaries) SetContent(value string) {
 func (x *StakeholdersAndBeneficiaries) PrimaryStakeholders() *som.SomList[*StakeholderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STKNT-PRIM-LST", func(d *som.SpecDocument, p string) *StakeholderEntry {
 		return NewStakeholderEntry(d, p)
-	})
+	}, "STKNT-PRIM-xxx")
 }
 
 // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
 func (x *StakeholdersAndBeneficiaries) SecondaryStakeholders() *som.SomList[*StakeholderEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STKNT-SECO-LST", func(d *som.SpecDocument, p string) *StakeholderEntry {
 		return NewStakeholderEntry(d, p)
-	})
+	}, "STKNT-SECO-xxx")
 }
 
 // SBP.4 Stakeholders & Governance.
@@ -55192,49 +55192,49 @@ func (x *StandardsComplianceSection) SetContent(value string) {
 func (x *StandardsComplianceSection) ItStandards() *som.SomList[*ItStandardComplianceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ISCE-ITST-LST", func(d *som.SpecDocument, p string) *ItStandardComplianceEntry {
 		return NewItStandardComplianceEntry(d, p)
-	})
+	}, "ISCE-ITST-xxx")
 }
 
 // Industry protocols compliance.
 func (x *StandardsComplianceSection) IndustryProtocols() *som.SomList[*IndustryProtocolComplianceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/IPCE-INDU-LST", func(d *som.SpecDocument, p string) *IndustryProtocolComplianceEntry {
 		return NewIndustryProtocolComplianceEntry(d, p)
-	})
+	}, "IPCE-INDU-xxx")
 }
 
 // Interface specification standards.
 func (x *StandardsComplianceSection) InterfaceSpecifications() *som.SomList[*InterfaceSpecificationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INSPEN-INTE-LST", func(d *som.SpecDocument, p string) *InterfaceSpecificationEntry {
 		return NewInterfaceSpecificationEntry(d, p)
-	})
+	}, "INSPEN-INTE-xxx")
 }
 
 // Regulatory compliance requirements.
 func (x *StandardsComplianceSection) RegulatoryCompliance() *som.SomList[*RegulatoryComplianceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RECOEN-REGU-LST", func(d *som.SpecDocument, p string) *RegulatoryComplianceEntry {
 		return NewRegulatoryComplianceEntry(d, p)
-	})
+	}, "RECOEN-REGU-xxx")
 }
 
 // Security standards compliance.
 func (x *StandardsComplianceSection) SecurityStandards() *som.SomList[*SecurityStandardComplianceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SSCE-SECU-LST", func(d *som.SpecDocument, p string) *SecurityStandardComplianceEntry {
 		return NewSecurityStandardComplianceEntry(d, p)
-	})
+	}, "SSCE-SECU-xxx")
 }
 
 // Accessibility standards compliance.
 func (x *StandardsComplianceSection) AccessibilityStandards() *som.SomList[*AccessibilityStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACCSTD-ACCE-LST", func(d *som.SpecDocument, p string) *AccessibilityStandardEntry {
 		return NewAccessibilityStandardEntry(d, p)
-	})
+	}, "ACCSTD-ACCE-xxx")
 }
 
 // Quality management standards.
 func (x *StandardsComplianceSection) QualityStandards() *som.SomList[*QualityStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QLSTD-QUAL-LST", func(d *som.SpecDocument, p string) *QualityStandardEntry {
 		return NewQualityStandardEntry(d, p)
-	})
+	}, "QLSTD-QUAL-xxx")
 }
 
 // Documentation standards.
@@ -55286,7 +55286,7 @@ func (x *SteeringCommittee) Charter() *CommitteeCharter {
 func (x *SteeringCommittee) Members() *som.SomList[*CommitteeMemberEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COMMB-MEMB-LST", func(d *som.SpecDocument, p string) *CommitteeMemberEntry {
 		return NewCommitteeMemberEntry(d, p)
-	})
+	}, "COMMB-MEMB-xxx")
 }
 
 // Step-up and adaptive authentication policy (form).
@@ -55314,7 +55314,7 @@ func (x *StepUpAuthenticationPolicy) SetContent(value string) {
 func (x *StepUpAuthenticationPolicy) StepUpDetails() *som.SomList[*StepUpDetailEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STEPU-STEP-LST", func(d *som.SpecDocument, p string) *StepUpDetailEntry {
 		return NewStepUpDetailEntry(d, p)
-	})
+	}, "STEPU-STEP-xxx")
 }
 
 // A single step up detail entry.
@@ -55577,7 +55577,7 @@ func (x *SuccessCriteria) Framework() *SuccessCriteriaFramework {
 func (x *SuccessCriteria) Items() *som.SomList[*SuccessCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCE-ITEM-LST", func(d *som.SpecDocument, p string) *SuccessCriterionEntry {
 		return NewSuccessCriterionEntry(d, p)
-	})
+	}, "SCE-ITEM-xxx")
 }
 
 // Success criteria by category.
@@ -55733,7 +55733,7 @@ func (x *SuccessCriterionEntry) Importance() *SuccessCriterionImportance {
 func (x *SuccessCriterionEntry) Relationships() *som.SomList[*SuccessCriterionRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SUCRRE-RELA-LST", func(d *som.SpecDocument, p string) *SuccessCriterionRelationships {
 		return NewSuccessCriterionRelationships(d, p)
-	})
+	}, "SUCRRE-RELA-xxx")
 }
 
 // Status.
@@ -55959,7 +55959,7 @@ func (x *SupportDeliverables) SetContent(value string) {
 func (x *SupportDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SPDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
-	})
+	}, "SPDLV-ITEM-xxx")
 }
 
 // A supported locale entry.
@@ -56080,7 +56080,7 @@ func (x *SystemBoundaries) SystemLandscapeInventory() *SystemLandscapeInventory 
 func (x *SystemBoundaries) BoundaryInteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-BOUN-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
 		return NewBoundaryInteractionPatterns(d, p)
-	})
+	}, "BOINPA-BOUN-xxx")
 }
 
 // 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
@@ -56097,14 +56097,14 @@ func (x *SystemBoundaries) InteractionDependencyAnalysis() *InteractionDependenc
 func (x *SystemBoundaries) MigrationInteractions() *som.SomList[*MigrationInteractions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
 		return NewMigrationInteractions(d, p)
-	})
+	}, "MIIN-MIGR-xxx")
 }
 
 // 4.5.9. Cross-Boundary Operational Considerations.
 func (x *SystemBoundaries) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
 		return NewCrossBoundaryOperationalConsiderations(d, p)
-	})
+	}, "CBOC-OPER-xxx")
 }
 
 // 4.5.10. Cross-Boundary Error Handling.
@@ -56140,14 +56140,14 @@ func (x *SystemBusinessCriticality) Governance() *SystemBusinessCriticalityGover
 func (x *SystemBusinessCriticality) BusinessUnits() *som.SomList[*SystemBusinessUnitEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SBUE-BUSI-LST", func(d *som.SpecDocument, p string) *SystemBusinessUnitEntry {
 		return NewSystemBusinessUnitEntry(d, p)
-	})
+	}, "SBUE-BUSI-xxx")
 }
 
 // Business processes supported by this system.
 func (x *SystemBusinessCriticality) SupportedProcesses() *som.SomList[*SystemBusinessProcessEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SBPE-SUPP-LST", func(d *som.SpecDocument, p string) *SystemBusinessProcessEntry {
 		return NewSystemBusinessProcessEntry(d, p)
-	})
+	}, "SBPE-SUPP-xxx")
 }
 
 // Delivery and compliance constraints.
@@ -56403,7 +56403,7 @@ func (x *SystemCostAnalysis) Benefits() *SystemCostAnalysisBenefits {
 func (x *SystemCostAnalysis) NonFinancialBenefits() *som.SomList[*NonFinancialBenefitEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NONFI-NONF-LST", func(d *som.SpecDocument, p string) *NonFinancialBenefitEntry {
 		return NewNonFinancialBenefitEntry(d, p)
-	})
+	}, "NONFI-NONF-xxx")
 }
 
 // Target-state cost and ROI indicators.
@@ -56476,14 +56476,14 @@ func (x *SystemDataScope) Migration() *SystemDataScopeMigration {
 func (x *SystemDataScope) Entities() *som.SomList[*DataEntityMigrationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEME-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityMigrationEntry {
 		return NewDataEntityMigrationEntry(d, p)
-	})
+	}, "DEME-ENTI-xxx")
 }
 
 // Data quality issues to address.
 func (x *SystemDataScope) KnownQualityIssues() *som.SomList[*KnownQualityIssueEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KNOWN-KNOW-LST", func(d *som.SpecDocument, p string) *KnownQualityIssueEntry {
 		return NewKnownQualityIssueEntry(d, p)
-	})
+	}, "KNOWN-KNOW-xxx")
 }
 
 // Data sensitivity and quality posture.
@@ -56662,7 +56662,7 @@ func (x *SystemDescription) BusinessDomain() *BusinessDomain {
 func (x *SystemDescription) UserCategories() *som.SomList[*UserCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USCA-USER-LST", func(d *som.SpecDocument, p string) *UserCategoryEntry {
 		return NewUserCategoryEntry(d, p)
-	})
+	}, "USCA-USER-xxx")
 }
 
 // 4.1.5. User Interaction Model.
@@ -56859,14 +56859,14 @@ func (x *SystemErrorDisplay) Fallback() *SystemErrorDisplayFallback {
 func (x *SystemErrorDisplay) ErrorPageDesigns() *som.SomList[*ErrorPageDesignEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EPDE-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorPageDesignEntry {
 		return NewErrorPageDesignEntry(d, p)
-	})
+	}, "EPDE-ERRO-xxx")
 }
 
 // Error codes catalog.
 func (x *SystemErrorDisplay) ErrorCodes() *som.SomList[*SystemErrorCodeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SECE-ERRO-LST", func(d *som.SpecDocument, p string) *SystemErrorCodeEntry {
 		return NewSystemErrorCodeEntry(d, p)
-	})
+	}, "SECE-ERRO-xxx")
 }
 
 // Content options for system error display.
@@ -57090,7 +57090,7 @@ func (x *SystemInventory) SetContent(value string) {
 func (x *SystemInventory) Systems() *som.SomList[*ExistingSystemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ESENT-SYST-LST", func(d *som.SpecDocument, p string) *ExistingSystemEntry {
 		return NewExistingSystemEntry(d, p)
-	})
+	}, "ESENT-SYST-xxx")
 }
 
 // Knowledge transfer status.
@@ -57111,7 +57111,7 @@ func (x *SystemKnowledgeTransfer) Content() *SystemKnowledgeTransferContentForm 
 func (x *SystemKnowledgeTransfer) CriticalKnowledgeAreas() *som.SomList[*CriticalKnowledgeAreaEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CRITI-CRIT-LST", func(d *som.SpecDocument, p string) *CriticalKnowledgeAreaEntry {
 		return NewCriticalKnowledgeAreaEntry(d, p)
-	})
+	}, "CRITI-CRIT-xxx")
 }
 
 // Knowledge transfer plan if SME risk is high.
@@ -57165,7 +57165,7 @@ func (x *SystemMigrationPlan) Cutover() *SystemMigrationPlanCutover {
 func (x *SystemMigrationPlan) Risks() *som.SomList[*SystemMigrationRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SMRE-RISK-LST", func(d *som.SpecDocument, p string) *SystemMigrationRiskEntry {
 		return NewSystemMigrationRiskEntry(d, p)
-	})
+	}, "SMRE-RISK-xxx")
 }
 
 // Rollback strategy and procedures.
@@ -57243,7 +57243,7 @@ func (x *SystemOperation) AdministrationRequirements() *AdministrationRequiremen
 func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*MaintenanceProcedureEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MAINT-MAIN-LST", func(d *som.SpecDocument, p string) *MaintenanceProcedureEntry {
 		return NewMaintenanceProcedureEntry(d, p)
-	})
+	}, "MAINT-MAIN-xxx")
 }
 
 // 8.7. System Operation and Monitoring.
@@ -57393,7 +57393,7 @@ func (x *SystemQualityGoals) Resources() *QualityGoalsResources {
 func (x *SystemQualityGoals) AttributeInterdependencies() *som.SomList[*AttributeInterdependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ATTRI-ATTR-LST", func(d *som.SpecDocument, p string) *AttributeInterdependencyEntry {
 		return NewAttributeInterdependencyEntry(d, p)
-	})
+	}, "ATTRI-ATTR-xxx")
 }
 
 // Quality attribute priority radar.
@@ -57494,14 +57494,14 @@ func (x *SystemReplacementStrategy) Cutover() *SystemReplacementStrategyCutover 
 func (x *SystemReplacementStrategy) Phases() *som.SomList[*ReplacementPhaseEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REPPHS-PHAS-LST", func(d *som.SpecDocument, p string) *ReplacementPhaseEntry {
 		return NewReplacementPhaseEntry(d, p)
-	})
+	}, "REPPHS-PHAS-xxx")
 }
 
 // Predecessor systems that must be addressed first.
 func (x *SystemReplacementStrategy) PredecessorDependencies() *som.SomList[*PredecessorDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PREDE-PRED-LST", func(d *som.SpecDocument, p string) *PredecessorDependencyEntry {
 		return NewPredecessorDependencyEntry(d, p)
-	})
+	}, "PREDE-PRED-xxx")
 }
 
 // Success criteria for replacement completion.
@@ -57667,7 +57667,7 @@ func (x *SystemStagePlan) StageOverview() *StageOverview {
 func (x *SystemStagePlan) Stages() *som.SomList[*StageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
 		return NewStageEntry(d, p)
-	})
+	}, "STAGE-STAG-xxx")
 }
 
 // 13.4. Feature Prioritization.
@@ -57773,14 +57773,14 @@ func (x *SystemTaskEntry) SetRelatedUseCase(value string) {
 func (x *SystemTaskEntry) WorkflowSteps() *som.SomList[*SystemTaskWorkflowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYSTE-WORK-LST", func(d *som.SpecDocument, p string) *SystemTaskWorkflowStepEntry {
 		return NewSystemTaskWorkflowStepEntry(d, p)
-	})
+	}, "SYSTE-WORK-xxx")
 }
 
 // Variations and exceptions.
 func (x *SystemTaskEntry) VariationsAndExceptions() *som.SomList[*VariationsAndExceptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VARIA-VARI-LST", func(d *som.SpecDocument, p string) *VariationsAndExceptionEntry {
 		return NewVariationsAndExceptionEntry(d, p)
-	})
+	}, "VARIA-VARI-xxx")
 }
 
 // Tooling and linked artifacts for a system task.
@@ -57876,14 +57876,14 @@ func (x *SystemTechnicalAssessment) Quality() *SystemTechnicalAssessmentQuality 
 func (x *SystemTechnicalAssessment) KnownIssues() *som.SomList[*KnownIssueEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KIE-KNOW-LST", func(d *som.SpecDocument, p string) *KnownIssueEntry {
 		return NewKnownIssueEntry(d, p)
-	})
+	}, "KIE-KNOW-xxx")
 }
 
 // Security vulnerabilities and compliance gaps.
 func (x *SystemTechnicalAssessment) SecurityConcerns() *som.SomList[*SecurityConcernEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SECUR-SECU-LST", func(d *som.SpecDocument, p string) *SecurityConcernEntry {
 		return NewSecurityConcernEntry(d, p)
-	})
+	}, "SECUR-SECU-xxx")
 }
 
 // Support and lifecycle details.
@@ -57981,7 +57981,7 @@ func (x *SystemToReplaceEntry) DataScope() *SystemDataScope {
 func (x *SystemToReplaceEntry) Dependencies() *som.SomList[*ReplacementSystemDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REPSDEP-DEPE-LST", func(d *som.SpecDocument, p string) *ReplacementSystemDependencyEntry {
 		return NewReplacementSystemDependencyEntry(d, p)
-	})
+	}, "REPSDEP-DEPE-xxx")
 }
 
 // User impact and change management needs.
@@ -58136,7 +58136,7 @@ func (x *SystemUserImpact) Adoption() *SystemUserImpactAdoption {
 func (x *SystemUserImpact) UserGroups() *som.SomList[*UserGroupImpactEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UGIE-USER-LST", func(d *som.SpecDocument, p string) *UserGroupImpactEntry {
 		return NewUserGroupImpactEntry(d, p)
-	})
+	}, "UGIE-USER-xxx")
 }
 
 // Communication and adoption support for impacted users.
@@ -58239,7 +58239,7 @@ func (x *TabBarDefinitionEntry) Loading() *TabBarDefinitionEntryLoading {
 func (x *TabBarDefinitionEntry) Tabs() *som.SomList[*TabItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TAITEN-TABS-LST", func(d *som.SpecDocument, p string) *TabItemEntry {
 		return NewTabItemEntry(d, p)
-	})
+	}, "TAITEN-TABS-xxx")
 }
 
 // Position and selection behavior.
@@ -58490,7 +58490,7 @@ func (x *TeamMemberEntry) Availability() *TeamMemberAvailability {
 func (x *TeamMemberEntry) Responsibilities() *som.SomList[*TeamMemberResponsibilityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TMMRP-RESP-LST", func(d *som.SpecDocument, p string) *TeamMemberResponsibilityEntry {
 		return NewTeamMemberResponsibilityEntry(d, p)
-	})
+	}, "TMMRP-RESP-xxx")
 }
 
 // Allocation and scheduling details.
@@ -58581,7 +58581,7 @@ func (x *TeamMemberSkills) Content() *TeamMemberSkillsContentForm {
 func (x *TeamMemberSkills) SkillDetails() *som.SomList[*TeamMemberSkillEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TMSKE-SKIL-LST", func(d *som.SpecDocument, p string) *TeamMemberSkillEntry {
 		return NewTeamMemberSkillEntry(d, p)
-	})
+	}, "TMSKE-SKIL-xxx")
 }
 
 // Team structure overview.
@@ -58690,7 +58690,7 @@ func (x *TechnicalEnvironment) Network() *TechnicalEnvironmentNetwork {
 func (x *TechnicalEnvironment) Datacenters() *som.SomList[*DatacenterEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DATAC-DATA-LST", func(d *som.SpecDocument, p string) *DatacenterEntry {
 		return NewDatacenterEntry(d, p)
-	})
+	}, "DATAC-DATA-xxx")
 }
 
 // Network topology and connectivity constraints.
@@ -58703,7 +58703,7 @@ func (x *TechnicalEnvironment) Datacenters() *som.SomList[*DatacenterEntry] {
 func (x *TechnicalEnvironment) TechnologyStandards() *som.SomList[*TechnologyStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TESTEN-TECH-LST", func(d *som.SpecDocument, p string) *TechnologyStandardEntry {
 		return NewTechnologyStandardEntry(d, p)
-	})
+	}, "TESTEN-TECH-xxx")
 }
 
 // Integration constraints overview.
@@ -58713,7 +58713,7 @@ func (x *TechnicalEnvironment) TechnologyStandards() *som.SomList[*TechnologySta
 func (x *TechnicalEnvironment) IntegrationConstraints() *som.SomList[*IntegrationConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INCOE1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationConstraintEntry {
 		return NewIntegrationConstraintEntry(d, p)
-	})
+	}, "INCOE1-INTE-xxx")
 }
 
 // Architecture governance context.
@@ -58748,14 +58748,14 @@ func (x *TechnicalEnvironmentNetwork) Content() *TechnicalEnvironmentNetworkCont
 func (x *TechnicalEnvironmentNetwork) DevopsStandards() *som.SomList[*DevopsStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEVOP-DEVO-LST", func(d *som.SpecDocument, p string) *DevopsStandardEntry {
 		return NewDevopsStandardEntry(d, p)
-	})
+	}, "DEVOP-DEVO-xxx")
 }
 
 // Monitoring and observability requirements.
 func (x *TechnicalEnvironmentNetwork) ObservabilityRequirements() *som.SomList[*ObservabilityRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBSER-OBSE-LST", func(d *som.SpecDocument, p string) *ObservabilityRequirementEntry {
 		return NewObservabilityRequirementEntry(d, p)
-	})
+	}, "OBSER-OBSE-xxx")
 }
 
 // Disaster recovery and business continuity requirements.
@@ -58876,7 +58876,7 @@ func (x *TechnicalGoalConstraints) SetContent(value string) {
 func (x *TechnicalGoalConstraints) Items() *som.SomList[*TechnicalConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TECN-ITEM-LST", func(d *som.SpecDocument, p string) *TechnicalConstraintEntry {
 		return NewTechnicalConstraintEntry(d, p)
-	})
+	}, "TECN-ITEM-xxx")
 }
 
 // 4.2.2.n.3. Dependencies.
@@ -58903,7 +58903,7 @@ func (x *TechnicalGoalDependencies) SetContent(value string) {
 func (x *TechnicalGoalDependencies) Items() *som.SomList[*TechnicalDependencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TEDE-ITEM-LST", func(d *som.SpecDocument, p string) *TechnicalDependencyEntry {
 		return NewTechnicalDependencyEntry(d, p)
-	})
+	}, "TEDE-ITEM-xxx")
 }
 
 // A technical goal entry.
@@ -59024,7 +59024,7 @@ func (x *TechnicalGoalTestCriteria) TestCriteriaForm() *TechnicalGoalTestCriteri
 func (x *TechnicalGoalTestCriteria) Items() *som.SomList[*TechnicalGoalTestCaseEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TEGOTS-ITEM-LST", func(d *som.SpecDocument, p string) *TechnicalGoalTestCaseEntry {
 		return NewTechnicalGoalTestCaseEntry(d, p)
-	})
+	}, "TEGOTS-ITEM-xxx")
 }
 
 // 4.2.2. Technical Goals.
@@ -59053,7 +59053,7 @@ func (x *TechnicalGoals) SetContent(value string) {
 func (x *TechnicalGoals) Goals() *som.SomList[*TechnicalGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TGE-GOAL-LST", func(d *som.SpecDocument, p string) *TechnicalGoalEntry {
 		return NewTechnicalGoalEntry(d, p)
-	})
+	}, "TGE-GOAL-xxx")
 }
 
 // Technical infrastructure requirements.
@@ -59085,7 +59085,7 @@ func (x *TechnicalInfrastructure) RemoteAccess() *RemoteAccessRequirements {
 func (x *TechnicalInfrastructure) CommunicationTools() *som.SomList[*CommunicationToolsRequirements] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COTORE-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationToolsRequirements {
 		return NewCommunicationToolsRequirements(d, p)
-	})
+	}, "COTORE-COMM-xxx")
 }
 
 // 1.3.3. Technical Pain Points.
@@ -59119,7 +59119,7 @@ func (x *TechnicalPainPoints) CategorySummary() *TechnicalPainPointsSummary {
 func (x *TechnicalPainPoints) Items() *som.SomList[*PainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TEPAPO-ITEM-LST", func(d *som.SpecDocument, p string) *PainPointEntry {
 		return NewPainPointEntry(d, p)
-	})
+	}, "TEPAPO-ITEM-xxx")
 }
 
 // Summary specific to technical pain points.
@@ -59295,7 +59295,7 @@ func (x *TechnicalRequirements) SummaryForm() *TechnicalRequirementsSummaryFormF
 func (x *TechnicalRequirements) Requirements() *som.SomList[*TechnicalRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TERQ-REQU-LST", func(d *som.SpecDocument, p string) *TechnicalRequirementEntry {
 		return NewTechnicalRequirementEntry(d, p)
-	})
+	}, "TERQ-REQU-xxx")
 }
 
 // 8.8. Security Requirements.
@@ -59573,7 +59573,7 @@ func (x *TenantIsolation) CrossTenantAccessPolicy() *CrossTenantAccessPolicy {
 func (x *TenantIsolation) TenantCustomizations() *som.SomList[*TenantCustomizationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TNCS-TENA-LST", func(d *som.SpecDocument, p string) *TenantCustomizationEntry {
 		return NewTenantCustomizationEntry(d, p)
-	})
+	}, "TNCS-TENA-xxx")
 }
 
 // Tenant Onboarding Policy.
@@ -59682,14 +59682,14 @@ func (x *TestScenarioEntry) PostExecution() *TestScenarioPostExecution {
 func (x *TestScenarioEntry) Notes() *som.SomList[*TestScenarioNotes] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TESCNO-NOTE-LST", func(d *som.SpecDocument, p string) *TestScenarioNotes {
 		return NewTestScenarioNotes(d, p)
-	})
+	}, "TESCNO-NOTE-xxx")
 }
 
 // Contains 0+× UatTestStep for this scenario.
 func (x *TestScenarioEntry) TestSteps() *som.SomList[*UatTestStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UATSST-TEST-LST", func(d *som.SpecDocument, p string) *UatTestStepEntry {
 		return NewUatTestStepEntry(d, p)
-	})
+	}, "UATSST-TEST-xxx")
 }
 
 // Execution for test scenario.
@@ -60758,7 +60758,7 @@ func (x *Tooling) Governance() *ToolingGovernance {
 func (x *Tooling) Items() *som.SomList[*ToolEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TOLEN-ITEM-LST", func(d *som.SpecDocument, p string) *ToolEntry {
 		return NewToolEntry(d, p)
-	})
+	}, "TOLEN-ITEM-xxx")
 }
 
 // 2.4. Tooling and Environments.
@@ -60980,7 +60980,7 @@ func (x *TradeOffDecisions) TradeOffGovernanceContent() *TradeOffDecisionsTradeO
 func (x *TradeOffDecisions) Items() *som.SomList[*TradeOffDecisionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TODE-ITEM-LST", func(d *som.SpecDocument, p string) *TradeOffDecisionEntry {
 		return NewTradeOffDecisionEntry(d, p)
-	})
+	}, "TODE-ITEM-xxx")
 }
 
 // Training assessment and evaluation.
@@ -61083,7 +61083,7 @@ func (x *TrainingDeliverableRequirements) TrainingContent() *TrainingDeliverable
 func (x *TrainingDeliverableRequirements) TrainingModules() *som.SomList[*TrainingModuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRMOEN-TRAI-LST", func(d *som.SpecDocument, p string) *TrainingModuleEntry {
 		return NewTrainingModuleEntry(d, p)
-	})
+	}, "TRMOEN-TRAI-xxx")
 }
 
 // 14.1.3. Training Deliverables.
@@ -61108,7 +61108,7 @@ func (x *TrainingDeliverables) SetContent(value string) {
 func (x *TrainingDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRDLV-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
-	})
+	}, "TRDLV-ITEM-xxx")
 }
 
 // Training & Enablement requirements.
@@ -61314,28 +61314,28 @@ func (x *TrainingRequirements) Overview() *TrainingOverview {
 func (x *TrainingRequirements) InitialTraining() *som.SomList[*InitialTrainingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INITR-INIT-LST", func(d *som.SpecDocument, p string) *InitialTrainingEntry {
 		return NewInitialTrainingEntry(d, p)
-	})
+	}, "INITR-INIT-xxx")
 }
 
 // Ongoing/refresher training.
 func (x *TrainingRequirements) OngoingTraining() *som.SomList[*OngoingTrainingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ONGTR-ONGO-LST", func(d *som.SpecDocument, p string) *OngoingTrainingEntry {
 		return NewOngoingTrainingEntry(d, p)
-	})
+	}, "ONGTR-ONGO-xxx")
 }
 
 // System-specific training.
 func (x *TrainingRequirements) SystemTraining() *som.SomList[*SystemTrainingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYTR-SYST-LST", func(d *som.SpecDocument, p string) *SystemTrainingEntry {
 		return NewSystemTrainingEntry(d, p)
-	})
+	}, "SYTR-SYST-xxx")
 }
 
 // Certification requirements.
 func (x *TrainingRequirements) Certifications() *som.SomList[*CertificationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CRT-CERT-LST", func(d *som.SpecDocument, p string) *CertificationEntry {
 		return NewCertificationEntry(d, p)
-	})
+	}, "CRT-CERT-xxx")
 }
 
 // Training materials and resources.
@@ -61395,14 +61395,14 @@ func (x *TransitionCommunicationPlan) Strategy() *TransitionCommunicationStrateg
 func (x *TransitionCommunicationPlan) CommunicationEvents() *som.SomList[*CommunicationEventEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COEV-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationEventEntry {
 		return NewCommunicationEventEntry(d, p)
-	})
+	}, "COEV-COMM-xxx")
 }
 
 // Communication channels and their use.
 func (x *TransitionCommunicationPlan) Channels() *som.SomList[*TransitionCommunicationChannels] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRCOCH-CHAN-LST", func(d *som.SpecDocument, p string) *TransitionCommunicationChannels {
 		return NewTransitionCommunicationChannels(d, p)
-	})
+	}, "TRCOCH-CHAN-xxx")
 }
 
 // Communication strategy overview.
@@ -61657,14 +61657,14 @@ func (x *TransitionPhaseEntry) Identification() *TransitionPhaseIdentification {
 func (x *TransitionPhaseEntry) Activities() *som.SomList[*TransitionPhaseActivities] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TPACT-ACTI-LST", func(d *som.SpecDocument, p string) *TransitionPhaseActivities {
 		return NewTransitionPhaseActivities(d, p)
-	})
+	}, "TPACT-ACTI-xxx")
 }
 
 // Stakeholder engagement for this phase.
 func (x *TransitionPhaseEntry) Stakeholders() *som.SomList[*TransitionPhaseStakeholders] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TPSTK-STAK-LST", func(d *som.SpecDocument, p string) *TransitionPhaseStakeholders {
 		return NewTransitionPhaseStakeholders(d, p)
-	})
+	}, "TPSTK-STAK-xxx")
 }
 
 // Exit criteria and phase completion conditions.
@@ -61823,7 +61823,7 @@ func (x *TransitionSuccessMetrics) Overview() *TransitionMetricsOverview {
 func (x *TransitionSuccessMetrics) Metrics() *som.SomList[*TransitionMetricEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRME-METR-LST", func(d *som.SpecDocument, p string) *TransitionMetricEntry {
 		return NewTransitionMetricEntry(d, p)
-	})
+	}, "TRME-METR-xxx")
 }
 
 // Support structure overview.
@@ -61873,14 +61873,14 @@ func (x *TransitionSupportStructure) Overview() *TransitionSupportOverview {
 func (x *TransitionSupportStructure) SupportResources() *som.SomList[*TransitionSupportResourceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRSPRE-SUPP-LST", func(d *som.SpecDocument, p string) *TransitionSupportResourceEntry {
 		return NewTransitionSupportResourceEntry(d, p)
-	})
+	}, "TRSPRE-SUPP-xxx")
 }
 
 // Escalation paths for support.
 func (x *TransitionSupportStructure) EscalationPaths() *som.SomList[*TransitionEscalationPaths] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRESPA-ESCA-LST", func(d *som.SpecDocument, p string) *TransitionEscalationPaths {
 		return NewTransitionEscalationPaths(d, p)
-	})
+	}, "TRESPA-ESCA-xxx")
 }
 
 // Ongoing localization operations.
@@ -61940,7 +61940,7 @@ func (x *TranslationProcess) Ongoing() *TranslationOngoing {
 func (x *TranslationProcess) Vendors() *som.SomList[*TranslationVendorEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRVEEN-VEND-LST", func(d *som.SpecDocument, p string) *TranslationVendorEntry {
 		return NewTranslationVendorEntry(d, p)
-	})
+	}, "TRVEEN-VEND-xxx")
 }
 
 // Quality assurance.
@@ -62229,7 +62229,7 @@ func (x *TrustBoundaries) SetContent(value string) {
 func (x *TrustBoundaries) Boundaries() *som.SomList[*TrustBoundaryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRBN-BOUN-LST", func(d *som.SpecDocument, p string) *TrustBoundaryEntry {
 		return NewTrustBoundaryEntry(d, p)
-	})
+	}, "TRBN-BOUN-xxx")
 }
 
 // A trust boundary entry (form).
@@ -62601,35 +62601,35 @@ func (x *UiComponentEntry) DataBinding() *UiComponentEntryDataBindingForm {
 func (x *UiComponentEntry) States() *som.SomList[*ComponentStateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMST-STAT-LST", func(d *som.SpecDocument, p string) *ComponentStateEntry {
 		return NewComponentStateEntry(d, p)
-	})
+	}, "CMST-STAT-xxx")
 }
 
 // Contains 0+× ComponentVariant.
 func (x *UiComponentEntry) Variants() *som.SomList[*ComponentVariantEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMVN-VARI-LST", func(d *som.SpecDocument, p string) *ComponentVariantEntry {
 		return NewComponentVariantEntry(d, p)
-	})
+	}, "CMVN-VARI-xxx")
 }
 
 // Contains 0+× ComponentAction.
 func (x *UiComponentEntry) Actions() *som.SomList[*ComponentActionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMAC-ACTI-LST", func(d *som.SpecDocument, p string) *ComponentActionEntry {
 		return NewComponentActionEntry(d, p)
-	})
+	}, "CMAC-ACTI-xxx")
 }
 
 // Contains 0+× ComponentSlot.
 func (x *UiComponentEntry) Slots() *som.SomList[*ComponentSlotEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMSL-SLOT-LST", func(d *som.SpecDocument, p string) *ComponentSlotEntry {
 		return NewComponentSlotEntry(d, p)
-	})
+	}, "CMSL-SLOT-xxx")
 }
 
 // Contains 0+× ComponentProperty.
 func (x *UiComponentEntry) Properties() *som.SomList[*ComponentPropertyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMPR-PROP-LST", func(d *som.SpecDocument, p string) *ComponentPropertyEntry {
 		return NewComponentPropertyEntry(d, p)
-	})
+	}, "CMPR-PROP-xxx")
 }
 
 // Animation behavior.
@@ -62786,14 +62786,14 @@ func (x *UiComponents) ComponentLibrary() *ComponentLibrary {
 func (x *UiComponents) ComponentSpecs() *som.SomList[*UiComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UICOEN-COMP-LST", func(d *som.SpecDocument, p string) *UiComponentEntry {
 		return NewUiComponentEntry(d, p)
-	})
+	}, "UICOEN-COMP-xxx")
 }
 
 // 10.11.3. Component Families — contains 0+×.
 func (x *UiComponents) ComponentFamilies() *som.SomList[*ComponentFamilyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMFA-COMP-LST", func(d *som.SpecDocument, p string) *ComponentFamilyEntry {
 		return NewComponentFamilyEntry(d, p)
-	})
+	}, "CMFA-COMP-xxx")
 }
 
 // 13.8. Upgrade Cycle Framework.
@@ -62947,7 +62947,7 @@ func (x *UseCaseExtensions) Content() *UseCaseExtensionsContentForm {
 func (x *UseCaseExtensions) Extensions() *som.SomList[*ExtensionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXTEN-EXTE-LST", func(d *som.SpecDocument, p string) *ExtensionEntry {
 		return NewExtensionEntry(d, p)
-	})
+	}, "EXTEN-EXTE-xxx")
 }
 
 // Use case scope and context (Cockburn style).
@@ -63065,14 +63065,14 @@ func (x *UserAcceptanceTesting) Training() *UatTraining {
 func (x *UserAcceptanceTesting) TestCycles() *som.SomList[*UatTestCycleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UATCY-TEST-LST", func(d *som.SpecDocument, p string) *UatTestCycleEntry {
 		return NewUatTestCycleEntry(d, p)
-	})
+	}, "UATCY-TEST-xxx")
 }
 
 // Contains 0+× TestScenario.
 func (x *UserAcceptanceTesting) TestScenarios() *som.SomList[*TestScenarioEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TSSC-TEST-LST", func(d *som.SpecDocument, p string) *TestScenarioEntry {
 		return NewTestScenarioEntry(d, p)
-	})
+	}, "TSSC-TEST-xxx")
 }
 
 // 4.1.4.n.4. Access and Permissions.
@@ -63114,7 +63114,7 @@ func (x *UserAccessPermissions) Governance() *UserAccessPermissionsGovernance {
 func (x *UserAccessPermissions) PermissionMatrix() *som.SomList[*PermissionMatrixEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMTX-PERM-LST", func(d *som.SpecDocument, p string) *PermissionMatrixEntry {
 		return NewPermissionMatrixEntry(d, p)
-	})
+	}, "PRMTX-PERM-xxx")
 }
 
 // Session and audit controls.
@@ -63306,7 +63306,7 @@ func (x *UserAttributes) SetContent(value string) {
 func (x *UserAttributes) Items() *som.SomList[*UserAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USATE-ITEM-LST", func(d *som.SpecDocument, p string) *UserAttributeEntry {
 		return NewUserAttributeEntry(d, p)
-	})
+	}, "USATE-ITEM-xxx")
 }
 
 // 9.4. User Authorization.
@@ -63338,28 +63338,28 @@ func (x *UserAuthorization) AuthorizationModel() *AuthorizationModel {
 func (x *UserAuthorization) Groups() *som.SomList[*AuthorizationGroupEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AZGR-GROU-LST", func(d *som.SpecDocument, p string) *AuthorizationGroupEntry {
 		return NewAuthorizationGroupEntry(d, p)
-	})
+	}, "AZGR-GROU-xxx")
 }
 
 // 9.4.3. Role Definitions — contains 1+× Role.
 func (x *UserAuthorization) RoleDefinitions() *som.SomList[*AuthorizationRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AZRO-ROLE-LST", func(d *som.SpecDocument, p string) *AuthorizationRoleEntry {
 		return NewAuthorizationRoleEntry(d, p)
-	})
+	}, "AZRO-ROLE-xxx")
 }
 
 // 9.4.4. Entitlements — contains 1+× Entitlement.
 func (x *UserAuthorization) Entitlements() *som.SomList[*EntitlementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENT-ENTI-LST", func(d *som.SpecDocument, p string) *EntitlementEntry {
 		return NewEntitlementEntry(d, p)
-	})
+	}, "ENT-ENTI-xxx")
 }
 
 // 9.4.5. Resource Keys — contains 0+× Resource Key.
 func (x *UserAuthorization) ResourceKeys() *som.SomList[*ResourceKeyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESKEY-RESO-LST", func(d *som.SpecDocument, p string) *ResourceKeyEntry {
 		return NewResourceKeyEntry(d, p)
-	})
+	}, "RESKEY-RESO-xxx")
 }
 
 // 9.4.6. Role Hierarchy.
@@ -63427,7 +63427,7 @@ func (x *UserCategoryEntry) Role() *UserCategoryRoleEntry {
 func (x *UserCategoryEntry) SystemTasks() *som.SomList[*SystemTaskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYTS-SYST-LST", func(d *som.SpecDocument, p string) *SystemTaskEntry {
 		return NewSystemTaskEntry(d, p)
-	})
+	}, "SYTS-SYST-xxx")
 }
 
 // 4.1.4.n.4. Access and Permissions.
@@ -63722,21 +63722,21 @@ func (x *UserJourney) SetJourneyDiagram(value string) {
 func (x *UserJourney) Stages() *som.SomList[*JourneyStageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/JRNST-STAG-LST", func(d *som.SpecDocument, p string) *JourneyStageEntry {
 		return NewJourneyStageEntry(d, p)
-	})
+	}, "JRNST-STAG-xxx")
 }
 
 // Key touchpoints.
 func (x *UserJourney) KeyTouchpoints() *som.SomList[*KeyTouchpointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KEYTO-KEYT-LST", func(d *som.SpecDocument, p string) *KeyTouchpointEntry {
 		return NewKeyTouchpointEntry(d, p)
-	})
+	}, "KEYTO-KEYT-xxx")
 }
 
 // Pain points in the journey.
 func (x *UserJourney) PainPoints() *som.SomList[*UserJourneyPainPointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USERJ-PAIN-LST", func(d *som.SpecDocument, p string) *UserJourneyPainPointEntry {
 		return NewUserJourneyPainPointEntry(d, p)
-	})
+	}, "USERJ-PAIN-xxx")
 }
 
 // Opportunities for delight.
@@ -63835,7 +63835,7 @@ func (x *UserLifecycle) SelfService() *SelfServiceAccountManagement {
 func (x *UserLifecycle) ServiceAccounts() *som.SomList[*ServiceAccountLifecycle] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SACLC-SERV-LST", func(d *som.SpecDocument, p string) *ServiceAccountLifecycle {
 		return NewServiceAccountLifecycle(d, p)
-	})
+	}, "SACLC-SERV-xxx")
 }
 
 // A lifecycle transition entry (form).
@@ -63943,7 +63943,7 @@ func (x *UserLifecycleTransitions) SetContent(value string) {
 func (x *UserLifecycleTransitions) Items() *som.SomList[*UserLifecycleTransitionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ULTRE-ITEM-LST", func(d *som.SpecDocument, p string) *UserLifecycleTransitionEntry {
 		return NewUserLifecycleTransitionEntry(d, p)
-	})
+	}, "ULTRE-ITEM-xxx")
 }
 
 // 9.1. User Management.
@@ -64078,7 +64078,7 @@ func (x *UserPersonaDetails) SetVisualRepresentation(value string) {
 func (x *UserPersonaDetails) RepresentativeQuotes() *som.SomList[*RepresentativeQuoteEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REPRE-REPR-LST", func(d *som.SpecDocument, p string) *RepresentativeQuoteEntry {
 		return NewRepresentativeQuoteEntry(d, p)
-	})
+	}, "REPRE-REPR-xxx")
 }
 
 // Preferences and behavior.
@@ -64151,7 +64151,7 @@ func (x *UserPersonas) SetContent(value string) {
 func (x *UserPersonas) Items() *som.SomList[*PersonaEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PEREN-ITEM-LST", func(d *som.SpecDocument, p string) *PersonaEntry {
 		return NewPersonaEntry(d, p)
-	})
+	}, "PEREN-ITEM-xxx")
 }
 
 // User provisioning and management tools.
@@ -64281,7 +64281,7 @@ func (x *UserTrainingRequirements) TrainingForm() *UserTrainingRequirementsTrain
 func (x *UserTrainingRequirements) TrainingTopics() *som.SomList[*TrainingTopicEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TRTP-TRAI-LST", func(d *som.SpecDocument, p string) *TrainingTopicEntry {
 		return NewTrainingTopicEntry(d, p)
-	})
+	}, "TRTP-TRAI-xxx")
 }
 
 // A utility menu item entry (form).
@@ -64362,7 +64362,7 @@ func (x *UtilityNavigation) SetContent(value string) {
 func (x *UtilityNavigation) Items() *som.SomList[*UtilityNavigationItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UNIE-ITEM-LST", func(d *som.SpecDocument, p string) *UtilityNavigationItemEntry {
 		return NewUtilityNavigationItemEntry(d, p)
-	})
+	}, "UNIE-ITEM-xxx")
 }
 
 // A utility navigation item entry (form).
@@ -64396,7 +64396,7 @@ func (x *UtilityNavigationItemEntry) Behavior() *UtilityNavigationItemEntryBehav
 func (x *UtilityNavigationItemEntry) MenuItems() *som.SomList[*UtilityMenuItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UMIE-MENU-LST", func(d *som.SpecDocument, p string) *UtilityMenuItemEntry {
 		return NewUtilityMenuItemEntry(d, p)
-	})
+	}, "UMIE-MENU-xxx")
 }
 
 // Badge and interaction behavior.
@@ -64492,14 +64492,14 @@ func (x *ValidationFeedback) Behavior() *ValidationFeedbackBehavior {
 func (x *ValidationFeedback) MessageTemplates() *som.SomList[*ValidationMessageTemplate] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VAMETE-MESS-LST", func(d *som.SpecDocument, p string) *ValidationMessageTemplate {
 		return NewValidationMessageTemplate(d, p)
-	})
+	}, "VAMETE-MESS-xxx")
 }
 
 // Field validation rules by type.
 func (x *ValidationFeedback) FieldValidationRules() *som.SomList[*FieldValidationRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FIELD-FIEL-LST", func(d *som.SpecDocument, p string) *FieldValidationRuleEntry {
 		return NewFieldValidationRuleEntry(d, p)
-	})
+	}, "FIELD-FIEL-xxx")
 }
 
 // Animation and focus behavior.
@@ -64630,7 +64630,7 @@ func (x *ValueProposition) ReturnProfile() *ValuePropositionReturnProfile {
 func (x *ValueProposition) Kpis() *som.SomList[*KpiEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KPIEN-KPIS-LST", func(d *som.SpecDocument, p string) *KpiEntry {
 		return NewKpiEntry(d, p)
-	})
+	}, "KPIEN-KPIS-xxx")
 }
 
 // Financial and efficiency benefits.
@@ -65156,7 +65156,7 @@ func (x *WarrantyTerms) Coverage() *WarrantyCoverage {
 func (x *WarrantyTerms) ServiceLevels() *som.SomList[*WarrantyServiceLevels] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WASELE-SERV-LST", func(d *som.SpecDocument, p string) *WarrantyServiceLevels {
 		return NewWarrantyServiceLevels(d, p)
-	})
+	}, "WASELE-SERV-xxx")
 }
 
 // Process for defect handling.
@@ -65227,7 +65227,7 @@ func (x *WcagCompliance) Robust() *WcagComplianceRobust {
 func (x *WcagCompliance) SuccessCriteria() *som.SomList[*WcagSuccessCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WSCE-SUCC-LST", func(d *som.SpecDocument, p string) *WcagSuccessCriterionEntry {
 		return NewWcagSuccessCriterionEntry(d, p)
-	})
+	}, "WSCE-SUCC-xxx")
 }
 
 // Operable principles.
@@ -65307,7 +65307,7 @@ func (x *WeightedQualityMatrix) MatrixConfigContent() *WeightedQualityMatrixMatr
 func (x *WeightedQualityMatrix) Weights() *som.SomList[*QualityWeightEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QLWGT-WEIG-LST", func(d *som.SpecDocument, p string) *QualityWeightEntry {
 		return NewQualityWeightEntry(d, p)
-	})
+	}, "QLWGT-WEIG-xxx")
 }
 
 // Quality matrix visualization.
@@ -65354,7 +65354,7 @@ func (x *WorkflowActorEntry) Content() *WorkflowActorEntryContentForm {
 func (x *WorkflowActorEntry) ParticipatingSteps() *som.SomList[*WorkflowStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/participatingSteps", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
 		return NewWorkflowStepEntry(d, p)
-	})
+	}, "")
 }
 
 // A business rule governing workflow behavior.
@@ -65427,7 +65427,7 @@ func (x *WorkflowDescriptions) SummaryTable() *WorkflowSummaryTable {
 func (x *WorkflowDescriptions) Workflows() *som.SomList[*CurrentWorkflowEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUWF-WORK-LST", func(d *som.SpecDocument, p string) *CurrentWorkflowEntry {
 		return NewCurrentWorkflowEntry(d, p)
-	})
+	}, "CUWF-WORK-xxx")
 }
 
 // A workflow exception type.
@@ -65466,7 +65466,7 @@ func (x *WorkflowExceptions) SetContent(value string) {
 func (x *WorkflowExceptions) Exceptions() *som.SomList[*WorkflowExceptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOEXEN-EXCE-LST", func(d *som.SpecDocument, p string) *WorkflowExceptionEntry {
 		return NewWorkflowExceptionEntry(d, p)
-	})
+	}, "WOEXEN-EXCE-xxx")
 }
 
 // A workflow input.
@@ -65517,35 +65517,35 @@ func (x *WorkflowStepEntry) Content() *WorkflowStepEntryContentForm {
 func (x *WorkflowStepEntry) SystemsUsed() *som.SomList[*WorkflowStepSystem] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOSTSY-SYST-LST", func(d *som.SpecDocument, p string) *WorkflowStepSystem {
 		return NewWorkflowStepSystem(d, p)
-	})
+	}, "WOSTSY-SYST-xxx")
 }
 
 // Step inputs.
 func (x *WorkflowStepEntry) Inputs() *som.SomList[*WorkflowInputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOINEN-INPU-LST", func(d *som.SpecDocument, p string) *WorkflowInputEntry {
 		return NewWorkflowInputEntry(d, p)
-	})
+	}, "WOINEN-INPU-xxx")
 }
 
 // Step outputs.
 func (x *WorkflowStepEntry) Outputs() *som.SomList[*WorkflowOutputEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOOUEN-OUTP-LST", func(d *som.SpecDocument, p string) *WorkflowOutputEntry {
 		return NewWorkflowOutputEntry(d, p)
-	})
+	}, "WOOUEN-OUTP-xxx")
 }
 
 // Step-specific business rules.
 func (x *WorkflowStepEntry) BusinessRules() *som.SomList[*WorkflowBusinessRule] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOBURU-BUSI-LST", func(d *som.SpecDocument, p string) *WorkflowBusinessRule {
 		return NewWorkflowBusinessRule(d, p)
-	})
+	}, "WOBURU-BUSI-xxx")
 }
 
 // Known issues with this step.
 func (x *WorkflowStepEntry) KnownIssues() *som.SomList[*WorkflowStepIssue] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOSTIS-KNOW-LST", func(d *som.SpecDocument, p string) *WorkflowStepIssue {
 		return NewWorkflowStepIssue(d, p)
-	})
+	}, "WOSTIS-KNOW-xxx")
 }
 
 // Known issue with a workflow step.
@@ -65612,7 +65612,7 @@ func (x *WorkflowSummaryTable) Content() *WorkflowSummaryTableContentForm {
 func (x *WorkflowSummaryTable) Entries() *som.SomList[*WorkflowSummaryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOSUEN-ENTR-LST", func(d *som.SpecDocument, p string) *WorkflowSummaryEntry {
 		return NewWorkflowSummaryEntry(d, p)
-	})
+	}, "WOSUEN-ENTR-xxx")
 }
 
 // Workflow timing and performance characteristics.
@@ -65665,7 +65665,7 @@ func (x *WorkflowTriggers) SetContent(value string) {
 func (x *WorkflowTriggers) Triggers() *som.SomList[*WorkflowTriggerEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WOTREN-TRIG-LST", func(d *som.SpecDocument, p string) *WorkflowTriggerEntry {
 		return NewWorkflowTriggerEntry(d, p)
-	})
+	}, "WOTREN-TRIG-xxx")
 }
 
 // A workplace description entry (form, per user category).

@@ -20,7 +20,10 @@ package somruntime
 // derivation; the Go emitter therefore sanitises those two names (the analogue
 // of the TypeScript doc/path guard).
 
-import "strings"
+import (
+	"strings"
+	"time"
+)
 
 // SomNode is the base every generated typed facade struct embeds. It binds a
 // facade instance to the SpecDocument it edits and the path it lives at (the
@@ -42,6 +45,27 @@ func (n SomNode) Doc() *SpecDocument { return n.doc }
 
 // Path returns the globally-unique section path of this node.
 func (n SomNode) Path() string { return n.path }
+
+// SectionID returns this node's section id when it is a list item (AA1
+// criterion 1 read), or "" for non-list nodes (roots, complex/section children
+// — their id is the fixed @SectionId already embedded in Path()).
+//
+// Named SectionID / SetSectionID — names the Go emitter reserves in its
+// accessor allocator (the analogue of the Dart/TypeScript $sectionId
+// collision-proofing, AA-6 decision AF-D1) — so this structural accessor can
+// never collide with a typed field a generated struct emits.
+func (n SomNode) SectionID() string { return n.doc.ItemSectionIDOr(n.path) }
+
+// SetSectionID overrides this list item's section id (AA1 criterion 5): an
+// arbitrary suffix, validated unique within the owning list. Returns a
+// *SpecSectionIDCollision on a duplicate, or an error if this node is not a
+// live list item. An empty id is a no-op.
+func (n SomNode) SetSectionID(id string) error {
+	if id == "" {
+		return nil
+	}
+	return n.doc.SetItemSectionID(n.path, id)
+}
 
 // SomScalar is a scalar list item — a bare string value held in the document's
 // content store at its own item path. Used as the element facade for non-complex
@@ -70,12 +94,16 @@ type SomList[T any] struct {
 	doc      *SpecDocument
 	listPath string
 	factory  func(*SpecDocument, string) T
+	// pattern is the list field's @SectionIdPattern (e.g. `DACEN-ITEM-xxx`), or
+	// "" for a pattern-less (scalar) list. It drives section-id generation on
+	// Add / AddOn (AA1 criteria 3–5).
+	pattern string
 }
 
-// NewSomList binds a typed list view to a document, a list path and an element
-// factory.
-func NewSomList[T any](doc *SpecDocument, listPath string, factory func(*SpecDocument, string) T) *SomList[T] {
-	return &SomList[T]{doc: doc, listPath: listPath, factory: factory}
+// NewSomList binds a typed list view to a document, a list path, an element
+// factory and the field's @SectionIdPattern ("" when the field has none).
+func NewSomList[T any](doc *SpecDocument, listPath string, factory func(*SpecDocument, string) T, pattern string) *SomList[T] {
+	return &SomList[T]{doc: doc, listPath: listPath, factory: factory, pattern: pattern}
 }
 
 // Length returns the number of items currently in the list.
@@ -96,9 +124,57 @@ func (l *SomList[T]) At(index int) T {
 	return l.factory(l.doc, l.doc.ListItems(l.listPath)[index])
 }
 
+// SectionIDs returns the section ids currently assigned within this list, in
+// item order (AA1 criterion 1 read).
+func (l *SomList[T]) SectionIDs() []string {
+	return l.doc.ListItemSectionIDs(l.listPath)
+}
+
 // Add appends a new item and returns its element facade.
+//
+// When the list has a pattern, the new item is assigned a section id generated
+// from that pattern using today's date for the two-letter-date component (AA1
+// criteria 3–4). A pattern-less list appends without a section id.
+//
+// Go has no exceptions, optional parameters or overloading, so the JS/TS
+// `add(sectionId?, date?)` splits into three methods: Add (generate, today),
+// AddOn (generate, explicit date) and AddWithID (explicit override). See
+// decision AF-D2.
 func (l *SomList[T]) Add() T {
-	return l.factory(l.doc, l.doc.AddListItem(l.listPath))
+	if l.pattern == "" {
+		return l.factory(l.doc, l.doc.AddListItem(l.listPath))
+	}
+	now := time.Now()
+	return l.addGenerated(int(now.Month()), now.Day())
+}
+
+// AddOn appends a new item whose generated section id uses the given (month,
+// day) for the two-letter-date component (AA1 criteria 3–4). For a pattern-less
+// list it behaves like Add (the date is ignored).
+func (l *SomList[T]) AddOn(month, day int) T {
+	if l.pattern == "" {
+		return l.factory(l.doc, l.doc.AddListItem(l.listPath))
+	}
+	return l.addGenerated(month, day)
+}
+
+// AddWithID appends a new item with an explicit section id override (AA1
+// criterion 5), validated unique within the list. Returns a
+// *SpecSectionIDCollision on a duplicate. For a pattern-less list the id is
+// still recorded (an explicit override is always honoured).
+func (l *SomList[T]) AddWithID(sectionID string) (T, error) {
+	itemPath, err := l.doc.AddListItemWithSectionID(l.listPath, sectionID)
+	if err != nil {
+		var zero T
+		return zero, err
+	}
+	return l.factory(l.doc, itemPath), nil
+}
+
+func (l *SomList[T]) addGenerated(month, day int) T {
+	id := GenerateListItemSectionID(l.pattern, month, day, l.doc.ListItemSectionIDs(l.listPath))
+	itemPath, _ := l.doc.AddListItemWithSectionID(l.listPath, id)
+	return l.factory(l.doc, itemPath)
 }
 
 // RemoveAt removes the item at index and every value nested beneath it.

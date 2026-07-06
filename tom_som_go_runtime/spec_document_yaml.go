@@ -203,7 +203,25 @@ func writeHeader(b *yamlBuffer, modelVersion string) {
 	}
 }
 
-func writeDocumentPass(b *yamlBuffer, doc *DocumentJson) {
+// orderContentKeys / orderFormKeys / orderListKeys order the map keys of the
+// document passes: by SerializationOrder when order != nil (AA1 criterion 7),
+// else alphabetically (the diff-stable default the editor relies on).
+func orderContentKeys(m map[string]string, order *SpecSerializationOrder) []string {
+	if order == nil {
+		return sortedKeys(m)
+	}
+	return order.OrderPaths(mapKeys(m))
+}
+
+func mapKeys(m map[string]string) []string {
+	out := make([]string, 0, len(m))
+	for k := range m {
+		out = append(out, k)
+	}
+	return out
+}
+
+func writeDocumentPass(b *yamlBuffer, doc *DocumentJson, order *SpecSerializationOrder) {
 	if len(doc.Content) == 0 && len(doc.Forms) == 0 && len(doc.Lists) == 0 {
 		b.writeln("document: {}")
 		return
@@ -212,20 +230,32 @@ func writeDocumentPass(b *yamlBuffer, doc *DocumentJson) {
 
 	if len(doc.Content) > 0 {
 		b.writeln("  content:")
-		for _, k := range sortedKeys(doc.Content) {
+		for _, k := range orderContentKeys(doc.Content, order) {
 			writeScalar(b, 4, k, doc.Content[k])
 		}
 	}
 
 	if len(doc.Forms) > 0 {
 		b.writeln("  forms:")
-		for _, k := range sortedFormKeys(doc.Forms) {
+		formKeys := sortedFormKeys(doc.Forms)
+		if order != nil {
+			keys := make([]string, 0, len(doc.Forms))
+			for k := range doc.Forms {
+				keys = append(keys, k)
+			}
+			formKeys = order.OrderPaths(keys)
+		}
+		for _, k := range formKeys {
 			fields := doc.Forms[k]
 			if len(fields) == 0 {
 				continue
 			}
 			b.writeln("    " + yamlKey(k) + ":")
-			for _, f := range sortedKeys(fields) {
+			fieldKeys := sortedKeys(fields)
+			if order != nil {
+				fieldKeys = order.OrderFormFields(k, mapKeys(fields))
+			}
+			for _, f := range fieldKeys {
 				writeScalar(b, 6, f, fields[f])
 			}
 		}
@@ -233,7 +263,15 @@ func writeDocumentPass(b *yamlBuffer, doc *DocumentJson) {
 
 	if len(doc.Lists) > 0 {
 		b.writeln("  lists:")
-		for _, k := range sortedListKeys(doc.Lists) {
+		listKeys := sortedListKeys(doc.Lists)
+		if order != nil {
+			keys := make([]string, 0, len(doc.Lists))
+			for k := range doc.Lists {
+				keys = append(keys, k)
+			}
+			listKeys = order.OrderPaths(keys)
+		}
+		for _, k := range listKeys {
 			spec := doc.Lists[k]
 			b.writeln("    " + yamlKey(k) + ":")
 			b.writeln("      seq: " + itoa(spec.Seq))
@@ -250,11 +288,18 @@ func writeDocumentPass(b *yamlBuffer, doc *DocumentJson) {
 }
 
 // EncodeYaml serializes document to a header + `version:` (+ `modelVersion:`) +
-// `document:` pass.
+// `document:` pass, with alphabetical member ordering (the diff-stable default).
 func EncodeYaml(document *SpecDocument, modelVersion string) string {
+	return EncodeYamlOrdered(document, modelVersion, nil)
+}
+
+// EncodeYamlOrdered is EncodeYaml with an optional SpecSerializationOrder: when
+// non-nil, each class's members are emitted in @SerializationOrder order (AA1
+// criterion 7) instead of alphabetically.
+func EncodeYamlOrdered(document *SpecDocument, modelVersion string, order *SpecSerializationOrder) string {
 	b := &yamlBuffer{}
 	writeHeader(b, modelVersion)
-	writeDocumentPass(b, document.ToJSON())
+	writeDocumentPass(b, document.ToJSON(), order)
 	return b.String()
 }
 

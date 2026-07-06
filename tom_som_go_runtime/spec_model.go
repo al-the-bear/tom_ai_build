@@ -67,22 +67,23 @@ type FormFieldSpec struct {
 
 // SpecField is a single field of a SpecClass.
 type SpecField struct {
-	Name             string            `json:"name"`
-	Kind             string            `json:"kind"`
-	Doc              string            `json:"doc"`
-	Help             string            `json:"help"`
-	SectionID        string            `json:"sectionId"`
-	SectionIDPattern string            `json:"sectionIdPattern"`
-	ElementType      string            `json:"elementType"`
-	ElementIsComplex bool              `json:"elementIsComplex"`
-	Min              *int              `json:"min"`
-	ContentType      string            `json:"contentType"`
-	SectionType      string            `json:"sectionType"`
-	EnumType         string            `json:"enumType"`
-	EnumValues       []string          `json:"enumValues"`
-	Type             string            `json:"type"`
-	FormFields       []*FormFieldSpec  `json:"formFields"`
-	Annotations      []*SpecAnnotation `json:"annotations"`
+	Name               string            `json:"name"`
+	Kind               string            `json:"kind"`
+	Doc                string            `json:"doc"`
+	Help               string            `json:"help"`
+	SectionID          string            `json:"sectionId"`
+	SectionIDPattern   string            `json:"sectionIdPattern"`
+	SerializationOrder *int              `json:"serializationOrder"`
+	ElementType        string            `json:"elementType"`
+	ElementIsComplex   bool              `json:"elementIsComplex"`
+	Min                *int              `json:"min"`
+	ContentType        string            `json:"contentType"`
+	SectionType        string            `json:"sectionType"`
+	EnumType           string            `json:"enumType"`
+	EnumValues         []string          `json:"enumValues"`
+	Type               string            `json:"type"`
+	FormFields         []*FormFieldSpec  `json:"formFields"`
+	Annotations        []*SpecAnnotation `json:"annotations"`
 }
 
 // IsExpandable reports whether expanding this field reveals further tree nodes.

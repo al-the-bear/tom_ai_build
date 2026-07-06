@@ -109,13 +109,13 @@ func (x *SolutionBlueprint) Owner() *SolutionBlueprintOwnerForm {
 func (x *SolutionBlueprint) Risks() *som.SomList[*Risk] {
 	return som.NewSomList(x.Doc(), x.Path() + "/risks", func(d *som.SpecDocument, p string) *Risk {
 		return NewRisk(d, p)
-	})
+	}, "RISK-ITEM-xxx")
 }
 
 func (x *SolutionBlueprint) Tags() *som.SomList[*som.SomScalar] {
 	return som.NewSomList(x.Doc(), x.Path() + "/tags", func(d *som.SpecDocument, p string) *som.SomScalar {
 		return som.NewSomScalar(d, p)
-	})
+	}, "")
 }
 
 func (x *SolutionBlueprint) Situation() *CurrentLandscapeAssessment {

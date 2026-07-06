@@ -20,10 +20,13 @@ package somruntime
 
 import "sort"
 
-// ListJson is the plain-data shape of a single list store entry.
+// ListJson is the plain-data shape of a single list store entry. Ids maps an
+// item path to its assigned section id; it is present only for lists that carry
+// section ids (AA1 criteria 3–6).
 type ListJson struct {
-	Seq   int      `json:"seq"`
-	Items []string `json:"items"`
+	Seq   int               `json:"seq"`
+	Items []string          `json:"items"`
+	Ids   map[string]string `json:"ids,omitempty"`
 }
 
 // DocumentJson is a SpecDocument.ToJSON-shaped plain-data view of a document.
@@ -35,20 +38,30 @@ type DocumentJson struct {
 }
 
 // SpecDocument is the sparse in-memory document.
+//
+// Each list item also carries a **section id** (AA1 criteria 3–6): the
+// document-semantic identity generated from the list field's @SectionIdPattern.
+// This is distinct from the internal "-<seq>" path key: the seq path keeps
+// nested values attached across edits (never renumbered), while the section id
+// is what the document exposes and may be overridden (SetItemSectionID,
+// criterion 5) or reused same-day after the last item is deleted (criterion 6).
+// Section ids live in itemSectionID, keyed by the internal item path.
 type SpecDocument struct {
-	content   map[string]string
-	form      map[string]map[string]string
-	listItems map[string][]string
-	listSeq   map[string]int
+	content       map[string]string
+	form          map[string]map[string]string
+	listItems     map[string][]string
+	listSeq       map[string]int
+	itemSectionID map[string]string
 }
 
 // NewSpecDocument returns an empty document.
 func NewSpecDocument() *SpecDocument {
 	return &SpecDocument{
-		content:   map[string]string{},
-		form:      map[string]map[string]string{},
-		listItems: map[string][]string{},
-		listSeq:   map[string]int{},
+		content:       map[string]string{},
+		form:          map[string]map[string]string{},
+		listItems:     map[string][]string{},
+		listSeq:       map[string]int{},
+		itemSectionID: map[string]string{},
 	}
 }
 
@@ -64,6 +77,9 @@ func (d *SpecDocument) ensure() {
 	}
 	if d.listSeq == nil {
 		d.listSeq = map[string]int{}
+	}
+	if d.itemSectionID == nil {
+		d.itemSectionID = map[string]string{}
 	}
 }
 
@@ -152,6 +168,96 @@ func (d *SpecDocument) AddListItem(listPath string) string {
 	return itemPath
 }
 
+// AddListItemWithSectionID appends a new item to the list at listPath, assigns
+// it the given section id, and returns its stable path. The id is checked for
+// uniqueness against the list's other items (AA1 criterion 5); a collision
+// returns a *SpecSectionIDCollision and leaves the document untouched. Section
+// id *generation* from a @SectionIdPattern lives in the caller (it needs the
+// pattern); this layer only stores and guards uniqueness.
+func (d *SpecDocument) AddListItemWithSectionID(listPath, sectionID string) (string, error) {
+	d.ensure()
+	if err := d.assertSectionIDFree(listPath, sectionID, ""); err != nil {
+		return "", err
+	}
+	itemPath := d.AddListItem(listPath)
+	d.itemSectionID[itemPath] = sectionID
+	return itemPath, nil
+}
+
+// ItemSectionID returns the section id assigned to the list item at itemPath,
+// with ok=false when none has been set (AA1 criterion 1 read path).
+func (d *SpecDocument) ItemSectionID(itemPath string) (string, bool) {
+	id, ok := d.itemSectionID[itemPath]
+	return id, ok
+}
+
+// ItemSectionIDOr returns the section id assigned to itemPath, or "" when none.
+func (d *SpecDocument) ItemSectionIDOr(itemPath string) string {
+	return d.itemSectionID[itemPath]
+}
+
+// SetItemSectionID overrides the section id of the list item at itemPath (AA1
+// criterion 5). It validates that the new id is unique among the *other* items
+// of the same owning list; a collision returns a *SpecSectionIDCollision.
+// Assigning an id equal to the item's current id is a no-op. Returns an error if
+// itemPath is not a live list item.
+func (d *SpecDocument) SetItemSectionID(itemPath, id string) error {
+	d.ensure()
+	owningList, ok := d.owningListOf(itemPath)
+	if !ok {
+		return errNotLiveItem(itemPath)
+	}
+	if cur, has := d.itemSectionID[itemPath]; has && cur == id {
+		return nil
+	}
+	if err := d.assertSectionIDFree(owningList, id, itemPath); err != nil {
+		return err
+	}
+	d.itemSectionID[itemPath] = id
+	return nil
+}
+
+// ListItemSectionIDs returns the section ids currently assigned within the list
+// at listPath, in item order (items without an id are skipped). Feeds both id
+// generation (existingIDs) and uniqueness checks.
+func (d *SpecDocument) ListItemSectionIDs(listPath string) []string {
+	items := d.listItems[listPath]
+	out := make([]string, 0, len(items))
+	for _, itemPath := range items {
+		if id, ok := d.itemSectionID[itemPath]; ok {
+			out = append(out, id)
+		}
+	}
+	return out
+}
+
+// owningListOf returns the listItems entry that owns itemPath, with ok=false
+// when none does.
+func (d *SpecDocument) owningListOf(itemPath string) (string, bool) {
+	for key, items := range d.listItems {
+		for _, it := range items {
+			if it == itemPath {
+				return key, true
+			}
+		}
+	}
+	return "", false
+}
+
+// assertSectionIDFree returns a *SpecSectionIDCollision when id is already used
+// by an item of listPath other than exceptItemPath ("" for none).
+func (d *SpecDocument) assertSectionIDFree(listPath, id, exceptItemPath string) error {
+	for _, itemPath := range d.listItems[listPath] {
+		if itemPath == exceptItemPath {
+			continue
+		}
+		if cur, ok := d.itemSectionID[itemPath]; ok && cur == id {
+			return &SpecSectionIDCollision{ID: id, ListPath: listPath}
+		}
+	}
+	return nil
+}
+
 // RemoveListItem removes the list item at itemPath along with every value nested
 // beneath it. The counter is left untouched so future items keep getting fresh
 // sequence numbers (no renumbering). Returns whether an item was removed.
@@ -222,6 +328,23 @@ func (d *SpecDocument) purgeUnder(prefix string) {
 			delete(d.listSeq, k)
 		}
 	}
+	for k := range d.itemSectionID {
+		if isUnder(k, prefix) {
+			delete(d.itemSectionID, k)
+		}
+	}
+}
+
+// errNotLiveItem describes an attempt to set a section id on a path that is not
+// a live list item.
+func errNotLiveItem(itemPath string) error {
+	return &notLiveItemError{itemPath: itemPath}
+}
+
+type notLiveItemError struct{ itemPath string }
+
+func (e *notLiveItemError) Error() string {
+	return "'" + e.itemPath + "' is not a live list item"
 }
 
 // --- queries ---------------------------------------------------------------
@@ -329,7 +452,17 @@ func (d *SpecDocument) ToJSON() *DocumentJson {
 			}
 			cp := make([]string, len(items))
 			copy(cp, items)
-			lists[k] = ListJson{Seq: seq, Items: cp}
+			entry := ListJson{Seq: seq, Items: cp}
+			ids := map[string]string{}
+			for _, itemPath := range items {
+				if id, has := d.itemSectionID[itemPath]; has {
+					ids[itemPath] = id
+				}
+			}
+			if len(ids) > 0 {
+				entry.Ids = ids
+			}
+			lists[k] = entry
 		}
 		out.Lists = lists
 	}
@@ -350,6 +483,7 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	d.form = map[string]map[string]string{}
 	d.listItems = map[string][]string{}
 	d.listSeq = map[string]int{}
+	d.itemSectionID = map[string]string{}
 	if j == nil {
 		return
 	}
@@ -375,6 +509,9 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 				d.listSeq[k] = spec.Seq
 			} else {
 				d.listSeq[k] = len(spec.Items)
+			}
+			for itemPath, id := range spec.Ids {
+				d.itemSectionID[itemPath] = id
 			}
 		}
 	}

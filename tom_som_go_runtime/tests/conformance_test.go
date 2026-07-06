@@ -21,6 +21,7 @@ package tests
 
 import (
 	"encoding/json"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -187,6 +188,8 @@ func TestConformance(t *testing.T) {
 	testReflection(c, t, model)
 	testValidation(c, t, model)
 	testOperations(c, t)
+	testSectionId(c, t)
+	testSerializationOrder(c, t)
 
 	c.finish()
 }
@@ -408,6 +411,129 @@ func testOperations(c *checker, t *testing.T) {
 			c.check(tag+".unknown", false, op.Op)
 		}
 	}
+}
+
+// --- section-id conformance (AA1 criteria 3–6) -----------------------------
+
+type sectionIdTwoLetterCase struct {
+	Month  int    `json:"month"`
+	Day    int    `json:"day"`
+	Expect string `json:"expect"`
+}
+
+type sectionIdGenerateCase struct {
+	Pattern  string   `json:"pattern"`
+	Month    int      `json:"month"`
+	Day      int      `json:"day"`
+	Existing []string `json:"existing"`
+	Expect   string   `json:"expect"`
+}
+
+type sectionIdOpCase struct {
+	Op         string          `json:"op"`
+	ListPath   string          `json:"listPath"`
+	Pattern    string          `json:"pattern"`
+	Month      int             `json:"month"`
+	Day        int             `json:"day"`
+	ExpectId   string          `json:"expectId"`
+	ExpectPath string          `json:"expectPath"`
+	Expect     json.RawMessage `json:"expect"`
+	ItemPath   string          `json:"itemPath"`
+	Id         string          `json:"id"`
+}
+
+type sectionIdCases struct {
+	TwoLetterDate []sectionIdTwoLetterCase `json:"twoLetterDate"`
+	Generate      []sectionIdGenerateCase  `json:"generate"`
+	DocumentOps   []sectionIdOpCase        `json:"documentOps"`
+}
+
+// isCollision reports whether err is (or wraps) a SpecSectionIDCollision
+// (criterion-5 guard).
+func isCollision(err error) bool {
+	var c *som.SpecSectionIDCollision
+	return errors.As(err, &c)
+}
+
+func testSectionId(c *checker, t *testing.T) {
+	var cases sectionIdCases
+	readJSON(t, "section_id_cases.json", &cases)
+
+	// Criterion 4: the two-letter day code.
+	for _, tc := range cases.TwoLetterDate {
+		got := som.EncodeTwoLetterDate(tc.Month, tc.Day)
+		c.check("sectionId.twoLetterDate["+itoa(tc.Month)+"/"+itoa(tc.Day)+"]",
+			got == tc.Expect, got+" != "+tc.Expect)
+	}
+
+	// Criteria 3 & 6: generated id = prefix + day + (max-for-day + 1).
+	for _, tc := range cases.Generate {
+		got := som.GenerateListItemSectionID(tc.Pattern, tc.Month, tc.Day, tc.Existing)
+		c.check("sectionId.generate["+tc.Pattern+"]", got == tc.Expect, got+" != "+tc.Expect)
+	}
+
+	// Criteria 5 & 6 at the document level.
+	doc := som.NewSpecDocument()
+	for i, s := range cases.DocumentOps {
+		tag := "sectionId.op[" + itoa(i) + "]." + s.Op
+		switch s.Op {
+		case "addGen":
+			genID := som.GenerateListItemSectionID(s.Pattern, s.Month, s.Day, doc.ListItemSectionIDs(s.ListPath))
+			c.check(tag+".id", genID == s.ExpectId, genID+" != "+s.ExpectId)
+			p, err := doc.AddListItemWithSectionID(s.ListPath, genID)
+			c.check(tag+".add", err == nil, "unexpected error")
+			c.check(tag+".path", p == s.ExpectPath, p+" != "+s.ExpectPath)
+		case "sectionIds":
+			var exp []string
+			json.Unmarshal(s.Expect, &exp)
+			got := doc.ListItemSectionIDs(s.ListPath)
+			c.check(tag, sliceEq(got, exp), join(got)+" != "+join(exp))
+		case "removeListItem":
+			var exp bool
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag, doc.RemoveListItem(s.ItemPath) == exp, "")
+		case "override":
+			if err := doc.SetItemSectionID(s.ItemPath, s.Id); err != nil {
+				c.check(tag, false, "unexpected error: "+err.Error())
+			}
+		case "overrideThrows":
+			c.check(tag, isCollision(doc.SetItemSectionID(s.ItemPath, s.Id)), "expected collision")
+		case "addExplicitThrows":
+			_, err := doc.AddListItemWithSectionID(s.ListPath, s.Id)
+			c.check(tag, isCollision(err), "expected collision")
+		default:
+			c.check(tag+".unknown", false, s.Op)
+		}
+	}
+}
+
+// --- serialization-order conformance (AA1 criterion 7) ---------------------
+
+type serializationOrderCases struct {
+	Model             json.RawMessage `json:"model"`
+	ContentPaths      []string        `json:"contentPaths"`
+	ExpectedOrder     []string        `json:"expectedOrder"`
+	FormPath          string          `json:"formPath"`
+	FormFields        []string        `json:"formFields"`
+	ExpectedFormOrder []string        `json:"expectedFormOrder"`
+}
+
+func testSerializationOrder(c *checker, t *testing.T) {
+	var cases serializationOrderCases
+	readJSON(t, "serialization_order_cases.json", &cases)
+	model, err := som.SpecModelFromJSON(cases.Model)
+	if err != nil {
+		t.Fatalf("serialization order model: %v", err)
+	}
+	order := som.NewSpecSerializationOrder(model)
+
+	gotPaths := order.OrderPaths(cases.ContentPaths)
+	c.check("serialOrder.orderPaths", sliceEq(gotPaths, cases.ExpectedOrder),
+		join(gotPaths)+" != "+join(cases.ExpectedOrder))
+
+	gotFields := order.OrderFormFields(cases.FormPath, cases.FormFields)
+	c.check("serialOrder.orderFormFields", sliceEq(gotFields, cases.ExpectedFormOrder),
+		join(gotFields)+" != "+join(cases.ExpectedFormOrder))
 }
 
 // --- small helpers ---------------------------------------------------------
