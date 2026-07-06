@@ -114,6 +114,14 @@ typedef struct {
 /* Returns the class named `name`, or NULL. */
 const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);
 
+/* Returns the document root whose `type` equals `type` (§ item 12), or NULL when
+ * no root carries that type. On the NULL path, when `err` is non-NULL, writes an
+ * owned message naming the missing type and the ones that do exist (caller frees
+ * with `free`); on success `*err` is left untouched. Replaces the recurring
+ * `roots.firstWhere((r) => r.type == …)` boilerplate. */
+const SpecRoot *spec_model_root_by_type(const SpecModel *m, const char *type,
+                                        char **err);
+
 /* Decodes a meta-data JSON document. On failure returns NULL and, when `err` is
  * non-NULL, writes an owned error message. */
 SpecModel *spec_model_from_json_str(const char *data, char **err);

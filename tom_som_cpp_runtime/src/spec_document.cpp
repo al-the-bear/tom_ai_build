@@ -2,12 +2,50 @@
 
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 #include "som_util.hpp"
+#include "spec_document_markdown.hpp"
 #include "spec_document_yaml.hpp"
+#include "spec_model.hpp"
 #include "spec_section_id.hpp"
 
 namespace som {
+
+/* ---- one-call Markdown export (item 12) --------------------------------- */
+
+std::string SpecDocument::toMarkdown(const SpecModel& model,
+                                     const std::string& rootType) const {
+  if (!rootType.empty()) {
+    return markdownExportRoot(model, *this, model.rootByType(rootType));
+  }
+  // Default: the single root under which this document holds any value.
+  std::vector<const SpecRoot*> populated;
+  for (const auto& r : model.roots) {
+    const std::string& seg = !r.sectionId.empty() ? r.sectionId : r.type;
+    if (hasValuesUnder(seg)) {
+      populated.push_back(&r);
+    }
+  }
+  if (populated.size() == 1) {
+    return markdownExportRoot(model, *this, *populated.front());
+  }
+  if (populated.empty()) {
+    throw std::runtime_error(
+        "document has no populated root to export; pass rootType to choose "
+        "one");
+  }
+  std::string types;
+  for (const SpecRoot* r : populated) {
+    if (!types.empty()) {
+      types += ", ";
+    }
+    types += r->type;
+  }
+  throw std::runtime_error("document has " + std::to_string(populated.size()) +
+                           " populated roots (" + types +
+                           "); pass rootType to choose one");
+}
 
 /* ---- one-call document loading (item 4) --------------------------------- */
 

@@ -122,6 +122,67 @@ void main() {
     });
   });
 
+  group('SpecDocument.toMarkdown (item 12)', () {
+    test('matches the explicit codec output for an explicit rootType', () {
+      final model = _model();
+      final doc = _populated();
+      final oneLiner = doc.toMarkdown(model, rootType: 'DemoDoc');
+      final explicit =
+          SpecDocumentMarkdown(model, doc).exportRoot(model.rootByType('DemoDoc'));
+      expect(oneLiner, explicit);
+    });
+
+    test('defaults to the single populated root when rootType is omitted', () {
+      final model = _model();
+      final doc = _populated();
+      expect(doc.toMarkdown(model), doc.toMarkdown(model, rootType: 'DemoDoc'));
+    });
+
+    test('throws when no root is populated', () {
+      final model = _model();
+      expect(
+        () => SpecDocument().toMarkdown(model),
+        throwsA(isA<StateError>()
+            .having((e) => e.message, 'message', contains('no populated root'))),
+      );
+    });
+
+    test('throws naming the candidates when more than one root is populated',
+        () {
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[
+          {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
+          {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
+        ],
+        'classes': <String, dynamic>{
+          'Alpha': {
+            'name': 'Alpha',
+            'sectionId': 'A00',
+            'fields': [
+              {'name': 'overview', 'kind': 'content', 'sectionId': 'A00-OVR'},
+            ],
+          },
+          'Beta': {
+            'name': 'Beta',
+            'sectionId': 'B00',
+            'fields': [
+              {'name': 'overview', 'kind': 'content', 'sectionId': 'B00-OVR'},
+            ],
+          },
+        },
+      });
+      final doc = SpecDocument()
+        ..setContent('A00/A00-OVR', 'a')
+        ..setContent('B00/B00-OVR', 'b');
+      expect(
+        () => doc.toMarkdown(model),
+        throwsA(isA<StateError>()
+            .having((e) => e.message, 'm', contains('Alpha'))
+            .having((e) => e.message, 'm', contains('Beta'))),
+      );
+    });
+  });
+
   group('round-trip', () {
     test('export → parse into a fresh document reproduces every value', () {
       final md = SpecDocumentMarkdown(_model(), _populated()).exportRoot(_root());

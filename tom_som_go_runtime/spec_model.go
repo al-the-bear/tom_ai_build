@@ -10,7 +10,10 @@ package somruntime
 // This is the "reflection" surface — it describes any document's structure,
 // independent of the values a concrete document holds.
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"strings"
+)
 
 // Field render kinds, mirroring the exporter's classification.
 const (
@@ -156,6 +159,42 @@ func (m *SpecModel) ClassNamed(name string) *SpecClass {
 		return nil
 	}
 	return m.Classes[name]
+}
+
+// RootByType returns the document root whose Type equals the argument (SOM
+// § item 12). It replaces the recurring "range Roots looking for r.Type == …"
+// boilerplate. When no root carries that type it returns a rootTypeNotFoundError
+// whose message names the missing type and the ones that do exist.
+func (m *SpecModel) RootByType(rootType string) (*SpecRoot, error) {
+	for _, r := range m.Roots {
+		if r.Type == rootType {
+			return r, nil
+		}
+	}
+	return nil, errRootType(rootType, m.rootTypes())
+}
+
+// rootTypes returns the Type of every root, in root order.
+func (m *SpecModel) rootTypes() []string {
+	types := make([]string, 0, len(m.Roots))
+	for _, r := range m.Roots {
+		types = append(types, r.Type)
+	}
+	return types
+}
+
+func errRootType(rootType string, have []string) error {
+	return &rootTypeNotFoundError{rootType: rootType, have: have}
+}
+
+type rootTypeNotFoundError struct {
+	rootType string
+	have     []string
+}
+
+func (e *rootTypeNotFoundError) Error() string {
+	return "no document root with type '" + e.rootType +
+		"' (have: " + strings.Join(e.have, ", ") + ")"
 }
 
 // specModelJSON mirrors the on-disk meta-data shape for unmarshalling.

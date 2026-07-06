@@ -57,6 +57,36 @@ const SpecClass *spec_model_class_named(const SpecModel *m, const char *name) {
   return NULL;
 }
 
+const SpecRoot *spec_model_root_by_type(const SpecModel *m, const char *type,
+                                        char **err) {
+  if (m != NULL && type != NULL) {
+    for (size_t i = 0; i < m->roots_len; i++) {
+      if (strcmp(m->roots[i].type, type) == 0) {
+        return &m->roots[i];
+      }
+    }
+  }
+  if (err != NULL) {
+    /* Mirror the Dart ArgumentError message: name the missing type and the ones
+     * that do exist. */
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "no document root with type '");
+    som_buf_puts(&b, type != NULL ? type : "");
+    som_buf_puts(&b, "' (have: ");
+    for (size_t i = 0; m != NULL && i < m->roots_len; i++) {
+      if (i > 0) {
+        som_buf_puts(&b, ", ");
+      }
+      som_buf_puts(&b, m->roots[i].type);
+    }
+    som_buf_puts(&b, ")");
+    *err = som_buf_take(&b);
+    som_buf_free(&b);
+  }
+  return NULL;
+}
+
 /* ---- decoding ----------------------------------------------------------- */
 
 static char *str_or_dup(const SomJson *v, const char *key) {

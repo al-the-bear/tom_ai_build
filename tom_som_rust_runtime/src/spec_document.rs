@@ -19,6 +19,8 @@
 use std::collections::BTreeMap;
 
 use crate::json::{encode_str, Json};
+use crate::spec_document_markdown::SpecDocumentMarkdown;
+use crate::spec_model::{SpecModel, SpecRoot};
 use crate::spec_section_id::{SpecSectionIdCollision, SpecSectionIdError};
 
 /// The plain-data shape of a single list store entry. `ids` maps an item path to
@@ -237,6 +239,59 @@ impl SpecDocument {
         let yaml = std::fs::read_to_string(path)
             .unwrap_or_else(|e| panic!("failed to read {}: {}", path, e));
         SpecDocument::from_yaml(&yaml)
+    }
+
+    /// Renders this document to Markdown in one call (§ item 12).
+    ///
+    /// Collapses the former `SpecDocumentMarkdown::new(model, doc)
+    /// .export_root(model.root_by_type(…))` incantation. When `root_type` is
+    /// `Some`, that root is exported (via [`SpecModel::root_by_type`]); when
+    /// `None`, the document's single **populated** root is used — a root is
+    /// populated when it has any value beneath its segment
+    /// ([`has_values_under`](Self::has_values_under)). Returns `Err` when the
+    /// default is ambiguous — zero populated roots, or more than one — so the
+    /// caller names the `root_type` explicitly.
+    pub fn to_markdown(
+        &self,
+        model: &SpecModel,
+        root_type: Option<&str>,
+    ) -> Result<String, String> {
+        let root = match root_type {
+            Some(ty) => model.root_by_type(ty)?,
+            None => self.single_populated_root(model)?,
+        };
+        Ok(SpecDocumentMarkdown::new(model, self).export_root(root))
+    }
+
+    /// Returns the one root under which this document holds any value, for
+    /// [`to_markdown`](Self::to_markdown)'s default. Returns `Err` when zero or
+    /// more than one root is populated.
+    fn single_populated_root<'a>(&self, model: &'a SpecModel) -> Result<&'a SpecRoot, String> {
+        let populated: Vec<&SpecRoot> = model
+            .roots
+            .iter()
+            .filter(|r| {
+                let section = if r.section_id.is_empty() {
+                    r.type_.as_str()
+                } else {
+                    r.section_id.as_str()
+                };
+                self.has_values_under(section)
+            })
+            .collect();
+        match populated.len() {
+            1 => Ok(populated[0]),
+            0 => Err("document has no populated root to export; pass root_type to choose one"
+                .to_string()),
+            n => {
+                let types: Vec<&str> = populated.iter().map(|r| r.type_.as_str()).collect();
+                Err(format!(
+                    "document has {} populated roots ({}); pass root_type to choose one",
+                    n,
+                    types.join(", ")
+                ))
+            }
+        }
     }
 
     // --- content -----------------------------------------------------------
@@ -578,4 +633,122 @@ fn is_under(key: &str, prefix: &str) -> bool {
     key == prefix
         || key.starts_with(&format!("{}/", prefix))
         || key.starts_with(&format!("{}-", prefix))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::spec_document_markdown::SpecDocumentMarkdown;
+
+    /// A single-root model covering content, enum, `@Form`, a complex sub-section
+    /// and a list of complex items — the Rust mirror of the Dart `_sampleJson`.
+    fn sample_model() -> SpecModel {
+        SpecModel::from_json_str(
+            r#"{
+                "roots": [
+                    {"type": "DemoDoc", "title": "Demo Document", "sectionId": "D00",
+                     "description": "A demo document."}
+                ],
+                "classes": {
+                    "DemoDoc": {
+                        "name": "DemoDoc", "sectionId": "D00",
+                        "fields": [
+                            {"name": "overview", "kind": "content", "sectionId": "D00-OVR"},
+                            {"name": "status", "kind": "enum", "sectionId": "D00-ST",
+                             "enumValues": ["draft", "final"]},
+                            {"name": "header", "kind": "form", "sectionId": "D00-HDR",
+                             "formFields": [
+                                {"name": "author", "label": "Author", "type": "String"},
+                                {"name": "reviewer", "label": "Reviewer", "type": "String"}
+                             ]},
+                            {"name": "meta", "kind": "complex", "type": "DemoMeta",
+                             "sectionId": "D00-MET"},
+                            {"name": "items", "kind": "list", "elementType": "DemoItem",
+                             "elementIsComplex": true, "sectionId": "D00-ITM"}
+                        ]
+                    },
+                    "DemoMeta": {
+                        "name": "DemoMeta", "sectionId": "D00-MET",
+                        "fields": [
+                            {"name": "note", "kind": "content", "sectionId": "D00-MET-NOTE"}
+                        ]
+                    },
+                    "DemoItem": {
+                        "name": "DemoItem",
+                        "fields": [
+                            {"name": "label", "kind": "content", "sectionId": "D01-LBL"},
+                            {"name": "body", "kind": "content", "sectionId": "D01-BODY"}
+                        ]
+                    }
+                }
+            }"#,
+        )
+        .unwrap()
+    }
+
+    /// A populated document under the `DemoDoc` root — mirror of Dart `_populated`.
+    fn populated() -> SpecDocument {
+        let mut doc = SpecDocument::new();
+        doc.set_content("D00/D00-OVR", "An overview paragraph.\nWith two lines.");
+        doc.set_content("D00/D00-ST", "final");
+        doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+        doc.set_content("D00/D00-MET/D00-MET-NOTE", "A note.");
+        let item = doc.add_list_item("D00/D00-ITM");
+        doc.set_content(&format!("{item}/D01-LBL"), "First item");
+        let item2 = doc.add_list_item("D00/D00-ITM");
+        doc.set_content(&format!("{item2}/D01-LBL"), "Second item");
+        doc
+    }
+
+    #[test]
+    fn to_markdown_matches_the_explicit_codec_output_for_an_explicit_root_type() {
+        let model = sample_model();
+        let doc = populated();
+        let one_liner = doc.to_markdown(&model, Some("DemoDoc")).unwrap();
+        let explicit = SpecDocumentMarkdown::new(&model, &doc)
+            .export_root(model.root_by_type("DemoDoc").unwrap());
+        assert_eq!(one_liner, explicit);
+    }
+
+    #[test]
+    fn to_markdown_defaults_to_the_single_populated_root_when_omitted() {
+        let model = sample_model();
+        let doc = populated();
+        assert_eq!(
+            doc.to_markdown(&model, None).unwrap(),
+            doc.to_markdown(&model, Some("DemoDoc")).unwrap()
+        );
+    }
+
+    #[test]
+    fn to_markdown_errors_when_no_root_is_populated() {
+        let model = sample_model();
+        let err = SpecDocument::new().to_markdown(&model, None).unwrap_err();
+        assert!(err.contains("no populated root"), "message: {err}");
+    }
+
+    #[test]
+    fn to_markdown_errors_naming_the_candidates_when_more_than_one_root_is_populated() {
+        let model = SpecModel::from_json_str(
+            r#"{
+                "roots": [
+                    {"type": "Alpha", "title": "Alpha Doc", "sectionId": "A00"},
+                    {"type": "Beta", "title": "Beta Doc", "sectionId": "B00"}
+                ],
+                "classes": {
+                    "Alpha": {"name": "Alpha", "sectionId": "A00",
+                        "fields": [{"name": "overview", "kind": "content", "sectionId": "A00-OVR"}]},
+                    "Beta": {"name": "Beta", "sectionId": "B00",
+                        "fields": [{"name": "overview", "kind": "content", "sectionId": "B00-OVR"}]}
+                }
+            }"#,
+        )
+        .unwrap();
+        let mut doc = SpecDocument::new();
+        doc.set_content("A00/A00-OVR", "a");
+        doc.set_content("B00/B00-OVR", "b");
+        let err = doc.to_markdown(&model, None).unwrap_err();
+        assert!(err.contains("Alpha"), "message lists Alpha: {err}");
+        assert!(err.contains("Beta"), "message lists Beta: {err}");
+    }
 }

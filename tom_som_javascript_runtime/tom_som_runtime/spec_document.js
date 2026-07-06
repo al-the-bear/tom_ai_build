@@ -88,6 +88,63 @@ class SpecDocument {
     return SpecDocument.fromYaml(require('fs').readFileSync(path, 'utf8'));
   }
 
+  // --- markdown export ----------------------------------------------------
+
+  /**
+   * Renders this document to Markdown in one call (§ item 12).
+   *
+   * Collapses the former `new SpecDocumentMarkdown(model, doc).exportRoot(
+   * model.roots.find((r) => r.type === …))` incantation. When `rootType` is
+   * given, that root is exported (via {@link SpecModel.rootByType}); when
+   * omitted, the document's single **populated** root is used — a root is
+   * populated when it has any value beneath its segment
+   * ({@link hasValuesUnder}). Throws an {@link Error} when the default is
+   * ambiguous — zero populated roots, or more than one — so the caller names
+   * the `rootType` explicitly.
+   *
+   * The markdown codec is required lazily to sidestep any load-order/circular
+   * require between this module and `spec_document_markdown.js`.
+   *
+   * @param {import('./spec_model').SpecModel} model
+   * @param {string|null} [rootType]
+   * @returns {string}
+   */
+  toMarkdown(model, rootType = null) {
+    const { SpecDocumentMarkdown } = require('./spec_document_markdown');
+    const root =
+      rootType !== null && rootType !== undefined
+        ? model.rootByType(rootType)
+        : this._singlePopulatedRoot(model);
+    return new SpecDocumentMarkdown(model, this).exportRoot(root);
+  }
+
+  /**
+   * The one root under which this document holds any value, for
+   * {@link toMarkdown}'s default. Throws an {@link Error} when zero or more
+   * than one root is populated.
+   *
+   * @param {import('./spec_model').SpecModel} model
+   * @returns {import('./spec_model').SpecRoot}
+   */
+  _singlePopulatedRoot(model) {
+    const populated = model.roots.filter((r) =>
+      this.hasValuesUnder(r.sectionId != null ? r.sectionId : r.type),
+    );
+    if (populated.length === 1) {
+      return populated[0];
+    }
+    if (populated.length === 0) {
+      throw new Error(
+        'document has no populated root to export; pass rootType to choose one',
+      );
+    }
+    const types = populated.map((r) => r.type).join(', ');
+    throw new Error(
+      `document has ${populated.length} populated roots (${types}); ` +
+        'pass rootType to choose one',
+    );
+  }
+
   // --- content ------------------------------------------------------------
 
   /** @returns {string|null} */

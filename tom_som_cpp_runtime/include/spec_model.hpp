@@ -12,6 +12,7 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -101,6 +102,12 @@ class SpecModel {
 
   /* Returns the class named `name`, or null. */
   const SpecClass* classNamed(const std::string& name) const;
+
+  /* Returns the document root whose `type` equals `type` (§ item 12).
+   * Replaces the recurring firstWhere((r) => r.type == …) boilerplate. Throws
+   * std::invalid_argument when no root carries that type, with a message that
+   * names the missing type and the ones that do exist. */
+  const SpecRoot& rootByType(const std::string& type) const;
 
   std::size_t classCount() const { return classesByName_.size(); }
 

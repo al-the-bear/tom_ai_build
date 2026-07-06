@@ -200,6 +200,62 @@ function testMarkdownExport(model: SpecModel): void {
   _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
 }
 
+function _throwsWith(name: string, fn: () => unknown, needles: string[]): void {
+  try {
+    fn();
+    _check(name, false, 'expected throw, but returned normally');
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    const missing = needles.filter((n) => !msg.includes(n));
+    _check(name, missing.length === 0, missing.length ? `missing ${missing.join(', ')} in '${msg}'` : '');
+  }
+}
+
+// Item-12 one-liners: SpecModel.rootByType + SpecDocument.toMarkdown. Mirrors the
+// Dart reference groups in spec_model_test.dart / spec_document_markdown_test.dart.
+function testItem12(model: SpecModel): void {
+  const twoRoot = SpecModel.fromJson({
+    roots: [
+      { type: 'Alpha', title: 'Alpha Doc', sectionId: 'A00' },
+      { type: 'Beta', title: 'Beta Doc', sectionId: 'B00' },
+    ],
+    classes: {},
+  });
+
+  // rootByType: returns the matching root.
+  _check('item12.rootByType.match', twoRoot.rootByType('Alpha').title === 'Alpha Doc');
+  _check('item12.rootByType.sectionId', twoRoot.rootByType('Beta').sectionId === 'B00');
+  // rootByType: throws naming missing + available types.
+  _throwsWith('item12.rootByType.throws', () => twoRoot.rootByType('Gamma'), ['Gamma', 'Alpha', 'Beta']);
+
+  // toMarkdown(rootType) == explicit codec output on the corpus fixture.
+  const doc = _documentFromState(_readJson('state.json'));
+  const rootType = model.roots[0].type;
+  const oneLiner = doc.toMarkdown(model, rootType);
+  const explicit = new SpecDocumentMarkdown(model, doc).exportRoot(model.rootByType(rootType));
+  _check('item12.toMarkdown.explicit', oneLiner === explicit, _byteDiff('item12.toMarkdown.explicit', oneLiner, explicit));
+  // toMarkdown() defaults to the single populated root (corpus has one root).
+  _check('item12.toMarkdown.default', doc.toMarkdown(model) === oneLiner);
+  // toMarkdown() throws on an empty document (no populated root).
+  _throwsWith('item12.toMarkdown.none', () => new SpecDocument().toMarkdown(model), ['no populated root']);
+
+  // toMarkdown() throws naming candidates when >1 root is populated.
+  const ambiguousModel = SpecModel.fromJson({
+    roots: [
+      { type: 'Alpha', title: 'Alpha Doc', sectionId: 'A00' },
+      { type: 'Beta', title: 'Beta Doc', sectionId: 'B00' },
+    ],
+    classes: {
+      Alpha: { name: 'Alpha', sectionId: 'A00', fields: [{ name: 'overview', kind: 'content', sectionId: 'A00-OVR' }] },
+      Beta: { name: 'Beta', sectionId: 'B00', fields: [{ name: 'overview', kind: 'content', sectionId: 'B00-OVR' }] },
+    },
+  });
+  const ambiguousDoc = new SpecDocument();
+  ambiguousDoc.setContent('A00/A00-OVR', 'a');
+  ambiguousDoc.setContent('B00/B00-OVR', 'b');
+  _throwsWith('item12.toMarkdown.ambiguous', () => ambiguousDoc.toMarkdown(ambiguousModel), ['Alpha', 'Beta']);
+}
+
 function testMarkdownRoundTrip(model: SpecModel): void {
   const expected = _read('expected.md');
   const codec = new SpecDocumentMarkdown(model, new SpecDocument());
@@ -473,6 +529,7 @@ export function main(): number {
   testYamlEncode();
   testYamlDecodeRoundTrip();
   testMarkdownExport(model);
+  testItem12(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);
   testReflection(model);

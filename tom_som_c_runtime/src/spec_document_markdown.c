@@ -708,3 +708,71 @@ static void reconstruct_lists(const SpecModel *model,
   }
   som_strlist_free(&keys);
 }
+
+/* The one root under which `document` holds any value, for the default of
+ * `spec_document_to_markdown`. On zero or more than one populated root returns
+ * NULL and, when `err` is non-NULL, writes an owned message. */
+static const SpecRoot *single_populated_root(const SpecModel *model,
+                                             const SpecDocument *document,
+                                             char **err) {
+  const SpecRoot *found = NULL;
+  size_t count = 0;
+  for (size_t i = 0; i < model->roots_len; i++) {
+    const SpecRoot *r = &model->roots[i];
+    const char *seg = (r->section_id != NULL && r->section_id[0] != '\0')
+                          ? r->section_id
+                          : r->type;
+    if (spec_document_has_values_under(document, seg)) {
+      count++;
+      if (found == NULL) {
+        found = r;
+      }
+    }
+  }
+  if (count == 1) {
+    return found;
+  }
+  if (err != NULL) {
+    SomBuf b;
+    som_buf_init(&b);
+    if (count == 0) {
+      som_buf_puts(&b,
+                   "document has no populated root to export; pass root_type "
+                   "to choose one");
+    } else {
+      som_buf_puts(&b, "document has ");
+      som_buf_puti(&b, (long long)count);
+      som_buf_puts(&b, " populated roots (");
+      int first = 1;
+      for (size_t i = 0; i < model->roots_len; i++) {
+        const SpecRoot *r = &model->roots[i];
+        const char *seg = (r->section_id != NULL && r->section_id[0] != '\0')
+                              ? r->section_id
+                              : r->type;
+        if (spec_document_has_values_under(document, seg)) {
+          if (!first) {
+            som_buf_puts(&b, ", ");
+          }
+          som_buf_puts(&b, r->type);
+          first = 0;
+        }
+      }
+      som_buf_puts(&b, "); pass root_type to choose one");
+    }
+    *err = som_buf_take(&b);
+    som_buf_free(&b);
+  }
+  return NULL;
+}
+
+char *spec_document_to_markdown(const SpecDocument *document,
+                                const SpecModel *model, const char *root_type,
+                                char **err) {
+  const SpecRoot *root =
+      root_type != NULL ? spec_model_root_by_type(model, root_type, err)
+                        : single_populated_root(model, document, err);
+  if (root == NULL) {
+    return NULL;
+  }
+  return spec_markdown_export_root(model, document, root);
+}

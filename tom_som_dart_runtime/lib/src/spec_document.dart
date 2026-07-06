@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'spec_document_markdown.dart';
 import 'spec_document_yaml.dart';
+import 'spec_model.dart';
 import 'spec_section_id.dart';
 
 /// A sparse, live instance of a TomSpecs document (§8, §13).
@@ -58,6 +60,39 @@ class SpecDocument {
   /// companion to [fromYaml] the generated `loadFile` static delegates to.
   static SpecDocument fromFile(String path) =>
       fromYaml(File(path).readAsStringSync());
+
+  /// Renders this document to Markdown in one call (§ item 12).
+  ///
+  /// Collapses the former `SpecDocumentMarkdown(model, doc).exportRoot(
+  /// model.roots.firstWhere((r) => r.type == …))` incantation. When [rootType]
+  /// is given, that root is exported (via [SpecModel.rootByType]); when omitted,
+  /// the document's single **populated** root is used — a root is populated when
+  /// it has any value beneath its segment ([hasValuesUnder]). Throws
+  /// [StateError] when the default is ambiguous — zero populated roots, or more
+  /// than one — so the caller names the [rootType] explicitly.
+  String toMarkdown(SpecModel model, {String? rootType}) {
+    final root = rootType != null
+        ? model.rootByType(rootType)
+        : _singlePopulatedRoot(model);
+    return SpecDocumentMarkdown(model, this).exportRoot(root);
+  }
+
+  /// The one root under which this document holds any value, for [toMarkdown]'s
+  /// default. Throws [StateError] when zero or more than one root is populated.
+  SpecRoot _singlePopulatedRoot(SpecModel model) {
+    final populated = [
+      for (final r in model.roots)
+        if (hasValuesUnder(r.sectionId ?? r.type)) r,
+    ];
+    if (populated.length == 1) return populated.single;
+    if (populated.isEmpty) {
+      throw StateError('document has no populated root to export; '
+          'pass rootType to choose one');
+    }
+    throw StateError('document has ${populated.length} populated roots '
+        '(${populated.map((r) => r.type).join(', ')}); '
+        'pass rootType to choose one');
+  }
 
   /// The content string at [path], or `null` if unset.
   String? content(String path) => _content[path];

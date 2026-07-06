@@ -40,6 +40,23 @@ const SpecClass* SpecModel::classNamed(const std::string& name) const {
   return it != classesByName_.end() ? &it->second : nullptr;
 }
 
+const SpecRoot& SpecModel::rootByType(const std::string& type) const {
+  for (const auto& r : roots) {
+    if (r.type == type) {
+      return r;
+    }
+  }
+  std::string have;
+  for (const auto& r : roots) {
+    if (!have.empty()) {
+      have += ", ";
+    }
+    have += r.type;
+  }
+  throw std::invalid_argument("no document root with type '" + type +
+                              "' (have: " + have + ")");
+}
+
 /* ---- decoding ----------------------------------------------------------- */
 
 static std::vector<SpecAnnotation> annotationsFromJson(const JsonRef& v) {

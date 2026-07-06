@@ -27,9 +27,12 @@ the internal item path.
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Optional
+from typing import TYPE_CHECKING, Any, Iterable, Optional
 
 from .spec_section_id import SpecSectionIdCollision
+
+if TYPE_CHECKING:
+    from .spec_model import SpecModel, SpecRoot
 
 
 class SpecDocument:
@@ -70,6 +73,52 @@ class SpecDocument:
         delegates to."""
         with open(path, "r", encoding="utf-8") as f:
             return cls.from_yaml(f.read())
+
+    # --- one-call Markdown export (§ item 12) ------------------------------
+
+    def to_markdown(
+        self, model: "SpecModel", root_type: Optional[str] = None
+    ) -> str:
+        """Renders this document to Markdown in one call (§ item 12).
+
+        Collapses the former ``SpecDocumentMarkdown(model, doc).export_root(
+        model.root_by_type(…))`` incantation. When *root_type* is given, that
+        root is exported (via :meth:`SpecModel.root_by_type`); when omitted, the
+        document's single **populated** root is used — a root is populated when
+        it has any value beneath its segment (:meth:`has_values_under`). Raises
+        :class:`ValueError` when the default is ambiguous — zero populated roots,
+        or more than one — so the caller names *root_type* explicitly."""
+        # Lazy imports avoid the spec_model / spec_document_markdown import cycle
+        # (spec_document_markdown imports SpecDocument at module load).
+        from .spec_document_markdown import SpecDocumentMarkdown
+
+        if root_type is not None:
+            root = model.root_by_type(root_type)
+        else:
+            root = self._single_populated_root(model)
+        return SpecDocumentMarkdown(model, self).export_root(root)
+
+    def _single_populated_root(self, model: "SpecModel") -> "SpecRoot":
+        """The one root under which this document holds any value, for
+        :meth:`to_markdown`'s default. Raises :class:`ValueError` when zero or
+        more than one root is populated."""
+        populated = [
+            r
+            for r in model.roots
+            if self.has_values_under(r.section_id or r.type)
+        ]
+        if len(populated) == 1:
+            return populated[0]
+        if not populated:
+            raise ValueError(
+                "document has no populated root to export; "
+                "pass root_type to choose one"
+            )
+        types = ", ".join(r.type for r in populated)
+        raise ValueError(
+            f"document has {len(populated)} populated roots "
+            f"({types}); pass root_type to choose one"
+        )
 
     # --- content ------------------------------------------------------------
 

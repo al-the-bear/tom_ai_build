@@ -80,6 +80,67 @@ public final class SpecDocument {
     }
   }
 
+  // --- markdown export ----------------------------------------------------
+
+  /**
+   * Renders this document to Markdown in one call (SOM § item 12), using the
+   * document's single <b>populated</b> root.
+   *
+   * <p>Companion to {@link #toMarkdown(SpecModel, String)} with a null
+   * {@code rootType}: the root is the one under which this document holds any
+   * value ({@link #hasValuesUnder}). Throws {@link IllegalStateException} when
+   * the default is ambiguous — zero populated roots, or more than one.
+   */
+  public String toMarkdown(SpecModel model) {
+    return toMarkdown(model, null);
+  }
+
+  /**
+   * Renders this document to Markdown in one call (SOM § item 12).
+   *
+   * <p>Collapses the former {@code new SpecDocumentMarkdown(model, doc)
+   * .exportRoot(model.rootByType(…))} incantation. When {@code rootType} is
+   * given, that root is exported (via {@link SpecModel#rootByType}); when
+   * {@code null}, the document's single <b>populated</b> root is used — a root
+   * is populated when it has any value beneath its segment
+   * ({@link #hasValuesUnder}). Throws {@link IllegalStateException} when the
+   * default is ambiguous — zero populated roots, or more than one — so the
+   * caller names the {@code rootType} explicitly.
+   */
+  public String toMarkdown(SpecModel model, String rootType) {
+    SpecRoot root =
+        rootType != null ? model.rootByType(rootType) : singlePopulatedRoot(model);
+    return new SpecDocumentMarkdown(model, this).exportRoot(root);
+  }
+
+  /**
+   * The one root under which this document holds any value, for
+   * {@link #toMarkdown}'s default. Throws {@link IllegalStateException} when zero
+   * or more than one root is populated.
+   */
+  private SpecRoot singlePopulatedRoot(SpecModel model) {
+    List<SpecRoot> populated = new ArrayList<>();
+    for (SpecRoot r : model.roots) {
+      if (hasValuesUnder(r.sectionId != null ? r.sectionId : r.type)) {
+        populated.add(r);
+      }
+    }
+    if (populated.size() == 1) {
+      return populated.get(0);
+    }
+    if (populated.isEmpty()) {
+      throw new IllegalStateException(
+          "document has no populated root to export; pass rootType to choose one");
+    }
+    List<String> types = new ArrayList<>();
+    for (SpecRoot r : populated) {
+      types.add(r.type);
+    }
+    throw new IllegalStateException(
+        "document has " + populated.size() + " populated roots ("
+            + String.join(", ", types) + "); pass rootType to choose one");
+  }
+
   // --- content ------------------------------------------------------------
 
   public String content(String path) {

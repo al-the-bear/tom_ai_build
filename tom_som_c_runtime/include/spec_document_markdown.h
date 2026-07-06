@@ -54,6 +54,24 @@ char *spec_markdown_export_root(const SpecModel *model,
                                 const SpecDocument *document,
                                 const SpecRoot *root);
 
+/* Renders `document` to Markdown in one call (§ item 12), returning the owned
+ * output of `spec_markdown_export_root` (caller frees with `free`).
+ *
+ * When `root_type` is non-NULL, that root is exported (via
+ * `spec_model_root_by_type`). When `root_type` is NULL, the document's single
+ * *populated* root is used — a root is populated when `document` holds any value
+ * beneath its segment (`spec_document_has_values_under` on `section_id` if
+ * present, else `type`). Exactly one populated root → that root; zero or more
+ * than one is ambiguous.
+ *
+ * On failure returns NULL and, when `err` is non-NULL, writes an owned message:
+ * an unknown `root_type`, no populated root ("document has no populated root to
+ * export; pass root_type to choose one"), or several populated roots (message
+ * naming the candidate types). `err` may be NULL. */
+char *spec_document_to_markdown(const SpecDocument *document,
+                                const SpecModel *model, const char *root_type,
+                                char **err);
+
 /* Parses `text` into staged values + a rejection report, writing `*out`
  * (initialised by the callee; free with spec_markdown_result_free). */
 void spec_markdown_parse(const SpecModel *model, const char *text,

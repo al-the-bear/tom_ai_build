@@ -94,4 +94,30 @@ void main() {
       expect(risks.annotation('Min')!.argument('value'), 2);
     });
   });
+
+  group('SpecModel.rootByType (item 12)', () {
+    SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[
+            {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},
+            {'type': 'Beta', 'title': 'Beta Doc', 'sectionId': 'B00'},
+          ],
+          'classes': <String, dynamic>{},
+        });
+
+    test('returns the root whose type matches', () {
+      final model = twoRootModel();
+      expect(model.rootByType('Alpha').title, 'Alpha Doc');
+      expect(model.rootByType('Beta').sectionId, 'B00');
+    });
+
+    test('throws ArgumentError naming the missing and available types', () {
+      final model = twoRootModel();
+      expect(
+        () => model.rootByType('Gamma'),
+        throwsA(isA<ArgumentError>()
+            .having((e) => e.message, 'message', contains('Alpha'))
+            .having((e) => e.message, 'message', contains('Beta'))),
+      );
+    });
+  });
 }

@@ -34,6 +34,30 @@ public final class SpecModel {
     return classes.get(name);
   }
 
+  /**
+   * The document root whose {@link SpecRoot#type} equals {@code type} (SOM
+   * § item 12).
+   *
+   * <p>Replaces the recurring {@code roots.firstWhere((r) => r.type == …)}
+   * boilerplate. Throws {@link IllegalArgumentException} when no root carries
+   * that type — with a message that names the missing type and the ones that do
+   * exist.
+   */
+  public SpecRoot rootByType(String type) {
+    for (SpecRoot r : roots) {
+      if (r.type.equals(type)) {
+        return r;
+      }
+    }
+    List<String> available = new ArrayList<>();
+    for (SpecRoot r : roots) {
+      available.add(r.type);
+    }
+    throw new IllegalArgumentException(
+        "no document root with type \"" + type + "\" (have: "
+            + String.join(", ", available) + ")");
+  }
+
   @SuppressWarnings("unchecked")
   public static SpecModel fromJson(Map<String, Object> j) {
     Map<String, SpecClass> classes = new LinkedHashMap<>();

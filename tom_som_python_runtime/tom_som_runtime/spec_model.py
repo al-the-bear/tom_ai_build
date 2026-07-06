@@ -213,6 +213,22 @@ class SpecModel:
             return None
         return self.classes.get(name)
 
+    def root_by_type(self, type: str) -> SpecRoot:
+        """The document root whose :attr:`SpecRoot.type` equals *type* (§ item
+        12).
+
+        Replaces the recurring ``next(r for r in roots if r.type == …)``
+        boilerplate. Raises :class:`ValueError` when no root carries that type,
+        with a message that names the missing type and the ones that do
+        exist."""
+        for r in self.roots:
+            if r.type == type:
+                return r
+        available = ", ".join(r.type for r in self.roots)
+        raise ValueError(
+            f"no document root with type {type!r} (have: {available})"
+        )
+
     @staticmethod
     def from_json(j: dict[str, Any]) -> "SpecModel":
         classes = {

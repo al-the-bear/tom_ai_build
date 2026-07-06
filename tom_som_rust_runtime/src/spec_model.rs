@@ -154,6 +154,23 @@ impl SpecModel {
         self.classes.get(name)
     }
 
+    /// Returns the document root whose [`SpecRoot::type_`] equals `ty` (§ item 12).
+    ///
+    /// Replaces the recurring `roots.iter().find(|r| r.type_ == …)` boilerplate.
+    /// Returns `Err` when no root carries that type — the message names the
+    /// missing type and lists the ones that do exist.
+    pub fn root_by_type(&self, ty: &str) -> Result<&SpecRoot, String> {
+        if let Some(root) = self.roots.iter().find(|r| r.type_ == ty) {
+            return Ok(root);
+        }
+        let available: Vec<&str> = self.roots.iter().map(|r| r.type_.as_str()).collect();
+        Err(format!(
+            "no document root with type '{}' (have: {})",
+            ty,
+            available.join(", ")
+        ))
+    }
+
     /// Decodes a meta-data JSON document into a `SpecModel`, normalising every
     /// field kind through [`parse_field_kind`].
     pub fn from_json_str(data: &str) -> Result<SpecModel, String> {
@@ -284,4 +301,39 @@ fn annotations_from_json(v: Option<&Json>) -> Vec<SpecAnnotation> {
         }
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A two-root model, mirroring the Dart `twoRootModel` fixture.
+    fn two_root_model() -> SpecModel {
+        SpecModel::from_json_str(
+            r#"{
+                "roots": [
+                    {"type": "Alpha", "title": "Alpha Doc", "sectionId": "A00"},
+                    {"type": "Beta", "title": "Beta Doc", "sectionId": "B00"}
+                ],
+                "classes": {}
+            }"#,
+        )
+        .unwrap()
+    }
+
+    #[test]
+    fn root_by_type_returns_the_root_whose_type_matches() {
+        let model = two_root_model();
+        assert_eq!(model.root_by_type("Alpha").unwrap().title, "Alpha Doc");
+        assert_eq!(model.root_by_type("Beta").unwrap().section_id, "B00");
+    }
+
+    #[test]
+    fn root_by_type_errors_naming_the_missing_and_available_types() {
+        let model = two_root_model();
+        let err = model.root_by_type("Gamma").unwrap_err();
+        assert!(err.contains("Gamma"), "message names the missing type: {err}");
+        assert!(err.contains("Alpha"), "message lists Alpha: {err}");
+        assert!(err.contains("Beta"), "message lists Beta: {err}");
+    }
 }

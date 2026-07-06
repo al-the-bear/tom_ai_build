@@ -24,6 +24,8 @@
 
 namespace som {
 
+class SpecModel;  // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
+
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
 
 struct DocListEntry {
@@ -75,6 +77,18 @@ class SpecDocument {
   /* Loads a `*.docspecs.yaml` document from the file at `path` — the file
    * companion to fromYaml the generated loadFile static delegates to. */
   static SpecDocument fromFile(const std::string& path);
+
+  /* Renders this document to Markdown in one call (§ item 12).
+   *
+   * Collapses the former markdownExportRoot(model, doc,
+   * model.rootByType(...)) sequence. When `rootType` is non-empty, that root is
+   * exported (via SpecModel::rootByType); when empty, the document's single
+   * populated root is used — a root is populated when it has any value beneath
+   * its segment (sectionId if present else type). Throws std::runtime_error
+   * when the default is ambiguous — zero populated roots, or more than one —
+   * so the caller names `rootType` explicitly. */
+  std::string toMarkdown(const SpecModel& model,
+                         const std::string& rootType = "") const;
 
   // content leaves
   std::string content(const std::string& path) const;  // "" when unset

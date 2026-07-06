@@ -311,6 +311,23 @@ class SpecModel {
 
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
 
+  /// The document root whose [SpecRoot.type] equals [type] (§ item 12).
+  ///
+  /// Replaces the recurring `roots.firstWhere((r) => r.type == …)` boilerplate.
+  /// Throws [ArgumentError] when no root carries that type — the same failure
+  /// mode as an `orElse`-less `firstWhere`, but with a message that names the
+  /// missing type and the ones that do exist.
+  SpecRoot rootByType(String type) {
+    for (final r in roots) {
+      if (r.type == type) return r;
+    }
+    throw ArgumentError.value(
+        type,
+        'type',
+        'no document root with this type (have: '
+            '${roots.map((r) => r.type).join(', ')})');
+  }
+
   /// The model version the generated object model reports (§2.1), as a
   /// `major.minor` string derived from the `tom_specs_model` project version
   /// stamp.

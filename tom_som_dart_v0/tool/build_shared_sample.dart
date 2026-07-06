@@ -187,9 +187,7 @@ documented rollback to OrderDesk until the parallel-run gate passes.''');
       File.fromUri(Platform.script.resolve('../meta/spec_model.meta.json'));
   final model = SpecModel.fromJson(
       jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>);
-  final sbpRoot =
-      model.roots.firstWhere((r) => r.type == 'D00SolutionBlueprint');
-  final markdown = SpecDocumentMarkdown(model, doc).exportRoot(sbpRoot);
+  final markdown = doc.toMarkdown(model, rootType: 'D00SolutionBlueprint');
   final mdFile = File('${samplesDir.path}/meridian_order_management.md');
   mdFile.writeAsStringSync(markdown);
 

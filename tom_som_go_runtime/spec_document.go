@@ -21,6 +21,7 @@ package somruntime
 import (
 	"os"
 	"sort"
+	"strings"
 )
 
 // ListJson is the plain-data shape of a single list store entry. Ids maps an
@@ -388,6 +389,71 @@ type notLiveItemError struct{ itemPath string }
 
 func (e *notLiveItemError) Error() string {
 	return "'" + e.itemPath + "' is not a live list item"
+}
+
+// --- markdown --------------------------------------------------------------
+
+// ToMarkdown renders this document to Markdown in one call (SOM § item 12).
+//
+// It collapses the former
+// `NewSpecDocumentMarkdown(model, doc).ExportRoot(model.RootByType(…))`
+// incantation. An empty rootType ("") means "omitted": the document's single
+// populated root is used — a root is populated when it has any value beneath its
+// segment (HasValuesUnder). When rootType is non-empty that root is exported
+// (via SpecModel.RootByType). Returns an error when the default is ambiguous —
+// zero populated roots, or more than one — so the caller names rootType.
+func (d *SpecDocument) ToMarkdown(model *SpecModel, rootType string) (string, error) {
+	var root *SpecRoot
+	var err error
+	if rootType != "" {
+		root, err = model.RootByType(rootType)
+	} else {
+		root, err = d.singlePopulatedRoot(model)
+	}
+	if err != nil {
+		return "", err
+	}
+	return NewSpecDocumentMarkdown(model, d).ExportRoot(root), nil
+}
+
+// singlePopulatedRoot returns the one root under which this document holds any
+// value, for ToMarkdown's default. It returns an error when zero or more than
+// one root is populated.
+func (d *SpecDocument) singlePopulatedRoot(model *SpecModel) (*SpecRoot, error) {
+	populated := make([]*SpecRoot, 0, len(model.Roots))
+	for _, r := range model.Roots {
+		section := r.SectionID
+		if section == "" {
+			section = r.Type
+		}
+		if d.HasValuesUnder(section) {
+			populated = append(populated, r)
+		}
+	}
+	if len(populated) == 1 {
+		return populated[0], nil
+	}
+	if len(populated) == 0 {
+		return nil, &noPopulatedRootError{}
+	}
+	types := make([]string, 0, len(populated))
+	for _, r := range populated {
+		types = append(types, r.Type)
+	}
+	return nil, &ambiguousRootError{types: types}
+}
+
+type noPopulatedRootError struct{}
+
+func (e *noPopulatedRootError) Error() string {
+	return "document has no populated root to export; pass rootType to choose one"
+}
+
+type ambiguousRootError struct{ types []string }
+
+func (e *ambiguousRootError) Error() string {
+	return "document has " + itoa(len(e.types)) + " populated roots (" +
+		strings.Join(e.types, ", ") + "); pass rootType to choose one"
 }
 
 // --- queries ---------------------------------------------------------------

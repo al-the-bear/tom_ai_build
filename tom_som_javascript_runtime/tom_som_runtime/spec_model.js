@@ -203,6 +203,28 @@ class SpecModel {
     return this.classes.get(name) || null;
   }
 
+  /**
+   * The document root whose {@link SpecRoot.type} equals `type` (§ item 12).
+   *
+   * Replaces the recurring `roots.find((r) => r.type === …)` boilerplate.
+   * Throws an {@link Error} when no root carries that type — with a message
+   * that names the missing type and the ones that do exist.
+   *
+   * @param {string} type
+   * @returns {SpecRoot}
+   */
+  rootByType(type) {
+    for (const r of this.roots) {
+      if (r.type === type) {
+        return r;
+      }
+    }
+    const have = this.roots.map((r) => r.type).join(', ');
+    throw new Error(
+      `no document root with type '${type}' (have: ${have})`,
+    );
+  }
+
   static fromJson(j) {
     const classes = new Map();
     for (const [name, value] of Object.entries(j.classes)) {
