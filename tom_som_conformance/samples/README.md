@@ -7,7 +7,7 @@ at once.
 
 | File | Root | Description |
 | ---- | ---- | ----------- |
-| `meridian_order_management.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | A broad Solution Blueprint for a fictional "Meridian Order Management" programme — content across all fifteen top-level SBP sections, one nested section (goals), and a four-element operational-metrics list. Intended to exercise most of the blueprint's breadth for access examples. |
+| `meridian_order_management.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | A genuinely implementable Solution Blueprint for a fictional "Meridian Order Management" programme (~255 populated leaf paths) — 14 typed requirements across four list types (functional / technical / security / organizational), three Cockburn-style use cases with full flows and exception extensions, four actors, a key end-to-end scenario, a coherent four-entity / three-relationship data model, and two fully-detailed screens, plus content across all fifteen top-level SBP sections. Broad enough to exercise the blueprint for access examples and the cross-language golden harness. |
 | `meridian_order_management.md` | — | Human-readable markdown rendition of the same document (generated alongside the YAML). |
 
 ## Regenerating
@@ -20,7 +20,7 @@ cd ../../tom_som_dart_v0
 dart run tool/build_shared_sample.dart
 ```
 
-The generated YAML stamps `modelVersion: "0.0"` to match the current
-`tom_som_dart_v0` facade version (see
+The generated YAML stamps `modelVersion: "1.0"` — the real `tom_som_dart_v0`
+facade version, derived from the `tom_specs_model` project version (see
 `_ai/quests/tom_specs/som_convenience_feature_suggestions.md`, roadmap item 2,
-for why this is `0.0` rather than the model meta-data's `1.0`).
+which fixed the earlier placeholder `0.0`).
