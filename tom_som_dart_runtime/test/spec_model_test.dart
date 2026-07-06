@@ -50,6 +50,34 @@ void main() {
     });
   });
 
+  group('model version string (§2.1)', () {
+    test('somModelVersionString takes major.minor from the label', () {
+      expect(somModelVersionString(1, '1.0.0+7.1f49ac3'), '1.0');
+      // A genuine authoring minor in the stamp is preserved, not flattened.
+      expect(somModelVersionString(2, '2.3.1+5.deadbee'), '2.3');
+      // Build metadata after `+` is ignored.
+      expect(somModelVersionString(3, '3.4.0'), '3.4');
+    });
+
+    test('somModelVersionString falls back to <major>.0 when unstamped', () {
+      expect(somModelVersionString(1, null), '1.0');
+      expect(somModelVersionString(4, ''), '4.0');
+      // A malformed label (no numeric minor) also falls back to the counter.
+      expect(somModelVersionString(2, 'weird'), '2.0');
+    });
+
+    test('SpecModel.modelVersionString reports the stamped major.minor', () {
+      // The fixture is stamped 0.7.0+7.abc1234.
+      expect(fixtureModel().modelVersionString, '0.7');
+    });
+
+    test('SpecModel.modelVersionString falls back for an unstamped model', () {
+      final model = SpecModel.fromJson(
+          <String, dynamic>{'roots': <dynamic>[], 'classes': <String, dynamic>{}});
+      expect(model.modelVersionString, '0.0');
+    });
+  });
+
   group('SpecAnnotation', () {
     test('class-level annotations are captured losslessly', () {
       final cls = fixtureModel().classNamed('ProjectDefinition')!;

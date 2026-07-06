@@ -202,7 +202,7 @@ void main() {
 const m = require(${jsonEncode(modulePath)});
 const { SpecDocument } = require(${jsonEncode(jsRuntimeDir.replaceAll(r'\', '/'))});
 const pd = new m.D00SolutionBlueprint(new SpecDocument());
-if (pd.objectModelVersion !== '0.0') throw new Error('version ' + pd.objectModelVersion);
+if (pd.objectModelVersion !== '1.0') throw new Error('version ' + pd.objectModelVersion);
 if (typeof pd.path !== 'string' || pd.path.length === 0) throw new Error('root path');
 process.stdout.write('OK');
 ''';

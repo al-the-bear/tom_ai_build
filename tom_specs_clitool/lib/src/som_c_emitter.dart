@@ -62,13 +62,11 @@ class SomCEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`.
-  String get modelVersionString => '${_major()}.0';
-
-  int _major() {
-    final digits = versionLabel.replaceAll(RegExp(r'[^0-9]'), '');
-    return int.tryParse(digits) ?? 0;
-  }
+  /// The model version the generated object model reports (§2.1), `major.minor`,
+  /// taken from the model's own version stamp (the `tom_specs_model` project
+  /// version), not the project [versionLabel] — which only names the `_vN`
+  /// output project.
+  String get modelVersionString => model.modelVersionString;
 
   List<SpecRoot> get _selectedRoots {
     if (documentRoots.isEmpty) return model.roots;

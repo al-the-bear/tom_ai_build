@@ -2,7 +2,7 @@
 # `document:` holds the object-model values, sorted by section id; text
 # values use block scalars so multi-line content round-trips verbatim (§15.1).
 version: 1
-modelVersion: "0.0"
+modelVersion: "1.0"
 document:
   content:
     "SBP/assumptionsConstraintsDependencies/content": |2-

@@ -44,5 +44,5 @@ void main() {
 
   // … and to the canonical YAML wire format (stamped with the model version).
   print('\nDocument YAML:');
-  print(SpecDocumentYaml.encode(document: doc, modelVersion: '0.0'));
+  print(SpecDocumentYaml.encode(document: doc, modelVersion: '1.0'));
 }

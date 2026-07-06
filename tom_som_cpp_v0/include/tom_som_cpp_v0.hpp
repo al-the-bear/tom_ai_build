@@ -9213,7 +9213,7 @@ class ChangeNotificationRules : public som::SomNode {
 // 3.4. Change Procedure.
 //
 // Procedure for requesting, evaluating, and approving changes to this
-// Project Definition and other project documents. Defines the change
+// Solution Blueprint and other project documents. Defines the change
 // control workflow, impact assessment criteria, and approval authorities.
 class ChangeProcedure : public som::SomNode {
  public:
@@ -12064,7 +12064,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12111,7 +12111,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12149,7 +12149,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12193,7 +12193,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12250,7 +12250,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12291,7 +12291,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12328,7 +12328,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12373,7 +12373,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12418,7 +12418,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12456,7 +12456,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12502,7 +12502,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12562,7 +12562,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.
@@ -12603,7 +12603,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
+  static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (§2.2); throws som::SomVersionError
   // when it is not.

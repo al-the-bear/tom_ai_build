@@ -34151,7 +34151,7 @@
     "ChangeProcedure": {
       "name": "ChangeProcedure",
       "sectionId": "CHPR",
-      "doc": "3.4. Change Procedure.\n\nProcedure for requesting, evaluating, and approving changes to this\nProject Definition and other project documents. Defines the change\ncontrol workflow, impact assessment criteria, and approval authorities.",
+      "doc": "3.4. Change Procedure.\n\nProcedure for requesting, evaluating, and approving changes to this\nSolution Blueprint and other project documents. Defines the change\ncontrol workflow, impact assessment criteria, and approval authorities.",
       "standardReferences": {
         "standards": [
           "ISO 9001:2015 §8.5.6 — control of changes",

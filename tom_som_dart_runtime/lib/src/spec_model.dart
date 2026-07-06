@@ -267,6 +267,27 @@ class SpecRoot {
       );
 }
 
+/// Computes the `major.minor` model-version string from a [major] version
+/// counter and an optional full [label] (the `tom_specs_model` version stamp,
+/// e.g. `1.0.0+3.abc1234`).
+///
+/// When [label] carries at least two leading numeric dotted components
+/// (`major.minor…`, ignoring any `+build` metadata) those win, so a genuine
+/// authoring minor is preserved (`2.3.1+5` → `2.3`). Otherwise the result is
+/// `<major>.0`.
+String somModelVersionString(int major, String? label) {
+  if (label != null && label.isNotEmpty) {
+    final core = label.split('+').first.trim();
+    final parts = core.split('.');
+    if (parts.length >= 2) {
+      final maj = int.tryParse(parts[0].trim());
+      final min = int.tryParse(parts[1].trim());
+      if (maj != null && min != null) return '$maj.$min';
+    }
+  }
+  return '$major.0';
+}
+
 /// The complete exported model.
 class SpecModel {
   final List<SpecRoot> roots;
@@ -289,6 +310,17 @@ class SpecModel {
   });
 
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
+
+  /// The model version the generated object model reports (§2.1), as a
+  /// `major.minor` string derived from the `tom_specs_model` project version
+  /// stamp.
+  ///
+  /// The real `major.minor` comes from [modelVersionLabel] (e.g.
+  /// `1.0.0+3.abc1234` → `1.0`) so a genuine authoring minor is preserved.
+  /// When the model is unstamped ([modelVersionLabel] is `null`) the result
+  /// falls back to `<modelVersion>.0`.
+  String get modelVersionString =>
+      somModelVersionString(modelVersion, modelVersionLabel);
 
   factory SpecModel.fromJson(Map<String, dynamic> j) {
     final classes = <String, SpecClass>{};

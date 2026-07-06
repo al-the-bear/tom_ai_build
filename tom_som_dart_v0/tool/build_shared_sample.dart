@@ -16,10 +16,11 @@ import 'dart:io';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
-/// The model version stamped into the sample. Must track the generated facade's
-/// own `modelVersion` (`D00SolutionBlueprint.modelVersion`) so the typed facade
+/// The model version stamped into the sample. Sourced directly from the
+/// generated facade's own `modelVersion` (`D00SolutionBlueprint.modelVersion`)
+/// so it always tracks the current object-model version — the typed facade then
 /// treats the sample as editable rather than cross-major read-only.
-const String sampleModelVersion = '0.0';
+const String sampleModelVersion = D00SolutionBlueprint.modelVersion;
 
 void main() {
   final doc = SpecDocument();

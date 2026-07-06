@@ -5558,7 +5558,7 @@ class ChangeProcedure(SomNode):
     """3.4. Change Procedure.
     
     Procedure for requesting, evaluating, and approving changes to this
-    Project Definition and other project documents. Defines the change
+    Solution Blueprint and other project documents. Defines the change
     control workflow, impact assessment criteria, and approval authorities.
     """
     def __init__(self, doc, path):
@@ -10027,7 +10027,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order (§4 of the redesign proposal).
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -10124,7 +10124,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -10196,7 +10196,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -10279,7 +10279,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10378,7 +10378,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10453,7 +10453,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10521,7 +10521,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10613,7 +10613,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10696,7 +10696,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -10769,7 +10769,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -10862,7 +10862,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -10990,7 +10990,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -11068,7 +11068,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
+    model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")

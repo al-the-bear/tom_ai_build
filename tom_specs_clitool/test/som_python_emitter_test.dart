@@ -239,9 +239,19 @@ void main() {
           contains("model_version = '0.0'"));
     });
 
-    test('v1 label yields major 1', () {
-      final emitter = SomPythonEmitter(_fixtureModel(), versionLabel: 'v1');
-      expect(emitter.modelVersionString, '1.0');
+    test('the model version comes from the model stamp, not the version label',
+        () {
+      // A stamped model reports its real major.minor (§2.1) regardless of the
+      // project version label — the label only names the output project.
+      final stamped = SpecModel.fromJson({
+        ..._fixtureJson(),
+        'modelVersion': 1,
+        'modelVersionLabel': '1.3.0+7.abc1234',
+      });
+      expect(SomPythonEmitter(stamped, versionLabel: 'v0').modelVersionString,
+          '1.3');
+      expect(SomPythonEmitter(stamped, versionLabel: 'v9').modelVersionString,
+          '1.3');
     });
 
     test('colliding form-class names are disambiguated (no duplicates)', () {

@@ -61,26 +61,26 @@ void main() {
       expect(doc.content('SBP/documentControl/probe'), 'x');
     });
 
-    test('reports the generated v0 model version (0.0)', () {
-      expect(D00SolutionBlueprint.modelVersion, '0.0');
-      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '0.0');
+    test('reports the generated v0 model version (1.0)', () {
+      expect(D00SolutionBlueprint.modelVersion, '1.0');
+      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '1.0');
     });
   });
 
   group('tom_som_dart_v0 instantiation-time version check (§2.2)', () {
     test('a new / unstamped document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '0.0'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
           returnsNormally);
     });
 
     test('a newer same-major document is rejected', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '0.1'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.1'),
           throwsA(isA<SomVersionException>()));
     });
 
     test('a different major document is rejected', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '2.0'),
           throwsA(isA<SomVersionException>()));
     });
   });

@@ -21,8 +21,9 @@ class SomDartEmitter {
   final SpecModel model;
   final SpecReflection _ref;
 
-  /// The version label of the generated project (`v0`, `v1`, …). The major
-  /// version is parsed from it; see [modelVersionString].
+  /// The version label of the generated project (`v0`, `v1`, …); names the
+  /// `tom_som_<slug>_<label>` output project. It no longer drives the reported
+  /// model version — see [modelVersionString].
   final String versionLabel;
 
   /// The document-root type names to generate. Empty ⇒ every root in the model.
@@ -34,19 +35,11 @@ class SomDartEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`.
-  ///
-  /// The major is parsed from [versionLabel] (`v0` → 0); the minor is `0` — the
-  /// exported meta-data carries only an integer build counter (a different axis,
-  /// per quest decision D15), not a semantic authoring minor, so conflating it
-  /// would be wrong. A real minor source wires in when `release.md` introduces
-  /// `major.minor` authoring versions.
-  String get modelVersionString => '${_major()}.0';
-
-  int _major() {
-    final digits = versionLabel.replaceAll(RegExp(r'[^0-9]'), '');
-    return int.tryParse(digits) ?? 0;
-  }
+  /// The model version the generated object model reports (§2.1), `major.minor`,
+  /// taken from the model's own version stamp (the `tom_specs_model` project
+  /// version), not the project [versionLabel] — which only names the `_vN`
+  /// output project.
+  String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
   List<SpecRoot> get _selectedRoots {
