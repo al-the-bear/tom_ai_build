@@ -79,6 +79,26 @@ impl SomNode {
     pub fn is_empty(&self) -> bool {
         !self.doc.borrow().has_values_under(&self.path)
     }
+
+    // § item 10 — `can_have_content`.
+    //
+    // "Does this section **type** declare the standard `content` text leaf?" —
+    // i.e. can this section hold body text? — a **structural / schema** predicate
+    // that is a compile-time constant of the section's type and never looks at
+    // the document.
+    //
+    // Unlike [`SomNode::is_empty`] (SOM roadmap § item 5) and the version §2.2
+    // checks, this is **not** carried on the base node. Rust's generated facades
+    // hold a [`SomNode`] but do not inherit from it, so there is no base default
+    // to override (the Dart port's `SomNode.canHaveContent => false` + per-class
+    // override has no Rust analogue). Instead — following the exact precedent set
+    // by the root facade's per-type `editability_for` (§ item 8) — the emitter
+    // emits `can_have_content` on **every** generated section type as a literal
+    // boolean: `true` for content-bearing types (a `content` content-leaf field)
+    // and `false` for container-only types. It is deliberately distinct from the
+    // two **state** predicates: [`SpecDocument::has_content`] answers "is a value
+    // present at this leaf *now*?" and [`SomNode::is_empty`] answers "is this
+    // subtree empty *now*?"; `can_have_content` describes the model, not the data.
 }
 
 /// A scalar list item — a bare string value held in the document's content store

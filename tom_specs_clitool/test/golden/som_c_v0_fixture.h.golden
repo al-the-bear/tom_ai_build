@@ -26,12 +26,16 @@ typedef struct { SomNode node; } SolutionBlueprintOwnerForm;
 // Binds a CurrentLandscapeAssessment facade to a document and a path (path copied).
 void current_landscape_assessment_init(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *path);
 void current_landscape_assessment_free(CurrentLandscapeAssessment *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int current_landscape_assessment_can_have_content(const CurrentLandscapeAssessment *self);
 char *current_landscape_assessment_summary(const CurrentLandscapeAssessment *self);
 void current_landscape_assessment_set_summary(CurrentLandscapeAssessment *self, const char *value);
 
 // Binds a Risk facade to a document and a path (path copied).
 void risk_init(Risk *self, SpecDocument *doc, const char *path);
 void risk_free(Risk *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int risk_can_have_content(const Risk *self);
 char *risk_title(const Risk *self);
 void risk_set_title(Risk *self, const char *value);
 char *risk_probability(const Risk *self);
@@ -63,6 +67,8 @@ int solution_blueprint_load_yaml(SolutionBlueprint *self, const char *yaml, Spec
 // file cannot be read.
 int solution_blueprint_load_file(SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);
 void solution_blueprint_free(SolutionBlueprint *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+int solution_blueprint_can_have_content(const SolutionBlueprint *self);
 // Why the system exists.
 char *solution_blueprint_vision(const SolutionBlueprint *self);
 void solution_blueprint_set_vision(SolutionBlueprint *self, const char *value);

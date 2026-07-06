@@ -393,6 +393,24 @@ class SomGoEmitter {
         ..writeln('}');
     }
 
+    // § item 10: a content-bearing section shadows the promoted
+    // `som.SomNode.CanHaveContent` structural default (`false`) with a per-type
+    // method returning `true`, so "can this section hold body text?" is
+    // answerable at the type level without probing Content(). This is the Go
+    // analogue of the Dart/TypeScript `canHaveContent` override — an embedding
+    // struct's method of the same name shadows the promoted base method.
+    if (_hasContentLeaf(cls)) {
+      b
+        ..writeln()
+        ..writeln('// CanHaveContent reports that this section type declares the '
+            'standard `content`')
+        ..writeln('// text leaf (§ item 10) — it shadows the embedded '
+            'som.SomNode false default.')
+        ..writeln('func (x *${cls.name}) CanHaveContent() bool {')
+        ..writeln('\treturn true')
+        ..writeln('}');
+    }
+
     // Per-class accessor-name allocation: Pascal-cased names can collide where
     // the original camelCase ones do not, so dedupe within the struct.
     final usedAcc = <String>{};
@@ -402,6 +420,11 @@ class SomGoEmitter {
     }
     return b.toString();
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a Content() accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _writeField(
     StringBuffer b,

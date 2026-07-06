@@ -32,6 +32,10 @@ class SomNode {
   SomNode(SpecDocument& doc, std::string path)
       : doc_(doc), path_(std::move(path)) {}
 
+  /* Virtual so a derived facade destroys cleanly through a SomNode reference —
+   * required now that the class carries virtual behaviour (canHaveContent). */
+  virtual ~SomNode() = default;
+
   SpecDocument& doc() const { return doc_; }
   const std::string& path() const { return path_; }
 
@@ -43,6 +47,20 @@ class SomNode {
    * the typed-facade fill check, delegating to the generic hasValuesUnder so
    * both surfaces agree (§ item 5). Inherited by every generated section. */
   bool isEmpty() const { return !doc_.hasValuesUnder(path_); }
+
+  /* Whether this section TYPE declares the standard `content` text leaf — "*can*
+   * this section hold body text?" answered structurally, at the type level,
+   * WITHOUT probing the document (§ item 10). This is the base default: a
+   * container-only section (e.g. `SystemsToReplace`, which has no `content`
+   * leaf) inherits this `false`; a content-bearing section (e.g. `Goals`)
+   * overrides it to `true`. `virtual` so the per-type answer resolves
+   * polymorphically through a `SomNode` reference.
+   *
+   * It is deliberately distinct from the two STATE predicates: the generic
+   * SpecDocument::hasContent answers "is a value present at this leaf *now*?"
+   * and isEmpty() answers "is this subtree empty *now*?". canHaveContent never
+   * looks at the document — it describes the model, not the data. */
+  virtual bool canHaveContent() const { return false; }
 
   /* Overrides this node's section id (criterion 5). An empty id is a no-op.
    * Throws SomSectionIdError on a uniqueness collision or a non-live item. */

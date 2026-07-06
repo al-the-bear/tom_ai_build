@@ -199,6 +199,8 @@ class SomCEmitter {
         plan.lifecycleFn = _alloc(_funcNames, '${prefix}_init');
       }
       plan.freeFn = _alloc(_funcNames, '${prefix}_free');
+      plan.canHaveContentFn =
+          _alloc(_funcNames, '${prefix}_can_have_content');
       for (final f in cls.fields) {
         final acc = _snakeAccessor(f.name);
         final getName = _alloc(_funcNames, '${prefix}_$acc');
@@ -375,10 +377,27 @@ class SomCEmitter {
           'const char *path);');
     }
     b.writeln('void ${plan.freeFn}($t *self);');
+    // § item 10: a per-type structural predicate answering "does this section
+    // TYPE declare the standard `content` text leaf?" — "can this section hold
+    // body text?" — without probing the document. C has no inheritance or
+    // method promotion, so (following the item-8 `editability_for` / item-5
+    // `is_empty` per-type C precedent) every generated type emits its own
+    // accessor returning the literal answer: 1 for content-bearing types, 0 for
+    // container-only ones. It is deliberately distinct from the STATE predicates
+    // `spec_document_has_content` ("value present now?") and `som_node_is_empty`
+    // ("subtree empty now?"): it describes the model, not the data.
+    b.writeln('// Returns 1 iff this section type declares the standard `content`'
+        ' text leaf (§ item 10).');
+    b.writeln('int ${plan.canHaveContentFn}(const $t *self);');
     for (final f in plan.cls.fields) {
       _declField(b, plan, f);
     }
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `content` accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _declField(StringBuffer b, _ClassPlan plan, SpecField f) {
     final t = plan.typeName;
@@ -544,6 +563,15 @@ class SomCEmitter {
     b
       ..writeln('void ${plan.freeFn}($t *self) {')
       ..writeln('\tsom_node_free(&self->node);')
+      ..writeln('}');
+    // § item 10: per-type structural `content`-leaf predicate — a compile-time
+    // literal per generated type (see `_declClass`), mirroring the item-8
+    // `editability_for` / item-5 `is_empty` per-type C emission.
+    final literal = _hasContentLeaf(plan.cls) ? '1' : '0';
+    b
+      ..writeln('int ${plan.canHaveContentFn}(const $t *self) {')
+      ..writeln('\t(void)self;')
+      ..writeln('\treturn $literal;')
       ..writeln('}');
     for (final f in plan.cls.fields) {
       _defineField(b, plan, f);
@@ -808,6 +836,7 @@ class _ClassPlan {
   final bool isRoot;
   late String lifecycleFn; // `_init` (non-root) or `_new` (root)
   late String freeFn;
+  late String canHaveContentFn; // `_can_have_content` (every type)
   String? omvFn;
   String? editabilityFn; // `_editability_for` (root only)
   String? mvConst;

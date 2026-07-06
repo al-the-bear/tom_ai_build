@@ -303,8 +303,29 @@ class SomCppEmitter {
     for (final f in plan.cls.fields) {
       _declField(b, plan, f);
     }
+
+    // § item 10: a content-bearing section overrides the virtual
+    // `som::SomNode::canHaveContent` structural default (`false`) with an inline
+    // `true`, so "can this section hold body text?" is answerable at the type
+    // level without probing content(). Emitted inline in the header (a trivial
+    // constant), matching the base's inline form.
+    if (_hasContentLeaf(plan.cls)) {
+      b
+        ..writeln('  // This section type declares the standard `content` text '
+            'leaf (§ item 10):')
+        ..writeln('  // a structural, document-independent override of the '
+            '`som::SomNode`')
+        ..writeln('  // `canHaveContent` default (`false`).')
+        ..writeln('  bool canHaveContent() const override { return true; }');
+    }
+
     b.writeln('};');
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `content()` accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _declField(StringBuffer b, _ClassPlan plan, SpecField f) {
     final acc = _accessor(f.name);

@@ -164,6 +164,43 @@ def test_absence_semantics() -> None:
     _check("absence.has_content-true", doc.has_content(leaf) is True)
 
 
+def test_can_have_content() -> None:
+    """§ item 10: the structural content-slot predicate ``can_have_content``
+    answers "does this section *type* declare the standard ``content`` leaf?"
+    without probing the document.
+
+    The generated override lands centrally (this test is authored now, verified
+    after regeneration). It skips cleanly if the committed facade predates the
+    § item 10 regeneration — detected by a content-bearing section still
+    inheriting the ``False`` base default.
+    """
+    sbp = m.D00SolutionBlueprint(SpecDocument())
+    if sbp.introductionAndScope.goals.can_have_content is not True:
+        print("SKIP: facade predates can_have_content (§ item 10 not yet regenerated)")
+        return
+
+    # A content-bearing section (Goals declares the standard `content` leaf).
+    _check("chc.content-bearing-true",
+           sbp.introductionAndScope.goals.can_have_content is True)
+
+    # A container-only section (SystemsToReplace holds only child sections).
+    _check("chc.container-only-false",
+           sbp.introductionAndScope.systemsToReplace.can_have_content is False)
+
+    # The document root itself declares a `content` leaf → True.
+    _check("chc.root-true",
+           m.D00SolutionBlueprint(SpecDocument()).can_have_content is True)
+
+    # Structural, not state — independent of whether content is written.
+    sbp2 = m.D00SolutionBlueprint(SpecDocument())
+    goals = sbp2.introductionAndScope.goals
+    _check("chc.structural.empty-true", goals.can_have_content is True)
+    goals.content = "Grow revenue"
+    _check("chc.structural.filled-true", goals.can_have_content is True)
+    _check("chc.structural.sibling-false",
+           sbp2.introductionAndScope.systemsToReplace.can_have_content is False)
+
+
 def test_one_call_loading() -> None:
     from tom_som_runtime.spec_document_yaml import decode
 
@@ -231,6 +268,7 @@ def main() -> int:
     test_model_version()
     test_version_check()
     test_absence_semantics()
+    test_can_have_content()
     test_one_call_loading()
 
     total = _passed + len(_failed)

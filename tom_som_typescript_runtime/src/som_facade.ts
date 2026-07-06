@@ -59,6 +59,26 @@ export class SomNode {
   }
 
   /**
+   * Whether this section **type** declares the standard `content` text leaf —
+   * i.e. whether the `.content` getter/setter exists on it (§ item 10).
+   *
+   * This is a **structural / schema** predicate: a compile-time constant of the
+   * section's type, answering "*can* this section hold body text?" without a
+   * probe of `.content`. Container-only sections (e.g. `SystemsToReplace`,
+   * which has no `content` leaf) inherit this `false` default; content-bearing
+   * sections (e.g. `Goals`) override it to `true`.
+   *
+   * It is deliberately distinct from the two **state** predicates: the generic
+   * {@link SpecDocument.hasContent} answers "is a value present at this leaf
+   * *now*?" and {@link isEmpty} answers "is this subtree empty *now*?".
+   * `canHaveContent` never looks at the document — it describes the model, not
+   * the data.
+   */
+  get canHaveContent(): boolean {
+    return false;
+  }
+
+  /**
    * Overrides this list item's section id (AA1 criterion 5): an arbitrary
    * suffix, validated unique within the owning list. Throws
    * {@link SpecSectionIdCollision} on a duplicate, or an `Error` if this node is

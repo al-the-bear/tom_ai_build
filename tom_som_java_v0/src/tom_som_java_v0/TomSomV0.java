@@ -18,6 +18,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -94,6 +99,11 @@ public final class TomSomV0 {
   public static final class AcceptancePlan extends SomNode {
     public AcceptancePlan(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -310,6 +320,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -345,6 +360,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -365,6 +385,11 @@ public final class TomSomV0 {
   public static final class AccessControlModelSelection extends SomNode {
     public AccessControlModelSelection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -448,6 +473,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -500,6 +530,11 @@ public final class TomSomV0 {
   public static final class AccessUserCategories extends SomNode {
     public AccessUserCategories(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -765,6 +800,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -787,6 +827,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -807,6 +852,11 @@ public final class TomSomV0 {
   public static final class AccountDeletionPolicy extends SomNode {
     public AccountDeletionPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -832,6 +882,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -852,6 +907,11 @@ public final class TomSomV0 {
   public static final class AccountModificationPolicy extends SomNode {
     public AccountModificationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1024,6 +1084,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1174,6 +1239,11 @@ public final class TomSomV0 {
   public static final class AdministrationRequirementsSection extends SomNode {
     public AdministrationRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1719,6 +1789,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1739,6 +1814,11 @@ public final class TomSomV0 {
   public static final class ApiAuthenticationPolicy extends SomNode {
     public ApiAuthenticationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1762,6 +1842,11 @@ public final class TomSomV0 {
   public static final class ApiAuthorizationPolicy extends SomNode {
     public ApiAuthorizationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1863,6 +1948,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1883,6 +1973,11 @@ public final class TomSomV0 {
   public static final class ApiKeyManagementPolicy extends SomNode {
     public ApiKeyManagementPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1909,6 +2004,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -1931,6 +2031,11 @@ public final class TomSomV0 {
   public static final class ApiSecurity extends SomNode {
     public ApiSecurity(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -1986,6 +2091,11 @@ public final class TomSomV0 {
   public static final class ApiSecurityMonitoring extends SomNode {
     public ApiSecurityMonitoring(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -2633,6 +2743,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2699,6 +2814,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2745,6 +2865,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2766,6 +2891,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2785,6 +2915,11 @@ public final class TomSomV0 {
   public static final class AuditAndLogging extends SomNode {
     public AuditAndLogging(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -2859,6 +2994,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2900,6 +3040,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -2924,6 +3069,11 @@ public final class TomSomV0 {
   public static final class Authentication extends SomNode {
     public Authentication(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -2965,6 +3115,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3003,6 +3158,11 @@ public final class TomSomV0 {
   public static final class AuthenticationFlow extends SomNode {
     public AuthenticationFlow(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -3145,6 +3305,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3229,6 +3394,11 @@ public final class TomSomV0 {
   public static final class AuthorizationModel extends SomNode {
     public AuthorizationModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -3465,6 +3635,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -3628,6 +3803,11 @@ public final class TomSomV0 {
   public static final class BackupEncryptionPolicy extends SomNode {
     public BackupEncryptionPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -4008,6 +4188,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4113,6 +4298,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4197,6 +4387,11 @@ public final class TomSomV0 {
   public static final class BoundaryInteractionPatterns extends SomNode {
     public BoundaryInteractionPatterns(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -4790,6 +4985,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -4946,6 +5146,11 @@ public final class TomSomV0 {
   public static final class BusinessGoals extends SomNode {
     public BusinessGoals(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -5170,6 +5375,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5195,6 +5405,11 @@ public final class TomSomV0 {
   public static final class BusinessPainPoints extends SomNode {
     public BusinessPainPoints(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -5236,6 +5451,11 @@ public final class TomSomV0 {
   public static final class BusinessProcessDescriptions extends SomNode {
     public BusinessProcessDescriptions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -5431,6 +5651,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5539,6 +5764,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -5567,6 +5797,11 @@ public final class TomSomV0 {
   public static final class CertificateAuthenticationPolicy extends SomNode {
     public CertificateAuthenticationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -5654,6 +5889,11 @@ public final class TomSomV0 {
   public static final class CertificateManagementPolicy extends SomNode {
     public CertificateManagementPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -5852,6 +6092,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6009,6 +6254,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -6125,6 +6375,11 @@ public final class TomSomV0 {
   public static final class ChangeProcedure extends SomNode {
     public ChangeProcedure(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -6563,6 +6818,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     // Integration requirements content.
     public String content() {
       String v = doc.content(path + "/content");
@@ -6578,6 +6838,11 @@ public final class TomSomV0 {
   public static final class ChannelUxSpecification extends SomNode {
     public ChannelUxSpecification(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     // UX specification content.
@@ -6924,6 +7189,11 @@ public final class TomSomV0 {
   public static final class ClientRequirementsSection extends SomNode {
     public ClientRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -7550,6 +7820,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7786,6 +8061,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -7800,6 +8080,11 @@ public final class TomSomV0 {
   public static final class CommunicationRequirements extends SomNode {
     public CommunicationRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -7870,6 +8155,11 @@ public final class TomSomV0 {
   public static final class CompatibilityRequirementsSection extends SomNode {
     public CompatibilityRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -8080,6 +8370,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -8094,6 +8389,11 @@ public final class TomSomV0 {
   public static final class ComplianceMeasureEntry extends SomNode {
     public ComplianceMeasureEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -8124,6 +8424,11 @@ public final class TomSomV0 {
   public static final class ComplianceReporting extends SomNode {
     public ComplianceReporting(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -9126,6 +9431,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9514,6 +9824,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9678,6 +9993,11 @@ public final class TomSomV0 {
   public static final class ConcurrentSessionPolicy extends SomNode {
     public ConcurrentSessionPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -9979,6 +10299,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -9997,6 +10322,11 @@ public final class TomSomV0 {
   public static final class ContentScanningPolicy extends SomNode {
     public ContentScanningPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10019,6 +10349,11 @@ public final class TomSomV0 {
   public static final class ContextDiagram extends SomNode {
     public ContextDiagram(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10140,6 +10475,11 @@ public final class TomSomV0 {
   public static final class ContextualNavigation extends SomNode {
     public ContextualNavigation(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10265,6 +10605,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10351,6 +10696,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10373,6 +10723,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10390,6 +10745,11 @@ public final class TomSomV0 {
   public static final class CriticalKnowledgeAreaEntry extends SomNode {
     public CriticalKnowledgeAreaEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10411,6 +10771,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10429,6 +10794,11 @@ public final class TomSomV0 {
   public static final class CrossBoundaryOperationalConsiderations extends SomNode {
     public CrossBoundaryOperationalConsiderations(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10541,6 +10911,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10562,6 +10937,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10581,6 +10961,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10598,6 +10983,11 @@ public final class TomSomV0 {
   public static final class CurrentArchitecture extends SomNode {
     public CurrentArchitecture(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10685,6 +11075,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10734,6 +11129,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10767,6 +11167,11 @@ public final class TomSomV0 {
   public static final class CurrentDataLandscape extends SomNode {
     public CurrentDataLandscape(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -10863,6 +11268,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10913,6 +11323,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -10941,6 +11356,11 @@ public final class TomSomV0 {
   public static final class CurrentStateRiskAssessment extends SomNode {
     public CurrentStateRiskAssessment(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -11068,6 +11488,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11123,6 +11548,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -11253,6 +11683,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11354,6 +11789,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -11468,6 +11908,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -11596,6 +12041,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11703,6 +12153,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -11800,6 +12255,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -11925,6 +12385,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12039,6 +12504,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12141,6 +12611,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -12265,6 +12740,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -12426,6 +12906,11 @@ public final class TomSomV0 {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -12533,6 +13018,11 @@ public final class TomSomV0 {
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -12757,6 +13247,11 @@ public final class TomSomV0 {
   public static final class DataAccessAuditPolicy extends SomNode {
     public DataAccessAuditPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -13024,6 +13519,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13041,6 +13541,11 @@ public final class TomSomV0 {
   public static final class DataDuplicationAnalysis extends SomNode {
     public DataDuplicationAnalysis(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -13320,6 +13825,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13574,6 +14084,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13637,6 +14152,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13688,6 +14208,11 @@ public final class TomSomV0 {
   public static final class DataMaskingPolicy extends SomNode {
     public DataMaskingPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -13804,6 +14329,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -13860,6 +14390,11 @@ public final class TomSomV0 {
   public static final class DataOwnership extends SomNode {
     public DataOwnership(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -14032,6 +14567,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14165,6 +14705,11 @@ public final class TomSomV0 {
   public static final class DataQualityAssessment extends SomNode {
     public DataQualityAssessment(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -14351,6 +14896,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14470,6 +15020,11 @@ public final class TomSomV0 {
   public static final class DataSourceInventory extends SomNode {
     public DataSourceInventory(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -14752,6 +15307,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14790,6 +15350,11 @@ public final class TomSomV0 {
   public static final class DatabaseAccessPolicy extends SomNode {
     public DatabaseAccessPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -14890,6 +15455,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -14907,6 +15477,11 @@ public final class TomSomV0 {
   public static final class DatacenterEntry extends SomNode {
     public DatacenterEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -15238,6 +15813,11 @@ public final class TomSomV0 {
   public static final class DeepLinking extends SomNode {
     public DeepLinking(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -15595,6 +16175,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15631,6 +16216,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -15655,6 +16245,11 @@ public final class TomSomV0 {
   public static final class DeliveryTransitionAndRollout extends SomNode {
     public DeliveryTransitionAndRollout(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -15697,6 +16292,11 @@ public final class TomSomV0 {
   public static final class DependenciesAndIntegrations extends SomNode {
     public DependenciesAndIntegrations(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -15748,6 +16348,11 @@ public final class TomSomV0 {
   public static final class DependencyEntry extends SomNode {
     public DependencyEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -16086,6 +16691,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16317,6 +16927,11 @@ public final class TomSomV0 {
   public static final class DeploymentStrategySection extends SomNode {
     public DeploymentStrategySection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -16587,6 +17202,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16705,6 +17325,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16780,6 +17405,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -16816,6 +17446,11 @@ public final class TomSomV0 {
   public static final class DesignVision extends SomNode {
     public DesignVision(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -16925,6 +17560,11 @@ public final class TomSomV0 {
   public static final class DetailedProcessWorkflow extends SomNode {
     public DetailedProcessWorkflow(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -17128,6 +17768,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17286,6 +17931,11 @@ public final class TomSomV0 {
   public static final class DevopsStandardEntry extends SomNode {
     public DevopsStandardEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -17596,6 +18246,11 @@ public final class TomSomV0 {
   public static final class DistributionList extends SomNode {
     public DistributionList(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -17929,6 +18584,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -17982,6 +18642,11 @@ public final class TomSomV0 {
   public static final class DocumentRelationships extends SomNode {
     public DocumentRelationships(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -18041,6 +18706,11 @@ public final class TomSomV0 {
   public static final class DocumentationDeliverables extends SomNode {
     public DocumentationDeliverables(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -18275,6 +18945,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18372,6 +19047,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18407,6 +19087,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18440,6 +19125,11 @@ public final class TomSomV0 {
   public static final class DomainOverview extends SomNode {
     public DomainOverview(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -18512,6 +19202,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18555,6 +19250,11 @@ public final class TomSomV0 {
   public static final class DomainVocabulary extends SomNode {
     public DomainVocabulary(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -18732,6 +19432,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18780,6 +19485,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -18802,6 +19512,11 @@ public final class TomSomV0 {
   public static final class EncryptionInTransit extends SomNode {
     public EncryptionInTransit(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -18849,6 +19564,11 @@ public final class TomSomV0 {
   public static final class EndToEndTestScenario extends SomNode {
     public EndToEndTestScenario(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -19044,6 +19764,11 @@ public final class TomSomV0 {
   public static final class EntityRelationships extends SomNode {
     public EntityRelationships(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -19756,6 +20481,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19770,6 +20500,11 @@ public final class TomSomV0 {
   public static final class ErrorProcedureEntry extends SomNode {
     public ErrorProcedureEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -19895,6 +20630,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -19912,6 +20652,11 @@ public final class TomSomV0 {
   public static final class EvaluationCriteria extends SomNode {
     public EvaluationCriteria(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -20014,6 +20759,11 @@ public final class TomSomV0 {
   public static final class ExecutiveSummaryDistribution extends SomNode {
     public ExecutiveSummaryDistribution(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -20176,6 +20926,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20216,6 +20971,11 @@ public final class TomSomV0 {
   public static final class ExperienceAndInterfaceDesign extends SomNode {
     public ExperienceAndInterfaceDesign(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -20675,6 +21435,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -20694,6 +21459,11 @@ public final class TomSomV0 {
   public static final class ExternalConnectivitySection extends SomNode {
     public ExternalConnectivitySection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -21014,6 +21784,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21170,6 +21945,11 @@ public final class TomSomV0 {
   public static final class ExternalSystemsContext extends SomNode {
     public ExternalSystemsContext(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -21784,6 +22564,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21802,6 +22587,11 @@ public final class TomSomV0 {
   public static final class FileAccessControlPolicy extends SomNode {
     public FileAccessControlPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -21826,6 +22616,11 @@ public final class TomSomV0 {
   public static final class FileAndStorageSecurity extends SomNode {
     public FileAndStorageSecurity(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -21881,6 +22676,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -21902,6 +22702,11 @@ public final class TomSomV0 {
   public static final class FileStorageEncryptionPolicy extends SomNode {
     public FileStorageEncryptionPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -21926,6 +22731,11 @@ public final class TomSomV0 {
   public static final class FileUploadValidationPolicy extends SomNode {
     public FileUploadValidationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -22113,6 +22923,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22236,6 +23051,11 @@ public final class TomSomV0 {
   public static final class FullDistribution extends SomNode {
     public FullDistribution(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -22540,6 +23360,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22697,6 +23522,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22793,6 +23623,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22823,6 +23658,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22842,6 +23682,11 @@ public final class TomSomV0 {
   public static final class GlossaryAndAbbreviations extends SomNode {
     public GlossaryAndAbbreviations(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -22876,6 +23721,11 @@ public final class TomSomV0 {
   public static final class GoalDependencies extends SomNode {
     public GoalDependencies(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -22923,6 +23773,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22957,6 +23812,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -22978,6 +23838,11 @@ public final class TomSomV0 {
   public static final class GoalResources extends SomNode {
     public GoalResources(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -23051,6 +23916,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -23075,6 +23945,11 @@ public final class TomSomV0 {
   public static final class Goals extends SomNode {
     public Goals(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -23145,6 +24020,11 @@ public final class TomSomV0 {
   public static final class HardwareRequirements extends SomNode {
     public HardwareRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -23235,6 +24115,11 @@ public final class TomSomV0 {
   public static final class HealthChecksAndDiagnosticsSection extends SomNode {
     public HealthChecksAndDiagnosticsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -23459,6 +24344,11 @@ public final class TomSomV0 {
   public static final class IdentificationAndAuthentication extends SomNode {
     public IdentificationAndAuthentication(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -24151,6 +25041,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24184,6 +25079,11 @@ public final class TomSomV0 {
   public static final class InformationArchitecture extends SomNode {
     public InformationArchitecture(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -24224,6 +25124,11 @@ public final class TomSomV0 {
   public static final class InformationForUseRequirements extends SomNode {
     public InformationForUseRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -24535,6 +25440,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24675,6 +25585,11 @@ public final class TomSomV0 {
   public static final class InsuranceLiabilityRequirements extends SomNode {
     public InsuranceLiabilityRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -24890,6 +25805,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24920,6 +25840,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -24941,6 +25866,11 @@ public final class TomSomV0 {
   public static final class IntegrityConstraints extends SomNode {
     public IntegrityConstraints(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -25013,6 +25943,11 @@ public final class TomSomV0 {
   public static final class InteractionCatalog extends SomNode {
     public InteractionCatalog(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -25146,6 +26081,11 @@ public final class TomSomV0 {
   public static final class InteractionDependencyAnalysis extends SomNode {
     public InteractionDependencyAnalysis(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -25331,6 +26271,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25374,6 +26319,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -25402,6 +26352,11 @@ public final class TomSomV0 {
   public static final class InteractionTestingStrategy extends SomNode {
     public InteractionTestingStrategy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -25942,6 +26897,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26117,6 +27077,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26202,6 +27167,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26235,6 +27205,11 @@ public final class TomSomV0 {
   public static final class ItLandscapePosition extends SomNode {
     public ItLandscapePosition(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -26334,6 +27309,11 @@ public final class TomSomV0 {
   public static final class ItSecurityStandardsSection extends SomNode {
     public ItSecurityStandardsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -26539,6 +27519,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26663,6 +27648,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26733,6 +27723,11 @@ public final class TomSomV0 {
   public static final class KeyManagement extends SomNode {
     public KeyManagement(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -26810,6 +27805,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26855,6 +27855,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26874,6 +27879,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26888,6 +27898,11 @@ public final class TomSomV0 {
   public static final class KnownIssueEntry extends SomNode {
     public KnownIssueEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -26906,6 +27921,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -26920,6 +27940,11 @@ public final class TomSomV0 {
   public static final class KpiEntry extends SomNode {
     public KpiEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -27083,6 +28108,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27229,6 +28259,11 @@ public final class TomSomV0 {
   public static final class LegalAndContractualRequirements extends SomNode {
     public LegalAndContractualRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -27603,6 +28638,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -27629,6 +28669,11 @@ public final class TomSomV0 {
   public static final class LocalizationTranslationRequirements extends SomNode {
     public LocalizationTranslationRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -27841,6 +28886,11 @@ public final class TomSomV0 {
   public static final class LoginFlowConfiguration extends SomNode {
     public LoginFlowConfiguration(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -28131,6 +29181,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28212,6 +29267,11 @@ public final class TomSomV0 {
   public static final class MaintenanceProcedureEntry extends SomNode {
     public MaintenanceProcedureEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -28367,6 +29427,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28414,6 +29479,11 @@ public final class TomSomV0 {
   public static final class MappingRuleEntry extends SomNode {
     public MappingRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -28492,6 +29562,11 @@ public final class TomSomV0 {
   public static final class MasterDataManagement extends SomNode {
     public MasterDataManagement(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -28670,6 +29745,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28842,6 +29922,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -28861,6 +29946,11 @@ public final class TomSomV0 {
   public static final class MfaDetailEntry extends SomNode {
     public MfaDetailEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -28992,6 +30082,11 @@ public final class TomSomV0 {
   public static final class MigrationInteractions extends SomNode {
     public MigrationInteractions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -29269,6 +30364,11 @@ public final class TomSomV0 {
   public static final class MigrationPlan extends SomNode {
     public MigrationPlan(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -30083,6 +31183,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30270,6 +31375,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30387,6 +31497,11 @@ public final class TomSomV0 {
   public static final class MultiChannelExperience extends SomNode {
     public MultiChannelExperience(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -30541,6 +31656,11 @@ public final class TomSomV0 {
   public static final class MutualTlsPolicy extends SomNode {
     public MutualTlsPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -30748,6 +31868,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -30772,6 +31897,11 @@ public final class TomSomV0 {
   public static final class NavigationHierarchy extends SomNode {
     public NavigationHierarchy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -30892,6 +32022,11 @@ public final class TomSomV0 {
   public static final class NavigationModel extends SomNode {
     public NavigationModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -31203,6 +32338,11 @@ public final class TomSomV0 {
   public static final class NetworkRequirementsSection extends SomNode {
     public NetworkRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -31640,6 +32780,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -31668,6 +32813,11 @@ public final class TomSomV0 {
   public static final class NotificationModel extends SomNode {
     public NotificationModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -31797,6 +32947,11 @@ public final class TomSomV0 {
   public static final class ObservabilityRequirementEntry extends SomNode {
     public ObservabilityRequirementEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -32163,6 +33318,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32198,6 +33358,11 @@ public final class TomSomV0 {
   public static final class OperationsRequirements extends SomNode {
     public OperationsRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -32237,6 +33402,11 @@ public final class TomSomV0 {
   public static final class OpportunityStatement extends SomNode {
     public OpportunityStatement(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -32350,6 +33520,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -32374,6 +33549,11 @@ public final class TomSomV0 {
   public static final class OrganizationStructure extends SomNode {
     public OrganizationStructure(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -32450,6 +33630,11 @@ public final class TomSomV0 {
   public static final class OrganizationalContext extends SomNode {
     public OrganizationalContext(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -32680,6 +33865,11 @@ public final class TomSomV0 {
   public static final class OrganizationalRequirements extends SomNode {
     public OrganizationalRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -33065,6 +34255,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33166,6 +34361,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33259,6 +34459,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33322,6 +34527,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33345,6 +34555,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33365,6 +34580,11 @@ public final class TomSomV0 {
   public static final class PasswordStoragePolicy extends SomNode {
     public PasswordStoragePolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -33558,6 +34778,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33580,6 +34805,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33600,6 +34830,11 @@ public final class TomSomV0 {
   public static final class PermissionGranularityPolicy extends SomNode {
     public PermissionGranularityPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -33719,6 +34954,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -33749,6 +34989,11 @@ public final class TomSomV0 {
   public static final class PersonaPainPoints extends SomNode {
     public PersonaPainPoints(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -33783,6 +35028,11 @@ public final class TomSomV0 {
   public static final class PersonaScenarios extends SomNode {
     public PersonaScenarios(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -34024,6 +35274,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34193,6 +35448,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34259,6 +35519,11 @@ public final class TomSomV0 {
   public static final class PostImplementationReview extends SomNode {
     public PostImplementationReview(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     // Post-implementation review content.
@@ -34341,6 +35606,11 @@ public final class TomSomV0 {
   public static final class PredecessorDependencyEntry extends SomNode {
     public PredecessorDependencyEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -34683,6 +35953,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -34833,6 +36108,11 @@ public final class TomSomV0 {
   public static final class ProcessAdjustments extends SomNode {
     public ProcessAdjustments(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -35150,6 +36430,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35353,6 +36638,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35429,6 +36719,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35443,6 +36738,11 @@ public final class TomSomV0 {
   public static final class ProcessMetricCategory extends SomNode {
     public ProcessMetricCategory(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -35516,6 +36816,11 @@ public final class TomSomV0 {
   public static final class ProcessMetrics extends SomNode {
     public ProcessMetrics(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -35608,6 +36913,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -35687,6 +36997,11 @@ public final class TomSomV0 {
   public static final class ProcessRelationships extends SomNode {
     public ProcessRelationships(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -35826,6 +37141,11 @@ public final class TomSomV0 {
   public static final class ProcessStepsAndActorInteractions extends SomNode {
     public ProcessStepsAndActorInteractions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -36106,6 +37426,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36134,6 +37459,11 @@ public final class TomSomV0 {
   public static final class ProjectOrganizationAndProcess extends SomNode {
     public ProjectOrganizationAndProcess(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -36188,6 +37518,11 @@ public final class TomSomV0 {
   public static final class ProjectTeamStaffing extends SomNode {
     public ProjectTeamStaffing(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -36289,6 +37624,11 @@ public final class TomSomV0 {
   public static final class ProtocolsAndStandardsSection extends SomNode {
     public ProtocolsAndStandardsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -36659,6 +37999,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -36943,6 +38288,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37174,6 +38524,11 @@ public final class TomSomV0 {
   public static final class QualityScenarios extends SomNode {
     public QualityScenarios(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -37431,6 +38786,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37550,6 +38910,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37643,6 +39008,11 @@ public final class TomSomV0 {
   public static final class ReferenceDocuments extends SomNode {
     public ReferenceDocuments(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -37759,6 +39129,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -37786,6 +39161,11 @@ public final class TomSomV0 {
   public static final class RegulatoryContext extends SomNode {
     public RegulatoryContext(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -37829,6 +39209,11 @@ public final class TomSomV0 {
   public static final class RelatedPainPointEntry extends SomNode {
     public RelatedPainPointEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -38065,6 +39450,11 @@ public final class TomSomV0 {
   public static final class RememberMePolicy extends SomNode {
     public RememberMePolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -38937,6 +40327,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -38954,6 +40349,11 @@ public final class TomSomV0 {
   public static final class RequirementAcceptanceCriteria extends SomNode {
     public RequirementAcceptanceCriteria(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -38990,6 +40390,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39013,6 +40418,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39029,6 +40439,11 @@ public final class TomSomV0 {
   public static final class RequirementDataRequirements extends SomNode {
     public RequirementDataRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39052,6 +40467,11 @@ public final class TomSomV0 {
   public static final class RequirementDependencies extends SomNode {
     public RequirementDependencies(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39095,6 +40515,11 @@ public final class TomSomV0 {
   public static final class RequirementRelationships extends SomNode {
     public RequirementRelationships(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39185,6 +40610,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39206,6 +40636,11 @@ public final class TomSomV0 {
   public static final class RequirementTraceability extends SomNode {
     public RequirementTraceability(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39263,6 +40698,11 @@ public final class TomSomV0 {
   public static final class RequirementUiSpecification extends SomNode {
     public RequirementUiSpecification(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39325,6 +40765,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39360,6 +40805,11 @@ public final class TomSomV0 {
   public static final class RequirementsOverview extends SomNode {
     public RequirementsOverview(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39531,6 +40981,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -39571,6 +41026,11 @@ public final class TomSomV0 {
   public static final class ResponseStrategyEntry extends SomNode {
     public ResponseStrategyEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -39999,6 +41459,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40332,6 +41797,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40362,6 +41832,11 @@ public final class TomSomV0 {
   public static final class RiskBasedDecisionEntry extends SomNode {
     public RiskBasedDecisionEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -40421,6 +41896,11 @@ public final class TomSomV0 {
   public static final class RiskCategoryEntry extends SomNode {
     public RiskCategoryEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -40785,6 +42265,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40822,6 +42307,11 @@ public final class TomSomV0 {
   public static final class RoleCertificationPolicy extends SomNode {
     public RoleCertificationPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -40908,6 +42398,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -40955,6 +42450,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41000,6 +42500,11 @@ public final class TomSomV0 {
   public static final class RoleMatrix extends SomNode {
     public RoleMatrix(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -41139,6 +42644,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41163,6 +42673,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -41181,6 +42696,11 @@ public final class TomSomV0 {
   public static final class RowLevelSecurityPolicy extends SomNode {
     public RowLevelSecurityPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -41275,6 +42795,11 @@ public final class TomSomV0 {
   public static final class RuntimeDependencies extends SomNode {
     public RuntimeDependencies(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -42000,6 +43525,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42017,6 +43547,11 @@ public final class TomSomV0 {
   public static final class ScopeBoundaries extends SomNode {
     public ScopeBoundaries(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -42129,6 +43664,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42162,6 +43702,11 @@ public final class TomSomV0 {
   public static final class ScreenDescriptions extends SomNode {
     public ScreenDescriptions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -42648,6 +44193,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42673,6 +44223,11 @@ public final class TomSomV0 {
   public static final class ScreenInventory extends SomNode {
     public ScreenInventory(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -42764,6 +44319,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42800,6 +44360,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -42832,6 +44397,11 @@ public final class TomSomV0 {
   public static final class SecondaryNavigation extends SomNode {
     public SecondaryNavigation(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -42890,6 +44460,11 @@ public final class TomSomV0 {
   public static final class SecurityAndAccessModel extends SomNode {
     public SecurityAndAccessModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -43009,6 +44584,11 @@ public final class TomSomV0 {
   public static final class SecurityAuditRequirementsSection extends SomNode {
     public SecurityAuditRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -43264,6 +44844,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -43323,6 +44908,11 @@ public final class TomSomV0 {
   public static final class SecurityControls extends SomNode {
     public SecurityControls(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -43438,6 +45028,11 @@ public final class TomSomV0 {
   public static final class SecurityEventsDefinition extends SomNode {
     public SecurityEventsDefinition(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -43587,6 +45182,11 @@ public final class TomSomV0 {
   public static final class SecurityRequirements extends SomNode {
     public SecurityRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -43954,6 +45554,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -43971,6 +45576,11 @@ public final class TomSomV0 {
   public static final class SensitiveDataEncryption extends SomNode {
     public SensitiveDataEncryption(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44155,6 +45765,11 @@ public final class TomSomV0 {
   public static final class ServerRequirementsSection extends SomNode {
     public ServerRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44379,6 +45994,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -44399,6 +46019,11 @@ public final class TomSomV0 {
   public static final class ServiceAccountLifecycle extends SomNode {
     public ServiceAccountLifecycle(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44635,6 +46260,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -44656,6 +46286,11 @@ public final class TomSomV0 {
   public static final class SessionLifecycleMonitoring extends SomNode {
     public SessionLifecycleMonitoring(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44681,6 +46316,11 @@ public final class TomSomV0 {
   public static final class SessionManagement extends SomNode {
     public SessionManagement(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44733,6 +46373,11 @@ public final class TomSomV0 {
   public static final class SessionModel extends SomNode {
     public SessionModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44792,6 +46437,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -44813,6 +46463,11 @@ public final class TomSomV0 {
   public static final class SessionSecurityPolicy extends SomNode {
     public SessionSecurityPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -44839,6 +46494,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -44858,6 +46518,11 @@ public final class TomSomV0 {
   public static final class SharedInfrastructureDependencies extends SomNode {
     public SharedInfrastructureDependencies(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -45074,6 +46739,11 @@ public final class TomSomV0 {
   public static final class SharedServiceEntry extends SomNode {
     public SharedServiceEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -45420,6 +47090,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -45439,6 +47114,11 @@ public final class TomSomV0 {
   public static final class SoftwareDesignRequirements extends SomNode {
     public SoftwareDesignRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -45547,6 +47227,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -45628,6 +47313,11 @@ public final class TomSomV0 {
   public static final class SsoPolicy extends SomNode {
     public SsoPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -46983,6 +48673,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47030,6 +48725,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47071,6 +48771,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47095,6 +48800,11 @@ public final class TomSomV0 {
   public static final class StakeholdersAndGovernance extends SomNode {
     public StakeholdersAndGovernance(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -47166,6 +48876,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47193,6 +48908,11 @@ public final class TomSomV0 {
   public static final class StandardsComplianceSection extends SomNode {
     public StandardsComplianceSection(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -47271,6 +48991,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47300,6 +49025,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47321,6 +49051,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47339,6 +49074,11 @@ public final class TomSomV0 {
   public static final class StorageEncryptionPolicy extends SomNode {
     public StorageEncryptionPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -47364,6 +49104,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47384,6 +49129,11 @@ public final class TomSomV0 {
   public static final class StrategicAlignment extends SomNode {
     public StrategicAlignment(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -47520,6 +49270,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47628,6 +49383,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     // Framework content.
     public String content() {
       String v = doc.content(path + "/content");
@@ -47643,6 +49403,11 @@ public final class TomSomV0 {
   public static final class SuccessCriteriaSummary extends SomNode {
     public SuccessCriteriaSummary(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     // Summary content.
@@ -47866,6 +49631,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -47934,6 +49704,11 @@ public final class TomSomV0 {
   public static final class SystemArchitectureSpec extends SomNode {
     public SystemArchitectureSpec(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -48175,6 +49950,11 @@ public final class TomSomV0 {
   public static final class SystemContext extends SomNode {
     public SystemContext(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -48444,6 +50224,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -48491,6 +50276,11 @@ public final class TomSomV0 {
   public static final class SystemDescriptionSummary extends SomNode {
     public SystemDescriptionSummary(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     // Summary content for system description classification.
@@ -48825,6 +50615,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -48865,6 +50660,11 @@ public final class TomSomV0 {
   public static final class SystemLandscapeInventory extends SomNode {
     public SystemLandscapeInventory(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -48948,6 +50748,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -48972,6 +50777,11 @@ public final class TomSomV0 {
   public static final class SystemOperationAndMonitoring extends SomNode {
     public SystemOperationAndMonitoring(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -49007,6 +50817,11 @@ public final class TomSomV0 {
   public static final class SystemPurpose extends SomNode {
     public SystemPurpose(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -49240,6 +51055,11 @@ public final class TomSomV0 {
   public static final class SystemRollout extends SomNode {
     public SystemRollout(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -49502,6 +51322,11 @@ public final class TomSomV0 {
   public static final class SystemTaskWorkflowStepEntry extends SomNode {
     public SystemTaskWorkflowStepEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -49891,6 +51716,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -49915,6 +51745,11 @@ public final class TomSomV0 {
   public static final class TargetOperatingModel extends SomNode {
     public TargetOperatingModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50312,6 +52147,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50375,6 +52215,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50396,6 +52241,11 @@ public final class TomSomV0 {
   public static final class TechnicalGoalDependencies extends SomNode {
     public TechnicalGoalDependencies(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50498,6 +52348,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50526,6 +52381,11 @@ public final class TomSomV0 {
   public static final class TechnicalGoals extends SomNode {
     public TechnicalGoals(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50578,6 +52438,11 @@ public final class TomSomV0 {
   public static final class TechnicalPainPoints extends SomNode {
     public TechnicalPainPoints(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50731,6 +52596,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50755,6 +52625,11 @@ public final class TomSomV0 {
   public static final class TechnicalSecurityRequirements extends SomNode {
     public TechnicalSecurityRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50882,6 +52757,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50905,6 +52785,11 @@ public final class TomSomV0 {
   public static final class TenantContextPolicy extends SomNode {
     public TenantContextPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -50944,6 +52829,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -50969,6 +52859,11 @@ public final class TomSomV0 {
   public static final class TenantIsolation extends SomNode {
     public TenantIsolation(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -51018,6 +52913,11 @@ public final class TomSomV0 {
   public static final class TenantOnboardingPolicy extends SomNode {
     public TenantOnboardingPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -51172,6 +53072,11 @@ public final class TomSomV0 {
   public static final class TestStrategy extends SomNode {
     public TestStrategy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -51606,6 +53511,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -51701,6 +53611,11 @@ public final class TomSomV0 {
   public static final class TokenManagementPolicy extends SomNode {
     public TokenManagementPolicy(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -52005,6 +53920,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -52274,6 +54194,11 @@ public final class TomSomV0 {
   public static final class TrainingDeliverables extends SomNode {
     public TrainingDeliverables(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -53104,6 +55029,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -53194,6 +55124,11 @@ public final class TomSomV0 {
   public static final class TrustBoundaries extends SomNode {
     public TrustBoundaries(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -53686,6 +55621,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -53825,6 +55765,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -53927,6 +55872,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -53987,6 +55937,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54009,6 +55964,11 @@ public final class TomSomV0 {
   public static final class UserAccountStatesDefinition extends SomNode {
     public UserAccountStatesDefinition(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54108,6 +56068,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54129,6 +56094,11 @@ public final class TomSomV0 {
   public static final class UserAuthorization extends SomNode {
     public UserAuthorization(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54392,6 +56362,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54443,6 +56418,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     // Summary content for interaction model.
     public String content() {
       String v = doc.content(path + "/content");
@@ -54460,6 +56440,11 @@ public final class TomSomV0 {
   public static final class UserJourney extends SomNode {
     public UserJourney(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54513,6 +56498,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54531,6 +56521,11 @@ public final class TomSomV0 {
   public static final class UserLifecycle extends SomNode {
     public UserLifecycle(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54662,6 +56657,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54687,6 +56687,11 @@ public final class TomSomV0 {
   public static final class UserManagement extends SomNode {
     public UserManagement(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54728,6 +56733,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54742,6 +56752,11 @@ public final class TomSomV0 {
   public static final class UserNotificationPreferences extends SomNode {
     public UserNotificationPreferences(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     // Preferences content.
@@ -54762,6 +56777,11 @@ public final class TomSomV0 {
   public static final class UserPersonaDetails extends SomNode {
     public UserPersonaDetails(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -54851,6 +56871,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54937,6 +56962,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -54959,6 +56989,11 @@ public final class TomSomV0 {
   public static final class UserTrainingRequirements extends SomNode {
     public UserTrainingRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -55032,6 +57067,11 @@ public final class TomSomV0 {
   public static final class UtilityNavigation extends SomNode {
     public UtilityNavigation(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -55108,6 +57148,11 @@ public final class TomSomV0 {
   public static final class ValidationConstraints extends SomNode {
     public ValidationConstraints(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -55227,6 +57272,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -55244,6 +57294,11 @@ public final class TomSomV0 {
   public static final class ValueProposition extends SomNode {
     public ValueProposition(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -55302,6 +57357,11 @@ public final class TomSomV0 {
   public static final class VariationsAndExceptionEntry extends SomNode {
     public VariationsAndExceptionEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -55618,6 +57678,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -55850,6 +57915,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -55912,6 +57982,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
     public String content() {
       String v = doc.content(path + "/content");
       return v == null ? "" : v;
@@ -55957,6 +58032,11 @@ public final class TomSomV0 {
   public static final class WorkflowExceptions extends SomNode {
     public WorkflowExceptions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {
@@ -56114,6 +58194,11 @@ public final class TomSomV0 {
   public static final class WorkflowTriggers extends SomNode {
     public WorkflowTriggers(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
     }
 
     public String content() {

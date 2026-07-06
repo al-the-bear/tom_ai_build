@@ -18,6 +18,10 @@ class AcceptanceCriteriaList(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -93,6 +97,10 @@ class AcceptancePlan(SomNode):
     """14.2. Acceptance Plan. Seeds → QAP."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -291,6 +299,10 @@ class AccessChannels(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -323,6 +335,10 @@ class AccessConstraintPolicies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -343,6 +359,10 @@ class AccessControlModelSelection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -418,6 +438,10 @@ class AccessLevels(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -464,6 +488,10 @@ class AccessUserCategories(SomNode):
     """9.1.1. User Categories."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -711,6 +739,10 @@ class AccountActivationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -733,6 +765,10 @@ class AccountDeactivationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -753,6 +789,10 @@ class AccountDeletionPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -778,6 +818,10 @@ class AccountLockoutPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -798,6 +842,10 @@ class AccountModificationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -951,6 +999,10 @@ class ActorOverview(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -1084,6 +1136,10 @@ class AdministrationRequirementsSection(SomNode):
     """8.7.1.1. Administration Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -1576,6 +1632,10 @@ class ApiAbuseProtection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -1596,6 +1656,10 @@ class ApiAuthenticationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -1619,6 +1683,10 @@ class ApiAuthorizationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -1710,6 +1778,10 @@ class ApiCorsSecurity(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -1730,6 +1802,10 @@ class ApiKeyManagementPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -1756,6 +1832,10 @@ class ApiRequestValidationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -1778,6 +1858,10 @@ class ApiSecurity(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -1833,6 +1917,10 @@ class ApiSecurityMonitoring(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2396,6 +2484,10 @@ class ArchitectureStyle(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2459,6 +2551,10 @@ class AssumptionConstraintDependencyRegister(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2501,6 +2597,10 @@ class AssumptionsConstraintsDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2517,6 +2617,10 @@ class AttributeInterdependencyEntry(SomNode):
     """A single attribute interdependency entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2536,6 +2640,10 @@ class AuditAndLogging(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2602,6 +2710,10 @@ class AuditLogFormat(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2643,6 +2755,10 @@ class AuditRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2664,6 +2780,10 @@ class Authentication(SomNode):
     """9.2.2. Authentication."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2701,6 +2821,10 @@ class AuthenticationErrorHandling(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2742,6 +2866,10 @@ class AuthenticationFlow(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -2877,6 +3005,10 @@ class AuthenticationMethods(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -2960,6 +3092,10 @@ class AuthorizationModel(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -3179,6 +3315,10 @@ class BackupAndRecoverySection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -3328,6 +3468,10 @@ class BackupEncryptionPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -3659,6 +3803,10 @@ class BasicTechnicalRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -3752,6 +3900,10 @@ class BiometricAuthenticationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -3831,6 +3983,10 @@ class BoundaryInteractionPatterns(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -4347,6 +4503,10 @@ class BusinessDomain(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -4492,6 +4652,10 @@ class BusinessGoals(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -4695,6 +4859,10 @@ class BusinessObjectModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -4720,6 +4888,10 @@ class BusinessPainPoints(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -4757,6 +4929,10 @@ class BusinessProcessDescriptions(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -4947,6 +5123,10 @@ class CapacityPlanningSection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -5046,6 +5226,10 @@ class CategoryDependencyEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -5070,6 +5254,10 @@ class CertificateAuthenticationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -5149,6 +5337,10 @@ class CertificateManagementPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -5322,6 +5514,10 @@ class ChangeAdvocateEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -5461,6 +5657,10 @@ class ChangeImpactCriteria(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -5564,6 +5764,10 @@ class ChangeProcedure(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -5966,6 +6170,10 @@ class ChannelIntegrations(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
+    @property
+    def can_have_content(self):
+        return True
+
     # Integration requirements content.
     @property
     def content(self):
@@ -5979,6 +6187,10 @@ class ChannelUxSpecification(SomNode):
     """Channel-specific UX specification."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     # UX specification content.
     @property
@@ -6281,6 +6493,10 @@ class ClientRequirementsSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -6833,6 +7049,10 @@ class ColumnLevelSecurityPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -7041,6 +7261,10 @@ class CommunicationPreferenceEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -7052,6 +7276,10 @@ class CommunicationRequirements(SomNode):
     """8.6. Communication Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -7117,6 +7345,10 @@ class CompatibilityRequirementsSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -7309,6 +7541,10 @@ class ComplianceFramework(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -7320,6 +7556,10 @@ class ComplianceMeasureEntry(SomNode):
     """A single compliance measure entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -7346,6 +7586,10 @@ class ComplianceReporting(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -8244,6 +8488,10 @@ class ComponentRiskAssessment(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -8593,6 +8841,10 @@ class ComponentsAndDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -8741,6 +8993,10 @@ class ConcurrentSessionPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9008,6 +9264,10 @@ class ConstraintsAndDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9024,6 +9284,10 @@ class ContentScanningPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9046,6 +9310,10 @@ class ContextDiagram(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9155,6 +9423,10 @@ class ContextualNavigation(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9271,6 +9543,10 @@ class ContingencyPlans(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9349,6 +9625,10 @@ class CredentialCompromiseDetectionPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9371,6 +9651,10 @@ class CredentialRecoveryPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9387,6 +9671,10 @@ class CriticalKnowledgeAreaEntry(SomNode):
     """A single critical knowledge area entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9406,6 +9694,10 @@ class CrossBoundaryErrorHandling(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9422,6 +9714,10 @@ class CrossBoundaryOperationalConsiderations(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9520,6 +9816,10 @@ class CrossProcessAnalysis(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9537,6 +9837,10 @@ class CrossTenantAccessPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9557,6 +9861,10 @@ class CulturalConsiderationEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9572,6 +9880,10 @@ class CurrentArchitecture(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9654,6 +9966,10 @@ class CurrentBusinessProcesses(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9700,6 +10016,10 @@ class CurrentDataClassification(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9731,6 +10051,10 @@ class CurrentDataLandscape(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -9823,6 +10147,10 @@ class CurrentLandscape(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9871,6 +10199,10 @@ class CurrentOperationalMetric(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -9895,6 +10227,10 @@ class CurrentStateRiskAssessment(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -10014,6 +10350,10 @@ class CutoverProcedure(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -10061,6 +10401,10 @@ class D00SolutionBlueprint(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -10183,6 +10527,10 @@ class D01CurrentLandscapeAssessment(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -10276,6 +10624,10 @@ class D02TargetOperatingModel(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -10382,6 +10734,10 @@ class D03InformationModel(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -10506,6 +10862,10 @@ class D04RequirementsSpecification(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -10604,6 +10964,10 @@ class D05InteractionScenarios(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -10693,6 +11057,10 @@ class D06ArchitectureTechnologySpecification(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -10810,6 +11178,10 @@ class D07IntegrationInterfaceSpecification(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -10916,6 +11288,10 @@ class D08SecurityAccessSpecification(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -11010,6 +11386,10 @@ class D09ExperienceDesignSpecification(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -11126,6 +11506,10 @@ class D10QualityAcceptancePlan(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -11279,6 +11663,10 @@ class D11DeliveryRoadmap(SomNode):
         return som_editability_for(cls.model_version, document_version)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -11378,6 +11766,10 @@ class D12TransitionRolloutPlan(SomNode):
         non-throwing companion to the constructor's §2.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -11582,6 +11974,10 @@ class DataAccessAuditPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -11826,6 +12222,10 @@ class DataDictionary(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -11841,6 +12241,10 @@ class DataDuplicationAnalysis(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -12091,6 +12495,10 @@ class DataGovernance(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -12312,6 +12720,10 @@ class DataIntegrationPoints(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -12368,6 +12780,10 @@ class DataLevelSecurity(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -12419,6 +12835,10 @@ class DataMaskingPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -12535,6 +12955,10 @@ class DataModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -12591,6 +13015,10 @@ class DataOwnership(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -12742,6 +13170,10 @@ class DataProtectionAndPrivacySection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -12866,6 +13298,10 @@ class DataQualityAssessment(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -13029,6 +13465,10 @@ class DataRetentionPolicies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -13139,6 +13579,10 @@ class DataSourceInventory(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -13383,6 +13827,10 @@ class DataVolumesAndGrowth(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -13418,6 +13866,10 @@ class DatabaseAccessPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -13508,6 +13960,10 @@ class DatabaseEncryptionPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -13524,6 +13980,10 @@ class DatacenterEntry(SomNode):
     """A single datacenter entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -13820,6 +14280,10 @@ class DeepLinking(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -14139,6 +14603,10 @@ class DeliveryScope(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -14172,6 +14640,10 @@ class DeliveryScopeAndAcceptance(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -14193,6 +14665,10 @@ class DeliveryTransitionAndRollout(SomNode):
     """SBP.15 Delivery, Transition & Rollout."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -14233,6 +14709,10 @@ class DependenciesAndIntegrations(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -14280,6 +14760,10 @@ class DependencyEntry(SomNode):
     """A single dependency entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -14575,6 +15059,10 @@ class DeploymentContext(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -14776,6 +15264,10 @@ class DeploymentStrategySection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -15019,6 +15511,10 @@ class DesignGoals(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -15125,6 +15621,10 @@ class DesignPatternsAndStandards(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -15199,6 +15699,10 @@ class DesignPrinciples(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -15233,6 +15737,10 @@ class DesignVision(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -15330,6 +15838,10 @@ class DetailedProcessWorkflow(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -15507,6 +16019,10 @@ class DevelopmentEnvironment(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -15652,6 +16168,10 @@ class DevopsStandardEntry(SomNode):
     """A single devops standard entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -15920,6 +16440,10 @@ class DistributionList(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -16220,6 +16744,10 @@ class DocumentControl(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16271,6 +16799,10 @@ class DocumentRelationships(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16319,6 +16851,10 @@ class DocumentationDeliverables(SomNode):
     """14.1.2. Documentation Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -16530,6 +17066,10 @@ class DomainBoundaries(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16616,6 +17156,10 @@ class DomainBusinessRules(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16647,6 +17191,10 @@ class DomainEvents(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16676,6 +17224,10 @@ class DomainOverview(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -16742,6 +17294,10 @@ class DomainProcesses(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16780,6 +17336,10 @@ class DomainVocabulary(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -16938,6 +17498,10 @@ class EncryptionAtRest(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -16986,6 +17550,10 @@ class EncryptionAtRestPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -17008,6 +17576,10 @@ class EncryptionInTransit(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -17055,6 +17627,10 @@ class EndToEndTestScenario(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -17228,6 +17804,10 @@ class EntityRelationships(SomNode):
     """7.1.2. Entity Relationships."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -17866,6 +18446,10 @@ class ErrorPageDesignEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -17877,6 +18461,10 @@ class ErrorProcedureEntry(SomNode):
     """A single error procedure entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -17990,6 +18578,10 @@ class EscalationProcedureEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -18005,6 +18597,10 @@ class EvaluationCriteria(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -18099,6 +18695,10 @@ class ExecutiveSummaryDistribution(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -18244,6 +18844,10 @@ class ExistingSystemsLandscape(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -18279,6 +18883,10 @@ class ExperienceAndInterfaceDesign(SomNode):
     """10. Experience & Interface Design. Seeds → XDS."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -18692,6 +19300,10 @@ class ExternalActors(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -18708,6 +19320,10 @@ class ExternalConnectivitySection(SomNode):
     """8.6.2. External Connectivity."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -19008,6 +19624,10 @@ class ExternalServiceDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -19146,6 +19766,10 @@ class ExternalSystemsContext(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -19698,6 +20322,10 @@ class FieldValidationRuleEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -19714,6 +20342,10 @@ class FileAccessControlPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -19738,6 +20370,10 @@ class FileAndStorageSecurity(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -19793,6 +20429,10 @@ class FileDownloadSecurityPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -19814,6 +20454,10 @@ class FileStorageEncryptionPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -19838,6 +20482,10 @@ class FileUploadValidationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20009,6 +20657,10 @@ class FragilePointEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20116,6 +20768,10 @@ class FullDistribution(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20396,6 +21052,10 @@ class FunctionalRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20543,6 +21203,10 @@ class Gaps(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20626,6 +21290,10 @@ class GlobalEntryPointEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20652,6 +21320,10 @@ class Glossary(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20668,6 +21340,10 @@ class GlossaryAndAbbreviations(SomNode):
     """SBP.3 Glossary & Abbreviations."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20698,6 +21374,10 @@ class GoalDependencies(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20740,6 +21420,10 @@ class GoalKeyResults(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20770,6 +21454,10 @@ class GoalMilestones(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20789,6 +21477,10 @@ class GoalResources(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20854,6 +21546,10 @@ class GoalRisks(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -20876,6 +21572,10 @@ class Goals(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -20939,6 +21639,10 @@ class HardwareRequirements(SomNode):
     """8.4. Hardware Concept Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -21018,6 +21722,10 @@ class HealthChecksAndDiagnosticsSection(SomNode):
     """8.7.2.1. Health Checks and Diagnostics."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -21222,6 +21930,10 @@ class IdentificationAndAuthentication(SomNode):
     """9.2. Identification and Authentication."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -21829,6 +22541,10 @@ class InformationAndDataModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -21860,6 +22576,10 @@ class InformationArchitecture(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -21906,6 +22626,10 @@ class InformationForUseRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -22177,6 +22901,10 @@ class InitialDevelopmentFlow(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -22297,6 +23025,10 @@ class InsuranceLiabilityRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -22487,6 +23219,10 @@ class IntegrationPatternEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -22513,6 +23249,10 @@ class Integrations(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -22532,6 +23272,10 @@ class IntegrityConstraints(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -22600,6 +23344,10 @@ class InteractionCatalog(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -22720,6 +23468,10 @@ class InteractionDependencyAnalysis(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -22891,6 +23643,10 @@ class InteractionPatterns(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -22927,6 +23683,10 @@ class InteractionScenarioEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -22951,6 +23711,10 @@ class InteractionTestingStrategy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -23425,6 +24189,10 @@ class InternalDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -23578,6 +24346,10 @@ class IntroductionAndScope(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -23658,6 +24430,10 @@ class Iso25010Coverage(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -23687,6 +24463,10 @@ class ItLandscapePosition(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -23775,6 +24555,10 @@ class ItSecurityStandardsSection(SomNode):
     """8.8.1. IT Security Standards."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -23962,6 +24746,10 @@ class KeyAssumptionEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24079,6 +24867,10 @@ class KeyConcepts(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24148,6 +24940,10 @@ class KeyManagement(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -24224,6 +25020,10 @@ class KeyScenarios(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24267,6 +25067,10 @@ class KeyTouchpointEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24284,6 +25088,10 @@ class KnowledgeTransfer(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24295,6 +25103,10 @@ class KnownIssueEntry(SomNode):
     """A single known issue entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -24310,6 +25122,10 @@ class KnownQualityIssueEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24321,6 +25137,10 @@ class KpiEntry(SomNode):
     """A single kpi entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -24469,6 +25289,10 @@ class LayeringAndModuleStructure(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24605,6 +25429,10 @@ class LegalAndContractualRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -24939,6 +25767,10 @@ class LocalizationTranslationProcess(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -24963,6 +25795,10 @@ class LocalizationTranslationRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -25158,6 +25994,10 @@ class LoginFlowConfiguration(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -25420,6 +26260,10 @@ class MaintenanceDependencies(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -25491,6 +26335,10 @@ class MaintenanceProcedureEntry(SomNode):
     """A single maintenance procedure entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -25626,6 +26474,10 @@ class MaintenanceWindowsSection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -25672,6 +26524,10 @@ class MappingRuleEntry(SomNode):
     """A single mapping rule entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -25740,6 +26596,10 @@ class MasterDataManagement(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -25900,6 +26760,10 @@ class MetricsBaselineTable(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -26051,6 +26915,10 @@ class MfaConfiguration(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -26067,6 +26935,10 @@ class MfaDetailEntry(SomNode):
     """A single mfa detail entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -26199,6 +27071,10 @@ class MigrationInteractions(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -26447,6 +27323,10 @@ class MigrationPlan(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -27182,6 +28062,10 @@ class MonitoringAndAlertingSection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -27355,6 +28239,10 @@ class MonitoringProcedureEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -27462,6 +28350,10 @@ class MultiChannelExperience(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -27608,6 +28500,10 @@ class MutualTlsPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -27792,6 +28688,10 @@ class NavigationGuards(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -27816,6 +28716,10 @@ class NavigationHierarchy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -27925,6 +28829,10 @@ class NavigationModel(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -28203,6 +29111,10 @@ class NetworkRequirementsSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -28599,6 +29511,10 @@ class NonFinancialBenefitEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -28623,6 +29539,10 @@ class NotificationModel(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -28738,6 +29658,10 @@ class ObservabilityRequirementEntry(SomNode):
     """A single observability requirement entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29069,6 +29993,10 @@ class OperationalPainPoints(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -29099,6 +30027,10 @@ class OperationsRequirements(SomNode):
     """8.5. Operations Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29136,6 +30068,10 @@ class OpportunityStatement(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29231,6 +30167,10 @@ class OrgRequirementImplementationPlan(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -29252,6 +30192,10 @@ class OrganizationStructure(SomNode):
     """3.1.1. Organization Structure."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29327,6 +30271,10 @@ class OrganizationalContext(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29549,6 +30497,10 @@ class OrganizationalRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -29896,6 +30848,10 @@ class PainPointGapCorrelation(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -29980,6 +30936,10 @@ class PainPointsAndGaps(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -30067,6 +31027,10 @@ class PasswordAndCredentialPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30130,6 +31094,10 @@ class PasswordLifecyclePolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30153,6 +31121,10 @@ class PasswordRequirementsPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30173,6 +31145,10 @@ class PasswordStoragePolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -30350,6 +31326,10 @@ class PermissionCompositionStrategy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30372,6 +31352,10 @@ class PermissionEvaluationBehavior(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30392,6 +31376,10 @@ class PermissionGranularityPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -30499,6 +31487,10 @@ class PersonaGoals(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30524,6 +31516,10 @@ class PersonaPainPoints(SomNode):
     """10.1.3.n.2. Persona Pain Points."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -30554,6 +31550,10 @@ class PersonaScenarios(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -30773,6 +31773,10 @@ class PilotPlan(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30920,6 +31924,10 @@ class PlatformAndLanguage(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -30985,6 +31993,10 @@ class PostImplementationReview(SomNode):
     """Post-implementation review plan for success criteria."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     # Post-implementation review content.
     @property
@@ -31054,6 +32066,10 @@ class PredecessorDependencyEntry(SomNode):
     """A single predecessor dependency entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -31360,6 +32376,10 @@ class ProblemStatement(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -31493,6 +32513,10 @@ class ProcessAdjustments(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -31769,6 +32793,10 @@ class ProcessExceptionHandling(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -31946,6 +32974,10 @@ class ProcessInterdependencyMatrix(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -32013,6 +33045,10 @@ class ProcessMetric(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -32024,6 +33060,10 @@ class ProcessMetricCategory(SomNode):
     """A category of process metrics."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32090,6 +33130,10 @@ class ProcessMetrics(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32182,6 +33226,10 @@ class ProcessPainPoints(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -32250,6 +33298,10 @@ class ProcessRelationships(SomNode):
     """Process relationships and dependencies (supplementary section)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32371,6 +33423,10 @@ class ProcessStepsAndActorInteractions(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32621,6 +33677,10 @@ class ProjectOrganization(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -32647,6 +33707,10 @@ class ProjectOrganizationAndProcess(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32698,6 +33762,10 @@ class ProjectTeamStaffing(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -32786,6 +33854,10 @@ class ProtocolsAndStandardsSection(SomNode):
     """8.6.1. Protocols and Standards."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -33131,6 +34203,10 @@ class QualityAndAcceptanceModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -33392,6 +34468,10 @@ class QualityGateAdjustments(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -33600,6 +34680,10 @@ class QualityScenarios(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -33824,6 +34908,10 @@ class RecoveryFlowEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -33929,6 +35017,10 @@ class RedirectHandlingPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -34015,6 +35107,10 @@ class ReferenceDocuments(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -34120,6 +35216,10 @@ class RegulatoryComplianceRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -34145,6 +35245,10 @@ class RegulatoryContext(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -34181,6 +35285,10 @@ class RelatedPainPointEntry(SomNode):
     """A single related pain point entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -34394,6 +35502,10 @@ class RememberMePolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35167,6 +36279,10 @@ class RepresentativeQuoteEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35182,6 +36298,10 @@ class RequirementAcceptanceCriteria(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35214,6 +36334,10 @@ class RequirementBusinessRules(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35235,6 +36359,10 @@ class RequirementCoverage(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35249,6 +36377,10 @@ class RequirementDataRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35270,6 +36402,10 @@ class RequirementDependencies(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35308,6 +36444,10 @@ class RequirementRelationships(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35388,6 +36528,10 @@ class RequirementTestCases(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35407,6 +36551,10 @@ class RequirementTraceability(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35458,6 +36606,10 @@ class RequirementUiSpecification(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35516,6 +36668,10 @@ class Requirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35549,6 +36705,10 @@ class RequirementsOverview(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -35700,6 +36860,10 @@ class ResourceProtection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -35735,6 +36899,10 @@ class ResponseStrategyEntry(SomNode):
     """A single response strategy entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -36114,6 +37282,10 @@ class ReusableComponentsSection(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -36415,6 +37587,10 @@ class RevisionHistory(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -36440,6 +37616,10 @@ class RiskBasedDecisionEntry(SomNode):
     """A single risk based decision entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -36490,6 +37670,10 @@ class RiskCategoryEntry(SomNode):
     """A single risk category entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -36813,6 +37997,10 @@ class RoleAdjustments(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -36847,6 +38035,10 @@ class RoleCertificationPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -36925,6 +38117,10 @@ class RoleHierarchy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -36972,6 +38168,10 @@ class RoleHierarchyPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -37014,6 +38214,10 @@ class RoleMatrix(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -37136,6 +38340,10 @@ class RolloutPlan(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -37158,6 +38366,10 @@ class RolloutTrainingMaterial(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -37174,6 +38386,10 @@ class RowLevelSecurityPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -37259,6 +38475,10 @@ class RuntimeDependencies(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -37891,6 +39111,10 @@ class ScopeAssumptionEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -37906,6 +39130,10 @@ class ScopeBoundaries(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -38007,6 +39235,10 @@ class ScreenActions(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -38036,6 +39268,10 @@ class ScreenDescriptions(SomNode):
     """10.2. Screen Descriptions."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -38475,6 +39711,10 @@ class ScreenFlowStructure(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -38500,6 +39740,10 @@ class ScreenInventory(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -38585,6 +39829,10 @@ class ScreenSections(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -38618,6 +39866,10 @@ class ScreenStates(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -38646,6 +39898,10 @@ class SecondaryNavigation(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -38703,6 +39959,10 @@ class SecurityAndAccessModel(SomNode):
     """9. Security & Access Model. Seeds → SAS."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -38812,6 +40072,10 @@ class SecurityAuditRequirementsSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -39044,6 +40308,10 @@ class SecurityConcernEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -39095,6 +40363,10 @@ class SecurityControls(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -39200,6 +40472,10 @@ class SecurityEventsDefinition(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -39338,6 +40614,10 @@ class SecurityRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -39663,6 +40943,10 @@ class SelfServiceAccountManagement(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -39679,6 +40963,10 @@ class SensitiveDataEncryption(SomNode):
     """9.5. Sensitive Data Encryption."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -39841,6 +41129,10 @@ class ServerRequirementsSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40045,6 +41337,10 @@ class ServiceAccountCredentialPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -40065,6 +41361,10 @@ class ServiceAccountLifecycle(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40275,6 +41575,10 @@ class SessionCreationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -40296,6 +41600,10 @@ class SessionLifecycleMonitoring(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40321,6 +41629,10 @@ class SessionManagement(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40375,6 +41687,10 @@ class SessionModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -40426,6 +41742,10 @@ class SessionRevocationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -40447,6 +41767,10 @@ class SessionSecurityPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40473,6 +41797,10 @@ class SessionTimeoutPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -40492,6 +41820,10 @@ class SharedInfrastructureDependencies(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40680,6 +42012,10 @@ class SharedServiceEntry(SomNode):
     """A single shared service entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -40992,6 +42328,10 @@ class SoftwareDeliverables(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -41008,6 +42348,10 @@ class SoftwareDesignRequirements(SomNode):
     """8.2. Software Design Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -41103,6 +42447,10 @@ class SolutionArchitectureAndTechnology(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -41174,6 +42522,10 @@ class SsoPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -42403,6 +43755,10 @@ class StagingStrategyConstraintEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42445,6 +43801,10 @@ class StakeholderRegister(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42483,6 +43843,10 @@ class StakeholdersAndBeneficiaries(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42504,6 +43868,10 @@ class StakeholdersAndGovernance(SomNode):
     """SBP.4 Stakeholders & Governance."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -42570,6 +43938,10 @@ class StandardSoftwareRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42595,6 +43967,10 @@ class StandardsComplianceSection(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -42673,6 +44049,10 @@ class SteeringCommittee(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42700,6 +44080,10 @@ class StepUpAuthenticationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42718,6 +44102,10 @@ class StepUpDetailEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42734,6 +44122,10 @@ class StorageEncryptionPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -42759,6 +44151,10 @@ class StorageLifecyclePolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42779,6 +44175,10 @@ class StrategicAlignment(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -42901,6 +44301,10 @@ class SuccessCriteria(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -42997,6 +44401,10 @@ class SuccessCriteriaFramework(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
+    @property
+    def can_have_content(self):
+        return True
+
     # Framework content.
     @property
     def content(self):
@@ -43010,6 +44418,10 @@ class SuccessCriteriaSummary(SomNode):
     """Summary metrics for success criteria."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     # Summary content.
     @property
@@ -43207,6 +44619,10 @@ class SupportDeliverables(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -43267,6 +44683,10 @@ class SystemArchitectureSpec(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -43485,6 +44905,10 @@ class SystemContext(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -43731,6 +45155,10 @@ class SystemDescription(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -43776,6 +45204,10 @@ class SystemDescriptionSummary(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     # Summary content for system description classification.
     @property
@@ -44074,6 +45506,10 @@ class SystemInventory(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -44112,6 +45548,10 @@ class SystemLandscapeInventory(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -44188,6 +45628,10 @@ class SystemOperation(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -44209,6 +45653,10 @@ class SystemOperationAndMonitoring(SomNode):
     """8.7. System Operation and Monitoring."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -44242,6 +45690,10 @@ class SystemPurpose(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -44474,6 +45926,10 @@ class SystemRollout(SomNode):
     """15. System Rollout Concept. Seeds → TRP."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -44720,6 +46176,10 @@ class SystemTaskWorkflowStepEntry(SomNode):
     """A single workflow step entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45071,6 +46531,10 @@ class TargetBusinessProcessModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45092,6 +46556,10 @@ class TargetOperatingModel(SomNode):
     """SBP.7 Target Operating Model concept."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45456,6 +46924,10 @@ class TechnicalFrameworkConcept(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45517,6 +46989,10 @@ class TechnicalGoalConstraints(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45536,6 +47012,10 @@ class TechnicalGoalDependencies(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45629,6 +47109,10 @@ class TechnicalGoalTestCriteria(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45655,6 +47139,10 @@ class TechnicalGoals(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45703,6 +47191,10 @@ class TechnicalPainPoints(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45841,6 +47333,10 @@ class TechnicalRequirements(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45862,6 +47358,10 @@ class TechnicalSecurityRequirements(SomNode):
     """8.8. Security Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -45976,6 +47476,10 @@ class TenantBoundaryEnforcementPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -45999,6 +47503,10 @@ class TenantContextPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -46037,6 +47545,10 @@ class TenantDataIsolationPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -46062,6 +47574,10 @@ class TenantIsolation(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -46111,6 +47627,10 @@ class TenantOnboardingPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -46250,6 +47770,10 @@ class TestStrategy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -46631,6 +48155,10 @@ class TlsProtocolPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -46716,6 +48244,10 @@ class TokenManagementPolicy(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -46993,6 +48525,10 @@ class ToolingAndEnvironments(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -47235,6 +48771,10 @@ class TrainingDeliverables(SomNode):
     """14.1.3. Training Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -47971,6 +49511,10 @@ class TransportSecurityPolicy(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48051,6 +49595,10 @@ class TrustBoundaries(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -48495,6 +50043,10 @@ class UpgradeCycleFramework(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48618,6 +50170,10 @@ class UseCaseTraceability(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48719,6 +50275,10 @@ class UserAccessPermissions(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48773,6 +50333,10 @@ class UserAccessibilityNeeds(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48793,6 +50357,10 @@ class UserAccountStatesDefinition(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -48888,6 +50456,10 @@ class UserAttributes(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -48907,6 +50479,10 @@ class UserAuthorization(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49151,6 +50727,10 @@ class UserInteractionModel(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49198,6 +50778,10 @@ class UserInteractionModelSummary(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
+    @property
+    def can_have_content(self):
+        return True
+
     # Summary content for interaction model.
     @property
     def content(self):
@@ -49214,6 +50798,10 @@ class UserJourney(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49262,6 +50850,10 @@ class UserJourneyPainPointEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49278,6 +50870,10 @@ class UserLifecycle(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49402,6 +50998,10 @@ class UserLifecycleTransitions(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49428,6 +51028,10 @@ class UserManagement(SomNode):
     """9.1. User Management."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49467,6 +51071,10 @@ class UserManual(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49478,6 +51086,10 @@ class UserNotificationPreferences(SomNode):
     """User notification preferences."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     # Preferences content.
     @property
@@ -49496,6 +51108,10 @@ class UserPersonaDetails(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49576,6 +51192,10 @@ class UserPersonas(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49654,6 +51274,10 @@ class UserRegistrationProcess(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49678,6 +51302,10 @@ class UserTrainingRequirements(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49744,6 +51372,10 @@ class UtilityNavigation(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49813,6 +51445,10 @@ class ValidationConstraints(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49920,6 +51556,10 @@ class ValidationRuleEntry(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -49935,6 +51575,10 @@ class ValueProposition(SomNode):
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -49986,6 +51630,10 @@ class VariationsAndExceptionEntry(SomNode):
     """A single variations and exception entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -50260,6 +51908,10 @@ class WarrantyAndSupport(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -50473,6 +52125,10 @@ class WireframesAndMockups(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -50528,6 +52184,10 @@ class WorkflowDescriptions(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
 
@@ -50567,6 +52227,10 @@ class WorkflowExceptions(SomNode):
     """Workflow exception handling."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):
@@ -50703,6 +52367,10 @@ class WorkflowTriggers(SomNode):
     """Workflow triggers and initiation conditions."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
 
     @property
     def content(self):

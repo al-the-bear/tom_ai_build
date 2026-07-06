@@ -266,6 +266,18 @@ class SomPythonEmitter {
         ..writeln('        super().__init__(doc, path)');
     }
 
+    // § item 10: a content-bearing section overrides the `SomNode`
+    // `can_have_content` structural default (`False`) to `True`, so "can this
+    // section hold body text?" is answerable at the type level without probing
+    // `.content`.
+    if (_hasContentLeaf(cls)) {
+      b
+        ..writeln()
+        ..writeln('    @property')
+        ..writeln('    def can_have_content(self):')
+        ..writeln('        return True');
+    }
+
     var emittedField = false;
     for (final f in cls.fields) {
       b.writeln();
@@ -277,6 +289,11 @@ class SomPythonEmitter {
     }
     return b.toString();
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `.content` accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _writeField(
     StringBuffer b,

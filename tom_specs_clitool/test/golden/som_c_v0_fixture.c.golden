@@ -21,6 +21,10 @@ void current_landscape_assessment_init(CurrentLandscapeAssessment *self, SpecDoc
 void current_landscape_assessment_free(CurrentLandscapeAssessment *self) {
   som_node_free(&self->node);
 }
+int current_landscape_assessment_can_have_content(const CurrentLandscapeAssessment *self) {
+  (void)self;
+  return 0;
+}
 char *current_landscape_assessment_summary(const CurrentLandscapeAssessment *self) {
   char *path = spec_path_join(self->node.path, "summary");
   const char *v = spec_document_content(self->node.doc, path);
@@ -39,6 +43,10 @@ void risk_init(Risk *self, SpecDocument *doc, const char *path) {
 }
 void risk_free(Risk *self) {
   som_node_free(&self->node);
+}
+int risk_can_have_content(const Risk *self) {
+  (void)self;
+  return 0;
 }
 char *risk_title(const Risk *self) {
   char *path = spec_path_join(self->node.path, "title");
@@ -104,6 +112,10 @@ int solution_blueprint_load_file(SolutionBlueprint *self, const char *path, Spec
 }
 void solution_blueprint_free(SolutionBlueprint *self) {
   som_node_free(&self->node);
+}
+int solution_blueprint_can_have_content(const SolutionBlueprint *self) {
+  (void)self;
+  return 0;
 }
 char *solution_blueprint_vision(const SolutionBlueprint *self) {
   char *path = spec_path_join(self->node.path, "vision");

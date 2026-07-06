@@ -50,6 +50,19 @@ class _Metric extends SomNode {
 
   String get content => doc.content('$path/content') ?? '';
   set content(String v) => doc.setContent('$path/content', v);
+
+  /// A content-bearing section overrides the structural default (§ item 10).
+  @override
+  bool get canHaveContent => true;
+}
+
+/// A container-only section facade: it holds only child sections, no `content`
+/// leaf, so it does **not** override [SomNode.canHaveContent] and inherits the
+/// `false` default (mirrors a generated class such as `SystemsToReplace`).
+class _Container extends SomNode {
+  _Container(super.doc, super.path);
+
+  _Item get child => _Item(doc, '$path/child');
 }
 
 void main() {
@@ -217,6 +230,35 @@ void main() {
       root.metrics.addContent('b', date: date);
       expect(root.metrics.contents.toList(),
           root.metrics.items.map((m) => m.content).toList());
+    });
+  });
+
+  group('canHaveContent (structural content-slot predicate, item 10)', () {
+    test('the SomNode base defaults to false (container-only)', () {
+      final doc = SpecDocument();
+      expect(_Container(doc, 'PD00').canHaveContent, isFalse);
+    });
+
+    test('a content-bearing section overrides it to true', () {
+      final doc = SpecDocument();
+      expect(_Metric(doc, 'PD00/METR-ITEM-AB1').canHaveContent, isTrue);
+    });
+
+    test('a scalar list item inherits the container-only false default', () {
+      final doc = SpecDocument();
+      expect(SomScalar(doc, 'PD00/tags-1').canHaveContent, isFalse);
+    });
+
+    test('it is structural, not state — independent of any stored value', () {
+      final doc = SpecDocument();
+      final container = _Container(doc, 'PD00');
+      final metric = _Metric(doc, 'PD00/METR-ITEM-AB1');
+      // Empty vs filled makes no difference to the schema-level answer.
+      expect(container.canHaveContent, isFalse);
+      expect(metric.canHaveContent, isTrue);
+      metric.content = 'filled';
+      expect(metric.canHaveContent, isTrue);
+      expect(container.canHaveContent, isFalse);
     });
   });
 

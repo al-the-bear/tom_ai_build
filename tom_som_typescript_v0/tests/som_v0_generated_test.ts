@@ -339,6 +339,47 @@ function _arraysEqual(a: string[], b: string[]): boolean {
   return true;
 }
 
+// § item 10: canHaveContent — the STRUCTURAL / per-type predicate "does this
+// section TYPE declare the standard `content` text leaf?", answered without
+// probing `.content` and without ever looking at the document. Distinct from
+// the STATE predicates (`hasContent(path)` / `isEmpty`).
+function testCanHaveContent(): void {
+  const doc = new SpecDocument();
+  const sbp = new D00SolutionBlueprint(doc);
+
+  // Content-bearing section (`Goals` declares the `content` leaf) → true.
+  check(
+    'canHaveContent.goals-true',
+    sbp.introductionAndScope.goals.canHaveContent === true,
+  );
+
+  // Container-only section (`SystemsToReplace` has no `content` leaf) →
+  // inherits the structural `false` default.
+  check(
+    'canHaveContent.systemsToReplace-false',
+    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+  );
+
+  // The content-bearing document root itself overrides to true.
+  check('canHaveContent.root-true', sbp.canHaveContent === true);
+
+  // Structural, not state: the predicate is constant regardless of whether any
+  // content value is actually present (it never looks at the document).
+  check(
+    'canHaveContent.empty-doc-still-true',
+    sbp.introductionAndScope.goals.canHaveContent === true,
+  );
+  sbp.introductionAndScope.goals.content = 'body text';
+  check(
+    'canHaveContent.after-write-unchanged',
+    sbp.introductionAndScope.goals.canHaveContent === true,
+  );
+  check(
+    'canHaveContent.container-independent-of-state',
+    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+  );
+}
+
 function main(): number {
   testRootAndParity();
   testModelVersion();
@@ -346,6 +387,7 @@ function main(): number {
   testSectionIds();
   testAbsenceSemantics();
   testOneCallLoading();
+  testCanHaveContent();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

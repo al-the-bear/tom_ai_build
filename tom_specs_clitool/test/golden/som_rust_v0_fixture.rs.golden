@@ -33,6 +33,13 @@ impl CurrentLandscapeAssessment {
         CurrentLandscapeAssessment { node: som::SomNode::new(doc, path) }
     }
 
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
     pub fn summary(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "summary"))
     }
@@ -51,6 +58,13 @@ impl Risk {
     /// Binds a Risk facade to a document and a path.
     pub fn new(doc: som::DocRef, path: String) -> Risk {
         Risk { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
     }
 
     pub fn title(&self) -> String {
@@ -119,6 +133,13 @@ impl SolutionBlueprint {
         SolutionBlueprint::new(som::doc_ref(doc), &version)
     }
 
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
     /// Why the system exists.
     pub fn vision(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "vision"))
@@ -165,6 +186,13 @@ impl SolutionBlueprintOwnerForm {
     /// Binds a SolutionBlueprintOwnerForm facade to a document and a path.
     pub fn new(doc: som::DocRef, path: String) -> SolutionBlueprintOwnerForm {
         SolutionBlueprintOwnerForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
     }
 
     pub fn name(&self) -> String {

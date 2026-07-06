@@ -250,6 +250,16 @@ class SomDartEmitter {
       b.writeln('  ${cls.name}(super.doc, super.path);');
     }
 
+    // § item 10: a content-bearing section overrides the `SomNode.canHaveContent`
+    // structural default (`false`) to `true`, so "can this section hold body
+    // text?" is answerable at the type level without probing `.content`.
+    if (_hasContentLeaf(cls)) {
+      b
+        ..writeln()
+        ..writeln('  @override')
+        ..writeln('  bool get canHaveContent => true;');
+    }
+
     for (final f in cls.fields) {
       b.writeln();
       _writeField(b, cls, f, collectForm);
@@ -257,6 +267,11 @@ class SomDartEmitter {
     b.writeln('}');
     return b.toString();
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `.content` accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _writeField(
     StringBuffer b,

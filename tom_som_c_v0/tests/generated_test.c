@@ -563,6 +563,48 @@ static void test_one_call_loading(void) {
   }
 }
 
+/* The per-type structural `can_have_content` predicate (§ item 10): every
+ * generated type emits a `<type>_can_have_content` accessor returning the
+ * literal answer to "does this section TYPE declare the standard `content` text
+ * leaf?" — WITHOUT probing the document (mirrors the item-8 `editability_for` /
+ * item-5 `is_empty` per-type C emission). A content-bearing section (Goals) and
+ * the content-bearing root (D00SolutionBlueprint) report 1; a container-only
+ * section (SystemsToReplace, which has no `content` leaf) reports 0. Mirrors the
+ * Dart `canHaveContent` structural checks. */
+static void test_can_have_content(void) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+
+  /* The root itself is content-bearing (it carries `content` / `set_content`). */
+  D00SolutionBlueprint pd;
+  d00_solution_blueprint_new(&pd, &doc, "", NULL);
+  ok(d00_solution_blueprint_can_have_content(&pd) == 1,
+     "root D00SolutionBlueprint can_have_content is true");
+
+  /* Goals is a content-bearing section (has a `content` leaf). */
+  Goals goals;
+  goals_init(&goals, &doc, "SBP/introductionAndScope/goals");
+  ok(goals_can_have_content(&goals) == 1,
+     "Goals can_have_content is true");
+
+  /* SystemsToReplace is container-only (no `content` leaf) → false. */
+  SystemsToReplace systems;
+  systems_to_replace_init(&systems, &doc, "SBP/systemsToReplace");
+  ok(systems_to_replace_can_have_content(&systems) == 0,
+     "SystemsToReplace can_have_content is false");
+
+  /* Structural, never stateful: writing a value under Goals' content leaf does
+   * not change the answer. */
+  goals_set_content(&goals, "Some goals");
+  ok(goals_can_have_content(&goals) == 1,
+     "Goals can_have_content stays true after content is written");
+
+  goals_free(&goals);
+  systems_to_replace_free(&systems);
+  d00_solution_blueprint_free(&pd);
+  spec_document_free(&doc);
+}
+
 /* The generated model version is reported by both the macro and the accessor. */
 static void test_model_version(void) {
   eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.0", "MODEL_VERSION macro");
@@ -614,6 +656,7 @@ int main(void) {
   test_typed_list();
   test_section_ids();
   test_aligned_absence();
+  test_can_have_content();
   test_one_call_loading();
   test_model_version();
   test_version_check();

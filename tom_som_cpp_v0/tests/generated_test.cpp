@@ -318,6 +318,39 @@ void testAlignedAbsence() {
   }
 }
 
+// § item 10: `canHaveContent()` is the structural per-type predicate — "does
+// this section TYPE declare the standard `content` text leaf?" — answered
+// without probing the document. Goals (which has a content leaf) and the root
+// report true; the container-only SystemsToReplace reports false. It is
+// structural: independent of whether content is written now (distinct from the
+// state predicates isEmpty()/hasContent()). Mirrors the Dart "canHaveContent
+// structural content-slot predicate" group.
+void testCanHaveContent() {
+  som::SpecDocument doc;
+  tom_som_v0::D00SolutionBlueprint sbp(doc);
+
+  // A content-bearing section (Goals declares the standard `content` leaf).
+  ok(sbp.introductionAndScope().goals().canHaveContent(),
+     "content-bearing Goals canHaveContent true");
+
+  // A container-only section (SystemsToReplace holds only child sections).
+  ok(!sbp.introductionAndScope().systemsToReplace().canHaveContent(),
+     "container-only SystemsToReplace canHaveContent false");
+
+  // The document root has a content leaf.
+  ok(sbp.canHaveContent(), "root canHaveContent true");
+
+  // Structural — independent of whether content is written now.
+  {
+    tom_som_v0::Goals goals = sbp.introductionAndScope().goals();
+    ok(goals.canHaveContent(), "Goals canHaveContent true (empty)");
+    goals.setContent("Grow revenue");
+    ok(goals.canHaveContent(), "Goals canHaveContent true (filled)");
+    ok(!sbp.introductionAndScope().systemsToReplace().canHaveContent(),
+       "SystemsToReplace still false after sibling filled");
+  }
+}
+
 // § item 4: the one-call `loadYaml` / `loadFile` facades collapse the former
 // decode -> loadJson -> thread-version sequence, and the generic
 // `SpecDocument::fromYaml` retains the parsed model version (or the empty-string
@@ -408,6 +441,7 @@ int main() {
   testModelVersion();
   testVersionCheck();
   testAlignedAbsence();
+  testCanHaveContent();
   testOneCallLoading();
 
   if (gFailed != 0) {

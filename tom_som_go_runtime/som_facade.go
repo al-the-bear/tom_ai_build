@@ -72,6 +72,22 @@ func (n SomNode) SetSectionID(id string) error {
 // facade via the embedded SomNode. (SOM roadmap § item 5.)
 func (n SomNode) IsEmpty() bool { return !n.doc.HasValuesUnder(n.path) }
 
+// CanHaveContent reports whether this section *type* declares the standard
+// `content` text leaf — i.e. whether its typed facade carries a Content()
+// accessor (SOM roadmap § item 10).
+//
+// This is a structural / schema predicate: a per-type constant answering "*can*
+// this section hold body text?" without probing Content(). Container-only
+// sections (no `content` leaf) inherit this false default via the embedded
+// SomNode; content-bearing sections shadow it with a generated CanHaveContent()
+// returning true (the Go analogue of the Dart/TypeScript override).
+//
+// It is deliberately distinct from the two state predicates: the generic
+// SpecDocument.HasContent answers "is a value present at this leaf *now*?" and
+// IsEmpty answers "is this subtree empty *now*?". CanHaveContent never looks at
+// the document — it describes the model, not the data.
+func (n SomNode) CanHaveContent() bool { return false }
+
 // SomScalar is a scalar list item — a bare string value held in the document's
 // content store at its own item path. Used as the element facade for non-complex
 // (string/scalar) lists.

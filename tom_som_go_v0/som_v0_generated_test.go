@@ -286,6 +286,60 @@ func TestAlignedAbsenceSemantics(t *testing.T) {
 	})
 }
 
+// TestCanHaveContent ports the Dart "canHaveContent (structural content-slot
+// predicate, § item 10)" behaviour against the real generated facade: the
+// per-type predicate answers "does this section TYPE declare the standard
+// `content` text leaf?" without probing Content() and without looking at the
+// document.
+//
+// It is emitted per content-bearing type (shadowing the promoted
+// som.SomNode.CanHaveContent false default), so:
+//   - the D00SolutionBlueprint root (which has a Content() leaf) → true;
+//   - IntroductionAndScope().Goals() (content-bearing) → true;
+//   - IntroductionAndScope().SystemsToReplace() (container-only, no `content`
+//     leaf — only child sections) → false;
+//
+// and it is structural (schema) not state: filling / clearing the leaf never
+// changes the answer, unlike the generic HasContent / typed IsEmpty state
+// predicates.
+func TestCanHaveContent(t *testing.T) {
+	pd, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
+	if err != nil {
+		t.Fatalf("NewD00SolutionBlueprint: %v", err)
+	}
+
+	// The root declares a `content` leaf → content-bearing.
+	if !pd.CanHaveContent() {
+		t.Errorf("root D00SolutionBlueprint.CanHaveContent() = false, want true")
+	}
+
+	scope := pd.IntroductionAndScope()
+
+	// Goals is content-bearing (carries the standard `content` leaf).
+	goals := scope.Goals()
+	if !goals.CanHaveContent() {
+		t.Errorf("Goals.CanHaveContent() = false, want true (content-bearing)")
+	}
+
+	// SystemsToReplace is container-only (only child sections, no `content` leaf)
+	// → inherits the promoted som.SomNode false default.
+	systems := scope.SystemsToReplace()
+	if systems.CanHaveContent() {
+		t.Errorf("SystemsToReplace.CanHaveContent() = true, want false (container-only)")
+	}
+
+	// Structural, not state: filling the content leaf leaves the schema-level
+	// answer unchanged, and the container can never hold content regardless of
+	// its current (empty) state.
+	goals.SetContent("filled")
+	if !goals.CanHaveContent() {
+		t.Errorf("filled Goals.CanHaveContent() = false, want true (structural, not state)")
+	}
+	if systems.CanHaveContent() {
+		t.Errorf("SystemsToReplace.CanHaveContent() must stay false regardless of state")
+	}
+}
+
 // TestOneCallLoading ports the Dart "one-call loading (§ item 4)" group: the
 // LoadYaml / LoadFile / FromYaml convenience loaders collapse the former
 // decode → LoadJSON → thread-version incantation into a single call while

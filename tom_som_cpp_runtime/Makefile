@@ -23,7 +23,7 @@ CORPUS  ?= ../tom_som_conformance/corpus
 
 # Standalone unit-test binaries (each has its own main(); exit 0 == green).
 UNIT_SRC := tests/version_check_test.cpp tests/facade_editability_test.cpp \
-            tests/list_add_content_test.cpp
+            tests/list_add_content_test.cpp tests/can_have_content_test.cpp
 UNIT_BIN := $(patsubst tests/%.cpp,build/%,$(UNIT_SRC))
 DEP      += $(patsubst tests/%.cpp,build/%.d,$(UNIT_SRC))
 

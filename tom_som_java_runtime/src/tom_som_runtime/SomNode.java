@@ -55,4 +55,26 @@ public class SomNode {
   public boolean isEmpty() {
     return !doc.hasValuesUnder(path);
   }
+
+  /**
+   * Whether this section <b>type</b> declares the standard {@code content} text
+   * leaf — i.e. whether the {@code content()} getter/setter exists on it
+   * (SOM § item 10).
+   *
+   * <p>This is a <b>structural / schema</b> predicate: a compile-time constant of
+   * the section's type, answering "<em>can</em> this section hold body text?"
+   * without a compile-error probe of {@code content()}. Container-only sections
+   * (e.g. {@code SystemsToReplace}, which has no {@code content} leaf) inherit
+   * this {@code false} default; content-bearing sections (e.g. {@code Goals})
+   * override it to {@code true}.
+   *
+   * <p>It is deliberately distinct from the two <b>state</b> predicates: the
+   * generic {@link SpecDocument#hasContent} answers "is a value present at this
+   * leaf <em>now</em>?" and {@link #isEmpty} answers "is this subtree empty
+   * <em>now</em>?". {@code canHaveContent} never looks at the document — it
+   * describes the model, not the data.
+   */
+  public boolean canHaveContent() {
+    return false;
+  }
 }

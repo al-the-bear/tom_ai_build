@@ -32,6 +32,15 @@ int som_node_is_empty(const SomNode *n) {
   return !spec_document_has_values_under(n->doc, n->path);
 }
 
+/* NOTE (§ item 10): the `can_have_content` structural predicate ("does this
+ * section TYPE declare the standard `content` text leaf?") has no base helper
+ * here. Unlike `som_node_is_empty` / `som_editability_for`, it is a compile-time
+ * property of each generated type, not a runtime computation over the document,
+ * and C has no inheritance to carry a shared default — so (following the item-8
+ * `editability_for` and item-5 `is_empty` per-type C emission precedent) the
+ * generated `tom_som_c_v0` emits a `<type>_can_have_content` accessor returning
+ * the literal answer for every generated section type. See som_facade.h. */
+
 int som_node_set_section_id(const SomNode *n, const char *id,
                             SpecSectionIdError *err) {
   if (id == NULL || id[0] == '\0') {

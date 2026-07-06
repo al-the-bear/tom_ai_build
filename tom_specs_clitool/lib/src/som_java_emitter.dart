@@ -291,6 +291,18 @@ class SomJavaEmitter {
         ..writeln('$_i2}');
     }
 
+    // § item 10: a content-bearing section overrides the `SomNode.canHaveContent`
+    // structural default (`false`) to `true`, so "can this section hold body
+    // text?" is answerable at the type level without probing `content()`.
+    if (_hasContentLeaf(cls)) {
+      b
+        ..writeln()
+        ..writeln('$_i2@Override')
+        ..writeln('${_i2}public boolean canHaveContent() {')
+        ..writeln('${_i3}return true;')
+        ..writeln('$_i2}');
+    }
+
     for (final f in cls.fields) {
       b.writeln();
       _writeField(b, cls, f, collectForm);
@@ -298,6 +310,11 @@ class SomJavaEmitter {
     b.writeln('$_i1}');
     return b.toString();
   }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `content()` accessor (§ item 10).
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   void _writeField(
     StringBuffer b,

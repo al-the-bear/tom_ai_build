@@ -252,6 +252,57 @@ fn has_content_matches_typed_content() {
     assert!(doc.borrow().has_content(&leaf), "filled leaf has content");
 }
 
+// --- structural content predicate (§ item 10) ------------------------------
+
+/// `can_have_content` is a **structural / schema** predicate baked onto every
+/// generated section type: `true` for a content-bearing type (one carrying the
+/// standard `content` text leaf) and `false` for a container-only type. It
+/// never probes the document — it describes the model, not the data.
+#[test]
+fn can_have_content_is_type_structural() {
+    let sbp = D00SolutionBlueprint::new(new_doc(), "").unwrap();
+
+    // The root carries a `content` leaf → content-bearing.
+    assert!(sbp.can_have_content(), "root is content-bearing");
+
+    // `Goals` carries a `content` leaf → content-bearing.
+    assert!(
+        sbp.introduction_and_scope().goals().can_have_content(),
+        "Goals is content-bearing"
+    );
+
+    // `SystemsToReplace` is a container-only section (no `content` leaf).
+    assert!(
+        !sbp.introduction_and_scope()
+            .systems_to_replace()
+            .can_have_content(),
+        "SystemsToReplace is container-only"
+    );
+}
+
+/// Structural, not stateful: writing or clearing the `content` leaf never moves
+/// `can_have_content` (contrast the state predicates `has_content` / `is_empty`,
+/// which do track the data).
+#[test]
+fn can_have_content_ignores_document_state() {
+    let doc = new_doc();
+    let sbp = D00SolutionBlueprint::new(doc.clone(), "").unwrap();
+
+    assert!(sbp.introduction_and_scope().goals().can_have_content());
+    sbp.introduction_and_scope()
+        .goals()
+        .set_content("some goals prose");
+    assert!(
+        sbp.introduction_and_scope().goals().can_have_content(),
+        "still true after a write"
+    );
+    sbp.introduction_and_scope().goals().set_content("");
+    assert!(
+        sbp.introduction_and_scope().goals().can_have_content(),
+        "still true after a clear"
+    );
+}
+
 // --- one-call loading (§ item 4) -------------------------------------------
 
 /// The shared conformance sample, resolved relative to the crate root (which is

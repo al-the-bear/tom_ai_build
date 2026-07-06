@@ -23,6 +23,10 @@ class AcceptanceCriteriaList extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -102,6 +106,10 @@ class AcceptanceCriterionEntry extends SomNode {
 class AcceptancePlan extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -319,6 +327,10 @@ class AccessChannels extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -352,6 +364,10 @@ class AccessConstraintPolicies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -373,6 +389,10 @@ class AccessConstraintPolicies extends SomNode {
 class AccessControlModelSelection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -457,6 +477,10 @@ class AccessLevels extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -506,6 +530,10 @@ class AccessRestrictionEntry extends SomNode {
 class AccessUserCategories extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -780,6 +808,10 @@ class AccountActivationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -803,6 +835,10 @@ class AccountDeactivationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -824,6 +860,10 @@ class AccountDeactivationPolicy extends SomNode {
 class AccountDeletionPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -850,6 +890,10 @@ class AccountLockoutPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -871,6 +915,10 @@ class AccountLockoutPolicy extends SomNode {
 class AccountModificationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -1044,6 +1092,10 @@ class ActorOverview extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1197,6 +1249,10 @@ class AdminInterfaceRequirementsOperations extends SomNode {
 class AdministrationRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -1747,6 +1803,10 @@ class ApiAbuseProtection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1768,6 +1828,10 @@ class ApiAbuseProtection extends SomNode {
 class ApiAuthenticationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -1792,6 +1856,10 @@ class ApiAuthenticationPolicy extends SomNode {
 class ApiAuthorizationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -1894,6 +1962,10 @@ class ApiCorsSecurity extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1915,6 +1987,10 @@ class ApiCorsSecurity extends SomNode {
 class ApiKeyManagementPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -1942,6 +2018,10 @@ class ApiRequestValidationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1965,6 +2045,10 @@ class ApiRequestValidationPolicy extends SomNode {
 class ApiSecurity extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -2021,6 +2105,10 @@ class ApiSecurity extends SomNode {
 class ApiSecurityMonitoring extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -2669,6 +2757,10 @@ class ArchitectureStyle extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2734,6 +2826,10 @@ class AssumptionConstraintDependencyRegister extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2779,6 +2875,10 @@ class AssumptionsConstraintsDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2799,6 +2899,10 @@ class AttributeInterdependencyEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2817,6 +2921,10 @@ class AttributeInterdependencyEntry extends SomNode {
 class AuditAndLogging extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -2890,6 +2998,10 @@ class AuditLogFormat extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2932,6 +3044,10 @@ class AuditRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2955,6 +3071,10 @@ class AuditRequirements extends SomNode {
 class Authentication extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -2993,6 +3113,10 @@ class Authentication extends SomNode {
 class AuthenticationErrorHandling extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -3036,6 +3160,10 @@ class AuthenticationEventPolicy extends SomNode {
 class AuthenticationFlow extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -3181,6 +3309,10 @@ class AuthenticationMethods extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -3268,6 +3400,10 @@ class AuthorizationGroupEntry extends SomNode {
 class AuthorizationModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -3507,6 +3643,10 @@ class BackupAndRecoverySection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -3671,6 +3811,10 @@ class BackupDataClassificationExclusions extends SomNode {
 class BackupEncryptionPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -4052,6 +4196,10 @@ class BasicTechnicalRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4156,6 +4304,10 @@ class BiometricAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4243,6 +4395,10 @@ class BoundaryAssumptions extends SomNode {
 class BoundaryInteractionPatterns extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -4835,6 +4991,10 @@ class BusinessDomain extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4990,6 +5150,10 @@ class BusinessGoalEntryStrategy extends SomNode {
 class BusinessGoals extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -5213,6 +5377,10 @@ class BusinessObjectModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5239,6 +5407,10 @@ class BusinessObjectModel extends SomNode {
 class BusinessPainPoints extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -5279,6 +5451,10 @@ class BusinessPainPointsSummary extends SomNode {
 class BusinessProcessDescriptions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -5474,6 +5650,10 @@ class CapacityPlanningSection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5583,6 +5763,10 @@ class CategoryDependencyEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5610,6 +5794,10 @@ class CcbMemberEntry extends SomNode {
 class CertificateAuthenticationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -5698,6 +5886,10 @@ class CertificateManagementMonitoring extends SomNode {
 class CertificateManagementPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -5897,6 +6089,10 @@ class ChangeAdvocateEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6053,6 +6249,10 @@ class ChangeImpactCriteria extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6168,6 +6368,10 @@ class ChangeNotificationRules extends SomNode {
 class ChangeProcedure extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -6613,6 +6817,10 @@ class ChannelIntegrations extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   // Integration requirements content.
   get content() {
     return this.doc.content(this.path + "/content") || '';
@@ -6627,6 +6835,10 @@ class ChannelIntegrations extends SomNode {
 class ChannelUxSpecification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   // UX specification content.
@@ -6972,6 +7184,10 @@ class ClientNetworkRequirementsProxy extends SomNode {
 class ClientRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -7599,6 +7815,10 @@ class ColumnLevelSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7835,6 +8055,10 @@ class CommunicationPreferenceEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7848,6 +8072,10 @@ class CommunicationPreferenceEntry extends SomNode {
 class CommunicationRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -7919,6 +8147,10 @@ class CompatibilityCharacteristic extends SomNode {
 class CompatibilityRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -8130,6 +8362,10 @@ class ComplianceFramework extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8143,6 +8379,10 @@ class ComplianceFramework extends SomNode {
 class ComplianceMeasureEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -8172,6 +8412,10 @@ class ComplianceMilestoneEntry extends SomNode {
 class ComplianceReporting extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -9183,6 +9427,10 @@ class ComponentRiskAssessment extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9574,6 +9822,10 @@ class ComponentsAndDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9739,6 +9991,10 @@ class ComputingEquipmentEntryPlatform extends SomNode {
 class ConcurrentSessionPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10041,6 +10297,10 @@ class ConstraintsAndDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10058,6 +10318,10 @@ class ConstraintsAndDependencies extends SomNode {
 class ContentScanningPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10081,6 +10345,10 @@ class ContentScanningPolicy extends SomNode {
 class ContextDiagram extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10201,6 +10469,10 @@ class ContextualHelpWhatsThis extends SomNode {
 class ContextualNavigation extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10329,6 +10601,10 @@ class ContingencyPlans extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10416,6 +10692,10 @@ class CredentialCompromiseDetectionPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10439,6 +10719,10 @@ class CredentialRecoveryPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10459,6 +10743,10 @@ class CriticalKnowledgeAreaEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10475,6 +10763,10 @@ class CriticalKnowledgeAreaEntry extends SomNode {
 class CrossBoundaryErrorHandling extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10494,6 +10786,10 @@ class CrossBoundaryErrorHandling extends SomNode {
 class CrossBoundaryOperationalConsiderations extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10605,6 +10901,10 @@ class CrossProcessAnalysis extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10623,6 +10923,10 @@ class CrossProcessAnalysis extends SomNode {
 class CrossTenantAccessPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10645,6 +10949,10 @@ class CulturalConsiderationEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10661,6 +10969,10 @@ class CulturalConsiderationEntry extends SomNode {
 class CurrentArchitecture extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10745,6 +11057,10 @@ class CurrentBusinessProcesses extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10792,6 +11108,10 @@ class CurrentDataClassification extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10824,6 +11144,10 @@ class CurrentDataClassification extends SomNode {
 class CurrentDataLandscape extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -10917,6 +11241,10 @@ class CurrentLandscape extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10966,6 +11294,10 @@ class CurrentOperationalMetric extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10993,6 +11325,10 @@ class CurrentProcessImprovementEntry extends SomNode {
 class CurrentStateRiskAssessment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -11118,6 +11454,10 @@ class CutoverProcedure extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11168,6 +11508,10 @@ class D00SolutionBlueprint extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D00SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -11293,6 +11637,10 @@ class D01CurrentLandscapeAssessment extends SomNode {
     return somEditabilityFor(D01CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11389,6 +11737,10 @@ class D02TargetOperatingModel extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D02TargetOperatingModel.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -11498,6 +11850,10 @@ class D03InformationModel extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D03InformationModel.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -11625,6 +11981,10 @@ class D04RequirementsSpecification extends SomNode {
     return somEditabilityFor(D04RequirementsSpecification.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11726,6 +12086,10 @@ class D05InteractionScenarios extends SomNode {
     return somEditabilityFor(D05InteractionScenarios.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11818,6 +12182,10 @@ class D06ArchitectureTechnologySpecification extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D06ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -11938,6 +12306,10 @@ class D07IntegrationInterfaceSpecification extends SomNode {
     return somEditabilityFor(D07IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12047,6 +12419,10 @@ class D08SecurityAccessSpecification extends SomNode {
     return somEditabilityFor(D08SecurityAccessSpecification.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12144,6 +12520,10 @@ class D09ExperienceDesignSpecification extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D09ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -12263,6 +12643,10 @@ class D10QualityAcceptancePlan extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D10QualityAcceptancePlan.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -12419,6 +12803,10 @@ class D11DeliveryRoadmap extends SomNode {
     return somEditabilityFor(D11DeliveryRoadmap.MODEL_VERSION, documentVersion);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12521,6 +12909,10 @@ class D12TransitionRolloutPlan extends SomNode {
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D12TransitionRolloutPlan.MODEL_VERSION, documentVersion);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -12744,6 +13136,10 @@ class DashboardTemplates extends SomNode {
 class DataAccessAuditPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -13014,6 +13410,10 @@ class DataDictionary extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13030,6 +13430,10 @@ class DataDictionary extends SomNode {
 class DataDuplicationAnalysis extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -13306,6 +13710,10 @@ class DataGovernance extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13558,6 +13966,10 @@ class DataIntegrationPoints extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13619,6 +14031,10 @@ class DataLevelSecurity extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13671,6 +14087,10 @@ class DataLevelSecurity extends SomNode {
 class DataMaskingPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -13790,6 +14210,10 @@ class DataModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13847,6 +14271,10 @@ class DataModel extends SomNode {
 class DataOwnership extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -14017,6 +14445,10 @@ class DataProtectionAndPrivacySection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14151,6 +14583,10 @@ class DataProtectionClassificationRetention extends SomNode {
 class DataQualityAssessment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -14335,6 +14771,10 @@ class DataRetentionPolicies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14453,6 +14893,10 @@ class DataSourceIntegration extends SomNode {
 class DataSourceInventory extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -14733,6 +15177,10 @@ class DataVolumesAndGrowth extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14769,6 +15217,10 @@ class DataVolumesAndGrowth extends SomNode {
 class DatabaseAccessPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -14870,6 +15322,10 @@ class DatabaseEncryptionPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14888,6 +15344,10 @@ class DatabaseEncryptionPolicy extends SomNode {
 class DatacenterEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -15222,6 +15682,10 @@ class DeepLinkPatternEntry extends SomNode {
 class DeepLinking extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -15582,6 +16046,10 @@ class DeliveryScope extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15617,6 +16085,10 @@ class DeliveryScopeAndAcceptance extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15640,6 +16112,10 @@ class DeliveryScopeAndAcceptance extends SomNode {
 class DeliveryTransitionAndRollout extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -15681,6 +16157,10 @@ class DeliveryTransitionAndRollout extends SomNode {
 class DependenciesAndIntegrations extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -15730,6 +16210,10 @@ class DependenciesAndIntegrations extends SomNode {
 class DependencyEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -16067,6 +16551,10 @@ class DeploymentContext extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16297,6 +16785,10 @@ class DeploymentSecuritySupplyChain extends SomNode {
 class DeploymentStrategySection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -16568,6 +17060,10 @@ class DesignGoals extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16687,6 +17183,10 @@ class DesignPatternsAndStandards extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16763,6 +17263,10 @@ class DesignPrinciples extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16800,6 +17304,10 @@ class DesignPrinciplesOverview extends SomNode {
 class DesignVision extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -16908,6 +17416,10 @@ class DesktopOsRequirementEntryTesting extends SomNode {
 class DetailedProcessWorkflow extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -17110,6 +17622,10 @@ class DevelopmentEnvironment extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17269,6 +17785,10 @@ class DevelopmentQualityGatesSecurity extends SomNode {
 class DevopsStandardEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -17578,6 +18098,10 @@ class DistributionGroupSummary extends SomNode {
 class DistributionList extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -17916,6 +18440,10 @@ class DocumentControl extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17968,6 +18496,10 @@ class DocumentHeader extends SomNode {
 class DocumentRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -18026,6 +18558,10 @@ class DocumentationAndTrainingLocalization extends SomNode {
 class DocumentationDeliverables extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -18261,6 +18797,10 @@ class DomainBoundaries extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18354,6 +18894,10 @@ class DomainBusinessRules extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18388,6 +18932,10 @@ class DomainEvents extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18420,6 +18968,10 @@ class DomainInterfaceEntry extends SomNode {
 class DomainOverview extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -18493,6 +19045,10 @@ class DomainProcesses extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18534,6 +19090,10 @@ class DomainTermEntry extends SomNode {
 class DomainVocabulary extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -18712,6 +19272,10 @@ class EncryptionAtRest extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18761,6 +19325,10 @@ class EncryptionAtRestPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18784,6 +19352,10 @@ class EncryptionAtRestPolicy extends SomNode {
 class EncryptionInTransit extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -18832,6 +19404,10 @@ class EncryptionInTransit extends SomNode {
 class EndToEndTestScenario extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -19024,6 +19600,10 @@ class EntityRelationshipEntry extends SomNode {
 class EntityRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -19741,6 +20321,10 @@ class ErrorPageDesignEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19754,6 +20338,10 @@ class ErrorPageDesignEntry extends SomNode {
 class ErrorProcedureEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -19880,6 +20468,10 @@ class EscalationProcedureEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19896,6 +20488,10 @@ class EscalationProcedureEntry extends SomNode {
 class EvaluationCriteria extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -19999,6 +20595,10 @@ class EventAttributePolicy extends SomNode {
 class ExecutiveSummaryDistribution extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -20160,6 +20760,10 @@ class ExistingSystemsLandscape extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20199,6 +20803,10 @@ class ExpectedImprovements extends SomNode {
 class ExperienceAndInterfaceDesign extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -20661,6 +21269,10 @@ class ExternalActors extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20679,6 +21291,10 @@ class ExternalActors extends SomNode {
 class ExternalConnectivitySection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -21006,6 +21622,10 @@ class ExternalServiceDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21160,6 +21780,10 @@ class ExternalSystemContextEntryOperations extends SomNode {
 class ExternalSystemsContext extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -21779,6 +22403,10 @@ class FieldValidationRuleEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21796,6 +22424,10 @@ class FieldValidationRuleEntry extends SomNode {
 class FileAccessControlPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -21821,6 +22453,10 @@ class FileAccessControlPolicy extends SomNode {
 class FileAndStorageSecurity extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -21877,6 +22513,10 @@ class FileDownloadSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21899,6 +22539,10 @@ class FileDownloadSecurityPolicy extends SomNode {
 class FileStorageEncryptionPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -21924,6 +22568,10 @@ class FileStorageEncryptionPolicy extends SomNode {
 class FileUploadValidationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -22116,6 +22764,10 @@ class FragilePointEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22238,6 +22890,10 @@ class FrameworkVersion extends SomNode {
 class FullDistribution extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -22543,6 +23199,10 @@ class FunctionalRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22703,6 +23363,10 @@ class Gaps extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22798,6 +23462,10 @@ class GlobalEntryPointEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22827,6 +23495,10 @@ class Glossary extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22845,6 +23517,10 @@ class Glossary extends SomNode {
 class GlossaryAndAbbreviations extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -22878,6 +23554,10 @@ class GlossaryEntry extends SomNode {
 class GoalDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -22923,6 +23603,10 @@ class GoalKeyResults extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22956,6 +23640,10 @@ class GoalMilestones extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22976,6 +23664,10 @@ class GoalMilestones extends SomNode {
 class GoalResources extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -23048,6 +23740,10 @@ class GoalRisks extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23071,6 +23767,10 @@ class GoalRisks extends SomNode {
 class Goals extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -23139,6 +23839,10 @@ class HandlingRequirementEntry extends SomNode {
 class HardwareRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -23228,6 +23932,10 @@ class HealthCheckEndpointsTiming extends SomNode {
 class HealthChecksAndDiagnosticsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -23453,6 +24161,10 @@ class Identification extends SomNode {
 class IdentificationAndAuthentication extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -24146,6 +24858,10 @@ class InformationAndDataModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24178,6 +24894,10 @@ class InformationAndDataModel extends SomNode {
 class InformationArchitecture extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -24225,6 +24945,10 @@ class InformationArchitecture extends SomNode {
 class InformationForUseRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -24535,6 +25259,10 @@ class InitialDevelopmentFlow extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24674,6 +25402,10 @@ class InsuranceEntry extends SomNode {
 class InsuranceLiabilityRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -24888,6 +25620,10 @@ class IntegrationPatternEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24917,6 +25653,10 @@ class Integrations extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24937,6 +25677,10 @@ class Integrations extends SomNode {
 class IntegrityConstraints extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -25010,6 +25754,10 @@ class InteractionCapabilityCharacteristic extends SomNode {
 class InteractionCatalog extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -25142,6 +25890,10 @@ class InteractionChannelEntryPlatform extends SomNode {
 class InteractionDependencyAnalysis extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -25326,6 +26078,10 @@ class InteractionPatterns extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25368,6 +26124,10 @@ class InteractionScenarioEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25395,6 +26155,10 @@ class InteractionSecurity extends SomNode {
 class InteractionTestingStrategy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -25938,6 +26702,10 @@ class InternalDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26112,6 +26880,10 @@ class IntroductionAndScope extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26195,6 +26967,10 @@ class Iso25010Coverage extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26227,6 +27003,10 @@ class Iso25010CoverageEntry extends SomNode {
 class ItLandscapePosition extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -26327,6 +27107,10 @@ class ItSecurityOperationsTesting extends SomNode {
 class ItSecurityStandardsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -26533,6 +27317,10 @@ class KeyAssumptionEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26661,6 +27449,10 @@ class KeyConcepts extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26733,6 +27525,10 @@ class KeyGenerationPolicy extends SomNode {
 class KeyManagement extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -26813,6 +27609,10 @@ class KeyScenarios extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26859,6 +27659,10 @@ class KeyTouchpointEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26877,6 +27681,10 @@ class KnowledgeTransfer extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26890,6 +27698,10 @@ class KnowledgeTransfer extends SomNode {
 class KnownIssueEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -26907,6 +27719,10 @@ class KnownQualityIssueEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26920,6 +27736,10 @@ class KnownQualityIssueEntry extends SomNode {
 class KpiEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -27086,6 +27906,10 @@ class LayeringAndModuleStructure extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27233,6 +28057,10 @@ class LegacyCompatibilityEntryRisk extends SomNode {
 class LegalAndContractualRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -27610,6 +28438,10 @@ class LocalizationTranslationProcess extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27635,6 +28467,10 @@ class LocalizationTranslationProcess extends SomNode {
 class LocalizationTranslationRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -27852,6 +28688,10 @@ class LogStoragePolicy extends SomNode {
 class LoginFlowConfiguration extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -28147,6 +28987,10 @@ class MaintenanceDependencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28227,6 +29071,10 @@ class MaintenanceDependencyEntryUpdate extends SomNode {
 class MaintenanceProcedureEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -28381,6 +29229,10 @@ class MaintenanceWindowsSection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28429,6 +29281,10 @@ class MaintenanceWindowsSection extends SomNode {
 class MappingRuleEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -28506,6 +29362,10 @@ class MasterDataDomainEntryUsage extends SomNode {
 class MasterDataManagement extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -28685,6 +29545,10 @@ class MetricsBaselineTable extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28856,6 +29720,10 @@ class MfaConfiguration extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28874,6 +29742,10 @@ class MfaConfiguration extends SomNode {
 class MfaDetailEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -29018,6 +29890,10 @@ class MigrationEnvironments extends SomNode {
 class MigrationInteractions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -29296,6 +30172,10 @@ class MigrationPhases extends SomNode {
 class MigrationPlan extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -30127,6 +31007,10 @@ class MonitoringAndAlertingSection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30317,6 +31201,10 @@ class MonitoringProcedureEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30435,6 +31323,10 @@ class MoscowEntryValue extends SomNode {
 class MultiChannelExperience extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -30594,6 +31486,10 @@ class MustPassCriterionEntryVerification extends SomNode {
 class MutualTlsPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -30802,6 +31698,10 @@ class NavigationGuards extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30827,6 +31727,10 @@ class NavigationGuards extends SomNode {
 class NavigationHierarchy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -30948,6 +31852,10 @@ class NavigationItemEntryRouting extends SomNode {
 class NavigationModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -31260,6 +32168,10 @@ class NetworkLoadBalancingRequirementsTls extends SomNode {
 class NetworkRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -31700,6 +32612,10 @@ class NonFinancialBenefitEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31727,6 +32643,10 @@ class NotificationChannelEntry extends SomNode {
 class NotificationModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -31855,6 +32775,10 @@ class ObjectStateEntry extends SomNode {
 class ObservabilityRequirementEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -32226,6 +33150,10 @@ class OperationalPainPoints extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32260,6 +33188,10 @@ class OperationalPainPointsSummary extends SomNode {
 class OperationsRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -32298,6 +33230,10 @@ class OperationsRequirements extends SomNode {
 class OpportunityStatement extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -32410,6 +33346,10 @@ class OrgRequirementImplementationPlan extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32433,6 +33373,10 @@ class OrgRequirementImplementationPlan extends SomNode {
 class OrganizationStructure extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -32510,6 +33454,10 @@ class OrganizationalChangeEntry extends SomNode {
 class OrganizationalContext extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -32746,6 +33694,10 @@ class OrganizationalRequirementEntryPlanning extends SomNode {
 class OrganizationalRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -33132,6 +34084,10 @@ class PainPointGapCorrelation extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33231,6 +34187,10 @@ class PainPointsAndGaps extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33321,6 +34281,10 @@ class PasswordAndCredentialPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33385,6 +34349,10 @@ class PasswordLifecyclePolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33409,6 +34377,10 @@ class PasswordRequirementsPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33430,6 +34402,10 @@ class PasswordRequirementsPolicy extends SomNode {
 class PasswordStoragePolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -33628,6 +34604,10 @@ class PermissionCompositionStrategy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33651,6 +34631,10 @@ class PermissionEvaluationBehavior extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33672,6 +34656,10 @@ class PermissionEvaluationBehavior extends SomNode {
 class PermissionGranularityPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -33792,6 +34780,10 @@ class PersonaGoals extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33821,6 +34813,10 @@ class PersonaPainPointEntry extends SomNode {
 class PersonaPainPoints extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -33854,6 +34850,10 @@ class PersonaScenarioEntry extends SomNode {
 class PersonaScenarios extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -34098,6 +35098,10 @@ class PilotPlan extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34266,6 +35270,10 @@ class PlatformAndLanguage extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34335,6 +35343,10 @@ class Portability extends SomNode {
 class PostImplementationReview extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   // Post-implementation review content.
@@ -34416,6 +35428,10 @@ class PreconditionsAndTriggers extends SomNode {
 class PredecessorDependencyEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -34761,6 +35777,10 @@ class ProblemStatement extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34910,6 +35930,10 @@ class ProcessAdjustmentSummary extends SomNode {
 class ProcessAdjustments extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -35225,6 +36249,10 @@ class ProcessExceptionHandling extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35427,6 +36455,10 @@ class ProcessInterdependencyMatrix extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35501,6 +36533,10 @@ class ProcessMetric extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35514,6 +36550,10 @@ class ProcessMetric extends SomNode {
 class ProcessMetricCategory extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -35586,6 +36626,10 @@ class ProcessMetricEntryTargets extends SomNode {
 class ProcessMetrics extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -35683,6 +36727,10 @@ class ProcessPainPoints extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35761,6 +36809,10 @@ class ProcessRelationshipEntry extends SomNode {
 class ProcessRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -35899,6 +36951,10 @@ class ProcessSlaEntry extends SomNode {
 class ProcessStepsAndActorInteractions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -36180,6 +37236,10 @@ class ProjectOrganization extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36207,6 +37267,10 @@ class ProjectOrganization extends SomNode {
 class ProjectOrganizationAndProcess extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -36259,6 +37323,10 @@ class ProjectOrganizationAndProcess extends SomNode {
 class ProjectTeamStaffing extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -36359,6 +37427,10 @@ class ProtocolEntry extends SomNode {
 class ProtocolsAndStandardsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -36738,6 +37810,10 @@ class QualityAndAcceptanceModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37027,6 +38103,10 @@ class QualityGateAdjustments extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37260,6 +38340,10 @@ class QualityScenarioEntry extends SomNode {
 class QualityScenarios extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -37518,6 +38602,10 @@ class RecoveryFlowEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37638,6 +38726,10 @@ class RedirectHandlingPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37732,6 +38824,10 @@ class ReferenceDocumentEntryMetadata extends SomNode {
 class ReferenceDocuments extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -37849,6 +38945,10 @@ class RegulatoryComplianceRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37875,6 +38975,10 @@ class RegulatoryComplianceRequirements extends SomNode {
 class RegulatoryContext extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -37917,6 +39021,10 @@ class RelatedDocumentEntry extends SomNode {
 class RelatedPainPointEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -38156,6 +39264,10 @@ class ReliabilityVerification extends SomNode {
 class RememberMePolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39033,6 +40145,10 @@ class RepresentativeQuoteEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39049,6 +40165,10 @@ class RepresentativeQuoteEntry extends SomNode {
 class RequirementAcceptanceCriteria extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39084,6 +40204,10 @@ class RequirementBusinessRules extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39106,6 +40230,10 @@ class RequirementCoverage extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39121,6 +40249,10 @@ class RequirementCoverage extends SomNode {
 class RequirementDataRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39143,6 +40275,10 @@ class RequirementDataRequirements extends SomNode {
 class RequirementDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39184,6 +40320,10 @@ class RequirementDependencyEntry extends SomNode {
 class RequirementRelationships extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39272,6 +40412,10 @@ class RequirementTestCases extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39292,6 +40436,10 @@ class RequirementTestCases extends SomNode {
 class RequirementTraceability extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39348,6 +40496,10 @@ class RequirementTraceabilityImplementation extends SomNode {
 class RequirementUiSpecification extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39407,6 +40559,10 @@ class Requirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39441,6 +40597,10 @@ class Requirements extends SomNode {
 class RequirementsOverview extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -39610,6 +40770,10 @@ class ResourceProtection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39649,6 +40813,10 @@ class ResourceRequirementEntry extends SomNode {
 class ResponseStrategyEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -40080,6 +41248,10 @@ class ReusableComponentsSection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40416,6 +41588,10 @@ class RevisionHistory extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40445,6 +41621,10 @@ class RiskAnalysis extends SomNode {
 class RiskBasedDecisionEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -40503,6 +41683,10 @@ class RiskBusinessImpactStakeholders extends SomNode {
 class RiskCategoryEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -40866,6 +42050,10 @@ class RoleAdjustments extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40901,6 +42089,10 @@ class RoleAdjustments extends SomNode {
 class RoleCertificationPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -40988,6 +42180,10 @@ class RoleHierarchy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41036,6 +42232,10 @@ class RoleHierarchyPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41082,6 +42282,10 @@ class RoleInheritanceRuleEntry extends SomNode {
 class RoleMatrix extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -41220,6 +42424,10 @@ class RolloutPlan extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41243,6 +42451,10 @@ class RolloutTrainingMaterial extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41260,6 +42472,10 @@ class RolloutTrainingMaterial extends SomNode {
 class RowLevelSecurityPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -41355,6 +42571,10 @@ class RuleExampleEntry extends SomNode {
 class RuntimeDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -42079,6 +43299,10 @@ class ScopeAssumptionEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42095,6 +43319,10 @@ class ScopeAssumptionEntry extends SomNode {
 class ScopeBoundaries extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -42206,6 +43434,10 @@ class ScreenActions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42238,6 +43470,10 @@ class ScreenBehaviorEntry extends SomNode {
 class ScreenDescriptions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -42725,6 +43961,10 @@ class ScreenFlowStructure extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42751,6 +43991,10 @@ class ScreenFlowStructure extends SomNode {
 class ScreenInventory extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -42843,6 +44087,10 @@ class ScreenSections extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42878,6 +44126,10 @@ class ScreenStates extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42909,6 +44161,10 @@ class ScreenUserCategoryEntry extends SomNode {
 class SecondaryNavigation extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -42970,6 +44226,10 @@ class Security extends SomNode {
 class SecurityAndAccessModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -43088,6 +44348,10 @@ class SecurityAuditEntryScheduling extends SomNode {
 class SecurityAuditRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -43346,6 +44610,10 @@ class SecurityConcernEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43404,6 +44672,10 @@ class SecurityControlEntryVerification extends SomNode {
 class SecurityControls extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -43520,6 +44792,10 @@ class SecurityEventLoggingPolicy extends SomNode {
 class SecurityEventsDefinition extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -43668,6 +44944,10 @@ class SecurityRequirementEntryVerification extends SomNode {
 class SecurityRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44036,6 +45316,10 @@ class SelfServiceAccountManagement extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44054,6 +45338,10 @@ class SelfServiceAccountManagement extends SomNode {
 class SensitiveDataEncryption extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44237,6 +45525,10 @@ class ServerOsRequirementsSecurity extends SomNode {
 class ServerRequirementsSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44462,6 +45754,10 @@ class ServiceAccountCredentialPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44483,6 +45779,10 @@ class ServiceAccountCredentialPolicy extends SomNode {
 class ServiceAccountLifecycle extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44722,6 +46022,10 @@ class SessionCreationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44744,6 +46048,10 @@ class SessionCreationPolicy extends SomNode {
 class SessionLifecycleMonitoring extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44770,6 +46078,10 @@ class SessionLifecycleMonitoring extends SomNode {
 class SessionManagement extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44823,6 +46135,10 @@ class SessionManagement extends SomNode {
 class SessionModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44881,6 +46197,10 @@ class SessionRevocationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44903,6 +46223,10 @@ class SessionRevocationPolicy extends SomNode {
 class SessionSecurityPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -44930,6 +46254,10 @@ class SessionTimeoutPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44950,6 +46278,10 @@ class SessionTimeoutPolicy extends SomNode {
 class SharedInfrastructureDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -45165,6 +46497,10 @@ class SharedLibraryEntryLifecycle extends SomNode {
 class SharedServiceEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -45516,6 +46852,10 @@ class SoftwareDeliverables extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45534,6 +46874,10 @@ class SoftwareDeliverables extends SomNode {
 class SoftwareDesignRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -45641,6 +46985,10 @@ class SolutionArchitectureAndTechnology extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45721,6 +47069,10 @@ class SpecificationStatus extends SomNode {
 class SsoPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -47101,6 +48453,10 @@ class StagingStrategyConstraintEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47147,6 +48503,10 @@ class StakeholderRegister extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47187,6 +48547,10 @@ class StakeholdersAndBeneficiaries extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47210,6 +48574,10 @@ class StakeholdersAndBeneficiaries extends SomNode {
 class StakeholdersAndGovernance extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -47280,6 +48648,10 @@ class StandardSoftwareRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47306,6 +48678,10 @@ class StandardSoftwareRequirements extends SomNode {
 class StandardsComplianceSection extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -47385,6 +48761,10 @@ class SteeringCommittee extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47413,6 +48793,10 @@ class StepUpAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47433,6 +48817,10 @@ class StepUpDetailEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47450,6 +48838,10 @@ class StepUpDetailEntry extends SomNode {
 class StorageEncryptionPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -47476,6 +48868,10 @@ class StorageLifecyclePolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47497,6 +48893,10 @@ class StorageLifecyclePolicy extends SomNode {
 class StrategicAlignment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -47632,6 +49032,10 @@ class SuccessCriteria extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -47733,6 +49137,10 @@ class SuccessCriteriaFramework extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   // Framework content.
   get content() {
     return this.doc.content(this.path + "/content") || '';
@@ -47747,6 +49155,10 @@ class SuccessCriteriaFramework extends SomNode {
 class SuccessCriteriaSummary extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   // Summary content.
@@ -47971,6 +49383,10 @@ class SupportDeliverables extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -48038,6 +49454,10 @@ class SupportedLocaleEntryRollout extends SomNode {
 class SystemArchitectureSpec extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -48280,6 +49700,10 @@ class SystemConfigurationManagementGovernance extends SomNode {
 class SystemContext extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -48550,6 +49974,10 @@ class SystemDescription extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -48596,6 +50024,10 @@ class SystemDescription extends SomNode {
 class SystemDescriptionSummary extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   // Summary content for system description classification.
@@ -48931,6 +50363,10 @@ class SystemInventory extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -48972,6 +50408,10 @@ class SystemKnowledgeTransfer extends SomNode {
 class SystemLandscapeInventory extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -49058,6 +50498,10 @@ class SystemOperation extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -49081,6 +50525,10 @@ class SystemOperation extends SomNode {
 class SystemOperationAndMonitoring extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -49115,6 +50563,10 @@ class SystemOperationAndMonitoring extends SomNode {
 class SystemPurpose extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -49356,6 +50808,10 @@ class SystemReplacementStrategyTimeline extends SomNode {
 class SystemRollout extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -49616,6 +51072,10 @@ class SystemTaskEntryExecution extends SomNode {
 class SystemTaskWorkflowStepEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50006,6 +51466,10 @@ class TargetBusinessProcessModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -50029,6 +51493,10 @@ class TargetBusinessProcessModel extends SomNode {
 class TargetOperatingModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50437,6 +51905,10 @@ class TechnicalFrameworkConcept extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -50499,6 +51971,10 @@ class TechnicalGoalConstraints extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -50519,6 +51995,10 @@ class TechnicalGoalConstraints extends SomNode {
 class TechnicalGoalDependencies extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50620,6 +52100,10 @@ class TechnicalGoalTestCriteria extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -50647,6 +52131,10 @@ class TechnicalGoalTestCriteria extends SomNode {
 class TechnicalGoals extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50698,6 +52186,10 @@ class TechnicalInfrastructure extends SomNode {
 class TechnicalPainPoints extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50850,6 +52342,10 @@ class TechnicalRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -50873,6 +52369,10 @@ class TechnicalRequirements extends SomNode {
 class TechnicalSecurityRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -50999,6 +52499,10 @@ class TenantBoundaryEnforcementPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -51023,6 +52527,10 @@ class TenantBoundaryEnforcementPolicy extends SomNode {
 class TenantContextPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -51063,6 +52571,10 @@ class TenantDataIsolationPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -51089,6 +52601,10 @@ class TenantDataIsolationPolicy extends SomNode {
 class TenantIsolation extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -51139,6 +52655,10 @@ class TenantIsolation extends SomNode {
 class TenantOnboardingPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -51294,6 +52814,10 @@ class TestScenarioTraceability extends SomNode {
 class TestStrategy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -51729,6 +53253,10 @@ class TlsProtocolPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -51825,6 +53353,10 @@ class TlsRequirementsTermination extends SomNode {
 class TokenManagementPolicy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -52134,6 +53666,10 @@ class ToolingAndEnvironments extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -52408,6 +53944,10 @@ class TrainingDeliverableRequirements extends SomNode {
 class TrainingDeliverables extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -53243,6 +54783,10 @@ class TransportSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -53334,6 +54878,10 @@ class TroubleshootingCapabilitiesRunbooks extends SomNode {
 class TrustBoundaries extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -53831,6 +55379,10 @@ class UpgradeCycleFramework extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -53971,6 +55523,10 @@ class UseCaseTraceability extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54074,6 +55630,10 @@ class UserAccessPermissions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54133,6 +55693,10 @@ class UserAccessibilityNeeds extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54154,6 +55718,10 @@ class UserAccessibilityNeeds extends SomNode {
 class UserAccountStatesDefinition extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54258,6 +55826,10 @@ class UserAttributes extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54278,6 +55850,10 @@ class UserAttributes extends SomNode {
 class UserAuthorization extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54542,6 +56118,10 @@ class UserInteractionModel extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54592,6 +56172,10 @@ class UserInteractionModelSummary extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   // Summary content for interaction model.
   get content() {
     return this.doc.content(this.path + "/content") || '';
@@ -54608,6 +56192,10 @@ class UserInteractionModelSummary extends SomNode {
 class UserJourney extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54658,6 +56246,10 @@ class UserJourneyPainPointEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54675,6 +56267,10 @@ class UserJourneyPainPointEntry extends SomNode {
 class UserLifecycle extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54807,6 +56403,10 @@ class UserLifecycleTransitions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54835,6 +56435,10 @@ class UserLifecycleTransitions extends SomNode {
 class UserManagement extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54875,6 +56479,10 @@ class UserManual extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -54888,6 +56496,10 @@ class UserManual extends SomNode {
 class UserNotificationPreferences extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   // Preferences content.
@@ -54907,6 +56519,10 @@ class UserNotificationPreferences extends SomNode {
 class UserPersonaDetails extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -54992,6 +56608,10 @@ class UserPersonaDetailsGoals extends SomNode {
 class UserPersonas extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55081,6 +56701,10 @@ class UserRegistrationProcess extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -55106,6 +56730,10 @@ class UserRegistrationProcess extends SomNode {
 class UserTrainingRequirements extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55178,6 +56806,10 @@ class UtilityMenuItemEntryBehavior extends SomNode {
 class UtilityNavigation extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55253,6 +56885,10 @@ class UtilityNavigationItemEntryDisplay extends SomNode {
 class ValidationConstraints extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55373,6 +57009,10 @@ class ValidationRuleEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -55389,6 +57029,10 @@ class ValidationRuleEntry extends SomNode {
 class ValueProposition extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55446,6 +57090,10 @@ class ValuePropositionReturnProfile extends SomNode {
 class VariationsAndExceptionEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -55761,6 +57409,10 @@ class WarrantyAndSupport extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -56000,6 +57652,10 @@ class WireframesAndMockups extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -56061,6 +57717,10 @@ class WorkflowDescriptions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent() {
+    return true;
+  }
+
   get content() {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -56104,6 +57764,10 @@ class WorkflowExceptionEntry extends SomNode {
 class WorkflowExceptions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {
@@ -56259,6 +57923,10 @@ class WorkflowTriggerEntry extends SomNode {
 class WorkflowTriggers extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
   }
 
   get content() {

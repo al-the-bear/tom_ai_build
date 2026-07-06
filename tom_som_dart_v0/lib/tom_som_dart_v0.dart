@@ -7,6 +7,9 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 class AcceptanceCriteriaList extends SomNode {
   AcceptanceCriteriaList(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -60,6 +63,9 @@ class AcceptanceCriterionEntry extends SomNode {
 /// 14.2. Acceptance Plan. Seeds → QAP.
 class AcceptancePlan extends SomNode {
   AcceptancePlan(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -197,6 +203,9 @@ class AcceptanceStepEntryOutcome extends SomNode {
 class AccessChannels extends SomNode {
   AccessChannels(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -216,6 +225,9 @@ class AccessChannels extends SomNode {
 class AccessConstraintPolicies extends SomNode {
   AccessConstraintPolicies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -229,6 +241,9 @@ class AccessConstraintPolicies extends SomNode {
 /// combination — and the rationale for the choice.
 class AccessControlModelSelection extends SomNode {
   AccessControlModelSelection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -281,6 +296,9 @@ class AccessLevelEntryScope extends SomNode {
 class AccessLevels extends SomNode {
   AccessLevels(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -308,6 +326,9 @@ class AccessRestrictionEntry extends SomNode {
 /// 9.1.1. User Categories.
 class AccessUserCategories extends SomNode {
   AccessUserCategories(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -480,6 +501,9 @@ class AccessibilityTesting extends SomNode {
 class AccountActivationPolicy extends SomNode {
   AccountActivationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -494,6 +518,9 @@ class AccountActivationPolicy extends SomNode {
 class AccountDeactivationPolicy extends SomNode {
   AccountDeactivationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -507,6 +534,9 @@ class AccountDeactivationPolicy extends SomNode {
 /// obligations, and right-to-be-forgotten compliance.
 class AccountDeletionPolicy extends SomNode {
   AccountDeletionPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -523,6 +553,9 @@ class AccountDeletionPolicy extends SomNode {
 class AccountLockoutPolicy extends SomNode {
   AccountLockoutPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -536,6 +569,9 @@ class AccountLockoutPolicy extends SomNode {
 /// conditions, and what re-verification is needed after changes.
 class AccountModificationPolicy extends SomNode {
   AccountModificationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -645,6 +681,9 @@ class ActorInteractionsSummary extends SomNode {
 class ActorOverview extends SomNode {
   ActorOverview(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -740,6 +779,9 @@ class AdminInterfaceRequirementsOperations extends SomNode {
 /// 8.7.1.1. Administration Requirements.
 class AdministrationRequirementsSection extends SomNode {
   AdministrationRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1084,6 +1126,9 @@ class AnomalyDetectionPolicy extends SomNode {
 class ApiAbuseProtection extends SomNode {
   ApiAbuseProtection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1097,6 +1142,9 @@ class ApiAbuseProtection extends SomNode {
 /// signature verification, and service-to-service authentication.
 class ApiAuthenticationPolicy extends SomNode {
   ApiAuthenticationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1112,6 +1160,9 @@ class ApiAuthenticationPolicy extends SomNode {
 /// escalation. Aligned with OWASP API1/API3/API5 (Broken Authorization).
 class ApiAuthorizationPolicy extends SomNode {
   ApiAuthorizationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1176,6 +1227,9 @@ class ApiCompatibilityEntryTransport extends SomNode {
 class ApiCorsSecurity extends SomNode {
   ApiCorsSecurity(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1189,6 +1243,9 @@ class ApiCorsSecurity extends SomNode {
 /// machine-to-machine authentication credentials.
 class ApiKeyManagementPolicy extends SomNode {
   ApiKeyManagementPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1206,6 +1263,9 @@ class ApiKeyManagementPolicy extends SomNode {
 class ApiRequestValidationPolicy extends SomNode {
   ApiRequestValidationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1221,6 +1281,9 @@ class ApiRequestValidationPolicy extends SomNode {
 /// Security Top 10 (2023) and OWASP REST Security Cheat Sheet.
 class ApiSecurity extends SomNode {
   ApiSecurity(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1256,6 +1319,9 @@ class ApiSecurity extends SomNode {
 /// API10 (Unsafe Consumption of APIs).
 class ApiSecurityMonitoring extends SomNode {
   ApiSecurityMonitoring(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1662,6 +1728,9 @@ class ArchitecturePrincipleEntryGuidance extends SomNode {
 class ArchitectureStyle extends SomNode {
   ArchitectureStyle(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1700,6 +1769,9 @@ class ArchitectureStyle extends SomNode {
 class AssumptionConstraintDependencyRegister extends SomNode {
   AssumptionConstraintDependencyRegister(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1728,6 +1800,9 @@ class AssumptionRegisterEntry extends SomNode {
 class AssumptionsConstraintsDependencies extends SomNode {
   AssumptionsConstraintsDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1738,6 +1813,9 @@ class AssumptionsConstraintsDependencies extends SomNode {
 /// A single attribute interdependency entry.
 class AttributeInterdependencyEntry extends SomNode {
   AttributeInterdependencyEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1751,6 +1829,9 @@ class AttributeInterdependencyEntry extends SomNode {
 /// Computer Security Log Management).
 class AuditAndLogging extends SomNode {
   AuditAndLogging(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1796,6 +1877,9 @@ class AuditEvidenceTypeEntry extends SomNode {
 class AuditLogFormat extends SomNode {
   AuditLogFormat(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1821,6 +1905,9 @@ class AuditLogFormat extends SomNode {
 class AuditRequirements extends SomNode {
   AuditRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -1834,6 +1921,9 @@ class AuditRequirements extends SomNode {
 /// 9.2.2. Authentication.
 class Authentication extends SomNode {
   Authentication(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1857,6 +1947,9 @@ class Authentication extends SomNode {
 /// handled in the authentication flow.
 class AuthenticationErrorHandling extends SomNode {
   AuthenticationErrorHandling(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1885,6 +1978,9 @@ class AuthenticationEventPolicy extends SomNode {
 /// recovery. Aligned with OAuth 2.0/OIDC and NIST SP 800-63B flow patterns.
 class AuthenticationFlow extends SomNode {
   AuthenticationFlow(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -1976,6 +2072,9 @@ class AuthenticationMethodEntrySecurity extends SomNode {
 class AuthenticationMethods extends SomNode {
   AuthenticationMethods(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -2031,6 +2130,9 @@ class AuthorizationGroupEntry extends SomNode {
 /// access constraints, and evaluation behavior.
 class AuthorizationModel extends SomNode {
   AuthorizationModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -2180,6 +2282,9 @@ class AvailabilityVerification extends SomNode {
 class BackupAndRecoverySection extends SomNode {
   BackupAndRecoverySection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -2282,6 +2387,9 @@ class BackupDataClassificationExclusions extends SomNode {
 /// and verification of backup encryption integrity.
 class BackupEncryptionPolicy extends SomNode {
   BackupEncryptionPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -2519,6 +2627,9 @@ class BandwidthRequirementsTraffic extends SomNode {
 class BasicTechnicalRequirements extends SomNode {
   BasicTechnicalRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -2584,6 +2695,9 @@ class BehaviorRuleEntry extends SomNode {
 class BiometricAuthenticationPolicy extends SomNode {
   BiometricAuthenticationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -2641,6 +2755,9 @@ class BoundaryAssumptions extends SomNode {
 /// existing intra-system `InteractionPatterns` class.
 class BoundaryInteractionPatterns extends SomNode {
   BoundaryInteractionPatterns(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3013,6 +3130,9 @@ class BusinessComponentEntryTesting extends SomNode {
 class BusinessDomain extends SomNode {
   BusinessDomain(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3110,6 +3230,9 @@ class BusinessGoalEntryStrategy extends SomNode {
 /// outcomes, value delivery, and strategic advancement.
 class BusinessGoals extends SomNode {
   BusinessGoals(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3247,6 +3370,9 @@ class BusinessObjectEntry extends SomNode {
 class BusinessObjectModel extends SomNode {
   BusinessObjectModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3263,6 +3389,9 @@ class BusinessObjectModel extends SomNode {
 /// customer dissatisfaction, inability to scale, and missed opportunities.
 class BusinessPainPoints extends SomNode {
   BusinessPainPoints(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3288,6 +3417,9 @@ class BusinessPainPointsSummary extends SomNode {
 /// in the TOM (Target Operating Model) document.
 class BusinessProcessDescriptions extends SomNode {
   BusinessProcessDescriptions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3404,6 +3536,9 @@ class BusinessRuleReferenceEntry extends SomNode {
 class CapacityPlanningSection extends SomNode {
   CapacityPlanningSection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3470,6 +3605,9 @@ class CapacityReviewProcessPlanning extends SomNode {
 class CategoryDependencyEntry extends SomNode {
   CategoryDependencyEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -3487,6 +3625,9 @@ class CcbMemberEntry extends SomNode {
 /// mTLS, PIV/CAC cards, and client certificate authentication.
 class CertificateAuthenticationPolicy extends SomNode {
   CertificateAuthenticationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3542,6 +3683,9 @@ class CertificateManagementMonitoring extends SomNode {
 /// certificate lifecycle, and automated renewal.
 class CertificateManagementPolicy extends SomNode {
   CertificateManagementPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -3665,6 +3809,9 @@ class CertificationRequirementsSectionTimeline extends SomNode {
 class ChangeAdvocateEntry extends SomNode {
   ChangeAdvocateEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -3764,6 +3911,9 @@ class ChangeDecisionCriteria extends SomNode {
 class ChangeImpactCriteria extends SomNode {
   ChangeImpactCriteria(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3837,6 +3987,9 @@ class ChangeNotificationRules extends SomNode {
 /// control workflow, impact assessment criteria, and approval authorities.
 class ChangeProcedure extends SomNode {
   ChangeProcedure(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -4118,6 +4271,9 @@ class ChangesFromCurrentStructure extends SomNode {
 class ChannelIntegrations extends SomNode {
   ChannelIntegrations(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   /// Integration requirements content.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -4126,6 +4282,9 @@ class ChannelIntegrations extends SomNode {
 /// Channel-specific UX specification.
 class ChannelUxSpecification extends SomNode {
   ChannelUxSpecification(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   /// UX specification content.
   String get content => doc.content('$path/content') ?? '';
@@ -4342,6 +4501,9 @@ class ClientNetworkRequirementsProxy extends SomNode {
 /// resolution, network bandwidth, and device capabilities.
 class ClientRequirementsSection extends SomNode {
   ClientRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -4733,6 +4895,9 @@ class ColorPaletteEntry extends SomNode {
 class ColumnLevelSecurityPolicy extends SomNode {
   ColumnLevelSecurityPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -4881,6 +5046,9 @@ class CommunicationPatternsSynchronous extends SomNode {
 class CommunicationPreferenceEntry extends SomNode {
   CommunicationPreferenceEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -4888,6 +5056,9 @@ class CommunicationPreferenceEntry extends SomNode {
 /// 8.6. Communication Requirements.
 class CommunicationRequirements extends SomNode {
   CommunicationRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -4934,6 +5105,9 @@ class CompatibilityCharacteristic extends SomNode {
 /// and enterprise systems.
 class CompatibilityRequirementsSection extends SomNode {
   CompatibilityRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -5065,6 +5239,9 @@ class ComplianceAuditScheduleReporting extends SomNode {
 class ComplianceFramework extends SomNode {
   ComplianceFramework(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -5072,6 +5249,9 @@ class ComplianceFramework extends SomNode {
 /// A single compliance measure entry.
 class ComplianceMeasureEntry extends SomNode {
   ComplianceMeasureEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -5090,6 +5270,9 @@ class ComplianceMilestoneEntry extends SomNode {
 /// privilege usage reports, anomaly detection, and regulatory audit support.
 class ComplianceReporting extends SomNode {
   ComplianceReporting(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -5729,6 +5912,9 @@ class ComponentRisk extends SomNode {
 class ComponentRiskAssessment extends SomNode {
   ComponentRiskAssessment(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -5979,6 +6165,9 @@ class ComponentVisualLanguage extends SomNode {
 class ComponentsAndDependencies extends SomNode {
   ComponentsAndDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6082,6 +6271,9 @@ class ComputingEquipmentEntryPlatform extends SomNode {
 /// conflict resolution strategies.
 class ConcurrentSessionPolicy extends SomNode {
   ConcurrentSessionPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6274,6 +6466,9 @@ class ConstraintRegisterEntry extends SomNode {
 class ConstraintsAndDependencies extends SomNode {
   ConstraintsAndDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6285,6 +6480,9 @@ class ConstraintsAndDependencies extends SomNode {
 /// reconstruct (CDR), data loss prevention, and content moderation.
 class ContentScanningPolicy extends SomNode {
   ContentScanningPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6299,6 +6497,9 @@ class ContentScanningPolicy extends SomNode {
 /// entities and data flows (UML context diagram / DFD Level 0).
 class ContextDiagram extends SomNode {
   ContextDiagram(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6370,6 +6571,9 @@ class ContextualHelpWhatsThis extends SomNode {
 /// Breadcrumbs, back navigation, related links.
 class ContextualNavigation extends SomNode {
   ContextualNavigation(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6450,6 +6654,9 @@ class ContingencyPlanEntryTesting extends SomNode {
 class ContingencyPlans extends SomNode {
   ContingencyPlans(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6504,6 +6711,9 @@ class CorrectnessVerification extends SomNode {
 class CredentialCompromiseDetectionPolicy extends SomNode {
   CredentialCompromiseDetectionPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6518,6 +6728,9 @@ class CredentialCompromiseDetectionPolicy extends SomNode {
 class CredentialRecoveryPolicy extends SomNode {
   CredentialRecoveryPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6528,6 +6741,9 @@ class CredentialRecoveryPolicy extends SomNode {
 /// A single critical knowledge area entry.
 class CriticalKnowledgeAreaEntry extends SomNode {
   CriticalKnowledgeAreaEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6540,6 +6756,9 @@ class CriticalKnowledgeAreaEntry extends SomNode {
 class CrossBoundaryErrorHandling extends SomNode {
   CrossBoundaryErrorHandling(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6551,6 +6770,9 @@ class CrossBoundaryErrorHandling extends SomNode {
 /// inside individual interface entries.
 class CrossBoundaryOperationalConsiderations extends SomNode {
   CrossBoundaryOperationalConsiderations(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6620,6 +6842,9 @@ class CrossCuttingConcernsShared extends SomNode {
 class CrossProcessAnalysis extends SomNode {
   CrossProcessAnalysis(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6633,6 +6858,9 @@ class CrossProcessAnalysis extends SomNode {
 class CrossTenantAccessPolicy extends SomNode {
   CrossTenantAccessPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6644,6 +6872,9 @@ class CrossTenantAccessPolicy extends SomNode {
 class CulturalConsiderationEntry extends SomNode {
   CulturalConsiderationEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6654,6 +6885,9 @@ class CulturalConsiderationEntry extends SomNode {
 /// topology, integration patterns, shared services, and data stores.
 class CurrentArchitecture extends SomNode {
   CurrentArchitecture(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6704,6 +6938,9 @@ class CurrentBusinessProcess extends SomNode {
 class CurrentBusinessProcesses extends SomNode {
   CurrentBusinessProcesses(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6731,6 +6968,9 @@ class CurrentBusinessProcesses extends SomNode {
 class CurrentDataClassification extends SomNode {
   CurrentDataClassification(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6751,6 +6991,9 @@ class CurrentDataClassification extends SomNode {
 /// trends, retention policies, and governance structures.
 class CurrentDataLandscape extends SomNode {
   CurrentDataLandscape(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6804,6 +7047,9 @@ class CurrentDataLandscape extends SomNode {
 class CurrentLandscape extends SomNode {
   CurrentLandscape(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -6834,6 +7080,9 @@ class CurrentLandscape extends SomNode {
 class CurrentOperationalMetric extends SomNode {
   CurrentOperationalMetric(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6851,6 +7100,9 @@ class CurrentProcessImprovementEntry extends SomNode {
 /// the target-side risks section which covers replacement risks.
 class CurrentStateRiskAssessment extends SomNode {
   CurrentStateRiskAssessment(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -6927,6 +7179,9 @@ class CustomMetricEntry extends SomNode {
 class CutoverProcedure extends SomNode {
   CutoverProcedure(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -6970,6 +7225,9 @@ class D00SolutionBlueprint extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7058,6 +7316,9 @@ class D01CurrentLandscapeAssessment extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7129,6 +7390,9 @@ class D02TargetOperatingModel extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7208,6 +7472,9 @@ class D03InformationModel extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7300,6 +7567,9 @@ class D04RequirementsSpecification extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7374,6 +7644,9 @@ class D05InteractionScenarios extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7443,6 +7716,9 @@ class D06ArchitectureTechnologySpecification extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7528,6 +7804,9 @@ class D07IntegrationInterfaceSpecification extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7607,6 +7886,9 @@ class D08SecurityAccessSpecification extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7679,6 +7961,9 @@ class D09ExperienceDesignSpecification extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7764,6 +8049,9 @@ class D10QualityAcceptancePlan extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -7871,6 +8159,9 @@ class D11DeliveryRoadmap extends SomNode {
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -7946,6 +8237,9 @@ class D12TransitionRolloutPlan extends SomNode {
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -8088,6 +8382,9 @@ class DashboardTemplates extends SomNode {
 /// to detect unauthorized access and support compliance requirements.
 class DataAccessAuditPolicy extends SomNode {
   DataAccessAuditPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -8254,6 +8551,9 @@ class DataClassificationSummary extends SomNode {
 class DataDictionary extends SomNode {
   DataDictionary(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -8264,6 +8564,9 @@ class DataDictionary extends SomNode {
 /// stores, duplicated records, and synchronization challenges.
 class DataDuplicationAnalysis extends SomNode {
   DataDuplicationAnalysis(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -8430,6 +8733,9 @@ class DataFormatCompatibilityNumbers extends SomNode {
 class DataGovernance extends SomNode {
   DataGovernance(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -8586,6 +8892,9 @@ class DataIntegrationEntryTransport extends SomNode {
 class DataIntegrationPoints extends SomNode {
   DataIntegrationPoints(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -8623,6 +8932,9 @@ class DataLandscapeSummary extends SomNode {
 class DataLevelSecurity extends SomNode {
   DataLevelSecurity(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -8655,6 +8967,9 @@ class DataLevelSecurity extends SomNode {
 /// static masking (data copies) and dynamic masking (runtime filtering).
 class DataMaskingPolicy extends SomNode {
   DataMaskingPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -8728,6 +9043,9 @@ class DataMigrationStrategy extends SomNode {
 class DataModel extends SomNode {
   DataModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -8765,6 +9083,9 @@ class DataModel extends SomNode {
 /// and accountability for data assets.
 class DataOwnership extends SomNode {
   DataOwnership(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -8870,6 +9191,9 @@ class DataProcessingAgreementRequirementsTransfers extends SomNode {
 class DataProtectionAndPrivacySection extends SomNode {
   DataProtectionAndPrivacySection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -8954,6 +9278,9 @@ class DataProtectionClassificationRetention extends SomNode {
 /// covering accuracy, completeness, consistency, timeliness, and validity.
 class DataQualityAssessment extends SomNode {
   DataQualityAssessment(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9067,6 +9394,9 @@ class DataResidencyRequirementsVerification extends SomNode {
 class DataRetentionPolicies extends SomNode {
   DataRetentionPolicies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9141,6 +9471,9 @@ class DataSourceIntegration extends SomNode {
 /// in the current environment.
 class DataSourceInventory extends SomNode {
   DataSourceInventory(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9316,6 +9649,9 @@ class DataVolumeSummaryProjection extends SomNode {
 class DataVolumesAndGrowth extends SomNode {
   DataVolumesAndGrowth(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9337,6 +9673,9 @@ class DataVolumesAndGrowth extends SomNode {
 /// assignment following the principle of least privilege.
 class DatabaseAccessPolicy extends SomNode {
   DatabaseAccessPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9400,6 +9739,9 @@ class DatabaseCompatibilityEntrySupport extends SomNode {
 class DatabaseEncryptionPolicy extends SomNode {
   DatabaseEncryptionPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9410,6 +9752,9 @@ class DatabaseEncryptionPolicy extends SomNode {
 /// A single datacenter entry.
 class DatacenterEntry extends SomNode {
   DatacenterEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9623,6 +9968,9 @@ class DeepLinkPatternEntry extends SomNode {
 /// External entry points, URL patterns, share links.
 class DeepLinking extends SomNode {
   DeepLinking(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9851,6 +10199,9 @@ class DeliveryAcceptanceCriterionEntryVerification extends SomNode {
 class DeliveryScope extends SomNode {
   DeliveryScope(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9871,6 +10222,9 @@ class DeliveryScope extends SomNode {
 class DeliveryScopeAndAcceptance extends SomNode {
   DeliveryScopeAndAcceptance(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9884,6 +10238,9 @@ class DeliveryScopeAndAcceptance extends SomNode {
 /// SBP.15 Delivery, Transition & Rollout.
 class DeliveryTransitionAndRollout extends SomNode {
   DeliveryTransitionAndRollout(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -9911,6 +10268,9 @@ class DeliveryTransitionAndRollout extends SomNode {
 class DependenciesAndIntegrations extends SomNode {
   DependenciesAndIntegrations(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -9937,6 +10297,9 @@ class DependenciesAndIntegrations extends SomNode {
 /// A single dependency entry.
 class DependencyEntry extends SomNode {
   DependencyEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -10150,6 +10513,9 @@ class DependencyScanningRequirementsVulnerabilities extends SomNode {
 class DeploymentContext extends SomNode {
   DeploymentContext(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10294,6 +10660,9 @@ class DeploymentSecuritySupplyChain extends SomNode {
 /// rollback strategy, and canary/blue-green deployment requirements.
 class DeploymentStrategySection extends SomNode {
   DeploymentStrategySection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -10463,6 +10832,9 @@ class DesignGoalEntry extends SomNode {
 class DesignGoals extends SomNode {
   DesignGoals(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10537,6 +10909,9 @@ class DesignPatternEntryStructure extends SomNode {
 class DesignPatternsAndStandards extends SomNode {
   DesignPatternsAndStandards(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10584,6 +10959,9 @@ class DesignPrincipleEntry extends SomNode {
 class DesignPrinciples extends SomNode {
   DesignPrinciples(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10607,6 +10985,9 @@ class DesignPrinciplesOverview extends SomNode {
 /// principles, and user personas that guide all UI decisions.
 class DesignVision extends SomNode {
   DesignVision(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -10674,6 +11055,9 @@ class DesktopOsRequirementEntryTesting extends SomNode {
 /// .
 class DetailedProcessWorkflow extends SomNode {
   DetailedProcessWorkflow(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -10800,6 +11184,9 @@ class DevelopmentConventionEntryVersionControl extends SomNode {
 class DevelopmentEnvironment extends SomNode {
   DevelopmentEnvironment(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10897,6 +11284,9 @@ class DevelopmentQualityGatesSecurity extends SomNode {
 /// A single devops standard entry.
 class DevopsStandardEntry extends SomNode {
   DevopsStandardEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11091,6 +11481,9 @@ class DistributionGroupSummary extends SomNode {
 /// notification preferences, and access levels for different stakeholder groups.
 class DistributionList extends SomNode {
   DistributionList(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11303,6 +11696,9 @@ class DocCorrectnessVerification extends SomNode {
 class DocumentControl extends SomNode {
   DocumentControl(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11338,6 +11734,9 @@ class DocumentHeader extends SomNode {
 class DocumentRelationships extends SomNode {
   DocumentRelationships(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11372,6 +11771,9 @@ class DocumentationAndTrainingLocalization extends SomNode {
 /// 14.1.2. Documentation Deliverables.
 class DocumentationDeliverables extends SomNode {
   DocumentationDeliverables(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11521,6 +11923,9 @@ class DocumentationStandardsVersioning extends SomNode {
 class DomainBoundaries extends SomNode {
   DomainBoundaries(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11574,6 +11979,9 @@ class DomainBusinessRuleEntryGovernance extends SomNode {
 class DomainBusinessRules extends SomNode {
   DomainBusinessRules(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11595,6 +12003,9 @@ class DomainEventEntry extends SomNode {
 class DomainEvents extends SomNode {
   DomainEvents(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11615,6 +12026,9 @@ class DomainInterfaceEntry extends SomNode {
 /// scope, and relationship to the overall business.
 class DomainOverview extends SomNode {
   DomainOverview(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11660,6 +12074,9 @@ class DomainProcessEntryOperations extends SomNode {
 class DomainProcesses extends SomNode {
   DomainProcesses(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11684,6 +12101,9 @@ class DomainTermEntry extends SomNode {
 /// ubiquitous language for the project.
 class DomainVocabulary extends SomNode {
   DomainVocabulary(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11798,6 +12218,9 @@ class EncryptedDataCategoryEntry extends SomNode {
 class EncryptionAtRest extends SomNode {
   EncryptionAtRest(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11828,6 +12251,9 @@ class EncryptionAtRest extends SomNode {
 class EncryptionAtRestPolicy extends SomNode {
   EncryptionAtRestPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -11843,6 +12269,9 @@ class EncryptionAtRestPolicy extends SomNode {
 /// with OWASP Transport Layer Security Cheat Sheet and NIST SP 800-52.
 class EncryptionInTransit extends SomNode {
   EncryptionInTransit(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11872,6 +12301,9 @@ class EncryptionInTransit extends SomNode {
 /// and use cases..
 class EndToEndTestScenario extends SomNode {
   EndToEndTestScenario(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -11987,6 +12419,9 @@ class EntityRelationshipEntry extends SomNode {
 /// 7.1.2. Entity Relationships.
 class EntityRelationships extends SomNode {
   EntityRelationships(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -12442,6 +12877,9 @@ class ErrorHandlingStandardsUserCommunication extends SomNode {
 class ErrorPageDesignEntry extends SomNode {
   ErrorPageDesignEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -12449,6 +12887,9 @@ class ErrorPageDesignEntry extends SomNode {
 /// A single error procedure entry.
 class ErrorProcedureEntry extends SomNode {
   ErrorProcedureEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -12527,6 +12968,9 @@ class ErrorRecoverySupportContact extends SomNode {
 class EscalationProcedureEntry extends SomNode {
   EscalationProcedureEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -12537,6 +12981,9 @@ class EscalationProcedureEntry extends SomNode {
 /// candidate components for adoption.
 class EvaluationCriteria extends SomNode {
   EvaluationCriteria(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -12603,6 +13050,9 @@ class EventAttributePolicy extends SomNode {
 /// Recipients who receive only executive summaries and milestone reports.
 class ExecutiveSummaryDistribution extends SomNode {
   ExecutiveSummaryDistribution(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -12704,6 +13154,9 @@ class ExistingSystemUsage extends SomNode {
 class ExistingSystemsLandscape extends SomNode {
   ExistingSystemsLandscape(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -12727,6 +13180,9 @@ class ExpectedImprovements extends SomNode {
 /// 10. Experience & Interface Design. Seeds → XDS.
 class ExperienceAndInterfaceDesign extends SomNode {
   ExperienceAndInterfaceDesign(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13015,6 +13471,9 @@ class ExternalActorEntryInteraction extends SomNode {
 class ExternalActors extends SomNode {
   ExternalActors(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -13025,6 +13484,9 @@ class ExternalActors extends SomNode {
 /// 8.6.2. External Connectivity.
 class ExternalConnectivitySection extends SomNode {
   ExternalConnectivitySection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13232,6 +13694,9 @@ class ExternalPartnerReliability extends SomNode {
 class ExternalServiceDependencies extends SomNode {
   ExternalServiceDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -13327,6 +13792,9 @@ class ExternalSystemContextEntryOperations extends SomNode {
 /// External systems, services, and APIs that the system integrates with.
 class ExternalSystemsContext extends SomNode {
   ExternalSystemsContext(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13722,6 +14190,9 @@ class FieldValidationRule extends SomNode {
 class FieldValidationRuleEntry extends SomNode {
   FieldValidationRuleEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -13733,6 +14204,9 @@ class FieldValidationRuleEntry extends SomNode {
 /// storage location isolation, filesystem permissions, and temporary access.
 class FileAccessControlPolicy extends SomNode {
   FileAccessControlPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13749,6 +14223,9 @@ class FileAccessControlPolicy extends SomNode {
 /// Aligned with OWASP File Upload Cheat Sheet and defense-in-depth principles.
 class FileAndStorageSecurity extends SomNode {
   FileAndStorageSecurity(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13783,6 +14260,9 @@ class FileAndStorageSecurity extends SomNode {
 class FileDownloadSecurityPolicy extends SomNode {
   FileDownloadSecurityPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -13797,6 +14277,9 @@ class FileDownloadSecurityPolicy extends SomNode {
 /// URL handling, and local device encryption requirements.
 class FileStorageEncryptionPolicy extends SomNode {
   FileStorageEncryptionPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13813,6 +14296,9 @@ class FileStorageEncryptionPolicy extends SomNode {
 /// Aligned with OWASP File Upload Cheat Sheet defense-in-depth approach.
 class FileUploadValidationPolicy extends SomNode {
   FileUploadValidationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -13933,6 +14419,9 @@ class FlexibilityModularity extends SomNode {
 class FragilePointEntry extends SomNode {
   FragilePointEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -14009,6 +14498,9 @@ class FrameworkVersion extends SomNode {
 /// Recipients who receive all project documents and communications.
 class FullDistribution extends SomNode {
   FullDistribution(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14202,6 +14694,9 @@ class FunctionalRequirementEntryVerification extends SomNode {
 class FunctionalRequirements extends SomNode {
   FunctionalRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14305,6 +14800,9 @@ class GapEntryWorkaround extends SomNode {
 class Gaps extends SomNode {
   Gaps(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14363,6 +14861,9 @@ class GeographicDistributionRequirementsRouting extends SomNode {
 class GlobalEntryPointEntry extends SomNode {
   GlobalEntryPointEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -14381,6 +14882,9 @@ class GlobalRoleExclusionEntry extends SomNode {
 class Glossary extends SomNode {
   Glossary(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14391,6 +14895,9 @@ class Glossary extends SomNode {
 /// SBP.3 Glossary & Abbreviations.
 class GlossaryAndAbbreviations extends SomNode {
   GlossaryAndAbbreviations(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14411,6 +14918,9 @@ class GlossaryEntry extends SomNode {
 /// Dependencies that may affect goal achievement.
 class GoalDependencies extends SomNode {
   GoalDependencies(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14437,6 +14947,9 @@ class GoalDependencyEntry extends SomNode {
 class GoalKeyResults extends SomNode {
   GoalKeyResults(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14457,6 +14970,9 @@ class GoalMilestoneEntry extends SomNode {
 class GoalMilestones extends SomNode {
   GoalMilestones(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14469,6 +14985,9 @@ class GoalMilestones extends SomNode {
 /// Resources required to achieve the goal.
 class GoalResources extends SomNode {
   GoalResources(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14513,6 +15032,9 @@ class GoalRiskEntryResponse extends SomNode {
 class GoalRisks extends SomNode {
   GoalRisks(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14528,6 +15050,9 @@ class GoalRisks extends SomNode {
 /// accommodating traditional goal structures.
 class Goals extends SomNode {
   Goals(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14568,6 +15093,9 @@ class HandlingRequirementEntry extends SomNode {
 /// 8.4. Hardware Concept Requirements.
 class HardwareRequirements extends SomNode {
   HardwareRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14622,6 +15150,9 @@ class HealthCheckEndpointsTiming extends SomNode {
 /// 8.7.2.1. Health Checks and Diagnostics.
 class HealthChecksAndDiagnosticsSection extends SomNode {
   HealthChecksAndDiagnosticsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -14762,6 +15293,9 @@ class Identification extends SomNode {
 /// 9.2. Identification and Authentication.
 class IdentificationAndAuthentication extends SomNode {
   IdentificationAndAuthentication(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15199,6 +15733,9 @@ class IndustryStandardEntryVerification extends SomNode {
 class InformationAndDataModel extends SomNode {
   InformationAndDataModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15219,6 +15756,9 @@ class InformationAndDataModel extends SomNode {
 /// and how content is organized across the application.
 class InformationArchitecture extends SomNode {
   InformationArchitecture(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15249,6 +15789,9 @@ class InformationArchitecture extends SomNode {
 /// re-homed to [TrainingEnablementRequirements].
 class InformationForUseRequirements extends SomNode {
   InformationForUseRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15443,6 +15986,9 @@ class InfrastructureSecurityHardeningNetwork extends SomNode {
 class InitialDevelopmentFlow extends SomNode {
   InitialDevelopmentFlow(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -15530,6 +16076,9 @@ class InsuranceEntry extends SomNode {
 /// Insurance coverage and liability agreements.
 class InsuranceLiabilityRequirements extends SomNode {
   InsuranceLiabilityRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15664,6 +16213,9 @@ class IntegrationHealthSummary extends SomNode {
 class IntegrationPatternEntry extends SomNode {
   IntegrationPatternEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -15682,6 +16234,9 @@ class IntegrationPointEntry extends SomNode {
 class Integrations extends SomNode {
   Integrations(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15694,6 +16249,9 @@ class Integrations extends SomNode {
 /// Cross-entity integrity rules beyond simple referential integrity.
 class IntegrityConstraints extends SomNode {
   IntegrityConstraints(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15742,6 +16300,9 @@ class InteractionCapabilityCharacteristic extends SomNode {
 /// case following Cockburn's fully dressed use case template.
 class InteractionCatalog extends SomNode {
   InteractionCatalog(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15825,6 +16386,9 @@ class InteractionChannelEntryPlatform extends SomNode {
 /// dependencies. Covers IIS-DEP.
 class InteractionDependencyAnalysis extends SomNode {
   InteractionDependencyAnalysis(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -15941,6 +16505,9 @@ class InteractionPatternEntryUsage extends SomNode {
 class InteractionPatterns extends SomNode {
   InteractionPatterns(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15966,6 +16533,9 @@ class InteractionPrioritization extends SomNode {
 class InteractionScenarioEntry extends SomNode {
   InteractionScenarioEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -15983,6 +16553,9 @@ class InteractionSecurity extends SomNode {
 /// Covers IIS-TST.
 class InteractionTestingStrategy extends SomNode {
   InteractionTestingStrategy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -16322,6 +16895,9 @@ class InterfaceWebhookSpec extends SomNode {
 class InternalDependencies extends SomNode {
   InternalDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16431,6 +17007,9 @@ class InteroperabilityRequirementsTesting extends SomNode {
 class IntroductionAndScope extends SomNode {
   IntroductionAndScope(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16482,6 +17061,9 @@ class IpOwnershipEntry extends SomNode {
 class Iso25010Coverage extends SomNode {
   Iso25010Coverage(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16502,6 +17084,9 @@ class Iso25010CoverageEntry extends SomNode {
 /// and application portfolio.
 class ItLandscapePosition extends SomNode {
   ItLandscapePosition(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -16563,6 +17148,9 @@ class ItSecurityOperationsTesting extends SomNode {
 /// 8.8.1. IT Security Standards.
 class ItSecurityStandardsSection extends SomNode {
   ItSecurityStandardsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -16691,6 +17279,9 @@ class JourneyStageEntry extends SomNode {
 class KeyAssumptionEntry extends SomNode {
   KeyAssumptionEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -16771,6 +17362,9 @@ class KeyConceptEntry extends SomNode {
 class KeyConcepts extends SomNode {
   KeyConcepts(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16818,6 +17412,9 @@ class KeyGenerationPolicy extends SomNode {
 /// NIST SP 800-57 (Recommendation for Key Management).
 class KeyManagement extends SomNode {
   KeyManagement(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -16868,6 +17465,9 @@ class KeyRotationPolicy extends SomNode {
 class KeyScenarios extends SomNode {
   KeyScenarios(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16897,6 +17497,9 @@ class KeyStoragePolicy extends SomNode {
 class KeyTouchpointEntry extends SomNode {
   KeyTouchpointEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -16908,6 +17511,9 @@ class KeyTouchpointEntry extends SomNode {
 class KnowledgeTransfer extends SomNode {
   KnowledgeTransfer(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -16915,6 +17521,9 @@ class KnowledgeTransfer extends SomNode {
 /// A single known issue entry.
 class KnownIssueEntry extends SomNode {
   KnownIssueEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -16924,6 +17533,9 @@ class KnownIssueEntry extends SomNode {
 class KnownQualityIssueEntry extends SomNode {
   KnownQualityIssueEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -16931,6 +17543,9 @@ class KnownQualityIssueEntry extends SomNode {
 /// A single kpi entry.
 class KpiEntry extends SomNode {
   KpiEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17035,6 +17650,9 @@ class LayerCommunicationRulesInterfaces extends SomNode {
 class LayeringAndModuleStructure extends SomNode {
   LayeringAndModuleStructure(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17126,6 +17744,9 @@ class LegacyCompatibilityEntryRisk extends SomNode {
 /// audit requirements, and other legal or organizational agreements.
 class LegalAndContractualRequirements extends SomNode {
   LegalAndContractualRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17363,6 +17984,9 @@ class LocalizationReview extends SomNode {
 class LocalizationTranslationProcess extends SomNode {
   LocalizationTranslationProcess(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17378,6 +18002,9 @@ class LocalizationTranslationProcess extends SomNode {
 /// Cross-mapped from SBP.14 via [Iso25010Coverage].
 class LocalizationTranslationRequirements extends SomNode {
   LocalizationTranslationRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17516,6 +18143,9 @@ class LogStoragePolicy extends SomNode {
 /// actions.
 class LoginFlowConfiguration extends SomNode {
   LoginFlowConfiguration(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17703,6 +18333,9 @@ class MaintenanceChangeManagementTesting extends SomNode {
 class MaintenanceDependencies extends SomNode {
   MaintenanceDependencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17753,6 +18386,9 @@ class MaintenanceDependencyEntryUpdate extends SomNode {
 /// A single maintenance procedure entry.
 class MaintenanceProcedureEntry extends SomNode {
   MaintenanceProcedureEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17849,6 +18485,9 @@ class MaintenanceWindowEntryScope extends SomNode {
 class MaintenanceWindowsSection extends SomNode {
   MaintenanceWindowsSection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17877,6 +18516,9 @@ class MaintenanceWindowsSection extends SomNode {
 /// A single mapping rule entry.
 class MappingRuleEntry extends SomNode {
   MappingRuleEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -17925,6 +18567,9 @@ class MasterDataDomainEntryUsage extends SomNode {
 /// synchronization across systems.
 class MasterDataManagement extends SomNode {
   MasterDataManagement(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -18036,6 +18681,9 @@ class MetricsBaselineEntry extends SomNode {
 class MetricsBaselineTable extends SomNode {
   MetricsBaselineTable(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -18144,6 +18792,9 @@ class MfaCategoryRequirementEntryTiming extends SomNode {
 class MfaConfiguration extends SomNode {
   MfaConfiguration(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -18154,6 +18805,9 @@ class MfaConfiguration extends SomNode {
 /// A single mfa detail entry.
 class MfaDetailEntry extends SomNode {
   MfaDetailEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -18245,6 +18899,9 @@ class MigrationEnvironments extends SomNode {
 /// Systems to Replace inventory. Covers IIS-MIG.
 class MigrationInteractions extends SomNode {
   MigrationInteractions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -18426,6 +19083,9 @@ class MigrationPhases extends SomNode {
 /// strategy here.
 class MigrationPlan extends SomNode {
   MigrationPlan(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -18949,6 +19609,9 @@ class MonitoringAlerting extends SomNode {
 class MonitoringAndAlertingSection extends SomNode {
   MonitoringAndAlertingSection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19066,6 +19729,9 @@ class MonitoringOperations extends SomNode {
 class MonitoringProcedureEntry extends SomNode {
   MonitoringProcedureEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -19142,6 +19808,9 @@ class MoscowEntryValue extends SomNode {
 /// and handles channel switching.
 class MultiChannelExperience extends SomNode {
   MultiChannelExperience(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -19244,6 +19913,9 @@ class MustPassCriterionEntryVerification extends SomNode {
 /// authentication scope, revocation checking, and fallback behavior.
 class MutualTlsPolicy extends SomNode {
   MutualTlsPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -19374,6 +20046,9 @@ class NavigationGuardEntryRouting extends SomNode {
 class NavigationGuards extends SomNode {
   NavigationGuards(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19389,6 +20064,9 @@ class NavigationGuards extends SomNode {
 /// Full navigation tree: groups and items forming the app's navigation structure.
 class NavigationHierarchy extends SomNode {
   NavigationHierarchy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -19465,6 +20143,9 @@ class NavigationItemEntryRouting extends SomNode {
 /// navigation, deep linking, navigation guards, and platform adaptation.
 class NavigationModel extends SomNode {
   NavigationModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -19660,6 +20341,9 @@ class NetworkLoadBalancingRequirementsTls extends SomNode {
 /// and geographic distribution.
 class NetworkRequirementsSection extends SomNode {
   NetworkRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -19936,6 +20620,9 @@ class NewRoleSystemAccess extends SomNode {
 class NonFinancialBenefitEntry extends SomNode {
   NonFinancialBenefitEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -19953,6 +20640,9 @@ class NotificationChannelEntry extends SomNode {
 /// across different channels.
 class NotificationModel extends SomNode {
   NotificationModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20034,6 +20724,9 @@ class ObjectStateEntry extends SomNode {
 /// A single observability requirement entry.
 class ObservabilityRequirementEntry extends SomNode {
   ObservabilityRequirementEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20267,6 +20960,9 @@ class OperationalMonitoring extends SomNode {
 class OperationalPainPoints extends SomNode {
   OperationalPainPoints(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20287,6 +20983,9 @@ class OperationalPainPointsSummary extends SomNode {
 /// 8.5. Operations Requirements.
 class OperationsRequirements extends SomNode {
   OperationsRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20310,6 +21009,9 @@ class OperationsRequirements extends SomNode {
 /// competitive advantages, or improvements over current state.
 class OpportunityStatement extends SomNode {
   OpportunityStatement(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20380,6 +21082,9 @@ class OrgImplementationActivity extends SomNode {
 class OrgRequirementImplementationPlan extends SomNode {
   OrgRequirementImplementationPlan(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20393,6 +21098,9 @@ class OrgRequirementImplementationPlan extends SomNode {
 /// 3.1.1. Organization Structure.
 class OrganizationStructure extends SomNode {
   OrganizationStructure(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20441,6 +21149,9 @@ class OrganizationalChangeEntry extends SomNode {
 /// serves or interacts with.
 class OrganizationalContext extends SomNode {
   OrganizationalContext(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20593,6 +21304,9 @@ class OrganizationalRequirementEntryPlanning extends SomNode {
 /// readiness assessment practices.
 class OrganizationalRequirements extends SomNode {
   OrganizationalRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -20837,6 +21551,9 @@ class PainPointEvidence extends SomNode {
 class PainPointGapCorrelation extends SomNode {
   PainPointGapCorrelation(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20898,6 +21615,9 @@ class PainPointWorkaround extends SomNode {
 class PainPointsAndGaps extends SomNode {
   PainPointsAndGaps(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20951,6 +21671,9 @@ class ParticipantEntry extends SomNode {
 class PasswordAndCredentialPolicy extends SomNode {
   PasswordAndCredentialPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20990,6 +21713,9 @@ class PasswordAndCredentialPolicy extends SomNode {
 class PasswordLifecyclePolicy extends SomNode {
   PasswordLifecyclePolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21005,6 +21731,9 @@ class PasswordLifecyclePolicy extends SomNode {
 class PasswordRequirementsPolicy extends SomNode {
   PasswordRequirementsPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21018,6 +21747,9 @@ class PasswordRequirementsPolicy extends SomNode {
 /// Aligned with NIST SP 800-63B and OWASP password storage recommendations.
 class PasswordStoragePolicy extends SomNode {
   PasswordStoragePolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -21144,6 +21876,9 @@ class PeripheralEquipmentEntry extends SomNode {
 class PermissionCompositionStrategy extends SomNode {
   PermissionCompositionStrategy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21158,6 +21893,9 @@ class PermissionCompositionStrategy extends SomNode {
 class PermissionEvaluationBehavior extends SomNode {
   PermissionEvaluationBehavior(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21171,6 +21909,9 @@ class PermissionEvaluationBehavior extends SomNode {
 /// function-level through fine-grained field-level control.
 class PermissionGranularityPolicy extends SomNode {
   PermissionGranularityPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -21245,6 +21986,9 @@ class PersonaGoalEntry extends SomNode {
 class PersonaGoals extends SomNode {
   PersonaGoals(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21262,6 +22006,9 @@ class PersonaPainPointEntry extends SomNode {
 /// 10.1.3.n.2. Persona Pain Points.
 class PersonaPainPoints extends SomNode {
   PersonaPainPoints(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -21282,6 +22029,9 @@ class PersonaScenarioEntry extends SomNode {
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
 class PersonaScenarios extends SomNode {
   PersonaScenarios(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -21436,6 +22186,9 @@ class PhysicalWorkplaceRequirementsUsage extends SomNode {
 class PilotPlan extends SomNode {
   PilotPlan(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -21541,6 +22294,9 @@ class PipelineStageEntryTrigger extends SomNode {
 class PlatformAndLanguage extends SomNode {
   PlatformAndLanguage(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21582,6 +22338,9 @@ class Portability extends SomNode {
 /// Post-implementation review plan for success criteria.
 class PostImplementationReview extends SomNode {
   PostImplementationReview(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   /// Post-implementation review content.
   String get content => doc.content('$path/content') ?? '';
@@ -21632,6 +22391,9 @@ class PreconditionsAndTriggers extends SomNode {
 /// A single predecessor dependency entry.
 class PredecessorDependencyEntry extends SomNode {
   PredecessorDependencyEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -21849,6 +22611,9 @@ class PrivilegeUsageReporting extends SomNode {
 class ProblemStatement extends SomNode {
   ProblemStatement(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21944,6 +22709,9 @@ class ProcessAdjustmentSummary extends SomNode {
 /// steps and the rationale for each deviation.
 class ProcessAdjustments extends SomNode {
   ProcessAdjustments(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22142,6 +22910,9 @@ class ProcessExceptionEntryResponse extends SomNode {
 class ProcessExceptionHandling extends SomNode {
   ProcessExceptionHandling(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -22269,6 +23040,9 @@ class ProcessInputsOutputs extends SomNode {
 class ProcessInterdependencyMatrix extends SomNode {
   ProcessInterdependencyMatrix(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -22313,6 +23087,9 @@ class ProcessKpiEntryOperations extends SomNode {
 class ProcessMetric extends SomNode {
   ProcessMetric(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -22320,6 +23097,9 @@ class ProcessMetric extends SomNode {
 /// A category of process metrics.
 class ProcessMetricCategory extends SomNode {
   ProcessMetricCategory(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22365,6 +23145,9 @@ class ProcessMetricEntryTargets extends SomNode {
 /// form the baseline against which improvements will be measured.
 class ProcessMetrics extends SomNode {
   ProcessMetrics(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22424,6 +23207,9 @@ class ProcessOverviewDiagram extends SomNode {
 class ProcessPainPoints extends SomNode {
   ProcessPainPoints(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -22472,6 +23258,9 @@ class ProcessRelationshipEntry extends SomNode {
 /// Process relationships and dependencies (supplementary section).
 class ProcessRelationships extends SomNode {
   ProcessRelationships(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22559,6 +23348,9 @@ class ProcessSlaEntry extends SomNode {
 /// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 class ProcessStepsAndActorInteractions extends SomNode {
   ProcessStepsAndActorInteractions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22734,6 +23526,9 @@ class ProgrammingLanguageEntryVersion extends SomNode {
 class ProjectOrganization extends SomNode {
   ProjectOrganization(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -22751,6 +23546,9 @@ class ProjectOrganization extends SomNode {
 /// and the creation or upgrade process for this particular project.
 class ProjectOrganizationAndProcess extends SomNode {
   ProjectOrganizationAndProcess(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22781,6 +23579,9 @@ class ProjectOrganizationAndProcess extends SomNode {
 /// availability, and required competencies.
 class ProjectTeamStaffing extends SomNode {
   ProjectTeamStaffing(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -22842,6 +23643,9 @@ class ProtocolEntry extends SomNode {
 /// 8.6.1. Protocols and Standards.
 class ProtocolsAndStandardsSection extends SomNode {
   ProtocolsAndStandardsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -23079,6 +23883,9 @@ class PwaRequirementsUpdates extends SomNode {
 class QualityAndAcceptanceModel extends SomNode {
   QualityAndAcceptanceModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23263,6 +24070,9 @@ class QualityGateAdjustmentSummary extends SomNode {
 class QualityGateAdjustments extends SomNode {
   QualityGateAdjustments(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23409,6 +24219,9 @@ class QualityScenarioEntry extends SomNode {
 /// for verifying the technical goal (based on SEI quality attribute workshop).
 class QualityScenarios extends SomNode {
   QualityScenarios(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -23569,6 +24382,9 @@ class ReadinessCriteriaEntry extends SomNode {
 class RecoveryFlowEntry extends SomNode {
   RecoveryFlowEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -23644,6 +24460,9 @@ class RecruitmentTimeline extends SomNode {
 class RedirectHandlingPolicy extends SomNode {
   RedirectHandlingPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23704,6 +24523,9 @@ class ReferenceDocumentEntryMetadata extends SomNode {
 /// requirements, and related project documentation.
 class ReferenceDocuments extends SomNode {
   ReferenceDocuments(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -23777,6 +24599,9 @@ class RegulatoryComplianceEntryRequirements extends SomNode {
 class RegulatoryComplianceRequirements extends SomNode {
   RegulatoryComplianceRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23793,6 +24618,9 @@ class RegulatoryComplianceRequirements extends SomNode {
 /// operations.
 class RegulatoryContext extends SomNode {
   RegulatoryContext(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -23818,6 +24646,9 @@ class RelatedDocumentEntry extends SomNode {
 /// A single related pain point entry.
 class RelatedPainPointEntry extends SomNode {
   RelatedPainPointEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -23970,6 +24801,9 @@ class ReliabilityVerification extends SomNode {
 /// security for convenience and must be carefully scoped.
 class RememberMePolicy extends SomNode {
   RememberMePolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24521,6 +25355,9 @@ class ReportSecurity extends SomNode {
 class RepresentativeQuoteEntry extends SomNode {
   RepresentativeQuoteEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -24531,6 +25368,9 @@ class RepresentativeQuoteEntry extends SomNode {
 /// Uses Given-When-Then format for clarity.
 class RequirementAcceptanceCriteria extends SomNode {
   RequirementAcceptanceCriteria(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24552,6 +25392,9 @@ class RequirementBusinessRuleEntry extends SomNode {
 class RequirementBusinessRules extends SomNode {
   RequirementBusinessRules(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -24565,6 +25408,9 @@ class RequirementBusinessRules extends SomNode {
 class RequirementCoverage extends SomNode {
   RequirementCoverage(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -24574,6 +25420,9 @@ class RequirementCoverage extends SomNode {
 /// Data entities, attributes, and relationships needed by this requirement.
 class RequirementDataRequirements extends SomNode {
   RequirementDataRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24587,6 +25436,9 @@ class RequirementDataRequirements extends SomNode {
 /// Dependencies this requirement has on other requirements.
 class RequirementDependencies extends SomNode {
   RequirementDependencies(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24610,6 +25462,9 @@ class RequirementDependencyEntry extends SomNode {
 /// Cross-requirement dependency and conflict graph.
 class RequirementRelationships extends SomNode {
   RequirementRelationships(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24663,6 +25518,9 @@ class RequirementTestCaseEntryExecution extends SomNode {
 class RequirementTestCases extends SomNode {
   RequirementTestCases(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -24675,6 +25533,9 @@ class RequirementTestCases extends SomNode {
 /// Traceability links to goals, use cases, processes, and other artifacts.
 class RequirementTraceability extends SomNode {
   RequirementTraceability(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24711,6 +25572,9 @@ class RequirementTraceabilityImplementation extends SomNode {
 class RequirementUiSpecification extends SomNode {
   RequirementUiSpecification(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -24743,6 +25607,9 @@ class RequirementUiSpecification extends SomNode {
 class Requirements extends SomNode {
   Requirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -24765,6 +25632,9 @@ class Requirements extends SomNode {
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 class RequirementsOverview extends SomNode {
   RequirementsOverview(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -24867,6 +25737,9 @@ class ResourceKeyReferenceEntry extends SomNode {
 class ResourceProtection extends SomNode {
   ResourceProtection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -24890,6 +25763,9 @@ class ResourceRequirementEntry extends SomNode {
 /// A single response strategy entry.
 class ResponseStrategyEntry extends SomNode {
   ResponseStrategyEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25163,6 +26039,9 @@ class ReusabilityPrinciplesVersioning extends SomNode {
 class ReusableComponentsSection extends SomNode {
   ReusableComponentsSection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -25374,6 +26253,9 @@ class RevisionEntry extends SomNode {
 class RevisionHistory extends SomNode {
   RevisionHistory(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -25391,6 +26273,9 @@ class RiskAnalysis extends SomNode {
 /// A single risk based decision entry.
 class RiskBasedDecisionEntry extends SomNode {
   RiskBasedDecisionEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25426,6 +26311,9 @@ class RiskBusinessImpactStakeholders extends SomNode {
 /// A single risk category entry.
 class RiskCategoryEntry extends SomNode {
   RiskCategoryEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25661,6 +26549,9 @@ class RoleAdjustmentSummary extends SomNode {
 class RoleAdjustments extends SomNode {
   RoleAdjustments(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -25681,6 +26572,9 @@ class RoleAdjustments extends SomNode {
 /// certified to prevent privilege creep and ensure continued appropriateness.
 class RoleCertificationPolicy extends SomNode {
   RoleCertificationPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25738,6 +26632,9 @@ class RoleExclusionEntry extends SomNode {
 class RoleHierarchy extends SomNode {
   RoleHierarchy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -25766,6 +26663,9 @@ class RoleHierarchy extends SomNode {
 /// how inheritance, depth, and activation constraints work.
 class RoleHierarchyPolicy extends SomNode {
   RoleHierarchyPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25797,6 +26697,9 @@ class RoleInheritanceRuleEntry extends SomNode {
 /// Authorization Model.
 class RoleMatrix extends SomNode {
   RoleMatrix(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25885,6 +26788,9 @@ class RollbackStrategyTriggers extends SomNode {
 class RolloutPlan extends SomNode {
   RolloutPlan(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -25901,6 +26807,9 @@ class RolloutPlan extends SomNode {
 class RolloutTrainingMaterial extends SomNode {
   RolloutTrainingMaterial(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -25912,6 +26821,9 @@ class RolloutTrainingMaterial extends SomNode {
 /// filtering, user-scoped access, and hierarchical data visibility.
 class RowLevelSecurityPolicy extends SomNode {
   RowLevelSecurityPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -25972,6 +26884,9 @@ class RuleExampleEntry extends SomNode {
 /// health-check dependencies, failover behavior, and version constraints.
 class RuntimeDependencies extends SomNode {
   RuntimeDependencies(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -26426,6 +27341,9 @@ class ScheduledMaintenancePolicyScheduling extends SomNode {
 class ScopeAssumptionEntry extends SomNode {
   ScopeAssumptionEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -26436,6 +27354,9 @@ class ScopeAssumptionEntry extends SomNode {
 /// Helps set expectations and prevent scope creep.
 class ScopeBoundaries extends SomNode {
   ScopeBoundaries(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -26505,6 +27426,9 @@ class ScreenActionEntryVisual extends SomNode {
 class ScreenActions extends SomNode {
   ScreenActions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26525,6 +27449,9 @@ class ScreenBehaviorEntry extends SomNode {
 /// 10.2. Screen Descriptions.
 class ScreenDescriptions extends SomNode {
   ScreenDescriptions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -26832,6 +27759,9 @@ class ScreenFieldValidation extends SomNode {
 class ScreenFlowStructure extends SomNode {
   ScreenFlowStructure(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26848,6 +27778,9 @@ class ScreenFlowStructure extends SomNode {
 /// screen including its purpose, layout zones, elements, actions, and states.
 class ScreenInventory extends SomNode {
   ScreenInventory(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -26906,6 +27839,9 @@ class ScreenSectionEntryLayout extends SomNode {
 class ScreenSections extends SomNode {
   ScreenSections(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26928,6 +27864,9 @@ class ScreenStateEntry extends SomNode {
 class ScreenStates extends SomNode {
   ScreenStates(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26947,6 +27886,9 @@ class ScreenUserCategoryEntry extends SomNode {
 /// In-page navigation: tab bars, segmented controls.
 class SecondaryNavigation extends SomNode {
   SecondaryNavigation(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -26983,6 +27925,9 @@ class Security extends SomNode {
 /// 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel extends SomNode {
   SecurityAndAccessModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27056,6 +28001,9 @@ class SecurityAuditEntryScheduling extends SomNode {
 /// compliance audit scheduling, and automated security testing integration.
 class SecurityAuditRequirementsSection extends SomNode {
   SecurityAuditRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27218,6 +28166,9 @@ class SecurityCompliance extends SomNode {
 class SecurityConcernEntry extends SomNode {
   SecurityConcernEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -27254,6 +28205,9 @@ class SecurityControlEntryVerification extends SomNode {
 /// Security controls that implement or support this requirement.
 class SecurityControls extends SomNode {
   SecurityControls(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27329,6 +28283,9 @@ class SecurityEventLoggingPolicy extends SomNode {
 /// input validation failures, and higher-risk functionality usage.
 class SecurityEventsDefinition extends SomNode {
   SecurityEventsDefinition(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27422,6 +28379,9 @@ class SecurityRequirementEntryVerification extends SomNode {
 /// security frameworks.
 class SecurityRequirements extends SomNode {
   SecurityRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27654,6 +28614,9 @@ class SelfRegistrationPolicyVerification extends SomNode {
 class SelfServiceAccountManagement extends SomNode {
   SelfServiceAccountManagement(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -27664,6 +28627,9 @@ class SelfServiceAccountManagement extends SomNode {
 /// 9.5. Sensitive Data Encryption.
 class SensitiveDataEncryption extends SomNode {
   SensitiveDataEncryption(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27778,6 +28744,9 @@ class ServerOsRequirementsSecurity extends SomNode {
 /// and scaling requirements.
 class ServerRequirementsSection extends SomNode {
   ServerRequirementsSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -27917,6 +28886,9 @@ class ServerStorageRequirementsPerformance extends SomNode {
 class ServiceAccountCredentialPolicy extends SomNode {
   ServiceAccountCredentialPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -27930,6 +28902,9 @@ class ServiceAccountCredentialPolicy extends SomNode {
 /// integrations — which have different lifecycle rules than human users.
 class ServiceAccountLifecycle extends SomNode {
   ServiceAccountLifecycle(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28079,6 +29054,9 @@ class ServiceMeshAndGatewayMesh extends SomNode {
 class SessionCreationPolicy extends SomNode {
   SessionCreationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -28093,6 +29071,9 @@ class SessionCreationPolicy extends SomNode {
 /// and destruction.
 class SessionLifecycleMonitoring extends SomNode {
   SessionLifecycleMonitoring(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28110,6 +29091,9 @@ class SessionLifecycleMonitoring extends SomNode {
 /// session requirements by Authentication Assurance Level (AAL).
 class SessionManagement extends SomNode {
   SessionManagement(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28142,6 +29126,9 @@ class SessionManagement extends SomNode {
 /// multi-device session handling.
 class SessionModel extends SomNode {
   SessionModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28178,6 +29165,9 @@ class SessionModelSecurity extends SomNode {
 class SessionRevocationPolicy extends SomNode {
   SessionRevocationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -28192,6 +29182,9 @@ class SessionRevocationPolicy extends SomNode {
 /// Aligned with OWASP Session Management Cheat Sheet recommendations.
 class SessionSecurityPolicy extends SomNode {
   SessionSecurityPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28209,6 +29202,9 @@ class SessionSecurityPolicy extends SomNode {
 class SessionTimeoutPolicy extends SomNode {
   SessionTimeoutPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -28221,6 +29217,9 @@ class SessionTimeoutPolicy extends SomNode {
 /// Dependencies on shared infrastructure components used by multiple systems.
 class SharedInfrastructureDependencies extends SomNode {
   SharedInfrastructureDependencies(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28355,6 +29354,9 @@ class SharedLibraryEntryLifecycle extends SomNode {
 /// A single shared service entry.
 class SharedServiceEntry extends SomNode {
   SharedServiceEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28576,6 +29578,9 @@ class SloEntryTarget extends SomNode {
 class SoftwareDeliverables extends SomNode {
   SoftwareDeliverables(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -28586,6 +29591,9 @@ class SoftwareDeliverables extends SomNode {
 /// 8.2. Software Design Requirements.
 class SoftwareDesignRequirements extends SomNode {
   SoftwareDesignRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -28651,6 +29659,9 @@ class SoftwareLayerEntryTechnology extends SomNode {
 class SolutionArchitectureAndTechnology extends SomNode {
   SolutionArchitectureAndTechnology(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -28701,6 +29712,9 @@ class SpecificationStatus extends SomNode {
 /// across multiple applications via identity providers.
 class SsoPolicy extends SomNode {
   SsoPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29581,6 +30595,9 @@ class StagingStrategy extends SomNode {
 class StagingStrategyConstraintEntry extends SomNode {
   StagingStrategyConstraintEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -29612,6 +30629,9 @@ class StakeholderEntry extends SomNode {
 class StakeholderRegister extends SomNode {
   StakeholderRegister(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29639,6 +30659,9 @@ class StakeholderRegisterEntry extends SomNode {
 class StakeholdersAndBeneficiaries extends SomNode {
   StakeholdersAndBeneficiaries(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29652,6 +30675,9 @@ class StakeholdersAndBeneficiaries extends SomNode {
 /// SBP.4 Stakeholders & Governance.
 class StakeholdersAndGovernance extends SomNode {
   StakeholdersAndGovernance(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29694,6 +30720,9 @@ class StakeholdersAndInterests extends SomNode {
 class StandardSoftwareRequirements extends SomNode {
   StandardSoftwareRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29710,6 +30739,9 @@ class StandardSoftwareRequirements extends SomNode {
 /// specifications.
 class StandardsComplianceSection extends SomNode {
   StandardsComplianceSection(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29757,6 +30789,9 @@ class StandardsComplianceSection extends SomNode {
 class SteeringCommittee extends SomNode {
   SteeringCommittee(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29774,6 +30809,9 @@ class SteeringCommittee extends SomNode {
 class StepUpAuthenticationPolicy extends SomNode {
   StepUpAuthenticationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29784,6 +30822,9 @@ class StepUpAuthenticationPolicy extends SomNode {
 /// A single step up detail entry.
 class StepUpDetailEntry extends SomNode {
   StepUpDetailEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29796,6 +30837,9 @@ class StepUpDetailEntry extends SomNode {
 /// for file storage, and encryption scope for different storage tiers.
 class StorageEncryptionPolicy extends SomNode {
   StorageEncryptionPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29812,6 +30856,9 @@ class StorageEncryptionPolicy extends SomNode {
 class StorageLifecyclePolicy extends SomNode {
   StorageLifecyclePolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29825,6 +30872,9 @@ class StorageLifecyclePolicy extends SomNode {
 /// initiatives. Demonstrates strategic justification for the project.
 class StrategicAlignment extends SomNode {
   StrategicAlignment(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29912,6 +30962,9 @@ class SubStageEntryTimeline extends SomNode {
 class SuccessCriteria extends SomNode {
   SuccessCriteria(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29964,6 +31017,9 @@ class SuccessCriteriaByCategory extends SomNode {
 class SuccessCriteriaFramework extends SomNode {
   SuccessCriteriaFramework(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   /// Framework content.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -29972,6 +31028,9 @@ class SuccessCriteriaFramework extends SomNode {
 /// Summary metrics for success criteria.
 class SuccessCriteriaSummary extends SomNode {
   SuccessCriteriaSummary(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   /// Summary content.
   String get content => doc.content('$path/content') ?? '';
@@ -30112,6 +31171,9 @@ class SupportAccessTickets extends SomNode {
 class SupportDeliverables extends SomNode {
   SupportDeliverables(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30155,6 +31217,9 @@ class SupportedLocaleEntryRollout extends SomNode {
 /// architecture-related identifier in the model.
 class SystemArchitectureSpec extends SomNode {
   SystemArchitectureSpec(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30308,6 +31373,9 @@ class SystemConfigurationManagementGovernance extends SomNode {
 /// systems it connects to. Based on UML context diagrams and IEEE 830.
 class SystemContext extends SomNode {
   SystemContext(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30476,6 +31544,9 @@ class SystemDependencyEntryReliability extends SomNode {
 class SystemDescription extends SomNode {
   SystemDescription(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30504,6 +31575,9 @@ class SystemDescription extends SomNode {
 /// function, domain classification, technology stack, and key characteristics.
 class SystemDescriptionSummary extends SomNode {
   SystemDescriptionSummary(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   /// Summary content for system description classification.
   String get content => doc.content('$path/content') ?? '';
@@ -30715,6 +31789,9 @@ class SystemIntegrationThroughput extends SomNode {
 class SystemInventory extends SomNode {
   SystemInventory(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30740,6 +31817,9 @@ class SystemKnowledgeTransfer extends SomNode {
 /// Complete external-system inventory covering IIS-LAN-INV content.
 class SystemLandscapeInventory extends SomNode {
   SystemLandscapeInventory(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30792,6 +31872,9 @@ class SystemMigrationRiskEntry extends SomNode {
 class SystemOperation extends SomNode {
   SystemOperation(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30805,6 +31888,9 @@ class SystemOperation extends SomNode {
 /// 8.7. System Operation and Monitoring.
 class SystemOperationAndMonitoring extends SomNode {
   SystemOperationAndMonitoring(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30826,6 +31912,9 @@ class SystemOperationAndMonitoring extends SomNode {
 /// This section establishes the fundamental justification for the project.
 class SystemPurpose extends SomNode {
   SystemPurpose(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -30973,6 +32062,9 @@ class SystemReplacementStrategyTimeline extends SomNode {
 /// 15. System Rollout Concept. Seeds → TRP.
 class SystemRollout extends SomNode {
   SystemRollout(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31137,6 +32229,9 @@ class SystemTaskEntryExecution extends SomNode {
 /// A single workflow step entry.
 class SystemTaskWorkflowStepEntry extends SomNode {
   SystemTaskWorkflowStepEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31383,6 +32478,9 @@ class TabItemEntry extends SomNode {
 class TargetBusinessProcessModel extends SomNode {
   TargetBusinessProcessModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31396,6 +32494,9 @@ class TargetBusinessProcessModel extends SomNode {
 /// SBP.7 Target Operating Model concept.
 class TargetOperatingModel extends SomNode {
   TargetOperatingModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31652,6 +32753,9 @@ class TechnicalEnvironmentStandards extends SomNode {
 class TechnicalFrameworkConcept extends SomNode {
   TechnicalFrameworkConcept(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31689,6 +32793,9 @@ class TechnicalFrameworkConcept extends SomNode {
 class TechnicalGoalConstraints extends SomNode {
   TechnicalGoalConstraints(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31701,6 +32808,9 @@ class TechnicalGoalConstraints extends SomNode {
 /// Technical dependencies affecting goal achievement.
 class TechnicalGoalDependencies extends SomNode {
   TechnicalGoalDependencies(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31764,6 +32874,9 @@ class TechnicalGoalTestCaseEntry extends SomNode {
 class TechnicalGoalTestCriteria extends SomNode {
   TechnicalGoalTestCriteria(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31781,6 +32894,9 @@ class TechnicalGoalTestCriteria extends SomNode {
 /// must achieve, such as performance, scalability, reliability, and security.
 class TechnicalGoals extends SomNode {
   TechnicalGoals(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31813,6 +32929,9 @@ class TechnicalInfrastructure extends SomNode {
 /// and technical debt.
 class TechnicalPainPoints extends SomNode {
   TechnicalPainPoints(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -31909,6 +33028,9 @@ class TechnicalRequirementEntryVerification extends SomNode {
 class TechnicalRequirements extends SomNode {
   TechnicalRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31922,6 +33044,9 @@ class TechnicalRequirements extends SomNode {
 /// 8.8. Security Requirements.
 class TechnicalSecurityRequirements extends SomNode {
   TechnicalSecurityRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32002,6 +33127,9 @@ class TechnologyStandardEntryScope extends SomNode {
 class TenantBoundaryEnforcementPolicy extends SomNode {
   TenantBoundaryEnforcementPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32018,6 +33146,9 @@ class TenantBoundaryEnforcementPolicy extends SomNode {
 /// Management.
 class TenantContextPolicy extends SomNode {
   TenantContextPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32044,6 +33175,9 @@ class TenantCustomizationEntry extends SomNode {
 class TenantDataIsolationPolicy extends SomNode {
   TenantDataIsolationPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32062,6 +33196,9 @@ class TenantDataIsolationPolicy extends SomNode {
 /// data-level isolation; this section focuses on authorization-level isolation.
 class TenantIsolation extends SomNode {
   TenantIsolation(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32093,6 +33230,9 @@ class TenantIsolation extends SomNode {
 /// and offboarding approval workflows.
 class TenantOnboardingPolicy extends SomNode {
   TenantOnboardingPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32191,6 +33331,9 @@ class TestScenarioTraceability extends SomNode {
 /// Overall test strategy for the project..
 class TestStrategy extends SomNode {
   TestStrategy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32464,6 +33607,9 @@ class ThrowawayPrototypeValue extends SomNode {
 class TlsProtocolPolicy extends SomNode {
   TlsProtocolPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32524,6 +33670,9 @@ class TlsRequirementsTermination extends SomNode {
 /// authentication tokens (JWT, opaque, refresh tokens, ID tokens).
 class TokenManagementPolicy extends SomNode {
   TokenManagementPolicy(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -32719,6 +33868,9 @@ class Tooling extends SomNode {
 class ToolingAndEnvironments extends SomNode {
   ToolingAndEnvironments(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32893,6 +34045,9 @@ class TrainingDeliverableRequirements extends SomNode {
 /// 14.1.3. Training Deliverables.
 class TrainingDeliverables extends SomNode {
   TrainingDeliverables(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -33424,6 +34579,9 @@ class TranslationWorkflow extends SomNode {
 class TransportSecurityPolicy extends SomNode {
   TransportSecurityPolicy(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -33481,6 +34639,9 @@ class TroubleshootingCapabilitiesRunbooks extends SomNode {
 /// or crosses.
 class TrustBoundaries extends SomNode {
   TrustBoundaries(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -33794,6 +34955,9 @@ class UiComponents extends SomNode {
 class UpgradeCycleFramework extends SomNode {
   UpgradeCycleFramework(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -33881,6 +35045,9 @@ class UseCaseScopeContext extends SomNode {
 class UseCaseTraceability extends SomNode {
   UseCaseTraceability(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -33945,6 +35112,9 @@ class UserAcceptanceTesting extends SomNode {
 class UserAccessPermissions extends SomNode {
   UserAccessPermissions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -33981,6 +35151,9 @@ class UserAccessPermissionsRestrictions extends SomNode {
 class UserAccessibilityNeeds extends SomNode {
   UserAccessibilityNeeds(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -33994,6 +35167,9 @@ class UserAccessibilityNeeds extends SomNode {
 /// lifecycle, from provisional creation to permanent deletion.
 class UserAccountStatesDefinition extends SomNode {
   UserAccountStatesDefinition(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34058,6 +35234,9 @@ class UserAttributeEntry extends SomNode {
 class UserAttributes extends SomNode {
   UserAttributes(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -34070,6 +35249,9 @@ class UserAttributes extends SomNode {
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 class UserAuthorization extends SomNode {
   UserAuthorization(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34238,6 +35420,9 @@ class UserGrowthProjectionsThresholds extends SomNode {
 class UserInteractionModel extends SomNode {
   UserInteractionModel(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -34267,6 +35452,9 @@ class UserInteractionModel extends SomNode {
 class UserInteractionModelSummary extends SomNode {
   UserInteractionModelSummary(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   /// Summary content for interaction model.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34277,6 +35465,9 @@ class UserInteractionModelSummary extends SomNode {
 /// Key touchpoints and journey map for this user category's experience.
 class UserJourney extends SomNode {
   UserJourney(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34303,6 +35494,9 @@ class UserJourney extends SomNode {
 class UserJourneyPainPointEntry extends SomNode {
   UserJourneyPainPointEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -34314,6 +35508,9 @@ class UserJourneyPainPointEntry extends SomNode {
 /// for registration, activation, modification, deactivation, and deletion.
 class UserLifecycle extends SomNode {
   UserLifecycle(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34396,6 +35593,9 @@ class UserLifecycleTransitionEntryEffects extends SomNode {
 class UserLifecycleTransitions extends SomNode {
   UserLifecycleTransitions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -34412,6 +35612,9 @@ class UserLifecycleTransitions extends SomNode {
 /// 9.1. User Management.
 class UserManagement extends SomNode {
   UserManagement(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34438,6 +35641,9 @@ class UserManagement extends SomNode {
 class UserManual extends SomNode {
   UserManual(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -34445,6 +35651,9 @@ class UserManual extends SomNode {
 /// User notification preferences.
 class UserNotificationPreferences extends SomNode {
   UserNotificationPreferences(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   /// Preferences content.
   String get content => doc.content('$path/content') ?? '';
@@ -34457,6 +35666,9 @@ class UserNotificationPreferences extends SomNode {
 /// and behavioral characteristics for user-centered design.
 class UserPersonaDetails extends SomNode {
   UserPersonaDetails(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34508,6 +35720,9 @@ class UserPersonaDetailsGoals extends SomNode {
 /// user archetype with goals, pain points, and context.
 class UserPersonas extends SomNode {
   UserPersonas(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34563,6 +35778,9 @@ class UserProvisioningToolsRoleManagement extends SomNode {
 class UserRegistrationProcess extends SomNode {
   UserRegistrationProcess(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -34578,6 +35796,9 @@ class UserRegistrationProcess extends SomNode {
 /// Training and onboarding requirements for this user category.
 class UserTrainingRequirements extends SomNode {
   UserTrainingRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34623,6 +35844,9 @@ class UtilityMenuItemEntryBehavior extends SomNode {
 /// Always-visible utility items: user menu, notifications, help, settings.
 class UtilityNavigation extends SomNode {
   UtilityNavigation(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34671,6 +35895,9 @@ class UtilityNavigationItemEntryDisplay extends SomNode {
 /// entities.
 class ValidationConstraints extends SomNode {
   ValidationConstraints(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34745,6 +35972,9 @@ class ValidationMessageTemplate extends SomNode {
 class ValidationRuleEntry extends SomNode {
   ValidationRuleEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -34755,6 +35985,9 @@ class ValidationRuleEntry extends SomNode {
 /// quantifiable benefits and return on investment analysis.
 class ValueProposition extends SomNode {
   ValueProposition(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34789,6 +36022,9 @@ class ValuePropositionReturnProfile extends SomNode {
 /// A single variations and exception entry.
 class VariationsAndExceptionEntry extends SomNode {
   VariationsAndExceptionEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -34986,6 +36222,9 @@ class VulnerabilityManagementPolicyReporting extends SomNode {
 class WarrantyAndSupport extends SomNode {
   WarrantyAndSupport(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -35136,6 +36375,9 @@ class WeightedQualityMatrix extends SomNode {
 class WireframesAndMockups extends SomNode {
   WireframesAndMockups(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 }
@@ -35176,6 +36418,9 @@ class WorkflowDecisionPoint extends SomNode {
 class WorkflowDescriptions extends SomNode {
   WorkflowDescriptions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -35200,6 +36445,9 @@ class WorkflowExceptionEntry extends SomNode {
 /// Workflow exception handling.
 class WorkflowExceptions extends SomNode {
   WorkflowExceptions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
@@ -35295,6 +36543,9 @@ class WorkflowTriggerEntry extends SomNode {
 /// Workflow triggers and initiation conditions.
 class WorkflowTriggers extends SomNode {
   WorkflowTriggers(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);

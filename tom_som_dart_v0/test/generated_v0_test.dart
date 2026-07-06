@@ -242,6 +242,43 @@ void main() {
     });
   });
 
+  group('canHaveContent structural content-slot predicate (§ item 10)', () {
+    test('a content-bearing section reports true', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      // Goals declares the standard `content` leaf.
+      expect(sbp.introductionAndScope.goals.canHaveContent, isTrue);
+    });
+
+    test('a container-only section reports false', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      // SystemsToReplace holds only child sections — no `content` leaf.
+      expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isFalse);
+    });
+
+    test('the document root (which has content) reports true', () {
+      expect(D00SolutionBlueprint(SpecDocument()).canHaveContent, isTrue);
+    });
+
+    test('it is structural — independent of whether content is written', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      final goals = sbp.introductionAndScope.goals;
+      expect(goals.canHaveContent, isTrue);
+      goals.content = 'Grow revenue';
+      expect(goals.canHaveContent, isTrue);
+      // A filled container-only sibling still reports false.
+      expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isFalse);
+    });
+
+    test('canHaveContent==true iff the .content accessor is usable', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      final goals = sbp.introductionAndScope.goals;
+      // The predicate is true exactly where reading/writing `.content` is valid.
+      expect(goals.canHaveContent, isTrue);
+      goals.content = 'x';
+      expect(goals.content, 'x');
+    });
+  });
+
   group('one-call loading (§ item 4)', () {
     const samplePath =
         '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';

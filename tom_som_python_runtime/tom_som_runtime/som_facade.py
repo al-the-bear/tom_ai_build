@@ -62,6 +62,26 @@ class SomNode:
         return not self.doc.has_values_under(self.path)
 
     @property
+    def can_have_content(self) -> bool:
+        """Whether this section **type** declares the standard ``content`` text
+        leaf — i.e. whether the ``content`` getter/setter exists on it (§ item
+        10).
+
+        This is a **structural / schema** predicate: a per-type constant of the
+        section's type, answering "*can* this section hold body text?" without
+        probing ``.content`` at runtime. Container-only sections (e.g.
+        ``SystemsToReplace``, which has no ``content`` leaf) inherit this
+        ``False`` default; content-bearing sections (e.g. ``Goals``) override it
+        to ``True``.
+
+        It is deliberately distinct from the two **state** predicates: the
+        generic :meth:`SpecDocument.has_content` answers "is a value present at
+        this leaf *now*?" and :attr:`is_empty` answers "is this subtree empty
+        *now*?". ``can_have_content`` never looks at the document — it describes
+        the model, not the data."""
+        return False
+
+    @property
     def spec_section_id(self) -> Optional[str]:
         """This node's section id when it is a list item (AA1 criterion 1 read),
         or ``None`` for non-list nodes (roots, complex/section children — their

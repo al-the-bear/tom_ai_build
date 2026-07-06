@@ -342,6 +342,48 @@ function testOneCallLoading() {
   }
 }
 
+// § item 10: the structural `canHaveContent` predicate — mirrors the Dart
+// reference suite. It answers "does this section TYPE declare the standard
+// `content` text leaf?" at the type level, without probing `.content` or the
+// document.
+function testCanHaveContent() {
+  const sbp = new m.D00SolutionBlueprint(new SpecDocument());
+
+  // Goals declares the standard `content` leaf.
+  check(
+    'canHaveContent.content-bearing-true',
+    sbp.introductionAndScope.goals.canHaveContent === true,
+    String(sbp.introductionAndScope.goals.canHaveContent),
+  );
+
+  // SystemsToReplace holds only child sections — no `content` leaf.
+  check(
+    'canHaveContent.container-only-false',
+    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+    String(sbp.introductionAndScope.systemsToReplace.canHaveContent),
+  );
+
+  // The document root itself has a content leaf.
+  check(
+    'canHaveContent.root-true',
+    new m.D00SolutionBlueprint(new SpecDocument()).canHaveContent === true,
+    String(new m.D00SolutionBlueprint(new SpecDocument()).canHaveContent),
+  );
+
+  // Structural, not state — independent of whether content is written.
+  {
+    const goals = sbp.introductionAndScope.goals;
+    check('canHaveContent.structural.before', goals.canHaveContent === true);
+    goals.content = 'Grow revenue';
+    check('canHaveContent.structural.after', goals.canHaveContent === true);
+    // A filled container-only sibling still reports false.
+    check(
+      'canHaveContent.structural.sibling-false',
+      sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+    );
+  }
+}
+
 function _arraysEqual(a, b) {
   if (a.length !== b.length) {
     return false;
@@ -361,6 +403,7 @@ function main() {
   testSectionIds();
   testAbsenceSemantics();
   testOneCallLoading();
+  testCanHaveContent();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

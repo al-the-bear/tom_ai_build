@@ -333,6 +333,36 @@ public final class GeneratedModelTest {
     }
   }
 
+  // Item 10: the structural `canHaveContent()` per-type predicate — "does this
+  // section TYPE declare the standard `content` leaf?" — answered without
+  // probing `.content()` and without ever looking at the document. Distinct from
+  // the state predicates (`hasContent(path)` / `isEmpty()`).
+  private static void testCanHaveContent() {
+    SpecDocument doc = new SpecDocument();
+    TomSomV0.D00SolutionBlueprint sbp = new TomSomV0.D00SolutionBlueprint(doc);
+
+    // A content-bearing section (Goals declares the standard `content` leaf).
+    check("canhavecontent.goals-true",
+        sbp.introductionAndScope().goals().canHaveContent());
+
+    // A container-only section (SystemsToReplace holds only child sections).
+    check("canhavecontent.systemstoreplace-false",
+        !sbp.introductionAndScope().systemsToReplace().canHaveContent());
+
+    // The document root itself declares a `content` leaf → true.
+    check("canhavecontent.root-true", sbp.canHaveContent());
+
+    // Structural — independent of whether content is written. The content-bearing
+    // section stays true after a write, and the container-only sibling stays
+    // false regardless.
+    TomSomV0.Goals goals = sbp.introductionAndScope().goals();
+    check("canhavecontent.structural-before", goals.canHaveContent());
+    goals.content("Grow revenue");
+    check("canhavecontent.structural-after", goals.canHaveContent());
+    check("canhavecontent.sibling-still-false",
+        !sbp.introductionAndScope().systemsToReplace().canHaveContent());
+  }
+
   public static void main(String[] args) {
     testRootAndParity();
     testModelVersion();
@@ -340,6 +370,7 @@ public final class GeneratedModelTest {
     testSectionIds();
     testAbsenceSemantics();
     testOneCallLoading();
+    testCanHaveContent();
 
     int total = passed + failures.size();
     if (!failures.isEmpty()) {

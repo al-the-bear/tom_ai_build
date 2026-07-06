@@ -392,6 +392,14 @@ class SomRustEmitter {
         ..writeln('\t}');
     }
 
+    // § item 10: a per-type `can_have_content` structural predicate answering
+    // "does this section TYPE declare the standard `content` text leaf?" — can
+    // this section hold body text? — without probing the document. Rust facades
+    // do not inherit a base node, so — mirroring the per-type `editability_for`
+    // emission (§ item 8) — it is emitted on every generated type as a literal
+    // boolean (`true` for content-bearing types, `false` otherwise).
+    _emitCanHaveContent(b, _hasContentLeaf(cls));
+
     final usedAcc = <String>{};
     for (final f in cls.fields) {
       b.writeln();
@@ -399,6 +407,33 @@ class SomRustEmitter {
     }
     b.writeln('}');
     return b.toString();
+  }
+
+  /// Whether [cls] declares the standard `content` text leaf — the structural
+  /// signal that its generated facade carries a `.content` accessor, so
+  /// `can_have_content` is `true` (§ item 10). Same predicate as the Dart port's
+  /// `_hasContentLeaf`.
+  bool _hasContentLeaf(SpecClass cls) => cls.fields
+      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
+
+  /// Emits the per-type `can_have_content` structural predicate (§ item 10),
+  /// returning the literal [value] — `true` for a content-bearing type, `false`
+  /// for a container-only one. Mirrors the per-type `editability_for` emission
+  /// (§ item 8): Rust facades hold a `som::SomNode` but do not inherit from it,
+  /// so the predicate is a compile-time constant baked onto each generated type
+  /// rather than a base-node override.
+  void _emitCanHaveContent(StringBuffer b, bool value) {
+    b
+      ..writeln()
+      ..writeln('\t/// Whether this section **type** declares the standard '
+          '`content` text leaf')
+      ..writeln('\t/// (§ item 10) — a **structural** predicate answering "can '
+          'this section hold')
+      ..writeln('\t/// body text?" as a compile-time constant, without probing '
+          'the document.')
+      ..writeln('\tpub fn can_have_content(&self) -> bool {')
+      ..writeln('\t\t$value')
+      ..writeln('\t}');
   }
 
   void _writeField(
@@ -517,6 +552,9 @@ class SomRustEmitter {
       ..writeln('\tpub fn new(doc: som::DocRef, path: String) -> $name {')
       ..writeln('\t\t$name { node: som::SomNode::new(doc, path) }')
       ..writeln('\t}');
+    // A @Form section never declares a `content` text leaf (its typed accessors
+    // are its form fields), so `can_have_content` is always `false` here.
+    _emitCanHaveContent(b, false);
     final usedAcc = <String>{};
     for (final ff in f.formFields) {
       final field = '"${_rustStr(ff.name)}"';

@@ -73,6 +73,25 @@ class SomNode {
   get isEmpty() {
     return !this.doc.hasValuesUnder(this.path);
   }
+
+  /**
+   * Whether this section **type** declares the standard `content` text leaf —
+   * i.e. whether the `.content` getter/setter exists on it: "can this section
+   * hold body text?" (§ item 10). A **structural / schema** predicate answered
+   * at the type level, without probing `.content`.
+   *
+   * The base returns `false`; content-bearing generated subclasses (e.g.
+   * `Goals`) override it to `true`. It is deliberately distinct from the two
+   * **state** predicates: {@link SpecDocument#hasContent} answers "is a value
+   * present at this leaf *now*?" and {@link isEmpty} answers "is this subtree
+   * empty *now*?". `canHaveContent` never looks at the document — it describes
+   * the model, not the data.
+   *
+   * @returns {boolean}
+   */
+  get canHaveContent() {
+    return false;
+  }
 }
 
 /**
