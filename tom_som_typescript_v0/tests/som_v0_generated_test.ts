@@ -22,7 +22,11 @@
  * `package.json`), so the test is portable across checkouts.
  */
 
-import { SpecDocument, SomVersionError } from 'tom_som_typescript_runtime';
+import {
+  SpecDocument,
+  SomVersionError,
+  SpecSectionIdCollision,
+} from 'tom_som_typescript_runtime';
 import { D00SolutionBlueprint } from '../tom_som_typescript_v0';
 
 let _passed = 0;
@@ -112,10 +116,104 @@ function testVersionCheck(): void {
   }
 }
 
+// A fresh operationalMetrics list (a `@SectionIdPattern` list, CUOPME-OPER-xxx)
+// anchored under the SBP root.
+function freshLandscape() {
+  return new D00SolutionBlueprint(new SpecDocument()).currentLandscape;
+}
+
+// month 3 → C, day 5 → E (JS months are 0-based, so March is 2).
+const MAR5 = new Date(2026, 2, 5);
+
+// Criteria 3–6: pattern-generated section ids, override + uniqueness, and the
+// delete-renumbering rules, all through the real generated pattern list.
+function testSectionIds(): void {
+  // Criterion 3 + 4: generated id = prefix + two-letter-date + within-day number.
+  {
+    const csa = freshLandscape();
+    const id1 = csa.operationalMetrics.add(null, MAR5).$sectionId;
+    const id2 = csa.operationalMetrics.add(null, MAR5).$sectionId;
+    check('sid.gen.first', id1 === 'CUOPME-OPER-CE1', String(id1));
+    check('sid.gen.second', id2 === 'CUOPME-OPER-CE2', String(id2));
+  }
+
+  // Criterion 5: override to an arbitrary-but-unique suffix succeeds; a
+  // duplicate raises SpecSectionIdCollision.
+  {
+    const csa = freshLandscape();
+    csa.operationalMetrics.add(null, MAR5); // CUOPME-OPER-CE1
+    const second = csa.operationalMetrics.add(null, MAR5);
+    second.$sectionId = 'CUOPME-OPER-ZZ9';
+    check(
+      'sid.override.unique',
+      csa.operationalMetrics.sectionIds.includes('CUOPME-OPER-ZZ9'),
+      String(csa.operationalMetrics.sectionIds),
+    );
+    try {
+      csa.operationalMetrics.at(0).$sectionId = 'CUOPME-OPER-ZZ9';
+      check('sid.override.collision', false, 'expected SpecSectionIdCollision');
+    } catch (e) {
+      check('sid.override.collision', e instanceof SpecSectionIdCollision, String(e));
+    }
+    // Add-time override collision also raises.
+    try {
+      csa.operationalMetrics.add('CUOPME-OPER-ZZ9');
+      check('sid.add.collision', false, 'expected SpecSectionIdCollision');
+    } catch (e) {
+      check('sid.add.collision', e instanceof SpecSectionIdCollision, String(e));
+    }
+  }
+
+  // Criterion 6a: deleting a *middle* item does NOT renumber — a later same-day
+  // add takes max+1, so numbering may stay non-consecutive.
+  {
+    const csa = freshLandscape();
+    csa.operationalMetrics.add(null, MAR5); // CE1
+    csa.operationalMetrics.add(null, MAR5); // CE2
+    csa.operationalMetrics.add(null, MAR5); // CE3
+    csa.operationalMetrics.removeAt(1); // remove CE2
+    check(
+      'sid.delete-middle.no-renumber',
+      _arraysEqual(csa.operationalMetrics.sectionIds, [
+        'CUOPME-OPER-CE1',
+        'CUOPME-OPER-CE3',
+      ]),
+      String(csa.operationalMetrics.sectionIds),
+    );
+    const next = csa.operationalMetrics.add(null, MAR5).$sectionId;
+    check('sid.delete-middle.next', next === 'CUOPME-OPER-CE4', String(next));
+  }
+
+  // Criterion 6b: deleting the *last* item frees its number; a same-day add
+  // reuses it.
+  {
+    const csa = freshLandscape();
+    csa.operationalMetrics.add(null, MAR5); // CE1
+    csa.operationalMetrics.add(null, MAR5); // CE2
+    csa.operationalMetrics.add(null, MAR5); // CE3
+    csa.operationalMetrics.removeAt(2); // remove last (CE3)
+    const reused = csa.operationalMetrics.add(null, MAR5).$sectionId;
+    check('sid.delete-last.reuse', reused === 'CUOPME-OPER-CE3', String(reused));
+  }
+}
+
+function _arraysEqual(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function main(): number {
   testRootAndParity();
   testModelVersion();
   testVersionCheck();
+  testSectionIds();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

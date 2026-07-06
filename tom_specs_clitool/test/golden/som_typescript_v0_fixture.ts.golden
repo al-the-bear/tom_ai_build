@@ -100,7 +100,7 @@ export class SolutionBlueprint extends SomNode {
   }
 
   get risks(): SomList<Risk> {
-    return new SomList(this.doc, this.path + "/risks", (d: SpecDocument, p: string) => new Risk(d, p));
+    return new SomList(this.doc, this.path + "/risks", (d: SpecDocument, p: string) => new Risk(d, p), "RISK-ITEM-xxx");
   }
 
   get tags(): SomList<SomScalar> {

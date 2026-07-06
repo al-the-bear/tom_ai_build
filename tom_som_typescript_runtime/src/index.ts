@@ -45,6 +45,17 @@ export type { SpecNodeKindValue } from './spec_reflection';
 export { SpecDocument } from './spec_document';
 export type { DocumentJson, ListJson } from './spec_document';
 
+// section-id derivation (AA1 criteria 3–6)
+export {
+  encodeTwoLetterDate,
+  sectionIdPatternPrefix,
+  SpecSectionIdCollision,
+  generateListItemSectionId,
+} from './spec_section_id';
+
+// serialization order (AA1 criterion 7)
+export { SpecSerializationOrder } from './spec_serialization_order';
+
 // validator
 export {
   SpecValidationCode,

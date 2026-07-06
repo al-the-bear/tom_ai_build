@@ -103,6 +103,7 @@ export class SpecField {
   help: string | null;
   sectionId: string | null;
   sectionIdPattern: string | null;
+  serializationOrder: number | null;
   elementType: string | null;
   elementIsComplex: boolean;
   min: number | null;
@@ -121,6 +122,7 @@ export class SpecField {
     help?: string | null;
     sectionId?: string | null;
     sectionIdPattern?: string | null;
+    serializationOrder?: number | null;
     elementType?: string | null;
     elementIsComplex?: boolean;
     min?: number | null;
@@ -139,6 +141,8 @@ export class SpecField {
     this.sectionId = props.sectionId != null ? props.sectionId : null;
     this.sectionIdPattern =
       props.sectionIdPattern != null ? props.sectionIdPattern : null;
+    this.serializationOrder =
+      props.serializationOrder != null ? props.serializationOrder : null;
     this.elementType = props.elementType != null ? props.elementType : null;
     this.elementIsComplex = Boolean(props.elementIsComplex || false);
     this.min = props.min != null ? props.min : null;
@@ -159,6 +163,10 @@ export class SpecField {
       help: j.help,
       sectionId: j.sectionId,
       sectionIdPattern: j.sectionIdPattern,
+      serializationOrder:
+        j.serializationOrder != null
+          ? parseInt(j.serializationOrder, 10)
+          : null,
       elementType: j.elementType,
       elementIsComplex: Boolean(j.elementIsComplex || false),
       min: j.min,

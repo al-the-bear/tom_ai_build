@@ -46,6 +46,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'risks',
               'kind': 'list',
               'sectionId': 'risks',
+              'sectionIdPattern': 'RISK-ITEM-xxx',
               'elementType': 'Risk',
               'elementIsComplex': true,
               'min': 2,
@@ -354,6 +355,27 @@ void main() {
           .generateLibrary();
       expect(
           justRoot, contains('export class CurrentLandscapeAssessment extends SomNode'));
+    });
+
+    test('a pattern-bearing list emits its @SectionIdPattern; a scalar list '
+        'does not (AA1 criteria 3–5)', () {
+      final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
+      // The complex `risks` list carries a pattern → the SomList is constructed
+      // with the trailing pattern argument so the facade can generate section
+      // ids.
+      expect(
+          RegExp(r'get risks\(\): SomList<Risk> \{[\s\S]*?new SomList\('
+                  r'this\.doc,[\s\S]*?"RISK-ITEM-xxx"\);')
+              .hasMatch(source),
+          isTrue,
+          reason: 'risks getter must pass the pattern to SomList');
+      // The pattern-less scalar `tags` list must NOT get a pattern argument.
+      final tagsBody =
+          RegExp(r'get tags\(\): SomList<SomScalar> \{\n.*return new SomList\(.*\);')
+              .firstMatch(source)!
+              .group(0)!;
+      expect(tagsBody, isNot(contains('RISK-ITEM-xxx')));
+      expect(tagsBody, endsWith('new SomScalar(d, p));'));
     });
   });
 }

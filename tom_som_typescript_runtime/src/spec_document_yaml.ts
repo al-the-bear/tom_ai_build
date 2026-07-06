@@ -16,6 +16,7 @@
  */
 
 import { SpecDocument } from './spec_document';
+import { SpecSerializationOrder } from './spec_serialization_order';
 import * as yaml from './yaml';
 
 /** The on-disk format version (independent of the model-version stamp). */
@@ -166,7 +167,16 @@ function _writeHeader(b: _Buffer, modelVersion: string | null): void {
   }
 }
 
-function _writeDocumentPass(b: _Buffer, doc: any): void {
+function _writeDocumentPass(
+  b: _Buffer,
+  doc: any,
+  order: SpecSerializationOrder | null = null,
+): void {
+  const orderKeys = (m: Record<string, unknown>): string[] =>
+    order === null
+      ? _sortedStringKeys(m)
+      : order.orderPaths(Object.keys(m).map((k) => String(k)));
+
   const content = doc.content;
   const forms = doc.forms;
   const lists = doc.lists;
@@ -182,14 +192,14 @@ function _writeDocumentPass(b: _Buffer, doc: any): void {
     Object.keys(content).length > 0
   ) {
     b.writeln('  content:');
-    for (const k of _sortedStringKeys(content)) {
+    for (const k of orderKeys(content)) {
       _writeScalar(b, 4, k, String(content[k]));
     }
   }
 
   if (forms && typeof forms === 'object' && Object.keys(forms).length > 0) {
     b.writeln('  forms:');
-    for (const k of _sortedStringKeys(forms)) {
+    for (const k of orderKeys(forms)) {
       const fields = forms[k];
       if (
         !fields ||
@@ -199,7 +209,14 @@ function _writeDocumentPass(b: _Buffer, doc: any): void {
         continue;
       }
       b.writeln(`    ${_yamlKey(k)}:`);
-      for (const f of _sortedStringKeys(fields)) {
+      const fieldKeys =
+        order === null
+          ? _sortedStringKeys(fields)
+          : order.orderFormFields(
+              k,
+              Object.keys(fields).map((f) => String(f)),
+            );
+      for (const f of fieldKeys) {
         _writeScalar(b, 6, f, String(fields[f]));
       }
     }
@@ -207,7 +224,7 @@ function _writeDocumentPass(b: _Buffer, doc: any): void {
 
   if (lists && typeof lists === 'object' && Object.keys(lists).length > 0) {
     b.writeln('  lists:');
-    for (const k of _sortedStringKeys(lists)) {
+    for (const k of orderKeys(lists)) {
       const spec = lists[k];
       if (!spec || typeof spec !== 'object') {
         continue;
@@ -230,14 +247,19 @@ function _writeDocumentPass(b: _Buffer, doc: any): void {
 /**
  * Serializes `document` (a {@link SpecDocument}) to a header + `version:` (+
  * `modelVersion:`) + `document:` pass.
+ *
+ * When `order` (a {@link SpecSerializationOrder}) is supplied, members are
+ * emitted in `@SerializationOrder` order (AA1 criterion 7); otherwise keys stay
+ * alphabetical (the diff-stable default the editor relies on).
  */
 export function encode(
   document: SpecDocument,
   modelVersion: string | null = null,
+  order: SpecSerializationOrder | null = null,
 ): string {
   const b = new _Buffer();
   _writeHeader(b, modelVersion);
-  _writeDocumentPass(b, document.toJson());
+  _writeDocumentPass(b, document.toJson(), order);
   return b.toString();
 }
 

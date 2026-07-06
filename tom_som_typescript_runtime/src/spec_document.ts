@@ -16,12 +16,24 @@
  *
  * List item paths are `"<listPath>-<seq>"` where `seq` is a per-list monotonic
  * counter that never reuses a number.
+ *
+ * Each list item also carries a **section id** (AA1 criteria 3–6): the
+ * document-semantic identity generated from the list field's
+ * `@SectionIdPattern`. This is distinct from the internal `-<seq>` path key:
+ * the seq path keeps nested values attached across edits (never renumbered),
+ * while the section id is what the document exposes and may be overridden
+ * ({@link SpecDocument.setItemSectionId}, criterion 5) or reused same-day after
+ * the last item is deleted (criterion 6). Section ids live in `_itemSectionId`,
+ * keyed by the internal item path.
  */
+
+import { SpecSectionIdCollision } from './spec_section_id';
 
 /** The plain-data shape of a single list store entry. */
 export interface ListJson {
   seq: number;
   items: string[];
+  ids?: Record<string, string>;
 }
 
 /** A {@link SpecDocument.toJson}-shaped plain-data view of a document. */
@@ -36,6 +48,7 @@ export class SpecDocument {
   private _form: Map<string, Map<string, string>> = new Map();
   private _listItems: Map<string, string[]> = new Map();
   private _listSeq: Map<string, number> = new Map();
+  private _itemSectionId: Map<string, string> = new Map();
 
   // --- content ------------------------------------------------------------
 
@@ -91,8 +104,19 @@ export class SpecDocument {
     return items ? items.slice() : [];
   }
 
-  /** Appends a new item to the list at `listPath` and returns its stable path. */
-  addListItem(listPath: string): string {
+  /**
+   * Appends a new item to the list at `listPath` and returns its stable path.
+   *
+   * When `sectionId` is given it becomes the item's section id after a
+   * uniqueness check against the list's other items (AA1 criterion 5); a
+   * collision throws {@link SpecSectionIdCollision}. Section-id *generation*
+   * from a `@SectionIdPattern` lives in the caller (it needs the pattern); this
+   * layer only stores and guards uniqueness.
+   */
+  addListItem(listPath: string, sectionId: string | null = null): string {
+    if (sectionId !== null && sectionId !== undefined) {
+      this._assertSectionIdFree(listPath, sectionId, null);
+    }
     const seq = (this._listSeq.get(listPath) || 0) + 1;
     this._listSeq.set(listPath, seq);
     const itemPath = `${listPath}-${seq}`;
@@ -102,7 +126,86 @@ export class SpecDocument {
       this._listItems.set(listPath, items);
     }
     items.push(itemPath);
+    if (sectionId !== null && sectionId !== undefined) {
+      this._itemSectionId.set(itemPath, sectionId);
+    }
     return itemPath;
+  }
+
+  /**
+   * The section id assigned to the list item at `itemPath`, or `null` if none
+   * has been set (AA1 criterion 1 read path).
+   */
+  itemSectionId(itemPath: string): string | null {
+    return this._itemSectionId.has(itemPath)
+      ? (this._itemSectionId.get(itemPath) as string)
+      : null;
+  }
+
+  /**
+   * Overrides the section id of the list item at `itemPath` (AA1 criterion 5).
+   *
+   * Validates that the new `id` is unique among the *other* items of the same
+   * owning list; a collision throws {@link SpecSectionIdCollision}. Assigning
+   * an id equal to the item's current id is a no-op. Throws if `itemPath` is
+   * not a live list item.
+   */
+  setItemSectionId(itemPath: string, id: string): void {
+    const owningList = this._owningListOf(itemPath);
+    if (owningList === null) {
+      throw new Error(`'${itemPath}' is not a live list item`);
+    }
+    if (this._itemSectionId.get(itemPath) === id) {
+      return;
+    }
+    this._assertSectionIdFree(owningList, id, itemPath);
+    this._itemSectionId.set(itemPath, id);
+  }
+
+  /**
+   * The section ids currently assigned within the list at `listPath`, in item
+   * order (items without an id are skipped). Feeds both id generation
+   * (`existingIds`) and uniqueness checks.
+   */
+  listItemSectionIds(listPath: string): string[] {
+    const items = this._listItems.get(listPath) || [];
+    const out: string[] = [];
+    for (const itemPath of items) {
+      if (this._itemSectionId.has(itemPath)) {
+        out.push(this._itemSectionId.get(itemPath) as string);
+      }
+    }
+    return out;
+  }
+
+  /** The internal `_listItems` entry that owns `itemPath`, or `null`. */
+  private _owningListOf(itemPath: string): string | null {
+    for (const [key, items] of this._listItems) {
+      if (items.includes(itemPath)) {
+        return key;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Throws {@link SpecSectionIdCollision} if `id` is already used by an item of
+   * `listPath` other than `exceptItemPath`.
+   */
+  private _assertSectionIdFree(
+    listPath: string,
+    id: string,
+    exceptItemPath: string | null,
+  ): void {
+    const items = this._listItems.get(listPath) || [];
+    for (const itemPath of items) {
+      if (itemPath === exceptItemPath) {
+        continue;
+      }
+      if (this._itemSectionId.get(itemPath) === id) {
+        throw new SpecSectionIdCollision(id, listPath);
+      }
+    }
   }
 
   /**
@@ -141,6 +244,7 @@ export class SpecDocument {
       this._form,
       this._listItems,
       this._listSeq,
+      this._itemSectionId,
     ];
     for (const store of stores) {
       for (const key of Array.from(store.keys())) {
@@ -237,12 +341,24 @@ export class SpecDocument {
       const lists: Record<string, ListJson> = {};
       for (const k of Array.from(this._listItems.keys()).sort()) {
         const items = this._listItems.get(k) as string[];
-        lists[k] = {
+        const entry: ListJson = {
           seq: this._listSeq.has(k)
             ? (this._listSeq.get(k) as number)
             : items.length,
           items: items.slice(),
         };
+        const ids: Record<string, string> = {};
+        let hasIds = false;
+        for (const itemPath of items) {
+          if (this._itemSectionId.has(itemPath)) {
+            ids[itemPath] = this._itemSectionId.get(itemPath) as string;
+            hasIds = true;
+          }
+        }
+        if (hasIds) {
+          entry.ids = ids;
+        }
+        lists[k] = entry;
       }
       out.lists = lists;
     }
@@ -258,6 +374,7 @@ export class SpecDocument {
     this._form.clear();
     this._listItems.clear();
     this._listSeq.clear();
+    this._itemSectionId.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -303,6 +420,16 @@ export class SpecDocument {
             this._listSeq.set(String(k), parseInt(seq, 10));
           } else {
             this._listSeq.set(String(k), itemList.length);
+          }
+          const ids = spec.ids;
+          if (ids && typeof ids === 'object') {
+            for (const [itemPath, id] of Object.entries(
+              ids as Record<string, unknown>,
+            )) {
+              if (id !== null && id !== undefined) {
+                this._itemSectionId.set(String(itemPath), String(id));
+              }
+            }
           }
         }
       }

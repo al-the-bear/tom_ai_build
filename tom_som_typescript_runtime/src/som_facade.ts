@@ -14,6 +14,7 @@
  */
 
 import { SpecDocument } from './spec_document';
+import { generateListItemSectionId } from './spec_section_id';
 
 /**
  * The base class every generated typed facade class extends.
@@ -30,6 +31,34 @@ export class SomNode {
   constructor(doc: SpecDocument, path: string) {
     this.doc = doc;
     this.path = path;
+  }
+
+  /**
+   * This node's section id when it is a list item (AA1 criterion 1 read), or
+   * `null` for non-list nodes (roots, complex/section children — their id is
+   * the fixed `@SectionId` already embedded in {@link path}).
+   *
+   * Named `$sectionId` — a name the TypeScript emitter never produces for a
+   * model field accessor (the emitter's identifier sanitiser only appends `_`
+   * for keywords/base members and never prefixes `$`) — so this structural
+   * accessor can never collide with a typed field a generated subclass emits
+   * (mirrors the Dart `$sectionId` collision-proofing, decision AE-D1).
+   */
+  get $sectionId(): string | null {
+    return this.doc.itemSectionId(this.path);
+  }
+
+  /**
+   * Overrides this list item's section id (AA1 criterion 5): an arbitrary
+   * suffix, validated unique within the owning list. Throws
+   * {@link SpecSectionIdCollision} on a duplicate, or an `Error` if this node is
+   * not a live list item. Assigning `null`/`undefined` is a no-op.
+   */
+  set $sectionId(id: string | null) {
+    if (id === null || id === undefined) {
+      return;
+    }
+    this.doc.setItemSectionId(this.path, id);
   }
 }
 
@@ -61,16 +90,24 @@ export class SomScalar extends SomNode {
 export class SomList<T> {
   doc: SpecDocument;
   listPath: string;
+  /**
+   * The list field's `@SectionIdPattern` (e.g. `DACEN-ITEM-xxx`), or `null` for
+   * a pattern-less (scalar) list. Drives section-id generation on {@link add}
+   * (AA1 criteria 3–5).
+   */
+  pattern: string | null;
   private _factory: (doc: SpecDocument, path: string) => T;
 
   constructor(
     doc: SpecDocument,
     listPath: string,
     factory: (doc: SpecDocument, path: string) => T,
+    pattern: string | null = null,
   ) {
     this.doc = doc;
     this.listPath = listPath;
     this._factory = factory;
+    this.pattern = pattern;
   }
 
   /** The number of items currently in the list. */
@@ -90,9 +127,37 @@ export class SomList<T> {
     return this._factory(this.doc, this.doc.listItems(this.listPath)[index]);
   }
 
-  /** Appends a new item and returns its element facade. */
-  add(): T {
-    return this._factory(this.doc, this.doc.addListItem(this.listPath));
+  /** The section ids currently assigned within this list, in item order. */
+  get sectionIds(): string[] {
+    return this.doc.listItemSectionIds(this.listPath);
+  }
+
+  /**
+   * Appends a new item and returns its element facade.
+   *
+   * When the list has a {@link pattern}, the new item is assigned a section id
+   * (AA1 criteria 3–5): `sectionId` if given (an override, validated unique —
+   * throws {@link SpecSectionIdCollision} on a collision), otherwise one
+   * generated from the pattern using `date` (a `Date`, defaulting to today) for
+   * the two-letter-date component. A pattern-less list ignores both arguments.
+   */
+  add(sectionId: string | null = null, date: Date | null = null): T {
+    if (this.pattern === null || this.pattern === undefined) {
+      return this._factory(this.doc, this.doc.addListItem(this.listPath));
+    }
+    let id: string;
+    if (sectionId !== null && sectionId !== undefined) {
+      id = sectionId;
+    } else {
+      const when = date || new Date();
+      id = generateListItemSectionId(
+        this.pattern,
+        when.getMonth() + 1,
+        when.getDate(),
+        this.doc.listItemSectionIds(this.listPath),
+      );
+    }
+    return this._factory(this.doc, this.doc.addListItem(this.listPath, id));
   }
 
   /** Removes the item at `index` and every value nested beneath it. */

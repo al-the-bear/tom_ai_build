@@ -311,18 +311,22 @@ class SomTypeScriptEmitter {
         break;
       case SpecFieldKind.list:
         _writeComment(b, f.doc, '  ');
+        // The `@SectionIdPattern` (if any) becomes SomList's 4th constructor
+        // argument, driving list-item section-id generation (AA1 criteria 3–5).
+        final patternArg =
+            f.sectionIdPattern != null ? ', "${_jstr(f.sectionIdPattern!)}"' : '';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
           b
             ..writeln('  get $acc(): SomList<$et> {')
             ..writeln('    return new SomList(this.doc, $childPath, '
-                '(d: SpecDocument, p: string) => new $et(d, p));')
+                '(d: SpecDocument, p: string) => new $et(d, p)$patternArg);')
             ..writeln('  }');
         } else {
           b
             ..writeln('  get $acc(): SomList<SomScalar> {')
             ..writeln('    return new SomList(this.doc, $childPath, '
-                '(d: SpecDocument, p: string) => new SomScalar(d, p));')
+                '(d: SpecDocument, p: string) => new SomScalar(d, p)$patternArg);')
             ..writeln('  }');
         }
         break;
