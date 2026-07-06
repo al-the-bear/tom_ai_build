@@ -11479,6 +11479,11 @@ void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
 int d00_solution_blueprint_new(D00SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d00_solution_blueprint_object_model_version(const D00SolutionBlueprint *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d00_solution_blueprint_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d00_solution_blueprint_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11535,6 +11540,11 @@ DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_roll
 int d01_current_landscape_assessment_new(D01CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d01_current_landscape_assessment_object_model_version(const D01CurrentLandscapeAssessment *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d01_current_landscape_assessment_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d01_current_landscape_assessment_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11582,6 +11592,11 @@ MigrationConsiderations d01_current_landscape_assessment_migration_consideration
 int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d02_target_operating_model_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d02_target_operating_model_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11635,6 +11650,11 @@ SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOpera
 int d03_information_model_new(D03InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d03_information_model_object_model_version(const D03InformationModel *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d03_information_model_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d03_information_model_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11701,6 +11721,11 @@ IntegrityConstraints d03_information_model_integrity_constraints(const D03Inform
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d04_requirements_specification_object_model_version(const D04RequirementsSpecification *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d04_requirements_specification_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d04_requirements_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11751,6 +11776,11 @@ RequirementCoverage d04_requirements_specification_requirement_coverage(const D0
 int d05_interaction_scenarios_new(D05InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d05_interaction_scenarios_object_model_version(const D05InteractionScenarios *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d05_interaction_scenarios_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d05_interaction_scenarios_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11797,6 +11827,11 @@ UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05Int
 int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d06_architecture_technology_specification_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d06_architecture_technology_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11851,6 +11886,11 @@ TranslationRequirements d06_architecture_technology_specification_translation_re
 int d07_integration_interface_specification_new(D07IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d07_integration_interface_specification_object_model_version(const D07IntegrationInterfaceSpecification *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d07_integration_interface_specification_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d07_integration_interface_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11905,6 +11945,11 @@ CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundar
 int d08_security_access_specification_new(D08SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d08_security_access_specification_object_model_version(const D08SecurityAccessSpecification *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d08_security_access_specification_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d08_security_access_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -11952,6 +11997,11 @@ ComplianceFramework d08_security_access_specification_compliance_framework(const
 int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d09_experience_design_specification_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d09_experience_design_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -12007,6 +12057,11 @@ WireframesAndMockups d09_experience_design_specification_wireframes_and_mockups(
 int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d10_quality_acceptance_plan_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d10_quality_acceptance_plan_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -12076,6 +12131,11 @@ WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePla
 int d11_delivery_roadmap_new(D11DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d11_delivery_roadmap_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d11_delivery_roadmap_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
@@ -12126,6 +12186,11 @@ UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11Deli
 int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
 // Returns this object model's own model version (major.minor), per §2.1.
 const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self);
+// Classifies whether a document authored under `document_version` is editable
+// by this object model, without reporting an error (§ item 8) — the non-erroring
+// companion to d12_transition_rollout_plan_new's §2.2 check, so a read-only viewer can branch
+// instead of handling the constructor error. `document_version` may be NULL/"".
+SomEditability d12_transition_rollout_plan_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →

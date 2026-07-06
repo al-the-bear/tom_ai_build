@@ -19,6 +19,7 @@ The package `tom_som_runtime` mirrors the eight portable runtime modules:
 | `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec. |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
+| `SomEditability`, `SomVersionError` | §2.2 version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
 
 It holds **no document values of its own** and contains **no generated typed
 classes** — those belong to the per-language `tom_som_<lang>_v0` packages.

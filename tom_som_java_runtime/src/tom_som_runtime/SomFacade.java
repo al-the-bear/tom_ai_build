@@ -61,6 +61,35 @@ public final class SomFacade {
   }
 
   /**
+   * Classifies a document's editability under the §2.2 rules <b>without
+   * throwing</b> (§ item 8). {@code generated} is the object model's own
+   * {@code major.minor} version; {@code documentVersion} is the document's
+   * recorded authoring stamp ({@code null}/empty for a brand-new, never-stamped
+   * document).
+   *
+   * <p>This is the single definition of the version rules;
+   * {@link #checkModelVersion(String, String)} throws based on the value
+   * returned here, so the two never diverge.
+   */
+  public static SomEditability somEditabilityFor(String generated, String documentVersion) {
+    if (documentVersion == null || documentVersion.isEmpty()) {
+      return SomEditability.EDITABLE;
+    }
+    SomVersion gen = SomVersion.parse(generated);
+    SomVersion doc = SomVersion.tryParse(documentVersion);
+    if (doc == null) {
+      return SomEditability.INVALID_VERSION;
+    }
+    if (doc.major != gen.major) {
+      return SomEditability.READ_ONLY_CROSS_MAJOR;
+    }
+    if (doc.minor > gen.minor) {
+      return SomEditability.REJECTED_NEWER_MINOR;
+    }
+    return SomEditability.EDITABLE;
+  }
+
+  /**
    * The instantiation-time version check every generated root facade performs
    * (§2.2). {@code generated} is the object model's own {@code major.minor}
    * version; {@code documentVersion} is the document's recorded authoring stamp
@@ -73,33 +102,38 @@ public final class SomFacade {
    *   <li>a different major version is always rejected.
    * </ul>
    *
+   * <p>Throws based on {@link #somEditabilityFor(String, String)}, so the check
+   * and the classification never diverge.
+   *
    * @throws SomVersionError on any rejection or an unparseable stamp.
    */
   public static void checkModelVersion(String generated, String documentVersion) {
-    if (documentVersion == null || documentVersion.isEmpty()) {
-      return;
-    }
-    SomVersion gen = SomVersion.parse(generated);
-    SomVersion doc = SomVersion.tryParse(documentVersion);
-    if (doc == null) {
-      throw new SomVersionError(
-          "document model version \"" + documentVersion + "\" is not a valid major.minor");
-    }
-    if (doc.major != gen.major) {
-      throw new SomVersionError(
-          "document major version "
-              + doc.major
-              + " differs from the object model major version "
-              + gen.major
-              + "; cross-major documents are read-only");
-    }
-    if (doc.minor > gen.minor) {
-      throw new SomVersionError(
-          "document model version "
-              + documentVersion
-              + " is newer than the object model version "
-              + generated
-              + "; an older object model cannot edit a newer document");
+    switch (somEditabilityFor(generated, documentVersion)) {
+      case EDITABLE:
+        return;
+      case INVALID_VERSION:
+        throw new SomVersionError(
+            "document model version \"" + documentVersion + "\" is not a valid major.minor");
+      case READ_ONLY_CROSS_MAJOR:
+        {
+          SomVersion gen = SomVersion.parse(generated);
+          SomVersion doc = SomVersion.parse(documentVersion);
+          throw new SomVersionError(
+              "document major version "
+                  + doc.major
+                  + " differs from the object model major version "
+                  + gen.major
+                  + "; cross-major documents are read-only");
+        }
+      case REJECTED_NEWER_MINOR:
+        throw new SomVersionError(
+            "document model version "
+                + documentVersion
+                + " is newer than the object model version "
+                + generated
+                + "; an older object model cannot edit a newer document");
+      default:
+        return;
     }
   }
 }

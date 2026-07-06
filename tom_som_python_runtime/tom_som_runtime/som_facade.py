@@ -14,6 +14,7 @@ document and a path; the generated subclasses only add typed accessors.
 from __future__ import annotations
 
 import datetime as _dt
+import enum
 from typing import Callable, Generic, List, Optional, TypeVar, Union
 
 from .spec_document import SpecDocument
@@ -226,13 +227,64 @@ def _try_int(raw: str) -> Optional[int]:
         return None
 
 
+class SomEditability(enum.Enum):
+    """The outcome of the §2.2 version check, as a value a read-only viewer can
+    branch on instead of catching :class:`SomVersionError` (§ item 8).
+
+    It is the non-throwing companion to :func:`check_som_model_version`: the
+    constructor throws on any value other than :attr:`EDITABLE`, while
+    :func:`som_editability_for` returns the same classification without throwing
+    so a consumer can decide *open for edit* vs *open read-only* up front.
+    """
+
+    #: The object model may edit the document in place — a ``None``/empty stamp
+    #: (a brand-new document) or a same-major, minor-``≤`` stamp.
+    EDITABLE = "editable"
+
+    #: The document was authored under a **different major** version; it may be
+    #: read/converted but never edited in place.
+    READ_ONLY_CROSS_MAJOR = "read_only_cross_major"
+
+    #: The document is same-major but a **newer minor** than the object model; an
+    #: older model must not edit a newer document.
+    REJECTED_NEWER_MINOR = "rejected_newer_minor"
+
+    #: The document stamp is not a valid ``major.minor`` string.
+    INVALID_VERSION = "invalid_version"
+
+
+def som_editability_for(
+    generated: str, document_version: Optional[str]
+) -> SomEditability:
+    """Classifies a document's editability under the §2.2 rules **without
+    raising** (§ item 8). ``generated`` is the object model's own
+    ``major.minor`` version; ``document_version`` is the document's recorded
+    authoring stamp (``None``/empty for a brand-new, never-stamped document).
+
+    This is the single definition of the version rules;
+    :func:`check_som_model_version` raises based on the value returned here, so
+    the two never diverge.
+    """
+    if not document_version:
+        return SomEditability.EDITABLE
+    gen = _SomVersion.parse(generated)
+    doc = _SomVersion.try_parse(document_version)
+    if doc is None:
+        return SomEditability.INVALID_VERSION
+    if doc.major != gen.major:
+        return SomEditability.READ_ONLY_CROSS_MAJOR
+    if doc.minor > gen.minor:
+        return SomEditability.REJECTED_NEWER_MINOR
+    return SomEditability.EDITABLE
+
+
 def check_som_model_version(generated: str, document_version: Optional[str]) -> None:
     """The instantiation-time version check every generated root facade performs
     (§2.2). ``generated`` is the object model's own ``major.minor`` version;
     ``document_version`` is the document's recorded authoring stamp
     (``None``/empty for a brand-new, never-stamped document).
 
-    Rules:
+    Rules (see :func:`som_editability_for`, which this delegates to):
       * a ``None``/empty document stamp is always accepted — a new document is
         stamped on first edit;
       * within the **same major** version, a document whose minor is **≤** the
@@ -244,22 +296,23 @@ def check_som_model_version(generated: str, document_version: Optional[str]) -> 
 
     Raises :class:`SomVersionError` on any rejection or an unparseable stamp.
     """
-    if not document_version:
+    editability = som_editability_for(generated, document_version)
+    if editability is SomEditability.EDITABLE:
         return
-    gen = _SomVersion.parse(generated)
-    doc = _SomVersion.try_parse(document_version)
-    if doc is None:
+    if editability is SomEditability.INVALID_VERSION:
         raise SomVersionError(
             f'document model version "{document_version}" is not a valid major.minor'
         )
-    if doc.major != gen.major:
+    if editability is SomEditability.READ_ONLY_CROSS_MAJOR:
+        gen = _SomVersion.parse(generated)
+        doc = _SomVersion.parse(document_version)
         raise SomVersionError(
             f"document major version {doc.major} differs from the object model "
             f"major version {gen.major}; cross-major documents are read-only"
         )
-    if doc.minor > gen.minor:
-        raise SomVersionError(
-            f"document model version {document_version} is newer than the object "
-            f"model version {generated}; an older object model cannot edit a newer "
-            "document"
-        )
+    # SomEditability.REJECTED_NEWER_MINOR
+    raise SomVersionError(
+        f"document model version {document_version} is newer than the object "
+        f"model version {generated}; an older object model cannot edit a newer "
+        "document"
+    )

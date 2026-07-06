@@ -189,6 +189,30 @@ class SomVersionError extends Error {
   }
 }
 
+/**
+ * The outcome of the §2.2 version check, as a value a read-only viewer can
+ * branch on instead of catching {@link SomVersionError} (§ item 8).
+ *
+ * It is the non-throwing companion to {@link checkSomModelVersion}: the
+ * constructor throws on any value other than `editable`, while
+ * {@link somEditabilityFor} returns the same classification without throwing so
+ * a consumer can decide *open for edit* vs *open read-only* up front.
+ *
+ *   * `editable` — the object model may edit the document in place: a
+ *     `null`/empty stamp (a brand-new document) or a same-major, minor-`≤` stamp.
+ *   * `readOnlyCrossMajor` — the document was authored under a **different major**
+ *     version; it may be read/converted but never edited in place.
+ *   * `rejectedNewerMinor` — the document is same-major but a **newer minor** than
+ *     the object model; an older model must not edit a newer document.
+ *   * `invalidVersion` — the document stamp is not a valid `major.minor` string.
+ */
+const SomEditability = Object.freeze({
+  editable: 'editable',
+  readOnlyCrossMajor: 'readOnlyCrossMajor',
+  rejectedNewerMinor: 'rejectedNewerMinor',
+  invalidVersion: 'invalidVersion',
+});
+
 function _tryInt(raw) {
   if (!/^-?[0-9]+$/.test(raw)) {
     return null;
@@ -226,12 +250,43 @@ class _SomVersion {
 }
 
 /**
+ * Classifies a document's editability under the §2.2 rules **without throwing**
+ * (§ item 8). `generated` is the object model's own `major.minor` version;
+ * `documentVersion` is the document's recorded authoring stamp (`null`/empty for
+ * a brand-new, never-stamped document).
+ *
+ * This is the single definition of the version rules; {@link checkSomModelVersion}
+ * throws based on the value returned here, so the two never diverge.
+ *
+ * @param {string} generated
+ * @param {string|null} documentVersion
+ * @returns {string} a {@link SomEditability} value
+ */
+function somEditabilityFor(generated, documentVersion) {
+  if (!documentVersion) {
+    return SomEditability.editable;
+  }
+  const gen = _SomVersion.parse(generated);
+  const doc = _SomVersion.tryParse(documentVersion);
+  if (doc === null) {
+    return SomEditability.invalidVersion;
+  }
+  if (doc.major !== gen.major) {
+    return SomEditability.readOnlyCrossMajor;
+  }
+  if (doc.minor > gen.minor) {
+    return SomEditability.rejectedNewerMinor;
+  }
+  return SomEditability.editable;
+}
+
+/**
  * The instantiation-time version check every generated root facade performs
  * (§2.2). `generated` is the object model's own `major.minor` version;
  * `documentVersion` is the document's recorded authoring stamp (`null`/empty for
  * a brand-new, never-stamped document).
  *
- * Rules:
+ * Rules (see {@link somEditabilityFor}, which this delegates to):
  *   * a `null`/empty document stamp is always accepted — a new document is
  *     stamped on first edit;
  *   * within the **same major** version, a document whose minor is **≤** the
@@ -244,28 +299,27 @@ class _SomVersion {
  * Throws {@link SomVersionError} on any rejection or an unparseable stamp.
  */
 function checkSomModelVersion(generated, documentVersion) {
-  if (!documentVersion) {
-    return;
-  }
-  const gen = _SomVersion.parse(generated);
-  const doc = _SomVersion.tryParse(documentVersion);
-  if (doc === null) {
-    throw new SomVersionError(
-      `document model version "${documentVersion}" is not a valid major.minor`,
-    );
-  }
-  if (doc.major !== gen.major) {
-    throw new SomVersionError(
-      `document major version ${doc.major} differs from the object model ` +
-        `major version ${gen.major}; cross-major documents are read-only`,
-    );
-  }
-  if (doc.minor > gen.minor) {
-    throw new SomVersionError(
-      `document model version ${documentVersion} is newer than the object ` +
-        `model version ${generated}; an older object model cannot edit a newer ` +
-        'document',
-    );
+  switch (somEditabilityFor(generated, documentVersion)) {
+    case SomEditability.editable:
+      return;
+    case SomEditability.invalidVersion:
+      throw new SomVersionError(
+        `document model version "${documentVersion}" is not a valid major.minor`,
+      );
+    case SomEditability.readOnlyCrossMajor: {
+      const gen = _SomVersion.parse(generated);
+      const doc = _SomVersion.parse(documentVersion);
+      throw new SomVersionError(
+        `document major version ${doc.major} differs from the object model ` +
+          `major version ${gen.major}; cross-major documents are read-only`,
+      );
+    }
+    case SomEditability.rejectedNewerMinor:
+      throw new SomVersionError(
+        `document model version ${documentVersion} is newer than the object ` +
+          `model version ${generated}; an older object model cannot edit a newer ` +
+          'document',
+      );
   }
 }
 
@@ -274,5 +328,7 @@ module.exports = {
   SomScalar,
   SomList,
   SomVersionError,
+  SomEditability,
+  somEditabilityFor,
   checkSomModelVersion,
 };

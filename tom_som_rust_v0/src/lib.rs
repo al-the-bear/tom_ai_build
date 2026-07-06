@@ -14705,6 +14705,14 @@ impl D00SolutionBlueprint {
         D00_SOLUTION_BLUEPRINT_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -14828,6 +14836,14 @@ impl D01CurrentLandscapeAssessment {
         D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -14929,6 +14945,14 @@ impl D02TargetOperatingModel {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D02_TARGET_OPERATING_MODEL_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -15048,6 +15072,14 @@ impl D03InformationModel {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D03_INFORMATION_MODEL_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D03_INFORMATION_MODEL_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -15196,6 +15228,14 @@ impl D04RequirementsSpecification {
         D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -15303,6 +15343,14 @@ impl D05InteractionScenarios {
         D05_INTERACTION_SCENARIOS_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -15400,6 +15448,14 @@ impl D06ArchitectureTechnologySpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -15518,6 +15574,14 @@ impl D07IntegrationInterfaceSpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -15644,6 +15708,14 @@ impl D08SecurityAccessSpecification {
         D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -15741,6 +15813,14 @@ impl D09ExperienceDesignSpecification {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -15860,6 +15940,14 @@ impl D10QualityAcceptancePlan {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
@@ -16016,6 +16104,14 @@ impl D11DeliveryRoadmap {
         D11_DELIVERY_ROADMAP_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version)
+    }
+
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
@@ -16123,6 +16219,14 @@ impl D12TransitionRolloutPlan {
     /// Returns this object model's own model version (major.minor), per §2.1.
     pub fn object_model_version(&self) -> &'static str {
         D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION
+    }
+
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the

@@ -189,6 +189,7 @@ class SomCEmitter {
       if (isRoot) {
         plan.lifecycleFn = _alloc(_funcNames, '${prefix}_new');
         plan.omvFn = _alloc(_funcNames, '${prefix}_object_model_version');
+        plan.editabilityFn = _alloc(_funcNames, '${prefix}_editability_for');
         plan.loadYamlFn = _alloc(_funcNames, '${prefix}_load_yaml');
         plan.loadFileFn = _alloc(_funcNames, '${prefix}_load_file');
         plan.mvConst = mvConst[n];
@@ -334,6 +335,16 @@ class SomCEmitter {
         ..writeln("// Returns this object model's own model version "
             '(major.minor), per §2.1.')
         ..writeln('const char *${plan.omvFn}(const $t *self);')
+        ..writeln('// Classifies whether a document authored under '
+            '`document_version` is editable')
+        ..writeln('// by this object model, without reporting an error '
+            "(§ item 8) — the non-erroring")
+        ..writeln("// companion to ${plan.lifecycleFn}'s §2.2 check, so a "
+            'read-only viewer can branch')
+        ..writeln('// instead of handling the constructor error. `document_version`'
+            ' may be NULL/"".')
+        ..writeln('SomEditability ${plan.editabilityFn}('
+            'const char *document_version);')
         ..writeln('// Loads a `*.docspecs.yaml` document in one call: decode the '
             'YAML, populate the')
         ..writeln('// sparse stores, and bind this typed root at the document '
@@ -490,6 +501,11 @@ class SomCEmitter {
         ..writeln('const char *${plan.omvFn}(const $t *self) {')
         ..writeln('\t(void)self;')
         ..writeln('\treturn ${plan.mvConst};')
+        ..writeln('}')
+        ..writeln('SomEditability ${plan.editabilityFn}('
+            'const char *document_version) {')
+        ..writeln('\treturn som_editability_for(${plan.mvConst}, '
+            'document_version);')
         ..writeln('}')
         ..writeln('int ${plan.loadYamlFn}($t *self, const char *yaml, '
             'SpecDocument **out_doc, char **err) {')
@@ -793,6 +809,7 @@ class _ClassPlan {
   late String lifecycleFn; // `_init` (non-root) or `_new` (root)
   late String freeFn;
   String? omvFn;
+  String? editabilityFn; // `_editability_for` (root only)
   String? mvConst;
   String? rootSeg;
   String? loadYamlFn; // `_load_yaml` (root only)

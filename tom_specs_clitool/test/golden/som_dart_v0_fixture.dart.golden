@@ -48,8 +48,30 @@ class SolutionBlueprint extends SomNode {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
+  /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+  /// document's authoring stamp already applied (§ item 4) — one call for
+  /// the former decode → loadJson → thread-`documentVersion` sequence.
+  static SolutionBlueprint loadYaml(String yaml) {
+    final doc = SpecDocument.fromYaml(yaml);
+    return SolutionBlueprint(doc, documentVersion: doc.modelVersion);
+  }
+
+  /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
+  /// companion to [loadYaml].
+  static SolutionBlueprint loadFile(String path) {
+    final doc = SpecDocument.fromFile(path);
+    return SolutionBlueprint(doc, documentVersion: doc.modelVersion);
+  }
+
   /// This object model's own model version (`major.minor`), per spec §2.1.
   String get objectModelVersion => modelVersion;
+
+  /// Classifies whether a document authored under [documentVersion] is
+  /// editable by this object model, **without throwing** (§ item 8) — the
+  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// viewer can branch instead of catching [SomVersionException].
+  static SomEditability editabilityFor(String? documentVersion) =>
+      somEditabilityFor(modelVersion, documentVersion);
 
   /// Why the system exists.
   String get vision => doc.content('$path/vision') ?? '';

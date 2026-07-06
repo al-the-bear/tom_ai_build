@@ -139,13 +139,44 @@ class SomVersionError : public std::exception {
   std::string message_;
 };
 
+/* The outcome of the §2.2 version check, as a value a read-only viewer can
+ * branch on instead of catching SomVersionError (§ item 8). It is the
+ * non-throwing companion to checkSomModelVersion: the root constructor throws on
+ * any value other than editable, while somEditabilityFor returns the same
+ * classification without throwing so a consumer can decide *open for edit* vs
+ * *open read-only* up front. */
+enum class SomEditability {
+  /* The object model may edit the document in place — an empty stamp (a
+   * brand-new document) or a same-major, minor-<= stamp. */
+  editable,
+  /* The document was authored under a different major version; it may be
+   * read/converted but never edited in place. */
+  readOnlyCrossMajor,
+  /* The document is same-major but a newer minor than the object model; an
+   * older model must not edit a newer document. */
+  rejectedNewerMinor,
+  /* The document stamp is not a valid major.minor string. */
+  invalidVersion,
+};
+
+/* Classifies a document's editability under the §2.2 rules WITHOUT throwing
+ * (§ item 8). `generated` is the object model's own major.minor; the empty
+ * string is the absent-stamp sentinel (CS4-D2) for `documentVersion` — a
+ * brand-new, never-stamped document — and classifies as editable.
+ *
+ * This is the single definition of the version rules; checkSomModelVersion
+ * throws based on the value returned here, so the two never diverge. */
+SomEditability somEditabilityFor(const std::string& generated,
+                                 const std::string& documentVersion);
+
 /* The instantiation-time check every generated root facade performs.
  * `generated` is the object model's own major.minor; `documentVersion` is the
  * document's recorded stamp ("" for a never-stamped document).
  *
  * Rules: empty stamp accepted; same major + doc-minor <= gen-minor editable;
- * doc-minor greater rejected; different major rejected. On rejection it THROWS
- * SomVersionError. */
+ * doc-minor greater rejected; different major rejected. Delegates the
+ * classification to somEditabilityFor; on any non-editable outcome it THROWS
+ * SomVersionError with the per-case message. */
 void checkSomModelVersion(const std::string& generated,
                           const std::string& documentVersion);
 

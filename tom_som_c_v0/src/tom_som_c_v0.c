@@ -13600,6 +13600,9 @@ const char *d00_solution_blueprint_object_model_version(const D00SolutionBluepri
   (void)self;
   return D00_SOLUTION_BLUEPRINT_MODEL_VERSION;
 }
+SomEditability d00_solution_blueprint_editability_for(const char *document_version) {
+  return som_editability_for(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version);
+}
 int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d00_solution_blueprint_new(self, doc, doc->model_version, err) != 0) {
@@ -13748,6 +13751,9 @@ const char *d01_current_landscape_assessment_object_model_version(const D01Curre
   (void)self;
   return D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION;
 }
+SomEditability d01_current_landscape_assessment_editability_for(const char *document_version) {
+  return som_editability_for(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version);
+}
 int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d01_current_landscape_assessment_new(self, doc, doc->model_version, err) != 0) {
@@ -13860,6 +13866,9 @@ int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *
 const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self) {
   (void)self;
   return D02_TARGET_OPERATING_MODEL_MODEL_VERSION;
+}
+SomEditability d02_target_operating_model_editability_for(const char *document_version) {
+  return som_editability_for(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version);
 }
 int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
@@ -13988,6 +13997,9 @@ const char *d03_information_model_object_model_version(const D03InformationModel
   (void)self;
   return D03_INFORMATION_MODEL_MODEL_VERSION;
 }
+SomEditability d03_information_model_editability_for(const char *document_version) {
+  return som_editability_for(D03_INFORMATION_MODEL_MODEL_VERSION, document_version);
+}
 int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d03_information_model_new(self, doc, doc->model_version, err) != 0) {
@@ -14115,6 +14127,9 @@ const char *d04_requirements_specification_object_model_version(const D04Require
   (void)self;
   return D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION;
 }
+SomEditability d04_requirements_specification_editability_for(const char *document_version) {
+  return som_editability_for(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version);
+}
 int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d04_requirements_specification_new(self, doc, doc->model_version, err) != 0) {
@@ -14226,6 +14241,9 @@ const char *d05_interaction_scenarios_object_model_version(const D05InteractionS
   (void)self;
   return D05_INTERACTION_SCENARIOS_MODEL_VERSION;
 }
+SomEditability d05_interaction_scenarios_editability_for(const char *document_version) {
+  return som_editability_for(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version);
+}
 int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d05_interaction_scenarios_new(self, doc, doc->model_version, err) != 0) {
@@ -14331,6 +14349,9 @@ int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpeci
 const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self) {
   (void)self;
   return D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION;
+}
+SomEditability d06_architecture_technology_specification_editability_for(const char *document_version) {
+  return som_editability_for(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnologySpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
@@ -14473,6 +14494,9 @@ const char *d07_integration_interface_specification_object_model_version(const D
   (void)self;
   return D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION;
 }
+SomEditability d07_integration_interface_specification_editability_for(const char *document_version) {
+  return som_editability_for(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version);
+}
 int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d07_integration_interface_specification_new(self, doc, doc->model_version, err) != 0) {
@@ -14600,6 +14624,9 @@ const char *d08_security_access_specification_object_model_version(const D08Secu
   (void)self;
   return D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION;
 }
+SomEditability d08_security_access_specification_editability_for(const char *document_version) {
+  return som_editability_for(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version);
+}
 int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d08_security_access_specification_new(self, doc, doc->model_version, err) != 0) {
@@ -14712,6 +14739,9 @@ int d09_experience_design_specification_new(D09ExperienceDesignSpecification *se
 const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self) {
   (void)self;
   return D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION;
+}
+SomEditability d09_experience_design_specification_editability_for(const char *document_version) {
+  return som_editability_for(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
@@ -14853,6 +14883,9 @@ int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument
 const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self) {
   (void)self;
   return D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION;
+}
+SomEditability d10_quality_acceptance_plan_editability_for(const char *document_version) {
+  return som_editability_for(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version);
 }
 int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
@@ -15044,6 +15077,9 @@ const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *
   (void)self;
   return D11_DELIVERY_ROADMAP_MODEL_VERSION;
 }
+SomEditability d11_delivery_roadmap_editability_for(const char *document_version) {
+  return som_editability_for(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version);
+}
 int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);
   if (d11_delivery_roadmap_new(self, doc, doc->model_version, err) != 0) {
@@ -15163,6 +15199,9 @@ int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument
 const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self) {
   (void)self;
   return D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION;
+}
+SomEditability d12_transition_rollout_plan_editability_for(const char *document_version) {
+  return som_editability_for(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version);
 }
 int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const char *yaml, SpecDocument **out_doc, char **err) {
   SpecDocument *doc = spec_document_from_yaml(yaml);

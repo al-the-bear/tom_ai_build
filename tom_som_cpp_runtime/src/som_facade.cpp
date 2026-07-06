@@ -91,11 +91,15 @@ SomVersion tryParseSomVersion(const std::string& raw) {
 
 }  // namespace
 
-void checkSomModelVersion(const std::string& generated,
-                          const std::string& documentVersion) {
+SomEditability somEditabilityFor(const std::string& generated,
+                                 const std::string& documentVersion) {
+  // Empty is the absent-stamp sentinel (CS4-D2): a brand-new document is
+  // editable and stamped on first edit.
   if (documentVersion.empty()) {
-    return;
+    return SomEditability::editable;
   }
+  // An unparseable *generated* version is a programmer error, not a document
+  // condition (mirrors the Dart reference's _SomVersion.parse, which throws).
   SomVersion gen = tryParseSomVersion(generated);
   if (!gen.ok) {
     throw SomVersionError("\"" + generated +
@@ -103,20 +107,38 @@ void checkSomModelVersion(const std::string& generated,
   }
   SomVersion docv = tryParseSomVersion(documentVersion);
   if (!docv.ok) {
-    throw SomVersionError("document model version \"" + documentVersion +
-                          "\" is not a valid major.minor");
+    return SomEditability::invalidVersion;
   }
   if (docv.major != gen.major) {
-    throw SomVersionError(
-        "document major version " + formatI64(docv.major) +
-        " differs from the object model major version " + formatI64(gen.major) +
-        "; cross-major documents are read-only");
+    return SomEditability::readOnlyCrossMajor;
   }
   if (docv.minor > gen.minor) {
-    throw SomVersionError(
-        "document model version " + documentVersion +
-        " is newer than the object model version " + generated +
-        "; an older object model cannot edit a newer document");
+    return SomEditability::rejectedNewerMinor;
+  }
+  return SomEditability::editable;
+}
+
+void checkSomModelVersion(const std::string& generated,
+                          const std::string& documentVersion) {
+  switch (somEditabilityFor(generated, documentVersion)) {
+    case SomEditability::editable:
+      return;
+    case SomEditability::invalidVersion:
+      throw SomVersionError("document model version \"" + documentVersion +
+                            "\" is not a valid major.minor");
+    case SomEditability::readOnlyCrossMajor: {
+      SomVersion gen = tryParseSomVersion(generated);
+      SomVersion docv = tryParseSomVersion(documentVersion);
+      throw SomVersionError(
+          "document major version " + formatI64(docv.major) +
+          " differs from the object model major version " +
+          formatI64(gen.major) + "; cross-major documents are read-only");
+    }
+    case SomEditability::rejectedNewerMinor:
+      throw SomVersionError(
+          "document model version " + documentVersion +
+          " is newer than the object model version " + generated +
+          "; an older object model cannot edit a newer document");
   }
 }
 

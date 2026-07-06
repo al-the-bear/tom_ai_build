@@ -282,12 +282,67 @@ fn try_int(raw: &str) -> Option<i64> {
     raw.parse::<i64>().ok()
 }
 
+/// The outcome of the §2.2 version check, as a value a read-only viewer can
+/// branch on instead of matching on [`SomVersionError`] (SOM roadmap § item 8).
+///
+/// It is the non-erroring companion to [`check_som_model_version`]: the
+/// generated root constructor returns `Err` on any value other than
+/// [`SomEditability::Editable`], while [`som_editability_for`] returns the same
+/// classification without producing an error so a consumer can decide *open for
+/// edit* vs *open read-only* up front.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SomEditability {
+    /// The object model may edit the document in place — an empty stamp (a
+    /// brand-new document) or a same-major, minor-`<=` stamp.
+    Editable,
+
+    /// The document was authored under a **different major** version; it may be
+    /// read/converted but never edited in place.
+    ReadOnlyCrossMajor,
+
+    /// The document is same-major but a **newer minor** than the object model; an
+    /// older model must not edit a newer document.
+    RejectedNewerMinor,
+
+    /// The document stamp is not a valid `major.minor` string.
+    InvalidVersion,
+}
+
+/// Classifies a document's editability under the §2.2 rules **without producing
+/// an error** (SOM roadmap § item 8). `generated` is the object model's own
+/// `major.minor` version; `document_version` is the document's recorded
+/// authoring stamp (`""` for a brand-new, never-stamped document — the
+/// empty-string sentinel, CS4-D2).
+///
+/// This is the single definition of the version rules; [`check_som_model_version`]
+/// returns an error based on the value returned here, so the two never diverge.
+pub fn som_editability_for(generated: &str, document_version: &str) -> SomEditability {
+    if document_version.is_empty() {
+        return SomEditability::Editable;
+    }
+    let gen = match try_parse_som_version(generated) {
+        Some(v) => v,
+        None => return SomEditability::InvalidVersion,
+    };
+    let docv = match try_parse_som_version(document_version) {
+        Some(v) => v,
+        None => return SomEditability::InvalidVersion,
+    };
+    if docv.major != gen.major {
+        return SomEditability::ReadOnlyCrossMajor;
+    }
+    if docv.minor > gen.minor {
+        return SomEditability::RejectedNewerMinor;
+    }
+    SomEditability::Editable
+}
+
 /// The instantiation-time version check every generated root facade performs.
 /// `generated` is the object model's own major.minor version; `document_version`
 /// is the document's recorded authoring stamp (`""` for a brand-new,
 /// never-stamped document).
 ///
-/// Rules:
+/// Rules (see [`som_editability_for`], which this delegates to):
 ///   - an empty document stamp is always accepted — a new document is stamped on
 ///     first edit;
 ///   - within the same major version, a document whose minor is `<=` the
@@ -296,33 +351,30 @@ fn try_int(raw: &str) -> Option<i64> {
 ///   - a different major version is always rejected (cross-major is
 ///     read/convert only, never in-place edit).
 pub fn check_som_model_version(generated: &str, document_version: &str) -> Result<(), SomVersionError> {
-    if document_version.is_empty() {
-        return Ok(());
-    }
-    let gen = try_parse_som_version(generated).ok_or_else(|| SomVersionError {
-        message: format!("\"{}\" is not a valid major.minor version", generated),
-    })?;
-    let docv = try_parse_som_version(document_version).ok_or_else(|| SomVersionError {
-        message: format!(
-            "document model version \"{}\" is not a valid major.minor",
-            document_version
-        ),
-    })?;
-    if docv.major != gen.major {
-        return Err(SomVersionError {
+    match som_editability_for(generated, document_version) {
+        SomEditability::Editable => Ok(()),
+        SomEditability::InvalidVersion => Err(SomVersionError {
             message: format!(
-                "document major version {} differs from the object model major version {}; cross-major documents are read-only",
-                docv.major, gen.major
+                "document model version \"{}\" is not a valid major.minor",
+                document_version
             ),
-        });
-    }
-    if docv.minor > gen.minor {
-        return Err(SomVersionError {
+        }),
+        SomEditability::ReadOnlyCrossMajor => {
+            let gen = try_parse_som_version(generated).expect("cross-major implies parseable generated");
+            let docv =
+                try_parse_som_version(document_version).expect("cross-major implies parseable stamp");
+            Err(SomVersionError {
+                message: format!(
+                    "document major version {} differs from the object model major version {}; cross-major documents are read-only",
+                    docv.major, gen.major
+                ),
+            })
+        }
+        SomEditability::RejectedNewerMinor => Err(SomVersionError {
             message: format!(
                 "document model version {} is newer than the object model version {}; an older object model cannot edit a newer document",
                 document_version, generated
             ),
-        });
+        }),
     }
-    Ok(())
 }

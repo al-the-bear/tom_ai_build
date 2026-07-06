@@ -226,45 +226,68 @@ static char *fmt_msg(const char *fmt, ...) {
   return buf;
 }
 
-int check_som_model_version(const char *generated, const char *document_version,
-                            char **err_message) {
+SomEditability som_editability_for(const char *generated,
+                                   const char *document_version) {
   if (document_version == NULL || document_version[0] == '\0') {
-    return 0;
+    return SOM_EDITABILITY_EDITABLE;
   }
-  SomVersion gen = try_parse_som_version(generated);
-  if (!gen.ok) {
-    if (err_message != NULL) {
-      *err_message =
-          fmt_msg("\"%s\" is not a valid major.minor version", generated);
-    }
-    return 1;
-  }
+  SomVersion gen = (generated == NULL) ? (SomVersion){0, 0, 0}
+                                       : try_parse_som_version(generated);
   SomVersion docv = try_parse_som_version(document_version);
-  if (!docv.ok) {
-    if (err_message != NULL) {
-      *err_message = fmt_msg(
-          "document model version \"%s\" is not a valid major.minor",
-          document_version);
-    }
-    return 1;
+  if (!gen.ok || !docv.ok) {
+    return SOM_EDITABILITY_INVALID_VERSION;
   }
   if (docv.major != gen.major) {
-    if (err_message != NULL) {
-      *err_message = fmt_msg(
-          "document major version %lld differs from the object model major "
-          "version %lld; cross-major documents are read-only",
-          docv.major, gen.major);
-    }
-    return 1;
+    return SOM_EDITABILITY_READ_ONLY_CROSS_MAJOR;
   }
   if (docv.minor > gen.minor) {
-    if (err_message != NULL) {
-      *err_message = fmt_msg(
-          "document model version %s is newer than the object model version "
-          "%s; an older object model cannot edit a newer document",
-          document_version, generated);
+    return SOM_EDITABILITY_REJECTED_NEWER_MINOR;
+  }
+  return SOM_EDITABILITY_EDITABLE;
+}
+
+int check_som_model_version(const char *generated, const char *document_version,
+                            char **err_message) {
+  switch (som_editability_for(generated, document_version)) {
+    case SOM_EDITABILITY_EDITABLE:
+      return 0;
+    case SOM_EDITABILITY_INVALID_VERSION: {
+      /* Distinguish an unparseable generated version from an unparseable
+       * document stamp, matching the original messages. */
+      SomVersion gen = (generated == NULL) ? (SomVersion){0, 0, 0}
+                                           : try_parse_som_version(generated);
+      if (!gen.ok) {
+        if (err_message != NULL) {
+          *err_message =
+              fmt_msg("\"%s\" is not a valid major.minor version",
+                      generated != NULL ? generated : "");
+        }
+      } else if (err_message != NULL) {
+        *err_message = fmt_msg(
+            "document model version \"%s\" is not a valid major.minor",
+            document_version);
+      }
+      return 1;
     }
-    return 1;
+    case SOM_EDITABILITY_READ_ONLY_CROSS_MAJOR: {
+      SomVersion gen = try_parse_som_version(generated);
+      SomVersion docv = try_parse_som_version(document_version);
+      if (err_message != NULL) {
+        *err_message = fmt_msg(
+            "document major version %lld differs from the object model major "
+            "version %lld; cross-major documents are read-only",
+            docv.major, gen.major);
+      }
+      return 1;
+    }
+    case SOM_EDITABILITY_REJECTED_NEWER_MINOR:
+      if (err_message != NULL) {
+        *err_message = fmt_msg(
+            "document model version %s is newer than the object model version "
+            "%s; an older object model cannot edit a newer document",
+            document_version, generated);
+      }
+      return 1;
   }
   return 0;
 }

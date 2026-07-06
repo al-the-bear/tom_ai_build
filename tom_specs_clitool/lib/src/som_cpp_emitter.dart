@@ -285,7 +285,18 @@ class SomCppEmitter {
             'const std::string& path);')
         ..writeln("  // This object model's own model version (major.minor), "
             'per §2.1.')
-        ..writeln('  std::string objectModelVersion() const;');
+        ..writeln('  std::string objectModelVersion() const;')
+        ..writeln("  // Classifies a document's editability against this object "
+            'model without')
+        ..writeln('  // throwing — the non-throwing companion to the '
+            'constructor check (§ item 8):')
+        ..writeln('  // a read-only viewer can branch on the result instead of '
+            'catching')
+        ..writeln('  // som::SomVersionError. An empty documentVersion is the '
+            'absent-stamp')
+        ..writeln('  // sentinel and classifies as editable.')
+        ..writeln('  static som::SomEditability editabilityFor('
+            'const std::string& documentVersion);');
     } else {
       b.writeln('  $t(som::SpecDocument& doc, std::string path);');
     }
@@ -433,6 +444,11 @@ class SomCppEmitter {
         ..writeln('}')
         ..writeln('std::string $t::objectModelVersion() const {')
         ..writeln('  return kModelVersion;')
+        ..writeln('}')
+        ..writeln('som::SomEditability $t::editabilityFor('
+            'const std::string& documentVersion) {')
+        ..writeln('  return som::somEditabilityFor(kModelVersion, '
+            'documentVersion);')
         ..writeln('}');
     } else {
       b

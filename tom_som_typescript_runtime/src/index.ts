@@ -70,6 +70,8 @@ export {
   SomScalar,
   SomList,
   SomVersionError,
+  SomEditability,
+  somEditabilityFor,
   checkSomModelVersion,
 } from './som_facade';
 

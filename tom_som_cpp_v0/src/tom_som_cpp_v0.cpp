@@ -5929,6 +5929,9 @@ D00SolutionBlueprint D00SolutionBlueprint::loadFile(som::SpecDocument& doc, cons
 std::string D00SolutionBlueprint::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D00SolutionBlueprint::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D00SolutionBlueprint::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -5993,6 +5996,9 @@ D01CurrentLandscapeAssessment D01CurrentLandscapeAssessment::loadFile(som::SpecD
 std::string D01CurrentLandscapeAssessment::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D01CurrentLandscapeAssessment::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D01CurrentLandscapeAssessment::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6041,6 +6047,9 @@ D02TargetOperatingModel D02TargetOperatingModel::loadFile(som::SpecDocument& doc
 }
 std::string D02TargetOperatingModel::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability D02TargetOperatingModel::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string D02TargetOperatingModel::content() const {
   return doc().content(som::joinPath(path(), "content"));
@@ -6097,6 +6106,9 @@ D03InformationModel D03InformationModel::loadFile(som::SpecDocument& doc, const 
 std::string D03InformationModel::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D03InformationModel::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D03InformationModel::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6152,6 +6164,9 @@ D04RequirementsSpecification D04RequirementsSpecification::loadFile(som::SpecDoc
 std::string D04RequirementsSpecification::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D04RequirementsSpecification::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D04RequirementsSpecification::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6201,6 +6216,9 @@ D05InteractionScenarios D05InteractionScenarios::loadFile(som::SpecDocument& doc
 std::string D05InteractionScenarios::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D05InteractionScenarios::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D05InteractionScenarios::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6246,6 +6264,9 @@ D06ArchitectureTechnologySpecification D06ArchitectureTechnologySpecification::l
 }
 std::string D06ArchitectureTechnologySpecification::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability D06ArchitectureTechnologySpecification::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string D06ArchitectureTechnologySpecification::content() const {
   return doc().content(som::joinPath(path(), "content"));
@@ -6308,6 +6329,9 @@ D07IntegrationInterfaceSpecification D07IntegrationInterfaceSpecification::loadF
 std::string D07IntegrationInterfaceSpecification::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D07IntegrationInterfaceSpecification::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D07IntegrationInterfaceSpecification::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6363,6 +6387,9 @@ D08SecurityAccessSpecification D08SecurityAccessSpecification::loadFile(som::Spe
 std::string D08SecurityAccessSpecification::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D08SecurityAccessSpecification::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D08SecurityAccessSpecification::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6411,6 +6438,9 @@ D09ExperienceDesignSpecification D09ExperienceDesignSpecification::loadFile(som:
 }
 std::string D09ExperienceDesignSpecification::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability D09ExperienceDesignSpecification::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string D09ExperienceDesignSpecification::content() const {
   return doc().content(som::joinPath(path(), "content"));
@@ -6472,6 +6502,9 @@ D10QualityAcceptancePlan D10QualityAcceptancePlan::loadFile(som::SpecDocument& d
 }
 std::string D10QualityAcceptancePlan::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability D10QualityAcceptancePlan::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string D10QualityAcceptancePlan::content() const {
   return doc().content(som::joinPath(path(), "content"));
@@ -6555,6 +6588,9 @@ D11DeliveryRoadmap D11DeliveryRoadmap::loadFile(som::SpecDocument& doc, const st
 std::string D11DeliveryRoadmap::objectModelVersion() const {
   return kModelVersion;
 }
+som::SomEditability D11DeliveryRoadmap::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
+}
 std::string D11DeliveryRoadmap::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
@@ -6606,6 +6642,9 @@ D12TransitionRolloutPlan D12TransitionRolloutPlan::loadFile(som::SpecDocument& d
 }
 std::string D12TransitionRolloutPlan::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability D12TransitionRolloutPlan::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string D12TransitionRolloutPlan::content() const {
   return doc().content(som::joinPath(path(), "content"));

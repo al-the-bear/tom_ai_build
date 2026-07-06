@@ -94,6 +94,31 @@ impl SolutionBlueprint {
         SOLUTION_BLUEPRINT_MODEL_VERSION
     }
 
+    /// Classifies whether a document authored under `document_version` is
+    /// editable by this object model **without erroring** (§ item 8) — the
+    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// viewer can branch instead of handling a `som::SomVersionError`.
+    pub fn editability_for(document_version: &str) -> som::SomEditability {
+        som::som_editability_for(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document and returns the typed root with the
+    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// the former decode → load_json → thread-`document_version` sequence.
+    pub fn load_yaml(yaml: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
+        let doc = som::SpecDocument::from_yaml(yaml);
+        let version = doc.model_version.clone();
+        SolutionBlueprint::new(som::doc_ref(doc), &version)
+    }
+
+    /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
+    /// companion to [`SolutionBlueprint::load_yaml`].
+    pub fn load_file(path: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
+        let doc = som::SpecDocument::from_file(path);
+        let version = doc.model_version.clone();
+        SolutionBlueprint::new(som::doc_ref(doc), &version)
+    }
+
     /// Why the system exists.
     pub fn vision(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "vision"))

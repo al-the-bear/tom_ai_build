@@ -94,6 +94,7 @@ class SomJavaEmitter {
           '($versionLabel) — do not edit by hand.')
       ..writeln('package tom_som_java_v0;')
       ..writeln()
+      ..writeln('import tom_som_runtime.SomEditability;')
       ..writeln('import tom_som_runtime.SomFacade;')
       ..writeln('import tom_som_runtime.SomList;')
       ..writeln('import tom_som_runtime.SomNode;')
@@ -268,6 +269,20 @@ class SomJavaEmitter {
             'per §2.1.')
         ..writeln('${_i2}public String objectModelVersion() {')
         ..writeln('${_i3}return MODEL_VERSION;')
+        ..writeln('$_i2}')
+        ..writeln()
+        ..writeln('$_i2// Classifies whether a document authored under '
+            'documentVersion is')
+        ..writeln('$_i2// editable by this object model, without throwing '
+            '(§ item 8) — the')
+        ..writeln("$_i2// non-throwing companion to the constructor's §2.2 "
+            'check, so a read-only')
+        ..writeln('$_i2// viewer can branch instead of catching '
+            'SomVersionError.')
+        ..writeln('${_i2}public static SomEditability editabilityFor('
+            'String documentVersion) {')
+        ..writeln('${_i3}return SomFacade.somEditabilityFor(MODEL_VERSION, '
+            'documentVersion);')
         ..writeln('$_i2}');
     } else {
       b

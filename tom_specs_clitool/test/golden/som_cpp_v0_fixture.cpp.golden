@@ -48,8 +48,19 @@ SolutionBlueprint::SolutionBlueprint(som::SpecDocument& doc, const std::string& 
     : som::SomNode(doc, "PD00") {
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
+SolutionBlueprint SolutionBlueprint::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
+  doc = som::SpecDocument::fromYaml(yaml);
+  return SolutionBlueprint(doc, doc.modelVersion);
+}
+SolutionBlueprint SolutionBlueprint::loadFile(som::SpecDocument& doc, const std::string& path) {
+  doc = som::SpecDocument::fromFile(path);
+  return SolutionBlueprint(doc, doc.modelVersion);
+}
 std::string SolutionBlueprint::objectModelVersion() const {
   return kModelVersion;
+}
+som::SomEditability SolutionBlueprint::editabilityFor(const std::string& documentVersion) {
+  return som::somEditabilityFor(kModelVersion, documentVersion);
 }
 std::string SolutionBlueprint::vision() const {
   return doc().content(som::joinPath(path(), "vision"));

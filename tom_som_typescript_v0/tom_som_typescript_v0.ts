@@ -6,11 +6,13 @@
 // wires resolution by writing a `package.json` `file:` dependency on the runtime
 // and a `tsconfig.json`, so this module carries no on-disk path of its own.
 import {
+  SomEditability,
   SomList,
   SomNode,
   SomScalar,
   SpecDocument,
   checkSomModelVersion,
+  somEditabilityFor,
 } from 'tom_som_typescript_runtime';
 
 // 14.2.1. Acceptance Criteria.
@@ -11014,6 +11016,14 @@ export class D00SolutionBlueprint extends SomNode {
     return D00SolutionBlueprint.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D00SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11129,6 +11139,14 @@ export class D01CurrentLandscapeAssessment extends SomNode {
     return D01CurrentLandscapeAssessment.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D01CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11217,6 +11235,14 @@ export class D02TargetOperatingModel extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D02TargetOperatingModel.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D02TargetOperatingModel.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {
@@ -11318,6 +11344,14 @@ export class D03InformationModel extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D03InformationModel.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D03InformationModel.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {
@@ -11433,6 +11467,14 @@ export class D04RequirementsSpecification extends SomNode {
     return D04RequirementsSpecification.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D04RequirementsSpecification.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11526,6 +11568,14 @@ export class D05InteractionScenarios extends SomNode {
     return D05InteractionScenarios.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D05InteractionScenarios.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11610,6 +11660,14 @@ export class D06ArchitectureTechnologySpecification extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D06ArchitectureTechnologySpecification.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D06ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {
@@ -11722,6 +11780,14 @@ export class D07IntegrationInterfaceSpecification extends SomNode {
     return D07IntegrationInterfaceSpecification.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D07IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11823,6 +11889,14 @@ export class D08SecurityAccessSpecification extends SomNode {
     return D08SecurityAccessSpecification.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D08SecurityAccessSpecification.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11912,6 +11986,14 @@ export class D09ExperienceDesignSpecification extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D09ExperienceDesignSpecification.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D09ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {
@@ -12023,6 +12105,14 @@ export class D10QualityAcceptancePlan extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D10QualityAcceptancePlan.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D10QualityAcceptancePlan.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {
@@ -12171,6 +12261,14 @@ export class D11DeliveryRoadmap extends SomNode {
     return D11DeliveryRoadmap.MODEL_VERSION;
   }
 
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D11DeliveryRoadmap.MODEL_VERSION, documentVersion);
+  }
+
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12265,6 +12363,14 @@ export class D12TransitionRolloutPlan extends SomNode {
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion(): string {
     return D12TransitionRolloutPlan.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching SomVersionError.
+  static editabilityFor(documentVersion: string | null): SomEditability {
+    return somEditabilityFor(D12TransitionRolloutPlan.MODEL_VERSION, documentVersion);
   }
 
   get content(): string {

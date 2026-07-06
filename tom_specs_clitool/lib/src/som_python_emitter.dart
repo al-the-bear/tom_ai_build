@@ -101,6 +101,7 @@ class SomPythonEmitter {
       ..writeln('    SomScalar,')
       ..writeln('    SpecDocument,')
       ..writeln('    check_som_model_version,')
+      ..writeln('    som_editability_for,')
       ..writeln(')')
       ..writeln();
 
@@ -245,7 +246,20 @@ class SomPythonEmitter {
         ..writeln('    def object_model_version(self):')
         ..writeln("        \"\"\"This object model's own model version "
             "(major.minor), per §2.1.\"\"\"")
-        ..writeln('        return ${cls.name}.model_version');
+        ..writeln('        return ${cls.name}.model_version')
+        ..writeln()
+        ..writeln('    @classmethod')
+        ..writeln('    def editability_for(cls, document_version):')
+        ..writeln('        """Classifies whether a document authored under '
+            '*document_version* is')
+        ..writeln('        editable by this object model, **without raising** '
+            '(§ item 8) — the')
+        ..writeln("        non-throwing companion to the constructor's §2.2 "
+            'check, so a read-only')
+        ..writeln('        viewer can branch instead of catching '
+            'SomVersionError."""')
+        ..writeln('        return som_editability_for('
+            'cls.model_version, document_version)');
     } else {
       b
         ..writeln('    def __init__(self, doc, path):')

@@ -342,6 +342,18 @@ class SomGoEmitter {
         ..writeln('\treturn $mvConst')
         ..writeln('}')
         ..writeln()
+        ..writeln('// EditabilityFor classifies whether a document authored '
+            'under documentVersion')
+        ..writeln('// is editable by this object model, without returning an '
+            'error (§ item 8) — the')
+        ..writeln("// non-error-returning companion to $ctor's §2.2 check, so a "
+            'read-only viewer')
+        ..writeln('// can branch instead of handling the constructor error.')
+        ..writeln('func (x *${cls.name}) EditabilityFor(documentVersion '
+            'string) som.SomEditability {')
+        ..writeln('\treturn som.SomEditabilityFor($mvConst, documentVersion)')
+        ..writeln('}')
+        ..writeln()
         ..writeln('// LoadYaml${cls.name} loads a `*.docspecs.yaml` document in '
             'one call: decode the')
         ..writeln('// YAML, populate the sparse stores, and construct the typed '

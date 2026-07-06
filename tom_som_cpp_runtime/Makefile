@@ -1,8 +1,9 @@
 # tom_som_cpp_runtime — generic TomSpecs SOM runtime in idiomatic C++ (C++17).
 #
-# `make`         builds the static library build/libtom_som_cpp_runtime.a
-# `make test`    builds + runs the conformance harness against the shared corpus
-# `make clean`   removes build artefacts
+# `make`          builds the static library build/libtom_som_cpp_runtime.a
+# `make test`     builds + runs the conformance harness against the shared corpus
+# `make unittest` builds + runs the standalone runtime unit tests
+# `make clean`    removes build artefacts
 
 CXX      ?= g++
 CXXFLAGS ?= -std=c++17 -Wall -Wextra -O2
@@ -20,7 +21,12 @@ LIB     := build/libtom_som_cpp_runtime.a
 HARNESS := build/conformance
 CORPUS  ?= ../tom_som_conformance/corpus
 
-.PHONY: all test clean
+# Standalone unit-test binaries (each has its own main(); exit 0 == green).
+UNIT_SRC := tests/version_check_test.cpp tests/facade_editability_test.cpp
+UNIT_BIN := $(patsubst tests/%.cpp,build/%,$(UNIT_SRC))
+DEP      += $(patsubst tests/%.cpp,build/%.d,$(UNIT_SRC))
+
+.PHONY: all test unittest clean
 
 all: $(LIB)
 
@@ -36,8 +42,15 @@ $(LIB): $(OBJ)
 $(HARNESS): tests/conformance.cpp $(LIB)
 	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -MF build/conformance.d $(INCLUDE) tests/conformance.cpp $(LIB) -o $@
 
+build/%: tests/%.cpp $(LIB) | build
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) -MF build/$*.d $(INCLUDE) $< $(LIB) -o $@
+
 test: $(HARNESS)
 	$(HARNESS) $(CORPUS)
+
+# Builds and runs every standalone unit-test binary; stops on the first failure.
+unittest: $(UNIT_BIN)
+	@for t in $(UNIT_BIN); do echo "== $$t =="; ./$$t || exit 1; done
 
 clean:
 	rm -rf build

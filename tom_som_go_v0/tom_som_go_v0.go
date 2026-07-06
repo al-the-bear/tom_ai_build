@@ -13055,6 +13055,14 @@ func (x *D00SolutionBlueprint) ObjectModelVersion() string {
 	return D00SolutionBlueprintModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD00SolutionBlueprint's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D00SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D00SolutionBlueprintModelVersion, documentVersion)
+}
+
 // LoadYamlD00SolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -13183,6 +13191,14 @@ func (x *D01CurrentLandscapeAssessment) ObjectModelVersion() string {
 	return D01CurrentLandscapeAssessmentModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD01CurrentLandscapeAssessment's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D01CurrentLandscapeAssessment) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D01CurrentLandscapeAssessmentModelVersion, documentVersion)
+}
+
 // LoadYamlD01CurrentLandscapeAssessment loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -13286,6 +13302,14 @@ func NewD02TargetOperatingModel(doc *som.SpecDocument, documentVersion string) (
 // per §2.1.
 func (x *D02TargetOperatingModel) ObjectModelVersion() string {
 	return D02TargetOperatingModelModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD02TargetOperatingModel's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D02TargetOperatingModel) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D02TargetOperatingModelModelVersion, documentVersion)
 }
 
 // LoadYamlD02TargetOperatingModel loads a `*.docspecs.yaml` document in one call: decode the
@@ -13404,6 +13428,14 @@ func NewD03InformationModel(doc *som.SpecDocument, documentVersion string) (*D03
 // per §2.1.
 func (x *D03InformationModel) ObjectModelVersion() string {
 	return D03InformationModelModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD03InformationModel's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D03InformationModel) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D03InformationModelModelVersion, documentVersion)
 }
 
 // LoadYamlD03InformationModel loads a `*.docspecs.yaml` document in one call: decode the
@@ -13542,6 +13574,14 @@ func (x *D04RequirementsSpecification) ObjectModelVersion() string {
 	return D04RequirementsSpecificationModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD04RequirementsSpecification's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D04RequirementsSpecification) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D04RequirementsSpecificationModelVersion, documentVersion)
+}
+
 // LoadYamlD04RequirementsSpecification loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -13650,6 +13690,14 @@ func (x *D05InteractionScenarios) ObjectModelVersion() string {
 	return D05InteractionScenariosModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD05InteractionScenarios's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D05InteractionScenarios) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D05InteractionScenariosModelVersion, documentVersion)
+}
+
 // LoadYamlD05InteractionScenarios loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -13749,6 +13797,14 @@ func NewD06ArchitectureTechnologySpecification(doc *som.SpecDocument, documentVe
 // per §2.1.
 func (x *D06ArchitectureTechnologySpecification) ObjectModelVersion() string {
 	return D06ArchitectureTechnologySpecificationModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD06ArchitectureTechnologySpecification's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D06ArchitectureTechnologySpecification) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D06ArchitectureTechnologySpecificationModelVersion, documentVersion)
 }
 
 // LoadYamlD06ArchitectureTechnologySpecification loads a `*.docspecs.yaml` document in one call: decode the
@@ -13874,6 +13930,14 @@ func (x *D07IntegrationInterfaceSpecification) ObjectModelVersion() string {
 	return D07IntegrationInterfaceSpecificationModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD07IntegrationInterfaceSpecification's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D07IntegrationInterfaceSpecification) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D07IntegrationInterfaceSpecificationModelVersion, documentVersion)
+}
+
 // LoadYamlD07IntegrationInterfaceSpecification loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -13994,6 +14058,14 @@ func (x *D08SecurityAccessSpecification) ObjectModelVersion() string {
 	return D08SecurityAccessSpecificationModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD08SecurityAccessSpecification's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D08SecurityAccessSpecification) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D08SecurityAccessSpecificationModelVersion, documentVersion)
+}
+
 // LoadYamlD08SecurityAccessSpecification loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -14096,6 +14168,14 @@ func NewD09ExperienceDesignSpecification(doc *som.SpecDocument, documentVersion 
 // per §2.1.
 func (x *D09ExperienceDesignSpecification) ObjectModelVersion() string {
 	return D09ExperienceDesignSpecificationModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD09ExperienceDesignSpecification's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D09ExperienceDesignSpecification) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D09ExperienceDesignSpecificationModelVersion, documentVersion)
 }
 
 // LoadYamlD09ExperienceDesignSpecification loads a `*.docspecs.yaml` document in one call: decode the
@@ -14220,6 +14300,14 @@ func NewD10QualityAcceptancePlan(doc *som.SpecDocument, documentVersion string) 
 // per §2.1.
 func (x *D10QualityAcceptancePlan) ObjectModelVersion() string {
 	return D10QualityAcceptancePlanModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD10QualityAcceptancePlan's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D10QualityAcceptancePlan) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D10QualityAcceptancePlanModelVersion, documentVersion)
 }
 
 // LoadYamlD10QualityAcceptancePlan loads a `*.docspecs.yaml` document in one call: decode the
@@ -14381,6 +14469,14 @@ func (x *D11DeliveryRoadmap) ObjectModelVersion() string {
 	return D11DeliveryRoadmapModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD11DeliveryRoadmap's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D11DeliveryRoadmap) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D11DeliveryRoadmapModelVersion, documentVersion)
+}
+
 // LoadYamlD11DeliveryRoadmap loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
@@ -14490,6 +14586,14 @@ func NewD12TransitionRolloutPlan(doc *som.SpecDocument, documentVersion string) 
 // per §2.1.
 func (x *D12TransitionRolloutPlan) ObjectModelVersion() string {
 	return D12TransitionRolloutPlanModelVersion
+}
+
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewD12TransitionRolloutPlan's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *D12TransitionRolloutPlan) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(D12TransitionRolloutPlanModelVersion, documentVersion)
 }
 
 // LoadYamlD12TransitionRolloutPlan loads a `*.docspecs.yaml` document in one call: decode the

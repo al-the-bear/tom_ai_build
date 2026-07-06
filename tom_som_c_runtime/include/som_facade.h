@@ -103,6 +103,36 @@ void som_list_remove_at(SomList *l, size_t index);
 
 /* ---- model-version guard ------------------------------------------------ */
 
+/* The outcome of the §2.2 version check, as a value a read-only viewer can
+ * branch on instead of handling the error `check_som_model_version` reports
+ * (§ item 8). It is the non-erroring companion to `check_som_model_version`:
+ * that function reports an error on any value other than SOM_EDITABILITY_EDITABLE,
+ * while `som_editability_for` returns the same classification without an error so
+ * a consumer can decide *open for edit* vs *open read-only* up front. */
+typedef enum {
+  /* The object model may edit the document in place: an empty stamp (a
+   * brand-new document) or a same-major, minor-`<=` stamp. */
+  SOM_EDITABILITY_EDITABLE,
+  /* The document was authored under a different major version; it may be
+   * read/converted but never edited in place. */
+  SOM_EDITABILITY_READ_ONLY_CROSS_MAJOR,
+  /* The document is same-major but a newer minor than the object model; an
+   * older model must not edit a newer document. */
+  SOM_EDITABILITY_REJECTED_NEWER_MINOR,
+  /* The document stamp is not a valid major.minor string. */
+  SOM_EDITABILITY_INVALID_VERSION
+} SomEditability;
+
+/* Classifies a document's editability under the §2.2 rules without reporting an
+ * error (§ item 8). `generated` is the object model's own major.minor version;
+ * `document_version` is the document's recorded authoring stamp (NULL or "" for
+ * a brand-new, never-stamped document — the C empty-string sentinel, CS4-D2).
+ *
+ * This is the single definition of the version rules; `check_som_model_version`
+ * switches on the value returned here, so the two never diverge. */
+SomEditability som_editability_for(const char *generated,
+                                   const char *document_version);
+
 /* The instantiation-time check every generated root facade performs.
  * `generated` is the object model's own major.minor; `document_version` is the
  * document's recorded stamp ("" for a never-stamped document).

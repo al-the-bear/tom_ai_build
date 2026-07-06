@@ -102,11 +102,13 @@ class SomTypeScriptEmitter {
       ..writeln('// and a `tsconfig.json`, so this module carries no on-disk '
           'path of its own.')
       ..writeln("import {")
+      ..writeln('  SomEditability,')
       ..writeln('  SomList,')
       ..writeln('  SomNode,')
       ..writeln('  SomScalar,')
       ..writeln('  SpecDocument,')
       ..writeln('  checkSomModelVersion,')
+      ..writeln('  somEditabilityFor,')
       ..writeln("} from 'tom_som_typescript_runtime';")
       ..writeln();
 
@@ -262,6 +264,20 @@ class SomTypeScriptEmitter {
             'per §2.1.')
         ..writeln('  get objectModelVersion(): string {')
         ..writeln('    return ${cls.name}.MODEL_VERSION;')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  // Classifies whether a document authored under '
+            '`documentVersion` is')
+        ..writeln('  // editable by this object model, **without throwing** '
+            '(§ item 8) — the')
+        ..writeln("  // non-throwing companion to the constructor's §2.2 "
+            'check, so a read-only')
+        ..writeln('  // viewer can branch instead of catching '
+            'SomVersionError.')
+        ..writeln('  static editabilityFor(documentVersion: string | null): '
+            'SomEditability {')
+        ..writeln('    return somEditabilityFor(${cls.name}.MODEL_VERSION, '
+            'documentVersion);')
         ..writeln('  }');
     } else {
       b

@@ -76,6 +76,32 @@ const char *solution_blueprint_object_model_version(const SolutionBlueprint *sel
   (void)self;
   return SOLUTION_BLUEPRINT_MODEL_VERSION;
 }
+SomEditability solution_blueprint_editability_for(const char *document_version) {
+  return som_editability_for(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version);
+}
+int solution_blueprint_load_yaml(SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err) {
+  SpecDocument *doc = spec_document_from_yaml(yaml);
+  if (solution_blueprint_new(self, doc, doc->model_version, err) != 0) {
+    spec_document_free(doc);
+    free(doc);
+    return 1;
+  }
+  *out_doc = doc;
+  return 0;
+}
+int solution_blueprint_load_file(SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err) {
+  SpecDocument *doc = spec_document_from_file(path);
+  if (doc == NULL) {
+    return 1;
+  }
+  if (solution_blueprint_new(self, doc, doc->model_version, err) != 0) {
+    spec_document_free(doc);
+    free(doc);
+    return 1;
+  }
+  *out_doc = doc;
+  return 0;
+}
 void solution_blueprint_free(SolutionBlueprint *self) {
   som_node_free(&self->node);
 }

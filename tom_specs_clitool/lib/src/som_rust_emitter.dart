@@ -347,6 +347,19 @@ class SomRustEmitter {
         ..writeln('\t\t$mvConst')
         ..writeln('\t}')
         ..writeln()
+        ..writeln('\t/// Classifies whether a document authored under '
+            '`document_version` is')
+        ..writeln('\t/// editable by this object model **without erroring** (§ '
+            'item 8) — the')
+        ..writeln("\t/// non-erroring companion to the constructor's §2.2 check, "
+            'so a read-only')
+        ..writeln('\t/// viewer can branch instead of handling a '
+            '`som::SomVersionError`.')
+        ..writeln('\tpub fn editability_for(document_version: &str) '
+            '-> som::SomEditability {')
+        ..writeln('\t\tsom::som_editability_for($mvConst, document_version)')
+        ..writeln('\t}')
+        ..writeln()
         ..writeln('\t/// Loads a `*.docspecs.yaml` document and returns the '
             'typed root with the')
         ..writeln("\t/// document's authoring stamp already applied (§ item 4) "

@@ -12080,6 +12080,12 @@ class D00SolutionBlueprint : public som::SomNode {
   static D00SolutionBlueprint loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // SBP.1 Document Control (header + revision history + approvals).
@@ -12136,6 +12142,12 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   static D01CurrentLandscapeAssessment loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12183,6 +12195,12 @@ class D02TargetOperatingModel : public som::SomNode {
   static D02TargetOperatingModel loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12236,6 +12254,12 @@ class D03InformationModel : public som::SomNode {
   static D03InformationModel loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12302,6 +12326,12 @@ class D04RequirementsSpecification : public som::SomNode {
   static D04RequirementsSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12352,6 +12382,12 @@ class D05InteractionScenarios : public som::SomNode {
   static D05InteractionScenarios loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12398,6 +12434,12 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   static D06ArchitectureTechnologySpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12452,6 +12494,12 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
   static D07IntegrationInterfaceSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12506,6 +12554,12 @@ class D08SecurityAccessSpecification : public som::SomNode {
   static D08SecurityAccessSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12553,6 +12607,12 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   static D09ExperienceDesignSpecification loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12608,6 +12668,12 @@ class D10QualityAcceptancePlan : public som::SomNode {
   static D10QualityAcceptancePlan loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12677,6 +12743,12 @@ class D11DeliveryRoadmap : public som::SomNode {
   static D11DeliveryRoadmap loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -12727,6 +12799,12 @@ class D12TransitionRolloutPlan : public som::SomNode {
   static D12TransitionRolloutPlan loadFile(som::SpecDocument& doc, const std::string& path);
   // This object model's own model version (major.minor), per §2.1.
   std::string objectModelVersion() const;
+  // Classifies a document's editability against this object model without
+  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // a read-only viewer can branch on the result instead of catching
+  // som::SomVersionError. An empty documentVersion is the absent-stamp
+  // sentinel and classifies as editable.
+  static som::SomEditability editabilityFor(const std::string& documentVersion);
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.

@@ -52,6 +52,8 @@ const {
   SomScalar,
   SomList,
   SomVersionError,
+  SomEditability,
+  somEditabilityFor,
   checkSomModelVersion,
 } = require('./som_facade');
 const {
@@ -105,6 +107,8 @@ module.exports = {
   SomScalar,
   SomList,
   SomVersionError,
+  SomEditability,
+  somEditabilityFor,
   checkSomModelVersion,
   // yaml codec
   FORMAT_VERSION,

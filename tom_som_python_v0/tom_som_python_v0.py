@@ -9,6 +9,7 @@ from tom_som_runtime import (
     SomScalar,
     SpecDocument,
     check_som_model_version,
+    som_editability_for,
 )
 
 class AcceptanceCriteriaList(SomNode):
@@ -10053,6 +10054,14 @@ class D00SolutionBlueprint(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D00SolutionBlueprint.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10165,6 +10174,14 @@ class D01CurrentLandscapeAssessment(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D01CurrentLandscapeAssessment.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10251,6 +10268,14 @@ class D02TargetOperatingModel(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D02TargetOperatingModel.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):
@@ -10349,6 +10374,14 @@ class D03InformationModel(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D03InformationModel.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):
@@ -10464,6 +10497,14 @@ class D04RequirementsSpecification(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D04RequirementsSpecification.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10554,6 +10595,14 @@ class D05InteractionScenarios(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D05InteractionScenarios.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10636,6 +10685,14 @@ class D06ArchitectureTechnologySpecification(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D06ArchitectureTechnologySpecification.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):
@@ -10744,6 +10801,14 @@ class D07IntegrationInterfaceSpecification(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D07IntegrationInterfaceSpecification.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10842,6 +10907,14 @@ class D08SecurityAccessSpecification(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D08SecurityAccessSpecification.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10929,6 +11002,14 @@ class D09ExperienceDesignSpecification(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D09ExperienceDesignSpecification.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):
@@ -11037,6 +11118,14 @@ class D10QualityAcceptancePlan(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D10QualityAcceptancePlan.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):
@@ -11181,6 +11270,14 @@ class D11DeliveryRoadmap(SomNode):
         """This object model's own model version (major.minor), per §2.1."""
         return D11DeliveryRoadmap.model_version
 
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
+
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11273,6 +11370,14 @@ class D12TransitionRolloutPlan(SomNode):
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return D12TransitionRolloutPlan.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     @property
     def content(self):

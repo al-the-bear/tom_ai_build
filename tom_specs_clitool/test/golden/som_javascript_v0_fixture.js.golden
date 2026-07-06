@@ -12,7 +12,9 @@ const {
   SomList,
   SomNode,
   SomScalar,
+  SpecDocument,
   checkSomModelVersion,
+  somEditabilityFor,
 } = require(_path.resolve(__dirname, _manifest.tomSom.runtimePath));
 
 // Generated enum for `Probability` values.
@@ -83,9 +85,32 @@ class SolutionBlueprint extends SomNode {
     checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
   }
 
+  // Loads a `*.docspecs.yaml` document and returns the typed root with the
+  // document's authoring stamp already applied (§ item 4) — one call for
+  // the former decode → loadJson → thread-`documentVersion` sequence.
+  static loadYaml(yaml) {
+    const doc = SpecDocument.fromYaml(yaml);
+    return new SolutionBlueprint(doc, doc.modelVersion);
+  }
+
+  // Loads a `*.docspecs.yaml` document from the file at `path` — the file
+  // companion to `loadYaml`.
+  static loadFile(path) {
+    const doc = SpecDocument.fromFile(path);
+    return new SolutionBlueprint(doc, doc.modelVersion);
+  }
+
   // This object model's own model version (major.minor), per §2.1.
   get objectModelVersion() {
     return SolutionBlueprint.MODEL_VERSION;
+  }
+
+  // Classifies whether a document authored under `documentVersion` is
+  // editable by this object model, **without throwing** (§ item 8) — the
+  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // viewer can branch instead of catching a SomVersionError.
+  static editabilityFor(documentVersion) {
+    return somEditabilityFor(SolutionBlueprint.MODEL_VERSION, documentVersion);
   }
 
   // Why the system exists.

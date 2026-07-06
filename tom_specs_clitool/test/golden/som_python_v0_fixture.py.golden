@@ -10,6 +10,7 @@ from tom_som_runtime import (
     SomScalar,
     SpecDocument,
     check_som_model_version,
+    som_editability_for,
 )
 
 class Probability(Enum):
@@ -70,10 +71,33 @@ class SolutionBlueprint(SomNode):
         super().__init__(doc, "PD00")
         check_som_model_version(SolutionBlueprint.model_version, document_version)
 
+    @classmethod
+    def load_yaml(cls, yaml):
+        """Loads a `*.docspecs.yaml` document and returns the typed root with the
+        document's authoring stamp already applied (§ item 4) — one call for
+        the former decode → load_json → thread-`document_version` sequence."""
+        doc = SpecDocument.from_yaml(yaml)
+        return cls(doc, document_version=doc.model_version)
+
+    @classmethod
+    def load_file(cls, path):
+        """Loads a `*.docspecs.yaml` document from the file at *path* — the file
+        companion to :meth:`load_yaml`."""
+        doc = SpecDocument.from_file(path)
+        return cls(doc, document_version=doc.model_version)
+
     @property
     def object_model_version(self):
         """This object model's own model version (major.minor), per §2.1."""
         return SolutionBlueprint.model_version
+
+    @classmethod
+    def editability_for(cls, document_version):
+        """Classifies whether a document authored under *document_version* is
+        editable by this object model, **without raising** (§ item 8) — the
+        non-throwing companion to the constructor's §2.2 check, so a read-only
+        viewer can branch instead of catching SomVersionError."""
+        return som_editability_for(cls.model_version, document_version)
 
     # Why the system exists.
     @property

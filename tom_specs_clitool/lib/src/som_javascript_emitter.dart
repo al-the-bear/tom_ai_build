@@ -111,6 +111,7 @@ class SomJavaScriptEmitter {
       ..writeln('  SomScalar,')
       ..writeln('  SpecDocument,')
       ..writeln('  checkSomModelVersion,')
+      ..writeln('  somEditabilityFor,')
       ..writeln('} = require(_path.resolve(__dirname, '
           '_manifest.tomSom.runtimePath));')
       ..writeln();
@@ -275,6 +276,19 @@ class SomJavaScriptEmitter {
             'per §2.1.')
         ..writeln('  get objectModelVersion() {')
         ..writeln('    return ${cls.name}.MODEL_VERSION;')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  // Classifies whether a document authored under '
+            '`documentVersion` is')
+        ..writeln('  // editable by this object model, **without throwing** '
+            '(§ item 8) — the')
+        ..writeln("  // non-throwing companion to the constructor's §2.2 check, "
+            'so a read-only')
+        ..writeln('  // viewer can branch instead of catching a '
+            'SomVersionError.')
+        ..writeln('  static editabilityFor(documentVersion) {')
+        ..writeln('    return somEditabilityFor(${cls.name}.MODEL_VERSION, '
+            'documentVersion);')
         ..writeln('  }');
     } else {
       b

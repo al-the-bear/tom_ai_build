@@ -93,6 +93,35 @@ func (x *SolutionBlueprint) ObjectModelVersion() string {
 	return SolutionBlueprintModelVersion
 }
 
+// EditabilityFor classifies whether a document authored under documentVersion
+// is editable by this object model, without returning an error (§ item 8) — the
+// non-error-returning companion to NewSolutionBlueprint's §2.2 check, so a read-only viewer
+// can branch instead of handling the constructor error.
+func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditability {
+	return som.SomEditabilityFor(SolutionBlueprintModelVersion, documentVersion)
+}
+
+// LoadYamlSolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
+// YAML, populate the sparse stores, and construct the typed root at the document
+// root with the document's retained authoring stamp — one call for the former
+// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
+// *som.SomVersionError when the stamp is not editable (§2.2).
+func LoadYamlSolutionBlueprint(yaml string) (*SolutionBlueprint, error) {
+	doc := som.FromYaml(yaml)
+	return NewSolutionBlueprint(doc, doc.ModelVersion)
+}
+
+// LoadFileSolutionBlueprint loads a `*.docspecs.yaml` document from the file at path —
+// the file companion to LoadYamlSolutionBlueprint. A read error is returned to the
+// caller.
+func LoadFileSolutionBlueprint(path string) (*SolutionBlueprint, error) {
+	doc, err := som.FromFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewSolutionBlueprint(doc, doc.ModelVersion)
+}
+
 // Why the system exists.
 func (x *SolutionBlueprint) Vision() string {
 	return x.Doc().ContentOr(x.Path() + "/vision")

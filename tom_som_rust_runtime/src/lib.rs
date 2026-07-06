@@ -31,7 +31,8 @@ pub mod yaml;
 // analogue of the Go package's flat surface.
 pub use json::Json;
 pub use som_facade::{
-    check_som_model_version, doc_ref, DocRef, SomList, SomNode, SomScalar, SomVersionError,
+    check_som_model_version, doc_ref, som_editability_for, DocRef, SomEditability, SomList,
+    SomNode, SomScalar, SomVersionError,
 };
 pub use spec_document::{DocumentJson, ListJson, SpecDocument};
 pub use spec_document_markdown::{

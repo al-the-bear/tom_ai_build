@@ -11,11 +11,13 @@ language-agnostic conformance corpus in ``tom_som_conformance/corpus``.
 from __future__ import annotations
 
 from .som_facade import (
+    SomEditability,
     SomList,
     SomNode,
     SomScalar,
     SomVersionError,
     check_som_model_version,
+    som_editability_for,
 )
 from .spec_document import SpecDocument
 from .spec_section_id import (
@@ -70,6 +72,7 @@ __all__ = [
     "FormFieldSpec",
     "ListItemSegment",
     "SPEC_PATH_SEPARATOR",
+    "SomEditability",
     "SomList",
     "SomNode",
     "SomScalar",
@@ -98,6 +101,7 @@ __all__ = [
     "generate_list_item_section_id",
     "list_item_path",
     "section_id_pattern_prefix",
+    "som_editability_for",
     "spec_path_join",
     "spec_path_segments",
     "split_list_item_segment",

@@ -238,12 +238,67 @@ func tryInt(raw string) (int, bool) {
 	return atoi(raw), true
 }
 
+// SomEditability is the outcome of the §2.2 version check, as a value a
+// read-only viewer can branch on instead of handling the error returned by
+// CheckSomModelVersion (§ item 8).
+//
+// It is the non-error-returning companion to CheckSomModelVersion:
+// CheckSomModelVersion returns an error on any value other than
+// SomEditabilityEditable, while SomEditabilityFor returns the same
+// classification without an error so a consumer can decide *open for edit* vs
+// *open read-only* up front.
+type SomEditability int
+
+const (
+	// SomEditabilityEditable — the object model may edit the document in place: an
+	// empty stamp (a brand-new document) or a same-major, minor-`<=` stamp.
+	SomEditabilityEditable SomEditability = iota
+
+	// SomEditabilityReadOnlyCrossMajor — the document was authored under a
+	// different major version; it may be read/converted but never edited in place.
+	SomEditabilityReadOnlyCrossMajor
+
+	// SomEditabilityRejectedNewerMinor — the document is same-major but a newer
+	// minor than the object model; an older model must not edit a newer document.
+	SomEditabilityRejectedNewerMinor
+
+	// SomEditabilityInvalidVersion — the document stamp is not a valid major.minor
+	// string.
+	SomEditabilityInvalidVersion
+)
+
+// SomEditabilityFor classifies a document's editability under the §2.2 rules
+// without returning an error (§ item 8). generated is the object model's own
+// major.minor version; documentVersion is the document's recorded authoring
+// stamp ("" for a brand-new, never-stamped document — the Go empty-string
+// sentinel, CS4-D2).
+//
+// This is the single definition of the version rules; CheckSomModelVersion
+// switches on the value returned here, so the two never diverge.
+func SomEditabilityFor(generated, documentVersion string) SomEditability {
+	if documentVersion == "" {
+		return SomEditabilityEditable
+	}
+	gen, okGen := tryParseSomVersion(generated)
+	docv, okDoc := tryParseSomVersion(documentVersion)
+	if !okGen || !okDoc {
+		return SomEditabilityInvalidVersion
+	}
+	if docv.major != gen.major {
+		return SomEditabilityReadOnlyCrossMajor
+	}
+	if docv.minor > gen.minor {
+		return SomEditabilityRejectedNewerMinor
+	}
+	return SomEditabilityEditable
+}
+
 // CheckSomModelVersion is the instantiation-time version check every generated
 // root facade performs (§2.2). generated is the object model's own major.minor
 // version; documentVersion is the document's recorded authoring stamp ("" for a
 // brand-new, never-stamped document).
 //
-// Rules:
+// Rules (see SomEditabilityFor, which this delegates to):
 //   - an empty document stamp is always accepted — a new document is stamped on
 //     first edit;
 //   - within the same major version, a document whose minor is <= the generated
@@ -253,23 +308,23 @@ func tryInt(raw string) (int, bool) {
 //
 // Returns a *SomVersionError on any rejection or an unparseable stamp.
 func CheckSomModelVersion(generated, documentVersion string) error {
-	if documentVersion == "" {
+	switch SomEditabilityFor(generated, documentVersion) {
+	case SomEditabilityEditable:
 		return nil
-	}
-	gen, ok := tryParseSomVersion(generated)
-	if !ok {
-		return &SomVersionError{Message: "\"" + generated + "\" is not a valid major.minor version"}
-	}
-	docv, ok := tryParseSomVersion(documentVersion)
-	if !ok {
+	case SomEditabilityInvalidVersion:
+		// Distinguish an unparseable generated version from an unparseable
+		// document stamp, matching the original messages.
+		if _, ok := tryParseSomVersion(generated); !ok {
+			return &SomVersionError{Message: "\"" + generated + "\" is not a valid major.minor version"}
+		}
 		return &SomVersionError{Message: "document model version \"" + documentVersion + "\" is not a valid major.minor"}
-	}
-	if docv.major != gen.major {
+	case SomEditabilityReadOnlyCrossMajor:
+		gen, _ := tryParseSomVersion(generated)
+		docv, _ := tryParseSomVersion(documentVersion)
 		return &SomVersionError{Message: "document major version " + itoa(docv.major) +
 			" differs from the object model major version " + itoa(gen.major) +
 			"; cross-major documents are read-only"}
-	}
-	if docv.minor > gen.minor {
+	case SomEditabilityRejectedNewerMinor:
 		return &SomVersionError{Message: "document model version " + documentVersion +
 			" is newer than the object model version " + generated +
 			"; an older object model cannot edit a newer document"}

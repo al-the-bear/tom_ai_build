@@ -45,6 +45,7 @@ _GOLDEN = os.path.normpath(
 sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
+    SomEditability,
     SomVersionError,
     SpecDocument,
     SpecSectionIdCollision,
@@ -220,6 +221,33 @@ def test_version_check(mod) -> None:
         _check("version.cross-major-rejected", True)
 
 
+def test_editability_for(mod) -> None:
+    """The generated root's non-throwing ``editability_for`` classmethod (§ item
+    8) classifies each §2.2 outcome without raising — the companion to the
+    throwing constructor check exercised in :func:`test_version_check`.
+
+    Skips cleanly if the golden predates § item 8 regeneration (the emitter
+    change lands centrally; this test is authored now, verified after regen)."""
+    if not hasattr(mod.SolutionBlueprint, "editability_for"):
+        print("SKIP: golden predates editability_for (§ item 8 not yet regenerated)")
+        return
+    ef = mod.SolutionBlueprint.editability_for
+    # None / empty stamp → editable.
+    _check("editability.none", ef(None) is SomEditability.EDITABLE, str(ef(None)))
+    _check("editability.empty", ef("") is SomEditability.EDITABLE, str(ef("")))
+    # v0 is "0.0": same-major equal minor → editable.
+    _check("editability.equal", ef("0.0") is SomEditability.EDITABLE, str(ef("0.0")))
+    # Newer minor → rejected.
+    _check("editability.newer-minor",
+           ef("0.1") is SomEditability.REJECTED_NEWER_MINOR, str(ef("0.1")))
+    # Different major → cross-major read-only.
+    _check("editability.cross-major",
+           ef("1.0") is SomEditability.READ_ONLY_CROSS_MAJOR, str(ef("1.0")))
+    # Unparseable → invalid.
+    _check("editability.invalid",
+           ef("nope") is SomEditability.INVALID_VERSION, str(ef("nope")))
+
+
 def main() -> int:
     if not os.path.isfile(_GOLDEN):
         print(f"SKIP: golden facade not found at {_GOLDEN}")
@@ -229,6 +257,7 @@ def main() -> int:
     test_section_ids(mod)
     test_model_version(mod)
     test_version_check(mod)
+    test_editability_for(mod)
 
     total = _passed + len(_failed)
     if _failed:
