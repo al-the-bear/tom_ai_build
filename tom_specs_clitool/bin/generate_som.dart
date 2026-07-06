@@ -103,6 +103,36 @@ Future<void> main(List<String> arguments) async {
 
   final config = SpecObjectModelConfig.fromYaml(File(configPath).readAsStringSync());
 
+  // SD-2 / item 3: restamp the serialization order as the mandatory first step,
+  // *before* the model is read. This guarantees every `_v0` facade in this run
+  // is emitted from one identical, current stamp state — the on-disk emission
+  // order can never drift between languages or go stale after a model edit.
+  final SerializationStampResult stampResult;
+  try {
+    stampResult = stampSerializationOrder(packagePath: modelDir);
+  } on StateError catch (e) {
+    _fail('serialization-order restamp failed: ${e.message}');
+  }
+  stdout.writeln('generate_som: restamped @SerializationOrder — '
+      'files changed: ${stampResult.filesChanged}, '
+      'members stamped: ${stampResult.membersStamped}'
+      '${stampResult.membersRestamped > 0 ? ', restamped: '
+          '${stampResult.membersRestamped}' : ''}');
+  for (final w in stampResult.multiVarWarnings) {
+    stderr.writeln('  WARNING (multi-variable field): $w');
+  }
+
+  // Guard: after the restamp, every member the model reflects into the wire
+  // format must carry a current `@SerializationOrder`. An un-stamped member is
+  // the should-never-happen case of the stamper missing a construct it does not
+  // visit — a hard error that fails the run, never a warning.
+  final unstamped = await findUnstampedModelMembers(modelDir);
+  if (unstamped.isNotEmpty) {
+    _fail('${unstamped.length} spec-model member(s) lack a current '
+        '@SerializationOrder after restamp (the stamper missed a construct):\n'
+        '  - ${unstamped.join('\n  - ')}');
+  }
+
   // The model version stamp drives the meta-data + schema version and the
   // idempotency-stable `generatedAt`.
   final stamp = _readStamp(modelDir);

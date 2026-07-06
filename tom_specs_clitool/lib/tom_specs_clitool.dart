@@ -67,6 +67,13 @@ export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/docspecs_yaml_schema_generator.dart'
     show DocspecsYamlSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
+export 'src/serialization_order.dart'
+    show
+        stampSerializationOrder,
+        SerializationStampResult,
+        collectModelSourceFiles,
+        unstampedMembers,
+        findUnstampedModelMembers;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
 // Summary package-config helpers now live in tom_analyzer_shared (the base-first
 // home for analyzer-summary infrastructure). Re-exported here so existing
