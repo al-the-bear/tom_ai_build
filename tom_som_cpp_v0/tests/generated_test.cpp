@@ -21,7 +21,11 @@
 // som::SpecDocument outlives every facade bound to it; facades are values.
 #include "tom_som_cpp_v0.hpp"
 
+#include "spec_document_yaml.hpp"
+
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -265,6 +269,136 @@ void testVersionCheck() {
   ok(majorRejected, "cross-major stamp rejected");
 }
 
+// Reads a whole file into a string (companion to loadYaml, which takes text).
+std::string readFile(const std::string& path) {
+  std::ifstream fp(path, std::ios::binary);
+  std::ostringstream ss;
+  ss << fp.rdbuf();
+  return ss.str();
+}
+
+// § item 5: a section's `isEmpty()` tracks subtree emptiness, agrees with the
+// generic `hasValuesUnder`, and the content leaf's `hasContent` mirrors the
+// typed `.content` answer. Mirrors the Dart "aligned absence semantics" group.
+void testAlignedAbsence() {
+  // (1) A section is empty until a nested value is written, and empty again
+  // once that value is cleared.
+  {
+    som::SpecDocument doc;
+    tom_som_v0::D00SolutionBlueprint sbp(doc);
+    ok(sbp.requirements().isEmpty(), "fresh section isEmpty");
+    sbp.requirements().setContent("Some requirements");
+    ok(!sbp.requirements().isEmpty(), "section not empty after write");
+    sbp.requirements().setContent("");
+    ok(sbp.requirements().isEmpty(), "section empty again after clear");
+  }
+
+  // (2) Typed isEmpty and generic hasValuesUnder agree before and after a write.
+  {
+    som::SpecDocument doc;
+    tom_som_v0::D00SolutionBlueprint sbp(doc);
+    const std::string path = sbp.requirements().path();
+    ok(sbp.requirements().isEmpty() == !doc.hasValuesUnder(path),
+       "isEmpty == !hasValuesUnder (before)");
+    doc.setContent(path + "/content", "x");
+    ok(sbp.requirements().isEmpty() == !doc.hasValuesUnder(path),
+       "isEmpty == !hasValuesUnder (after)");
+    ok(!sbp.requirements().isEmpty(), "section not empty after generic write");
+  }
+
+  // (3) hasContent on the content leaf agrees with the typed .content answer.
+  {
+    som::SpecDocument doc;
+    tom_som_v0::D00SolutionBlueprint sbp(doc);
+    const std::string leaf = sbp.requirements().path() + "/content";
+    eqStr(sbp.requirements().content(), "", "leaf content empty initially");
+    ok(!doc.hasContent(leaf), "hasContent false initially");
+    sbp.requirements().setContent("Filled");
+    ok(doc.hasContent(leaf), "hasContent true after write");
+  }
+}
+
+// § item 4: the one-call `loadYaml` / `loadFile` facades collapse the former
+// decode -> loadJson -> thread-version sequence, and the generic
+// `SpecDocument::fromYaml` retains the parsed model version (or the empty-string
+// sentinel when absent). Mirrors the Dart "one-call loading" group.
+void testOneCallLoading() {
+  const std::string samplePath =
+      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+
+  // (4) loadYaml collapses decode -> loadJson -> thread-version to one call.
+  {
+    const std::string yaml = readFile(samplePath);
+
+    // The former three-step incantation.
+    const som::SpecYamlContents decoded = som::decodeYaml(yaml);
+    som::SpecDocument manualDoc;
+    manualDoc.loadJson(decoded.document);
+    tom_som_v0::D00SolutionBlueprint manual(manualDoc, decoded.modelVersion);
+
+    // The one-call convenience (facade borrows a caller-owned doc).
+    som::SpecDocument oneCallDoc;
+    tom_som_v0::D00SolutionBlueprint oneCall =
+        tom_som_v0::D00SolutionBlueprint::loadYaml(oneCallDoc, yaml);
+
+    // The document stamp is applied automatically — no manual threading.
+    eqStr(oneCallDoc.modelVersion, decoded.modelVersion,
+          "loadYaml stamps model version");
+    // Both paths read identical content from the shared sample.
+    eqStr(oneCall.content(), manual.content(), "loadYaml root content matches");
+    eqStr(oneCall.introductionAndScope().goals().content(),
+          manual.introductionAndScope().goals().content(),
+          "loadYaml nested content matches");
+    ok(oneCall.currentLandscape().operationalMetrics().length() ==
+           manual.currentLandscape().operationalMetrics().length(),
+       "loadYaml list length matches");
+  }
+
+  // (5) loadFile reads the file then delegates to loadYaml.
+  {
+    som::SpecDocument fileDoc;
+    tom_som_v0::D00SolutionBlueprint fromFile =
+        tom_som_v0::D00SolutionBlueprint::loadFile(fileDoc, samplePath);
+    som::SpecDocument yamlDoc;
+    tom_som_v0::D00SolutionBlueprint fromYaml =
+        tom_som_v0::D00SolutionBlueprint::loadYaml(yamlDoc, readFile(samplePath));
+    eqStr(fileDoc.modelVersion, yamlDoc.modelVersion,
+          "loadFile model version == loadYaml");
+    eqStr(fromFile.content(), fromYaml.content(),
+          "loadFile content == loadYaml");
+  }
+
+  // (6) SpecDocument::fromYaml retains the parsed model version.
+  {
+    const std::string yaml =
+        "version: 1\n"
+        "modelVersion: \"1.0\"\n"
+        "document:\n"
+        "  content:\n"
+        "    \"SBP/content\": |2-\n"
+        "      Hello\n";
+    som::SpecDocument doc = som::SpecDocument::fromYaml(yaml);
+    eqStr(doc.modelVersion, "1.0", "fromYaml retains model version");
+    eqStr(doc.content("SBP/content"), "Hello", "fromYaml retains content");
+  }
+
+  // (7) An unstamped document loads with the empty-string sentinel, and the
+  // facade accepts it (a new document is editable).
+  {
+    const std::string yaml = "version: 1\ndocument: {}\n";
+    som::SpecDocument doc = som::SpecDocument::fromYaml(yaml);
+    eqStr(doc.modelVersion, "", "unstamped doc has empty-string sentinel");
+    som::SpecDocument facadeDoc = som::SpecDocument::fromYaml(yaml);
+    bool loadOk = true;
+    try {
+      tom_som_v0::D00SolutionBlueprint::loadYaml(facadeDoc, yaml);
+    } catch (const som::SomVersionError&) {
+      loadOk = false;
+    }
+    ok(loadOk, "loadYaml accepts an unstamped document");
+  }
+}
+
 }  // namespace
 
 int main() {
@@ -273,6 +407,8 @@ int main() {
   testSectionIds();
   testModelVersion();
   testVersionCheck();
+  testAlignedAbsence();
+  testOneCallLoading();
 
   if (gFailed != 0) {
     std::cerr << "\n" << gFailed << " checks FAILED (" << gPassed << " passed)\n";

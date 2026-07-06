@@ -22,6 +22,7 @@
  * `package.json`), so the test is portable across checkouts.
  */
 
+import * as fs from 'fs';
 import {
   SpecDocument,
   SomVersionError,
@@ -197,6 +198,135 @@ function testSectionIds(): void {
   }
 }
 
+// § item 5: aligned absence semantics — mirrors the Dart reference suite.
+function testAbsenceSemantics(): void {
+  // 1. A section reads isEmpty until any value is written under it (subtree).
+  {
+    const doc = new SpecDocument();
+    const sbp = new D00SolutionBlueprint(doc);
+    check('absence.section.empty-initial', sbp.requirements.isEmpty === true);
+    sbp.requirements.content = 'Some requirements';
+    check('absence.section.filled', sbp.requirements.isEmpty === false);
+    sbp.requirements.content = '';
+    check('absence.section.emptied-again', sbp.requirements.isEmpty === true);
+  }
+
+  // 2. Typed isEmpty and generic hasValuesUnder agree.
+  {
+    const doc = new SpecDocument();
+    const sbp = new D00SolutionBlueprint(doc);
+    const p = sbp.requirements.path;
+    check(
+      'absence.isEmpty==!hasValuesUnder.initial',
+      sbp.requirements.isEmpty === !doc.hasValuesUnder(p),
+    );
+    doc.setContent(`${p}/content`, 'x');
+    check(
+      'absence.isEmpty==!hasValuesUnder.filled',
+      sbp.requirements.isEmpty === !doc.hasValuesUnder(p),
+    );
+    check('absence.isEmpty.now-false', sbp.requirements.isEmpty === false);
+  }
+
+  // 3. hasContent gives the generic leaf path the typed .content answer.
+  {
+    const doc = new SpecDocument();
+    const sbp = new D00SolutionBlueprint(doc);
+    const leaf = `${sbp.requirements.path}/content`;
+    check('absence.typed-empty', sbp.requirements.content === '');
+    check('absence.hasContent-false', doc.hasContent(leaf) === false);
+    sbp.requirements.content = 'Filled';
+    check(
+      'absence.typed-nonempty==hasContent',
+      (sbp.requirements.content !== '') === doc.hasContent(leaf),
+    );
+    check('absence.hasContent-true', doc.hasContent(leaf) === true);
+  }
+}
+
+// § item 4: one-call loading — mirrors the Dart reference suite. The suite runs
+// from the project root, so the sample is reached via the sibling conformance
+// project.
+const _samplePath =
+  '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+
+function testOneCallLoading(): void {
+  // 4. loadYaml collapses decode → loadJson → thread-version to one call.
+  {
+    const yaml = fs.readFileSync(_samplePath, 'utf8');
+
+    // The former multi-step incantation: parse into a document, then construct
+    // the typed root over it with the retained model version.
+    const decoded = SpecDocument.fromYaml(yaml);
+    const manual = new D00SolutionBlueprint(decoded, decoded.modelVersion);
+
+    // The one-call convenience.
+    const oneCall = D00SolutionBlueprint.loadYaml(yaml);
+
+    check(
+      'load.yaml.modelVersion',
+      oneCall.doc.modelVersion === decoded.modelVersion,
+      String(oneCall.doc.modelVersion),
+    );
+    check('load.yaml.content', oneCall.content === manual.content);
+    check(
+      'load.yaml.nested-content',
+      oneCall.introductionAndScope.goals.content ===
+        manual.introductionAndScope.goals.content,
+    );
+    check(
+      'load.yaml.list-length',
+      oneCall.currentLandscape.operationalMetrics.length ===
+        manual.currentLandscape.operationalMetrics.length,
+    );
+  }
+
+  // 5. loadFile reads the file then delegates to loadYaml.
+  {
+    const fromFile = D00SolutionBlueprint.loadFile(_samplePath);
+    const fromYaml = D00SolutionBlueprint.loadYaml(
+      fs.readFileSync(_samplePath, 'utf8'),
+    );
+    check(
+      'load.file.modelVersion',
+      fromFile.doc.modelVersion === fromYaml.doc.modelVersion,
+    );
+    check('load.file.content', fromFile.content === fromYaml.content);
+  }
+
+  // 6. SpecDocument.fromYaml retains the parsed model version.
+  {
+    const yaml =
+      'version: 1\n' +
+      'modelVersion: "1.0"\n' +
+      'document:\n' +
+      '  content:\n' +
+      '    "SBP/content": |2-\n' +
+      '      Hello\n';
+    const doc = SpecDocument.fromYaml(yaml);
+    check('load.fromYaml.modelVersion', doc.modelVersion === '1.0', String(doc.modelVersion));
+    check(
+      'load.fromYaml.content',
+      doc.content('SBP/content') === 'Hello',
+      String(doc.content('SBP/content')),
+    );
+  }
+
+  // 7. A document with no modelVersion stamp loads with a null stamp
+  // (TypeScript uses the null convention, not an empty-string sentinel).
+  {
+    const yaml = 'version: 1\ndocument: {}\n';
+    const doc = SpecDocument.fromYaml(yaml);
+    check('load.no-stamp.null', doc.modelVersion === null, String(doc.modelVersion));
+    try {
+      D00SolutionBlueprint.loadYaml(yaml);
+      check('load.no-stamp.editable', true);
+    } catch (e) {
+      check('load.no-stamp.editable', false, String(e));
+    }
+  }
+}
+
 function _arraysEqual(a: string[], b: string[]): boolean {
   if (a.length !== b.length) {
     return false;
@@ -214,6 +344,8 @@ function main(): number {
   testModelVersion();
   testVersionCheck();
   testSectionIds();
+  testAbsenceSemantics();
+  testOneCallLoading();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

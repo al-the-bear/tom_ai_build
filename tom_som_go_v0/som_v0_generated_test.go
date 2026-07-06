@@ -19,10 +19,16 @@ package somv0
 
 import (
 	"errors"
+	"os"
 	"testing"
 
 	som "tom_som_go_runtime"
 )
+
+// samplePath is the shared cross-language conformance sample. Tests read it via
+// this relative path, so `go test` must run from the project directory (the
+// `../tom_som_conformance/...` prefix resolves against the module root).
+const samplePath = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
 
 func TestRootAndParity(t *testing.T) {
 	doc := som.NewSpecDocument()
@@ -212,4 +218,172 @@ func TestVersionCheck(t *testing.T) {
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("cross-major stamp: got %v, want *SomVersionError", err)
 	}
+}
+
+// TestAlignedAbsenceSemantics ports the Dart "aligned absence semantics
+// (§ item 5)" group: a section's structural emptiness stays in lock-step with
+// the generic HasValuesUnder / HasContent predicates as values are written and
+// cleared. The Go emptiness convention is the empty string (never nil).
+func TestAlignedAbsenceSemantics(t *testing.T) {
+	// A section IsEmpty until any value is written under it, and empties again
+	// when that value is cleared.
+	t.Run("section emptiness follows subtree values", func(t *testing.T) {
+		pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
+		req := pd.Requirements()
+		if !req.IsEmpty() {
+			t.Errorf("fresh section IsEmpty() = false, want true")
+		}
+		// A nested content value fills the section (subtree emptiness).
+		req.SetContent("Some requirements")
+		if req.IsEmpty() {
+			t.Errorf("after write IsEmpty() = true, want false")
+		}
+		// Clearing it empties the section again.
+		req.SetContent("")
+		if !req.IsEmpty() {
+			t.Errorf("after clear IsEmpty() = false, want true")
+		}
+	})
+
+	// Typed IsEmpty and generic HasValuesUnder agree before and after a write.
+	t.Run("typed IsEmpty and generic HasValuesUnder agree", func(t *testing.T) {
+		doc := som.NewSpecDocument()
+		pd, _ := NewD00SolutionBlueprint(doc, "")
+		req := pd.Requirements()
+		path := req.Path()
+		if got, want := req.IsEmpty(), !doc.HasValuesUnder(path); got != want {
+			t.Errorf("before write: IsEmpty()=%v, !HasValuesUnder=%v", got, want)
+		}
+		doc.SetContent(path+"/content", "x")
+		if got, want := req.IsEmpty(), !doc.HasValuesUnder(path); got != want {
+			t.Errorf("after write: IsEmpty()=%v, !HasValuesUnder=%v", got, want)
+		}
+		if req.IsEmpty() {
+			t.Errorf("after write: IsEmpty() = true, want false")
+		}
+	})
+
+	// HasContent gives the generic leaf path the typed .Content answer.
+	t.Run("HasContent agrees with typed content on the leaf", func(t *testing.T) {
+		doc := som.NewSpecDocument()
+		pd, _ := NewD00SolutionBlueprint(doc, "")
+		req := pd.Requirements()
+		leaf := req.Path() + "/content"
+		// Typed "" and generic HasContent(false) agree the leaf is empty.
+		if got := req.Content(); got != "" {
+			t.Errorf("initial typed content = %q, want empty", got)
+		}
+		if doc.HasContent(leaf) {
+			t.Errorf("initial HasContent(%q) = true, want false", leaf)
+		}
+		req.SetContent("Filled")
+		if got, want := req.Content() != "", doc.HasContent(leaf); got != want {
+			t.Errorf("after write: (content!=\"\")=%v, HasContent=%v", got, want)
+		}
+		if !doc.HasContent(leaf) {
+			t.Errorf("after write: HasContent(%q) = false, want true", leaf)
+		}
+	})
+}
+
+// TestOneCallLoading ports the Dart "one-call loading (§ item 4)" group: the
+// LoadYaml / LoadFile / FromYaml convenience loaders collapse the former
+// decode → LoadJSON → thread-version incantation into a single call while
+// retaining the document's parsed model version (empty-string sentinel when
+// unstamped). Reads the shared sample via samplePath, so `go test` must run
+// from the project directory.
+func TestOneCallLoading(t *testing.T) {
+	// LoadYaml collapses decode → LoadJSON → thread-version into one call.
+	t.Run("LoadYaml collapses the three-step load", func(t *testing.T) {
+		data, err := os.ReadFile(samplePath)
+		if err != nil {
+			t.Fatalf("read sample: %v", err)
+		}
+		yaml := string(data)
+
+		// The former three-step incantation, built by hand.
+		decoded := som.DecodeYaml(yaml)
+		manualDoc := som.NewSpecDocument()
+		manualDoc.LoadJSON(decoded.Document)
+		manual, err := NewD00SolutionBlueprint(manualDoc, decoded.ModelVersion)
+		if err != nil {
+			t.Fatalf("manual NewD00SolutionBlueprint: %v", err)
+		}
+
+		// The one-call convenience.
+		oneCall, err := LoadYamlD00SolutionBlueprint(yaml)
+		if err != nil {
+			t.Fatalf("LoadYamlD00SolutionBlueprint: %v", err)
+		}
+
+		// The document stamp is applied automatically — no manual threading.
+		if got, want := oneCall.Doc().ModelVersion, decoded.ModelVersion; got != want {
+			t.Errorf("one-call ModelVersion = %q, want %q", got, want)
+		}
+		// Both paths read identical content from the shared sample.
+		if got, want := oneCall.Content(), manual.Content(); got != want {
+			t.Errorf("content mismatch: one-call=%q manual=%q", got, want)
+		}
+		if got, want := oneCall.IntroductionAndScope().Goals().Content(),
+			manual.IntroductionAndScope().Goals().Content(); got != want {
+			t.Errorf("goals content mismatch: one-call=%q manual=%q", got, want)
+		}
+		if got, want := oneCall.CurrentLandscape().OperationalMetrics().Length(),
+			manual.CurrentLandscape().OperationalMetrics().Length(); got != want {
+			t.Errorf("metrics length mismatch: one-call=%d manual=%d", got, want)
+		}
+	})
+
+	// LoadFile reads the file then delegates to LoadYaml.
+	t.Run("LoadFile delegates to LoadYaml", func(t *testing.T) {
+		fromFile, err := LoadFileD00SolutionBlueprint(samplePath)
+		if err != nil {
+			t.Fatalf("LoadFileD00SolutionBlueprint: %v", err)
+		}
+		data, err := os.ReadFile(samplePath)
+		if err != nil {
+			t.Fatalf("read sample: %v", err)
+		}
+		fromYaml, err := LoadYamlD00SolutionBlueprint(string(data))
+		if err != nil {
+			t.Fatalf("LoadYamlD00SolutionBlueprint: %v", err)
+		}
+		if got, want := fromFile.Doc().ModelVersion, fromYaml.Doc().ModelVersion; got != want {
+			t.Errorf("ModelVersion mismatch: file=%q yaml=%q", got, want)
+		}
+		if got, want := fromFile.Content(), fromYaml.Content(); got != want {
+			t.Errorf("content mismatch: file=%q yaml=%q", got, want)
+		}
+	})
+
+	// FromYaml (the generic one-call loader) retains the parsed model version.
+	t.Run("FromYaml retains the parsed model version", func(t *testing.T) {
+		const yaml = "version: 1\n" +
+			"modelVersion: \"1.0\"\n" +
+			"document:\n" +
+			"  content:\n" +
+			"    \"SBP/content\": |2-\n" +
+			"      Hello\n"
+		doc := som.FromYaml(yaml)
+		if got := doc.ModelVersion; got != "1.0" {
+			t.Errorf("ModelVersion = %q, want 1.0", got)
+		}
+		if got := doc.ContentOr("SBP/content"); got != "Hello" {
+			t.Errorf("SBP/content = %q, want Hello", got)
+		}
+	})
+
+	// An unstamped document loads with the empty-string sentinel (Go's null-free
+	// convention) and the facade accepts it without error.
+	t.Run("unstamped document yields the empty-string sentinel", func(t *testing.T) {
+		const yaml = "version: 1\ndocument: {}\n"
+		doc := som.FromYaml(yaml)
+		if got := doc.ModelVersion; got != "" {
+			t.Errorf("unstamped ModelVersion = %q, want \"\" sentinel", got)
+		}
+		// An empty stamp is accepted by the facade (a new document is editable).
+		if _, err := LoadYamlD00SolutionBlueprint(yaml); err != nil {
+			t.Errorf("LoadYamlD00SolutionBlueprint on unstamped: %v", err)
+		}
+	})
 }

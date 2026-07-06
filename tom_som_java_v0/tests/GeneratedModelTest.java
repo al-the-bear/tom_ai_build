@@ -20,11 +20,16 @@
 // Zero external deps: a plain `main()` that exits 0 on success (no JUnit), run
 // by `run_tests.sh`.
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecSectionIdCollision;
+import tom_som_runtime.SpecYamlContents;
 import tom_som_java_v0.TomSomV0;
 
 public final class GeneratedModelTest {
@@ -197,11 +202,144 @@ public final class GeneratedModelTest {
     }
   }
 
+  // The language-agnostic shared sample; read relative to the project dir so the
+  // ../tom_som_conformance path resolves (matches GoldenLog + run_tests.sh cwd).
+  private static final String SAMPLE_PATH =
+      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+
+  private static String readSample() {
+    try {
+      return Files.readString(Path.of(SAMPLE_PATH));
+    } catch (IOException e) {
+      throw new java.io.UncheckedIOException(e);
+    }
+  }
+
+  // Item 5: aligned absence semantics — typed isEmpty / generic
+  // hasValuesUnder / hasContent all agree on subtree emptiness.
+  private static void testAbsenceSemantics() {
+    // A section isEmpty until any value is written under it.
+    {
+      SpecDocument doc = new SpecDocument();
+      TomSomV0.D00SolutionBlueprint sbp = new TomSomV0.D00SolutionBlueprint(doc);
+      check("absence.fresh-empty", sbp.requirements().isEmpty());
+      sbp.requirements().content("Some requirements");
+      check("absence.filled-not-empty", !sbp.requirements().isEmpty());
+      sbp.requirements().content("");
+      check("absence.cleared-empty", sbp.requirements().isEmpty());
+    }
+
+    // Typed isEmpty and generic hasValuesUnder agree, before and after a write.
+    {
+      SpecDocument doc = new SpecDocument();
+      TomSomV0.D00SolutionBlueprint sbp = new TomSomV0.D00SolutionBlueprint(doc);
+      String path = sbp.requirements().path;
+      check("absence.hvu-agrees-before",
+          sbp.requirements().isEmpty() == !doc.hasValuesUnder(path));
+      doc.setContent(path + "/content", "x");
+      check("absence.hvu-agrees-after",
+          sbp.requirements().isEmpty() == !doc.hasValuesUnder(path));
+      check("absence.hvu-after-not-empty", !sbp.requirements().isEmpty());
+    }
+
+    // hasContent gives the generic leaf path the typed .content answer.
+    {
+      SpecDocument doc = new SpecDocument();
+      TomSomV0.D00SolutionBlueprint sbp = new TomSomV0.D00SolutionBlueprint(doc);
+      String leaf = sbp.requirements().path + "/content";
+      check("absence.hascontent-empty-init",
+          sbp.requirements().content().isEmpty() && !doc.hasContent(leaf));
+      sbp.requirements().content("Filled");
+      check("absence.hascontent-after", doc.hasContent(leaf));
+    }
+  }
+
+  // Item 4: one-call loading — loadYaml / loadFile / SpecDocument.fromYaml
+  // collapse the former decode → loadJson → thread-version incantation and
+  // retain the parsed model version (null when unstamped).
+  private static void testOneCallLoading() {
+    // loadYaml collapses decode → loadJson → thread-version to one call.
+    {
+      String yaml = readSample();
+
+      // The former three-step incantation.
+      SpecYamlContents decoded = SpecDocumentYaml.decode(yaml);
+      SpecDocument manualDoc = new SpecDocument();
+      manualDoc.loadJson(decoded.document);
+      TomSomV0.D00SolutionBlueprint manual =
+          new TomSomV0.D00SolutionBlueprint(manualDoc, decoded.modelVersion);
+
+      // The one-call convenience.
+      TomSomV0.D00SolutionBlueprint oneCall =
+          TomSomV0.D00SolutionBlueprint.loadYaml(yaml);
+
+      check("load.yaml.version",
+          java.util.Objects.equals(oneCall.doc.modelVersion(), decoded.modelVersion),
+          String.valueOf(oneCall.doc.modelVersion()));
+      check("load.yaml.content",
+          java.util.Objects.equals(oneCall.content(), manual.content()));
+      check("load.yaml.nested",
+          java.util.Objects.equals(
+              oneCall.introductionAndScope().goals().content(),
+              manual.introductionAndScope().goals().content()));
+      check("load.yaml.list-length",
+          oneCall.currentLandscape().operationalMetrics().length()
+              == manual.currentLandscape().operationalMetrics().length());
+    }
+
+    // loadFile reads the file then delegates to loadYaml.
+    {
+      TomSomV0.D00SolutionBlueprint fromFile =
+          TomSomV0.D00SolutionBlueprint.loadFile(SAMPLE_PATH);
+      TomSomV0.D00SolutionBlueprint fromYaml =
+          TomSomV0.D00SolutionBlueprint.loadYaml(readSample());
+      check("load.file.version",
+          java.util.Objects.equals(
+              fromFile.doc.modelVersion(), fromYaml.doc.modelVersion()),
+          String.valueOf(fromFile.doc.modelVersion()));
+      check("load.file.content",
+          java.util.Objects.equals(fromFile.content(), fromYaml.content()));
+    }
+
+    // SpecDocument.fromYaml retains the parsed model version.
+    {
+      String yaml = "version: 1\n"
+          + "modelVersion: \"1.0\"\n"
+          + "document:\n"
+          + "  content:\n"
+          + "    \"SBP/content\": |2-\n"
+          + "      Hello\n";
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      check("load.fromyaml.version", "1.0".equals(doc.modelVersion()),
+          String.valueOf(doc.modelVersion()));
+      check("load.fromyaml.content", "Hello".equals(doc.content("SBP/content")),
+          String.valueOf(doc.content("SBP/content")));
+    }
+
+    // A document with no modelVersion stamp loads with a null stamp (Java uses
+    // the null convention, not an empty-string sentinel) and the facade accepts
+    // it (a new document is editable).
+    {
+      String yaml = "version: 1\ndocument: {}\n";
+      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      check("load.unstamped.null", doc.modelVersion() == null,
+          String.valueOf(doc.modelVersion()));
+      try {
+        TomSomV0.D00SolutionBlueprint.loadYaml(yaml);
+        check("load.unstamped.editable", true);
+      } catch (SomVersionError e) {
+        check("load.unstamped.editable", false, e.getMessage());
+      }
+    }
+  }
+
   public static void main(String[] args) {
     testRootAndParity();
     testModelVersion();
     testVersionCheck();
     testSectionIds();
+    testAbsenceSemantics();
+    testOneCallLoading();
 
     int total = passed + failures.size();
     if (!failures.isEmpty()) {

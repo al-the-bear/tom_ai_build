@@ -13,7 +13,14 @@ over the shared document (spec §3):
   * a nested complex section derives its path under the root;
   * the generated model-version accessor returns ``1.0``;
   * the instantiation-time version check (§2.2) accepts an editable stamp and
-    rejects a newer-minor / cross-major stamp.
+    rejects a newer-minor / cross-major stamp;
+  * aligned absence semantics (§ item 5): a section is ``is_empty`` until a
+    value is written under it, typed ``is_empty`` agrees with generic
+    ``has_values_under``, and ``has_content`` gives the generic path the typed
+    ``.content`` answer;
+  * one-call loading (§ item 4): ``load_yaml`` / ``load_file`` collapse the
+    former decode → ``load_json`` → thread-version sequence and ``from_yaml``
+    retains (or nulls) the parsed model-version stamp.
 
 Run with ``python3 tests/som_v0_generated_test.py``; exit code 0 == all green.
 The runtime is located by the ``runtime-path`` recorded in ``pyproject.toml`` so
@@ -124,10 +131,107 @@ def test_version_check() -> None:
         _check("version.cross-major-rejected", True)
 
 
+def test_absence_semantics() -> None:
+    # 1) A section is_empty until any value is written under it (subtree-wide).
+    doc = SpecDocument()
+    sbp = m.D00SolutionBlueprint(doc)
+    _check("absence.section-empty", sbp.requirements.is_empty is True)
+    sbp.requirements.content = "Some requirements"
+    _check("absence.section-filled", sbp.requirements.is_empty is False)
+    sbp.requirements.content = ""
+    _check("absence.section-empty-again", sbp.requirements.is_empty is True)
+
+    # 2) Typed is_empty and generic has_values_under agree.
+    doc = SpecDocument()
+    sbp = m.D00SolutionBlueprint(doc)
+    path = sbp.requirements.path
+    _check("absence.typed==generic.empty",
+           sbp.requirements.is_empty == (not doc.has_values_under(path)))
+    doc.set_content(f"{path}/content", "x")
+    _check("absence.typed==generic.filled",
+           sbp.requirements.is_empty == (not doc.has_values_under(path)))
+    _check("absence.filled-not-empty", sbp.requirements.is_empty is False)
+
+    # 3) has_content gives the generic path the typed .content answer.
+    doc = SpecDocument()
+    sbp = m.D00SolutionBlueprint(doc)
+    leaf = f"{sbp.requirements.path}/content"
+    _check("absence.typed-empty", sbp.requirements.content == "")
+    _check("absence.has_content-false", doc.has_content(leaf) is False)
+    sbp.requirements.content = "Filled"
+    _check("absence.has_content-agrees",
+           (sbp.requirements.content != "") == doc.has_content(leaf))
+    _check("absence.has_content-true", doc.has_content(leaf) is True)
+
+
+def test_one_call_loading() -> None:
+    from tom_som_runtime.spec_document_yaml import decode
+
+    # The suite runs from the project root; this relative path resolves there.
+    sample_path = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
+
+    # 4) load_yaml collapses decode → load_json → thread-version to one call.
+    with open(sample_path, "r", encoding="utf-8") as f:
+        yaml = f.read()
+
+    decoded = decode(yaml)
+    manual_doc = SpecDocument()
+    manual_doc.load_json(decoded.document)
+    manual = m.D00SolutionBlueprint(manual_doc, document_version=decoded.model_version)
+
+    one_call = m.D00SolutionBlueprint.load_yaml(yaml)
+
+    _check("load.stamp-auto", one_call.doc.model_version == decoded.model_version,
+           str(one_call.doc.model_version))
+    _check("load.content-parity", one_call.content == manual.content)
+    _check("load.nested-parity",
+           one_call.introductionAndScope.goals.content
+           == manual.introductionAndScope.goals.content)
+    _check("load.list-length-parity",
+           one_call.currentLandscape.operationalMetrics.length
+           == manual.currentLandscape.operationalMetrics.length)
+
+    # 5) load_file reads the file then delegates to load_yaml.
+    from_file = m.D00SolutionBlueprint.load_file(sample_path)
+    with open(sample_path, "r", encoding="utf-8") as f:
+        from_yaml = m.D00SolutionBlueprint.load_yaml(f.read())
+    _check("load.file==yaml.version",
+           from_file.doc.model_version == from_yaml.doc.model_version)
+    _check("load.file==yaml.content", from_file.content == from_yaml.content)
+
+    # 6) SpecDocument.from_yaml retains the parsed model version.
+    stamped_yaml = (
+        'version: 1\n'
+        'modelVersion: "1.0"\n'
+        'document:\n'
+        '  content:\n'
+        '    "SBP/content": |2-\n'
+        '      Hello\n'
+    )
+    doc = SpecDocument.from_yaml(stamped_yaml)
+    _check("load.from_yaml.version", doc.model_version == "1.0",
+           str(doc.model_version))
+    _check("load.from_yaml.content", doc.content("SBP/content") == "Hello",
+           str(doc.content("SBP/content")))
+
+    # 7) A document with no modelVersion stamp loads with a null stamp.
+    unstamped_yaml = "version: 1\ndocument: {}\n"
+    doc = SpecDocument.from_yaml(unstamped_yaml)
+    _check("load.unstamped.null", doc.model_version is None,
+           str(doc.model_version))
+    try:
+        m.D00SolutionBlueprint.load_yaml(unstamped_yaml)
+        _check("load.unstamped.accepted", True)
+    except Exception as e:  # pragma: no cover
+        _check("load.unstamped.accepted", False, str(e))
+
+
 def main() -> int:
     test_root_and_parity()
     test_model_version()
     test_version_check()
+    test_absence_semantics()
+    test_one_call_loading()
 
     total = _passed + len(_failed)
     if _failed:

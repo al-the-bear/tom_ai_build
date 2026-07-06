@@ -294,6 +294,275 @@ static void test_section_ids(void) {
   }
 }
 
+/* Aligned absence semantics (§ item 5): the typed `is_empty` on a section, its
+ * agreement with the generic `has_values_under`, and `has_content` on the leaf
+ * mirroring the typed `.content` answer. Mirrors the Dart "aligned absence
+ * semantics" group. Uses the SBP `requirements` section. */
+static void test_aligned_absence(void) {
+  /* A section is empty until any value is written under it. */
+  {
+    SpecDocument doc;
+    spec_document_init(&doc);
+    D00SolutionBlueprint pd;
+    d00_solution_blueprint_new(&pd, &doc, "", NULL);
+
+    Requirements req = d00_solution_blueprint_requirements(&pd);
+    ok(som_node_is_empty(&req.node) == 1, "fresh section is empty");
+    /* A nested content value fills the section (subtree emptiness). */
+    requirements_set_content(&req, "Some requirements");
+    ok(som_node_is_empty(&req.node) == 0, "section non-empty after content");
+    /* Clearing it empties the section again. */
+    requirements_set_content(&req, "");
+    ok(som_node_is_empty(&req.node) == 1, "section empty after clear");
+
+    requirements_free(&req);
+    d00_solution_blueprint_free(&pd);
+    spec_document_free(&doc);
+  }
+
+  /* Typed is_empty and generic has_values_under agree, before and after a
+   * generic write beneath the section path. */
+  {
+    SpecDocument doc;
+    spec_document_init(&doc);
+    D00SolutionBlueprint pd;
+    d00_solution_blueprint_new(&pd, &doc, "", NULL);
+
+    Requirements req = d00_solution_blueprint_requirements(&pd);
+    const char *path = som_node_path(&req.node);
+    ok(som_node_is_empty(&req.node) ==
+           !spec_document_has_values_under(&doc, path),
+       "is_empty agrees with !has_values_under (before)");
+
+    char *leaf = malloc(strlen(path) + strlen("/content") + 1);
+    strcpy(leaf, path);
+    strcat(leaf, "/content");
+    spec_document_set_content(&doc, leaf, "x");
+    free(leaf);
+
+    ok(som_node_is_empty(&req.node) ==
+           !spec_document_has_values_under(&doc, path),
+       "is_empty agrees with !has_values_under (after)");
+    ok(som_node_is_empty(&req.node) == 0, "section non-empty after write");
+
+    requirements_free(&req);
+    d00_solution_blueprint_free(&pd);
+    spec_document_free(&doc);
+  }
+
+  /* has_content on the leaf gives the generic path the typed .content answer. */
+  {
+    SpecDocument doc;
+    spec_document_init(&doc);
+    D00SolutionBlueprint pd;
+    d00_solution_blueprint_new(&pd, &doc, "", NULL);
+
+    Requirements req = d00_solution_blueprint_requirements(&pd);
+    const char *path = som_node_path(&req.node);
+    char *leaf = malloc(strlen(path) + strlen("/content") + 1);
+    strcpy(leaf, path);
+    strcat(leaf, "/content");
+
+    /* Typed '' and generic has_content(false) agree the leaf is empty. */
+    char *empty = requirements_content(&req);
+    eq_str(empty, "", "typed content empty initially");
+    free(empty);
+    ok(spec_document_has_content(&doc, leaf) == 0,
+       "has_content false initially");
+
+    requirements_set_content(&req, "Filled");
+    ok(spec_document_has_content(&doc, leaf) == 1, "has_content true after set");
+
+    free(leaf);
+    requirements_free(&req);
+    d00_solution_blueprint_free(&pd);
+    spec_document_free(&doc);
+  }
+}
+
+/* Reads a file into an owned NUL-terminated buffer (or NULL on failure). Used to
+ * drive the manual three-step decode -> load_json -> thread-version comparison
+ * against the one-call loaders. */
+static char *read_file(const char *path) {
+  FILE *fp = fopen(path, "rb");
+  if (fp == NULL) return NULL;
+  fseek(fp, 0, SEEK_END);
+  long n = ftell(fp);
+  fseek(fp, 0, SEEK_SET);
+  char *buf = malloc((size_t)n + 1);
+  size_t got = fread(buf, 1, (size_t)n, fp);
+  buf[got] = '\0';
+  fclose(fp);
+  return buf;
+}
+
+/* One-call loading (§ item 4): the generated `load_yaml` / `load_file`
+ * collapse the former decode -> load_json -> thread-version incantation, and the
+ * generic `spec_document_from_yaml` retains the parsed model version. Mirrors the
+ * Dart "one-call loading" group. */
+static void test_one_call_loading(void) {
+  const char *sample_path =
+      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+
+  /* load_yaml collapses decode -> load_json -> thread-version into one call. */
+  {
+    char *yaml = read_file(sample_path);
+    ok(yaml != NULL, "sample yaml read");
+    if (yaml != NULL) {
+      /* The former three-step incantation. */
+      SpecYamlContents decoded;
+      decode_yaml(yaml, &decoded);
+      SpecDocument manual_doc;
+      spec_document_init(&manual_doc);
+      spec_document_load_json(&manual_doc, &decoded.document);
+      D00SolutionBlueprint manual;
+      d00_solution_blueprint_new(&manual, &manual_doc, decoded.model_version,
+                                 NULL);
+
+      /* The one-call convenience. */
+      D00SolutionBlueprint one_call;
+      SpecDocument *one_doc = NULL;
+      char *err = NULL;
+      ok(d00_solution_blueprint_load_yaml(&one_call, yaml, &one_doc, &err) == 0,
+         "load_yaml succeeds");
+      free(err);
+
+      /* The document stamp is applied automatically — no manual threading. */
+      const char *one_mv = one_doc != NULL && one_doc->model_version != NULL
+                               ? one_doc->model_version
+                               : "";
+      eq_str(one_mv, decoded.model_version, "load_yaml retains model version");
+
+      /* Both paths read identical content from the shared sample. */
+      char *one_c = d00_solution_blueprint_content(&one_call);
+      char *man_c = d00_solution_blueprint_content(&manual);
+      eq_str(one_c, man_c, "load_yaml content matches manual");
+      free(one_c);
+      free(man_c);
+
+      IntroductionAndScope one_intro =
+          d00_solution_blueprint_introduction_and_scope(&one_call);
+      Goals one_goals = introduction_and_scope_goals(&one_intro);
+      IntroductionAndScope man_intro =
+          d00_solution_blueprint_introduction_and_scope(&manual);
+      Goals man_goals = introduction_and_scope_goals(&man_intro);
+      char *one_g = goals_content(&one_goals);
+      char *man_g = goals_content(&man_goals);
+      eq_str(one_g, man_g, "load_yaml goals content matches manual");
+      free(one_g);
+      free(man_g);
+      goals_free(&one_goals);
+      goals_free(&man_goals);
+      introduction_and_scope_free(&one_intro);
+      introduction_and_scope_free(&man_intro);
+
+      CurrentLandscape one_cl = d00_solution_blueprint_current_landscape(&one_call);
+      SomList one_metrics = current_landscape_operational_metrics(&one_cl);
+      CurrentLandscape man_cl = d00_solution_blueprint_current_landscape(&manual);
+      SomList man_metrics = current_landscape_operational_metrics(&man_cl);
+      ok(som_list_length(&one_metrics) == som_list_length(&man_metrics),
+         "load_yaml metrics length matches manual");
+      som_list_free(&one_metrics);
+      som_list_free(&man_metrics);
+      current_landscape_free(&one_cl);
+      current_landscape_free(&man_cl);
+
+      d00_solution_blueprint_free(&one_call);
+      if (one_doc != NULL) {
+        spec_document_free(one_doc);
+        free(one_doc);
+      }
+      d00_solution_blueprint_free(&manual);
+      spec_document_free(&manual_doc);
+      spec_yaml_contents_free(&decoded);
+    }
+    free(yaml);
+  }
+
+  /* load_file reads the file then delegates to load_yaml. */
+  {
+    char *yaml = read_file(sample_path);
+    if (yaml != NULL) {
+      D00SolutionBlueprint from_file;
+      SpecDocument *file_doc = NULL;
+      char *ferr = NULL;
+      ok(d00_solution_blueprint_load_file(&from_file, sample_path, &file_doc,
+                                          &ferr) == 0,
+         "load_file succeeds");
+      free(ferr);
+
+      D00SolutionBlueprint from_yaml;
+      SpecDocument *yaml_doc = NULL;
+      char *yerr = NULL;
+      d00_solution_blueprint_load_yaml(&from_yaml, yaml, &yaml_doc, &yerr);
+      free(yerr);
+
+      const char *fmv = file_doc != NULL && file_doc->model_version != NULL
+                            ? file_doc->model_version
+                            : "";
+      const char *ymv = yaml_doc != NULL && yaml_doc->model_version != NULL
+                            ? yaml_doc->model_version
+                            : "";
+      eq_str(fmv, ymv, "load_file model version matches load_yaml");
+
+      char *fc = d00_solution_blueprint_content(&from_file);
+      char *yc = d00_solution_blueprint_content(&from_yaml);
+      eq_str(fc, yc, "load_file content matches load_yaml");
+      free(fc);
+      free(yc);
+
+      d00_solution_blueprint_free(&from_file);
+      d00_solution_blueprint_free(&from_yaml);
+      if (file_doc != NULL) { spec_document_free(file_doc); free(file_doc); }
+      if (yaml_doc != NULL) { spec_document_free(yaml_doc); free(yaml_doc); }
+    }
+    free(yaml);
+  }
+
+  /* The generic one-call yaml loader retains the parsed model version. */
+  {
+    const char *yaml =
+        "version: 1\n"
+        "modelVersion: \"1.0\"\n"
+        "document:\n"
+        "  content:\n"
+        "    \"SBP/content\": |2-\n"
+        "      Hello\n";
+    SpecDocument *doc = spec_document_from_yaml(yaml);
+    ok(doc != NULL, "from_yaml returns a document");
+    if (doc != NULL) {
+      const char *mv = doc->model_version != NULL ? doc->model_version : "";
+      eq_str(mv, "1.0", "from_yaml retains model version");
+      const char *c = spec_document_content(doc, "SBP/content");
+      eq_str(c != NULL ? c : "", "Hello", "from_yaml content parsed");
+      spec_document_free(doc);
+      free(doc);
+    }
+  }
+
+  /* An unstamped document loads with the empty-string sentinel model version,
+   * and load_yaml still succeeds. */
+  {
+    const char *yaml = "version: 1\ndocument: {}\n";
+    SpecDocument *doc = spec_document_from_yaml(yaml);
+    ok(doc != NULL, "from_yaml (unstamped) returns a document");
+    if (doc != NULL) {
+      const char *mv = doc->model_version != NULL ? doc->model_version : "";
+      eq_str(mv, "", "unstamped yaml -> empty model version sentinel");
+      spec_document_free(doc);
+      free(doc);
+    }
+    D00SolutionBlueprint root;
+    SpecDocument *root_doc = NULL;
+    char *err = NULL;
+    ok(d00_solution_blueprint_load_yaml(&root, yaml, &root_doc, &err) == 0,
+       "load_yaml accepts unstamped document");
+    free(err);
+    d00_solution_blueprint_free(&root);
+    if (root_doc != NULL) { spec_document_free(root_doc); free(root_doc); }
+  }
+}
+
 /* The generated model version is reported by both the macro and the accessor. */
 static void test_model_version(void) {
   eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "1.0", "MODEL_VERSION macro");
@@ -344,6 +613,8 @@ int main(void) {
   test_root_and_parity();
   test_typed_list();
   test_section_ids();
+  test_aligned_absence();
+  test_one_call_loading();
   test_model_version();
   test_version_check();
 
