@@ -111,6 +111,11 @@ func NewSomList[T any](doc *SpecDocument, listPath string, factory func(*SpecDoc
 	return &SomList[T]{doc: doc, listPath: listPath, factory: factory, pattern: pattern}
 }
 
+// ListPath returns the list container's section path (items hang off it as
+// "<listPath>-<seq>"). The Go counterpart of Dart's SomList.listPath /
+// Python's list_path, so a traversal can name the container it is iterating.
+func (l *SomList[T]) ListPath() string { return l.listPath }
+
 // Length returns the number of items currently in the list.
 func (l *SomList[T]) Length() int { return l.doc.ListItemCount(l.listPath) }
 

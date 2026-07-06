@@ -140,6 +140,13 @@ impl<T> SomList<T> {
         }
     }
 
+    /// Returns the list container's section path (items hang off it as
+    /// `"<list_path>-<seq>"`). The Rust counterpart of Dart's `SomList.listPath`
+    /// / Python's `list_path`, so a traversal can name the container it iterates.
+    pub fn list_path(&self) -> &str {
+        &self.list_path
+    }
+
     /// Returns the number of items currently in the list.
     pub fn length(&self) -> usize {
         self.doc.borrow().list_item_count(&self.list_path)
