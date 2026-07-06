@@ -457,6 +457,22 @@ void main() {
               'MigrationRisksGovernanceContentForm_2;'));
     });
 
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final header = SomCEmitter(_fixtureModel()).generateHeader();
+      // Root segment `PD00` → holder `Pd00Paths` → macro prefix `PD00_PATHS`,
+      // matching the header's existing SCREAMING_SNAKE `#define` convention.
+      expect(header, contains('#define PD00_PATHS_VISION "PD00/vision"'));
+      expect(header, contains('#define PD00_PATHS_OWNER "PD00/owner"'));
+      expect(header, contains('#define PD00_PATHS_RISKS "PD00/risks"'));
+      expect(header, contains('#define PD00_PATHS_TAGS "PD00/tags"'));
+      expect(header, contains('#define PD00_PATHS_SITUATION "PD00/situation"'));
+      expect(header,
+          contains('#define PD00_PATHS_SITUATION_SUMMARY "PD00/situation/summary"'));
+      // List elements (`Risk`) are dynamic — no element recursion leaks in.
+      expect(header, isNot(contains('PD00/risks/')));
+      expect(header, isNot(contains('_TITLE "PD00')));
+    });
+
     test('documentRoots subsets the generated structs', () {
       final all = SomCEmitter(_fixtureModel()).generateHeader();
       expect(all,

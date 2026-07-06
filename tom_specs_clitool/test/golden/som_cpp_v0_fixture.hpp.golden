@@ -91,6 +91,26 @@ class SolutionBlueprintOwnerForm : public som::SomNode {
   void setRole(const std::string& value);
 };
 
+/// Generated path constants for the `PD00` document root (item 11).
+///
+/// Each constant is the absolute generic path of a fixed section, for use with
+/// the generic som::SpecDocument API instead of a raw string literal.
+struct Pd00Paths {
+  // `PD00/vision`
+  static constexpr const char* vision = "PD00/vision";
+  // `PD00/owner`
+  static constexpr const char* owner = "PD00/owner";
+  // `PD00/risks`
+  static constexpr const char* risks = "PD00/risks";
+  // `PD00/tags`
+  static constexpr const char* tags = "PD00/tags";
+  // `PD00/situation`
+  static constexpr const char* situation = "PD00/situation";
+  // `PD00/situation/summary`
+  static constexpr const char* situationSummary = "PD00/situation/summary";
+  Pd00Paths() = delete;
+};
+
 }  // namespace tom_som_v0
 
 #endif  // TOM_SOM_CPP_V0_HPP

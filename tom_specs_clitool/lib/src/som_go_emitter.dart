@@ -34,6 +34,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// Generates the `tom_som_go_v0` module source for a [SpecModel].
 class SomGoEmitter {
   final SpecModel model;
@@ -158,7 +160,50 @@ class SomGoEmitter {
         ..write(fc.source)
         ..writeln();
     }
+
+    // § item 11: one exported struct-value namespace of generated path
+    // constants per document root.
+    for (final holder in enumerateSpecPathHolders(model,
+        documentRoots: documentRoots)) {
+      buffer
+        ..write(_emitPathHolder(holder))
+        ..writeln();
+    }
     return buffer.toString();
+  }
+
+  /// Emits the `<Code>Paths` holder as an idiomatic Go exported struct-value
+  /// namespace (§ item 11): a package-level `var` bound to an anonymous struct
+  /// whose exported fields hold the absolute generic path of each fixed section.
+  ///
+  /// Go has no class namespaces, so `SbpPaths.CurrentLandscape` reads a field of
+  /// a value rather than a static constant. The holder var name is reserved in
+  /// [_packageIdents] like every other package-level identifier, so it can never
+  /// collide with a type / constructor / constant.
+  String _emitPathHolder(SpecPathHolder holder) {
+    final varName = _alloc(holder.holderName);
+    final fields = [
+      for (final c in holder.constants) (name: _pascal(c.name), path: c.path)
+    ];
+    final b = StringBuffer()
+      ..writeln('// $varName holds generated path constants for the '
+          '`${holder.rootSegment}` document root (§ item 11).')
+      ..writeln('//')
+      ..writeln('// Each field is the absolute generic path of a fixed section, '
+          'for use with the')
+      ..writeln('// generic SpecDocument API instead of a raw string literal — '
+          'the safe end of')
+      ..writeln('// the navigate-then-read hybrid pattern.')
+      ..writeln('var $varName = struct {');
+    for (final f in fields) {
+      b.writeln('\t${f.name} string');
+    }
+    b.writeln('}{');
+    for (final f in fields) {
+      b.writeln('\t${f.name}: "${_goStr(f.path)}",');
+    }
+    b.writeln('}');
+    return b.toString();
   }
 
   /// Allocates every package-level identifier up front so emission can reference

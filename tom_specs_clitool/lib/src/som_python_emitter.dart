@@ -17,6 +17,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// Generates the `tom_som_python_v0` package module source for a [SpecModel].
 class SomPythonEmitter {
   final SpecModel model;
@@ -120,7 +122,36 @@ class SomPythonEmitter {
         ..write(fc.source)
         ..writeln();
     }
+    // § item 11: per-root path-constant holders. The names/values come from the
+    // shared enumerator so they are byte-identical across all nine languages.
+    for (final holder in enumerateSpecPathHolders(model,
+        documentRoots: documentRoots)) {
+      buffer
+        ..write(_emitPathHolder(holder))
+        ..writeln();
+    }
     return buffer.toString();
+  }
+
+  /// Emits the `<Code>Paths` holder — an idiomatic Python namespace of
+  /// class-level string constants (§ item 11).
+  String _emitPathHolder(SpecPathHolder holder) {
+    final b = StringBuffer()
+      ..writeln('class ${holder.holderName}:')
+      ..writeln('    """Generated path constants for the '
+          '`${holder.rootSegment}` document root (§ item 11).')
+      ..writeln()
+      ..writeln('    Each constant is the absolute generic path of a fixed '
+          'section, for use with')
+      ..writeln('    the generic SpecDocument API instead of a raw string '
+          'literal — the safe')
+      ..writeln('    end of the navigate-then-read hybrid pattern.')
+      ..writeln('    """')
+      ..writeln();
+    for (final c in holder.constants) {
+      b.writeln('    ${_acc(c.name)} = "${_pystr(c.path)}"');
+    }
+    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------

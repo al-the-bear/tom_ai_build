@@ -518,5 +518,25 @@ void main() {
           .generateLibrary();
       expect(justRoot, contains('type CurrentLandscapeAssessment struct {'));
     });
+
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomGoEmitter(_fixtureModel()).generateLibrary();
+      // The root's sectionId `PD00` → an exported struct-value namespace named
+      // `Pd00Paths`, declared as a package-level var.
+      expect(source, contains('var Pd00Paths = struct {'));
+      // Each camelCase constant name is exported (Pascal-cased) as a struct
+      // field bound to its absolute generic path.
+      expect(source, contains('Vision: "PD00/vision",'));
+      expect(source, contains('Owner: "PD00/owner",'));
+      expect(source, contains('Risks: "PD00/risks",'));
+      expect(source, contains('Tags: "PD00/tags",'));
+      expect(source, contains('Situation: "PD00/situation",'));
+      expect(source, contains('SituationSummary: "PD00/situation/summary",'));
+      // The list element `Risk` is dynamic and must NOT be recursed into — no
+      // per-item constant leaks (`title`/`probability` under a risk item).
+      expect(source, isNot(contains('"PD00/risks/title"')));
+      expect(source, isNot(contains('RiskTitle:')));
+      expect(source, isNot(contains('RiskProbability:')));
+    });
   });
 }

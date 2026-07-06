@@ -23,6 +23,8 @@ export 'src/spec_object_model_config.dart'
         SpecObjectModelConfigException,
         SomLanguage,
         SomLanguageTarget;
+export 'src/spec_path_constants.dart'
+    show SpecPathConstant, SpecPathHolder, enumerateSpecPathHolders;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;
 export 'src/som_java_emitter.dart' show SomJavaEmitter;

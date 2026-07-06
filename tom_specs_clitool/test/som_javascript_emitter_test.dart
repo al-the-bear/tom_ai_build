@@ -382,6 +382,24 @@ process.stdout.write('OK');
       expect(tagsBody, endsWith('new SomScalar(d, p));'));
     });
 
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
+      // The holder is a frozen-object namespace named `<Pascal(rootSeg)>Paths`.
+      expect(source, contains('const Pd00Paths = Object.freeze({'));
+      // The six fixed sections reachable from the root each earn a constant,
+      // keyed by camelCase name with the absolute generic path as value.
+      expect(source, contains('vision: "PD00/vision",'));
+      expect(source, contains('owner: "PD00/owner",'));
+      expect(source, contains('risks: "PD00/risks",'));
+      expect(source, contains('tags: "PD00/tags",'));
+      expect(source, contains('situation: "PD00/situation",'));
+      expect(source, contains('situationSummary: "PD00/situation/summary",'));
+      // List elements (`Risk`) are dynamic and never recursed — no leaf key.
+      expect(source, isNot(contains('risksTitle')));
+      // The holder is exported the same CommonJS way as the other symbols.
+      expect(source, contains('  Pd00Paths,\n'));
+    });
+
     test('documentRoots subsets the generated classes', () {
       final all = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
       expect(all, contains('class CurrentLandscapeAssessment extends SomNode'));

@@ -32,6 +32,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// The header include-guard macro and the generated file basenames.
 const String _headerGuard = 'TOM_SOM_CPP_V0_HPP';
 const String _headerBasename = 'tom_som_cpp_v0.hpp';
@@ -220,6 +222,15 @@ class SomCppEmitter {
       b.writeln();
     }
 
+    // § item 11: per-root path-constant holders — a struct of
+    // `static constexpr const char*` members naming every fixed navigable
+    // path, so generic consumers reference a symbol instead of a raw string.
+    for (final holder in enumerateSpecPathHolders(model,
+        documentRoots: documentRoots)) {
+      _declPathHolder(b, holder);
+      b.writeln();
+    }
+
     b
       ..writeln('}  // namespace $_namespace')
       ..writeln()
@@ -387,6 +398,31 @@ class SomCppEmitter {
       b.writeln('  void $setAcc(const std::string& value);');
     }
     b.writeln('};');
+  }
+
+  /// Emits the `<Code>Paths` holder — a struct of `static constexpr const
+  /// char*` path constants (§ item 11). In C++17 an in-class `static constexpr`
+  /// member is implicitly `inline`, so no out-of-line definition is needed and
+  /// header inclusion in multiple translation units raises no ODR conflict.
+  void _declPathHolder(StringBuffer b, SpecPathHolder holder) {
+    b
+      ..writeln('/// Generated path constants for the `${holder.rootSegment}` '
+          'document root (item 11).')
+      ..writeln('///')
+      ..writeln('/// Each constant is the absolute generic path of a fixed '
+          'section, for use with')
+      ..writeln('/// the generic som::SpecDocument API instead of a raw string '
+          'literal.')
+      ..writeln('struct ${holder.holderName} {');
+    for (final c in holder.constants) {
+      b
+        ..writeln('  // `${c.path}`')
+        ..writeln('  static constexpr const char* ${c.name} = '
+            '"${_cppStr(c.path)}";');
+    }
+    b
+      ..writeln('  ${holder.holderName}() = delete;')
+      ..writeln('};');
   }
 
   // --- source --------------------------------------------------------------

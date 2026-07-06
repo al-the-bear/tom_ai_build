@@ -172,4 +172,25 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated path constants for the `PD00` document root (§ item 11).
+  //
+  // Each constant is the absolute generic path of a fixed section, for use
+  // with the generic SpecDocument API instead of a raw string literal — the
+  // safe end of the navigate-then-read hybrid pattern.
+  public static final class Pd00Paths {
+    private Pd00Paths() {}
+    // PD00/vision
+    public static final String vision = "PD00/vision";
+    // PD00/owner
+    public static final String owner = "PD00/owner";
+    // PD00/risks
+    public static final String risks = "PD00/risks";
+    // PD00/tags
+    public static final String tags = "PD00/tags";
+    // PD00/situation
+    public static final String situation = "PD00/situation";
+    // PD00/situation/summary
+    public static final String situationSummary = "PD00/situation/summary";
+  }
+
 }

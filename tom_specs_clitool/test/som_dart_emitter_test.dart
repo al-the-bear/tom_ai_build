@@ -305,6 +305,24 @@ dependencies:
       expect(tagsLine, isNot(contains('pattern:')));
     });
 
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomDartEmitter(_fixtureModel()).generateLibrary();
+      // The holder is named from the root segment (sectionId `PD00` → `Pd00`).
+      expect(source, contains('abstract final class Pd00Paths {'));
+      // A content leaf and a collapsed complex child both earn constants.
+      expect(source,
+          contains("static const String vision = 'PD00/vision';"));
+      expect(source,
+          contains("static const String situation = 'PD00/situation';"));
+      expect(
+          source,
+          contains("static const String situationSummary = "
+              "'PD00/situation/summary';"));
+      // A list container earns exactly the container path (item excluded).
+      expect(source, contains("static const String risks = 'PD00/risks';"));
+      expect(source, isNot(contains('risksTitle')));
+    });
+
     test('documentRoots subsets the generated classes', () {
       final all = SomDartEmitter(_fixtureModel()).generateLibrary();
       expect(all, contains('class CurrentLandscapeAssessment extends SomNode'));

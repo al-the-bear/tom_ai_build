@@ -177,3 +177,24 @@ func (x *SolutionBlueprintOwnerForm) SetRole(value string) {
 	x.Doc().SetFormField(x.Path(), "role", value)
 }
 
+// Pd00Paths holds generated path constants for the `PD00` document root (§ item 11).
+//
+// Each field is the absolute generic path of a fixed section, for use with the
+// generic SpecDocument API instead of a raw string literal — the safe end of
+// the navigate-then-read hybrid pattern.
+var Pd00Paths = struct {
+	Vision string
+	Owner string
+	Risks string
+	Tags string
+	Situation string
+	SituationSummary string
+}{
+	Vision: "PD00/vision",
+	Owner: "PD00/owner",
+	Risks: "PD00/risks",
+	Tags: "PD00/tags",
+	Situation: "PD00/situation",
+	SituationSummary: "PD00/situation/summary",
+}
+

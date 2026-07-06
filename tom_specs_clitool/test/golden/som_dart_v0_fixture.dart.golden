@@ -97,3 +97,23 @@ class SolutionBlueprintOwnerForm extends SomNode {
   set role(String value) => doc.setFormField(path, 'role', value);
 }
 
+/// Generated path constants for the `PD00` document root (§ item 11).
+///
+/// Each constant is the absolute generic path of a fixed section, for use with
+/// the generic [SpecDocument] API instead of a raw string literal — the safe
+/// end of the navigate-then-read hybrid pattern.
+abstract final class Pd00Paths {
+  /// `PD00/vision`
+  static const String vision = 'PD00/vision';
+  /// `PD00/owner`
+  static const String owner = 'PD00/owner';
+  /// `PD00/risks`
+  static const String risks = 'PD00/risks';
+  /// `PD00/tags`
+  static const String tags = 'PD00/tags';
+  /// `PD00/situation`
+  static const String situation = 'PD00/situation';
+  /// `PD00/situation/summary`
+  static const String situationSummary = 'PD00/situation/summary';
+}
+

@@ -456,5 +456,37 @@ void main() {
           .generateLibrary();
       expect(justRoot, contains('pub struct CurrentLandscapeAssessment {'));
     });
+
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomRustEmitter(_fixtureModel()).generateLibrary();
+      // The holder is a unit struct + an impl block of SCREAMING_SNAKE
+      // associated consts, keyed off the root's `PD00` segment.
+      expect(source, contains('pub struct Pd00Paths;'));
+      expect(source, contains('impl Pd00Paths {'));
+      // Each fixed section of the root earns a constant whose value is the exact
+      // generic path; camelCase names fold to SCREAMING_SNAKE_CASE.
+      expect(source,
+          contains('pub const VISION: &\'static str = "PD00/vision";'));
+      expect(source,
+          contains('pub const OWNER: &\'static str = "PD00/owner";'));
+      expect(source,
+          contains('pub const RISKS: &\'static str = "PD00/risks";'));
+      expect(source, contains('pub const TAGS: &\'static str = "PD00/tags";'));
+      expect(source,
+          contains('pub const SITUATION: &\'static str = "PD00/situation";'));
+      // The complex `situation` recurses into its target's `summary` leaf.
+      expect(
+          source,
+          contains('pub const SITUATION_SUMMARY: &\'static str = '
+              '"PD00/situation/summary";'));
+      // List elements are dynamic, so `Risk`'s fields never leak into the holder.
+      expect(source, isNot(contains('RISK_TITLE')));
+      expect(source, isNot(contains('PD00/risks/')));
+      // Suppression keeps the build warning-clean even for unused consts.
+      expect(
+          RegExp(r'#\[allow\(dead_code\)\]\npub struct Pd00Paths;')
+              .hasMatch(source),
+          isTrue);
+    });
   });
 }

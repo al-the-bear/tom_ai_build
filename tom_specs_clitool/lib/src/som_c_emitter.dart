@@ -41,6 +41,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// The header include-guard macro and the generated file basenames.
 const String _headerGuard = 'TOM_SOM_C_V0_H';
 const String _headerBasename = 'tom_som_c_v0.h';
@@ -317,8 +319,39 @@ class SomCEmitter {
       b.writeln();
     }
 
+    _emitPathConstants(b);
+
     b.writeln('#endif /* $_headerGuard */');
     return b.toString().replaceAll('\t', '  ');
+  }
+
+  /// § item 11: per-root path constants. C has no namespaces, so each root's
+  /// holder becomes a group of `#define` string macros — matching the header's
+  /// existing enum-token / model-version `#define` convention (SCREAMING_SNAKE
+  /// tokens). Each macro name is `<SCREAMING(holderName)>_<SCREAMING(name)>`
+  /// (e.g. `PD00_PATHS_VISION`) and the value is the c-escaped absolute path.
+  /// `#define` (not `static const char *`) avoids `-Wunused` on the file-scope
+  /// statics the `-Werror` build would reject. List **items** are dynamic and
+  /// never earn a constant (only the container), so no element recursion leaks.
+  void _emitPathConstants(StringBuffer b) {
+    final holders =
+        enumerateSpecPathHolders(model, documentRoots: documentRoots);
+    for (final holder in holders) {
+      if (holder.constants.isEmpty) continue;
+      final prefix = _screamingSnake(holder.holderName);
+      b
+        ..writeln('// Generated path constants for the `${holder.rootSegment}` '
+            'document root (§ item 11).')
+        ..writeln('// Each macro is the absolute generic path of a fixed '
+            'section, for use with the')
+        ..writeln('// generic SpecDocument API instead of a raw string '
+            'literal.');
+      for (final c in holder.constants) {
+        b.writeln('#define ${prefix}_${_screamingSnake(c.name)} '
+            '"${_cStr(c.path)}"');
+      }
+      b.writeln();
+    }
   }
 
   void _declClass(StringBuffer b, _ClassPlan plan) {

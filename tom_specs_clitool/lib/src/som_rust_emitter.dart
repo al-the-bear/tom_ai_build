@@ -37,6 +37,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// Generates the `tom_som_rust_v0` crate-root source for a [SpecModel].
 class SomRustEmitter {
   final SpecModel model;
@@ -172,6 +174,14 @@ class SomRustEmitter {
     for (final fc in formClasses..sort((a, b) => a.name.compareTo(b.name))) {
       buffer
         ..write(fc.source)
+        ..writeln();
+    }
+    // § item 11: per-root path-constant holders. The names/values come from the
+    // shared enumerator so they are byte-identical across all nine languages.
+    for (final holder in enumerateSpecPathHolders(model,
+        documentRoots: documentRoots)) {
+      buffer
+        ..write(_emitPathHolder(holder))
         ..writeln();
     }
     // Emit with idiomatic 4-space indentation. Indentation is built with tab
@@ -571,6 +581,40 @@ class SomRustEmitter {
         ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
             '(&path, $field, value);')
         ..writeln('\t}');
+    }
+    b.writeln('}');
+    return b.toString();
+  }
+
+  /// Emits the `<Code>Paths` holder as an idiomatic Rust associated-consts
+  /// namespace (§ item 11): a unit struct whose `impl` block exposes one
+  /// `&'static str` associated const per fixed section, accessed as
+  /// `Pd00Paths::VISION`. The constant identifier is the shared enumerator's
+  /// camelCase name folded to SCREAMING_SNAKE_CASE (so no `non_upper_case_globals`
+  /// warning fires); the value is the exact generic path. Both the struct and its
+  /// consts carry `#[allow(dead_code)]` so a facade that references only some of
+  /// them still builds warning-clean (mirroring the crate-level suppression).
+  String _emitPathHolder(SpecPathHolder holder) {
+    final b = StringBuffer()
+      ..writeln('/// Generated path constants for the '
+          '`${holder.rootSegment}` document root (§ item 11).')
+      ..writeln('///')
+      ..writeln('/// Each associated const is the absolute generic path of a '
+          'fixed section, for')
+      ..writeln('/// use with the generic `tom_som_rust_runtime` API instead of a '
+          'raw string')
+      ..writeln('/// literal — the safe end of the navigate-then-read hybrid '
+          'pattern.')
+      ..writeln('#[allow(dead_code)]')
+      ..writeln('pub struct ${holder.holderName};')
+      ..writeln()
+      ..writeln('#[allow(dead_code)]')
+      ..writeln('impl ${holder.holderName} {');
+    for (final c in holder.constants) {
+      b
+        ..writeln('\t/// `${c.path}`')
+        ..writeln('\tpub const ${_screamingSnake(c.name)}: &\'static str = '
+            '"${_rustStr(c.path)}";');
     }
     b.writeln('}');
     return b.toString();

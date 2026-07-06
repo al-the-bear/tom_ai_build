@@ -21,18 +21,38 @@ schema is described by the reflection model (c).
 
 ## Shared-sample samples (load a real, broad document)
 
-Samples (d) and (e) both load the **shared, language-agnostic** sample
+Samples (d), (e) and (f) all load the **shared, language-agnostic** sample
 `../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml` — a
 broad Solution Blueprint for a fictional order-management programme, authored by
 [`tool/build_shared_sample.dart`](../tool/build_shared_sample.dart) and reused by
-every language's SOM examples. They read the same key sections two ways and print
-**identical** output.
+every language's SOM examples. They read the same key sections three ways and
+print **identical** output.
 
 | Sample | File | Access path | Run |
 | ------ | ---- | ----------- | --- |
 | **(d)** Sample via typed API | [`d_sample_typed_access.dart`](d_sample_typed_access.dart) | Loads the shared sample and reads key sections through the concrete `D00SolutionBlueprint` facade. | `dart run example/d_sample_typed_access.dart` |
 | **(e)** Sample via generic API | [`e_sample_generic_access.dart`](e_sample_generic_access.dart) | Reads the same shared sample through the generic `SpecDocument` string-path API only — no dependency on the generated facade. | `dart run example/e_sample_generic_access.dart` |
+| **(f)** Sample via hybrid bridge | [`f_sample_hybrid_access.dart`](f_sample_hybrid_access.dart) | Generic reads, but every path comes from the **typed→path bridge** rather than a raw literal. | `dart run example/f_sample_hybrid_access.dart` |
 
-An evaluation of how convenient these two access paths are in practice — and
-concrete suggestions for closing the friction — lives in the TomSpecs quest
-folder: `_ai/quests/tom_specs/som_convenience_feature_suggestions.md`.
+### The hybrid pattern (sample f)
+
+Generic code that must stay dynamic (an editor, a cross-version reader, a batch
+walker) still needs section paths — but hard-coding raw literals like
+`'SBP/currentLandscape/CUOPME-OPER-LST'` is undiscoverable and typo-prone. There
+are two compiler-checked ways to obtain a path without a literal, both shown in
+(f):
+
+1. **Generated path constants.** Every document root gets a `<Root>Paths` holder
+   (`SbpPaths`) of named constants whose values are the exact section paths, so
+   generic code writes `doc.content(SbpPaths.currentLandscapeOperationalMetrics)`
+   instead of the literal. A model rename regenerates the constant; the literal
+   would silently rot. The holder is a set of plain string constants — importing
+   it does not pull in typed navigation.
+2. **Navigate-then-read.** Walk to a node with the typed facade and read its
+   `.path` (or a list's `.listPath`), then read/write generically off that path.
+   This is how you build a *dynamic* path — a typed-navigation prefix plus a tail
+   computed at runtime — which a bare constant cannot express.
+
+An evaluation of how convenient these access paths are in practice — and concrete
+suggestions for closing the friction — lives in the TomSpecs quest folder:
+`_ai/quests/tom_specs/som_convenience_feature_suggestions.md`.

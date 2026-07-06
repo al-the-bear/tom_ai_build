@@ -18,6 +18,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// Generates the `tom_som_java_v0` `TomSomV0.java` source for a [SpecModel].
 class SomJavaEmitter {
   final SpecModel model;
@@ -122,8 +124,44 @@ class SomJavaEmitter {
         ..write(fc.source)
         ..writeln();
     }
+    // § item 11: per-root path-constant holders. The names/values come from the
+    // shared enumerator so they are byte-identical across all nine languages.
+    // Each holder is a nested `public static final class` so the single-file
+    // facade stays a legal compilation unit.
+    for (final holder
+        in enumerateSpecPathHolders(model, documentRoots: documentRoots)) {
+      buffer
+        ..write(_emitPathHolder(holder))
+        ..writeln();
+    }
     buffer.writeln('}');
     return buffer.toString();
+  }
+
+  /// Emits the `<Code>Paths` holder — an uninstantiable nested namespace of
+  /// `public static final String` path constants (§ item 11). A private
+  /// no-arg constructor makes it non-instantiable, mirroring the outer
+  /// `TomSomV0` facade's own pattern.
+  String _emitPathHolder(SpecPathHolder holder) {
+    final b = StringBuffer()
+      ..writeln('$_i1// Generated path constants for the '
+          '`${holder.rootSegment}` document root (§ item 11).')
+      ..writeln('$_i1//')
+      ..writeln('$_i1// Each constant is the absolute generic path of a fixed '
+          'section, for use')
+      ..writeln('$_i1// with the generic SpecDocument API instead of a raw '
+          'string literal — the')
+      ..writeln('$_i1// safe end of the navigate-then-read hybrid pattern.')
+      ..writeln('${_i1}public static final class ${holder.holderName} {')
+      ..writeln('${_i2}private ${holder.holderName}() {}');
+    for (final c in holder.constants) {
+      b
+        ..writeln('$_i2// ${c.path}')
+        ..writeln('${_i2}public static final String ${_acc(c.name)} = '
+            '"${_jstr(c.path)}";');
+    }
+    b.writeln('$_i1}');
+    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------

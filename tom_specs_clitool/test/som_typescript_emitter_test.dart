@@ -387,5 +387,21 @@ void main() {
       expect(tagsBody, isNot(contains('RISK-ITEM-xxx')));
       expect(tagsBody, endsWith('new SomScalar(d, p));'));
     });
+
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
+      // The holder is an idiomatic TS `const`-object namespace, frozen with
+      // `as const`, keyed by the enumerator's camelCase constant names.
+      expect(source, contains('export const Pd00Paths = {'));
+      expect(source, contains('  vision: "PD00/vision",'));
+      expect(source, contains('  owner: "PD00/owner",'));
+      expect(source, contains('  risks: "PD00/risks",'));
+      expect(source, contains('  tags: "PD00/tags",'));
+      expect(source, contains('  situation: "PD00/situation",'));
+      expect(source, contains('  situationSummary: "PD00/situation/summary",'));
+      expect(source, contains('} as const;'));
+      // The `Risk` list element is not recursed — no title constant leaks in.
+      expect(source, isNot(contains('risksTitle')));
+    });
   });
 }

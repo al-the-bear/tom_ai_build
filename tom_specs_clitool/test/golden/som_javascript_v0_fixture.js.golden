@@ -162,10 +162,25 @@ class SolutionBlueprintOwnerForm extends SomNode {
   }
 }
 
+// Generated path constants for the `PD00` document root (§ item 11).
+//
+// Each constant is the absolute generic path of a fixed section, for use with
+// the generic `SpecDocument` API instead of a raw string literal — the safe
+// end of the navigate-then-read hybrid pattern.
+const Pd00Paths = Object.freeze({
+  vision: "PD00/vision",
+  owner: "PD00/owner",
+  risks: "PD00/risks",
+  tags: "PD00/tags",
+  situation: "PD00/situation",
+  situationSummary: "PD00/situation/summary",
+});
+
 module.exports = {
   Probability,
   CurrentLandscapeAssessment,
   Risk,
   SolutionBlueprint,
   SolutionBlueprintOwnerForm,
+  Pd00Paths,
 };

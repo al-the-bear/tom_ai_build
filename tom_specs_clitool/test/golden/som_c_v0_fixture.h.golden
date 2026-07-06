@@ -87,4 +87,14 @@ void solution_blueprint_owner_form_set_name(SolutionBlueprintOwnerForm *self, co
 char *solution_blueprint_owner_form_role(const SolutionBlueprintOwnerForm *self);
 void solution_blueprint_owner_form_set_role(SolutionBlueprintOwnerForm *self, const char *value);
 
+// Generated path constants for the `PD00` document root (§ item 11).
+// Each macro is the absolute generic path of a fixed section, for use with the
+// generic SpecDocument API instead of a raw string literal.
+#define PD00_PATHS_VISION "PD00/vision"
+#define PD00_PATHS_OWNER "PD00/owner"
+#define PD00_PATHS_RISKS "PD00/risks"
+#define PD00_PATHS_TAGS "PD00/tags"
+#define PD00_PATHS_SITUATION "PD00/situation"
+#define PD00_PATHS_SITUATION_SUMMARY "PD00/situation/summary"
+
 #endif /* TOM_SOM_C_V0_H */

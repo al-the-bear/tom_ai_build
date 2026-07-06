@@ -512,5 +512,46 @@ void main() {
       expect(justRoot,
           contains('class CurrentLandscapeAssessment : public som::SomNode {'));
     });
+
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final emitter = SomCppEmitter(_fixtureModel());
+      final header = emitter.generateHeader();
+      // The holder struct is named `<Pascal(rootSegment)>Paths` (PD00 → Pd00).
+      expect(header, contains('struct Pd00Paths {'));
+      // The six fixed navigable positions each earn a constexpr constant.
+      expect(
+          header,
+          contains(
+              'static constexpr const char* vision = "PD00/vision";'));
+      expect(
+          header,
+          contains(
+              'static constexpr const char* owner = "PD00/owner";'));
+      expect(
+          header,
+          contains(
+              'static constexpr const char* risks = "PD00/risks";'));
+      expect(
+          header,
+          contains('static constexpr const char* tags = "PD00/tags";'));
+      expect(
+          header,
+          contains(
+              'static constexpr const char* situation = "PD00/situation";'));
+      expect(
+          header,
+          contains('static constexpr const char* situationSummary = '
+              '"PD00/situation/summary";'));
+      // The list element type `Risk` is NOT recursed — no per-element paths
+      // leak into the holder.
+      expect(header, isNot(contains('"PD00/risks/')));
+      expect(header, isNot(contains('risksTitle')));
+      expect(header, isNot(contains('risksProbability')));
+      // Header-only ODR safety: the holder is uninstantiable and its members
+      // are implicitly-inline constexpr (no out-of-line definitions needed).
+      expect(header, contains('Pd00Paths() = delete;'));
+      // The whole translation unit (incl. the holder) must still compile.
+      _expectCppBuilds(header, emitter.generateSource());
+    });
   });
 }

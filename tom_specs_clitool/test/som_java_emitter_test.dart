@@ -346,5 +346,32 @@ void main() {
           .generateLibrary();
       expect(justRoot, contains('class CurrentLandscapeAssessment extends SomNode'));
     });
+
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
+      // The root sectionId `PD00` yields the nested holder `Pd00Paths`, an
+      // uninstantiable namespace of static final String path constants.
+      expect(source, contains('public static final class Pd00Paths {'));
+      expect(source, contains('private Pd00Paths() {}'));
+      // The six fixed navigable positions reachable from the root.
+      expect(source,
+          contains('public static final String vision = "PD00/vision";'));
+      expect(source,
+          contains('public static final String owner = "PD00/owner";'));
+      expect(source,
+          contains('public static final String risks = "PD00/risks";'));
+      expect(source,
+          contains('public static final String tags = "PD00/tags";'));
+      expect(
+          source,
+          contains(
+              'public static final String situation = "PD00/situation";'));
+      expect(
+          source,
+          contains('public static final String situationSummary = '
+              '"PD00/situation/summary";'));
+      // The list element (`Risk`) is not recursed: no `risksTitle` constant.
+      expect(source, isNot(contains('risksTitle')));
+    });
   });
 }

@@ -214,3 +214,27 @@ impl SolutionBlueprintOwnerForm {
     }
 }
 
+/// Generated path constants for the `PD00` document root (§ item 11).
+///
+/// Each associated const is the absolute generic path of a fixed section, for
+/// use with the generic `tom_som_rust_runtime` API instead of a raw string
+/// literal — the safe end of the navigate-then-read hybrid pattern.
+#[allow(dead_code)]
+pub struct Pd00Paths;
+
+#[allow(dead_code)]
+impl Pd00Paths {
+    /// `PD00/vision`
+    pub const VISION: &'static str = "PD00/vision";
+    /// `PD00/owner`
+    pub const OWNER: &'static str = "PD00/owner";
+    /// `PD00/risks`
+    pub const RISKS: &'static str = "PD00/risks";
+    /// `PD00/tags`
+    pub const TAGS: &'static str = "PD00/tags";
+    /// `PD00/situation`
+    pub const SITUATION: &'static str = "PD00/situation";
+    /// `PD00/situation/summary`
+    pub const SITUATION_SUMMARY: &'static str = "PD00/situation/summary";
+}
+

@@ -290,6 +290,21 @@ void main() {
       expect(tagsBody, isNot(contains('pattern=')));
     });
 
+    test('emits a per-root path-constant holder (§ item 11)', () {
+      final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
+      // The holder is named from the root segment (sectionId `PD00` → `Pd00`).
+      expect(source, contains('class Pd00Paths:'));
+      // A content leaf and a collapsed complex child both earn constants. The
+      // Python member identifier matches the Dart camelCase name (only Python
+      // keywords are sanitised — none of these are).
+      expect(source, contains('vision = "PD00/vision"'));
+      expect(source, contains('situation = "PD00/situation"'));
+      expect(source, contains('situationSummary = "PD00/situation/summary"'));
+      // A list container earns exactly the container path (item excluded).
+      expect(source, contains('risks = "PD00/risks"'));
+      expect(source, isNot(contains('risksTitle')));
+    });
+
     test('documentRoots subsets the generated classes', () {
       final all = SomPythonEmitter(_fixtureModel()).generateLibrary();
       expect(all, contains('class CurrentLandscapeAssessment(SomNode):'));

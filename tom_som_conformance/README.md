@@ -54,3 +54,29 @@ dart run tool/compare_golden.dart
 or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
 all nine language APIs yield exactly the same reading of the same specification.
+
+## Generated path constants (roadmap item 11)
+
+Every generated `tom_som_<lang>_v0` facade emits, per document root, a
+`<Root>Paths` holder of named constants whose values are the exact section paths
+(e.g. `SbpPaths.currentLandscapeOperationalMetrics` →
+`'SBP/currentLandscape/CUOPME-OPER-LST'`). They exist so generic consumers — and
+the golden generators above — reference a compiler-checked symbol instead of a
+raw path literal. **The constant names and path values are identical across all
+nine languages**; only the surface syntax differs per language convention:
+
+| Languages | Member style | Example |
+| --------- | ------------ | ------- |
+| Dart, Python, Java, JavaScript, TypeScript, C++ | camelCase | `SbpPaths.currentLandscapeOperationalMetrics` |
+| Go | PascalCase (exported) | `SbpPaths.CurrentLandscapeOperationalMetrics` |
+| Rust | SCREAMING_SNAKE (associated const) | `SbpPaths::CURRENT_LANDSCAPE_OPERATIONAL_METRICS` |
+| C | SCREAMING_SNAKE `#define` (holder-prefixed) | `SBP_PATHS_CURRENT_LANDSCAPE_OPERATIONAL_METRICS` |
+
+The single enumeration that drives all nine emitters lives in
+`tom_specs_clitool/lib/src/spec_path_constants.dart`, so the names and paths can
+never drift between facades. Fixed navigable positions earn a constant; dynamic
+list *items* (`…-<seq>`) and form-field sub-keys do not — a list field yields the
+constant for its container path only. See the Dart hybrid sample
+(`tom_som_dart_v0/example/f_sample_hybrid_access.dart`) for the two ways to reach
+a path without a literal: a path constant, or navigate-then-read off a typed
+node's `.path`.

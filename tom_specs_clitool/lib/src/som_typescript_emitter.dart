@@ -23,6 +23,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'spec_path_constants.dart';
+
 /// Generates the `tom_som_typescript_v0` module source for a [SpecModel].
 class SomTypeScriptEmitter {
   final SpecModel model;
@@ -127,7 +129,35 @@ class SomTypeScriptEmitter {
         ..write(fc.source)
         ..writeln();
     }
+    // § item 11: per-root path-constant holders. The names/values come from the
+    // shared enumerator so they are byte-identical across all nine languages.
+    for (final holder in enumerateSpecPathHolders(model,
+        documentRoots: documentRoots)) {
+      buffer
+        ..write(_emitPathHolder(holder))
+        ..writeln();
+    }
     return buffer.toString();
+  }
+
+  /// Emits the `<Code>Paths` holder — an idiomatic TypeScript `const`-object
+  /// namespace of path constants, frozen with `as const` (§ item 11).
+  String _emitPathHolder(SpecPathHolder holder) {
+    final b = StringBuffer()
+      ..writeln('// Generated path constants for the '
+          '`${holder.rootSegment}` document root (§ item 11).')
+      ..writeln('//')
+      ..writeln('// Each constant is the absolute generic path of a fixed '
+          'section, for use with')
+      ..writeln('// the generic `SpecDocument` API instead of a raw string '
+          'literal — the safe')
+      ..writeln('// end of the navigate-then-read hybrid pattern.')
+      ..writeln('export const ${holder.holderName} = {');
+    for (final c in holder.constants) {
+      b.writeln('  ${c.name}: "${_jstr(c.path)}",');
+    }
+    b.writeln('} as const;');
+    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------
