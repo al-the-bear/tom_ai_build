@@ -28,6 +28,21 @@ abstract class SomNode {
 
   SomNode(this.doc, this.path);
 
+  /// Whether this section holds no value at all — neither a
+  /// `content`/`scalar`/`enum` leaf, a `@Form` entry, a child section, nor a
+  /// list item — at its [path] or nested beneath it (§ item 5).
+  ///
+  /// The typed counterpart of the generic [SpecDocument.hasValuesUnder], so
+  /// "is this section filled?" answers identically through the typed facade and
+  /// the generic path (the typed `.content` getter coalescing a missing value
+  /// to `''` no longer disagrees with a generic `null`). Emptiness is defined
+  /// once, in [SpecDocument.hasValuesUnder].
+  ///
+  /// Named `isEmpty` (no `$` prefix) to match the proposed API; a model field
+  /// literally named `isEmpty` would collide with this getter, but the spec
+  /// model carries none.
+  bool get isEmpty => !doc.hasValuesUnder(path);
+
   /// This node's section id when it is a list item (AA1 criterion 1 read),
   /// or `null` for non-list nodes (roots, complex/section children — their id
   /// is the fixed `@SectionId` already embedded in [path]).

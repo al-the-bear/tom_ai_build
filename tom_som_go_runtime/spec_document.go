@@ -132,6 +132,13 @@ func (d *SpecDocument) ContentOr(path string) string {
 	return d.content[path]
 }
 
+// HasContent reports whether a non-empty content-leaf value exists at exactly
+// path (leaf-exact; a value nested under path does not count). It is the
+// null-free companion to ContentOr. (SOM roadmap § item 5.)
+func (d *SpecDocument) HasContent(path string) bool {
+	return d.ContentOr(path) != ""
+}
+
 // SetContent sets the content string at path. An empty value clears it.
 func (d *SpecDocument) SetContent(path, value string) {
 	d.ensure()

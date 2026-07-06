@@ -43,6 +43,24 @@ class SomNode:
         self.path = path
 
     @property
+    def is_empty(self) -> bool:
+        """Whether this section holds no value at all — neither a
+        content/scalar/enum leaf, a ``@Form`` entry, a child section, nor a list
+        item — at its :attr:`path` or nested beneath it (§ item 5).
+
+        The typed counterpart of the generic
+        :meth:`SpecDocument.has_values_under`, so "is this section filled?"
+        answers identically through the typed facade and the generic path (the
+        typed ``content`` getter coalescing a missing value to ``''`` no longer
+        disagrees with a generic ``None``). Emptiness is defined once, in
+        :meth:`SpecDocument.has_values_under`.
+
+        Named ``is_empty`` to match the proposed API; a model field literally
+        named ``is_empty`` would collide with this property, but the spec model
+        carries none."""
+        return not self.doc.has_values_under(self.path)
+
+    @property
     def spec_section_id(self) -> Optional[str]:
         """This node's section id when it is a list item (AA1 criterion 1 read),
         or ``None`` for non-list nodes (roots, complex/section children — their

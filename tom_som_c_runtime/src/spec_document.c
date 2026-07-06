@@ -431,6 +431,13 @@ const char *spec_document_content(const SpecDocument *d, const char *path) {
   return som_map_get(&d->content, path);
 }
 
+/* Leaf-exact non-empty check; empty leaves are never stored (set_content
+ * clears on ""), so a present value is always non-empty (§ item 5). */
+int spec_document_has_content(const SpecDocument *d, const char *path) {
+  const char *v = spec_document_content(d, path);
+  return v != NULL && v[0] != '\0';
+}
+
 void spec_document_set_content(SpecDocument *d, const char *path,
                                const char *value) {
   if (value == NULL || value[0] == '\0') {

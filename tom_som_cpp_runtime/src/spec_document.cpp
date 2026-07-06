@@ -216,6 +216,12 @@ std::string SpecDocument::content(const std::string& path) const {
   return v != nullptr ? *v : std::string();
 }
 
+bool SpecDocument::hasContent(const std::string& path) const {
+  // content() returns "" when unset, so a non-empty result means a filled
+  // leaf exists at exactly `path` (§ item 5).
+  return !content(path).empty();
+}
+
 void SpecDocument::setContent(const std::string& path, const std::string& value) {
   if (value.empty()) {
     content_.erase(path);

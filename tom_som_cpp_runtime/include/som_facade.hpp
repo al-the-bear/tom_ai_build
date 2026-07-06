@@ -39,6 +39,11 @@ class SomNode {
    * for a list item; "" for ordinary fixed-id sections. */
   std::string sectionId() const { return doc_.itemSectionId(path_); }
 
+  /* True iff this section holds no value at its path or nested beneath it —
+   * the typed-facade fill check, delegating to the generic hasValuesUnder so
+   * both surfaces agree (§ item 5). Inherited by every generated section. */
+  bool isEmpty() const { return !doc_.hasValuesUnder(path_); }
+
   /* Overrides this node's section id (criterion 5). An empty id is a no-op.
    * Throws SomSectionIdError on a uniqueness collision or a non-live item. */
   void setSectionId(const std::string& id) {

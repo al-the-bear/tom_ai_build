@@ -251,6 +251,13 @@ impl SpecDocument {
         self.content.get(path).cloned().unwrap_or_default()
     }
 
+    /// Returns `true` iff a non-empty content-leaf value exists at exactly
+    /// `path` (leaf-exact; a value nested beneath `path` does not count).
+    /// Null-free companion to [`content`](Self::content) (SOM roadmap § item 5).
+    pub fn has_content(&self, path: &str) -> bool {
+        self.content(path).map_or(false, |v| !v.is_empty())
+    }
+
     /// Sets the content string at `path`. An empty value clears it.
     pub fn set_content(&mut self, path: &str, value: &str) {
         if value.is_empty() {

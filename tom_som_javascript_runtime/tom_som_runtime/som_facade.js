@@ -61,6 +61,18 @@ class SomNode {
     }
     this.doc.setItemSectionId(this.path, id);
   }
+
+  /**
+   * Whether this section holds no value at its {@link path} or nested beneath
+   * it — the typed-facade view of "is this section filled?", kept in agreement
+   * with the generic API by delegating to {@link SpecDocument#hasValuesUnder}
+   * (§ item 5). Inherited by every generated section facade — intentional.
+   *
+   * @returns {boolean}
+   */
+  get isEmpty() {
+    return !this.doc.hasValuesUnder(this.path);
+  }
 }
 
 /**

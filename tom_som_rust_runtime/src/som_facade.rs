@@ -72,6 +72,13 @@ impl SomNode {
         }
         self.doc.borrow_mut().set_item_section_id(&self.path, id)
     }
+
+    /// Returns `true` iff this section holds no value at its path or nested
+    /// beneath it — delegates to [`SpecDocument::has_values_under`] (SOM
+    /// roadmap § item 5).
+    pub fn is_empty(&self) -> bool {
+        !self.doc.borrow().has_values_under(&self.path)
+    }
 }
 
 /// A scalar list item — a bare string value held in the document's content store

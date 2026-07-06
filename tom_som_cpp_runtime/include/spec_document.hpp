@@ -87,6 +87,12 @@ class SpecDocument {
    * NULL-aware accessor. */
   const std::string* contentOpt(const std::string& path) const;
 
+  /* True iff a non-empty content leaf exists at EXACTLY `path` (leaf-exact; a
+   * value nested beneath `path` does NOT count). Null-free companion to
+   * content() — aligns the typed facade's fill check with the generic API
+   * (§ item 5). */
+  bool hasContent(const std::string& path) const;
+
   // form fields
   std::string formField(const std::string& path,
                         const std::string& fieldName) const;  // "" unset

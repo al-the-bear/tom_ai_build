@@ -86,6 +86,16 @@ public final class SpecDocument {
     return content.get(path);
   }
 
+  /**
+   * True iff a non-empty content-leaf value exists at exactly {@code path} (SOM
+   * § item 5). Leaf-exact: a value nested beneath {@code path} does not count.
+   * Null-free companion to {@link #content(String)}.
+   */
+  public boolean hasContent(String path) {
+    String v = content(path);
+    return v != null && !v.isEmpty();
+  }
+
   /** Sets the content string at {@code path}. An empty value clears it. */
   public void setContent(String path, String value) {
     if (value.isEmpty()) {

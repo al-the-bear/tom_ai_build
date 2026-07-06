@@ -95,6 +95,19 @@ class SpecDocument {
     return this._content.has(path) ? this._content.get(path) : null;
   }
 
+  /**
+   * Whether a non-empty content-leaf value exists at *exactly* `path` — a
+   * null-free, leaf-exact companion to {@link content} (§ item 5). A value
+   * nested beneath `path` does **not** count (use {@link hasValuesUnder} for
+   * the structural test).
+   *
+   * @returns {boolean}
+   */
+  hasContent(path) {
+    const v = this._content.has(path) ? this._content.get(path) : null;
+    return typeof v === 'string' && v.length > 0;
+  }
+
   /** Sets the content string at `path`. An empty value clears it. */
   setContent(path, value) {
     if (value === '') {

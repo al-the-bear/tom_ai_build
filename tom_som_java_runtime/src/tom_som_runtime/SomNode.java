@@ -46,4 +46,13 @@ public class SomNode {
       doc.setItemSectionId(path, id);
     }
   }
+
+  /**
+   * True iff this section holds no value at its {@link #path} or nested beneath
+   * it (SOM § item 5) — delegates to {@link SpecDocument#hasValuesUnder}.
+   * Inherited by every generated section facade.
+   */
+  public boolean isEmpty() {
+    return !doc.hasValuesUnder(path);
+  }
 }

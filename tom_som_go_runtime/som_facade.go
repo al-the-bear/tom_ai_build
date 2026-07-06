@@ -67,6 +67,11 @@ func (n SomNode) SetSectionID(id string) error {
 	return n.doc.SetItemSectionID(n.path, id)
 }
 
+// IsEmpty reports whether this section holds no value at its path or nested
+// beneath it (delegates to HasValuesUnder). Promoted to every generated section
+// facade via the embedded SomNode. (SOM roadmap § item 5.)
+func (n SomNode) IsEmpty() bool { return !n.doc.HasValuesUnder(n.path) }
+
 // SomScalar is a scalar list item — a bare string value held in the document's
 // content store at its own item path. Used as the element facade for non-complex
 // (string/scalar) lists.

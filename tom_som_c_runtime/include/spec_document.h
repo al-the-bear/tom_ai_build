@@ -110,6 +110,10 @@ SpecDocument *spec_document_from_file(const char *path);
 const char *spec_document_content(const SpecDocument *d, const char *path);
 void spec_document_set_content(SpecDocument *d, const char *path,
                                const char *value);
+/* Returns 1 iff a non-empty content leaf exists at exactly `path` (leaf-exact;
+ * a value nested beneath `path` does not count). The null-free companion to
+ * `spec_document_content` (§ item 5). */
+int spec_document_has_content(const SpecDocument *d, const char *path);
 
 /* forms: returns form `field_name` at `path` or NULL; empty value clears it. */
 const char *spec_document_form_field(const SpecDocument *d, const char *path,

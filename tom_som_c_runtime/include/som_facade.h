@@ -37,6 +37,9 @@ SpecDocument *som_node_doc(const SomNode *n);
 /* Returns this node's list-item section id (owned; "" for non-list nodes, whose
  * id is the fixed `@SectionId` already embedded in the path). AA1 criterion 1. */
 char *som_node_section_id(const SomNode *n);
+/* Returns 1 iff this section holds no value at its path or nested beneath it
+ * (delegates to `spec_document_has_values_under`) (§ item 5). */
+int som_node_is_empty(const SomNode *n);
 /* Overrides this list item's section id (AA1 criterion 5): an arbitrary suffix,
  * validated unique within the owning list. An empty id is a no-op. On collision
  * or a non-live node writes `*err` and returns 0; returns 1 on success. `err`

@@ -49,6 +49,16 @@ export class SomNode {
   }
 
   /**
+   * Whether this section holds no value at its path or nested beneath it — the
+   * structural "empty = no value" test (§ item 5), delegating to
+   * {@link SpecDocument.hasValuesUnder}. Inherited by every generated section
+   * facade (intentional).
+   */
+  get isEmpty(): boolean {
+    return !this.doc.hasValuesUnder(this.path);
+  }
+
+  /**
    * Overrides this list item's section id (AA1 criterion 5): an arbitrary
    * suffix, validated unique within the owning list. Throws
    * {@link SpecSectionIdCollision} on a duplicate, or an `Error` if this node is

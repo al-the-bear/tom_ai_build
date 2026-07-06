@@ -27,6 +27,11 @@ char *som_node_section_id(const SomNode *n) {
   return som_strdup(id != NULL ? id : "");
 }
 
+/* True when no value lives at this node's path or beneath it (§ item 5). */
+int som_node_is_empty(const SomNode *n) {
+  return !spec_document_has_values_under(n->doc, n->path);
+}
+
 int som_node_set_section_id(const SomNode *n, const char *id,
                             SpecSectionIdError *err) {
   if (id == NULL || id[0] == '\0') {

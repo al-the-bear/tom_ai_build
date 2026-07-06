@@ -151,6 +151,42 @@ void main() {
     });
   });
 
+  group('aligned absence semantics (§ item 5)', () {
+    test('a section isEmpty until any value is written under it', () {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      expect(sbp.requirements.isEmpty, isTrue);
+      // A nested content value fills the section (subtree emptiness).
+      sbp.requirements.content = 'Some requirements';
+      expect(sbp.requirements.isEmpty, isFalse);
+      // Clearing it empties the section again.
+      sbp.requirements.content = '';
+      expect(sbp.requirements.isEmpty, isTrue);
+    });
+
+    test('typed isEmpty and generic hasValuesUnder agree', () {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      final path = sbp.requirements.path;
+      expect(sbp.requirements.isEmpty, !doc.hasValuesUnder(path));
+      doc.setContent('$path/content', 'x');
+      expect(sbp.requirements.isEmpty, !doc.hasValuesUnder(path));
+      expect(sbp.requirements.isEmpty, isFalse);
+    });
+
+    test('hasContent gives the generic path the typed .content answer', () {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      final leaf = '${sbp.requirements.path}/content';
+      // Typed '' and generic hasContent(false) now agree the leaf is empty.
+      expect(sbp.requirements.content, '');
+      expect(doc.hasContent(leaf), isFalse);
+      sbp.requirements.content = 'Filled';
+      expect(sbp.requirements.content.isNotEmpty, doc.hasContent(leaf));
+      expect(doc.hasContent(leaf), isTrue);
+    });
+  });
+
   group('one-call loading (§ item 4)', () {
     const samplePath =
         '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';

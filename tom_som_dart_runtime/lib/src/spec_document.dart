@@ -62,6 +62,17 @@ class SpecDocument {
   /// The content string at [path], or `null` if unset.
   String? content(String path) => _content[path];
 
+  /// Whether a non-empty `content`/`scalar` leaf value exists at exactly
+  /// [path] — the null-free companion to [content] (§ item 5).
+  ///
+  /// This is the one shared definition of "is this content leaf filled?": the
+  /// typed facade's `.content` getter coalesces a missing value to `''` while
+  /// the generic [content] returns `null`, so a consumer asking "is this
+  /// section filled?" gets different-looking answers depending on the path.
+  /// Routing both through [hasContent] removes that divergence — it is `true`
+  /// exactly when [content] would return a non-empty string.
+  bool hasContent(String path) => (_content[path] ?? '').isNotEmpty;
+
   /// Sets the content string at [path]. An empty value clears it (D4).
   void setContent(String path, String value) {
     if (value.isEmpty) {

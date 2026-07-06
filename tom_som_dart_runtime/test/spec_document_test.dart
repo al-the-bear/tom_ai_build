@@ -18,6 +18,23 @@ void main() {
       expect(doc.content('PD00/vision'), isNull);
       expect(doc.isEmpty, isTrue);
     });
+
+    test('hasContent is the null-free "is this leaf filled?" answer (item 5)',
+        () {
+      final doc = SpecDocument();
+      // Unset: content is null, hasContent is false — a single boolean answer.
+      expect(doc.content('PD00/vision'), isNull);
+      expect(doc.hasContent('PD00/vision'), isFalse);
+      // Set: content is the value, hasContent is true.
+      doc.setContent('PD00/vision', 'A bold idea');
+      expect(doc.hasContent('PD00/vision'), isTrue);
+      // Cleared: back to false, matching the null content.
+      doc.setContent('PD00/vision', '');
+      expect(doc.hasContent('PD00/vision'), isFalse);
+      // hasContent is leaf-exact: a value under the path does not fill it.
+      doc.setContent('PD00/vision/nested', 'x');
+      expect(doc.hasContent('PD00/vision'), isFalse);
+    });
   });
 
   group('SpecDocument form fields', () {

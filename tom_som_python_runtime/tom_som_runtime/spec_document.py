@@ -76,6 +76,19 @@ class SpecDocument:
     def content(self, path: str) -> Optional[str]:
         return self._content.get(path)
 
+    def has_content(self, path: str) -> bool:
+        """Whether a non-empty content/scalar leaf value exists at exactly
+        *path* — the ``None``-free companion to :meth:`content` (§ item 5).
+
+        The one shared definition of "is this content leaf filled?": the typed
+        facade's ``content`` getter coalesces a missing value to ``''`` while
+        the generic :meth:`content` returns ``None``, so a consumer asking "is
+        this section filled?" gets different-looking answers depending on the
+        path. Routing both through :meth:`has_content` removes that divergence —
+        it is ``True`` exactly when :meth:`content` would return a non-empty
+        string."""
+        return bool(self._content.get(path))
+
     def set_content(self, path: str, value: str) -> None:
         """Sets the content string at *path*. An empty value clears it."""
         if value == "":
