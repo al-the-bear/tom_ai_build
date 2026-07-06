@@ -33,12 +33,15 @@ Both expose the **same document** through two parallel access paths (§3): the
 (the runtime + the meta-data file). The typed path is optional ergonomics; the
 generic path alone can read, write, validate, load, and save any document.
 
-**Realised today (2/9 languages).** Dart (reference) and Python (the 1/8
-reference port) have actual runtime + `v0` code. The other seven languages
-(Java, JavaScript, TypeScript, Go, Rust, C, C++) are configured but have **no
-emitter yet** — `generate_som` skips them with a notice. See
-[`multiplatform_spec_model_questions.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_questions.md)
-D24.
+**All nine languages are shipped.** Every target — Dart, Python, Java,
+JavaScript, TypeScript, Go, Rust, C, and C++ — has a hand-written generic
+runtime (`tom_som_<lang>_runtime`) and a generated typed facade
+(`tom_som_<lang>_v0`). `generate_som` has a typed emitter + generator for each;
+none is skipped. All nine build and run their generated `v0` projects against
+3079 classes and 13 document roots (see
+[`doc/som_toolchains.md`](doc/som_toolchains.md) for the per-language toolchain
+matrix). Dart and Python are the reference ports; the other seven were ported
+from them (quest decisions D32–D38).
 
 ---
 
@@ -103,8 +106,18 @@ dart run bin/generate_som.dart \
 | `--model` | `<ai_build>/tom_specs_model` | The source model package to read. |
 | `--runtime` | `<ai_build>/tom_som_dart_runtime` | Dart runtime package the generated pubspec depends on. |
 | `--py-runtime` | `<ai_build>/tom_som_python_runtime` | Python runtime the generated manifest depends on. |
+| `--java-runtime` | `<ai_build>/tom_som_java_runtime` | Java runtime the generated manifest depends on. |
+| `--js-runtime` | `<ai_build>/tom_som_javascript_runtime` | JavaScript runtime the generated manifest depends on. |
+| `--ts-runtime` | `<ai_build>/tom_som_typescript_runtime` | TypeScript runtime the generated `file:` dep points at. |
+| `--go-runtime` | `<ai_build>/tom_som_go_runtime` | Go runtime the generated `go.mod replace` targets. |
+| `--rust-runtime` | `<ai_build>/tom_som_rust_runtime` | Rust runtime the generated `Cargo.toml` path dep targets. |
+| `--c-runtime` | `<ai_build>/tom_som_c_runtime` | C runtime the generated `Makefile` `RUNTIME_DIR` targets. |
+| `--cpp-runtime` | `<ai_build>/tom_som_cpp_runtime` | C++ runtime the generated `Makefile` `RUNTIME_DIR` targets. |
 | `--model-version` | major component of the model version | Override the integer model-version stamp. |
 | `-h, --help` | — | Usage. |
+
+Only the runtime options for languages actually listed in the config's
+`languages` block matter; the rest keep their defaults and are unused.
 
 **Version stamp.** The integer model-version and the human label are read from
 the model's `lib/src/version.versioner.dart` (`version`, `buildNumber`,
@@ -117,9 +130,24 @@ authoritative output — consumers never run the generator (§2.3).
 > manifest; it **never deletes** files. Hand-authored `test/`, `example/`, and
 > `examples/` directories survive regeneration.
 
-Related entrypoints in `bin/`: `model_json.dart` (export the meta-data alone),
-`outliner.dart` (render a class-tree outline), `docspecs_schema.dart` (schemas),
-`spec_ops.dart` / `summaries.dart` / `build.dart` (model tooling).
+Related entrypoints in `bin/`:
+
+| Entrypoint | Purpose |
+| --- | --- |
+| `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). |
+| `model_json.dart` | Export the resolved meta-data class graph (`spec_model.meta.json`) alone. |
+| `outliner.dart` | Render a class-tree outline of the model from any document root. |
+| `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SD-2). Run this on `tom_specs_model` after editing the model, before regenerating. |
+| `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
+| `spec_ops.dart` / `summaries.dart` / `build.dart` | Model tooling (spec operations, API summaries, build orchestration). |
+
+**Member serialization order.** `stamp_serialization_order.dart --package
+../tom_specs_model` rewrites the model source to pin each member's on-disk
+emission order (0-based, per class, source-declaration order). The ordinal flows
+through `ModelReader` → `ModelJsonExporter` into the meta-data, so every language
+serialises members in the authored order. Re-run it after any model edit that
+adds, removes, or reorders fields; it is idempotent (old annotations are stripped
+and renumbered).
 
 ---
 
@@ -138,8 +166,21 @@ tom_som_dart_v0/
 └── test/                     # hand-authored generated-tree suite — survives regen
 ```
 
-Python mirrors this as `tom_som_python_v0/` (`tom_som_python_v0.py`,
-`pyproject.toml`, `meta/`, `schemas/`, `examples/`, `tests/`).
+Every other language mirrors this shape — the same `meta/`, `schemas/`,
+hand-authored samples, and tests — differing only in the facade file and the
+language-native manifest that declares the runtime dependency:
+
+| Language | Facade | Manifest | Runtime dependency mechanism |
+| --- | --- | --- | --- |
+| Dart | `lib/tom_som_dart_v0.dart` | `pubspec.yaml` | path/hosted dep on `tom_som_dart_runtime` |
+| Python | `tom_som_python_v0.py` | `pyproject.toml` | dep on `tom_som_python_runtime` |
+| Java | `src/…` | `pom.xml` | dep on `tom_som_java_runtime` |
+| JavaScript | `index.js` (module) | `package.json` | dep on `tom_som_javascript_runtime` |
+| TypeScript | `index.ts` (module) | `package.json` + `tsconfig.json` | `file:` dep on `tom_som_typescript_runtime` |
+| Go | package source | `go.mod` | `replace` → `tom_som_go_runtime` |
+| Rust | `src/lib.rs` | `Cargo.toml` | path dep on `tom_som_rust_runtime` |
+| C | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_c_runtime` |
+| C++ | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_cpp_runtime` |
 
 - **Meta-data file** (`meta/spec_model.meta.json`) — the resolved model graph
   the generic runtime loads. Lossless per §3.1: it carries `modelVersion`
@@ -255,11 +296,17 @@ survive regeneration) and are tabled in that package's own example README:
 | --- | --- | --- |
 | Dart | [`tom_som_dart_v0/example/`](../tom_som_dart_v0/example/) | `dart run example/<file>.dart` |
 | Python | [`tom_som_python_v0/examples/`](../tom_som_python_v0/examples/) | `python3 examples/<file>.py` |
+| Java | `tom_som_java_v0/` | see the package's example README |
+| JavaScript | `tom_som_javascript_v0/` | `node examples/<file>.js` |
+| TypeScript | `tom_som_typescript_v0/` | `tsc && node examples/<file>.js` |
+| Go | `tom_som_go_v0/` | `go run ./examples/<file>` |
+| Rust | `tom_som_rust_v0/` | `cargo run --example <file>` |
+| C | `tom_som_c_v0/` | `make && ./examples/<file>` |
+| C++ | `tom_som_cpp_v0/` | `make && ./examples/<file>` |
 
 Each provides the same triplet — `a_typed_access` (§5a), `b_generic_document`
 (§5b), `c_reflection_metadata` (§5c) — building the same document shape so the
-three access paths visibly converge. The seven code-less languages get their
-triplets when their emitters land (D27).
+three access paths visibly converge across every language.
 
 ---
 
@@ -270,7 +317,7 @@ triplets when their emitters land (D27).
 | Generator + config | Complete; `dart run bin/generate_som.dart`, idempotent. |
 | Dart runtime + `v0` | Complete (reference); 3079 classes, 13 roots. |
 | Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
-| Java / JS / TS / Go / Rust / C / C++ | Configured, **no emitter yet** — skipped with a notice. |
+| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3079 classes; see [`doc/som_toolchains.md`](doc/som_toolchains.md)). |
 
 See the quest plan [`multiplatform_spec_model_plan.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_plan.md)
 and decisions [`multiplatform_spec_model_questions.md`](../../../_ai/quests/tom_specs/multiplatform_spec_model_questions.md)

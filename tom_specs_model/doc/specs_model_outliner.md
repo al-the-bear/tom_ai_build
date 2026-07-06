@@ -185,6 +185,10 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@SeedFor` | No | Schema constraint only (compile-time document link) |
 | `@ContentHelp` | No | Schema constraint only (content authoring guidance) |
 | `@Document` | No | Schema constraint only (document root metadata) |
+| `@SerializationOrder` | No | Meta-data only (member emission order) |
+| `@MapsTo`, `@DetailedIn` | No | Meta-data only (PD00 → Phase 3 traceability) |
+| `@SecondLevelSectionId` | No | Meta-data only (document-scoped short ID) |
+| `@StandardReferences` | No | Meta-data only (standard provenance + connotation) |
 
 ### 4.14 Inline Schema Annotations (`--show-schema-annotations`)
 
@@ -583,6 +587,66 @@ Marks a class as a document root in the specification model.
 - Effect: Identifies document roots for generation, validation, and dependency tracking.
 - Example: `@Document(name: 'Project Definition', description: '...')`.
 
+### 7.24 `@SerializationOrder(int order)`
+
+Pins a member's on-disk emission order.
+
+- Applied to: every instance member of every model class.
+- Effect: Fixes the order in which a document's members are serialized (YAML,
+  JSON) to the member's 0-based source-declaration position within its class,
+  so the on-disk form follows the authored order rather than a hash/insertion
+  order — and is identical across all generated language runtimes.
+- Stamped in bulk by `tom_specs_clitool/bin/stamp_serialization_order.dart`
+  (re-runnable; strips and renumbers on each run). The ordinal flows through
+  `ModelReader` (`ModelField.serializationOrder`) and `ModelJsonExporter` into
+  the meta-data.
+
+### 7.25 `@MapsTo(Type documentClass)`
+
+Marks the seed node of a Phase 3 DocSpec inside the PD00 master model.
+
+- Applied to: the shallowest PD00 class whose entire subtree flows to a single
+  target document.
+- Effect: Declares that everything beneath this class belongs to that document
+  and nothing else. May co-occur with `@DetailedIn` when the whole seed is kept
+  as one top-level entry in the target.
+- Example: `@MapsTo(BusinessDataModel)` on `BusinessObjectAndDataModel`.
+
+### 7.26 `@DetailedIn(Type documentClass)`
+
+Marks a class that is promoted to a top-level entry of a Phase 3 DocSpec.
+
+- Applied to: the "take-off" level — either the whole seed (alongside `@MapsTo`)
+  or each direct child when the seed is flattened one level to fit the target's
+  7–15 section budget.
+- Invariant: must have a `@MapsTo` ancestor (enforced by §8.6).
+- Example: `@DetailedIn(TechnicalRequirements)` on `BasicTechnicalRequirements`.
+
+### 7.27 `@SecondLevelSectionId(Type documentClass, String id)`
+
+The document-scoped short section ID a class uses within a Phase 3 document.
+
+- Applied to: classes used as a top-level entry in a Phase 3 document; one
+  annotation per target document.
+- Effect: supplies the document-prefixed short ID (e.g. `BDM-DAT` for global
+  `PD00-BUS-DAT`). Phase 3 documents initially inherit the global ID as-is; this
+  reserves the short-ID mechanism. Implies `@DetailedIn` (enforced by §8.6).
+- Example: `@SecondLevelSectionId(BusinessDataModel, 'BDM-DAT')`.
+
+### 7.28 `@StandardReferences(List<String> standards, String connotation)`
+
+Records the public standard(s) a section/field derives from and what it means.
+
+- Applied to: classes or fields.
+- Parameters:
+  - `standards`: each entry is a standard's ID plus the clause/term in the
+    standard's own wording (e.g. `'ISO/IEC 25010:2023 §4.2 — Functional
+    suitability'`).
+  - `connotation`: what the section *means* (intent / ownership), distinct from
+    the author-facing guidance of `@ContentHelp` and `Field.hint`.
+- Effect: supersedes the prose `**Standard anchor**:` doc-comment convention;
+  captured for programmatic provenance in the meta-data.
+
 ## 8. Output Example
 
 The example below shows the actual `tom_specs_model` tree with all notation
@@ -744,7 +808,7 @@ SolutionBlueprint
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
-3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
+3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor`, `@SerializationOrder`, `@MapsTo`, `@DetailedIn`, `@SecondLevelSectionId`, `@StandardReferences` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required. The full annotation catalogue and the section base types are documented in [`tom_specs_core/README.md`](../../tom_specs_core/README.md).
 4. **Tree walk**: Start from `SolutionBlueprint`, recursively visit each field:
    - If `String` / `String?` → collect as leaf.
    - If enum → format with values inline.

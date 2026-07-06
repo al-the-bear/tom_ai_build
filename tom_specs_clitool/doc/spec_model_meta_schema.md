@@ -67,7 +67,8 @@ Each root is a document navigator entry point:
 | `sectionId` | `String` | no | Class-level `@SectionId`. |
 | `doc` | `String` | no | Cleaned class doc-comment. |
 | `help` | `String` | no | `@ContentHelp(guidance:)`. |
-| `mapsTo` / `detailedIn` | `String` | no | Traceability targets. |
+| `mapsTo` / `detailedIn` | `String` | no | Traceability targets (`@MapsTo` / `@DetailedIn`). |
+| `standardReferences` | `Map` | no | `@StandardReferences` projected as `{standards: List, connotation: String}` — the public standards the class derives from and what it means. |
 | `annotations` | `List` | no | **Lossless** annotation list (`{name, arguments}` per annotation) — every annotation `ModelReader` captured, source order preserved. Omitted when empty. |
 | `fields` | `List` | yes | The class's fields. |
 
@@ -78,12 +79,14 @@ redundant projection of the `annotations` block, kept for the editor tree; the
 ### `fields[]` entry
 
 Always carries `name` and a render `kind` (`list`, `form`, `section`,
-`content`, `enum`, `complex`, `scalar`); kind-specific keys follow
-(`elementType`/`min` for lists, `formFields` for forms, `contentType` for
-sections/content, `enumType`/`enumValues` for enums, `type` for
-complex/scalar). A field also carries its own lossless `annotations` block
-(omitted when empty), plus curated `sectionId` / `sectionIdPattern` / `help`
-when present. See `ModelJsonExporter` for the exact per-kind shape.
+`content`, `enum`, `complex`, `scalar`), plus `serializationOrder` (the field's
+0-based `@SerializationOrder` ordinal, driving on-disk member order) whenever the
+model has been stamped; kind-specific keys follow (`elementType`/`min` for lists,
+`formFields` for forms, `contentType` for sections/content, `enumType`/`enumValues`
+for enums, `type` for complex/scalar). A field also carries its own lossless `annotations` block
+(omitted when empty), plus curated `sectionId` / `sectionIdPattern` / `help` /
+`standardReferences` when present. See `ModelJsonExporter` for the exact
+per-kind shape.
 
 ## Validation contract
 
