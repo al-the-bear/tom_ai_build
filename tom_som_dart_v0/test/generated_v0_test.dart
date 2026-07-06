@@ -179,6 +179,33 @@ void main() {
     });
   });
 
+  group('content-only list convenience (§ item 9)', () {
+    test('addContent appends and fills a content-only element in one call', () {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      final metrics = sbp.currentLandscape.operationalMetrics;
+      final m = metrics.addContent('Orders/day: 12k');
+      // The element is created and its content leaf set, visible both ways.
+      expect(m.content, 'Orders/day: 12k');
+      expect(metrics.length, 1);
+      expect(doc.content('${m.path}/content'), 'Orders/day: 12k');
+    });
+
+    test('contents reads every element content leaf, matching the index loop',
+        () {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      final metrics = sbp.currentLandscape.operationalMetrics;
+      metrics.addContent('one');
+      metrics.addContent('two');
+      metrics.addContent('three');
+      expect(metrics.contents.toList(), ['one', 'two', 'three']);
+      // Parity with reading each element's typed .content.
+      expect(metrics.contents.toList(),
+          [for (var i = 0; i < metrics.length; i++) metrics[i].content]);
+    });
+  });
+
   group('aligned absence semantics (§ item 5)', () {
     test('a section isEmpty until any value is written under it', () {
       final doc = SpecDocument();

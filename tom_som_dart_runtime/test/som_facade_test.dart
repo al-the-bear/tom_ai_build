@@ -23,6 +23,16 @@ class _Root extends SomNode {
         (d, p) => _Item(d, p),
         pattern: 'RISK-ITEM-xxx',
       );
+
+  /// A content-only element list (the operational-metrics shape) whose element
+  /// carries only the standard `content` leaf — exercises [SomList.addContent]
+  /// and [SomList.contents] (§ item 9).
+  SomList<_Metric> get metrics => SomList<_Metric>(
+        doc,
+        '$path/METR',
+        (d, p) => _Metric(d, p),
+        pattern: 'METR-ITEM-xxx',
+      );
 }
 
 class _Item extends SomNode {
@@ -30,6 +40,16 @@ class _Item extends SomNode {
 
   String get label => doc.content('$path/label') ?? '';
   set label(String v) => doc.setContent('$path/label', v);
+}
+
+/// A content-only element facade: its only field is the standard `content`
+/// leaf, matching the generated content-element shape (e.g.
+/// `CurrentOperationalMetric`).
+class _Metric extends SomNode {
+  _Metric(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String v) => doc.setContent('$path/content', v);
 }
 
 void main() {
@@ -140,6 +160,63 @@ void main() {
       expect(root.risks.sectionIds, ['RISK-ITEM-AB1', 'RISK-ITEM-AB3']);
       final next = root.risks.add(date: date);
       expect(next.$sectionId, 'RISK-ITEM-AB4');
+    });
+  });
+
+  group('SomList content-only convenience (item 9)', () {
+    final date = DateTime(2026, 1, 2); // AB
+
+    test('addContent appends the item and sets its content leaf in one call',
+        () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      final metric = root.metrics.addContent('99.9% uptime', date: date);
+      // Returns the element facade, content readable both ways.
+      expect(metric.content, '99.9% uptime');
+      expect(root.metrics.length, 1);
+      expect(root.metrics[0].content, '99.9% uptime');
+      expect(doc.content('${metric.path}/content'), '99.9% uptime');
+    });
+
+    test('addContent honours the section-id pattern like add', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      final m = root.metrics.addContent('x', date: date);
+      expect(m.$sectionId, 'METR-ITEM-AB1');
+    });
+
+    test('addContent accepts a section-id override', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.metrics.addContent('x', sectionId: 'METR-ITEM-CUSTOM');
+      expect(root.metrics.sectionIds, ['METR-ITEM-CUSTOM']);
+    });
+
+    test('contents yields every item content leaf in order', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.metrics.addContent('first', date: date);
+      root.metrics.addContent('second', date: date);
+      root.metrics.addContent('third', date: date);
+      expect(root.metrics.contents.toList(), ['first', 'second', 'third']);
+    });
+
+    test('contents coalesces a missing content leaf to the empty string', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.metrics.add(date: date); // no content written
+      root.metrics.addContent('has', date: date);
+      expect(root.metrics.contents.toList(), ['', 'has']);
+    });
+
+    test('contents parity: contents == items mapped through the typed getter',
+        () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.metrics.addContent('a', date: date);
+      root.metrics.addContent('b', date: date);
+      expect(root.metrics.contents.toList(),
+          root.metrics.items.map((m) => m.content).toList());
     });
   });
 

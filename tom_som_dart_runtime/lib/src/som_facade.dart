@@ -119,17 +119,51 @@ class SomList<T> {
   /// raises [SpecSectionIdCollision] on a collision), otherwise one generated
   /// from the pattern using [date] (defaulting to now) for the two-letter-date
   /// component. A pattern-less list ignores both arguments.
-  T add({String? sectionId, DateTime? date}) {
-    if (pattern == null) return _factory(doc, doc.addListItem(listPath));
-    final id = sectionId ??
-        generateListItemSectionId(
-            pattern!, date ?? DateTime.now(), doc.listItemSectionIds(listPath));
-    return _factory(doc, doc.addListItem(listPath, sectionId: id));
+  T add({String? sectionId, DateTime? date}) =>
+      _factory(doc, _addItemPath(sectionId: sectionId, date: date));
+
+  /// Appends a **content-only** item, sets its standard `content` leaf, and
+  /// returns the element facade — in one call (§ item 9).
+  ///
+  /// The convenience for element types whose sole field is the standard
+  /// `content` leaf (e.g. operational metrics): collapses the recurring
+  /// `add().content = …` pair into a single call, and takes the same
+  /// [sectionId]/[date] section-id arguments as [add]. The value is written to
+  /// the nested `content` leaf (`<item>/content`), matching every generated
+  /// content element's `content` accessor.
+  ///
+  /// For a scalar (`SomScalar`) list — whose value lives at the item path
+  /// itself, not a nested `content` leaf — use [add] with `.value` instead.
+  T addContent(String content, {String? sectionId, DateTime? date}) {
+    final itemPath = _addItemPath(sectionId: sectionId, date: date);
+    doc.setContent('$itemPath/content', content);
+    return _factory(doc, itemPath);
   }
+
+  /// A read-only view of every item's `content` leaf, in order (§ item 9).
+  ///
+  /// The content-only companion to [addContent]: yields each element's standard
+  /// `content` value (a missing leaf coalesces to `''`, matching the generated
+  /// element `content` getter), so a content-only list reads in one expression
+  /// instead of an index loop. On a scalar list — whose value is at the item
+  /// path, not a nested `content` leaf — every entry reads `''`; use [items]
+  /// / element `.value` for those.
+  Iterable<String> get contents =>
+      doc.listItems(listPath).map((p) => doc.content('$p/content') ?? '');
 
   /// Removes the item at [index] and every value nested beneath it.
   void removeAt(int index) =>
       doc.removeListItem(doc.listItems(listPath)[index]);
+
+  /// Derives the path for a freshly-appended item, assigning a section id when
+  /// the list carries a [pattern] (shared by [add] and [addContent]).
+  String _addItemPath({String? sectionId, DateTime? date}) {
+    if (pattern == null) return doc.addListItem(listPath);
+    final id = sectionId ??
+        generateListItemSectionId(
+            pattern!, date ?? DateTime.now(), doc.listItemSectionIds(listPath));
+    return doc.addListItem(listPath, sectionId: id);
+  }
 }
 
 /// Raised when a generated object model is instantiated against a document
