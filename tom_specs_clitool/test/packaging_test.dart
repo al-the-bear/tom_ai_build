@@ -182,7 +182,11 @@ void main() {
     });
 
     test('languages without a descriptor yet return null', () {
-      const registered = {SomLanguage.dart, SomLanguage.python};
+      const registered = {
+        SomLanguage.dart,
+        SomLanguage.python,
+        SomLanguage.java,
+      };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
         expect(packagingDescriptorFor(lang), isNull,
@@ -202,6 +206,48 @@ void main() {
       expect(d.runtimeManifestFileName, 'pyproject.toml');
       // PyPI / git / editable routes are all documented.
       expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK4)', () {
+    test('Java is registered with the Maven package names', () {
+      final d = packagingDescriptorFor(SomLanguage.java);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_java_runtime');
+      expect(d.facadePackageName, 'tom_som_java_v0');
+      expect(d.codeFence, 'java');
+      expect(d.runtimeManifestFormat, ManifestFormat.pomXml);
+      expect(d.runtimeManifestFileName, 'pom.xml');
+      // Maven repo / local install / JDK-only JAR routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('rewriteManifestVersion (item PGK4)', () {
+    test('pom.xml rewrites the project version, not the modelVersion or deps',
+        () {
+      const src = '<project>\n'
+          '  <modelVersion>4.0.0</modelVersion>\n'
+          '  <artifactId>foo</artifactId>\n'
+          '  <version>0.0.0</version>\n'
+          '  <dependencies>\n'
+          '    <dependency><version>9.9.9</version></dependency>\n'
+          '  </dependencies>\n'
+          '</project>\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.pomXml, '1.0.0');
+      // The project version is rewritten…
+      expect(out, contains('<artifactId>foo</artifactId>\n  <version>1.0.0'));
+      // …while <modelVersion> (the POM schema version) is left intact…
+      expect(out, contains('<modelVersion>4.0.0</modelVersion>'));
+      // …and a later dependency version is untouched (replaceFirst).
+      expect(out, contains('<dependency><version>9.9.9</version></dependency>'));
+    });
+
+    test('is idempotent', () {
+      const src =
+          '<project>\n  <version>1.0.0</version>\n</project>\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.pomXml, '1.0.0');
+      expect(out, src);
     });
   });
 }

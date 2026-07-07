@@ -5,3 +5,6 @@
 build/
 build_tool/
 *.class
+
+# --- tom_specs packaging build artifacts (managed) ---
+*.jar

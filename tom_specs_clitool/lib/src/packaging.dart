@@ -54,6 +54,9 @@ enum ManifestFormat {
 
   /// A `Makefile` variable — `VERSION := X.Y.Z` (C / C++, no registry).
   makefileVar,
+
+  /// A Maven `pom.xml` — the project `<version>X.Y.Z</version>` element.
+  pomXml,
 }
 
 /// The canonical package version derived from the TomSpecs [modelVersion]
@@ -289,6 +292,10 @@ String rewriteManifestVersion(
         RegExp(r'^VERSION\s*[:?]?=.*$', multiLine: true),
         (_) => 'VERSION := $version',
       ),
+    ManifestFormat.pomXml => (
+        RegExp(r'<version>[^<]*</version>'),
+        (_) => '<version>$version</version>',
+      ),
   };
   if (!rule.$1.hasMatch(content)) {
     throw StateError(
@@ -382,10 +389,11 @@ void alignRuntimeManifestVersion({
 /// which immediately activates [writeFacadePackaging] +
 /// [alignRuntimeManifestVersion] for that language on the next
 /// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
-/// (PEP 517).
+/// (PEP 517); PGK4 registered Java (Maven).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
+  SomLanguage.java: _javaDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -539,6 +547,81 @@ print(blueprint.content)''',
   ],
   runtimeManifestFileName: 'pyproject.toml',
   runtimeManifestFormat: ManifestFormat.pyproject,
+);
+
+/// Java (Maven) packaging descriptor — PGK4. The facade `tom_som_java_v0` and
+/// the runtime `tom_som_java_runtime` are both Maven `jar` artifacts versioned
+/// to the TomSpecs model version. The build host here carries only the JDK (no
+/// Maven), so each project also ships a `build_jar.sh` fallback that compiles
+/// with `javac` and packages with `jar` — producing the same artifact
+/// `mvn package` would.
+const PackagingDescriptor _javaDescriptor = PackagingDescriptor(
+  language: SomLanguage.java,
+  displayName: 'Java',
+  runtimePackageName: 'tom_som_java_runtime',
+  facadePackageName: 'tom_som_java_v0',
+  codeFence: 'java',
+  installShort: 'Add `tom_som_java_v0` (group `com.altbear.tomsom`) to your '
+      'Maven `pom.xml`, then:',
+  usageSnippet: '''
+import tom_som_runtime.SpecDocument;
+import tom_som_java_v0.TomSomV0;
+
+// A typed Solution Blueprint over a fresh document.
+SpecDocument doc = new SpecDocument();
+TomSomV0.D00SolutionBlueprint blueprint = new TomSomV0.D00SolutionBlueprint(doc);
+
+blueprint.content("A platform that unifies our fragmented order systems.");
+blueprint.currentLandscape()
+    .content("Three legacy systems with no shared customer record.");
+
+System.out.println(blueprint.content());''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From a Maven repository',
+      body: 'Declare the dependency (it pulls in `tom_som_java_runtime`):\n\n'
+          '```xml\n'
+          '<dependency>\n'
+          '  <groupId>com.altbear.tomsom</groupId>\n'
+          '  <artifactId>tom_som_java_v0</artifactId>\n'
+          '  <version>VERSION</version>\n'
+          '</dependency>\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Local install (mvn install)',
+      body: 'When the SOM projects sit alongside your build, install both into '
+          'your local `~/.m2` repository, runtime first:\n\n'
+          '```bash\n'
+          'cd ../tom_som_java_runtime && mvn install\n'
+          'cd ../tom_som_java_v0 && mvn install\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'JAR fallback (no Maven)',
+      body: 'On a JDK-only host, build the JARs with the bundled scripts '
+          '(runtime first — the facade compiles against it):\n\n'
+          '```bash\n'
+          'cd ../tom_som_java_runtime && ./build_jar.sh\n'
+          'cd ../tom_som_java_v0 && ./build_jar.sh\n'
+          '```\n\n'
+          'Each writes `build/<artifact>-<version>.jar`. Put both on your '
+          '`javac`/`java` classpath.',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade and build the JARs from the '
+      'workspace:\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      '# Maven, if available:\n'
+      'cd tom_som_java_v0 && mvn package\n'
+      '# or the JDK-only fallback (runtime first):\n'
+      'cd tom_som_java_runtime && ./build_jar.sh\n'
+      'cd ../tom_som_java_v0 && ./build_jar.sh\n'
+      '```',
+  buildArtifactIgnores: ['build/', 'build_tool/', '*.class', '*.jar'],
+  runtimeManifestFileName: 'pom.xml',
+  runtimeManifestFormat: ManifestFormat.pomXml,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

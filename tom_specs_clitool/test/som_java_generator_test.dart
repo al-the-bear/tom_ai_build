@@ -93,6 +93,38 @@ void main() {
     expect(p.normalize(p.join(result.outputRoot, rtPath)),
         p.normalize(p.join(javaRuntimeDir, 'src')),
         reason: 'relative path must resolve to the java runtime src');
+
+    // pom.xml is a publishable Maven manifest (PGK4): it declares the project
+    // coordinates under `com.altbear.tomsom`, the facade version pinned to the
+    // model version, the non-standard flat `src/` source layout, and a
+    // dependency on the runtime artifact at the same version.
+    final pom = File(result.pomPath).readAsStringSync();
+    expect(result.pomPath, endsWith('pom.xml'));
+    expect(pom, contains('<groupId>com.altbear.tomsom</groupId>'));
+    expect(pom, contains('<artifactId>tom_som_java_v0</artifactId>'));
+    expect(pom, contains('<modelVersion>4.0.0</modelVersion>'),
+        reason: 'a Maven POM must declare its schema modelVersion');
+    // The first (project) <version> is the model version 1.0.0 (label major).
+    final firstVersion =
+        RegExp(r'<version>([^<]*)</version>').firstMatch(pom)!.group(1);
+    expect(firstVersion, '1.0.0',
+        reason: 'the facade version is the TomSpecs model version');
+    expect(pom, contains('<sourceDirectory>src</sourceDirectory>'),
+        reason: 'the flat facade layout keeps sources under src/');
+    expect(
+        pom,
+        contains('<artifactId>tom_som_java_runtime</artifactId>'),
+        reason: 'the facade must depend on the runtime artifact');
+
+    // build_jar.sh is the JDK-only `mvn package` fallback: it reads the runtime
+    // location from the build manifest and the version from pom.xml, then jars
+    // only the facade package.
+    final buildScript = File(result.buildScriptPath).readAsStringSync();
+    expect(result.buildScriptPath, endsWith('build_jar.sh'));
+    expect(buildScript, contains('runtimeSourcePath'));
+    expect(buildScript, contains('tom_som_build.json'));
+    expect(buildScript, contains('jar --create'));
+    expect(buildScript, contains('tom_som_java_v0-\$version.jar'));
   });
 
   test('the Java meta-data is byte-identical to the Dart path', () {
@@ -157,6 +189,10 @@ void main() {
         File(ra.metaJsonPath).readAsStringSync());
     expect(File(rb.manifestPath).readAsStringSync(),
         File(ra.manifestPath).readAsStringSync());
+    expect(File(rb.pomPath).readAsStringSync(),
+        File(ra.pomPath).readAsStringSync());
+    expect(File(rb.buildScriptPath).readAsStringSync(),
+        File(ra.buildScriptPath).readAsStringSync());
     for (var i = 0; i < ra.schemaPaths.length; i++) {
       expect(File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
@@ -211,6 +247,51 @@ void main() {
     expect(res.exitCode, 0,
         reason: 'generated Java source must compile:\n${res.stderr}');
   });
+
+  test('build_jar.sh produces a facade-only JAR (PGK4 done-criterion)', () {
+    // The done-criterion of PGK4: the JAR builds via the build_jar.sh fallback.
+    // Skip cleanly on a host without the JDK/shell toolchain.
+    if (!_hasTool('bash') || _whichJavac() == null || !_hasTool('jar')) {
+      markTestSkipped('bash/javac/jar not all on PATH');
+      return;
+    }
+    if (!Directory(p.join(javaRuntimeDir, 'src')).existsSync()) {
+      markTestSkipped('tom_som_java_runtime/src not found');
+      return;
+    }
+    final dir = Directory.systemTemp.createTempSync('som_java_jar_');
+    addTearDown(() => dir.deleteSync(recursive: true));
+    final result = writeInto(dir);
+
+    // The emitted manifest's relative runtimeSourcePath resolves from this temp
+    // project back to the real runtime src, so build_jar.sh compiles against it.
+    final res = Process.runSync('bash', [result.buildScriptPath]);
+    expect(res.exitCode, 0,
+        reason: 'build_jar.sh must build the facade JAR:\n${res.stderr}');
+
+    final jar = File(p.join(dir.path, 'build', 'tom_som_java_v0-1.0.0.jar'));
+    expect(jar.existsSync(), isTrue,
+        reason: 'build_jar.sh must write build/tom_som_java_v0-<version>.jar');
+
+    // The facade JAR carries only the facade package (the runtime ships its own
+    // JAR), so runtime classes must be absent.
+    final listing =
+        Process.runSync('jar', ['--list', '--file', jar.path]).stdout as String;
+    expect(listing, contains('tom_som_java_v0/'));
+    expect(listing, isNot(contains('tom_som_runtime/')),
+        reason: 'the facade JAR must exclude the separately-shipped runtime');
+  });
+}
+
+/// True when [tool] resolves on PATH (via `<tool> --version`, tolerating tools
+/// that exit non-zero for `--version` as long as the executable is found).
+bool _hasTool(String tool) {
+  try {
+    Process.runSync(tool, ['--version']);
+    return true;
+  } on ProcessException {
+    return false;
+  }
 }
 
 /// Resolves a `javac` executable from PATH, or `null` when none is available.

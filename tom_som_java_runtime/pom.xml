@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.altbear.tomsom</groupId>
+  <artifactId>tom_som_java_runtime</artifactId>
+  <!-- Version tracks the TomSpecs model version; realigned by generate_som's
+       packaging hook (never hand-bumped independently of the model). -->
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <name>tom_som_java_runtime</name>
+  <description>Generic TomSpecs object-model runtime for Java: the value-free, generated-code-free half of the multi-platform spec model. The editing-facade base for tom_som_java_v0.</description>
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <!-- Non-standard flat source layout: the hand-authored runtime lives in
+         src/tom_som_runtime, so point Maven at src/ directly. -->
+    <sourceDirectory>src</sourceDirectory>
+  </build>
+</project>

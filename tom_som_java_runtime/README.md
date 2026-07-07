@@ -5,6 +5,24 @@ generated-code-free half of the multi-platform spec model (`tom_som`). It is a
 faithful transcription of the Dart reference, `tom_som_dart_runtime`, and the
 Python port, `tom_som_python_runtime`.
 
+## How to use
+
+This package is the generic runtime — most callers depend on it indirectly via a
+typed facade (`tom_som_java_v0`). To use it directly, add `tom_som_java_runtime`
+(group `com.altbear.tomsom`) to your Maven `pom.xml` and drive a sparse document:
+
+```java
+import tom_som_runtime.SpecDocument;
+
+SpecDocument doc = new SpecDocument();
+doc.setContent("PD/content", "A platform that unifies our order systems.");
+System.out.println(doc.content("PD/content"));
+```
+
+See **readme_howtointegrate.md** for the full integration guide (Maven / local
+install / JDK-only `build_jar.sh` routes and how to pin the version to the
+TomSpecs model version).
+
 ## What it is
 
 The package `tom_som_runtime` mirrors the eight portable runtime modules:
