@@ -6,32 +6,48 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show somModelVersionString;
 
+import 'meta_tree.dart';
 import 'model_reader.dart';
 
-/// Generates DocSpecs schemas (`*.docspecs-schema.yaml`) from the TomSpecs
-/// object-model annotations (§16, Q8).
+/// Generates DocSpecs schemas (`*.docspecs-schema.yaml`) from the canonical
+/// DR2 metadata tree ([MetaTreeBuilder]/[MetaNode]), applying the DR1 §5
+/// generation rules (DR3).
 ///
-/// One [DocSpecSchema] is produced per `@Document` root: the global Project
-/// Definition schema plus the twelve Phase-3 projection roots — 13 in all (S1).
-/// The mapping mirrors the §16 contract:
+/// One [DocSpecSchema] is produced per `@Document` root — the global Solution
+/// Blueprint plus the twelve Phase-3 projection roots, 13 in all (S1). The
+/// §5 rules, with the exact spelling fixed against the `tom_doc_specs`
+/// parser as §5 delegates:
 ///
-/// - class/field `@SectionId` and field `@SectionIdPattern` → `section-types`,
-///   each with a sanitised `prefix` (the DocSpecs prefix grammar forbids the
-///   `-` used in TomSpecs IDs, so dashes collapse to `_`);
-/// - a non-list field caps `max-count-in-document: 1`; `@SectionIdPattern`
-///   (list element) types stay uncapped;
-/// - `@ContentType` for a *code/diagram* section → `format` (a plain `text`
-///   section gets none — a `format` makes the validator demand a fenced code
-///   block, which a prose section must not carry);
-/// - `@Form` fields → `form-types`, and the owning section's `format`
-///   becomes `<prefix>-form`;
-/// - content/section text fields → `text-required: true`;
-/// - `@ContentHelp` guidance (or the first doc-comment line) → `description`.
-///
-/// Document slots (the root's direct fields) are emitted **optional** so any
-/// projection may legitimately carry a subset of the Project Definition: the PD
-/// tree is the single source of content (N12), projections only re-point into
-/// it. This also keeps a generated skeleton trivially valid.
+/// - every section-bearing node (`@SectionId`, non-root) becomes a
+///   `section-types` entry **named by its section id lower-cased**
+///   (`sbp01-goals`); list-element types are named by their
+///   `@SectionIdPattern` stem (`daent-enti` from `DAENT-ENTI-xxx`);
+/// - `prefix:` is the exact section id / pattern stem, transformed `-` → `_`
+///   because the DocSpecs prefix grammar (`^[a-zA-Z0-9_]+$`) forbids the
+///   dashes TomSpecs ids use (case is preserved);
+/// - `pattern-check-id:` (list-element types only) is the exact
+///   `@SectionIdPattern` with `xxx` compiled to `[0-9]+`
+///   (`^DAENT-ENTI-[0-9]+$`) — §5 keeps the untransformed id here;
+/// - `subsection-types:` lists the nearest section-bearing descendants with
+///   `min-count` from the child's `@Min` and `max-count` `1` for singleton
+///   children / `infinite` for list elements (bounded by `@Max`);
+/// - `@Form` nodes get `format: <type-name>-form` and a `form-types` entry
+///   whose fields keep the **model field names** (camelCase is legal
+///   fieldname grammar), `required` from `Field.required`, `description`
+///   from the field hint, and `pattern-check` from a field-level
+///   `@PatternCheck`;
+/// - code/diagram `@ContentType`s map to `format:` (a `format` makes the
+///   validator demand a fenced code block; prose sections carry none);
+/// - `text-required:` from `@TextRequired` or `@Min(1)` on a content member;
+///   `min-text-length`/`max-text-length` from `@MinLength`/`@MaxLength`;
+/// - `description:` from `@ContentHelp` (first) or the doc comment;
+///   `validation-prompt:` from `@ValidationPrompt`;
+/// - `@Unused` nodes are omitted entirely, subtree included;
+/// - the `document:` structure lists the root's top-level sections with
+///   `optional: true` unless the child carries `@Min` ≥ 1; the §5 title
+///   format rides as the top-level custom tag `title-format:` (the
+///   `tom_doc_specs` [DocumentStructure] has no such property, but custom
+///   tags round-trip through [DocSpecSchema.customTags]).
 ///
 /// Versioning (S2, CS2-D7): [generateAll]/[generateFor] take the integer model
 /// stamp `modelVersion` and the optional full build `modelLabel` (the
@@ -53,7 +69,10 @@ class DocSpecsSchemaGenerator {
   /// The full resolved class graph (as produced by [ModelReader]).
   final Map<String, ModelClass> classes;
 
-  DocSpecsSchemaGenerator(this.classes);
+  /// Enum registry, forwarded to the [MetaTreeBuilder].
+  final Map<String, ModelEnum> enums;
+
+  DocSpecsSchemaGenerator(this.classes, {this.enums = const {}});
 
   /// Builds every document-root schema, keyed by schema id.
   ///
@@ -92,33 +111,46 @@ class DocSpecsSchemaGenerator {
     int modelVersion = 1,
     String? modelLabel,
   }) {
-    final root = classes[rootName];
-    if (root == null) {
+    final rootClass = classes[rootName];
+    if (rootClass == null) {
       throw ArgumentError("Unknown root class '$rootName'.");
     }
-    if (root.getAnnotation('Document') == null) {
+    if (rootClass.getAnnotation('Document') == null) {
       throw ArgumentError("Class '$rootName' is not a @Document root.");
     }
 
-    final rootSectionId =
-        root.getAnnotation('SectionId')?.arguments['id'] as String?;
+    final tree = MetaTreeBuilder(classes, enums: enums).build(rootName);
+    final builder = _SchemaBuilder();
+    final topLevel = <_ChildRef>[];
+    for (final child in tree.children) {
+      topLevel.addAll(builder.visit(child));
+    }
 
-    final builder = _SchemaBuilder(classes, rootSectionId);
-    builder.visit(root);
-
-    // Document structure: the root's direct fields become (optional) slots.
+    // Document structure: the root's nearest section-bearing children become
+    // its top-level sections; @Min >= 1 makes a slot required (§5 rule 4).
     final sections = <String, SectionDef>{};
-    for (final f in root.fields) {
-      final typeId = builder.sectionTypeIdForField(f);
-      if (typeId == null) continue;
-      sections[_slugDash(f.name)] = SectionDef(
-        sectionType: typeId,
-        optional: true,
+    for (final ref in topLevel) {
+      final required = (ref.minCount ?? 0) >= 1;
+      sections.putIfAbsent(
+        ref.typeName,
+        () => SectionDef(
+          sectionType: ref.typeName,
+          optional: required ? null : true,
+        ),
       );
     }
 
+    // §5 rule 4 title format: `# <!--[<ROOT-ID>]--> <name>`, carried as a
+    // custom tag because DocumentStructure has no title property.
+    final rootId =
+        rootClass.getAnnotation('SectionId')?.arguments['id'] as String?;
+    final docName = tree.document?.name ?? _splitPascal(rootName);
+    final customTags = <String, dynamic>{
+      if (rootId != null) 'title-format': '# <!--[$rootId]--> $docName',
+    };
+
     return DocSpecSchema(
-      id: _schemaId(root),
+      id: _schemaId(rootClass),
       // Single-sourced with the `_v0` facades (CS2-D7): a genuine authoring
       // minor from `modelLabel` is preserved; unstamped falls back to
       // `<modelVersion>.0`.
@@ -126,6 +158,7 @@ class DocSpecsSchemaGenerator {
       sectionTypes: builder.orderedSectionTypes(),
       formTypes: builder.formTypes.isEmpty ? null : builder.formTypes,
       document: DocumentStructure(sections: sections),
+      customTags: customTags,
     );
   }
 
@@ -201,156 +234,215 @@ class DocSpecsSchemaGenerator {
       .replaceAll(RegExp(r'^-+|-+$'), '');
 }
 
-/// Walks the reachable class graph of one root, accumulating section-types and
+/// A child's contribution to its nearest section-bearing ancestor: the child
+/// section-type name plus its cardinality (`min-count` from `@Min`,
+/// `max-count` 1 for singletons / `@Max`-bounded or infinite for lists).
+class _ChildRef {
+  final String typeName;
+  final int? minCount;
+
+  /// null = infinite (list without `@Max`).
+  final int? maxCount;
+
+  const _ChildRef(this.typeName, {this.minCount, this.maxCount});
+}
+
+/// Walks one root's [MetaNode] tree, accumulating §5 section-types and
 /// form-types with unique, DocSpecs-legal prefixes.
 class _SchemaBuilder {
-  final Map<String, ModelClass> classes;
-  final String? rootSectionId;
-
-  /// section-type name (the TomSpecs section id) → definition.
+  /// section-type name (lower-cased section id / pattern stem) → definition.
   final Map<String, SectionTypeDef> _sectionTypes = {};
 
   /// form-type name → definition.
   final Map<String, FormTypeDef> formTypes = {};
 
   final Set<String> _usedPrefixes = {};
-  final Set<String> _visited = {};
 
-  _SchemaBuilder(this.classes, this.rootSectionId);
+  /// Visits [node] and returns the section-type refs it contributes to its
+  /// nearest section-bearing ancestor. `@Unused` nodes vanish entirely; nodes
+  /// without a section identity bubble their descendants' refs upward.
+  List<_ChildRef> visit(MetaNode node) {
+    if (node.unused) return const [];
 
-  void visit(ModelClass cls) {
-    if (!_visited.add(cls.name)) return;
+    if (node.kind == MetaNodeKind.list) return _visitList(node);
 
-    final clsId = cls.getAnnotation('SectionId')?.arguments['id'] as String?;
-    if (clsId != null && clsId != rootSectionId) {
-      // Container section — no text requirement, no format.
-      _putSectionType(
-        clsId,
-        description: _help(cls.getAnnotation('ContentHelp')) ??
-            _firstLine(cls.docComment),
-      );
+    final id = node.sectionId;
+    if (id == null) {
+      // No section identity: transparent container — bubble descendants up.
+      final refs = <_ChildRef>[];
+      for (final child in node.children) {
+        refs.addAll(visit(child));
+      }
+      return refs;
     }
 
-    for (final f in cls.fields) {
-      _collectField(f);
-      final target = _targetClassName(f);
-      if (target != null) {
-        final tc = classes[target];
-        if (tc != null) visit(tc);
+    final typeName = id.toLowerCase();
+    final subsections = _collectSubsections(node.children);
+    _registerSectionType(
+      typeName: typeName,
+      exactId: id,
+      node: node,
+      subsections: subsections,
+    );
+    return [_ChildRef(typeName, minCount: node.min, maxCount: 1)];
+  }
+
+  /// A list field: its element class is the section type, named by the
+  /// `@SectionIdPattern` stem, with a numbered-id pattern check (§5 rule 2).
+  List<_ChildRef> _visitList(MetaNode node) {
+    final pattern = node.sectionIdPattern;
+    final element = node.elementNode;
+    // The element's own @SectionId is a fallback when the list carries no
+    // pattern (the pattern is the §8.6-preferred coverage mechanism).
+    final exactId = pattern != null ? _patternStem(pattern) : element?.sectionId;
+    if (exactId == null || element == null || element.unused) {
+      // Scalar/enum lists (or uncovered lists) have no section representation.
+      return const [];
+    }
+
+    final typeName =
+        exactId.replaceAll(RegExp(r'-+$'), '').toLowerCase();
+    final subsections = _collectSubsections(element.children);
+    _registerSectionType(
+      typeName: typeName,
+      exactId: exactId,
+      node: element,
+      listNode: node,
+      // §5: the exact @SectionIdPattern with `xxx` compiled to `[0-9]+`.
+      patternCheckId: pattern == null
+          ? null
+          : PatternCheckDef(
+              pattern: '^${_compilePattern(pattern)}\$',
+              errorMessage: 'IDs of this section must match $pattern',
+            ),
+      subsections: subsections,
+    );
+    final maxCount = _extraInt(node, 'Max', 'count');
+    return [_ChildRef(typeName, minCount: node.min, maxCount: maxCount)];
+  }
+
+  /// The subsection-types map contributed by [children] (nearest
+  /// section-bearing descendants, §5 rule 2).
+  Map<String, SubsectionConstraint> _collectSubsections(
+    List<MetaNode> children,
+  ) {
+    final result = <String, SubsectionConstraint>{};
+    for (final child in children) {
+      for (final ref in visit(child)) {
+        result.putIfAbsent(
+          ref.typeName,
+          () => SubsectionConstraint(
+            typeName: ref.typeName,
+            minCount: ref.minCount,
+            maxCount: ref.maxCount,
+          ),
+        );
       }
     }
+    return result;
   }
 
-  /// The section-type id this field represents, if any (for document slots).
-  String? sectionTypeIdForField(ModelField f) {
-    final own = (f.getAnnotation('SectionId')?.arguments['id'] as String?) ??
-        (f.getAnnotation('SectionIdPattern')?.arguments['pattern'] as String?);
-    if (own != null) return own;
-    final target = _targetClassName(f);
-    if (target != null) {
-      return classes[target]?.getAnnotation('SectionId')?.arguments['id']
-          as String?;
-    }
-    return null;
-  }
+  /// Inserts or enriches a section-type. Shared classes surface the same id
+  /// at several tree positions; slots merge first-non-null and subsections
+  /// union.
+  void _registerSectionType({
+    required String typeName,
+    required String exactId,
+    required MetaNode node,
+    MetaNode? listNode,
+    PatternCheckDef? patternCheckId,
+    Map<String, SubsectionConstraint> subsections = const {},
+  }) {
+    final existing = _sectionTypes[typeName];
+    final prefix = existing?.prefix ?? _prefixFor(exactId);
 
-  void _collectField(ModelField f) {
-    final secId = f.getAnnotation('SectionId')?.arguments['id'] as String?;
-    final pattern =
-        f.getAnnotation('SectionIdPattern')?.arguments['pattern'] as String?;
-    final typeId = secId ?? pattern;
-    if (typeId == null) return;
-
-    final description =
-        _help(f.getAnnotation('ContentHelp')) ?? _firstLine(f.docComment);
-
-    // Determine format + form-type registration.
+    // format: @Form → <type-name>-form; code/diagram @ContentType → the
+    // content type (a `format` makes the validator demand a fenced code
+    // block, so plain text sections get none).
     String? format;
-    if (f.formFields.isNotEmpty) {
-      final prefix = _prefixFor(typeId);
-      final formName = '$prefix-form';
-      formTypes[formName] = FormTypeDef(
-        name: formName,
-        fields: [
-          for (final ff in f.formFields)
-            FormFieldDef(
-              fieldname: _slugDash(ff.name),
-              required: ff.required ? true : null,
-            ),
-        ],
-      );
-      format = formName;
+    if (node.form != null) {
+      format = _registerFormType(typeName, node);
     } else {
-      final contentType =
-          (f.getAnnotation('ContentType')?.arguments['type'] as String?) ??
-              f.sectionContentType;
-      // A `format` makes the validator require a fenced code block, so only
-      // attach it for genuine code/diagram sections — never for prose.
+      final contentType = node.contentType?.type;
       if (contentType != null && contentType != 'text') {
         format = contentType;
       }
     }
 
-    // Text is required for prose/section fields (no format), not for forms or
-    // code blocks (those are governed by `format`).
-    final textRequired =
-        format == null && (f.isString || f.isSectionType) ? true : null;
+    // text-required: @TextRequired, or @Min(1) on a content member.
+    final textRequired = _extraPresent(node, 'TextRequired') ||
+            (node.kind == MetaNodeKind.content && (node.min ?? 0) >= 1)
+        ? true
+        : null;
 
-    // List cardinality: @Min(n)/@Max(n) on the (patterned) list field map to the
-    // document-level min/max-count of the element section-type. They only apply
-    // to list fields, so single (non-pattern) fields never carry them.
-    final minCount = f.getAnnotation('Min')?.arguments['count'] as int?;
-    final maxCount = f.getAnnotation('Max')?.arguments['count'] as int?;
+    final description = node.contentHelp ??
+        listNode?.contentHelp ??
+        _firstLine(node.docComment) ??
+        _firstLine(listNode?.docComment);
 
-    _putSectionType(
-      typeId,
-      description: description,
-      format: format,
-      textRequired: textRequired,
-      minCountInDocument: minCount,
-      // List-element (pattern) types are uncapped unless @Max bounds them;
-      // single fields cap at 1.
-      maxCountInDocument: maxCount ?? (pattern != null ? null : 1),
-      // Only @SectionIdPattern (list-element) types get an id pattern-check:
-      // their document ids are numbered (`<prefix>-001`), so the regex pins
-      // the prefix + numeric suffix. Single fields have a fixed id and need no
-      // pattern. (OE-21)
-      isPatternElement: pattern != null,
+    final merged = <String, SubsectionConstraint>{
+      ...?existing?.subsectionTypes,
+      ...subsections,
+    };
+
+    _sectionTypes[typeName] = SectionTypeDef(
+      name: typeName,
+      prefix: prefix,
+      description: description ?? existing?.description,
+      format: format ?? existing?.format,
+      textRequired: textRequired ?? existing?.textRequired,
+      minTextLength:
+          _extraInt(node, 'MinLength', 'length') ?? existing?.minTextLength,
+      maxTextLength:
+          _extraInt(node, 'MaxLength', 'length') ?? existing?.maxTextLength,
+      validationPrompt: _extraString(node, 'ValidationPrompt', 'prompt') ??
+          existing?.validationPrompt,
+      patternCheckId: patternCheckId ?? existing?.patternCheckId,
+      subsectionTypes: merged.isEmpty ? null : merged,
     );
   }
 
-  /// Inserts or enriches a section-type keyed by its TomSpecs id.
-  void _putSectionType(
-    String id, {
-    String? description,
-    String? format,
-    bool? textRequired,
-    int? minCountInDocument,
-    int? maxCountInDocument,
-    bool isPatternElement = false,
-  }) {
-    final existing = _sectionTypes[id];
-    final prefix = existing?.prefix ?? _prefixFor(id);
-    // Numbered list-element ids match `<prefix>-NNN`; DocSpecs resolves the
-    // section type by the prefix slug, so the regex is prefix-based (OE-21).
-    final patternCheckId = isPatternElement
-        ? PatternCheckDef(
-            pattern: '^${RegExp.escape(prefix)}-\\d+\$',
-            errorMessage: 'ID must match $prefix-NNN',
-          )
-        : existing?.patternCheckId;
-    _sectionTypes[id] = SectionTypeDef(
-      name: id,
-      prefix: prefix,
-      description: (description != null && description.isNotEmpty)
-          ? description
-          : existing?.description,
-      format: format ?? existing?.format,
-      textRequired: textRequired ?? existing?.textRequired,
-      minCountInDocument: minCountInDocument ?? existing?.minCountInDocument,
-      maxCountInDocument: maxCountInDocument ?? existing?.maxCountInDocument,
-      patternCheckId: patternCheckId,
-    );
+  /// Registers the `form-types` entry for a `@Form` node and returns its name
+  /// (`<type-name>-form`). Fieldnames keep the model field names (§5 rule 3;
+  /// camelCase satisfies the parser's `^[a-zA-Z0-9-]+$` grammar); `required`
+  /// comes from `Field.required`, `description` from the field hint, and
+  /// `pattern-check` from a field-level `@PatternCheck` on the backing member.
+  String _registerFormType(String typeName, MetaNode node) {
+    final formName = '$typeName-form';
+    formTypes.putIfAbsent(formName, () {
+      final byMember = {
+        for (final child in node.children)
+          if (child.memberName != null) child.memberName!: child,
+      };
+      return FormTypeDef(
+        name: formName,
+        fields: [
+          for (final ff in node.form!.fields)
+            FormFieldDef(
+              fieldname: ff.name,
+              required: ff.required ? true : null,
+              description: ff.hint,
+              patternCheck: _patternCheckFor(byMember[ff.name]),
+            ),
+        ],
+      );
+    });
+    return formName;
+  }
+
+  static PatternCheckDef? _patternCheckFor(MetaNode? member) {
+    if (member == null) return null;
+    for (final extra in member.extra) {
+      if (extra.name != 'PatternCheck') continue;
+      final pattern = extra.arguments['pattern'] as String?;
+      if (pattern == null) continue;
+      return PatternCheckDef(
+        pattern: pattern,
+        errorMessage: (extra.arguments['errorMessage'] as String?) ??
+            'Value must match $pattern',
+      );
+    }
+    return null;
   }
 
   /// Section-types ordered by descending prefix length so the DocSpecs factory
@@ -365,11 +457,24 @@ class _SchemaBuilder {
     return {for (final e in entries) e.key: e.value};
   }
 
-  /// A unique, DocSpecs-legal prefix (`^[a-zA-Z0-9_]+$`) for a section id.
-  String _prefixFor(String id) {
-    var base = id.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
-    base = base.replaceAll(RegExp(r'^_+|_+$'), '');
-    if (base.isEmpty) base = 'sec';
+  /// The `@SectionIdPattern` stem: the pattern with its `xxx` number
+  /// placeholder removed (`DAENT-ENTI-xxx` → `DAENT-ENTI-`).
+  static String _patternStem(String pattern) =>
+      pattern.replaceAll(RegExp(r'xxx.*$'), '');
+
+  /// Compiles a `@SectionIdPattern` to a regex body: `xxx` → `[0-9]+`, all
+  /// other characters taken literally.
+  static String _compilePattern(String pattern) => pattern
+      .split('xxx')
+      .map(RegExp.escape)
+      .join('[0-9]+');
+
+  /// A unique, DocSpecs-legal prefix for a section id: the exact id with the
+  /// TomSpecs dashes transformed to `_` (the prefix grammar `^[a-zA-Z0-9_]+$`
+  /// forbids `-`); case is preserved.
+  String _prefixFor(String exactId) {
+    var base = exactId.replaceAll(RegExp(r'[^a-zA-Z0-9_]+'), '_');
+    if (base.isEmpty) base = 'SEC';
     var candidate = base;
     var n = 2;
     while (_usedPrefixes.contains(candidate)) {
@@ -380,27 +485,25 @@ class _SchemaBuilder {
     return candidate;
   }
 
-  String? _targetClassName(ModelField f) {
-    if (f.isList) {
-      return f.listElementIsComplex ? f.listElementTypeName : null;
+  static bool _extraPresent(MetaNode node, String name) =>
+      node.extra.any((e) => e.name == name);
+
+  static int? _extraInt(MetaNode node, String name, String arg) {
+    for (final e in node.extra) {
+      if (e.name == name) return e.arguments[arg] as int?;
     }
-    if (f.isComplex) return f.typeName.replaceAll('?', '');
     return null;
   }
 
-  static String _slugDash(String s) => s
-      .toLowerCase()
-      .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-      .replaceAll(RegExp(r'^-+|-+$'), '');
-
-  static String? _help(AnnotationData? anno) {
-    if (anno == null) return null;
-    final g = anno.arguments['guidance'] as String?;
-    return (g != null && g.isNotEmpty) ? g : null;
+  static String? _extraString(MetaNode node, String name, String arg) {
+    for (final e in node.extra) {
+      if (e.name == name) return e.arguments[arg] as String?;
+    }
+    return null;
   }
 
-  static String? _firstLine(String doc) {
-    if (doc.isEmpty) return null;
+  static String? _firstLine(String? doc) {
+    if (doc == null || doc.isEmpty) return null;
     final line = doc.split('\n').first.trim();
     return line.isEmpty ? null : line;
   }

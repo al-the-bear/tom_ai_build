@@ -1,129 +1,150 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: transition-rollout-plan/1.0
 
+title-format: "# <!--[TRP]--> Transition & Rollout Plan"
 section-types:
-  TRMOEN-TRAI-LST:
-    prefix: trmoen_trai_lst
+  trmoen-trai:
+    prefix: TRMOEN_TRAI_
     pattern-check-id:
-      pattern: ^trmoen_trai_lst-\d+$
-      error-message: ID must match trmoen_trai_lst-NNN
+      pattern: "^TRMOEN-TRAI-[0-9]+$"
+      error-message: IDs of this section must match TRMOEN-TRAI-xxx
     description: Add one entry per training module.
-  TRVEEN-VEND-LST:
-    prefix: trveen_vend_lst
+  trveen-vend:
+    prefix: TRVEEN_VEND_
     pattern-check-id:
-      pattern: ^trveen_vend_lst-\d+$
-      error-message: ID must match trveen_vend_lst-NNN
+      pattern: "^TRVEEN-VEND-[0-9]+$"
+      error-message: IDs of this section must match TRVEEN-VEND-xxx
     description: Add one entry per translation vendor.
-  CUTPRC:
-    prefix: cutprc
-    description: 15.6. Cutover Procedures.
-  DOANTR:
-    prefix: doantr
-    description: 10.12.3. User Documentation Requirements.
-  LOPRDE:
-    prefix: loprde
+  cutprc:
+    prefix: CUTPRC
+    description: Cutover procedures.
+  doantr:
+    prefix: DOANTR
+    subsection-types:
+      datd:
+        max-count: 1
+      datl:
+        max-count: 1
+    description: User documentation requirements (doc half of the former DOANTR;
+  loprde:
+    prefix: LOPRDE
     description: Deployment settings.
-  LOPRFO:
-    prefix: loprfo
+  loprfo:
+    prefix: LOPRFO
     description: Formatting rules.
-  LOPRR1:
-    prefix: loprr1
+  loprr1:
+    prefix: LOPRR1
     description: Review process.
-  MIGPLN:
-    prefix: migpln
-    description: 15.2. Migration Plan.
-  PLTPLN:
-    prefix: pltpln
-    description: 15.5. Pilot Plan.
-  RLTPLN:
-    prefix: rltpln
-    description: 15.1. Rollout Plan.
-  TRPRON:
-    prefix: trpron
+  migpln:
+    prefix: MIGPLN
+    description: Migration plan.
+  pltpln:
+    prefix: PLTPLN
+    description: Pilot plan.
+  rltpln:
+    prefix: RLTPLN
+    description: Rollout plan.
+  trpron:
+    prefix: TRPRON
     description: Ongoing localization operations.
-  TRPRQU:
-    prefix: trprqu
+  trprqu:
+    prefix: TRPRQU
     description: Quality assurance.
-  TRPRTE:
-    prefix: trprte
+  trprte:
+    prefix: TRPRTE
     description: Terminology and voice management.
-  TRPRWO:
-    prefix: trprwo
+  trprwo:
+    prefix: TRPRWO
     description: Translation workflow.
-  USRMAN:
-    prefix: usrman
-    description: 15.3. User Manuals.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  KNTFR:
-    prefix: kntfr
-    description: 15.7. Knowledge Transfer.
-  RLTTM:
-    prefix: rlttm
-    description: 15.4. Training Materials.
-  TRMAT:
-    prefix: trmat
-    description: 10.12.3b. Training Deliverable Requirements.
-  WRTSP:
-    prefix: wrtsp
-    description: 15.8. Warranty and Support.
-  DATD:
-    prefix: datd
+  usrman:
+    prefix: USRMAN
+    description: User manuals.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  kntfr:
+    prefix: KNTFR
+    description: Knowledge transfer.
+  rlttm:
+    prefix: RLTTM
+    description: Training materials.
+  trmat:
+    prefix: TRMAT
+    subsection-types:
+      trmoen-trai:
+        max-count: infinite
+    description: Training deliverable requirements (training half of the former DOANTR;
+  wrtsp:
+    prefix: WRTSP
+    description: Warranty and support.
+  datd:
+    prefix: DATD
     description: Documentation deliverables provided to users.
-  DATL:
-    prefix: datl
+  datl:
+    prefix: DATL
     description: Documentation localization approach.
-  LOPR:
-    prefix: lopr
-    description: 10.12.1. Localization Process.
-  TRPR:
-    prefix: trpr
-    description: 10.12.2. Translation Process.
-  TME:
-    prefix: tme
-    description: A training module entry.
-  TVE:
-    prefix: tve
-    description: A translation vendor entry.
+  lopr:
+    prefix: LOPR
+    subsection-types:
+      loprr1:
+        max-count: 1
+      loprfo:
+        max-count: 1
+      loprde:
+        max-count: 1
+    description: Localization process.
+  trpr:
+    prefix: TRPR
+    subsection-types:
+      trprwo:
+        max-count: 1
+      trprqu:
+        max-count: 1
+      trprte:
+        max-count: 1
+      trpron:
+        max-count: 1
+      trveen-vend:
+        max-count: infinite
+    description: Translation process.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    localizationprocess:
-      section-type: LOPR
+    lopr:
+      section-type: lopr
       optional: true
-    translationprocess:
-      section-type: TRPR
+    trpr:
+      section-type: trpr
       optional: true
-    userdocumentation:
-      section-type: DOANTR
+    doantr:
+      section-type: doantr
       optional: true
-    trainingdeliverables:
-      section-type: TRMAT
+    trmat:
+      section-type: trmat
       optional: true
-    rolloutplan:
-      section-type: RLTPLN
+    rltpln:
+      section-type: rltpln
       optional: true
-    migrationplan:
-      section-type: MIGPLN
+    migpln:
+      section-type: migpln
       optional: true
-    usermanuals:
-      section-type: USRMAN
+    usrman:
+      section-type: usrman
       optional: true
-    trainingmaterials:
-      section-type: RLTTM
+    rlttm:
+      section-type: rlttm
       optional: true
-    pilotplan:
-      section-type: PLTPLN
+    pltpln:
+      section-type: pltpln
       optional: true
-    cutoverprocedures:
-      section-type: CUTPRC
+    cutprc:
+      section-type: cutprc
       optional: true
-    knowledgetransfer:
-      section-type: KNTFR
+    kntfr:
+      section-type: kntfr
       optional: true
-    warrantyandsupport:
-      section-type: WRTSP
+    wrtsp:
+      section-type: wrtsp
       optional: true

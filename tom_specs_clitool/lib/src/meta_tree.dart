@@ -28,6 +28,12 @@ class MetaFormField {
   final String name;
   final String typeName;
 
+  /// Human-readable display label of the field; null when absent.
+  final String? description;
+
+  /// Whether the field is required (`Field.required`).
+  final bool required;
+
   /// Optional hint text guiding valid values/formats; null when absent.
   final String? hint;
 
@@ -37,6 +43,8 @@ class MetaFormField {
   const MetaFormField({
     required this.name,
     required this.typeName,
+    this.description,
+    this.required = false,
     this.hint,
     required this.order,
   });
@@ -230,6 +238,8 @@ class MetaNode {
                 .map((f) => {
                       'name': f.name,
                       'typeName': f.typeName,
+                      if (f.description != null) 'description': f.description,
+                      if (f.required) 'required': true,
                       if (f.hint != null) 'hint': f.hint,
                       'order': f.order,
                     })
@@ -596,6 +606,8 @@ class _SlotCollector {
       fields.add(MetaFormField(
         name: f.name,
         typeName: f.typeName,
+        description: f.description.isEmpty ? null : f.description,
+        required: f.required,
         hint: f.hint.isEmpty ? null : f.hint,
         order: i,
       ));

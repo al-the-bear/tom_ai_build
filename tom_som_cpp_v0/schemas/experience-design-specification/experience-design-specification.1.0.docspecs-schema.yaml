@@ -1,1350 +1,1833 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: experience-design-specification/1.0
 
+title-format: "# <!--[XDS]--> Experience Design Specification"
 section-types:
-  DELNPT-PATT-LST:
-    prefix: delnpt_patt_lst
+  delnpt-patt:
+    prefix: DELNPT_PATT_
     pattern-check-id:
-      pattern: ^delnpt_patt_lst-\d+$
-      error-message: ID must match delnpt_patt_lst-NNN
+      pattern: "^DELNPT-PATT-[0-9]+$"
+      error-message: IDs of this section must match DELNPT-PATT-xxx
     description: Add one entry per deep-link URL pattern.
-  EXFOEN-EXPO-LST:
-    prefix: exfoen_expo_lst
+  exfoen-expo:
+    prefix: EXFOEN_EXPO_
+    subsection-types:
+      exid:
+        max-count: 1
+      exfifo:
+        max-count: 1
+      exde:
+        max-count: 1
+      exdafo:
+        max-count: 1
+      exsise-size:
+        max-count: infinite
+      exse:
+        max-count: 1
+      exou:
+        max-count: 1
+      exac:
+        max-count: 1
+      efme-fiel:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^exfoen_expo_lst-\d+$
-      error-message: ID must match exfoen_expo_lst-NNN
+      pattern: "^EXFOEN-EXPO-[0-9]+$"
+      error-message: IDs of this section must match EXFOEN-EXPO-xxx
     description: Add one entry per export format.
-  EXSISE-SIZE-LST:
-    prefix: exsise_size_lst
+  exsise-size:
+    prefix: EXSISE_SIZE_
     pattern-check-id:
-      pattern: ^exsise_size_lst-\d+$
-      error-message: ID must match exsise_size_lst-NNN
+      pattern: "^EXSISE-SIZE-[0-9]+$"
+      error-message: IDs of this section must match EXSISE-SIZE-xxx
     description: Add one entry per size-and-splitting setting.
-  EXTEEN-EXPO-LST:
-    prefix: exteen_expo_lst
+  exteen-expo:
+    prefix: EXTEEN_EXPO_
+    subsection-types:
+      etef:
+        max-count: 1
+      exteenfi:
+        max-count: 1
+      etel:
+        max-count: 1
+      etea:
+        max-count: 1
     pattern-check-id:
-      pattern: ^exteen_expo_lst-\d+$
-      error-message: ID must match exteen_expo_lst-NNN
+      pattern: "^EXTEEN-EXPO-[0-9]+$"
+      error-message: IDs of this section must match EXTEEN-EXPO-xxx
     description: Add one entry per export template.
-  FAMREF-COMP-LST:
-    prefix: famref_comp_lst
+  famref-comp:
+    prefix: FAMREF_COMP_
     pattern-check-id:
-      pattern: ^famref_comp_lst-\d+$
-      error-message: ID must match famref_comp_lst-NNN
+      pattern: "^FAMREF-COMP-[0-9]+$"
+      error-message: IDs of this section must match FAMREF-COMP-xxx
     description: Add one entry per component in the family.
-  FTRTUR-FEAT-LST:
-    prefix: ftrtur_feat_lst
+  ftrtur-feat:
+    prefix: FTRTUR_FEAT_
+    subsection-types:
+      turst-step:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^ftrtur_feat_lst-\d+$
-      error-message: ID must match ftrtur_feat_lst-NNN
+      pattern: "^FTRTUR-FEAT-[0-9]+$"
+      error-message: IDs of this section must match FTRTUR-FEAT-xxx
     description: Add one entry per feature tour.
-  NAVGRD-GUAR-LST:
-    prefix: navgrd_guar_lst
+  navgrd-guar:
+    prefix: NAVGRD_GUAR_
+    subsection-types:
+      naguendi:
+        max-count: 1
+      nger:
+        max-count: 1
     pattern-check-id:
-      pattern: ^navgrd_guar_lst-\d+$
-      error-message: ID must match navgrd_guar_lst-NNN
+      pattern: "^NAVGRD-GUAR-[0-9]+$"
+      error-message: IDs of this section must match NAVGRD-GUAR-xxx
     description: Add one entry per navigation guard rule.
-  NAVGRP-GROU-LST:
-    prefix: navgrp_grou_lst
+  navgrp-grou:
+    prefix: NAVGRP_GROU_
+    subsection-types:
+      nged:
+        max-count: 1
+      ngea:
+        max-count: 1
+      nges:
+        max-count: 1
+      naviit-item:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^navgrp_grou_lst-\d+$
-      error-message: ID must match navgrp_grou_lst-NNN
+      pattern: "^NAVGRP-GROU-[0-9]+$"
+      error-message: IDs of this section must match NAVGRP-GROU-xxx
     description: Add one entry per navigation group.
-  NAVIIT-ITEM-LST:
-    prefix: naviit_item_lst
+  naviit-item:
+    prefix: NAVIIT_ITEM_
+    subsection-types:
+      nied:
+        max-count: 1
+      nier:
+        max-count: 1
+      niea:
+        max-count: 1
+      nieb:
+        max-count: 1
+      niei:
+        max-count: 1
     pattern-check-id:
-      pattern: ^naviit_item_lst-\d+$
-      error-message: ID must match naviit_item_lst-NNN
+      pattern: "^NAVIIT-ITEM-[0-9]+$"
+      error-message: IDs of this section must match NAVIIT-ITEM-xxx
     description: Add one entry per navigation item in this group.
-  PRFEEN-FEAT-LST:
-    prefix: prfeen_feat_lst
+  prfeen-feat:
+    prefix: PRFEEN_FEAT_
     pattern-check-id:
-      pattern: ^prfeen_feat_lst-\d+$
-      error-message: ID must match prfeen_feat_lst-NNN
+      pattern: "^PRFEEN-FEAT-[0-9]+$"
+      error-message: IDs of this section must match PRFEEN-FEAT-xxx
     description: Add one entry per prototype feature.
-  PRGOEN-GOAL-LST:
-    prefix: prgoen_goal_lst
+  prgoen-goal:
+    prefix: PRGOEN_GOAL_
     pattern-check-id:
-      pattern: ^prgoen_goal_lst-\d+$
-      error-message: ID must match prgoen_goal_lst-NNN
+      pattern: "^PRGOEN-GOAL-[0-9]+$"
+      error-message: IDs of this section must match PRGOEN-GOAL-xxx
     description: Add one entry per prototype goal.
-  RCVSCN-RECO-LST:
-    prefix: rcvscn_reco_lst
+  rcvscn-reco:
+    prefix: RCVSCN_RECO_
     pattern-check-id:
-      pattern: ^rcvscn_reco_lst-\d+$
-      error-message: ID must match rcvscn_reco_lst-NNN
+      pattern: "^RCVSCN-RECO-[0-9]+$"
+      error-message: IDs of this section must match RCVSCN-RECO-xxx
     description: Add one entry per common recovery scenario.
-  RECHAX-AXES-LST:
-    prefix: rechax_axes_lst
+  rechax-axes:
+    prefix: RECHAX_AXES_
     pattern-check-id:
-      pattern: ^rechax_axes_lst-\d+$
-      error-message: ID must match rechax_axes_lst-NNN
+      pattern: "^RECHAX-AXES-[0-9]+$"
+      error-message: IDs of this section must match RECHAX-AXES-xxx
     description: Add one entry per chart axis configuration.
-  RECHEN-CHAR-LST:
-    prefix: rechen_char_lst
+  rechen-char:
+    prefix: RECHEN_CHAR_
+    subsection-types:
+      rechax-axes:
+        max-count: infinite
+      rechse:
+        max-count: 1
+      rechdi:
+        max-count: 1
+      rechin:
+        max-count: 1
+      rechla:
+        max-count: 1
     pattern-check-id:
-      pattern: ^rechen_char_lst-\d+$
-      error-message: ID must match rechen_char_lst-NNN
+      pattern: "^RECHEN-CHAR-[0-9]+$"
+      error-message: IDs of this section must match RECHEN-CHAR-xxx
     description: Add one entry per chart shown in the section.
-  RECOE1-COLU-LST:
-    prefix: recoe1_colu_lst
+  recoe1-colu:
+    prefix: RECOE1_COLU_
+    subsection-types:
+      rcds:
+        max-count: 1
+      recofo:
+        max-count: 1
+      recoag:
+        max-count: 1
+      recoin:
+        max-count: 1
+      recola:
+        max-count: 1
     pattern-check-id:
-      pattern: ^recoe1_colu_lst-\d+$
-      error-message: ID must match recoe1_colu_lst-NNN
+      pattern: "^RECOE1-COLU-[0-9]+$"
+      error-message: IDs of this section must match RECOE1-COLU-xxx
     description: Add one entry per column in the section table.
-  REDIEN-DIST-LST:
-    prefix: redien_dist_lst
+  redien-dist:
+    prefix: REDIEN_DIST_
+    subsection-types:
+      redienre:
+        max-count: 1
+      redienco:
+        max-count: 1
+      rded:
+        max-count: 1
     pattern-check-id:
-      pattern: ^redien_dist_lst-\d+$
-      error-message: ID must match redien_dist_lst-NNN
+      pattern: "^REDIEN-DIST-[0-9]+$"
+      error-message: IDs of this section must match REDIEN-DIST-xxx
     description: Add one entry per report distribution channel.
-  REFIEN-FILT-LST:
-    prefix: refien_filt_lst
+  refien-filt:
+    prefix: REFIEN_FILT_
+    subsection-types:
+      rfei:
+        max-count: 1
+      rfeb:
+        max-count: 1
+      rfep:
+        max-count: 1
     pattern-check-id:
-      pattern: ^refien_filt_lst-\d+$
-      error-message: ID must match refien_filt_lst-NNN
+      pattern: "^REFIEN-FILT-[0-9]+$"
+      error-message: IDs of this section must match REFIEN-FILT-xxx
     description: Add one entry per report data filter.
-  REREEN-RECI-LST:
-    prefix: rereen_reci_lst
+  rereen-reci:
+    prefix: REREEN_RECI_
+    subsection-types:
+      rereenco:
+        max-count: 1
+      rred:
+        max-count: 1
+      rrel:
+        max-count: 1
     pattern-check-id:
-      pattern: ^rereen_reci_lst-\d+$
-      error-message: ID must match rereen_reci_lst-NNN
+      pattern: "^REREEN-RECI-[0-9]+$"
+      error-message: IDs of this section must match REREEN-RECI-xxx
     description: Add one entry per report recipient.
-  RESCEN-SCHE-LST:
-    prefix: rescen_sche_lst
+  rescen-sche:
+    prefix: RESCEN_SCHE_
+    subsection-types:
+      rset:
+        max-count: 1
+      rser:
+        max-count: 1
+      rsen:
+        max-count: 1
+      rseo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^rescen_sche_lst-\d+$
-      error-message: ID must match rescen_sche_lst-NNN
+      pattern: "^RESCEN-SCHE-[0-9]+$"
+      error-message: IDs of this section must match RESCEN-SCHE-xxx
     description: Add one entry per report generation schedule.
-  RESEE1-SECT-LST:
-    prefix: resee1_sect_lst
+  resee1-sect:
+    prefix: RESEE1_SECT_
+    subsection-types:
+      reseda:
+        max-count: 1
+      resela:
+        max-count: 1
+      reseso:
+        max-count: 1
+      reseag:
+        max-count: 1
+      recoe1-colu:
+        max-count: infinite
+      rechen-char:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^resee1_sect_lst-\d+$
-      error-message: ID must match resee1_sect_lst-NNN
+      pattern: "^RESEE1-SECT-[0-9]+$"
+      error-message: IDs of this section must match RESEE1-SECT-xxx
     description: Add one entry per report section.
-  RESPSR-SCRE-LST:
-    prefix: respsr_scre_lst
+  respsr-scre:
+    prefix: RESPSR_SCRE_
     pattern-check-id:
-      pattern: ^respsr_scre_lst-\d+$
-      error-message: ID must match respsr_scre_lst-NNN
+      pattern: "^RESPSR-SCRE-[0-9]+$"
+      error-message: IDs of this section must match RESPSR-SCRE-xxx
     description: Add one entry per screen with distinct responsive rules.
-  SCRUSC-USER-LST:
-    prefix: scrusc_user_lst
+  scrusc-user:
+    prefix: SCRUSC_USER_
     pattern-check-id:
-      pattern: ^scrusc_user_lst-\d+$
-      error-message: ID must match scrusc_user_lst-NNN
+      pattern: "^SCRUSC-USER-[0-9]+$"
+      error-message: IDs of this section must match SCRUSC-USER-xxx
     description: Add one entry per user category.
-  TAITEN-TABS-LST:
-    prefix: taiten_tabs_lst
-    min-count-in-document: 1
+  taiten-tabs:
+    prefix: TAITEN_TABS_
     pattern-check-id:
-      pattern: ^taiten_tabs_lst-\d+$
-      error-message: ID must match taiten_tabs_lst-NNN
+      pattern: "^TAITEN-TABS-[0-9]+$"
+      error-message: IDs of this section must match TAITEN-TABS-xxx
     description: Add one entry per tab item in the tab bar.
-  UICOEN-COMP-LST:
-    prefix: uicoen_comp_lst
+  uicoen-comp:
+    prefix: UICOEN_COMP_
+    subsection-types:
+      ucep:
+        max-count: 1
+      ucec:
+        max-count: 1
+      uced:
+        max-count: 1
+      uces:
+        max-count: 1
+      uicoensu:
+        max-count: 1
+      uceib:
+        max-count: 1
+      ucea:
+        max-count: 1
+      uicoensc:
+        max-count: 1
+      cmst-stat:
+        max-count: infinite
+      cmvn-vari:
+        max-count: infinite
+      cmac-acti:
+        max-count: infinite
+      cmsl-slot:
+        max-count: infinite
+      cmpr-prop:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^uicoen_comp_lst-\d+$
-      error-message: ID must match uicoen_comp_lst-NNN
+      pattern: "^UICOEN-COMP-[0-9]+$"
+      error-message: IDs of this section must match UICOEN-COMP-xxx
     description: Add one entry per catalog component.
-  VAMETE-MESS-LST:
-    prefix: vamete_mess_lst
+  vamete-mess:
+    prefix: VAMETE_MESS_
     pattern-check-id:
-      pattern: ^vamete_mess_lst-\d+$
-      error-message: ID must match vamete_mess_lst-NNN
+      pattern: "^VAMETE-MESS-[0-9]+$"
+      error-message: IDs of this section must match VAMETE-MESS-xxx
     description: Add one entry per validation message template.
-  DESIG-DESI-LST:
-    prefix: desig_desi_lst
+  desig-desi:
+    prefix: DESIG_DESI_
     pattern-check-id:
-      pattern: ^desig_desi_lst-\d+$
-      error-message: ID must match desig_desi_lst-NNN
+      pattern: "^DESIG-DESI-[0-9]+$"
+      error-message: IDs of this section must match DESIG-DESI-xxx
     description: Add one entry per design foundation.
-  DGOEN-ITEM-LST:
-    prefix: dgoen_item_lst
+  dgoen-item:
+    prefix: DGOEN_ITEM_
     pattern-check-id:
-      pattern: ^dgoen_item_lst-\d+$
-      error-message: ID must match dgoen_item_lst-NNN
+      pattern: "^DGOEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match DGOEN-ITEM-xxx
     description: Add one entry per design goal.
-  FIELD-FIEL-LST:
-    prefix: field_fiel_lst
+  field-fiel:
+    prefix: FIELD_FIEL_
     pattern-check-id:
-      pattern: ^field_fiel_lst-\d+$
-      error-message: ID must match field_fiel_lst-NNN
+      pattern: "^FIELD-FIEL-[0-9]+$"
+      error-message: IDs of this section must match FIELD-FIEL-xxx
     description: Add one entry per field validation rule.
-  FLDHP-FIEL-LST:
-    prefix: fldhp_fiel_lst
+  fldhp-fiel:
+    prefix: FLDHP_FIEL_
     pattern-check-id:
-      pattern: ^fldhp_fiel_lst-\d+$
-      error-message: ID must match fldhp_fiel_lst-NNN
+      pattern: "^FLDHP-FIEL-[0-9]+$"
+      error-message: IDs of this section must match FLDHP-FIEL-xxx
     description: Add one entry per field that needs contextual help.
-  GLOBA-GLOB-LST:
-    prefix: globa_glob_lst
+  globa-glob:
+    prefix: GLOBA_GLOB_
     pattern-check-id:
-      pattern: ^globa_glob_lst-\d+$
-      error-message: ID must match globa_glob_lst-NNN
+      pattern: "^GLOBA-GLOB-[0-9]+$"
+      error-message: IDs of this section must match GLOBA-GLOB-xxx
     description: Add one entry per global entry point.
-  PEREN-ITEM-LST:
-    prefix: peren_item_lst
-    min-count-in-document: 1
+  peren-item:
+    prefix: PEREN_ITEM_
+    subsection-types:
+      peprf:
+        max-count: 1
+      pectx:
+        max-count: 1
+      pends:
+        max-count: 1
+      pergl:
+        max-count: 1
+      peppt:
+        max-count: 1
+      persc:
+        max-count: 1
     pattern-check-id:
-      pattern: ^peren_item_lst-\d+$
-      error-message: ID must match peren_item_lst-NNN
+      pattern: "^PEREN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match PEREN-ITEM-xxx
     description: Add one entry per user persona.
-  PGOEN-ITEM-LST:
-    prefix: pgoen_item_lst
+  pgoen-item:
+    prefix: PGOEN_ITEM_
     pattern-check-id:
-      pattern: ^pgoen_item_lst-\d+$
-      error-message: ID must match pgoen_item_lst-NNN
+      pattern: "^PGOEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match PGOEN-ITEM-xxx
     description: Add one entry per persona goal.
-  PPPEN-ITEM-LST:
-    prefix: pppen_item_lst
+  pppen-item:
+    prefix: PPPEN_ITEM_
     pattern-check-id:
-      pattern: ^pppen_item_lst-\d+$
-      error-message: ID must match pppen_item_lst-NNN
+      pattern: "^PPPEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match PPPEN-ITEM-xxx
     description: Add one entry per persona pain point.
-  PSCEN-ITEM-LST:
-    prefix: pscen_item_lst
+  pscen-item:
+    prefix: PSCEN_ITEM_
     pattern-check-id:
-      pattern: ^pscen_item_lst-\d+$
-      error-message: ID must match pscen_item_lst-NNN
+      pattern: "^PSCEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match PSCEN-ITEM-xxx
     description: Add one entry per persona scenario.
-  RECOV-RECO-LST:
-    prefix: recov_reco_lst
+  recov-reco:
+    prefix: RECOV_RECO_
     pattern-check-id:
-      pattern: ^recov_reco_lst-\d+$
-      error-message: ID must match recov_reco_lst-NNN
+      pattern: "^RECOV-RECO-[0-9]+$"
+      error-message: IDs of this section must match RECOV-RECO-xxx
     description: Add one entry per recovery flow.
-  SCRAC-ITEM-LST:
-    prefix: scrac_item_lst
+  scrac-item:
+    prefix: SCRAC_ITEM_
+    subsection-types:
+      saev:
+        max-count: 1
+      saec:
+        max-count: 1
+      saeb:
+        max-count: 1
     pattern-check-id:
-      pattern: ^scrac_item_lst-\d+$
-      error-message: ID must match scrac_item_lst-NNN
+      pattern: "^SCRAC-ITEM-[0-9]+$"
+      error-message: IDs of this section must match SCRAC-ITEM-xxx
     description: Add one entry per screen action.
-  SCREL-ELEM-LST:
-    prefix: screl_elem_lst
+  screl-elem:
+    prefix: SCREL_ELEM_
+    subsection-types:
+      seer:
+        max-count: 1
+      scelenla:
+        max-count: 1
+      seeb:
+        max-count: 1
+      scelenpr:
+        max-count: 1
+      scelac:
+        max-count: 1
+      sefs:
+        max-count: 1
+      sedd:
+        max-count: 1
+      evre-vali:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^screl_elem_lst-\d+$
-      error-message: ID must match screl_elem_lst-NNN
+      pattern: "^SCREL-ELEM-[0-9]+$"
+      error-message: IDs of this section must match SCREL-ELEM-xxx
     description: Add one entry per screen element.
-  SCREN-ITEM-LST:
-    prefix: scren_item_lst
-    min-count-in-document: 1
+  scren-item:
+    prefix: SCREN_ITEM_
+    subsection-types:
+      scecl:
+        max-count: 1
+      sceac:
+        max-count: 1
+      scetr:
+        max-count: 1
+      scenpr:
+        max-count: 1
+      scse:
+        max-count: 1
+      scac:
+        max-count: 1
+      scst:
+        max-count: 1
+      scrusc-user:
+        max-count: infinite
+      epnt-entr:
+        max-count: infinite
+      srre-resp:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^scren_item_lst-\d+$
-      error-message: ID must match scren_item_lst-NNN
+      pattern: "^SCREN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match SCREN-ITEM-xxx
     description: Add one entry per screen.
-  SCRSC-ITEM-LST:
-    prefix: scrsc_item_lst
+  scrsc-item:
+    prefix: SCRSC_ITEM_
+    subsection-types:
+      ssel:
+        max-count: 1
+      sseb:
+        max-count: 1
+      screl-elem:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^scrsc_item_lst-\d+$
-      error-message: ID must match scrsc_item_lst-NNN
+      pattern: "^SCRSC-ITEM-[0-9]+$"
+      error-message: IDs of this section must match SCRSC-ITEM-xxx
     description: Add one entry per screen section.
-  SCRST-ITEM-LST:
-    prefix: scrst_item_lst
+  scrst-item:
+    prefix: SCRST_ITEM_
     pattern-check-id:
-      pattern: ^scrst_item_lst-\d+$
-      error-message: ID must match scrst_item_lst-NNN
+      pattern: "^SCRST-ITEM-[0-9]+$"
+      error-message: IDs of this section must match SCRST-ITEM-xxx
     description: Add one entry per screen state.
-  TURST-STEP-LST:
-    prefix: turst_step_lst
+  turst-step:
+    prefix: TURST_STEP_
     pattern-check-id:
-      pattern: ^turst_step_lst-\d+$
-      error-message: ID must match turst_step_lst-NNN
+      pattern: "^TURST-STEP-[0-9]+$"
+      error-message: IDs of this section must match TURST-STEP-xxx
     description: Add one entry per guided-tour step.
-  ACCH-ITEM-LST:
-    prefix: acch_item_lst
+  acch-item:
+    prefix: ACCH_ITEM_
+    subsection-types:
+      acec:
+        max-count: 1
+      acee:
+        max-count: 1
+      acer:
+        max-count: 1
     pattern-check-id:
-      pattern: ^acch_item_lst-\d+$
-      error-message: ID must match acch_item_lst-NNN
+      pattern: "^ACCH-ITEM-[0-9]+$"
+      error-message: IDs of this section must match ACCH-ITEM-xxx
     description: Add one entry per accessibility check.
-  CMAC-ACTI-LST:
-    prefix: cmac_acti_lst
+  cmac-acti:
+    prefix: CMAC_ACTI_
+    subsection-types:
+      caeg:
+        max-count: 1
+      caee:
+        max-count: 1
     pattern-check-id:
-      pattern: ^cmac_acti_lst-\d+$
-      error-message: ID must match cmac_acti_lst-NNN
+      pattern: "^CMAC-ACTI-[0-9]+$"
+      error-message: IDs of this section must match CMAC-ACTI-xxx
     description: Add one entry per component action.
-  CMFA-COMP-LST:
-    prefix: cmfa_comp_lst
+  cmfa-comp:
+    prefix: CMFA_COMP_
+    subsection-types:
+      famref-comp:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^cmfa_comp_lst-\d+$
-      error-message: ID must match cmfa_comp_lst-NNN
+      pattern: "^CMFA-COMP-[0-9]+$"
+      error-message: IDs of this section must match CMFA-COMP-xxx
     description: Add one entry per component family.
-  CMPR-PROP-LST:
-    prefix: cmpr_prop_lst
+  cmpr-prop:
+    prefix: CMPR_PROP_
     pattern-check-id:
-      pattern: ^cmpr_prop_lst-\d+$
-      error-message: ID must match cmpr_prop_lst-NNN
+      pattern: "^CMPR-PROP-[0-9]+$"
+      error-message: IDs of this section must match CMPR-PROP-xxx
     description: Add one entry per component property.
-  CMSL-SLOT-LST:
-    prefix: cmsl_slot_lst
+  cmsl-slot:
+    prefix: CMSL_SLOT_
     pattern-check-id:
-      pattern: ^cmsl_slot_lst-\d+$
-      error-message: ID must match cmsl_slot_lst-NNN
+      pattern: "^CMSL-SLOT-[0-9]+$"
+      error-message: IDs of this section must match CMSL-SLOT-xxx
     description: Add one entry per component slot.
-  CMST-STAT-LST:
-    prefix: cmst_stat_lst
+  cmst-stat:
+    prefix: CMST_STAT_
+    subsection-types:
+      csev:
+        max-count: 1
+      cseb:
+        max-count: 1
+      cset:
+        max-count: 1
     pattern-check-id:
-      pattern: ^cmst_stat_lst-\d+$
-      error-message: ID must match cmst_stat_lst-NNN
+      pattern: "^CMST-STAT-[0-9]+$"
+      error-message: IDs of this section must match CMST-STAT-xxx
     description: Add one entry per component state.
-  CMVN-VARI-LST:
-    prefix: cmvn_vari_lst
+  cmvn-vari:
+    prefix: CMVN_VARI_
+    subsection-types:
+      cvev:
+        max-count: 1
+      cveb:
+        max-count: 1
     pattern-check-id:
-      pattern: ^cmvn_vari_lst-\d+$
-      error-message: ID must match cmvn_vari_lst-NNN
+      pattern: "^CMVN-VARI-[0-9]+$"
+      error-message: IDs of this section must match CMVN-VARI-xxx
     description: Add one entry per component variant.
-  COPA-COLO-LST:
-    prefix: copa_colo_lst
+  copa-colo:
+    prefix: COPA_COLO_
     pattern-check-id:
-      pattern: ^copa_colo_lst-\d+$
-      error-message: ID must match copa_colo_lst-NNN
+      pattern: "^COPA-COLO-[0-9]+$"
+      error-message: IDs of this section must match COPA-COLO-xxx
     description: Add one entry per colour palette.
-  DPEN-ITEM-LST:
-    prefix: dpen_item_lst
+  dpen-item:
+    prefix: DPEN_ITEM_
     pattern-check-id:
-      pattern: ^dpen_item_lst-\d+$
-      error-message: ID must match dpen_item_lst-NNN
+      pattern: "^DPEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match DPEN-ITEM-xxx
     description: Add one entry per design principle.
-  EFME-FIEL-LST:
-    prefix: efme_fiel_lst
+  efme-fiel:
+    prefix: EFME_FIEL_
+    subsection-types:
+      efmef:
+        max-count: 1
+      efmet:
+        max-count: 1
+      efmei:
+        max-count: 1
+      efmel:
+        max-count: 1
     pattern-check-id:
-      pattern: ^efme_fiel_lst-\d+$
-      error-message: ID must match efme_fiel_lst-NNN
+      pattern: "^EFME-FIEL-[0-9]+$"
+      error-message: IDs of this section must match EFME-FIEL-xxx
     description: Add one entry per export field mapping.
-  EPDE-ERRO-LST:
-    prefix: epde_erro_lst
+  epde-erro:
+    prefix: EPDE_ERRO_
     pattern-check-id:
-      pattern: ^epde_erro_lst-\d+$
-      error-message: ID must match epde_erro_lst-NNN
+      pattern: "^EPDE-ERRO-[0-9]+$"
+      error-message: IDs of this section must match EPDE-ERRO-xxx
     description: Add one entry per error page design.
-  EPNT-ENTR-LST:
-    prefix: epnt_entr_lst
+  epnt-entr:
+    prefix: EPNT_ENTR_
     pattern-check-id:
-      pattern: ^epnt_entr_lst-\d+$
-      error-message: ID must match epnt_entr_lst-NNN
+      pattern: "^EPNT-ENTR-[0-9]+$"
+      error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
-  EVRE-VALI-LST:
-    prefix: evre_vali_lst
+  evre-vali:
+    prefix: EVRE_VALI_
     pattern-check-id:
-      pattern: ^evre_vali_lst-\d+$
-      error-message: ID must match evre_vali_lst-NNN
+      pattern: "^EVRE-VALI-[0-9]+$"
+      error-message: IDs of this section must match EVRE-VALI-xxx
     description: Add one entry per validation rule.
-  REEN-REPO-LST:
-    prefix: reen_repo_lst
+  reen-repo:
+    prefix: REEN_REPO_
+    subsection-types:
+      reid:
+        max-count: 1
+      redaso:
+        max-count: 1
+      refo:
+        max-count: 1
+      rela:
+        max-count: 1
+      rehefo:
+        max-count: 1
+      regr:
+        max-count: 1
+      rf:
+        max-count: 1
+      rein:
+        max-count: 1
+      repa:
+        max-count: 1
+      rese:
+        max-count: 1
+      reli:
+        max-count: 1
+      resee1-sect:
+        max-count: infinite
+      refien-filt:
+        max-count: infinite
+      rescen-sche:
+        max-count: infinite
+      redien-dist:
+        max-count: infinite
+      rereen-reci:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^reen_repo_lst-\d+$
-      error-message: ID must match reen_repo_lst-NNN
+      pattern: "^REEN-REPO-[0-9]+$"
+      error-message: IDs of this section must match REEN-REPO-xxx
     description: Add one entry per report.
-  SECE-ERRO-LST:
-    prefix: sece_erro_lst
+  sece-erro:
+    prefix: SECE_ERRO_
+    subsection-types:
+      seceh:
+        max-count: 1
+      seceo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^sece_erro_lst-\d+$
-      error-message: ID must match sece_erro_lst-NNN
+      pattern: "^SECE-ERRO-[0-9]+$"
+      error-message: IDs of this section must match SECE-ERRO-xxx
     description: Add one entry per system error code.
-  SRRE-RESP-LST:
-    prefix: srre_resp_lst
+  srre-resp:
+    prefix: SRRE_RESP_
     pattern-check-id:
-      pattern: ^srre_resp_lst-\d+$
-      error-message: ID must match srre_resp_lst-NNN
+      pattern: "^SRRE-RESP-[0-9]+$"
+      error-message: IDs of this section must match SRRE-RESP-xxx
     description: Add one entry per responsive rule.
-  TBDE-TABB-LST:
-    prefix: tbde_tabb_lst
+  tbde-tabb:
+    prefix: TBDE_TABB_
+    subsection-types:
+      tbdeb:
+        max-count: 1
+      tbdel:
+        max-count: 1
+      taiten-tabs:
+        max-count: infinite
+        min-count: 1
     pattern-check-id:
-      pattern: ^tbde_tabb_lst-\d+$
-      error-message: ID must match tbde_tabb_lst-NNN
+      pattern: "^TBDE-TABB-[0-9]+$"
+      error-message: IDs of this section must match TBDE-TABB-xxx
     description: Add one entry per tab bar or segmented control.
-  TYST-TYPO-LST:
-    prefix: tyst_typo_lst
+  tyst-typo:
+    prefix: TYST_TYPO_
     pattern-check-id:
-      pattern: ^tyst_typo_lst-\d+$
-      error-message: ID must match tyst_typo_lst-NNN
+      pattern: "^TYST-TYPO-[0-9]+$"
+      error-message: IDs of this section must match TYST-TYPO-xxx
     description: Add one entry per typography style.
-  UMIE-MENU-LST:
-    prefix: umie_menu_lst
+  umie-menu:
+    prefix: UMIE_MENU_
+    subsection-types:
+      umiea:
+        max-count: 1
+      umieb:
+        max-count: 1
     pattern-check-id:
-      pattern: ^umie_menu_lst-\d+$
-      error-message: ID must match umie_menu_lst-NNN
+      pattern: "^UMIE-MENU-[0-9]+$"
+      error-message: IDs of this section must match UMIE-MENU-xxx
     description: Add one entry per utility menu item.
-  UNIE-ITEM-LST:
-    prefix: unie_item_lst
+  unie-item:
+    prefix: UNIE_ITEM_
+    subsection-types:
+      unied:
+        max-count: 1
+      unieb:
+        max-count: 1
+      umie-menu:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^unie_item_lst-\d+$
-      error-message: ID must match unie_item_lst-NNN
+      pattern: "^UNIE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match UNIE-ITEM-xxx
     description: Add one entry per utility navigation item.
-  WSCE-SUCC-LST:
-    prefix: wsce_succ_lst
+  wsce-succ:
+    prefix: WSCE_SUCC_
     pattern-check-id:
-      pattern: ^wsce_succ_lst-\d+$
-      error-message: ID must match wsce_succ_lst-NNN
+      pattern: "^WSCE-SUCC-[0-9]+$"
+      error-message: IDs of this section must match WSCE-SUCC-xxx
     description: Add one entry per WCAG success criterion.
-  BRE-BREA-LST:
-    prefix: bre_brea_lst
+  bre-brea:
+    prefix: BRE_BREA_
+    subsection-types:
+      brenla:
+        max-count: 1
+      brensc:
+        max-count: 1
     pattern-check-id:
-      pattern: ^bre_brea_lst-\d+$
-      error-message: ID must match bre_brea_lst-NNN
+      pattern: "^BRE-BREA-[0-9]+$"
+      error-message: IDs of this section must match BRE-BREA-xxx
     description: Add one entry per layout breakpoint.
-  COMSTAENT:
-    prefix: comstaent
-    description: A component state entry.
-  REPCHAENT:
-    prefix: repchaent
-    description: A chart/visualization in a report
-  REPCOLENT:
-    prefix: repcolent
-    description: A column in a tabular report section
-  REPSCHENT:
-    prefix: repschent
-    description: Scheduling rules for report generation
-  ELVARUEN:
-    prefix: elvaruen
-    description: A validation rule entry (form).
-  EXFIMAEN:
-    prefix: exfimaen
-    description: A field mapping within an export (form).
-  EXTEENFI:
-    prefix: exteenfi
-    description: Field and filter settings for export template.
-  NAGUENDI:
-    prefix: naguendi
+  exteenfi:
+    prefix: EXTEENFI
+    description: Field and filter settings.
+  naguendi:
+    prefix: NAGUENDI
     description: Covered routes and dialog resources.
-  REDIENCO:
-    prefix: redienco
-    description: Message and attachment content for report distribution.
-  REDIENRE:
-    prefix: redienre
-    description: Recipient and format settings for report distribution.
-  REREENCO:
-    prefix: rereenco
+  redienco:
+    prefix: REDIENCO
+    description: Message and attachment content.
+  redienre:
+    prefix: REDIENRE
+    description: Recipient and format settings.
+  rereenco:
+    prefix: REREENCO
     description: Recipient business context.
-  SCELENLA:
-    prefix: scelenla
-    description: Placement and layout settings for screen element.
-  SCELENPR:
-    prefix: scelenpr
-    description: Styling and data binding for screen element.
-  SCRERUEN:
-    prefix: screruen
-    description: A responsive rule entry (form).
-  SYERCOEN:
-    prefix: syercoen
-    description: A system error code entry.
-  TABADEEN:
-    prefix: tabadeen
-    description: A tab bar definition entry (form).
-  UICOENSC:
-    prefix: uicoensc
+  scelenla:
+    prefix: SCELENLA
+    description: Placement and layout settings.
+  scelenpr:
+    prefix: SCELENPR
+    description: Styling and data binding.
+  uicoensc:
+    prefix: UICOENSC
     description: Scrolling behavior.
-  UICOENSU:
-    prefix: uicoensu
+  uicoensu:
+    prefix: UICOENSU
     description: Surface treatment.
-  UICOMENT:
-    prefix: uicoment
-    description: A UI component entry.
-  UTMEITEN:
-    prefix: utmeiten
-    description: A utility menu item entry (form).
-  UTNAITEN:
-    prefix: utnaiten
-    description: A utility navigation item entry (form).
-  WCSUCREN:
-    prefix: wcsucren
-    description: A WCAG success criterion entry.
-  ACCESS:
-    prefix: access
-    description: 10.9. Accessibility.
-  ACCHLS:
-    prefix: acchls
+  access:
+    prefix: ACCESS
+    subsection-types:
+      acstgy:
+        max-count: 1
+      acte:
+        max-count: 1
+      acsu:
+        max-count: 1
+      wcco:
+        max-count: 1
+      acchls:
+        max-count: 1
+    description: Accessibility.
+  acchls:
+    prefix: ACCHLS
+    subsection-types:
+      acch-item:
+        max-count: infinite
     description: 10.9.2. Accessibility Checklist.
-  ACSTGY:
-    prefix: acstgy
+  acstgy:
+    prefix: ACSTGY
     description: Ownership and inclusive design philosophy.
-  BRENLA:
-    prefix: brenla
+  brenla:
+    prefix: BRENLA
     description: Grid and layout rules for this breakpoint.
-  BRENSC:
-    prefix: brensc
+  brensc:
+    prefix: BRENSC
     description: Navigation and visual scaling rules.
-  COHEIN:
-    prefix: cohein
+  cohein:
+    prefix: COHEIN
     description: Inline help behavior.
-  COHEPA:
-    prefix: cohepa
+  cohepa:
+    prefix: COHEPA
     description: Help panel behavior.
-  COHERI:
-    prefix: coheri
+  coheri:
+    prefix: COHERI
     description: Rich help media settings.
-  COLIBO:
-    prefix: colibo
+  colibo:
+    prefix: COLIBO
     description: Borders and corners.
-  COLICO:
-    prefix: colico
+  colico:
+    prefix: COLICO
     description: Color system.
-  COLISP:
-    prefix: colisp
+  colisp:
+    prefix: COLISP
     description: Spacing and elevation.
-  COLITY:
-    prefix: colity
+  colity:
+    prefix: COLITY
     description: Typography system.
-  COLIVI:
-    prefix: colivi
+  colivi:
+    prefix: COLIVI
     description: Icons and animation.
-  DELNPT:
-    prefix: delnpt
-    description: A deep link pattern entry (form).
-  ERHACO:
-    prefix: erhaco
-    description: 10.7. Error Handling.
-  EXDAFO:
-    prefix: exdafo
-    description: Export data formatting.
-  EXFIFO:
-    prefix: exfifo
-    description: Export file format settings.
-  EXSISE:
-    prefix: exsise
-    description: Export size settings.
-  FAMREF:
-    prefix: famref
-    description: A component reference within a family.
-  FTRTUR:
-    prefix: ftrtur
-    description: A feature tour entry.
-  LACOSE:
-    prefix: lacose
-    description: 10.12.4. Language and Country Selection.
-  NAVGRD:
-    prefix: navgrd
-    description: A navigation guard entry (form).
-  NAVGRP:
-    prefix: navgrp
-    description: A navigation group entry (form).
-  NAVIIT:
-    prefix: naviit
-    description: A navigation item entry (form).
-  ONHECH:
-    prefix: onhech
+  erhaco:
+    prefix: ERHACO
+    subsection-types:
+      ehcc:
+        max-count: 1
+      ehca:
+        max-count: 1
+      ehco:
+        max-count: 1
+      vafe:
+        max-count: 1
+      syerdi:
+        max-count: 1
+      erre:
+        max-count: 1
+    description: Error handling concept.
+  exdafo:
+    prefix: EXDAFO
+    description: Data formatting.
+  exfifo:
+    prefix: EXFIFO
+    description: File format settings.
+  lacose:
+    prefix: LACOSE
+    subsection-types:
+      lcsd:
+        max-count: 1
+      lcsp:
+        max-count: 1
+      lcsf:
+        max-count: 1
+      lcsu:
+        max-count: 1
+    description: Language and country selection.
+  onhech:
+    prefix: ONHECH
     description: Getting started checklist configuration.
-  ONHEDI:
-    prefix: onhedi
+  onhedi:
+    prefix: ONHEDI
     description: Progressive disclosure configuration.
-  ONHERE:
-    prefix: onhere
+  onhere:
+    prefix: ONHERE
     description: Returning user experience.
-  ONHETO:
-    prefix: onheto
+  onheto:
+    prefix: ONHETO
     description: Feature tour settings.
-  PRFESU:
-    prefix: prfesu
+  prfesu:
+    prefix: PRFESU
+    subsection-types:
+      pfss:
+        max-count: 1
+      pfsf:
+        max-count: 1
+      prfeen-feat:
+        max-count: infinite
     description: 10.13.2. Selected Feature Subset.
-  PRGOFE:
-    prefix: prgofe
+  prgofe:
+    prefix: PRGOFE
     description: User feedback objectives and intake.
-  PRGORI:
-    prefix: prgori
+  prgori:
+    prefix: PRGORI
     description: Risk reduction and assumption testing.
-  PRLAAR:
-    prefix: prlaar
+  prlaar:
+    prefix: PRLAAR
     description: Archive and batch settings.
-  PRLABR:
-    prefix: prlabr
+  prlabr:
+    prefix: PRLABR
     description: Branding configuration.
-  PRLAWA:
-    prefix: prlawa
+  prlawa:
+    prefix: PRLAWA
     description: Watermark and confidentiality.
-  PRNADR:
-    prefix: prnadr
+  prnadr:
+    prefix: PRNADR
     description: Drawer and rail behavior.
-  PRNASI:
-    prefix: prnasi
+  prnasi:
+    prefix: PRNASI
     description: Sidebar sizing and selection behavior.
-  PRORES:
-    prefix: prores
+  prores:
+    prefix: PRORES
     description: Prototype staffing and environment.
-  PROTOT:
-    prefix: protot
-    description: 10.13. Prototype.
-  PRTYSE:
-    prefix: prtyse
+  protot:
+    prefix: PROTOT
+    subsection-types:
+      prti:
+        max-count: 1
+      prores:
+        max-count: 1
+      prgo:
+        max-count: 1
+      pg:
+        max-count: 1
+      prfesu:
+        max-count: 1
+      prtyse:
+        max-count: 1
+    description: Prototype.
+  prtyse:
+    prefix: PRTYSE
+    subsection-types:
+      reupro:
+        max-count: 1
+      tp:
+        max-count: 1
+      thpr:
+        max-count: 1
     description: 10.13.3. Prototype Type.
-  RCVSCN:
-    prefix: rcvscn
-    description: A recovery scenario entry.
-  REBECO:
-    prefix: rebeco
+  rebeco:
+    prefix: REBECO
     description: Content reflow rules.
-  REBENA:
-    prefix: rebena
+  rebena:
+    prefix: REBENA
     description: Navigation patterns per device class.
-  REBETO:
-    prefix: rebeto
+  rebeto:
+    prefix: REBETO
     description: Touch and interaction optimizations.
-  REBEVI:
-    prefix: rebevi
+  rebevi:
+    prefix: REBEVI
     description: Visibility rules.
-  RECHAX:
-    prefix: rechax
-    description: Axes for report chart.
-  RECHDI:
-    prefix: rechdi
-    description: Display for report chart.
-  RECHIN:
-    prefix: rechin
-    description: Interaction for report chart.
-  RECHLA:
-    prefix: rechla
-    description: Layout for report chart.
-  RECHSE:
-    prefix: rechse
-    description: Series for report chart.
-  RECOAG:
-    prefix: recoag
+  rechdi:
+    prefix: RECHDI
+    description: Display options.
+  rechin:
+    prefix: RECHIN
+    description: Interaction.
+  rechla:
+    prefix: RECHLA
+    description: Layout.
+  rechse:
+    prefix: RECHSE
+    description: Series and colors.
+  recoag:
+    prefix: RECOAG
     description: Aggregation settings.
-  RECOFO:
-    prefix: recofo
+  recofo:
+    prefix: RECOFO
     description: Display formatting.
-  RECOIN:
-    prefix: recoin
+  recoin:
+    prefix: RECOIN
     description: Interaction options.
-  RECOLA:
-    prefix: recola
+  recola:
+    prefix: RECOLA
     description: Visibility and layout.
-  REDASO:
-    prefix: redaso
-    description: Report data source configuration.
-  REHEFO:
-    prefix: rehefo
-    description: Report header and footer templates.
-  REPENT:
-    prefix: repent
-    description: A report entry (form).
-  REPRAR:
-    prefix: reprar
-    description: Architecture alignment and refactoring expectations.
-  REPRIN:
-    prefix: reprin
-    description: Integration and merge strategy.
-  REPRTR:
-    prefix: reprtr
-    description: Transition and handoff planning.
-  RESEAG:
-    prefix: reseag
-    description: Aggregation and limits.
-  RESEDA:
-    prefix: reseda
+  redaso:
+    prefix: REDASO
     description: Data source configuration.
-  RESELA:
-    prefix: resela
+  rehefo:
+    prefix: REHEFO
+    description: Header and footer templates.
+  reprar:
+    prefix: REPRAR
+    description: Architecture alignment and refactoring expectations.
+  reprin:
+    prefix: REPRIN
+    description: Integration and merge strategy.
+  reprtr:
+    prefix: REPRTR
+    description: Transition and handoff planning.
+  reseag:
+    prefix: RESEAG
+    description: Aggregation and limits.
+  reseda:
+    prefix: RESEDA
+    description: Data source configuration.
+  resela:
+    prefix: RESELA
     description: Layout and page settings.
-  RESESO:
-    prefix: reseso
+  reseso:
+    prefix: RESESO
     description: Sorting and grouping.
-  RESPSR:
-    prefix: respsr
-    description: A screen-specific responsive rule entry.
-  REUPRO:
-    prefix: reupro
+  reupro:
+    prefix: REUPRO
+    subsection-types:
+      reprar:
+        max-count: 1
+      reprin:
+        max-count: 1
+      reprtr:
+        max-count: 1
     description: 10.13.3.1. Reusable Prototype.
-  SCELAC:
-    prefix: scelac
-    description: Action specification for an action-type element (form).
-  SCENPR:
-    prefix: scenpr
+  scelac:
+    prefix: SCELAC
+    subsection-types:
+      seae:
+        max-count: 1
+      sean:
+        max-count: 1
+    description: 10.2.1.n.m.k.1. Element Action.
+  scenpr:
+    prefix: SCENPR
     description: Presentation metadata.
-  SCFLST:
-    prefix: scflst
-    description: 10.3. Screen Flow Structure.
-  SCRINV:
-    prefix: scrinv
+  scflst:
+    prefix: SCFLST
+    subsection-types:
+      namo:
+        max-count: 1
+    description: Screen flow structure.
+  scrinv:
+    prefix: SCRINV
+    subsection-types:
+      scren-item:
+        max-count: infinite
+        min-count: 1
     description: 10.2.1. Screen Inventory.
-  SUACTI:
-    prefix: suacti
+  suacti:
+    prefix: SUACTI
     description: Ticket system configuration.
-  SYERDI:
-    prefix: syerdi
+  syerdi:
+    prefix: SYERDI
+    subsection-types:
+      sedet:
+        max-count: 1
+      sedm:
+        max-count: 1
+      sedc:
+        max-count: 1
+      sedf:
+        max-count: 1
+      epde-erro:
+        max-count: infinite
+      sece-erro:
+        max-count: infinite
     description: 10.7.2. System Error Display.
-  THPRDI:
-    prefix: thprdi
+  thprdi:
+    prefix: THPRDI
     description: Disposal and follow-up handling.
-  THPRFI:
-    prefix: thprfi
+  thprfi:
+    prefix: THPRFI
     description: Findings and decisions captured from evaluation.
-  THPRVA:
-    prefix: thprva
+  thprva:
+    prefix: THPRVA
     description: Long-term value retained from the prototype.
-  TRPRDI:
-    prefix: trprdi
+  trprdi:
+    prefix: TRPRDI
     description: Code disposition and reimplementation planning.
-  TRPROU:
-    prefix: trprou
+  trprou:
+    prefix: TRPROU
     description: Documentation outputs and team learning.
-  UICOCU:
-    prefix: uicocu
+  uicocu:
+    prefix: UICOCU
     description: Extension and theming boundaries.
-  USASDE:
-    prefix: usasde
+  usasde:
+    prefix: USASDE
     description: Content stewardship and help affordances.
-  USASIN:
-    prefix: usasin
+  usasin:
+    prefix: USASIN
     description: Analytics and improvement feedback.
-  VAFEBE:
-    prefix: vafebe
+  vafebe:
+    prefix: VAFEBE
     description: Animation and focus behavior.
-  VAFEGU:
-    prefix: vafegu
+  vafegu:
+    prefix: VAFEGU
     description: Guidance settings.
-  VAFEME:
-    prefix: vafeme
+  vafeme:
+    prefix: VAFEME
     description: Message formatting details.
-  VAFEPL:
-    prefix: vafepl
+  vafepl:
+    prefix: VAFEPL
     description: Display placement details.
-  WCCOOP:
-    prefix: wccoop
+  wccoop:
+    prefix: WCCOOP
     description: Operable principles.
-  WCCORO:
-    prefix: wccoro
+  wccoro:
+    prefix: WCCORO
     description: Robustness requirements.
-  WCCOUN:
-    prefix: wccoun
+  wccoun:
+    prefix: WCCOUN
     description: Understandable principles.
-  WIANMO:
-    prefix: wianmo
-    description: 10.14. Wireframes and Mockups.
-  DEGOL:
-    prefix: degol
+  wianmo:
+    prefix: WIANMO
+    description: Wireframes and mockups (new in Phase A).
+  degol:
+    prefix: DEGOL
+    subsection-types:
+      dgoen-item:
+        max-count: infinite
     description: 10.1.1. Design Goals.
-  DEPRI:
-    prefix: depri
+  depri:
+    prefix: DEPRI
+    subsection-types:
+      dpen-item:
+        max-count: infinite
     description: 10.1.2. Design Principles.
-  DESIG:
-    prefix: desig
-    description: A single design foundation entry.
-  DEVIZ:
-    prefix: deviz
-    description: 10.1. Design Vision.
-  DGOEN:
-    prefix: dgoen
-    description: A design goal entry (form).
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  EFMEF:
-    prefix: efmef
+  deviz:
+    prefix: DEVIZ
+    subsection-types:
+      degol:
+        max-count: 1
+      depri:
+        max-count: 1
+      usper:
+        max-count: 1
+    description: Design vision.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  efmef:
+    prefix: EFMEF
     description: Ordering and formatting settings.
-  EFMEI:
-    prefix: efmei
+  efmei:
+    prefix: EFMEI
     description: Inclusion and defaults.
-  EFMEL:
-    prefix: efmel
+  efmel:
+    prefix: EFMEL
     description: Fixed-width and quoting rules.
-  EFMET:
-    prefix: efmet
+  efmet:
+    prefix: EFMET
     description: Transformation rules.
-  FIELD:
-    prefix: field
-    description: A single field validation rule entry.
-  FLDHP:
-    prefix: fldhp
-    description: A field help entry.
-  GLOBA:
-    prefix: globa
-    description: A single global entry point entry.
-  PECTX:
-    prefix: pectx
+  pectx:
+    prefix: PECTX
     description: Usage environment and device context.
-  PENDS:
-    prefix: pends
+  pends:
+    prefix: PENDS
     description: "Motivations, frustrations, and success markers."
-  PEPPT:
-    prefix: peppt
+  peppt:
+    prefix: PEPPT
+    subsection-types:
+      pppen-item:
+        max-count: infinite
     description: 10.1.3.n.2. Persona Pain Points.
-  PEPRF:
-    prefix: peprf
+  peprf:
+    prefix: PEPRF
     description: Background and capability profile.
-  PEREN:
-    prefix: peren
-    description: A user persona entry (form).
-  PERGL:
-    prefix: pergl
+  pergl:
+    prefix: PERGL
+    subsection-types:
+      pgoen-item:
+        max-count: infinite
     description: 10.1.3.n.1. Persona Goals.
-  PERSC:
-    prefix: persc
+  persc:
+    prefix: PERSC
+    subsection-types:
+      pscen-item:
+        max-count: infinite
     description: 10.1.3.n.3. Persona Scenarios.
-  PGOEN:
-    prefix: pgoen
-    description: A persona goal entry (form).
-  PPPEN:
-    prefix: pppen
-    description: A pain point entry (form).
-  PSCEN:
-    prefix: pscen
-    description: A persona scenario entry (form).
-  RECOV:
-    prefix: recov
-    description: A single recovery flow entry.
-  SCEAC:
-    prefix: sceac
+  sceac:
+    prefix: SCEAC
     description: Access control settings.
-  SCECL:
-    prefix: scecl
+  scecl:
+    prefix: SCECL
     description: Classification and routing metadata.
-  SCETR:
-    prefix: scetr
+  scetr:
+    prefix: SCETR
     description: Traceability metadata.
-  SCRAC:
-    prefix: scrac
-    description: A screen action entry (form).
-  SCRDZ:
-    prefix: scrdz
-    description: 10.2. Screen Descriptions.
-  SCREL:
-    prefix: screl
-    description: A screen element entry (form).
-  SCREN:
-    prefix: scren
-    description: A screen entry (form).
-  SCRSC:
-    prefix: scrsc
-    description: A screen section entry (form).
-  SCRST:
-    prefix: scrst
-    description: A screen state entry (form).
-  SECEH:
-    prefix: seceh
+  scrdz:
+    prefix: SCRDZ
+    subsection-types:
+      scrinv:
+        max-count: 1
+      ia:
+        max-count: 1
+    description: Screen descriptions.
+  seceh:
+    prefix: SECEH
     description: Recovery and display guidance.
-  SECEO:
-    prefix: seceo
+  seceo:
+    prefix: SECEO
     description: Operational support and logging controls.
-  SEDDB:
-    prefix: seddb
+  seddb:
+    prefix: SEDDB
     description: Refresh and drill-down behavior.
-  SEDDO:
-    prefix: seddo
+  seddo:
+    prefix: SEDDO
     description: Table/list interaction controls.
-  SEDET:
-    prefix: sedet
+  sedet:
+    prefix: SEDET
     description: Error type handling configuration.
-  SEFSC:
-    prefix: sefsc
-    description: Length and value constraints for field spec.
-  SEFSF:
-    prefix: sefsf
-    description: "Prefix, suffix, and formatting for field spec."
-  SEFSS:
-    prefix: sefss
-    description: Selection and input assistance for field spec.
-  SEFSV:
-    prefix: sefsv
-    description: Validation behavior for field spec.
-  TBDEB:
-    prefix: tbdeb
+  sefsc:
+    prefix: SEFSC
+    description: Length and value constraints.
+  sefsf:
+    prefix: SEFSF
+    description: "Prefix, suffix, and formatting."
+  sefss:
+    prefix: SEFSS
+    description: Selection and input assistance.
+  sefsv:
+    prefix: SEFSV
+    description: Validation behavior.
+  tbdeb:
+    prefix: TBDEB
     description: Position and selection behavior.
-  TBDEL:
-    prefix: tbdel
+  tbdel:
+    prefix: TBDEL
     description: Visibility and loading profile.
-  TURST:
-    prefix: turst
-    description: A tour step entry.
-  UCEIB:
-    prefix: uceib
+  uceib:
+    prefix: UCEIB
     description: Focus and keyboard behavior.
-  UMIEA:
-    prefix: umiea
+  umiea:
+    prefix: UMIEA
     description: Routing and action references.
-  UMIEB:
-    prefix: umieb
+  umieb:
+    prefix: UMIEB
     description: Visibility and confirmation behavior.
-  UNIEB:
-    prefix: unieb
+  unieb:
+    prefix: UNIEB
     description: Badge and interaction behavior.
-  UNIED:
-    prefix: unied
+  unied:
+    prefix: UNIED
     description: "Ordering, rendering, and access rules."
-  USPER:
-    prefix: usper
+  usper:
+    prefix: USPER
+    subsection-types:
+      peren-item:
+        max-count: infinite
+        min-count: 1
     description: 10.1.3. User Personas.
-  ACCH:
-    prefix: acch
-    description: An accessibility check entry (form).
-  ACEC:
-    prefix: acec
+  acec:
+    prefix: ACEC
     description: WCAG mapping and compliance classification.
-  ACEE:
-    prefix: acee
+  acee:
+    prefix: ACEE
     description: Testing execution ownership and status.
-  ACER:
-    prefix: acer
+  acer:
+    prefix: ACER
     description: Issue tracking and remediation details.
-  ACSU:
-    prefix: acsu
+  acsu:
+    prefix: ACSU
     description: Supported assistive technologies and platform features.
-  ACTE:
-    prefix: acte
+  acte:
+    prefix: ACTE
     description: Accessibility testing approach.
-  BRCO:
-    prefix: brco
+  brco:
+    prefix: BRCO
     description: 10.3.1.6.1. Breadcrumb Configuration.
-  CAEE:
-    prefix: caee
+  caee:
+    prefix: CAEE
     description: Async execution and feedback behavior.
-  CAEG:
-    prefix: caeg
+  caeg:
+    prefix: CAEG
     description: Authorization and confirmation behavior.
-  CHWT:
-    prefix: chwt
+  chwt:
+    prefix: CHWT
     description: What's-this mode settings.
-  CMAC:
-    prefix: cmac
-    description: A component action entry.
-  CMFA:
-    prefix: cmfa
-    description: A component family entry.
-  CMPR:
-    prefix: cmpr
-    description: A component property entry.
-  CMSL:
-    prefix: cmsl
-    description: A component slot entry.
-  COHE:
-    prefix: cohe
+  cohe:
+    prefix: COHE
+    subsection-types:
+      cohein:
+        max-count: 1
+      cohepa:
+        max-count: 1
+      chwt:
+        max-count: 1
+      coheri:
+        max-count: 1
+      fldhp-fiel:
+        max-count: infinite
     description: 10.8.1. Contextual Help.
-  COLI:
-    prefix: coli
+  coli:
+    prefix: COLI
+    subsection-types:
+      desig-desi:
+        max-count: infinite
+      colico:
+        max-count: 1
+      colity:
+        max-count: 1
+      colisp:
+        max-count: 1
+      colibo:
+        max-count: 1
+      colivi:
+        max-count: 1
+      copa-colo:
+        max-count: infinite
+      tyst-typo:
+        max-count: infinite
     description: 10.11.1. Component Library.
-  CONA:
-    prefix: cona
+  cona:
+    prefix: CONA
+    subsection-types:
+      brco:
+        max-count: 1
     description: 10.3.1.6. Contextual Navigation.
-  COPA:
-    prefix: copa
-    description: A color palette entry.
-  CSEB:
-    prefix: cseb
+  cseb:
+    prefix: CSEB
     description: Behavior and accessibility changes in this state.
-  CSET:
-    prefix: cset
+  cset:
+    prefix: CSET
     description: Entry and exit transition rules.
-  CSEV:
-    prefix: csev
+  csev:
+    prefix: CSEV
     description: Visual appearance in this state.
-  CVEB:
-    prefix: cveb
+  cveb:
+    prefix: CVEB
     description: Behavioral and implementation notes.
-  CVEV:
-    prefix: cvev
+  cvev:
+    prefix: CVEV
     description: Visual styling details.
-  DELI:
-    prefix: deli
+  deli:
+    prefix: DELI
+    subsection-types:
+      delnpt-patt:
+        max-count: infinite
     description: 10.3.1.7. Deep Linking.
-  DPEN:
-    prefix: dpen
-    description: A design principle entry (form).
-  EHCA:
-    prefix: ehca
+  ehca:
+    prefix: EHCA
     description: Accessibility and inclusive error cues.
-  EHCC:
-    prefix: ehcc
+  ehcc:
+    prefix: EHCC
     description: Error categorization and display priority.
-  EHCO:
-    prefix: ehco
+  ehco:
+    prefix: EHCO
     description: Localization and analytics behavior.
-  EPDE:
-    prefix: epde
-    description: A single error page design entry.
-  EPNT:
-    prefix: epnt
-    description: An entry point entry (form).
-  ERDP:
-    prefix: erdp
+  erdp:
+    prefix: ERDP
     description: "Data preservation: draft auto-save settings."
-  ERGR:
-    prefix: ergr
+  ergr:
+    prefix: ERGR
     description: Guided recovery options.
-  ERRE:
-    prefix: erre
+  erre:
+    prefix: ERRE
+    subsection-types:
+      erdp:
+        max-count: 1
+      errm:
+        max-count: 1
+      ergr:
+        max-count: 1
+      ersc:
+        max-count: 1
+      ersh:
+        max-count: 1
+      recov-reco:
+        max-count: infinite
+      rcvscn-reco:
+        max-count: infinite
     description: 10.7.3. Error Recovery.
-  ERRM:
-    prefix: errm
+  errm:
+    prefix: ERRM
     description: Retry mechanisms configuration.
-  ERSC:
-    prefix: ersc
+  ersc:
+    prefix: ERSC
     description: Support contact details.
-  ERSH:
-    prefix: ersh
+  ersh:
+    prefix: ERSH
     description: Session handling configuration.
-  ETEA:
-    prefix: etea
-    description: Access and metadata for export template.
-  ETEF:
-    prefix: etef
-    description: Format configuration for export template.
-  ETEL:
-    prefix: etel
-    description: Layout configuration for export template.
-  EXAC:
-    prefix: exac
-    description: Export access and audit.
-  EXDE:
-    prefix: exde
-    description: Export delimiter and quoting.
-  EXID:
-    prefix: exid
-    description: Export identity and data source.
-  EXOU:
-    prefix: exou
-    description: Export output and scheduling.
-  EXSE:
-    prefix: exse
-    description: Export security settings.
-  LCSD:
-    prefix: lcsd
+  etea:
+    prefix: ETEA
+    description: Access and metadata.
+  etef:
+    prefix: ETEF
+    description: Format configuration.
+  etel:
+    prefix: ETEL
+    description: Layout configuration.
+  exac:
+    prefix: EXAC
+    description: Access and audit.
+  exde:
+    prefix: EXDE
+    description: Delimiter and quoting.
+  exid:
+    prefix: EXID
+    description: Identity and data source.
+  exou:
+    prefix: EXOU
+    description: Output and scheduling.
+  exse:
+    prefix: EXSE
+    description: Security settings.
+  lcsd:
+    prefix: LCSD
     description: Default locale behavior.
-  LCSF:
-    prefix: lcsf
+  lcsf:
+    prefix: LCSF
     description: Fallback behavior.
-  LCSP:
-    prefix: lcsp
+  lcsp:
+    prefix: LCSP
     description: Persistence rules.
-  LCSU:
-    prefix: lcsu
+  lcsu:
+    prefix: LCSU
     description: Switching UX behavior.
-  NAGU:
-    prefix: nagu
+  nagu:
+    prefix: NAGU
+    subsection-types:
+      navgrd-guar:
+        max-count: infinite
     description: 10.3.1.8. Navigation Guards.
-  NAHI:
-    prefix: nahi
+  nahi:
+    prefix: NAHI
+    subsection-types:
+      navgrp-grou:
+        max-count: infinite
     description: 10.3.1.2. Navigation Hierarchy.
-  NAMO:
-    prefix: namo
+  namo:
+    prefix: NAMO
+    subsection-types:
+      naov:
+        max-count: 1
+      nahi:
+        max-count: 1
+      prna:
+        max-count: 1
+      sena:
+        max-count: 1
+      utna:
+        max-count: 1
+      cona:
+        max-count: 1
+      deli:
+        max-count: 1
+      nagu:
+        max-count: 1
     description: 10.3.1. Navigation Model.
-  NAOV:
-    prefix: naov
+  naov:
+    prefix: NAOV
     description: 10.3.1.1. Navigation Overview.
-  NGEA:
-    prefix: ngea
+  ngea:
+    prefix: NGEA
     description: Access-control settings.
-  NGED:
-    prefix: nged
+  nged:
+    prefix: NGED
     description: Display and expansion behavior.
-  NGER:
-    prefix: nger
+  nger:
+    prefix: NGER
     description: Redirect routing and evaluation priority.
-  NGES:
-    prefix: nges
+  nges:
+    prefix: NGES
     description: Badge and hierarchy settings.
-  NIEA:
-    prefix: niea
-    description: Access control for navigation item.
-  NIEB:
-    prefix: nieb
-    description: Badge configuration for navigation item.
-  NIED:
-    prefix: nied
-    description: Display properties for navigation item.
-  NIEI:
-    prefix: niei
-    description: Interaction settings for navigation item.
-  NIER:
-    prefix: nier
-    description: Routing configuration for navigation item.
-  OHSD:
-    prefix: ohsd
+  niea:
+    prefix: NIEA
+    description: Access control settings.
+  nieb:
+    prefix: NIEB
+    description: Badge configuration.
+  nied:
+    prefix: NIED
+    description: "Display properties: icons, labels, descriptions."
+  niei:
+    prefix: NIEI
+    description: Interaction settings.
+  nier:
+    prefix: NIER
+    description: Routing configuration.
+  ohsd:
+    prefix: OHSD
     description: Sample data settings.
-  ONHE:
-    prefix: onhe
-    description: 10.8.2. Onboarding Help.
-  PFSF:
-    prefix: pfsf
+  onhe:
+    prefix: ONHE
+    subsection-types:
+      onheto:
+        max-count: 1
+      ohsd:
+        max-count: 1
+      onhech:
+        max-count: 1
+      onhedi:
+        max-count: 1
+      onhere:
+        max-count: 1
+      ftrtur-feat:
+        max-count: infinite
+    description: 10.8.2. Onboarding.
+  pfsf:
+    prefix: PFSF
     description: Fidelity expectations for the prototype.
-  PFSS:
-    prefix: pfss
+  pfss:
+    prefix: PFSS
     description: Included and excluded feature scope.
-  PLHF:
-    prefix: plhf
+  plhf:
+    prefix: PLHF
     description: Header and footer settings.
-  PLPS:
-    prefix: plps
+  plps:
+    prefix: PLPS
     description: Page margins and setup.
-  PNBN:
-    prefix: pnbn
+  pnbn:
+    prefix: PNBN
     description: Bottom navigation rules.
-  PRGO:
-    prefix: prgo
+  prgo:
+    prefix: PRGO
     description: Approval and progression criteria.
-  PRLA:
-    prefix: prla
-    description: 10.4. Print Layout.
-  PRNA:
-    prefix: prna
+  prla:
+    prefix: PRLA
+    subsection-types:
+      plps:
+        max-count: 1
+      prlabr:
+        max-count: 1
+      prlawa:
+        max-count: 1
+      plhf:
+        max-count: 1
+      prlaar:
+        max-count: 1
+      reen-repo:
+        max-count: infinite
+      exfoen-expo:
+        max-count: infinite
+      exteen-expo:
+        max-count: infinite
+    description: Print layout.
+  prna:
+    prefix: PRNA
+    subsection-types:
+      prnadr:
+        max-count: 1
+      pnbn:
+        max-count: 1
+      prnasi:
+        max-count: 1
     description: 10.3.1.3. Primary Navigation.
-  PRTI:
-    prefix: prti
+  prti:
+    prefix: PRTI
     description: Prototype timing commitments.
-  RCDS:
-    prefix: rcds
+  rcds:
+    prefix: RCDS
     description: Data source and type.
-  RDED:
-    prefix: rded
-    description: Delivery conditions and lifecycle settings for report distribution.
-  REBE:
-    prefix: rebe
+  rded:
+    prefix: RDED
+    description: Delivery conditions and lifecycle settings.
+  rebe:
+    prefix: REBE
+    subsection-types:
+      rebena:
+        max-count: 1
+      rebevi:
+        max-count: 1
+      rebeto:
+        max-count: 1
+      rebeco:
+        max-count: 1
+      respsr-scre:
+        max-count: infinite
     description: 10.10.2. Responsive Behavior.
-  REDE:
-    prefix: rede
-    description: 10.10. Responsive Design.
-  REFO:
-    prefix: refo
-    description: Report output format options.
-  REGR:
-    prefix: regr
-    description: Report sorting and grouping.
-  REID:
-    prefix: reid
-    description: Report identity and context.
-  REIN:
-    prefix: rein
-    description: Report interactivity and parameters.
-  RELA:
-    prefix: rela
-    description: Report page layout settings.
-  RELI:
-    prefix: reli
-    description: Report lifecycle and archiving.
-  REPA:
-    prefix: repa
-    description: Report pagination settings.
-  RESE:
-    prefix: rese
-    description: Report security and access.
-  RFEB:
-    prefix: rfeb
-    description: Scope and validation behavior for a report filter.
-  RFEI:
-    prefix: rfei
-    description: Input and value configuration for a report filter.
-  RFEP:
-    prefix: rfep
-    description: Presentation options for a report filter.
-  RRED:
-    prefix: rred
+  rede:
+    prefix: REDE
+    subsection-types:
+      bc:
+        max-count: 1
+      rebe:
+        max-count: 1
+    description: Responsive design.
+  refo:
+    prefix: REFO
+    description: Output format options.
+  regr:
+    prefix: REGR
+    description: Sorting and grouping.
+  reid:
+    prefix: REID
+    description: Identity and context.
+  rein:
+    prefix: REIN
+    description: Interactivity and parameters.
+  rela:
+    prefix: RELA
+    description: Page layout settings.
+  reli:
+    prefix: RELI
+    description: Lifecycle and archiving.
+  repa:
+    prefix: REPA
+    description: Pagination settings.
+  rese:
+    prefix: RESE
+    description: Security and access.
+  rfeb:
+    prefix: RFEB
+    description: Scope and validation behavior.
+  rfei:
+    prefix: RFEI
+    description: Input and value configuration.
+  rfep:
+    prefix: RFEP
+    description: Presentation options.
+  rred:
+    prefix: RRED
     description: Delivery preferences.
-  RREL:
-    prefix: rrel
+  rrel:
+    prefix: RREL
     description: Lifecycle settings.
-  RSEN:
-    prefix: rsen
-    description: Notification settings for report schedule.
-  RSEO:
-    prefix: rseo
-    description: Output configuration for report schedule.
-  RSER:
-    prefix: rser
-    description: Retry configuration for report schedule.
-  RSET:
-    prefix: rset
-    description: Timing configuration for report schedule.
-  SACM:
-    prefix: sacm
+  rsen:
+    prefix: RSEN
+    description: Notification settings.
+  rseo:
+    prefix: RSEO
+    description: Output configuration.
+  rser:
+    prefix: RSER
+    description: Retry configuration.
+  rset:
+    prefix: RSET
+    description: Timing configuration.
+  sacm:
+    prefix: SACM
     description: Contact methods.
-  SAEB:
-    prefix: saeb
+  saeb:
+    prefix: SAEB
     description: "Confirmation, navigation, and feedback behavior."
-  SAEC:
-    prefix: saec
+  saec:
+    prefix: SAEC
     description: "Visibility, enablement, and permission rules."
-  SAEV:
-    prefix: saev
+  saev:
+    prefix: SAEV
     description: Visual presentation of the action.
-  SAHC:
-    prefix: sahc
+  sahc:
+    prefix: SAHC
     description: Help center configuration.
-  SALS:
-    prefix: sals
+  sals:
+    prefix: SALS
     description: Live support settings.
-  SASS:
-    prefix: sass
+  sass:
+    prefix: SASS
     description: Self-service and feedback options.
-  SCAC:
-    prefix: scac
+  scac:
+    prefix: SCAC
+    subsection-types:
+      scrac-item:
+        max-count: infinite
     description: 10.2.1.n.2. Screen Actions.
-  SCSE:
-    prefix: scse
+  scse:
+    prefix: SCSE
+    subsection-types:
+      scrsc-item:
+        max-count: infinite
     description: 10.2.1.n.1. Screen Sections.
-  SCST:
-    prefix: scst
+  scst:
+    prefix: SCST
+    subsection-types:
+      scrst-item:
+        max-count: infinite
     description: 10.2.1.n.3. Screen States.
-  SEAE:
-    prefix: seae
+  seae:
+    prefix: SEAE
     description: Confirmation and execution feedback behavior.
-  SEAN:
-    prefix: sean
+  sean:
+    prefix: SEAN
     description: Post-action navigation rules.
-  SEDC:
-    prefix: sedc
-    description: Content options for system error display.
-  SEDD:
-    prefix: sedd
-    description: Data display specification for display-type elements (form).
-  SEDF:
-    prefix: sedf
-    description: Fallback behavior for system errors.
-  SEDM:
-    prefix: sedm
-    description: Display method settings for system errors.
-  SEEB:
-    prefix: seeb
-    description: Visibility and permission rules for screen element.
-  SEER:
-    prefix: seer
-    description: Labels and icon resources for screen element.
-  SEFS:
-    prefix: sefs
-    description: Field specification for an input-type element (form).
-  SENA:
-    prefix: sena
+  sedc:
+    prefix: SEDC
+    description: Content options.
+  sedd:
+    prefix: SEDD
+    subsection-types:
+      seddb:
+        max-count: 1
+      seddo:
+        max-count: 1
+    description: 10.2.1.n.m.k.3. Element Data Display.
+  sedf:
+    prefix: SEDF
+    description: Fallback behavior.
+  sedm:
+    prefix: SEDM
+    description: Display method settings.
+  seeb:
+    prefix: SEEB
+    description: Visibility and permission rules.
+  seer:
+    prefix: SEER
+    description: Labels and icon resources.
+  sefs:
+    prefix: SEFS
+    subsection-types:
+      sefsf:
+        max-count: 1
+      sefsc:
+        max-count: 1
+      sefsv:
+        max-count: 1
+      sefss:
+        max-count: 1
+    description: 10.2.1.n.m.k.2. Element Field Spec.
+  sena:
+    prefix: SENA
+    subsection-types:
+      tbde-tabb:
+        max-count: infinite
     description: 10.3.1.4. Secondary Navigation.
-  SSEB:
-    prefix: sseb
+  sseb:
+    prefix: SSEB
     description: Visibility and collapse behavior.
-  SSEL:
-    prefix: ssel
+  ssel:
+    prefix: SSEL
     description: Layout and ordering for the section.
-  SUAC:
-    prefix: suac
+  suac:
+    prefix: SUAC
+    subsection-types:
+      sahc:
+        max-count: 1
+      sals:
+        max-count: 1
+      suacti:
+        max-count: 1
+      sacm:
+        max-count: 1
+      sass:
+        max-count: 1
     description: 10.8.3. Support Access.
-  SUCE:
-    prefix: suce
-    description: A user category entry (form).
-  THPR:
-    prefix: thpr
+  thpr:
+    prefix: THPR
+    subsection-types:
+      thprfi:
+        max-count: 1
+      thprdi:
+        max-count: 1
+      thprva:
+        max-count: 1
     description: 10.13.3.3. Throwaway Prototype.
-  TYST:
-    prefix: tyst
-    description: A typography style entry.
-  UCCA:
-    prefix: ucca
+  ucca:
+    prefix: UCCA
     description: Component naming and documentation approach.
-  UCEA:
-    prefix: ucea
+  ucea:
+    prefix: UCEA
     description: Animation behavior.
-  UCEC:
-    prefix: ucec
+  ucec:
+    prefix: UCEC
     description: Classification details.
-  UCED:
-    prefix: uced
+  uced:
+    prefix: UCED
     description: Visual dimensions.
-  UCEP:
-    prefix: ucep
+  ucep:
+    prefix: UCEP
     description: Wrapper mapping and business purpose.
-  UCES:
-    prefix: uces
+  uces:
+    prefix: UCES
     description: Spacing rules.
-  UCVL:
-    prefix: ucvl
+  ucvl:
+    prefix: UCVL
     description: Visual language and brand alignment.
-  UICO:
-    prefix: uico
-    description: 10.11. UI Components.
-  USAS:
-    prefix: usas
-    description: 10.8. User Assistance.
-  UTNA:
-    prefix: utna
+  uico:
+    prefix: UICO
+    subsection-types:
+      ucvl:
+        max-count: 1
+      ucca:
+        max-count: 1
+      uicocu:
+        max-count: 1
+      coli:
+        max-count: 1
+      uicoen-comp:
+        max-count: infinite
+      cmfa-comp:
+        max-count: infinite
+    description: UI components.
+  usas:
+    prefix: USAS
+    subsection-types:
+      usasde:
+        max-count: 1
+      usasin:
+        max-count: 1
+      cohe:
+        max-count: 1
+      onhe:
+        max-count: 1
+      suac:
+        max-count: 1
+    description: Help concept.
+  utna:
+    prefix: UTNA
+    subsection-types:
+      unie-item:
+        max-count: infinite
     description: 10.3.1.5. Utility Navigation.
-  VAFE:
-    prefix: vafe
+  vafe:
+    prefix: VAFE
+    subsection-types:
+      vafepl:
+        max-count: 1
+      vafeme:
+        max-count: 1
+      vafegu:
+        max-count: 1
+      vafebe:
+        max-count: 1
+      vamete-mess:
+        max-count: infinite
+      field-fiel:
+        max-count: infinite
     description: 10.7.1. Validation Feedback.
-  WCCO:
-    prefix: wcco
+  wcco:
+    prefix: WCCO
+    subsection-types:
+      wccoop:
+        max-count: 1
+      wccoun:
+        max-count: 1
+      wccoro:
+        max-count: 1
+      wsce-succ:
+        max-count: infinite
     description: 10.9.1. WCAG Compliance Level.
-  CVE:
-    prefix: cve
-    description: A component variant entry.
-  EFE:
-    prefix: efe
-    description: An export format entry (form).
-  ETE:
-    prefix: ete
-    description: A reusable export template (form).
-  PFE:
-    prefix: pfe
-    description: A prototype feature entry.
-  PGE:
-    prefix: pge
-    description: A prototype goal entry.
-  RDE:
-    prefix: rde
-    description: Distribution channel configuration (form).
-  RFE:
-    prefix: rfe
-    description: A filter parameter for a report (form).
-  RRE:
-    prefix: rre
-    description: A recipient entry (form).
-  RSE:
-    prefix: rse
-    description: A section within a report (form).
-  TIE:
-    prefix: tie
-    description: A tab item entry (form).
-  VMT:
-    prefix: vmt
-    description: A validation message template.
-  BC:
-    prefix: bc
+  bc:
+    prefix: BC
+    subsection-types:
+      bre-brea:
+        max-count: infinite
     description: 10.10.1. Breakpoints.
-  BE:
-    prefix: be
-    description: A breakpoint entry.
-  IA:
-    prefix: ia
+  ia:
+    prefix: IA
+    subsection-types:
+      globa-glob:
+        max-count: infinite
     description: 10.2.2. Information Architecture.
-  PG:
-    prefix: pg
+  pg:
+    prefix: PG
+    subsection-types:
+      prgori:
+        max-count: 1
+      prgofe:
+        max-count: 1
+      prgoen-goal:
+        max-count: infinite
     description: 10.13.1. Prototype Goals.
-  RF:
-    prefix: rf
-    description: Report conditional formatting.
-  TP:
-    prefix: tp
+  rf:
+    prefix: RF
+    description: Conditional formatting.
+  tp:
+    prefix: TP
+    subsection-types:
+      trprdi:
+        max-count: 1
+      trprou:
+        max-count: 1
     description: 10.13.3.2. Training Prototype.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    designvision:
-      section-type: DEVIZ
+    deviz:
+      section-type: deviz
       optional: true
-    screens:
-      section-type: SCRDZ
+    scrdz:
+      section-type: scrdz
       optional: true
-    screenflow:
-      section-type: SCFLST
+    scflst:
+      section-type: scflst
       optional: true
-    printlayout:
-      section-type: PRLA
+    prla:
+      section-type: prla
       optional: true
-    errorhandling:
-      section-type: ERHACO
+    erhaco:
+      section-type: erhaco
       optional: true
-    userassistance:
-      section-type: USAS
+    usas:
+      section-type: usas
       optional: true
-    accessibility:
-      section-type: ACCESS
+    access:
+      section-type: access
       optional: true
-    responsivedesign:
-      section-type: REDE
+    rede:
+      section-type: rede
       optional: true
-    uicomponents:
-      section-type: UICO
+    uico:
+      section-type: uico
       optional: true
-    languagecountryselection:
-      section-type: LACOSE
+    lacose:
+      section-type: lacose
       optional: true
-    prototype:
-      section-type: PROTOT
+    protot:
+      section-type: protot
       optional: true
-    wireframesandmockups:
-      section-type: WIANMO
+    wianmo:
+      section-type: wianmo
       optional: true

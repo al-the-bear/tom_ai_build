@@ -1,290 +1,339 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: interaction-scenarios/1.0
 
+title-format: "# <!--[ISC]--> Interaction Scenarios"
 section-types:
-  INBURU-BUSI-LST:
-    prefix: inburu_busi_lst
+  inburu-busi:
+    prefix: INBURU_BUSI_
     pattern-check-id:
-      pattern: ^inburu_busi_lst-\d+$
-      error-message: ID must match inburu_busi_lst-NNN
+      pattern: "^INBURU-BUSI-[0-9]+$"
+      error-message: IDs of this section must match INBURU-BUSI-xxx
     description: Add one entry per business-rule group.
-  POANGU-POST-LST:
-    prefix: poangu_post_lst
+  poangu-post:
+    prefix: POANGU_POST_
     pattern-check-id:
-      pattern: ^poangu_post_lst-\d+$
-      error-message: ID must match poangu_post_lst-NNN
+      pattern: "^POANGU-POST-[0-9]+$"
+      error-message: IDs of this section must match POANGU-POST-xxx
     description: Add one entry per postcondition/guarantee set.
-  PRANTR-PREC-LST:
-    prefix: prantr_prec_lst
+  prantr-prec:
+    prefix: PRANTR_PREC_
     pattern-check-id:
-      pattern: ^prantr_prec_lst-\d+$
-      error-message: ID must match prantr_prec_lst-NNN
+      pattern: "^PRANTR-PREC-[0-9]+$"
+      error-message: IDs of this section must match PRANTR-PREC-xxx
     description: Add one entry per precondition/trigger set.
-  STANIN-STAK-LST:
-    prefix: stanin_stak_lst
+  stanin-stak:
+    prefix: STANIN_STAK_
     pattern-check-id:
-      pattern: ^stanin_stak_lst-\d+$
-      error-message: ID must match stanin_stak_lst-NNN
+      pattern: "^STANIN-STAK-[0-9]+$"
+      error-message: IDs of this section must match STANIN-STAK-xxx
     description: Add one entry per stakeholder interest.
-  TEDAVA-VARI-LST:
-    prefix: tedava_vari_lst
+  tedava-vari:
+    prefix: TEDAVA_VARI_
     pattern-check-id:
-      pattern: ^tedava_vari_lst-\d+$
-      error-message: ID must match tedava_vari_lst-NNN
+      pattern: "^TEDAVA-VARI-[0-9]+$"
+      error-message: IDs of this section must match TEDAVA-VARI-xxx
     description: Add one entry per variation.
-  ETETS-ENDT-LST:
-    prefix: etets_endt_lst
+  etets-endt:
+    prefix: ETETS_ENDT_
     pattern-check-id:
-      pattern: ^etets_endt_lst-\d+$
-      error-message: ID must match etets_endt_lst-NNN
-    description: End-to-end test scenarios.
-  EXTEN-EXTE-LST:
-    prefix: exten_exte_lst
-    pattern-check-id:
-      pattern: ^exten_exte_lst-\d+$
-      error-message: ID must match exten_exte_lst-NNN
-    description: Add one entry per extension flow.
-  EXTST-STEP-LST:
-    prefix: extst_step_lst
-    pattern-check-id:
-      pattern: ^extst_step_lst-\d+$
-      error-message: ID must match extst_step_lst-NNN
-    description: Add one entry per extension step.
-  MNSST-STEP-LST:
-    prefix: mnsst_step_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^mnsst_step_lst-\d+$
-      error-message: ID must match mnsst_step_lst-NNN
-    description: Add one entry per numbered step.
-  SCNRY-SCEN-LST:
-    prefix: scnry_scen_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^scnry_scen_lst-\d+$
-      error-message: ID must match scnry_scen_lst-NNN
-    description: Add one entry per key scenario.
-  SCNST-STEP-LST:
-    prefix: scnst_step_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^scnst_step_lst-\d+$
-      error-message: ID must match scnst_step_lst-NNN
-    description: "Add one entry per main-flow step, in order."
-  ACEN-ACTO-LST:
-    prefix: acen_acto_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^acen_acto_lst-\d+$
-      error-message: ID must match acen_acto_lst-NNN
-    description: Add one entry per actor.
-  ACGO-GOAL-LST:
-    prefix: acgo_goal_lst
-    pattern-check-id:
-      pattern: ^acgo_goal_lst-\d+$
-      error-message: ID must match acgo_goal_lst-NNN
-    description: Add one entry per actor goal.
-  ACPE-PERM-LST:
-    prefix: acpe_perm_lst
-    pattern-check-id:
-      pattern: ^acpe_perm_lst-\d+$
-      error-message: ID must match acpe_perm_lst-NNN
-    description: Add one entry per actor permission set.
-  ALFL-ALTE-LST:
-    prefix: alfl_alte_lst
-    pattern-check-id:
-      pattern: ^alfl_alte_lst-\d+$
-      error-message: ID must match alfl_alte_lst-NNN
-    description: Add one entry per alternative or exception flow.
-  ALST-STEP-LST:
-    prefix: alst_step_lst
-    pattern-check-id:
-      pattern: ^alst_step_lst-\d+$
-      error-message: ID must match alst_step_lst-NNN
-    description: "Add one entry per step of this alternative flow, in order."
-  INEN-INTE-LST:
-    prefix: inen_inte_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^inen_inte_lst-\d+$
-      error-message: ID must match inen_inte_lst-NNN
-    description: Add one entry per interaction.
-  SCSTENEX:
-    prefix: scstenex
-    description: "Branching, timing, and notes."
-  ACCASU:
-    prefix: accasu
-    description: Actor categorization summary.
-  ACCHSU:
-    prefix: acchsu
-    description: Communication and accessibility profile.
-  ACCHUS:
-    prefix: acchus
-    description: Usage patterns and decision scope.
-  ACDIOV:
-    prefix: acdiov
-    description: Actor diagram overview.
-  ACINSU:
-    prefix: acinsu
-    description: Actor interactions summary.
-  ACOVNA:
-    prefix: acovna
-    description: Actor overview narrative.
-  ACREDI:
-    prefix: acredi
-    description: 6.2. Actor Relationship Diagram.
-  ACTCHA:
-    prefix: actcha
-    description: Actor characteristics.
-  ACTEPR:
-    prefix: actepr
-    description: Actor technology profile.
-  INBURU:
-    prefix: inburu
-    description: Business rules triggered by this interaction.
-  INCAOV:
-    prefix: incaov
-    description: Interaction catalog overview.
-  MASUSC:
-    prefix: masusc
-    description: Main success scenario (basic flow).
-  POANGU:
-    prefix: poangu
-    description: Postconditions and guarantees.
-  PRANTR:
-    prefix: prantr
-    description: Preconditions and triggers.
-  PRSTOV:
-    prefix: prstov
-    description: 6.2. Process Steps Overview.
-  STANIN:
-    prefix: stanin
-    description: Stakeholders and interests.
-  TEDAVA:
-    prefix: tedava
-    description: Technology and data variations.
-  USCAEX:
-    prefix: uscaex
-    description: Use case extensions (alternative and exception flows).
-  USCATR:
-    prefix: uscatr
-    description: 6.2.5. Use Case Traceability.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  ETETS:
-    prefix: etets
+      pattern: "^ETETS-ENDT-[0-9]+$"
+      error-message: IDs of this section must match ETETS-ENDT-xxx
     description: 6.2.4. End-to-End Test Scenarios.
-  EXTEN:
-    prefix: exten
-    description: An extension entry.
-  EXTST:
-    prefix: extst
-    description: An extension step entry.
-  MNSST:
-    prefix: mnsst
-    description: A main scenario step entry.
-  SCNRY:
-    prefix: scnry
-    description: A scenario entry.
-  SCNST:
-    prefix: scnst
-    description: A scenario step entry.
-  ACEN:
-    prefix: acen
-    description: An actor entry.
-  ACGO:
-    prefix: acgo
-    description: Actor goals (Cockburn-style goal hierarchy).
-  ACID:
-    prefix: acid
+  exten-exte:
+    prefix: EXTEN_EXTE_
+    subsection-types:
+      extst-step:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^EXTEN-EXTE-[0-9]+$"
+      error-message: IDs of this section must match EXTEN-EXTE-xxx
+    description: Add one entry per extension flow.
+  extst-step:
+    prefix: EXTST_STEP_
+    pattern-check-id:
+      pattern: "^EXTST-STEP-[0-9]+$"
+      error-message: IDs of this section must match EXTST-STEP-xxx
+    description: Add one entry per extension step.
+  mnsst-step:
+    prefix: MNSST_STEP_
+    pattern-check-id:
+      pattern: "^MNSST-STEP-[0-9]+$"
+      error-message: IDs of this section must match MNSST-STEP-xxx
+    description: Add one entry per numbered step.
+  scnry-scen:
+    prefix: SCNRY_SCEN_
+    subsection-types:
+      scid:
+        max-count: 1
+      scco:
+        max-count: 1
+      scnst-step:
+        max-count: infinite
+        min-count: 1
+      alfl-alte:
+        max-count: infinite
+      scda:
+        max-count: 1
+      scti:
+        max-count: 1
+      scva:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^SCNRY-SCEN-[0-9]+$"
+      error-message: IDs of this section must match SCNRY-SCEN-xxx
+    description: Add one entry per key scenario.
+  scnst-step:
+    prefix: SCNST_STEP_
+    subsection-types:
+      ssec:
+        max-count: 1
+      scstenex:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^SCNST-STEP-[0-9]+$"
+      error-message: IDs of this section must match SCNST-STEP-xxx
+    description: "Add one entry per main-flow step, in order."
+  acen-acto:
+    prefix: ACEN_ACTO_
+    subsection-types:
+      acid:
+        max-count: 1
+      actcha:
+        max-count: 1
+      acgo-goal:
+        max-count: infinite
+      acpe-perm:
+        max-count: infinite
+      actepr:
+        max-count: 1
+      acinsu:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^ACEN-ACTO-[0-9]+$"
+      error-message: IDs of this section must match ACEN-ACTO-xxx
+    description: Add one entry per actor.
+  acgo-goal:
+    prefix: ACGO_GOAL_
+    pattern-check-id:
+      pattern: "^ACGO-GOAL-[0-9]+$"
+      error-message: IDs of this section must match ACGO-GOAL-xxx
+    description: Add one entry per actor goal.
+  acpe-perm:
+    prefix: ACPE_PERM_
+    pattern-check-id:
+      pattern: "^ACPE-PERM-[0-9]+$"
+      error-message: IDs of this section must match ACPE-PERM-xxx
+    description: Add one entry per actor permission set.
+  alfl-alte:
+    prefix: ALFL_ALTE_
+    subsection-types:
+      alst-step:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^ALFL-ALTE-[0-9]+$"
+      error-message: IDs of this section must match ALFL-ALTE-xxx
+    description: Add one entry per alternative or exception flow.
+  alst-step:
+    prefix: ALST_STEP_
+    pattern-check-id:
+      pattern: "^ALST-STEP-[0-9]+$"
+      error-message: IDs of this section must match ALST-STEP-xxx
+    description: "Add one entry per step of this alternative flow, in order."
+  inen-inte:
+    prefix: INEN_INTE_
+    subsection-types:
+      inid:
+        max-count: 1
+      ucsc:
+        max-count: 1
+      stanin-stak:
+        max-count: infinite
+      prantr-prec:
+        max-count: infinite
+      poangu-post:
+        max-count: infinite
+      masusc:
+        max-count: 1
+      uscaex:
+        max-count: 1
+      tedava-vari:
+        max-count: infinite
+      uirp:
+        max-count: 1
+      inpe:
+        max-count: 1
+      inse:
+        max-count: 1
+      inburu-busi:
+        max-count: infinite
+      intr:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^INEN-INTE-[0-9]+$"
+      error-message: IDs of this section must match INEN-INTE-xxx
+    description: Add one entry per interaction.
+  scstenex:
+    prefix: SCSTENEX
+    description: "Branching, timing, and notes."
+  accasu:
+    prefix: ACCASU
+    description: Actor categorization summary.
+  acchsu:
+    prefix: ACCHSU
+    description: Communication and accessibility profile.
+  acchus:
+    prefix: ACCHUS
+    description: Usage patterns and decision scope.
+  acdiov:
+    prefix: ACDIOV
+    description: Diagram overview.
+  acinsu:
+    prefix: ACINSU
+    description: Actor interactions summary.
+  acovna:
+    prefix: ACOVNA
+    description: Actor overview narrative.
+  acredi:
+    prefix: ACREDI
+    subsection-types:
+      acdiov:
+        max-count: 1
+    description: Actor relationship diagram.
+  actcha:
+    prefix: ACTCHA
+    subsection-types:
+      acchus:
+        max-count: 1
+      acchsu:
+        max-count: 1
+    description: Actor characteristics.
+  actepr:
+    prefix: ACTEPR
+    description: Actor technology profile.
+  incaov:
+    prefix: INCAOV
+    description: Interaction catalog overview.
+  masusc:
+    prefix: MASUSC
+    subsection-types:
+      mnsst-step:
+        max-count: infinite
+        min-count: 1
+    description: Main success scenario (basic flow).
+  prstov:
+    prefix: PRSTOV
+    description: Process steps overview.
+  uscaex:
+    prefix: USCAEX
+    subsection-types:
+      exten-exte:
+        max-count: infinite
+    description: Extensions (alternative and exception flows).
+  uscatr:
+    prefix: USCATR
+    description: Use case traceability.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  acid:
+    prefix: ACID
     description: Actor identification.
-  ACOV:
-    prefix: acov
-    description: 6.2.1. Actor Overview.
-  ACPE:
-    prefix: acpe
-    description: Actor permissions and access levels.
-  ALFL:
-    prefix: alfl
-    description: An alternative flow entry.
-  ALST:
-    prefix: alst
-    description: An alternative step entry.
-  INCA:
-    prefix: inca
-    description: 6.2.2. Interaction Catalog.
-  INEN:
-    prefix: inen
-    description: An interaction entry.
-  INID:
-    prefix: inid
+  acov:
+    prefix: ACOV
+    subsection-types:
+      acovna:
+        max-count: 1
+      acen-acto:
+        max-count: infinite
+        min-count: 1
+      accasu:
+        max-count: 1
+    description: Actor overview.
+  inca:
+    prefix: INCA
+    subsection-types:
+      incaov:
+        max-count: 1
+      inen-inte:
+        max-count: infinite
+        min-count: 1
+      inpr:
+        max-count: 1
+    description: Interaction catalog.
+  inid:
+    prefix: INID
     description: Interaction identification (use case header).
-  INPE:
-    prefix: inpe
-    description: Interaction performance requirements.
-  INPR:
-    prefix: inpr
+  inpe:
+    prefix: INPE
+    description: Performance and frequency.
+  inpr:
+    prefix: INPR
     description: Interaction prioritization matrix.
-  INSE:
-    prefix: inse
-    description: Interaction security requirements.
-  INTR:
-    prefix: intr
-    description: Interaction traceability to other elements.
-  KESC:
-    prefix: kesc
-    description: 6.2.3. Key Scenarios.
-  SCCO:
-    prefix: scco
+  inse:
+    prefix: INSE
+    description: Security and authorization.
+  intr:
+    prefix: INTR
+    description: Related elements and traceability.
+  kesc:
+    prefix: KESC
+    subsection-types:
+      scov:
+        max-count: 1
+      scnry-scen:
+        max-count: infinite
+        min-count: 1
+    description: Key scenarios.
+  scco:
+    prefix: SCCO
     description: Scenario context.
-  SCDA:
-    prefix: scda
-    description: Scenario data requirements.
-  SCID:
-    prefix: scid
+  scda:
+    prefix: SCDA
+    description: Scenario data.
+  scid:
+    prefix: SCID
     description: Scenario identification.
-  SCOV:
-    prefix: scov
+  scov:
+    prefix: SCOV
     description: Scenario overview.
-  SCTI:
-    prefix: scti
-    description: Scenario timing expectations.
-  SCVA:
-    prefix: scva
-    description: Scenario validation criteria.
-  SSEC:
-    prefix: ssec
+  scti:
+    prefix: SCTI
+    description: Scenario timing.
+  scva:
+    prefix: SCVA
+    description: Scenario validation.
+  ssec:
+    prefix: SSEC
     description: Expected outcome and referenced artifacts.
-  UCSC:
-    prefix: ucsc
+  ucsc:
+    prefix: UCSC
     description: Use case scope and context (Cockburn style).
-  UIRP:
-    prefix: uirp
-    description: UI requirements preview for this interaction.
+  uirp:
+    prefix: UIRP
+    description: UI requirements preview.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    processstepsoverview:
-      section-type: PRSTOV
+    prstov:
+      section-type: prstov
       optional: true
-    actoroverview:
-      section-type: ACOV
+    acov:
+      section-type: acov
       optional: true
-    interactioncatalog:
-      section-type: INCA
+    inca:
+      section-type: inca
       optional: true
-    keyscenarios:
-      section-type: KESC
+    kesc:
+      section-type: kesc
       optional: true
-    actorrelationshipdiagram:
-      section-type: ACREDI
+    acredi:
+      section-type: acredi
       optional: true
-    endtoendtestscenarios:
-      section-type: ETETS-ENDT-LST
+    etets-endt:
+      section-type: etets-endt
       optional: true
-    usecasetraceability:
-      section-type: USCATR
+    uscatr:
+      section-type: uscatr
       optional: true

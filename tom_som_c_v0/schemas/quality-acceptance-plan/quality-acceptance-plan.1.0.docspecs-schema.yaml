@@ -1,672 +1,984 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: quality-acceptance-plan/1.0
 
+title-format: "# <!--[QAP]--> Quality & Acceptance Plan"
 section-types:
-  MSTPCR-ITEM-LST:
-    prefix: mstpcr_item_lst
+  mstpcr-item:
+    prefix: MSTPCR_ITEM_
+    subsection-types:
+      mpced:
+        max-count: 1
+      mpcev:
+        max-count: 1
+      mpceg:
+        max-count: 1
+      mpces:
+        max-count: 1
     pattern-check-id:
-      pattern: ^mstpcr_item_lst-\d+$
-      error-message: ID must match mstpcr_item_lst-NNN
+      pattern: "^MSTPCR-ITEM-[0-9]+$"
+      error-message: IDs of this section must match MSTPCR-ITEM-xxx
     description: Add one entry per must-pass criterion.
-  TESCNO-NOTE-LST:
-    prefix: tescno_note_lst
+  tescno-note:
+    prefix: TESCNO_NOTE_
     pattern-check-id:
-      pattern: ^tescno_note_lst-\d+$
-      error-message: ID must match tescno_note_lst-NNN
+      pattern: "^TESCNO-NOTE-[0-9]+$"
+      error-message: IDs of this section must match TESCNO-NOTE-xxx
     description: Add one entry per test-scenario note.
-  UATSST-TEST-LST:
-    prefix: uatsst_test_lst
+  uatsst-test:
+    prefix: UATSST_TEST_
     pattern-check-id:
-      pattern: ^uatsst_test_lst-\d+$
-      error-message: ID must match uatsst_test_lst-NNN
+      pattern: "^UATSST-TEST-[0-9]+$"
+      error-message: IDs of this section must match UATSST-TEST-xxx
     description: Add one entry per user-acceptance test step.
-  WASELE-SERV-LST:
-    prefix: wasele_serv_lst
+  wasele-serv:
+    prefix: WASELE_SERV_
     pattern-check-id:
-      pattern: ^wasele_serv_lst-\d+$
-      error-message: ID must match wasele_serv_lst-NNN
+      pattern: "^WASELE-SERV-[0-9]+$"
+      error-message: IDs of this section must match WASELE-SERV-xxx
     description: Add one entry per warranty service element.
-  CATEG-CATE-LST:
-    prefix: categ_cate_lst
+  categ-cate:
+    prefix: CATEG_CATE_
     pattern-check-id:
-      pattern: ^categ_cate_lst-\d+$
-      error-message: ID must match categ_cate_lst-NNN
+      pattern: "^CATEG-CATE-[0-9]+$"
+      error-message: IDs of this section must match CATEG-CATE-xxx
     description: Add one entry per category dependency.
-  DACEN-ITEM-LST:
-    prefix: dacen_item_lst
+  dacen-item:
+    prefix: DACEN_ITEM_
+    subsection-types:
+      daced:
+        max-count: 1
+      dacev:
+        max-count: 1
+      dacet:
+        max-count: 1
+      daceow:
+        max-count: 1
+      daces:
+        max-count: 1
     pattern-check-id:
-      pattern: ^dacen_item_lst-\d+$
-      error-message: ID must match dacen_item_lst-NNN
+      pattern: "^DACEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match DACEN-ITEM-xxx
     description: Add one entry per acceptance criterion.
-  QCATE-QUAL-LST:
-    prefix: qcate_qual_lst
+  qcate-qual:
+    prefix: QCATE_QUAL_
+    subsection-types:
+      qcadf:
+        max-count: 1
+      qcarl:
+        max-count: 1
+      qcagv:
+        max-count: 1
+      qcamt:
+        max-count: 1
     pattern-check-id:
-      pattern: ^qcate_qual_lst-\d+$
-      error-message: ID must match qcate_qual_lst-NNN
+      pattern: "^QCATE-QUAL-[0-9]+$"
+      error-message: IDs of this section must match QCATE-QUAL-xxx
     description: Add one entry per quality category.
-  QGCHK-ITEM-LST:
-    prefix: qgchk_item_lst
+  qgchk-item:
+    prefix: QGCHK_ITEM_
+    subsection-types:
+      qgced:
+        max-count: 1
+      qgcev:
+        max-count: 1
+      qgcee:
+        max-count: 1
+      qgces:
+        max-count: 1
+      qgceb:
+        max-count: 1
     pattern-check-id:
-      pattern: ^qgchk_item_lst-\d+$
-      error-message: ID must match qgchk_item_lst-NNN
+      pattern: "^QGCHK-ITEM-[0-9]+$"
+      error-message: IDs of this section must match QGCHK-ITEM-xxx
     description: Add one entry per quality gate check.
-  QLWGT-WEIG-LST:
-    prefix: qlwgt_weig_lst
+  qlwgt-weig:
+    prefix: QLWGT_WEIG_
     pattern-check-id:
-      pattern: ^qlwgt_weig_lst-\d+$
-      error-message: ID must match qlwgt_weig_lst-NNN
+      pattern: "^QLWGT-WEIG-[0-9]+$"
+      error-message: IDs of this section must match QLWGT-WEIG-xxx
     description: Add one entry per quality attribute weight.
-  UATCY-TEST-LST:
-    prefix: uatcy_test_lst
+  uatcy-test:
+    prefix: UATCY_TEST_
+    subsection-types:
+      utces:
+        max-count: 1
+      utcee:
+        max-count: 1
     pattern-check-id:
-      pattern: ^uatcy_test_lst-\d+$
-      error-message: ID must match uatcy_test_lst-NNN
+      pattern: "^UATCY-TEST-[0-9]+$"
+      error-message: IDs of this section must match UATCY-TEST-xxx
     description: Add one entry per user-acceptance test cycle.
-  ACST-STEP-LST:
-    prefix: acst_step_lst
+  acst-step:
+    prefix: ACST_STEP_
+    subsection-types:
+      asef:
+        max-count: 1
+      aseo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^acst_step_lst-\d+$
-      error-message: ID must match acst_step_lst-NNN
+      pattern: "^ACST-STEP-[0-9]+$"
+      error-message: IDs of this section must match ACST-STEP-xxx
     description: Add one entry per acceptance-process step.
-  SLAE-SLAE-LST:
-    prefix: slae_slae_lst
+  slae-slae:
+    prefix: SLAE_SLAE_
     pattern-check-id:
-      pattern: ^slae_slae_lst-\d+$
-      error-message: ID must match slae_slae_lst-NNN
+      pattern: "^SLAE-SLAE-[0-9]+$"
+      error-message: IDs of this section must match SLAE-SLAE-xxx
     description: Add one entry per service level agreement.
-  TODE-ITEM-LST:
-    prefix: tode_item_lst
+  tode-item:
+    prefix: TODE_ITEM_
+    subsection-types:
+      todeq:
+        max-count: 1
+      toder:
+        max-count: 1
+      todei:
+        max-count: 1
+      todem:
+        max-count: 1
+      todea:
+        max-count: 1
     pattern-check-id:
-      pattern: ^tode_item_lst-\d+$
-      error-message: ID must match tode_item_lst-NNN
+      pattern: "^TODE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match TODE-ITEM-xxx
     description: Add one entry per trade-off decision.
-  TSSC-TEST-LST:
-    prefix: tssc_test_lst
+  tssc-test:
+    prefix: TSSC_TEST_
+    subsection-types:
+      tescid:
+        max-count: 1
+      tescbu:
+        max-count: 1
+      tesctr:
+        max-count: 1
+      tescse:
+        max-count: 1
+      tescex:
+        max-count: 1
+      tspe:
+        max-count: 1
+      tescno-note:
+        max-count: infinite
+      uatsst-test:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^tssc_test_lst-\d+$
-      error-message: ID must match tssc_test_lst-NNN
+      pattern: "^TSSC-TEST-[0-9]+$"
+      error-message: IDs of this section must match TSSC-TEST-xxx
     description: Add one entry per test scenario.
-  ACCRSU:
-    prefix: accrsu
-    description: 11.7. Acceptance Criteria Summary.
-  ACPRDE:
-    prefix: acprde
+  accrsu:
+    prefix: ACCRSU
+    subsection-types:
+      mupacr:
+        max-count: 1
+      qugach:
+        max-count: 1
+      acritl:
+        max-count: 1
+    description: Acceptance criteria summary.
+  acprde:
+    prefix: ACPRDE
     description: Decision framework.
-  ACPRDO:
-    prefix: acprdo
+  acprdo:
+    prefix: ACPRDO
     description: Documentation.
-  ACPRES:
-    prefix: acpres
+  acpres:
+    prefix: ACPRES
     description: Escalation.
-  ACPROV:
-    prefix: acprov
+  acprov:
+    prefix: ACPROV
     description: Process overview.
-  ACPRPA:
-    prefix: acprpa
+  acprpa:
+    prefix: ACPRPA
     description: Participants and governance.
-  ACPRTI:
-    prefix: acprti
+  acprti:
+    prefix: ACPRTI
     description: Timeline and schedule.
-  ACRITL:
-    prefix: acritl
-    description: 14.2.1. Acceptance Criteria.
-  AVQUMA:
-    prefix: avquma
+  acritl:
+    prefix: ACRITL
+    subsection-types:
+      dacen-item:
+        max-count: infinite
+    description: Acceptance criteria.
+  avquma:
+    prefix: AVQUMA
     description: Maintenance window policy.
-  AVQUVE:
-    prefix: avquve
+  avquve:
+    prefix: AVQUVE
     description: Monitoring and reporting.
-  COQUAC:
-    prefix: coquac
+  coquac:
+    prefix: COQUAC
     description: Accuracy and auditability requirements.
-  COQUIN:
-    prefix: coquin
+  coquin:
+    prefix: COQUIN
     description: Data integrity expectations.
-  COQUVE:
-    prefix: coquve
+  coquve:
+    prefix: COQUVE
     description: Verification and regression approach.
-  DACEOW:
-    prefix: daceow
+  daceow:
+    prefix: DACEOW
     description: Responsibility assignments.
-  DEREPR:
-    prefix: derepr
+  derepr:
+    prefix: DEREPR
     description: "Triage, retest, and escalation process."
-  DERERE:
-    prefix: derere
+  derere:
+    prefix: DERERE
     description: Reporting and closure rules.
-  DERESL:
-    prefix: deresl
+  deresl:
+    prefix: DERESL
     description: Classification refinement and SLA targets.
-  DERETH:
-    prefix: dereth
+  dereth:
+    prefix: DERETH
     description: Acceptance thresholds and deferral rules.
-  DOCHQU:
-    prefix: dochqu
-    description: 11.5.4. Documentation changeability quality.
-  DOCOQ1:
-    prefix: docoq1
-    description: 11.5.3. Documentation correctness quality.
-  DOCOQU:
-    prefix: docoqu
-    description: 11.5.2. Documentation completeness quality.
-  DOQUCR:
-    prefix: doqucr
-    description: 11.10. Documentation Quality (ISO/IEC 26514 annex).
-  EFQURE:
-    prefix: efqure
+  dochqu:
+    prefix: DOCHQU
+    subsection-types:
+      dcqe:
+        max-count: 1
+      dcqs:
+        max-count: 1
+      dcqm:
+        max-count: 1
+    description: 11.5.4. Changeability.
+  docoq1:
+    prefix: DOCOQ1
+    subsection-types:
+      dcqa:
+        max-count: 1
+      dcqv:
+        max-count: 1
+    description: 11.5.3. Correctness.
+  docoqu:
+    prefix: DOCOQU
+    description: 11.5.2. Completeness.
+  doqucr:
+    prefix: DOQUCR
+    subsection-types:
+      requ1:
+        max-count: 1
+      docoqu:
+        max-count: 1
+      docoq1:
+        max-count: 1
+      dochqu:
+        max-count: 1
+    description: Documentation quality (ISO/IEC 26514 annex).
+  efqure:
+    prefix: EFQURE
     description: Resource utilization constraints.
-  EFQUTH:
-    prefix: efquth
+  efquth:
+    prefix: EFQUTH
     description: Throughput and scale targets.
-  EFQUVE:
-    prefix: efquve
+  efquve:
+    prefix: EFQUVE
     description: Performance validation and SLA commitments.
-  FLQUDE:
-    prefix: flqude
+  flqude:
+    prefix: FLQUDE
     description: Distribution and configurability model.
-  FLQUEX:
-    prefix: flquex
+  flquex:
+    prefix: FLQUEX
     description: Extensibility and verification expectations.
-  FLQUMO:
-    prefix: flqumo
+  flqumo:
+    prefix: FLQUMO
     description: Modularity and reuse goals.
-  MAQUAN:
-    prefix: maquan
+  maquan:
+    prefix: MAQUAN
     description: Analyzability requirements.
-  MAQUCH:
-    prefix: maquch
+  maquch:
+    prefix: MAQUCH
     description: Changeability requirements.
-  MAQUGO:
-    prefix: maqugo
+  maqugo:
+    prefix: MAQUGO
     description: Extensibility and verification requirements.
-  MAQUTE:
-    prefix: maqute
+  maqute:
+    prefix: MAQUTE
     description: Testability requirements.
-  MOQUAL:
-    prefix: moqual
+  moqual:
+    prefix: MOQUAL
     description: Alerting strategy and channels.
-  MOQUAU:
-    prefix: moquau
+  moquau:
+    prefix: MOQUAU
     description: Alert automation capabilities.
-  MOQUCO:
-    prefix: moquco
+  moquco:
+    prefix: MOQUCO
     description: Component monitoring coverage.
-  MOQUOP:
-    prefix: moquop
+  moquop:
+    prefix: MOQUOP
     description: Planning and observability settings.
-  MSTPCR:
-    prefix: mstpcr
-    description: A must-pass criterion entry (form).
-  MUPACR:
-    prefix: mupacr
+  mupacr:
+    prefix: MUPACR
+    subsection-types:
+      mstpcr-item:
+        max-count: infinite
     description: 11.7.1. Must-Pass Criteria.
-  QUGACH:
-    prefix: qugach
+  qugach:
+    prefix: QUGACH
+    subsection-types:
+      qgchk-item:
+        max-count: infinite
     description: 11.7.2. Quality Gate Checklist.
-  REQUCO:
-    prefix: requco
+  requco:
+    prefix: REQUCO
     description: Comprehensibility requirements.
-  REQUDU:
-    prefix: requdu
+  requdu:
+    prefix: REQUDU
     description: Data durability requirements.
-  REQUFA:
-    prefix: requfa
+  requfa:
+    prefix: REQUFA
     description: Failover requirements.
-  REQUNA:
-    prefix: requna
+  requna:
+    prefix: REQUNA
     description: Identifiability and navigation.
-  REQURE:
-    prefix: requre
+  requre:
+    prefix: REQURE
     description: Recovery objectives.
-  REQUS1:
-    prefix: requs1
+  requs1:
+    prefix: REQUS1
     description: Style guide alignment.
-  REQUST:
-    prefix: requst
+  requst:
+    prefix: REQUST
     description: Document structure rules.
-  REQUVE:
-    prefix: requve
+  requve:
+    prefix: REQUVE
     description: Verification and learning.
-  SELEQU:
-    prefix: selequ
-    description: 11.4.2. Service level quality.
-  SEQUA1:
-    prefix: sequa1
+  selequ:
+    prefix: SELEQU
+    subsection-types:
+      slqr:
+        max-count: 1
+      slqr1:
+        max-count: 1
+      slqe:
+        max-count: 1
+      slqoc:
+        max-count: 1
+      slqr2:
+        max-count: 1
+      slae-slae:
+        max-count: infinite
+    description: 11.6.3. Service Level Requirements.
+  sequa1:
+    prefix: SEQUA1
     description: Authorization controls.
-  SEQUAU:
-    prefix: sequau
+  sequau:
+    prefix: SEQUAU
     description: Authentication controls.
-  SEQUCO:
-    prefix: sequco
+  sequco:
+    prefix: SEQUCO
     description: Compliance and verification settings.
-  SEQUVU:
-    prefix: sequvu
+  sequvu:
+    prefix: SEQUVU
     description: Vulnerability management expectations.
-  SIOFPR:
-    prefix: siofpr
-    description: 14.2.5. Sign-off Process.
-  TESCBU:
-    prefix: tescbu
-    description: Business context for test scenario.
-  TESCEX:
-    prefix: tescex
-    description: Execution for test scenario.
-  TESCID:
-    prefix: tescid
-    description: Identification for test scenario.
-  TESCNO:
-    prefix: tescno
-    description: Notes for test scenario.
-  TESCSE:
-    prefix: tescse
-    description: Setup for test scenario.
-  TESCTR:
-    prefix: tesctr
-    description: Traceability for test scenario.
-  TROFDE:
-    prefix: trofde
+  siofpr:
+    prefix: SIOFPR
+    subsection-types:
+      sopg:
+        max-count: 1
+      sope:
+        max-count: 1
+      sopa:
+        max-count: 1
+      sopc:
+        max-count: 1
+      sopt:
+        max-count: 1
+    description: Sign-off process.
+  tescbu:
+    prefix: TESCBU
+    description: Business context.
+  tescex:
+    prefix: TESCEX
+    description: Execution.
+  tescid:
+    prefix: TESCID
+    description: Identification.
+  tescse:
+    prefix: TESCSE
+    description: Preconditions and setup.
+  tesctr:
+    prefix: TESCTR
+    description: Traceability.
+  trofde:
+    prefix: TROFDE
+    subsection-types:
+      tode-item:
+        max-count: infinite
     description: 11.6.2. Trade-off Decisions.
-  UADEMA:
-    prefix: uadema
-    description: Defect management for UAT.
-  UANOFU:
-    prefix: uanofu
-    description: Non-functional acceptance for UAT.
-  UASIOF:
-    prefix: uasiof
-    description: Sign-off for UAT.
-  UATEDA:
-    prefix: uateda
-    description: Test data for UAT.
-  UATSST:
-    prefix: uatsst
-    description: A UAT test step entry.
-  USACTE:
-    prefix: usacte
-    description: 14.2.3. User Acceptance Testing.
-  WASELE:
-    prefix: wasele
-    description: Service levels.
-  WEQUMA:
-    prefix: wequma
+  uadema:
+    prefix: UADEMA
+    description: Defect management.
+  uanofu:
+    prefix: UANOFU
+    description: Non-functional acceptance.
+  uasiof:
+    prefix: UASIOF
+    description: Sign-off.
+  uateda:
+    prefix: UATEDA
+    description: Test data.
+  usacte:
+    prefix: USACTE
+    subsection-types:
+      uasc:
+        max-count: 1
+      uaen:
+        max-count: 1
+      uateda:
+        max-count: 1
+      uago:
+        max-count: 1
+      uasc1:
+        max-count: 1
+      uacr:
+        max-count: 1
+      uadema:
+        max-count: 1
+      uare:
+        max-count: 1
+      uanofu:
+        max-count: 1
+      uasiof:
+        max-count: 1
+      uatr:
+        max-count: 1
+      uatcy-test:
+        max-count: infinite
+      tssc-test:
+        max-count: infinite
+    description: User acceptance testing.
+  wequma:
+    prefix: WEQUMA
+    subsection-types:
+      qlwgt-weig:
+        max-count: infinite
     description: 11.6.1. Weighted Quality Matrix.
-  ACPR1:
-    prefix: acpr1
-    description: 14.2.2. Acceptance Process.
-  CATEG:
-    prefix: categ
-    description: A single category dependency entry.
-  DACED:
-    prefix: daced
+  acpr1:
+    prefix: ACPR1
+    subsection-types:
+      acprov:
+        max-count: 1
+      acprpa:
+        max-count: 1
+      acprti:
+        max-count: 1
+      acprde:
+        max-count: 1
+      acpres:
+        max-count: 1
+      acprdo:
+        max-count: 1
+      acst-step:
+        max-count: infinite
+    description: Acceptance process.
+  daced:
+    prefix: DACED
     description: Priority and description.
-  DACEN:
-    prefix: dacen
-    description: An acceptance criterion entry (form).
-  DACES:
-    prefix: daces
+  daces:
+    prefix: DACES
     description: Current status and notes.
-  DACET:
-    prefix: dacet
+  dacet:
+    prefix: DACET
     description: Traceability links.
-  DACEV:
-    prefix: dacev
+  dacev:
+    prefix: DACEV
     description: Verification method and evidence.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  FNCOQ:
-    prefix: fncoq
-    description: 11.2.2. Functional completeness quality.
-  ISOQA:
-    prefix: isoqa
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  fncoq:
+    prefix: FNCOQ
+    description: 11.2.1. Functional Completeness.
+  isoqa:
+    prefix: ISOQA
     description: Access protection controls.
-  ISOQI:
-    prefix: isoqi
+  isoqi:
+    prefix: ISOQI
     description: Incident handling and reporting.
-  ISOQR:
-    prefix: isoqr
+  isoqr:
+    prefix: ISOQR
     description: Disaster recovery planning details.
-  ISOQT:
-    prefix: isoqt
+  isoqt:
+    prefix: ISOQT
     description: Penetration testing and remediation.
-  MPCED:
-    prefix: mpced
+  mpced:
+    prefix: MPCED
     description: Classification and intent of the criterion.
-  MPCEG:
-    prefix: mpceg
+  mpceg:
+    prefix: MPCEG
     description: Responsibility and dependency information.
-  MPCES:
-    prefix: mpces
+  mpces:
+    prefix: MPCES
     description: Execution status and defects.
-  MPCEV:
-    prefix: mpcev
+  mpcev:
+    prefix: MPCEV
     description: Verification and threshold details.
-  QCADF:
-    prefix: qcadf
+  qcadf:
+    prefix: QCADF
     description: Description and priority context.
-  QCAGV:
-    prefix: qcagv
+  qcagv:
+    prefix: QCAGV
     description: Governance ownership.
-  QCAMT:
-    prefix: qcamt
+  qcamt:
+    prefix: QCAMT
     description: Measurement targets.
-  QCARL:
-    prefix: qcarl
+  qcarl:
+    prefix: QCARL
     description: Category relationships.
-  QCATE:
-    prefix: qcate
-    description: A quality category entry (form).
-  QFOBJ:
-    prefix: qfobj
+  qfobj:
+    prefix: QFOBJ
     description: Quality objective structure and alignment.
-  QFTRD:
-    prefix: qftrd
+  qftrd:
+    prefix: QFTRD
     description: Trade-off priorities and decision authority.
-  QFVER:
-    prefix: qfver
+  qfver:
+    prefix: QFVER
     description: Verification and defect handling approach.
-  QGCEB:
-    prefix: qgceb
+  qgceb:
+    prefix: QGCEB
     description: Blocking behavior.
-  QGCED:
-    prefix: qgced
+  qgced:
+    prefix: QGCED
     description: Check definition and categorization.
-  QGCEE:
-    prefix: qgcee
+  qgcee:
+    prefix: QGCEE
     description: Responsibility and timing.
-  QGCES:
-    prefix: qgces
+  qgces:
+    prefix: QGCES
     description: Status and observations.
-  QGCEV:
-    prefix: qgcev
+  qgcev:
+    prefix: QGCEV
     description: Verification criteria and evidence.
-  QGCHK:
-    prefix: qgchk
-    description: A quality gate check entry (form).
-  QLFWK:
-    prefix: qlfwk
-    description: 11.1. Quality Framework.
-  QLWGT:
-    prefix: qlwgt
-    description: A quality weight entry.
-  REQU1:
-    prefix: requ1
-    description: 11.5.1. Readability quality.
-  SLQOC:
-    prefix: slqoc
+  qlfwk:
+    prefix: QLFWK
+    subsection-types:
+      qfobj:
+        max-count: 1
+      qftrd:
+        max-count: 1
+      qfver:
+        max-count: 1
+      qcate-qual:
+        max-count: infinite
+      categ-cate:
+        max-count: infinite
+    description: Quality framework.
+  requ1:
+    prefix: REQU1
+    subsection-types:
+      requna:
+        max-count: 1
+      requco:
+        max-count: 1
+      requst:
+        max-count: 1
+      requs1:
+        max-count: 1
+    description: 11.5.1. Readability.
+  slqoc:
+    prefix: SLQOC
     description: On-call support expectations.
-  SLQR1:
-    prefix: slqr1
+  slqr1:
+    prefix: SLQR1
     description: Resolution targets.
-  SLQR2:
-    prefix: slqr2
+  slqr2:
+    prefix: SLQR2
     description: Restoration and communication priorities.
-  TODEA:
-    prefix: todea
-    description: Approval and governance for trade-off decision.
-  TODEI:
-    prefix: todei
-    description: Impact assessment for trade-off decision.
-  TODEM:
-    prefix: todem
-    description: Mitigation measures for trade-off decision.
-  TODEQ:
-    prefix: todeq
-    description: Qualities in conflict for trade-off decision.
-  TODER:
-    prefix: toder
-    description: Rationale for trade-off decision.
-  UASC1:
-    prefix: uasc1
-    description: Schedule for UAT.
-  UATCY:
-    prefix: uatcy
-    description: A UAT test cycle entry.
-  USACL:
-    prefix: usacl
+  todea:
+    prefix: TODEA
+    description: Approval and governance.
+  todei:
+    prefix: TODEI
+    description: Impact assessment.
+  todem:
+    prefix: TODEM
+    description: Mitigation measures.
+  todeq:
+    prefix: TODEQ
+    description: Qualities in conflict.
+  toder:
+    prefix: TODER
+    description: Rationale for trade-off.
+  uasc1:
+    prefix: UASC1
+    description: Schedule and cycles.
+  usacl:
+    prefix: USACL
     description: Clarity and complexity constraints.
-  USAIN:
-    prefix: usain
+  usain:
+    prefix: USAIN
     description: Interaction control settings.
-  USALN:
-    prefix: usaln
+  usaln:
+    prefix: USALN
     description: Learnability and onboarding expectations.
-  USAOP:
-    prefix: usaop
+  usaop:
+    prefix: USAOP
     description: Operability verification and ergonomics goals.
-  USAPR:
-    prefix: usapr
+  usapr:
+    prefix: USAPR
     description: Perceived and measured responsiveness targets.
-  USAQL:
-    prefix: usaql
-    description: 11.2.1. Usability quality.
-  UTCEE:
-    prefix: utcee
+  usaql:
+    prefix: USAQL
+    subsection-types:
+      usaop:
+        max-count: 1
+      usaln:
+        max-count: 1
+      usacl:
+        max-count: 1
+      usain:
+        max-count: 1
+      usapr:
+        max-count: 1
+    description: 11.5.1. Usability.
+  utcee:
+    prefix: UTCEE
     description: Staffing and risk context.
-  UTCES:
-    prefix: utces
+  utces:
+    prefix: UTCES
     description: Scope and pass criteria for this cycle.
-  ACST:
-    prefix: acst
-    description: An acceptance step entry (form).
-  AQDM:
-    prefix: aqdm
+  aqdm:
+    prefix: AQDM
     description: Degraded-mode behavior.
-  AQOH:
-    prefix: aqoh
+  aqoh:
+    prefix: AQOH
     description: Operating-hour expectations.
-  ASEF:
-    prefix: asef
+  asef:
+    prefix: ASEF
     description: Participants and execution flow.
-  ASEO:
-    prefix: aseo
+  aseo:
+    prefix: ASEO
     description: Exit outcomes and timing.
-  AVQU:
-    prefix: avqu
-    description: 11.4.1. Availability quality.
-  CMPT:
-    prefix: cmpt
-    description: 11.4. Compatibility (ISO/IEC 25010:2023).
-  COQU:
-    prefix: coqu
-    description: 11.2.3. Correctness quality.
-  DCQA:
-    prefix: dcqa
+  avqu:
+    prefix: AVQU
+    subsection-types:
+      aqoh:
+        max-count: 1
+      avquma:
+        max-count: 1
+      aqdm:
+        max-count: 1
+      avquve:
+        max-count: 1
+    description: 11.6.2. Availability.
+  cmpt:
+    prefix: CMPT
+    description: Compatibility (ISO/IEC 25010:2023).
+  coqu:
+    prefix: COQU
+    subsection-types:
+      coquin:
+        max-count: 1
+      coquac:
+        max-count: 1
+      coquve:
+        max-count: 1
+    description: 11.2.2. Correctness.
+  dcqa:
+    prefix: DCQA
     description: Formatting and implementation alignment.
-  DCQE:
-    prefix: dcqe
+  dcqe:
+    prefix: DCQE
     description: Extensibility and localization readiness.
-  DCQM:
-    prefix: dcqm
+  dcqm:
+    prefix: DCQM
     description: Review and retirement maintenance process.
-  DCQS:
-    prefix: dcqs
+  dcqs:
+    prefix: DCQS
     description: Sizing and structural consistency rules.
-  DCQV:
-    prefix: dcqv
+  dcqv:
+    prefix: DCQV
     description: Verification and feedback handling.
-  DERE:
-    prefix: dere
-    description: 14.2.4. Defect Resolution.
-  EFQU:
-    prefix: efqu
-    description: 11.3.1. Efficiency quality.
-  FLQU:
-    prefix: flqu
-    description: 11.3.3. Flexibility quality.
-  FLXC:
-    prefix: flxc
-    description: 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
-  FNSU:
-    prefix: fnsu
-    description: 11.2. Functional Suitability (ISO/IEC 25010:2023).
-  INCP:
-    prefix: incp
-    description: 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
-  ISOQ:
-    prefix: isoq
-    description: 11.4.4. IT Security Operations quality.
-  MAQU:
-    prefix: maqu
-    description: 11.3.5. Maintainability quality.
-  MNTC:
-    prefix: mntc
-    description: 11.8. Maintainability (ISO/IEC 25010:2023).
-  MOQU:
-    prefix: moqu
-    description: 11.4.3. Monitoring quality.
-  PEEF:
-    prefix: peef
-    description: 11.3. Performance Efficiency (ISO/IEC 25010:2023).
-  POQU:
-    prefix: poqu
-    description: 11.3.2. Portability quality.
-  QUPR:
-    prefix: qupr
-    description: 11.6. Quality Prioritization.
-  RELC:
-    prefix: relc
-    description: 11.6. Reliability (ISO/IEC 25010:2023).
-  REQU:
-    prefix: requ
-    description: 11.3.6. Reliability quality.
-  SECC:
-    prefix: secc
-    description: 11.7. Security (ISO/IEC 25010:2023).
-  SEQU:
-    prefix: sequ
-    description: 11.3.4. Security quality.
-  SLAE:
-    prefix: slae
-    description: A service level agreement entry.
-  SLQE:
-    prefix: slqe
+  dere:
+    prefix: DERE
+    subsection-types:
+      deresl:
+        max-count: 1
+      dereth:
+        max-count: 1
+      derepr:
+        max-count: 1
+      derere:
+        max-count: 1
+    description: Defect resolution.
+  efqu:
+    prefix: EFQU
+    subsection-types:
+      efquth:
+        max-count: 1
+      efqure:
+        max-count: 1
+      efquve:
+        max-count: 1
+    description: 11.3.1. Efficiency.
+  flqu:
+    prefix: FLQU
+    subsection-types:
+      flqumo:
+        max-count: 1
+      flqude:
+        max-count: 1
+      flquex:
+        max-count: 1
+    description: 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  flxc:
+    prefix: FLXC
+    subsection-types:
+      flqu:
+        max-count: 1
+      poqu:
+        max-count: 1
+    description: Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  fnsu:
+    prefix: FNSU
+    subsection-types:
+      fncoq:
+        max-count: 1
+      coqu:
+        max-count: 1
+    description: Functional suitability (ISO/IEC 25010:2023).
+  incp:
+    prefix: INCP
+    subsection-types:
+      usaql:
+        max-count: 1
+    description: Interaction capability (ISO/IEC 25010:2023; formerly Usability).
+  isoq:
+    prefix: ISOQ
+    subsection-types:
+      isoqa:
+        max-count: 1
+      isoqr:
+        max-count: 1
+      isoqt:
+        max-count: 1
+      isoqi:
+        max-count: 1
+    description: 11.7.2. IT Security Operations.
+  maqu:
+    prefix: MAQU
+    subsection-types:
+      maquan:
+        max-count: 1
+      maquch:
+        max-count: 1
+      maqute:
+        max-count: 1
+      maqugo:
+        max-count: 1
+    description: 11.8.1. Maintainability (product maintainability attributes).
+  mntc:
+    prefix: MNTC
+    subsection-types:
+      maqu:
+        max-count: 1
+    description: Maintainability (ISO/IEC 25010:2023).
+  moqu:
+    prefix: MOQU
+    subsection-types:
+      moquco:
+        max-count: 1
+      moquau:
+        max-count: 1
+      moqual:
+        max-count: 1
+      moquop:
+        max-count: 1
+    description: 11.6.4. Monitoring and Prevention.
+  peef:
+    prefix: PEEF
+    subsection-types:
+      efqu:
+        max-count: 1
+    description: Performance efficiency (ISO/IEC 25010:2023).
+  poqu:
+    prefix: POQU
+    description: 11.9.2. Portability.
+  qupr:
+    prefix: QUPR
+    subsection-types:
+      wequma:
+        max-count: 1
+      trofde:
+        max-count: 1
+    description: Quality prioritization.
+  relc:
+    prefix: RELC
+    subsection-types:
+      requ:
+        max-count: 1
+      avqu:
+        max-count: 1
+      selequ:
+        max-count: 1
+      moqu:
+        max-count: 1
+    description: Reliability (ISO/IEC 25010:2023).
+  requ:
+    prefix: REQU
+    subsection-types:
+      requre:
+        max-count: 1
+      requfa:
+        max-count: 1
+      requdu:
+        max-count: 1
+      requve:
+        max-count: 1
+    description: 11.6.1. Reliability (product reliability attributes).
+  secc:
+    prefix: SECC
+    subsection-types:
+      sequ:
+        max-count: 1
+      isoq:
+        max-count: 1
+    description: Security (ISO/IEC 25010:2023).
+  sequ:
+    prefix: SEQU
+    subsection-types:
+      sequau:
+        max-count: 1
+      sequa1:
+        max-count: 1
+      sequvu:
+        max-count: 1
+      sequco:
+        max-count: 1
+    description: 11.7.1. Security (product security attributes).
+  slqe:
+    prefix: SLQE
     description: Escalation rules.
-  SLQR:
-    prefix: slqr
+  slqr:
+    prefix: SLQR
     description: Remaining response targets.
-  SOPA:
-    prefix: sopa
+  sopa:
+    prefix: SOPA
     description: Conditional or partial acceptance policies.
-  SOPC:
-    prefix: sopc
+  sopc:
+    prefix: SOPC
     description: Legal and contractual consequences.
-  SOPE:
-    prefix: sope
+  sope:
+    prefix: SOPE
     description: Evidence and checklist requirements.
-  SOPG:
-    prefix: sopg
+  sopg:
+    prefix: SOPG
     description: Signatory and quorum governance.
-  SOPT:
-    prefix: sopt
+  sopt:
+    prefix: SOPT
     description: Review timeline.
-  TEST:
-    prefix: test
-    description: 11.8. Test Strategy.
-  TODE:
-    prefix: tode
-    description: A trade-off decision entry (form).
-  TSPE:
-    prefix: tspe
-    description: Post-execution for test scenario.
-  TSSC:
-    prefix: tssc
-    description: A test scenario entry (form).
-  UACR:
-    prefix: uacr
-    description: Criteria for UAT.
-  UAEN:
-    prefix: uaen
-    description: Environment for UAT.
-  UAGO:
-    prefix: uago
-    description: Governance for UAT.
-  UARE:
-    prefix: uare
-    description: Reporting for UAT.
-  UASC:
-    prefix: uasc
-    description: Scope and objectives for UAT.
-  UATR:
-    prefix: uatr
-    description: Training and readiness for UAT.
-  WACO:
-    prefix: waco
+  test:
+    prefix: TEST
+    description: Test strategy (new in Phase A).
+  tspe:
+    prefix: TSPE
+    description: Post-execution.
+  uacr:
+    prefix: UACR
+    description: "Entry, exit, and suspension criteria."
+  uaen:
+    prefix: UAEN
+    description: Environment.
+  uago:
+    prefix: UAGO
+    description: Participants and governance.
+  uare:
+    prefix: UARE
+    description: Reporting.
+  uasc:
+    prefix: UASC
+    description: Scope and objectives.
+  uatr:
+    prefix: UATR
+    description: Training and readiness.
+  waco:
+    prefix: WACO
     description: Scope of coverage.
-  WADU:
-    prefix: wadu
+  wadu:
+    prefix: WADU
     description: Duration and activation.
-  WAFI:
-    prefix: wafi
+  wafi:
+    prefix: WAFI
     description: Financial terms.
-  WAPR:
-    prefix: wapr
+  wapr:
+    prefix: WAPR
     description: Process for defect handling.
-  WATE:
-    prefix: wate
-    description: 14.2.6. Warranty.
-  WATR:
-    prefix: watr
+  wate:
+    prefix: WATE
+    subsection-types:
+      wadu:
+        max-count: 1
+      waco:
+        max-count: 1
+      wasele-serv:
+        max-count: infinite
+      wapr:
+        max-count: 1
+      watr:
+        max-count: 1
+      wafi:
+        max-count: 1
+    description: Warranty terms.
+  watr:
+    prefix: WATR
     description: Transition to support.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    qualityframework:
-      section-type: QLFWK
+    qlfwk:
+      section-type: qlfwk
       optional: true
-    functionalsuitability:
-      section-type: FNSU
+    fnsu:
+      section-type: fnsu
       optional: true
-    performanceefficiency:
-      section-type: PEEF
+    peef:
+      section-type: peef
       optional: true
-    compatibility:
-      section-type: CMPT
+    cmpt:
+      section-type: cmpt
       optional: true
-    interactioncapability:
-      section-type: INCP
+    incp:
+      section-type: incp
       optional: true
-    reliability:
-      section-type: RELC
+    relc:
+      section-type: relc
       optional: true
-    security:
-      section-type: SECC
+    secc:
+      section-type: secc
       optional: true
-    maintainability:
-      section-type: MNTC
+    mntc:
+      section-type: mntc
       optional: true
-    flexibility:
-      section-type: FLXC
+    flxc:
+      section-type: flxc
       optional: true
-    documentationqualitycriteria:
-      section-type: DOQUCR
+    doqucr:
+      section-type: doqucr
       optional: true
-    qualityprioritization:
-      section-type: QUPR
+    qupr:
+      section-type: qupr
       optional: true
-    acceptancecriteriasummary:
-      section-type: ACCRSU
+    accrsu:
+      section-type: accrsu
       optional: true
-    teststrategy:
-      section-type: TEST
+    test:
+      section-type: test
       optional: true
-    acceptancecriteria:
-      section-type: ACRITL
+    acritl:
+      section-type: acritl
       optional: true
-    acceptanceprocess:
-      section-type: ACPR1
+    acpr1:
+      section-type: acpr1
       optional: true
-    useracceptancetesting:
-      section-type: USACTE
+    usacte:
+      section-type: usacte
       optional: true
-    defectresolution:
-      section-type: DERE
+    dere:
+      section-type: dere
       optional: true
-    signoffprocess:
-      section-type: SIOFPR
+    siofpr:
+      section-type: siofpr
       optional: true
-    warranty:
-      section-type: WATE
+    wate:
+      section-type: wate
       optional: true

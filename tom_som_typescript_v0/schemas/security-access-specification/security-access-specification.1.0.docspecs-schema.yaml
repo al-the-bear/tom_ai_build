@@ -1,815 +1,3085 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: security-access-specification/1.0
 
+title-format: "# <!--[SAS]--> Security & Access Specification"
 section-types:
-  RESKREF-RESO-LST:
-    prefix: reskref_reso_lst
+  reskref-reso:
+    prefix: RESKREF_RESO_
     pattern-check-id:
-      pattern: ^reskref_reso_lst-\d+$
-      error-message: ID must match reskref_reso_lst-NNN
+      pattern: "^RESKREF-RESO-[0-9]+$"
+      error-message: IDs of this section must match RESKREF-RESO-xxx
     description: Add one entry per resource reference.
-  ROLDSCP-DATA-LST:
-    prefix: roldscp_data_lst
+  roldscp-data:
+    prefix: ROLDSCP_DATA_
     pattern-check-id:
-      pattern: ^roldscp_data_lst-\d+$
-      error-message: ID must match roldscp_data_lst-NNN
+      pattern: "^ROLDSCP-DATA-[0-9]+$"
+      error-message: IDs of this section must match ROLDSCP-DATA-xxx
     description: Add one entry per data scope.
-  ROLPERM-DIRE-LST:
-    prefix: rolperm_dire_lst
+  rolperm-dire:
+    prefix: ROLPERM_DIRE_
     pattern-check-id:
-      pattern: ^rolperm_dire_lst-\d+$
-      error-message: ID must match rolperm_dire_lst-NNN
+      pattern: "^ROLPERM-DIRE-[0-9]+$"
+      error-message: IDs of this section must match ROLPERM-DIRE-xxx
     description: Add one entry per direct permission.
-  COCHEN-COMM-LST:
-    prefix: cochen_comm_lst
+  cochen-comm:
+    prefix: COCHEN_COMM_
     pattern-check-id:
-      pattern: ^cochen_comm_lst-\d+$
-      error-message: ID must match cochen_comm_lst-NNN
+      pattern: "^COCHEN-COMM-[0-9]+$"
+      error-message: IDs of this section must match COCHEN-COMM-xxx
     description: Add one entry per communication channel.
-  ENDACA-ENCR-LST:
-    prefix: endaca_encr_lst
+  endaca-encr:
+    prefix: ENDACA_ENCR_
     pattern-check-id:
-      pattern: ^endaca_encr_lst-\d+$
-      error-message: ID must match endaca_encr_lst-NNN
+      pattern: "^ENDACA-ENCR-[0-9]+$"
+      error-message: IDs of this section must match ENDACA-ENCR-xxx
     description: Add one entry per encrypted data category.
-  ENREFE-ENTI-LST:
-    prefix: enrefe_enti_lst
+  enrefe-enti:
+    prefix: ENREFE_ENTI_
     pattern-check-id:
-      pattern: ^enrefe_enti_lst-\d+$
-      error-message: ID must match enrefe_enti_lst-NNN
+      pattern: "^ENREFE-ENTI-[0-9]+$"
+      error-message: IDs of this section must match ENREFE-ENTI-xxx
     description: Add one entry per entitlement reference.
-  IDPRDE-DETA-LST:
-    prefix: idprde_deta_lst
+  idprde-deta:
+    prefix: IDPRDE_DETA_
     pattern-check-id:
-      pattern: ^idprde_deta_lst-\d+$
-      error-message: ID must match idprde_deta_lst-NNN
+      pattern: "^IDPRDE-DETA-[0-9]+$"
+      error-message: IDs of this section must match IDPRDE-DETA-xxx
     description: Add one entry per provider-detail entry.
-  IDPREN-ENDP-LST:
-    prefix: idpren_endp_lst
+  idpren-endp:
+    prefix: IDPREN_ENDP_
     pattern-check-id:
-      pattern: ^idpren_endp_lst-\d+$
-      error-message: ID must match idpren_endp_lst-NNN
+      pattern: "^IDPREN-ENDP-[0-9]+$"
+      error-message: IDs of this section must match IDPREN-ENDP-xxx
     description: Add one entry per provider-endpoint entry.
-  MFACRQ-MFAC-LST:
-    prefix: mfacrq_mfac_lst
+  mfacrq-mfac:
+    prefix: MFACRQ_MFAC_
+    subsection-types:
+      mcrea:
+        max-count: 1
+      mcret:
+        max-count: 1
+      mcreo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^mfacrq_mfac_lst-\d+$
-      error-message: ID must match mfacrq_mfac_lst-NNN
+      pattern: "^MFACRQ-MFAC-[0-9]+$"
+      error-message: IDs of this section must match MFACRQ-MFAC-xxx
     description: Add one entry per MFA credential requirement.
-  RESKEY-RESO-LST:
-    prefix: reskey_reso_lst
+  reskey-reso:
+    prefix: RESKEY_RESO_
     pattern-check-id:
-      pattern: ^reskey_reso_lst-\d+$
-      error-message: ID must match reskey_reso_lst-NNN
+      pattern: "^RESKEY-RESO-[0-9]+$"
+      error-message: IDs of this section must match RESKEY-RESO-xxx
     description: Add one entry per protected resource.
-  ROLEXC-MUTU-LST:
-    prefix: rolexc_mutu_lst
+  rolexc-mutu:
+    prefix: ROLEXC_MUTU_
     pattern-check-id:
-      pattern: ^rolexc_mutu_lst-\d+$
-      error-message: ID must match rolexc_mutu_lst-NNN
+      pattern: "^ROLEXC-MUTU-[0-9]+$"
+      error-message: IDs of this section must match ROLEXC-MUTU-xxx
     description: Add one entry per mutually exclusive role.
-  ROLHLD-TYPI-LST:
-    prefix: rolhld_typi_lst
+  rolhld-typi:
+    prefix: ROLHLD_TYPI_
     pattern-check-id:
-      pattern: ^rolhld_typi_lst-\d+$
-      error-message: ID must match rolhld_typi_lst-NNN
+      pattern: "^ROLHLD-TYPI-[0-9]+$"
+      error-message: IDs of this section must match ROLHLD-TYPI-xxx
     description: Add one entry per typical role holder.
-  ROLREF-CONT-LST:
-    prefix: rolref_cont_lst
+  rolref-cont:
+    prefix: ROLREF_CONT_
     pattern-check-id:
-      pattern: ^rolref_cont_lst-\d+$
-      error-message: ID must match rolref_cont_lst-NNN
+      pattern: "^ROLREF-CONT-[0-9]+$"
+      error-message: IDs of this section must match ROLREF-CONT-xxx
     description: Add one entry per contained role.
-  RSPREF-RESP-LST:
-    prefix: rspref_resp_lst
+  rspref-resp:
+    prefix: RSPREF_RESP_
     pattern-check-id:
-      pattern: ^rspref_resp_lst-\d+$
-      error-message: ID must match rspref_resp_lst-NNN
+      pattern: "^RSPREF-RESP-[0-9]+$"
+      error-message: IDs of this section must match RSPREF-RESP-xxx
     description: Add one entry per responsibility reference.
-  GBRLX-GLOB-LST:
-    prefix: gbrlx_glob_lst
+  gbrlx-glob:
+    prefix: GBRLX_GLOB_
     pattern-check-id:
-      pattern: ^gbrlx_glob_lst-\d+$
-      error-message: ID must match gbrlx_glob_lst-NNN
+      pattern: "^GBRLX-GLOB-[0-9]+$"
+      error-message: IDs of this section must match GBRLX-GLOB-xxx
     description: Add one entry per global role exclusion.
-  IDTAM-ATTR-LST:
-    prefix: idtam_attr_lst
+  idtam-attr:
+    prefix: IDTAM_ATTR_
+    subsection-types:
+      iamet:
+        max-count: 1
+      iames:
+        max-count: 1
+      iameg:
+        max-count: 1
     pattern-check-id:
-      pattern: ^idtam_attr_lst-\d+$
-      error-message: ID must match idtam_attr_lst-NNN
+      pattern: "^IDTAM-ATTR-[0-9]+$"
+      error-message: IDs of this section must match IDTAM-ATTR-xxx
     description: Add one entry per identity-attribute mapping.
-  IDTPV-IDEN-LST:
-    prefix: idtpv_iden_lst
+  idtpv-iden:
+    prefix: IDTPV_IDEN_
+    subsection-types:
+      idprde-deta:
+        max-count: infinite
+      idpren-endp:
+        max-count: infinite
+      idprma:
+        max-count: 1
+      idprtr:
+        max-count: 1
+      idprse:
+        max-count: 1
     pattern-check-id:
-      pattern: ^idtpv_iden_lst-\d+$
-      error-message: ID must match idtpv_iden_lst-NNN
+      pattern: "^IDTPV-IDEN-[0-9]+$"
+      error-message: IDs of this section must match IDTPV-IDEN-xxx
     description: Add one entry per identity-provider entry.
-  IDTSR-IDEN-LST:
-    prefix: idtsr_iden_lst
+  idtsr-iden:
+    prefix: IDTSR_IDEN_
+    subsection-types:
+      idsoenco:
+        max-count: 1
+      isel:
+        max-count: 1
+      isem:
+        max-count: 1
+      iseo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^idtsr_iden_lst-\d+$
-      error-message: ID must match idtsr_iden_lst-NNN
+      pattern: "^IDTSR-IDEN-[0-9]+$"
+      error-message: IDs of this section must match IDTSR-IDEN-xxx
     description: Add one entry per identifier source.
-  LGFLS-LOGI-LST:
-    prefix: lgfls_logi_lst
+  lgfls-logi:
+    prefix: LGFLS_LOGI_
+    subsection-types:
+      lfsev:
+        max-count: 1
+      lfseb:
+        max-count: 1
+      lfsep:
+        max-count: 1
     pattern-check-id:
-      pattern: ^lgfls_logi_lst-\d+$
-      error-message: ID must match lgfls_logi_lst-NNN
+      pattern: "^LGFLS-LOGI-[0-9]+$"
+      error-message: IDs of this section must match LGFLS-LOGI-xxx
     description: Add one entry per login flow step.
-  MFADE-MFAD-LST:
-    prefix: mfade_mfad_lst
+  mfade-mfad:
+    prefix: MFADE_MFAD_
     pattern-check-id:
-      pattern: ^mfade_mfad_lst-\d+$
-      error-message: ID must match mfade_mfad_lst-NNN
+      pattern: "^MFADE-MFAD-[0-9]+$"
+      error-message: IDs of this section must match MFADE-MFAD-xxx
     description: Add one entry per MFA method definition.
-  RLCMB-COMB-LST:
-    prefix: rlcmb_comb_lst
+  rlcmb-comb:
+    prefix: RLCMB_COMB_
     pattern-check-id:
-      pattern: ^rlcmb_comb_lst-\d+$
-      error-message: ID must match rlcmb_comb_lst-NNN
+      pattern: "^RLCMB-COMB-[0-9]+$"
+      error-message: IDs of this section must match RLCMB-COMB-xxx
     description: Add one entry per role combination rule.
-  RLINH-INHE-LST:
-    prefix: rlinh_inhe_lst
+  rlinh-inhe:
+    prefix: RLINH_INHE_
     pattern-check-id:
-      pattern: ^rlinh_inhe_lst-\d+$
-      error-message: ID must match rlinh_inhe_lst-NNN
+      pattern: "^RLINH-INHE-[0-9]+$"
+      error-message: IDs of this section must match RLINH-INHE-xxx
     description: Add one entry per role inheritance relationship.
-  SACLC-SERV-LST:
-    prefix: saclc_serv_lst
+  saclc-serv:
+    prefix: SACLC_SERV_
     pattern-check-id:
-      pattern: ^saclc_serv_lst-\d+$
-      error-message: ID must match saclc_serv_lst-NNN
+      pattern: "^SACLC-SERV-[0-9]+$"
+      error-message: IDs of this section must match SACLC-SERV-xxx
+    format: saclc-serv-form
     description: Add one entry per service-account lifecycle entry.
-  STEPU-STEP-LST:
-    prefix: stepu_step_lst
+  stepu-step:
+    prefix: STEPU_STEP_
     pattern-check-id:
-      pattern: ^stepu_step_lst-\d+$
-      error-message: ID must match stepu_step_lst-NNN
+      pattern: "^STEPU-STEP-[0-9]+$"
+      error-message: IDs of this section must match STEPU-STEP-xxx
     description: Add one entry per step-up authentication step.
-  ULTRE-ITEM-LST:
-    prefix: ultre_item_lst
+  ultre-item:
+    prefix: ULTRE_ITEM_
+    subsection-types:
+      ultap:
+        max-count: 1
+      ultef:
+        max-count: 1
+      ultau:
+        max-count: 1
     pattern-check-id:
-      pattern: ^ultre_item_lst-\d+$
-      error-message: ID must match ultre_item_lst-NNN
+      pattern: "^ULTRE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match ULTRE-ITEM-xxx
     description: Add one entry per user-lifecycle transition entry.
-  USATE-ITEM-LST:
-    prefix: usate_item_lst
+  usate-item:
+    prefix: USATE_ITEM_
     pattern-check-id:
-      pattern: ^usate_item_lst-\d+$
-      error-message: ID must match usate_item_lst-NNN
+      pattern: "^USATE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match USATE-ITEM-xxx
     description: Add one entry per user-attribute entry.
-  USCDF-ITEM-LST:
-    prefix: uscdf_item_lst
+  uscdf-item:
+    prefix: USCDF_ITEM_
     pattern-check-id:
-      pattern: ^uscdf_item_lst-\d+$
-      error-message: ID must match uscdf_item_lst-NNN
+      pattern: "^USCDF-ITEM-[0-9]+$"
+      error-message: IDs of this section must match USCDF-ITEM-xxx
     description: Add one entry per user-category definition.
-  ATME-ITEM-LST:
-    prefix: atme_item_lst
+  atme-item:
+    prefix: ATME_ITEM_
+    subsection-types:
+      ames:
+        max-count: 1
+      amea:
+        max-count: 1
+      amee:
+        max-count: 1
+      ameo:
+        max-count: 1
     pattern-check-id:
-      pattern: ^atme_item_lst-\d+$
-      error-message: ID must match atme_item_lst-NNN
+      pattern: "^ATME-ITEM-[0-9]+$"
+      error-message: IDs of this section must match ATME-ITEM-xxx
     description: Add one entry per authentication method.
-  AZGR-GROU-LST:
-    prefix: azgr_grou_lst
+  azgr-grou:
+    prefix: AZGR_GROU_
+    subsection-types:
+      rolref-cont:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^azgr_grou_lst-\d+$
-      error-message: ID must match azgr_grou_lst-NNN
+      pattern: "^AZGR-GROU-[0-9]+$"
+      error-message: IDs of this section must match AZGR-GROU-xxx
     description: Add one entry per authorization group.
-  AZRO-ROLE-LST:
-    prefix: azro_role_lst
-    min-count-in-document: 1
+  azro-role:
+    prefix: AZRO_ROLE_
+    subsection-types:
+      ares:
+        max-count: 1
+      areg:
+        max-count: 1
+      arel:
+        max-count: 1
+      auroenst:
+        max-count: 1
+      rspref-resp:
+        max-count: infinite
+      enrefe-enti:
+        max-count: infinite
+      rolperm-dire:
+        max-count: infinite
+      roldscp-data:
+        max-count: infinite
+      rolexc-mutu:
+        max-count: infinite
+      rolhld-typi:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^azro_role_lst-\d+$
-      error-message: ID must match azro_role_lst-NNN
+      pattern: "^AZRO-ROLE-[0-9]+$"
+      error-message: IDs of this section must match AZRO-ROLE-xxx
     description: Add one entry per authorization role.
-  SEVT-CUST-LST:
-    prefix: sevt_cust_lst
+  sevt-cust:
+    prefix: SEVT_CUST_
     pattern-check-id:
-      pattern: ^sevt_cust_lst-\d+$
-      error-message: ID must match sevt_cust_lst-NNN
+      pattern: "^SEVT-CUST-[0-9]+$"
+      error-message: IDs of this section must match SEVT-CUST-xxx
     description: Add one entry per custom security event.
-  TNCS-TENA-LST:
-    prefix: tncs_tena_lst
+  tncs-tena:
+    prefix: TNCS_TENA_
     pattern-check-id:
-      pattern: ^tncs_tena_lst-\d+$
-      error-message: ID must match tncs_tena_lst-NNN
+      pattern: "^TNCS-TENA-[0-9]+$"
+      error-message: IDs of this section must match TNCS-TENA-xxx
     description: Add one entry per tenant.
-  ENT-ENTI-LST:
-    prefix: ent_enti_lst
-    min-count-in-document: 1
+  ent-enti:
+    prefix: ENT_ENTI_
+    subsection-types:
+      reskref-reso:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^ent_enti_lst-\d+$
-      error-message: ID must match ent_enti_lst-NNN
+      pattern: "^ENT-ENTI-[0-9]+$"
+      error-message: IDs of this section must match ENT-ENTI-xxx
     description: Add one entry per entitlement.
-  AUROENST:
-    prefix: auroenst
+  auroenst:
+    prefix: AUROENST
     description: Data access and role status flags.
-  IDSOENCO:
-    prefix: idsoenco
+  idsoenco:
+    prefix: IDSOENCO
     description: Connectivity and trust details.
-  RESKREF:
-    prefix: reskref
-    description: A resource key reference entry (form).
-  ROLDSCP:
-    prefix: roldscp
-    description: A data scope entry for a role (form).
-  ROLPERM:
-    prefix: rolperm
-    description: A direct permission entry for a role (form).
-  ACCOPO:
-    prefix: accopo
-    description: Access Constraint Policies (form).
-  ADEVPO:
-    prefix: adevpo
-    description: Administrative event policy (form).
-  ANDEPO:
-    prefix: andepo
-    description: Anomaly detection policy (form).
-  APABPR:
-    prefix: apabpr
-    description: "API abuse protection — rate limiting, bot detection, brute force"
-  APAUPO:
-    prefix: apaupo
-    description: API authorization policy — how API access decisions are made.
-  APCOSE:
-    prefix: apcose
-    description: API CORS security — Cross-Origin Resource Sharing policy from a security
-  APSEMO:
-    prefix: apsemo
-    description: "API security monitoring — logging, anomaly detection, inventory"
-  AUANLO:
-    prefix: auanlo
-    description: 9.6. Audit and Logging.
-  AUEVP1:
-    prefix: auevp1
-    description: Authorization event policy (form).
-  AUEVPO:
-    prefix: auevpo
-    description: Authentication event policy (form).
-  AULOFO:
-    prefix: aulofo
+  accopo:
+    prefix: ACCOPO
+    format: accopo-form
+    description: Access Constraint Policies.
+  adevpo:
+    prefix: ADEVPO
+    description: Administrative Events.
+  andepo:
+    prefix: ANDEPO
+    description: Anomaly Detection Policy.
+  apabpr:
+    prefix: APABPR
+    format: apabpr-form
+    description: API Abuse Protection.
+  apaupo:
+    prefix: APAUPO
+    format: apaupo-form
+    description: API Authorization Policy.
+  apcose:
+    prefix: APCOSE
+    format: apcose-form
+    description: API CORS Security.
+  apsemo:
+    prefix: APSEMO
+    format: apsemo-form
+    description: API Security Monitoring.
+  auanlo:
+    prefix: AUANLO
+    subsection-types:
+      seevde:
+        max-count: 1
+      aulofo:
+        max-count: 1
+      comrep:
+        max-count: 1
+    description: Audit and logging.
+  auevp1:
+    prefix: AUEVP1
+    description: Authorization Events.
+  auevpo:
+    prefix: AUEVPO
+    description: Authentication Events.
+  aulofo:
+    prefix: AULOFO
+    subsection-types:
+      evatpo:
+        max-count: 1
+      lostpo:
+        max-count: 1
+      loprpo:
+        max-count: 1
+      lorepo:
+        max-count: 1
     description: 9.6.2. Audit Log Format.
-  AUTHEN:
-    prefix: authen
+  authen:
+    prefix: AUTHEN
+    subsection-types:
+      aume:
+        max-count: 1
+      aufl:
+        max-count: 1
+      pacp:
+        max-count: 1
+      sema:
+        max-count: 1
     description: 9.2.2. Authentication.
-  BAENPO:
-    prefix: baenpo
-    description: Backup Encryption Policy (form).
-  CEMAPO:
-    prefix: cemapo
-    description: Certificate Management Policy (form).
-  COCHEN:
-    prefix: cochen
-    description: A communication channel encryption entry (form)
-  COMREP:
-    prefix: comrep
+  baenpo:
+    prefix: BAENPO
+    format: baenpo-form
+    description: Backup Encryption Policy.
+  cemapo:
+    prefix: CEMAPO
+    format: cemapo-form
+    description: Certificate Management Policy.
+  comrep:
+    prefix: COMREP
+    subsection-types:
+      perepo:
+        max-count: 1
+      prusre:
+        max-count: 1
+      andepo:
+        max-count: 1
+      reausu:
+        max-count: 1
     description: 9.6.3. Compliance Reporting.
-  COSCPO:
-    prefix: coscpo
-    description: Content scanning policy — how uploaded and stored files are scanned for
-  DAENPO:
-    prefix: daenpo
-    description: Database Encryption Policy (form).
-  DALESE:
-    prefix: dalese
+  coscpo:
+    prefix: COSCPO
+    format: coscpo-form
+    description: Content Scanning Policy.
+  daenpo:
+    prefix: DAENPO
+    format: daenpo-form
+    description: Database Encryption Policy.
+  dalese:
+    prefix: DALESE
+    subsection-types:
+      dap:
+        max-count: 1
+      rlsp:
+        max-count: 1
+      clsp:
+        max-count: 1
+      tdip:
+        max-count: 1
+      dmp:
+        max-count: 1
+      daap:
+        max-count: 1
     description: 9.3.1. Data-Level Security.
-  ENATRE:
-    prefix: enatre
+  enatre:
+    prefix: ENATRE
+    subsection-types:
+      earp:
+        max-count: 1
+      endaca-encr:
+        max-count: infinite
+      daenpo:
+        max-count: 1
+      fsep:
+        max-count: 1
+      baenpo:
+        max-count: 1
     description: 9.5.1. Encryption At Rest.
-  ENDACA:
-    prefix: endaca
-    description: An encrypted data category entry (form).
-  ENINTR:
-    prefix: enintr
+  enintr:
+    prefix: ENINTR
+    subsection-types:
+      tlprpo:
+        max-count: 1
+      cemapo:
+        max-count: 1
+      cochen-comm:
+        max-count: infinite
+      mutlpo:
+        max-count: 1
+      trsepo:
+        max-count: 1
     description: 9.5.2. Encryption In Transit.
-  ENREFE:
-    prefix: enrefe
-    description: An entitlement reference entry (form).
-  EVATPO:
-    prefix: evatpo
-    description: Event attribute policy (form).
-  IDPRDE:
-    prefix: idprde
-    description: Provider details.
-  IDPREN:
-    prefix: idpren
-    description: Endpoint configuration.
-  IDPRMA:
-    prefix: idprma
+  evatpo:
+    prefix: EVATPO
+    description: Event Attribute Policy.
+  idprma:
+    prefix: IDPRMA
     description: Attribute mapping.
-  IDPRSE:
-    prefix: idprse
+  idprse:
+    prefix: IDPRSE
     description: Certificates and encryption.
-  IDPRTR:
-    prefix: idprtr
+  idprtr:
+    prefix: IDPRTR
     description: Trust and security.
-  IDVEPO:
-    prefix: idvepo
-    description: Identity verification/proofing policy (form).
-  KEGEPO:
-    prefix: kegepo
-    description: Key generation policy (form).
-  KEROPO:
-    prefix: keropo
-    description: Key rotation policy (form).
-  KESTPO:
-    prefix: kestpo
-    description: Key storage policy (form).
-  LOPRPO:
-    prefix: loprpo
-    description: Log protection policy (form).
-  LOREPO:
-    prefix: lorepo
-    description: Log retention policy (form).
-  LOSTPO:
-    prefix: lostpo
-    description: Log storage policy (form).
-  MFACRQ:
-    prefix: mfacrq
-    description: An MFA enforcement per user category entry (form).
-  MUTLPO:
-    prefix: mutlpo
-    description: Mutual TLS Policy (form).
-  PECOST:
-    prefix: pecost
-    description: Permission Composition Strategy (form).
-  PEEVBE:
-    prefix: peevbe
-    description: Permission Evaluation Behavior (form).
-  PEGRPO:
-    prefix: pegrpo
-    description: Permission Granularity Policy (form).
-  PEREPO:
-    prefix: perepo
-    description: Periodic review policy (form).
-  PRUSRE:
-    prefix: prusre
-    description: Privilege usage reporting (form).
-  REAUSU:
-    prefix: reausu
-    description: Regulatory audit support (form).
-  RESKEY:
-    prefix: reskey
-    description: A resource key entry (form).
-  RESPRO:
-    prefix: respro
-    description: 9.3. Resource Protection.
-  ROCEPO:
-    prefix: rocepo
-    description: Role Certification Policy (form).
-  ROHIPO:
-    prefix: rohipo
-    description: Role Hierarchy Policy (form).
-  ROLEXC:
-    prefix: rolexc
-    description: A role exclusion entry (form).
-  ROLHLD:
-    prefix: rolhld
-    description: A role holder entry (form).
-  ROLREF:
-    prefix: rolref
-    description: A role reference entry (form).
-  RSPREF:
-    prefix: rspref
-    description: A responsibility reference entry (form).
-  SEDAEN:
-    prefix: sedaen
-    description: 9.5. Sensitive Data Encryption.
-  SEEVDE:
-    prefix: seevde
+  idvepo:
+    prefix: IDVEPO
+    subsection-types:
+      ivpd:
+        max-count: 1
+      ivpm:
+        max-count: 1
+      ivpw:
+        max-count: 1
+      ivpl:
+        max-count: 1
+      ivpf:
+        max-count: 1
+    description: Identity Verification.
+  kegepo:
+    prefix: KEGEPO
+    description: Key Generation Policy.
+  keropo:
+    prefix: KEROPO
+    description: Key Rotation Policy.
+  kestpo:
+    prefix: KESTPO
+    description: Key Storage Policy.
+  loprpo:
+    prefix: LOPRPO
+    description: Log Protection Policy.
+  lorepo:
+    prefix: LOREPO
+    description: Log Retention Policy.
+  lostpo:
+    prefix: LOSTPO
+    description: Log Storage Policy.
+  mutlpo:
+    prefix: MUTLPO
+    format: mutlpo-form
+    description: Mutual TLS Policy.
+  pecost:
+    prefix: PECOST
+    format: pecost-form
+    description: Permission Composition Strategy.
+  peevbe:
+    prefix: PEEVBE
+    format: peevbe-form
+    description: Permission Evaluation Behavior.
+  pegrpo:
+    prefix: PEGRPO
+    format: pegrpo-form
+    description: Permission Granularity.
+  perepo:
+    prefix: PEREPO
+    description: Periodic Review Policy.
+  prusre:
+    prefix: PRUSRE
+    description: Privilege Usage Reporting.
+  reausu:
+    prefix: REAUSU
+    description: Regulatory Audit Support.
+  respro:
+    prefix: RESPRO
+    subsection-types:
+      dalese:
+        max-count: 1
+      apse:
+        max-count: 1
+      fass:
+        max-count: 1
+    description: Resource protection.
+  rocepo:
+    prefix: ROCEPO
+    format: rocepo-form
+    description: Role Certification and Review.
+  rohipo:
+    prefix: ROHIPO
+    format: rohipo-form
+    description: Role Hierarchy Policy.
+  sedaen:
+    prefix: SEDAEN
+    subsection-types:
+      enatre:
+        max-count: 1
+      enintr:
+        max-count: 1
+      kema:
+        max-count: 1
+    description: Sensitive data encryption.
+  seevde:
+    prefix: SEEVDE
+    subsection-types:
+      selp:
+        max-count: 1
+      auevpo:
+        max-count: 1
+      auevp1:
+        max-count: 1
+      daep:
+        max-count: 1
+      adevpo:
+        max-count: 1
+      sevt-cust:
+        max-count: infinite
     description: 9.6.1. Security Events.
-  SEREPO:
-    prefix: serepo
-    description: Self-registration policy (form).
-  STENPO:
-    prefix: stenpo
-    description: Storage encryption policy — how files and storage volumes are encrypted
-  STLIPO:
-    prefix: stlipo
-    description: "Storage lifecycle policy — retention, archiving, versioning, and"
-  TECOPO:
-    prefix: tecopo
-    description: Tenant Context Policy (form).
-  TEONPO:
-    prefix: teonpo
-    description: Tenant Onboarding Policy (form).
-  TLPRPO:
-    prefix: tlprpo
-    description: TLS Protocol Policy (form).
-  TRSEPO:
-    prefix: trsepo
-    description: HSTS and Transport Security Policy (form).
-  ACACT:
-    prefix: acact
-    description: 9.1.2.3. Account Activation (form).
-  ACDEA:
-    prefix: acdea
-    description: 9.1.2.5. Account Deactivation (form).
-  ACDEL:
-    prefix: acdel
-    description: 9.1.2.6. Account Deletion and Data Retention (form).
-  ACMOD:
-    prefix: acmod
-    description: 9.1.2.4. Account Modification (form).
-  AUSCT:
-    prefix: ausct
+  serepo:
+    prefix: SEREPO
+    subsection-types:
+      srpf:
+        max-count: 1
+      srpbp:
+        max-count: 1
+      srpv:
+        max-count: 1
+      srpa:
+        max-count: 1
+      srps:
+        max-count: 1
+    description: Self-Registration.
+  stenpo:
+    prefix: STENPO
+    format: stenpo-form
+    description: Storage Encryption Policy.
+  stlipo:
+    prefix: STLIPO
+    format: stlipo-form
+    description: Storage Lifecycle Policy.
+  tecopo:
+    prefix: TECOPO
+    format: tecopo-form
+    description: Tenant Context Policy.
+  teonpo:
+    prefix: TEONPO
+    format: teonpo-form
+    description: Tenant Onboarding Policy.
+  tlprpo:
+    prefix: TLPRPO
+    format: tlprpo-form
+    description: TLS Protocol Policy.
+  trsepo:
+    prefix: TRSEPO
+    format: trsepo-form
+    description: HSTS and Transport Security Policy.
+  acact:
+    prefix: ACACT
+    format: acact-form
+    description: 9.1.2.3. Account Activation.
+  acdea:
+    prefix: ACDEA
+    format: acdea-form
+    description: 9.1.2.5. Account Deactivation.
+  acdel:
+    prefix: ACDEL
+    format: acdel-form
+    description: 9.1.2.6. Account Deletion and Data Retention.
+  acmod:
+    prefix: ACMOD
+    format: acmod-form
+    description: 9.1.2.4. Account Modification.
+  ausct:
+    prefix: AUSCT
+    subsection-types:
+      uscdf-item:
+        max-count: infinite
     description: 9.1.1. User Categories.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  GBRLX:
-    prefix: gbrlx
-    description: A global role exclusion entry (form).
-  IAMEG:
-    prefix: iameg
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  iameg:
+    prefix: IAMEG
     description: "Validation, classification, and purpose."
-  IAMES:
-    prefix: iames
+  iames:
+    prefix: IAMES
     description: Synchronization and conflict handling.
-  IAMET:
-    prefix: iamet
+  iamet:
+    prefix: IAMET
     description: Transformation and defaulting behavior.
-  IDAUT:
-    prefix: idaut
-    description: 9.2. Identification and Authentication.
-  IDENT:
-    prefix: ident
+  idaut:
+    prefix: IDAUT
+    subsection-types:
+      ident:
+        max-count: 1
+      authen:
+        max-count: 1
+    description: Identification and authentication.
+  ident:
+    prefix: IDENT
+    subsection-types:
+      idtsr-iden:
+        max-count: infinite
+      idvepo:
+        max-count: 1
+      idtpv-iden:
+        max-count: infinite
+      ssop:
+        max-count: 1
+      serepo:
+        max-count: 1
+      idtam-attr:
+        max-count: infinite
     description: 9.2.1. Identification.
-  IDTAM:
-    prefix: idtam
-    description: An identity attribute mapping entry (form).
-  IDTPV:
-    prefix: idtpv
-    description: An identity provider entry (form).
-  IDTSR:
-    prefix: idtsr
-    description: An identity source entry (form).
-  KEABP:
-    prefix: keabp
-    description: Key escrow and backup policy (form).
-  LFSEB:
-    prefix: lfseb
+  keabp:
+    prefix: KEABP
+    description: Key Escrow and Backup Policy.
+  lfseb:
+    prefix: LFSEB
     description: Outcomes and optional execution rules.
-  LFSEP:
-    prefix: lfsep
+  lfsep:
+    prefix: LFSEP
     description: Protocol-level and descriptive details.
-  LFSEV:
-    prefix: lfsev
+  lfsev:
+    prefix: LFSEV
     description: Inputs and validation behavior.
-  LGFLS:
-    prefix: lgfls
-    description: A login flow step entry (form).
-  MCREA:
-    prefix: mcrea
+  mcrea:
+    prefix: MCREA
     description: Allowed authenticators and phishing-resistance rules.
-  MCREO:
-    prefix: mcreo
+  mcreo:
+    prefix: MCREO
     description: "Fallback, timeouts, and rationale."
-  MCRET:
-    prefix: mcret
+  mcret:
+    prefix: MCRET
     description: Enrollment and remembered-device timing.
-  MFADE:
-    prefix: mfade
-    description: A single mfa detail entry.
-  RLCMB:
-    prefix: rlcmb
-    description: A role combination constraint entry (form).
-  RLINH:
-    prefix: rlinh
-    description: A role inheritance rule entry (form).
-  SACLC:
-    prefix: saclc
-    description: 9.1.2.9. Service Account Lifecycle (form).
-  SRPBP:
-    prefix: srpbp
-    description: Bot protection settings for self-registration.
-  SSACM:
-    prefix: ssacm
-    description: 9.1.2.8. Self-Service Account Management (form).
-  SSOPA:
-    prefix: ssopa
+  srpbp:
+    prefix: SRPBP
+    description: Bot protection settings.
+  ssacm:
+    prefix: SSACM
+    format: ssacm-form
+    description: 9.1.2.8. Self-Service Account Management.
+  ssopa:
+    prefix: SSOPA
     description: Access and consent behavior.
-  SSOPF:
-    prefix: ssopf
+  ssopf:
+    prefix: SSOPF
     description: Gateway and federation setup.
-  SSOPO:
-    prefix: ssopo
+  ssopo:
+    prefix: SSOPO
     description: Platform integration and monitoring.
-  SSOPS:
-    prefix: ssops
+  ssops:
+    prefix: SSOPS
     description: Session and logout behavior.
-  STEPU:
-    prefix: stepu
-    description: A single step up detail entry.
-  UACST:
-    prefix: uacst
-    description: 9.1.2.1. Account States (form).
-  ULTAP:
-    prefix: ultap
+  uacst:
+    prefix: UACST
+    format: uacst-form
+    description: 9.1.2.1. Account States.
+  ultap:
+    prefix: ULTAP
     description: Approval requirements.
-  ULTAU:
-    prefix: ultau
+  ultau:
+    prefix: ULTAU
     description: Reversal and automation.
-  ULTEF:
-    prefix: ultef
+  ultef:
+    prefix: ULTEF
     description: Side effects and notifications.
-  ULTRE:
-    prefix: ultre
-    description: A lifecycle transition entry (form).
-  ULTRS:
-    prefix: ultrs
-    description: 9.1.2.7. Lifecycle Transitions and Approvals (form).
-  URREG:
-    prefix: urreg
-    description: 9.1.2.2. Registration Process (form).
-  USATE:
-    prefix: usate
-    description: A user attribute entry (form).
-  USATT:
-    prefix: usatt
+  ultrs:
+    prefix: ULTRS
+    subsection-types:
+      ultre-item:
+        max-count: infinite
+    format: ultrs-form
+    description: 9.1.2.7. Lifecycle Transitions and Approvals.
+  urreg:
+    prefix: URREG
+    format: urreg-form
+    description: 9.1.2.2. Registration Process.
+  usatt:
+    prefix: USATT
+    subsection-types:
+      usate-item:
+        max-count: infinite
     description: 9.1.3. User Attributes.
-  USCDF:
-    prefix: uscdf
-    description: A user category definition (form).
-  USLCS:
-    prefix: uslcs
+  uslcs:
+    prefix: USLCS
+    subsection-types:
+      uacst:
+        max-count: 1
+      urreg:
+        max-count: 1
+      acact:
+        max-count: 1
+      acmod:
+        max-count: 1
+      acdea:
+        max-count: 1
+      acdel:
+        max-count: 1
+      ultrs:
+        max-count: 1
+      ssacm:
+        max-count: 1
+      saclc-serv:
+        max-count: infinite
     description: 9.1.2. User Lifecycle.
-  USMGT:
-    prefix: usmgt
-    description: 9.1. User Management.
-  ACMS:
-    prefix: acms
-    description: Access Control Model Selection (form).
-  AKMP:
-    prefix: akmp
-    description: API key management policy (form).
-  AMEA:
-    prefix: amea
+  usmgt:
+    prefix: USMGT
+    subsection-types:
+      ausct:
+        max-count: 1
+      uslcs:
+        max-count: 1
+      usatt:
+        max-count: 1
+    description: User management.
+  acms:
+    prefix: ACMS
+    format: acms-form
+    description: Access Control Model Selection.
+  akmp:
+    prefix: AKMP
+    format: akmp-form
+    description: API Key Management Policy.
+  amea:
+    prefix: AMEA
     description: Usage scope of the authentication method.
-  AMEE:
-    prefix: amee
+  amee:
+    prefix: AMEE
     description: Enrollment and activation workflow.
-  AMEO:
-    prefix: ameo
+  ameo:
+    prefix: AMEO
     description: Operational controls and lifecycle settings.
-  AMES:
-    prefix: ames
+  ames:
+    prefix: AMES
     description: Security posture of the authentication method.
-  APSE:
-    prefix: apse
+  apse:
+    prefix: APSE
+    subsection-types:
+      aap:
+        max-count: 1
+      apaupo:
+        max-count: 1
+      arvp:
+        max-count: 1
+      apcose:
+        max-count: 1
+      apabpr:
+        max-count: 1
+      apsemo:
+        max-count: 1
     description: 9.3.2. API Security.
-  AREG:
-    prefix: areg
+  areg:
+    prefix: AREG
     description: Risk and activation controls.
-  AREL:
-    prefix: arel
+  arel:
+    prefix: AREL
     description: Provisioning and review settings.
-  ARES:
-    prefix: ares
+  ares:
+    prefix: ARES
     description: Scope and inheritance metadata.
-  ARVP:
-    prefix: arvp
-    description: "API request validation policy — input validation, schema enforcement,"
-  ATME:
-    prefix: atme
-    description: An authentication method entry (form).
-  AUFL:
-    prefix: aufl
+  arvp:
+    prefix: ARVP
+    format: arvp-form
+    description: API Request Validation Policy.
+  aufl:
+    prefix: AUFL
+    subsection-types:
+      lfc:
+        max-count: 1
+      tmp:
+        max-count: 1
+      scp:
+        max-count: 1
+      rhp:
+        max-count: 1
+      aeh:
+        max-count: 1
+      suap:
+        max-count: 1
+      lgfls-logi:
+        max-count: infinite
     description: 9.2.2.2. Authentication Flow.
-  AUME:
-    prefix: aume
+  aume:
+    prefix: AUME
+    subsection-types:
+      mc:
+        max-count: 1
+      sp:
+        max-count: 1
+      cap:
+        max-count: 1
+      bap:
+        max-count: 1
+      akmp:
+        max-count: 1
+      atme-item:
+        max-count: infinite
     description: 9.2.2.1. Authentication Methods.
-  AUMO:
-    prefix: aumo
+  aumo:
+    prefix: AUMO
+    subsection-types:
+      acms:
+        max-count: 1
+      pegrpo:
+        max-count: 1
+      pecost:
+        max-count: 1
+      accopo:
+        max-count: 1
+      peevbe:
+        max-count: 1
     description: 9.4.1. Authorization Model.
-  AZGR:
-    prefix: azgr
-    description: An authorization group entry (form).
-  AZRO:
-    prefix: azro
-    description: An authorization role entry (form).
-  CCDP:
-    prefix: ccdp
-    description: Credential compromise detection policy (form).
-  CLSP:
-    prefix: clsp
-    description: Column-level security policy (form).
-  CTAP:
-    prefix: ctap
-    description: Cross-Tenant Access Policy (form).
-  DAAP:
-    prefix: daap
-    description: Data access audit policy (form).
-  DAEP:
-    prefix: daep
-    description: Data access event policy (form).
-  EARP:
-    prefix: earp
-    description: Encryption At Rest Policy (form).
-  FACP:
-    prefix: facp
-    description: "File access control policy — who can access, modify, share, and delete"
-  FASS:
-    prefix: fass
+  ccdp:
+    prefix: CCDP
+    format: ccdp-form
+    description: Credential Compromise Detection.
+  clsp:
+    prefix: CLSP
+    format: clsp-form
+    description: Column-Level Security Policy.
+  ctap:
+    prefix: CTAP
+    format: ctap-form
+    description: Cross-Tenant Access Policy.
+  daap:
+    prefix: DAAP
+    format: daap-form
+    description: Data Access Audit Policy.
+  daep:
+    prefix: DAEP
+    description: Data Access Events.
+  earp:
+    prefix: EARP
+    format: earp-form
+    description: Encryption At Rest Policy.
+  facp:
+    prefix: FACP
+    format: facp-form
+    description: File Access Control Policy.
+  fass:
+    prefix: FASS
+    subsection-types:
+      fuvp:
+        max-count: 1
+      stenpo:
+        max-count: 1
+      facp:
+        max-count: 1
+      coscpo:
+        max-count: 1
+      fdsp:
+        max-count: 1
+      stlipo:
+        max-count: 1
     description: 9.3.3. File and Storage Security.
-  FDSP:
-    prefix: fdsp
-    description: "File download security policy — how file downloads are protected,"
-  FSEP:
-    prefix: fsep
-    description: File and Storage Encryption Policy (form).
-  FUVP:
-    prefix: fuvp
-    description: File upload validation policy — how uploaded files are validated before
-  ISEL:
-    prefix: isel
+  fdsp:
+    prefix: FDSP
+    format: fdsp-form
+    description: File Download Security Policy.
+  fsep:
+    prefix: FSEP
+    format: fsep-form
+    description: File and Storage Encryption Policy.
+  fuvp:
+    prefix: FUVP
+    format: fuvp-form
+    description: File Upload Validation Policy.
+  isel:
+    prefix: ISEL
     description: Synchronization and provisioning details.
-  ISEM:
-    prefix: isem
+  isem:
+    prefix: ISEM
     description: Attribute mapping details.
-  ISEO:
-    prefix: iseo
+  iseo:
+    prefix: ISEO
     description: Operational behavior.
-  IVPD:
-    prefix: ivpd
+  ivpd:
+    prefix: IVPD
     description: Required proofing artifacts.
-  IVPF:
-    prefix: ivpf
+  ivpf:
+    prefix: IVPF
     description: Failure handling rules.
-  IVPL:
-    prefix: ivpl
+  ivpl:
+    prefix: IVPL
     description: Reverification and retention settings.
-  IVPM:
-    prefix: ivpm
+  ivpm:
+    prefix: IVPM
     description: Contact and provider verification.
-  IVPW:
-    prefix: ivpw
+  ivpw:
+    prefix: IVPW
     description: Workflow and approval settings.
-  KCRP:
-    prefix: kcrp
-    description: Key compromise and recovery policy (form).
-  KEMA:
-    prefix: kema
+  kcrp:
+    prefix: KCRP
+    description: Key Compromise and Recovery Policy.
+  kema:
+    prefix: KEMA
+    subsection-types:
+      kegepo:
+        max-count: 1
+      kestpo:
+        max-count: 1
+      keropo:
+        max-count: 1
+      keabp:
+        max-count: 1
+      kcrp:
+        max-count: 1
     description: 9.5.3. Key Management.
-  PACP:
-    prefix: pacp
+  pacp:
+    prefix: PACP
+    subsection-types:
+      prp:
+        max-count: 1
+      psp:
+        max-count: 1
+      plp:
+        max-count: 1
+      alp:
+        max-count: 1
+      crp:
+        max-count: 1
+      ccdp:
+        max-count: 1
+      sacp:
+        max-count: 1
+      mfacrq-mfac:
+        max-count: infinite
     description: 9.2.3. Password and Credential Policy.
-  RLSP:
-    prefix: rlsp
-    description: Row-level security policy (form).
-  ROHI:
-    prefix: rohi
+  rlsp:
+    prefix: RLSP
+    format: rlsp-form
+    description: Row-Level Security Policy.
+  rohi:
+    prefix: ROHI
+    subsection-types:
+      rohipo:
+        max-count: 1
+      rlinh-inhe:
+        max-count: infinite
+      rlcmb-comb:
+        max-count: infinite
+      gbrlx-glob:
+        max-count: infinite
+      rocepo:
+        max-count: 1
     description: 9.4.6. Role Hierarchy.
-  ROMA:
-    prefix: roma
-    description: 9.7. Role Matrix.
-  SACP:
-    prefix: sacp
-    description: Service account and API credential policy (form).
-  SELP:
-    prefix: selp
-    description: Security event logging policy (form).
-  SEMA:
-    prefix: sema
+  roma:
+    prefix: ROMA
+    description: Role matrix.
+  sacp:
+    prefix: SACP
+    format: sacp-form
+    description: Service Account and API Credential Policy.
+  selp:
+    prefix: SELP
+    description: Security Event Logging Policy.
+  sema:
+    prefix: SEMA
+    subsection-types:
+      stp:
+        max-count: 1
+      csp:
+        max-count: 1
+      srp:
+        max-count: 1
+      rmp:
+        max-count: 1
+      ssp:
+        max-count: 1
+      slm:
+        max-count: 1
     description: 9.2.4. Session Management.
-  SEVT:
-    prefix: sevt
-    description: A custom security event entry (form).
-  SRPA:
-    prefix: srpa
-    description: Approval workflow for self-registration.
-  SRPF:
-    prefix: srpf
-    description: Field configuration for self-registration.
-  SRPS:
-    prefix: srps
-    description: Security restrictions for self-registration.
-  SRPV:
-    prefix: srpv
-    description: Verification requirements for self-registration.
-  SSOP:
-    prefix: ssop
-    description: Single Sign-On policy (form).
-  SUAP:
-    prefix: suap
-    description: Step-up and adaptive authentication policy (form).
-  TBEP:
-    prefix: tbep
-    description: Tenant Boundary Enforcement Policy (form).
-  TDIP:
-    prefix: tdip
-    description: Tenant data isolation policy (form).
-  TEIS:
-    prefix: teis
+  srpa:
+    prefix: SRPA
+    description: Approval workflow.
+  srpf:
+    prefix: SRPF
+    description: Field configuration.
+  srps:
+    prefix: SRPS
+    description: Security restrictions.
+  srpv:
+    prefix: SRPV
+    description: Verification requirements.
+  ssop:
+    prefix: SSOP
+    subsection-types:
+      ssopf:
+        max-count: 1
+      ssops:
+        max-count: 1
+      ssopa:
+        max-count: 1
+      ssopo:
+        max-count: 1
+    description: Single Sign-On.
+  suap:
+    prefix: SUAP
+    subsection-types:
+      stepu-step:
+        max-count: infinite
+    format: suap-form
+    description: Step-Up and Adaptive Authentication.
+  tbep:
+    prefix: TBEP
+    format: tbep-form
+    description: Tenant Boundary Enforcement Policy.
+  tdip:
+    prefix: TDIP
+    format: tdip-form
+    description: Tenant Data Isolation Policy.
+  teis:
+    prefix: TEIS
+    subsection-types:
+      tecopo:
+        max-count: 1
+      ctap:
+        max-count: 1
+      tncs-tena:
+        max-count: infinite
+      teonpo:
+        max-count: 1
+      tbep:
+        max-count: 1
     description: 9.4.7. Tenant Isolation.
-  TNCS:
-    prefix: tncs
-    description: A tenant customization entry (form).
-  USAU:
-    prefix: usau
-    description: 9.4. User Authorization.
-  AAP:
-    prefix: aap
-    description: API authentication policy — how API consumers prove their identity.
-  AEH:
-    prefix: aeh
-    description: Authentication error handling (form).
-  ALP:
-    prefix: alp
-    description: Account lockout and throttling policy (form).
-  BAP:
-    prefix: bap
-    description: Biometric authentication policy (form).
-  CAP:
-    prefix: cap
-    description: Certificate-based authentication policy (form).
-  CRP:
-    prefix: crp
-    description: Credential recovery policy (form).
-  CSP:
-    prefix: csp
-    description: Concurrent session policy (form).
-  DAP:
-    prefix: dap
-    description: Database access policy (form).
-  DMP:
-    prefix: dmp
-    description: Data masking policy (form).
-  ENT:
-    prefix: ent
-    description: An entitlement entry (form).
-  LFC:
-    prefix: lfc
-    description: Login flow configuration (form).
-  PLP:
-    prefix: plp
-    description: Password lifecycle policy (form).
-  PRP:
-    prefix: prp
-    description: Password requirements policy (form).
-  PSP:
-    prefix: psp
-    description: Password storage and verification policy (form).
-  RHP:
-    prefix: rhp
-    description: Redirect and callback handling policy (form).
-  RMP:
-    prefix: rmp
-    description: Remember-me and persistent session policy (form).
-  SCP:
-    prefix: scp
-    description: Session creation policy (form).
-  SLM:
-    prefix: slm
-    description: Session lifecycle monitoring (form).
-  SRP:
-    prefix: srp
-    description: Session revocation policy (form).
-  SSP:
-    prefix: ssp
-    description: Session security hardening policy (form).
-  STP:
-    prefix: stp
-    description: Session timeout policy (form).
-  TMP:
-    prefix: tmp
-    description: Token management policy (form).
-  CF:
-    prefix: cf
-    description: 9.8. Compliance Framework.
-  MC:
-    prefix: mc
-    description: Multi-Factor Authentication (MFA) configuration (form).
-  SP:
-    prefix: sp
-    description: Single Sign-On (SSO) policy (form).
+  usau:
+    prefix: USAU
+    subsection-types:
+      aumo:
+        max-count: 1
+      azgr-grou:
+        max-count: infinite
+      azro-role:
+        max-count: infinite
+        min-count: 1
+      ent-enti:
+        max-count: infinite
+        min-count: 1
+      reskey-reso:
+        max-count: infinite
+      rohi:
+        max-count: 1
+      teis:
+        max-count: 1
+    description: User authorization.
+  aap:
+    prefix: AAP
+    format: aap-form
+    description: API Authentication Policy.
+  aeh:
+    prefix: AEH
+    format: aeh-form
+    description: Authentication Error Handling.
+  alp:
+    prefix: ALP
+    format: alp-form
+    description: Account Lockout and Throttling.
+  bap:
+    prefix: BAP
+    format: bap-form
+    description: Biometric Authentication Policy.
+  cap:
+    prefix: CAP
+    format: cap-form
+    description: Certificate-Based Authentication Policy.
+  crp:
+    prefix: CRP
+    format: crp-form
+    description: Credential Recovery.
+  csp:
+    prefix: CSP
+    format: csp-form
+    description: Concurrent Session Policy.
+  dap:
+    prefix: DAP
+    format: dap-form
+    description: Database Access Policy.
+  dmp:
+    prefix: DMP
+    format: dmp-form
+    description: Data Masking Policy.
+  lfc:
+    prefix: LFC
+    format: lfc-form
+    description: Login Flow Configuration.
+  plp:
+    prefix: PLP
+    format: plp-form
+    description: Password Lifecycle.
+  prp:
+    prefix: PRP
+    format: prp-form
+    description: Password Requirements.
+  psp:
+    prefix: PSP
+    format: psp-form
+    description: Password Storage and Verification.
+  rhp:
+    prefix: RHP
+    format: rhp-form
+    description: Redirect and Callback Handling.
+  rmp:
+    prefix: RMP
+    format: rmp-form
+    description: Remember-Me and Persistent Session Policy.
+  scp:
+    prefix: SCP
+    format: scp-form
+    description: Session Creation Policy.
+  slm:
+    prefix: SLM
+    format: slm-form
+    description: Session Lifecycle Monitoring.
+  srp:
+    prefix: SRP
+    format: srp-form
+    description: Session Revocation Policy.
+  ssp:
+    prefix: SSP
+    format: ssp-form
+    description: Session Security Hardening Policy.
+  stp:
+    prefix: STP
+    format: stp-form
+    description: Session Timeout Policy.
+  tmp:
+    prefix: TMP
+    format: tmp-form
+    description: Token Management Policy.
+  cf:
+    prefix: CF
+    description: Compliance framework.
+  mc:
+    prefix: MC
+    subsection-types:
+      mfade-mfad:
+        max-count: infinite
+    format: mc-form
+    description: Multi-Factor Authentication Configuration.
+  sp:
+    prefix: SP
+    format: sp-form
+    description: Single Sign-On Policy.
+form-types:
+  uacst-form:
+    fields:
+      - fieldname: stateModel
+        description: "Linear | Graph | Hierarchical — how states relate to each other"
+      - fieldname: initialState
+        description: "State assigned at account creation (e.g., Pending Verification)"
+      - fieldname: activeState
+        description: Fully operational account state name
+      - fieldname: suspendedState
+        description: Temporarily restricted state name
+      - fieldname: lockedState
+        description: "Account locked due to security policy (e.g., failed logins)"
+      - fieldname: deactivatedState
+        description: "Administratively disabled, recoverable"
+      - fieldname: archivedState
+        description: Read-only historical state before permanent deletion
+      - fieldname: deletedState
+        description: Permanently removed or anonymized
+      - fieldname: customStates
+        description: Additional project-specific states (comma-separated)
+      - fieldname: stateVisibility
+        description: Which states are visible to the user vs. admin-only
+      - fieldname: stateTransitionDiagramRef
+        description: Reference to a state transition diagram (mermaid or external)
+  urreg-form:
+    fields:
+      - fieldname: registrationMethods
+        description: "SelfRegistration | Invitation | AdminProvisioned | BulkImport | ExternalIdP"
+      - fieldname: selfRegistrationEnabled
+        description: "Yes | No | PerCategory — whether users can self-register"
+      - fieldname: identityProofingLevel
+        description: "None | Email | Phone | Document | InPerson — per NIST SP 800-63A IAL"
+      - fieldname: emailVerificationRequired
+        description: "Yes | No | Optional"
+      - fieldname: phoneVerificationRequired
+        description: "Yes | No | Optional"
+      - fieldname: captchaRequired
+        description: "Yes | No — bot prevention during self-registration"
+      - fieldname: invitationExpiryPeriod
+        description: "Duration before invitation link expires (e.g., 48h, 7d)"
+      - fieldname: approvalRequired
+        description: "Yes | No — whether registration needs manual approval"
+      - fieldname: approvalWorkflow
+        description: "Single Approver | Multi-Level | Auto-Approved — workflow type"
+      - fieldname: approverRole
+        description: Role or person who approves new registrations
+      - fieldname: requiredFieldsAtRegistration
+        description: Comma-separated list of mandatory fields during signup
+      - fieldname: optionalFieldsAtRegistration
+        description: Comma-separated list of optional fields during signup
+      - fieldname: termsAcceptanceRequired
+        description: "Yes | No — must accept terms of service / privacy policy"
+      - fieldname: duplicateDetection
+        description: "How duplicate accounts are detected (email, phone, name matching)"
+      - fieldname: welcomeNotification
+        description: "Email | SMS | InApp | None — notification on successful registration"
+      - fieldname: initialRoleAssignment
+        description: Default role(s) assigned at registration
+      - fieldname: registrationRateLimiting
+        description: Max registrations per IP/time window to prevent abuse
+  acact-form:
+    fields:
+      - fieldname: activationMethod
+        description: "EmailLink | AdminApproval | Automatic | PhoneVerification | Combined"
+      - fieldname: activationLinkExpiry
+        description: "Duration before activation link expires (e.g., 24h)"
+      - fieldname: maxActivationAttempts
+        description: Number of times user can request re-activation
+      - fieldname: activationPrerequisites
+        description: "Conditions that must be met before activation (e.g., email verified, approved)"
+      - fieldname: provisioningOnActivation
+        description: "Resources provisioned when account becomes active (workspace, storage, etc.)"
+      - fieldname: activationNotification
+        description: "Channels notified on activation (email, SMS, admin alert)"
+      - fieldname: activationTimeout
+        description: Time after which unactivated accounts are purged or flagged
+      - fieldname: activationTimeoutAction
+        description: "Delete | Flag | Remind | Escalate — action on timeout"
+      - fieldname: postActivationRedirect
+        description: "Where the user is directed after activation (dashboard, onboarding wizard)"
+      - fieldname: onboardingRequired
+        description: "Yes | No — whether guided onboarding follows activation"
+      - fieldname: onboardingSteps
+        description: "Steps in onboarding flow (profile completion, tutorial, preference setup)"
+  acmod-form:
+    fields:
+      - fieldname: selfModifiableFields
+        description: "Fields the user can change themselves (display name, avatar, preferences)"
+      - fieldname: adminModifiableFields
+        description: "Fields only an administrator can change (role, status, organization)"
+      - fieldname: systemModifiableFields
+        description: "Fields updated automatically (last login, login count, risk score)"
+      - fieldname: emailChangePolicy
+        description: "Re-verification required | Admin approval | Confirmation to old+new email"
+      - fieldname: phoneChangePolicy
+        description: "Verification via old number | Admin approval"
+      - fieldname: nameChangePolicy
+        description: "Self-service | RequiresVerification | AdminOnly"
+      - fieldname: roleChangeApproval
+        description: "Who approves role changes (manager, admin, auto-approved for certain changes)"
+      - fieldname: bulkModificationSupport
+        description: "Yes | No — whether batch attribute updates are supported"
+      - fieldname: changeAuditLogging
+        description: "All changes | SensitiveOnly | None — audit trail granularity"
+      - fieldname: changeNotification
+        description: "User | Admin | Both | None — who receives notification of changes"
+      - fieldname: historicalVersioning
+        description: "Yes | No — whether previous attribute values are preserved"
+      - fieldname: reverificationTriggers
+        description: "Which changes trigger re-verification (email, password, security question)"
+      - fieldname: modificationRateLimiting
+        description: "Limits on how frequently attributes can be changed (e.g., email max 1/30d)"
+      - fieldname: modificationCooldownPeriod
+        description: Waiting period after sensitive changes before full access resumes
+  acdea-form:
+    fields:
+      - fieldname: deactivationTriggers
+        description: "Manual | Inactivity | PolicyViolation | ContractEnd | SecurityIncident"
+      - fieldname: inactivityThreshold
+        description: "Period of inactivity before automatic deactivation (e.g., 90d, 180d)"
+      - fieldname: inactivityWarningPeriod
+        description: "Advance notice before deactivation (e.g., warn 14d before deactivation)"
+      - fieldname: deactivationApproval
+        description: "Who can deactivate accounts (admin, manager, system, self)"
+      - fieldname: immediateDeactivationCases
+        description: "Cases where deactivation is immediate without warning (security breach, termination)"
+      - fieldname: deactivatedAccountAccess
+        description: Whether deactivated account data remains accessible to admins
+      - fieldname: deactivationEffects
+        description: "LoginBlocked | ApiKeysRevoked | SessionsTerminated | DataPreserved"
+      - fieldname: reactivationPolicy
+        description: "UserRequest | AdminOnly | AutoOnLogin | NotAllowed — how accounts are reactivated"
+      - fieldname: reactivationApproval
+        description: "Who approves reactivation (original approver, admin, manager)"
+      - fieldname: reactivationReverification
+        description: "PasswordReset | MFA | IdentityProofing — verification at reactivation"
+      - fieldname: maxDeactivationPeriod
+        description: Maximum time an account can stay deactivated before escalation to deletion
+      - fieldname: deactivationNotification
+        description: "User | Admin | Manager | All — channels notified on deactivation"
+      - fieldname: gracePeriodAfterDeactivation
+        description: Window during which deactivation is easily reversible
+      - fieldname: dataPreservationDuration
+        description: "How long deactivated account data is preserved (30d, 1y, indefinitely)"
+  acdel-form:
+    fields:
+      - fieldname: deletionTriggers
+        description: "UserRequest | RetentionExpiry | AdminDecision | RegulatoryOrder"
+      - fieldname: deletionApproval
+        description: "Who approves deletion (admin, data protection officer, auto-approved)"
+      - fieldname: softDeleteEnabled
+        description: "Yes | No — whether accounts are soft-deleted before hard deletion"
+      - fieldname: softDeleteRetention
+        description: "Duration in soft-deleted state before permanent removal (e.g., 30d, 90d)"
+      - fieldname: permanentDeletionProcess
+        description: "Anonymize | Purge | Archive — what happens to data on permanent deletion"
+      - fieldname: dataAnonymizationStrategy
+        description: "Fields anonymized, pseudonymization method, referential integrity handling"
+      - fieldname: retainedDataAfterDeletion
+        description: "Data kept for legal/audit reasons (transaction logs, audit trails)"
+      - fieldname: retentionPeriodAfterDeletion
+        description: How long retained data is kept post-deletion
+      - fieldname: dataExportBeforeDeletion
+        description: "Yes | No — whether users can export their data before deletion"
+      - fieldname: exportFormats
+        description: "JSON | CSV | XML | PDF — formats for data export"
+      - fieldname: cascadeDeletionBehavior
+        description: "What happens to associated content (posts, files, records) on user deletion"
+      - fieldname: deletionConfirmation
+        description: "PasswordEntry | EmailConfirmation | WaitingPeriod — confirmation method"
+      - fieldname: deletionNotification
+        description: "User | Admin | DPO | All — who is notified on deletion"
+      - fieldname: rightToErasureCompliance
+        description: "GDPR Art.17 | CCPA | None — applicable right-to-be-forgotten regulations"
+      - fieldname: erasureResponseTime
+        description: "Maximum time to fulfill an erasure request (e.g., 30 days per GDPR)"
+      - fieldname: thirdPartyDataDeletion
+        description: How data shared with third parties is removed or anonymized
+  ultrs-form:
+    fields:
+      - fieldname: transitionModel
+        description: "StateMachine | Workflow | Hybrid — how transitions are modeled"
+      - fieldname: approvalPolicyDefault
+        description: "SingleApprover | DualControl | AutoApproved — default for all transitions"
+      - fieldname: escalationPolicy
+        description: "What happens if approval is not granted within SLA (auto-deny, escalate, remind)"
+      - fieldname: escalationTimeframe
+        description: "Time before pending approval is escalated (e.g., 48h)"
+      - fieldname: auditTrailRequired
+        description: "Yes | No — whether every transition is logged"
+      - fieldname: notificationOnTransition
+        description: "User | Approver | Admin | All — who is notified on state change"
+      - fieldname: bulkTransitionSupport
+        description: "Yes | No — whether multiple accounts can transition at once"
+      - fieldname: automatedTransitions
+        description: "Transitions triggered automatically (inactivity → deactivated, expiry → deleted)"
+      - fieldname: transitionUndoPolicy
+        description: Which transitions are reversible and within what time window
+  ssacm-form:
+    fields:
+      - fieldname: profileUpdateEnabled
+        description: "Yes | No — users can update their own profile information"
+      - fieldname: passwordChangeEnabled
+        description: "Yes | No — users can change their own password"
+      - fieldname: passwordResetEnabled
+        description: "Yes | No — users can reset forgotten passwords"
+      - fieldname: passwordResetMethods
+        description: "Email | SMS | SecurityQuestions | AdminAssisted"
+      - fieldname: mfaEnrollmentSelfService
+        description: "Yes | No — users can enroll/change MFA devices"
+      - fieldname: accountDeactivationSelfService
+        description: "Yes | No — users can deactivate their own account"
+      - fieldname: accountDeletionSelfService
+        description: "Yes | No — users can request deletion of their own account"
+      - fieldname: dataExportSelfService
+        description: "Yes | No — users can export their own data"
+      - fieldname: sessionManagementSelfService
+        description: "Yes | No — users can view and terminate their active sessions"
+      - fieldname: apiKeyManagementSelfService
+        description: "Yes | No — users can create/revoke their own API keys"
+      - fieldname: notificationPreferences
+        description: "Yes | No — users can configure their notification preferences"
+      - fieldname: delegationEnabled
+        description: "Yes | No — users can delegate account actions to another user"
+      - fieldname: delegationScope
+        description: "What actions can be delegated (read, write, approve)"
+      - fieldname: accountRecoveryProcess
+        description: "Steps when a user loses all credentials (identity re-proofing, admin reset)"
+  saclc-serv-form:
+    fields:
+      - fieldname: serviceAccountTypes
+        description: "API Client | Bot | SystemIntegration | ScheduledJob | DeviceIdentity"
+      - fieldname: creationProcess
+        description: "How service accounts are created (admin, DevOps pipeline, self-service)"
+      - fieldname: creationApproval
+        description: "Who approves service account creation (security team, admin)"
+      - fieldname: ownerAssignment
+        description: "Yes | No — whether each service account must have a human owner"
+      - fieldname: ownerReviewFrequency
+        description: "How often owners must recertify service accounts (quarterly, annually)"
+      - fieldname: credentialRotationPolicy
+        description: "How often credentials (keys, secrets, certificates) must be rotated"
+      - fieldname: credentialStorageMethod
+        description: "VaultService | EnvironmentVariable | SecretManager | HSM"
+      - fieldname: scopeLimitation
+        description: Principle of least privilege — minimum permissions for service accounts
+      - fieldname: ipRestriction
+        description: "Yes | No — whether service accounts are restricted to specific IPs"
+      - fieldname: expirationPolicy
+        description: "Whether service accounts expire and after how long (e.g., 1y, never)"
+      - fieldname: renewalProcess
+        description: Steps to renew an expiring service account
+      - fieldname: decommissioningProcess
+        description: "How service accounts are retired (revoke, archive, delete)"
+      - fieldname: monitoringRequirements
+        description: "Anomaly detection, usage thresholds, alerting for service accounts"
+      - fieldname: serviceAccountNamingConvention
+        description: "Naming pattern for service accounts (e.g., svc-{app}-{environment})"
+      - fieldname: documentationRequirements
+        description: "What must be documented for each service account (purpose, owner, scope)"
+  mc-form:
+    fields:
+      - fieldname: mfaRequired
+        description: "Yes | No | Conditional — whether MFA is mandatory"
+      - fieldname: mfaEnforcementScope
+        description: "AllUsers | AdminOnly | PrivilegedRoles | ExternalAccess | Conditional"
+      - fieldname: defaultSecondFactor
+        description: "TOTP | Push | FIDO2 | SMS | Email | HardwareToken"
+      - fieldname: allowedSecondFactors
+        description: Comma-separated list of permitted second-factor types
+      - fieldname: assuranceLevelTarget
+        description: "AAL1 | AAL2 | AAL3 — target NIST authentication assurance level"
+      - fieldname: phishingResistanceRequired
+        description: "Yes | No — whether phishing-resistant authenticators are required (AAL3)"
+      - fieldname: stepUpAuthenticationEnabled
+        description: "Yes | No — whether sensitive operations trigger higher AAL re-authentication"
+      - fieldname: stepUpTriggers
+        description: "Operations that trigger step-up (payment, admin actions, data export)"
+      - fieldname: rememberDevicePolicy
+        description: "Duration a device is remembered before MFA re-prompt (e.g., 30d, never)"
+      - fieldname: recoveryCodePolicy
+        description: How many one-time recovery codes are issued and their validity
+      - fieldname: enrollmentGracePeriod
+        description: "Time allowed for users to enroll MFA after it becomes required (e.g., 14d)"
+      - fieldname: mfaBypassPolicy
+        description: "Conditions under which MFA can be bypassed (break-glass, service accounts)"
+  sp-form:
+    fields:
+      - fieldname: ssoEnabled
+        description: "Yes | No — whether SSO is implemented"
+      - fieldname: ssoProtocol
+        description: "SAML2.0 | OIDC | OAuth2 | WS-Federation | Kerberos"
+      - fieldname: identityProviderType
+        description: "Internal | External | Hybrid — where the IdP is hosted"
+      - fieldname: identityProviderProduct
+        description: "Specific IdP product or service (e.g., Keycloak, Azure AD, Okta, Auth0)"
+      - fieldname: federationProtocol
+        description: "Protocol for cross-organization federation (SAML, OIDC, SCIM)"
+      - fieldname: attributeMapping
+        description: How IdP attributes map to application roles and permissions
+      - fieldname: justInTimeProvisioning
+        description: "Yes | No — whether accounts are auto-created on first SSO login"
+      - fieldname: sessionSynchronization
+        description: "Yes | No — whether logout from one app logs out all SSO-connected apps"
+      - fieldname: singleLogoutEnabled
+        description: "Yes | No — whether SLO (Single Logout) is implemented across services"
+      - fieldname: ssoFallbackMethod
+        description: "Local password | Backup IdP | None — fallback when IdP is unavailable"
+      - fieldname: ssoScopePolicy
+        description: "Which applications are included in SSO (all, internal only, selected)"
+      - fieldname: externalIdpTrustPolicy
+        description: Validation requirements for external identity providers
+  cap-form:
+    fields:
+      - fieldname: certificateAuthEnabled
+        description: "Yes | No — whether certificate-based authentication is supported"
+      - fieldname: certificateTypes
+        description: "X.509 | PIV | CAC | SmartCard — types of certificates accepted"
+      - fieldname: certificateIssuance
+        description: "InternalCA | ExternalCA | SelfSigned — who issues the certificates"
+      - fieldname: certificateAuthority
+        description: CA product or service used for certificate issuance
+      - fieldname: keyStorageRequirement
+        description: "TPM | HSM | SmartCard | SoftwareKeystore — where private keys must be stored"
+      - fieldname: mutualTlsRequired
+        description: "Yes | No — whether mTLS (client certificate) is required for API access"
+      - fieldname: certificateValidation
+        description: "OCSP | CRL | OCSP-Stapling — certificate revocation checking method"
+      - fieldname: certificateLifetime
+        description: "Maximum validity period for certificates (e.g., 1y, 2y)"
+      - fieldname: renewalProcess
+        description: "Automatic | Manual | AdminApproval — certificate renewal method"
+      - fieldname: revocationProcess
+        description: How compromised certificates are revoked and propagated
+      - fieldname: minimumKeyStrength
+        description: "RSA-2048 | RSA-4096 | EC-P256 | EC-P384 — minimum key requirements"
+      - fieldname: fipsComplianceRequired
+        description: "Yes | No — whether FIPS 140-2/3 validated modules are required"
+  bap-form:
+    fields:
+      - fieldname: biometricAuthEnabled
+        description: "Yes | No — whether biometric authentication is supported"
+      - fieldname: biometricModalities
+        description: "Fingerprint | FacialRecognition | IrisScan | VoicePrint — supported modalities"
+      - fieldname: biometricUsageContext
+        description: "DeviceUnlock | TransactionApproval | MfaActivation — when biometrics are used"
+      - fieldname: biometricAsActivationFactor
+        description: "Yes | No — whether biometric is used as MFA activation factor per NIST guidance"
+      - fieldname: localVsCentralComparison
+        description: "Local | Central — where biometric comparison is performed (local preferred)"
+      - fieldname: falseMatchRateTarget
+        description: "Target FMR (e.g., 1:10000 per NIST SP 800-63B)"
+      - fieldname: presentationAttackDetection
+        description: "Yes | No — whether PAD is implemented (required for facial recognition)"
+      - fieldname: maxConsecutiveFailures
+        description: "Maximum failed biometric attempts before fallback (e.g., 5 without PAD, 10 with PAD)"
+      - fieldname: fallbackMethod
+        description: "PIN | Password | AlternateModality — fallback when biometric fails"
+      - fieldname: biometricDataStorage
+        description: "DeviceOnly | EncryptedCentral | Never — where biometric templates are stored"
+      - fieldname: privacyConsiderations
+        description: "Consent requirements, data retention policy, right to withdraw"
+      - fieldname: accessibilityAlternative
+        description: Alternative authentication for users unable to use biometric modalities
+  akmp-form:
+    fields:
+      - fieldname: apiKeyAuthEnabled
+        description: "Yes | No — whether API key authentication is supported"
+      - fieldname: apiKeyTypes
+        description: "Static | Rotating | Scoped | ShortLived — types of API keys supported"
+      - fieldname: keyGenerationMethod
+        description: "Cryptographic random | UUID | JWT — how API keys are generated"
+      - fieldname: keyLength
+        description: "Minimum key length or entropy (e.g., 256-bit, 32 bytes)"
+      - fieldname: keyRotationPolicy
+        description: "Rotation frequency and method (e.g., 90d, automatic, manual)"
+      - fieldname: keyExpirationPolicy
+        description: "Maximum key lifetime (e.g., 1y, never, custom)"
+      - fieldname: keyScopeRestrictions
+        description: "Yes | No — whether API keys can be limited to specific resources/actions"
+      - fieldname: ipAllowlisting
+        description: "Yes | No — whether API keys can be restricted to specific IP addresses"
+      - fieldname: rateLimitingPerKey
+        description: "Yes | No — whether rate limiting is enforced per API key"
+      - fieldname: keyRevocationProcess
+        description: "Immediate | Graceful — how revoked keys stop working"
+      - fieldname: keyStorageGuidance
+        description: "VaultService | EnvironmentVariable | SecretManager — recommended storage"
+      - fieldname: keyAuditLogging
+        description: "Yes | No — whether API key usage is logged for audit purposes"
+      - fieldname: serviceTokenSupport
+        description: "OAuth2ClientCredentials | JWT | Custom — machine-to-machine token types"
+      - fieldname: tokenLifetime
+        description: "Default lifetime for service tokens (e.g., 1h, 24h)"
+  lfc-form:
+    fields:
+      - fieldname: loginEntryPoint
+        description: "LoginPage | Modal | InlineWidget | ApiEndpoint — where users initiate login"
+      - fieldname: credentialSubmissionMethod
+        description: "FormPost | Ajax | OAuth2AuthCode | OAuth2PKCE | SAMLRequest"
+      - fieldname: preAuthenticationChecks
+        description: "CAPTCHA | DeviceFingerprint | GeoIP | RiskScore | None"
+      - fieldname: authenticationEndpoint
+        description: URL or path of the authentication API endpoint
+      - fieldname: allowedAuthenticationMethods
+        description: Comma-separated list of allowed methods for this login flow
+      - fieldname: mfaChallengePresentation
+        description: "SamePage | SeparateStep | PushNotification — how MFA is presented"
+      - fieldname: rememberMeEnabled
+        description: "Yes | No — whether Remember Me option is available"
+      - fieldname: rememberMeDuration
+        description: "Duration the device is remembered (e.g., 30d, 90d)"
+      - fieldname: socialLoginEnabled
+        description: "Yes | No — whether social identity providers are supported"
+      - fieldname: socialLoginProviders
+        description: "Google | Apple | Microsoft | GitHub | Facebook — supported providers"
+      - fieldname: passwordlessLoginEnabled
+        description: "Yes | No — whether passwordless options (magic link, WebAuthn) are offered"
+      - fieldname: passwordlessLoginMethods
+        description: "MagicLink | WebAuthn | FIDO2 | Passkey — available passwordless methods"
+      - fieldname: postAuthenticationAction
+        description: "RedirectToOriginal | Dashboard | ConsentScreen | ProfileCompletion"
+      - fieldname: concurrentLoginPolicy
+        description: "Allow | DenyNew | TerminateOldest | TerminateAll — behavior for concurrent logins"
+      - fieldname: loginNotification
+        description: "Yes | No — whether users are notified of successful logins"
+      - fieldname: loginFromNewDeviceAction
+        description: "Notify | RequireMFA | Block | VerifyEmail — action for unrecognized devices"
+  tmp-form:
+    fields:
+      - fieldname: tokenFormat
+        description: "JWT | Opaque | SAML | Custom — primary access token format"
+      - fieldname: tokenSigningAlgorithm
+        description: "RS256 | ES256 | HS256 | EdDSA — algorithm for signing tokens"
+      - fieldname: accessTokenLifetime
+        description: "Duration of access token validity (e.g., 15min, 1h)"
+      - fieldname: refreshTokenEnabled
+        description: "Yes | No — whether refresh tokens are issued"
+      - fieldname: refreshTokenLifetime
+        description: "Duration of refresh token validity (e.g., 7d, 30d)"
+      - fieldname: refreshTokenRotation
+        description: "Yes | No — whether refresh tokens are rotated on each use"
+      - fieldname: refreshTokenReuseDetection
+        description: "Yes | No — whether reuse of old refresh tokens triggers revocation"
+      - fieldname: idTokenEnabled
+        description: "Yes | No — whether OIDC ID tokens are issued"
+      - fieldname: idTokenClaims
+        description: "Standard claims included in ID tokens (sub, email, name, roles)"
+      - fieldname: tokenStorageClient
+        description: "HttpOnlyCookie | SessionStorage | LocalStorage | Memory — client-side storage"
+      - fieldname: tokenStorageServer
+        description: "Redis | Database | InMemory | None — server-side token store (for opaque tokens)"
+      - fieldname: tokenRevocationEnabled
+        description: "Yes | No — whether token revocation endpoint is available"
+      - fieldname: tokenRevocationPropagation
+        description: "Immediate | EventualConsistency | Polling — how revocation propagates"
+      - fieldname: tokenIntrospectionEnabled
+        description: "Yes | No — whether RFC 7662 token introspection endpoint is available"
+      - fieldname: audienceRestriction
+        description: "Yes | No — whether tokens are audience-restricted to specific services"
+      - fieldname: scopePolicy
+        description: Minimum scope principle — how token scopes are assigned and validated
+  scp-form:
+    fields:
+      - fieldname: sessionMechanism
+        description: "ServerSideCookie | JwtBearer | OpaqueToken — primary session mechanism"
+      - fieldname: sessionIdGeneration
+        description: "CryptoRandom | UUID | HMAC — method for session identifier generation"
+      - fieldname: sessionIdEntropy
+        description: "Minimum entropy for session identifiers (e.g., 128-bit, 256-bit)"
+      - fieldname: sessionBindingMethod
+        description: "Cookie | Header | TokenBound — how sessions are bound to requests"
+      - fieldname: httpOnlyCookies
+        description: "Yes | No — whether session cookies use HttpOnly flag"
+      - fieldname: secureCookies
+        description: "Yes | No — whether session cookies use Secure flag (HTTPS only)"
+      - fieldname: sameSitePolicy
+        description: "Strict | Lax | None — SameSite cookie attribute policy"
+      - fieldname: cookieDomain
+        description: Domain scope for session cookies (exact domain or parent domain)
+      - fieldname: deviceBinding
+        description: "None | Fingerprint | CertificateBound | DPoP — session-to-device binding"
+      - fieldname: sessionDataStorage
+        description: "ServerSide | ClientSide | Hybrid — where full session data is stored"
+      - fieldname: sessionReplicationStrategy
+        description: "StickySession | Distributed | Stateless — strategy for multi-node deployments"
+      - fieldname: csrfProtection
+        description: "SynchronizerToken | DoubleSubmit | SameSite | None — CSRF mitigation method"
+      - fieldname: postLoginRedirectValidation
+        description: "Allowlist | SameOrigin | None — validation of post-login redirect targets"
+  rhp-form:
+    fields:
+      - fieldname: oauthRedirectUriPolicy
+        description: "ExactMatch | WildcardSubdomain | DynamicRegistration — redirect URI validation"
+      - fieldname: allowedRedirectDomains
+        description: Comma-separated list of allowed redirect domains
+      - fieldname: callbackUrlValidation
+        description: "StrictMatch | PathPrefix | OriginOnly — how callback URLs are validated"
+      - fieldname: stateParameterRequired
+        description: "Yes | No — whether OAuth state parameter is required for CSRF protection"
+      - fieldname: pkceRequired
+        description: "Yes | No — whether PKCE (Proof Key for Code Exchange) is mandatory"
+      - fieldname: pkceMethod
+        description: "S256 | Plain — PKCE code challenge method (S256 recommended)"
+      - fieldname: deepLinkHandling
+        description: "UniversalLinks | AppLinks | CustomScheme — mobile deep link strategy"
+      - fieldname: errorRedirectBehavior
+        description: "RedirectWithError | ErrorPage | OriginalPage — behavior on auth errors"
+      - fieldname: postLogoutRedirectUri
+        description: Where users are redirected after logout
+      - fieldname: singleLogoutRedirectChain
+        description: "Yes | No — whether SLO propagates logouts across all connected services"
+      - fieldname: corsPolicy
+        description: AllowedOrigins for authentication endpoints (exact list or pattern)
+      - fieldname: iframeEmbeddingPolicy
+        description: "Deny | SameOrigin | AllowSpecific — X-Frame-Options / CSP frame-ancestors"
+  aeh-form:
+    fields:
+      - fieldname: invalidCredentialResponse
+        description: "GenericError | SpecificError — response to invalid credentials (generic preferred)"
+      - fieldname: accountLockoutThreshold
+        description: "Number of failed attempts before lockout (e.g., 5, 10, configurable)"
+      - fieldname: lockoutDuration
+        description: "Duration of lockout (e.g., 15min, 30min, progressive, permanent)"
+      - fieldname: lockoutEscalation
+        description: "Fixed | Progressive | Exponential — whether lockout duration increases"
+      - fieldname: bruteForceProtection
+        description: "RateLimiting | CAPTCHA | IPBlock | AccountLock — brute-force mitigation"
+      - fieldname: credentialStuffingProtection
+        description: "BreachDatabase | DeviceFingerprint | BehaviorAnalysis | None"
+      - fieldname: userNotificationOnFailure
+        description: "Yes | No — whether users are notified of failed login attempts"
+      - fieldname: adminAlertThreshold
+        description: "Number of failures before admin alert (e.g., 10, 50, per-minute rate)"
+      - fieldname: failedLoginAuditLogging
+        description: "Yes | No — whether failed login attempts are logged for audit"
+      - fieldname: suspiciousActivityResponse
+        description: "RequireMFA | TemporaryBlock | CAPTCHA | ManualReview — response to anomalies"
+      - fieldname: gracefulDegradation
+        description: "Behavior when authentication service is partially unavailable (queue, fallback, deny)"
+  suap-form:
+    fields:
+      - fieldname: stepUpEnabled
+        description: "Yes | No — whether step-up authentication is implemented"
+      - fieldname: stepUpTriggers
+        description: "HighRiskOperation | SensitiveDataAccess | AdminAction | PaymentApproval | SettingsChange"
+      - fieldname: stepUpTargetAal
+        description: "AAL2 | AAL3 — target assurance level for step-up authentication"
+      - fieldname: stepUpTimeout
+        description: "Duration the elevated session lasts (e.g., 5min, 15min, transaction-scoped)"
+      - fieldname: riskBasedAuthEnabled
+        description: "Yes | No — whether risk signals influence authentication requirements"
+      - fieldname: riskSignals
+        description: "GeoLocation | IPReputation | DeviceFingerprint | BehaviorPattern | TimeOfDay"
+      - fieldname: riskScoringMethod
+        description: "RuleBased | MachineLearning | Hybrid — how risk scores are computed"
+      - fieldname: lowRiskAction
+        description: "AllowSilently | NormalAuth — response to low-risk signals"
+      - fieldname: mediumRiskAction
+        description: "RequireMFA | AdditionalVerification — response to medium-risk signals"
+      - fieldname: highRiskAction
+        description: "Block | RequirePhishingResistant | ManualReview — response to high-risk signals"
+      - fieldname: adaptiveAuthProvider
+        description: "Built-in | Third-party service name — provider of adaptive authentication"
+      - fieldname: continuousAuthEnabled
+        description: "Yes | No — whether session is continuously monitored for risk changes"
+  prp-form:
+    fields:
+      - fieldname: minimumLengthSingleFactor
+        description: "Minimum password length when used as single factor (NIST: 15 characters)"
+      - fieldname: minimumLengthMultiFactor
+        description: "Minimum password length when used as part of MFA (NIST: 8 characters)"
+      - fieldname: maximumLength
+        description: "Maximum allowed password length (NIST: at least 64 characters)"
+      - fieldname: allowedCharacterSets
+        description: "ASCII | Unicode | ASCIIPlusSpace — character sets accepted in passwords"
+      - fieldname: compositionRulesEnforced
+        description: "Yes | No — whether mixed-case/digit/symbol rules are enforced (NIST: No)"
+      - fieldname: passphraseSupported
+        description: "Yes | No — whether multi-word passphrases with spaces are supported"
+      - fieldname: unicodeNormalization
+        description: "NFC | NFD | None — Unicode normalization form applied before hashing"
+      - fieldname: passwordBlocklistEnabled
+        description: "Yes | No — whether passwords are compared against a blocklist"
+      - fieldname: blocklistSources
+        description: "BreachCorpus | DictionaryWords | ContextSpecific | HaveIBeenPwned — sources for blocklist"
+      - fieldname: passwordStrengthMeter
+        description: "Yes | No — whether a real-time strength indicator is displayed during creation"
+      - fieldname: passwordHintsAllowed
+        description: "Yes | No — whether password hints are stored (NIST: No)"
+      - fieldname: securityQuestionsAllowed
+        description: "Yes | No — whether KBA/security questions are used (NIST: No)"
+      - fieldname: showPasswordOption
+        description: "Yes | No — whether users can toggle password visibility during entry"
+      - fieldname: passwordManagerSupport
+        description: "Yes | No — whether autofill and paste are supported for password entry"
+      - fieldname: truncationPolicy
+        description: "None | Trim — whether leading/trailing whitespace is trimmed (NIST: verify entire password)"
+      - fieldname: typoTolerancePolicy
+        description: "None | CaseFirstChar | TrimWhitespace — whether minor typo corrections are attempted"
+  psp-form:
+    fields:
+      - fieldname: hashingAlgorithm
+        description: "Argon2id | bcrypt | scrypt | PBKDF2 — password hashing algorithm"
+      - fieldname: hashingCostFactor
+        description: "Work factor/iteration count for the hashing algorithm (e.g., bcrypt cost 12)"
+      - fieldname: costFactorReviewSchedule
+        description: "Annual | Biannual | OnHardwareUpgrade — when cost factor is re-evaluated"
+      - fieldname: saltLength
+        description: "Minimum salt length in bits (NIST: at least 32 bits)"
+      - fieldname: saltGeneration
+        description: "CryptoRandom | CSPRNG — method for generating salt values"
+      - fieldname: pepperEnabled
+        description: "Yes | No — whether a server-side secret key (pepper) is used for additional hashing"
+      - fieldname: pepperStorage
+        description: "HSM | TEE | EncryptedConfig | SecretManager — where the pepper key is stored"
+      - fieldname: hashVersioning
+        description: "Yes | No — whether the hash algorithm and cost factor are stored per password for migration"
+      - fieldname: transmissionEncryption
+        description: "TLS1.3 | TLS1.2 — encryption for password transmission"
+      - fieldname: clientSideHashing
+        description: "Yes | No — whether passwords are pre-hashed on the client before transmission"
+      - fieldname: memoryHardFunction
+        description: "Yes | No — whether the hashing function is memory-hard to resist GPU attacks"
+      - fieldname: outputLength
+        description: Hash output length in bits (should match underlying scheme output length)
+  plp-form:
+    fields:
+      - fieldname: periodicRotationRequired
+        description: "Yes | No — whether periodic password changes are required (NIST: No)"
+      - fieldname: rotationPeriod
+        description: "If rotation is required: period in days (e.g., 90, 180, 365)"
+      - fieldname: forceChangeOnCompromise
+        description: "Yes | No — whether password change is forced on evidence of compromise"
+      - fieldname: passwordHistoryDepth
+        description: "Number of previous passwords stored to prevent reuse (e.g., 0, 5, 12, 24)"
+      - fieldname: minimumPasswordAge
+        description: "Minimum time before a password can be changed again (e.g., 0, 1d) to prevent rapid cycling"
+      - fieldname: initialPasswordPolicy
+        description: "SystemGenerated | UserChosen | TemporaryWithForceChange — policy for initial passwords"
+      - fieldname: temporaryPasswordExpiry
+        description: "Duration before a temporary/initial password expires (e.g., 24h, 72h)"
+      - fieldname: passwordExpiryWarning
+        description: "Number of days before expiry that users are warned (e.g., 14, 30)"
+      - fieldname: passwordChangeNotification
+        description: "Yes | No — whether users are notified when their password is changed"
+      - fieldname: passwordChangeRequiresCurrent
+        description: "Yes | No — whether current password must be verified before setting a new one"
+      - fieldname: administratorResetPolicy
+        description: "TemporaryPassword | ResetLink | MfaVerification — how admins reset user passwords"
+      - fieldname: passwordInactivityDisable
+        description: "Duration of inactivity before account is disabled (e.g., 90d, 180d, Never)"
+  alp-form:
+    fields:
+      - fieldname: lockoutThreshold
+        description: "Number of consecutive failed attempts before lockout (NIST max: 100, typical: 5-10)"
+      - fieldname: lockoutDuration
+        description: "Duration of lockout (e.g., 15min, 30min, UntilAdminUnlock, Progressive)"
+      - fieldname: lockoutEscalation
+        description: "Fixed | Progressive | Exponential — whether lockout duration increases"
+      - fieldname: rateLimitingMethod
+        description: "Delay | CAPTCHA | Lockout | IPBlock | Combination — rate-limiting strategy"
+      - fieldname: delayProgression
+        description: "Delay schedule for progressive throttling (e.g., 30s after 3rd, 1min after 5th)"
+      - fieldname: captchaTriggerThreshold
+        description: Number of failed attempts before CAPTCHA is required
+      - fieldname: ipBasedRateLimiting
+        description: "Yes | No — whether rate limiting also applies per IP address"
+      - fieldname: distributedAttackProtection
+        description: "Yes | No — whether protection against credential stuffing across IPs is implemented"
+      - fieldname: unlockMechanism
+        description: "TimeBasedAutoUnlock | AdminUnlock | SelfServiceWithMFA | EmailVerification"
+      - fieldname: failedAttemptResetOnSuccess
+        description: "Yes | No — whether the failed attempt counter resets after successful login"
+      - fieldname: lockoutNotification
+        description: "User | Admin | Both | None — who is notified when lockout occurs"
+      - fieldname: permanentLockoutEnabled
+        description: "Yes | No — whether accounts are permanently locked after extreme abuse"
+      - fieldname: permanentLockoutThreshold
+        description: "Number of lockout cycles before permanent lock (e.g., 5, 10)"
+  crp-form:
+    fields:
+      - fieldname: passwordResetMethod
+        description: "EmailLink | SMSCode | SecurityQuestions | MfaVerification | AdminAssisted — how users reset passwords"
+      - fieldname: resetLinkExpiry
+        description: "Duration before a password reset link expires (e.g., 15min, 1h, 24h)"
+      - fieldname: resetLinkSingleUse
+        description: "Yes | No — whether reset links can only be used once"
+      - fieldname: resetRateLimiting
+        description: "Requests per period allowed (e.g., 3 per hour, 5 per day)"
+      - fieldname: savedRecoveryCodesEnabled
+        description: "Yes | No — whether one-time recovery codes are provided at enrollment"
+      - fieldname: recoveryCodeCount
+        description: "Number of recovery codes generated (e.g., 8, 10, 16)"
+      - fieldname: recoveryCodeFormat
+        description: "AlphaNumeric | NumericOnly | Words — format of recovery codes"
+      - fieldname: issuedRecoveryCodeChannels
+        description: "Email | SMS | PostalMail | InPerson — channels for sending issued recovery codes"
+      - fieldname: recoveryCodeExpiry
+        description: "Duration before issued recovery codes expire (NIST: 10min SMS, 24h email)"
+      - fieldname: identityReverificationRequired
+        description: "Yes | No — whether identity re-verification is required for recovery at higher AALs"
+      - fieldname: recoveryContactEnabled
+        description: "Yes | No — whether a trusted contact can initiate recovery"
+      - fieldname: multipleRecoveryAddresses
+        description: "Yes | No — whether subscribers can register multiple recovery addresses (NIST: at least 2)"
+      - fieldname: recoveryAuditLogging
+        description: "Yes | No — whether all recovery attempts are logged for audit"
+  ccdp-form:
+    fields:
+      - fieldname: breachDatabaseMonitoring
+        description: "Yes | No — whether passwords are checked against known breach databases"
+      - fieldname: breachDatabaseSource
+        description: "HaveIBeenPwned | Internal | CommercialFeed | Multiple — source of breach data"
+      - fieldname: breachCheckFrequency
+        description: "AtCreation | AtLogin | Periodic | RealTime — when breach checks are performed"
+      - fieldname: compromisedCredentialAction
+        description: "ForceChange | NotifyAndRecommend | DisableAccount — action when credential is found compromised"
+      - fieldname: credentialStuffingDetection
+        description: "Yes | No — whether automated credential stuffing attacks are detected"
+      - fieldname: stuffingDetectionMethod
+        description: "BehaviorAnalysis | IPReputation | VelocityChecks | DeviceFingerprint — detection methods"
+      - fieldname: darkWebMonitoring
+        description: "Yes | No — whether organizational credentials are monitored on dark web"
+      - fieldname: userCompromiseNotification
+        description: "Email | InApp | Push | SMS — how users are notified of credential compromise"
+      - fieldname: adminCompromiseAlerts
+        description: "Yes | No — whether administrators receive alerts for mass compromise events"
+      - fieldname: compromiseResponseSla
+        description: "Time to force credential change after detection (e.g., Immediate, 24h, 72h)"
+  sacp-form:
+    fields:
+      - fieldname: serviceAccountPasswordPolicy
+        description: "AutoGenerated | ManagedByVault | CertificateBased — how service account credentials are managed"
+      - fieldname: serviceAccountRotationPeriod
+        description: "Rotation period for service account credentials (e.g., 30d, 90d, OnDemand)"
+      - fieldname: apiKeyLifetime
+        description: "Maximum lifetime for API keys (e.g., 90d, 365d, NoExpiry)"
+      - fieldname: apiKeyRotationPolicy
+        description: "Automatic | Manual | GracePeriodOverlap — how API keys are rotated"
+      - fieldname: secretsManagementTool
+        description: "HashiCorpVault | AWSSecretsManager | AzureKeyVault | GCPSecretManager | None"
+      - fieldname: machineToMachineAuth
+        description: "OAuth2ClientCredentials | mTLS | JWTBearer | APIKey — authentication method"
+      - fieldname: serviceAccountMfaRequired
+        description: "Yes | No — whether service accounts require MFA for interactive login"
+      - fieldname: sharedCredentialProhibition
+        description: "Yes | No — whether shared/group credentials are prohibited"
+      - fieldname: credentialVaultIntegration
+        description: "Yes | No — whether application credentials are injected from a secrets vault at runtime"
+      - fieldname: hardcodedCredentialDetection
+        description: "Yes | No — whether CI/CD scans for hardcoded credentials in source code"
+  stp-form:
+    fields:
+      - fieldname: idleTimeoutDefault
+        description: "Duration of inactivity before session expires (e.g., 15min, 30min, 1h)"
+      - fieldname: idleTimeoutHighValue
+        description: "Shorter idle timeout for sensitive operations (e.g., 2min, 5min)"
+      - fieldname: absoluteTimeout
+        description: "Maximum session duration regardless of activity (e.g., 4h, 8h, 24h)"
+      - fieldname: renewalTimeout
+        description: "Interval at which the session ID is transparently rotated (e.g., 15min, 30min)"
+      - fieldname: idleTimeoutAal1
+        description: "Idle timeout for AAL1 sessions (NIST default: 30 days)"
+      - fieldname: absoluteTimeoutAal1
+        description: "Maximum session duration for AAL1 (NIST default: 30 days)"
+      - fieldname: idleTimeoutAal2
+        description: "Idle timeout for AAL2 sessions (NIST default: 1 hour)"
+      - fieldname: absoluteTimeoutAal2
+        description: "Maximum session duration for AAL2 (NIST default: 24 hours)"
+      - fieldname: idleTimeoutAal3
+        description: "Idle timeout for AAL3 sessions (NIST default: 15 minutes)"
+      - fieldname: absoluteTimeoutAal3
+        description: "Maximum session duration for AAL3 (NIST default: 12 hours)"
+      - fieldname: timeoutEnforcement
+        description: "ServerSide | ClientSide | Both — where session timeout is enforced (server-side mandatory)"
+      - fieldname: timeoutWarningEnabled
+        description: "Yes | No — whether users receive a warning before session expiry"
+      - fieldname: timeoutWarningLeadTime
+        description: "Time before expiry to show warning (e.g., 2min, 5min)"
+      - fieldname: timeoutWarningAction
+        description: "ExtendSession | SaveDraft | RedirectToLogin — action offered to user"
+      - fieldname: sessionExtensionAllowed
+        description: "Yes | No | Limited — whether users can extend an expiring session"
+      - fieldname: maxExtensions
+        description: "Maximum number of consecutive session extensions (e.g., 3, unlimited)"
+      - fieldname: gracePeriodAfterExpiry
+        description: "Brief window after expiry for saving work (e.g., 0s, 30s, 2min)"
+  csp-form:
+    fields:
+      - fieldname: concurrentSessionsAllowed
+        description: "Yes | No | Limited — whether multiple simultaneous sessions are permitted"
+      - fieldname: maxConcurrentSessions
+        description: "Maximum number of active sessions per user (e.g., 1, 3, 5, unlimited)"
+      - fieldname: concurrentSessionScope
+        description: "PerAccount | PerDeviceType | PerApplication — scope for counting sessions"
+      - fieldname: conflictResolution
+        description: "TerminateOldest | TerminateNewest | DenyNew | AskUser — action when limit exceeded"
+      - fieldname: sessionListVisible
+        description: "Yes | No — whether users can see a list of their active sessions"
+      - fieldname: remoteTerminationEnabled
+        description: "Yes | No — whether users can terminate other sessions remotely"
+      - fieldname: sessionDeviceInfo
+        description: "IPAddress | DeviceType | Browser | Location | All — info shown per session"
+      - fieldname: concurrentLoginNotification
+        description: "None | Email | Push | InApp | All — notification when new session starts"
+      - fieldname: suspiciousConcurrentLoginAction
+        description: "Notify | RequireMFA | TerminateAll | LockAccount — action for suspicious simultaneous access"
+      - fieldname: privilegedAccountSessionLimit
+        description: "Maximum sessions for admin/privileged accounts (typically stricter, e.g., 1)"
+      - fieldname: crossDeviceSessionHandling
+        description: "Independent | Synchronized | SingleDevice — how sessions relate across devices"
+  srp-form:
+    fields:
+      - fieldname: logoutMechanism
+        description: "ServerSideInvalidation | TokenBlacklist | CookieClear | All — how sessions are terminated"
+      - fieldname: logoutButtonPlacement
+        description: "Header | Menu | Both | EveryPage — where the logout action is accessible"
+      - fieldname: logoutConfirmation
+        description: "Immediate | ConfirmDialog | None — whether logout requires confirmation"
+      - fieldname: postLogoutRedirect
+        description: "LoginPage | HomePage | GoodbyePage | CustomUrl — where users go after logout"
+      - fieldname: postLogoutCacheClear
+        description: "Yes | No — whether Clear-Site-Data header is sent on logout"
+      - fieldname: singleLogoutEnabled
+        description: "Yes | No — whether logout propagates to all connected IdPs and services"
+      - fieldname: singleLogoutProtocol
+        description: "FrontChannel | BackChannel | Both — SLO propagation method"
+      - fieldname: privilegeChangeRevocation
+        description: "Regenerate | Terminate | NoAction — session handling when user roles change"
+      - fieldname: passwordChangeRevocation
+        description: "TerminateAll | TerminateOthers | KeepCurrent — session handling after password change"
+      - fieldname: compromiseRevocation
+        description: "TerminateAll | TerminateOthers | RequireReauth — action when account compromise suspected"
+      - fieldname: adminTerminationEnabled
+        description: "Yes | No — whether administrators can terminate user sessions"
+      - fieldname: bulkRevocationEnabled
+        description: "Yes | No — whether mass session invalidation is supported (e.g., security incident)"
+      - fieldname: revocationPropagationDelay
+        description: "Immediate | EventualConsistency | MaxDelay — how quickly revocation takes effect across nodes"
+  rmp-form:
+    fields:
+      - fieldname: rememberMeEnabled
+        description: "Yes | No — whether remember-me / keep-me-signed-in is offered"
+      - fieldname: rememberMeDuration
+        description: "Duration of persistent session (e.g., 7d, 30d, 90d)"
+      - fieldname: rememberMeTokenType
+        description: "PersistentCookie | DeviceToken | RefreshToken — mechanism for persistent login"
+      - fieldname: rememberMeTokenStorage
+        description: "HttpOnlyCookie | SecureStorage | EncryptedLocalStorage — client-side storage"
+      - fieldname: rememberMeTokenRotation
+        description: "Yes | No — whether persistent tokens are rotated on each use"
+      - fieldname: rememberMeReuseDetection
+        description: "Yes | No — whether reuse of old persistent tokens triggers revocation"
+      - fieldname: rememberMeDeviceBinding
+        description: "None | Fingerprint | CertificateBound — how persistent tokens are bound to devices"
+      - fieldname: rememberMeRevocation
+        description: "ManualOnly | OnPasswordChange | OnSecurityEvent | All — when persistent tokens are revoked"
+      - fieldname: rememberMeAalReduction
+        description: "Yes | No — whether remember-me reduces effective AAL (e.g., AAL2 to AAL1)"
+      - fieldname: rememberMeRestrictedOperations
+        description: "Operations requiring full reauthentication even with active remember-me (e.g., password change, payment)"
+      - fieldname: trustedDeviceManagement
+        description: "Yes | No — whether users can manage a list of trusted/remembered devices"
+      - fieldname: maxTrustedDevices
+        description: "Maximum number of devices in the trusted device list (e.g., 5, 10)"
+      - fieldname: trustedDeviceExpiry
+        description: "Duration a device stays trusted (e.g., 30d, 90d, indefinite)"
+  ssp-form:
+    fields:
+      - fieldname: sessionFixationProtection
+        description: "RegenerateOnLogin | RegenerateOnPrivilegeChange | Both — session ID regeneration strategy"
+      - fieldname: sessionIdRegenerationTriggers
+        description: "Login | PrivilegeChange | PasswordChange | MfaStep | All — events triggering session ID renewal"
+      - fieldname: sessionBindingProperties
+        description: "None | IPAddress | UserAgent | DeviceFingerprint | TlsCertificate — properties bound to session"
+      - fieldname: bindingMismatchAction
+        description: "Terminate | RequireReauth | LogAndContinue | StepUpAuth — action on session binding violation"
+      - fieldname: sessionAnomalyDetection
+        description: "Yes | No — whether session anomalies (IP change, user-agent change) are monitored"
+      - fieldname: anomalyDetectionSignals
+        description: "IPChange | UserAgentChange | GeoLocationJump | ConcurrentAccess — signals monitored"
+      - fieldname: sessionCachePolicy
+        description: "NoStore | NoCache | Private — Cache-Control directive for pages with session data"
+      - fieldname: clearSiteDataOnLogout
+        description: "Yes | No — whether Clear-Site-Data header clears cache, cookies, storage on logout"
+      - fieldname: sessionTransportSecurity
+        description: "HttpsOnly | HstsEnabled | CertificatePinning — transport layer requirements for sessions"
+      - fieldname: sessionIdInUrlPrevention
+        description: "Yes | No — whether session IDs in URL parameters are explicitly blocked"
+      - fieldname: crossOriginSessionProtection
+        description: "SameSiteCookies | CorsRestriction | Both — cross-origin session protection mechanisms"
+      - fieldname: sessionDataMinimization
+        description: "Yes | No — whether session stores only essential data (minimize sensitive data in session)"
+  slm-form:
+    fields:
+      - fieldname: sessionCreationLogging
+        description: "Yes | No — whether session creation events are logged"
+      - fieldname: sessionDestructionLogging
+        description: "Yes | No — whether session termination events are logged"
+      - fieldname: sessionRenewalLogging
+        description: "Yes | No — whether session ID renewal events are logged"
+      - fieldname: sessionEventDetails
+        description: "Timestamp | SourceIP | UserAgent | GeoLocation | SessionAction — details captured per event"
+      - fieldname: sessionIdInLogs
+        description: "SaltedHash | Truncated | Never — how session IDs appear in logs (never in plaintext)"
+      - fieldname: sessionActivityTracking
+        description: "Yes | No — whether per-session activity (page visits, actions) is tracked"
+      - fieldname: sessionHistoryVisibleToUser
+        description: "Yes | No — whether users can view their session activity history"
+      - fieldname: failedSessionAccessLogging
+        description: "Yes | No — whether invalid/expired session access attempts are logged"
+      - fieldname: sessionMetricsCollection
+        description: "Yes | No — whether session duration, count, and patterns are collected as metrics"
+      - fieldname: sessionAuditRetention
+        description: "Duration session audit logs are retained (e.g., 90d, 1y, 7y)"
+      - fieldname: realTimeSessionAlerts
+        description: "Yes | No — whether suspicious session events trigger real-time alerts"
+      - fieldname: alertTriggers
+        description: "BruteForce | AnomalousAccess | MassLogout | SessionHijack — events triggering alerts"
+  dap-form:
+    fields:
+      - fieldname: databaseConnectionSecurity
+        description: "TlsRequired | TlsOptional | LocalSocketOnly — transport security for DB connections"
+      - fieldname: minimumTlsVersion
+        description: "TLS 1.2 | TLS 1.3 — minimum TLS version for database connections"
+      - fieldname: applicationAccountStrategy
+        description: "PerService | PerModule | SharedPool — how application-level DB accounts are organized"
+      - fieldname: applicationAccountPrivileges
+        description: "SelectUpdateDelete | ReadOnly | Custom — default permissions for application accounts"
+      - fieldname: schemaOwnershipSeparation
+        description: "Yes | No — whether schema owner accounts are separate from application accounts"
+      - fieldname: directTableAccess
+        description: "Allowed | ViewsOnly | StoredProceduresOnly — whether direct table access is permitted"
+      - fieldname: databaseCredentialStorage
+        description: "SecretsVault | EnvironmentVariable | EncryptedConfig — where DB credentials are stored"
+      - fieldname: credentialRotationPolicy
+        description: "Automatic | Manual | Interval — how DB credentials are rotated (e.g., every 90d)"
+      - fieldname: connectionPoolSecurity
+        description: "PerUser | PerService | Shared — connection pool isolation level"
+      - fieldname: privilegedAccessManagement
+        description: "JustInTime | PermanentWithApproval | BreakGlass — how DBA access is managed"
+      - fieldname: databaseFirewallRules
+        description: "AllowlistOnly | VpcInternal | SubnetRestricted — network access restrictions"
+      - fieldname: sqlInjectionPrevention
+        description: "ParameterizedQueries | OrmOnly | PreparedStatements — SQL injection mitigation strategy"
+      - fieldname: queryComplexityLimits
+        description: "Yes | No — whether query complexity or execution time limits are enforced"
+      - fieldname: databaseActivityMonitoring
+        description: "DamEnabled | NativeAudit | None — database activity monitoring tool usage"
+  rlsp-form:
+    fields:
+      - fieldname: rowLevelSecurityEnabled
+        description: "Yes | No — whether row-level security (RLS) is implemented"
+      - fieldname: rlsImplementation
+        description: "DatabaseNative | ApplicationLayer | OrmFilter | Hybrid — where RLS is enforced"
+      - fieldname: rlsFilteringStrategy
+        description: "TenantId | UserId | OrganizationId | CustomPredicate — primary filtering dimension"
+      - fieldname: rlsBypassPolicy
+        description: "NeverBypass | SuperAdminOnly | ServiceAccountOnly — who can bypass RLS"
+      - fieldname: hierarchicalVisibility
+        description: "Yes | No — whether managers see subordinate data (organizational hierarchy)"
+      - fieldname: hierarchyDepthLimit
+        description: "Unlimited | DirectReports | NLevels — how deep hierarchical visibility extends"
+      - fieldname: crossTenantAccess
+        description: "Denied | PlatformAdminOnly | ConsentBased — cross-tenant data access rules"
+      - fieldname: dataOwnerAccess
+        description: "FullAccess | ReadOnly | Delegated — access level for the data owner/creator"
+      - fieldname: sharedDataHandling
+        description: "ExplicitGrant | GroupBased | LinkSharing — how shared records are authorized"
+      - fieldname: rlsPerformanceStrategy
+        description: "IndexedFilterColumn | PartitionedByTenant | MaterializedViews — performance optimization for RLS"
+      - fieldname: rlsTestingStrategy
+        description: "AutomatedTests | PenetrationTesting | Both — how RLS enforcement is verified"
+  clsp-form:
+    fields:
+      - fieldname: columnLevelSecurityEnabled
+        description: "Yes | No — whether column-level access control is implemented"
+      - fieldname: columnAccessImplementation
+        description: "DatabaseGrants | ViewRestriction | ApplicationLayer | FieldProjection — enforcement mechanism"
+      - fieldname: sensitiveColumnClassification
+        description: "PII | Financial | Health | Confidential | Internal | Public — classification scheme for columns"
+      - fieldname: piiColumnAccess
+        description: "RestrictedByRole | MaskedByDefault | EncryptedAtRest — access policy for PII columns"
+      - fieldname: financialDataColumnAccess
+        description: "RestrictedByRole | AuditedAccess | Masked — access policy for financial data columns"
+      - fieldname: healthDataColumnAccess
+        description: "HipaaCompliant | StrictRole | Encrypted — access policy for health/medical data"
+      - fieldname: dynamicFieldVisibility
+        description: "Yes | No — whether field visibility varies dynamically based on user role or context"
+      - fieldname: columnAccessAudit
+        description: "Yes | No — whether access to sensitive columns is individually audited"
+      - fieldname: columnEncryptionPolicy
+        description: "None | SelectedColumns | AllSensitive | AlwaysEncrypted — column-level encryption approach"
+  tdip-form:
+    fields:
+      - fieldname: tenantIsolationModel
+        description: "SharedDatabase_SharedSchema | SharedDatabase_SeparateSchema | SeparateDatabase — multi-tenancy architecture"
+      - fieldname: tenantIdentifierColumn
+        description: "Column name used for tenant filtering (e.g., tenant_id, org_id)"
+      - fieldname: tenantContextInjection
+        description: "SessionVariable | ConnectionString | MiddlewareFilter | RowPolicy — how tenant context is set"
+      - fieldname: tenantIsolationEnforcement
+        description: "DatabaseLevel | ApplicationLevel | Both — where isolation is enforced"
+      - fieldname: crossTenantQueryPrevention
+        description: "DatabaseRLS | QueryRewriting | GlobalFilter | AllLayers — how cross-tenant queries are blocked"
+      - fieldname: tenantDataBackupIsolation
+        description: "SharedBackup | PerTenantBackup | EncryptedShared — tenant-specific backup strategy"
+      - fieldname: tenantDataDeletion
+        description: "SoftDelete | HardDelete | CryptoShredding — how tenant data is removed on offboarding"
+      - fieldname: tenantDataExport
+        description: "SelfService | AdminAssisted | ApiExport — data portability for tenants"
+      - fieldname: tenantResourceQuotas
+        description: "Yes | No — whether storage/query quotas are enforced per tenant"
+      - fieldname: tenantIsolationTesting
+        description: "AutomatedTests | PenetrationTesting | Both — how tenant isolation is verified"
+      - fieldname: sharedReferenceDataAccess
+        description: "ReadOnly | CachedLocally | Replicated — how tenants access shared/global reference data"
+  dmp-form:
+    fields:
+      - fieldname: dynamicDataMaskingEnabled
+        description: "Yes | No — whether dynamic data masking is implemented in production"
+      - fieldname: dynamicMaskingRules
+        description: "FullMask | PartialMask | Redact | Tokenize — available masking transformations"
+      - fieldname: dynamicMaskingScope
+        description: "RoleBased | QueryBased | ColumnBased — how masking rules are applied"
+      - fieldname: staticMaskingForNonProduction
+        description: "Yes | No — whether production data is statically masked before copying to test/dev"
+      - fieldname: staticMaskingTool
+        description: "BuiltIn | ThirdParty | CustomScript — tool used for static data masking"
+      - fieldname: maskingPreservesFormat
+        description: "Yes | No — whether masked data maintains original format and referential integrity"
+      - fieldname: maskingReversibility
+        description: "Irreversible | Tokenized | Deterministic — whether masking can be reversed"
+      - fieldname: piiMaskingPolicy
+        description: "FullRedact | PartialMask | Pseudonymize — specific masking approach for PII fields"
+      - fieldname: emailMaskingFormat
+        description: "e.g., j***@example.com or completely redacted — how email addresses are masked"
+      - fieldname: phoneMaskingFormat
+        description: "e.g., ***-***-1234 or fully redacted — how phone numbers are masked"
+      - fieldname: addressMaskingFormat
+        description: "CityOnly | ZipCodeOnly | FullRedact — how addresses are masked"
+      - fieldname: financialDataMasking
+        description: "FullRedact | Last4Digits | Tokenized — how financial data (credit cards, bank accounts) is masked"
+      - fieldname: maskingAuditTrail
+        description: "Yes | No — whether masking/unmasking operations are audited"
+      - fieldname: developmentDataStrategy
+        description: "MaskedCopy | SyntheticData | SubsetExtract | SeedData — strategy for development/test environments"
+  daap-form:
+    fields:
+      - fieldname: dataAccessLoggingEnabled
+        description: "Yes | No — whether data access events are logged"
+      - fieldname: dataAccessLoggingScope
+        description: "AllTables | SensitiveTablesOnly | ByClassification — which data access is logged"
+      - fieldname: loggedOperations
+        description: "Read | Write | Delete | SchemaChange | All — which operations are captured"
+      - fieldname: dataAccessLogDetail
+        description: "QueryText | AffectedRows | ColumnAccess | Minimal — what detail is recorded per event"
+      - fieldname: queryTextLogging
+        description: "Full | Sanitized | HashOnly | Disabled — whether executed query text is logged"
+      - fieldname: anomalyDetectionEnabled
+        description: "Yes | No — whether unusual data access patterns trigger alerts"
+      - fieldname: anomalySignals
+        description: "BulkExport | OffHoursAccess | UnusualVolume | NewAccessPattern — signals monitored"
+      - fieldname: dataBreachDetection
+        description: "RealTime | BatchReview | ThirdPartyDLP — how potential data exfiltration is detected"
+      - fieldname: dataAccessReviewCycle
+        description: "Monthly | Quarterly | Annually — how often data access permissions are reviewed"
+      - fieldname: privilegedQueryAlerts
+        description: "Yes | No — whether queries by privileged accounts trigger real-time alerts"
+      - fieldname: complianceReportingEnabled
+        description: "Yes | No — whether automated compliance reports are generated from access logs"
+      - fieldname: dataAccessRetention
+        description: "Duration data access logs are retained (e.g., 90d, 1y, 7y)"
+  aap-form:
+    fields:
+      - fieldname: authenticationMethod
+        required: true
+        description: "OAuth2 | APIKey | JWT | mTLS | HMAC | Basic — primary API authentication mechanism"
+      - fieldname: multipleMethodsSupported
+        description: "Yes | No — whether the API supports multiple authentication methods simultaneously"
+      - fieldname: apiKeyTransmission
+        description: "Header | QueryParam | Cookie — where API keys are transmitted (Header recommended)"
+      - fieldname: apiKeyRotationPolicy
+        description: Automatic periodic rotation interval and overlap/grace period for old keys
+      - fieldname: apiKeyScoping
+        description: "Global | PerEnvironment | PerService — whether keys are scoped to specific environments or services"
+      - fieldname: jwtValidationPolicy
+        description: "iss, aud, exp, nbf — required JWT claims to validate on every request"
+      - fieldname: jwtSigningAlgorithm
+        description: "RS256 | ES256 | EdDSA — required JWT signing algorithm (HS256 discouraged for APIs)"
+      - fieldname: accessTokenLifetime
+        description: "Maximum access token validity duration (e.g. 15 min, 1 hour)"
+      - fieldname: refreshTokenPolicy
+        description: "Rotation | Reuse | None — refresh token handling and lifetime"
+      - fieldname: clientCredentialsFlow
+        description: "Yes | No — whether OAuth2 client credentials flow is supported for service-to-service"
+      - fieldname: authorizationCodeFlow
+        description: "Yes | No — whether OAuth2 authorization code flow with PKCE is supported"
+      - fieldname: tokenRevocationSupport
+        description: "Yes | No — whether explicit token revocation is supported (RFC 7009)"
+      - fieldname: mutualTlsRequired
+        description: "Yes | No — require client certificate authentication for service-to-service communication"
+      - fieldname: serviceAccountPolicy
+        description: How service accounts authenticate and what credential types they use
+      - fieldname: webhookSignatureVerification
+        description: "HMAC-SHA256 | RSA | EdDSA — method used to verify incoming webhook requests"
+      - fieldname: thirdPartyApiConsumption
+        description: Security requirements when consuming external third-party APIs (OWASP API10)
+      - fieldname: credentialTransmission
+        description: "Header | Body — where credentials are transmitted (Header via Authorization recommended)"
+      - fieldname: bearerTokenFormat
+        description: "JWT | Opaque | Reference — format used for bearer tokens"
+      - fieldname: notes
+        description: Additional API authentication notes
+  apaupo-form:
+    fields:
+      - fieldname: objectLevelAuthorization
+        required: true
+        description: How every API endpoint verifies the caller owns or may access the requested object (OWASP API1)
+      - fieldname: functionLevelAuthorization
+        description: How administrative vs. regular functions are separated and access-controlled (OWASP API5)
+      - fieldname: propertyLevelAuthorization
+        description: How field-level exposure is controlled — preventing excessive data exposure and mass assignment (OWASP API3)
+      - fieldname: permissionGranularity
+        description: "Endpoint | Resource | Field — granularity at which permissions are evaluated"
+      - fieldname: scopeDefinitions
+        description: "OAuth2 scopes required for API access (e.g. read:users, write:orders)"
+      - fieldname: scopeEnforcementLevel
+        description: "Gateway | Service | Both — where scope checks are enforced"
+      - fieldname: delegatedAccessPolicy
+        description: How delegation or impersonation is controlled (on-behalf-of flows)
+      - fieldname: bulkOperationAuthorization
+        description: How batch/bulk API operations are authorized — per-item or at collection level
+      - fieldname: contextualAuthorization
+        description: "IP, time-of-day, device, or geolocation-based access decisions"
+      - fieldname: massAssignmentPrevention
+        description: "How mass assignment attacks are prevented — allowlisted fields, DTOs, read-only markers"
+      - fieldname: horizontalPrivilegeEscalation
+        description: Controls preventing a user from accessing another user's data via direct object reference
+      - fieldname: verticalPrivilegeEscalation
+        description: Controls preventing regular users from accessing administrative functions
+      - fieldname: sensitiveBusinessFlowProtection
+        description: "How sensitive workflows (checkout, transfer) are protected from automated abuse (OWASP API6)"
+      - fieldname: workflowStateValidation
+        description: How out-of-order API execution is prevented (server-side state machine enforcement)
+      - fieldname: notes
+        description: Additional API authorization notes
+  arvp-form:
+    fields:
+      - fieldname: inputValidationStrategy
+        required: true
+        description: "Allowlist | Blocklist | SchemaValidation — primary validation approach (Allowlist recommended)"
+      - fieldname: schemaValidationEnforced
+        description: "Yes | No — whether JSON Schema or OpenAPI schema validation is enforced on all requests"
+      - fieldname: schemaValidationTool
+        description: Library or framework used for request schema validation
+      - fieldname: contentTypeValidation
+        description: "Yes | No — whether Content-Type header is validated against expected types"
+      - fieldname: acceptedContentTypes
+        description: "application/json | application/xml — comma-separated list of accepted content types"
+      - fieldname: rejectUnexpectedContentType
+        description: "Yes | No — respond with HTTP 415 for unsupported media types"
+      - fieldname: requestSizeLimit
+        description: "Maximum request body size (e.g. 1 MB, 10 MB) — reject with HTTP 413"
+      - fieldname: arrayLengthLimit
+        description: Maximum number of elements allowed in any JSON array in request body
+      - fieldname: nestedObjectDepthLimit
+        description: Maximum nesting depth for JSON objects to prevent DoS via deep nesting
+      - fieldname: stringFieldMaxLength
+        description: Default maximum character length for string fields unless overridden per field
+      - fieldname: parameterTypeEnforcement
+        description: "Yes | No — enforce strong typing (number, boolean, date) on query/path parameters"
+      - fieldname: numericRangeValidation
+        description: "Yes | No — enforce min/max bounds on numeric parameters"
+      - fieldname: dateFormatValidation
+        description: "ISO 8601 | RFC 3339 | Custom — required date/time format for all date fields"
+      - fieldname: encodingValidation
+        description: "UTF-8 | ASCII — accepted character encoding for request bodies"
+      - fieldname: fileUploadValidation
+        description: "Allowed extensions, MIME types, max file size, and content scanning requirements"
+      - fieldname: notes
+        description: Additional request validation notes
+  apcose-form:
+    fields:
+      - fieldname: corsEnabled
+        required: true
+        description: "Yes | No — whether CORS is enabled for the API"
+      - fieldname: allowedOrigins
+        description: "Explicit domain list or pattern — avoid wildcard * with credentials"
+      - fieldname: allowedMethods
+        description: "GET | POST | PUT | DELETE | PATCH — permitted HTTP methods"
+      - fieldname: allowedHeaders
+        description: "Authorization, Content-Type, X-Request-ID — allowed request headers"
+      - fieldname: exposedHeaders
+        description: "X-RateLimit-Remaining, X-Request-ID — response headers visible to client JavaScript"
+      - fieldname: credentialsAllowed
+        description: "Yes | No — Access-Control-Allow-Credentials (mutually exclusive with wildcard origin)"
+      - fieldname: preflightCacheMaxAge
+        description: Maximum time in seconds that preflight responses can be cached (e.g. 3600)
+      - fieldname: wildcardRestriction
+        description: "Yes | No — whether wildcard * origin is explicitly prohibited when credentials are used"
+      - fieldname: contentSecurityPolicy
+        description: "CSP directives for API responses (e.g. default-src none, frame-ancestors none)"
+      - fieldname: strictTransportSecurity
+        description: HSTS max-age and includeSubDomains directive for API endpoints
+      - fieldname: securityHeadersRequired
+        description: "X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: no-referrer"
+      - fieldname: privateNetworkAccess
+        description: How CORS private network access requests are handled (Access-Control-Request-Private-Network)
+      - fieldname: notes
+        description: Additional CORS security notes
+  apabpr-form:
+    fields:
+      - fieldname: rateLimitingEnabled
+        required: true
+        description: "Yes | No — whether security-focused rate limiting is enforced"
+      - fieldname: rateLimitScope
+        description: "PerClient | PerEndpoint | PerTenant | Global — at what level limits are applied"
+      - fieldname: authenticationEndpointLimits
+        description: Stricter rate limits for login/token endpoints to prevent brute-force attacks
+      - fieldname: sensitiveEndpointLimits
+        description: "Additional rate limits for password reset, MFA enrolment, payment endpoints"
+      - fieldname: bruteForceProtection
+        description: "Account lockout, progressive delays, CAPTCHA — how brute force authentication attacks are mitigated"
+      - fieldname: botDetectionPolicy
+        description: "CAPTCHA | BehavioralAnalysis | DeviceFingerprint | None — automated request detection"
+      - fieldname: ipReputationFiltering
+        description: "Yes | No — use IP reputation databases to filter known-malicious sources"
+      - fieldname: automaticBlocking
+        description: "Yes | No — automatically block clients exceeding abuse thresholds"
+      - fieldname: blockDuration
+        description: Temporary (minutes/hours) or permanent — duration of automatic blocks
+      - fieldname: geographicRestrictions
+        description: Region or country-based access restrictions for API endpoints
+      - fieldname: requestThrottlingOnFailure
+        description: Progressive delay or backoff on repeated authentication or validation failures
+      - fieldname: businessFlowProtection
+        description: How automated abuse of business-critical flows is detected and prevented (OWASP API6)
+      - fieldname: webhookFloodProtection
+        description: How webhook replay attacks and flood scenarios are prevented
+      - fieldname: notes
+        description: Additional abuse protection notes
+  apsemo-form:
+    fields:
+      - fieldname: apiAccessLogging
+        required: true
+        description: "Yes | No — whether all API access is logged with caller identity and action"
+      - fieldname: loggedAttributes
+        description: "Timestamp, clientId, endpoint, method, statusCode, responseTime, sourceIP — attributes captured per request"
+      - fieldname: sensitiveEndpointMonitoring
+        description: "Yes | No — enhanced logging for authentication, payment, and admin endpoints"
+      - fieldname: sensitiveDataRedaction
+        description: "Yes | No — redact PII, credentials, and tokens from API logs"
+      - fieldname: anomalyDetection
+        description: "Yes | No — detect anomalous API usage patterns (unusual volume, timing, geography)"
+      - fieldname: errorRateMonitoring
+        description: "Threshold and window for error-rate alerting (e.g. >5% 4xx in 5-min window)"
+      - fieldname: authenticationFailureTracking
+        description: "Yes | No — track and alert on authentication failure patterns per client/IP"
+      - fieldname: dataExfiltrationDetection
+        description: "Yes | No — detect unusual data volume patterns that may indicate exfiltration"
+      - fieldname: apiVersionInventory
+        description: "Yes | No — maintain a current inventory of all API versions and endpoints (OWASP API9)"
+      - fieldname: deprecatedEndpointMonitoring
+        description: "Yes | No — monitor and alert on usage of deprecated API endpoints or versions"
+      - fieldname: realTimeAlerts
+        description: "Yes | No — trigger real-time security alerts on threshold breaches"
+      - fieldname: securityResponseAutomation
+        description: "Automated actions on security events — block, throttle, escalate, notify"
+      - fieldname: complianceReporting
+        description: Frequency and format of API security compliance reports
+      - fieldname: notes
+        description: Additional API security monitoring notes
+  fuvp-form:
+    fields:
+      - fieldname: extensionValidationStrategy
+        required: true
+        description: "Allowlist | Blocklist | Both — approach to file extension validation (Allowlist recommended)"
+      - fieldname: allowedFileExtensions
+        description: "Comma-separated list of permitted extensions (e.g. jpg, png, pdf, docx)"
+      - fieldname: blockedFileExtensions
+        description: "Comma-separated list of explicitly blocked extensions (e.g. exe, bat, sh, php, js)"
+      - fieldname: doubleExtensionPrevention
+        description: "Yes | No — prevent bypass via double extensions like .jpg.php"
+      - fieldname: contentTypeValidation
+        description: "Yes | No — validate MIME type from Content-Type header against allowed types"
+      - fieldname: fileSignatureValidation
+        description: "Yes | No — validate file magic bytes match the declared content type"
+      - fieldname: signatureMismatchAction
+        description: "Reject | Quarantine | Log — action when file signature does not match extension"
+      - fieldname: filenameStrategy
+        description: "GenerateUUID | SanitizeOriginal | Preserve — how filenames are handled on upload"
+      - fieldname: filenameMaxLength
+        description: Maximum allowed filename length in characters
+      - fieldname: filenameAllowedCharacters
+        description: "Alphanumeric, hyphen, underscore, period — allowed characters in filenames"
+      - fieldname: pathTraversalPrevention
+        description: "Yes | No — strip or reject path components (../, /) in filenames"
+      - fieldname: nullBytePrevention
+        description: "Yes | No — reject filenames containing null bytes (%00)"
+      - fieldname: maxFileSizeBytes
+        description: "Maximum individual file size (e.g. 10 MB, 50 MB, 1 GB)"
+      - fieldname: maxUploadBatchSize
+        description: Maximum total size for multi-file uploads in a single request
+      - fieldname: maxConcurrentUploads
+        description: Maximum number of simultaneous file uploads per user
+      - fieldname: compressedFileSizeLimit
+        description: Maximum decompressed size for ZIP/archive files to prevent ZIP bombs
+      - fieldname: imageRewriting
+        description: "Yes | No — rewrite/re-encode images to strip embedded metadata and malicious payloads"
+      - fieldname: documentSanitization
+        description: "Yes | No — apply Content Disarm & Reconstruct (CDR) to office documents and PDFs"
+      - fieldname: metadataStripping
+        description: "Yes | No — remove EXIF, XMP, and other embedded metadata from uploaded files"
+      - fieldname: notes
+        description: Additional file upload validation notes
+  stenpo-form:
+    fields:
+      - fieldname: encryptionAtRest
+        required: true
+        description: "Yes | No — whether stored files are encrypted at rest"
+      - fieldname: encryptionAlgorithm
+        description: "AES-256-GCM | AES-256-CBC | ChaCha20-Poly1305 — algorithm for file encryption"
+      - fieldname: encryptionScope
+        description: "Volume | Bucket | PerFile | PerTenant — granularity at which encryption keys are applied"
+      - fieldname: serverSideEncryption
+        description: "SSE-S3 | SSE-KMS | SSE-C | ManagedKey — server-side encryption method"
+      - fieldname: clientSideEncryption
+        description: "Yes | No — whether files are encrypted before upload by the client"
+      - fieldname: clientSideEncryptionMethod
+        description: "Envelope encryption, client-managed keys — method for client-side encryption"
+      - fieldname: fileKeyRotation
+        description: Frequency and method of rotating file encryption keys
+      - fieldname: perTenantKeys
+        description: "Yes | No — whether each tenant has its own encryption key for file storage"
+      - fieldname: keyDeletionOnTenantRemoval
+        description: "Yes | No — whether tenant file encryption keys are destroyed when tenant is deleted"
+      - fieldname: encryptionInTransit
+        description: "Yes | No — TLS for file upload/download transport"
+      - fieldname: minimumTlsVersion
+        description: "TLS 1.2 | TLS 1.3 — minimum TLS version for file transfers"
+      - fieldname: backupEncryption
+        description: "Yes | No — whether file storage backups are encrypted with the same or separate keys"
+      - fieldname: notes
+        description: Additional storage encryption notes
+  facp-form:
+    fields:
+      - fieldname: fileAccessModel
+        required: true
+        description: "OwnerBased | RoleBased | ACL | Capability — how file access permissions are determined"
+      - fieldname: authenticationRequired
+        description: "Yes | No — whether authentication is required for all file access"
+      - fieldname: anonymousDownloadAllowed
+        description: "Yes | No — whether any files can be downloaded without authentication (public files)"
+      - fieldname: fileOwnershipModel
+        description: "User | Tenant | SharedOwnership — who owns uploaded files by default"
+      - fieldname: permissionGranularity
+        description: "Read | Write | Delete | Share | Admin — permission types supported on files"
+      - fieldname: folderLevelPermissions
+        description: "Yes | No — whether permissions can be set at folder/directory level with inheritance"
+      - fieldname: permissionInheritance
+        description: "Inherit | Override | None — how folder permissions propagate to contained files"
+      - fieldname: sharingEnabled
+        description: "Yes | No — whether files can be shared with other users or externally"
+      - fieldname: shareableLinkSupport
+        description: "Yes | No — support for time-limited or password-protected shareable URLs"
+      - fieldname: shareableLinkExpiration
+        description: "Default expiration time for shareable links (e.g. 24 hours, 7 days, never)"
+      - fieldname: externalSharingPolicy
+        description: "Allowed | RestrictedDomains | Disabled — whether files can be shared outside the tenant"
+      - fieldname: storageLocationPolicy
+        description: "SeparateServer | OutsideWebroot | CloudBucket — where files are stored relative to application"
+      - fieldname: tenantStorageIsolation
+        description: "SeparateBucket | PrefixPartition | SharedWithACL — how tenant files are isolated in storage"
+      - fieldname: filesystemPermissions
+        description: "Least-privilege file permission policy (read-only for web server, write for upload service)"
+      - fieldname: presignedUrlSupport
+        description: "Yes | No — use pre-signed URLs for time-limited direct file access"
+      - fieldname: presignedUrlMaxExpiry
+        description: "Maximum validity period for pre-signed URLs (e.g. 15 min, 1 hour)"
+      - fieldname: notes
+        description: Additional file access control notes
+  coscpo-form:
+    fields:
+      - fieldname: antivirusScanningEnabled
+        required: true
+        description: "Yes | No — whether uploaded files are scanned by antivirus before acceptance"
+      - fieldname: scanTiming
+        description: "OnUpload | Asynchronous | OnAccess | Periodic — when scanning occurs"
+      - fieldname: scanEngine
+        description: "ClamAV | CloudProvider | ThirdPartyAPI | Multiple — scanning engine or service used"
+      - fieldname: quarantinePolicy
+        description: "Quarantine | Reject | NotifyAndQuarantine — action when malicious content is detected"
+      - fieldname: quarantineRetentionDays
+        description: Number of days quarantined files are retained before permanent deletion
+      - fieldname: signatureUpdateFrequency
+        description: "Hourly | Daily | RealTime — how often antivirus signatures are updated"
+      - fieldname: cdrEnabled
+        description: "Yes | No — whether CDR is applied to office documents, PDFs, and similar file types"
+      - fieldname: cdrApplicableTypes
+        description: "PDF | DOCX | XLSX | Images — file types processed by CDR"
+      - fieldname: dlpScanningEnabled
+        description: "Yes | No — scan file contents for sensitive data (PII, credit cards, health records)"
+      - fieldname: dlpPolicies
+        description: "Regex patterns, trained classifiers, keyword lists — methods for detecting sensitive data in files"
+      - fieldname: dlpAction
+        description: "Block | Redact | Notify | Quarantine — action when DLP detects sensitive content"
+      - fieldname: contentModeration
+        description: "Yes | No — scan for illegal, offensive, or policy-violating content"
+      - fieldname: moderationMethod
+        description: "Automated | ManualReview | Hybrid — approach to content moderation"
+      - fieldname: hashBasedDetection
+        description: "Yes | No — use file hash databases (e.g. VirusTotal) to detect known-malicious files"
+      - fieldname: notes
+        description: Additional content scanning notes
+  fdsp-form:
+    fields:
+      - fieldname: downloadAuthenticationRequired
+        required: true
+        description: "Yes | No — whether authentication is required for file downloads"
+      - fieldname: downloadRateLimiting
+        description: "Yes | No — rate limit file downloads per user/IP to prevent DoS"
+      - fieldname: downloadRateLimit
+        description: Maximum downloads per minute/hour/day per user or IP
+      - fieldname: bandwidthThrottling
+        description: "Yes | No — throttle download bandwidth per user to prevent abuse"
+      - fieldname: contentDispositionPolicy
+        description: "Attachment | Inline | PerType — how Content-Disposition header is set (Attachment recommended for untrusted content)"
+      - fieldname: cdnDelivery
+        description: "Yes | No — serve files through a CDN for performance and DDoS protection"
+      - fieldname: hotlinkPrevention
+        description: "Yes | No — prevent direct linking to files from external sites"
+      - fieldname: cacheControlPolicy
+        description: "NoStore | Private | PublicShortTTL — cache directives for file download responses"
+      - fieldname: downloadAuditLogging
+        description: "Yes | No — log all file download events with user, timestamp, file, and IP"
+      - fieldname: downloadAlerts
+        description: "Yes | No — alert on unusual download patterns (bulk downloads, sensitive files)"
+      - fieldname: watermarking
+        description: "Yes | No — apply invisible watermarks to downloaded files for traceability"
+      - fieldname: notes
+        description: Additional file download security notes
+  stlipo-form:
+    fields:
+      - fieldname: retentionPolicy
+        required: true
+        description: "TimeBased | Indefinite | ComplianceDriven — default file retention strategy"
+      - fieldname: defaultRetentionPeriod
+        description: "Default duration files are kept before eligible for deletion (e.g. 90 days, 7 years)"
+      - fieldname: retentionByFileType
+        description: "Yes | No — different retention periods for different file categories"
+      - fieldname: legalHoldSupport
+        description: "Yes | No — ability to place legal holds preventing deletion regardless of retention policy"
+      - fieldname: archivingEnabled
+        description: "Yes | No — whether files are moved to low-cost archival tiers after a defined period"
+      - fieldname: archivalStorageTier
+        description: "Glacier | ColdStorage | NearlineStorage — target tier for archived files"
+      - fieldname: archivalTransitionDays
+        description: Number of days after last access before files move to archival storage
+      - fieldname: versioningEnabled
+        description: "Yes | No — maintain previous versions of overwritten or modified files"
+      - fieldname: maxVersions
+        description: Maximum number of previous versions to retain per file
+      - fieldname: versionRetentionDays
+        description: Number of days previous versions are retained
+      - fieldname: backupSchedule
+        description: "Daily | Hourly | Continuous — frequency of file storage backups"
+      - fieldname: backupRetentionDays
+        description: Number of days file backups are retained
+      - fieldname: crossRegionReplication
+        description: "Yes | No — replicate file storage to a secondary region for disaster recovery"
+      - fieldname: secureDeletionMethod
+        description: "CryptoShred | Overwrite | StandardDelete — method for permanent file deletion"
+      - fieldname: deletionConfirmation
+        description: "Yes | No — require explicit confirmation or approval for permanent file deletion"
+      - fieldname: deletionAuditLogging
+        description: "Yes | No — log all file deletion events for compliance and forensics"
+      - fieldname: notes
+        description: Additional storage lifecycle notes
+  acms-form:
+    fields:
+      - fieldname: primaryModel
+        required: true
+        description: "RBAC | ABAC | ReBAC | Hybrid-RBAC-ABAC | Hybrid-RBAC-ReBAC | Hybrid-ABAC-ReBAC | Hybrid-All — primary access control paradigm"
+      - fieldname: modelRationale
+        description: Why this model was chosen over alternatives
+      - fieldname: rbacEnabled
+        description: "Yes | No — role-based access control with permissions assigned to roles rather than directly to users"
+      - fieldname: abacEnabled
+        description: "Yes | No — attribute-based access control using subject, resource, action, and environment attributes per NIST SP 800-162"
+      - fieldname: rebacEnabled
+        description: "Yes | No — relationship-based access control granting access based on relationships between resources and users (e.g. Zanzibar model)"
+      - fieldname: policyLanguage
+        description: "XACML | OPA-Rego | CedarPolicy | CustomDSL | None — formal policy language for expressing access control rules"
+      - fieldname: policyDecisionPoint
+        description: "Embedded | ExternalPDP | Sidecar | CloudService — where access control decisions are evaluated"
+      - fieldname: policyEnforcementPoint
+        description: "APIGateway | Middleware | ServiceMesh | InApplication — where access control decisions are enforced"
+      - fieldname: policyAdministrationPoint
+        description: "AdminUI | ConfigFile | PolicyRepository | ExternalService — where policies are managed and maintained"
+      - fieldname: policyInformationPoint
+        description: "UserDirectory | AttributeStore | ExternalIdP | Database — source of attributes used in access decisions"
+      - fieldname: delegationModel
+        description: "None | Administrative | UserInitiated | Hierarchical — whether and how permissions can be delegated between users"
+      - fieldname: notes
+        description: Additional access control model selection notes
+  pegrpo-form:
+    fields:
+      - fieldname: functionLevelControl
+        description: "Yes | No — permissions control access to entire functions, operations, or API endpoints"
+      - fieldname: dataLevelControl
+        description: "Yes | No — permissions control access to specific data records, rows, or resource instances (horizontal access control)"
+      - fieldname: fieldLevelControl
+        description: "Yes | No — permissions control access to individual fields or attributes within a record (column-level security)"
+      - fieldname: uiElementControl
+        description: "Yes | No — permissions control visibility or availability of UI components, menus, or actions"
+      - fieldname: apiOperationControl
+        description: "Yes | No — permissions are specific to individual API operations (GET, POST, PUT, DELETE on specific resources)"
+      - fieldname: objectLevelControl
+        description: "Yes | No — permissions apply to individual business object instances (IDOR prevention through ownership checks)"
+      - fieldname: tenantLevelControl
+        description: "Yes | No — permissions provide isolation between tenants in a multi-tenant system"
+      - fieldname: finestGranularity
+        description: "Function | Data | Field | UIElement | APIOperation | Object — the finest level of permission granularity supported"
+      - fieldname: dynamicPermissions
+        description: "Yes | No — permissions can change dynamically based on runtime context (time, location, device, risk score)"
+      - fieldname: notes
+        description: Additional permission granularity notes
+  pecost-form:
+    fields:
+      - fieldname: compositionModel
+        required: true
+        description: "Additive | Subtractive | MostRestrictive | LeastRestrictive | OrderedPrecedence | WeightedPriority — how permissions compose"
+      - fieldname: defaultPolicy
+        required: true
+        description: "DenyByDefault | AllowByDefault — action when no explicit rule matches (OWASP: always deny by default)"
+      - fieldname: explicitDenyOverride
+        description: "Yes | No — whether explicit deny always overrides any allow (deny-trumps-allow semantics)"
+      - fieldname: rolePermissionInheritance
+        description: "Yes | No — whether child roles inherit permissions from parent roles in a hierarchy"
+      - fieldname: groupPermissionAggregation
+        description: "Union | Intersection | FirstMatch — how permissions from multiple group memberships combine"
+      - fieldname: conflictResolution
+        description: "DenyWins | AllowWins | MostSpecificWins | ExplicitWins | PriorityBased — how conflicting permissions are resolved"
+      - fieldname: permissionBoundary
+        description: "Yes | No — whether a maximum permission boundary constrains effective permissions regardless of assigned roles"
+      - fieldname: scopedPermissions
+        description: "Yes | No — whether permissions can be scoped to specific contexts (e.g. project, department, time window)"
+      - fieldname: temporaryElevation
+        description: "Yes | No — whether time-limited permission elevation is supported (just-in-time access, break-glass procedures)"
+      - fieldname: notes
+        description: Additional permission composition notes
+  accopo-form:
+    fields:
+      - fieldname: separationOfDuties
+        description: "Yes | No — enforce static or dynamic separation of duties to prevent conflicts of interest (e.g. creator cannot approve)"
+      - fieldname: sodEnforcement
+        description: "Static | Dynamic | Both — whether separation of duties is enforced at role-assignment time (static) or at runtime (dynamic)"
+      - fieldname: temporalConstraints
+        description: "Yes | No — time-based access restrictions (business hours, maintenance windows, embargo periods)"
+      - fieldname: locationConstraints
+        description: "Yes | No — geographic or network-based access restrictions (IP range, geofencing, VPN requirement)"
+      - fieldname: deviceConstraints
+        description: "Yes | No — device-based access restrictions (managed devices, compliance status, device type)"
+      - fieldname: riskAdaptiveAccess
+        description: "Yes | No — access decisions consider real-time risk scores (user behavior, threat intelligence, anomaly detection)"
+      - fieldname: contextualAttributes
+        description: "Comma-separated list of contextual attributes used in access decisions (e.g. time, location, device, riskScore, authenticationLevel, networkZone)"
+      - fieldname: maxSessionPermissions
+        description: "Yes | No — limit the maximum number of active permissions per session to reduce exposure from compromised sessions"
+      - fieldname: leastPrivilegeEnforcement
+        description: "Manual | Automated | ContinuousReview — how least privilege principle is enforced and verified over time"
+      - fieldname: privilegeCreepDetection
+        description: "Yes | No — automatically detect users who accumulate excessive permissions over time through role changes"
+      - fieldname: notes
+        description: Additional access constraint notes
+  peevbe-form:
+    fields:
+      - fieldname: evaluationLocation
+        required: true
+        description: "ServerSide | Gateway | ServiceMesh | Serverless — where permission checks are performed (OWASP: never client-side only)"
+      - fieldname: evaluationFrequency
+        required: true
+        description: "EveryRequest | SessionStart | Cached | Lazy — how often permissions are re-evaluated (OWASP: validate on every request)"
+      - fieldname: cachingStrategy
+        description: "None | ShortLived | SessionBound | DistributedCache — permission decision caching approach and TTL"
+      - fieldname: cacheTtlSeconds
+        description: Maximum time in seconds before cached permission decisions expire
+      - fieldname: failureMode
+        required: true
+        description: "DenyOnFailure | LastKnownGood | DegradedAccess — behavior when the authorization service is unavailable (OWASP: exit safely)"
+      - fieldname: authorizationLogging
+        description: "Yes | No — log all access control decisions including grants and denials for audit and incident response"
+      - fieldname: logDeniedRequests
+        description: "Yes | No — log details of all denied access attempts"
+      - fieldname: logSuccessfulAccess
+        description: "Yes | No — log successful access to sensitive resources for forensic analysis"
+      - fieldname: automatedTesting
+        description: "Yes | No — unit and integration tests verify authorization logic (OWASP: catch low-hanging security issues early)"
+      - fieldname: clientSideHints
+        description: "Yes | No — provide permission hints to UI for UX purposes while enforcing all checks server-side"
+      - fieldname: notes
+        description: Additional permission evaluation behavior notes
+  rohipo-form:
+    fields:
+      - fieldname: hierarchyModel
+        required: true
+        description: "Tree | DAG | Flat | Layered — structure of the role hierarchy (tree = single parent, DAG = multiple parents, flat = no inheritance, layered = tiered levels)"
+      - fieldname: maxHierarchyDepth
+        description: Maximum number of inheritance levels allowed (e.g. 5); 0 = unlimited depth
+      - fieldname: inheritanceMode
+        description: "Full | Selective | None — whether child roles automatically inherit all parent permissions (full), selected permissions (selective), or none"
+      - fieldname: multipleInheritance
+        description: "Yes | No — whether a role can inherit from more than one parent role (DAG model)"
+      - fieldname: permissionOverride
+        description: "Yes | No — whether child roles can override (restrict or extend) inherited permissions from parent roles"
+      - fieldname: activationConstraints
+        description: "Yes | No — whether role activation is subject to constraints (time-based, prerequisite roles, approval workflows)"
+      - fieldname: maxActiveRolesPerUser
+        description: Maximum number of roles a single user can hold simultaneously; 0 = unlimited
+      - fieldname: rolePriorityScheme
+        description: "HierarchyLevel | ExplicitWeight | None — how conflicts between equal-level roles are resolved"
+      - fieldname: automaticInheritanceRevocation
+        description: "Yes | No — whether removing a parent role automatically revokes inherited child-role permissions"
+      - fieldname: notes
+        description: Additional role hierarchy policy notes
+  rocepo-form:
+    fields:
+      - fieldname: certificationRequired
+        description: "Yes | No — whether periodic role certification (access review) is mandated"
+      - fieldname: certificationFrequency
+        description: "Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often role certifications are conducted"
+      - fieldname: certifier
+        description: "Manager | RoleOwner | SecurityOfficer | Automated — who performs the certification review"
+      - fieldname: nonResponseAction
+        description: "Revoke | Escalate | Extend | NoAction — what happens if the certifier does not respond within the deadline"
+      - fieldname: riskBasedScheduling
+        description: "Yes | No — whether high-risk role assignments are reviewed more frequently than low-risk ones"
+      - fieldname: automatedDetection
+        description: "Yes | No — whether the system automatically detects and flags anomalous or dormant role assignments"
+      - fieldname: dormantRoleThresholdDays
+        description: Number of days after which an unused role assignment is flagged as dormant (e.g. 90)
+      - fieldname: certificationAuditTrail
+        description: "Yes | No — whether certification decisions are logged for compliance and audit purposes"
+      - fieldname: notes
+        description: Additional role certification notes
+  tecopo-form:
+    fields:
+      - fieldname: contextResolutionMethod
+        required: true
+        description: "Token | Header | Domain | Path | Session | IDP-Asserted — how tenant identity is determined from incoming requests"
+      - fieldname: contextPropagation
+        description: "ThreadLocal | RequestScoped | ServiceMesh | TokenBased — how tenant context flows through application layers during authorization evaluation"
+      - fieldname: contextValidation
+        description: "SessionBinding | TokenClaim | DatabaseLookup | IDP-Asserted — how tenant context is validated against the authenticated user"
+      - fieldname: contextImmutability
+        description: "Yes | No — whether the tenant context is immutable once established for a request (prevents mid-request tampering)"
+      - fieldname: crossServicePropagation
+        description: "JwtClaim | Header | gRPC-Metadata | ContextObject — how tenant context propagates across service boundaries in distributed architectures"
+      - fieldname: missingContextBehavior
+        description: "Reject | DefaultTenant | Anonymous — what happens when tenant context cannot be determined (reject = deny access; defaultTenant = use platform default)"
+      - fieldname: notes
+        description: Additional tenant context policy notes
+  ctap-form:
+    fields:
+      - fieldname: crossTenantAccessAllowed
+        required: true
+        description: "Yes | No — whether any form of cross-tenant access is permitted in the system"
+      - fieldname: crossTenantAccessModel
+        description: "GlobalAdmin | ServiceAccount | ExplicitGrant | Federation | None — model governing how cross-tenant access is structured"
+      - fieldname: authorizationMechanism
+        description: "SuperAdminRole | ServiceAccountToken | ExplicitGrant | FederationAgreement — how cross-tenant operations are authorized when allowed"
+      - fieldname: resourceSharingModel
+        description: "None | ReferenceOnly | Copy | SharedOwnership | Linked — how resources can be shared across tenant boundaries"
+      - fieldname: idorPreventionStrategy
+        description: "CompositeKeys | QueryFilter | RLS | ScopedTokens — strategy to prevent insecure direct object references across tenants"
+      - fieldname: crossTenantAuditRequirement
+        description: "All | AdminOnly | None — level of audit logging required for cross-tenant operations"
+      - fieldname: accessReviewFrequency
+        description: "Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often cross-tenant access grants are reviewed"
+      - fieldname: notes
+        description: Additional cross-tenant access policy notes
+  teonpo-form:
+    fields:
+      - fieldname: authorizationProvisioningModel
+        required: true
+        description: "Template | Clone | Custom | Minimal — how authorization resources (roles, permissions, policies) are provisioned for new tenants"
+      - fieldname: defaultRoleTemplate
+        description: "Name or ID of the role template used to bootstrap initial roles for a new tenant (e.g. StandardSaaS, Enterprise, Minimal)"
+      - fieldname: adminRoleProvisioning
+        description: "AutoCreate | ManualAssign | InviteBased — how the initial tenant administrator role is set up"
+      - fieldname: initialPermissionSet
+        description: "Full | Minimal | Custom — what permissions are granted to a new tenant upon creation"
+      - fieldname: offboardingStrategy
+        description: "SoftDelete | HardDelete | Archive | Anonymize — how tenant authorization data is handled on offboarding"
+      - fieldname: resourceCleanupOnOffboarding
+        description: "Immediate | Deferred | Manual | PolicyBased — when authorization resources are cleaned up after tenant removal"
+      - fieldname: dataRetentionDays
+        description: "Number of days tenant authorization data (roles, assignments, audit logs) is retained after offboarding (0 = immediate)"
+      - fieldname: offboardingApproval
+        description: "None | PlatformAdmin | ComplianceOfficer | Both — who must approve tenant offboarding and data deletion"
+      - fieldname: notes
+        description: Additional tenant onboarding/offboarding notes
+  tbep-form:
+    fields:
+      - fieldname: enforcementLayer
+        required: true
+        description: "API | Service | Database | All — at which architectural layer tenant authorization boundaries are enforced"
+      - fieldname: authorizationFilterStrategy
+        description: "QueryFilter | TokenScope | PolicyEngine | Middleware — how tenant boundaries are applied in authorization decisions"
+      - fieldname: implicitTenantFilter
+        description: "Yes | No — whether all authorization queries automatically include a tenant filter (defense-in-depth)"
+      - fieldname: escalationPrevention
+        description: "StrictScoping | RoleSeparation | TokenIsolation | All — how privilege escalation across tenant boundaries is prevented"
+      - fieldname: sharedServiceAuthorization
+        description: "ServiceAccount | PlatformRole | TenantAgnostic | ScopedProxy — how shared platform services authorize operations that span or are independent of tenants"
+      - fieldname: tenantSwitchingPolicy
+        description: "ReAuthenticate | SessionSwitch | TokenExchange | NotAllowed — how users belonging to multiple tenants switch their active tenant context"
+      - fieldname: multiTenantUserSupport
+        description: "Yes | No — whether a single user identity can belong to and operate within multiple tenants"
+      - fieldname: authorizationCaching
+        description: "None | PerTenant | SharedWithValidation | InvalidateOnSwitch — how authorization decisions are cached with respect to tenant context to prevent cross-tenant cache leakage"
+      - fieldname: notes
+        description: Additional tenant boundary enforcement notes
+  earp-form:
+    fields:
+      - fieldname: defaultAlgorithm
+        required: true
+        description: "AES-256 | AES-128 | ChaCha20 | 3DES | Other — symmetric encryption algorithm used as the default for data at rest (AES-256 recommended per OWASP/NIST)"
+      - fieldname: defaultKeyLength
+        required: true
+        description: "128 | 192 | 256 — minimum key length in bits for symmetric encryption (256-bit recommended for sensitive data)"
+      - fieldname: cipherMode
+        description: "GCM | CCM | CTR | CBC | XTS — block cipher mode of operation (GCM or CCM recommended for authenticated encryption; XTS for full-disk encryption)"
+      - fieldname: encryptionLayer
+        description: "Application | Database | Filesystem | Hardware | Multiple — at which architectural layer encryption is primarily applied (multiple = defense-in-depth across layers)"
+      - fieldname: fieldLevelEncryption
+        description: "Yes | No — whether individual sensitive fields (e.g. SSN, credit card) are encrypted at the application level beyond database/disk encryption"
+      - fieldname: transparentDataEncryption
+        description: "Yes | No — whether TDE (Transparent Data Encryption) is used at the database engine level (e.g. SQL Server TDE, Oracle TDE, PostgreSQL pgcrypto)"
+      - fieldname: fullDiskEncryption
+        description: "Yes | No — whether full-disk or volume-level encryption is required (e.g. LUKS, BitLocker, AWS EBS encryption)"
+      - fieldname: minimizeSensitiveStorage
+        description: "Yes | No — whether the system actively minimizes storage of sensitive data (e.g. tokenization, truncation, avoiding unnecessary PII retention)"
+      - fieldname: complianceFramework
+        description: "FIPS-140-2 | PCI-DSS | HIPAA | GDPR | SOC2 | None — regulatory or compliance framework dictating encryption requirements"
+      - fieldname: notes
+        description: Additional encryption at rest policy notes
+  daenpo-form:
+    fields:
+      - fieldname: databaseEncryptionMethod
+        required: true
+        description: "TDE | ColumnLevel | CellLevel | ApplicationLayer | None — method of encrypting data within the database"
+      - fieldname: encryptedColumnStrategy
+        description: "Deterministic | Randomized | Homomorphic | Envelope — how individual columns are encrypted (deterministic allows equality search; randomized provides stronger security)"
+      - fieldname: indexOnEncryptedColumns
+        description: "Yes | No — whether indexes are maintained on encrypted columns (requires deterministic encryption or specialized schemes)"
+      - fieldname: searchOnEncryptedData
+        description: "None | DeterministicMatch | BlindIndex | Searchable Encryption | DecryptThenSearch — strategy for querying encrypted data without full decryption"
+      - fieldname: connectionEncryption
+        description: "Yes | No — whether database connections use TLS/SSL for data in transit to/from the database"
+      - fieldname: databaseEngine
+        description: "PostgreSQL | MySQL | SQLServer | Oracle | MongoDB | Other — target database engine (encryption capabilities vary by engine)"
+      - fieldname: notes
+        description: Additional database encryption notes
+  fsep-form:
+    fields:
+      - fieldname: fileEncryptionMethod
+        required: true
+        description: "FileLevel | VolumeLevel | ObjectLevel | ClientSide | ServerSide | None — how files and blobs are encrypted at rest"
+      - fieldname: cloudStorageEncryption
+        description: "SSE-S3 | SSE-KMS | SSE-C | AzureSSE | GCS-CMEK | None — cloud provider server-side encryption method if applicable"
+      - fieldname: clientSideEncryption
+        description: "Yes | No — whether files are encrypted before upload (client-side encryption for defense-in-depth)"
+      - fieldname: encryptedFileFormats
+        description: "Comma-separated list of file types that must be encrypted (e.g. PDF, XLSX, CSV, backup dumps, log archives)"
+      - fieldname: localDeviceEncryption
+        description: "Yes | No — whether local device storage (mobile, desktop) must be encrypted for cached or offline data"
+      - fieldname: temporaryFileEncryption
+        description: "Yes | No — whether temporary files and caches must be encrypted (prevents data leakage through temp files)"
+      - fieldname: notes
+        description: Additional file and storage encryption notes
+  baenpo-form:
+    fields:
+      - fieldname: backupEncryptionRequired
+        required: true
+        description: "Yes | No — whether all backups (database, file, system) must be encrypted"
+      - fieldname: backupEncryptionMethod
+        description: "SameAsSource | SeparateKey | EnvelopeEncryption | CloudProviderManaged — how backup data is encrypted (SameAsSource = same keys as live data)"
+      - fieldname: separateBackupKeys
+        description: "Yes | No — whether backups use separate encryption keys from production data (recommended for key rotation independence)"
+      - fieldname: backupKeyRotation
+        description: "OnEveryBackup | Monthly | Quarterly | Annual | OnKeyChange — how often backup encryption keys are rotated"
+      - fieldname: encryptedBackupVerification
+        description: "Yes | No — whether backup integrity and encryption are periodically verified through test restores"
+      - fieldname: offSiteBackupEncryption
+        description: "Yes | No — whether off-site or disaster recovery backups have additional encryption requirements"
+      - fieldname: notes
+        description: Additional backup encryption notes
+  tlprpo-form:
+    fields:
+      - fieldname: minimumTlsVersion
+        required: true
+        description: "TLS1.2 | TLS1.3 — minimum acceptable TLS version (TLS 1.3 recommended; TLS 1.0/1.1 are deprecated and should not be used; PCI DSS forbids TLS 1.0)"
+      - fieldname: preferredTlsVersion
+        description: "TLS1.3 | TLS1.2 — preferred TLS version for new connections (TLS 1.3 provides improved security and performance)"
+      - fieldname: allowedCipherSuites
+        description: "Comma-separated cipher suite names or categories (e.g. TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256; disable NULL, Anonymous, EXPORT, DES, RC4 ciphers)"
+      - fieldname: preferAuthenticatedEncryption
+        description: "Yes | No — whether GCM/CCM authenticated cipher modes are preferred over CBC (recommended: Yes)"
+      - fieldname: dhGroups
+        description: "Comma-separated DH groups for key exchange (e.g. x25519, prime256v1, ffdhe3072; per RFC 7919)"
+      - fieldname: tlsCompressionDisabled
+        description: "Yes | No — whether TLS compression is disabled to prevent CRIME/BREACH attacks (recommended: Yes)"
+      - fieldname: sessionResumption
+        description: "Tickets | SessionID | None — TLS session resumption mechanism (tickets recommended for TLS 1.3; session IDs for TLS 1.2)"
+      - fieldname: complianceFramework
+        description: "FIPS-140-2 | PCI-DSS | HIPAA | NIST-800-52 | None — regulatory framework dictating TLS requirements"
+      - fieldname: notes
+        description: Additional TLS protocol policy notes
+  cemapo-form:
+    fields:
+      - fieldname: certificateAuthority
+        required: true
+        description: "LetsEncrypt | DigiCert | GlobalSign | InternalCA | Other — certificate authority used for issuing TLS certificates"
+      - fieldname: validationType
+        description: "DV | OV | EV — Domain Validated, Organization Validated, or Extended Validation (DV is sufficient for most applications; EV provides no additional browser security benefits)"
+      - fieldname: minimumKeyLength
+        description: "2048 | 3072 | 4096 — minimum RSA key length in bits for certificates (2048 minimum per NIST; 3072+ recommended)"
+      - fieldname: keyType
+        description: "RSA | ECDSA | Ed25519 — certificate key type (ECDSA with P-256/P-384 or Ed25519 preferred for performance; RSA for broadest compatibility)"
+      - fieldname: hashingAlgorithm
+        description: "SHA-256 | SHA-384 | SHA-512 — certificate hashing algorithm (SHA-256 minimum; MD5 and SHA-1 must not be used)"
+      - fieldname: wildcardCertificatePolicy
+        description: "Allowed | Restricted | Prohibited — policy on wildcard certificates (* certs; use with caution per OWASP — violates least privilege principle)"
+      - fieldname: certificateLifetimeDays
+        description: "Maximum certificate validity in days (e.g. 90 for LetsEncrypt auto-renewal, 365 for annual, 730 for 2-year)"
+      - fieldname: automatedRenewal
+        description: "Yes | No — whether certificates are automatically renewed via ACME or similar protocol before expiration"
+      - fieldname: certificateTransparency
+        description: "Yes | No — whether certificates are logged in Certificate Transparency logs for public auditability"
+      - fieldname: caaRecords
+        description: "Yes | No — whether CAA DNS records restrict which CAs can issue certificates for the domain"
+      - fieldname: notes
+        description: Additional certificate management notes
+  mutlpo-form:
+    fields:
+      - fieldname: mtlsEnabled
+        required: true
+        description: "Yes | No — whether mutual TLS is used anywhere in the system (client certificates for authentication)"
+      - fieldname: mtlsScope
+        description: "AllServices | InternalOnly | HighValueAPIs | SpecificEndpoints — which communication paths require mTLS"
+      - fieldname: clientCertificateIssuance
+        description: "InternalCA | ExternalCA | SelfSigned | Automated — how client certificates are issued and distributed"
+      - fieldname: revocationChecking
+        description: "CRL | OCSP | OCSPStapling | None — how certificate revocation status is verified"
+      - fieldname: fallbackOnMtlsFailure
+        description: "Reject | FallbackToTLS | DegradeWithWarning — behavior when mTLS handshake fails (Reject recommended for high-security channels)"
+      - fieldname: clientCertificateRotation
+        description: "Automated | Manual | OnExpiry — how client certificates are rotated"
+      - fieldname: notes
+        description: Additional mutual TLS policy notes
+  trsepo-form:
+    fields:
+      - fieldname: hstsEnabled
+        required: true
+        description: "Yes | No — whether HTTP Strict Transport Security header is sent to force browsers to use HTTPS"
+      - fieldname: hstsMaxAgeDays
+        description: HSTS max-age value in days (e.g. 365 = 1 year; 730 = 2 years; must be sufficiently long to prevent downgrade)
+      - fieldname: hstsIncludeSubdomains
+        description: "Yes | No — whether HSTS applies to all subdomains (recommended: Yes when all subdomains support HTTPS)"
+      - fieldname: hstsPreload
+        description: "Yes | No — whether the domain is submitted to the HSTS preload list (hardcoded into browsers; requires includeSubDomains and long max-age)"
+      - fieldname: httpToHttpsRedirect
+        description: "Yes | No — whether HTTP requests are permanently redirected (301) to HTTPS"
+      - fieldname: secureCookieFlag
+        description: "Yes | No — whether all cookies are marked with Secure flag (browsers only send them over HTTPS)"
+      - fieldname: preventMixedContent
+        description: "Yes | No — whether loading of non-TLS resources from TLS pages is blocked"
+      - fieldname: sensitiveDataCaching
+        description: "NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)"
+      - fieldname: notes
+        description: Additional transport security policy notes
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    usermanagement:
-      section-type: USMGT
+    usmgt:
+      section-type: usmgt
       optional: true
-    identificationandauthentication:
-      section-type: IDAUT
+    idaut:
+      section-type: idaut
       optional: true
-    resourceprotection:
-      section-type: RESPRO
+    respro:
+      section-type: respro
       optional: true
-    userauthorization:
-      section-type: USAU
+    usau:
+      section-type: usau
       optional: true
-    sensitivedataencryption:
-      section-type: SEDAEN
+    sedaen:
+      section-type: sedaen
       optional: true
-    auditandlogging:
-      section-type: AUANLO
+    auanlo:
+      section-type: auanlo
       optional: true
-    rolematrix:
-      section-type: ROMA
+    roma:
+      section-type: roma
       optional: true
-    complianceframework:
-      section-type: CF
+    cf:
+      section-type: cf
       optional: true

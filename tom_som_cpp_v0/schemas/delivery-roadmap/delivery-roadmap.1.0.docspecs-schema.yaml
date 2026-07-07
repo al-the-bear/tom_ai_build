@@ -1,677 +1,896 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: delivery-roadmap/1.0
 
+title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
-  DEOPEN-OPTI-LST:
-    prefix: deopen_opti_lst
+  deopen-opti:
+    prefix: DEOPEN_OPTI_
+    subsection-types:
+      does:
+        max-count: 1
+      doei:
+        max-count: 1
+      doef:
+        max-count: 1
+      doeto:
+        max-count: 1
     pattern-check-id:
-      pattern: ^deopen_opti_lst-\d+$
-      error-message: ID must match deopen_opti_lst-NNN
+      pattern: "^DEOPEN-OPTI-[0-9]+$"
+      error-message: IDs of this section must match DEOPEN-OPTI-xxx
     description: Add one entry per decision option.
-  DEPOEN-ITEM-LST:
-    prefix: depoen_item_lst
+  depoen-item:
+    prefix: DEPOEN_ITEM_
+    subsection-types:
+      dpec:
+        max-count: 1
+      dpes:
+        max-count: 1
+      depoencr:
+        max-count: 1
+      dper:
+        max-count: 1
     pattern-check-id:
-      pattern: ^depoen_item_lst-\d+$
-      error-message: ID must match depoen_item_lst-NNN
+      pattern: "^DEPOEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match DEPOEN-ITEM-xxx
     description: Add one entry per decision point.
-  FEDEEN-ITEM-LST:
-    prefix: fedeen_item_lst
+  fedeen-item:
+    prefix: FEDEEN_ITEM_
     pattern-check-id:
-      pattern: ^fedeen_item_lst-\d+$
-      error-message: ID must match fedeen_item_lst-NNN
+      pattern: "^FEDEEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match FEDEEN-ITEM-xxx
     description: Add one entry per feature dependency.
-  FEPREN-ITEM-LST:
-    prefix: fepren_item_lst
-    min-count-in-document: 1
+  fepren-item:
+    prefix: FEPREN_ITEM_
+    subsection-types:
+      feid:
+        max-count: 1
+      febuva:
+        max-count: 1
+      feef:
+        max-count: 1
+      feprsc:
+        max-count: 1
+      festas:
+        max-count: 1
+      fedein:
+        max-count: 1
+      fest-stak:
+        max-count: infinite
+      fetr:
+        max-count: 1
+      fs:
+        max-count: 1
     pattern-check-id:
-      pattern: ^fepren_item_lst-\d+$
-      error-message: ID must match fepren_item_lst-NNN
+      pattern: "^FEPREN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match FEPREN-ITEM-xxx
     description: Add one entry per prioritized feature.
-  FESTM1-ITEM-LST:
-    prefix: festm1_item_lst
+  festm1-item:
+    prefix: FESTM1_ITEM_
+    subsection-types:
+      fsma:
+        max-count: 1
+      fsmr:
+        max-count: 1
+      fsmd:
+        max-count: 1
+      festmaac:
+        max-count: 1
     pattern-check-id:
-      pattern: ^festm1_item_lst-\d+$
-      error-message: ID must match festm1_item_lst-NNN
+      pattern: "^FESTM1-ITEM-[0-9]+$"
+      error-message: IDs of this section must match FESTM1-ITEM-xxx
     description: Add one entry per feature-stage mapping.
-  MIPHRE-RESO-LST:
-    prefix: miphre_reso_lst
+  miphre-reso:
+    prefix: MIPHRE_RESO_
     pattern-check-id:
-      pattern: ^miphre_reso_lst-\d+$
-      error-message: ID must match miphre_reso_lst-NNN
+      pattern: "^MIPHRE-RESO-[0-9]+$"
+      error-message: IDs of this section must match MIPHRE-RESO-xxx
     description: Add one entry per migration-phase resource.
-  STAGDP-DEPE-LST:
-    prefix: stagdp_depe_lst
+  stagdp-depe:
+    prefix: STAGDP_DEPE_
     pattern-check-id:
-      pattern: ^stagdp_depe_lst-\d+$
-      error-message: ID must match stagdp_depe_lst-NNN
+      pattern: "^STAGDP-DEPE-[0-9]+$"
+      error-message: IDs of this section must match STAGDP-DEPE-xxx
     description: Add one entry per staging dependency.
-  STAGDR-DRIV-LST:
-    prefix: stagdr_driv_lst
+  stagdr-driv:
+    prefix: STAGDR_DRIV_
     pattern-check-id:
-      pattern: ^stagdr_driv_lst-\d+$
-      error-message: ID must match stagdr_driv_lst-NNN
+      pattern: "^STAGDR-DRIV-[0-9]+$"
+      error-message: IDs of this section must match STAGDR-DRIV-xxx
     description: Add one entry per staging driver.
-  STAGSE-STAG-LST:
-    prefix: stagse_stag_lst
-    min-count-in-document: 1
+  stagse-stag:
+    prefix: STAGSE_STAG_
+    subsection-types:
+      stsuid:
+        max-count: 1
+      stsuti:
+        max-count: 1
+      stsusc:
+        max-count: 1
+      stsure-reso:
+        max-count: infinite
+      stsude-depe:
+        max-count: infinite
+      stsuqu:
+        max-count: 1
+      stsust:
+        max-count: 1
     pattern-check-id:
-      pattern: ^stagse_stag_lst-\d+$
-      error-message: ID must match stagse_stag_lst-NNN
+      pattern: "^STAGSE-STAG-[0-9]+$"
+      error-message: IDs of this section must match STAGSE-STAG-xxx
     description: Add one entry per stage summary.
-  STGMRS-ITEM-LST:
-    prefix: stgmrs_item_lst
-    min-count-in-document: 1
+  stgmrs-item:
+    prefix: STGMRS_ITEM_
+    subsection-types:
+      smri:
+        max-count: 1
+      smrpi:
+        max-count: 1
+      smrm:
+        max-count: 1
+      smrc:
+        max-count: 1
+      stmirimo:
+        max-count: 1
+      smro:
+        max-count: 1
+      smrr:
+        max-count: 1
+      smrs:
+        max-count: 1
     pattern-check-id:
-      pattern: ^stgmrs_item_lst-\d+$
-      error-message: ID must match stgmrs_item_lst-NNN
+      pattern: "^STGMRS-ITEM-[0-9]+$"
+      error-message: IDs of this section must match STGMRS-ITEM-xxx
     description: Add one entry per migration risk.
-  STGSUC-SUCC-LST:
-    prefix: stgsuc_succ_lst
+  stgsuc-succ:
+    prefix: STGSUC_SUCC_
+    subsection-types:
+      sscem:
+        max-count: 1
+      sscev:
+        max-count: 1
+      ssces:
+        max-count: 1
     pattern-check-id:
-      pattern: ^stgsuc_succ_lst-\d+$
-      error-message: ID must match stgsuc_succ_lst-NNN
-    description: Success Criteria — contains 0+× StageSuccessCriterion.
-  STMIRE-RESO-LST:
-    prefix: stmire_reso_lst
-    pattern-check-id:
-      pattern: ^stmire_reso_lst-\d+$
-      error-message: ID must match stmire_reso_lst-NNN
-    description: Add one entry per migration resource.
-  STSUDE-DEPE-LST:
-    prefix: stsude_depe_lst
-    pattern-check-id:
-      pattern: ^stsude_depe_lst-\d+$
-      error-message: ID must match stsude_depe_lst-NNN
-    description: Dependencies and risks.
-  STSURE-RESO-LST:
-    prefix: stsure_reso_lst
-    pattern-check-id:
-      pattern: ^stsure_reso_lst-\d+$
-      error-message: ID must match stsure_reso_lst-NNN
-    description: Resources and budget.
-  KEYAS-KEYA-LST:
-    prefix: keyas_keya_lst
-    pattern-check-id:
-      pattern: ^keyas_keya_lst-\d+$
-      error-message: ID must match keyas_keya_lst-NNN
-    description: Add one entry per key assumption.
-  MGPHS-ITEM-LST:
-    prefix: mgphs_item_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^mgphs_item_lst-\d+$
-      error-message: ID must match mgphs_item_lst-NNN
-    description: Add one entry per migration phase.
-  RVCRI-REVI-LST:
-    prefix: rvcri_revi_lst
-    pattern-check-id:
-      pattern: ^rvcri_revi_lst-\d+$
-      error-message: ID must match rvcri_revi_lst-NNN
-    description: Add one entry per review criterion.
-  STAGE-STAG-LST:
-    prefix: stage_stag_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^stage_stag_lst-\d+$
-      error-message: ID must match stage_stag_lst-NNN
-    description: Stages (list).
-  STAGI-CONS-LST:
-    prefix: stagi_cons_lst
-    pattern-check-id:
-      pattern: ^stagi_cons_lst-\d+$
-      error-message: ID must match stagi_cons_lst-NNN
-    description: Add one entry per staging constraint.
-  SUSST-SUBS-LST:
-    prefix: susst_subs_lst
-    pattern-check-id:
-      pattern: ^susst_subs_lst-\d+$
-      error-message: ID must match susst_subs_lst-NNN
-    description: Sub-stages and Milestones — contains 0+× SubStage.
-  FEST-STAK-LST:
-    prefix: fest_stak_lst
-    pattern-check-id:
-      pattern: ^fest_stak_lst-\d+$
-      error-message: ID must match fest_stak_lst-NNN
-    description: Add one entry per feature stakeholder.
-  MIEN-ENVI-LST:
-    prefix: mien_envi_lst
-    pattern-check-id:
-      pattern: ^mien_envi_lst-\d+$
-      error-message: ID must match mien_envi_lst-NNN
-    description: Add one entry per migration environment.
-  MIST-STAK-LST:
-    prefix: mist_stak_lst
-    pattern-check-id:
-      pattern: ^mist_stak_lst-\d+$
-      error-message: ID must match mist_stak_lst-NNN
-    description: Add one entry per migration stakeholder.
-  MISY-SYST-LST:
-    prefix: misy_syst_lst
-    pattern-check-id:
-      pattern: ^misy_syst_lst-\d+$
-      error-message: ID must match misy_syst_lst-NNN
-    description: Add one entry per source system.
-  MOEN-ITEM-LST:
-    prefix: moen_item_lst
-    pattern-check-id:
-      pattern: ^moen_item_lst-\d+$
-      error-message: ID must match moen_item_lst-NNN
-    description: Add one entry per MoSCoW-classified feature.
-  MPDR-DRYR-LST:
-    prefix: mpdr_dryr_lst
-    pattern-check-id:
-      pattern: ^mpdr_dryr_lst-\d+$
-      error-message: ID must match mpdr_dryr_lst-NNN
-    description: Add one entry per migration dry run.
-  PGRE-ITEM-LST:
-    prefix: pgre_item_lst
-    pattern-check-id:
-      pattern: ^pgre_item_lst-\d+$
-      error-message: ID must match pgre_item_lst-NNN
-    description: Add one entry per phase gate review.
-  STDE-DEPE-LST:
-    prefix: stde_depe_lst
-    pattern-check-id:
-      pattern: ^stde_depe_lst-\d+$
-      error-message: ID must match stde_depe_lst-NNN
-    description: Dependencies.
-  STRE-RESO-LST:
-    prefix: stre_reso_lst
-    pattern-check-id:
-      pattern: ^stre_reso_lst-\d+$
-      error-message: ID must match stre_reso_lst-NNN
-    description: Resources and budget.
-  STST-STAK-LST:
-    prefix: stst_stak_lst
-    pattern-check-id:
-      pattern: ^stst_stak_lst-\d+$
-      error-message: ID must match stst_stak_lst-NNN
-    description: Stakeholders and communication.
-  DEPOENCR:
-    prefix: depoencr
-    description: Criteria and inputs for decision point.
-  FESTMAAC:
-    prefix: festmaac
-    description: Acceptance and notes.
-  PHGAREEN:
-    prefix: phgareen
-    description: A phase gate review entry (form).
-  STMIRIMO:
-    prefix: stmirimo
-    description: Monitoring and detection.
-  SUSTENST:
-    prefix: sustenst
-    description: Current status.
-  DAMIST:
-    prefix: damist
-    description: 13.5. Data Migration Strategy.
-  FEBUVA:
-    prefix: febuva
-    description: Business value for a feature priority entry.
-  FEDEIN:
-    prefix: fedein
-    description: Dependencies info for a feature priority entry.
-  FEPRBA:
-    prefix: feprba
-    description: Backlog health.
-  FEPRC1:
-    prefix: feprc1
-    description: Capacity constraints.
-  FEPRCA:
-    prefix: feprca
-    description: Cadence and triggers.
-  FEPRME:
-    prefix: feprme
-    description: Methodology and scoring.
-  FEPRRE:
-    prefix: feprre
-    description: 13.4.3. Feature Priority Register.
-  FEPRSC:
-    prefix: feprsc
-    description: Priority scoring for a feature priority entry.
-  FEPRST:
-    prefix: feprst
-    description: Stakeholder involvement.
-  FEPRTR:
-    prefix: feprtr
-    description: Traceability.
-  FESTAS:
-    prefix: festas
-    description: Stage assignment for a feature priority entry.
-  FESTMA:
-    prefix: festma
-    description: 13.4.2. Feature-Stage Matrix.
-  INDEFL:
-    prefix: indefl
-    description: 13.7. Initial Development Flow.
-  MIDAQU:
-    prefix: midaqu
-    description: Data quality strategy for migration.
-  MIPHAC:
-    prefix: miphac
-    description: Acceptance criteria for migration phase.
-  MIPHID:
-    prefix: miphid
-    description: Phase identity for migration phase.
-  MIPHME:
-    prefix: miphme
-    description: Migration method for migration phase.
-  MIPHRE:
-    prefix: miphre
-    description: Resources for migration phase.
-  MIPHRO:
-    prefix: miphro
-    description: Rollback for migration phase.
-  MIPHSC:
-    prefix: miphsc
-    description: Schedule and dependencies for migration phase.
-  MIPHST:
-    prefix: miphst
-    description: Status for migration phase.
-  MIPHTR:
-    prefix: miphtr
-    description: Transformation and mapping for migration phase.
-  MIPHVA:
-    prefix: miphva
-    description: Validation and reconciliation for migration phase.
-  MOENCL:
-    prefix: moencl
-    description: MoSCoW classification details.
-  MOENTR:
-    prefix: moentr
-    description: Traceability and notes.
-  MOENVA:
-    prefix: moenva
-    description: Value and effort estimates.
-  PHGAAU:
-    prefix: phgaau
-    description: Authority and participants.
-  PHGAEN:
-    prefix: phgaen
-    description: Entry conditions.
-  PHGAEV:
-    prefix: phgaev
-    description: Evidence.
-  PHGAEX:
-    prefix: phgaex
-    description: Exit conditions and outcome.
-  PHGAID:
-    prefix: phgaid
-    description: Gate identity.
-  PHGARE:
-    prefix: phgare
-    description: 13.6.1. Phase Gate Reviews.
-  PHGASC:
-    prefix: phgasc
-    description: Schedule.
-  SGOVBD:
-    prefix: sgovbd
-    description: Budget distribution for stage overview.
-  SGOVBS:
-    prefix: sgovbs
-    description: Planning baseline for stage overview.
-  SGOVDP:
-    prefix: sgovdp
-    description: Cross-stage dependencies for stage overview.
-  SGOVRS:
-    prefix: sgovrs
-    description: Resource allocation for stage overview.
-  SGOVSC:
-    prefix: sgovsc
-    description: Schedule analytics for stage overview.
-  STAGAS:
-    prefix: stagas
-    description: Approach selection for staging strategy.
-  STAGCM:
-    prefix: stagcm
-    description: Communication and change management for staging.
-  STAGCO:
-    prefix: stagco
-    description: Rollback and cutover strategy for staging.
-  STAGCX:
-    prefix: stagcx
-    description: Complexity assessment for staging strategy.
-  STAGDP:
-    prefix: stagdp
-    description: Dependencies for staging strategy.
-  STAGDR:
-    prefix: stagdr
-    description: Key drivers for staging strategy.
-  STAGFA:
-    prefix: stagfa
-    description: Framework alignment for staging strategy.
-  STAGGV:
-    prefix: staggv
-    description: Governance for staging strategy.
-  STAGOV:
-    prefix: stagov
-    description: 13.2. Stage Overview.
-  STAGRD:
-    prefix: stagrd
-    description: Readiness and resources for staging strategy.
-  STAGRK:
-    prefix: stagrk
-    description: Risk assessment for staging strategy.
-  STAGRT:
-    prefix: stagrt
-    description: Rationale and justification for staging strategy.
-  STAGSC:
-    prefix: stagsc
-    description: Success criteria for staging strategy.
-  STAGSE:
-    prefix: stagse
-    description: A stage summary entry (form).
-  STAGST:
-    prefix: stagst
-    description: 13.1. Staging Strategy.
-  STGMRS:
-    prefix: stgmrs
-    description: A stage migration risk entry (form).
-  STGSUC:
-    prefix: stgsuc
+      pattern: "^STGSUC-SUCC-[0-9]+$"
+      error-message: IDs of this section must match STGSUC-SUCC-xxx
     description: A success criterion entry (form).
-  STMIRE:
-    prefix: stmire
-    description: Budget and resources for migration.
-  STMIRI:
-    prefix: stmiri
-    description: 13.5.2. Migration Risks.
-  STOVC1:
-    prefix: stovc1
-    description: Assumptions and constraints for stage overview.
-  STOVCO:
-    prefix: stovco
-    description: Stakeholder communication for stage overview.
-  STOVQU:
-    prefix: stovqu
-    description: Quality and compliance targets for stage overview.
-  STOVRI:
-    prefix: stovri
-    description: Risk profile for stage overview.
-  STOVST:
-    prefix: stovst
-    description: Plan status and health for stage overview.
-  STSUDE:
-    prefix: stsude
+  stmire-reso:
+    prefix: STMIRE_RESO_
+    pattern-check-id:
+      pattern: "^STMIRE-RESO-[0-9]+$"
+      error-message: IDs of this section must match STMIRE-RESO-xxx
+    description: Add one entry per migration resource.
+  stsude-depe:
+    prefix: STSUDE_DEPE_
+    pattern-check-id:
+      pattern: "^STSUDE-DEPE-[0-9]+$"
+      error-message: IDs of this section must match STSUDE-DEPE-xxx
     description: Dependencies for stage summary.
-  STSUID:
-    prefix: stsuid
-    description: Identity for stage summary.
-  STSUQU:
-    prefix: stsuqu
-    description: Quality for stage summary.
-  STSURE:
-    prefix: stsure
+  stsure-reso:
+    prefix: STSURE_RESO_
+    pattern-check-id:
+      pattern: "^STSURE-RESO-[0-9]+$"
+      error-message: IDs of this section must match STSURE-RESO-xxx
     description: Resources for stage summary.
-  STSUSC:
-    prefix: stsusc
-    description: Scope for stage summary.
-  STSUST:
-    prefix: stsust
-    description: Status for stage summary.
-  STSUTI:
-    prefix: stsuti
-    description: Timeline for stage summary.
-  UPCYFR:
-    prefix: upcyfr
-    description: 13.8. Upgrade Cycle Framework.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  DOETO:
-    prefix: doeto
-    description: Trade-offs and reversibility.
-  KEYAS:
-    prefix: keyas
-    description: A single key assumption entry.
-  MGPHS:
-    prefix: mgphs
-    description: A migration phase entry (form).
-  RVCRI:
-    prefix: rvcri
-    description: A review criterion entry (form).
-  SGOVM:
-    prefix: sgovm
-    description: Summary metrics for stage overview.
-  SMRPI:
-    prefix: smrpi
-    description: Probability and impact assessment.
-  SSCEM:
-    prefix: sscem
-    description: Measurement targets.
-  SSCES:
-    prefix: ssces
-    description: Current status and results.
-  SSCEV:
-    prefix: sscev
-    description: Verification planning.
-  STAGE:
-    prefix: stage
+  keyas-keya:
+    prefix: KEYAS_KEYA_
+    pattern-check-id:
+      pattern: "^KEYAS-KEYA-[0-9]+$"
+      error-message: IDs of this section must match KEYAS-KEYA-xxx
+    description: Add one entry per key assumption.
+  mgphs-item:
+    prefix: MGPHS_ITEM_
+    subsection-types:
+      miphid:
+        max-count: 1
+      mpds:
+        max-count: 1
+      miphme:
+        max-count: 1
+      miphtr:
+        max-count: 1
+      miphsc:
+        max-count: 1
+      mpdr-dryr:
+        max-count: infinite
+      miphva:
+        max-count: 1
+      miphac:
+        max-count: 1
+      miphro:
+        max-count: 1
+      miphre-reso:
+        max-count: infinite
+      miphst:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^MGPHS-ITEM-[0-9]+$"
+      error-message: IDs of this section must match MGPHS-ITEM-xxx
+    description: Add one entry per migration phase.
+  rvcri-revi:
+    prefix: RVCRI_REVI_
+    subsection-types:
+      rcea:
+        max-count: 1
+      rcer:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^RVCRI-REVI-[0-9]+$"
+      error-message: IDs of this section must match RVCRI-REVI-xxx
+    description: Add one entry per review criterion.
+  stage-stag:
+    prefix: STAGE_STAG_
+    subsection-types:
+      stid:
+        max-count: 1
+      stti:
+        max-count: 1
+      stsc:
+        max-count: 1
+      stde-depe:
+        max-count: infinite
+      stre-reso:
+        max-count: infinite
+      stqu:
+        max-count: 1
+      sd:
+        max-count: 1
+      stst-stak:
+        max-count: infinite
+      stri:
+        max-count: 1
+      stme:
+        max-count: 1
+      susst-subs:
+        max-count: infinite
+      stgsuc-succ:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^STAGE-STAG-[0-9]+$"
+      error-message: IDs of this section must match STAGE-STAG-xxx
     description: A stage entry (form) with description subsections.
-  STAGI:
-    prefix: stagi
-    description: A single constraint entry.
-  SUSST:
-    prefix: susst
+  stagi-cons:
+    prefix: STAGI_CONS_
+    pattern-check-id:
+      pattern: "^STAGI-CONS-[0-9]+$"
+      error-message: IDs of this section must match STAGI-CONS-xxx
+    description: Add one entry per staging constraint.
+  susst-subs:
+    prefix: SUSST_SUBS_
+    subsection-types:
+      sseo:
+        max-count: 1
+      sset:
+        max-count: 1
+      sses:
+        max-count: 1
+      ssee:
+        max-count: 1
+      sustenst:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^SUSST-SUBS-[0-9]+$"
+      error-message: IDs of this section must match SUSST-SUBS-xxx
     description: A sub-stage or milestone entry (form).
-  DEPO:
-    prefix: depo
-    description: 13.6.2. Decision Points.
-  DOEF:
-    prefix: doef
-    description: Feasibility assessment.
-  DOEI:
-    prefix: doei
-    description: Impact analysis.
-  DOES:
-    prefix: does
-    description: Recommendation flags.
-  DPEC:
-    prefix: dpec
-    description: Context and timing for decision point.
-  DPER:
-    prefix: dper
-    description: Resolution details for decision point.
-  DPES:
-    prefix: dpes
-    description: Stakeholder assignments for decision point.
-  FEDE:
-    prefix: fede
-    description: 13.4.4. Feature Dependencies.
-  FEEF:
-    prefix: feef
-    description: Effort and complexity for a feature priority entry.
-  FEID:
-    prefix: feid
-    description: Feature identity for a feature priority entry.
-  FEPR:
-    prefix: fepr
-    description: 13.4. Feature Prioritization.
-  FEST:
-    prefix: fest
-    description: Stakeholders for a feature priority entry.
-  FETR:
-    prefix: fetr
-    description: Traceability for a feature priority entry.
-  FSMA:
-    prefix: fsma
-    description: Stage assignment details.
-  FSMD:
-    prefix: fsmd
-    description: Dependencies.
-  FSMR:
-    prefix: fsmr
-    description: Readiness and confidence.
-  MESA:
-    prefix: mesa
-    description: Stage assignment.
-  MIAP:
-    prefix: miap
-    description: Strategic approach for data migration.
-  MICO:
-    prefix: mico
-    description: Compliance and governance for migration.
-  MICU:
-    prefix: micu
-    description: Cutover planning for migration.
-  MIEN:
-    prefix: mien
-    description: Environment strategy for migration.
-  MIME:
-    prefix: mime
-    description: Success metrics for migration.
-  MIPH:
-    prefix: miph
-    description: 13.5.1. Migration Phases.
-  MIRO:
-    prefix: miro
-    description: Rollback and recovery for migration.
-  MISC:
-    prefix: misc
-    description: Scope and data landscape for migration.
-  MIST:
-    prefix: mist
-    description: Stakeholder communication for migration.
-  MISY:
-    prefix: misy
-    description: Source and target systems for migration.
-  MITO:
-    prefix: mito
-    description: Tooling and technology for migration.
-  MOAN:
-    prefix: moan
-    description: 13.4.1. MoSCoW Analysis.
-  MPDR:
-    prefix: mpdr
-    description: Dry runs for migration phase.
-  MPDS:
-    prefix: mpds
-    description: Data scope for migration phase.
-  PGRO:
-    prefix: pgro
-    description: Gate decision outcomes and follow-up rules.
-  PGRP:
-    prefix: pgrp
-    description: Standard participants and evidence package.
-  RCEA:
-    prefix: rcea
-    description: How this criterion is measured and weighted.
-  RCER:
-    prefix: rcer
-    description: Post-review result and remediation status.
-  SMRC:
-    prefix: smrc
-    description: Contingency actions.
-  SMRI:
-    prefix: smri
-    description: Risk identity and description.
-  SMRM:
-    prefix: smrm
-    description: Mitigation planning.
-  SMRO:
-    prefix: smro
-    description: Ownership and accountability.
-  SMRR:
-    prefix: smrr
-    description: Residual risk assessment.
-  SMRS:
-    prefix: smrs
-    description: Status and review.
-  SSEE:
-    prefix: ssee
-    description: Resources and quality focus.
-  SSEO:
-    prefix: sseo
-    description: Description and objectives.
-  SSES:
-    prefix: sses
-    description: Scope and deliverables.
-  SSET:
-    prefix: sset
-    description: Timeline and sequencing.
-  STDE:
-    prefix: stde
+  fest-stak:
+    prefix: FEST_STAK_
+    pattern-check-id:
+      pattern: "^FEST-STAK-[0-9]+$"
+      error-message: IDs of this section must match FEST-STAK-xxx
+    description: Add one entry per feature stakeholder.
+  mien-envi:
+    prefix: MIEN_ENVI_
+    pattern-check-id:
+      pattern: "^MIEN-ENVI-[0-9]+$"
+      error-message: IDs of this section must match MIEN-ENVI-xxx
+    description: Add one entry per migration environment.
+  mist-stak:
+    prefix: MIST_STAK_
+    pattern-check-id:
+      pattern: "^MIST-STAK-[0-9]+$"
+      error-message: IDs of this section must match MIST-STAK-xxx
+    description: Add one entry per migration stakeholder.
+  misy-syst:
+    prefix: MISY_SYST_
+    pattern-check-id:
+      pattern: "^MISY-SYST-[0-9]+$"
+      error-message: IDs of this section must match MISY-SYST-xxx
+    description: Add one entry per source system.
+  moen-item:
+    prefix: MOEN_ITEM_
+    subsection-types:
+      moencl:
+        max-count: 1
+      moenva:
+        max-count: 1
+      mesa:
+        max-count: 1
+      moentr:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^MOEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match MOEN-ITEM-xxx
+    description: Add one entry per MoSCoW-classified feature.
+  mpdr-dryr:
+    prefix: MPDR_DRYR_
+    pattern-check-id:
+      pattern: "^MPDR-DRYR-[0-9]+$"
+      error-message: IDs of this section must match MPDR-DRYR-xxx
+    description: Add one entry per migration dry run.
+  pgre-item:
+    prefix: PGRE_ITEM_
+    subsection-types:
+      phgaid:
+        max-count: 1
+      phgaau:
+        max-count: 1
+      phgasc:
+        max-count: 1
+      phgaen:
+        max-count: 1
+      phgaev:
+        max-count: 1
+      phgaex:
+        max-count: 1
+      rvcri-revi:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^PGRE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match PGRE-ITEM-xxx
+    description: Add one entry per phase gate review.
+  stde-depe:
+    prefix: STDE_DEPE_
+    pattern-check-id:
+      pattern: "^STDE-DEPE-[0-9]+$"
+      error-message: IDs of this section must match STDE-DEPE-xxx
     description: Dependencies for a stage entry.
-  STID:
-    prefix: stid
-    description: Identity and classification for a stage entry.
-  STME:
-    prefix: stme
-    description: Status and metrics for a stage entry.
-  STQU:
-    prefix: stqu
-    description: Quality and governance for a stage entry.
-  STRE:
-    prefix: stre
+  stre-reso:
+    prefix: STRE_RESO_
+    pattern-check-id:
+      pattern: "^STRE-RESO-[0-9]+$"
+      error-message: IDs of this section must match STRE-RESO-xxx
     description: Resources and budget for a stage entry.
-  STRI:
-    prefix: stri
-    description: Risk for a stage entry.
-  STSC:
-    prefix: stsc
-    description: Scope and features for a stage entry.
-  STST:
-    prefix: stst
+  stst-stak:
+    prefix: STST_STAK_
+    pattern-check-id:
+      pattern: "^STST-STAK-[0-9]+$"
+      error-message: IDs of this section must match STST-STAK-xxx
     description: Stakeholders and communication for a stage entry.
-  STTI:
-    prefix: stti
-    description: Timeline and schedule for a stage entry.
-  DOE:
-    prefix: doe
-    description: A decision option entry (form).
-  DPE:
-    prefix: dpe
-    description: A decision point entry (form).
-  FDE:
-    prefix: fde
-    description: A feature dependency entry (form).
-  FPE:
-    prefix: fpe
-    description: An individual feature priority entry (form).
-  FSM:
-    prefix: fsm
-    description: A feature-to-stage mapping entry (form).
-  FS:
-    prefix: fs
-    description: Status for a feature priority entry.
-  ME:
-    prefix: me
-    description: A MoSCoW classification entry (form).
-  MS:
-    prefix: ms
-    description: Schedule overview for migration.
-  SD:
-    prefix: sd
-    description: Deployment and rollout for a stage entry.
+  depoencr:
+    prefix: DEPOENCR
+    description: Criteria and required inputs.
+  festmaac:
+    prefix: FESTMAAC
+    description: Acceptance and notes.
+  stmirimo:
+    prefix: STMIRIMO
+    description: Monitoring and detection.
+  sustenst:
+    prefix: SUSTENST
+    description: Current status.
+  damist:
+    prefix: DAMIST
+    subsection-types:
+      miap:
+        max-count: 1
+      misc:
+        max-count: 1
+      misy-syst:
+        max-count: infinite
+      midaqu:
+        max-count: 1
+      mito:
+        max-count: 1
+      mien-envi:
+        max-count: infinite
+      micu:
+        max-count: 1
+      miro:
+        max-count: 1
+      mico:
+        max-count: 1
+      mime:
+        max-count: 1
+      mist-stak:
+        max-count: infinite
+      stmire-reso:
+        max-count: infinite
+      ms:
+        max-count: 1
+      miph:
+        max-count: 1
+      stmiri:
+        max-count: 1
+    description: Data migration strategy.
+  febuva:
+    prefix: FEBUVA
+    description: Business value.
+  fedein:
+    prefix: FEDEIN
+    description: Dependencies.
+  feprba:
+    prefix: FEPRBA
+    description: Backlog health.
+  feprc1:
+    prefix: FEPRC1
+    description: Capacity constraints.
+  feprca:
+    prefix: FEPRCA
+    description: Cadence and triggers.
+  feprme:
+    prefix: FEPRME
+    description: Methodology and scoring.
+  feprre:
+    prefix: FEPRRE
+    subsection-types:
+      fepren-item:
+        max-count: infinite
+        min-count: 1
+    description: 13.4.3. Feature Priority Register.
+  feprsc:
+    prefix: FEPRSC
+    description: Priority scoring.
+  feprst:
+    prefix: FEPRST
+    description: Stakeholder involvement.
+  feprtr:
+    prefix: FEPRTR
+    description: Traceability.
+  festas:
+    prefix: FESTAS
+    description: Stage assignment.
+  festma:
+    prefix: FESTMA
+    subsection-types:
+      festm1-item:
+        max-count: infinite
+    description: 13.4.2. Feature-Stage Matrix.
+  indefl:
+    prefix: INDEFL
+    description: Initial development flow.
+  midaqu:
+    prefix: MIDAQU
+    description: Data quality strategy.
+  miphac:
+    prefix: MIPHAC
+    description: Acceptance criteria.
+  miphid:
+    prefix: MIPHID
+    description: Phase identity details.
+  miphme:
+    prefix: MIPHME
+    description: Migration method.
+  miphro:
+    prefix: MIPHRO
+    description: Rollback.
+  miphsc:
+    prefix: MIPHSC
+    description: Schedule and dependencies.
+  miphst:
+    prefix: MIPHST
+    description: Status.
+  miphtr:
+    prefix: MIPHTR
+    description: Transformation and mapping.
+  miphva:
+    prefix: MIPHVA
+    description: Validation and reconciliation.
+  moencl:
+    prefix: MOENCL
+    description: MoSCoW classification details.
+  moentr:
+    prefix: MOENTR
+    description: Traceability and notes.
+  moenva:
+    prefix: MOENVA
+    description: Value and effort estimates.
+  phgaau:
+    prefix: PHGAAU
+    description: Authority and participants.
+  phgaen:
+    prefix: PHGAEN
+    description: Entry conditions.
+  phgaev:
+    prefix: PHGAEV
+    description: Evidence.
+  phgaex:
+    prefix: PHGAEX
+    description: Exit conditions and outcome.
+  phgaid:
+    prefix: PHGAID
+    description: Gate identity.
+  phgare:
+    prefix: PHGARE
+    subsection-types:
+      pgrp:
+        max-count: 1
+      pgro:
+        max-count: 1
+      pgre-item:
+        max-count: infinite
+    description: Gate criteria (promoted from GOV).
+  phgasc:
+    prefix: PHGASC
+    description: Schedule.
+  sgovbd:
+    prefix: SGOVBD
+    description: Budget distribution across stages.
+  sgovbs:
+    prefix: SGOVBS
+    description: Planning baseline and revision history.
+  sgovdp:
+    prefix: SGOVDP
+    description: Cross-stage dependencies and critical path.
+  sgovrs:
+    prefix: SGOVRS
+    description: Resource allocation patterns.
+  sgovsc:
+    prefix: SGOVSC
+    description: Schedule analytics and float.
+  stagas:
+    prefix: STAGAS
+    description: Approach selection details.
+  stagcm:
+    prefix: STAGCM
+    description: Communication and change management.
+  stagco:
+    prefix: STAGCO
+    description: Rollback and cutover strategy.
+  stagcx:
+    prefix: STAGCX
+    description: Complexity assessment.
+  stagfa:
+    prefix: STAGFA
+    description: Framework alignment.
+  staggv:
+    prefix: STAGGV
+    description: Governance and approvals.
+  stagov:
+    prefix: STAGOV
+    subsection-types:
+      sgovm:
+        max-count: 1
+      sgovbs:
+        max-count: 1
+      sgovdp:
+        max-count: 1
+      sgovrs:
+        max-count: 1
+      sgovbd:
+        max-count: 1
+      sgovsc:
+        max-count: 1
+      stovqu:
+        max-count: 1
+      stovri:
+        max-count: 1
+      stovst:
+        max-count: 1
+      stovco:
+        max-count: 1
+      stovc1:
+        max-count: 1
+      stagse-stag:
+        max-count: infinite
+        min-count: 1
+    description: Stage overview.
+  stagrd:
+    prefix: STAGRD
+    description: Readiness and resources.
+  stagrk:
+    prefix: STAGRK
+    description: Risk assessment.
+  stagrt:
+    prefix: STAGRT
+    description: Rationale and justification.
+  stagsc:
+    prefix: STAGSC
+    description: Success criteria and metrics.
+  stagst:
+    prefix: STAGST
+    subsection-types:
+      stagas:
+        max-count: 1
+      stagrt:
+        max-count: 1
+      stagdr-driv:
+        max-count: infinite
+      stagrk:
+        max-count: 1
+      stagcx:
+        max-count: 1
+      stagrd:
+        max-count: 1
+      stagco:
+        max-count: 1
+      stagsc:
+        max-count: 1
+      stagcm:
+        max-count: 1
+      stagfa:
+        max-count: 1
+      stagdp-depe:
+        max-count: infinite
+      staggv:
+        max-count: 1
+      keyas-keya:
+        max-count: infinite
+      stagi-cons:
+        max-count: infinite
+    description: Staging strategy.
+  stmiri:
+    prefix: STMIRI
+    subsection-types:
+      stgmrs-item:
+        max-count: infinite
+        min-count: 1
+    description: 13.5.2. Migration Risks.
+  stovc1:
+    prefix: STOVC1
+    description: Assumptions and constraints.
+  stovco:
+    prefix: STOVCO
+    description: Stakeholder communication approach.
+  stovqu:
+    prefix: STOVQU
+    description: Quality and compliance targets.
+  stovri:
+    prefix: STOVRI
+    description: Risk profile summary.
+  stovst:
+    prefix: STOVST
+    description: Plan status and health indicators.
+  stsuid:
+    prefix: STSUID
+    description: Identity and theme.
+  stsuqu:
+    prefix: STSUQU
+    description: Quality and acceptance.
+  stsusc:
+    prefix: STSUSC
+    description: Scope.
+  stsust:
+    prefix: STSUST
+    description: Status.
+  stsuti:
+    prefix: STSUTI
+    description: Timeline.
+  upcyfr:
+    prefix: UPCYFR
+    description: Upgrade cycle framework (links tom_system_upgrade.md).
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  doeto:
+    prefix: DOETO
+    description: Trade-offs and reversibility.
+  sgovm:
+    prefix: SGOVM
+    description: Summary metrics across all stages.
+  smrpi:
+    prefix: SMRPI
+    description: Probability and impact assessment.
+  sscem:
+    prefix: SSCEM
+    description: Measurement targets.
+  ssces:
+    prefix: SSCES
+    description: Current status and results.
+  sscev:
+    prefix: SSCEV
+    description: Verification planning.
+  depo:
+    prefix: DEPO
+    subsection-types:
+      depoen-item:
+        max-count: infinite
+    description: Decision processes (promoted from GOV).
+  doef:
+    prefix: DOEF
+    description: Feasibility assessment.
+  doei:
+    prefix: DOEI
+    description: Impact analysis.
+  does:
+    prefix: DOES
+    description: Recommendation flags.
+  dpec:
+    prefix: DPEC
+    description: Context and timing information.
+  dper:
+    prefix: DPER
+    subsection-types:
+      deopen-opti:
+        max-count: infinite
+    description: Resolution details (filled when decided).
+  dpes:
+    prefix: DPES
+    description: Stakeholder assignments.
+  fede:
+    prefix: FEDE
+    subsection-types:
+      fedeen-item:
+        max-count: infinite
+    description: 13.4.4. Feature Dependencies.
+  feef:
+    prefix: FEEF
+    description: Effort and complexity.
+  feid:
+    prefix: FEID
+    description: Feature identity.
+  fepr:
+    prefix: FEPR
+    subsection-types:
+      feprme:
+        max-count: 1
+      feprst:
+        max-count: 1
+      feprca:
+        max-count: 1
+      feprc1:
+        max-count: 1
+      feprba:
+        max-count: 1
+      feprtr:
+        max-count: 1
+      moan:
+        max-count: 1
+      festma:
+        max-count: 1
+      feprre:
+        max-count: 1
+      fede:
+        max-count: 1
+    description: Feature prioritization.
+  fetr:
+    prefix: FETR
+    description: Traceability.
+  fsma:
+    prefix: FSMA
+    description: Stage assignment details.
+  fsmd:
+    prefix: FSMD
+    description: Dependencies.
+  fsmr:
+    prefix: FSMR
+    description: Readiness and confidence.
+  mesa:
+    prefix: MESA
+    description: Stage assignment.
+  miap:
+    prefix: MIAP
+    description: Strategic approach details.
+  mico:
+    prefix: MICO
+    description: Compliance and governance.
+  micu:
+    prefix: MICU
+    description: Cutover planning.
+  mime:
+    prefix: MIME
+    description: Success metrics.
+  miph:
+    prefix: MIPH
+    subsection-types:
+      mgphs-item:
+        max-count: infinite
+        min-count: 1
+    description: 13.5.1. Migration Phases.
+  miro:
+    prefix: MIRO
+    description: Rollback and recovery strategy.
+  misc:
+    prefix: MISC
+    description: Scope and data landscape.
+  mito:
+    prefix: MITO
+    description: Tooling and technology stack.
+  moan:
+    prefix: MOAN
+    subsection-types:
+      moen-item:
+        max-count: infinite
+    description: 13.4.1. MoSCoW Analysis.
+  mpds:
+    prefix: MPDS
+    description: Data scope.
+  pgro:
+    prefix: PGRO
+    description: Gate decision outcomes and follow-up rules.
+  pgrp:
+    prefix: PGRP
+    description: Standard participants and evidence package.
+  rcea:
+    prefix: RCEA
+    description: How this criterion is measured and weighted.
+  rcer:
+    prefix: RCER
+    description: Post-review result and remediation status.
+  smrc:
+    prefix: SMRC
+    description: Contingency actions.
+  smri:
+    prefix: SMRI
+    description: Risk identity and description.
+  smrm:
+    prefix: SMRM
+    description: Mitigation planning.
+  smro:
+    prefix: SMRO
+    description: Ownership and accountability.
+  smrr:
+    prefix: SMRR
+    description: Residual risk assessment.
+  smrs:
+    prefix: SMRS
+    description: Status and review.
+  ssee:
+    prefix: SSEE
+    description: Resources and quality focus.
+  sseo:
+    prefix: SSEO
+    description: Description and objectives.
+  sses:
+    prefix: SSES
+    description: Scope and deliverables.
+  sset:
+    prefix: SSET
+    description: Timeline and sequencing.
+  stid:
+    prefix: STID
+    description: Identity and classification.
+  stme:
+    prefix: STME
+    description: Status and metrics.
+  stqu:
+    prefix: STQU
+    description: Quality and governance.
+  stri:
+    prefix: STRI
+    description: Risk.
+  stsc:
+    prefix: STSC
+    description: Scope and features.
+  stti:
+    prefix: STTI
+    description: Timeline and schedule.
+  fs:
+    prefix: FS
+    description: Status.
+  ms:
+    prefix: MS
+    description: Schedule overview.
+  sd:
+    prefix: SD
+    description: Deployment and rollout.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    stagingstrategy:
-      section-type: STAGST
+    stagst:
+      section-type: stagst
       optional: true
-    stageoverview:
-      section-type: STAGOV
+    stagov:
+      section-type: stagov
       optional: true
-    stages:
-      section-type: STAGE-STAG-LST
+    stage-stag:
+      section-type: stage-stag
+    fepr:
+      section-type: fepr
       optional: true
-    featureprioritization:
-      section-type: FEPR
+    damist:
+      section-type: damist
       optional: true
-    datamigrationstrategy:
-      section-type: DAMIST
+    phgare:
+      section-type: phgare
       optional: true
-    gatecriteria:
-      section-type: PHGARE
+    depo:
+      section-type: depo
       optional: true
-    decisionprocesses:
-      section-type: DEPO
+    indefl:
+      section-type: indefl
       optional: true
-    initialdevelopmentflow:
-      section-type: INDEFL
-      optional: true
-    upgradecycleframework:
-      section-type: UPCYFR
+    upcyfr:
+      section-type: upcyfr
       optional: true

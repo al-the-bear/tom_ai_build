@@ -152,7 +152,7 @@ void main() {
           DocSpecsSchemaGenerator(classes).generateFor('CodeSpecsDocument');
       expect(
         cds.sectionTypes.keys,
-        containsAll(['CDS-TAG', 'CDS-INP', 'CDS-CMP', 'CDS-EXT']),
+        containsAll(['cds-tag', 'cds-inp', 'cds-cmp', 'cds-ext']),
       );
     });
   });

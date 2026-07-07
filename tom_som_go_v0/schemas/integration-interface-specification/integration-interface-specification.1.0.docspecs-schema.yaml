@@ -1,273 +1,324 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: integration-interface-specification/1.0
 
+title-format: "# <!--[IIS]--> Integration & Interface Specification"
 section-types:
-  BOASEN-ITEM-LST:
-    prefix: boasen_item_lst
+  boasen-item:
+    prefix: BOASEN_ITEM_
+    subsection-types:
+      baev:
+        max-count: 1
+      baer:
+        max-count: 1
     pattern-check-id:
-      pattern: ^boasen_item_lst-\d+$
-      error-message: ID must match boasen_item_lst-NNN
+      pattern: "^BOASEN-ITEM-[0-9]+$"
+      error-message: IDs of this section must match BOASEN-ITEM-xxx
     description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
-  BOINPA-INTE-LST:
-    prefix: boinpa_inte_lst
+  boinpa-inte:
+    prefix: BOINPA_INTE_
     pattern-check-id:
-      pattern: ^boinpa_inte_lst-\d+$
-      error-message: ID must match boinpa_inte_lst-NNN
-    description: Boundary interaction patterns.
-  EXINEN-INTE-LST:
-    prefix: exinen_inte_lst
-    pattern-check-id:
-      pattern: ^exinen_inte_lst-\d+$
-      error-message: ID must match exinen_inte_lst-NNN
-    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
-  INOPEN-OPER-LST:
-    prefix: inopen_oper_lst
-    pattern-check-id:
-      pattern: ^inopen_oper_lst-\d+$
-      error-message: ID must match inopen_oper_lst-NNN
-    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
-  DEPEN-DEPE-LST:
-    prefix: depen_depe_lst
-    pattern-check-id:
-      pattern: ^depen_depe_lst-\d+$
-      error-message: ID must match depen_depe_lst-NNN
-    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
-  ERROR-ERRO-LST:
-    prefix: error_erro_lst
-    pattern-check-id:
-      pattern: ^error_erro_lst-\d+$
-      error-message: ID must match error_erro_lst-NNN
-    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
-  ITSE1-TEST-LST:
-    prefix: itse1_test_lst
-    pattern-check-id:
-      pattern: ^itse1_test_lst-\d+$
-      error-message: ID must match itse1_test_lst-NNN
-    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
-  MAPPI-MAPP-LST:
-    prefix: mappi_mapp_lst
-    pattern-check-id:
-      pattern: ^mappi_mapp_lst-\d+$
-      error-message: ID must match mappi_mapp_lst-NNN
-    description: List data mapping and transformation rules between external and internal representations.
-  VALID-VALI-LST:
-    prefix: valid_vali_lst
-    pattern-check-id:
-      pattern: ^valid_vali_lst-\d+$
-      error-message: ID must match valid_vali_lst-NNN
-    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
-  CBOC-OPER-LST:
-    prefix: cboc_oper_lst
-    pattern-check-id:
-      pattern: ^cboc_oper_lst-\d+$
-      error-message: ID must match cboc_oper_lst-NNN
-    description: Cross-boundary operational considerations.
-  IBPE-DEPE-LST:
-    prefix: ibpe_depe_lst
-    pattern-check-id:
-      pattern: ^ibpe_depe_lst-\d+$
-      error-message: ID must match ibpe_depe_lst-NNN
-    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
-  IDEE-DATA-LST:
-    prefix: idee_data_lst
-    pattern-check-id:
-      pattern: ^idee_data_lst-\d+$
-      error-message: ID must match idee_data_lst-NNN
-    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
-  MIIN-MIGR-LST:
-    prefix: miin_migr_lst
-    pattern-check-id:
-      pattern: ^miin_migr_lst-\d+$
-      error-message: ID must match miin_migr_lst-NNN
-    description: Migration interactions.
-  OOSE-ITEM-LST:
-    prefix: oose_item_lst
-    pattern-check-id:
-      pattern: ^oose_item_lst-\d+$
-      error-message: ID must match oose_item_lst-NNN
-    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
-  INBUPREN:
-    prefix: inbupren
-    description: Business process dependency entry.
-  INDAENEN:
-    prefix: indaenen
-    description: Data entity exchanged.
-  INTESCEN:
-    prefix: intescen
-    description: Test scenario entry.
-  OUOFSCEN:
-    prefix: ouofscen
-    description: An out-of-scope entry (form).
-  BOINPA:
-    prefix: boinpa
+      pattern: "^BOINPA-INTE-[0-9]+$"
+      error-message: IDs of this section must match BOINPA-INTE-xxx
     description: 4.5.5. Boundary Interaction Patterns.
-  INBUCO:
-    prefix: inbuco
-    description: Business context for an interface.
-  INDASP:
-    prefix: indasp
-    description: Data specification for an interface.
-  INDEAN:
-    prefix: indean
-    description: 4.5.7. Interaction Dependency Analysis.
-  INERHA:
-    prefix: inerha
-    description: Error handling specification.
-  INGOCO:
-    prefix: ingoco
-    description: Contract and commercial terms for an interface.
-  INGOLI:
-    prefix: ingoli
-    description: Change management expectations for an interface.
-  INOPMO:
-    prefix: inopmo
-    description: Monitoring configuration.
-  INOPSU:
-    prefix: inopsu
-    description: Support model.
-  INSEAU:
-    prefix: inseau
-    description: Authorization boundaries for an interface.
-  INSECO:
-    prefix: inseco
-    description: Compliance and audit expectations for an interface.
-  INSEEN:
-    prefix: inseen
-    description: Encryption controls for an interface.
-  INTEDA:
-    prefix: inteda
-    description: Test data strategy.
-  INTES1:
-    prefix: intes1
-    description: 4.5.6. Interaction Testing Strategy.
-  INTESP:
-    prefix: intesp
-    description: Technical specification for an interface.
-  INTEST:
-    prefix: intest
-    description: Validation approach across test layers.
-  INWESP:
-    prefix: inwesp
-    description: Webhook specification.
-  OUOFSC:
-    prefix: ouofsc
-    description: 4.5.2. Out of Scope.
-  SYLAIN:
-    prefix: sylain
-    description: 4.5.4. System Landscape Inventory.
-  DEPEN:
-    prefix: depen
-    description: A single dependency entry.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  ERROR:
-    prefix: error
-    description: A single error procedure entry.
-  MAPPI:
-    prefix: mappi
-    description: A single mapping rule entry.
-  OOSED:
-    prefix: oosed
-    description: Decision history and future reconsideration.
-  OOSEM:
-    prefix: oosem
-    description: Alternatives and inclusion risk.
-  VALID:
-    prefix: valid
-    description: A single validation rule entry.
-  BAER:
-    prefix: baer
-    description: Risk framing and contingency planning for a boundary assumption.
-  BAEV:
-    prefix: baev
-    description: Validation ownership and confidence for a boundary assumption.
-  BOAS:
-    prefix: boas
-    description: 4.5.3. Assumptions.
-  CBEH:
-    prefix: cbeh
-    description: 4.5.10. Cross-Boundary Error Handling.
-  CBOC:
-    prefix: cboc
+  exinen-inte:
+    prefix: EXINEN_INTE_
+    subsection-types:
+      inbuco:
+        max-count: 1
+      intesp:
+        max-count: 1
+      indasp:
+        max-count: 1
+      is:
+        max-count: 1
+      inop:
+        max-count: 1
+      inerha:
+        max-count: 1
+      ingo:
+        max-count: 1
+      inte:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^EXINEN-INTE-[0-9]+$"
+      error-message: IDs of this section must match EXINEN-INTE-xxx
+    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
+  inopen-oper:
+    prefix: INOPEN_OPER_
+    pattern-check-id:
+      pattern: "^INOPEN-OPER-[0-9]+$"
+      error-message: IDs of this section must match INOPEN-OPER-xxx
+    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
+  depen-depe:
+    prefix: DEPEN_DEPE_
+    pattern-check-id:
+      pattern: "^DEPEN-DEPE-[0-9]+$"
+      error-message: IDs of this section must match DEPEN-DEPE-xxx
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
+  error-erro:
+    prefix: ERROR_ERRO_
+    pattern-check-id:
+      pattern: "^ERROR-ERRO-[0-9]+$"
+      error-message: IDs of this section must match ERROR-ERRO-xxx
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
+  itse1-test:
+    prefix: ITSE1_TEST_
+    pattern-check-id:
+      pattern: "^ITSE1-TEST-[0-9]+$"
+      error-message: IDs of this section must match ITSE1-TEST-xxx
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
+  mappi-mapp:
+    prefix: MAPPI_MAPP_
+    pattern-check-id:
+      pattern: "^MAPPI-MAPP-[0-9]+$"
+      error-message: IDs of this section must match MAPPI-MAPP-xxx
+    description: List data mapping and transformation rules between external and internal representations.
+  valid-vali:
+    prefix: VALID_VALI_
+    pattern-check-id:
+      pattern: "^VALID-VALI-[0-9]+$"
+      error-message: IDs of this section must match VALID-VALI-xxx
+    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
+  cboc-oper:
+    prefix: CBOC_OPER_
+    pattern-check-id:
+      pattern: "^CBOC-OPER-[0-9]+$"
+      error-message: IDs of this section must match CBOC-OPER-xxx
     description: 4.5.9. Cross-Boundary Operational Considerations.
-  EXIN:
-    prefix: exin
-    description: Container for external interface definitions.
-  IEHF:
-    prefix: iehf
-    description: Fallback behavior and manual recovery.
-  IEHR:
-    prefix: iehr
-    description: Non-retryable errors and retry strategy.
-  IEHT:
-    prefix: ieht
-    description: Connection and transaction timeouts.
-  INGO:
-    prefix: ingo
-    description: Governance and contracts.
-  INOP:
-    prefix: inop
-    description: Operational characteristics.
-  INTE:
-    prefix: inte
-    description: Testing specification.
-  IORL:
-    prefix: iorl
-    description: Rate limiting rules.
-  ITSC:
-    prefix: itsc
-    description: Directionality and messaging pattern.
-  ITSE:
-    prefix: itse
-    description: Endpoint and documentation references.
-  MIIN:
-    prefix: miin
+  ibpe-depe:
+    prefix: IBPE_DEPE_
+    pattern-check-id:
+      pattern: "^IBPE-DEPE-[0-9]+$"
+      error-message: IDs of this section must match IBPE-DEPE-xxx
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  idee-data:
+    prefix: IDEE_DATA_
+    pattern-check-id:
+      pattern: "^IDEE-DATA-[0-9]+$"
+      error-message: IDs of this section must match IDEE-DATA-xxx
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
+  miin-migr:
+    prefix: MIIN_MIGR_
+    pattern-check-id:
+      pattern: "^MIIN-MIGR-[0-9]+$"
+      error-message: IDs of this section must match MIIN-MIGR-xxx
     description: 4.5.8. Migration Interactions.
-  BAE:
-    prefix: bae
-    description: A boundary assumption entry (form).
-  EIE:
-    prefix: eie
-    description: An external interface entry (form).
-  IOE:
-    prefix: ioe
-    description: API operation entry.
-  IS:
-    prefix: is
-    description: Security specification for an interface.
+  oose-item:
+    prefix: OOSE_ITEM_
+    subsection-types:
+      oosed:
+        max-count: 1
+      oosem:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^OOSE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match OOSE-ITEM-xxx
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
+  inbuco:
+    prefix: INBUCO
+    subsection-types:
+      ibpe-depe:
+        max-count: infinite
+    description: Business purpose and value of this interface.
+  indasp:
+    prefix: INDASP
+    subsection-types:
+      idee-data:
+        max-count: infinite
+      mappi-mapp:
+        max-count: infinite
+      valid-vali:
+        max-count: infinite
+    description: Data exchange specification.
+  indean:
+    prefix: INDEAN
+    description: Interaction dependency analysis.
+  inerha:
+    prefix: INERHA
+    subsection-types:
+      iehr:
+        max-count: 1
+      iehf:
+        max-count: 1
+      ieht:
+        max-count: 1
+      error-erro:
+        max-count: infinite
+    description: Error handling and resilience.
+  ingoco:
+    prefix: INGOCO
+    description: Contract and commercial terms.
+  ingoli:
+    prefix: INGOLI
+    description: Change management expectations.
+  inopmo:
+    prefix: INOPMO
+    description: Monitoring configuration.
+  inopsu:
+    prefix: INOPSU
+    description: Support model.
+  inseau:
+    prefix: INSEAU
+    description: Authorization boundaries.
+  inseco:
+    prefix: INSECO
+    description: Compliance and audit expectations.
+  inseen:
+    prefix: INSEEN
+    description: Encryption controls.
+  inteda:
+    prefix: INTEDA
+    description: Test data strategy.
+  intes1:
+    prefix: INTES1
+    description: Interaction testing strategy.
+  intesp:
+    prefix: INTESP
+    subsection-types:
+      itsc:
+        max-count: 1
+      itse:
+        max-count: 1
+      inopen-oper:
+        max-count: infinite
+      inwesp:
+        max-count: 1
+    description: Technical details of the interface.
+  intest:
+    prefix: INTEST
+    description: Validation approach across test layers.
+  inwesp:
+    prefix: INWESP
+    description: Webhook/callback configurations if applicable.
+  ouofsc:
+    prefix: OUOFSC
+    subsection-types:
+      oose-item:
+        max-count: infinite
+    description: Out of scope.
+  sylain:
+    prefix: SYLAIN
+    description: System landscape inventory.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  oosed:
+    prefix: OOSED
+    description: Decision history and future reconsideration.
+  oosem:
+    prefix: OOSEM
+    description: Alternatives and inclusion risk.
+  baer:
+    prefix: BAER
+    description: Risk framing and contingency planning.
+  baev:
+    prefix: BAEV
+    description: Validation ownership and confidence.
+  boas:
+    prefix: BOAS
+    subsection-types:
+      boasen-item:
+        max-count: infinite
+    description: Boundary assumptions.
+  cbeh:
+    prefix: CBEH
+    description: Cross-boundary error handling.
+  exin:
+    prefix: EXIN
+    subsection-types:
+      exinen-inte:
+        max-count: infinite
+    description: External interfaces.
+  iehf:
+    prefix: IEHF
+    description: Fallback behavior and manual recovery.
+  iehr:
+    prefix: IEHR
+    description: Non-retryable errors and retry strategy.
+  ieht:
+    prefix: IEHT
+    description: Connection and transaction timeouts.
+  ingo:
+    prefix: INGO
+    subsection-types:
+      ingoco:
+        max-count: 1
+      ingoli:
+        max-count: 1
+    description: Contractual and governance information.
+  inop:
+    prefix: INOP
+    subsection-types:
+      iorl:
+        max-count: 1
+      inopmo:
+        max-count: 1
+      inopsu:
+        max-count: 1
+      depen-depe:
+        max-count: infinite
+    description: Operational and SLA requirements.
+  inte:
+    prefix: INTE
+    subsection-types:
+      inteda:
+        max-count: 1
+      intest:
+        max-count: 1
+      itse1-test:
+        max-count: infinite
+    description: Testing and environment information.
+  iorl:
+    prefix: IORL
+    description: Rate limiting rules.
+  itsc:
+    prefix: ITSC
+    description: Directionality and messaging pattern.
+  itse:
+    prefix: ITSE
+    description: Endpoint and documentation references.
+  is:
+    prefix: IS
+    subsection-types:
+      inseau:
+        max-count: 1
+      inseen:
+        max-count: 1
+      inseco:
+        max-count: 1
+    description: Security and authentication requirements.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    externalinterfaces:
-      section-type: EXIN
+    exin:
+      section-type: exin
       optional: true
-    outofscope:
-      section-type: OUOFSC
+    ouofsc:
+      section-type: ouofsc
       optional: true
-    boundaryassumptions:
-      section-type: BOAS
+    boas:
+      section-type: boas
       optional: true
-    systeminventory:
-      section-type: SYLAIN
+    sylain:
+      section-type: sylain
       optional: true
-    interactionpatterns:
-      section-type: BOINPA-INTE-LST
+    boinpa-inte:
+      section-type: boinpa-inte
       optional: true
-    testingstrategy:
-      section-type: INTES1
+    intes1:
+      section-type: intes1
       optional: true
-    dependencyanalysis:
-      section-type: INDEAN
+    indean:
+      section-type: indean
       optional: true
-    migrationinteractions:
-      section-type: MIIN-MIGR-LST
+    miin-migr:
+      section-type: miin-migr
       optional: true
-    operationalconsiderations:
-      section-type: CBOC-OPER-LST
+    cboc-oper:
+      section-type: cboc-oper
       optional: true
-    crossboundaryerrorhandling:
-      section-type: CBEH
+    cbeh:
+      section-type: cbeh
       optional: true

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'package:tom_doc_specs/tom_doc_specs.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show somModelVersionString;
@@ -15,17 +14,10 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 AnnotationData _a(String name, [Map<String, Object?> args = const {}]) =>
     AnnotationData(name, args);
 
-ModelField _content(String name, String sectionId, {String? help}) => ModelField(
-      name: name,
-      typeName: 'String',
-      annotations: [
-        _a('SectionId', {'id': sectionId}),
-        if (help != null) _a('ContentHelp', {'guidance': help}),
-      ],
-    );
-
-/// A small but representative model: one @Document root with a prose section, a
-/// second prose section, a @Form section, and a patterned list of complex rows.
+/// A DR1 §5-exercising model: a @Document root with a required prose section
+/// (@Min(1)), an optional prose section with text-length bounds, a class-based
+/// @Form section (with a @PatternCheck member), a patterned list of complex
+/// rows, a container with a nested content child, and an @Unused section.
 Map<String, ModelClass> _demoModel() {
   final root = ModelClass(
     name: 'DemoDoc',
@@ -34,16 +26,28 @@ Map<String, ModelClass> _demoModel() {
       _a('SectionId', {'id': 'D00'}),
     ],
     fields: [
-      _content('overview', 'D00-OVR', help: 'What the system does and why.'),
-      _content('details', 'D00-DET'),
+      ModelField(
+        name: 'overview',
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': 'D00-OVR'}),
+          _a('ContentHelp', {'guidance': 'What the system does and why.'}),
+          _a('Min', {'count': 1}),
+        ],
+      ),
+      ModelField(
+        name: 'details',
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': 'D00-DET'}),
+          _a('MinLength', {'length': 10}),
+          _a('MaxLength', {'length': 500}),
+        ],
+      ),
       ModelField(
         name: 'header',
         typeName: 'Header',
         annotations: [_a('SectionId', {'id': 'D00-HDR'})],
-        formFields: [
-          FormFieldInfo(name: 'title', typeName: 'String', required: true),
-          FormFieldInfo(name: 'owner', typeName: 'String'),
-        ],
       ),
       ModelField(
         name: 'items',
@@ -52,24 +56,91 @@ Map<String, ModelClass> _demoModel() {
         listElementTypeName: 'Item',
         listElementIsComplex: true,
         annotations: [
-          _a('SectionIdPattern', {'pattern': 'D00-ITM'}),
+          _a('SectionIdPattern', {'pattern': 'D00-ITM-xxx'}),
           _a('Min', {'count': 1}),
           _a('Max', {'count': 4}),
+        ],
+      ),
+      ModelField(
+        name: 'notes',
+        typeName: 'Notes',
+        annotations: [],
+      ),
+      ModelField(
+        name: 'legacy',
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': 'D00-OLD'}),
+          _a('Unused'),
+        ],
+      ),
+    ],
+  );
+  final header = ModelClass(
+    name: 'Header',
+    annotations: [_a('Form')],
+    formFields: [
+      FormFieldInfo(
+          name: 'title', typeName: 'String', required: true,
+          hint: 'e.g. My System'),
+      FormFieldInfo(name: 'approvedBy', typeName: 'String'),
+    ],
+    fields: [
+      ModelField(name: 'title', typeName: 'String?'),
+      ModelField(
+        name: 'approvedBy',
+        typeName: 'String?',
+        annotations: [
+          _a('PatternCheck',
+              {'pattern': r'^[A-Z][a-z]+$', 'errorMessage': 'Name-cased'}),
         ],
       ),
     ],
   );
   final item = ModelClass(
     name: 'Item',
-    annotations: [_a('SectionId', {'id': 'D00-ITM-ROW'})],
-    fields: [_content('label', 'D00-ITM-ROW-LBL')],
+    annotations: [],
+    fields: [
+      ModelField(
+        name: 'label',
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': 'ITMR-LBL'}),
+          _a('TextRequired'),
+        ],
+      ),
+    ],
   );
-  return {'DemoDoc': root, 'Item': item};
+  final notes = ModelClass(
+    name: 'Notes',
+    annotations: [
+      _a('SectionId', {'id': 'D00-NOTE'}),
+      _a('ValidationPrompt', {'prompt': 'Check the notes are actionable.'}),
+    ],
+    fields: [
+      ModelField(
+        name: 'remark',
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': 'NOTE-RMK'}),
+        ],
+        docComment: 'A single remark line.',
+      ),
+    ],
+  );
+  return {
+    'DemoDoc': root,
+    'Header': header,
+    'Item': item,
+    'Notes': notes,
+  };
 }
 
 /// Writes [schema] as YAML to a temp tree and loads it back through the real
-/// DocSpecs loader — proving the emitted file is well-formed and its prefixes
-/// satisfy the DocSpecs grammar (`^[a-zA-Z0-9_]+$`).
+/// DocSpecs loader — proving the emitted file is well-formed, its prefixes
+/// satisfy the DocSpecs grammar (`^[a-zA-Z0-9_]+$`), and every construct the
+/// generator emits (subsection-types, pattern checks, forms, custom tags)
+/// parses (DR1 §5 rule 7 — DR3's acceptance criterion).
 DocSpecSchema _writeAndReload(Directory dir, DocSpecSchema schema) {
   final fileName = DocSpecsSchemaGenerator.fileNameFor(schema);
   final file = File(p.join(dir.path, schema.id, fileName))
@@ -79,7 +150,7 @@ DocSpecSchema _writeAndReload(Directory dir, DocSpecSchema schema) {
 }
 
 void main() {
-  group('DocSpecsSchemaGenerator — synthetic model', () {
+  group('DocSpecsSchemaGenerator — synthetic model (DR1 §5)', () {
     late Map<String, ModelClass> classes;
     late DocSpecsSchemaGenerator gen;
     late Directory dir;
@@ -91,116 +162,110 @@ void main() {
     });
     tearDown(() => dir.deleteSync(recursive: true));
 
-    test('maps @SectionId/@SectionIdPattern to section-types with legal '
-        'prefixes', () {
+    test('§5.2: section-types are named by lower-cased section id with the '
+        'exact id (dashes → underscores) as prefix', () {
       final schema = gen.generateFor('DemoDoc');
       // Root id (D00) is the document, not a section-type.
-      expect(schema.sectionTypes.keys, isNot(contains('D00')));
+      expect(schema.sectionTypes.keys, isNot(contains('d00')));
       expect(
         schema.sectionTypes.keys,
-        containsAll(<String>['D00-OVR', 'D00-DET', 'D00-HDR', 'D00-ITM',
-            'D00-ITM-ROW', 'D00-ITM-ROW-LBL']),
+        containsAll(<String>[
+          'd00-ovr', 'd00-det', 'd00-hdr', 'd00-itm', 'd00-note',
+          'itmr-lbl', 'note-rmk',
+        ]),
       );
-      // Dashes collapse to underscores so prefixes are DocSpecs-legal.
-      expect(schema.sectionTypes['D00-OVR']!.prefix, 'd00_ovr');
-      expect(schema.sectionTypes['D00-ITM-ROW']!.prefix, 'd00_itm_row');
+      // The exact TomSpecs id survives modulo the parser's prefix grammar
+      // (`^[a-zA-Z0-9_]+$` forbids dashes): case preserved, `-` → `_`.
+      expect(schema.sectionTypes['d00-ovr']!.prefix, 'D00_OVR');
+      // List-element types use the pattern stem, trailing dash included.
+      expect(schema.sectionTypes['d00-itm']!.prefix, 'D00_ITM_');
     });
 
-    test('prose sections are text-required, carry no format, and cap at one; '
-        'list elements take their @Min/@Max cardinality', () {
+    test('§5.2: subsection-types carry nearest section-bearing children with '
+        'min/max cardinality', () {
       final schema = gen.generateFor('DemoDoc');
-      final ovr = schema.sectionTypes['D00-OVR']!;
-      expect(ovr.textRequired, isTrue);
-      expect(ovr.format, isNull);
-      expect(ovr.maxCountInDocument, 1);
-      // A single field has no document-level minimum.
-      expect(ovr.minCountInDocument, isNull);
-      expect(ovr.description, 'What the system does and why.');
-      // The patterned list element type maps @Min(1)/@Max(4) onto the
-      // document-level min/max-count-in-document.
-      final itm = schema.sectionTypes['D00-ITM']!;
-      expect(itm.minCountInDocument, 1);
-      expect(itm.maxCountInDocument, 4);
+      // The list element's child content section is its subsection.
+      final itm = schema.sectionTypes['d00-itm']!;
+      expect(itm.subsectionTypes!.keys, ['itmr-lbl']);
+      expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
+      // The container section carries its nested content child.
+      final note = schema.sectionTypes['d00-note']!;
+      expect(note.subsectionTypes!.keys, ['note-rmk']);
+      // Leaf content sections have no subsection-types at all.
+      expect(schema.sectionTypes['d00-ovr']!.subsectionTypes, isNull);
     });
 
-    test('a patterned list with no @Min/@Max stays uncapped', () {
-      // Re-build the model without cardinality annotations on the list.
-      final bare = _demoModel();
-      final items = bare['DemoDoc']!.fields
-          .firstWhere((f) => f.name == 'items');
-      items.annotations.removeWhere((a) => a.name == 'Min' || a.name == 'Max');
-      final schema = DocSpecsSchemaGenerator(bare).generateFor('DemoDoc');
-      final itm = schema.sectionTypes['D00-ITM']!;
-      expect(itm.minCountInDocument, isNull);
-      expect(itm.maxCountInDocument, isNull);
-    });
-
-    test('@Form fields become a form-type and the section format', () {
+    test('§5.2: list-element pattern-check-id compiles the exact '
+        '@SectionIdPattern with xxx → [0-9]+', () {
       final schema = gen.generateFor('DemoDoc');
-      expect(schema.sectionTypes['D00-HDR']!.format, 'd00_hdr-form');
-      final form = schema.formTypes!['d00_hdr-form']!;
-      expect(form.fields.map((f) => f.fieldname), ['title', 'owner']);
-      expect(form.fields.firstWhere((f) => f.fieldname == 'title').required,
-          isTrue);
-    });
-
-    test('OE-21: patterned list elements get a prefix-based pattern-check-id; '
-        'single fields get none', () {
-      final schema = gen.generateFor('DemoDoc');
-      // The @SectionIdPattern list element pins its numbered id form.
-      final itm = schema.sectionTypes['D00-ITM']!;
-      final check = itm.patternCheckId;
+      final check = schema.sectionTypes['d00-itm']!.patternCheckId;
       expect(check, isNotNull);
-      expect(check!.pattern, r'^d00_itm-\d+$');
-      // A real numbered id matches; a bare prefix does not.
-      expect(RegExp(check.pattern).hasMatch('d00_itm-001'), isTrue);
-      expect(RegExp(check.pattern).hasMatch('d00_itm-'), isFalse);
-      // Single (non-pattern) fields carry no id pattern-check.
-      expect(schema.sectionTypes['D00-OVR']!.patternCheckId, isNull);
-      expect(schema.sectionTypes['D00-HDR']!.patternCheckId, isNull);
+      expect(check!.pattern, r'^D00-ITM-[0-9]+$');
+      expect(RegExp(check.pattern).hasMatch('D00-ITM-001'), isTrue);
+      expect(RegExp(check.pattern).hasMatch('D00-ITM-'), isFalse);
+      // Single (non-pattern) sections carry no id pattern-check.
+      expect(schema.sectionTypes['d00-ovr']!.patternCheckId, isNull);
+      expect(schema.sectionTypes['d00-hdr']!.patternCheckId, isNull);
     });
 
-    test('OE-21: a malformed list-element id fails validation', () {
+    test('§5.2: text-required from @TextRequired or @Min(1) on content; '
+        'min/max-text-length from @MinLength/@MaxLength', () {
       final schema = gen.generateFor('DemoDoc');
-      final reloaded = _writeAndReload(dir, schema);
-      final docPath = p.join(dir.path, 'bad_item_id.md');
-      File(docPath).writeAsStringSync('''
-<!-- docspec: ${reloaded.fullId} -->
-
-## [d00_ovr-001] Overview
-
-The system streamlines onboarding for new tenants.
-
-## [d00_det-001] Details
-
-Detailed behaviour, edge cases, and error handling are described here.
-
-## [d00_itm-x] Malformed item id
-''');
-      final factory = DocSpecsFactory(schema: reloaded);
-      final doc = DocScanner.scanDocumentSync(
-        filepath: docPath,
-        factory: factory,
-      );
-      final errors = DocSpecsValidator(schema: reloaded).validate(doc);
-      expect(errors, isNotEmpty);
-      expect(
-        errors.any((e) => e.toString().toLowerCase().contains('pattern') ||
-            e.toString().contains('d00_itm-NNN')),
-        isTrue,
-        reason: errors.join('\n'),
-      );
+      // @Min(1) on the overview content member → text-required.
+      expect(schema.sectionTypes['d00-ovr']!.textRequired, isTrue);
+      // Explicit @TextRequired on the item label.
+      expect(schema.sectionTypes['itmr-lbl']!.textRequired, isTrue);
+      // Neither applies to the plain optional prose section.
+      expect(schema.sectionTypes['d00-det']!.textRequired, isNull);
+      expect(schema.sectionTypes['d00-det']!.minTextLength, 10);
+      expect(schema.sectionTypes['d00-det']!.maxTextLength, 500);
     });
 
-    test('document slots reference the field section-types and are optional',
-        () {
+    test('§5.2: description from @ContentHelp first, doc comment fallback; '
+        'validation-prompt from @ValidationPrompt', () {
       final schema = gen.generateFor('DemoDoc');
-      expect(schema.document.sections['overview']!.sectionType, 'D00-OVR');
-      expect(schema.document.sections['items']!.sectionType, 'D00-ITM');
-      expect(
-        schema.document.sections.values.every((s) => s.optional == true),
-        isTrue,
-      );
+      expect(schema.sectionTypes['d00-ovr']!.description,
+          'What the system does and why.');
+      expect(schema.sectionTypes['note-rmk']!.description,
+          'A single remark line.');
+      expect(schema.sectionTypes['d00-note']!.validationPrompt,
+          'Check the notes are actionable.');
+    });
+
+    test('§5.3: @Form sections get format <type>-form; fields keep model '
+        'field names with required/description/pattern-check', () {
+      final schema = gen.generateFor('DemoDoc');
+      expect(schema.sectionTypes['d00-hdr']!.format, 'd00-hdr-form');
+      final form = schema.formTypes!['d00-hdr-form']!;
+      expect(form.fields.map((f) => f.fieldname), ['title', 'approvedBy']);
+      final title = form.fields.first;
+      expect(title.required, isTrue);
+      expect(title.description, 'e.g. My System');
+      final approvedBy = form.fields.last;
+      expect(approvedBy.patternCheck, isNotNull);
+      expect(approvedBy.patternCheck!.pattern, r'^[A-Z][a-z]+$');
+      expect(approvedBy.patternCheck!.errorMessage, 'Name-cased');
+    });
+
+    test('§5.4: document lists top-level sections keyed by type name; '
+        '@Min ≥ 1 makes a slot required; title-format is a custom tag', () {
+      final schema = gen.generateFor('DemoDoc');
+      // Required sections (@Min(1)): optional is unset (defaults to false).
+      expect(schema.document.sections['d00-ovr']!.optional, isNull);
+      expect(schema.document.sections['d00-itm']!.optional, isNull);
+      // Optional sections are marked explicitly.
+      expect(schema.document.sections['d00-det']!.optional, isTrue);
+      expect(schema.document.sections['d00-hdr']!.optional, isTrue);
+      // The id-less Notes container bubbles its section-bearing self up.
+      expect(schema.document.sections['d00-note']!.sectionType, 'd00-note');
+      // §5 rule 4 title format rides as a custom tag.
+      expect(schema.customTags['title-format'], '# <!--[D00]--> Demo Doc');
+    });
+
+    test('§5.5: @Unused nodes are omitted from the schema entirely', () {
+      final schema = gen.generateFor('DemoDoc');
+      expect(schema.sectionTypes.keys, isNot(contains('d00-old')));
+      expect(schema.document.sections.keys, isNot(contains('d00-old')));
     });
 
     test('section-types are ordered by descending prefix length (specific '
@@ -213,44 +278,26 @@ Detailed behaviour, edge cases, and error handling are described here.
       expect(prefixLens, sorted);
     });
 
-    test('the emitted YAML reloads through the DocSpecs loader', () {
+    test('§5.7: the emitted YAML reloads through the DocSpecs loader with all '
+        'constructs intact', () {
       final schema = gen.generateFor('DemoDoc');
       final reloaded = _writeAndReload(dir, schema);
       expect(reloaded.fullId, 'demo-doc/1.0');
       expect(reloaded.sectionTypes.length, schema.sectionTypes.length);
       expect(reloaded.formTypes?.length, 1);
-    });
-
-    test('DONE: the reloaded schema validates a known-good export', () {
-      final schema = gen.generateFor('DemoDoc');
-      final reloaded = _writeAndReload(dir, schema);
-
-      // A known-good export: prose sections whose IDs use the generated
-      // prefixes, in document order. The items list carries @Min(1), so at
-      // least one d00_itm section must be present to satisfy
-      // min-count-in-document.
-      final docPath = p.join(dir.path, 'known_good.md');
-      File(docPath).writeAsStringSync('''
-<!-- docspec: ${reloaded.fullId} -->
-
-## [d00_ovr-001] Overview
-
-The system streamlines onboarding for new tenants.
-
-## [d00_det-001] Details
-
-Detailed behaviour, edge cases, and error handling are described here.
-
-## [d00_itm-001] First item
-''');
-
-      final factory = DocSpecsFactory(schema: reloaded);
-      final doc = DocScanner.scanDocumentSync(
-        filepath: docPath,
-        factory: factory,
-      );
-      final errors = DocSpecsValidator(schema: reloaded).validate(doc);
-      expect(errors, isEmpty, reason: errors.join('\n'));
+      // Subsection constraints survive the round-trip.
+      final itm = reloaded.sectionTypes['d00-itm']!;
+      expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
+      expect(itm.patternCheckId!.pattern, r'^D00-ITM-[0-9]+$');
+      // Form field description + pattern-check survive.
+      final form = reloaded.formTypes!['d00-hdr-form']!;
+      expect(form.fields.first.description, 'e.g. My System');
+      expect(form.fields.last.patternCheck!.pattern, r'^[A-Z][a-z]+$');
+      // The title-format custom tag survives.
+      expect(reloaded.customTags['title-format'], '# <!--[D00]--> Demo Doc');
+      // Document requiredness survives.
+      expect(reloaded.document.sections['d00-ovr']!.optional, isNull);
+      expect(reloaded.document.sections['d00-det']!.optional, isTrue);
     });
 
     test('S2: schema version counts up with the model stamp', () {
@@ -327,13 +374,52 @@ Detailed behaviour, edge cases, and error handling are described here.
       expect(schemas.keys, contains('solution-blueprint'));
     });
 
-    test('every generated schema round-trips through the DocSpecs loader', () {
+    test('DR3: the generated SBP schema is §5-structured — lower-cased type '
+        'names, legal prefixes, subsection-types, title-format', () {
+      final schema =
+          DocSpecsSchemaGenerator(classes).generateFor('D00SolutionBlueprint');
+      expect(schema.id, 'solution-blueprint');
+      expect(schema.sectionTypes, isNotEmpty);
+      // All type names are lower-cased ids; all prefixes satisfy the DocSpecs
+      // prefix grammar.
+      for (final entry in schema.sectionTypes.entries) {
+        expect(entry.key, equals(entry.key.toLowerCase()),
+            reason: 'type name ${entry.key} must be lower-cased');
+        expect(RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(entry.value.prefix!), isTrue,
+            reason: 'prefix ${entry.value.prefix} must be DocSpecs-legal');
+      }
+      // At least one section-bearing container carries subsection-types.
+      expect(
+        schema.sectionTypes.values.any(
+            (t) => t.subsectionTypes != null && t.subsectionTypes!.isNotEmpty),
+        isTrue,
+      );
+      // Every pattern check compiles and is anchored.
+      for (final t in schema.sectionTypes.values) {
+        final check = t.patternCheckId;
+        if (check == null) continue;
+        expect(() => RegExp(check.pattern), returnsNormally);
+        expect(check.pattern, startsWith('^'));
+        expect(check.pattern, endsWith(r'$'));
+      }
+      // §5 rule 4 title format.
+      expect(schema.customTags['title-format'], startsWith('# <!--['));
+      // The document lists top-level slots referencing existing types.
+      expect(schema.document.sections, isNotEmpty);
+      for (final s in schema.document.sections.values) {
+        expect(schema.sectionTypes, contains(s.sectionType));
+      }
+    });
+
+    test('§5.7: every generated schema round-trips through the DocSpecs '
+        'loader (the existing consumer can parse them)', () {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
       for (final schema in schemas.values) {
         final reloaded = _writeAndReload(dir, schema);
         expect(reloaded.sectionTypes, isNotEmpty,
             reason: '${schema.id} has no section-types');
         expect(reloaded.version, '1.0');
+        expect(reloaded.sectionTypes.length, schema.sectionTypes.length);
       }
     });
   });

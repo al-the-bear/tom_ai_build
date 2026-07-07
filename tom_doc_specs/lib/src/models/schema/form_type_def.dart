@@ -11,11 +11,16 @@ class FormFieldDef {
   /// Optional pattern validation for field value.
   final PatternCheckDef? patternCheck;
 
+  /// Optional human/AI-facing description of the expected value (e.g. a
+  /// generator may surface a model hint such as "e.g. 1.0" here).
+  final String? description;
+
   /// Creates a new FormFieldDef.
   const FormFieldDef({
     required this.fieldname,
     this.required,
     this.patternCheck,
+    this.description,
   });
 
   /// Creates a FormFieldDef from a YAML map.
@@ -39,6 +44,7 @@ class FormFieldDef {
       fieldname: fieldname,
       required: yaml['required'] as bool?,
       patternCheck: patternCheck,
+      description: yaml['description'] as String?,
     );
   }
 
@@ -48,6 +54,7 @@ class FormFieldDef {
       'fieldname': fieldname,
       if (required != null) 'required': required,
       if (patternCheck != null) 'pattern-check': patternCheck!.toYaml(),
+      if (description != null) 'description': description,
     };
   }
 }

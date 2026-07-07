@@ -1,402 +1,397 @@
 # Generated from the TomSpecs object model — do not edit.
 # Schema: information-model/1.0
 
+title-format: "# <!--[IFM]--> Information Model"
 section-types:
-  BIOBAT-ATTR-LST:
-    prefix: biobat_attr_lst
+  biobat-attr:
+    prefix: BIOBAT_ATTR_
+    subsection-types:
+      boaed:
+        max-count: 1
+      boaev:
+        max-count: 1
+      boaeg:
+        max-count: 1
     pattern-check-id:
-      pattern: ^biobat_attr_lst-\d+$
-      error-message: ID must match biobat_attr_lst-NNN
+      pattern: "^BIOBAT-ATTR-[0-9]+$"
+      error-message: IDs of this section must match BIOBAT-ATTR-xxx
     description: Add one entry per business object attribute.
-  BIRURE-KEYB-LST:
-    prefix: birure_keyb_lst
+  birure-keyb:
+    prefix: BIRURE_KEYB_
     pattern-check-id:
-      pattern: ^birure_keyb_lst-\d+$
-      error-message: ID must match birure_keyb_lst-NNN
+      pattern: "^BIRURE-KEYB-[0-9]+$"
+      error-message: IDs of this section must match BIRURE-KEYB-xxx
     description: Add one entry per business rule reference.
-  RULEXM-EXAM-LST:
-    prefix: rulexm_exam_lst
+  rulexm-exam:
+    prefix: RULEXM_EXAM_
     pattern-check-id:
-      pattern: ^rulexm_exam_lst-\d+$
-      error-message: ID must match rulexm_exam_lst-NNN
+      pattern: "^RULEXM-EXAM-[0-9]+$"
+      error-message: IDs of this section must match RULEXM-EXAM-xxx
     description: Add one entry per rule example.
-  ACRSE-ACCE-LST:
-    prefix: acrse_acce_lst
+  acrse-acce:
+    prefix: ACRSE_ACCE_
     pattern-check-id:
-      pattern: ^acrse_acce_lst-\d+$
-      error-message: ID must match acrse_acce_lst-NNN
+      pattern: "^ACRSE-ACCE-[0-9]+$"
+      error-message: IDs of this section must match ACRSE-ACCE-xxx
     description: Add one entry per access restriction.
-  BEHAV-BEHA-LST:
-    prefix: behav_beha_lst
+  behav-beha:
+    prefix: BEHAV_BEHA_
     pattern-check-id:
-      pattern: ^behav_beha_lst-\d+$
-      error-message: ID must match behav_beha_lst-NNN
+      pattern: "^BEHAV-BEHA-[0-9]+$"
+      error-message: IDs of this section must match BEHAV-BEHA-xxx
     description: Add one entry per behavior rule.
-  BJOEN-OBJE-LST:
-    prefix: bjoen_obje_lst
-    min-count-in-document: 1
+  bjoen-obje:
+    prefix: BJOEN_OBJE_
+    subsection-types:
+      behav-beha:
+        max-count: infinite
+      integ-inte:
+        max-count: infinite
+      biobat-attr:
+        max-count: infinite
+      obst-keys:
+        max-count: infinite
+      birure-keyb:
+        max-count: infinite
+      lftrs-life:
+        max-count: infinite
+      obop-oper:
+        max-count: infinite
+      obinv-inva:
+        max-count: infinite
     pattern-check-id:
-      pattern: ^bjoen_obje_lst-\d+$
-      error-message: ID must match bjoen_obje_lst-NNN
-    description: Business object catalog (list).
-  DAATT-ATTR-LST:
-    prefix: daatt_attr_lst
-    pattern-check-id:
-      pattern: ^daatt_attr_lst-\d+$
-      error-message: ID must match daatt_attr_lst-NNN
-    description: Add one entry per data attribute.
-  DAENT-ENTI-LST:
-    prefix: daent_enti_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^daent_enti_lst-\d+$
-      error-message: ID must match daent_enti_lst-NNN
-    description: Entity inventory (list).
-  DATAA-CONS-LST:
-    prefix: dataa_cons_lst
-    pattern-check-id:
-      pattern: ^dataa_cons_lst-\d+$
-      error-message: ID must match dataa_cons_lst-NNN
-    description: Add one entry per attribute constraint.
-  DCLSE-ITEM-LST:
-    prefix: dclse_item_lst
-    pattern-check-id:
-      pattern: ^dclse_item_lst-\d+$
-      error-message: ID must match dclse_item_lst-NNN
-    description: Add one entry per data classification level.
-  DISPL-DISP-LST:
-    prefix: displ_disp_lst
-    pattern-check-id:
-      pattern: ^displ_disp_lst-\d+$
-      error-message: ID must match displ_disp_lst-NNN
-    description: Add one entry per display property.
-  ENCNS-CONS-LST:
-    prefix: encns_cons_lst
-    pattern-check-id:
-      pattern: ^encns_cons_lst-\d+$
-      error-message: ID must match encns_cons_lst-NNN
-    description: Add one entry per entity constraint.
-  ENIDX-INDE-LST:
-    prefix: enidx_inde_lst
-    pattern-check-id:
-      pattern: ^enidx_inde_lst-\d+$
-      error-message: ID must match enidx_inde_lst-NNN
-    description: Add one entry per entity index.
-  ENRLE-ITEM-LST:
-    prefix: enrle_item_lst
-    pattern-check-id:
-      pattern: ^enrle_item_lst-\d+$
-      error-message: ID must match enrle_item_lst-NNN
-    description: Add one entry per entity relationship.
-  FNDMX-FUNC-LST:
-    prefix: fndmx_func_lst
-    pattern-check-id:
-      pattern: ^fndmx_func_lst-\d+$
-      error-message: ID must match fndmx_func_lst-NNN
-    description: Function-to-data matrix (list).
-  FUNCT-FUNC-LST:
-    prefix: funct_func_lst
-    pattern-check-id:
-      pattern: ^funct_func_lst-\d+$
-      error-message: ID must match funct_func_lst-NNN
-    description: Function decomposition (list).
-  HNDRE-HAND-LST:
-    prefix: hndre_hand_lst
-    pattern-check-id:
-      pattern: ^hndre_hand_lst-\d+$
-      error-message: ID must match hndre_hand_lst-NNN
-    description: Add one entry per handling requirement.
-  INTEG-INTE-LST:
-    prefix: integ_inte_lst
-    pattern-check-id:
-      pattern: ^integ_inte_lst-\d+$
-      error-message: ID must match integ_inte_lst-NNN
-    description: Add one entry per integration point.
-  KEATT-KEYA-LST:
-    prefix: keatt_keya_lst
-    pattern-check-id:
-      pattern: ^keatt_keya_lst-\d+$
-      error-message: ID must match keatt_keya_lst-NNN
-    description: Add one entry per key attribute.
-  LFTRS-LIFE-LST:
-    prefix: lftrs_life_lst
-    pattern-check-id:
-      pattern: ^lftrs_life_lst-\d+$
-      error-message: ID must match lftrs_life_lst-NNN
-    description: Add one entry per lifecycle transition.
-  MIGME-MIGR-LST:
-    prefix: migme_migr_lst
-    pattern-check-id:
-      pattern: ^migme_migr_lst-\d+$
-      error-message: ID must match migme_migr_lst-NNN
-    description: Add one entry per migration mapping.
-  OBINV-INVA-LST:
-    prefix: obinv_inva_lst
-    pattern-check-id:
-      pattern: ^obinv_inva_lst-\d+$
-      error-message: ID must match obinv_inva_lst-NNN
-    description: Add one entry per object invariant.
-  PARTI-PART-LST:
-    prefix: parti_part_lst
-    pattern-check-id:
-      pattern: ^parti_part_lst-\d+$
-      error-message: ID must match parti_part_lst-NNN
-    description: Add one entry per participating entity.
-  RELAT-RELA-LST:
-    prefix: relat_rela_lst
-    pattern-check-id:
-      pattern: ^relat_rela_lst-\d+$
-      error-message: ID must match relat_rela_lst-NNN
-    description: Add one entry per relationship attribute.
-  TECHN-TECH-LST:
-    prefix: techn_tech_lst
-    pattern-check-id:
-      pattern: ^techn_tech_lst-\d+$
-      error-message: ID must match techn_tech_lst-NNN
-    description: Add one entry per technical characteristic.
-  VOLUM-VOLU-LST:
-    prefix: volum_volu_lst
-    pattern-check-id:
-      pattern: ^volum_volu_lst-\d+$
-      error-message: ID must match volum_volu_lst-NNN
-    description: Add one entry per volume metric.
-  AFFN-AFFE-LST:
-    prefix: affn_affe_lst
-    pattern-check-id:
-      pattern: ^affn_affe_lst-\d+$
-      error-message: ID must match affn_affe_lst-NNN
-    description: Add one entry per affected function.
-  AFOB-AFFE-LST:
-    prefix: afob_affe_lst
-    pattern-check-id:
-      pattern: ^afob_affe_lst-\d+$
-      error-message: ID must match afob_affe_lst-NNN
-    description: Add one entry per affected object.
-  BIRU-BUSI-LST:
-    prefix: biru_busi_lst
-    min-count-in-document: 1
-    pattern-check-id:
-      pattern: ^biru_busi_lst-\d+$
-      error-message: ID must match biru_busi_lst-NNN
-    description: Business rules catalog (list).
-  OBOP-OPER-LST:
-    prefix: obop_oper_lst
-    pattern-check-id:
-      pattern: ^obop_oper_lst-\d+$
-      error-message: ID must match obop_oper_lst-NNN
-    description: Add one entry per object operation.
-  OBST-KEYS-LST:
-    prefix: obst_keys_lst
-    pattern-check-id:
-      pattern: ^obst_keys_lst-\d+$
-      error-message: ID must match obst_keys_lst-NNN
-    description: Add one entry per object state.
-  SUFN-SUBF-LST:
-    prefix: sufn_subf_lst
-    pattern-check-id:
-      pattern: ^sufn_subf_lst-\d+$
-      error-message: ID must match sufn_subf_lst-NNN
-    description: Add one entry per sub-function.
-  CRE-COMP-LST:
-    prefix: cre_comp_lst
-    pattern-check-id:
-      pattern: ^cre_comp_lst-\d+$
-      error-message: ID must match cre_comp_lst-NNN
-    description: Add one entry per compliance requirement.
-  BIOBAT:
-    prefix: biobat
-    description: A business object attribute entry (form).
-  BIRURE:
-    prefix: birure
-    description: A business rule reference entry (form).
-  FUENCL:
-    prefix: fuencl
-    description: Decomposition position and classification.
-  FUENIM:
-    prefix: fuenim
-    description: Automation and data handling summary.
-  FUENOP:
-    prefix: fuenop
-    description: Execution profile and criticality.
-  RULEXM:
-    prefix: rulexm
-    description: A rule example entry (form).
-  ACRSE:
-    prefix: acrse
-    description: An access restriction entry (form).
-  BEHAV:
-    prefix: behav
-    description: A single behavior rule entry.
-  BJOEN:
-    prefix: bjoen
+      pattern: "^BJOEN-OBJE-[0-9]+$"
+      error-message: IDs of this section must match BJOEN-OBJE-xxx
     description: A business object entry (form).
-  BOAED:
-    prefix: boaed
-    description: Format and requirement details for a business object attribute.
-  BOAEG:
-    prefix: boaeg
-    description: Sensitivity and presentation guidance for a business object attribute.
-  BOAEV:
-    prefix: boaev
-    description: Validation and derivation rules for a business object attribute.
-  DAATT:
-    prefix: daatt
-    description: A data attribute entry (form).
-  DAENT:
-    prefix: daent
+  daatt-attr:
+    prefix: DAATT_ATTR_
+    subsection-types:
+      dataa-cons:
+        max-count: infinite
+      displ-disp:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^DAATT-ATTR-[0-9]+$"
+      error-message: IDs of this section must match DAATT-ATTR-xxx
+    description: Add one entry per data attribute.
+  daent-enti:
+    prefix: DAENT_ENTI_
+    subsection-types:
+      volum-volu:
+        max-count: infinite
+      cre-comp:
+        max-count: infinite
+      techn-tech:
+        max-count: infinite
+      daatt-attr:
+        max-count: infinite
+      keatt-keya:
+        max-count: infinite
+      enidx-inde:
+        max-count: infinite
+      encns-cons:
+        max-count: infinite
+      migme-migr:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^DAENT-ENTI-[0-9]+$"
+      error-message: IDs of this section must match DAENT-ENTI-xxx
     description: A data entity entry (form).
-  DATAA:
-    prefix: dataa
-    description: A single constraint entry.
-  DATCL:
-    prefix: datcl
-    description: 7.1.4. Data Classification.
-  DCLSE:
-    prefix: dclse
-    description: A data classification entry (form).
-  DISPL:
-    prefix: displ
-    description: A single display property entry.
-  DOCHD:
-    prefix: dochd
-    description: Standard document header present at the top of every TomSpecs document.
-  ENCNS:
-    prefix: encns
-    description: An entity constraint entry (form).
-  ENIDX:
-    prefix: enidx
-    description: An entity index entry (form).
-  ENREL:
-    prefix: enrel
-    description: 7.1.2. Entity Relationships.
-  ENRLE:
-    prefix: enrle
-    description: An entity relationship entry (form).
-  FNDMX:
-    prefix: fndmx
+  dataa-cons:
+    prefix: DATAA_CONS_
+    pattern-check-id:
+      pattern: "^DATAA-CONS-[0-9]+$"
+      error-message: IDs of this section must match DATAA-CONS-xxx
+    description: Add one entry per attribute constraint.
+  dclse-item:
+    prefix: DCLSE_ITEM_
+    subsection-types:
+      hndre-hand:
+        max-count: infinite
+      acrse-acce:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^DCLSE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match DCLSE-ITEM-xxx
+    description: Add one entry per data classification level.
+  displ-disp:
+    prefix: DISPL_DISP_
+    pattern-check-id:
+      pattern: "^DISPL-DISP-[0-9]+$"
+      error-message: IDs of this section must match DISPL-DISP-xxx
+    description: Add one entry per display property.
+  encns-cons:
+    prefix: ENCNS_CONS_
+    pattern-check-id:
+      pattern: "^ENCNS-CONS-[0-9]+$"
+      error-message: IDs of this section must match ENCNS-CONS-xxx
+    description: Add one entry per entity constraint.
+  enidx-inde:
+    prefix: ENIDX_INDE_
+    pattern-check-id:
+      pattern: "^ENIDX-INDE-[0-9]+$"
+      error-message: IDs of this section must match ENIDX-INDE-xxx
+    description: Add one entry per entity index.
+  enrle-item:
+    prefix: ENRLE_ITEM_
+    subsection-types:
+      parti-part:
+        max-count: infinite
+      relat-rela:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^ENRLE-ITEM-[0-9]+$"
+      error-message: IDs of this section must match ENRLE-ITEM-xxx
+    description: Add one entry per entity relationship.
+  fndmx-func:
+    prefix: FNDMX_FUNC_
+    pattern-check-id:
+      pattern: "^FNDMX-FUNC-[0-9]+$"
+      error-message: IDs of this section must match FNDMX-FUNC-xxx
     description: A function-to-data matrix entry (form).
-  FUNCT:
-    prefix: funct
+  funct-func:
+    prefix: FUNCT_FUNC_
+    subsection-types:
+      fuencl:
+        max-count: 1
+      fuenop:
+        max-count: 1
+      fuenim:
+        max-count: 1
+      sufn-subf:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^FUNCT-FUNC-[0-9]+$"
+      error-message: IDs of this section must match FUNCT-FUNC-xxx
     description: A function entry (form).
-  HNDRE:
-    prefix: hndre
-    description: A data handling requirement entry (form).
-  INTEG:
-    prefix: integ
-    description: A single integration point entry.
-  KEAGN:
-    prefix: keagn
-    description: Key generation settings.
-  KEAGV:
-    prefix: keagv
-    description: Constraint semantics and business meaning.
-  KEARF:
-    prefix: kearf
-    description: Foreign-key reference and cascade behavior.
-  KEATT:
-    prefix: keatt
-    description: A key attribute entry (form).
-  LFTRS:
-    prefix: lftrs
-    description: A lifecycle transition entry (form).
-  MIGME:
-    prefix: migme
-    description: A migration mapping entry (form).
-  OBINV:
-    prefix: obinv
-    description: An object invariant entry (form).
-  PARTI:
-    prefix: parti
-    description: A single participant entry.
-  RELAT:
-    prefix: relat
-    description: A single relationship attribute entry.
-  TECHN:
-    prefix: techn
-    description: A single technical characteristic entry.
-  VOLUM:
-    prefix: volum
-    description: A single volume metric entry.
-  AFFN:
-    prefix: affn
-    description: An affected function reference entry (form).
-  AFOB:
-    prefix: afob
-    description: An affected object reference entry (form).
-  BIRU:
-    prefix: biru
+  hndre-hand:
+    prefix: HNDRE_HAND_
+    pattern-check-id:
+      pattern: "^HNDRE-HAND-[0-9]+$"
+      error-message: IDs of this section must match HNDRE-HAND-xxx
+    description: Add one entry per handling requirement.
+  integ-inte:
+    prefix: INTEG_INTE_
+    pattern-check-id:
+      pattern: "^INTEG-INTE-[0-9]+$"
+      error-message: IDs of this section must match INTEG-INTE-xxx
+    description: Add one entry per integration point.
+  keatt-keya:
+    prefix: KEATT_KEYA_
+    subsection-types:
+      keagn:
+        max-count: 1
+      kearf:
+        max-count: 1
+      keagv:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^KEATT-KEYA-[0-9]+$"
+      error-message: IDs of this section must match KEATT-KEYA-xxx
+    description: Add one entry per key attribute.
+  lftrs-life:
+    prefix: LFTRS_LIFE_
+    subsection-types:
+      ltet:
+        max-count: 1
+      ltec:
+        max-count: 1
+      ltee:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^LFTRS-LIFE-[0-9]+$"
+      error-message: IDs of this section must match LFTRS-LIFE-xxx
+    description: Add one entry per lifecycle transition.
+  migme-migr:
+    prefix: MIGME_MIGR_
+    pattern-check-id:
+      pattern: "^MIGME-MIGR-[0-9]+$"
+      error-message: IDs of this section must match MIGME-MIGR-xxx
+    description: Add one entry per migration mapping.
+  obinv-inva:
+    prefix: OBINV_INVA_
+    pattern-check-id:
+      pattern: "^OBINV-INVA-[0-9]+$"
+      error-message: IDs of this section must match OBINV-INVA-xxx
+    description: Add one entry per object invariant.
+  parti-part:
+    prefix: PARTI_PART_
+    pattern-check-id:
+      pattern: "^PARTI-PART-[0-9]+$"
+      error-message: IDs of this section must match PARTI-PART-xxx
+    description: Add one entry per participating entity.
+  relat-rela:
+    prefix: RELAT_RELA_
+    pattern-check-id:
+      pattern: "^RELAT-RELA-[0-9]+$"
+      error-message: IDs of this section must match RELAT-RELA-xxx
+    description: Add one entry per relationship attribute.
+  techn-tech:
+    prefix: TECHN_TECH_
+    pattern-check-id:
+      pattern: "^TECHN-TECH-[0-9]+$"
+      error-message: IDs of this section must match TECHN-TECH-xxx
+    description: Add one entry per technical characteristic.
+  volum-volu:
+    prefix: VOLUM_VOLU_
+    pattern-check-id:
+      pattern: "^VOLUM-VOLU-[0-9]+$"
+      error-message: IDs of this section must match VOLUM-VOLU-xxx
+    description: Add one entry per volume metric.
+  affn-affe:
+    prefix: AFFN_AFFE_
+    pattern-check-id:
+      pattern: "^AFFN-AFFE-[0-9]+$"
+      error-message: IDs of this section must match AFFN-AFFE-xxx
+    description: Add one entry per affected function.
+  afob-affe:
+    prefix: AFOB_AFFE_
+    pattern-check-id:
+      pattern: "^AFOB-AFFE-[0-9]+$"
+      error-message: IDs of this section must match AFOB-AFFE-xxx
+    description: Add one entry per affected object.
+  biru-busi:
+    prefix: BIRU_BUSI_
+    subsection-types:
+      afob-affe:
+        max-count: infinite
+      affn-affe:
+        max-count: infinite
+      rulexm-exam:
+        max-count: infinite
+    pattern-check-id:
+      pattern: "^BIRU-BUSI-[0-9]+$"
+      error-message: IDs of this section must match BIRU-BUSI-xxx
     description: A business rule entry (form).
-  DADI:
-    prefix: dadi
-    description: 7.1.5. Data Dictionary.
-  INCO:
-    prefix: inco
-    description: 7.1.7. Integrity Constraints.
-  LTEC:
-    prefix: ltec
+  obop-oper:
+    prefix: OBOP_OPER_
+    subsection-types:
+      ooee:
+        max-count: 1
+      ooel:
+        max-count: 1
+      ooeg:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^OBOP-OPER-[0-9]+$"
+      error-message: IDs of this section must match OBOP-OPER-xxx
+    description: Add one entry per object operation.
+  obst-keys:
+    prefix: OBST_KEYS_
+    pattern-check-id:
+      pattern: "^OBST-KEYS-[0-9]+$"
+      error-message: IDs of this section must match OBST-KEYS-xxx
+    description: Add one entry per object state.
+  sufn-subf:
+    prefix: SUFN_SUBF_
+    pattern-check-id:
+      pattern: "^SUFN-SUBF-[0-9]+$"
+      error-message: IDs of this section must match SUFN-SUBF-xxx
+    description: Add one entry per sub-function.
+  cre-comp:
+    prefix: CRE_COMP_
+    pattern-check-id:
+      pattern: "^CRE-COMP-[0-9]+$"
+      error-message: IDs of this section must match CRE-COMP-xxx
+    description: Add one entry per compliance requirement.
+  fuencl:
+    prefix: FUENCL
+    description: Decomposition position and classification.
+  fuenim:
+    prefix: FUENIM
+    description: Automation and data handling summary.
+  fuenop:
+    prefix: FUENOP
+    description: Execution profile and criticality.
+  boaed:
+    prefix: BOAED
+    description: Format and requirement details.
+  boaeg:
+    prefix: BOAEG
+    description: Sensitivity and presentation guidance.
+  boaev:
+    prefix: BOAEV
+    description: Validation and derivation rules.
+  datcl:
+    prefix: DATCL
+    subsection-types:
+      dclse-item:
+        max-count: infinite
+    description: Data classification.
+  dochd:
+    prefix: DOCHD
+    description: Standard TomSpecs document header.
+  enrel:
+    prefix: ENREL
+    subsection-types:
+      enrle-item:
+        max-count: infinite
+    description: Entity relationships.
+  keagn:
+    prefix: KEAGN
+    description: Key generation settings.
+  keagv:
+    prefix: KEAGV
+    description: Constraint semantics and business meaning.
+  kearf:
+    prefix: KEARF
+    description: Foreign-key reference and cascade behavior.
+  dadi:
+    prefix: DADI
+    description: Data dictionary.
+  inco:
+    prefix: INCO
+    description: Integrity constraints.
+  ltec:
+    prefix: LTEC
     description: Transition conditions and guarantees.
-  LTEE:
-    prefix: ltee
+  ltee:
+    prefix: LTEE
     description: "Actions, actors, and rollback handling."
-  LTET:
-    prefix: ltet
+  ltet:
+    prefix: LTET
     description: Triggering event details.
-  OBOP:
-    prefix: obop
-    description: An object operation entry (form).
-  OBST:
-    prefix: obst
-    description: An object state entry (form).
-  OOEE:
-    prefix: ooee
-    description: Execution contract for an object operation.
-  OOEG:
-    prefix: ooeg
-    description: Authorization and usage boundaries for an object operation.
-  OOEL:
-    prefix: ooel
-    description: State and event lifecycle details for an object operation.
-  SUFN:
-    prefix: sufn
-    description: A sub-function entry (form).
-  VACO:
-    prefix: vaco
-    description: 7.1.6. Validation Constraints.
-  CRE:
-    prefix: cre
-    description: A single compliance requirement entry.
+  ooee:
+    prefix: OOEE
+    description: Execution contract for this operation.
+  ooeg:
+    prefix: OOEG
+    description: Authorization and usage boundaries.
+  ooel:
+    prefix: OOEL
+    description: State and event lifecycle details.
+  vaco:
+    prefix: VACO
+    description: Validation constraints.
 document:
   sections:
-    header:
-      section-type: DOCHD
+    dochd:
+      section-type: dochd
       optional: true
-    entities:
-      section-type: DAENT-ENTI-LST
+    daent-enti:
+      section-type: daent-enti
+    enrel:
+      section-type: enrel
       optional: true
-    entityrelationships:
-      section-type: ENREL
+    datcl:
+      section-type: datcl
       optional: true
-    dataclassification:
-      section-type: DATCL
+    bjoen-obje:
+      section-type: bjoen-obje
+    funct-func:
+      section-type: funct-func
       optional: true
-    objectcatalog:
-      section-type: BJOEN-OBJE-LST
+    fndmx-func:
+      section-type: fndmx-func
       optional: true
-    functiondecomposition:
-      section-type: FUNCT-FUNC-LST
+    biru-busi:
+      section-type: biru-busi
+    dadi:
+      section-type: dadi
       optional: true
-    functiontodatamatrix:
-      section-type: FNDMX-FUNC-LST
+    vaco:
+      section-type: vaco
       optional: true
-    businessrules:
-      section-type: BIRU-BUSI-LST
-      optional: true
-    datadictionary:
-      section-type: DADI
-      optional: true
-    validationconstraints:
-      section-type: VACO
-      optional: true
-    integrityconstraints:
-      section-type: INCO
+    inco:
+      section-type: inco
       optional: true
