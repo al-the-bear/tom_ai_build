@@ -329,7 +329,8 @@ class SomCEmitter {
   /// holder becomes a group of `#define` string macros — matching the header's
   /// existing enum-token / model-version `#define` convention (SCREAMING_SNAKE
   /// tokens). Each macro name is `<SCREAMING(holderName)>_<SCREAMING(name)>`
-  /// (e.g. `PD00_PATHS_VISION`) and the value is the c-escaped absolute path.
+  /// (e.g. `SBP_PATHS_CURRENT_LANDSCAPE_OPERATIONAL_METRICS`) and the value is
+  /// the c-escaped absolute path.
   /// `#define` (not `static const char *`) avoids `-Wunused` on the file-scope
   /// statics the `-Werror` build would reject. List **items** are dynamic and
   /// never earn a constant (only the container), so no element recursion leaks.
