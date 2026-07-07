@@ -73,33 +73,23 @@ SpecModel _model() {
   );
 }
 
-/// The order of content keys as they appear in the emitted `content:` block.
-List<String> _contentKeyOrder(String yaml) {
-  final out = <String>[];
-  var inContent = false;
-  for (final line in yaml.split('\n')) {
-    if (line == '  content:') {
-      inContent = true;
-      continue;
-    }
-    if (inContent) {
-      final m = RegExp(r'^    "([^"]+)":').firstMatch(line);
-      if (m != null) {
-        out.add(m.group(1)!);
-      } else if (line.startsWith('  ') && !line.startsWith('    ')) {
-        break; // next top-level document child (forms:/lists:)
-      }
-    }
+/// Index of the first line whose trimmed form starts with [prefix], or -1.
+int _lineIndexOf(String yaml, String prefix) {
+  final lines = yaml.split('\n');
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].trimLeft().startsWith(prefix)) return i;
   }
-  return out;
+  return -1;
 }
 
 void main() {
   late SpecModel model;
+  late SomMetaTree tree;
   late SpecDocument doc;
 
   setUp(() {
     model = _model();
+    tree = buildSomMetaTree(model);
     doc = SpecDocument();
     // Populate content out of declaration order on purpose.
     doc.setContent('DEMO/ALPHA', 'a');
@@ -108,17 +98,23 @@ void main() {
   });
 
   group('content ordering (AA1 criterion 7)', () {
-    test('default (no model) emits alphabetical keys', () {
-      final yaml = SpecDocumentYaml.encode(document: doc);
-      expect(_contentKeyOrder(yaml),
-          ['DEMO/ALPHA', 'DEMO/MID', 'DEMO/ZETA']);
+    test('emits siblings in @SerializationOrder order (ZETA, MID, ALPHA)', () {
+      final yaml = SpecDocumentYaml.encode(document: doc, tree: tree);
+      final zeta = _lineIndexOf(yaml, 'ZETA zeta:');
+      final mid = _lineIndexOf(yaml, 'MID mid:');
+      final alpha = _lineIndexOf(yaml, 'ALPHA alpha:');
+      expect(zeta, greaterThan(0));
+      expect(mid, greaterThan(zeta));
+      expect(alpha, greaterThan(mid));
     });
 
-    test('with model, emits @SerializationOrder order (ZETA, MID, ALPHA)', () {
-      final yaml = SpecDocumentYaml.encode(
-          document: doc, order: SpecSerializationOrder(model));
-      expect(_contentKeyOrder(yaml),
-          ['DEMO/ZETA', 'DEMO/MID', 'DEMO/ALPHA']);
+    test('form (order 0) precedes all content fields', () {
+      doc.setFormField('DEMO/HEAD', 'title', 'T');
+      final yaml = SpecDocumentYaml.encode(document: doc, tree: tree);
+      final head = _lineIndexOf(yaml, 'HEAD head:');
+      final zeta = _lineIndexOf(yaml, 'ZETA zeta:');
+      expect(head, greaterThan(0));
+      expect(zeta, greaterThan(head));
     });
   });
 
@@ -126,10 +122,9 @@ void main() {
     test('form fields follow the form-field declaration order', () {
       doc.setFormField('DEMO/HEAD', 'author', 'me');
       doc.setFormField('DEMO/HEAD', 'title', 'T');
-      final yaml = SpecDocumentYaml.encode(
-          document: doc, order: SpecSerializationOrder(model));
-      final titleAt = yaml.indexOf('"title":');
-      final authorAt = yaml.indexOf('"author":');
+      final yaml = SpecDocumentYaml.encode(document: doc, tree: tree);
+      final titleAt = _lineIndexOf(yaml, 'title:');
+      final authorAt = _lineIndexOf(yaml, 'author:');
       expect(titleAt, greaterThan(0));
       // title (declared first) precedes author (declared second).
       expect(titleAt, lessThan(authorAt));
@@ -153,16 +148,25 @@ void main() {
       ]);
       expect(keys, ['$i1/SECOND', '$i1/FIRST', '$i2/SECOND']);
     });
+
+    test('emitted list item fields follow @SerializationOrder', () {
+      final i1 = doc.addListItem('DEMO/ITEM', sectionId: 'ITEM-AB1');
+      doc.setContent('$i1/FIRST', 'i1-first');
+      doc.setContent('$i1/SECOND', 'i1-second');
+      final yaml = SpecDocumentYaml.encode(document: doc, tree: tree);
+      final second = _lineIndexOf(yaml, 'SECOND second:');
+      final first = _lineIndexOf(yaml, 'FIRST first:');
+      expect(second, greaterThan(0));
+      expect(first, greaterThan(second));
+    });
   });
 
   group('round-trip preserves order (AA1 criterion 7)', () {
     test('read -> write reproduces the same member order', () {
-      final order = SpecSerializationOrder(model);
-      final yaml1 = SpecDocumentYaml.encode(document: doc, order: order);
-      final reloaded = SpecDocument()
-        ..loadJson(SpecDocumentYaml.decode(yaml1).document);
-      final yaml2 = SpecDocumentYaml.encode(document: reloaded, order: order);
-      expect(_contentKeyOrder(yaml2), _contentKeyOrder(yaml1));
+      final yaml1 = SpecDocumentYaml.encode(document: doc, tree: tree);
+      final reloaded = SpecDocumentYaml.decode(yaml1, tree).document;
+      final yaml2 = SpecDocumentYaml.encode(document: reloaded, tree: tree);
+      expect(yaml2, yaml1);
     });
   });
 }

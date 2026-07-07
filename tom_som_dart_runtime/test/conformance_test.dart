@@ -29,11 +29,12 @@ void main() {
   const stamp = '1.0';
   final meta = _buildMeta();
   final model = SpecModel.fromJson(meta);
+  final tree = buildSomMetaTree(model);
   final doc = _buildDocument();
   final state = doc.toJson();
 
   final yamlGolden =
-      SpecDocumentYaml.encode(document: doc, modelVersion: stamp);
+      SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp);
   final mdGolden = SpecDocumentMarkdown(model, doc).exportRoot(model.roots.first);
 
   final reflectionCases = _reflectionCases(model);
@@ -80,16 +81,18 @@ void main() {
   });
 
   test('YAML encode is byte-stable against the committed golden', () {
-    expect(SpecDocumentYaml.encode(document: doc, modelVersion: stamp),
+    expect(
+        SpecDocumentYaml.encode(document: doc, tree: tree, modelVersion: stamp),
         read('expected.docspecs.yaml'));
   });
 
   test('YAML decode→memory→encode is byte-stable and preserves the stamp', () {
     final golden = read('expected.docspecs.yaml');
-    final decoded = SpecDocumentYaml.decode(golden);
+    final decoded = SpecDocumentYaml.decode(golden, tree);
     expect(decoded.modelVersion, stamp);
-    final reDoc = SpecDocument()..loadJson(decoded.document);
-    expect(SpecDocumentYaml.encode(document: reDoc, modelVersion: stamp),
+    expect(
+        SpecDocumentYaml.encode(
+            document: decoded.document, tree: tree, modelVersion: stamp),
         golden);
   });
 

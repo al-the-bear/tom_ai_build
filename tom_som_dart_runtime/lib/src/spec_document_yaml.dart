@@ -1,26 +1,34 @@
-/// Generic YAML codec for the native `*.docspecs.yaml` document format (§15.1,
-/// step 4).
+/// Generic YAML codec for the native `*.docspecs.yaml` document format —
+/// **hierarchical format v2** (DR1 §2).
 ///
-/// This is the review-free, Flutter-free half of the format: a header comment,
-/// `version:` (the on-disk format version), an optional `modelVersion:` stamp
-/// (the authoring object-model `major.minor` the content conforms to), then the
-/// `document:` pass — the live object-model values, sorted by full section path.
+/// One nested YAML tree whose indentation mirrors the document structure:
+/// every model node becomes a mapping key (`<section-id> <member-name>`, DR1
+/// §2.2), sections nest their children, list items appear under their
+/// container keyed by their stored section id (or an anonymous positional
+/// `<member>-<n>` key), a node's own body text uses the literal key `content`,
+/// and form fields use their bare field names. The former flat two-level
+/// path-map format (`document: {content: {"A/b": …}}`) is **retired**; readers
+/// reject `version: 1` files with a clear error (no compatibility path).
 ///
-/// **All text values are written as literal block scalars (`|2-`)** so multi-
-/// line content round-trips verbatim and the file reads cleanly without an
-/// editor (IO2/N4). The emitter is **self-verifying**: it re-parses each block
-/// it produces and falls back to a JSON-quoted scalar (always valid YAML,
-/// guaranteed to round-trip) for any value a clean block can't represent —
-/// values with two or more trailing newlines, or anything the parser doesn't
-/// reproduce exactly. Because a [SpecDocument] keys every value by a globally-
-/// unique section path with no projection copies, each section is emitted
-/// exactly once (no duplicate subtrees).
+/// Text values are written as literal block scalars (`|2-`), with the DR1
+/// §2.4 escaping rules: the emitter is **self-verifying** (it re-parses each
+/// scalar it produces and falls back to a double-quoted JSON-escaped flow
+/// scalar when the parse differs), and **runs of 2+ consecutive empty lines
+/// are collapsed to one before serialization** (a deliberate, documented
+/// lossy normalization — round-trip guarantees are stated "modulo empty-line
+/// dedup"). Non-text values (`int`/`double`/`bool`, enum member names) are
+/// plain scalars when they self-verify (§2.5).
 ///
-/// The full editor format adds a second `review:` pass (structural review state)
-/// composed on top by the editor's `DocSpecsFile`, which reuses the public
-/// scalar helpers here ([writeScalar] / [yamlKey]) so the two passes stay
-/// byte-compatible. [decode] returns that pass untouched as a raw map so the
-/// editor can map it onto its Flutter-coupled review types.
+/// Both [SpecDocumentYaml.encode] and [SpecDocumentYaml.decode] walk the
+/// [SomMetaTree] of the document root: the file carries **no paths** — the
+/// runtime reconstructs them by matching keys against the metadata tree, and
+/// a key that matches nothing at its position is a structured load error
+/// ([SpecYamlFormatException]; no silent skips). Symmetrically, [encode]
+/// throws when the document holds values the tree cannot place (nothing is
+/// silently dropped).
+///
+/// The optional `review:` pass stays opaque to the runtime ([decode] returns
+/// it as a raw map for the editor to interpret).
 library;
 
 import 'dart:convert';
@@ -28,11 +36,26 @@ import 'dart:convert';
 import 'package:yaml/yaml.dart';
 
 import 'spec_document.dart';
-import 'spec_serialization_order.dart';
+import 'spec_meta.dart';
+import 'spec_paths.dart';
+
+/// A structural error in a `*.docspecs.yaml` file: wrong/unsupported format
+/// version, a key that does not match the metadata tree at its position, a
+/// malformed value shape, or (on encode) document values the tree cannot
+/// place.
+class SpecYamlFormatException implements Exception {
+  /// What went wrong, naming the offending path/key where applicable.
+  final String message;
+
+  SpecYamlFormatException(this.message);
+
+  @override
+  String toString() => 'SpecYamlFormatException: $message';
+}
 
 /// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
-/// [SpecDocument.loadJson]-shaped map, the `review:` pass as a raw map (the
-/// runtime is review-agnostic), and the optional authoring model-version stamp.
+/// populated [SpecDocument], the `review:` pass as a raw map (the runtime is
+/// review-agnostic), and the optional authoring model-version stamp.
 class SpecYamlContents {
   SpecYamlContents({
     required this.document,
@@ -40,8 +63,9 @@ class SpecYamlContents {
     this.modelVersion,
   });
 
-  /// The `document:` pass, ready for [SpecDocument.loadJson].
-  final Map<dynamic, dynamic> document;
+  /// The `document:` pass, loaded into a live document (its
+  /// [SpecDocument.modelVersion] is already set from the file stamp).
+  final SpecDocument document;
 
   /// The `review:` pass exactly as parsed (empty when absent). The runtime does
   /// not interpret it; the editor maps it onto its own review entries.
@@ -56,26 +80,28 @@ class SpecYamlContents {
 /// Codec for the `document:` pass of the native `*.docspecs.yaml` format.
 class SpecDocumentYaml {
   /// The on-disk format version (independent of the model-version stamp).
-  static const int formatVersion = 1;
+  /// Version 2 is the hierarchical tree format; version-1 flat files are
+  /// rejected on read.
+  static const int formatVersion = 2;
 
   // --- Encode -------------------------------------------------------------
 
   /// Serializes [document] to a header + `version:` (+ `modelVersion:`) +
-  /// `document:` pass. The full editor file appends a `review:` pass via the
-  /// shared [writeScalar] / [yamlKey] helpers; the runtime's own round-trip is
-  /// document-only.
+  /// hierarchical `document:` pass, walking [tree] (the metadata tree of the
+  /// document's root).
   ///
-  /// When [order] is supplied, members are emitted in `@SerializationOrder`
-  /// order (AA1 criterion 7); otherwise keys stay alphabetical (the diff-stable
-  /// default the editor relies on).
+  /// Sibling order is the tree's child order (`@SerializationOrder`), list
+  /// items follow their stored sequence; emission is sparse (only populated
+  /// subtrees appear). Throws [SpecYamlFormatException] when the document
+  /// holds values [tree] cannot place — nothing is silently dropped.
   static String encode({
     required SpecDocument document,
+    required SomMetaTree tree,
     String? modelVersion,
-    SpecSerializationOrder? order,
   }) {
     final b = StringBuffer();
     writeHeader(b, modelVersion: modelVersion);
-    writeDocumentPass(b, document.toJson(), order: order);
+    _Encoder(document, tree).writeDocumentPass(b);
     return b.toString();
   }
 
@@ -83,89 +109,38 @@ class SpecDocumentYaml {
   /// `modelVersion:` stamp when [modelVersion] is non-empty.
   static void writeHeader(StringBuffer b, {String? modelVersion}) {
     b
-      ..writeln('# TomSpecs document (*.docspecs.yaml).')
-      ..writeln('# `document:` holds the object-model values, sorted by section '
-          'id; text')
-      ..writeln('# values use block scalars so multi-line content round-trips '
-          'verbatim (§15.1).')
+      ..writeln(
+          '# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.')
       ..writeln('version: $formatVersion');
     if (modelVersion != null && modelVersion.isNotEmpty) {
       b.writeln('modelVersion: ${jsonEncode(modelVersion)}');
     }
   }
 
-  /// Writes the `document:` pass from a [SpecDocument.toJson]-shaped [doc].
-  ///
-  /// With [order] supplied, section keys (and form fields) follow
-  /// `@SerializationOrder`; without it they stay alphabetical.
-  static void writeDocumentPass(StringBuffer b, Map<String, Object?> doc,
-      {SpecSerializationOrder? order}) {
-    List<String> orderKeys(Map map) => order == null
-        ? sortedStringKeys(map)
-        : order.orderPaths(map.keys.map((k) => '$k'));
-
-    final content = doc['content'];
-    final forms = doc['forms'];
-    final lists = doc['lists'];
-    if (content == null && forms == null && lists == null) {
-      b.writeln('document: {}');
-      return;
-    }
-    b.writeln('document:');
-
-    if (content is Map && content.isNotEmpty) {
-      b.writeln('  content:');
-      for (final k in orderKeys(content)) {
-        writeScalar(b, 4, k, '${content[k]}');
-      }
-    }
-
-    if (forms is Map && forms.isNotEmpty) {
-      b.writeln('  forms:');
-      for (final k in orderKeys(forms)) {
-        final fields = forms[k];
-        if (fields is! Map || fields.isEmpty) continue;
-        b.writeln('    ${yamlKey(k)}:');
-        final fieldKeys = order == null
-            ? sortedStringKeys(fields)
-            : order.orderFormFields(k, fields.keys.map((f) => '$f'));
-        for (final f in fieldKeys) {
-          writeScalar(b, 6, f, '${fields[f]}');
-        }
-      }
-    }
-
-    if (lists is Map && lists.isNotEmpty) {
-      b.writeln('  lists:');
-      for (final k in orderKeys(lists)) {
-        final spec = lists[k];
-        if (spec is! Map) continue;
-        b.writeln('    ${yamlKey(k)}:');
-        b.writeln('      seq: ${spec['seq'] ?? 0}');
-        final items = spec['items'];
-        if (items is List && items.isNotEmpty) {
-          b.writeln('      items:');
-          for (final it in items) {
-            b.writeln('        - ${yamlKey('$it')}');
-          }
-        } else {
-          b.writeln('      items: []');
-        }
-      }
-    }
+  /// The mapping key a metadata node writes (DR1 §2.2): its effective section
+  /// id, one space, then the exact member name (class name on the document
+  /// root); just the name when the node carries no id.
+  static String nodeKey(SomMetaNode node) {
+    final name = node.memberName ?? node.className;
+    final id = node.sectionId;
+    return id == null ? name : '$id $name';
   }
 
   // --- Shared scalar machinery (public for the editor's review writer) -----
 
-  /// Writes `<indent><key>: <scalar>` where the scalar is a self-verified block
-  /// scalar (or a JSON-quoted fallback). Block body lines, which the builder
-  /// emits at a relative indent of 2, are re-indented to [keyIndent] + 2.
+  /// Writes `<indent><key>: <scalar>` where the scalar is a self-verified
+  /// block scalar (or a JSON-quoted fallback). Block body lines, which the
+  /// builder emits at a relative indent of 2, are re-indented past [keyIndent].
   static void writeScalar(
       StringBuffer b, int keyIndent, String key, String value) {
+    _writeRendered(b, keyIndent, yamlKey(key), _scalar(value));
+  }
+
+  static void _writeRendered(
+      StringBuffer b, int keyIndent, String renderedKey, String repr) {
     final pad = ' ' * keyIndent;
-    final repr = _scalar(value);
     final lines = repr.split('\n');
-    b.writeln('$pad${yamlKey(key)}: ${lines.first}');
+    b.writeln('$pad$renderedKey: ${lines.first}');
     for (final line in lines.skip(1)) {
       if (line.isEmpty) {
         b.writeln('');
@@ -179,9 +154,21 @@ class SpecDocumentYaml {
   /// this both quotes and escapes any path/field name unambiguously.
   static String yamlKey(String key) => jsonEncode(key);
 
-  /// The string keys of [map], sorted, so the file diffs/merges cleanly.
-  static List<String> sortedStringKeys(Map map) =>
-      map.keys.map((k) => '$k').toList()..sort();
+  /// A plain key when the key is YAML-safe by construction (section ids,
+  /// member names, `<id> <name>` pairs), else a JSON-quoted one.
+  static String plainKey(String key) =>
+      _plainKeyPattern.hasMatch(key) ? key : yamlKey(key);
+
+  static final RegExp _plainKeyPattern =
+      RegExp(r'^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$');
+
+  /// Collapses runs of two or more consecutive empty lines to a single empty
+  /// line (DR1 §2.4.3 — the deliberate lossy normalization applied to every
+  /// text value before serialization).
+  static String dedupEmptyLines(String value) =>
+      value.replaceAll(_blankRuns, '\n\n');
+
+  static final RegExp _blankRuns = RegExp(r'\n{3,}');
 
   /// The scalar representation of [value]: a literal block at relative indent 2
   /// when that round-trips, else a JSON-quoted scalar.
@@ -189,6 +176,22 @@ class SpecDocumentYaml {
     final block = _literalBlock(value);
     if (block != null && _roundTrips(block, value)) return block;
     return jsonEncode(value);
+  }
+
+  /// A plain one-line scalar for a non-text value (int/double/bool/enum member
+  /// name, §2.5) when writing it plainly re-parses to exactly [value] (string
+  /// compare, matching the document's string-typed stores); `null` otherwise.
+  static String? _plainScalar(String value) {
+    if (value.isEmpty || value.contains('\n')) return null;
+    try {
+      final parsed = loadYaml('_v: $value\n');
+      if (parsed is! Map) return null;
+      final v = parsed['_v'];
+      if (v == null || v is Map || v is List) return null;
+      return '$v' == value ? value : null;
+    } catch (_) {
+      return null;
+    }
   }
 
   /// Builds a literal block scalar (`|2<chomp>`) with body at relative indent
@@ -238,20 +241,361 @@ class SpecDocumentYaml {
 
   // --- Decode -------------------------------------------------------------
 
-  /// Parses a `*.docspecs.yaml` document into its passes. A missing pass decodes
-  /// as empty rather than failing, so a partial/hand-written file still loads
-  /// what it has.
-  static SpecYamlContents decode(String yaml) {
+  /// Parses a `*.docspecs.yaml` file into its passes, matching every
+  /// `document:` key against [tree].
+  ///
+  /// Throws [SpecYamlFormatException] for a missing/unsupported `version:`
+  /// (version 1 is rejected explicitly — the flat format has no compatibility
+  /// path), for any key the metadata tree cannot place, and for malformed
+  /// value shapes. A missing/empty `document:` pass decodes as an empty
+  /// document.
+  static SpecYamlContents decode(String yaml, SomMetaTree tree) {
     final root = yaml.trim().isEmpty ? null : loadYaml(yaml);
-    final doc = (root is Map ? root['document'] : null);
-    final rev = (root is Map ? root['review'] : null);
-    final stamp = (root is Map ? root['modelVersion'] : null);
+    if (root is! Map) {
+      throw SpecYamlFormatException(
+          'not a *.docspecs.yaml mapping (expected version/document keys)');
+    }
+    final version = root['version'];
+    if ('$version' != '$formatVersion') {
+      throw SpecYamlFormatException(version == null
+          ? 'missing `version:` (expected version: $formatVersion)'
+          : '$version' == '1'
+              ? 'format version 1 (flat path-map) is no longer supported; '
+                  're-save the document in the hierarchical v2 format'
+              : 'unsupported format version `$version` '
+                  '(expected $formatVersion)');
+    }
+
+    final stampRaw = root['modelVersion'];
+    final stamp =
+        (stampRaw != null && '$stampRaw'.isNotEmpty) ? '$stampRaw' : null;
+    final rev = root['review'];
+
+    final document = SpecDocument()..modelVersion = stamp;
+    final docPass = root['document'];
+    if (docPass != null && docPass is! Map) {
+      throw SpecYamlFormatException('`document:` must be a mapping');
+    }
+    if (docPass is Map && docPass.isNotEmpty) {
+      final rootKey = nodeKey(tree.root);
+      if (docPass.length != 1 || '${docPass.keys.first}' != rootKey) {
+        throw SpecYamlFormatException(
+            'expected the single document root key `$rootKey`, '
+            'found: ${docPass.keys.map((k) => '`$k`').join(', ')}');
+      }
+      final body = docPass.values.first;
+      if (body != null) {
+        if (body is! Map) {
+          throw SpecYamlFormatException(
+              'root `$rootKey` must hold a mapping, not a scalar');
+        }
+        _Decoder(document, tree)
+            .loadMapping(tree.root, tree.root.segment, body);
+      }
+    }
 
     return SpecYamlContents(
-      document: doc is Map ? doc : const {},
+      document: document,
       review: rev is Map ? rev : const {},
-      modelVersion:
-          (stamp != null && '$stamp'.isNotEmpty) ? '$stamp' : null,
+      modelVersion: stamp,
     );
+  }
+}
+
+// --- Encoder ----------------------------------------------------------------
+
+/// One encode run: walks the metadata tree, consuming values from snapshots of
+/// the document's stores so anything left unconsumed at the end is a
+/// structured error (nothing is silently dropped).
+class _Encoder {
+  final SpecDocument doc;
+  final SomMetaTree tree;
+  final Map<String, String> _content;
+  final Map<String, Map<String, String>> _forms;
+  final Set<String> _lists;
+
+  _Encoder(this.doc, this.tree)
+      : _content = {for (final p in doc.contentPaths) p: doc.content(p)!},
+        _forms = {
+          for (final p in doc.formPaths)
+            p: {for (final f in doc.formFieldNames(p)) f: doc.formField(p, f)!},
+        },
+        _lists = doc.listPaths.toSet();
+
+  void writeDocumentPass(StringBuffer b) {
+    final root = tree.root;
+    final body = _mappingBody(root, root.segment, 4);
+    _assertNothingLeft();
+    if (body.isEmpty) {
+      b.writeln('document: {}');
+      return;
+    }
+    b
+      ..writeln('document:')
+      ..writeln('  ${SpecDocumentYaml.plainKey(SpecDocumentYaml.nodeKey(root))}:')
+      ..write(body);
+  }
+
+  /// Renders the mapping body of [node] at [path] (root, a collapsed
+  /// section/complex field, or a list item's element), one line per populated
+  /// entry at [indent]. Empty when nothing under the node is populated.
+  String _mappingBody(SomMetaNode node, String path, int indent) {
+    final b = StringBuffer();
+
+    // The node's own body text — the literal `content` key (DR1 §2.2).
+    final own = _content.remove(path);
+    if (own != null) {
+      if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'content')) {
+        throw SpecYamlFormatException(
+            'cannot emit body text at `$path`: a child of '
+            '${node.debugName} also serializes as key `content`');
+      }
+      _writeText(b, indent, 'content', own);
+    }
+
+    for (final child in node.children) {
+      final childPath = specPathJoin(path, child.segment);
+      final key = SpecDocumentYaml.nodeKey(child);
+      switch (child.kind) {
+        case SomMetaKind.content:
+          final v = _content.remove(childPath);
+          if (v != null) _writeText(b, indent, key, v);
+        case SomMetaKind.scalar:
+        case SomMetaKind.enumValue:
+          final v = _content.remove(childPath);
+          if (v != null) _writeValue(b, indent, key, v);
+        case SomMetaKind.form:
+          _writeForm(b, indent, key, child, childPath);
+        case SomMetaKind.section:
+        case SomMetaKind.complex:
+          final sub = _mappingBody(child, childPath, indent + 2);
+          if (sub.isNotEmpty) {
+            b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
+            b.write(sub);
+          }
+        case SomMetaKind.list:
+          _writeList(b, indent, key, child, childPath);
+      }
+    }
+    return b.toString();
+  }
+
+  void _writeForm(StringBuffer b, int indent, String key, SomMetaNode node,
+      String path) {
+    final fields = _forms.remove(path);
+    if (fields == null || fields.isEmpty) return;
+    final meta = node.form ?? const SomFormMeta(fields: []);
+    for (final name in fields.keys) {
+      if (meta.fieldNamed(name) == null) {
+        throw SpecYamlFormatException(
+            'form `$path` holds a field `$name` unknown to the model');
+      }
+    }
+    b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
+    for (final f in meta.fields) {
+      final v = fields[f.name];
+      if (v == null) continue;
+      if (_isNumericOrBool(f.typeName)) {
+        _writeValue(b, indent + 2, f.name, v);
+      } else {
+        _writeText(b, indent + 2, f.name, v);
+      }
+    }
+  }
+
+  void _writeList(StringBuffer b, int indent, String key, SomMetaNode node,
+      String path) {
+    _lists.remove(path);
+    final items = doc.listItems(path);
+    if (items.isEmpty) return;
+    b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
+    final used = <String>{};
+    var pos = 0;
+    for (final itemPath in items) {
+      pos++;
+      final storedId = doc.itemSectionId(itemPath);
+      var itemKey = storedId ?? '${node.memberName}-$pos';
+      if (storedId != null) {
+        if (!used.add(itemKey)) {
+          throw SpecYamlFormatException(
+              'duplicate list item key `$itemKey` at `$path`');
+        }
+      } else {
+        var bump = pos;
+        while (!used.add(itemKey)) {
+          bump++;
+          itemKey = '${node.memberName}-$bump';
+        }
+      }
+      final element = node.elementNode;
+      if (element == null) {
+        // Scalar list: the item is a direct value.
+        final v = _content.remove(itemPath) ?? '';
+        _writeValue(b, indent + 2, itemKey, v);
+      } else {
+        final sub = _mappingBody(element, itemPath, indent + 4);
+        if (sub.isEmpty) {
+          b.writeln('${' ' * (indent + 2)}'
+              '${SpecDocumentYaml.plainKey(itemKey)}: {}');
+        } else {
+          b.writeln(
+              '${' ' * (indent + 2)}${SpecDocumentYaml.plainKey(itemKey)}:');
+          b.write(sub);
+        }
+      }
+    }
+  }
+
+  /// Text value: empty-line dedup, then a self-verified block scalar (or the
+  /// JSON-quoted fallback).
+  void _writeText(StringBuffer b, int indent, String key, String value) {
+    SpecDocumentYaml._writeRendered(
+        b,
+        indent,
+        SpecDocumentYaml.plainKey(key),
+        SpecDocumentYaml._scalar(SpecDocumentYaml.dedupEmptyLines(value)));
+  }
+
+  /// Non-text value (§2.5): plain when it self-verifies, else the text path.
+  void _writeValue(StringBuffer b, int indent, String key, String value) {
+    final plain = SpecDocumentYaml._plainScalar(value);
+    if (plain != null) {
+      b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}: $plain');
+    } else {
+      _writeText(b, indent, key, value);
+    }
+  }
+
+  static bool _isNumericOrBool(String typeName) =>
+      typeName == 'int' ||
+      typeName == 'double' ||
+      typeName == 'num' ||
+      typeName == 'bool';
+
+  void _assertNothingLeft() {
+    final leftovers = <String>[
+      ..._content.keys.map((p) => 'content at `$p`'),
+      ..._forms.keys.map((p) => 'form values at `$p`'),
+      ..._lists.map((p) => 'list items at `$p`'),
+    ]..sort();
+    if (leftovers.isNotEmpty) {
+      throw SpecYamlFormatException(
+          'document holds values the metadata tree cannot place: '
+          '${leftovers.join('; ')}');
+    }
+  }
+}
+
+// --- Decoder ----------------------------------------------------------------
+
+/// One decode run: walks a parsed YAML mapping alongside the metadata tree and
+/// populates [doc]. Any key that matches nothing at its position throws.
+class _Decoder {
+  final SpecDocument doc;
+  final SomMetaTree tree;
+
+  _Decoder(this.doc, this.tree);
+
+  void loadMapping(SomMetaNode node, String path, Map body) {
+    body.forEach((rawKey, value) {
+      final key = '$rawKey';
+      final child = _childByKey(node, key);
+      if (child != null) {
+        _loadChild(child, specPathJoin(path, child.segment), key, value);
+        return;
+      }
+      if (key == 'content') {
+        doc.setContent(path, _scalarOf(value, '$path/content'));
+        return;
+      }
+      throw SpecYamlFormatException(
+          'key `$key` under `$path` matches no member of ${node.debugName} '
+          '(expected one of: ${_expectedKeys(node).join(', ')})');
+    });
+  }
+
+  SomMetaNode? _childByKey(SomMetaNode node, String key) {
+    for (final c in node.children) {
+      if (SpecDocumentYaml.nodeKey(c) == key) return c;
+    }
+    return null;
+  }
+
+  Iterable<String> _expectedKeys(SomMetaNode node) => [
+        for (final c in node.children) '`${SpecDocumentYaml.nodeKey(c)}`',
+        '`content`',
+      ];
+
+  void _loadChild(SomMetaNode child, String path, String key, Object? value) {
+    switch (child.kind) {
+      case SomMetaKind.content:
+      case SomMetaKind.scalar:
+      case SomMetaKind.enumValue:
+        doc.setContent(path, _scalarOf(value, path));
+      case SomMetaKind.form:
+        if (value is! Map) {
+          throw SpecYamlFormatException(
+              'form `$key` at `$path` must hold a field mapping');
+        }
+        final meta = child.form ?? const SomFormMeta(fields: []);
+        value.forEach((f, v) {
+          final name = '$f';
+          if (meta.fieldNamed(name) == null) {
+            throw SpecYamlFormatException(
+                'form `$path` has no field `$name` in the model');
+          }
+          doc.setFormField(path, name, _scalarOf(v, '$path.$name'));
+        });
+      case SomMetaKind.section:
+      case SomMetaKind.complex:
+        if (value == null) return;
+        if (value is! Map) {
+          throw SpecYamlFormatException(
+              'section `$key` at `$path` must hold a mapping, not a scalar');
+        }
+        loadMapping(child, path, value);
+      case SomMetaKind.list:
+        if (value == null) return;
+        if (value is! Map) {
+          throw SpecYamlFormatException(
+              'list `$key` at `$path` must hold an item mapping');
+        }
+        _loadList(child, path, value);
+    }
+  }
+
+  void _loadList(SomMetaNode node, String path, Map items) {
+    final anonymous =
+        RegExp('^${RegExp.escape(node.memberName ?? '')}-[0-9]+\$');
+    items.forEach((rawKey, value) {
+      final key = '$rawKey';
+      final itemPath = doc.addListItem(path,
+          sectionId: anonymous.hasMatch(key) ? null : key);
+      final element = node.elementNode;
+      if (element == null) {
+        // Scalar list item: the value is the item itself.
+        if (value is Map || value is List) {
+          throw SpecYamlFormatException(
+              'scalar list item `$key` at `$path` must hold a scalar');
+        }
+        if (value != null) doc.setContent(itemPath, '$value');
+        return;
+      }
+      if (value == null) return;
+      if (value is! Map) {
+        throw SpecYamlFormatException(
+            'list item `$key` at `$path` must hold a mapping '
+            '(use `{}` for an empty item)');
+      }
+      loadMapping(element, itemPath, value);
+    });
+  }
+
+  String _scalarOf(Object? value, String where) {
+    if (value == null) return '';
+    if (value is Map || value is List) {
+      throw SpecYamlFormatException('expected a scalar value at `$where`');
+    }
+    return '$value';
   }
 }

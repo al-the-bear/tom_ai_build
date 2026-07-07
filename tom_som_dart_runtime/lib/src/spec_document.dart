@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'spec_document_markdown.dart';
 import 'spec_document_yaml.dart';
+import 'spec_meta.dart';
 import 'spec_model.dart';
 import 'spec_section_id.dart';
 
@@ -45,21 +46,18 @@ class SpecDocument {
   /// `loadYaml` / `loadFile` statics apply it automatically.
   String? modelVersion;
 
-  /// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
-  /// the sparse stores ([loadJson]), and retain the parsed [modelVersion] on the
-  /// document. Collapses the former three-step `decode` → `loadJson` →
-  /// thread-`documentVersion` incantation (§ item 4).
-  static SpecDocument fromYaml(String yaml) {
-    final decoded = SpecDocumentYaml.decode(yaml);
-    return SpecDocument()
-      ..loadJson(decoded.document)
-      ..modelVersion = decoded.modelVersion;
-  }
+  /// Loads a hierarchical-v2 `*.docspecs.yaml` document in one call: decode
+  /// the YAML against [tree] (the metadata tree of the document's root),
+  /// populate the sparse stores, and retain the parsed [modelVersion] on the
+  /// document. Throws [SpecYamlFormatException] for version-1 files or
+  /// structurally invalid keys (see [SpecDocumentYaml.decode]).
+  static SpecDocument fromYaml(String yaml, SomMetaTree tree) =>
+      SpecDocumentYaml.decode(yaml, tree).document;
 
   /// Loads a `*.docspecs.yaml` document from the file at [path] — the file
   /// companion to [fromYaml] the generated `loadFile` static delegates to.
-  static SpecDocument fromFile(String path) =>
-      fromYaml(File(path).readAsStringSync());
+  static SpecDocument fromFile(String path, SomMetaTree tree) =>
+      fromYaml(File(path).readAsStringSync(), tree);
 
   /// Renders this document to Markdown in one call (§ item 12).
   ///

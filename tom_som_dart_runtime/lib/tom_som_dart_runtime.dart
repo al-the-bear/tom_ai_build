@@ -7,8 +7,14 @@
 ///     (every annotation, exact class/member names) with the dynamic lookups
 ///     [SomMetaTree.byId] and [SomMetaTree.byPath]; generated facades emit
 ///     the populated tree, this runtime defines the types;
+///   * [buildSomMetaTree] — the bridge that expands an exported [SpecModel]
+///     class graph into a wired [SomMetaTree] (used until the generated
+///     facades emit trees directly);
 ///   * [SpecDocument] / [SpecDocumentState] — the sparse, path-keyed in-memory
 ///     representation of a concrete document and its undo snapshots;
+///   * [SpecDocumentYaml] — the hierarchical `*.docspecs.yaml` v2 codec (one
+///     nested tree walked against the metadata tree; strict
+///     [SpecYamlFormatException] load errors, no v1 compatibility);
 ///   * [SpecModel] and friends ([SpecRoot], [SpecClass], [SpecField],
 ///     [SpecAnnotation], [FormFieldSpec], [SpecFieldKind]) — the meta-model
 ///     ("reflection") loaded from the exported spec-model meta-data;
@@ -34,6 +40,7 @@ export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
 export 'src/spec_meta.dart';
+export 'src/spec_meta_bridge.dart';
 export 'src/spec_model.dart';
 export 'src/spec_node_creation.dart';
 export 'src/spec_paths.dart';
