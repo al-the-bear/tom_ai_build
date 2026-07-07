@@ -15,7 +15,7 @@ import '../document_stubs.dart';
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
 /// establishes the foundation for all subsequent specification work.
-@SectionId('SYOV')
+@SectionId('INSC')
 class IntroductionAndScope {
   @ContentHelp('''
 Executive summary of the system being specified.
@@ -144,7 +144,7 @@ class SystemScale {
 }
 
 /// Specification status.
-@SectionId('SYSTA')
+@SectionId('SPSTA')
 class SpecificationStatus {
   @Form([
     Field('specificationVersion', String, 'Specification Version',
@@ -1624,7 +1624,7 @@ class ApplicableRegulationEntry {
     'addresses. Define the domain vocabulary and key concepts that will '
     'be used throughout the project documentation. This establishes '
     'the ubiquitous language for the project.')
-@SectionId('TA')
+@SectionId('BD')
 class BusinessDomain {
   @ContentType('description', 'High-level overview of the business domain '
       'and task area, explaining what business activities and processes '
