@@ -1997,7 +1997,7 @@ class ChangeCategoryEntryGovernance {
 // 3.6 Other Administrative Requirements
 // ---------------------------------------------------------------------------
 
-/// 3.6. Other Administrative Requirements.
+/// 3.6. Legal and Contractual Requirements.
 ///
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -2014,7 +2014,7 @@ class ChangeCategoryEntryGovernance {
 @ContentHelp('Document any additional administrative requirements not covered '
     'elsewhere. Include legal agreements, compliance obligations, and '
     'organizational constraints that affect project execution.')
-@SectionId('OAR')
+@SectionId('LCR')
 class LegalAndContractualRequirements {
   @ContentType('description', 'Overview of additional administrative '
       'requirements and their impact on the project.')
