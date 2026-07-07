@@ -1,14 +1,17 @@
-// Tests for the generic Markdown codec (`spec_document_markdown.dart`, step 4).
+// Tests for the DocSpecs-conform Markdown codec (`spec_document_markdown.dart`,
+// DR6 / DR1 §1).
 //
-// The codec is the meta-data-driven Markdown half of the document load/save
-// (§15.2): it renders the populated subtree of a root as a `<!-- docspec: -->`
-// document (one heading per populated section, machine-readable section path as
-// the first heading token, leaf values in fences widened past any backtick run)
-// and parses that format back into the same path-keyed memory representation.
+// The generated `*.md` is a genuine DocSpecs document: line 1 is the
+// `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
+// section is a heading of the form `## <!--[SECTION-ID]--> Title` (headline
+// comment carries the machine id, the text is the human-readable Title-Case
+// member name), content sections are normal markdown text (no fences), `@Form`
+// sections use the plain-text `FieldName: value` format, and list items sit as
+// sub-headings directly under the owner (no container heading).
 //
-// Step-4 done-when (Markdown half): a document round-trips
-// Markdown→memory→Markdown byte-stably for a fixture, including embedded
-// verbatim bodies.
+// DR6 done-when: emit + parse round-trip is lossless per DR1 §1, id comment
+// placement and form rendering follow the spec, and content with embedded
+// markdown formatting (including fenced code blocks) survives.
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:test/test.dart';
@@ -77,13 +80,30 @@ Map<String, dynamic> _sampleJson() => {
       },
     };
 
-/// A d4rt-flutter body that is multi-line and embeds a run of three backticks —
-/// the case that forces the fenced-leaf encoder to widen its fence.
+/// A d4rt-flutter body that is multi-line and embeds a run of three backticks
+/// mid-line — must pass through the plain-text body verbatim.
 const _d4rtBody = 'Column(\n'
     '  children: [\n'
     '    Text("hi"),\n'
     '  ],\n'
     ') // not a fence: ``` still inside the body';
+
+/// Content that exercises embedded markdown formatting: emphasis, a bullet
+/// list, a fenced code block containing heading-like lines, and a leading `#`
+/// line at column 0 (which the emitter escapes as `\#`).
+const _richMarkdown = 'Intro with **bold** and *italic*.\n'
+    '\n'
+    '- first bullet\n'
+    '- second bullet\n'
+    '\n'
+    '```dart\n'
+    '# not a heading — shielded by the fence\n'
+    '## also shielded\n'
+    'void main() {}\n'
+    '```\n'
+    '\n'
+    '# looks like a heading at column 0\n'
+    'trailing paragraph';
 
 SpecDocument _populated() {
   final doc = SpecDocument()
@@ -103,22 +123,93 @@ SpecModel _model() => SpecModel.fromJson(_sampleJson());
 
 SpecRoot _root() => _model().roots.single;
 
+String _export(SpecDocument doc) =>
+    SpecDocumentMarkdown(_model(), doc).exportRoot(_root());
+
+/// Parses [md] into a fresh document via the staged-values report.
+(SpecDocument, SpecMarkdownResult) _reload(String md) {
+  final target = SpecDocument();
+  final report = SpecDocumentMarkdown(_model(), target).parse(md);
+  target.loadJson({
+    'content': report.content,
+    'forms': report.forms,
+    'lists': report.lists,
+  });
+  return (target, report);
+}
+
 void main() {
-  group('export', () {
-    test('emits a docspec header and section headings for populated nodes', () {
-      final md = SpecDocumentMarkdown(_model(), _populated()).exportRoot(_root());
-      expect(md, contains('<!-- docspec:'));
-      expect(md, contains('# D00'));
-      expect(md, contains('D00/D00-OVR'));
-      expect(md, contains('D00/D00-HDR'));
-      // Empty fields (e.g. the reviewer form field) are not emitted (sparse).
-      expect(md, isNot(contains('reviewer')));
+  group('export — DocSpecs format (DR1 §1)', () {
+    test('line 1 is the docspec declaration with the kebab-cased title', () {
+      final md = _export(_populated());
+      expect(md.split('\n').first, startsWith('<!-- docspec: demo-document/'));
+      expect(md.split('\n').first, endsWith('-->'));
     });
 
-    test('a content leaf with a backtick run is fenced wide enough to survive',
+    test('headings carry the id as a headline comment plus a readable title',
         () {
-      final md = SpecDocumentMarkdown(_model(), _populated()).exportRoot(_root());
-      expect(md, contains('````'));
+      final md = _export(_populated());
+      expect(md, contains('# <!--[D00]--> Demo Document'));
+      expect(md, contains('## <!--[D00-OVR]--> Overview'));
+      expect(md, contains('## <!--[D00-ST]--> Status'));
+      expect(md, contains('## <!--[D00-HDR]--> Header'));
+      expect(md, contains('## <!--[D00-MET]--> Meta'));
+      expect(md, contains('### <!--[D00-MET-NOTE]--> Note'));
+    });
+
+    test('content sections are plain markdown text — no fences, no anchors',
+        () {
+      final md = _export(_populated());
+      expect(md, contains('An overview paragraph.\nWith two lines.'));
+      // No fenced leaf encoding: no line *starts* a fence (the d4rt body's
+      // mid-line backtick run is plain text, not a fence).
+      expect(md.split('\n').any((l) => l.startsWith('```')), isFalse);
+      expect(md, isNot(contains('<!-- field:')));
+      // No path-style headings either.
+      expect(md, isNot(contains('D00/D00-OVR')));
+    });
+
+    test('form sections use FieldName: value plain-text lines, sparse', () {
+      final md = _export(_populated());
+      expect(md, contains('Author: Ada Lovelace'));
+      // Empty fields (the reviewer form field) are not emitted.
+      expect(md, isNot(contains('Reviewer')));
+    });
+
+    test('list items are headings under the owner; no container heading', () {
+      final md = _export(_populated());
+      expect(md, contains('## <!--[items-1]--> Demo Item 1'));
+      expect(md, contains('## <!--[items-2]--> Demo Item 2'));
+      expect(md, contains('### <!--[D01-LBL]--> Label'));
+      // The list container itself gets no heading of its own.
+      expect(md, isNot(contains('<!--[D00-ITM]-->')));
+    });
+
+    test('the root schema description is not emitted (only stored content)',
+        () {
+      final md = _export(_populated());
+      expect(md, isNot(contains('A demo document.')));
+    });
+
+    test('a stored item section id replaces the anonymous <member>-<n> id',
+        () {
+      final doc = SpecDocument();
+      final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
+      doc.setContent('$item/D01-LBL', 'Custom-id item');
+      final md = _export(doc);
+      expect(md, contains('## <!--[D01-CUSTOM]--> Demo Item 1'));
+      expect(md, isNot(contains('<!--[items-1]-->')));
+    });
+
+    test('a content value with an unterminated fence throws ArgumentError',
+        () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-OVR', 'before\n```dart\nnever closed');
+      expect(
+        () => _export(doc),
+        throwsA(isA<ArgumentError>().having(
+            (e) => '${e.message}', 'message', contains('unterminated'))),
+      );
     });
   });
 
@@ -127,8 +218,8 @@ void main() {
       final model = _model();
       final doc = _populated();
       final oneLiner = doc.toMarkdown(model, rootType: 'DemoDoc');
-      final explicit =
-          SpecDocumentMarkdown(model, doc).exportRoot(model.rootByType('DemoDoc'));
+      final explicit = SpecDocumentMarkdown(model, doc)
+          .exportRoot(model.rootByType('DemoDoc'));
       expect(oneLiner, explicit);
     });
 
@@ -185,13 +276,9 @@ void main() {
 
   group('round-trip', () {
     test('export → parse into a fresh document reproduces every value', () {
-      final md = SpecDocumentMarkdown(_model(), _populated()).exportRoot(_root());
-
-      final target = SpecDocument();
-      final codec = SpecDocumentMarkdown(_model(), target);
-      final report = codec.parse(md);
+      final md = _export(_populated());
+      final (target, report) = _reload(md);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
-      _applyInto(target, report);
 
       expect(target.content('D00/D00-OVR'),
           'An overview paragraph.\nWith two lines.');
@@ -207,72 +294,175 @@ void main() {
     });
 
     test('Markdown → memory → Markdown is byte-stable for the fixture', () {
-      final md1 = SpecDocumentMarkdown(_model(), _populated()).exportRoot(_root());
-
-      final reloaded = SpecDocument();
-      final report = SpecDocumentMarkdown(_model(), reloaded).parse(md1);
-      _applyInto(reloaded, report);
-
-      final md2 = SpecDocumentMarkdown(_model(), reloaded).exportRoot(_root());
+      final md1 = _export(_populated());
+      final (reloaded, _) = _reload(md1);
+      final md2 = _export(reloaded);
       expect(md2, md1);
+    });
+
+    test('content with embedded markdown formatting survives the round-trip',
+        () {
+      final doc = SpecDocument()..setContent('D00/D00-OVR', _richMarkdown);
+      final md1 = _export(doc);
+      // Fence-shielded heading-like lines are NOT escaped; the column-0 `#`
+      // line outside the fence IS.
+      expect(md1, contains('\n# not a heading — shielded by the fence\n'));
+      expect(md1, contains('\n\\# looks like a heading at column 0\n'));
+
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.content('D00/D00-OVR'), _richMarkdown);
+      // And the second pass is byte-stable.
+      expect(_export(reloaded), md1);
+    });
+
+    test('a stored item section id survives the round-trip', () {
+      final doc = SpecDocument();
+      final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
+      doc.setContent('$item/D01-LBL', 'Custom-id item');
+      final md1 = _export(doc);
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      final items = reloaded.listItems('D00/D00-ITM');
+      expect(items, hasLength(1));
+      expect(reloaded.itemSectionId(items.single), 'D01-CUSTOM');
+      expect(reloaded.content('${items.single}/D01-LBL'), 'Custom-id item');
+      expect(_export(reloaded), md1);
+    });
+
+    test('a multi-line form value with a label-shaped continuation round-trips',
+        () {
+      final doc = SpecDocument()
+        ..setFormField('D00/D00-HDR', 'author',
+            'Ada Lovelace\nNote: also a mathematician\nplain line');
+      final md1 = _export(doc);
+      // The label-shaped continuation is space-escaped on emit.
+      expect(md1, contains('\n Note: also a mathematician\n'));
+
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.formField('D00/D00-HDR', 'author'),
+          'Ada Lovelace\nNote: also a mathematician\nplain line');
+      expect(_export(reloaded), md1);
     });
   });
 
-  group('parse-rejection protocol', () {
+  group('parse-rejection protocol (DR1 §1.7)', () {
     test('an unknown section id is reported; valid siblings still parsed', () {
-      const md = '<!-- docspec: d00/1 -->\n'
-          '# D00 — Demo Document\n\n'
-          '## D00/D00-OVR — overview\n'
-          '```\nkept\n```\n\n'
-          '## D00/D00-NOPE — bogus\n'
-          '```\ndropped\n```\n';
+      // The bogus heading is nested under `meta` (which has no list children);
+      // directly under the root any unresolved id would be absorbed by the
+      // single-list-child fallback as a stored-id item.
+      const md = '<!-- docspec: demo-document/1.0 -->\n'
+          '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-OVR]--> Overview\n\n'
+          'kept\n\n'
+          '## <!--[D00-MET]--> Meta\n\n'
+          '### <!--[D00-NOPE]--> Bogus\n\n'
+          'dropped\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(report.isClean, isFalse);
-      expect(report.rejections.any((r) => r.anchor == 'D00/D00-NOPE'), isTrue);
+      expect(
+        report.rejections.any((r) =>
+            r.anchor == 'D00-NOPE' &&
+            r.reason == SpecMarkdownRejectReason.unknownSection),
+        isTrue,
+      );
       expect(report.content['D00/D00-OVR'], 'kept');
     });
 
-    test('a fenced block with no owning section is reported as orphaned', () {
-      const md = '<!-- docspec: d00/1 -->\n'
-          '# D00 — Demo Document\n\n'
-          '```\norphan body with no heading\n```\n';
+    test('a heading without a headline comment is malformed', () {
+      const md = '<!-- docspec: demo-document/1.0 -->\n'
+          '# <!--[D00]--> Demo Document\n\n'
+          '## Overview without an id comment\n\n'
+          'lost\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
         report.rejections
-            .any((r) => r.reason == SpecMarkdownRejectReason.orphanBlock),
+            .any((r) => r.reason == SpecMarkdownRejectReason.malformedHeading),
         isTrue,
       );
+      expect(report.content, isEmpty);
     });
 
-    test('a form-field anchor under a non-form heading is a kind mismatch', () {
-      const md = '<!-- docspec: d00/1 -->\n'
-          '# D00 — Demo Document\n\n'
-          '## D00/D00-OVR — overview\n'
-          '<!-- field: author -->\n'
-          '```\nmisplaced\n```\n';
+    test('text before the root heading is orphaned content', () {
+      const md = 'stray preamble text\n'
+          '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-OVR]--> Overview\n\n'
+          'kept\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(
+        report.rejections
+            .any((r) => r.reason == SpecMarkdownRejectReason.orphanContent),
+        isTrue,
+      );
+      expect(report.content['D00/D00-OVR'], 'kept');
+    });
+
+    test('prose in a form section before the first label is orphaned', () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          'prose before any field label\n'
+          'Author: Ada Lovelace\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(
+        report.rejections
+            .any((r) => r.reason == SpecMarkdownRejectReason.orphanContent),
+        isTrue,
+      );
+      // The labelled field still parses.
+      expect(report.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
+    });
+
+    test('a child heading under a content section is a kind mismatch', () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-OVR]--> Overview\n\n'
+          'kept\n\n'
+          '### <!--[D00-MET-NOTE]--> Note\n\n'
+          'misplaced\n';
       final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
       expect(
         report.rejections
             .any((r) => r.reason == SpecMarkdownRejectReason.kindMismatch),
         isTrue,
       );
+      expect(report.content['D00/D00-OVR'], 'kept');
     });
-  });
-}
 
-/// Applies a parsed [report] onto [target] (mirrors the controller's overwrite
-/// for the covered scope), so the round-trip assertions read off a live
-/// document.
-void _applyInto(SpecDocument target, SpecMarkdownResult report) {
-  // Recreate list items in path order so the `-N` seq matches the parsed paths.
-  report.lists.forEach((listPath, spec) {
-    final items = (spec['items'] as List).cast<String>();
-    for (var n = 0; n < items.length; n++) {
-      target.addListItem(listPath);
-    }
-  });
-  report.content.forEach(target.setContent);
-  report.forms.forEach((path, fields) {
-    fields.forEach((f, v) => target.setFormField(path, f, v));
+    test('a value-leaf heading with an empty body is a missing value', () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-OVR]--> Overview\n\n'
+          '## <!--[D00-ST]--> Status\n\n'
+          'final\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(
+        report.rejections.any((r) =>
+            r.reason == SpecMarkdownRejectReason.missingValue &&
+            r.anchor == 'D00/D00-OVR'),
+        isTrue,
+      );
+      expect(report.content['D00/D00-ST'], 'final');
+    });
+
+    test('form field labels parse case-insensitively', () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          'author: lower-case label\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(report.forms['D00/D00-HDR'], {'author': 'lower-case label'});
+    });
+
+    test('heading-like lines inside a fenced block stay body text', () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-OVR]--> Overview\n\n'
+          '```\n'
+          '## <!--[D00-ST]--> not a real heading\n'
+          '```\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(report.content['D00/D00-OVR'],
+          '```\n## <!--[D00-ST]--> not a real heading\n```');
+      expect(report.content.containsKey('D00/D00-ST'), isFalse);
+    });
   });
 }

@@ -1,72 +1,54 @@
-<!-- docspec: demo/1 -->
-# DEMO — Demo Document
+<!-- docspec: demo-document/1.0 -->
+# <!--[DEMO]--> Demo Document
 
-A compact conformance fixture.
-## DEMO/title — title
-```text
+## <!--[title]--> Title
+
 Hello
-```
 
-## DEMO/summary — summary
-```markdown
+## <!--[summary]--> Summary
+
 Line one
 Line two
 
 Line four
-```
 
-## DEMO/priority — priority
-```
+## <!--[priority]--> Priority
+
 high
-```
 
-## DEMO/count — count
-```
+## <!--[count]--> Count
+
 3
-```
 
-## DEMO/details — details
-<!-- field: owner -->
-```
-Bob
-```
+## <!--[details]--> Details
 
-<!-- field: contact -->
-```
-bob@example.com
-```
+Owner: Bob
+Contact: bob@example.com
 
-## DEMO/items — items
+## <!--[items-1]--> Item 1
 
-### DEMO/items-1 — Item
+### <!--[label]--> Label
 
-#### DEMO/items-1/label — label
-```
 First
-```
 
-#### DEMO/items-1/status — status
-```
+### <!--[status]--> Status
+
 open
-```
 
-### DEMO/items-2 — Item
+## <!--[items-2]--> Item 2
 
-#### DEMO/items-2/label — label
-````
+### <!--[label]--> Label
+
 Second line A
 with ```triple``` ticks
-````
 
-#### DEMO/items-2/status — status
-```
+### <!--[status]--> Status
+
 done
-```
 
-## DEMO/meta — meta
+## <!--[meta]--> Meta
 
-### DEMO/meta/owner — owner
-```
+### <!--[owner]--> Owner
+
 alice
-```
 
