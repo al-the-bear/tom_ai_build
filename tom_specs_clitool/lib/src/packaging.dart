@@ -390,13 +390,15 @@ void alignRuntimeManifestVersion({
 /// [alignRuntimeManifestVersion] for that language on the next
 /// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
 /// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm);
-/// PGK6 registered TypeScript (npm + compiled `dist/`).
+/// PGK6 registered TypeScript (npm + compiled `dist/`); PGK7 registered Go
+/// (module path + in-source version constant / VCS tag scheme).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
   SomLanguage.java: _javaDescriptor,
   SomLanguage.javascript: _javaScriptDescriptor,
   SomLanguage.typescript: _typeScriptDescriptor,
+  SomLanguage.go: _goDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -787,6 +789,95 @@ console.log(blueprint.content);''',
   buildArtifactIgnores: ['node_modules/', 'dist/', '*.tgz'],
   runtimeManifestFileName: 'package.json',
   runtimeManifestFormat: ManifestFormat.packageJson,
+);
+
+/// Go (module + VCS tag) packaging descriptor — PGK7. The facade `tom_som_go_v0`
+/// and the runtime `tom_som_go_runtime` are Go modules with **domain-qualified
+/// module paths** (`github.com/al-the-bear/tom_ai_build/tom_som_go_<v>`), so
+/// `go get` can resolve them. Go has no registry: distribution is by VCS tag, so
+/// each module also carries an **in-source `Version` constant** (`Version =
+/// "vX.Y.Z"`) set to the TomSpecs model version, and the documented tag scheme is
+/// the matching `vMAJOR.MINOR.PATCH` tag. The runtime's version constant lives in
+/// its hand-authored `doc.go`, realigned by [alignRuntimeManifestVersion]. Locally
+/// the facade resolves the runtime through a relative `replace` directive; a real
+/// `go get` uses the required module path + tag (dependency `replace` directives
+/// are ignored, so the `require` names the real remote path).
+const PackagingDescriptor _goDescriptor = PackagingDescriptor(
+  language: SomLanguage.go,
+  displayName: 'Go',
+  runtimePackageName: 'tom_som_go_runtime',
+  facadePackageName: 'tom_som_go_v0',
+  codeFence: 'go',
+  installShort: 'Add `tom_som_go_v0` to your module '
+      '(`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.0.0`), '
+      'then:',
+  usageSnippet: '''
+import (
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
+	somv0 "github.com/al-the-bear/tom_ai_build/tom_som_go_v0"
+)
+
+// A typed Solution Blueprint over a fresh document. The constructor also runs
+// the instantiation-time model-version check (an empty stamp is editable).
+doc := som.NewSpecDocument()
+blueprint, err := somv0.NewD00SolutionBlueprint(doc, "")
+if err != nil {
+	panic(err)
+}
+
+blueprint.SetContent("A platform that unifies our fragmented order systems.")
+blueprint.CurrentLandscape().SetContent(
+	"Three legacy systems with no shared customer record.")
+
+fmt.Println(blueprint.Content())''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From `go get`',
+      body: 'Fetch the facade at a version tag (it pulls in '
+          '`tom_som_go_runtime`):\n\n'
+          '```bash\n'
+          'go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@vVERSION\n'
+          '```\n\n'
+          'or pin it in your `go.mod`:\n\n'
+          '```\n'
+          'require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 vVERSION\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Version tags',
+      body: 'Go has no central registry — a module version *is* a VCS tag. Both '
+          '`tom_som_go_runtime` and `tom_som_go_v0` are tagged '
+          '`vMAJOR.MINOR.PATCH` at the TomSpecs model version (currently '
+          '`vVERSION`), matching the in-source `Version` constant each module '
+          'exports. Fetch a specific version with '
+          '`go get <module-path>@vMAJOR.MINOR.PATCH`.',
+    ),
+    PackagingRoute(
+      heading: 'Path replace (monorepo / vendored)',
+      body: 'When the SOM projects sit alongside your code, point Go at the '
+          'local checkout with a `replace` directive in your `go.mod` (the '
+          'facade already does this for the runtime):\n\n'
+          '```\n'
+          'require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 v0.0.0\n'
+          '\n'
+          'replace github.com/al-the-bear/tom_ai_build/tom_som_go_v0 => '
+          '../tom_som_go_v0\n'
+          'replace github.com/al-the-bear/tom_ai_build/tom_som_go_runtime => '
+          '../tom_som_go_runtime\n'
+          '```',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade and build/vet both modules from the '
+      'workspace (the facade resolves the runtime through its relative '
+      '`replace`):\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_go_runtime && go build ./... && go vet ./...\n'
+      'cd ../tom_som_go_v0 && go build ./... && go vet ./...\n'
+      '```',
+  buildArtifactIgnores: ['*.test', '*.out'],
+  runtimeManifestFileName: 'doc.go',
+  runtimeManifestFormat: ManifestFormat.goVersionConst,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

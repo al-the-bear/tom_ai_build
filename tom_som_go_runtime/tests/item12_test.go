@@ -13,7 +13,7 @@ import (
 	"strings"
 	"testing"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 // twoRootModelJSON is the two-root, class-less fixture from the Dart

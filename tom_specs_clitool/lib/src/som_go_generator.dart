@@ -116,7 +116,12 @@ SomGoGenerationResult writeSomGoProject({
   List<String> documentRoots = const [],
 }) {
   final outDir = Directory(outputRoot)..createSync(recursive: true);
-  final moduleName = 'tom_som_go_$versionLabel';
+  // The short module name is the on-disk project / source-file base name; the
+  // domain-qualified [moduleName] is the go.mod module path — external `go get`
+  // resolves it via VCS, the local `replace` directive (below) resolves it
+  // in-repo during development.
+  final moduleShortName = 'tom_som_go_$versionLabel';
+  final moduleName = '$_goModuleBase/$moduleShortName';
   const packageName = 'somv0';
 
   // ── meta-data (lossless object-model graph), idempotency-stabilised ────────
@@ -145,7 +150,7 @@ SomGoGenerationResult writeSomGoProject({
     documentRoots: documentRoots,
     packageName: packageName,
   ).generateLibrary();
-  final modulePath = p.join(outputRoot, '$moduleName.go');
+  final modulePath = p.join(outputRoot, '$moduleShortName.go');
   File(modulePath)
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
@@ -157,11 +162,11 @@ SomGoGenerationResult writeSomGoProject({
   final schemaPaths =
       DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
 
-  // ── go.mod (relative `replace` directive on the runtime) ───────────────────
-  // The generated Go source imports the runtime by a fixed import path, so
-  // resolution is wired through go.mod: a `require` pins the module name and a
-  // relative `replace` points it at the local runtime checkout. Relative for
-  // portability across machines and checkout roots.
+  // ── go.mod (domain module path + local `replace` on the runtime) ───────────
+  // The generated Go source imports the runtime by its domain-qualified module
+  // path, so an external `go get` resolves it via VCS. For local (in-repo) dev,
+  // go.mod adds a `replace` pointing that path at the local runtime checkout,
+  // relative for portability across machines and checkout roots.
   final runtimeRel = p
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
@@ -181,6 +186,17 @@ SomGoGenerationResult writeSomGoProject({
   );
 }
 
+/// The GitHub-hosted module namespace shared by both Go SOM modules
+/// (`tom_som_go_runtime` and the generated `tom_som_go_<label>` facade). The
+/// remote path mirrors the repository layout: `tom_ai/ai_build` is the
+/// `tom_ai_build` remote, with the modules at its top level.
+const String _goModuleBase = 'github.com/al-the-bear/tom_ai_build';
+
+/// The domain-qualified module path of the generic Go runtime the facade
+/// `require`s. External `go get` resolves it via VCS; the local `replace`
+/// directive resolves it in-repo.
+const String _goRuntimeModulePath = '$_goModuleBase/tom_som_go_runtime';
+
 String _goMod(String moduleName, String runtimeRel) {
   // A leading "./" keeps the replace target an explicit relative path; Go
   // requires relative replace targets to start with "./" or "../".
@@ -189,7 +205,7 @@ String _goMod(String moduleName, String runtimeRel) {
       '\n'
       'go 1.21\n'
       '\n'
-      'require tom_som_go_runtime v0.0.0\n'
+      'require $_goRuntimeModulePath v0.0.0\n'
       '\n'
-      'replace tom_som_go_runtime => $target\n';
+      'replace $_goRuntimeModulePath => $target\n';
 }

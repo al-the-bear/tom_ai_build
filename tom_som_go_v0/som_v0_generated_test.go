@@ -22,7 +22,7 @@ import (
 	"os"
 	"testing"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 // samplePath is the shared cross-language conformance sample. Tests read it via

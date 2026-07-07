@@ -17,7 +17,7 @@ package tests
 import (
 	"testing"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 // fakeRootModelVersion stands in for the per-root <Root>ModelVersion const the

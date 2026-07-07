@@ -26,18 +26,27 @@
 ///   * the version check returns `*som.SomVersionError`, so root constructors
 ///     return `(*T, error)`.
 ///
-/// The generated module imports the runtime through a **fixed import path**
-/// (`tom_som_go_runtime`); the generator wires resolution by writing a `go.mod`
-/// with a `require` + relative `replace` directive, so the emitted source carries
-/// no on-disk path and stays layout-independent / golden-stable.
+/// The generated module imports the runtime through its **domain-qualified
+/// module path** (`github.com/al-the-bear/tom_ai_build/tom_som_go_runtime`); the
+/// generator wires local resolution by writing a `go.mod` with a `require` +
+/// local `replace` directive, so the emitted source carries no on-disk path and
+/// stays layout-independent / golden-stable while still resolving under an
+/// external `go get`.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'packaging.dart' show packageVersionFromModel;
 import 'spec_path_constants.dart';
 
 /// Generates the `tom_som_go_v0` module source for a [SpecModel].
 class SomGoEmitter {
+  /// The domain-qualified module path of the generic runtime the facade imports.
+  /// External `go get` resolves this path via VCS; local builds resolve it via
+  /// the `replace` directive the generator writes into the facade `go.mod`.
+  static const String _runtimeModulePath =
+      'github.com/al-the-bear/tom_ai_build/tom_som_go_runtime';
+
   final SpecModel model;
   final SpecReflection _ref;
 
@@ -129,14 +138,23 @@ class SomGoEmitter {
       ..writeln('// Typed object-model facade over the generic '
           '`tom_som_go_runtime` document.')
       ..writeln('//')
-      ..writeln('// The generic runtime is imported through a fixed import '
-          'path; the generator wires')
-      ..writeln('// resolution by writing a `go.mod` with a relative `replace` '
-          'directive, so this')
-      ..writeln('// module carries no on-disk path of its own.')
+      ..writeln('// The generic runtime is imported through its domain-qualified '
+          'module path; the')
+      ..writeln('// generator wires local resolution by writing a `go.mod` with a '
+          '`require` + local')
+      ..writeln('// `replace` directive, so this module builds both standalone '
+          '(`go get`) and in-repo.')
       ..writeln('package $packageName')
       ..writeln()
-      ..writeln('import som "tom_som_go_runtime"')
+      ..writeln('import som "$_runtimeModulePath"')
+      ..writeln()
+      ..writeln('// Version is the semantic version of this generated facade '
+          'module, matching the')
+      ..writeln('// object-model version it was generated against '
+          '(vMAJOR.MINOR.PATCH). It is the')
+      ..writeln('// in-source counterpart of the VCS tag used to pin the module '
+          '(§2.1).')
+      ..writeln('const Version = "v${packageVersionFromModel(modelVersionString)}"')
       ..writeln();
 
     for (final e in enums) {

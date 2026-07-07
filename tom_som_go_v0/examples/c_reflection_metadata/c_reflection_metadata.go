@@ -23,7 +23,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 // projectRoot returns the module root (which holds `meta/`). The source file

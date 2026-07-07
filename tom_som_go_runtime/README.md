@@ -5,6 +5,29 @@ generated-code-free half of the multi-platform spec model (`tom_som`). It is a
 faithful transcription of the Dart reference, `tom_som_dart_runtime`, and the
 Python/Java/JavaScript/TypeScript ports.
 
+## How to use
+
+```bash
+go get github.com/al-the-bear/tom_ai_build/tom_som_go_runtime@v1.0.0
+```
+
+```go
+import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
+
+doc := som.NewSpecDocument()
+doc.SetContent("D00/D01", "A unifying order platform.")
+fmt.Println(doc.Content("D00/D01"))
+```
+
+Go has no central package registry — a version is a **VCS tag**
+(`vMAJOR.MINOR.PATCH`) on this module, mirrored in the in-source `Version`
+constant (`doc.go`). Most projects depend on the **typed facade**
+`tom_som_go_v0` (which `require`s this runtime) rather than on the runtime
+directly — reach for the runtime alone only when you drive the generic API by
+section path. For the full set of dependency routes (`go get` / version tags /
+path `replace`), version pinning, and building from source, see
+[readme_howtointegrate.md](readme_howtointegrate.md).
+
 ## What it is
 
 The module `tom_som_go_runtime` (package `somruntime`) mirrors the eight portable
@@ -74,8 +97,10 @@ validation, and the imperative operations script.
 ## Consumed by `tom_som_go_v0`
 
 The generated typed model imports the facade and runtime types from this module
-(`import som "tom_som_go_runtime"`). The generator wires resolution with a
-`require tom_som_go_runtime v0.0.0` + a relative `replace tom_som_go_runtime =>
-../tom_som_go_runtime` in the `v0` module's `go.mod` (the Go analogue of the TS
-relative `file:` dependency), keeping the generated source path-free and
-golden-stable.
+(`import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"`). The
+generator wires resolution with a
+`require github.com/al-the-bear/tom_ai_build/tom_som_go_runtime v0.0.0` + a
+relative `replace … => ../tom_som_go_runtime` in the `v0` module's `go.mod` (the
+Go analogue of the TS relative `file:` dependency), so the module builds both
+standalone (external `go get`, resolved via VCS) and in-repo, while keeping the
+generated source path-free and golden-stable.

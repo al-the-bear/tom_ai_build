@@ -324,10 +324,13 @@ void _expectGoBuilds(String source) {
   try {
     File(p.join(dir.path, 'tom_som_go_v0.go')).writeAsStringSync(source);
     final replaceTarget = runtimeDir.replaceAll('\\', '/');
-    File(p.join(dir.path, 'go.mod')).writeAsStringSync('module tom_som_go_v0\n\n'
+    const runtimeModule =
+        'github.com/al-the-bear/tom_ai_build/tom_som_go_runtime';
+    File(p.join(dir.path, 'go.mod')).writeAsStringSync(
+        'module github.com/al-the-bear/tom_ai_build/tom_som_go_v0\n\n'
         'go 1.21\n\n'
-        'require tom_som_go_runtime v0.0.0\n\n'
-        'replace tom_som_go_runtime => $replaceTarget\n');
+        'require $runtimeModule v0.0.0\n\n'
+        'replace $runtimeModule => $replaceTarget\n');
     final build =
         Process.runSync(go, ['build', './...'], workingDirectory: dir.path);
     expect(build.exitCode, 0,

@@ -15,8 +15,8 @@ import (
 	"sort"
 	"strings"
 
-	som "tom_som_go_runtime"
-	somv0 "tom_som_go_v0"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
+	somv0 "github.com/al-the-bear/tom_ai_build/tom_som_go_v0"
 )
 
 func esc(s string) string {

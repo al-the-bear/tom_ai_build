@@ -2,12 +2,17 @@
 //
 // Typed object-model facade over the generic `tom_som_go_runtime` document.
 //
-// The generic runtime is imported through a fixed import path; the generator wires
-// resolution by writing a `go.mod` with a relative `replace` directive, so this
-// module carries no on-disk path of its own.
+// The generic runtime is imported through its domain-qualified module path; the
+// generator wires local resolution by writing a `go.mod` with a `require` + local
+// `replace` directive, so this module builds both standalone (`go get`) and in-repo.
 package somv0
 
-import som "tom_som_go_runtime"
+import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
+
+// Version is the semantic version of this generated facade module, matching the
+// object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
+// in-source counterpart of the VCS tag used to pin the module (§2.1).
+const Version = "v1.0.0"
 
 // 14.2.1. Acceptance Criteria.
 type AcceptanceCriteriaList struct {

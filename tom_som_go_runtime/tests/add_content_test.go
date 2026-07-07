@@ -12,7 +12,7 @@ package tests
 import (
 	"testing"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 // contentItem is a content-only element facade fixture: it embeds SomNode and

@@ -188,6 +188,7 @@ void main() {
         SomLanguage.java,
         SomLanguage.javascript,
         SomLanguage.typescript,
+        SomLanguage.go,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -249,6 +250,21 @@ void main() {
       expect(d.runtimeManifestFormat, ManifestFormat.packageJson);
       expect(d.runtimeManifestFileName, 'package.json');
       // npm / git / path-or-link routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK7)', () {
+    test('Go is registered with the module-path package names', () {
+      final d = packagingDescriptorFor(SomLanguage.go);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_go_runtime');
+      expect(d.facadePackageName, 'tom_som_go_v0');
+      expect(d.codeFence, 'go');
+      // Go carries its version in an in-source constant (doc.go), not a manifest.
+      expect(d.runtimeManifestFormat, ManifestFormat.goVersionConst);
+      expect(d.runtimeManifestFileName, 'doc.go');
+      // go get / version tags / path replace routes are all documented.
       expect(d.integrateRoutes, hasLength(3));
     });
   });

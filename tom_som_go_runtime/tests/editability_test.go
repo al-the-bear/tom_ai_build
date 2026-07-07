@@ -10,7 +10,7 @@ package tests
 import (
 	"testing"
 
-	som "tom_som_go_runtime"
+	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
 func TestSomEditabilityFor(t *testing.T) {
