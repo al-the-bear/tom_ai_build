@@ -11813,7 +11813,7 @@ class BoundaryAssumptionEntryRisk {
   ],
   'Captures the organizational and technical environment in which the system operates so that environmental factors and constraints inform the solution design.',
 )
-@SectionId('FRCO')
+@SectionId('OPEN')
 class OperatingEnvironment {
   /// Framework conditions overview.
   @ContentHelp('Provide executive summary of the operating environment: '
@@ -12411,7 +12411,7 @@ class ResponsibilityGovernance {
   ],
   'Captures the pre-existing technical landscape — mandated platforms, infrastructure, and standards — in which the solution must operate, seeding the ATS.',
 )
-@SectionId('TEFRCO')
+@SectionId('TEEN')
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
@@ -12548,7 +12548,7 @@ class TechnicalEnvironment {
   ],
   'Captures the governance context that shapes technology decisions, including cloud strategy and decision authority.',
 )
-@SectionId('TFCG')
+@SectionId('TEENGO')
 class TechnicalEnvironmentGovernance {
     @Form([
         Field('secondaryCloudProviders', String, 'Secondary Cloud Providers',
@@ -12568,7 +12568,7 @@ class TechnicalEnvironmentGovernance {
   ],
   'Captures mandated or preferred platform technologies — languages, frameworks, databases, and integration platforms.',
 )
-@SectionId('TFCS')
+@SectionId('TEENST')
 class TechnicalEnvironmentStandards {
     @Form([
         Field('preferredLanguages', String, 'Preferred Languages',
@@ -12620,7 +12620,7 @@ class TechnicalEnvironmentSecurity {
   ],
   'Captures network and infrastructure standards — topology, firewall and VPN policies, and load-balancing/CDN strategy.',
 )
-@SectionId('TFCN')
+@SectionId('TEENNE')
 class TechnicalEnvironmentNetwork {
     @Form([
         Field('networkArchitecture', String, 'Network Architecture',
