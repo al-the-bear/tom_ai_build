@@ -3,18 +3,18 @@
     "name": "valid",
     "state": {
       "content": {
-        "DEMO/count": "3",
+        "DEMO/CNT": "3",
+        "DEMO/META/OWNR": "alice",
+        "DEMO/PRI": "high",
+        "DEMO/SUM": "Line one\nLine two\n\nLine four",
+        "DEMO/TTL": "Hello",
+        "DEMO/items-1/STS": "open",
         "DEMO/items-1/label": "First",
-        "DEMO/items-1/status": "open",
-        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
-        "DEMO/items-2/status": "done",
-        "DEMO/meta/owner": "alice",
-        "DEMO/priority": "high",
-        "DEMO/summary": "Line one\nLine two\n\nLine four",
-        "DEMO/title": "Hello"
+        "DEMO/items-2/STS": "done",
+        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks"
       },
       "forms": {
-        "DEMO/details": {
+        "DEMO/DET": {
           "contact": "bob@example.com",
           "owner": "Bob"
         }
@@ -63,14 +63,14 @@
     "name": "unknownFormField",
     "state": {
       "forms": {
-        "DEMO/details": {
+        "DEMO/DET": {
           "bogus": "v"
         }
       }
     },
     "errors": [
       {
-        "path": "DEMO/details",
+        "path": "DEMO/DET",
         "code": "unknownFormField"
       }
     ]

@@ -24,6 +24,11 @@
 ///     query facility (find by text/regex, kind, class, id/path,
 ///     `@MapsTo`/`@DetailedIn`, state) with lazy, edit-stable cursor iteration;
 ///   * [validateDocument] — checks a document's values against the model;
+///   * [DocSpecsDocument] / [DocSpecsSchema] / [DocSpecsValidator] — the
+///     consolidated DR1 §6 DocSpecs module: schema-free markdown parse,
+///     validation against a DR3-generated `*.docspecs-schema.yaml` with a
+///     structured [DocSpecsViolation] list, and [bindDocSpecsMarkdown] onto
+///     the SOM metadata tree;
 ///   * [SpecNodeCreator] / [checkAddNode] — the meta-model-validated node
 ///     creation gate (allowed child kind / section-id pattern / cardinality),
 ///     so a document only ever grows in model-permitted ways;
@@ -35,6 +40,7 @@
 /// Pure Dart, no Flutter dependency.
 library;
 
+export 'src/docspecs_validator.dart';
 export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';

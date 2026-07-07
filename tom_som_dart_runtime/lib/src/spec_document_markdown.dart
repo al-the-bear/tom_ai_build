@@ -7,8 +7,16 @@
 /// human-readable Title-Case member name. Content values are **normal markdown
 /// text** under their heading (no fences, no anchors); `@Form` sections use the
 /// DocSpecs plain-text `FieldName: value` format; list items are sub-headings
-/// carrying the item's section id (stored id, else `<member>-<pos>`) directly
-/// under the owning section — the list container gets no heading of its own.
+/// carrying the item's section id (stored id, else the `@SectionIdPattern`
+/// resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
+/// `<member>-<pos>`) directly under the owning section — the list container
+/// gets no heading of its own. Id-less members are **transparent** (mirroring
+/// the DR3 schema generator): a transparent value member's text or form block
+/// is the owner's body region, emitted without a heading and bound at its own
+/// path; a transparent section/complex member never heads — its id-bearing
+/// descendants hoist to the owner's child level (paths keep the transparent
+/// segments). Section/complex headings without a field-level `@SectionId`
+/// carry the target class's `@SectionId`.
 ///
 /// Escaping (DR1 §1.3): a content line starting with `#` at column 0 is
 /// emitted as `\#` (and a leading `\#`… run gains one more backslash), except
@@ -175,6 +183,103 @@ class SpecDocumentMarkdown {
 
   // --- Export (DR1 §1.1–§1.6) ----------------------------------------------
 
+  /// The section id written into (and matched from) a heading for [node]
+  /// (DR1 §1.2/§1.6): the field-level `@SectionId` when present; for
+  /// section/complex nodes whose field carries none, the target **class**'s
+  /// `@SectionId` (the id the DR3 schema types are keyed by); else the path
+  /// segment (the member name).
+  String _headingIdOf(SomMetaNode node) =>
+      node.sectionId ??
+      ((node.kind == SomMetaKind.section || node.kind == SomMetaKind.complex)
+          ? model.classNamed(node.className)?.sectionId
+          : null) ??
+      node.segment;
+
+  // --- Transparency (DR1 §1.2, mirroring the DR3 schema generator) ----------
+  //
+  // The DR3 `docspecs-schema` generator is normative: only **section-bearing**
+  // nodes (those with a real `@SectionId`, field- or class-level) become
+  // section types; id-less members are *transparent* — they are not sections
+  // of their own. The markdown format mirrors that exactly:
+  //
+  //   * a transparent value member (content/scalar/enum/form without an id)
+  //     is emitted headinglessly into its owner's *body region* (text, or a
+  //     `FieldName: value` form block);
+  //   * a transparent section/complex member gets no heading; its id-bearing
+  //     descendants surface as the owner's direct child headings (the schema's
+  //     "nearest section-bearing descendant" hoisting), with document paths
+  //     still running through the transparent segments;
+  //   * lists are never transparent — the container never heads, the items
+  //     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+  //
+  // Principled canonicalisation losses (documented, accepted): multiple
+  // transparent content members of one owner merge into the first on parse,
+  // and a form-field label colliding across an owner's transparent forms binds
+  // to the nearest form in slot order.
+
+  /// A section/complex member with no field- or class-level `@SectionId`:
+  /// heading-less, its children hoist to the owner.
+  bool _isTransparentSection(SomMetaNode n) =>
+      (n.kind == SomMetaKind.section || n.kind == SomMetaKind.complex) &&
+      n.sectionId == null &&
+      model.classNamed(n.className)?.sectionId == null;
+
+  /// A value member (content/scalar/enum/form) with no `@SectionId`: emitted
+  /// into the owner's body region instead of under an own heading.
+  bool _isTransparentValue(SomMetaNode n) =>
+      n.sectionId == null &&
+      (n.kind == SomMetaKind.content ||
+          n.kind == SomMetaKind.scalar ||
+          n.kind == SomMetaKind.enumValue ||
+          n.kind == SomMetaKind.form);
+
+  /// The ordered *body slots* of [node]: every transparent value member and
+  /// every transparent section (whose own path may carry body text), collected
+  /// depth-first through transparent sections. These are the value positions
+  /// that share the owner's heading body.
+  List<(SomMetaNode, String)> _bodySlots(SomMetaNode node) {
+    final out = <(SomMetaNode, String)>[];
+    void collect(SomMetaNode n, String prefix) {
+      for (final c in n.children) {
+        if (c.recursive) continue;
+        final rel = prefix.isEmpty ? c.segment : '$prefix/${c.segment}';
+        if (_isTransparentValue(c)) {
+          out.add((c, rel));
+        } else if (_isTransparentSection(c)) {
+          out.add((c, rel));
+          collect(c, rel);
+        }
+      }
+    }
+
+    collect(node, '');
+    return out;
+  }
+
+  /// The ordered *effective children* of [node]: every section-bearing child
+  /// and every list, hoisted through transparent sections — exactly the
+  /// headings (and item-heading owners) the DR3 schema knows at this position.
+  /// Each entry carries the relative path from [node] (which runs through the
+  /// transparent segments).
+  List<(SomMetaNode, String)> _effectiveChildren(SomMetaNode node) {
+    final out = <(SomMetaNode, String)>[];
+    void collect(SomMetaNode n, String prefix) {
+      for (final c in n.children) {
+        if (c.recursive) continue;
+        final rel = prefix.isEmpty ? c.segment : '$prefix/${c.segment}';
+        if (_isTransparentValue(c)) continue; // body region
+        if (_isTransparentSection(c)) {
+          collect(c, rel);
+        } else {
+          out.add((c, rel));
+        }
+      }
+    }
+
+    collect(node, '');
+    return out;
+  }
+
   /// Renders the populated subtree of [root] as a DocSpecs-conform Markdown
   /// document. Throws [ArgumentError] when a content value contains an
   /// unterminated fenced code block (which would shield the remainder of the
@@ -187,16 +292,30 @@ class SpecDocumentMarkdown {
         '${model.modelVersionString} -->');
     final rootSeg = node.segment;
     _writeHeading(b, 1, rootSeg, root.title);
-    _writeBody(b, document.content(rootSeg), rootSeg);
+    _writeSectionBody(b, node, rootSeg);
     _writeChildren(b, node, rootSeg, 2);
     return b.toString();
   }
 
+  /// Writes the body region of a section heading: the section path's own
+  /// content value plus every transparent body slot (id-less content text and
+  /// form blocks, hoisted through transparent sections) in model order.
+  void _writeSectionBody(StringBuffer b, SomMetaNode node, String path) {
+    _writeBody(b, document.content(path), path);
+    for (final (slot, rel) in _bodySlots(node)) {
+      final slotPath = '$path/$rel';
+      if (slot.kind == SomMetaKind.form) {
+        if (_formHasValues(slot, slotPath)) _writeForm(b, slot, slotPath);
+      } else {
+        _writeBody(b, document.content(slotPath), slotPath);
+      }
+    }
+  }
+
   void _writeChildren(
       StringBuffer b, SomMetaNode node, String basePath, int depth) {
-    for (final child in node.children) {
-      if (child.recursive) continue;
-      final path = '$basePath/${child.segment}';
+    for (final (child, rel) in _effectiveChildren(node)) {
+      final path = '$basePath/$rel';
       if (!document.hasValuesUnder(path)) continue;
       switch (child.kind) {
         case SomMetaKind.content:
@@ -204,16 +323,16 @@ class SpecDocumentMarkdown {
         case SomMetaKind.enumValue:
           final value = document.content(path);
           if (value == null) break;
-          _writeHeading(b, depth, child.segment, _titleOf(child));
+          _writeHeading(b, depth, _headingIdOf(child), _titleOf(child));
           _writeBody(b, value, path);
         case SomMetaKind.form:
           if (!_formHasValues(child, path)) break;
-          _writeHeading(b, depth, child.segment, _titleOf(child));
+          _writeHeading(b, depth, _headingIdOf(child), _titleOf(child));
           _writeForm(b, child, path);
         case SomMetaKind.section:
         case SomMetaKind.complex:
-          _writeHeading(b, depth, child.segment, _titleOf(child));
-          _writeBody(b, document.content(path), path);
+          _writeHeading(b, depth, _headingIdOf(child), _titleOf(child));
+          _writeSectionBody(b, child, path);
           _writeChildren(b, child, path, depth + 1);
         case SomMetaKind.list:
           _writeListItems(b, child, path, depth);
@@ -227,10 +346,15 @@ class SpecDocumentMarkdown {
       StringBuffer b, SomMetaNode node, String listPath, int depth) {
     final items = document.listItems(listPath);
     final stem = itemTitleStem(node.elementNode?.className ?? node.typeName);
+    final pattern = node.sectionIdPattern ?? node.elementNode?.sectionIdPattern;
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];
       final pos = i + 1;
+      // DR1 §1.2: an anonymous item's heading id is the resolved
+      // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
+      // pattern-less lists fall back to `<member>-<pos>`.
       final id = document.itemSectionId(itemPath) ??
+          pattern?.replaceAll('xxx', '$pos') ??
           '${node.memberName ?? node.segment}-$pos';
       _writeHeading(b, depth, id, '$stem $pos');
       final element = node.elementNode;
@@ -238,7 +362,7 @@ class SpecDocumentMarkdown {
         // Scalar list: the item's value is its body.
         _writeBody(b, document.content(itemPath) ?? '', itemPath);
       } else {
-        _writeBody(b, document.content(itemPath), itemPath);
+        _writeSectionBody(b, element, itemPath);
         if (!element.recursive) {
           _writeChildren(b, element, itemPath, depth + 1);
         }
@@ -268,10 +392,13 @@ class SpecDocumentMarkdown {
     b.writeln();
   }
 
-  /// `## <!--[ID]--> Title` at [depth], capped at markdown's 6 levels.
+  /// `## <!--[ID]--> Title` at [depth]. DR1 §1.2 is normative — heading level
+  /// = 1 + section depth, **uncapped**: deep models (the Solution Blueprint
+  /// nests past markdown's native 6 levels) keep their structure; the parse
+  /// grammar accepts `#{7,}` accordingly. Capping would silently flatten
+  /// distinct nesting positions into siblings and break schema validation.
   static void _writeHeading(StringBuffer b, int depth, String id, String title) {
-    final hashes = '#' * (depth > 6 ? 6 : depth);
-    b.writeln('$hashes <!--[$id]--> $title');
+    b.writeln('${'#' * depth} <!--[$id]--> $title');
     b.writeln();
   }
 
@@ -293,7 +420,7 @@ class SpecDocumentMarkdown {
         .replaceAll(RegExp(r'\n{3,}'), '\n\n')
         .replaceAll(RegExp(r'^\n+'), '')
         .replaceAll(RegExp(r'\n+$'), '');
-    final fence = _FenceTracker();
+    final fence = MarkdownFenceTracker();
     final out = <String>[];
     for (final line in collapsed.split('\n')) {
       if (fence.inFence) {
@@ -341,7 +468,7 @@ class SpecDocumentMarkdown {
   }
 
   // Shared with _Parser.
-  static final RegExp headingLine = RegExp(r'^(#{1,6})\s+(.*)$');
+  static final RegExp headingLine = RegExp(r'^(#+)\s+(.*)$');
   static final RegExp headlineComment =
       RegExp(r'^<!--\[([^\]]+)\]-->\s*(.*)$');
   static final RegExp docspecComment =
@@ -351,7 +478,10 @@ class SpecDocumentMarkdown {
 /// Fence state machine (CommonMark-ish): a line whose first non-space run (up
 /// to 3 spaces indent) is 3+ backticks or tildes opens a fence; a matching
 /// same-character run at least as long closes it.
-class _FenceTracker {
+///
+/// Public so other markdown-processing modules (the DocSpecs validator's
+/// generic parser) share exactly the same fence semantics as this codec.
+class MarkdownFenceTracker {
   String? _char;
   int _len = 0;
 
@@ -415,7 +545,7 @@ class _Parser {
   final rootPrefixes = <String>{};
 
   final List<_Frame> _stack = [];
-  final _fence = _FenceTracker();
+  final _fence = MarkdownFenceTracker();
 
   void run(List<String> lines) {
     for (var i = 0; i < lines.length; i++) {
@@ -502,38 +632,57 @@ class _Parser {
       return;
     }
 
-    // 1. A regular (non-list) child field whose segment matches the id.
-    for (final c in pNode.children) {
-      if (c.kind != SomMetaKind.list && c.segment == id) {
+    // 1. A regular (non-list) *effective* child — section-bearing children
+    //    hoisted through transparent sections — whose heading id (field/class
+    //    section id) matches. Transparent value members never head, so they
+    //    never match here; the bound path runs through transparent segments.
+    final effective = codec._effectiveChildren(pNode);
+    for (final (c, rel) in effective) {
+      if (c.kind != SomMetaKind.list && codec._headingIdOf(c) == id) {
         _stack.add(_Frame(
             level: level,
             node: c,
-            path: '${parent.path}/${c.segment}',
+            path: '${parent.path}/$rel',
             line: lineNo));
         return;
       }
     }
 
-    // 2. A list item: anonymous (`<member>-<n>`), pattern-shaped stored id,
-    //    or (fallback) any id when the parent has exactly one list child.
+    // 2. A list item: anonymous (`<member>-<n>` or the pattern with a numeric
+    //    sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id, or
+    //    (fallback) any id when the parent has exactly one effective list.
     final listChildren =
-        pNode.children.where((c) => c.kind == SomMetaKind.list).toList();
-    for (final lc in listChildren) {
+        effective.where((e) => e.$1.kind == SomMetaKind.list).toList();
+    for (final (lc, rel) in listChildren) {
+      final listPath = '${parent.path}/$rel';
       final anon = RegExp(
               '^${RegExp.escape(lc.memberName ?? lc.segment)}-([0-9]+)\$')
           .firstMatch(id);
       if (anon != null) {
-        _openItem(level, parent, lc, int.parse(anon.group(1)!), null, lineNo);
+        _openItem(level, listPath, lc, int.parse(anon.group(1)!), null, lineNo);
         return;
       }
       final pattern = lc.sectionIdPattern ?? lc.elementNode?.sectionIdPattern;
-      if (pattern != null && _patternMatches(pattern, id)) {
-        _openItem(level, parent, lc, null, id, lineNo);
-        return;
+      if (pattern != null) {
+        // Canonical anonymous id: the pattern with `xxx` as a number — parses
+        // back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+        final numbered = RegExp(
+                '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$')
+            .firstMatch(id);
+        if (numbered != null && numbered.groupCount == 1) {
+          _openItem(
+              level, listPath, lc, int.parse(numbered.group(1)!), null, lineNo);
+          return;
+        }
+        if (_patternMatches(pattern, id)) {
+          _openItem(level, listPath, lc, null, id, lineNo);
+          return;
+        }
       }
     }
     if (listChildren.length == 1) {
-      _openItem(level, parent, listChildren.single, null, id, lineNo);
+      final (lc, rel) = listChildren.single;
+      _openItem(level, '${parent.path}/$rel', lc, null, id, lineNo);
       return;
     }
 
@@ -572,9 +721,8 @@ class _Parser {
 
   /// Opens a list-item frame. [n] is the anonymous heading number (also the
   /// path number); a stored-id item gets the next free number instead.
-  void _openItem(int level, _Frame parent, SomMetaNode listNode, int? n,
+  void _openItem(int level, String listPath, SomMetaNode listNode, int? n,
       String? storedId, int lineNo) {
-    final listPath = '${parent.path}/${listNode.segment}';
     final state = lists.putIfAbsent(listPath, _ListState.new);
     final number = n ?? state.maxN + 1;
     if (number > state.maxN) state.maxN = number;
@@ -603,28 +751,124 @@ class _Parser {
     if (frame.ignored) return;
     final node = frame.node;
     if (node != null && node.kind == SomMetaKind.form) {
-      _finalizeForm(frame, node);
+      _finalizeForm(frame, node, frame.path);
       return;
     }
-    final value = _restoreValue(frame.body);
-    if (value.isNotEmpty) {
-      content[frame.path] = value;
-    } else if (node != null && _isValueLeaf(node.kind)) {
-      rejections.add(SpecMarkdownRejection(
-        line: frame.line,
-        reason: SpecMarkdownRejectReason.missingValue,
-        anchor: frame.path,
-        message: 'no value text under this section heading',
-      ));
+    final slots =
+        node == null ? const <(SomMetaNode, String)>[] : codec._bodySlots(node);
+    if (slots.isEmpty) {
+      final value = _restoreValue(frame.body);
+      if (value.isNotEmpty) {
+        content[frame.path] = value;
+      } else if (node != null && _isValueLeaf(node.kind)) {
+        rejections.add(SpecMarkdownRejection(
+          line: frame.line,
+          reason: SpecMarkdownRejectReason.missingValue,
+          anchor: frame.path,
+          message: 'no value text under this section heading',
+        ));
+      }
+      return;
     }
+    _finalizeBodySlots(frame, slots);
   }
 
-  void _finalizeForm(_Frame frame, SomMetaNode node) {
+  /// Binds a heading's body region against the owner's transparent body slots
+  /// (DR1 §1.2 transparency): `FieldName:` lines matching a transparent form's
+  /// fields route to that form (nearest form in slot order, wrapping); all
+  /// other text binds to the first non-form slot — or to the owner's own path
+  /// when no such slot exists.
+  void _finalizeBodySlots(_Frame frame, List<(SomMetaNode, String)> slots) {
+    final formSlots = [
+      for (final s in slots)
+        if (s.$1.kind == SomMetaKind.form) s,
+    ];
+    final contentSlots = [
+      for (final s in slots)
+        if (s.$1.kind != SomMetaKind.form) s,
+    ];
+    final contentPath = contentSlots.isNotEmpty
+        ? '${frame.path}/${contentSlots.first.$2}'
+        : frame.path;
+
+    if (formSlots.isEmpty) {
+      final value = _restoreValue(frame.body);
+      if (value.isNotEmpty) content[contentPath] = value;
+      return;
+    }
+
+    (int, String)? findField(String label) {
+      final lower = label.toLowerCase();
+      for (var k = 0; k < formSlots.length; k++) {
+        final idx = (_currentFormIdx + k) % formSlots.length;
+        for (final f
+            in formSlots[idx].$1.form?.fields ?? const <SomFormFieldMeta>[]) {
+          if (f.name.toLowerCase() == lower) return (idx, f.name);
+        }
+      }
+      return null;
+    }
+
+    final fence = MarkdownFenceTracker();
+    String? currentField;
+    String? currentFormPath;
+    var currentLines = <String>[];
+    final contentLines = <String>[];
+
+    void flush() {
+      final field = currentField;
+      final formPath = currentFormPath;
+      if (field != null && formPath != null) {
+        final value = _restoreValue(currentLines);
+        if (value.isNotEmpty) {
+          forms.putIfAbsent(formPath, () => {})[field] = value;
+        }
+      }
+      currentLines = <String>[];
+    }
+
+    _currentFormIdx = 0;
+    for (final line in frame.body) {
+      if (!fence.inFence) {
+        final m = RegExp(r'^([A-Za-z][A-Za-z0-9_]*): ?(.*)$').firstMatch(line);
+        if (m != null) {
+          final hit = findField(m.group(1)!);
+          if (hit != null) {
+            flush();
+            _currentFormIdx = hit.$1;
+            currentField = hit.$2;
+            currentFormPath = '${frame.path}/${formSlots[hit.$1].$2}';
+            currentLines = [m.group(2)!];
+            fence.feed(line);
+            continue;
+          }
+        }
+      }
+      final target = currentField == null ? contentLines : currentLines;
+      // Continuation: strip the one escape space of a label-shaped line.
+      target.add(!fence.inFence &&
+              currentField != null &&
+              RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
+          ? line.substring(1)
+          : line);
+      fence.feed(line);
+    }
+    flush();
+    final value = _restoreValue(contentLines);
+    if (value.isNotEmpty) content[contentPath] = value;
+  }
+
+  /// Rolling pointer into a body region's transparent form slots — labels bind
+  /// to the nearest form at or after the last hit (wrapping), so repeated field
+  /// names across an owner's transparent forms follow emit order.
+  int _currentFormIdx = 0;
+
+  void _finalizeForm(_Frame frame, SomMetaNode node, String path) {
     final fieldsByLower = {
       for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
         f.name.toLowerCase(): f.name,
     };
-    final fence = _FenceTracker();
+    final fence = MarkdownFenceTracker();
     String? currentField;
     var currentLines = <String>[];
 
@@ -632,13 +876,13 @@ class _Parser {
       if (currentField != null) {
         final value = _restoreValue(currentLines);
         if (value.isNotEmpty) {
-          forms.putIfAbsent(frame.path, () => {})[currentField] = value;
+          forms.putIfAbsent(path, () => {})[currentField] = value;
         }
       } else if (currentLines.any((l) => l.trim().isNotEmpty)) {
         rejections.add(SpecMarkdownRejection(
           line: lineNo,
           reason: SpecMarkdownRejectReason.orphanContent,
-          anchor: frame.path,
+          anchor: path,
           message: 'text in a @Form section before the first field label',
         ));
       }
@@ -672,7 +916,7 @@ class _Parser {
   /// Parse-side value restoration (DR1 §1.3): trim leading/trailing blank
   /// lines and unescape `\#`-escaped heading lines outside fences.
   static String _restoreValue(List<String> body) {
-    final fence = _FenceTracker();
+    final fence = MarkdownFenceTracker();
     final out = <String>[];
     for (final line in body) {
       if (!fence.inFence && RegExp(r'^\\+#').hasMatch(line)) {

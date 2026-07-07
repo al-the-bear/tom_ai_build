@@ -32,16 +32,19 @@
         {
           "name": "title",
           "kind": "content",
+          "sectionId": "TTL",
           "contentType": "text"
         },
         {
           "name": "summary",
           "kind": "content",
+          "sectionId": "SUM",
           "contentType": "markdown"
         },
         {
           "name": "priority",
           "kind": "enum",
+          "sectionId": "PRI",
           "enumType": "Priority",
           "enumValues": [
             "low",
@@ -51,11 +54,13 @@
         {
           "name": "count",
           "kind": "scalar",
+          "sectionId": "CNT",
           "type": "int"
         },
         {
           "name": "details",
           "kind": "form",
+          "sectionId": "DET",
           "formFields": [
             {
               "name": "owner",
@@ -88,6 +93,7 @@
         {
           "name": "meta",
           "kind": "complex",
+          "sectionId": "META",
           "type": "Meta"
         }
       ]
@@ -102,6 +108,7 @@
         {
           "name": "status",
           "kind": "enum",
+          "sectionId": "STS",
           "enumType": "Status",
           "enumValues": [
             "open",
@@ -115,7 +122,8 @@
       "fields": [
         {
           "name": "owner",
-          "kind": "content"
+          "kind": "content",
+          "sectionId": "OWNR"
         },
         {
           "name": "tags",

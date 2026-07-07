@@ -277,6 +277,12 @@ void main() {
 /// content (incl. a multi-line block-scalar value), enum, scalar, a two-field
 /// `@Form`, a `@Min`-constrained complex list, a nested complex section, and a
 /// (declared-but-unpopulated) scalar list for resolution coverage.
+///
+/// All members carry field-level `@SectionId`s (so the Markdown golden heads
+/// every section per the DR3 transparency rule) **except** `Item.label`, which
+/// is deliberately id-less: it pins the transparent-member semantics — its text
+/// is the item heading's body region, bound at `<item>/label` without a
+/// heading of its own.
 Map<String, dynamic> _buildMeta() => {
       'metaSchemaVersion': 1,
       'modelVersion': 1,
@@ -304,18 +310,30 @@ Map<String, dynamic> _buildMeta() => {
             },
           ],
           'fields': [
-            {'name': 'title', 'kind': 'content', 'contentType': 'text'},
-            {'name': 'summary', 'kind': 'content', 'contentType': 'markdown'},
+            {
+              'name': 'title',
+              'kind': 'content',
+              'sectionId': 'TTL',
+              'contentType': 'text'
+            },
+            {
+              'name': 'summary',
+              'kind': 'content',
+              'sectionId': 'SUM',
+              'contentType': 'markdown'
+            },
             {
               'name': 'priority',
               'kind': 'enum',
+              'sectionId': 'PRI',
               'enumType': 'Priority',
               'enumValues': ['low', 'high'],
             },
-            {'name': 'count', 'kind': 'scalar', 'type': 'int'},
+            {'name': 'count', 'kind': 'scalar', 'sectionId': 'CNT', 'type': 'int'},
             {
               'name': 'details',
               'kind': 'form',
+              'sectionId': 'DET',
               'formFields': [
                 {
                   'name': 'owner',
@@ -339,16 +357,23 @@ Map<String, dynamic> _buildMeta() => {
                 }
               ],
             },
-            {'name': 'meta', 'kind': 'complex', 'type': 'Meta'},
+            {
+              'name': 'meta',
+              'kind': 'complex',
+              'sectionId': 'META',
+              'type': 'Meta'
+            },
           ],
         },
         'Item': {
           'name': 'Item',
           'fields': [
+            // Deliberately id-less: the transparent body-region member.
             {'name': 'label', 'kind': 'content'},
             {
               'name': 'status',
               'kind': 'enum',
+              'sectionId': 'STS',
               'enumType': 'Status',
               'enumValues': ['open', 'done'],
             },
@@ -357,7 +382,7 @@ Map<String, dynamic> _buildMeta() => {
         'Meta': {
           'name': 'Meta',
           'fields': [
-            {'name': 'owner', 'kind': 'content'},
+            {'name': 'owner', 'kind': 'content', 'sectionId': 'OWNR'},
             {
               'name': 'tags',
               'kind': 'list',
@@ -373,19 +398,19 @@ Map<String, dynamic> _buildMeta() => {
 /// through the public mutation API so the stored sequence numbers are real.
 SpecDocument _buildDocument() {
   final d = SpecDocument();
-  d.setContent('DEMO/title', 'Hello');
-  d.setContent('DEMO/summary', 'Line one\nLine two\n\nLine four');
-  d.setContent('DEMO/priority', 'high');
-  d.setContent('DEMO/count', '3');
-  d.setFormField('DEMO/details', 'owner', 'Bob');
-  d.setFormField('DEMO/details', 'contact', 'bob@example.com');
+  d.setContent('DEMO/TTL', 'Hello');
+  d.setContent('DEMO/SUM', 'Line one\nLine two\n\nLine four');
+  d.setContent('DEMO/PRI', 'high');
+  d.setContent('DEMO/CNT', '3');
+  d.setFormField('DEMO/DET', 'owner', 'Bob');
+  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
   final i1 = d.addListItem('DEMO/items');
   d.setContent('$i1/label', 'First');
-  d.setContent('$i1/status', 'open');
+  d.setContent('$i1/STS', 'open');
   final i2 = d.addListItem('DEMO/items');
   d.setContent('$i2/label', 'Second line A\nwith ```triple``` ticks');
-  d.setContent('$i2/status', 'done');
-  d.setContent('DEMO/meta/owner', 'alice');
+  d.setContent('$i2/STS', 'done');
+  d.setContent('DEMO/META/OWNR', 'alice');
   return d;
 }
 
@@ -405,19 +430,19 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
 
   return [
     'DEMO',
-    'DEMO/title',
-    'DEMO/summary',
-    'DEMO/priority',
-    'DEMO/count',
-    'DEMO/details',
+    'DEMO/TTL',
+    'DEMO/SUM',
+    'DEMO/PRI',
+    'DEMO/CNT',
+    'DEMO/DET',
     'DEMO/items',
     'DEMO/items-1',
     'DEMO/items-1/label',
-    'DEMO/items-1/status',
-    'DEMO/meta',
-    'DEMO/meta/owner',
-    'DEMO/meta/tags',
-    'DEMO/meta/tags-1',
+    'DEMO/items-1/STS',
+    'DEMO/META',
+    'DEMO/META/OWNR',
+    'DEMO/META/tags',
+    'DEMO/META/tags-1',
     'DEMO/ghost',
     'DEMO/items-1/ghost',
     'WRONG',
@@ -443,7 +468,7 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     }),
     caseFor('unknownFormField', {
       'forms': {
-        'DEMO/details': {'bogus': 'v'}
+        'DEMO/DET': {'bogus': 'v'}
       }
     }),
     caseFor('minItems', {

@@ -3,16 +3,16 @@ version: 2
 modelVersion: "1.0"
 document:
   DEMO Demo:
-    title: |2-
+    TTL title: |2-
       Hello
-    summary: |2-
+    SUM summary: |2-
       Line one
       Line two
 
       Line four
-    priority: high
-    count: 3
-    details:
+    PRI priority: high
+    CNT count: 3
+    DET details:
       owner: |2-
         Bob
       contact: |2-
@@ -21,12 +21,12 @@ document:
       items-1:
         label: |2-
           First
-        status: open
+        STS status: open
       items-2:
         label: |2-
           Second line A
           with ```triple``` ticks
-        status: done
-    meta:
-      owner: |2-
+        STS status: done
+    META meta:
+      OWNR owner: |2-
         alice

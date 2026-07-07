@@ -1,54 +1,50 @@
 <!-- docspec: demo-document/1.0 -->
 # <!--[DEMO]--> Demo Document
 
-## <!--[title]--> Title
+## <!--[TTL]--> Title
 
 Hello
 
-## <!--[summary]--> Summary
+## <!--[SUM]--> Summary
 
 Line one
 Line two
 
 Line four
 
-## <!--[priority]--> Priority
+## <!--[PRI]--> Priority
 
 high
 
-## <!--[count]--> Count
+## <!--[CNT]--> Count
 
 3
 
-## <!--[details]--> Details
+## <!--[DET]--> Details
 
 Owner: Bob
 Contact: bob@example.com
 
 ## <!--[items-1]--> Item 1
 
-### <!--[label]--> Label
-
 First
 
-### <!--[status]--> Status
+### <!--[STS]--> Status
 
 open
 
 ## <!--[items-2]--> Item 2
 
-### <!--[label]--> Label
-
 Second line A
 with ```triple``` ticks
 
-### <!--[status]--> Status
+### <!--[STS]--> Status
 
 done
 
-## <!--[meta]--> Meta
+## <!--[META]--> Meta
 
-### <!--[owner]--> Owner
+### <!--[OWNR]--> Owner
 
 alice
 
