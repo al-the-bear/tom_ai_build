@@ -23949,9 +23949,9 @@ void design_principles_set_content(DesignPrinciples *self, const char *value) {
   free(path);
 }
 SomList design_principles_items(const DesignPrinciples *self) {
-  char *path = spec_path_join(self->node.path, "UDPEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DPEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "UDPEN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DPEN-ITEM-xxx");
   free(path);
   return out;
 }

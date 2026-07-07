@@ -27813,9 +27813,9 @@ impl DesignPrinciples {
     pub fn items(&self) -> som::SomList<DesignPrincipleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "UDPEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "DPEN-ITEM-LST"),
             Box::new(|d, p| DesignPrincipleEntry::new(d, p)),
-            "UDPEN-ITEM-xxx".to_string(),
+            "DPEN-ITEM-xxx".to_string(),
         )
     }
 }
@@ -45775,7 +45775,7 @@ impl LegacyCompatibilityEntryRisk {
     }
 }
 
-/// 3.6. Other Administrative Requirements.
+/// 3.6. Legal and Contractual Requirements.
 ///
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -252425,8 +252425,8 @@ impl SbpPaths {
     pub const EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_CONTENT: &'static str = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content";
     /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview`
     pub const EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_OVERVIEW: &'static str = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview";
-    /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST`
-    pub const EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS: &'static str = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST";
+    /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST`
+    pub const EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS: &'static str = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST";
     /// `SBP/experienceAndInterfaceDesign/designVision/personas`
     pub const EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_PERSONAS: &'static str = "SBP/experienceAndInterfaceDesign/designVision/personas";
     /// `SBP/experienceAndInterfaceDesign/designVision/personas/content`
@@ -259003,8 +259003,8 @@ impl XdsPaths {
     pub const DESIGN_VISION_DESIGN_PRINCIPLES_CONTENT: &'static str = "XDS/designVision/designPrinciples/content";
     /// `XDS/designVision/designPrinciples/overview`
     pub const DESIGN_VISION_DESIGN_PRINCIPLES_OVERVIEW: &'static str = "XDS/designVision/designPrinciples/overview";
-    /// `XDS/designVision/designPrinciples/UDPEN-ITEM-LST`
-    pub const DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS: &'static str = "XDS/designVision/designPrinciples/UDPEN-ITEM-LST";
+    /// `XDS/designVision/designPrinciples/DPEN-ITEM-LST`
+    pub const DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS: &'static str = "XDS/designVision/designPrinciples/DPEN-ITEM-LST";
     /// `XDS/designVision/personas`
     pub const DESIGN_VISION_PERSONAS: &'static str = "XDS/designVision/personas";
     /// `XDS/designVision/personas/content`

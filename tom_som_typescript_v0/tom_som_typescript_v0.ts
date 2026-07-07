@@ -17098,7 +17098,7 @@ export class DesignPrinciples extends SomNode {
 
   // Contains 0+× UiDesignPrinciple.
   get items(): SomList<DesignPrincipleEntry> {
-    return new SomList(this.doc, this.path + "/UDPEN-ITEM-LST", (d: SpecDocument, p: string) => new DesignPrincipleEntry(d, p), "UDPEN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DPEN-ITEM-LST", (d: SpecDocument, p: string) => new DesignPrincipleEntry(d, p), "DPEN-ITEM-xxx");
   }
 }
 
@@ -27753,7 +27753,7 @@ export class LegacyCompatibilityEntryRisk extends SomNode {
   }
 }
 
-// 3.6. Other Administrative Requirements.
+// 3.6. Legal and Contractual Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -168073,7 +168073,7 @@ export const SbpPaths = {
   experienceAndInterfaceDesignDesignVisionDesignPrinciples: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples",
   experienceAndInterfaceDesignDesignVisionDesignPrinciplesContent: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content",
   experienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview",
-  experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST",
+  experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST",
   experienceAndInterfaceDesignDesignVisionPersonas: "SBP/experienceAndInterfaceDesign/designVision/personas",
   experienceAndInterfaceDesignDesignVisionPersonasContent: "SBP/experienceAndInterfaceDesign/designVision/personas/content",
   experienceAndInterfaceDesignDesignVisionPersonasOverview: "SBP/experienceAndInterfaceDesign/designVision/personas/overview",
@@ -171380,7 +171380,7 @@ export const XdsPaths = {
   designVisionDesignPrinciples: "XDS/designVision/designPrinciples",
   designVisionDesignPrinciplesContent: "XDS/designVision/designPrinciples/content",
   designVisionDesignPrinciplesOverview: "XDS/designVision/designPrinciples/overview",
-  designVisionDesignPrinciplesItems: "XDS/designVision/designPrinciples/UDPEN-ITEM-LST",
+  designVisionDesignPrinciplesItems: "XDS/designVision/designPrinciples/DPEN-ITEM-LST",
   designVisionPersonas: "XDS/designVision/personas",
   designVisionPersonasContent: "XDS/designVision/personas/content",
   designVisionPersonasOverview: "XDS/designVision/personas/overview",

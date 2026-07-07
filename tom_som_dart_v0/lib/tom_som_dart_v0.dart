@@ -10969,7 +10969,7 @@ class DesignPrinciples extends SomNode {
   // (skipped: overview has no target type)
 
   /// Contains 0+× UiDesignPrinciple.
-  SomList<DesignPrincipleEntry> get items => SomList<DesignPrincipleEntry>(doc, '$path/UDPEN-ITEM-LST', (d, p) => DesignPrincipleEntry(d, p), pattern: 'UDPEN-ITEM-xxx');
+  SomList<DesignPrincipleEntry> get items => SomList<DesignPrincipleEntry>(doc, '$path/DPEN-ITEM-LST', (d, p) => DesignPrincipleEntry(d, p), pattern: 'DPEN-ITEM-xxx');
 }
 
 /// Design principles overview.
@@ -17737,7 +17737,7 @@ class LegacyCompatibilityEntryRisk extends SomNode {
   LegacyCompatibilityEntryRiskContentForm get content => LegacyCompatibilityEntryRiskContentForm(doc, '$path/content');
 }
 
-/// 3.6. Other Administrative Requirements.
+/// 3.6. Legal and Contractual Requirements.
 /// 
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -89005,8 +89005,8 @@ abstract final class SbpPaths {
   static const String experienceAndInterfaceDesignDesignVisionDesignPrinciplesContent = 'SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content';
   /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview`
   static const String experienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview = 'SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview';
-  /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST`
-  static const String experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = 'SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST';
+  /// `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST`
+  static const String experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = 'SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST';
   /// `SBP/experienceAndInterfaceDesign/designVision/personas`
   static const String experienceAndInterfaceDesignDesignVisionPersonas = 'SBP/experienceAndInterfaceDesign/designVision/personas';
   /// `SBP/experienceAndInterfaceDesign/designVision/personas/content`
@@ -95547,8 +95547,8 @@ abstract final class XdsPaths {
   static const String designVisionDesignPrinciplesContent = 'XDS/designVision/designPrinciples/content';
   /// `XDS/designVision/designPrinciples/overview`
   static const String designVisionDesignPrinciplesOverview = 'XDS/designVision/designPrinciples/overview';
-  /// `XDS/designVision/designPrinciples/UDPEN-ITEM-LST`
-  static const String designVisionDesignPrinciplesItems = 'XDS/designVision/designPrinciples/UDPEN-ITEM-LST';
+  /// `XDS/designVision/designPrinciples/DPEN-ITEM-LST`
+  static const String designVisionDesignPrinciplesItems = 'XDS/designVision/designPrinciples/DPEN-ITEM-LST';
   /// `XDS/designVision/personas`
   static const String designVisionPersonas = 'XDS/designVision/personas';
   /// `XDS/designVision/personas/content`

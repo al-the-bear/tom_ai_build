@@ -1641,9 +1641,15 @@ section-types:
   SYDITO:
     prefix: sydito
     description: System diagnostic tools.
-  TEFRCO:
-    prefix: tefrco
-    description: 4.6.3. Technical Environment. Seeds → ATS.
+  TEENGO:
+    prefix: teengo
+    description: Architecture governance context.
+  TEENNE:
+    prefix: teenne
+    description: Network and infrastructure standards.
+  TEENST:
+    prefix: teenst
+    description: Platform standards and preferred technologies.
   TESTOR:
     prefix: testor
     description: Additional test types and organization.
@@ -4075,15 +4081,9 @@ section-types:
   STAT:
     prefix: stat
     description: Scaling triggers and thresholds.
-  TFCG:
-    prefix: tfcg
-    description: Architecture governance context.
-  TFCN:
-    prefix: tfcn
-    description: Network and infrastructure standards.
-  TFCS:
-    prefix: tfcs
-    description: Platform standards and preferred technologies.
+  TEEN:
+    prefix: teen
+    description: 4.6.3. Technical Environment. Seeds → ATS.
   TLRE:
     prefix: tlre
     description: TLS/SSL requirements.
@@ -4710,7 +4710,7 @@ document:
       section-type: COMP
       optional: true
     technicalenvironment:
-      section-type: TEFRCO
+      section-type: TEEN
       optional: true
     translationrequirements:
       section-type: TRAREQ

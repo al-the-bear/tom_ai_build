@@ -22002,7 +22002,7 @@ class LegacyCompatibilityEntryRisk : public som::SomNode {
   LegacyCompatibilityEntryRiskContentForm content() const;
 };
 
-// 3.6. Other Administrative Requirements.
+// 3.6. Legal and Contractual Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -83444,8 +83444,8 @@ struct SbpPaths {
   static constexpr const char* experienceAndInterfaceDesignDesignVisionDesignPrinciplesContent = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content";
   // `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview`
   static constexpr const char* experienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview";
-  // `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST`
-  static constexpr const char* experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST";
+  // `SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST`
+  static constexpr const char* experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST";
   // `SBP/experienceAndInterfaceDesign/designVision/personas`
   static constexpr const char* experienceAndInterfaceDesignDesignVisionPersonas = "SBP/experienceAndInterfaceDesign/designVision/personas";
   // `SBP/experienceAndInterfaceDesign/designVision/personas/content`
@@ -89986,8 +89986,8 @@ struct XdsPaths {
   static constexpr const char* designVisionDesignPrinciplesContent = "XDS/designVision/designPrinciples/content";
   // `XDS/designVision/designPrinciples/overview`
   static constexpr const char* designVisionDesignPrinciplesOverview = "XDS/designVision/designPrinciples/overview";
-  // `XDS/designVision/designPrinciples/UDPEN-ITEM-LST`
-  static constexpr const char* designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/UDPEN-ITEM-LST";
+  // `XDS/designVision/designPrinciples/DPEN-ITEM-LST`
+  static constexpr const char* designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/DPEN-ITEM-LST";
   // `XDS/designVision/personas`
   static constexpr const char* designVisionPersonas = "XDS/designVision/personas";
   // `XDS/designVision/personas/content`

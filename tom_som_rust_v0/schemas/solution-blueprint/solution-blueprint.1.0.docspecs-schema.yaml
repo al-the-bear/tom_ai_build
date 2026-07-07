@@ -2317,12 +2317,6 @@ section-types:
       pattern: ^uatcy_test_lst-\d+$
       error-message: ID must match uatcy_test_lst-NNN
     description: Add one entry per user-acceptance test cycle.
-  UDPEN-ITEM-LST:
-    prefix: udpen_item_lst
-    pattern-check-id:
-      pattern: ^udpen_item_lst-\d+$
-      error-message: ID must match udpen_item_lst-NNN
-    description: Add one entry per design principle.
   ULTRE-ITEM-LST:
     prefix: ultre_item_lst
     pattern-check-id:
@@ -2710,6 +2704,12 @@ section-types:
       pattern: ^dopr_proc_lst-\d+$
       error-message: ID must match dopr_proc_lst-NNN
     description: Add one entry per major business process in this domain.
+  DPEN-ITEM-LST:
+    prefix: dpen_item_lst
+    pattern-check-id:
+      pattern: ^dpen_item_lst-\d+$
+      error-message: ID must match dpen_item_lst-NNN
+    description: Add one entry per design principle.
   DQIE-IMPR-LST:
     prefix: dqie_impr_lst
     pattern-check-id:
@@ -4901,12 +4901,6 @@ section-types:
   HECHEN:
     prefix: hechen
     description: Health check endpoint requirements.
-  HECODE:
-    prefix: hecode
-    description: Content stewardship and help affordances.
-  HECOIN:
-    prefix: hecoin
-    description: Analytics and improvement feedback.
   HIAVRE:
     prefix: hiavre
     description: High availability requirements.
@@ -6240,9 +6234,15 @@ section-types:
   TEDAVA:
     prefix: tedava
     description: Technology and data variations.
-  TEFRCO:
-    prefix: tefrco
-    description: 4.6.3. Technical Environment. Seeds → ATS.
+  TEENGO:
+    prefix: teengo
+    description: Architecture governance context.
+  TEENNE:
+    prefix: teenne
+    description: Network and infrastructure standards.
+  TEENST:
+    prefix: teenst
+    description: Platform standards and preferred technologies.
   TEGOTS:
     prefix: tegots
     description: A test case entry for technical goal verification (form).
@@ -6438,6 +6438,12 @@ section-types:
   USACTE:
     prefix: usacte
     description: 14.2.3. User Acceptance Testing.
+  USASDE:
+    prefix: usasde
+    description: Content stewardship and help affordances.
+  USASIN:
+    prefix: usasin
+    description: Analytics and improvement feedback.
   USCAEX:
     prefix: uscaex
     description: Use case extensions (alternative and exception flows).
@@ -8136,6 +8142,9 @@ section-types:
   SPDLV:
     prefix: spdlv
     description: 14.1.4. Support Deliverables.
+  SPSTA:
+    prefix: spsta
+    description: Specification status.
   SQGBS:
     prefix: sqgbs
     description: Baseline and target settings.
@@ -8265,9 +8274,6 @@ section-types:
   SYSCL:
     prefix: syscl
     description: Scale indicators.
-  SYSTA:
-    prefix: systa
-    description: Specification status.
   SYSTE:
     prefix: syste
     description: A single workflow step entry.
@@ -8484,9 +8490,6 @@ section-types:
   UCEIB:
     prefix: uceib
     description: Focus and keyboard behavior.
-  UDPEN:
-    prefix: udpen
-    description: A design principle entry (form).
   ULTAP:
     prefix: ultap
     description: Approval requirements.
@@ -8592,9 +8595,6 @@ section-types:
   WSRSS:
     prefix: wsrss
     description: Self-service and feedback.
-  ACAZ:
-    prefix: acaz
-    description: "9. Security & Access Model. Seeds → SAS."
   ACCH:
     prefix: acch
     description: An accessibility check entry (form).
@@ -9465,8 +9465,8 @@ section-types:
   CTAP:
     prefix: ctap
     description: Cross-Tenant Access Policy (form).
-  CUSA:
-    prefix: cusa
+  CULA:
+    prefix: cula
     description: 1. Current Landscape. Seeds → CLA.
   CUWF:
     prefix: cuwf
@@ -9815,6 +9815,9 @@ section-types:
   DPEI:
     prefix: dpei
     description: Implementation guidance.
+  DPEN:
+    prefix: dpen
+    description: A design principle entry (form).
   DPEO:
     prefix: dpeo
     description: Operating cadence and coordination details.
@@ -10109,9 +10112,6 @@ section-types:
   FNSU:
     prefix: fnsu
     description: 11.2. Functional Suitability (ISO/IEC 25010:2023).
-  FRCO:
-    prefix: frco
-    description: 4.6. Operating Environment.
   FREC:
     prefix: frec
     description: Assumptions and constraints for requirement.
@@ -10205,9 +10205,6 @@ section-types:
   HCET:
     prefix: hcet
     description: Timing thresholds.
-  HECO:
-    prefix: heco
-    description: 10.8. User Assistance.
   IACD:
     prefix: iacd
     description: Drift detection settings.
@@ -10319,6 +10316,9 @@ section-types:
   INRS:
     prefix: inrs
     description: Segmentation and isolation.
+  INSC:
+    prefix: insc
+    description: "4. Introduction & Scope."
   INSE:
     prefix: inse
     description: Interaction security requirements.
@@ -10924,6 +10924,9 @@ section-types:
   OOEL:
     prefix: ooel
     description: State and event lifecycle details for an object operation.
+  OPEN:
+    prefix: open
+    description: 4.6. Operating Environment.
   OPPS:
     prefix: opps
     description: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds."
@@ -11458,6 +11461,9 @@ section-types:
   RUEN:
     prefix: ruen
     description: Runtime environment constraints.
+  SAAM:
+    prefix: saam
+    description: "9. Security & Access Model. Seeds → SAS."
   SACM:
     prefix: sacm
     description: Contact methods.
@@ -12046,9 +12052,6 @@ section-types:
   SYIN:
     prefix: syin
     description: A system integration entry (form).
-  SYOV:
-    prefix: syov
-    description: "4. Introduction & Scope."
   SYQG:
     prefix: syqg
     description: 11. System Quality Goals. Seeds → QAP.
@@ -12095,6 +12098,9 @@ section-types:
   TEDE:
     prefix: tede
     description: A technical dependency entry (form).
+  TEEN:
+    prefix: teen
+    description: 4.6.3. Technical Environment. Seeds → ATS.
   TEIN:
     prefix: tein
     description: Technical infrastructure requirements.
@@ -12107,15 +12113,6 @@ section-types:
   TEST:
     prefix: test
     description: 11.8. Test Strategy.
-  TFCG:
-    prefix: tfcg
-    description: Architecture governance context.
-  TFCN:
-    prefix: tfcn
-    description: Network and infrastructure standards.
-  TFCS:
-    prefix: tfcs
-    description: Platform standards and preferred technologies.
   TGEG:
     prefix: tgeg
     description: Scope and ownership details.
@@ -12326,6 +12323,9 @@ section-types:
   UPTL:
     prefix: uptl
     description: Account lifecycle management.
+  USAS:
+    prefix: usas
+    description: 10.8. User Assistance.
   USAU:
     prefix: usau
     description: 9.4. User Authorization.
@@ -12748,6 +12748,9 @@ section-types:
   LCE:
     prefix: lce
     description: Legacy system compatibility entry.
+  LCR:
+    prefix: lcr
+    description: "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution."
   LFC:
     prefix: lfc
     description: Login flow configuration (form).
@@ -12822,9 +12825,6 @@ section-types:
       - Edge computing requirements
       - Data residency constraints
       - Multi-region deployment topology
-  OAR:
-    prefix: oar
-    description: "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution."
   OCE:
     prefix: oce
     description: Operating system compatibility entry.
@@ -13176,6 +13176,9 @@ section-types:
   BC:
     prefix: bc
     description: 10.10.1. Breakpoints.
+  BD:
+    prefix: bd
+    description: Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project.
   BE:
     prefix: be
     description: A breakpoint entry.
@@ -13378,9 +13381,6 @@ section-types:
   SP:
     prefix: sp
     description: Single Sign-On (SSO) policy (form).
-  TA:
-    prefix: ta
-    description: Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project.
   TB:
     prefix: tb
     description: Define the trust boundaries (security zones) that the system operates within and crosses. This is important for security design.
@@ -13402,7 +13402,7 @@ document:
       section-type: DOCTL
       optional: true
     introductionandscope:
-      section-type: SYOV
+      section-type: INSC
       optional: true
     glossaryandabbreviations:
       section-type: GLAB
@@ -13411,7 +13411,7 @@ document:
       section-type: STKG
       optional: true
     currentlandscape:
-      section-type: CUSA
+      section-type: CULA
       optional: true
     assumptionsconstraintsdependencies:
       section-type: ACDP
@@ -13429,7 +13429,7 @@ document:
       section-type: SOAT
       optional: true
     securityandaccessmodel:
-      section-type: ACAZ
+      section-type: SAAM
       optional: true
     experienceandinterfacedesign:
       section-type: XID

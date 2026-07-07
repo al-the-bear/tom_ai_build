@@ -8954,7 +8954,7 @@ void DesignPrinciples::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList DesignPrinciples::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "UDPEN-ITEM-LST"), "UDPEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DPEN-ITEM-LST"), "DPEN-ITEM-xxx");
 }
 
 DesignPrinciplesOverview::DesignPrinciplesOverview(som::SpecDocument& doc, std::string path)

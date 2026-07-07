@@ -17424,7 +17424,7 @@ public final class TomSomV0 {
 
     // Contains 0+× UiDesignPrinciple.
     public SomList<DesignPrincipleEntry> items() {
-      return new SomList<>(doc, path + "/UDPEN-ITEM-LST", (d, p) -> new DesignPrincipleEntry(d, p), "UDPEN-ITEM-xxx");
+      return new SomList<>(doc, path + "/DPEN-ITEM-LST", (d, p) -> new DesignPrincipleEntry(d, p), "DPEN-ITEM-xxx");
     }
   }
 
@@ -28251,7 +28251,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6. Other Administrative Requirements.
+  // 3.6. Legal and Contractual Requirements.
   //
   // Additional administrative agreements, constraints, or requirements not
   // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -182974,8 +182974,8 @@ public final class TomSomV0 {
     public static final String experienceAndInterfaceDesignDesignVisionDesignPrinciplesContent = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content";
     // SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview
     public static final String experienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview";
-    // SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST
-    public static final String experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST";
+    // SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST
+    public static final String experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST";
     // SBP/experienceAndInterfaceDesign/designVision/personas
     public static final String experienceAndInterfaceDesignDesignVisionPersonas = "SBP/experienceAndInterfaceDesign/designVision/personas";
     // SBP/experienceAndInterfaceDesign/designVision/personas/content
@@ -189525,8 +189525,8 @@ public final class TomSomV0 {
     public static final String designVisionDesignPrinciplesContent = "XDS/designVision/designPrinciples/content";
     // XDS/designVision/designPrinciples/overview
     public static final String designVisionDesignPrinciplesOverview = "XDS/designVision/designPrinciples/overview";
-    // XDS/designVision/designPrinciples/UDPEN-ITEM-LST
-    public static final String designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/UDPEN-ITEM-LST";
+    // XDS/designVision/designPrinciples/DPEN-ITEM-LST
+    public static final String designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/DPEN-ITEM-LST";
     // XDS/designVision/personas
     public static final String designVisionPersonas = "XDS/designVision/personas";
     // XDS/designVision/personas/content

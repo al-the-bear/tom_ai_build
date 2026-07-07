@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-05T22:09:15.350476Z",
+  "generatedAt": "2026-07-07T19:25:34.421543Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.0.0+7.1f49ac3",
+  "modelVersionLabel": "1.0.0+8.1acef99",
   "classCount": 3080,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
@@ -26771,7 +26771,7 @@
     },
     "BusinessDomain": {
       "name": "BusinessDomain",
-      "sectionId": "TA",
+      "sectionId": "BD",
       "doc": "4.1.3. Description of Business Domain.\n\nDescribes the business domain and task area the system addresses.\nDefines the domain vocabulary and key concepts (ubiquitous language)\nthat will be used throughout the project. Based on Domain-Driven Design\nprinciples for establishing a shared understanding.",
       "help": "Describe the business domain and task area this system addresses. Define the domain vocabulary and key concepts that will be used throughout the project documentation. This establishes the ubiquitous language for the project.",
       "standardReferences": {
@@ -26801,7 +26801,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TA"
+            "id": "BD"
           }
         }
       ],
@@ -34151,7 +34151,7 @@
     "ChangeProcedure": {
       "name": "ChangeProcedure",
       "sectionId": "CHPR",
-      "doc": "3.4. Change Procedure.\n\nProcedure for requesting, evaluating, and approving changes to this\nProject Definition and other project documents. Defines the change\ncontrol workflow, impact assessment criteria, and approval authorities.",
+      "doc": "3.4. Change Procedure.\n\nProcedure for requesting, evaluating, and approving changes to this\nSolution Blueprint and other project documents. Defines the change\ncontrol workflow, impact assessment criteria, and approval authorities.",
       "standardReferences": {
         "standards": [
           "ISO 9001:2015 §8.5.6 — control of changes",
@@ -60841,7 +60841,7 @@
     },
     "CurrentLandscape": {
       "name": "CurrentLandscape",
-      "sectionId": "CUSA",
+      "sectionId": "CULA",
       "doc": "1. Current Landscape. Seeds → CLA.\n\nSeeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree\nflows to CLA together with the systems-to-replace inventory.",
       "mapsTo": "D01CurrentLandscapeAssessment",
       "standardReferences": {
@@ -60863,7 +60863,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CUSA"
+            "id": "CULA"
           }
         },
         {
@@ -89354,7 +89354,7 @@
     },
     "DesignPrincipleEntry": {
       "name": "DesignPrincipleEntry",
-      "sectionId": "UDPEN",
+      "sectionId": "DPEN",
       "doc": "A design principle entry (form).\n\nEach principle guides UI decisions with rationale and examples.",
       "standardReferences": {
         "standards": [
@@ -89377,7 +89377,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UDPEN"
+            "id": "DPEN"
           }
         }
       ],
@@ -89533,8 +89533,8 @@
           "kind": "list",
           "doc": "Contains 0+× UiDesignPrinciple.",
           "help": "Add one entry per design principle.",
-          "sectionId": "UDPEN-ITEM-LST",
-          "sectionIdPattern": "UDPEN-ITEM-xxx",
+          "sectionId": "DPEN-ITEM-LST",
+          "sectionIdPattern": "DPEN-ITEM-xxx",
           "standardReferences": {
             "standards": [
               "ISO 9241-110:2020 — the set of interaction principles guiding dialogue design",
@@ -89557,13 +89557,13 @@
             {
               "name": "SectionId",
               "arguments": {
-                "id": "UDPEN-ITEM-LST"
+                "id": "DPEN-ITEM-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "UDPEN-ITEM-xxx"
+                "pattern": "DPEN-ITEM-xxx"
               }
             },
             {
@@ -143391,13 +143391,13 @@
     },
     "IntroductionAndScope": {
       "name": "IntroductionAndScope",
-      "sectionId": "SYOV",
+      "sectionId": "INSC",
       "doc": "4. Introduction & Scope.\n\nHigh-level overview of the system to be built: its purpose, goals,\nscope boundaries, and the environment it operates in. This section\nestablishes the foundation for all subsequent specification work.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SYOV"
+            "id": "INSC"
           }
         }
       ],
@@ -149236,8 +149236,8 @@
     },
     "LegalAndContractualRequirements": {
       "name": "LegalAndContractualRequirements",
-      "sectionId": "OAR",
-      "doc": "3.6. Other Administrative Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
+      "sectionId": "LCR",
+      "doc": "3.6. Legal and Contractual Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
       "help": "Document any additional administrative requirements not covered elsewhere. Include legal agreements, compliance obligations, and organizational constraints that affect project execution.",
       "standardReferences": {
         "standards": [
@@ -149266,7 +149266,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "OAR"
+            "id": "LCR"
           }
         }
       ],
@@ -178152,7 +178152,7 @@
     },
     "OperatingEnvironment": {
       "name": "OperatingEnvironment",
-      "sectionId": "FRCO",
+      "sectionId": "OPEN",
       "doc": "4.6. Operating Environment.\n\nDocuments the organizational and technical environment in which the system\nwill operate. Covers organizational structure, functional responsibilities,\ntechnical constraints, and external dependencies. Follows TOGAF enterprise\ncontext patterns and PMBOK environmental factors analysis.",
       "standardReferences": {
         "standards": [
@@ -178177,7 +178177,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "FRCO"
+            "id": "OPEN"
           }
         }
       ],
@@ -242947,7 +242947,7 @@
     },
     "SecurityAndAccessModel": {
       "name": "SecurityAndAccessModel",
-      "sectionId": "ACAZ",
+      "sectionId": "SAAM",
       "doc": "9. Security & Access Model. Seeds → SAS.",
       "mapsTo": "D08SecurityAccessSpecification",
       "standardReferences": {
@@ -242973,7 +242973,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ACAZ"
+            "id": "SAAM"
           }
         },
         {
@@ -257515,13 +257515,13 @@
     },
     "SpecificationStatus": {
       "name": "SpecificationStatus",
-      "sectionId": "SYSTA",
+      "sectionId": "SPSTA",
       "doc": "Specification status.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SYSTA"
+            "id": "SPSTA"
           }
         }
       ],
@@ -282722,7 +282722,7 @@
     },
     "TechnicalEnvironment": {
       "name": "TechnicalEnvironment",
-      "sectionId": "TEFRCO",
+      "sectionId": "TEEN",
       "doc": "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
@@ -282749,7 +282749,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TEFRCO"
+            "id": "TEEN"
           }
         },
         {
@@ -283139,7 +283139,7 @@
     },
     "TechnicalEnvironmentGovernance": {
       "name": "TechnicalEnvironmentGovernance",
-      "sectionId": "TFCG",
+      "sectionId": "TEENGO",
       "doc": "Architecture governance context.",
       "standardReferences": {
         "standards": [
@@ -283162,7 +283162,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TFCG"
+            "id": "TEENGO"
           }
         }
       ],
@@ -283206,7 +283206,7 @@
     },
     "TechnicalEnvironmentNetwork": {
       "name": "TechnicalEnvironmentNetwork",
-      "sectionId": "TFCN",
+      "sectionId": "TEENNE",
       "doc": "Network and infrastructure standards.",
       "standardReferences": {
         "standards": [
@@ -283229,7 +283229,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TFCN"
+            "id": "TEENNE"
           }
         }
       ],
@@ -283513,7 +283513,7 @@
     },
     "TechnicalEnvironmentStandards": {
       "name": "TechnicalEnvironmentStandards",
-      "sectionId": "TFCS",
+      "sectionId": "TEENST",
       "doc": "Platform standards and preferred technologies.",
       "standardReferences": {
         "standards": [
@@ -283536,7 +283536,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TFCS"
+            "id": "TEENST"
           }
         }
       ],
@@ -305929,7 +305929,7 @@
     },
     "UserAssistance": {
       "name": "UserAssistance",
-      "sectionId": "HECO",
+      "sectionId": "USAS",
       "doc": "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
@@ -305956,7 +305956,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "HECO"
+            "id": "USAS"
           }
         },
         {
@@ -306154,7 +306154,7 @@
     },
     "UserAssistanceDelivery": {
       "name": "UserAssistanceDelivery",
-      "sectionId": "HECODE",
+      "sectionId": "USASDE",
       "doc": "Content stewardship and help affordances.",
       "standardReferences": {
         "standards": [
@@ -306177,7 +306177,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "HECODE"
+            "id": "USASDE"
           }
         }
       ],
@@ -306242,7 +306242,7 @@
     },
     "UserAssistanceInsights": {
       "name": "UserAssistanceInsights",
-      "sectionId": "HECOIN",
+      "sectionId": "USASIN",
       "doc": "Analytics and improvement feedback.",
       "standardReferences": {
         "standards": [
@@ -306265,7 +306265,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "HECOIN"
+            "id": "USASIN"
           }
         }
       ],

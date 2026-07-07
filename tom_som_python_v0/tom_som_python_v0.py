@@ -15718,7 +15718,7 @@ class DesignPrinciples(SomNode):
     # Contains 0+× UiDesignPrinciple.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/UDPEN-ITEM-LST", lambda d, p: DesignPrincipleEntry(d, p), pattern="UDPEN-ITEM-xxx")
+        return SomList(self.doc, f"{self.path}/DPEN-ITEM-LST", lambda d, p: DesignPrincipleEntry(d, p), pattern="DPEN-ITEM-xxx")
 
 class DesignPrinciplesOverview(SomNode):
     """Design principles overview."""
@@ -25421,7 +25421,7 @@ class LegacyCompatibilityEntryRisk(SomNode):
         return LegacyCompatibilityEntryRiskContentForm(self.doc, f"{self.path}/content")
 
 class LegalAndContractualRequirements(SomNode):
-    """3.6. Other Administrative Requirements.
+    """3.6. Legal and Contractual Requirements.
     
     Additional administrative agreements, constraints, or requirements not
     covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -160517,7 +160517,7 @@ class SbpPaths:
     experienceAndInterfaceDesignDesignVisionDesignPrinciples = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples"
     experienceAndInterfaceDesignDesignVisionDesignPrinciplesContent = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content"
     experienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview"
-    experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST"
+    experienceAndInterfaceDesignDesignVisionDesignPrinciplesItems = "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST"
     experienceAndInterfaceDesignDesignVisionPersonas = "SBP/experienceAndInterfaceDesign/designVision/personas"
     experienceAndInterfaceDesignDesignVisionPersonasContent = "SBP/experienceAndInterfaceDesign/designVision/personas/content"
     experienceAndInterfaceDesignDesignVisionPersonasOverview = "SBP/experienceAndInterfaceDesign/designVision/personas/overview"
@@ -163833,7 +163833,7 @@ class XdsPaths:
     designVisionDesignPrinciples = "XDS/designVision/designPrinciples"
     designVisionDesignPrinciplesContent = "XDS/designVision/designPrinciples/content"
     designVisionDesignPrinciplesOverview = "XDS/designVision/designPrinciples/overview"
-    designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/UDPEN-ITEM-LST"
+    designVisionDesignPrinciplesItems = "XDS/designVision/designPrinciples/DPEN-ITEM-LST"
     designVisionPersonas = "XDS/designVision/personas"
     designVisionPersonasContent = "XDS/designVision/personas/content"
     designVisionPersonasOverview = "XDS/designVision/personas/overview"

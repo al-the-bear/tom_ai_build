@@ -22639,7 +22639,7 @@ void legacy_compatibility_entry_risk_free(LegacyCompatibilityEntryRisk *self);
 int legacy_compatibility_entry_risk_can_have_content(const LegacyCompatibilityEntryRisk *self);
 LegacyCompatibilityEntryRiskContentForm legacy_compatibility_entry_risk_content(const LegacyCompatibilityEntryRisk *self);
 
-// 3.6. Other Administrative Requirements.
+// 3.6. Legal and Contractual Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -76754,7 +76754,7 @@ void workplace_user_category_content_form_set_criticality_level(WorkplaceUserCat
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES "SBP/experienceAndInterfaceDesign/designVision/designPrinciples"
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_CONTENT "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content"
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_OVERVIEW "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview"
-#define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST"
+#define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST"
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_PERSONAS "SBP/experienceAndInterfaceDesign/designVision/personas"
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_PERSONAS_CONTENT "SBP/experienceAndInterfaceDesign/designVision/personas/content"
 #define SBP_PATHS_EXPERIENCE_AND_INTERFACE_DESIGN_DESIGN_VISION_PERSONAS_OVERVIEW "SBP/experienceAndInterfaceDesign/designVision/personas/overview"
@@ -80025,7 +80025,7 @@ void workplace_user_category_content_form_set_criticality_level(WorkplaceUserCat
 #define XDS_PATHS_DESIGN_VISION_DESIGN_PRINCIPLES "XDS/designVision/designPrinciples"
 #define XDS_PATHS_DESIGN_VISION_DESIGN_PRINCIPLES_CONTENT "XDS/designVision/designPrinciples/content"
 #define XDS_PATHS_DESIGN_VISION_DESIGN_PRINCIPLES_OVERVIEW "XDS/designVision/designPrinciples/overview"
-#define XDS_PATHS_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS "XDS/designVision/designPrinciples/UDPEN-ITEM-LST"
+#define XDS_PATHS_DESIGN_VISION_DESIGN_PRINCIPLES_ITEMS "XDS/designVision/designPrinciples/DPEN-ITEM-LST"
 #define XDS_PATHS_DESIGN_VISION_PERSONAS "XDS/designVision/personas"
 #define XDS_PATHS_DESIGN_VISION_PERSONAS_CONTENT "XDS/designVision/personas/content"
 #define XDS_PATHS_DESIGN_VISION_PERSONAS_OVERVIEW "XDS/designVision/personas/overview"

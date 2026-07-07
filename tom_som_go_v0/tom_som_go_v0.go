@@ -20363,9 +20363,9 @@ func (x *DesignPrinciples) SetContent(value string) {
 
 // Contains 0+× UiDesignPrinciple.
 func (x *DesignPrinciples) Items() *som.SomList[*DesignPrincipleEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/UDPEN-ITEM-LST", func(d *som.SpecDocument, p string) *DesignPrincipleEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/DPEN-ITEM-LST", func(d *som.SpecDocument, p string) *DesignPrincipleEntry {
 		return NewDesignPrincipleEntry(d, p)
-	}, "UDPEN-ITEM-xxx")
+	}, "DPEN-ITEM-xxx")
 }
 
 // Design principles overview.
@@ -33137,7 +33137,7 @@ func (x *LegacyCompatibilityEntryRisk) Content() *LegacyCompatibilityEntryRiskCo
 	return NewLegacyCompatibilityEntryRiskContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.6. Other Administrative Requirements.
+// 3.6. Legal and Contractual Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -191024,7 +191024,7 @@ var SbpPaths = struct {
 	ExperienceAndInterfaceDesignDesignVisionDesignPrinciples: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples",
 	ExperienceAndInterfaceDesignDesignVisionDesignPrinciplesContent: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/content",
 	ExperienceAndInterfaceDesignDesignVisionDesignPrinciplesOverview: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/overview",
-	ExperienceAndInterfaceDesignDesignVisionDesignPrinciplesItems: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/UDPEN-ITEM-LST",
+	ExperienceAndInterfaceDesignDesignVisionDesignPrinciplesItems: "SBP/experienceAndInterfaceDesign/designVision/designPrinciples/DPEN-ITEM-LST",
 	ExperienceAndInterfaceDesignDesignVisionPersonas: "SBP/experienceAndInterfaceDesign/designVision/personas",
 	ExperienceAndInterfaceDesignDesignVisionPersonasContent: "SBP/experienceAndInterfaceDesign/designVision/personas/content",
 	ExperienceAndInterfaceDesignDesignVisionPersonasOverview: "SBP/experienceAndInterfaceDesign/designVision/personas/overview",
@@ -197014,7 +197014,7 @@ var XdsPaths = struct {
 	DesignVisionDesignPrinciples: "XDS/designVision/designPrinciples",
 	DesignVisionDesignPrinciplesContent: "XDS/designVision/designPrinciples/content",
 	DesignVisionDesignPrinciplesOverview: "XDS/designVision/designPrinciples/overview",
-	DesignVisionDesignPrinciplesItems: "XDS/designVision/designPrinciples/UDPEN-ITEM-LST",
+	DesignVisionDesignPrinciplesItems: "XDS/designVision/designPrinciples/DPEN-ITEM-LST",
 	DesignVisionPersonas: "XDS/designVision/personas",
 	DesignVisionPersonasContent: "XDS/designVision/personas/content",
 	DesignVisionPersonasOverview: "XDS/designVision/personas/overview",
