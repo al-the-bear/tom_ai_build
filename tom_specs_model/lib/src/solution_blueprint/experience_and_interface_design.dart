@@ -336,8 +336,8 @@ Principles configure shared behaviors:
     ],
     'The collection of individual design-principle entries for the interface.',
   )
-  @SectionId('UDPEN-ITEM-LST')
-  @SectionIdPattern('UDPEN-ITEM-xxx')
+  @SectionId('DPEN-ITEM-LST')
+  @SectionIdPattern('DPEN-ITEM-xxx')
   @ContentHelp('Add one entry per design principle.')
   @SerializationOrder(2)
   List<DesignPrincipleEntry> items = [];
@@ -353,7 +353,7 @@ Principles configure shared behaviors:
   ],
   'A single guiding interaction principle that shapes UI decisions with rationale and examples.',
 )
-@SectionId('UDPEN')
+@SectionId('DPEN')
 class DesignPrincipleEntry {
   @Form([
     Field('principleName', String, 'Principle Name', required: true,
