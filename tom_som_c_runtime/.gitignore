@@ -2,3 +2,7 @@
 build/
 *.o
 *.a
+*.so
+*.so.*
+*.pc
+*.tar.gz

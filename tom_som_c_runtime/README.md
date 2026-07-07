@@ -67,10 +67,15 @@ emitter mirrors:
 ## Building & testing
 
 ```sh
-make                 # builds build/libtom_som_c_runtime.a
+make                 # builds the static + shared library + pkg-config file
 make test            # builds + runs the conformance harness against the corpus
-./run_conformance.sh # same, via the wrapper script
+make unit            # builds + runs the standalone unit tests
+./run_conformance.sh # same as `make test`, via the wrapper script
 ```
+
+`make` produces `build/libtom_som_c_runtime.a` (static),
+`build/libtom_som_c_runtime.so` (shared), and `build/tom_som_c_runtime.pc`
+(pkg-config metadata whose `Version` tracks the TomSpecs model version).
 
 The conformance harness (`tests/conformance.c`) loads the language-agnostic
 corpus (`../tom_som_conformance/corpus`) and reproduces the same checks as every
@@ -84,3 +89,17 @@ The corpus directory can be overridden:
 make test CORPUS=/path/to/corpus
 ./run_conformance.sh /path/to/corpus
 ```
+
+## Packaging & install
+
+C has no package registry, so the library is distributed as a library + headers
++ pkg-config file, or as a source tarball:
+
+```sh
+make install PREFIX=/usr/local   # headers, static/shared libs, and the .pc file
+make dist                        # build/tom_som_c_runtime-<version>.tar.gz
+```
+
+`make install` honours `DESTDIR` for staged / packaged installs and lays down
+the versioned `.so` soname symlinks. See **readme_howtointegrate.md** for the
+full integration guide (pkg-config, vendored tarball, in-tree monorepo).

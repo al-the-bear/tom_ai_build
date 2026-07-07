@@ -392,7 +392,9 @@ void alignRuntimeManifestVersion({
 /// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm);
 /// PGK6 registered TypeScript (npm + compiled `dist/`); PGK7 registered Go
 /// (module path + in-source version constant / VCS tag scheme); PGK8 registered
-/// Rust (Cargo crate — versioned `path` dependency + crate metadata).
+/// Rust (Cargo crate — versioned `path` dependency + crate metadata); PGK9
+/// registered C (Makefile — static + shared library, pkg-config `.pc`, `make
+/// install` / `make dist`).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
@@ -401,6 +403,7 @@ const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.typescript: _typeScriptDescriptor,
   SomLanguage.go: _goDescriptor,
   SomLanguage.rust: _rustDescriptor,
+  SomLanguage.c: _cDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -969,6 +972,116 @@ fn main() {
   buildArtifactIgnores: ['/target', '/Cargo.lock'],
   runtimeManifestFileName: 'Cargo.toml',
   runtimeManifestFormat: ManifestFormat.cargoToml,
+);
+
+/// C (Makefile + pkg-config) packaging descriptor — PGK9. The facade
+/// `tom_som_c_v0` and the runtime `tom_som_c_runtime` are built by a `Makefile`
+/// into a static (`.a`) and a shared (`.so`) library. C has no package registry,
+/// so distribution is by installed **library + headers + pkg-config file** or by
+/// **source tarball** — both `Makefile`s emit a `tom_som_<name>.pc` (`Version` =
+/// the model version; the facade's `Requires: tom_som_c_runtime`) and carry
+/// `make install` / `make dist` targets. The runtime's own version lives in its
+/// hand-authored `Makefile` `VERSION` variable, realigned by
+/// [alignRuntimeManifestVersion]; the facade resolves the runtime through a
+/// relative `RUNTIME_DIR` include/link path (built on demand), so the emitted
+/// source stays path-free and golden-stable. `make && make dist` is the
+/// packaging check for both.
+const PackagingDescriptor _cDescriptor = PackagingDescriptor(
+  language: SomLanguage.c,
+  displayName: 'C',
+  runtimePackageName: 'tom_som_c_runtime',
+  facadePackageName: 'tom_som_c_v0',
+  codeFence: 'c',
+  installShort: 'Build and install `tom_som_c_v0` (and `tom_som_c_runtime`), '
+      'then compile against it with `pkg-config`:',
+  usageSnippet: '''
+#include "tom_som_c_v0.h"
+
+int main(void) {
+  // A typed Solution Blueprint over a fresh document. The constructor also runs
+  // the instantiation-time model-version check (an empty stamp is editable).
+  SpecDocument doc;
+  spec_document_init(&doc);
+
+  D00SolutionBlueprint bp;
+  d00_solution_blueprint_new(&bp, &doc, "", NULL);
+
+  d00_solution_blueprint_set_content(
+      &bp, "A platform that unifies our fragmented order systems.");
+
+  CurrentLandscape cl = d00_solution_blueprint_current_landscape(&bp);
+  current_landscape_set_content(
+      &cl, "Three legacy systems with no shared customer record.");
+
+  char *content = d00_solution_blueprint_content(&bp);
+  printf("%s\\n", content);
+  free(content);
+
+  current_landscape_free(&cl);
+  d00_solution_blueprint_free(&bp);
+  spec_document_free(&doc);
+  return 0;
+}''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'pkg-config (installed)',
+      body: 'C has no package registry. Install the facade and the runtime '
+          '(runtime first — the facade links against it), then let `pkg-config` '
+          'supply the compile and link flags:\n\n'
+          '```bash\n'
+          'make -C ../tom_som_c_runtime install\n'
+          'make install\n'
+          'cc myapp.c \$(pkg-config --cflags --libs tom_som_c_v0) -o myapp\n'
+          '```\n\n'
+          'The facade `.pc` declares `Requires: tom_som_c_runtime`, so a single '
+          '`pkg-config tom_som_c_v0` pulls in the runtime flags too. Both '
+          '`.pc` files report `Version VERSION`.',
+    ),
+    PackagingRoute(
+      heading: 'Source tarball (vendored)',
+      body: 'Produce versioned source tarballs and vendor them into your '
+          'build:\n\n'
+          '```bash\n'
+          'make -C ../tom_som_c_runtime dist   # tom_som_c_runtime-VERSION.tar.gz\n'
+          'make dist                           # tom_som_c_v0-VERSION.tar.gz\n'
+          '```\n\n'
+          'Unpack both alongside your project and add each `include/` to your '
+          'include path plus the built libraries to your link line.',
+    ),
+    PackagingRoute(
+      heading: 'In-tree (monorepo)',
+      body: 'When the SOM projects sit alongside your code, build the facade in '
+          "place; its `Makefile` builds the runtime on demand through a relative "
+          '`RUNTIME_DIR`:\n\n'
+          '```bash\n'
+          'make                                # builds runtime + facade libs\n'
+          'cc myapp.c -Iinclude -I../tom_som_c_runtime/include \\\n'
+          '   build/libtom_som_c_v0.a ../tom_som_c_runtime/build/libtom_som_c_runtime.a \\\n'
+          '   -o myapp\n'
+          '```',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade, then build and package both projects '
+      'from the workspace (runtime first — the facade builds it on demand '
+      'through its relative `RUNTIME_DIR`):\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_c_runtime && make && make dist\n'
+      'cd ../tom_som_c_v0 && make && make dist\n'
+      '```\n\n'
+      'Each `make` builds the static + shared library and the pkg-config file; '
+      'each `make dist` writes `build/<name>-<version>.tar.gz`.',
+  buildArtifactIgnores: [
+    'build/',
+    '*.o',
+    '*.a',
+    '*.so',
+    '*.so.*',
+    '*.pc',
+    '*.tar.gz',
+  ],
+  runtimeManifestFileName: 'Makefile',
+  runtimeManifestFormat: ManifestFormat.makefileVar,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

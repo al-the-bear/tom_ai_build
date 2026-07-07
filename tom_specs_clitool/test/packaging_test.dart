@@ -190,6 +190,7 @@ void main() {
         SomLanguage.typescript,
         SomLanguage.go,
         SomLanguage.rust,
+        SomLanguage.c,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -283,6 +284,23 @@ void main() {
       expect(d.integrateRoutes, hasLength(3));
       // Cargo build artifacts (target dir + lockfile) stay out of VCS.
       expect(d.buildArtifactIgnores, contains('/target'));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK9)', () {
+    test('C is registered with the Makefile / pkg-config package names', () {
+      final d = packagingDescriptorFor(SomLanguage.c);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_c_runtime');
+      expect(d.facadePackageName, 'tom_som_c_v0');
+      expect(d.codeFence, 'c');
+      // C carries its version in the Makefile VERSION variable (no registry).
+      expect(d.runtimeManifestFormat, ManifestFormat.makefileVar);
+      expect(d.runtimeManifestFileName, 'Makefile');
+      // pkg-config / source-tarball / in-tree routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+      // The shared library, pkg-config file, and dist tarball stay out of VCS.
+      expect(d.buildArtifactIgnores, containsAll(['*.so', '*.pc', '*.tar.gz']));
     });
   });
 
