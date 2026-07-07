@@ -18,7 +18,7 @@ import '../document_stubs.dart';
   ],
   'Provides the high-level overview of application security for protecting data and functions.',
 )
-@SectionId('ACAZ')
+@SectionId('SAAM')
 @Comment('Seeds → SAS')
 @MapsTo(D08SecurityAccessSpecification)
 class SecurityAndAccessModel {
