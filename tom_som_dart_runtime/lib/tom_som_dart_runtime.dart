@@ -3,6 +3,10 @@
 /// The language-independent, hand-written runtime shared by every generated
 /// typed `tom_som_dart_v0` facade and the TomSpecs editor:
 ///
+///   * [SomMetaNode] / [SomMetaTree] — the canonical DR1 §3.1 metadata tree
+///     (every annotation, exact class/member names) with the dynamic lookups
+///     [SomMetaTree.byId] and [SomMetaTree.byPath]; generated facades emit
+///     the populated tree, this runtime defines the types;
 ///   * [SpecDocument] / [SpecDocumentState] — the sparse, path-keyed in-memory
 ///     representation of a concrete document and its undo snapshots;
 ///   * [SpecModel] and friends ([SpecRoot], [SpecClass], [SpecField],
@@ -29,6 +33,7 @@ export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
+export 'src/spec_meta.dart';
 export 'src/spec_model.dart';
 export 'src/spec_node_creation.dart';
 export 'src/spec_paths.dart';
