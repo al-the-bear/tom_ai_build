@@ -12,6 +12,17 @@ export 'src/model_reader.dart'
         FormFieldInfo,
         findContainerRoot;
 export 'src/model_json_exporter.dart' show ModelJsonExporter;
+export 'src/meta_tree.dart'
+    show
+        MetaTreeBuilder,
+        MetaNode,
+        MetaNodeKind,
+        MetaContentType,
+        MetaFormField,
+        MetaFormInfo,
+        MetaDocumentInfo,
+        MetaSecondLevelId,
+        MetaExtraAnnotation;
 export 'src/spec_model_meta_validator.dart'
     show
         validateSpecModelMeta,

@@ -129,11 +129,17 @@ class ModelClass {
   /// The cleaned doc-comment text on the class declaration, if any.
   final String docComment;
 
+  /// Form fields extracted from a class-level `@Form` annotation (form
+  /// section classes such as `UserRegistrationProcess`). Field-level `@Form`
+  /// lives on [ModelField.formFields].
+  final List<FormFieldInfo> formFields;
+
   ModelClass({
     required this.name,
     this.fields = const [],
     this.annotations = const [],
     this.docComment = '',
+    this.formFields = const [],
   });
 
   AnnotationData? getAnnotation(String name) {
@@ -302,6 +308,9 @@ class ModelReader {
       fields: fields,
       annotations: classAnnotations,
       docComment: _cleanDocComment(element.documentationComment),
+      formFields: classAnnotations.any((a) => a.name == 'Form')
+          ? _extractFormFields(element.metadata)
+          : const <FormFieldInfo>[],
     );
   }
 
