@@ -389,12 +389,14 @@ void alignRuntimeManifestVersion({
 /// which immediately activates [writeFacadePackaging] +
 /// [alignRuntimeManifestVersion] for that language on the next
 /// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
-/// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm).
+/// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm);
+/// PGK6 registered TypeScript (npm + compiled `dist/`).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
   SomLanguage.java: _javaDescriptor,
   SomLanguage.javascript: _javaScriptDescriptor,
+  SomLanguage.typescript: _typeScriptDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -699,6 +701,90 @@ console.log(blueprint.content);''',
       'cd ../tom_som_javascript_v0 && npm pack --dry-run\n'
       '```',
   buildArtifactIgnores: ['node_modules/', '*.tgz'],
+  runtimeManifestFileName: 'package.json',
+  runtimeManifestFormat: ManifestFormat.packageJson,
+);
+
+/// TypeScript (npm + compiled `dist/`) packaging descriptor — PGK6. The facade
+/// `tom_som_typescript_v0` and the runtime `tom_som_typescript_runtime` are both
+/// npm packages that ship **compiled `dist/`** (`.js` + `.d.ts`) built by a
+/// `prepack` step (`tsc`), versioned to the TomSpecs model version. The facade
+/// imports the runtime by bare specifier wired through a relative `file:`
+/// dependency, so its `prepack` builds the runtime first, then the facade. Both
+/// are `private` (proprietary), so `npm pack` is the packaging check rather than
+/// `npm publish`.
+const PackagingDescriptor _typeScriptDescriptor = PackagingDescriptor(
+  language: SomLanguage.typescript,
+  displayName: 'TypeScript',
+  runtimePackageName: 'tom_som_typescript_runtime',
+  facadePackageName: 'tom_som_typescript_v0',
+  codeFence: 'typescript',
+  installShort: 'Add `tom_som_typescript_v0` to your project '
+      '(`npm install tom_som_typescript_v0`), then:',
+  usageSnippet: '''
+import { SpecDocument } from 'tom_som_typescript_runtime';
+import { D00SolutionBlueprint } from 'tom_som_typescript_v0';
+
+// A typed Solution Blueprint over a fresh document.
+const doc = new SpecDocument();
+const blueprint = new D00SolutionBlueprint(doc);
+
+blueprint.content = 'A platform that unifies our fragmented order systems.';
+blueprint.currentLandscape.content =
+    'Three legacy systems with no shared customer record.';
+
+console.log(blueprint.content);''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From npm',
+      body: 'Install the facade (it depends on `tom_som_typescript_runtime`):'
+          '\n\n'
+          '```bash\n'
+          'npm install tom_som_typescript_v0\n'
+          '```\n\n'
+          'or pin it in your `package.json`:\n\n'
+          '```json\n'
+          '"dependencies": {\n'
+          '  "tom_som_typescript_v0": "^VERSION"\n'
+          '}\n'
+          '```\n\n'
+          'The published package ships compiled `dist/` (`.js` + `.d.ts`), so '
+          'no build step is required to consume it.',
+    ),
+    PackagingRoute(
+      heading: 'Git dependency',
+      body: 'Depend on the facade directly from source control (it lives in a '
+          'sub-directory of the mono-repo). Because the tarball is built on '
+          '`prepack`, a git install compiles `dist/` for you:\n\n'
+          '```bash\n'
+          'npm install '
+          '"git+https://github.com/al-the-bear/tom_ai_build.git'
+          '#path:tom_ai/ai_build/tom_som_typescript_v0"\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Path / link (monorepo / vendored)',
+      body: 'When the SOM projects sit alongside your code, install both the '
+          'runtime and the facade (runtime first — the facade compiles against '
+          "the runtime's `dist/`):\n\n"
+          '```bash\n'
+          'npm install ../tom_som_typescript_runtime\n'
+          'npm install ../tom_som_typescript_v0\n'
+          '```\n\n'
+          'The facade already declares the runtime as a relative `file:` '
+          'dependency in its `package.json`, so an in-tree `npm install` links '
+          'it and `npm run build` compiles both.',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade and dry-run the packages from the '
+      'workspace (each `prepack` runs `tsc`; the facade builds the runtime '
+      'first):\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_typescript_runtime && npm install && npm pack --dry-run\n'
+      'cd ../tom_som_typescript_v0 && npm install && npm pack --dry-run\n'
+      '```',
+  buildArtifactIgnores: ['node_modules/', 'dist/', '*.tgz'],
   runtimeManifestFileName: 'package.json',
   runtimeManifestFormat: ManifestFormat.packageJson,
 );

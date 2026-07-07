@@ -1,17 +1,37 @@
 {
   "name": "tom_som_typescript_v0",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "license": "UNLICENSED",
   "description": "Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_typescript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.",
   "main": "dist/tom_som_typescript_v0.js",
   "types": "dist/tom_som_typescript_v0.d.ts",
   "type": "commonjs",
+  "files": [
+    "dist/tom_som_typescript_v0.js",
+    "dist/tom_som_typescript_v0.d.ts",
+    "meta/",
+    "schemas/",
+    "README.md",
+    "readme_howtointegrate.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/tom_som_typescript_v0.d.ts",
+      "default": "./dist/tom_som_typescript_v0.js"
+    },
+    "./meta": "./meta/spec_model.meta.json",
+    "./package.json": "./package.json"
+  },
   "engines": {
     "node": ">=18"
   },
   "scripts": {
     "prebuild": "npm --prefix ../tom_som_typescript_runtime run build",
-    "build": "tsc"
+    "build": "tsc",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "tom_som_typescript_runtime": "file:../tom_som_typescript_runtime"

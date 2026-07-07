@@ -4,3 +4,6 @@
 # and tsconfig.json are tracked (package-lock.json is ignored repo-wide).
 dist/
 node_modules/
+
+# --- tom_specs packaging build artifacts (managed) ---
+*.tgz

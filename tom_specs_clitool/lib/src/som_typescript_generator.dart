@@ -36,6 +36,7 @@ import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
+import 'packaging.dart' show packageVersionFromModel;
 import 'som_typescript_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -174,9 +175,10 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
   final runtimeRel = p
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
+  final packageVersion = packageVersionFromModel(modelLabel.split('+').first);
   final packageJsonPath = p.join(outputRoot, 'package.json');
-  File(packageJsonPath)
-      .writeAsStringSync(_packageJson(packageName, runtimeRel));
+  File(packageJsonPath).writeAsStringSync(
+      _packageJson(packageName, runtimeRel, version: packageVersion));
 
   // ── tsconfig.json (deterministic; compiles src + tests/examples to dist) ───
   final tsconfigPath = p.join(outputRoot, 'tsconfig.json');
@@ -196,11 +198,16 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
   );
 }
 
-String _packageJson(String name, String runtimeRel) {
+String _packageJson(String name, String runtimeRel, {required String version}) {
   final manifest = <String, Object?>{
     'name': name,
-    'version': '0.0.0',
+    // The TomSpecs model version — the facade is regenerated per model version
+    // and always reports it (never maintained independently).
+    'version': version,
+    // Proprietary and unpublished-to-a-public-registry: `npm pack` packages it,
+    // `npm publish` is intentionally refused.
     'private': true,
+    'license': 'UNLICENSED',
     'description': 'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_typescript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '
@@ -208,6 +215,28 @@ String _packageJson(String name, String runtimeRel) {
     'main': 'dist/$name.js',
     'types': 'dist/$name.d.ts',
     'type': 'commonjs',
+    // The tarball payload: the compiled facade (`.js` + `.d.ts`), the lossless
+    // meta-data, the DocSpecs schemas, plus docs/license (npm always adds
+    // package.json, README and LICENSE, but the compiled outputs, CHANGELOG and
+    // directories must be listed explicitly). `dist/` is built on `prepack`.
+    'files': <String>[
+      'dist/$name.js',
+      'dist/$name.d.ts',
+      'meta/',
+      'schemas/',
+      'README.md',
+      'readme_howtointegrate.md',
+      'CHANGELOG.md',
+      'LICENSE',
+    ],
+    'exports': <String, Object?>{
+      '.': <String, Object?>{
+        'types': './dist/$name.d.ts',
+        'default': './dist/$name.js',
+      },
+      './meta': './meta/spec_model.meta.json',
+      './package.json': './package.json',
+    },
     'engines': <String, Object?>{'node': '>=18'},
     // `prebuild` runs automatically before `build` (npm lifecycle). The facade
     // imports the runtime by bare specifier, resolving to the runtime's
@@ -215,9 +244,12 @@ String _packageJson(String name, String runtimeRel) {
     // exist yet, so `tsc` on the facade would fail against a missing/stale
     // runtime `dist/`. Building the runtime first makes `npm run build` work
     // with no manual pre-step (CS4-D6). Same relative path as the `file:` dep.
+    // `prepack` runs before `npm pack`/`npm publish` builds the tarball, so a
+    // published/git install always ships freshly-compiled `dist/`.
     'scripts': <String, Object?>{
       'prebuild': 'npm --prefix $runtimeRel run build',
       'build': 'tsc',
+      'prepack': 'npm run build',
     },
     'dependencies': <String, Object?>{
       // The generic runtime package this typed facade edits over. A relative

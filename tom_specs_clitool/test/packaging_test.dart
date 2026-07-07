@@ -187,6 +187,7 @@ void main() {
         SomLanguage.python,
         SomLanguage.java,
         SomLanguage.javascript,
+        SomLanguage.typescript,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -231,6 +232,20 @@ void main() {
       expect(d!.runtimePackageName, 'tom_som_javascript_runtime');
       expect(d.facadePackageName, 'tom_som_javascript_v0');
       expect(d.codeFence, 'javascript');
+      expect(d.runtimeManifestFormat, ManifestFormat.packageJson);
+      expect(d.runtimeManifestFileName, 'package.json');
+      // npm / git / path-or-link routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK6)', () {
+    test('TypeScript is registered with the npm package names', () {
+      final d = packagingDescriptorFor(SomLanguage.typescript);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_typescript_runtime');
+      expect(d.facadePackageName, 'tom_som_typescript_v0');
+      expect(d.codeFence, 'typescript');
       expect(d.runtimeManifestFormat, ManifestFormat.packageJson);
       expect(d.runtimeManifestFileName, 'package.json');
       // npm / git / path-or-link routes are all documented.

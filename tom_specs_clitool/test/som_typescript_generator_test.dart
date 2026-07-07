@@ -106,6 +106,35 @@ void main() {
     expect(scripts['prebuild'], 'npm --prefix $rtPath run build',
         reason: 'prebuild must build the runtime dist via the relative path');
 
+    // npm packaging contract (item PGK6): the version is the model version, the
+    // package is proprietary (private + UNLICENSED), the tarball payload is
+    // pinned via `files`/`exports` and ships the *compiled* `dist/` (`.js` +
+    // `.d.ts`), and `prepack` rebuilds `dist/` before packing.
+    expect(manifest['version'], '1.0.0',
+        reason: 'version tracks the TomSpecs model version');
+    expect(manifest['private'], isTrue);
+    expect(manifest['license'], 'UNLICENSED');
+    expect(manifest['types'], 'dist/tom_som_typescript_v0.d.ts');
+    expect(scripts['prepack'], 'npm run build',
+        reason: 'prepack must rebuild the shipped dist/ before packing');
+    final files = (manifest['files'] as List).cast<String>();
+    expect(
+        files,
+        containsAll(<String>[
+          'dist/tom_som_typescript_v0.js',
+          'dist/tom_som_typescript_v0.d.ts',
+          'meta/',
+          'schemas/',
+          'README.md',
+          'readme_howtointegrate.md',
+          'CHANGELOG.md',
+          'LICENSE',
+        ]));
+    final exports = manifest['exports'] as Map<String, Object?>;
+    final rootExport = exports['.'] as Map<String, Object?>;
+    expect(rootExport['types'], './dist/tom_som_typescript_v0.d.ts');
+    expect(rootExport['default'], './dist/tom_som_typescript_v0.js');
+
     // tsconfig.json is emitted for the static compile.
     expect(File(result.tsconfigPath).existsSync(), isTrue);
   });

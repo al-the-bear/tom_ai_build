@@ -1,3 +1,6 @@
 /node_modules/
 /dist/
 npm-debug.log*
+
+# --- tom_specs packaging build artifacts (managed) ---
+*.tgz

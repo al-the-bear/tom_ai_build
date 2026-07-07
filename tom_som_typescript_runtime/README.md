@@ -5,6 +5,27 @@ value-free, generated-code-free half of the multi-platform spec model
 (`tom_som`). It is a faithful transcription of the Dart reference,
 `tom_som_dart_runtime`, and the Python/Java/JavaScript ports.
 
+## How to use
+
+```bash
+npm install tom_som_typescript_runtime
+```
+
+```typescript
+import { SpecDocument } from 'tom_som_typescript_runtime';
+
+const doc = new SpecDocument();
+doc.setContent('D00/D01', 'A unifying order platform.');
+console.log(doc.content('D00/D01'));
+```
+
+Most projects depend on the **typed facade** `tom_som_typescript_v0` (which pulls
+in this runtime) rather than on the runtime directly — reach for the runtime
+alone only when you drive the generic API by section path. Both packages ship
+compiled `dist/` (`*.js` + `*.d.ts`). For the full set of dependency routes
+(npm / git / path-link), version pinning, and building from source, see
+[readme_howtointegrate.md](readme_howtointegrate.md).
+
 ## What it is
 
 The package `tom_som_typescript_runtime` mirrors the eight portable runtime
