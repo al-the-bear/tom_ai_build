@@ -59,4 +59,20 @@ dev_dependencies:
   # The D4rt bridge generator that produces the SOM `*.b.dart` binding surface
   # from the `d4rtgen:` block in buildkit.yaml. Used only by
   # tool/regenerate_bridges.dart — see _copilot_guidelines/bridge_regeneration.md.
-  tom_d4rt_generator: ">=1.12.3"
+  #
+  # Consumed by PATH (not from pub.dev) on purpose. The engine's SOM inputs
+  # (tom_som_dart_v0 / tom_som_dart_runtime) are unpublished path siblings under
+  # active development, so a generator bug that only surfaces against the current
+  # SOM source (e.g. the $-prefixed `$sectionId` escaping fix) has to be iterated
+  # *and consumed* locally. As a hosted dev-dep that meant publish → bump → `pub
+  # upgrade` for every iteration, and `pub upgrade` updates pubspec.lock without
+  # refreshing .dart_tool/package_config.json — so `dart run` kept resolving the
+  # OLD generator and regenerated stale bridges. A path dep removes the version
+  # indirection entirely: the regenerator always runs the current generator
+  # source, so the SOM bridges can never go stale against a not-yet-published
+  # generator. Safe because this is a build-only DEV dependency and the engine is
+  # itself `publish_to: none` (already all-path). The workspace "no path deps"
+  # rule targets runtime missing-API errors on published artifacts — neither
+  # applies here.
+  tom_d4rt_generator:
+    path: ../../d4rt/tom_d4rt_generator

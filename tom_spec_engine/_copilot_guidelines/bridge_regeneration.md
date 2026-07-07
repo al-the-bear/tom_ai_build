@@ -70,6 +70,38 @@ Review the diff before committing — if the only change is the timestamp header
 the bridges were already up to date and the regen can be discarded
 (`git checkout -- lib`).
 
+## Why the generator is a path dependency (stale-cache avoidance)
+
+`tom_d4rt_generator` is consumed as a **path** dev-dependency
+(`path: ../../d4rt/tom_d4rt_generator` in [`pubspec.yaml`](../pubspec.yaml)), not
+from pub.dev. This is deliberate.
+
+The bridges are generated *against the current source* of the unpublished path
+siblings `tom_som_dart_v0` / `tom_som_dart_runtime`. When a generator bug only
+shows up against that live SOM source — e.g. the `$`-prefixed `$sectionId`
+accessor `D00SolutionBlueprint` inherits from `SomNode`, whose name must be
+escaped in the emitted bridge maps — the fix has to be iterated **and consumed**
+locally. With a hosted dev-dep that meant `publish → bump → dart pub upgrade`
+for every iteration, and `pub upgrade` rewrites `pubspec.lock` **without**
+refreshing `.dart_tool/package_config.json`. Because `dart run` resolves imports
+through `package_config.json`, the regenerator kept running the *previous*
+generator and emitted stale bridges — the "stale cache" symptom.
+
+A path dep removes the version indirection entirely: `dart run
+tool/regenerate_bridges.dart` always executes the current generator source, so
+the SOM bridges can never go stale against a not-yet-published generator. This
+is safe and consistent with the engine's shape — it is a **build-only DEV**
+dependency (it never reaches the engine's runtime API), and the engine is itself
+`publish_to: none`, already depending on its SOM siblings by path. (The
+workspace "no path deps" rule targets *runtime* missing-API errors on
+*published* artifacts; neither applies to a build-tool dev-dep here.)
+
+Note this is orthogonal to the analyzer **summary cache**
+(`tom_analyzer_shared`), which already never caches path dependencies: it only
+stores summaries for `hosted`/`sdk` sources (see `PackageDependency.isCacheable`),
+so the SOM packages are always analyzed fresh from source. The staleness above
+was purely the pub `package_config.json` lag, not a summary-cache entry.
+
 ## Why a manual script rather than build_runner
 
 `tom_d4rt_generator` is a standalone generator driven by `buildkit.yaml`, not a
