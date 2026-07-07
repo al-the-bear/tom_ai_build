@@ -1,14 +1,17 @@
 [package]
 name = "tom_som_rust_v0"
-version = "0.0.0"
+version = "1.0.0"
 edition = "2021"
+description = "Generated typed TomSpecs object-model facade (Rust)."
+license-file = "LICENSE"
+repository = "https://github.com/al-the-bear/tom_ai_build"
 publish = false
 
 [lib]
 path = "src/lib.rs"
 
 [dependencies]
-tom_som_rust_runtime = { path = "../tom_som_rust_runtime" }
+tom_som_rust_runtime = { path = "../tom_som_rust_runtime", version = "1.0.0" }
 
 [dev-dependencies]
-tom_som_rust_runtime = { path = "../tom_som_rust_runtime" }
+tom_som_rust_runtime = { path = "../tom_som_rust_runtime", version = "1.0.0" }

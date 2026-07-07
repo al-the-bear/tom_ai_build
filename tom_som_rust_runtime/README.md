@@ -5,6 +5,30 @@ generated-code-free half of the multi-platform spec model (`tom_som`). It is a
 faithful transcription of the Dart reference, `tom_som_dart_runtime`, and the
 Python/Java/JavaScript/TypeScript/Go ports.
 
+## How to use
+
+```toml
+[dependencies]
+tom_som_rust_runtime = { path = "../tom_som_rust_runtime", version = "1.0.0" }
+```
+
+```rust
+use tom_som_rust_runtime as som;
+
+let mut doc = som::SpecDocument::new();
+doc.set_content("D00/D01", "A unifying order platform.");
+println!("{}", doc.content_or("D00/D01"));
+```
+
+The crate is `publish = false` (proprietary), versioned to the TomSpecs **model
+version** — the same version the typed facade `tom_som_rust_v0` reports. Most
+projects depend on the **typed facade** `tom_som_rust_v0` (which depends on this
+runtime by a relative `path`) rather than on the runtime directly — reach for the
+runtime alone only when you drive the generic API by section path. For the full
+set of dependency routes (crates.io / git / path), version pinning, and
+`cargo package` from source, see
+[readme_howtointegrate.md](readme_howtointegrate.md).
+
 ## What it is
 
 The crate `tom_som_rust_runtime` mirrors the eight portable runtime modules,

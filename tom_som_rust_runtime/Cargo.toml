@@ -7,9 +7,11 @@
 # every byte of output is under our control (see jsJSONString parity).
 [package]
 name = "tom_som_rust_runtime"
-version = "0.0.0"
+version = "1.0.0"
 edition = "2021"
 description = "Generic TomSpecs object-model runtime (Rust port)."
+license-file = "LICENSE"
+repository = "https://github.com/al-the-bear/tom_ai_build"
 publish = false
 
 [lib]

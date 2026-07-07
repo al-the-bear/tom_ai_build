@@ -391,7 +391,8 @@ void alignRuntimeManifestVersion({
 /// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
 /// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm);
 /// PGK6 registered TypeScript (npm + compiled `dist/`); PGK7 registered Go
-/// (module path + in-source version constant / VCS tag scheme).
+/// (module path + in-source version constant / VCS tag scheme); PGK8 registered
+/// Rust (Cargo crate — versioned `path` dependency + crate metadata).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
@@ -399,6 +400,7 @@ const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.javascript: _javaScriptDescriptor,
   SomLanguage.typescript: _typeScriptDescriptor,
   SomLanguage.go: _goDescriptor,
+  SomLanguage.rust: _rustDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -878,6 +880,95 @@ fmt.Println(blueprint.Content())''',
   buildArtifactIgnores: ['*.test', '*.out'],
   runtimeManifestFileName: 'doc.go',
   runtimeManifestFormat: ManifestFormat.goVersionConst,
+);
+
+/// Rust (Cargo crate) packaging descriptor — PGK8. The facade `tom_som_rust_v0`
+/// and the runtime `tom_som_rust_runtime` are Cargo crates versioned to the
+/// TomSpecs model version. Both are `publish = false` (proprietary), so
+/// `cargo package --no-verify` is the packaging check rather than `cargo
+/// publish`. The facade resolves the runtime by a fixed crate name through a
+/// relative `path` dependency; because `cargo package` requires every dependency
+/// to carry a version, that dependency also pins `version = <model version>`
+/// (the `path` is stripped from the packaged manifest, leaving the version).
+const PackagingDescriptor _rustDescriptor = PackagingDescriptor(
+  language: SomLanguage.rust,
+  displayName: 'Rust',
+  runtimePackageName: 'tom_som_rust_runtime',
+  facadePackageName: 'tom_som_rust_v0',
+  codeFence: 'rust',
+  installShort: 'Add `tom_som_rust_v0` to your `Cargo.toml` '
+      '(`cargo add tom_som_rust_v0`), then:',
+  usageSnippet: '''
+use tom_som_rust_runtime as som;
+use tom_som_rust_v0::D00SolutionBlueprint;
+
+fn main() {
+    // A typed Solution Blueprint over a fresh document. The constructor also
+    // runs the instantiation-time model-version check (an empty stamp is
+    // editable).
+    let doc = som::doc_ref(som::SpecDocument::new());
+    let pd = D00SolutionBlueprint::new(doc, "").expect("new D00SolutionBlueprint");
+
+    pd.set_content("A platform that unifies our fragmented order systems.");
+    pd.current_landscape()
+        .set_content("Three legacy systems with no shared customer record.");
+
+    println!("{}", pd.content());
+}''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From crates.io',
+      body: 'These are proprietary (`publish = false`) crates, so they are not '
+          'on crates.io. When published to a private registry, add the facade '
+          '(it pulls in `tom_som_rust_runtime`):\n\n'
+          '```bash\n'
+          'cargo add tom_som_rust_v0\n'
+          '```\n\n'
+          'or pin it in your `Cargo.toml`:\n\n'
+          '```toml\n'
+          '[dependencies]\n'
+          'tom_som_rust_v0 = "VERSION"\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Git dependency',
+      body: 'Depend on the facade directly from source control (it lives in a '
+          'sub-directory of the mono-repo):\n\n'
+          '```toml\n'
+          '[dependencies]\n'
+          'tom_som_rust_v0 = { git = '
+          '"https://github.com/al-the-bear/tom_ai_build.git", branch = "main" }\n'
+          '```\n\n'
+          'Cargo resolves the crate by name within the repository, so the '
+          'sub-directory is discovered automatically.',
+    ),
+    PackagingRoute(
+      heading: 'Path dependency (monorepo / vendored)',
+      body: 'When the SOM crates sit alongside your crate, depend by path (the '
+          'facade already does this for the runtime):\n\n'
+          '```toml\n'
+          '[dependencies]\n'
+          'tom_som_rust_v0 = { path = "../tom_som_rust_v0", version = "VERSION" }\n'
+          '```',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade, then build/package from the '
+      'workspace (runtime first — the facade compiles against it through its '
+      'relative `path` dependency):\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_rust_runtime && cargo package --no-verify\n'
+      'cd ../tom_som_rust_v0 && cargo build\n'
+      '```\n\n'
+      'The runtime `cargo package`s standalone. The facade depends on the '
+      '`publish = false` runtime, and `cargo package` requires every dependency '
+      'to resolve from a registry — so the facade is packaged only when the '
+      'runtime is available in one (e.g. a private registry / workspace '
+      'publish). Locally the facade builds against the runtime by path, which is '
+      'the correctness check.',
+  buildArtifactIgnores: ['/target', '/Cargo.lock'],
+  runtimeManifestFileName: 'Cargo.toml',
+  runtimeManifestFormat: ManifestFormat.cargoToml,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

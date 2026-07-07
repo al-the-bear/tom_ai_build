@@ -33,6 +33,7 @@ import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
+import 'packaging.dart' show packageVersionFromModel;
 import 'som_rust_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -120,6 +121,10 @@ SomRustGenerationResult writeSomRustProject({
 }) {
   final outDir = Directory(outputRoot)..createSync(recursive: true);
   final crateName = 'tom_som_rust_$versionLabel';
+  // Every SOM package (runtime + facade) is stamped with the TomSpecs model
+  // version — the crate version and the versioned runtime dependency both use it
+  // so `cargo package` (which requires a version on every dependency) is clean.
+  final packageVersion = packageVersionFromModel(modelLabel.split('+').first);
 
   // ── meta-data (lossless object-model graph), idempotency-stabilised ────────
   // Identical to every other language path — meta-data is language-agnostic.
@@ -167,7 +172,8 @@ SomRustGenerationResult writeSomRustProject({
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
   final cargoTomlPath = p.join(outputRoot, 'Cargo.toml');
-  File(cargoTomlPath).writeAsStringSync(_cargoToml(crateName, runtimeRel));
+  File(cargoTomlPath)
+      .writeAsStringSync(_cargoToml(crateName, runtimeRel, packageVersion));
 
   return SomRustGenerationResult(
     outputRoot: outDir.path,
@@ -182,23 +188,36 @@ SomRustGenerationResult writeSomRustProject({
   );
 }
 
-String _cargoToml(String crateName, String runtimeRel) {
+String _cargoToml(String crateName, String runtimeRel, String version) {
   // The runtime is declared in `[dependencies]` (the generated `lib.rs` uses it)
   // *and* in `[dev-dependencies]` so the committed integration test under
   // `tests/` can name `tom_som_rust_runtime` directly — a package's regular
   // dependencies are not in scope by name for its integration-test crates.
+  //
+  // Each runtime dependency carries **both** a relative `path` (resolves in-repo)
+  // *and* a `version` requirement (= the model version). `cargo package` requires
+  // every dependency to specify a version; the `path` is stripped from the
+  // packaged manifest, leaving the version. `publish = false` keeps the
+  // proprietary crate out of `cargo publish`; `license-file` points at the
+  // LICENSE the packaging hook writes, so `cargo package` carries no metadata
+  // warning.
+  final runtimeDep =
+      'tom_som_rust_runtime = { path = "$runtimeRel", version = "$version" }';
   return '[package]\n'
       'name = "$crateName"\n'
-      'version = "0.0.0"\n'
+      'version = "$version"\n'
       'edition = "2021"\n'
+      'description = "Generated typed TomSpecs object-model facade (Rust)."\n'
+      'license-file = "LICENSE"\n'
+      'repository = "https://github.com/al-the-bear/tom_ai_build"\n'
       'publish = false\n'
       '\n'
       '[lib]\n'
       'path = "src/lib.rs"\n'
       '\n'
       '[dependencies]\n'
-      'tom_som_rust_runtime = { path = "$runtimeRel" }\n'
+      '$runtimeDep\n'
       '\n'
       '[dev-dependencies]\n'
-      'tom_som_rust_runtime = { path = "$runtimeRel" }\n';
+      '$runtimeDep\n';
 }

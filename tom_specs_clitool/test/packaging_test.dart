@@ -189,6 +189,7 @@ void main() {
         SomLanguage.javascript,
         SomLanguage.typescript,
         SomLanguage.go,
+        SomLanguage.rust,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -266,6 +267,22 @@ void main() {
       expect(d.runtimeManifestFileName, 'doc.go');
       // go get / version tags / path replace routes are all documented.
       expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK8)', () {
+    test('Rust is registered with the Cargo crate names', () {
+      final d = packagingDescriptorFor(SomLanguage.rust);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_rust_runtime');
+      expect(d.facadePackageName, 'tom_som_rust_v0');
+      expect(d.codeFence, 'rust');
+      expect(d.runtimeManifestFormat, ManifestFormat.cargoToml);
+      expect(d.runtimeManifestFileName, 'Cargo.toml');
+      // crates.io / git / path routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+      // Cargo build artifacts (target dir + lockfile) stay out of VCS.
+      expect(d.buildArtifactIgnores, contains('/target'));
     });
   });
 

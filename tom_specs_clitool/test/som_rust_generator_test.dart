@@ -81,14 +81,28 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // Cargo.toml records a *relative* runtime `path` dependency (portable across
-    // checkouts) that resolves back to the rust runtime crate.
+    // Cargo.toml is stamped with the model version and carries the crate
+    // metadata `cargo package` needs (license-file / repository), so packaging
+    // is warning-free (PGK8).
     final cargo = File(result.cargoTomlPath).readAsStringSync();
     expect(cargo, contains('name = "tom_som_rust_v0"'));
-    final m = RegExp(r'tom_som_rust_runtime = \{ path = "([^"]+)" \}')
+    expect(cargo, contains('version = "1.0.0"'),
+        reason: 'crate version must be the model version');
+    expect(cargo, contains('license-file = "LICENSE"'));
+    expect(cargo, contains('repository = '));
+
+    // Cargo.toml records a *relative* runtime `path` dependency (portable across
+    // checkouts) that resolves back to the rust runtime crate, and pins the
+    // runtime `version` (= model version) alongside the path — `cargo package`
+    // requires every dependency to specify a version.
+    final m = RegExp(
+            r'tom_som_rust_runtime = \{ path = "([^"]+)", version = "([^"]+)" \}')
         .firstMatch(cargo);
-    expect(m, isNotNull, reason: 'Cargo.toml must record a runtime path dep');
+    expect(m, isNotNull,
+        reason: 'Cargo.toml must record a versioned runtime path dep');
     final rtPath = m!.group(1)!;
+    expect(m.group(2), '1.0.0',
+        reason: 'runtime dep version must be the model version');
     expect(p.isRelative(rtPath), isTrue,
         reason: 'runtime path must be relative, got $rtPath');
     expect(p.normalize(p.join(result.outputRoot, rtPath)),
