@@ -4,6 +4,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'package:tom_doc_specs/tom_doc_specs.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show somModelVersionString;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 // ---------------------------------------------------------------------------
@@ -255,6 +257,47 @@ Detailed behaviour, edge cases, and error handling are described here.
       expect(gen.generateFor('DemoDoc', modelVersion: 1).version, '1.0');
       expect(gen.generateFor('DemoDoc', modelVersion: 2).version, '2.0');
       expect(gen.generateFor('DemoDoc', modelVersion: 7).version, '7.0');
+    });
+
+    test('CS2-D7: a non-zero-minor stamp makes the in-file schema version track '
+        'the full major.minor, matching the _v0 facade modelVersionString', () {
+      // A model authored with a genuine minor (label 1.3.0+5.abc) must surface
+      // 1.3 as the in-file schema version — the *same* string the _v0 facades
+      // report via SpecModel.modelVersionString — not the int-major-only 1.0.
+      const label = '1.3.0+5.abc1234';
+      final schema =
+          gen.generateFor('DemoDoc', modelVersion: 1, modelLabel: label);
+
+      // Single-sourced with the facades: identical to the runtime helper.
+      expect(schema.version, somModelVersionString(1, label));
+      expect(schema.version, '1.3');
+      // fullId (and the in-file `version:`) carry the minor.
+      expect(schema.fullId, 'demo-doc/1.3');
+
+      // The on-disk filename stays keyed off the integer major (minor pinned to
+      // 0), so a minor bump does not churn the committed schema-tree filenames.
+      expect(
+        DocSpecsSchemaGenerator.fileNameFor(schema),
+        'demo-doc.1.0.docspecs-schema.yaml',
+      );
+
+      // An unstamped model still falls back to <major>.0.
+      final unstamped = gen.generateFor('DemoDoc', modelVersion: 1);
+      expect(unstamped.version, '1.0');
+      expect(DocSpecsSchemaGenerator.fileNameFor(unstamped),
+          'demo-doc.1.0.docspecs-schema.yaml');
+    });
+
+    test('CS2-D7: generateAll threads the label to every schema', () {
+      final schemas = DocSpecsSchemaGenerator(classes)
+          .generateAll(modelVersion: 1, modelLabel: '2.5.0+9.deadbee');
+      expect(schemas.values, isNotEmpty);
+      for (final schema in schemas.values) {
+        expect(schema.version, '2.5');
+        // Filename still keyed off the integer major → `2.0`.
+        expect(DocSpecsSchemaGenerator.fileNameFor(schema),
+            '${schema.id}.2.0.docspecs-schema.yaml');
+      }
     });
   });
 

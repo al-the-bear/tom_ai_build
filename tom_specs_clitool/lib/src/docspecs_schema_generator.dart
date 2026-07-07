@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:json2yaml/json2yaml.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_doc_specs/tom_doc_specs.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show somModelVersionString;
 
 import 'model_reader.dart';
 
@@ -31,10 +33,22 @@ import 'model_reader.dart';
 /// tree is the single source of content (N12), projections only re-point into
 /// it. This also keeps a generated skeleton trivially valid.
 ///
-/// Versioning (S2): [generateAll]/[generateFor] take the integer model stamp
-/// `modelVersion`; the emitted schema `version` is `"<modelVersion>.0"` so it
-/// both *counts up* with the model and stays parseable by the DocSpecs
-/// filename grammar (`<id>.<major>.<minor>.docspecs-schema.yaml`).
+/// Versioning (S2, CS2-D7): [generateAll]/[generateFor] take the integer model
+/// stamp `modelVersion` and the optional full build `modelLabel` (the
+/// `tom_specs_model` version stamp, e.g. `1.3.0+5.abc1234`). The emitted schema
+/// `version` is routed through [somModelVersionString] — the *same*
+/// single-source helper the `_v0` facades report through
+/// `SpecModel.modelVersionString` — so a genuine authoring **minor** is
+/// preserved (`1.3`) instead of the schema silently reporting `1.0` while the
+/// facade reports `1.3`. When the model is unstamped (`modelLabel == null`) the
+/// version falls back to `<modelVersion>.0`.
+///
+/// The on-disk **filename** ([fileNameFor]) stays keyed off the integer major
+/// (`<id>.<major>.0.docspecs-schema.yaml`) — only the in-file `version` string
+/// tracks the minor. This keeps the committed schema tree stable across a minor
+/// bump (the DocSpecs filename grammar is `<id>.<major>.<minor>...`, and churning
+/// the minor there would rename every file and defeat the [writeSchemaTree]
+/// prune, which keys directories by schema id).
 class DocSpecsSchemaGenerator {
   /// The full resolved class graph (as produced by [ModelReader]).
   final Map<String, ModelClass> classes;
@@ -45,7 +59,10 @@ class DocSpecsSchemaGenerator {
   ///
   /// Throws [StateError] if two roots slugify to the same id (which would make
   /// the on-disk schema files collide).
-  Map<String, DocSpecSchema> generateAll({int modelVersion = 1}) {
+  Map<String, DocSpecSchema> generateAll({
+    int modelVersion = 1,
+    String? modelLabel,
+  }) {
     final rootNames = classes.values
         .where((c) => c.getAnnotation('Document') != null)
         .map((c) => c.name)
@@ -54,7 +71,11 @@ class DocSpecsSchemaGenerator {
 
     final result = <String, DocSpecSchema>{};
     for (final rootName in rootNames) {
-      final schema = generateFor(rootName, modelVersion: modelVersion);
+      final schema = generateFor(
+        rootName,
+        modelVersion: modelVersion,
+        modelLabel: modelLabel,
+      );
       if (result.containsKey(schema.id)) {
         throw StateError(
           "Duplicate schema id '${schema.id}' from root '$rootName'.",
@@ -66,7 +87,11 @@ class DocSpecsSchemaGenerator {
   }
 
   /// Builds the schema for a single `@Document` root class.
-  DocSpecSchema generateFor(String rootName, {int modelVersion = 1}) {
+  DocSpecSchema generateFor(
+    String rootName, {
+    int modelVersion = 1,
+    String? modelLabel,
+  }) {
     final root = classes[rootName];
     if (root == null) {
       throw ArgumentError("Unknown root class '$rootName'.");
@@ -94,7 +119,10 @@ class DocSpecsSchemaGenerator {
 
     return DocSpecSchema(
       id: _schemaId(root),
-      version: '$modelVersion.0',
+      // Single-sourced with the `_v0` facades (CS2-D7): a genuine authoring
+      // minor from `modelLabel` is preserved; unstamped falls back to
+      // `<modelVersion>.0`.
+      version: somModelVersionString(modelVersion, modelLabel),
       sectionTypes: builder.orderedSectionTypes(),
       formTypes: builder.formTypes.isEmpty ? null : builder.formTypes,
       document: DocumentStructure(sections: sections),
@@ -109,8 +137,16 @@ class DocSpecsSchemaGenerator {
   }
 
   /// The on-disk filename for a schema (e.g. `project-definition.1.0`).
-  static String fileNameFor(DocSpecSchema schema) =>
-      '${schema.id}.${schema.version}.docspecs-schema.yaml';
+  ///
+  /// The filename is keyed off the integer **major** only, with the minor
+  /// pinned to `0` (`<id>.<major>.0.docspecs-schema.yaml`). A minor bump moves
+  /// the in-file [DocSpecSchema.version] string (e.g. `1.3`) but leaves the
+  /// filename at `<major>.0`, so the committed schema tree does not churn
+  /// filenames — only the in-file version tracks the minor (CS2-D7).
+  static String fileNameFor(DocSpecSchema schema) {
+    final major = schema.version.split('.').first;
+    return '${schema.id}.$major.0.docspecs-schema.yaml';
+  }
 
   /// Writes the full DocSpecs schema tree under `<outputRoot>/schemas/` and
   /// returns the written file paths (sorted).

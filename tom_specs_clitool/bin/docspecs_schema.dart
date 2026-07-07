@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show somModelVersionString;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Generates the DocSpecs schemas (§16) from the TomSpecs object model.
@@ -28,8 +30,15 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'version',
       abbr: 'v',
-      help: 'Model version stamp (integer, counts up). Default: 1.',
+      help: 'Model version stamp (integer major, counts up). Default: 1.',
       defaultsTo: '1',
+    )
+    ..addOption(
+      'label',
+      abbr: 'l',
+      help: 'Full model build label (e.g. 1.3.0+5.abc1234). When it carries a '
+          'major.minor the in-file schema version tracks it (matching the _v0 '
+          'facades); otherwise the version is <version>.0.',
     )
     ..addFlag('help', abbr: 'h', help: 'Show usage information.',
         negatable: false);
@@ -45,7 +54,7 @@ Future<void> main(List<String> arguments) async {
 
   if (results.flag('help')) {
     stdout.writeln('Usage: dart run bin/docspecs_schema.dart '
-        '--package <path> [--out-dir <dir>] [--version <n>]');
+        '--package <path> [--out-dir <dir>] [--version <n>] [--label <s>]');
     stdout.writeln(parser.usage);
     exit(0);
   }
@@ -60,6 +69,8 @@ Future<void> main(List<String> arguments) async {
     stderr.writeln('Error: --version must be a positive integer.');
     exit(2);
   }
+  final modelLabel = results.option('label');
+  final versionString = somModelVersionString(modelVersion, modelLabel);
 
   final libPath = p.join(packagePath, 'lib');
   if (!Directory(libPath).existsSync()) {
@@ -72,10 +83,10 @@ Future<void> main(List<String> arguments) async {
   final reader = ModelReader(driver);
   await reader.analyzePackage(libPath);
 
-  final schemas =
-      DocSpecsSchemaGenerator(reader.classes).generateAll(modelVersion: modelVersion);
+  final schemas = DocSpecsSchemaGenerator(reader.classes)
+      .generateAll(modelVersion: modelVersion, modelLabel: modelLabel);
   stdout.writeln('Generated ${schemas.length} schema(s) at version '
-      '$modelVersion.0.');
+      '$versionString.');
 
   for (final schema in schemas.values) {
     final fileName = DocSpecsSchemaGenerator.fileNameFor(schema);
