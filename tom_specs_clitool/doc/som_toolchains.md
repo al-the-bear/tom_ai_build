@@ -72,6 +72,25 @@ emitter-pending. The historical honest-delivery sequence was:
 > fixture smoke below. With that, **every target language's build path is
 > accounted for** — eight host toolchains plus TypeScript's project-local `tsc`.
 
+## Packaging build tools (PGK sign-off)
+
+The **compile/run** matrix above covers each language's compiler/runtime. The
+**packaging** sign-off sweep (roadmap item PGK11) additionally exercises each
+ecosystem's build/pack command (`dart pub publish --dry-run`, `python3 -m build`,
+`mvn package`, `npm pack`, `go build`, `cargo package`, `make dist`). Two of
+those need a packaging tool beyond the bare compiler; both install per-user with
+no root and are the only host gaps a fresh sign-off run hits:
+
+- **Java — Maven.** `javac` compiles, but `mvn package` needs Maven, which is not
+  in the base image. Install per-user from the official tarball (mirrors the Go
+  route): download `apache-maven-<ver>-bin.tar.gz` (dlcdn, or archive.apache.org
+  for older versions), extract to `~/.local/apache-maven-<ver>`, and put its
+  `bin/` on `PATH`. Verified `3.9.11`.
+- **Python — `build`.** `python3 -m build` needs the `build` PEP 517 front-end,
+  which is not in the base image. On externally-managed Ubuntu 24.04 install it
+  with `python3 -m pip install --user --break-system-packages build`. Verified
+  `build 1.5.0`.
+
 ## Verification commands
 
 The exact checks used to populate the matrix (re-runnable on any host):

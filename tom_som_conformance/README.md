@@ -66,6 +66,44 @@ this explicitly for the TypeScript step, and the facade's `npm run build` has a
 `prebuild` script that builds the runtime first — so both paths work without a
 manual pre-step. See `tom_som_typescript_v0/README.md`.
 
+## Packaging (PGK series)
+
+Every SOM target ships as a pair of installable packages — the hand-authored
+generic `tom_som_<lang>_runtime` and the generator-emitted typed
+`tom_som_<lang>_v0` facade — each versioned to the **TomSpecs model version**
+(currently `1.0.0`; the model's `1.0` label maps to a semver patch). Both halves
+of every pair carry a README short how-to block and a separate
+`readme_howtointegrate.md`, plus a `LICENSE` and `CHANGELOG.md`. The facade's
+packaging files are regenerated in place by `generate_som.dart` (via the generic
+packaging hook, `tom_specs_clitool/lib/src/packaging.dart`), so they never drift
+from the model version.
+
+Each language uses its ecosystem's idiomatic build/pack command; the packaging
+descriptor for every language records the canonical command in its
+`buildFromSource` block:
+
+| Language | Documented build/pack command | Artifact |
+| -------- | ----------------------------- | -------- |
+| Dart | `dart pub get && dart pub publish --dry-run` | validated package |
+| Python | `python3 -m build` | sdist + wheel |
+| Java | `mvn install` (runtime) → `mvn package` (facade) | JAR |
+| JavaScript | `npm pack --dry-run` | npm tgz |
+| TypeScript | `npm install && npm pack --dry-run` | npm tgz (compiled `dist/`) |
+| Go | `go build ./... && go vet ./...` | module (no separate pack) |
+| Rust | `cargo package --no-verify` (runtime) → `cargo build` (facade) | `.crate` |
+| C | `make && make dist` | static + shared lib, pkg-config `.pc`, source tarball |
+| C++ | `make && make dist` | static + shared lib, pkg-config `.pc`, source tarball |
+
+### Sign-off sweep (roadmap item PGK11)
+
+The cross-cutting packaging sign-off re-runs `generate_som.dart` (confirming
+every facade regenerates to the current model version with zero committed
+churn), builds/packs all nine languages with the commands above, and re-asserts
+the done-criteria: `dart analyze` clean, the `tom_specs_clitool` suite green, the
+nine language APIs green, and cross-language golden byte-identity unaffected (the
+`regenerate_golden.sh` run above). A green sweep proves the 18 packages are
+internally consistent, versioned to the model, and independently buildable.
+
 ## Generated path constants (roadmap item 11)
 
 Every generated `tom_som_<lang>_v0` facade emits, per document root, a
