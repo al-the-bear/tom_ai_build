@@ -1,0 +1,6 @@
+
+# --- tom_specs packaging build artifacts (managed) ---
+.dart_tool/
+build/
+doc/api/
+*.tar.gz

@@ -86,6 +86,8 @@ export 'src/packaging.dart'
         packagingDescriptorFor,
         renderFacadeReadme,
         renderHowToIntegrate,
+        renderChangelog,
+        licenseText,
         rewriteManifestVersion,
         ensureGitignoreContent,
         writeFacadePackaging,

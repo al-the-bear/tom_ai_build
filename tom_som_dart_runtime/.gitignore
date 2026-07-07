@@ -1,0 +1,10 @@
+# Dart / pub build state.
+.dart_tool/
+build/
+pubspec.lock
+
+# Test-run artifacts (baselines + last run) — never published.
+testlog/
+
+# --- tom_specs packaging build artifacts (managed) ---
+*.tar.gz

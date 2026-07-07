@@ -12,7 +12,8 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// real `tom_specs_model` through the analyzer once (shared via [setUpAll]),
 /// then exercise the deterministic write step and assert the committed-artefact
 /// contract: a valid meta-data file, the typed Dart facade, the 13 DocSpecs
-/// schemas, a portable (relative-dep) pubspec, and byte-stable idempotency.
+/// schemas, a publishable pubspec (hosted model-version dep) with a local-dev
+/// `pubspec_overrides.yaml`, and byte-stable idempotency.
 void main() {
   // Locate the sibling packages relative to this clitool package.
   final clitoolRoot = Directory.current.path;
@@ -70,16 +71,34 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // Pubspec uses a *relative* runtime dependency (portable across checkouts)
-    // that resolves back to tom_som_dart_runtime from the project root.
+    // Pubspec is publishable (PGK2): the runtime dependency is *hosted* and
+    // pinned to the model version, and there is no `publish_to: none`. The
+    // relative path that keeps the co-developed runtime resolvable locally lives
+    // in a separate `pubspec_overrides.yaml` (excluded from `dart pub publish`).
     final pubspec = File(result.pubspecPath).readAsStringSync();
     expect(pubspec, contains('name: tom_som_dart_v0'));
-    final depPath = RegExp(r'path:\s*(\S+)').firstMatch(pubspec)!.group(1)!;
+    expect(pubspec, isNot(contains('publish_to: none')),
+        reason: 'a publishable facade must not opt out of publishing');
+    expect(pubspec, contains('version: 1.0.0'),
+        reason: 'facade version is the TomSpecs model version');
+    expect(pubspec, contains('tom_som_dart_runtime: ^1.0.0'),
+        reason: 'runtime dep must be a hosted, model-version-pinned constraint');
+    expect(RegExp(r'path:\s').hasMatch(pubspec), isFalse,
+        reason: 'no path dependency may remain in the publishable pubspec');
+
+    // The local-development override resolves the runtime by a relative path.
+    final overrides = File(
+        p.join(p.dirname(result.pubspecPath), 'pubspec_overrides.yaml'));
+    expect(overrides.existsSync(), isTrue,
+        reason: 'generator must emit pubspec_overrides.yaml for local dev');
+    final overrideText = overrides.readAsStringSync();
+    expect(overrideText, contains('dependency_overrides:'));
+    final depPath = RegExp(r'path:\s*(\S+)').firstMatch(overrideText)!.group(1)!;
     expect(p.isRelative(depPath), isTrue,
-        reason: 'runtime dep must be a relative path, got $depPath');
+        reason: 'override runtime dep must be a relative path, got $depPath');
     expect(p.normalize(p.join(result.outputRoot, depPath)),
         p.normalize(runtimeDir),
-        reason: 'relative dep must resolve to tom_som_dart_runtime');
+        reason: 'relative override dep must resolve to tom_som_dart_runtime');
   });
 
   test('regeneration is idempotent (byte-stable output for unchanged input)',

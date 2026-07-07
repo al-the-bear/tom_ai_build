@@ -4,15 +4,16 @@ description: >-
   Generated typed TomSpecs object model (v0). An editing facade over the
   generic tom_som_dart_runtime; see the meta-data file and DocSpecs schemas in
   this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.
-publish_to: none
-version: 0.0.0
+version: 1.0.0
+repository: https://github.com/al-the-bear/tom_ai_build
 
 environment:
   sdk: ^3.11.4
 
 dependencies:
-  tom_som_dart_runtime:
-    path: ../tom_som_dart_runtime
+  # Hosted so the package is publishable; the co-developed runtime is resolved
+  # by path locally via pubspec_overrides.yaml (excluded from publish).
+  tom_som_dart_runtime: ^1.0.0
 
 dev_dependencies:
   # So the hand-authored `test/` suite (preserved across regeneration — the

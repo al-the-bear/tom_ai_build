@@ -151,9 +151,39 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK1)', () {
-    test('registry is empty until per-language todos land', () {
+  group('renderChangelog (item PGK1)', () {
+    test('renders a single model-version entry', () {
+      final md = renderChangelog(_sampleDescriptor(), version: '1.0.0');
+      expect(md, startsWith('# Changelog'));
+      expect(md, contains('## 1.0.0'));
+      expect(md, contains('tom_som_dart_v0'));
+      expect(md, contains('do not edit by hand'));
+    });
+  });
+
+  group('licenseText (item PGK1)', () {
+    test('is the proprietary workspace license', () {
+      expect(licenseText, contains('Peter Nicolai Alexis Kyaw'));
+      expect(licenseText, contains('proprietary and confidential'));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK2)', () {
+    test('Dart is registered with the pub package names', () {
+      final d = packagingDescriptorFor(SomLanguage.dart);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_dart_runtime');
+      expect(d.facadePackageName, 'tom_som_dart_v0');
+      expect(d.codeFence, 'dart');
+      expect(d.runtimeManifestFormat, ManifestFormat.pubspec);
+      expect(d.runtimeManifestFileName, 'pubspec.yaml');
+      // pub.dev / git / path routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+    });
+
+    test('languages without a descriptor yet return null', () {
       for (final lang in SomLanguage.values) {
+        if (lang == SomLanguage.dart) continue;
         expect(packagingDescriptorFor(lang), isNull,
             reason: 'no descriptor should be registered yet for $lang');
       }

@@ -6,10 +6,11 @@ description: >-
   document representation, the meta-model ("reflection") classes that load the
   exported spec-model meta-data, and the document validator. Pure Dart, no
   Flutter dependency.
-version: 0.1.0
-# Internal runtime consumed by path from sibling packages (the editor and the
-# generated typed projects); never published to pub.dev.
-publish_to: none
+# Version tracks the TomSpecs model version (kept in step by generate_som's
+# packaging hook, alignRuntimeManifestVersion). The typed `tom_som_dart_v0`
+# facade pins the same version.
+version: 1.0.0
+repository: https://github.com/al-the-bear/tom_ai_build
 
 environment:
   sdk: ^3.11.4
