@@ -6611,7 +6611,7 @@ class RecoveryScenarioEntry {
   ],
   'The user-assistance configuration root for the in-app help system.',
 )
-@SectionId('HECO')
+@SectionId('USAS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-HLP')
@@ -6674,7 +6674,7 @@ class UserAssistance {
   ],
   'The delivery settings covering help-content stewardship and help affordances.',
 )
-@SectionId('HECODE')
+@SectionId('USASDE')
 class UserAssistanceDelivery {
     @Form([
         Field('helpContentOwnership', String, 'Help Content Ownership',
@@ -6700,7 +6700,7 @@ class UserAssistanceDelivery {
   ],
   'The insights settings that track help usage and gather improvement feedback.',
 )
-@SectionId('HECOIN')
+@SectionId('USASIN')
 class UserAssistanceInsights {
     @Form([
         Field('helpAnalytics', String, 'Help Analytics',
