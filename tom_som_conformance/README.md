@@ -55,6 +55,17 @@ or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
 all nine language APIs yield exactly the same reading of the same specification.
 
+#### TypeScript step — build the runtime `dist/` first (CS4-D6)
+
+The TypeScript golden generator (and the `tom_som_typescript_v0` facade in
+general) imports `SpecDocument` from `tom_som_typescript_runtime` by bare
+package name, which resolves to the runtime's git-ignored
+`dist/src/index.d.ts`. On a clean checkout that file does not exist yet, so the
+runtime must be built before the facade. `regenerate_golden.sh` already does
+this explicitly for the TypeScript step, and the facade's `npm run build` has a
+`prebuild` script that builds the runtime first — so both paths work without a
+manual pre-step. See `tom_som_typescript_v0/README.md`.
+
 ## Generated path constants (roadmap item 11)
 
 Every generated `tom_som_<lang>_v0` facade emits, per document root, a
