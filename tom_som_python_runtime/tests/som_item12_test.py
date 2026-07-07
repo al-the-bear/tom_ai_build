@@ -16,9 +16,14 @@ Proves:
   * ``to_markdown`` with an explicit ``root_type`` equals the direct
     ``SpecDocumentMarkdown(...).export_root(...)`` output;
   * ``to_markdown`` defaults to the single populated root;
-  * ``to_markdown`` raises when zero roots are populated;
-  * ``to_markdown`` raises naming the candidates when more than one is
-    populated.
+  * ``to_markdown`` raises a ``RuntimeError`` when zero roots are populated;
+  * ``to_markdown`` raises a ``RuntimeError`` naming the candidates when more
+    than one is populated.
+
+The CS12-D3 error-class split is asserted directly: an unknown ``root_type`` is
+a bad argument (``ValueError``), whereas an ambiguous default is document state
+(``RuntimeError``) — and the two classes are disjoint (``RuntimeError`` is not a
+``ValueError``).
 
 Run with ``python3 tests/som_item12_test.py``; exit code 0 == all green.
 """
@@ -195,9 +200,15 @@ def test_to_markdown_raises_when_none_populated() -> None:
     model = _model()
     try:
         SpecDocument().to_markdown(model)
-        _check("to_markdown.zero-raises", False, "no ValueError raised")
-    except ValueError as e:
+        _check("to_markdown.zero-raises", False, "no RuntimeError raised")
+    except RuntimeError as e:
         _check("to_markdown.zero.message", "no populated root" in str(e), str(e))
+        # CS12-D3 split: ambiguity is a state error, not an argument error.
+        _check(
+            "to_markdown.zero.not-value-error",
+            not isinstance(e, ValueError),
+            type(e).__name__,
+        )
 
 
 def test_to_markdown_raises_naming_candidates() -> None:
@@ -230,11 +241,17 @@ def test_to_markdown_raises_naming_candidates() -> None:
     doc.set_content("B00/B00-OVR", "b")
     try:
         doc.to_markdown(model)
-        _check("to_markdown.multi-raises", False, "no ValueError raised")
-    except ValueError as e:
+        _check("to_markdown.multi-raises", False, "no RuntimeError raised")
+    except RuntimeError as e:
         msg = str(e)
         _check("to_markdown.multi.names-alpha", "Alpha" in msg, msg)
         _check("to_markdown.multi.names-beta", "Beta" in msg, msg)
+        # CS12-D3 split: ambiguity is a state error, not an argument error.
+        _check(
+            "to_markdown.multi.not-value-error",
+            not isinstance(e, ValueError),
+            type(e).__name__,
+        )
 
 
 def main() -> int:

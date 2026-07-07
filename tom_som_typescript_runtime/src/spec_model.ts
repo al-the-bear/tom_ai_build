@@ -309,8 +309,11 @@ export class SpecModel {
    * The document root whose {@link SpecRoot.type} equals `type` (§ item 12).
    *
    * Replaces the recurring `roots.find((r) => r.type === …)` boilerplate.
-   * Throws an {@link Error} when no root carries that type — with a message that
-   * names the missing type and the ones that do exist.
+   * Throws a {@link TypeError} when no root carries that type — with a message
+   * that names the missing type and the ones that do exist. A `TypeError` (the
+   * argument-error class) marks a caller-supplied bad `type`, distinct from the
+   * plain {@link Error} {@link SpecDocument.toMarkdown} throws for an ambiguous
+   * document *state* (CS12-D3 split).
    */
   rootByType(type: string): SpecRoot {
     for (const r of this.roots) {
@@ -318,7 +321,7 @@ export class SpecModel {
         return r;
       }
     }
-    throw new Error(
+    throw new TypeError(
       `no document root with type '${type}' (have: ` +
         `${this.roots.map((r) => r.type).join(', ')})`,
     );

@@ -5,11 +5,16 @@
  * `SpecModel.rootByType (item 12)` and `SpecDocument.toMarkdown (item 12)`
  * groups (`spec_model_test.dart`, `spec_document_markdown_test.dart`).
  *
- *   * {@link SpecModel.rootByType} — the root whose `.type` matches, or an
- *     Error naming the missing type and the ones that exist.
+ *   * {@link SpecModel.rootByType} — the root whose `.type` matches, or a
+ *     TypeError (the argument-error class) naming the missing type and the ones
+ *     that exist.
  *   * {@link SpecDocument.toMarkdown} — one-call render: explicit `rootType`,
- *     or the single populated root as the default (with an Error when the
+ *     or the single populated root as the default (with a plain Error when the
  *     default is ambiguous — zero or more than one populated root).
+ *
+ * The CS12-D3 error-class split is asserted directly: a bad `rootType` argument
+ * is a `TypeError`, while an ambiguous document state is a plain `Error` that is
+ * *not* a `TypeError`.
  */
 
 const { test } = require('node:test');
@@ -75,7 +80,7 @@ test('rootByType throws naming the missing and available types', () => {
   assert.throws(
     () => model.rootByType('Gamma'),
     (err) =>
-      err instanceof Error &&
+      err instanceof TypeError &&
       err.message.includes('Gamma') &&
       err.message.includes('Alpha') &&
       err.message.includes('Beta'),
@@ -105,7 +110,9 @@ test('toMarkdown throws when no root is populated', () => {
   assert.throws(
     () => new SpecDocument().toMarkdown(model),
     (err) =>
-      err instanceof Error && err.message.includes('no populated root'),
+      err instanceof Error &&
+      !(err instanceof TypeError) &&
+      err.message.includes('no populated root'),
   );
 });
 
@@ -135,6 +142,7 @@ test('toMarkdown throws naming the candidates when more than one root is populat
     () => doc.toMarkdown(model),
     (err) =>
       err instanceof Error &&
+      !(err instanceof TypeError) &&
       err.message.includes('Alpha') &&
       err.message.includes('Beta'),
   );

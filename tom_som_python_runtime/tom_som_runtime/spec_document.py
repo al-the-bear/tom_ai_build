@@ -86,8 +86,12 @@ class SpecDocument:
         root is exported (via :meth:`SpecModel.root_by_type`); when omitted, the
         document's single **populated** root is used — a root is populated when
         it has any value beneath its segment (:meth:`has_values_under`). Raises
-        :class:`ValueError` when the default is ambiguous — zero populated roots,
-        or more than one — so the caller names *root_type* explicitly."""
+        :class:`RuntimeError` when the default is ambiguous — zero populated
+        roots, or more than one — so the caller names *root_type* explicitly.
+        (Ambiguity is document *state*, not a bad argument, so it is a
+        :class:`RuntimeError` where a genuine bad argument — an unknown
+        *root_type* — surfaces as :meth:`SpecModel.root_by_type`'s
+        :class:`ValueError`.)"""
         # Lazy imports avoid the spec_model / spec_document_markdown import cycle
         # (spec_document_markdown imports SpecDocument at module load).
         from .spec_document_markdown import SpecDocumentMarkdown
@@ -100,8 +104,9 @@ class SpecDocument:
 
     def _single_populated_root(self, model: "SpecModel") -> "SpecRoot":
         """The one root under which this document holds any value, for
-        :meth:`to_markdown`'s default. Raises :class:`ValueError` when zero or
-        more than one root is populated."""
+        :meth:`to_markdown`'s default. Raises :class:`RuntimeError` when zero or
+        more than one root is populated (an invalid-state condition, not a bad
+        argument)."""
         populated = [
             r
             for r in model.roots
@@ -110,12 +115,12 @@ class SpecDocument:
         if len(populated) == 1:
             return populated[0]
         if not populated:
-            raise ValueError(
+            raise RuntimeError(
                 "document has no populated root to export; "
                 "pass root_type to choose one"
             )
         types = ", ".join(r.type for r in populated)
-        raise ValueError(
+        raise RuntimeError(
             f"document has {len(populated)} populated roots "
             f"({types}); pass root_type to choose one"
         )

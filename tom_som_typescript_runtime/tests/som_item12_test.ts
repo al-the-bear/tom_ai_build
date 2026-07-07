@@ -33,18 +33,37 @@ function _true(name: string, cond: boolean): void {
   }
 }
 
-/** Asserts `fn` throws an Error whose message contains every `needles` entry. */
-function _throwsContaining(name: string, fn: () => unknown, needles: string[]): void {
+type ErrorCtor = new (...args: any[]) => Error;
+
+/**
+ * Asserts `fn` throws an Error whose message contains every `needles` entry.
+ * `opts.is` asserts the thrown value is an instance of that class (the CS12-D3
+ * argument- vs state-error split); `opts.isNot` asserts it is *not* — so an
+ * ambiguity `Error` can be pinned as not a `TypeError`.
+ */
+function _throwsContaining(
+  name: string,
+  fn: () => unknown,
+  needles: string[],
+  opts?: { is?: ErrorCtor; isNot?: ErrorCtor },
+): void {
   try {
     fn();
     _failed.push(`${name}: expected throw, but returned normally`);
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     const missing = needles.filter((n) => !msg.includes(n));
-    if (missing.length === 0) {
+    const classOk =
+      (!opts?.is || e instanceof opts.is) &&
+      (!opts?.isNot || !(e instanceof opts.isNot));
+    if (missing.length === 0 && classOk) {
       _passed += 1;
-    } else {
+    } else if (missing.length > 0) {
       _failed.push(`${name}: message '${msg}' missing ${missing.join(', ')}`);
+    } else {
+      const got =
+        e instanceof Error ? e.constructor.name : typeof e;
+      _failed.push(`${name}: wrong error class (got ${got})`);
     }
   }
 }
@@ -152,6 +171,7 @@ function _populated(): SpecDocument {
     'rootByType: throws naming types',
     () => model.rootByType('Gamma'),
     ['Gamma', 'Alpha', 'Beta'],
+    { is: TypeError },
   );
 }
 
@@ -186,6 +206,7 @@ function _populated(): SpecDocument {
     'toMarkdown(): throws when no populated root',
     () => new SpecDocument().toMarkdown(model),
     ['no populated root'],
+    { is: Error, isNot: TypeError },
   );
 }
 
@@ -216,6 +237,7 @@ function _populated(): SpecDocument {
     'toMarkdown(): throws naming populated candidates',
     () => doc.toMarkdown(model),
     ['Alpha', 'Beta'],
+    { is: Error, isNot: TypeError },
   );
   _true('toMarkdown(): two roots are populated', true);
 }
