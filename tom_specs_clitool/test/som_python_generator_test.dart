@@ -78,10 +78,23 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // pyproject.toml records a *relative* runtime path (portable across
-    // checkouts) that resolves back to tom_som_python_runtime.
+    // pyproject.toml is a publishable PEP 517 manifest (PGK3): it declares a
+    // build backend, the facade module as a single top-level py-module, the
+    // facade version pinned to the model version, and a hosted runtime
+    // dependency. It *also* records a *relative* runtime path (portable across
+    // checkouts) for local, unpublished development.
     final pyproject = File(result.pyprojectPath).readAsStringSync();
     expect(pyproject, contains('name = "tom_som_python_v0"'));
+    expect(pyproject, contains('[build-system]'),
+        reason: 'a PEP 517 dist must declare a build backend');
+    expect(pyproject, contains('build-backend = "setuptools.build_meta"'));
+    expect(pyproject, contains('version = "1.0.0"'),
+        reason: 'facade version is the TomSpecs model version');
+    expect(pyproject, contains('py-modules = ["tom_som_python_v0"]'),
+        reason: 'the single-module facade must be listed explicitly so '
+            'setuptools skips flat-layout auto-discovery');
+    expect(pyproject, contains('tom_som_python_runtime>=1.0.0'),
+        reason: 'the runtime dep must be pinned to the model version');
     final rtPath =
         RegExp(r'runtime-path\s*=\s*"([^"]+)"').firstMatch(pyproject)!.group(1)!;
     expect(p.isRelative(rtPath), isTrue,

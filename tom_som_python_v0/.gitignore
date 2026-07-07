@@ -1,0 +1,8 @@
+
+# --- tom_specs packaging build artifacts (managed) ---
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+.venv/

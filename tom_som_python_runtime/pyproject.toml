@@ -3,11 +3,18 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tom_som_runtime"
-version = "0.1.0"
+name = "tom_som_python_runtime"
+# Version tracks the TomSpecs model version; the typed `tom_som_python_v0`
+# facade pins the same version. Realigned by
+# tom_specs_clitool/bin/generate_som.dart.
+version = "1.0.0"
 description = "Python port of the generic TomSpecs object-model runtime (paths, model, reflection, document, validator, YAML/Markdown codecs)."
 requires-python = ">=3.9"
+readme = "README.md"
 dependencies = ["PyYAML>=6.0"]
 
+# The importable package is `tom_som_runtime`; the distribution name above is
+# `tom_som_python_runtime` (parallel to tom_som_dart_runtime). Listed explicitly
+# so setuptools does not try flat-layout auto-discovery over the tests/ folder.
 [tool.setuptools]
 packages = ["tom_som_runtime"]

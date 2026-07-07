@@ -381,9 +381,11 @@ void alignRuntimeManifestVersion({
 /// Each per-language todo (PGK2..PGK10) adds its [PackagingDescriptor] here,
 /// which immediately activates [writeFacadePackaging] +
 /// [alignRuntimeManifestVersion] for that language on the next
-/// `generate_som.dart` run. PGK2 registered Dart (pub).
+/// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
+/// (PEP 517).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
+  SomLanguage.python: _pythonDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -455,6 +457,88 @@ void main() {
   buildArtifactIgnores: ['.dart_tool/', 'build/', 'doc/api/', '*.tar.gz'],
   runtimeManifestFileName: 'pubspec.yaml',
   runtimeManifestFormat: ManifestFormat.pubspec,
+);
+
+/// Python (PEP 517) packaging descriptor — PGK3. The facade `tom_som_python_v0`
+/// and the runtime `tom_som_python_runtime` are both PEP 517 source
+/// distributions (`python -m build` → wheel + sdist) versioned to the TomSpecs
+/// model version. The facade is a single top-level module (`py-modules`); the
+/// runtime ships the importable `tom_som_runtime` package.
+const PackagingDescriptor _pythonDescriptor = PackagingDescriptor(
+  language: SomLanguage.python,
+  displayName: 'Python',
+  runtimePackageName: 'tom_som_python_runtime',
+  facadePackageName: 'tom_som_python_v0',
+  codeFence: 'python',
+  installShort: 'Install `tom_som_python_v0` (`pip install tom_som_python_v0`), '
+      'then:',
+  usageSnippet: '''
+import tom_som_python_v0 as m
+from tom_som_runtime import SpecDocument
+
+# A typed Solution Blueprint over a fresh document.
+doc = SpecDocument()
+blueprint = m.D00SolutionBlueprint(doc)
+
+blueprint.content = "A platform that unifies our fragmented order systems."
+blueprint.currentLandscape.content = (
+    "Three legacy systems with no shared customer record."
+)
+
+print(blueprint.content)''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From PyPI',
+      body: 'Install the facade (it pulls in `tom_som_python_runtime`):\n\n'
+          '```bash\n'
+          'pip install tom_som_python_v0\n'
+          '```\n\n'
+          'or pin it in your `pyproject.toml` / `requirements.txt`:\n\n'
+          '```\n'
+          'tom_som_python_v0>=VERSION\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Git dependency',
+      body: 'Install directly from source control (the facade lives in a '
+          'sub-directory of the mono-repo):\n\n'
+          '```bash\n'
+          'pip install "tom_som_python_v0 @ '
+          'git+https://github.com/al-the-bear/tom_ai_build.git'
+          '#subdirectory=tom_ai/ai_build/tom_som_python_v0"\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Path / editable (monorepo / vendored)',
+      body: 'When the SOM projects sit alongside your code, install both the '
+          'facade and the runtime editable:\n\n'
+          '```bash\n'
+          'pip install -e ../tom_som_python_runtime\n'
+          'pip install -e ../tom_som_python_v0\n'
+          '```\n\n'
+          'For a no-install checkout the facade also records the runtime '
+          'location under `[tool.tom_som] runtime-path` in its '
+          '`pyproject.toml`; add that path to `PYTHONPATH` so '
+          '`import tom_som_runtime` resolves.',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade and build the PEP 517 dists from the '
+      'workspace:\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_python_v0 && python -m build\n'
+      '```\n\n'
+      'This writes a wheel and an sdist under `dist/`.',
+  buildArtifactIgnores: [
+    'dist/',
+    'build/',
+    '*.egg-info/',
+    '__pycache__/',
+    '*.pyc',
+    '.venv/',
+  ],
+  runtimeManifestFileName: 'pyproject.toml',
+  runtimeManifestFormat: ManifestFormat.pyproject,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

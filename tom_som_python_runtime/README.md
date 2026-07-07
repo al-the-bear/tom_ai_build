@@ -4,6 +4,24 @@ Python port of the **generic TomSpecs object-model runtime** — the value-free,
 generated-code-free half of the multi-platform spec model (`tom_som`). It is a
 faithful transcription of the Dart reference, `tom_som_dart_runtime`.
 
+## How to use
+
+This package is the generic runtime — most callers depend on it indirectly via a
+typed facade (`tom_som_python_v0`). To use it directly, install it
+(`pip install tom_som_python_runtime`) and drive a sparse document:
+
+```python
+from tom_som_runtime import SpecDocument
+
+doc = SpecDocument()
+doc.set_content("PD/content", "A platform that unifies our order systems.")
+print(doc.content("PD/content"))
+```
+
+See **readme_howtointegrate.md** for the full integration guide (PyPI / git /
+editable routes and how to pin the version to the TomSpecs model version).
+
+
 ## What it is
 
 The package `tom_som_runtime` mirrors the seven portable Dart modules:

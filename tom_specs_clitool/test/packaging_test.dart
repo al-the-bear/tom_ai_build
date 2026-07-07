@@ -182,11 +182,26 @@ void main() {
     });
 
     test('languages without a descriptor yet return null', () {
+      const registered = {SomLanguage.dart, SomLanguage.python};
       for (final lang in SomLanguage.values) {
-        if (lang == SomLanguage.dart) continue;
+        if (registered.contains(lang)) continue;
         expect(packagingDescriptorFor(lang), isNull,
             reason: 'no descriptor should be registered yet for $lang');
       }
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK3)', () {
+    test('Python is registered with the PEP 517 package names', () {
+      final d = packagingDescriptorFor(SomLanguage.python);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_python_runtime');
+      expect(d.facadePackageName, 'tom_som_python_v0');
+      expect(d.codeFence, 'python');
+      expect(d.runtimeManifestFormat, ManifestFormat.pyproject);
+      expect(d.runtimeManifestFileName, 'pyproject.toml');
+      // PyPI / git / editable routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
     });
   });
 }
