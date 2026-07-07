@@ -207,6 +207,12 @@ void main() {
     // of the full 3000+ class module, no `node_modules` link required.
     final runtimeIndex =
         p.join(tsRuntimeDir, 'src', 'index.ts').replaceAll('\\', '/');
+    // The runtime uses Node built-ins (e.g. `fs` in `fromFile`), so the
+    // type-check needs `@types/node` just like the real `npm run build` does.
+    // Point `typeRoots` at the runtime's own installed `@types` so `node`
+    // resolves from the temp dir; `types: []` would fail on those built-ins.
+    final runtimeTypes =
+        p.join(tsRuntimeDir, 'node_modules', '@types').replaceAll('\\', '/');
     final checkConfig = <String, Object?>{
       'compilerOptions': <String, Object?>{
         'target': 'ES2020',
@@ -222,7 +228,8 @@ void main() {
         'paths': <String, Object?>{
           'tom_som_typescript_runtime': <String>[runtimeIndex],
         },
-        'types': <String>[],
+        'typeRoots': <String>[runtimeTypes],
+        'types': <String>['node'],
       },
       'include': <String>[p.basename(result.modulePath)],
     };
