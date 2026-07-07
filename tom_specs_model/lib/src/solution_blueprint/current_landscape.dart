@@ -18,7 +18,7 @@ import '../document_stubs.dart';
   'processes, pain points, data, operational metrics and current-state risks — '
   'and the seed for the Current Landscape Assessment (CLA).',
 )
-@SectionId('CUSA')
+@SectionId('CULA')
 @MapsTo(D01CurrentLandscapeAssessment)
 class CurrentLandscape {
   @ContentHelp('''
