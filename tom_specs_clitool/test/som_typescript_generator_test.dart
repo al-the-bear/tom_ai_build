@@ -97,6 +97,15 @@ void main() {
         p.normalize(tsRuntimeDir),
         reason: 'relative path must resolve to the TS runtime package');
 
+    // The facade build first builds the runtime `dist/` so a clean checkout can
+    // typecheck the facade without a manual pre-step (CS4-D6). `prebuild` runs
+    // before `build` and targets the same relative runtime path as the `file:`
+    // dependency.
+    final scripts = manifest['scripts'] as Map<String, Object?>;
+    expect(scripts['build'], 'tsc');
+    expect(scripts['prebuild'], 'npm --prefix $rtPath run build',
+        reason: 'prebuild must build the runtime dist via the relative path');
+
     // tsconfig.json is emitted for the static compile.
     expect(File(result.tsconfigPath).existsSync(), isTrue);
   });

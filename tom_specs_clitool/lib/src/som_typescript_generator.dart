@@ -209,7 +209,16 @@ String _packageJson(String name, String runtimeRel) {
     'types': 'dist/$name.d.ts',
     'type': 'commonjs',
     'engines': <String, Object?>{'node': '>=18'},
-    'scripts': <String, Object?>{'build': 'tsc'},
+    // `prebuild` runs automatically before `build` (npm lifecycle). The facade
+    // imports the runtime by bare specifier, resolving to the runtime's
+    // git-ignored `dist/src/index.d.ts`; on a clean checkout that file does not
+    // exist yet, so `tsc` on the facade would fail against a missing/stale
+    // runtime `dist/`. Building the runtime first makes `npm run build` work
+    // with no manual pre-step (CS4-D6). Same relative path as the `file:` dep.
+    'scripts': <String, Object?>{
+      'prebuild': 'npm --prefix $runtimeRel run build',
+      'build': 'tsc',
+    },
     'dependencies': <String, Object?>{
       // The generic runtime package this typed facade edits over. A relative
       // `file:` dependency wires bare-specifier resolution through node_modules
