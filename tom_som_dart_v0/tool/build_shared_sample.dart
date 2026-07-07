@@ -295,6 +295,16 @@ whole order.''')
     ..businessValue = 'High'
     ..effort = 'L'
     ..riskLevel = 'High';
+  _acceptance(fr3.acceptanceCriteria.criteria.add(), 'FR-03-AC-1',
+      'Stock reserved when available',
+      given: 'an order whose lines all have sufficient stock on hand',
+      when: 'the order is submitted for confirmation',
+      then: 'every line reserves its quantity and the order is eligible to confirm');
+  _acceptance(fr3.acceptanceCriteria.criteria.add(), 'FR-03-AC-2',
+      'Short line placed on Hold',
+      given: 'an order with one line whose demand exceeds available stock',
+      when: 'reservation runs before confirmation',
+      then: 'only the short line is placed on Hold while the remaining lines reserve normally');
 
   final fr4 = fr.add();
   fr4.content
@@ -313,6 +323,16 @@ the operations work list and the public tracking page.''')
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
+  _acceptance(fr4.acceptanceCriteria.criteria.add(), 'FR-04-AC-1',
+      'Order confirmed within budget',
+      given: 'a captured order that passes validation, pricing, and reservation',
+      when: 'the lifecycle processes it under normal load',
+      then: 'the order reaches state Confirmed within five minutes of capture');
+  _acceptance(fr4.acceptanceCriteria.criteria.add(), 'FR-04-AC-2',
+      'Confirmation surfaced to operations and tracking',
+      given: 'an order that has just reached state Confirmed',
+      when: 'the confirmation event is published',
+      then: 'the order appears as Confirmed on the operations work list and the public tracking page');
 
   final fr5 = fr.add();
   fr5.content
@@ -331,6 +351,16 @@ for the affected lines and is fully audited.''')
     ..businessValue = 'Medium'
     ..effort = 'M'
     ..riskLevel = 'Medium';
+  _acceptance(fr5.acceptanceCriteria.criteria.add(), 'FR-05-AC-1',
+      'Amendment re-runs pricing and reservation',
+      given: 'a confirmed order that has not yet dispatched',
+      when: 'a clerk changes a line quantity',
+      then: 'pricing and reservation re-run for the affected line and the change is written to the audit trail');
+  _acceptance(fr5.acceptanceCriteria.criteria.add(), 'FR-05-AC-2',
+      'Cancellation blocked after dispatch',
+      given: 'an order that has already dispatched',
+      when: 'a clerk attempts to cancel it',
+      then: 'the cancellation is rejected and the rejection is recorded in the audit trail');
 
   final fr6 = fr.add();
   fr6.content
@@ -768,7 +798,7 @@ snapshotted onto lines so historical orders remain reproducible.''');
     ..entityName = 'Order'
     ..tableName = 'mom_order'
     ..entityAlias = 'ORD'
-    ..description = 'A customer order captured from EDI or REST and driven through the lifecycle.'
+    ..description = 'A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.'
     ..entityStereoType = 'Aggregate Root';
   order.classification
     ..category = 'Transactional'
@@ -799,7 +829,7 @@ snapshotted onto lines so historical orders remain reproducible.''');
     ..entityName = 'OrderLine'
     ..tableName = 'mom_order_line'
     ..entityAlias = 'OLN'
-    ..description = 'A single product/quantity within an order, with a snapshotted price.'
+    ..description = 'A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.'
     ..entityStereoType = 'Entity';
   line.classification
     ..category = 'Transactional'
@@ -833,7 +863,7 @@ snapshotted onto lines so historical orders remain reproducible.''');
     ..entityName = 'Customer'
     ..tableName = 'mom_customer'
     ..entityAlias = 'CUS'
-    ..description = 'A wholesale or e-commerce customer that places orders.'
+    ..description = 'A wholesale or e-commerce customer that places orders. Realizes FR-01.'
     ..entityStereoType = 'Aggregate Root';
   customer.classification
     ..category = 'Master'
@@ -859,7 +889,7 @@ snapshotted onto lines so historical orders remain reproducible.''');
     ..entityName = 'Product'
     ..tableName = 'mom_product'
     ..entityAlias = 'PRD'
-    ..description = 'A sellable product referenced by order lines and priced by the price list.'
+    ..description = 'A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.'
     ..entityStereoType = 'Aggregate Root';
   product.classification
     ..category = 'Master'

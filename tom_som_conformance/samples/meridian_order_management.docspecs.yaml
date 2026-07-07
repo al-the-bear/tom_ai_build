@@ -412,7 +412,7 @@ document:
         MOM
     "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/identity":
       "description": |2-
-        A customer order captured from EDI or REST and driven through the lifecycle.
+        A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
       "entityAlias": |2-
         ORD
       "entityName": |2-
@@ -537,7 +537,7 @@ document:
         MOM
     "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/identity":
       "description": |2-
-        A single product/quantity within an order, with a snapshotted price.
+        A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
       "entityAlias": |2-
         OLN
       "entityName": |2-
@@ -619,7 +619,7 @@ document:
         MOM
     "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/identity":
       "description": |2-
-        A wholesale or e-commerce customer that places orders.
+        A wholesale or e-commerce customer that places orders. Realizes FR-01.
       "entityAlias": |2-
         CUS
       "entityName": |2-
@@ -701,7 +701,7 @@ document:
         MOM
     "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/identity":
       "description": |2-
-        A sellable product referenced by order lines and priced by the price list.
+        A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
       "entityAlias": |2-
         PRD
       "entityName": |2-
@@ -893,6 +893,44 @@ document:
     "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/verification/content":
       "fitCriterion": |2-
         Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1/content":
+      "criterionId": |2-
+        FR-03-AC-1
+      "criterionTitle": |2-
+        Stock reserved when available
+      "given": |2-
+        an order whose lines all have sufficient stock on hand
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        every line reserves its quantity and the order is eligible to confirm
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        the order is submitted for confirmation
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2/content":
+      "criterionId": |2-
+        FR-03-AC-2
+      "criterionTitle": |2-
+        Short line placed on Hold
+      "given": |2-
+        an order with one line whose demand exceeds available stock
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        only the short line is placed on Hold while the remaining lines reserve normally
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        reservation runs before confirmation
     "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/content":
       "requirementId": |2-
         FR-03
@@ -916,6 +954,44 @@ document:
         Must
       "riskLevel": |2-
         High
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1/content":
+      "criterionId": |2-
+        FR-04-AC-1
+      "criterionTitle": |2-
+        Order confirmed within budget
+      "given": |2-
+        a captured order that passes validation, pricing, and reservation
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        the order reaches state Confirmed within five minutes of capture
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        the lifecycle processes it under normal load
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2/content":
+      "criterionId": |2-
+        FR-04-AC-2
+      "criterionTitle": |2-
+        Confirmation surfaced to operations and tracking
+      "given": |2-
+        an order that has just reached state Confirmed
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        the order appears as Confirmed on the operations work list and the public tracking page
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        the confirmation event is published
     "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/content":
       "requirementId": |2-
         FR-04
@@ -939,6 +1015,44 @@ document:
         Must
       "riskLevel": |2-
         Medium
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1/content":
+      "criterionId": |2-
+        FR-05-AC-1
+      "criterionTitle": |2-
+        Amendment re-runs pricing and reservation
+      "given": |2-
+        a confirmed order that has not yet dispatched
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        pricing and reservation re-run for the affected line and the change is written to the audit trail
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        a clerk changes a line quantity
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2/content":
+      "criterionId": |2-
+        FR-05-AC-2
+      "criterionTitle": |2-
+        Cancellation blocked after dispatch
+      "given": |2-
+        an order that has already dispatched
+      "priority": |2-
+        Must
+      "status": |2-
+        Draft
+      "testType": |2-
+        Integration
+      "then": |2-
+        the cancellation is rejected and the rejection is recorded in the audit trail
+      "verificationMethod": |2-
+        Automated test
+      "when": |2-
+        a clerk attempts to cancel it
     "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/content":
       "requirementId": |2-
         FR-05
@@ -1694,6 +1808,21 @@ document:
       seq: 1
       items:
         - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/acceptanceCriteria/ACCR-CRIT-LST-1"
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST":
+      seq: 2
+      items:
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1"
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2"
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST":
+      seq: 2
+      items:
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1"
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2"
+    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST":
+      seq: 2
+      items:
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1"
+        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2"
     "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/acceptanceCriteria/ACCR-CRIT-LST":
       seq: 1
       items:

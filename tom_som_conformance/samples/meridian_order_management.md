@@ -412,6 +412,106 @@ L
 High
 ```
 
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria — acceptanceCriteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST — criteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1/content — content
+<!-- field: criterionId -->
+```
+FR-03-AC-1
+```
+
+<!-- field: criterionTitle -->
+```
+Stock reserved when available
+```
+
+<!-- field: given -->
+```
+an order whose lines all have sufficient stock on hand
+```
+
+<!-- field: when -->
+```
+the order is submitted for confirmation
+```
+
+<!-- field: then -->
+```
+every line reserves its quantity and the order is eligible to confirm
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
+```
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2/content — content
+<!-- field: criterionId -->
+```
+FR-03-AC-2
+```
+
+<!-- field: criterionTitle -->
+```
+Short line placed on Hold
+```
+
+<!-- field: given -->
+```
+an order with one line whose demand exceeds available stock
+```
+
+<!-- field: when -->
+```
+reservation runs before confirmation
+```
+
+<!-- field: then -->
+```
+only the short line is placed on Hold while the remaining lines reserve normally
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
+```
+
 ###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4 — FunctionalRequirementEntry
 
 ###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/content — content
@@ -471,6 +571,106 @@ M
 Medium
 ```
 
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria — acceptanceCriteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST — criteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1/content — content
+<!-- field: criterionId -->
+```
+FR-04-AC-1
+```
+
+<!-- field: criterionTitle -->
+```
+Order confirmed within budget
+```
+
+<!-- field: given -->
+```
+a captured order that passes validation, pricing, and reservation
+```
+
+<!-- field: when -->
+```
+the lifecycle processes it under normal load
+```
+
+<!-- field: then -->
+```
+the order reaches state Confirmed within five minutes of capture
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
+```
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2/content — content
+<!-- field: criterionId -->
+```
+FR-04-AC-2
+```
+
+<!-- field: criterionTitle -->
+```
+Confirmation surfaced to operations and tracking
+```
+
+<!-- field: given -->
+```
+an order that has just reached state Confirmed
+```
+
+<!-- field: when -->
+```
+the confirmation event is published
+```
+
+<!-- field: then -->
+```
+the order appears as Confirmed on the operations work list and the public tracking page
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
+```
+
 ###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5 — FunctionalRequirementEntry
 
 ###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/content — content
@@ -528,6 +728,106 @@ M
 <!-- field: riskLevel -->
 ```
 Medium
+```
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria — acceptanceCriteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST — criteria
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1/content — content
+<!-- field: criterionId -->
+```
+FR-05-AC-1
+```
+
+<!-- field: criterionTitle -->
+```
+Amendment re-runs pricing and reservation
+```
+
+<!-- field: given -->
+```
+a confirmed order that has not yet dispatched
+```
+
+<!-- field: when -->
+```
+a clerk changes a line quantity
+```
+
+<!-- field: then -->
+```
+pricing and reservation re-run for the affected line and the change is written to the audit trail
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
+```
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2 — AcceptanceCriterionEntry
+
+###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2/content — content
+<!-- field: criterionId -->
+```
+FR-05-AC-2
+```
+
+<!-- field: criterionTitle -->
+```
+Cancellation blocked after dispatch
+```
+
+<!-- field: given -->
+```
+an order that has already dispatched
+```
+
+<!-- field: when -->
+```
+a clerk attempts to cancel it
+```
+
+<!-- field: then -->
+```
+the cancellation is rejected and the rejection is recorded in the audit trail
+```
+
+<!-- field: verificationMethod -->
+```
+Automated test
+```
+
+<!-- field: testType -->
+```
+Integration
+```
+
+<!-- field: priority -->
+```
+Must
+```
+
+<!-- field: status -->
+```
+Draft
 ```
 
 ###### SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6 — FunctionalRequirementEntry
@@ -2248,7 +2548,7 @@ ORD
 
 <!-- field: description -->
 ```
-A customer order captured from EDI or REST and driven through the lifecycle.
+A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 ```
 
 <!-- field: entityStereoType -->
@@ -2529,7 +2829,7 @@ OLN
 
 <!-- field: description -->
 ```
-A single product/quantity within an order, with a snapshotted price.
+A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 ```
 
 <!-- field: entityStereoType -->
@@ -2838,7 +3138,7 @@ CUS
 
 <!-- field: description -->
 ```
-A wholesale or e-commerce customer that places orders.
+A wholesale or e-commerce customer that places orders. Realizes FR-01.
 ```
 
 <!-- field: entityStereoType -->
@@ -3039,7 +3339,7 @@ PRD
 
 <!-- field: description -->
 ```
-A sellable product referenced by order lines and priced by the price list.
+A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 ```
 
 <!-- field: entityStereoType -->
