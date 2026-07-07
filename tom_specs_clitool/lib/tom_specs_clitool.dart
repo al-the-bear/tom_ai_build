@@ -77,6 +77,19 @@ export 'src/serialization_order.dart'
         unstampedMembers,
         findUnstampedModelMembers;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
+export 'src/packaging.dart'
+    show
+        ManifestFormat,
+        PackagingDescriptor,
+        PackagingRoute,
+        packageVersionFromModel,
+        packagingDescriptorFor,
+        renderFacadeReadme,
+        renderHowToIntegrate,
+        rewriteManifestVersion,
+        ensureGitignoreContent,
+        writeFacadePackaging,
+        alignRuntimeManifestVersion;
 // Summary package-config helpers now live in tom_analyzer_shared (the base-first
 // home for analyzer-summary infrastructure). Re-exported here so existing
 // consumers (and tests) keep the same import surface.

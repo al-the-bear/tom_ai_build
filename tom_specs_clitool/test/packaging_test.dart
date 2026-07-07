@@ -1,0 +1,162 @@
+import 'package:tom_specs_clitool/tom_specs_clitool.dart';
+import 'package:test/test.dart';
+
+/// A representative descriptor for the shared-mechanism tests. It is *not* a
+/// registered language (the registry stays empty until PGK2..PGK10); it only
+/// exercises the language-agnostic renderers and rewriters.
+PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
+      language: SomLanguage.dart,
+      displayName: 'Dart',
+      runtimePackageName: 'tom_som_dart_runtime',
+      facadePackageName: 'tom_som_dart_v0',
+      codeFence: 'dart',
+      installShort: 'Add `tom_som_dart_v0` to your `pubspec.yaml`.',
+      usageSnippet: "final doc = SpecDocument()..loadJson(decoded.document);",
+      integrateRoutes: [
+        PackagingRoute(heading: 'From pub.dev', body: 'dart pub add tom_som_dart_v0'),
+        PackagingRoute(heading: 'Git dependency', body: 'use a `git:` dep'),
+      ],
+      buildFromSource: 'dart pub get && dart pub publish --dry-run',
+      buildArtifactIgnores: ['.dart_tool/', 'doc/api/'],
+      runtimeManifestFileName: 'pubspec.yaml',
+      runtimeManifestFormat: ManifestFormat.pubspec,
+    );
+
+void main() {
+  group('packageVersionFromModel (item PGK1)', () {
+    test('pads major.minor to three components', () {
+      expect(packageVersionFromModel('1.0'), '1.0.0');
+    });
+
+    test('pads a bare major', () {
+      expect(packageVersionFromModel('2'), '2.0.0');
+    });
+
+    test('keeps a full three-component version', () {
+      expect(packageVersionFromModel('1.4.7'), '1.4.7');
+    });
+
+    test('coerces non-numeric and empty to zeros', () {
+      expect(packageVersionFromModel(''), '0.0.0');
+      expect(packageVersionFromModel('x.y'), '0.0.0');
+    });
+
+    test('truncates beyond three components', () {
+      expect(packageVersionFromModel('1.2.3.4'), '1.2.3');
+    });
+  });
+
+  group('rewriteManifestVersion (item PGK1)', () {
+    test('pubspec version line', () {
+      const src = 'name: foo\nversion: 0.0.0\n\nenvironment:\n  sdk: ^3.11.4\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.pubspec, '1.0.0');
+      expect(out, contains('version: 1.0.0'));
+      expect(out, isNot(contains('0.0.0')));
+    });
+
+    test('pyproject version', () {
+      const src = '[project]\nname = "foo"\nversion = "0.0.0"\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.pyproject, '1.0.0');
+      expect(out, contains('version = "1.0.0"'));
+    });
+
+    test('package.json version', () {
+      const src = '{\n  "name": "foo",\n  "version": "0.0.0"\n}\n';
+      final out =
+          rewriteManifestVersion(src, ManifestFormat.packageJson, '1.0.0');
+      expect(out, contains('"version": "1.0.0"'));
+    });
+
+    test('Cargo.toml rewrites the package version, not later ones', () {
+      const src = '[package]\nname = "foo"\nversion = "0.0.0"\n\n'
+          '[dependencies]\nserde = { version = "1.0" }\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.cargoToml, '2.0.0');
+      expect(out, contains('name = "foo"\nversion = "2.0.0"'));
+      // The dependency version is untouched (replaceFirst).
+      expect(out, contains('serde = { version = "1.0" }'));
+    });
+
+    test('go version constant gets a v-prefix', () {
+      const src = 'package somv0\n\nconst Version = "v0.0.0"\n';
+      final out =
+          rewriteManifestVersion(src, ManifestFormat.goVersionConst, '1.0.0');
+      expect(out, contains('Version = "v1.0.0"'));
+    });
+
+    test('Makefile VERSION variable', () {
+      const src = 'VERSION := 0.0.0\nCC := gcc\n';
+      final out =
+          rewriteManifestVersion(src, ManifestFormat.makefileVar, '1.0.0');
+      expect(out, contains('VERSION := 1.0.0'));
+    });
+
+    test('is idempotent', () {
+      const src = 'name: foo\nversion: 1.0.0\n';
+      final out = rewriteManifestVersion(src, ManifestFormat.pubspec, '1.0.0');
+      expect(out, src);
+    });
+
+    test('throws when no version field exists', () {
+      expect(
+        () => rewriteManifestVersion('name: foo\n', ManifestFormat.pubspec, '1.0.0'),
+        throwsStateError,
+      );
+    });
+  });
+
+  group('renderFacadeReadme (item PGK1)', () {
+    test('leads with the how-to block and the version', () {
+      final md = renderFacadeReadme(_sampleDescriptor(), version: '1.0.0');
+      expect(md, startsWith('# tom_som_dart_v0'));
+      expect(md, contains('do not edit by hand'));
+      expect(md, contains('## How to use'));
+      expect(md, contains('Add `tom_som_dart_v0`'));
+      expect(md, contains('(v1.0.0)'));
+      expect(md, contains('```dart'));
+      expect(md, contains('readme_howtointegrate.md'));
+    });
+  });
+
+  group('renderHowToIntegrate (item PGK1)', () {
+    test('renders every route and the version-pin section', () {
+      final md = renderHowToIntegrate(_sampleDescriptor(), version: '1.0.0');
+      expect(md, contains('# Integrating tom_som_dart_v0'));
+      expect(md, contains('### From pub.dev'));
+      expect(md, contains('### Git dependency'));
+      expect(md, contains('## Pinning the version'));
+      expect(md, contains('`1.0.0`'));
+      expect(md, contains('## Building from source'));
+      expect(md, contains('dart pub publish --dry-run'));
+    });
+  });
+
+  group('ensureGitignoreContent (item PGK1)', () {
+    test('appends missing globs under a managed header', () {
+      final out = ensureGitignoreContent('build/\n', ['*.tgz', 'dist/']);
+      expect(out, contains('build/'));
+      expect(out, contains('packaging build artifacts (managed)'));
+      expect(out, contains('*.tgz'));
+      expect(out, contains('dist/'));
+    });
+
+    test('is idempotent when all globs already present', () {
+      const existing = 'build/\n*.tgz\ndist/\n';
+      final out = ensureGitignoreContent(existing, ['*.tgz', 'dist/']);
+      expect(out, existing);
+    });
+
+    test('handles an empty starting file', () {
+      final out = ensureGitignoreContent('', ['dist/']);
+      expect(out, contains('dist/'));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK1)', () {
+    test('registry is empty until per-language todos land', () {
+      for (final lang in SomLanguage.values) {
+        expect(packagingDescriptorFor(lang), isNull,
+            reason: 'no descriptor should be registered yet for $lang');
+      }
+    });
+  });
+}

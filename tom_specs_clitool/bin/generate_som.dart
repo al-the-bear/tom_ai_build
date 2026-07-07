@@ -152,6 +152,22 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln('  roots:   '
       '${config.generatesAllRoots ? 'all' : config.documentRoots.join(', ')}');
 
+  // The hand-authored runtime package per language — the version-alignment
+  // target for the packaging hook (PGK1). Keyed so the post-emit step can find
+  // the right runtime dir without another switch.
+  final runtimeDirs = <SomLanguage, String>{
+    SomLanguage.dart: runtimeDir,
+    SomLanguage.python: pyRuntimeDir,
+    SomLanguage.java: javaRuntimeDir,
+    SomLanguage.javascript: jsRuntimeDir,
+    SomLanguage.typescript: tsRuntimeDir,
+    SomLanguage.go: goRuntimeDir,
+    SomLanguage.rust: rustRuntimeDir,
+    SomLanguage.c: cRuntimeDir,
+    SomLanguage.cpp: cppRuntimeDir,
+  };
+  final packageVersion = packageVersionFromModel(stamp.version);
+
   for (final target in config.languages) {
     final outputRoot = p.normalize(p.join(configDir, target.outputRoot));
     switch (target.language) {
@@ -311,6 +327,28 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  header:   ${result.headerPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
         stdout.writeln('  Makefile: ${result.makefilePath}');
+    }
+
+    // Packaging hook (PGK1): once a language registers a PackagingDescriptor,
+    // emit its facade docs and realign its runtime version to the model
+    // version. A no-op for languages not yet configured.
+    final descriptor = packagingDescriptorFor(target.language);
+    if (descriptor != null) {
+      writeFacadePackaging(
+        outputRoot: outputRoot,
+        descriptor: descriptor,
+        version: packageVersion,
+      );
+      final runtimeTargetDir = runtimeDirs[target.language];
+      if (runtimeTargetDir != null) {
+        alignRuntimeManifestVersion(
+          runtimeDir: runtimeTargetDir,
+          descriptor: descriptor,
+          version: packageVersion,
+        );
+      }
+      stdout.writeln(
+          '  packaging: README + readme_howtointegrate.md @ v$packageVersion');
     }
   }
 
