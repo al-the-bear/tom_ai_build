@@ -13,7 +13,7 @@ import 'package:tom_spec_engine/dartscript.b.dart';
 ///   * the script receives a native [SpecDocument] + [SpecModel] as arguments
 ///     (the objects native code created),
 ///   * writes through the *typed* `tom_som_dart_v0` facade
-///     (`ProjectDefinition(doc).content = …`),
+///     (`D00SolutionBlueprint(doc).content = …`),
 ///   * writes + reads through the *generic* runtime (`doc.setContent` /
 ///     `doc.content`),
 ///   * builds a [SpecQueryEngine] over the shared model+document and runs a
@@ -24,18 +24,18 @@ import 'package:tom_spec_engine/dartscript.b.dart';
 SpecModel _fixtureModel() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [
-        {'type': 'ProjectDefinition', 'title': 'Project Definition', 'sectionId': 'PD00'},
+        {'type': 'D00SolutionBlueprint', 'title': 'Solution Blueprint', 'sectionId': 'SBP00'},
       ],
       'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
+        'D00SolutionBlueprint': {
+          'name': 'D00SolutionBlueprint',
+          'sectionId': 'SBP00',
+          'doc': 'Root of a solution blueprint document.',
           'fields': [
             {
               'name': 'vision',
               'kind': 'content',
-              'sectionId': 'PD00-VIS',
+              'sectionId': 'SBP00-VIS',
               'contentType': 'text',
               'doc': 'Why the system exists.',
             },
@@ -53,14 +53,14 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 main(doc, model) {
   // (1) Typed facade write — through the generated tom_som_dart_v0 surface.
-  final pd = ProjectDefinition(doc);
-  pd.content = 'Vision via typed facade';
+  final sbp = D00SolutionBlueprint(doc);
+  sbp.content = 'Vision via typed facade';
 
   // (2) Generic runtime write — at a model-aligned path so the query can see it.
-  doc.setContent('PD00/PD00-VIS', 'Deliver a resilient rollout platform.');
+  doc.setContent('SBP00/SBP00-VIS', 'Deliver a resilient rollout platform.');
 
   // (3) Generic read of what the typed facade just wrote (shared document).
-  final typedReadBack = doc.content('PD/content');
+  final typedReadBack = doc.content('SBP/content');
 
   // (4) Query / cursor — the lexical-structural facility (item 7a) over the
   //     shared (model, document) pair, returning a lazy cursor.
@@ -95,13 +95,13 @@ void main() {
 
       // The script's own observations (read back inside the sandbox).
       expect(result['typedReadBack'], 'Vision via typed facade');
-      expect(result['matchPath'], 'PD00/PD00-VIS');
+      expect(result['matchPath'], 'SBP00/SBP00-VIS');
 
       // The decisive check: native code's *own* document object carries the
       // edits the script made — same in-memory representation, both paths.
-      expect(doc.content('PD/content'), 'Vision via typed facade',
+      expect(doc.content('SBP/content'), 'Vision via typed facade',
           reason: 'typed facade write must land in the native document');
-      expect(doc.content('PD00/PD00-VIS'),
+      expect(doc.content('SBP00/SBP00-VIS'),
           'Deliver a resilient rollout platform.',
           reason: 'generic write must land in the native document');
     });
@@ -115,7 +115,7 @@ void main() {
       final cursor = engine.query(const SpecQuery(text: 'resilient'));
       final match = cursor.next();
       expect(match, isNotNull);
-      expect(match!.path, 'PD00/PD00-VIS');
+      expect(match!.path, 'SBP00/SBP00-VIS');
     });
   });
 }

@@ -59,4 +59,4 @@ dev_dependencies:
   # The D4rt bridge generator that produces the SOM `*.b.dart` binding surface
   # from the `d4rtgen:` block in buildkit.yaml. Used only by
   # tool/regenerate_bridges.dart — see _copilot_guidelines/bridge_regeneration.md.
-  tom_d4rt_generator: ">=1.12.1"
+  tom_d4rt_generator: ">=1.12.3"

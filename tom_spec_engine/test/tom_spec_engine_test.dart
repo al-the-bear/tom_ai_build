@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecDocument;
-import 'package:tom_som_dart_v0/tom_som_dart_v0.dart' show ProjectDefinition;
+import 'package:tom_som_dart_v0/tom_som_dart_v0.dart' show D00SolutionBlueprint;
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 /// Phase-A scaffold smoke tests: the package builds and every named dependency
@@ -24,7 +24,7 @@ void main() {
       // Referencing one type from each proves the path dependencies resolve and
       // the generic runtime / generated facade are importable from the engine.
       expect(SpecDocument, isNotNull);
-      expect(ProjectDefinition, isNotNull);
+      expect(D00SolutionBlueprint, isNotNull);
     });
   });
 }
