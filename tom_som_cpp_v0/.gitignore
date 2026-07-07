@@ -5,3 +5,9 @@
 build/
 *.o
 *.a
+
+# --- tom_specs packaging build artifacts (managed) ---
+*.so
+*.so.*
+*.pc
+*.tar.gz

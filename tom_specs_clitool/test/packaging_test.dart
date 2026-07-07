@@ -191,6 +191,7 @@ void main() {
         SomLanguage.go,
         SomLanguage.rust,
         SomLanguage.c,
+        SomLanguage.cpp,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -295,6 +296,23 @@ void main() {
       expect(d.facadePackageName, 'tom_som_c_v0');
       expect(d.codeFence, 'c');
       // C carries its version in the Makefile VERSION variable (no registry).
+      expect(d.runtimeManifestFormat, ManifestFormat.makefileVar);
+      expect(d.runtimeManifestFileName, 'Makefile');
+      // pkg-config / source-tarball / in-tree routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+      // The shared library, pkg-config file, and dist tarball stay out of VCS.
+      expect(d.buildArtifactIgnores, containsAll(['*.so', '*.pc', '*.tar.gz']));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK10)', () {
+    test('C++ is registered with the Makefile / pkg-config package names', () {
+      final d = packagingDescriptorFor(SomLanguage.cpp);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_cpp_runtime');
+      expect(d.facadePackageName, 'tom_som_cpp_v0');
+      expect(d.codeFence, 'cpp');
+      // C++ carries its version in the Makefile VERSION variable (no registry).
       expect(d.runtimeManifestFormat, ManifestFormat.makefileVar);
       expect(d.runtimeManifestFileName, 'Makefile');
       // pkg-config / source-tarball / in-tree routes are all documented.
