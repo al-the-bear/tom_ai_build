@@ -14,6 +14,8 @@ over the shared document (spec §3):
   * the generated model-version accessor returns ``1.0``;
   * the instantiation-time version check (§2.2) accepts an editable stamp and
     rejects a newer-minor / cross-major stamp;
+  * the generated per-root ``editability_for`` (§ item 8) classifies every §2.2
+    outcome without throwing and agrees with the throwing constructor gate;
   * aligned absence semantics (§ item 5): a section is ``is_empty`` until a
     value is written under it, typed ``is_empty`` agrees with generic
     ``has_values_under``, and ``has_content`` gives the generic path the typed
@@ -54,7 +56,11 @@ def _runtime_dir() -> str:
 sys.path.insert(0, _runtime_dir())
 sys.path.insert(0, _PROJECT)
 
-from tom_som_runtime import SpecDocument, SomVersionError  # noqa: E402
+from tom_som_runtime import (  # noqa: E402
+    SpecDocument,
+    SomVersionError,
+    SomEditability,
+)
 import tom_som_python_v0 as m  # noqa: E402
 
 _passed = 0
@@ -129,6 +135,40 @@ def test_version_check() -> None:
         _check("version.cross-major-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.cross-major-rejected", True)
+
+
+def test_editability_for() -> None:
+    # The generated per-root ``editability_for`` classifies every §2.2 outcome
+    # without throwing (§ item 8), delegating to the runtime classifier with
+    # the root's own MODEL_VERSION.
+    _check("editability.none",
+           m.D00SolutionBlueprint.editability_for(None) ==
+           SomEditability.EDITABLE)
+    _check("editability.equal",
+           m.D00SolutionBlueprint.editability_for("1.0") ==
+           SomEditability.EDITABLE)
+    _check("editability.newer-minor",
+           m.D00SolutionBlueprint.editability_for("1.1") ==
+           SomEditability.REJECTED_NEWER_MINOR)
+    _check("editability.cross-major",
+           m.D00SolutionBlueprint.editability_for("2.0") ==
+           SomEditability.READ_ONLY_CROSS_MAJOR)
+    _check("editability.invalid",
+           m.D00SolutionBlueprint.editability_for("nope") ==
+           SomEditability.INVALID_VERSION)
+
+    # ``editable`` iff the constructor accepts the same stamp — the non-throwing
+    # classifier and the throwing §2.2 gate agree on every stamp.
+    for stamp in (None, "1.0", "1.1", "2.0", "nope"):
+        editable = (m.D00SolutionBlueprint.editability_for(stamp) ==
+                    SomEditability.EDITABLE)
+        try:
+            m.D00SolutionBlueprint(SpecDocument(), document_version=stamp)
+            accepted = True
+        except SomVersionError:
+            accepted = False
+        _check(f"editability.agrees[{stamp}]", editable == accepted,
+               f"stamp {stamp!r}: editable={editable} accepted={accepted}")
 
 
 def test_absence_semantics() -> None:
@@ -267,6 +307,7 @@ def main() -> int:
     test_root_and_parity()
     test_model_version()
     test_version_check()
+    test_editability_for()
     test_absence_semantics()
     test_can_have_content()
     test_one_call_loading()
