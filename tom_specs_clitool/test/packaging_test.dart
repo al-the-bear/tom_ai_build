@@ -186,6 +186,7 @@ void main() {
         SomLanguage.dart,
         SomLanguage.python,
         SomLanguage.java,
+        SomLanguage.javascript,
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
@@ -219,6 +220,20 @@ void main() {
       expect(d.runtimeManifestFormat, ManifestFormat.pomXml);
       expect(d.runtimeManifestFileName, 'pom.xml');
       // Maven repo / local install / JDK-only JAR routes are all documented.
+      expect(d.integrateRoutes, hasLength(3));
+    });
+  });
+
+  group('packagingDescriptorFor (item PGK5)', () {
+    test('JavaScript is registered with the npm package names', () {
+      final d = packagingDescriptorFor(SomLanguage.javascript);
+      expect(d, isNotNull);
+      expect(d!.runtimePackageName, 'tom_som_javascript_runtime');
+      expect(d.facadePackageName, 'tom_som_javascript_v0');
+      expect(d.codeFence, 'javascript');
+      expect(d.runtimeManifestFormat, ManifestFormat.packageJson);
+      expect(d.runtimeManifestFileName, 'package.json');
+      // npm / git / path-or-link routes are all documented.
       expect(d.integrateRoutes, hasLength(3));
     });
   });

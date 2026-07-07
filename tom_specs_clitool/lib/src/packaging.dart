@@ -389,11 +389,12 @@ void alignRuntimeManifestVersion({
 /// which immediately activates [writeFacadePackaging] +
 /// [alignRuntimeManifestVersion] for that language on the next
 /// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
-/// (PEP 517); PGK4 registered Java (Maven).
+/// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
   SomLanguage.java: _javaDescriptor,
+  SomLanguage.javascript: _javaScriptDescriptor,
 };
 
 /// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
@@ -622,6 +623,84 @@ System.out.println(blueprint.content());''',
   buildArtifactIgnores: ['build/', 'build_tool/', '*.class', '*.jar'],
   runtimeManifestFileName: 'pom.xml',
   runtimeManifestFormat: ManifestFormat.pomXml,
+);
+
+/// JavaScript (npm) packaging descriptor — PGK5. The facade
+/// `tom_som_javascript_v0` and the runtime `tom_som_javascript_runtime` are both
+/// npm packages versioned to the TomSpecs model version. The facade is a single
+/// CommonJS module plus its `meta/` + `schemas/` payload; the runtime ships the
+/// importable `tom_som_runtime/` package. Both are `private` (proprietary), so
+/// `npm pack` is the packaging check rather than `npm publish`.
+const PackagingDescriptor _javaScriptDescriptor = PackagingDescriptor(
+  language: SomLanguage.javascript,
+  displayName: 'JavaScript',
+  runtimePackageName: 'tom_som_javascript_runtime',
+  facadePackageName: 'tom_som_javascript_v0',
+  codeFence: 'javascript',
+  installShort: 'Add `tom_som_javascript_v0` to your project '
+      '(`npm install tom_som_javascript_v0`), then:',
+  usageSnippet: '''
+const m = require('tom_som_javascript_v0');
+const { SpecDocument } = require('tom_som_javascript_runtime');
+
+// A typed Solution Blueprint over a fresh document.
+const doc = new SpecDocument();
+const blueprint = new m.D00SolutionBlueprint(doc);
+
+blueprint.content = 'A platform that unifies our fragmented order systems.';
+blueprint.currentLandscape.content =
+    'Three legacy systems with no shared customer record.';
+
+console.log(blueprint.content);''',
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From npm',
+      body: 'Install the facade (it depends on `tom_som_javascript_runtime`):'
+          '\n\n'
+          '```bash\n'
+          'npm install tom_som_javascript_v0\n'
+          '```\n\n'
+          'or pin it in your `package.json`:\n\n'
+          '```json\n'
+          '"dependencies": {\n'
+          '  "tom_som_javascript_v0": "^VERSION"\n'
+          '}\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Git dependency',
+      body: 'Depend on the facade directly from source control (it lives in a '
+          'sub-directory of the mono-repo):\n\n'
+          '```bash\n'
+          'npm install '
+          '"git+https://github.com/al-the-bear/tom_ai_build.git'
+          '#path:tom_ai/ai_build/tom_som_javascript_v0"\n'
+          '```',
+    ),
+    PackagingRoute(
+      heading: 'Path / link (monorepo / vendored)',
+      body: 'When the SOM projects sit alongside your code, link both the '
+          'runtime and the facade (runtime first):\n\n'
+          '```bash\n'
+          'npm install ../tom_som_javascript_runtime\n'
+          'npm install ../tom_som_javascript_v0\n'
+          '```\n\n'
+          'For a no-install checkout the facade also records the runtime '
+          'location under `tomSom.runtimePath` in its `package.json`, so it '
+          'resolves the runtime by relative path without a registered '
+          'dependency.',
+    ),
+  ],
+  buildFromSource: 'Regenerate the facade and dry-run the packages from the '
+      'workspace:\n\n'
+      '```bash\n'
+      'dart run tom_specs_clitool/bin/generate_som.dart\n'
+      'cd tom_som_javascript_runtime && npm pack --dry-run\n'
+      'cd ../tom_som_javascript_v0 && npm pack --dry-run\n'
+      '```',
+  buildArtifactIgnores: ['node_modules/', '*.tgz'],
+  runtimeManifestFileName: 'package.json',
+  runtimeManifestFormat: ManifestFormat.packageJson,
 );
 
 /// The [PackagingDescriptor] for [language], or `null` when none is registered

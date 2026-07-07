@@ -5,6 +5,28 @@ value-free, generated-code-free half of the multi-platform spec model
 (`tom_som`). It is a faithful transcription of the Dart reference,
 `tom_som_dart_runtime`, and the Python/Java ports.
 
+## How to use
+
+Install the runtime (`npm install tom_som_javascript_runtime`) — usually you
+depend on the typed facade `tom_som_javascript_v0`, which pulls this in — then:
+
+```javascript
+const {
+  SpecDocument,
+  SpecModel,
+  SpecReflection,
+} = require('tom_som_javascript_runtime');
+
+// A sparse document keyed by section path.
+const doc = new SpecDocument();
+doc.setContent('D00/D01', 'A unifying order platform.');
+console.log(doc.content('D00/D01'));
+```
+
+Typically you drive the runtime through the generated typed facade rather than
+by raw section paths — see **readme_howtointegrate.md** for every dependency
+route and how to pin the version to the TomSpecs model version.
+
 ## What it is
 
 The package `tom_som_runtime` mirrors the eight portable runtime modules:

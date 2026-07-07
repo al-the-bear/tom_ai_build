@@ -93,6 +93,28 @@ void main() {
     expect(p.normalize(p.join(result.outputRoot, rtPath)),
         p.normalize(jsRuntimeDir),
         reason: 'relative path must resolve to the JS runtime package');
+
+    // npm packaging contract (item PGK5): the version is the model version, the
+    // package is proprietary (private + UNLICENSED), the tarball payload is
+    // pinned via `files`/`exports`, and the runtime is a declared dependency.
+    expect(manifest['version'], '1.0.0',
+        reason: 'version tracks the TomSpecs model version');
+    expect(manifest['private'], isTrue);
+    expect(manifest['license'], 'UNLICENSED');
+    final files = (manifest['files'] as List).cast<String>();
+    expect(
+        files,
+        containsAll(<String>[
+          'tom_som_javascript_v0.js',
+          'meta/',
+          'schemas/',
+          'README.md',
+          'LICENSE',
+        ]));
+    final exports = manifest['exports'] as Map<String, Object?>;
+    expect(exports['.'], './tom_som_javascript_v0.js');
+    final deps = manifest['dependencies'] as Map<String, Object?>;
+    expect(deps['tom_som_javascript_runtime'], '>=1.0.0');
   });
 
   test('the JS meta-data is byte-identical to the Dart path', () {

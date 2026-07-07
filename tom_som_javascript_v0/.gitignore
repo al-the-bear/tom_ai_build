@@ -1,5 +1,4 @@
-/node_modules/
-npm-debug.log*
 
 # --- tom_specs packaging build artifacts (managed) ---
+node_modules/
 *.tgz

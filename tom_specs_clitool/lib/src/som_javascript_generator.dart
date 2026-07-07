@@ -24,6 +24,7 @@ import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
+import 'packaging.dart' show packageVersionFromModel;
 import 'som_javascript_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -157,9 +158,10 @@ SomJavaScriptGenerationResult writeSomJavaScriptProject({
   final runtimeRel = p
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll(r'\', '/');
+  final packageVersion = packageVersionFromModel(modelLabel.split('+').first);
   final packageJsonPath = p.join(outputRoot, 'package.json');
-  File(packageJsonPath)
-      .writeAsStringSync(_packageJson(packageName, runtimeRel));
+  File(packageJsonPath).writeAsStringSync(
+      _packageJson(packageName, runtimeRel, version: packageVersion));
 
   return SomJavaScriptGenerationResult(
     outputRoot: outDir.path,
@@ -174,17 +176,48 @@ SomJavaScriptGenerationResult writeSomJavaScriptProject({
   );
 }
 
-String _packageJson(String name, String runtimeRel) {
+String _packageJson(String name, String runtimeRel, {required String version}) {
   final manifest = <String, Object?>{
     'name': name,
-    'version': '0.0.0',
+    // The TomSpecs model version — the facade is regenerated per model version
+    // and always reports it (never maintained independently).
+    'version': version,
+    // Proprietary and unpublished-to-a-public-registry: `npm pack` packages it,
+    // `npm publish` is intentionally refused.
     'private': true,
+    'license': 'UNLICENSED',
     'description': 'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_javascript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '
         'tom_specs_clitool/bin/generate_som.dart.',
     'main': '$name.js',
+    // The tarball payload: the typed module, the lossless meta-data, the
+    // DocSpecs schemas, the examples, plus docs/license (npm always adds
+    // package.json, README and LICENSE, but CHANGELOG and directories must be
+    // listed explicitly).
+    'files': <String>[
+      '$name.js',
+      'meta/',
+      'schemas/',
+      'examples/',
+      'README.md',
+      'readme_howtointegrate.md',
+      'CHANGELOG.md',
+      'LICENSE',
+    ],
+    'exports': <String, Object?>{
+      '.': './$name.js',
+      './meta': './meta/spec_model.meta.json',
+      './package.json': './package.json',
+    },
     'engines': <String, Object?>{'node': '>=18'},
+    // The generic runtime this facade edits over, pinned to the same model
+    // version. The module itself resolves the runtime by the relative
+    // `tomSom.runtimePath` below (works in an un-installed checkout); this
+    // dependency declares the requirement for registry installs.
+    'dependencies': <String, Object?>{
+      'tom_som_javascript_runtime': '>=$version',
+    },
     'tomSom': <String, Object?>{
       // The generic runtime package this typed facade edits over. The module
       // resolves it relative to its own directory at load time. Relative for
