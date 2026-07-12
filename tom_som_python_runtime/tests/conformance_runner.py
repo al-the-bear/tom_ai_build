@@ -34,6 +34,7 @@ sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
     SpecDocument,
+    SpecDocumentMarkdown,
     SpecModel,
     SpecReflection,
     SpecSectionIdCollision,
@@ -146,15 +147,49 @@ def test_yaml_decode_round_trip(tree) -> None:
            _byte_diff("yaml.decode.reencode", actual, expected))
 
 
-# The corpus's expected.md was regenerated in the DR6 DocSpecs markdown format
-# by the Dart reference. The Python markdown codec is still the pre-DR6 port —
-# porting DR6 (and the DR7 validator) to Python is DR11's scope, so the three
-# markdown conformance checks (md.export, md.parse.*, md.land.*) are skipped
-# here until DR11 lands. See todos.tom_specs.todo.yaml/dr11.
-_MD_SKIP_NOTE = (
-    "SKIP: markdown conformance checks (md.export/md.parse/md.land) — corpus "
-    "expected.md is DR6 format; the Python DR6/DR7 port is DR11's scope."
-)
+def test_markdown_export(model: SpecModel) -> None:
+    doc = _document_from_state(_read_json("state.json"))
+    expected = _read("expected.md")
+    actual = SpecDocumentMarkdown(model, doc).export_root(model.roots[0])
+    _check("md.export", actual == expected,
+           _byte_diff("md.export", actual, expected))
+
+
+def test_markdown_round_trip(model: SpecModel) -> None:
+    golden = _read("expected.md")
+    doc = _document_from_state(_read_json("state.json"))
+    parsed = SpecDocumentMarkdown(model, doc).parse(golden)
+    _check("md.parse.clean", not parsed.rejections,
+           "; ".join(str(r) for r in parsed.rejections))
+    re_doc = SpecDocument()
+    re_doc.load_json({
+        "content": parsed.content,
+        "forms": parsed.forms,
+        "lists": parsed.lists,
+    })
+    actual = SpecDocumentMarkdown(model, re_doc).export_root(model.roots[0])
+    _check("md.parse.reexport", actual == golden,
+           _byte_diff("md.parse.reexport", actual, golden))
+
+
+def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
+    """Plan item #9: parsing ``expected.md`` and applying it must reproduce
+    ``state.json`` (the YAML-route memory) exactly, proving both formats
+    converge on one in-memory document (§4.1)."""
+    golden = _read("expected.md")
+    canonical = _read_json("state.json")
+    doc = _document_from_state(canonical)
+    parsed = SpecDocumentMarkdown(model, doc).parse(golden)
+    _check("md.land.clean", not parsed.rejections,
+           "; ".join(str(r) for r in parsed.rejections))
+    landed = SpecDocument()
+    landed.load_json({
+        "content": parsed.content,
+        "forms": parsed.forms,
+        "lists": parsed.lists,
+    })
+    _check("md.land.memory", landed.to_json() == canonical,
+           _json_mismatch(landed.to_json(), canonical))
 
 
 def test_reflection(model: SpecModel) -> None:
@@ -317,7 +352,9 @@ def main() -> int:
     test_state_round_trip()
     test_yaml_encode(tree)
     test_yaml_decode_round_trip(tree)
-    print(_MD_SKIP_NOTE)
+    test_markdown_export(model)
+    test_markdown_round_trip(model)
+    test_markdown_lands_in_shared_memory(model)
     test_reflection(model)
     test_validation(model)
     test_operations()

@@ -199,6 +199,27 @@ class SpecRoot:
         )
 
 
+def som_model_version_string(major: int, label: Optional[str]) -> str:
+    """The DocSpecs schema-version string for a model stamp — a faithful port
+    of the Dart ``somModelVersionString``.
+
+    When *label* carries at least two dot-separated numeric components
+    (``major.minor…``, ignoring any ``+build`` metadata) those win, so a
+    genuine authoring minor is preserved (``2.3.1+5`` → ``2.3``). Otherwise
+    the result is ``<major>.0``."""
+    if label:
+        core = label.split("+")[0].strip()
+        parts = core.split(".")
+        if len(parts) >= 2:
+            try:
+                maj = int(parts[0].strip())
+                minor = int(parts[1].strip())
+                return f"{maj}.{minor}"
+            except ValueError:
+                pass
+    return f"{major}.0"
+
+
 @dataclass(frozen=True)
 class SpecModel:
     """The complete exported model."""
@@ -207,6 +228,15 @@ class SpecModel:
     classes: dict[str, SpecClass]
     model_version: int = 0
     model_version_label: Optional[str] = None
+
+    @property
+    def model_version_string(self) -> str:
+        """The DocSpecs schema-version string of this model (the Dart
+        ``modelVersionString``). Falls back to ``<model_version>.0`` for an
+        unstamped model."""
+        return som_model_version_string(
+            self.model_version, self.model_version_label
+        )
 
     def class_named(self, name: Optional[str]) -> Optional[SpecClass]:
         if name is None:

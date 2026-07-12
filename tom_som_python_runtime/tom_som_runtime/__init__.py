@@ -19,6 +19,22 @@ from .som_facade import (
     check_som_model_version,
     som_editability_for,
 )
+from .docspecs_validator import (
+    DocSpecsDocument,
+    DocSpecsDocumentSection,
+    DocSpecsFormField,
+    DocSpecsFormType,
+    DocSpecsPatternCheck,
+    DocSpecsSchema,
+    DocSpecsSection,
+    DocSpecsSectionType,
+    DocSpecsSubsectionRule,
+    DocSpecsValidator,
+    DocSpecsViolation,
+    DocSpecsViolationRule,
+    bind_docspecs_markdown,
+    doc_specs_id_transform,
+)
 from .spec_document import SpecDocument
 from .spec_section_id import (
     SpecSectionIdCollision,
@@ -28,6 +44,7 @@ from .spec_section_id import (
 )
 from .spec_serialization_order import SpecSerializationOrder
 from .spec_document_markdown import (
+    MarkdownFenceTracker,
     SpecDocumentMarkdown,
     SpecMarkdownRejectReason,
     SpecMarkdownRejection,
@@ -83,9 +100,22 @@ from .spec_validator import (
 )
 
 __all__ = [
+    "DocSpecsDocument",
+    "DocSpecsDocumentSection",
+    "DocSpecsFormField",
+    "DocSpecsFormType",
+    "DocSpecsPatternCheck",
+    "DocSpecsSchema",
+    "DocSpecsSection",
+    "DocSpecsSectionType",
+    "DocSpecsSubsectionRule",
+    "DocSpecsValidator",
+    "DocSpecsViolation",
+    "DocSpecsViolationRule",
     "FORMAT_VERSION",
     "FormFieldSpec",
     "ListItemSegment",
+    "MarkdownFenceTracker",
     "SPEC_PATH_SEPARATOR",
     "SomContentTypeMeta",
     "SomDocMeta",
@@ -123,8 +153,10 @@ __all__ = [
     "SpecValidationError",
     "SpecYamlContents",
     "SpecYamlFormatException",
+    "bind_docspecs_markdown",
     "build_som_meta_tree",
     "check_som_model_version",
+    "doc_specs_id_transform",
     "encode_two_letter_date",
     "generate_list_item_section_id",
     "list_item_path",
