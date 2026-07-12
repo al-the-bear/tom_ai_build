@@ -1,27 +1,45 @@
-"""Generic YAML codec for the native ``*.docspecs.yaml`` document format — a
-faithful port of `tom_som_dart_runtime/lib/src/spec_document_yaml.dart`.
+"""Generic YAML codec for the native ``*.docspecs.yaml`` document format —
+**hierarchical format v2** (DR1 §2); a faithful port of
+`tom_som_dart_runtime/lib/src/spec_document_yaml.dart`.
 
-A header comment, ``version:`` (the on-disk format version), an optional
-``modelVersion:`` stamp (the authoring object-model ``major.minor``), then the
-``document:`` pass — the live object-model values, sorted by full section path.
+One nested YAML tree whose indentation mirrors the document structure: every
+model node becomes a mapping key (``<section-id> <member-name>``, DR1 §2.2),
+sections nest their children, list items appear under their container keyed by
+their stored section id (or an anonymous positional ``<member>-<n>`` key), a
+node's own body text uses the literal key ``content``, and form fields use
+their bare field names. The former flat two-level path-map format
+(``document: {content: {"A/b": …}}``) is **retired**; readers reject
+``version: 1`` files with a clear error (no compatibility path).
 
-**All text values are written as literal block scalars (`|2-`)** so multi-line
-content round-trips verbatim. The emitter is **self-verifying**: it re-parses
-each block it produces and falls back to a JSON-quoted scalar (always valid YAML)
-for any value a clean block can't represent — values with two or more trailing
-newlines, or anything the parser doesn't reproduce exactly.
+Text values are written as literal block scalars (``|2-``), with the DR1 §2.4
+escaping rules: the emitter is **self-verifying** (it re-parses each scalar it
+produces and falls back to a double-quoted JSON-escaped flow scalar when the
+parse differs), and **runs of 2+ consecutive empty lines are collapsed to
+one** before serialization (a deliberate, documented lossy normalization —
+round-trip guarantees are stated "modulo empty-line dedup"). Non-text values
+(``int``/``double``/``bool``, enum member names) are plain scalars when they
+self-verify (§2.5).
 
-Decoding uses a real YAML parser (PyYAML's ``safe_load``), mirroring the Dart
-port's use of ``loadYaml``.
+Both :func:`encode` and :func:`decode` walk the :class:`SomMetaTree` of the
+document root: the file carries **no paths** — the runtime reconstructs them
+by matching keys against the metadata tree, and a key that matches nothing at
+its position is a structured load error (:class:`SpecYamlFormatException`; no
+silent skips). Symmetrically, :func:`encode` raises when the document holds
+values the tree cannot place (nothing is silently dropped).
+
+The optional ``review:`` pass stays opaque to the runtime (:func:`decode`
+returns it as a raw map for the editor to interpret).
 """
 
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+import re
 from typing import Any, Optional
 
-from .spec_serialization_order import SpecSerializationOrder
+from .spec_document import SpecDocument
+from .spec_meta import SomFormMeta, SomMetaKind, SomMetaNode, SomMetaTree
+from .spec_paths import spec_path_join
 
 try:  # PyYAML is the decode/self-verify parser, as `package:yaml` is in Dart.
     import yaml as _yaml
@@ -39,25 +57,99 @@ def _require_yaml() -> Any:
 
 
 #: The on-disk format version (independent of the model-version stamp).
-FORMAT_VERSION = 1
+#: Version 2 is the hierarchical tree format; version-1 flat files are
+#: rejected on read.
+FORMAT_VERSION = 2
 
 
-@dataclass(frozen=True)
+class SpecYamlFormatException(Exception):
+    """A structural error in a ``*.docspecs.yaml`` file: wrong/unsupported
+    format version, a key that does not match the metadata tree at its
+    position, a malformed value shape, or (on encode) document values the tree
+    cannot place."""
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        #: What went wrong, naming the offending path/key where applicable.
+        self.message = message
+
+    def __str__(self) -> str:
+        return f"SpecYamlFormatException: {self.message}"
+
+
 class SpecYamlContents:
-    """The decoded passes of a ``*.docspecs.yaml`` file: the ``document:`` pass
-    as a :meth:`SpecDocument.load_json`-shaped map, the ``review:`` pass as a raw
+    """The decoded passes of a ``*.docspecs.yaml`` file: the ``document:``
+    pass as a populated :class:`SpecDocument`, the ``review:`` pass as a raw
     map (the runtime is review-agnostic), and the optional authoring
     model-version stamp."""
 
-    document: dict[Any, Any]
-    review: dict[Any, Any]
-    model_version: Optional[str] = None
+    def __init__(
+        self,
+        document: SpecDocument,
+        review: dict,
+        model_version: Optional[str] = None,
+    ) -> None:
+        #: The ``document:`` pass, loaded into a live document (its
+        #: :attr:`SpecDocument.model_version` is already set from the file
+        #: stamp).
+        self.document = document
+        #: The ``review:`` pass exactly as parsed (empty when absent). The
+        #: runtime does not interpret it; the editor maps it onto its own
+        #: review entries.
+        self.review = review
+        #: The authoring object-model version (``major.minor``) this document
+        #: was last written against, or ``None`` for an unstamped/hand-written
+        #: file. Distinct from :data:`FORMAT_VERSION` (the on-disk format
+        #: version).
+        self.model_version = model_version
 
 
-def _yaml_key(key: str) -> str:
-    """A safely-quoted mapping key. JSON strings are valid YAML flow scalars, so
-    this both quotes and escapes any path/field name unambiguously."""
+# --- Shared scalar machinery (public for the editor's review writer) ---------
+
+
+def node_key(node: SomMetaNode) -> str:
+    """The mapping key a metadata node writes (DR1 §2.2): its effective
+    section id, one space, then the exact member name (class name on the
+    document root); just the name when the node carries no id."""
+    name = node.member_name if node.member_name is not None else node.class_name
+    id = node.section_id
+    return name if id is None else f"{id} {name}"
+
+
+def yaml_key(key: str) -> str:
+    """A safely-quoted mapping key. JSON strings are valid YAML flow scalars,
+    so this both quotes and escapes any path/field name unambiguously."""
     return json.dumps(key, ensure_ascii=False)
+
+
+_PLAIN_KEY_PATTERN = re.compile(
+    r"^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$"
+)
+
+
+def plain_key(key: str) -> str:
+    """A plain key when the key is YAML-safe by construction (section ids,
+    member names, ``<id> <name>`` pairs), else a JSON-quoted one."""
+    return key if _PLAIN_KEY_PATTERN.match(key) else yaml_key(key)
+
+
+_BLANK_RUNS = re.compile(r"\n{3,}")
+
+
+def dedup_empty_lines(value: str) -> str:
+    """Collapses runs of two or more consecutive empty lines to a single empty
+    line (DR1 §2.4.3 — the deliberate lossy normalization applied to every
+    text value before serialization)."""
+    return _BLANK_RUNS.sub("\n\n", value)
+
+
+def _parsed_scalar_str(v: Any) -> str:
+    """The Dart-``toString``-compatible string of a parsed YAML scalar
+    (``true``/``false`` for booleans, matching the document's string-typed
+    stores)."""
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    return str(v)
 
 
 def _trailing_newlines(value: str) -> int:
@@ -70,9 +162,9 @@ def _trailing_newlines(value: str) -> int:
 
 
 def _literal_block(value: str) -> Optional[str]:
-    """Builds a literal block scalar (`|2<chomp>`) with body at relative indent
-    2, or ``None`` when chomping can't reproduce the value's trailing newlines
-    (two or more) — those fall back to JSON quoting."""
+    """Builds a literal block scalar (``|2<chomp>``) with body at relative
+    indent 2, or ``None`` when chomping can't reproduce the value's trailing
+    newlines (two or more) — those fall back to JSON quoting."""
     trailing = _trailing_newlines(value)
     if trailing == 0:
         chomp = "-"
@@ -91,8 +183,8 @@ def _literal_block(value: str) -> Optional[str]:
 
 
 def _round_trips(block: str, value: str) -> bool:
-    """Whether re-parsing ``_v: <block>`` yields exactly *value* (the emitter's
-    correctness guard)."""
+    """Whether re-parsing ``_v: <block>`` yields exactly *value* (the
+    emitter's correctness guard)."""
     try:
         parsed = _require_yaml().safe_load(f"_v: {block}\n")
         return isinstance(parsed, dict) and parsed.get("_v") == value
@@ -101,12 +193,31 @@ def _round_trips(block: str, value: str) -> bool:
 
 
 def _scalar(value: str) -> str:
-    """The scalar representation of *value*: a literal block at relative indent 2
-    when that round-trips, else a JSON-quoted scalar."""
+    """The scalar representation of *value*: a literal block at relative
+    indent 2 when that round-trips, else a JSON-quoted scalar."""
     block = _literal_block(value)
     if block is not None and _round_trips(block, value):
         return block
     return json.dumps(value, ensure_ascii=False)
+
+
+def _plain_scalar(value: str) -> Optional[str]:
+    """A plain one-line scalar for a non-text value (int/double/bool/enum
+    member name, §2.5) when writing it plainly re-parses to exactly *value*
+    (string compare, matching the document's string-typed stores); ``None``
+    otherwise."""
+    if value == "" or "\n" in value:
+        return None
+    try:
+        parsed = _require_yaml().safe_load(f"_v: {value}\n")
+        if not isinstance(parsed, dict):
+            return None
+        v = parsed.get("_v")
+        if v is None or isinstance(v, (dict, list)):
+            return None
+        return value if _parsed_scalar_str(v) == value else None
+    except Exception:
+        return None
 
 
 class _Buffer:
@@ -119,18 +230,19 @@ class _Buffer:
         self._parts.append(text)
         self._parts.append("\n")
 
+    def write(self, text: str) -> None:
+        self._parts.append(text)
+
     def __str__(self) -> str:
         return "".join(self._parts)
 
 
-def _write_scalar(b: _Buffer, key_indent: int, key: str, value: str) -> None:
-    """Writes ``<indent><key>: <scalar>`` where the scalar is a self-verified
-    block scalar (or a JSON-quoted fallback). Body lines, emitted at a relative
-    indent of 2, are re-indented to *key_indent* + 2."""
+def _write_rendered(
+    b: _Buffer, key_indent: int, rendered_key: str, repr_: str
+) -> None:
     pad = " " * key_indent
-    repr_ = _scalar(value)
     lines = repr_.split("\n")
-    b.writeln(f"{pad}{_yaml_key(key)}: {lines[0]}")
+    b.writeln(f"{pad}{rendered_key}: {lines[0]}")
     for line in lines[1:]:
         if line == "":
             b.writeln("")
@@ -138,105 +250,408 @@ def _write_scalar(b: _Buffer, key_indent: int, key: str, value: str) -> None:
             b.writeln(f"{pad}{line}")
 
 
-def _sorted_string_keys(m: dict) -> list[str]:
-    return sorted(str(k) for k in m.keys())
+def write_scalar(b: _Buffer, key_indent: int, key: str, value: str) -> None:
+    """Writes ``<indent><key>: <scalar>`` where the scalar is a self-verified
+    block scalar (or a JSON-quoted fallback). Block body lines, which the
+    builder emits at a relative indent of 2, are re-indented past
+    *key_indent*."""
+    _write_rendered(b, key_indent, yaml_key(key), _scalar(value))
 
 
-def _write_header(b: _Buffer, model_version: Optional[str]) -> None:
-    b.writeln("# TomSpecs document (*.docspecs.yaml).")
-    b.writeln(
-        "# `document:` holds the object-model values, sorted by section id; text"
-    )
-    b.writeln(
-        "# values use block scalars so multi-line content round-trips verbatim (§15.1)."
-    )
+def write_header(b: _Buffer, model_version: Optional[str] = None) -> None:
+    """Writes the file header comment + ``version:`` line, and the optional
+    ``modelVersion:`` stamp when *model_version* is non-empty."""
+    b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.")
     b.writeln(f"version: {FORMAT_VERSION}")
     if model_version:
         b.writeln(f"modelVersion: {json.dumps(model_version, ensure_ascii=False)}")
 
 
-def _write_document_pass(
-    b: _Buffer,
-    doc: dict[str, Any],
-    order: Optional[SpecSerializationOrder] = None,
-) -> None:
-    def order_keys(m: dict) -> list[str]:
-        if order is None:
-            return _sorted_string_keys(m)
-        return order.order_paths(str(k) for k in m.keys())
-
-    content = doc.get("content")
-    forms = doc.get("forms")
-    lists = doc.get("lists")
-    if content is None and forms is None and lists is None:
-        b.writeln("document: {}")
-        return
-    b.writeln("document:")
-
-    if isinstance(content, dict) and content:
-        b.writeln("  content:")
-        for k in order_keys(content):
-            _write_scalar(b, 4, k, str(content[k]))
-
-    if isinstance(forms, dict) and forms:
-        b.writeln("  forms:")
-        for k in order_keys(forms):
-            fields = forms[k]
-            if not isinstance(fields, dict) or not fields:
-                continue
-            b.writeln(f"    {_yaml_key(k)}:")
-            field_keys = (
-                _sorted_string_keys(fields)
-                if order is None
-                else order.order_form_fields(k, (str(f) for f in fields.keys()))
-            )
-            for f in field_keys:
-                _write_scalar(b, 6, f, str(fields[f]))
-
-    if isinstance(lists, dict) and lists:
-        b.writeln("  lists:")
-        for k in order_keys(lists):
-            spec = lists[k]
-            if not isinstance(spec, dict):
-                continue
-            b.writeln(f"    {_yaml_key(k)}:")
-            b.writeln(f"      seq: {spec.get('seq') or 0}")
-            items = spec.get("items")
-            if isinstance(items, list) and items:
-                b.writeln("      items:")
-                for it in items:
-                    b.writeln(f"        - {_yaml_key(str(it))}")
-            else:
-                b.writeln("      items: []")
+# --- Encode -------------------------------------------------------------------
 
 
 def encode(
-    document: Any,
+    document: SpecDocument,
+    tree: SomMetaTree,
     model_version: Optional[str] = None,
-    order: Optional[SpecSerializationOrder] = None,
 ) -> str:
-    """Serializes *document* (a :class:`SpecDocument`) to a header + ``version:``
-    (+ ``modelVersion:``) + ``document:`` pass.
+    """Serializes *document* to a header + ``version:`` (+ ``modelVersion:``)
+    + hierarchical ``document:`` pass, walking *tree* (the metadata tree of
+    the document's root).
 
-    When *order* is supplied, members are emitted in ``@SerializationOrder``
-    order (AA1 criterion 7); otherwise keys stay alphabetical (the diff-stable
-    default the editor relies on)."""
+    Sibling order is the tree's child order (``@SerializationOrder``), list
+    items follow their stored sequence; emission is sparse (only populated
+    subtrees appear). Raises :class:`SpecYamlFormatException` when the
+    document holds values *tree* cannot place — nothing is silently
+    dropped."""
     b = _Buffer()
-    _write_header(b, model_version)
-    _write_document_pass(b, document.to_json(), order)
+    write_header(b, model_version=model_version)
+    _Encoder(document, tree).write_document_pass(b)
     return str(b)
 
 
-def decode(yaml_text: str) -> SpecYamlContents:
-    """Parses a ``*.docspecs.yaml`` document into its passes. A missing pass
-    decodes as empty rather than failing, so a partial/hand-written file still
-    loads what it has."""
-    root = None if yaml_text.strip() == "" else _require_yaml().safe_load(yaml_text)
-    doc = root.get("document") if isinstance(root, dict) else None
-    rev = root.get("review") if isinstance(root, dict) else None
-    stamp = root.get("modelVersion") if isinstance(root, dict) else None
-    return SpecYamlContents(
-        document=doc if isinstance(doc, dict) else {},
-        review=rev if isinstance(rev, dict) else {},
-        model_version=str(stamp) if stamp is not None and str(stamp) != "" else None,
+class _Encoder:
+    """One encode run: walks the metadata tree, consuming values from
+    snapshots of the document's stores so anything left unconsumed at the end
+    is a structured error (nothing is silently dropped)."""
+
+    def __init__(self, doc: SpecDocument, tree: SomMetaTree) -> None:
+        self.doc = doc
+        self.tree = tree
+        self._content: dict[str, str] = {
+            p: doc.content(p) or "" for p in doc.content_paths
+        }
+        self._forms: dict[str, dict[str, str]] = {
+            p: {f: doc.form_field(p, f) or "" for f in doc.form_field_names(p)}
+            for p in doc.form_paths
+        }
+        self._lists: set[str] = set(doc.list_paths)
+
+    def write_document_pass(self, b: _Buffer) -> None:
+        root = self.tree.root
+        body = self._mapping_body(root, root.segment, 4)
+        self._assert_nothing_left()
+        if body == "":
+            b.writeln("document: {}")
+            return
+        b.writeln("document:")
+        b.writeln(f"  {plain_key(node_key(root))}:")
+        b.write(body)
+
+    def _mapping_body(self, node: SomMetaNode, path: str, indent: int) -> str:
+        """Renders the mapping body of *node* at *path* (root, a collapsed
+        section/complex field, or a list item's element), one line per
+        populated entry at *indent*. Empty when nothing under the node is
+        populated."""
+        b = _Buffer()
+
+        # The node's own body text — the literal `content` key (DR1 §2.2).
+        own = self._content.pop(path, None)
+        if own is not None:
+            if any(node_key(c) == "content" for c in node.children):
+                raise SpecYamlFormatException(
+                    f"cannot emit body text at `{path}`: a child of "
+                    f"{node.debug_name} also serializes as key `content`"
+                )
+            self._write_text(b, indent, "content", own)
+
+        for child in node.children:
+            child_path = spec_path_join(path, child.segment)
+            key = node_key(child)
+            if child.kind is SomMetaKind.CONTENT:
+                v = self._content.pop(child_path, None)
+                if v is not None:
+                    self._write_text(b, indent, key, v)
+            elif child.kind in (SomMetaKind.SCALAR, SomMetaKind.ENUM_VALUE):
+                v = self._content.pop(child_path, None)
+                if v is not None:
+                    self._write_value(b, indent, key, v)
+            elif child.kind is SomMetaKind.FORM:
+                self._write_form(b, indent, key, child, child_path)
+            elif child.kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
+                sub = self._mapping_body(child, child_path, indent + 2)
+                if sub != "":
+                    b.writeln(f"{' ' * indent}{plain_key(key)}:")
+                    b.write(sub)
+            elif child.kind is SomMetaKind.LIST:
+                self._write_list(b, indent, key, child, child_path)
+        return str(b)
+
+    def _write_form(
+        self, b: _Buffer, indent: int, key: str, node: SomMetaNode, path: str
+    ) -> None:
+        fields = self._forms.pop(path, None)
+        if not fields:
+            return
+        meta = node.form if node.form is not None else SomFormMeta(fields=[])
+        for name in fields:
+            if meta.field_named(name) is None:
+                raise SpecYamlFormatException(
+                    f"form `{path}` holds a field `{name}` unknown to the "
+                    "model"
+                )
+        b.writeln(f"{' ' * indent}{plain_key(key)}:")
+        for f in meta.fields:
+            v = fields.get(f.name)
+            if v is None:
+                continue
+            if _is_numeric_or_bool(f.type_name):
+                self._write_value(b, indent + 2, f.name, v)
+            else:
+                self._write_text(b, indent + 2, f.name, v)
+
+    def _write_list(
+        self, b: _Buffer, indent: int, key: str, node: SomMetaNode, path: str
+    ) -> None:
+        self._lists.discard(path)
+        items = self.doc.list_items(path)
+        if not items:
+            return
+        b.writeln(f"{' ' * indent}{plain_key(key)}:")
+        used: set[str] = set()
+        pos = 0
+        for item_path in items:
+            pos += 1
+            stored_id = self.doc.item_section_id(item_path)
+            item_key = (
+                stored_id if stored_id is not None
+                else f"{node.member_name}-{pos}"
+            )
+            if stored_id is not None:
+                if item_key in used:
+                    raise SpecYamlFormatException(
+                        f"duplicate list item key `{item_key}` at `{path}`"
+                    )
+                used.add(item_key)
+            else:
+                bump = pos
+                while item_key in used:
+                    bump += 1
+                    item_key = f"{node.member_name}-{bump}"
+                used.add(item_key)
+            element = node.element_node
+            if element is None:
+                # Scalar list: the item is a direct value.
+                v = self._content.pop(item_path, "")
+                self._write_value(b, indent + 2, item_key, v)
+            else:
+                sub = self._mapping_body(element, item_path, indent + 4)
+                if sub == "":
+                    b.writeln(f"{' ' * (indent + 2)}{plain_key(item_key)}: {{}}")
+                else:
+                    b.writeln(f"{' ' * (indent + 2)}{plain_key(item_key)}:")
+                    b.write(sub)
+
+    def _write_text(
+        self, b: _Buffer, indent: int, key: str, value: str
+    ) -> None:
+        """Text value: empty-line dedup, then a self-verified block scalar (or
+        the JSON-quoted fallback)."""
+        _write_rendered(
+            b, indent, plain_key(key), _scalar(dedup_empty_lines(value))
+        )
+
+    def _write_value(
+        self, b: _Buffer, indent: int, key: str, value: str
+    ) -> None:
+        """Non-text value (§2.5): plain when it self-verifies, else the text
+        path."""
+        plain = _plain_scalar(value)
+        if plain is not None:
+            b.writeln(f"{' ' * indent}{plain_key(key)}: {plain}")
+        else:
+            self._write_text(b, indent, key, value)
+
+    def _assert_nothing_left(self) -> None:
+        leftovers = sorted(
+            [f"content at `{p}`" for p in self._content]
+            + [f"form values at `{p}`" for p in self._forms]
+            + [f"list items at `{p}`" for p in self._lists]
+        )
+        if leftovers:
+            raise SpecYamlFormatException(
+                "document holds values the metadata tree cannot place: "
+                + "; ".join(leftovers)
+            )
+
+
+def _is_numeric_or_bool(type_name: str) -> bool:
+    return type_name in ("int", "double", "num", "bool")
+
+
+# --- Decode -------------------------------------------------------------------
+
+
+def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
+    """Parses a ``*.docspecs.yaml`` file into its passes, matching every
+    ``document:`` key against *tree*.
+
+    Raises :class:`SpecYamlFormatException` for a missing/unsupported
+    ``version:`` (version 1 is rejected explicitly — the flat format has no
+    compatibility path), for any key the metadata tree cannot place, and for
+    malformed value shapes. A missing/empty ``document:`` pass decodes as an
+    empty document."""
+    root = None if yaml_text.strip() == "" else _require_yaml().safe_load(
+        yaml_text
     )
+    if not isinstance(root, dict):
+        raise SpecYamlFormatException(
+            "not a *.docspecs.yaml mapping (expected version/document keys)"
+        )
+    version = root.get("version")
+    if _parsed_scalar_str(version) != str(FORMAT_VERSION):
+        if version is None:
+            raise SpecYamlFormatException(
+                f"missing `version:` (expected version: {FORMAT_VERSION})"
+            )
+        if _parsed_scalar_str(version) == "1":
+            raise SpecYamlFormatException(
+                "format version 1 (flat path-map) is no longer supported; "
+                "re-save the document in the hierarchical v2 format"
+            )
+        raise SpecYamlFormatException(
+            f"unsupported format version `{version}` "
+            f"(expected {FORMAT_VERSION})"
+        )
+
+    stamp_raw = root.get("modelVersion")
+    stamp = (
+        _parsed_scalar_str(stamp_raw)
+        if stamp_raw is not None and _parsed_scalar_str(stamp_raw) != ""
+        else None
+    )
+    rev = root.get("review")
+
+    document = SpecDocument()
+    document.model_version = stamp
+    doc_pass = root.get("document")
+    if doc_pass is not None and not isinstance(doc_pass, dict):
+        raise SpecYamlFormatException("`document:` must be a mapping")
+    if isinstance(doc_pass, dict) and doc_pass:
+        root_key = node_key(tree.root)
+        keys = list(doc_pass.keys())
+        if len(keys) != 1 or str(keys[0]) != root_key:
+            found = ", ".join(f"`{k}`" for k in keys)
+            raise SpecYamlFormatException(
+                f"expected the single document root key `{root_key}`, "
+                f"found: {found}"
+            )
+        body = doc_pass[keys[0]]
+        if body is not None:
+            if not isinstance(body, dict):
+                raise SpecYamlFormatException(
+                    f"root `{root_key}` must hold a mapping, not a scalar"
+                )
+            _Decoder(document, tree).load_mapping(
+                tree.root, tree.root.segment, body
+            )
+
+    return SpecYamlContents(
+        document=document,
+        review=rev if isinstance(rev, dict) else {},
+        model_version=stamp,
+    )
+
+
+class _Decoder:
+    """One decode run: walks a parsed YAML mapping alongside the metadata tree
+    and populates *doc*. Any key that matches nothing at its position
+    raises."""
+
+    def __init__(self, doc: SpecDocument, tree: SomMetaTree) -> None:
+        self.doc = doc
+        self.tree = tree
+
+    def load_mapping(self, node: SomMetaNode, path: str, body: dict) -> None:
+        for raw_key, value in body.items():
+            key = str(raw_key)
+            child = self._child_by_key(node, key)
+            if child is not None:
+                self._load_child(
+                    child, spec_path_join(path, child.segment), key, value
+                )
+                continue
+            if key == "content":
+                self.doc.set_content(
+                    path, self._scalar_of(value, f"{path}/content")
+                )
+                continue
+            expected = ", ".join(self._expected_keys(node))
+            raise SpecYamlFormatException(
+                f"key `{key}` under `{path}` matches no member of "
+                f"{node.debug_name} (expected one of: {expected})"
+            )
+
+    @staticmethod
+    def _child_by_key(node: SomMetaNode, key: str) -> Optional[SomMetaNode]:
+        for c in node.children:
+            if node_key(c) == key:
+                return c
+        return None
+
+    @staticmethod
+    def _expected_keys(node: SomMetaNode) -> list[str]:
+        return [f"`{node_key(c)}`" for c in node.children] + ["`content`"]
+
+    def _load_child(
+        self, child: SomMetaNode, path: str, key: str, value: Any
+    ) -> None:
+        if child.kind in (
+            SomMetaKind.CONTENT,
+            SomMetaKind.SCALAR,
+            SomMetaKind.ENUM_VALUE,
+        ):
+            self.doc.set_content(path, self._scalar_of(value, path))
+        elif child.kind is SomMetaKind.FORM:
+            if not isinstance(value, dict):
+                raise SpecYamlFormatException(
+                    f"form `{key}` at `{path}` must hold a field mapping"
+                )
+            meta = child.form if child.form is not None else SomFormMeta(
+                fields=[]
+            )
+            for f, v in value.items():
+                name = str(f)
+                if meta.field_named(name) is None:
+                    raise SpecYamlFormatException(
+                        f"form `{path}` has no field `{name}` in the model"
+                    )
+                self.doc.set_form_field(
+                    path, name, self._scalar_of(v, f"{path}.{name}")
+                )
+        elif child.kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
+            if value is None:
+                return
+            if not isinstance(value, dict):
+                raise SpecYamlFormatException(
+                    f"section `{key}` at `{path}` must hold a mapping, "
+                    "not a scalar"
+                )
+            self.load_mapping(child, path, value)
+        elif child.kind is SomMetaKind.LIST:
+            if value is None:
+                return
+            if not isinstance(value, dict):
+                raise SpecYamlFormatException(
+                    f"list `{key}` at `{path}` must hold an item mapping"
+                )
+            self._load_list(child, path, value)
+
+    def _load_list(self, node: SomMetaNode, path: str, items: dict) -> None:
+        anonymous = re.compile(
+            "^" + re.escape(node.member_name or "") + "-[0-9]+$"
+        )
+        for raw_key, value in items.items():
+            key = str(raw_key)
+            item_path = self.doc.add_list_item(
+                path, section_id=None if anonymous.match(key) else key
+            )
+            element = node.element_node
+            if element is None:
+                # Scalar list item: the value is the item itself.
+                if isinstance(value, (dict, list)):
+                    raise SpecYamlFormatException(
+                        f"scalar list item `{key}` at `{path}` must hold a "
+                        "scalar"
+                    )
+                if value is not None:
+                    self.doc.set_content(item_path, _parsed_scalar_str(value))
+                continue
+            if value is None:
+                continue
+            if not isinstance(value, dict):
+                raise SpecYamlFormatException(
+                    f"list item `{key}` at `{path}` must hold a mapping "
+                    "(use `{}` for an empty item)"
+                )
+            self.load_mapping(element, item_path, value)
+
+    @staticmethod
+    def _scalar_of(value: Any, where: str) -> str:
+        if value is None:
+            return ""
+        if isinstance(value, (dict, list)):
+            raise SpecYamlFormatException(
+                f"expected a scalar value at `{where}`"
+            )
+        return _parsed_scalar_str(value)

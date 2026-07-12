@@ -53,26 +53,23 @@ class SpecDocument:
     # --- one-call loading (§ item 4) ---------------------------------------
 
     @classmethod
-    def from_yaml(cls, yaml: str) -> "SpecDocument":
-        """Loads a ``*.docspecs.yaml`` document in one call: decode the YAML,
-        populate the sparse stores (:meth:`load_json`), and retain the parsed
-        :attr:`model_version`. Collapses the former three-step decode →
-        ``load_json`` → thread-``document_version`` incantation (§ item 4)."""
+    def from_yaml(cls, yaml: str, tree: Any) -> "SpecDocument":
+        """Loads a hierarchical ``*.docspecs.yaml`` (v2) document in one call:
+        decode the YAML against the :class:`SomMetaTree` *tree*, populate the
+        sparse stores, and retain the parsed :attr:`model_version` (§ item 4;
+        DR5's tree-based signature — mirrors Dart's
+        ``SpecDocument.fromYaml(yaml, tree)``)."""
         from .spec_document_yaml import decode
 
-        decoded = decode(yaml)
-        doc = cls()
-        doc.load_json(decoded.document)
-        doc.model_version = decoded.model_version
-        return doc
+        return decode(yaml, tree).document
 
     @classmethod
-    def from_file(cls, path: str) -> "SpecDocument":
+    def from_file(cls, path: str, tree: Any) -> "SpecDocument":
         """Loads a ``*.docspecs.yaml`` document from the file at *path* — the file
         companion to :meth:`from_yaml` the generated ``load_file`` classmethod
         delegates to."""
         with open(path, "r", encoding="utf-8") as f:
-            return cls.from_yaml(f.read())
+            return cls.from_yaml(f.read(), tree)
 
     # --- one-call Markdown export (§ item 12) ------------------------------
 
