@@ -10,29 +10,33 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 /// [DocSpecsSchemaGenerator] and describe the section grammar of one document
 /// root). This schema describes the **generic file shape** every
 /// `*.docspecs.yaml` shares regardless of which model root it carries — the
-/// passes written by `SpecDocumentYaml.encode`:
+/// hierarchical v2 envelope written by `SpecDocumentYaml.encode` (DR1 §2):
 ///
 /// ```yaml
-/// version: 1                 # on-disk format version (required)
+/// version: 2                 # on-disk format version (required)
 /// modelVersion: "1.0"        # authoring object-model major.minor (optional)
 /// document:                  # the live object-model values (optional pass)
-///   content:                 #   section path -> text value
-///   forms:                   #   section path -> (field name -> value)
-///   lists:                   #   list path -> { seq, items }
+///   DEMO Demo:               #   exactly one root key; nested section tree
+///     TTL title: |2-         #   scalar leaves (content/scalar/enum/form
+///       Hello                #   fields) or nested mappings (sections, form
+///     DET details:           #   blocks, list containers, list items)
+///       owner: Bob
 /// review:                    # editor structural-review pass (optional, opaque)
 /// ```
 ///
-/// It validates the structural envelope (key shapes and value types), not the
-/// section ids themselves: a `*.docspecs.yaml` can be schema-validated as a
-/// well-formed document file independently of the DocSpecs per-root schemas, so
-/// a saved file is checkable without resolving its model.
+/// It validates the structural envelope (key shapes and value nesting), not
+/// the section ids themselves: a `*.docspecs.yaml` can be schema-validated as
+/// a well-formed document file independently of the DocSpecs per-root schemas,
+/// so a saved file is checkable without resolving its model.
 ///
 /// **Tolerance matches the codec, not stricter.** `SpecDocumentYaml.decode`
-/// loads a partial/hand-written file by treating any missing pass as empty, so
-/// only `version` is required here; `document` and its three sub-passes are all
-/// optional. The schema rejects what the format genuinely cannot represent —
-/// unknown top-level/pass keys, a non-integer `version`, non-string content or
-/// form values, a malformed list entry (missing `seq`/`items`, wrong types).
+/// treats a missing/empty `document:` pass as an empty document, so only
+/// `version` is required here. Inside the tree the node *types* are
+/// model-dependent (only the codec's metadata walk can tell a form block from
+/// a section), so a node is any scalar leaf or a mapping of nodes. The schema
+/// rejects what the format genuinely cannot represent — unknown top-level
+/// keys, a non-integer `version`, more than one document root key, or a
+/// scalar in root position.
 class DocspecsYamlSchemaGenerator {
   /// The JSON Schema `$id` for the emitted document-format schema.
   static const String schemaId =
@@ -56,8 +60,9 @@ class DocspecsYamlSchemaGenerator {
       'title': 'TomSpecs Document (*.docspecs.yaml)',
       'description': 'Structural schema for the generic on-disk TomSpecs '
           'document wire format written by SpecDocumentYaml.encode '
-          '(format version $formatVersion). Validates the file envelope and '
-          'pass value-types, independently of any per-root DocSpecs schema.',
+          '(hierarchical format version $formatVersion). Validates the file '
+          'envelope and value nesting, independently of any per-root DocSpecs '
+          'schema.',
       'type': 'object',
       'required': <String>['version'],
       'additionalProperties': false,
@@ -76,63 +81,40 @@ class DocspecsYamlSchemaGenerator {
         'document': {r'$ref': r'#/$defs/document'},
         'review': {
           'type': 'object',
-          'description': 'Optional editor structural-review pass; opaque to the '
-              'runtime, so its inner shape is unconstrained.',
+          'description': 'Optional editor structural-review pass; opaque to '
+              'the runtime, so its inner shape is unconstrained.',
           'additionalProperties': true,
         },
       },
       r'$defs': <String, Object?>{
         'document': {
           'type': 'object',
-          'description': 'The live object-model values, keyed by full section '
-              'path. Any missing pass decodes as empty.',
-          'additionalProperties': false,
-          'properties': <String, Object?>{
-            'content': {r'$ref': r'#/$defs/contentMap'},
-            'forms': {r'$ref': r'#/$defs/formsMap'},
-            'lists': {r'$ref': r'#/$defs/listsMap'},
-          },
-        },
-        'contentMap': {
-          'type': 'object',
-          'description':
-              'Content/scalar leaves: section path -> text value.',
-          'additionalProperties': {'type': 'string'},
-        },
-        'formsMap': {
-          'type': 'object',
-          'description': '@Form sections: section path -> (field name -> '
-              'text value).',
+          'description': 'The live object-model values as one nested section '
+              'tree under a single document-root key ("<SECTION-ID> '
+              '<memberName>"). An empty mapping decodes as an empty document.',
+          'maxProperties': 1,
           'additionalProperties': {
             'type': 'object',
-            'additionalProperties': {'type': 'string'},
+            'description': 'The root section body — a mapping of child nodes '
+                '(a scalar in root position is rejected by the codec).',
+            'additionalProperties': {r'$ref': r'#/$defs/node'},
           },
         },
-        'listsMap': {
-          'type': 'object',
-          'description': 'Lists: list path -> ordered item entry.',
-          'additionalProperties': {r'$ref': r'#/$defs/listEntry'},
-        },
-        'listEntry': {
-          'type': 'object',
-          'description': 'A list pass entry: a monotonic sequence counter and '
-              'the ordered item paths.',
-          'required': <String>['seq', 'items'],
-          'additionalProperties': false,
-          'properties': <String, Object?>{
-            'seq': {
-              'type': 'integer',
-              'minimum': 0,
-              'description':
-                  'Per-list monotonic counter; never reused (item paths are '
-                      '<listPath>-<seq>).',
+        'node': {
+          'description': 'One section-tree node: a scalar leaf '
+              '(content/scalar/enum value or form field) or a nested mapping '
+              '(section, form block, list container, list item). Which one is '
+              'legal at a given position is model-dependent and enforced by '
+              'the codec metadata walk, not this envelope schema.',
+          'anyOf': <Object?>[
+            {
+              'type': <String>['string', 'number', 'boolean', 'null'],
             },
-            'items': {
-              'type': 'array',
-              'description': 'Ordered item paths in the list.',
-              'items': {'type': 'string'},
+            {
+              'type': 'object',
+              'additionalProperties': {r'$ref': r'#/$defs/node'},
             },
-          },
+          ],
         },
       },
     };

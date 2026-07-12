@@ -11,12 +11,16 @@
 import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
+  // Interim load: the shared sample is still in the retired flat v1 format
+  // until DR9 re-emits it hierarchically; parse it generically.
   final sampleFile = File.fromUri(Platform.script.resolve(
       '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
-  final decoded = SpecDocumentYaml.decode(sampleFile.readAsStringSync());
-  final doc = SpecDocument()..loadJson(decoded.document);
+  final raw = yaml.loadYaml(sampleFile.readAsStringSync()) as Map;
+  final doc = SpecDocument()
+    ..loadJson((raw['document'] as Map).cast<String, Object?>());
 
   stdout.writeln('=== Generic access: Meridian Order Management (SBP) ===\n');
 

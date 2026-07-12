@@ -42,12 +42,14 @@ walker) still needs section paths — but hard-coding raw literals like
 are two compiler-checked ways to obtain a path without a literal, both shown in
 (f):
 
-1. **Generated path constants.** Every document root gets a `<Root>Paths` holder
-   (`SbpPaths`) of named constants whose values are the exact section paths, so
-   generic code writes `doc.content(SbpPaths.currentLandscapeOperationalMetrics)`
-   instead of the literal. A model rename regenerates the constant; the literal
-   would silently rot. The holder is a set of plain string constants — importing
-   it does not pull in typed navigation.
+1. **Generated metadata refs (DR1 §4).** Every document root gets a
+   dot-notation entry point (`d00SolutionBlueprint`) whose member chain mirrors
+   the model; each position exposes `.path` (and `.meta` for the full metadata
+   node), so generic code writes
+   `doc.content(d00SolutionBlueprint.requirements.content.path)` instead of the
+   literal. A model rename regenerates the accessor classes; the literal would
+   silently rot. The ID-tree entry point (`SBP`) offers the same positions keyed
+   by section id.
 2. **Navigate-then-read.** Walk to a node with the typed facade and read its
    `.path` (or a list's `.listPath`), then read/write generically off that path.
    This is how you build a *dynamic* path — a typed-navigation prefix plus a tail

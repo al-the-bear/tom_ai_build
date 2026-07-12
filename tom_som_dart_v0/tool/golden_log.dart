@@ -25,6 +25,7 @@ import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 const _defaultSample =
     '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
@@ -44,8 +45,15 @@ void main(List<String> args) {
   final samplePath = args.isNotEmpty ? args[0] : _defaultSample;
   final outputPath = args.length > 1 ? args[1] : _defaultOutput;
 
-  final doc = SpecDocument.fromFile(samplePath);
-  final sbp = D00SolutionBlueprint.loadFile(samplePath);
+  // Interim load: the shared sample is still in the retired flat v1 format
+  // until DR9 re-emits it hierarchically; parse it generically. After DR9:
+  //   final doc = SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);
+  final raw = yaml.loadYaml(File(samplePath).readAsStringSync()) as Map;
+  final modelVersion = raw['modelVersion'] as String?;
+  final doc = SpecDocument()
+    ..loadJson((raw['document'] as Map).cast<String, Object?>())
+    ..modelVersion = modelVersion;
+  final sbp = D00SolutionBlueprint(doc, documentVersion: modelVersion);
 
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');

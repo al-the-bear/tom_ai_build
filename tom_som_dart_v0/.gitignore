@@ -4,3 +4,6 @@
 build/
 doc/api/
 *.tar.gz
+
+# testkit tracking (gitignored per convention)
+testlog/

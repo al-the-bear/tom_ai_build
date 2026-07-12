@@ -201,7 +201,12 @@ dependencies:
     path: $runtimePath
 ''');
         final libDir = Directory(p.join(dir.path, 'lib'))..createSync();
-        File(p.join(libDir.path, 'generated.dart')).writeAsStringSync(source);
+        // The facade exports its sibling meta library (DR8), so write both —
+        // the export in the facade is by the committed package file name.
+        File(p.join(libDir.path, 'tom_som_dart_v0.dart'))
+            .writeAsStringSync(source);
+        File(p.join(libDir.path, 'tom_som_dart_v0_meta.dart')).writeAsStringSync(
+            SomDartMetaEmitter(_fixtureModel()).generateLibrary());
         final pubGet = await Process.run('dart', ['pub', 'get'],
             workingDirectory: dir.path);
         expect(pubGet.exitCode, 0,
@@ -305,22 +310,16 @@ dependencies:
       expect(tagsLine, isNot(contains('pattern:')));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('path-constant holders are retired; the meta library is exported '
+        '(DR8, DR1 §4)', () {
       final source = SomDartEmitter(_fixtureModel()).generateLibrary();
-      // The holder is named from the root segment (sectionId `PD00` → `Pd00`).
-      expect(source, contains('abstract final class Pd00Paths {'));
-      // A content leaf and a collapsed complex child both earn constants.
-      expect(source,
-          contains("static const String vision = 'PD00/vision';"));
-      expect(source,
-          contains("static const String situation = 'PD00/situation';"));
-      expect(
-          source,
-          contains("static const String situationSummary = "
-              "'PD00/situation/summary';"));
-      // A list container earns exactly the container path (item excluded).
-      expect(source, contains("static const String risks = 'PD00/risks';"));
-      expect(source, isNot(contains('risksTitle')));
+      // DR8: the former per-root `<Code>Paths` holders are gone from the main
+      // facade library …
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('static const String vision =')));
+      // … replaced by the generated metadata library (dot-notation + ID tree),
+      // re-exported from the facade so one import gives both surfaces.
+      expect(source, contains("export 'tom_som_dart_v0_meta.dart';"));
     });
 
     test('documentRoots subsets the generated classes', () {

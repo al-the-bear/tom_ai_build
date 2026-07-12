@@ -22,6 +22,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_dart_emitter.dart';
+import 'som_dart_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by [generateSomDartProject].
@@ -143,6 +144,17 @@ SomGenerationResult writeSomDartProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── generated metadata library (DR8): populated SomMetaTrees (DR1 §3.2)
+  //    plus the dot-notation and ID-tree access surfaces (DR1 §4), exported
+  //    from the main facade library ───────────────────────────────────────────
+  final metaSource = SomDartMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  ).generateLibrary();
+  File(p.join(outputRoot, 'lib', '${packageName}_meta.dart'))
+      .writeAsStringSync(metaSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   final schemas =
       DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
@@ -203,6 +215,10 @@ dev_dependencies:
   # generator only rewrites lib/, meta/, schemas/ and this pubspec) resolves
   # under `dart test`. The typed facade itself carries no test-time code.
   test: ^1.25.6
+  # The hand-authored examples read the shared conformance sample, which is
+  # still in the retired flat v1 format until DR9 re-emits it; they parse it
+  # with package:yaml + SpecDocument.loadJson in the interim.
+  yaml: ^3.1.2
 ''';
 
 /// The local-development override: resolves the co-developed runtime by path so

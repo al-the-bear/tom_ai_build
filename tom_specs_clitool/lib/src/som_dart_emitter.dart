@@ -16,8 +16,6 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// Generates the `tom_som_dart_v0` library source for a [SpecModel].
 class SomDartEmitter {
   final SpecModel model;
@@ -91,6 +89,13 @@ class SomDartEmitter {
       ..writeln()
       ..writeln(
           "import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';")
+      ..writeln()
+      // DR8: the generated metadata library (populated SomMetaTrees + the
+      // dot-notation and ID-tree access surfaces) replaces the retired flat
+      // path-constant holders. Imported here too — the root `loadYaml` /
+      // `loadFile` statics pass the root's populated tree to the codec.
+      ..writeln("import 'tom_som_dart_${versionLabel}_meta.dart';")
+      ..writeln("export 'tom_som_dart_${versionLabel}_meta.dart';")
       ..writeln();
 
     for (final e in enums) {
@@ -108,37 +113,10 @@ class SomDartEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-    }
+    // DR8: the former per-root `<Code>Paths` constant holders are retired
+    // (DR1 §4) — the dot-notation and ID-tree surfaces in the exported meta
+    // library carry the same paths as discoverable symbols.
     return buffer.toString();
-  }
-
-  /// Emits the `<Code>Paths` holder — an uninstantiable namespace of
-  /// `static const String` path constants (§ item 11).
-  String _emitPathHolder(SpecPathHolder holder) {
-    final b = StringBuffer()
-      ..writeln('/// Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('///')
-      ..writeln('/// Each constant is the absolute generic path of a fixed '
-          'section, for use with')
-      ..writeln('/// the generic [SpecDocument] API instead of a raw string '
-          'literal — the safe')
-      ..writeln('/// end of the navigate-then-read hybrid pattern.')
-      ..writeln('abstract final class ${holder.holderName} {');
-    for (final c in holder.constants) {
-      b
-        ..writeln('  /// `${c.path}`')
-        ..writeln("  static const String ${c.name} = '${_escape(c.path)}';");
-    }
-    b.writeln('}');
-    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------
@@ -249,7 +227,8 @@ class SomDartEmitter {
         ..writeln('  /// the former decode → loadJson → thread-`documentVersion` '
             'sequence.')
         ..writeln('  static ${cls.name} loadYaml(String yaml) {')
-        ..writeln('    final doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('    final doc = SpecDocument.fromYaml(yaml, '
+            '${_camelType(cls.name)}MetaTree);')
         ..writeln('    return ${cls.name}(doc, '
             'documentVersion: doc.modelVersion);')
         ..writeln('  }')
@@ -258,7 +237,8 @@ class SomDartEmitter {
             '[path] — the file')
         ..writeln('  /// companion to [loadYaml].')
         ..writeln('  static ${cls.name} loadFile(String path) {')
-        ..writeln('    final doc = SpecDocument.fromFile(path);')
+        ..writeln('    final doc = SpecDocument.fromFile(path, '
+            '${_camelType(cls.name)}MetaTree);')
         ..writeln('    return ${cls.name}(doc, '
             'documentVersion: doc.modelVersion);')
         ..writeln('  }')
@@ -396,6 +376,11 @@ class SomDartEmitter {
 
   String _escape(String s) =>
       s.replaceAll('\\', '\\\\').replaceAll("'", "\\'").replaceAll('\$', '\\\$');
+
+  /// LowerCamel of a root type name — the generated meta library names its
+  /// per-root `SomMetaTree` global `<camelType>MetaTree` (SomDartMetaEmitter).
+  String _camelType(String s) =>
+      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);

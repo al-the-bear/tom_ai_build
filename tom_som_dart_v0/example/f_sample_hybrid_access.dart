@@ -1,17 +1,19 @@
 // Sample (f) — HYBRID access: the typed→path bridge over the shared document.
 //
 // Reads the same shared sample as (d) and (e) and prints identical output, but
-// addresses sections through the *bridge* between the two access paths (spec
-// § "Expose the typed→path bridge"). Generic code that must stay dynamic — an
-// editor, a cross-version reader, a batch walker — should never hard-code raw
-// path literals like `'SBP/currentLandscape/CUOPME-OPER-LST'`; they are
-// undiscoverable and typo-prone. There are two safe ways to obtain a path:
+// addresses sections through the *bridge* between the two access paths (DR1
+// §4). Generic code that must stay dynamic — an editor, a cross-version
+// reader, a batch walker — should never hard-code raw path literals like
+// `'SBP/currentLandscape/CUOPME-OPER-LST'`; they are undiscoverable and
+// typo-prone. There are two safe ways to obtain a path:
 //
-//   1. GENERATED PATH CONSTANTS. Every document root gets a `<Root>Paths`
-//      holder (`SbpPaths`) of named constants whose values are the exact
-//      section paths. Referencing `SbpPaths.currentLandscapeOperationalMetrics`
-//      is checked by the compiler and survives model renames (the constant is
-//      regenerated), while the string literal silently rots.
+//   1. GENERATED METADATA REFS. Every document root gets a dot-notation entry
+//      point (`d00SolutionBlueprint`) whose member chain mirrors the model;
+//      each position exposes `.path` (and `.meta` for the full metadata node).
+//      Referencing `d00SolutionBlueprint.requirements.content.path` is checked
+//      by the compiler and survives model renames (the accessor classes are
+//      regenerated), while a string literal silently rots. The ID-tree entry
+//      point (`SBP`) offers the same positions keyed by section id.
 //
 //   2. NAVIGATE-THEN-READ. Walk to a node with the typed facade and read its
 //      `.path` (or a list's `.listPath`); then read/write generically off that
@@ -27,41 +29,51 @@ import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
+  // Interim load: the shared sample is still in the retired flat v1 format
+  // until DR9 re-emits it hierarchically; parse it generically.
   final sampleFile = File.fromUri(Platform.script.resolve(
       '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
-  final decoded = SpecDocumentYaml.decode(sampleFile.readAsStringSync());
-  final doc = SpecDocument()..loadJson(decoded.document);
+  final raw = yaml.loadYaml(sampleFile.readAsStringSync()) as Map;
+  final doc = SpecDocument()
+    ..loadJson((raw['document'] as Map).cast<String, Object?>());
 
   stdout.writeln('=== Hybrid access: Meridian Order Management (SBP) ===\n');
 
-  // --- Pattern 1: generated path constants -------------------------------
-  // Generic reads, but every path is a named constant instead of a literal.
+  // --- Pattern 1: generated metadata refs ---------------------------------
+  // Generic reads, but every path comes off the dot-notation metadata surface
+  // instead of a literal.
   stdout.writeln('Blueprint summary:');
-  stdout.writeln(_wrap(doc.content(SbpPaths.content) ?? ''));
+  stdout.writeln(_wrap(doc.content(d00SolutionBlueprint.content.path) ?? ''));
   stdout.writeln();
 
   stdout.writeln('Scope (SBP.2):');
-  stdout.writeln(_wrap(doc.content(SbpPaths.introductionAndScopeContent) ?? ''));
+  stdout.writeln(_wrap(
+      doc.content(d00SolutionBlueprint.introductionAndScope.content.path) ??
+          ''));
   stdout.writeln();
 
   stdout.writeln('Goals (SBP.2 › goals):');
-  stdout.writeln(
-      _wrap(doc.content(SbpPaths.introductionAndScopeGoalsContent) ?? ''));
+  stdout.writeln(_wrap(doc.content(d00SolutionBlueprint
+          .introductionAndScope.goals.content.path) ??
+      ''));
   stdout.writeln();
 
   stdout.writeln('Target operating model (SBP.7):');
-  stdout.writeln(
-      _wrap(doc.content(SbpPaths.targetOperatingModelConceptContent) ?? ''));
+  stdout.writeln(_wrap(doc.content(
+          d00SolutionBlueprint.targetOperatingModelConcept.content.path) ??
+      ''));
   stdout.writeln();
 
   // --- Pattern 2: navigate-then-read -------------------------------------
   // Navigate to the list with the typed facade, take its `.listPath`, then
   // enumerate item paths and read each `content` leaf generically. The prefix
   // is discovered by typed navigation; the per-item tail is computed at
-  // runtime — exactly the case a bare path constant cannot express.
-  final sbp = D00SolutionBlueprint(doc, documentVersion: decoded.modelVersion);
+  // runtime — exactly the case a bare metadata ref cannot express.
+  final sbp =
+      D00SolutionBlueprint(doc, documentVersion: raw['modelVersion'] as String?);
   final metricsPath = sbp.currentLandscape.operationalMetrics.listPath;
   final itemPaths = doc.listItems(metricsPath);
   stdout.writeln(
@@ -71,9 +83,10 @@ void main() {
   }
   stdout.writeln();
 
-  // Back to a path constant for the final leaf.
+  // Back to a metadata ref for the final leaf.
   stdout.writeln('Requirements (SBP.9):');
-  stdout.writeln(_wrap(doc.content(SbpPaths.requirementsContent) ?? ''));
+  stdout.writeln(_wrap(
+      doc.content(d00SolutionBlueprint.requirements.content.path) ?? ''));
 }
 
 /// Hanging-indents a paragraph so long section bodies stay readable in a

@@ -12,17 +12,24 @@ import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
   // Load the shared sample from the conformance corpus, three levels up.
+  //
+  // Interim load: the shared sample is still in the retired flat v1 format
+  // until DR9 re-emits it hierarchically; parse it generically. After DR9:
+  //   final sbp = D00SolutionBlueprint.loadFile(sampleFile.path);
   final sampleFile = File.fromUri(Platform.script.resolve(
       '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
-  final decoded = SpecDocumentYaml.decode(sampleFile.readAsStringSync());
-  final doc = SpecDocument()..loadJson(decoded.document);
+  final raw = yaml.loadYaml(sampleFile.readAsStringSync()) as Map;
+  final doc = SpecDocument()
+    ..loadJson((raw['document'] as Map).cast<String, Object?>());
 
   // Wrap the loaded document in the typed facade. The sample is stamped 1.0;
   // the facade verifies it is editable for its own model version.
-  final sbp = D00SolutionBlueprint(doc, documentVersion: decoded.modelVersion);
+  final sbp =
+      D00SolutionBlueprint(doc, documentVersion: raw['modelVersion'] as String?);
 
   stdout.writeln('=== Typed access: Meridian Order Management (SBP) ===\n');
 

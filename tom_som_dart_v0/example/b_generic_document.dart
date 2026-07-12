@@ -12,6 +12,7 @@
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 void main() {
   final doc = SpecDocument();
@@ -42,7 +43,11 @@ void main() {
   print('\nDocument JSON:');
   print(doc.toJson());
 
-  // … and to the canonical YAML wire format (stamped with the model version).
+  // … and to the canonical hierarchical YAML wire format (walked against the
+  // generated metadata tree, stamped with the model version).
   print('\nDocument YAML:');
-  print(SpecDocumentYaml.encode(document: doc, modelVersion: '1.0'));
+  print(SpecDocumentYaml.encode(
+      document: doc,
+      tree: d00SolutionBlueprintMetaTree,
+      modelVersion: '1.0'));
 }

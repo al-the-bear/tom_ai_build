@@ -4,14 +4,16 @@ import 'dart:io';
 import 'package:json_schema/json_schema.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SpecDocumentYaml;
 import 'package:yaml/yaml.dart';
 
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Tests for [DocspecsYamlSchemaGenerator] (followup item 12, D20): the
 /// standalone JSON Schema for the generic on-disk `*.docspecs.yaml` document
-/// wire format. The schema must accept a known-good document and reject
-/// documents the format genuinely cannot represent.
+/// wire format (hierarchical v2, DR1 §2). The schema must accept a known-good
+/// document and reject documents the format genuinely cannot represent.
 
 /// Converts a `loadYaml` result (YamlMap/YamlList) into a plain JSON-compatible
 /// structure the validator understands.
@@ -21,19 +23,28 @@ Object? _plain(Object? yaml) => json.decode(json.encode(yaml));
 JsonSchema _buildSchema() =>
     JsonSchema.create(DocspecsYamlSchemaGenerator().generate());
 
-/// A minimal, valid in-memory document (plain JSON-compatible maps).
+/// A minimal, valid in-memory v2 document (plain JSON-compatible maps): one
+/// root key holding a nested section tree of scalar leaves and mappings.
 Map<String, Object?> _validDoc() => <String, Object?>{
       'version': DocspecsYamlSchemaGenerator().formatVersion,
       'modelVersion': '1.0',
       'document': <String, Object?>{
-        'content': <String, Object?>{'DEMO/title': 'Hello'},
-        'forms': <String, Object?>{
-          'DEMO/details': <String, Object?>{'owner': 'Bob'},
-        },
-        'lists': <String, Object?>{
-          'DEMO/items': <String, Object?>{
-            'seq': 2,
-            'items': <Object?>['DEMO/items-1', 'DEMO/items-2'],
+        'DEMO Demo': <String, Object?>{
+          'TTL title': 'Hello',
+          'CNT count': 3,
+          'DET details': <String, Object?>{
+            'owner': 'Bob',
+            'contact': 'bob@example.com',
+          },
+          'items': <String, Object?>{
+            'items-1': <String, Object?>{
+              'label': 'First',
+              'STS status': 'open',
+            },
+            'items-2': <String, Object?>{
+              'label': 'Second',
+              'STS status': 'done',
+            },
           },
         },
       },
@@ -49,9 +60,12 @@ void main() {
     });
 
     test('defaults the format version to the codec constant', () {
-      // SpecDocumentYaml.formatVersion is currently 1; the generator must track
-      // it so the schema and the writer stay in lockstep.
-      expect(DocspecsYamlSchemaGenerator().formatVersion, 1);
+      // SpecDocumentYaml.formatVersion is 2 (the DR5 hierarchical format);
+      // the generator must track it so the schema and the writer stay in
+      // lockstep.
+      expect(DocspecsYamlSchemaGenerator().formatVersion,
+          SpecDocumentYaml.formatVersion);
+      expect(DocspecsYamlSchemaGenerator().formatVersion, 2);
     });
 
     test('honours an explicit format version override', () {
@@ -80,9 +94,16 @@ void main() {
       // The codec decodes a missing pass as empty, so a bare `version` is a
       // legitimate, schema-valid file.
       expect(
-        _buildSchema().validate(<String, Object?>{'version': 1}).isValid,
+        _buildSchema().validate(<String, Object?>{
+          'version': DocspecsYamlSchemaGenerator().formatVersion,
+        }).isValid,
         isTrue,
       );
+    });
+
+    test('validates an empty document pass', () {
+      final doc = _validDoc()..['document'] = <String, Object?>{};
+      expect(_buildSchema().validate(doc).isValid, isTrue);
     });
 
     test('validates the known-good corpus expected.docspecs.yaml', () {
@@ -118,12 +139,17 @@ void main() {
     });
 
     test('rejects a non-integer version', () {
-      final doc = _validDoc()..['version'] = '1';
+      final doc = _validDoc()..['version'] = '2';
       expect(schema.validate(doc).isValid, isFalse);
     });
 
     test('rejects a wrong format version', () {
       final doc = _validDoc()..['version'] = 99;
+      expect(schema.validate(doc).isValid, isFalse);
+    });
+
+    test('rejects the retired flat v1 format version', () {
+      final doc = _validDoc()..['version'] = 1;
       expect(schema.validate(doc).isValid, isFalse);
     });
 
@@ -137,52 +163,28 @@ void main() {
       expect(schema.validate(doc).isValid, isFalse);
     });
 
-    test('rejects an unknown document pass key', () {
+    test('rejects more than one document root key', () {
       final doc = _validDoc();
-      (doc['document'] as Map)['extra'] = <String, Object?>{};
+      (doc['document'] as Map)['OTHER Other'] = <String, Object?>{};
       expect(schema.validate(doc).isValid, isFalse);
     });
 
-    test('rejects a non-string content value', () {
-      final doc = _validDoc();
-      ((doc['document'] as Map)['content'] as Map)['DEMO/count'] = 3;
+    test('rejects a scalar in document-root position', () {
+      final doc = _validDoc()
+        ..['document'] = <String, Object?>{'DEMO Demo': 'nope'};
       expect(schema.validate(doc).isValid, isFalse);
     });
 
-    test('rejects a non-string form field value', () {
-      final doc = _validDoc();
-      (((doc['document'] as Map)['forms'] as Map)['DEMO/details'] as Map)['owner'] =
-          42;
+    test('rejects a non-mapping document pass', () {
+      final doc = _validDoc()..['document'] = 'nope';
       expect(schema.validate(doc).isValid, isFalse);
     });
 
-    test('rejects a list entry missing seq', () {
+    test('rejects an array inside the section tree', () {
       final doc = _validDoc();
-      (doc['document'] as Map)['lists'] = <String, Object?>{
-        'DEMO/items': <String, Object?>{
-          'items': <Object?>['DEMO/items-1'],
-        },
-      };
-      expect(schema.validate(doc).isValid, isFalse);
-    });
-
-    test('rejects a list entry with non-array items', () {
-      final doc = _validDoc();
-      (doc['document'] as Map)['lists'] = <String, Object?>{
-        'DEMO/items': <String, Object?>{'seq': 1, 'items': 'nope'},
-      };
-      expect(schema.validate(doc).isValid, isFalse);
-    });
-
-    test('rejects a list entry with an unknown key', () {
-      final doc = _validDoc();
-      (doc['document'] as Map)['lists'] = <String, Object?>{
-        'DEMO/items': <String, Object?>{
-          'seq': 1,
-          'items': <Object?>[],
-          'oops': true,
-        },
-      };
+      ((doc['document'] as Map)['DEMO Demo'] as Map)['items'] = <Object?>[
+        'items-1',
+      ];
       expect(schema.validate(doc).isValid, isFalse);
     });
   });

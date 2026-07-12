@@ -472,3 +472,45 @@ class SomMetaTree {
     return node;
   }
 }
+
+/// One position of the generated **dot-notation / ID-tree access surfaces**
+/// (DR1 §4): an absolute document [path] bound to the [tree] it belongs to.
+///
+/// The generated facades (DR8) emit one accessor class per model class whose
+/// getters return further [SomMetaRef]s — `d00SolutionBlueprint
+/// .introductionAndScope.path` / `SBP.INSC.path`. Every accessor exposes at
+/// least [path] (identical to the retired flat path constant's value) and
+/// [meta] (the [SomMetaNode] at that position). This base class is the leaf
+/// accessor itself (content/scalar/enum/form positions).
+class SomMetaRef {
+  /// The metadata tree of the document root this position belongs to.
+  final SomMetaTree tree;
+
+  /// The absolute document path of this position (§4 path grammar).
+  final String path;
+
+  SomMetaRef(this.tree, this.path);
+
+  /// The metadata node at [path].
+  ///
+  /// Throws [StateError] when the path resolves to no node — only possible
+  /// past a recursive re-entry, where the generated chain has ended and the
+  /// metadata tree carries no further nodes (DR1 §4.1 cycle rule).
+  SomMetaNode get meta =>
+      tree.byPath(path) ??
+      (throw StateError('no metadata node at "$path" — the position lies '
+          'beyond a recursive re-entry; use the dynamic tree lookups instead'));
+}
+
+/// The generated accessor for a **list** position (DR1 §4.1): [path] is the
+/// list container path; [item] returns the accessor for the `seq`-th item
+/// position (`<path>-<seq>`), whose children are the element class's
+/// accessors.
+class SomListMetaRef<E> extends SomMetaRef {
+  final E Function(SomMetaTree tree, String path) _element;
+
+  SomListMetaRef(super.tree, super.path, this._element);
+
+  /// The accessor at the item position `<path>-<seq>`.
+  E item(int seq) => _element(tree, listItemPath(path, seq));
+}

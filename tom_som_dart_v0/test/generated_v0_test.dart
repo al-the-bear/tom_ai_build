@@ -17,6 +17,7 @@ import 'dart:io';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:test/test.dart';
+import 'package:yaml/yaml.dart' as yaml_pkg;
 
 void main() {
   group('tom_som_dart_v0 generated D00SolutionBlueprint', () {
@@ -122,11 +123,15 @@ void main() {
     late D00SolutionBlueprint sbp;
 
     setUp(() {
+      // Interim load: the shared sample is still in the retired flat v1
+      // format until DR9 re-emits it hierarchically; parse it generically.
       final file = File(
           '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml');
-      final decoded = SpecDocumentYaml.decode(file.readAsStringSync());
-      doc = SpecDocument()..loadJson(decoded.document);
-      sbp = D00SolutionBlueprint(doc, documentVersion: decoded.modelVersion);
+      final raw = yaml_pkg.loadYaml(file.readAsStringSync()) as Map;
+      doc = SpecDocument()
+        ..loadJson((raw['document'] as Map).cast<String, Object?>());
+      sbp = D00SolutionBlueprint(doc,
+          documentVersion: raw['modelVersion'] as String?);
     });
 
     test('top-level sections match generic reads', () {
@@ -280,24 +285,38 @@ void main() {
   });
 
   group('one-call loading (§ item 4)', () {
-    const samplePath =
-        '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+    // The shared conformance sample is still in the retired flat v1 format
+    // (DR9 re-emits it hierarchically), so the round-trip fixtures here are
+    // built in-memory and encoded to the canonical v2 wire format.
+    String buildV2Yaml({String? modelVersion = '1.0'}) {
+      final doc = SpecDocument();
+      final sbp = D00SolutionBlueprint(doc);
+      sbp.content = 'A clear vision';
+      sbp.introductionAndScope.goals.content = 'Grow revenue';
+      sbp.currentLandscape.operationalMetrics
+        ..addContent('Orders/day: 12k')
+        ..addContent('Manual reconciliation: ~12 h/week');
+      return SpecDocumentYaml.encode(
+          document: doc,
+          tree: d00SolutionBlueprintMetaTree,
+          modelVersion: modelVersion);
+    }
 
-    test('loadYaml collapses decode → loadJson → thread-version to one call', () {
-      final yaml = File(samplePath).readAsStringSync();
+    test('loadYaml collapses decode → thread-version to one call', () {
+      final yaml = buildV2Yaml();
 
-      // The former three-step incantation.
-      final decoded = SpecDocumentYaml.decode(yaml);
-      final manualDoc = SpecDocument()..loadJson(decoded.document);
-      final manual =
-          D00SolutionBlueprint(manualDoc, documentVersion: decoded.modelVersion);
+      // The former multi-step incantation.
+      final decoded =
+          SpecDocumentYaml.decode(yaml, d00SolutionBlueprintMetaTree);
+      final manual = D00SolutionBlueprint(decoded.document,
+          documentVersion: decoded.modelVersion);
 
       // The one-call convenience.
       final oneCall = D00SolutionBlueprint.loadYaml(yaml);
 
       // The document stamp is applied automatically — no manual threading.
       expect(oneCall.doc.modelVersion, decoded.modelVersion);
-      // Both paths read identical content from the shared sample.
+      // Both paths read identical content from the round-tripped document.
       expect(oneCall.content, manual.content);
       expect(oneCall.introductionAndScope.goals.content,
           manual.introductionAndScope.goals.content);
@@ -306,30 +325,27 @@ void main() {
     });
 
     test('loadFile reads the file then delegates to loadYaml', () {
-      final fromFile = D00SolutionBlueprint.loadFile(samplePath);
-      final fromYaml =
-          D00SolutionBlueprint.loadYaml(File(samplePath).readAsStringSync());
+      final tmp = Directory.systemTemp.createTempSync('som_v0_test_');
+      addTearDown(() => tmp.deleteSync(recursive: true));
+      final yaml = buildV2Yaml();
+      final path = '${tmp.path}/sample.docspecs.yaml';
+      File(path).writeAsStringSync(yaml);
+      final fromFile = D00SolutionBlueprint.loadFile(path);
+      final fromYaml = D00SolutionBlueprint.loadYaml(yaml);
       expect(fromFile.doc.modelVersion, fromYaml.doc.modelVersion);
       expect(fromFile.content, fromYaml.content);
     });
 
     test('SpecDocument.fromYaml retains the parsed model version', () {
-      const yaml = '''
-version: 1
-modelVersion: "1.0"
-document:
-  content:
-    "SBP/content": |2-
-      Hello
-''';
-      final doc = SpecDocument.fromYaml(yaml);
+      final doc = SpecDocument.fromYaml(
+          buildV2Yaml(), d00SolutionBlueprintMetaTree);
       expect(doc.modelVersion, '1.0');
-      expect(doc.content('SBP/content'), 'Hello');
+      expect(doc.content('SBP/content'), 'A clear vision');
     });
 
     test('a document with no modelVersion stamp loads with a null stamp', () {
-      const yaml = 'version: 1\ndocument: {}\n';
-      final doc = SpecDocument.fromYaml(yaml);
+      final yaml = buildV2Yaml(modelVersion: null);
+      final doc = SpecDocument.fromYaml(yaml, d00SolutionBlueprintMetaTree);
       expect(doc.modelVersion, isNull);
       // A null stamp is accepted by the facade (a new document is editable).
       expect(() => D00SolutionBlueprint.loadYaml(yaml), returnsNormally);

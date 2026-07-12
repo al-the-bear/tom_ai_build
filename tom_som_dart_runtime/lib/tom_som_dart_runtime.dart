@@ -47,6 +47,7 @@ export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
 export 'src/spec_meta.dart';
 export 'src/spec_meta_bridge.dart';
+export 'src/spec_meta_diff.dart';
 export 'src/spec_model.dart';
 export 'src/spec_node_creation.dart';
 export 'src/spec_paths.dart';

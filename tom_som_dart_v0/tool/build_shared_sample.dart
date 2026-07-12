@@ -176,6 +176,7 @@ documented rollback to OrderDesk until the parallel-run gate passes.''');
 
   final yaml = SpecDocumentYaml.encode(
     document: doc,
+    tree: d00SolutionBlueprintMetaTree,
     modelVersion: sampleModelVersion,
   );
   final yamlFile =
