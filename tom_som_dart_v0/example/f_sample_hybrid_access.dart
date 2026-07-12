@@ -29,16 +29,14 @@ import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
-import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
-  // Interim load: the shared sample is still in the retired flat v1 format
-  // until DR9 re-emits it hierarchically; parse it generically.
+  // Load the shared sample (hierarchical v2 yaml) against the SBP metadata
+  // tree via the generic one-call loader.
   final sampleFile = File.fromUri(Platform.script.resolve(
       '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
-  final raw = yaml.loadYaml(sampleFile.readAsStringSync()) as Map;
-  final doc = SpecDocument()
-    ..loadJson((raw['document'] as Map).cast<String, Object?>());
+  final doc =
+      SpecDocument.fromFile(sampleFile.path, d00SolutionBlueprintMetaTree);
 
   stdout.writeln('=== Hybrid access: Meridian Order Management (SBP) ===\n');
 
@@ -72,8 +70,9 @@ void main() {
   // enumerate item paths and read each `content` leaf generically. The prefix
   // is discovered by typed navigation; the per-item tail is computed at
   // runtime — exactly the case a bare metadata ref cannot express.
-  final sbp =
-      D00SolutionBlueprint(doc, documentVersion: raw['modelVersion'] as String?);
+  // `fromFile` retained the yaml's modelVersion stamp on the document, so the
+  // facade picks it up without threading it by hand.
+  final sbp = D00SolutionBlueprint(doc, documentVersion: doc.modelVersion);
   final metricsPath = sbp.currentLandscape.operationalMetrics.listPath;
   final itemPaths = doc.listItems(metricsPath);
   stdout.writeln(

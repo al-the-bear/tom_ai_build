@@ -17,7 +17,6 @@ import 'dart:io';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:test/test.dart';
-import 'package:yaml/yaml.dart' as yaml_pkg;
 
 void main() {
   group('tom_som_dart_v0 generated D00SolutionBlueprint', () {
@@ -123,15 +122,12 @@ void main() {
     late D00SolutionBlueprint sbp;
 
     setUp(() {
-      // Interim load: the shared sample is still in the retired flat v1
-      // format until DR9 re-emits it hierarchically; parse it generically.
-      final file = File(
+      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9): load
+      // it with the generated one-call loader, which decodes against the SBP
+      // metadata tree and applies the yaml's modelVersion stamp.
+      sbp = D00SolutionBlueprint.loadFile(
           '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml');
-      final raw = yaml_pkg.loadYaml(file.readAsStringSync()) as Map;
-      doc = SpecDocument()
-        ..loadJson((raw['document'] as Map).cast<String, Object?>());
-      sbp = D00SolutionBlueprint(doc,
-          documentVersion: raw['modelVersion'] as String?);
+      doc = sbp.doc;
     });
 
     test('top-level sections match generic reads', () {

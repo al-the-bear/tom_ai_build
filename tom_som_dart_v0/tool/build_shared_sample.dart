@@ -26,60 +26,84 @@ void main() {
   final doc = SpecDocument();
   final sbp = D00SolutionBlueprint(doc);
 
-  sbp.content = _p('''
-Solution Blueprint for the Meridian Order Management (MOM) programme. MOM
-replaces three ageing back-office systems with a single, event-driven order
+  sbp.content = _md('''
+Solution Blueprint for the **Meridian Order Management (MOM)** programme.
+
+MOM replaces three ageing back-office systems with a single, event-driven order
 platform serving the wholesale and e-commerce channels of a mid-market
 distributor. This blueprint is the master specification from which the twelve
 Phase 3 documents (CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM, TRP)
 are derived.''');
 
   // SBP.1 Document Control.
-  sbp.documentControl.content = _p('''
-Version 1.0, approved 2026-05-18. Authors: Solution Architecture chapter.
-Approvers: Programme Sponsor (VP Operations), Enterprise Architecture Board.
-Revision history is tracked in the programme wiki; this blueprint supersedes the
-2025 "Order Platform Vision" one-pager.''');
+  sbp.documentControl.content = _md('''
+- Version: 1.0
+- Status: Approved
+- Approval date: 2026-05-18
+- Authors: Solution Architecture chapter
+- Approvers: Programme Sponsor (VP Operations), Enterprise Architecture Board
+
+Revision history is tracked in the programme wiki. This blueprint supersedes
+the 2025 "Order Platform Vision" one-pager.''');
 
   // SBP.2 Introduction & Scope.
   final intro = sbp.introductionAndScope;
-  intro.content = _p('''
+  intro.content = _md('''
 MOM covers order capture, validation, pricing, fulfilment orchestration, and
 post-sale amendments across the wholesale (EDI) and e-commerce (REST) channels.
-Out of scope: warehouse robotics control, general-ledger posting (delegated to
-the existing finance ERP via a published interface), and CRM lead management.''');
-  intro.goals.content = _p('''
-Primary goals: (1) cut median order-to-confirmation time from 4.2 hours to under
-5 minutes; (2) remove the nightly batch window entirely; (3) give operations
-staff a single screen for the full order lifecycle. Secondary goal: expose a
-stable public order API for third-party marketplace integrators. Three legacy
-systems are decommissioned: "OrderDesk" (green-screen order entry, 1998),
-"PriceCalc" (a spreadsheet-derived pricing service), and the nightly "BatchSync"
-file exchange with the warehouse.''');
+
+Out of scope:
+
+- warehouse robotics control
+- general-ledger posting (delegated to the existing finance ERP via a
+  published interface)
+- CRM lead management''');
+  intro.goals.content = _md('''
+Primary goals:
+
+1. Cut median order-to-confirmation time from 4.2 hours to under 5 minutes.
+2. Remove the nightly batch window entirely.
+3. Give operations staff a single screen for the full order lifecycle.
+
+Secondary goal: expose a stable public order API for third-party marketplace
+integrators.
+
+Three legacy systems are decommissioned:
+
+- "OrderDesk" — green-screen order entry, 1998
+- "PriceCalc" — a spreadsheet-derived pricing service
+- "BatchSync" — the nightly file exchange with the warehouse''');
 
   // SBP.3 Glossary & Abbreviations.
-  sbp.glossaryAndAbbreviations.content = _p('''
-MOM — Meridian Order Management. Line — a single product/quantity within an
-order. Hold — a state in which an order awaits manual review. Fulfilment window
-— the committed dispatch date range communicated to the customer. EDI — the
-wholesale electronic data interchange channel.''');
+  sbp.glossaryAndAbbreviations.content = _md('''
+- **MOM** — Meridian Order Management.
+- **Line** — a single product/quantity within an order.
+- **Hold** — a state in which an order awaits manual review.
+- **Fulfilment window** — the committed dispatch date range communicated to
+  the customer.
+- **EDI** — the wholesale electronic data interchange channel.''');
 
   // SBP.4 Stakeholders & Governance.
-  sbp.stakeholdersAndGovernance.content = _p('''
-Sponsor: VP Operations. Product owner: Head of Order Operations. Key stakeholder
-groups: wholesale account managers, e-commerce merchandising, warehouse
-operations, finance, and the external marketplace partners. Governance runs
-through a fortnightly steering board; architectural decisions are recorded as
-ADRs owned by the Enterprise Architecture Board.''');
+  sbp.stakeholdersAndGovernance.content = _md('''
+- Sponsor: VP Operations
+- Product owner: Head of Order Operations
+- Key stakeholder groups: wholesale account managers, e-commerce
+  merchandising, warehouse operations, finance, and the external marketplace
+  partners
+
+Governance runs through a fortnightly steering board; architectural decisions
+are recorded as ADRs owned by the Enterprise Architecture Board.''');
 
   // SBP.5 Current Landscape. Seeds -> CLA.
   final landscape = sbp.currentLandscape;
-  landscape.content = _p('''
+  landscape.content = _md('''
 Today, order entry is manual and channel-specific. Wholesale orders arrive by
 EDI and are re-keyed into OrderDesk; e-commerce orders drop into a queue that a
-clerk clears twice a day. Pricing is recomputed nightly, so intraday price
-changes are invisible until the next morning. There is no single source of truth
-for order status — staff reconcile three systems by phone.''');
+clerk clears twice a day.
+
+Pricing is recomputed nightly, so intraday price changes are invisible until
+the next morning. There is no single source of truth for order status — staff
+reconcile three systems by phone.''');
   // A representative slice of the current operational metrics list.
   landscape.operationalMetrics.add().content =
       'Median order-to-confirmation time: 4.2 hours (wholesale), 9 hours (e-commerce).';
@@ -91,74 +115,112 @@ for order status — staff reconcile three systems by phone.''');
       'Order-status enquiry calls: ~340/week to the operations desk.';
 
   // SBP.6 Assumptions, Constraints & Dependencies.
-  sbp.assumptionsConstraintsDependencies.content = _p('''
-Assumes the finance ERP order-posting interface remains stable for the
-programme's duration. Constrained to the corporate AWS eu-central-1 landing zone
-and the approved managed-database catalogue. Depends on the warehouse team
-delivering the new dispatch-event webhook by the end of increment 2.''');
+  sbp.assumptionsConstraintsDependencies.content = _md('''
+- **Assumption** — the finance ERP order-posting interface remains stable for
+  the programme's duration.
+- **Constraint** — the platform runs in the corporate AWS eu-central-1 landing
+  zone and uses only the approved managed-database catalogue.
+- **Dependency** — the warehouse team delivers the new dispatch-event webhook
+  by the end of increment 2.''');
 
   // SBP.7 Target Operating Model concept. Seeds -> TOM.
-  sbp.targetOperatingModelConcept.content = _p('''
-Orders flow through a single event-driven pipeline: Captured -> Validated ->
-Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with an orthogonal Hold
-sub-state for manual review. Every transition emits a domain event; operations
-staff work from one queue view filtered by state. Pricing becomes a synchronous
-call, eliminating the batch window.''');
+  sbp.targetOperatingModelConcept.content = _md('''
+Orders flow through a single event-driven pipeline:
+
+Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed
+
+An orthogonal Hold sub-state covers manual review. Every transition emits a
+domain event; operations staff work from one queue view filtered by state.
+Pricing becomes a synchronous call, eliminating the batch window.''');
 
   // SBP.8 Information & Data Model. Seeds -> IFM.
-  sbp.informationAndDataModel.content = _p('''
+  sbp.informationAndDataModel.content = _md('''
 Core aggregates: Order (with Lines), Customer, Product, PriceList, and
-FulfilmentPlan. Orders reference Customers and Products by stable IDs; prices are
-snapshotted onto each Line at pricing time so historical orders remain
-reproducible. The event log is the system of record; read models are projections.''');
+FulfilmentPlan.
+
+Orders reference Customers and Products by stable IDs; prices are snapshotted
+onto each Line at pricing time so historical orders remain reproducible. The
+event log is the system of record; read models are projections.''');
 
   // SBP.9 Requirements. Seeds -> RSP.
-  sbp.requirements.content = _p('''
-Functional: capture orders from EDI and REST; validate against credit and stock;
-price synchronously; reserve stock; confirm within 5 minutes; support partial
-amendments and cancellations before dispatch. Non-functional: 99.9% capture-API
-availability; p95 confirmation latency < 30s; full audit trail; GDPR-compliant
-handling of customer data with a 7-year retention policy on order records.''');
+  sbp.requirements.content = _md('''
+Functional:
+
+- capture orders from EDI and REST
+- validate against credit and stock
+- price synchronously and reserve stock
+- confirm within 5 minutes
+- support partial amendments and cancellations before dispatch
+
+Non-functional:
+
+- 99.9% capture-API availability
+- p95 confirmation latency < 30s
+- full audit trail
+- GDPR-compliant handling of customer data with a 7-year retention policy on
+  order records''');
 
   // SBP.11 Solution Architecture & Technology. Seeds -> ATS.
-  sbp.solutionArchitectureAndTechnology.content = _p('''
+  sbp.solutionArchitectureAndTechnology.content = _md('''
 Event-sourced order service (Dart/Flutter back office, Kotlin domain services)
 on Kubernetes, backed by PostgreSQL for read models and a managed Kafka cluster
-for the event backbone. The public order API is an API-gateway-fronted REST
-surface; EDI ingestion runs as an adapter that translates to the same command
-API. Infrastructure is provisioned as code.''');
+for the event backbone.
+
+The public order API is an API-gateway-fronted REST surface; EDI ingestion runs
+as an adapter that translates to the same command API. Infrastructure is
+provisioned as code.''');
 
   // SBP.12 Security & Access Model. Seeds -> SAS.
-  sbp.securityAndAccessModel.content = _p('''
-Access is role-based: Order Clerk, Order Supervisor (may release holds),
-Pricing Admin, and Integration (machine) accounts scoped to specific channels.
+  sbp.securityAndAccessModel.content = _md('''
+Access is role-based:
+
+- Order Clerk
+- Order Supervisor (may release holds)
+- Pricing Admin
+- Integration (machine) accounts scoped to specific channels
+
 All customer PII is encrypted at rest; the public API uses OAuth2 client
 credentials with per-partner rate limits. Every state transition is attributed
 to an authenticated principal in the audit log.''');
 
   // SBP.13 Experience & Interface Design. Seeds -> XDS.
-  sbp.experienceAndInterfaceDesign.content = _p('''
+  sbp.experienceAndInterfaceDesign.content = _md('''
 The operations back office is a single-page application organised around the
 order queue. The primary screen is a state-filtered work list; selecting an
 order opens a lifecycle timeline with inline actions (release hold, amend line,
-cancel). Design priorities: keyboard-first navigation for high-volume clerks and
-an unambiguous status colour language shared with the public tracking page.''');
+cancel).
+
+Design priorities:
+
+- keyboard-first navigation for high-volume clerks
+- an unambiguous status colour language shared with the public tracking page''');
 
   // SBP.14 Quality & Acceptance Model. Seeds -> QAP.
-  sbp.qualityAndAcceptanceModel.content = _p('''
-Acceptance is gated on: a fully automated regression suite over the order
-lifecycle; a two-week parallel run against OrderDesk with < 0.1% reconciliation
-variance; and a load test sustaining 3x peak-hour order volume within the p95
-latency budget. Business sign-off requires the operations desk to clear a full
-day's orders on MOM alone.''');
+  sbp.qualityAndAcceptanceModel.content = _md('''
+Acceptance is gated on:
+
+1. a fully automated regression suite over the order lifecycle;
+2. a two-week parallel run against OrderDesk with < 0.1% reconciliation
+   variance;
+3. a load test sustaining 3x peak-hour order volume within the p95 latency
+   budget.
+
+Business sign-off requires the operations desk to clear a full day's orders on
+MOM alone.''');
 
   // SBP.15 Delivery, Transition & Rollout. Seeds -> DRM, TRP.
-  sbp.deliveryTransitionAndRollout.content = _p('''
-Five increments: (1) order capture + event backbone; (2) synchronous pricing +
-warehouse webhook; (3) fulfilment orchestration + back office; (4) public API +
-marketplace onboarding; (5) legacy decommission. Transition is channel-by-channel
-(e-commerce first, then wholesale) with a parallel-run safety net and a
-documented rollback to OrderDesk until the parallel-run gate passes.''');
+  sbp.deliveryTransitionAndRollout.content = _md('''
+Five increments:
+
+1. order capture + event backbone
+2. synchronous pricing + warehouse webhook
+3. fulfilment orchestration + back office
+4. public API + marketplace onboarding
+5. legacy decommission
+
+Transition is channel-by-channel (e-commerce first, then wholesale) with a
+parallel-run safety net and a documented rollback to OrderDesk until the
+parallel-run gate passes.''');
 
   // The narrative above is the blueprint prose. The blocks below turn MOM into
   // a genuinely *implementable* specification: typed requirement lists, actors,
@@ -169,6 +231,15 @@ documented rollback to OrderDesk until the parallel-run gate passes.''');
   _authorActorsAndUseCases(sbp);
   _authorDataModel(sbp);
   _authorScreens(sbp);
+
+  // DR9: renumber every patterned list item to the deterministic anonymous
+  // 1-based id form (`FRE-REQU-1`, …) before serialising. The AA1-generated
+  // ids embed the *creation date* (two-letter-date component), which would
+  // churn on every regeneration of this committed sample and does not match
+  // the DR3 schema's `pattern-check-id` (`[0-9]+`) — see quest todo DRC5 for
+  // the generator/AA1 reconciliation. Explicit numeric ids are a sanctioned
+  // AA1 criterion-5 override.
+  _normalizeListItemIds(doc, d00SolutionBlueprintMetaTree);
 
   // --- Serialise ----------------------------------------------------------
   final samplesDir = Directory('../tom_som_conformance/samples');
@@ -192,15 +263,53 @@ documented rollback to OrderDesk until the parallel-run gate passes.''');
   final mdFile = File('${samplesDir.path}/meridian_order_management.md');
   mdFile.writeAsStringSync(markdown);
 
+  // DR9 gate: the emitted markdown must validate cleanly against the
+  // DR3-generated Solution Blueprint DocSpecs schema (via the DR7 API).
+  final schema = DocSpecsSchema.fromYamlText(File.fromUri(Platform.script
+          .resolve('../schemas/solution-blueprint/'
+              'solution-blueprint.1.0.docspecs-schema.yaml'))
+      .readAsStringSync());
+  final violations = DocSpecsValidator(schema).validateMarkdown(markdown);
+  if (violations.isNotEmpty) {
+    stderr.writeln('sample markdown FAILS DocSpecs validation:');
+    for (final v in violations) {
+      stderr.writeln('  $v');
+    }
+    exit(1);
+  }
+
   stdout.writeln('Wrote sample to ${samplesDir.absolute.path}');
   stdout.writeln('  meridian_order_management.docspecs.yaml (${yaml.length} bytes)');
   stdout.writeln('  meridian_order_management.md (${markdown.length} bytes)');
+  stdout.writeln('  markdown validates cleanly against solution-blueprint/1.0');
 }
 
-/// Collapses a hard-wrapped multi-line string literal into a single paragraph
-/// so the authored content reads naturally on disk.
+/// Collapses a hard-wrapped multi-line string literal into a single paragraph.
+/// Used for *form-field* values, which the DocSpecs markdown format renders as
+/// single `FieldName: value` lines.
 String _p(String raw) =>
     raw.trim().replaceAll('\n', ' ').replaceAll(RegExp(r' +'), ' ');
+
+/// Preserves the authored line structure. Used for the narrative `content`
+/// sections, which are real multi-line markdown (paragraphs and lists) per
+/// DR9 — never single-line blobs.
+String _md(String raw) => raw.trim();
+
+/// Renumbers every patterned list item's stored section id to the anonymous
+/// 1-based form (`<PATTERN with xxx→pos>`), making the committed sample
+/// deterministic (independent of the build date) and schema-valid against
+/// the DR3 `pattern-check-id` regexes.
+void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
+  for (final listPath in doc.listPaths) {
+    final node = tree.byPath(listPath);
+    final pattern = node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
+    if (pattern == null) continue;
+    final items = doc.listItems(listPath);
+    for (var i = 0; i < items.length; i++) {
+      doc.setItemSectionId(items[i], pattern.replaceAll('xxx', '${i + 1}'));
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Requirements: functional, technical, security, and organizational lists.
@@ -210,10 +319,11 @@ String _p(String raw) =>
 // ---------------------------------------------------------------------------
 void _authorRequirements(D00SolutionBlueprint sbp) {
   final reqs = sbp.introductionAndScope.requirements;
-  reqs.content = _p('''
-The requirements below are the contract MOM is built and accepted against. IDs
-are stable and referenced from the use cases, screens, and data model so every
-downstream artifact traces back to a requirement.''');
+  reqs.content = _md('''
+The requirements below are the contract MOM is built and accepted against.
+
+IDs are stable and referenced from the use cases, screens, and data model so
+every downstream artifact traces back to a requirement.''');
 
   // --- Functional requirements (FR) --------------------------------------
   final fr = reqs.functionalRequirements.requirements;
@@ -788,10 +898,12 @@ void _scnStep(dynamic s, String number, String actor, String action,
 // ---------------------------------------------------------------------------
 void _authorDataModel(D00SolutionBlueprint sbp) {
   final dm = sbp.informationAndDataModel.dataModel;
-  dm.content = _p('''
-The relational core of MOM. Order is the aggregate root; each Order owns its
-OrderLines and references a Customer and, per line, a Product. Prices are
-snapshotted onto lines so historical orders remain reproducible.''');
+  dm.content = _md('''
+The relational core of MOM.
+
+Order is the aggregate root; each Order owns its OrderLines and references a
+Customer and, per line, a Product. Prices are snapshotted onto lines so
+historical orders remain reproducible.''');
 
   // Order.
   final order = dm.entities.add();

@@ -10,7 +10,6 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
-import 'package:yaml/yaml.dart';
 
 // ---------------------------------------------------------------------------
 // Fixture schema (hand-written in the exact DR3 generator output shape).
@@ -330,11 +329,12 @@ document:
               File('../tom_som_dart_v0/meta/spec_model.meta.json')
                   .readAsStringSync())
           as Map<String, dynamic>);
-      final sample = loadYaml(File(
-              '../tom_som_conformance/samples/meridian_order_management'
-              '.docspecs.yaml')
-          .readAsStringSync()) as Map;
-      final document = SpecDocument()..loadJson(sample['document'] as Map);
+      // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (DR9):
+      // decode it against the metadata tree bridged from the exported model.
+      final document = SpecDocument.fromFile(
+          '../tom_som_conformance/samples/meridian_order_management'
+          '.docspecs.yaml',
+          buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'));
       final md = document.toMarkdown(model);
 
       final schema = DocSpecsSchema.fromYamlText(File(

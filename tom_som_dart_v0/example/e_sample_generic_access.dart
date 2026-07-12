@@ -2,25 +2,26 @@
 //
 // Reads the same shared sample as `d_sample_typed_access.dart`, but through the
 // generic `SpecDocument` API only: every value is addressed by its section
-// path, with no dependency on the generated `tom_som_dart_v0` facade. This is
-// the access path a language runtime uses before (or without) a typed facade —
-// e.g. a generic editor or a cross-version reader. The output matches the typed
-// example exactly.
+// path, with no dependency on the generated typed facade *classes* — only the
+// generated metadata tree, which the hierarchical v2 yaml decoder needs to map
+// section-id keys onto document paths. This is the access path a language
+// runtime uses before (or without) a typed facade — e.g. a generic editor or a
+// cross-version reader. The output matches the typed example exactly.
 //
 // Run from this package:  dart run example/e_sample_generic_access.dart
 import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
-import 'package:yaml/yaml.dart' as yaml;
+import 'package:tom_som_dart_v0/tom_som_dart_v0.dart'
+    show d00SolutionBlueprintMetaTree;
 
 void main() {
-  // Interim load: the shared sample is still in the retired flat v1 format
-  // until DR9 re-emits it hierarchically; parse it generically.
+  // Load the shared sample (hierarchical v2 yaml) against the SBP metadata
+  // tree — the generic one-call loader, no typed facade involved.
   final sampleFile = File.fromUri(Platform.script.resolve(
       '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
-  final raw = yaml.loadYaml(sampleFile.readAsStringSync()) as Map;
-  final doc = SpecDocument()
-    ..loadJson((raw['document'] as Map).cast<String, Object?>());
+  final doc =
+      SpecDocument.fromFile(sampleFile.path, d00SolutionBlueprintMetaTree);
 
   stdout.writeln('=== Generic access: Meridian Order Management (SBP) ===\n');
 

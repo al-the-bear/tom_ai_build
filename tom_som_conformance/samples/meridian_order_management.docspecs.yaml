@@ -1,1924 +1,2042 @@
-# TomSpecs document (*.docspecs.yaml).
-# `document:` holds the object-model values, sorted by section id; text
-# values use block scalars so multi-line content round-trips verbatim (§15.1).
-version: 1
+# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
+version: 2
 modelVersion: "1.0"
 document:
-  content:
-    "SBP/assumptionsConstraintsDependencies/content": |2-
-      Assumes the finance ERP order-posting interface remains stable for the programme's duration. Constrained to the corporate AWS eu-central-1 landing zone and the approved managed-database catalogue. Depends on the warehouse team delivering the new dispatch-event webhook by the end of increment 2.
-    "SBP/content": |2-
-      Solution Blueprint for the Meridian Order Management (MOM) programme. MOM replaces three ageing back-office systems with a single, event-driven order platform serving the wholesale and e-commerce channels of a mid-market distributor. This blueprint is the master specification from which the twelve Phase 3 documents (CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM, TRP) are derived.
-    "SBP/currentLandscape/CUOPME-OPER-LST-1/content": |2-
-      Median order-to-confirmation time: 4.2 hours (wholesale), 9 hours (e-commerce).
-    "SBP/currentLandscape/CUOPME-OPER-LST-2/content": |2-
-      Nightly batch window: 2h10m, during which no orders can be confirmed.
-    "SBP/currentLandscape/CUOPME-OPER-LST-3/content": |2-
-      Manual price-override rate: 11% of wholesale lines, indicating pricing drift.
-    "SBP/currentLandscape/CUOPME-OPER-LST-4/content": |2-
-      Order-status enquiry calls: ~340/week to the operations desk.
-    "SBP/currentLandscape/content": |2-
-      Today, order entry is manual and channel-specific. Wholesale orders arrive by EDI and are re-keyed into OrderDesk; e-commerce orders drop into a queue that a clerk clears twice a day. Pricing is recomputed nightly, so intraday price changes are invisible until the next morning. There is no single source of truth for order status — staff reconcile three systems by phone.
-    "SBP/deliveryTransitionAndRollout/content": |2-
-      Five increments: (1) order capture + event backbone; (2) synchronous pricing + warehouse webhook; (3) fulfilment orchestration + back office; (4) public API + marketplace onboarding; (5) legacy decommission. Transition is channel-by-channel (e-commerce first, then wholesale) with a parallel-run safety net and a documented rollback to OrderDesk until the parallel-run gate passes.
-    "SBP/documentControl/content": |2-
-      Version 1.0, approved 2026-05-18. Authors: Solution Architecture chapter. Approvers: Programme Sponsor (VP Operations), Enterprise Architecture Board. Revision history is tracked in the programme wiki; this blueprint supersedes the 2025 "Order Platform Vision" one-pager.
-    "SBP/experienceAndInterfaceDesign/content": |2-
-      The operations back office is a single-page application organised around the order queue. The primary screen is a state-filtered work list; selecting an order opens a lifecycle timeline with inline actions (release hold, amend line, cancel). Design priorities: keyboard-first navigation for high-volume clerks and an unambiguous status colour language shared with the public tracking page.
-    "SBP/glossaryAndAbbreviations/content": |2-
-      MOM — Meridian Order Management. Line — a single product/quantity within an order. Hold — a state in which an order awaits manual review. Fulfilment window — the committed dispatch date range communicated to the customer. EDI — the wholesale electronic data interchange channel.
-    "SBP/informationAndDataModel/content": |2-
-      Core aggregates: Order (with Lines), Customer, Product, PriceList, and FulfilmentPlan. Orders reference Customers and Products by stable IDs; prices are snapshotted onto each Line at pricing time so historical orders remain reproducible. The event log is the system of record; read models are projections.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/referencedEntityRef": |2-
-      Order
-    "SBP/informationAndDataModel/dataModel/content": |2-
-      The relational core of MOM. Order is the aggregate root; each Order owns its OrderLines and references a Customer and, per line, a Product. Prices are snapshotted onto lines so historical orders remain reproducible.
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/sourceEntityRef": |2-
-      Order
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/targetEntityRef": |2-
-      OrderLine
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/sourceEntityRef": |2-
-      Order
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/targetEntityRef": |2-
-      Customer
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/sourceEntityRef": |2-
-      OrderLine
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/targetEntityRef": |2-
-      Product
-    "SBP/informationAndDataModel/dataModel/entityRelationships/content": |2-
-      The foreign-key relationships binding the ordering core together.
-    "SBP/introductionAndScope/content": |2-
-      MOM covers order capture, validation, pricing, fulfilment orchestration, and post-sale amendments across the wholesale (EDI) and e-commerce (REST) channels. Out of scope: warehouse robotics control, general-ledger posting (delegated to the existing finance ERP via a published interface), and CRM lead management.
-    "SBP/introductionAndScope/goals/content": |2-
-      Primary goals: (1) cut median order-to-confirmation time from 4.2 hours to under 5 minutes; (2) remove the nightly batch window entirely; (3) give operations staff a single screen for the full order lifecycle. Secondary goal: expose a stable public order API for third-party marketplace integrators. Three legacy systems are decommissioned: "OrderDesk" (green-screen order entry, 1998), "PriceCalc" (a spreadsheet-derived pricing service), and the nightly "BatchSync" file exchange with the warehouse.
-    "SBP/introductionAndScope/requirements/content": |2-
-      The requirements below are the contract MOM is built and accepted against. IDs are stable and referenced from the use cases, screens, and data model so every downstream artifact traces back to a requirement.
-    "SBP/qualityAndAcceptanceModel/content": |2-
-      Acceptance is gated on: a fully automated regression suite over the order lifecycle; a two-week parallel run against OrderDesk with < 0.1% reconciliation variance; and a load test sustaining 3x peak-hour order volume within the p95 latency budget. Business sign-off requires the operations desk to clear a full day's orders on MOM alone.
-    "SBP/requirements/content": |2-
-      Functional: capture orders from EDI and REST; validate against credit and stock; price synchronously; reserve stock; confirm within 5 minutes; support partial amendments and cancellations before dispatch. Non-functional: 99.9% capture-API availability; p95 confirmation latency < 30s; full audit trail; GDPR-compliant handling of customer data with a 7-year retention policy on order records.
-    "SBP/securityAndAccessModel/content": |2-
-      Access is role-based: Order Clerk, Order Supervisor (may release holds), Pricing Admin, and Integration (machine) accounts scoped to specific channels. All customer PII is encrypted at rest; the public API uses OAuth2 client credentials with per-partner rate limits. Every state transition is attributed to an authenticated principal in the audit log.
-    "SBP/solutionArchitectureAndTechnology/content": |2-
-      Event-sourced order service (Dart/Flutter back office, Kotlin domain services) on Kubernetes, backed by PostgreSQL for read models and a managed Kafka cluster for the event backbone. The public order API is an API-gateway-fronted REST surface; EDI ingestion runs as an adapter that translates to the same command API. Infrastructure is provisioned as code.
-    "SBP/stakeholdersAndGovernance/content": |2-
-      Sponsor: VP Operations. Product owner: Head of Order Operations. Key stakeholder groups: wholesale account managers, e-commerce merchandising, warehouse operations, finance, and the external marketplace partners. Governance runs through a fortnightly steering board; architectural decisions are recorded as ADRs owned by the Enterprise Architecture Board.
-    "SBP/targetOperatingModelConcept/content": |2-
-      Orders flow through a single event-driven pipeline: Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with an orthogonal Hold sub-state for manual review. Every transition emits a domain event; operations staff work from one queue view filtered by state. Pricing becomes a synchronous call, eliminating the batch window.
-  forms:
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/access/content":
-      "accessLevel": |2-
-        Authenticated
-      "permissionEffect": |2-
-        Allow
-      "requiredRoles": |2-
-        Order Clerk, Order Supervisor
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content":
-      "actionId": |2-
-        SCR-01-ACT-1
-      "actionName": |2-
-        Open order
-      "actionType": |2-
-        Navigate
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/visual/content":
-      "buttonStyle": |2-
-        Primary
-      "labelResource": |2-
-        screen.orders.action.open
-      "placement": |2-
-        Row
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/classification/content":
-      "routePattern": |2-
-        /orders
-      "screenCategory": |2-
-        List
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/content":
-      "purpose": |2-
-        The single, state-filtered queue from which clerks work every order.
-      "screenId": |2-
-        SCR-01
-      "screenName": |2-
-        Order Work List
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/presentation/content":
-      "layout": |2-
-        Master-detail
-      "pageTitleResource": |2-
-        screen.orders.title
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/SCREL-ELEM-LST-1/content":
-      "elementId": |2-
-        SCR-01-EL-1
-      "elementName": |2-
-        State selector
-      "elementType": |2-
-        SegmentedControl
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/SCREL-ELEM-LST-1/resources/content":
-      "hintResource": |2-
-        screen.orders.filter.state.hint
-      "labelResource": |2-
-        screen.orders.filter.state
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/content":
-      "purpose": |2-
-        Filter the queue by lifecycle state.
-      "sectionId": |2-
-        SCR-01-SEC-1
-      "sectionName": |2-
-        State filter bar
-      "sectionType": |2-
-        Toolbar
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/layout/content":
-      "displayOrder": |2-
-        1
-      "layoutDirection": |2-
-        Horizontal
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1/content":
-      "elementId": |2-
-        SCR-01-EL-2
-      "elementName": |2-
-        Order ID column
-      "elementType": |2-
-        TextField
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1/fieldSpec/content":
-      "dataType": |2-
-        UUID
-      "fieldName": |2-
-        orderId
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-2/content":
-      "elementId": |2-
-        SCR-01-EL-3
-      "elementName": |2-
-        Status column
-      "elementType": |2-
-        StatusChip
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-2/fieldSpec/content":
-      "dataType": |2-
-        Enum
-      "fieldName": |2-
-        status
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/content":
-      "purpose": |2-
-        The work list itself, keyboard-navigable for high-volume clerks.
-      "sectionId": |2-
-        SCR-01-SEC-2
-      "sectionName": |2-
-        Order table
-      "sectionType": |2-
-        DataTable
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/layout/content":
-      "displayOrder": |2-
-        2
-      "layoutDirection": |2-
-        Vertical
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content":
-      "description": |2-
-        No orders match the selected state filter.
-      "messageResource": |2-
-        screen.orders.empty
-      "primaryActionLabel": |2-
-        Clear filter
-      "primaryActionTarget": |2-
-        SCR-01-EL-1
-      "stateName": |2-
-        Empty queue
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/traceability/content":
-      "dataEntities": |2-
-        Order
-      "primaryAction": |2-
-        Open selected order
-      "relatedRequirements": |2-
-        FR-01, FR-04, FR-06
-      "relatedUseCases": |2-
-        UC-01, UC-02
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/access/content":
-      "accessLevel": |2-
-        Authenticated
-      "permissionEffect": |2-
-        Allow
-      "requiredRoles": |2-
-        Order Clerk, Order Supervisor
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content":
-      "actionId": |2-
-        SCR-02-ACT-1
-      "actionName": |2-
-        Amend line
-      "actionType": |2-
-        Submit
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/visual/content":
-      "buttonStyle": |2-
-        Primary
-      "labelResource": |2-
-        screen.order.action.amend
-      "placement": |2-
-        Row
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content":
-      "actionId": |2-
-        SCR-02-ACT-2
-      "actionName": |2-
-        Release hold
-      "actionType": |2-
-        Submit
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/visual/content":
-      "buttonStyle": |2-
-        Secondary
-      "labelResource": |2-
-        screen.order.action.release
-      "placement": |2-
-        Header
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/classification/content":
-      "parentScreenId": |2-
-        SCR-01
-      "routePattern": |2-
-        /orders/:orderId
-      "screenCategory": |2-
-        Detail
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/content":
-      "purpose": |2-
-        The lifecycle timeline and inline actions for a single order.
-      "screenId": |2-
-        SCR-02
-      "screenName": |2-
-        Order Detail
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/presentation/content":
-      "layout": |2-
-        Single column
-      "pageTitleResource": |2-
-        screen.order.title
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-1/content":
-      "purpose": |2-
-        Show every state transition with its authenticated actor.
-      "sectionId": |2-
-        SCR-02-SEC-1
-      "sectionName": |2-
-        Lifecycle timeline
-      "sectionType": |2-
-        Timeline
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-1/layout/content":
-      "displayOrder": |2-
-        1
-      "layoutDirection": |2-
-        Vertical
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1/behavior/content":
-      "readonlyCondition": |2-
-        order.status == "Dispatched"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1/content":
-      "elementId": |2-
-        SCR-02-EL-1
-      "elementName": |2-
-        Quantity field
-      "elementType": |2-
-        NumberField
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1/fieldSpec/content":
-      "dataType": |2-
-        Integer
-      "fieldName": |2-
-        quantity
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/content":
-      "purpose": |2-
-        Editable list of lines with price and reservation status.
-      "sectionId": |2-
-        SCR-02-SEC-2
-      "sectionName": |2-
-        Order lines
-      "sectionType": |2-
-        EditableTable
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/layout/content":
-      "displayOrder": |2-
-        2
-      "layoutDirection": |2-
-        Vertical
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content":
-      "description": |2-
-        The new quantity failed validation or reservation.
-      "messageResource": |2-
-        screen.order.amend.error
-      "primaryActionLabel": |2-
-        Retry
-      "primaryActionTarget": |2-
-        SCR-02-ACT-1
-      "stateName": |2-
-        Amendment rejected
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/traceability/content":
-      "dataEntities": |2-
-        Order, OrderLine
-      "primaryAction": |2-
-        Amend line
-      "relatedRequirements": |2-
-        FR-05, FR-06
-      "relatedUseCases": |2-
-        UC-02, UC-03
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/identity":
-      "attributeName": |2-
-        orderId
-      "columnName": |2-
-        order_id
-      "description": |2-
-        Stable order identifier.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/identity":
-      "attributeName": |2-
-        customerId
-      "columnName": |2-
-        customer_id
-      "description": |2-
-        Reference to the ordering customer.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/dataTypeSpec":
-      "dataType": |2-
-        Enum
-      "physicalType": |2-
-        varchar(8)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/identity":
-      "attributeName": |2-
-        channel
-      "columnName": |2-
-        channel
-      "description": |2-
-        Capture channel: EDI or REST.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/dataTypeSpec":
-      "dataType": |2-
-        Enum
-      "physicalType": |2-
-        varchar(16)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/identity":
-      "attributeName": |2-
-        status
-      "columnName": |2-
-        status
-      "description": |2-
-        Lifecycle state (Captured..Closed, with Hold).
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/dataTypeSpec":
-      "dataType": |2-
-        Timestamp
-      "physicalType": |2-
-        timestamptz
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/identity":
-      "attributeName": |2-
-        createdAt
-      "columnName": |2-
-        created_at
-      "description": |2-
-        Capture timestamp (UTC).
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST-1/content":
-      "description": |2-
-        Primary key of the order.
-      "keyColumns": |2-
-        order_id
-      "keyName": |2-
-        pk_order
-      "keyType": |2-
-        Primary
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/classification":
-      "boundedContext": |2-
-        Ordering
-      "category": |2-
-        Transactional
-      "dataOwner": |2-
-        Head of Order Operations
-      "owningDomain": |2-
-        Order Management
-      "sourceSystem": |2-
-        MOM
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/identity":
-      "description": |2-
-        A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
-      "entityAlias": |2-
-        ORD
-      "entityName": |2-
-        Order
-      "entityStereoType": |2-
-        Aggregate Root
-      "tableName": |2-
-        mom_order
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/identity":
-      "attributeName": |2-
-        lineId
-      "columnName": |2-
-        line_id
-      "description": |2-
-        Stable line identifier.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/identity":
-      "attributeName": |2-
-        orderId
-      "columnName": |2-
-        order_id
-      "description": |2-
-        Owning order reference.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/identity":
-      "attributeName": |2-
-        productId
-      "columnName": |2-
-        product_id
-      "description": |2-
-        Referenced product.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/dataTypeSpec":
-      "dataType": |2-
-        Integer
-      "physicalType": |2-
-        int
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/identity":
-      "attributeName": |2-
-        quantity
-      "columnName": |2-
-        quantity
-      "description": |2-
-        Ordered quantity.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/dataTypeSpec":
-      "dataType": |2-
-        Decimal
-      "physicalType": |2-
-        numeric(12,2)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/identity":
-      "attributeName": |2-
-        unitPrice
-      "columnName": |2-
-        unit_price
-      "description": |2-
-        Snapshotted unit price at pricing time.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-1/content":
-      "description": |2-
-        Primary key of the order line.
-      "keyColumns": |2-
-        line_id
-      "keyName": |2-
-        pk_order_line
-      "keyType": |2-
-        Primary
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/content":
-      "description": |2-
-        References the owning order.
-      "keyColumns": |2-
-        order_id
-      "keyName": |2-
-        fk_line_order
-      "keyType": |2-
-        Foreign
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/classification":
-      "boundedContext": |2-
-        Ordering
-      "category": |2-
-        Transactional
-      "dataOwner": |2-
-        Head of Order Operations
-      "owningDomain": |2-
-        Order Management
-      "sourceSystem": |2-
-        MOM
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/identity":
-      "description": |2-
-        A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
-      "entityAlias": |2-
-        OLN
-      "entityName": |2-
-        OrderLine
-      "entityStereoType": |2-
-        Entity
-      "tableName": |2-
-        mom_order_line
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/identity":
-      "attributeName": |2-
-        customerId
-      "columnName": |2-
-        customer_id
-      "description": |2-
-        Stable customer identifier.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/dataTypeSpec":
-      "dataType": |2-
-        String
-      "physicalType": |2-
-        varchar(200)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/identity":
-      "attributeName": |2-
-        name
-      "columnName": |2-
-        name
-      "description": |2-
-        Customer legal name (PII).
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/securityClassification":
-      "isPii": |2-
-        true
-      "sensitivityLevel": |2-
-        Confidential
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/dataTypeSpec":
-      "dataType": |2-
-        Decimal
-      "physicalType": |2-
-        numeric(14,2)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/identity":
-      "attributeName": |2-
-        creditLimit
-      "columnName": |2-
-        credit_limit
-      "description": |2-
-        Approved credit limit used by validation.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Confidential
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST-1/content":
-      "description": |2-
-        Primary key of the customer.
-      "keyColumns": |2-
-        customer_id
-      "keyName": |2-
-        pk_customer
-      "keyType": |2-
-        Primary
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/classification":
-      "boundedContext": |2-
-        Customer
-      "category": |2-
-        Master
-      "dataOwner": |2-
-        Commercial
-      "owningDomain": |2-
-        Customer Management
-      "sourceSystem": |2-
-        MOM
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/identity":
-      "description": |2-
-        A wholesale or e-commerce customer that places orders. Realizes FR-01.
-      "entityAlias": |2-
-        CUS
-      "entityName": |2-
-        Customer
-      "entityStereoType": |2-
-        Aggregate Root
-      "tableName": |2-
-        mom_customer
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/dataTypeSpec":
-      "dataType": |2-
-        UUID
-      "physicalType": |2-
-        uuid
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/identity":
-      "attributeName": |2-
-        productId
-      "columnName": |2-
-        product_id
-      "description": |2-
-        Stable product identifier.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/dataTypeSpec":
-      "dataType": |2-
-        String
-      "physicalType": |2-
-        varchar(40)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/identity":
-      "attributeName": |2-
-        sku
-      "columnName": |2-
-        sku
-      "description": |2-
-        Stock-keeping unit.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/dataTypeSpec":
-      "dataType": |2-
-        String
-      "physicalType": |2-
-        varchar(200)
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/identity":
-      "attributeName": |2-
-        name
-      "columnName": |2-
-        name
-      "description": |2-
-        Product display name.
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/securityClassification":
-      "isPii": |2-
-        false
-      "sensitivityLevel": |2-
-        Internal
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST-1/content":
-      "description": |2-
-        Primary key of the product.
-      "keyColumns": |2-
-        product_id
-      "keyName": |2-
-        pk_product
-      "keyType": |2-
-        Primary
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/classification":
-      "boundedContext": |2-
-        Catalogue
-      "category": |2-
-        Master
-      "dataOwner": |2-
-        Merchandising
-      "owningDomain": |2-
-        Merchandising
-      "sourceSystem": |2-
-        MOM
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/identity":
-      "description": |2-
-        A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
-      "entityAlias": |2-
-        PRD
-      "entityName": |2-
-        Product
-      "entityStereoType": |2-
-        Aggregate Root
-      "tableName": |2-
-        mom_product
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/cardinality":
-      "sourceCardinality": |2-
-        1
-      "targetCardinality": |2-
-        1..*
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/identity":
-      "businessJustification": |2-
-        Maintains referential integrity across the ordering core.
-      "description": |2-
-        An order owns one or more order lines.
-      "implementationType": |2-
-        Foreign Key
-      "relationshipName": |2-
-        Order-owns-Lines
-      "relationshipType": |2-
-        Composition
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/navigation":
-      "foreignKeyLocation": |2-
-        mom_order_line.order_id
-      "navigability": |2-
-        Bidirectional
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/cardinality":
-      "sourceCardinality": |2-
-        *
-      "targetCardinality": |2-
-        1
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/identity":
-      "businessJustification": |2-
-        Maintains referential integrity across the ordering core.
-      "description": |2-
-        Each order is placed by exactly one customer.
-      "implementationType": |2-
-        Foreign Key
-      "relationshipName": |2-
-        Order-placed-by-Customer
-      "relationshipType": |2-
-        Association
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/navigation":
-      "foreignKeyLocation": |2-
-        mom_order.customer_id
-      "navigability": |2-
-        Bidirectional
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/cardinality":
-      "sourceCardinality": |2-
-        *
-      "targetCardinality": |2-
-        1
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/identity":
-      "businessJustification": |2-
-        Maintains referential integrity across the ordering core.
-      "description": |2-
-        Each order line references exactly one product.
-      "implementationType": |2-
-        Foreign Key
-      "relationshipName": |2-
-        Line-references-Product
-      "relationshipType": |2-
-        Association
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/navigation":
-      "foreignKeyLocation": |2-
-        mom_order_line.product_id
-      "navigability": |2-
-        Bidirectional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-01-AC-1
-      "criterionTitle": |2-
-        EDI order accepted
-      "given": |2-
-        a well-formed EDI 850 purchase order
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        an Order is created in state Captured and a domain event is emitted
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        the EDI adapter submits it to the capture API
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/acceptanceCriteria/ACCR-CRIT-LST-2/content":
-      "criterionId": |2-
-        FR-01-AC-2
-      "criterionTitle": |2-
-        REST order accepted
-      "given": |2-
-        a valid REST order payload from an authenticated partner
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        an Order is created in state Captured with the same shape as EDI
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        POST /orders is called
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/content":
-      "requirementId": |2-
-        FR-01
-      "status": |2-
-        Approved
-      "title": |2-
-        Capture orders from EDI and REST channels
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/details/content":
-      "category": |2-
-        Order Capture
-      "description": |2-
-        The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/priority/content":
-      "businessValue": |2-
-        High
-      "effort": |2-
-        M
-      "priority": |2-
-        Must
-      "riskLevel": |2-
-        Medium
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/source/content":
-      "rationale": |2-
-        Both channels must feed the same lifecycle to retire re-keying.
-      "requestDate": |2-
-        2026-04-02
-      "source": |2-
-        VP Operations
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/verification/content":
-      "customerDissatisfaction": |2-
-        1
-      "customerSatisfaction": |2-
-        5
-      "fitCriterion": |2-
-        An EDI and a REST order both produce an Order in state Captured within 2s.
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-02-AC-1
-      "criterionTitle": |2-
-        Price snapshotted onto line
-      "given": |2-
-        an order with two lines
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        each line stores the resolved unit price as of the pricing timestamp
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        the order is priced
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/content":
-      "requirementId": |2-
-        FR-02
-      "status": |2-
-        Approved
-      "title": |2-
-        Price orders synchronously at capture time
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/details/content":
-      "category": |2-
-        Pricing
-      "description": |2-
-        Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/priority/content":
-      "businessValue": |2-
-        High
-      "effort": |2-
-        M
-      "priority": |2-
-        Must
-      "riskLevel": |2-
-        Medium
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/verification/content":
-      "fitCriterion": |2-
-        Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-03-AC-1
-      "criterionTitle": |2-
-        Stock reserved when available
-      "given": |2-
-        an order whose lines all have sufficient stock on hand
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        every line reserves its quantity and the order is eligible to confirm
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        the order is submitted for confirmation
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2/content":
-      "criterionId": |2-
-        FR-03-AC-2
-      "criterionTitle": |2-
-        Short line placed on Hold
-      "given": |2-
-        an order with one line whose demand exceeds available stock
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        only the short line is placed on Hold while the remaining lines reserve normally
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        reservation runs before confirmation
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/content":
-      "requirementId": |2-
-        FR-03
-      "status": |2-
-        Approved
-      "title": |2-
-        Reserve stock before confirmation
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/details/content":
-      "category": |2-
-        Fulfilment
-      "description": |2-
-        Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/priority/content":
-      "businessValue": |2-
-        High
-      "effort": |2-
-        L
-      "priority": |2-
-        Must
-      "riskLevel": |2-
-        High
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-04-AC-1
-      "criterionTitle": |2-
-        Order confirmed within budget
-      "given": |2-
-        a captured order that passes validation, pricing, and reservation
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        the order reaches state Confirmed within five minutes of capture
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        the lifecycle processes it under normal load
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2/content":
-      "criterionId": |2-
-        FR-04-AC-2
-      "criterionTitle": |2-
-        Confirmation surfaced to operations and tracking
-      "given": |2-
-        an order that has just reached state Confirmed
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        the order appears as Confirmed on the operations work list and the public tracking page
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        the confirmation event is published
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/content":
-      "requirementId": |2-
-        FR-04
-      "status": |2-
-        Approved
-      "title": |2-
-        Confirm orders within five minutes
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/details/content":
-      "category": |2-
-        Order Lifecycle
-      "description": |2-
-        An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/priority/content":
-      "businessValue": |2-
-        High
-      "effort": |2-
-        M
-      "priority": |2-
-        Must
-      "riskLevel": |2-
-        Medium
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-05-AC-1
-      "criterionTitle": |2-
-        Amendment re-runs pricing and reservation
-      "given": |2-
-        a confirmed order that has not yet dispatched
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        pricing and reservation re-run for the affected line and the change is written to the audit trail
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        a clerk changes a line quantity
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2/content":
-      "criterionId": |2-
-        FR-05-AC-2
-      "criterionTitle": |2-
-        Cancellation blocked after dispatch
-      "given": |2-
-        an order that has already dispatched
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        the cancellation is rejected and the rejection is recorded in the audit trail
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        a clerk attempts to cancel it
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/content":
-      "requirementId": |2-
-        FR-05
-      "status": |2-
-        Approved
-      "title": |2-
-        Amend or cancel an order before dispatch
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/details/content":
-      "category": |2-
-        Order Amendment
-      "description": |2-
-        Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/priority/content":
-      "businessValue": |2-
-        Medium
-      "effort": |2-
-        M
-      "priority": |2-
-        Should
-      "riskLevel": |2-
-        Medium
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/acceptanceCriteria/ACCR-CRIT-LST-1/content":
-      "criterionId": |2-
-        FR-06-AC-1
-      "criterionTitle": |2-
-        Supervisor releases hold
-      "given": |2-
-        an order in state Hold
-      "priority": |2-
-        Must
-      "status": |2-
-        Draft
-      "testType": |2-
-        Integration
-      "then": |2-
-        the order resumes at the transition that placed it on Hold and the reason is audited
-      "verificationMethod": |2-
-        Automated test
-      "when": |2-
-        a supervisor releases it with a reason
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/content":
-      "requirementId": |2-
-        FR-06
-      "status": |2-
-        Approved
-      "title": |2-
-        Release a manual hold
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/details/content":
-      "category": |2-
-        Exception Handling
-      "description": |2-
-        An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
-      "requirementType": |2-
-        Functional
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/priority/content":
-      "businessValue": |2-
-        High
-      "effort": |2-
-        S
-      "priority": |2-
-        Must
-      "riskLevel": |2-
-        Low
-    "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-1/content":
-      "description": |2-
-        Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
-      "requirementId": |2-
-        OR-01
-      "title": |2-
-        Train the operations desk on MOM
-    "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-1/impact/content":
-      "changeComplexity": |2-
-        Medium
-      "changeType": |2-
-        Process + tooling
-      "impactedGroups": |2-
-        Order Operations desk
-      "impactedUserCount": |2-
-        25
-      "resistance": |2-
-        Low
-    "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-2/content":
-      "description": |2-
-        The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
-      "requirementId": |2-
-        OR-02
-      "title": |2-
-        Staff the parallel run
-    "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-2/impact/content":
-      "changeComplexity": |2-
-        Medium
-      "changeType": |2-
-        Temporary dual-running
-      "impactedGroups": |2-
-        Order Operations, Finance
-      "impactedUserCount": |2-
-        30
-      "resistance": |2-
-        Medium
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-1/classification/content":
-      "category": |2-
-        Access Control
-      "dataClassification": |2-
-        Internal
-      "priority": |2-
-        Must
-      "rationale": |2-
-        Least privilege across human and machine actors.
-      "source": |2-
-        Security chapter
-      "subcategory": |2-
-        Authorization
-      "threatMitigated": |2-
-        Unauthorized order manipulation
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-1/compliance/content":
-      "complianceReference": |2-
-        Corporate IAM policy v3
-      "nistControl": |2-
-        AC-6
-      "owaspCategory": |2-
-        A01:2021 Broken Access Control
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-1/content":
-      "description": |2-
-        Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
-      "requirementId": |2-
-        SR-01
-      "title": |2-
-        Role-based access control
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-2/classification/content":
-      "category": |2-
-        Data Protection
-      "dataClassification": |2-
-        Confidential
-      "priority": |2-
-        Must
-      "rationale": |2-
-        GDPR obligations on customer records with a 7-year retention.
-      "source": |2-
-        Data Protection Officer
-      "subcategory": |2-
-        Encryption
-      "threatMitigated": |2-
-        PII disclosure from storage compromise
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-2/compliance/content":
-      "complianceReference": |2-
-        GDPR Art. 32
-      "nistControl": |2-
-        SC-28
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-2/content":
-      "description": |2-
-        All customer personally identifiable information must be encrypted at rest.
-      "requirementId": |2-
-        SR-02
-      "title": |2-
-        Encrypt customer PII at rest
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-3/classification/content":
-      "category": |2-
-        API Security
-      "dataClassification": |2-
-        Internal
-      "priority": |2-
-        Must
-      "rationale": |2-
-        Machine-to-machine partner access without shared secrets in code.
-      "source": |2-
-        Security chapter
-      "subcategory": |2-
-        Authentication
-      "threatMitigated": |2-
-        Credential replay and partner impersonation
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-3/compliance/content":
-      "nistControl": |2-
-        IA-5
-      "owaspCategory": |2-
-        API2:2023 Broken Authentication
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-3/content":
-      "description": |2-
-        The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
-      "requirementId": |2-
-        SR-03
-      "title": |2-
-        OAuth2 client credentials on the public API
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-1/content":
-      "requirementId": |2-
-        TR-01
-      "status": |2-
-        Approved
-      "title": |2-
-        Confirmation latency budget
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-1/details/content":
-      "category": |2-
-        Performance
-      "description": |2-
-        The 95th-percentile order-confirmation latency must stay within budget under peak load.
-      "priority": |2-
-        Must
-      "rationale": |2-
-        Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
-      "source": |2-
-        Operations SLA
-      "subcategory": |2-
-        Latency
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-1/measurement/content":
-      "currentValue": |2-
-        4.2h (legacy)
-      "measurementEnvironment": |2-
-        Load test at 3x peak-hour volume
-      "measurementFrequency": |2-
-        Per release + continuous in production
-      "measurementMethod": |2-
-        Distributed tracing over the confirmation span
-      "metric": |2-
-        p95 capture-to-confirmation latency
-      "targetValue": |2-
-        < 30s
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-2/content":
-      "requirementId": |2-
-        TR-02
-      "status": |2-
-        Approved
-      "title": |2-
-        Capture API availability
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-2/details/content":
-      "category": |2-
-        Reliability
-      "description": |2-
-        The order-capture API must meet a 99.9% monthly availability target.
-      "priority": |2-
-        Must
-      "rationale": |2-
-        Marketplace partners depend on the capture API being continuously reachable.
-      "source": |2-
-        Partner integration agreement
-      "subcategory": |2-
-        Availability
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-2/measurement/content":
-      "measurementFrequency": |2-
-        Monthly
-      "measurementMethod": |2-
-        Synthetic probes + gateway success-rate metrics
-      "metric": |2-
-        Monthly capture-API availability
-      "targetValue": |2-
-        >= 99.9%
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-3/content":
-      "requirementId": |2-
-        TR-03
-      "status": |2-
-        Approved
-      "title": |2-
-        Event-sourced order service
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-3/details/content":
-      "category": |2-
-        Architecture
-      "description": |2-
-        The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
-      "priority": |2-
-        Must
-      "rationale": |2-
-        Reproducible history and rebuildable projections are core to auditability.
-      "source": |2-
-        Enterprise Architecture Board
-      "subcategory": |2-
-        Persistence
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-1/identification/content":
-      "actorId": |2-
-        ACT-01
-      "actorName": |2-
-        Order Clerk
-      "actorType": |2-
-        Human
-      "category": |2-
-        Primary
-      "description": |2-
-        Clears the order work list, amends lines, and cancels orders before dispatch.
-      "estimatedCount": |2-
-        25
-      "geographicDistribution": |2-
-        Single distribution centre
-      "organizationalUnit": |2-
-        Order Operations
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-2/identification/content":
-      "actorId": |2-
-        ACT-02
-      "actorName": |2-
-        Order Supervisor
-      "actorType": |2-
-        Human
-      "category": |2-
-        Primary
-      "description": |2-
-        Reviews orders on Hold and releases them back into the lifecycle.
-      "estimatedCount": |2-
-        4
-      "geographicDistribution": |2-
-        Single distribution centre
-      "organizationalUnit": |2-
-        Order Operations
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-3/identification/content":
-      "actorId": |2-
-        ACT-03
-      "actorName": |2-
-        Pricing Admin
-      "actorType": |2-
-        Human
-      "category": |2-
-        Supporting
-      "description": |2-
-        Maintains the price lists that the synchronous pricing step consumes.
-      "estimatedCount": |2-
-        3
-      "geographicDistribution": |2-
-        Single distribution centre
-      "organizationalUnit": |2-
-        Commercial
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-4/identification/content":
-      "actorId": |2-
-        ACT-04
-      "actorName": |2-
-        EDI Integration Account
-      "actorType": |2-
-        System
-      "category": |2-
-        Primary
-      "description": |2-
-        Machine account through which the wholesale EDI adapter submits orders.
-      "estimatedCount": |2-
-        1
-      "geographicDistribution": |2-
-        Single distribution centre
-      "organizationalUnit": |2-
-        Integration
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST-1/content":
-      "dataPostcondition": |2-
-        Order and OrderLine rows persisted; reservation recorded against Product stock.
-      "minimalGuarantees": |2-
-        Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
-      "successGuarantees": |2-
-        The Order is in state Confirmed with priced, reserved lines and a full event history.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1/content":
-      "precondition": |2-
-        The submitting Integration account is authenticated and scoped to the wholesale channel.
-      "trigger": |2-
-        An EDI 850 purchase order arrives at the wholesale adapter.
-      "triggerData": |2-
-        EDI 850 document
-      "triggerSource": |2-
-        EDI gateway
-      "triggerType": |2-
-        External
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/EXTST-STEP-LST-1/content":
-      "action": |2-
-        System places the Order on Hold and emits OrderHeld.
-      "response": |2-
-        Order appears in the Hold filter of the work list with reason "Credit exceeded".
-      "stepNumber": |2-
-        2a.1
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content":
-      "branchPoint": |2-
-        Step 2
-      "condition": |2-
-        Customer credit limit would be exceeded
-      "description": |2-
-        Validation detects the order exceeds the customer credit limit.
-      "extensionId": |2-
-        2a
-      "extensionType": |2-
-        Exception
-      "outcome": |2-
-        Order is placed on Hold for supervisor review (see UC-02).
-      "returnPoint": |2-
-        Step 3 after release
-      "severity": |2-
-        High
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/EXTST-STEP-LST-1/content":
-      "action": |2-
-        System holds the unsatisfiable line and reserves the rest.
-      "response": |2-
-        The order is partially reserved; the held line is flagged for follow-up.
-      "stepNumber": |2-
-        4a.1
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content":
-      "branchPoint": |2-
-        Step 4
-      "condition": |2-
-        Insufficient stock for one or more lines
-      "description": |2-
-        Reservation cannot be fully satisfied for a line.
-      "extensionId": |2-
-        4a
-      "extensionType": |2-
-        Exception
-      "outcome": |2-
-        The affected line is placed on Hold; other lines proceed.
-      "returnPoint": |2-
-        Step 5 for satisfiable lines
-      "severity": |2-
-        Medium
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/identification/content":
-      "briefDescription": |2-
-        A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
-      "designScope": |2-
-        System
-      "fullDescription": |2-
-        The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
-      "goalLevel": |2-
-        User goal
-      "interactionId": |2-
-        UC-01
-      "primaryActor": |2-
-        ACT-04 EDI Integration Account
-      "processReference": |2-
-        BP-Order-Capture
-      "supportingActors": |2-
-        ACT-01 Order Clerk
-      "useCaseName": |2-
-        Capture Wholesale Order (EDI)
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-1/content":
-      "actorAction": |2-
-        EDI adapter submits the translated order to the capture API.
-      "dataInvolved": |2-
-        Order, OrderLine
-      "stepNumber": |2-
-        1
-      "systemResponse": |2-
-        System creates the Order in state Captured and emits OrderCaptured.
-      "uiElementUsed": |2-
-        —
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-2/content":
-      "actorAction": |2-
-        System validates customer credit and line stock references.
-      "businessRuleApplied": |2-
-        Credit limit not exceeded
-      "dataInvolved": |2-
-        Customer, Product
-      "stepNumber": |2-
-        2
-      "systemResponse": |2-
-        Order moves to Validated; invalid references are flagged per line.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-3/content":
-      "actorAction": |2-
-        System prices each line against the active price list.
-      "businessRuleApplied": |2-
-        FR-02 price snapshot
-      "dataInvolved": |2-
-        PriceList, OrderLine
-      "stepNumber": |2-
-        3
-      "systemResponse": |2-
-        Unit price is snapshotted onto each line; Order moves to Priced.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-4/content":
-      "actorAction": |2-
-        System reserves stock for every line.
-      "businessRuleApplied": |2-
-        FR-03 reserve before confirm
-      "dataInvolved": |2-
-        Product
-      "stepNumber": |2-
-        4
-      "systemResponse": |2-
-        Reservations recorded; Order moves to Reserved.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-5/content":
-      "actorAction": |2-
-        System confirms the order.
-      "businessRuleApplied": |2-
-        FR-04 five-minute confirmation
-      "dataInvolved": |2-
-        Order
-      "stepNumber": |2-
-        5
-      "systemResponse": |2-
-        Order moves to Confirmed within five minutes and appears on the work list.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST-1/content":
-      "auditTrail": |2-
-        Release attributed to the supervisor principal with timestamp and reason.
-      "successGuarantees": |2-
-        The order resumes at the transition that placed it on Hold, with the release reason audited.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1/content":
-      "precondition": |2-
-        An order exists in state Hold and the actor holds the Order Supervisor role.
-      "trigger": |2-
-        Supervisor selects a held order from the work list.
-      "triggerSource": |2-
-        Order Work List screen
-      "triggerType": |2-
-        User
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/identification/content":
-      "briefDescription": |2-
-        A supervisor reviews an order on Hold and releases it back into the lifecycle.
-      "designScope": |2-
-        System
-      "fullDescription": |2-
-        A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
-      "goalLevel": |2-
-        User goal
-      "interactionId": |2-
-        UC-02
-      "primaryActor": |2-
-        ACT-02 Order Supervisor
-      "processReference": |2-
-        BP-Order-Exception
-      "useCaseName": |2-
-        Release Order Hold
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/mainScenario/MNSST-STEP-LST-1/content":
-      "actorAction": |2-
-        Supervisor opens the held order and reviews the reason.
-      "dataInvolved": |2-
-        Order
-      "stepNumber": |2-
-        1
-      "systemResponse": |2-
-        System shows the lifecycle timeline and the hold reason.
-      "uiElementUsed": |2-
-        Order Detail timeline
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/mainScenario/MNSST-STEP-LST-2/content":
-      "actorAction": |2-
-        Supervisor releases the order with a reason.
-      "businessRuleApplied": |2-
-        FR-06 hold release
-      "dataInvolved": |2-
-        Order
-      "stepNumber": |2-
-        2
-      "systemResponse": |2-
-        System resumes the lifecycle and emits OrderHoldReleased.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST-1/content":
-      "dataPostcondition": |2-
-        OrderLine updated; prior values retained in the event history.
-      "successGuarantees": |2-
-        The amended line carries a fresh price snapshot and reservation; the amendment is audited.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1/content":
-      "precondition": |2-
-        The order is not yet dispatched and the actor holds the Order Clerk role.
-      "trigger": |2-
-        Clerk edits a line quantity on the Order Detail screen.
-      "triggerSource": |2-
-        Order Detail screen
-      "triggerType": |2-
-        User
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/identification/content":
-      "briefDescription": |2-
-        A clerk changes a line quantity before dispatch, re-running pricing and reservation.
-      "designScope": |2-
-        System
-      "fullDescription": |2-
-        A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
-      "goalLevel": |2-
-        User goal
-      "interactionId": |2-
-        UC-03
-      "primaryActor": |2-
-        ACT-01 Order Clerk
-      "processReference": |2-
-        BP-Order-Amendment
-      "useCaseName": |2-
-        Amend Order Line Before Dispatch
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/content":
-      "actorAction": |2-
-        Clerk changes the quantity of a line and saves.
-      "businessRuleApplied": |2-
-        FR-05 amend before dispatch
-      "dataInvolved": |2-
-        OrderLine, PriceList
-      "stepNumber": |2-
-        1
-      "systemResponse": |2-
-        System validates the new quantity and re-prices the line.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-2/content":
-      "actorAction": |2-
-        System re-reserves stock for the amended line.
-      "businessRuleApplied": |2-
-        FR-03 reserve before confirm
-      "dataInvolved": |2-
-        Product
-      "stepNumber": |2-
-        2
-      "systemResponse": |2-
-        Reservation is adjusted; the order returns to Confirmed if fully satisfied.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-1/content":
-      "action": |2-
-        Submits a two-line wholesale order.
-      "actor": |2-
-        ACT-04 EDI Integration Account
-      "stepNumber": |2-
-        1
-      "systemResponse": |2-
-        Order captured, validated, priced, reserved, and confirmed within five minutes.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-2/content":
-      "action": |2-
-        Observes the confirmed order on the work list.
-      "actor": |2-
-        ACT-01 Order Clerk
-      "stepNumber": |2-
-        2
-      "systemResponse": |2-
-        Order shows state Confirmed with both lines priced and reserved.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-3/content":
-      "action": |2-
-        Receives the warehouse dispatch webhook.
-      "actor": |2-
-        System
-      "stepNumber": |2-
-        3
-      "systemResponse": |2-
-        Order moves to Fulfilled and the public tracking page updates.
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/identification/content":
-      "businessGoal": |2-
-        Confirm and fulfil a wholesale order without manual intervention.
-      "complexity": |2-
-        Medium
-      "description": |2-
-        A clean wholesale order flows from EDI capture through to fulfilment with no holds.
-      "primaryActor": |2-
-        ACT-04 EDI Integration Account
-      "priority": |2-
-        High
-      "scenarioId": |2-
-        SCN-01
-      "scenarioName": |2-
-        Happy-path wholesale order, capture to fulfilment
-      "scenarioType": |2-
-        End-to-end
-      "supportingActors": |2-
-        ACT-01 Order Clerk
-  lists:
-    "SBP/currentLandscape/CUOPME-OPER-LST":
-      seq: 4
-      items:
-        - "SBP/currentLandscape/CUOPME-OPER-LST-1"
-        - "SBP/currentLandscape/CUOPME-OPER-LST-2"
-        - "SBP/currentLandscape/CUOPME-OPER-LST-3"
-        - "SBP/currentLandscape/CUOPME-OPER-LST-4"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST":
-      seq: 2
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1"
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST":
-      seq: 1
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST":
-      seq: 2
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1"
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/SCREL-ELEM-LST":
-      seq: 1
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-1/SCREL-ELEM-LST-1"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST":
-      seq: 2
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1"
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-2"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST":
-      seq: 1
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST":
-      seq: 2
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1"
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST":
-      seq: 2
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-1"
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST":
-      seq: 1
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-1"
-    "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST":
-      seq: 1
-      items:
-        - "SBP/experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST":
-      seq: 4
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST":
-      seq: 5
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST":
-      seq: 1
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST-1"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST":
-      seq: 5
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST":
-      seq: 2
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST":
-      seq: 3
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST":
-      seq: 1
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST-1"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST":
-      seq: 3
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2"
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3"
-    "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST":
-      seq: 1
-      items:
-        - "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST-1"
-    "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST":
-      seq: 3
-      items:
-        - "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1"
-        - "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2"
-        - "SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST":
-      seq: 6
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 2
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/acceptanceCriteria/ACCR-CRIT-LST-1"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-1/acceptanceCriteria/ACCR-CRIT-LST-2"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 1
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2/acceptanceCriteria/ACCR-CRIT-LST-1"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 2
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-1"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-3/acceptanceCriteria/ACCR-CRIT-LST-2"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 2
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-1"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-4/acceptanceCriteria/ACCR-CRIT-LST-2"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 2
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-1"
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-5/acceptanceCriteria/ACCR-CRIT-LST-2"
-    "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/acceptanceCriteria/ACCR-CRIT-LST":
-      seq: 1
-      items:
-        - "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-6/acceptanceCriteria/ACCR-CRIT-LST-1"
-    "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST":
-      seq: 2
-      items:
-        - "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-1"
-        - "SBP/introductionAndScope/requirements/organizationalRequirements/ORRQ-REQU-LST-2"
-    "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST":
-      seq: 3
-      items:
-        - "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-1"
-        - "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-2"
-        - "SBP/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST-3"
-    "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST":
-      seq: 3
-      items:
-        - "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-1"
-        - "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-2"
-        - "SBP/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST-3"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST":
-      seq: 4
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-2"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-3"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST-4"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST":
-      seq: 3
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/POANGU-POST-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/PRANTR-PREC-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST":
-      seq: 2
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/EXTST-STEP-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/EXTST-STEP-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/EXTST-STEP-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/EXTST-STEP-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST":
-      seq: 5
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-2"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-3"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-4"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/mainScenario/MNSST-STEP-LST-5"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/POANGU-POST-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/PRANTR-PREC-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/mainScenario/MNSST-STEP-LST":
-      seq: 2
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/mainScenario/MNSST-STEP-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/mainScenario/MNSST-STEP-LST-2"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/POANGU-POST-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/PRANTR-PREC-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST":
-      seq: 2
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-2"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST":
-      seq: 1
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1"
-    "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST":
-      seq: 3
-      items:
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-1"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-2"
-        - "SBP/targetOperatingModelConcept/targetBusinessProcess/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-3"
+  SBP D00SolutionBlueprint:
+    content: |2-
+      Solution Blueprint for the **Meridian Order Management (MOM)** programme.
+
+      MOM replaces three ageing back-office systems with a single, event-driven order
+      platform serving the wholesale and e-commerce channels of a mid-market
+      distributor. This blueprint is the master specification from which the twelve
+      Phase 3 documents (CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM, TRP)
+      are derived.
+    documentControl:
+      content: |2-
+        - Version: 1.0
+        - Status: Approved
+        - Approval date: 2026-05-18
+        - Authors: Solution Architecture chapter
+        - Approvers: Programme Sponsor (VP Operations), Enterprise Architecture Board
+
+        Revision history is tracked in the programme wiki. This blueprint supersedes
+        the 2025 "Order Platform Vision" one-pager.
+    introductionAndScope:
+      content: |2-
+        MOM covers order capture, validation, pricing, fulfilment orchestration, and
+        post-sale amendments across the wholesale (EDI) and e-commerce (REST) channels.
+
+        Out of scope:
+
+        - warehouse robotics control
+        - general-ledger posting (delegated to the existing finance ERP via a
+          published interface)
+        - CRM lead management
+      goals:
+        content: |2-
+          Primary goals:
+
+          1. Cut median order-to-confirmation time from 4.2 hours to under 5 minutes.
+          2. Remove the nightly batch window entirely.
+          3. Give operations staff a single screen for the full order lifecycle.
+
+          Secondary goal: expose a stable public order API for third-party marketplace
+          integrators.
+
+          Three legacy systems are decommissioned:
+
+          - "OrderDesk" — green-screen order entry, 1998
+          - "PriceCalc" — a spreadsheet-derived pricing service
+          - "BatchSync" — the nightly file exchange with the warehouse
+      requirements:
+        content: |2-
+          The requirements below are the contract MOM is built and accepted against.
+
+          IDs are stable and referenced from the use cases, screens, and data model so
+          every downstream artifact traces back to a requirement.
+        functionalRequirements:
+          FRE-REQU-LST requirements:
+            FRE-REQU-1:
+              content:
+                requirementId: |2-
+                  FR-01
+                title: |2-
+                  Capture orders from EDI and REST channels
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Order Capture
+              priority:
+                content:
+                  priority: |2-
+                    Must
+                  businessValue: |2-
+                    High
+                  effort: |2-
+                    M
+                  riskLevel: |2-
+                    Medium
+              source:
+                content:
+                  source: |2-
+                    VP Operations
+                  requestDate: |2-
+                    2026-04-02
+                  rationale: |2-
+                    Both channels must feed the same lifecycle to retire re-keying.
+              verification:
+                content:
+                  fitCriterion: |2-
+                    An EDI and a REST order both produce an Order in state Captured within 2s.
+                  customerSatisfaction: |2-
+                    5
+                  customerDissatisfaction: |2-
+                    1
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-01-AC-1
+                      criterionTitle: |2-
+                        EDI order accepted
+                      given: |2-
+                        a well-formed EDI 850 purchase order
+                      when: |2-
+                        the EDI adapter submits it to the capture API
+                      then: |2-
+                        an Order is created in state Captured and a domain event is emitted
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+                  ACCR-CRIT-2:
+                    content:
+                      criterionId: |2-
+                        FR-01-AC-2
+                      criterionTitle: |2-
+                        REST order accepted
+                      given: |2-
+                        a valid REST order payload from an authenticated partner
+                      when: |2-
+                        POST /orders is called
+                      then: |2-
+                        an Order is created in state Captured with the same shape as EDI
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+            FRE-REQU-2:
+              content:
+                requirementId: |2-
+                  FR-02
+                title: |2-
+                  Price orders synchronously at capture time
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Pricing
+              priority:
+                content:
+                  priority: |2-
+                    Must
+                  businessValue: |2-
+                    High
+                  effort: |2-
+                    M
+                  riskLevel: |2-
+                    Medium
+              verification:
+                content:
+                  fitCriterion: |2-
+                    Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-02-AC-1
+                      criterionTitle: |2-
+                        Price snapshotted onto line
+                      given: |2-
+                        an order with two lines
+                      when: |2-
+                        the order is priced
+                      then: |2-
+                        each line stores the resolved unit price as of the pricing timestamp
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+            FRE-REQU-3:
+              content:
+                requirementId: |2-
+                  FR-03
+                title: |2-
+                  Reserve stock before confirmation
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Fulfilment
+              priority:
+                content:
+                  priority: |2-
+                    Must
+                  businessValue: |2-
+                    High
+                  effort: |2-
+                    L
+                  riskLevel: |2-
+                    High
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-03-AC-1
+                      criterionTitle: |2-
+                        Stock reserved when available
+                      given: |2-
+                        an order whose lines all have sufficient stock on hand
+                      when: |2-
+                        the order is submitted for confirmation
+                      then: |2-
+                        every line reserves its quantity and the order is eligible to confirm
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+                  ACCR-CRIT-2:
+                    content:
+                      criterionId: |2-
+                        FR-03-AC-2
+                      criterionTitle: |2-
+                        Short line placed on Hold
+                      given: |2-
+                        an order with one line whose demand exceeds available stock
+                      when: |2-
+                        reservation runs before confirmation
+                      then: |2-
+                        only the short line is placed on Hold while the remaining lines reserve normally
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+            FRE-REQU-4:
+              content:
+                requirementId: |2-
+                  FR-04
+                title: |2-
+                  Confirm orders within five minutes
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Order Lifecycle
+              priority:
+                content:
+                  priority: |2-
+                    Must
+                  businessValue: |2-
+                    High
+                  effort: |2-
+                    M
+                  riskLevel: |2-
+                    Medium
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-04-AC-1
+                      criterionTitle: |2-
+                        Order confirmed within budget
+                      given: |2-
+                        a captured order that passes validation, pricing, and reservation
+                      when: |2-
+                        the lifecycle processes it under normal load
+                      then: |2-
+                        the order reaches state Confirmed within five minutes of capture
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+                  ACCR-CRIT-2:
+                    content:
+                      criterionId: |2-
+                        FR-04-AC-2
+                      criterionTitle: |2-
+                        Confirmation surfaced to operations and tracking
+                      given: |2-
+                        an order that has just reached state Confirmed
+                      when: |2-
+                        the confirmation event is published
+                      then: |2-
+                        the order appears as Confirmed on the operations work list and the public tracking page
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+            FRE-REQU-5:
+              content:
+                requirementId: |2-
+                  FR-05
+                title: |2-
+                  Amend or cancel an order before dispatch
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Order Amendment
+              priority:
+                content:
+                  priority: |2-
+                    Should
+                  businessValue: |2-
+                    Medium
+                  effort: |2-
+                    M
+                  riskLevel: |2-
+                    Medium
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-05-AC-1
+                      criterionTitle: |2-
+                        Amendment re-runs pricing and reservation
+                      given: |2-
+                        a confirmed order that has not yet dispatched
+                      when: |2-
+                        a clerk changes a line quantity
+                      then: |2-
+                        pricing and reservation re-run for the affected line and the change is written to the audit trail
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+                  ACCR-CRIT-2:
+                    content:
+                      criterionId: |2-
+                        FR-05-AC-2
+                      criterionTitle: |2-
+                        Cancellation blocked after dispatch
+                      given: |2-
+                        an order that has already dispatched
+                      when: |2-
+                        a clerk attempts to cancel it
+                      then: |2-
+                        the cancellation is rejected and the rejection is recorded in the audit trail
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+            FRE-REQU-6:
+              content:
+                requirementId: |2-
+                  FR-06
+                title: |2-
+                  Release a manual hold
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
+                  requirementType: |2-
+                    Functional
+                  category: |2-
+                    Exception Handling
+              priority:
+                content:
+                  priority: |2-
+                    Must
+                  businessValue: |2-
+                    High
+                  effort: |2-
+                    S
+                  riskLevel: |2-
+                    Low
+              acceptanceCriteria:
+                ACCR-CRIT-LST criteria:
+                  ACCR-CRIT-1:
+                    content:
+                      criterionId: |2-
+                        FR-06-AC-1
+                      criterionTitle: |2-
+                        Supervisor releases hold
+                      given: |2-
+                        an order in state Hold
+                      when: |2-
+                        a supervisor releases it with a reason
+                      then: |2-
+                        the order resumes at the transition that placed it on Hold and the reason is audited
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+        technicalRequirements:
+          TERQ-REQU-LST requirements:
+            TERQ-REQU-1:
+              content:
+                requirementId: |2-
+                  TR-01
+                title: |2-
+                  Confirmation latency budget
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    The 95th-percentile order-confirmation latency must stay within budget under peak load.
+                  category: |2-
+                    Performance
+                  subcategory: |2-
+                    Latency
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Operations SLA
+                  rationale: |2-
+                    Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
+              measurement:
+                content:
+                  metric: |2-
+                    p95 capture-to-confirmation latency
+                  currentValue: |2-
+                    4.2h (legacy)
+                  targetValue: |2-
+                    < 30s
+                  measurementMethod: |2-
+                    Distributed tracing over the confirmation span
+                  measurementEnvironment: |2-
+                    Load test at 3x peak-hour volume
+                  measurementFrequency: |2-
+                    Per release + continuous in production
+            TERQ-REQU-2:
+              content:
+                requirementId: |2-
+                  TR-02
+                title: |2-
+                  Capture API availability
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    The order-capture API must meet a 99.9% monthly availability target.
+                  category: |2-
+                    Reliability
+                  subcategory: |2-
+                    Availability
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Partner integration agreement
+                  rationale: |2-
+                    Marketplace partners depend on the capture API being continuously reachable.
+              measurement:
+                content:
+                  metric: |2-
+                    Monthly capture-API availability
+                  targetValue: |2-
+                    >= 99.9%
+                  measurementMethod: |2-
+                    Synthetic probes + gateway success-rate metrics
+                  measurementFrequency: |2-
+                    Monthly
+            TERQ-REQU-3:
+              content:
+                requirementId: |2-
+                  TR-03
+                title: |2-
+                  Event-sourced order service
+                status: |2-
+                  Approved
+              details:
+                content:
+                  description: |2-
+                    The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
+                  category: |2-
+                    Architecture
+                  subcategory: |2-
+                    Persistence
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Enterprise Architecture Board
+                  rationale: |2-
+                    Reproducible history and rebuildable projections are core to auditability.
+        securityRequirements:
+          SECRQ-REQU-LST requirements:
+            SECRQ-REQU-1:
+              content:
+                requirementId: |2-
+                  SR-01
+                title: |2-
+                  Role-based access control
+                description: |2-
+                  Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
+              classification:
+                content:
+                  category: |2-
+                    Access Control
+                  subcategory: |2-
+                    Authorization
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Security chapter
+                  rationale: |2-
+                    Least privilege across human and machine actors.
+                  threatMitigated: |2-
+                    Unauthorized order manipulation
+                  dataClassification: |2-
+                    Internal
+              compliance:
+                content:
+                  owaspCategory: |2-
+                    A01:2021 Broken Access Control
+                  nistControl: |2-
+                    AC-6
+                  complianceReference: |2-
+                    Corporate IAM policy v3
+            SECRQ-REQU-2:
+              content:
+                requirementId: |2-
+                  SR-02
+                title: |2-
+                  Encrypt customer PII at rest
+                description: |2-
+                  All customer personally identifiable information must be encrypted at rest.
+              classification:
+                content:
+                  category: |2-
+                    Data Protection
+                  subcategory: |2-
+                    Encryption
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Data Protection Officer
+                  rationale: |2-
+                    GDPR obligations on customer records with a 7-year retention.
+                  threatMitigated: |2-
+                    PII disclosure from storage compromise
+                  dataClassification: |2-
+                    Confidential
+              compliance:
+                content:
+                  nistControl: |2-
+                    SC-28
+                  complianceReference: |2-
+                    GDPR Art. 32
+            SECRQ-REQU-3:
+              content:
+                requirementId: |2-
+                  SR-03
+                title: |2-
+                  OAuth2 client credentials on the public API
+                description: |2-
+                  The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
+              classification:
+                content:
+                  category: |2-
+                    API Security
+                  subcategory: |2-
+                    Authentication
+                  priority: |2-
+                    Must
+                  source: |2-
+                    Security chapter
+                  rationale: |2-
+                    Machine-to-machine partner access without shared secrets in code.
+                  threatMitigated: |2-
+                    Credential replay and partner impersonation
+                  dataClassification: |2-
+                    Internal
+              compliance:
+                content:
+                  owaspCategory: |2-
+                    API2:2023 Broken Authentication
+                  nistControl: |2-
+                    IA-5
+        organizationalRequirements:
+          ORRQ-REQU-LST requirements:
+            ORRQ-REQU-1:
+              content:
+                requirementId: |2-
+                  OR-01
+                title: |2-
+                  Train the operations desk on MOM
+                description: |2-
+                  Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
+              impact:
+                content:
+                  impactedGroups: |2-
+                    Order Operations desk
+                  impactedUserCount: |2-
+                    25
+                  changeType: |2-
+                    Process + tooling
+                  changeComplexity: |2-
+                    Medium
+                  resistance: |2-
+                    Low
+            ORRQ-REQU-2:
+              content:
+                requirementId: |2-
+                  OR-02
+                title: |2-
+                  Staff the parallel run
+                description: |2-
+                  The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
+              impact:
+                content:
+                  impactedGroups: |2-
+                    Order Operations, Finance
+                  impactedUserCount: |2-
+                    30
+                  changeType: |2-
+                    Temporary dual-running
+                  changeComplexity: |2-
+                    Medium
+                  resistance: |2-
+                    Medium
+    glossaryAndAbbreviations:
+      content: |2-
+        - **MOM** — Meridian Order Management.
+        - **Line** — a single product/quantity within an order.
+        - **Hold** — a state in which an order awaits manual review.
+        - **Fulfilment window** — the committed dispatch date range communicated to
+          the customer.
+        - **EDI** — the wholesale electronic data interchange channel.
+    stakeholdersAndGovernance:
+      content: |2-
+        - Sponsor: VP Operations
+        - Product owner: Head of Order Operations
+        - Key stakeholder groups: wholesale account managers, e-commerce
+          merchandising, warehouse operations, finance, and the external marketplace
+          partners
+
+        Governance runs through a fortnightly steering board; architectural decisions
+        are recorded as ADRs owned by the Enterprise Architecture Board.
+    currentLandscape:
+      content: |2-
+        Today, order entry is manual and channel-specific. Wholesale orders arrive by
+        EDI and are re-keyed into OrderDesk; e-commerce orders drop into a queue that a
+        clerk clears twice a day.
+
+        Pricing is recomputed nightly, so intraday price changes are invisible until
+        the next morning. There is no single source of truth for order status — staff
+        reconcile three systems by phone.
+      CUOPME-OPER-LST operationalMetrics:
+        CUOPME-OPER-1:
+          content: |2-
+            Median order-to-confirmation time: 4.2 hours (wholesale), 9 hours (e-commerce).
+        CUOPME-OPER-2:
+          content: |2-
+            Nightly batch window: 2h10m, during which no orders can be confirmed.
+        CUOPME-OPER-3:
+          content: |2-
+            Manual price-override rate: 11% of wholesale lines, indicating pricing drift.
+        CUOPME-OPER-4:
+          content: |2-
+            Order-status enquiry calls: ~340/week to the operations desk.
+    assumptionsConstraintsDependencies:
+      content: |2-
+        - **Assumption** — the finance ERP order-posting interface remains stable for
+          the programme's duration.
+        - **Constraint** — the platform runs in the corporate AWS eu-central-1 landing
+          zone and uses only the approved managed-database catalogue.
+        - **Dependency** — the warehouse team delivers the new dispatch-event webhook
+          by the end of increment 2.
+    targetOperatingModelConcept:
+      content: |2-
+        Orders flow through a single event-driven pipeline:
+
+        Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed
+
+        An orthogonal Hold sub-state covers manual review. Every transition emits a
+        domain event; operations staff work from one queue view filtered by state.
+        Pricing becomes a synchronous call, eliminating the batch window.
+      targetBusinessProcess:
+        processStepsAndActorInteractions:
+          actorOverview:
+            ACEN-ACTO-LST actors:
+              ACEN-ACTO-1:
+                identification:
+                  content:
+                    actorId: |2-
+                      ACT-01
+                    actorName: |2-
+                      Order Clerk
+                    actorType: |2-
+                      Human
+                    category: |2-
+                      Primary
+                    description: |2-
+                      Clears the order work list, amends lines, and cancels orders before dispatch.
+                    organizationalUnit: |2-
+                      Order Operations
+                    estimatedCount: |2-
+                      25
+                    geographicDistribution: |2-
+                      Single distribution centre
+              ACEN-ACTO-2:
+                identification:
+                  content:
+                    actorId: |2-
+                      ACT-02
+                    actorName: |2-
+                      Order Supervisor
+                    actorType: |2-
+                      Human
+                    category: |2-
+                      Primary
+                    description: |2-
+                      Reviews orders on Hold and releases them back into the lifecycle.
+                    organizationalUnit: |2-
+                      Order Operations
+                    estimatedCount: |2-
+                      4
+                    geographicDistribution: |2-
+                      Single distribution centre
+              ACEN-ACTO-3:
+                identification:
+                  content:
+                    actorId: |2-
+                      ACT-03
+                    actorName: |2-
+                      Pricing Admin
+                    actorType: |2-
+                      Human
+                    category: |2-
+                      Supporting
+                    description: |2-
+                      Maintains the price lists that the synchronous pricing step consumes.
+                    organizationalUnit: |2-
+                      Commercial
+                    estimatedCount: |2-
+                      3
+                    geographicDistribution: |2-
+                      Single distribution centre
+              ACEN-ACTO-4:
+                identification:
+                  content:
+                    actorId: |2-
+                      ACT-04
+                    actorName: |2-
+                      EDI Integration Account
+                    actorType: |2-
+                      System
+                    category: |2-
+                      Primary
+                    description: |2-
+                      Machine account through which the wholesale EDI adapter submits orders.
+                    organizationalUnit: |2-
+                      Integration
+                    estimatedCount: |2-
+                      1
+                    geographicDistribution: |2-
+                      Single distribution centre
+          interactionCatalog:
+            INEN-INTE-LST interactions:
+              INEN-INTE-1:
+                identification:
+                  content:
+                    interactionId: |2-
+                      UC-01
+                    useCaseName: |2-
+                      Capture Wholesale Order (EDI)
+                    processReference: |2-
+                      BP-Order-Capture
+                    briefDescription: |2-
+                      A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
+                    fullDescription: |2-
+                      The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
+                    primaryActor: |2-
+                      ACT-04 EDI Integration Account
+                    supportingActors: |2-
+                      ACT-01 Order Clerk
+                    goalLevel: |2-
+                      User goal
+                    designScope: |2-
+                      System
+                PRANTR-PREC-LST preconditions:
+                  PRANTR-PREC-1:
+                    content:
+                      precondition: |2-
+                        The submitting Integration account is authenticated and scoped to the wholesale channel.
+                      trigger: |2-
+                        An EDI 850 purchase order arrives at the wholesale adapter.
+                      triggerType: |2-
+                        External
+                      triggerSource: |2-
+                        EDI gateway
+                      triggerData: |2-
+                        EDI 850 document
+                POANGU-POST-LST postconditions:
+                  POANGU-POST-1:
+                    content:
+                      minimalGuarantees: |2-
+                        Either an Order exists in a well-defined state or the submission is rejected with a reason; no partial order is persisted.
+                      successGuarantees: |2-
+                        The Order is in state Confirmed with priced, reserved lines and a full event history.
+                      dataPostcondition: |2-
+                        Order and OrderLine rows persisted; reservation recorded against Product stock.
+                mainScenario:
+                  MNSST-STEP-LST steps:
+                    MNSST-STEP-1:
+                      content:
+                        stepNumber: 1
+                        actorAction: |2-
+                          EDI adapter submits the translated order to the capture API.
+                        systemResponse: |2-
+                          System creates the Order in state Captured and emits OrderCaptured.
+                        dataInvolved: |2-
+                          Order, OrderLine
+                        uiElementUsed: |2-
+                          —
+                    MNSST-STEP-2:
+                      content:
+                        stepNumber: 2
+                        actorAction: |2-
+                          System validates customer credit and line stock references.
+                        systemResponse: |2-
+                          Order moves to Validated; invalid references are flagged per line.
+                        dataInvolved: |2-
+                          Customer, Product
+                        businessRuleApplied: |2-
+                          Credit limit not exceeded
+                    MNSST-STEP-3:
+                      content:
+                        stepNumber: 3
+                        actorAction: |2-
+                          System prices each line against the active price list.
+                        systemResponse: |2-
+                          Unit price is snapshotted onto each line; Order moves to Priced.
+                        dataInvolved: |2-
+                          PriceList, OrderLine
+                        businessRuleApplied: |2-
+                          FR-02 price snapshot
+                    MNSST-STEP-4:
+                      content:
+                        stepNumber: 4
+                        actorAction: |2-
+                          System reserves stock for every line.
+                        systemResponse: |2-
+                          Reservations recorded; Order moves to Reserved.
+                        dataInvolved: |2-
+                          Product
+                        businessRuleApplied: |2-
+                          FR-03 reserve before confirm
+                    MNSST-STEP-5:
+                      content:
+                        stepNumber: 5
+                        actorAction: |2-
+                          System confirms the order.
+                        systemResponse: |2-
+                          Order moves to Confirmed within five minutes and appears on the work list.
+                        dataInvolved: |2-
+                          Order
+                        businessRuleApplied: |2-
+                          FR-04 five-minute confirmation
+                extensions:
+                  EXTEN-EXTE-LST extensions:
+                    EXTEN-EXTE-1:
+                      content:
+                        extensionId: |2-
+                          2a
+                        branchPoint: |2-
+                          Step 2
+                        condition: |2-
+                          Customer credit limit would be exceeded
+                        extensionType: |2-
+                          Exception
+                        description: |2-
+                          Validation detects the order exceeds the customer credit limit.
+                        outcome: |2-
+                          Order is placed on Hold for supervisor review (see UC-02).
+                        returnPoint: |2-
+                          Step 3 after release
+                        severity: |2-
+                          High
+                      EXTST-STEP-LST steps:
+                        EXTST-STEP-1:
+                          content:
+                            stepNumber: |2-
+                              2a.1
+                            action: |2-
+                              System places the Order on Hold and emits OrderHeld.
+                            response: |2-
+                              Order appears in the Hold filter of the work list with reason "Credit exceeded".
+                    EXTEN-EXTE-2:
+                      content:
+                        extensionId: |2-
+                          4a
+                        branchPoint: |2-
+                          Step 4
+                        condition: |2-
+                          Insufficient stock for one or more lines
+                        extensionType: |2-
+                          Exception
+                        description: |2-
+                          Reservation cannot be fully satisfied for a line.
+                        outcome: |2-
+                          The affected line is placed on Hold; other lines proceed.
+                        returnPoint: |2-
+                          Step 5 for satisfiable lines
+                        severity: |2-
+                          Medium
+                      EXTST-STEP-LST steps:
+                        EXTST-STEP-1:
+                          content:
+                            stepNumber: |2-
+                              4a.1
+                            action: |2-
+                              System holds the unsatisfiable line and reserves the rest.
+                            response: |2-
+                              The order is partially reserved; the held line is flagged for follow-up.
+              INEN-INTE-2:
+                identification:
+                  content:
+                    interactionId: |2-
+                      UC-02
+                    useCaseName: |2-
+                      Release Order Hold
+                    processReference: |2-
+                      BP-Order-Exception
+                    briefDescription: |2-
+                      A supervisor reviews an order on Hold and releases it back into the lifecycle.
+                    fullDescription: |2-
+                      A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
+                    primaryActor: |2-
+                      ACT-02 Order Supervisor
+                    goalLevel: |2-
+                      User goal
+                    designScope: |2-
+                      System
+                PRANTR-PREC-LST preconditions:
+                  PRANTR-PREC-1:
+                    content:
+                      precondition: |2-
+                        An order exists in state Hold and the actor holds the Order Supervisor role.
+                      trigger: |2-
+                        Supervisor selects a held order from the work list.
+                      triggerType: |2-
+                        User
+                      triggerSource: |2-
+                        Order Work List screen
+                POANGU-POST-LST postconditions:
+                  POANGU-POST-1:
+                    content:
+                      successGuarantees: |2-
+                        The order resumes at the transition that placed it on Hold, with the release reason audited.
+                      auditTrail: |2-
+                        Release attributed to the supervisor principal with timestamp and reason.
+                mainScenario:
+                  MNSST-STEP-LST steps:
+                    MNSST-STEP-1:
+                      content:
+                        stepNumber: 1
+                        actorAction: |2-
+                          Supervisor opens the held order and reviews the reason.
+                        systemResponse: |2-
+                          System shows the lifecycle timeline and the hold reason.
+                        dataInvolved: |2-
+                          Order
+                        uiElementUsed: |2-
+                          Order Detail timeline
+                    MNSST-STEP-2:
+                      content:
+                        stepNumber: 2
+                        actorAction: |2-
+                          Supervisor releases the order with a reason.
+                        systemResponse: |2-
+                          System resumes the lifecycle and emits OrderHoldReleased.
+                        dataInvolved: |2-
+                          Order
+                        businessRuleApplied: |2-
+                          FR-06 hold release
+              INEN-INTE-3:
+                identification:
+                  content:
+                    interactionId: |2-
+                      UC-03
+                    useCaseName: |2-
+                      Amend Order Line Before Dispatch
+                    processReference: |2-
+                      BP-Order-Amendment
+                    briefDescription: |2-
+                      A clerk changes a line quantity before dispatch, re-running pricing and reservation.
+                    fullDescription: |2-
+                      A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
+                    primaryActor: |2-
+                      ACT-01 Order Clerk
+                    goalLevel: |2-
+                      User goal
+                    designScope: |2-
+                      System
+                PRANTR-PREC-LST preconditions:
+                  PRANTR-PREC-1:
+                    content:
+                      precondition: |2-
+                        The order is not yet dispatched and the actor holds the Order Clerk role.
+                      trigger: |2-
+                        Clerk edits a line quantity on the Order Detail screen.
+                      triggerType: |2-
+                        User
+                      triggerSource: |2-
+                        Order Detail screen
+                POANGU-POST-LST postconditions:
+                  POANGU-POST-1:
+                    content:
+                      successGuarantees: |2-
+                        The amended line carries a fresh price snapshot and reservation; the amendment is audited.
+                      dataPostcondition: |2-
+                        OrderLine updated; prior values retained in the event history.
+                mainScenario:
+                  MNSST-STEP-LST steps:
+                    MNSST-STEP-1:
+                      content:
+                        stepNumber: 1
+                        actorAction: |2-
+                          Clerk changes the quantity of a line and saves.
+                        systemResponse: |2-
+                          System validates the new quantity and re-prices the line.
+                        dataInvolved: |2-
+                          OrderLine, PriceList
+                        businessRuleApplied: |2-
+                          FR-05 amend before dispatch
+                    MNSST-STEP-2:
+                      content:
+                        stepNumber: 2
+                        actorAction: |2-
+                          System re-reserves stock for the amended line.
+                        systemResponse: |2-
+                          Reservation is adjusted; the order returns to Confirmed if fully satisfied.
+                        dataInvolved: |2-
+                          Product
+                        businessRuleApplied: |2-
+                          FR-03 reserve before confirm
+          keyScenarios:
+            SCNRY-SCEN-LST scenarios:
+              SCNRY-SCEN-1:
+                identification:
+                  content:
+                    scenarioId: |2-
+                      SCN-01
+                    scenarioName: |2-
+                      Happy-path wholesale order, capture to fulfilment
+                    scenarioType: |2-
+                      End-to-end
+                    description: |2-
+                      A clean wholesale order flows from EDI capture through to fulfilment with no holds.
+                    businessGoal: |2-
+                      Confirm and fulfil a wholesale order without manual intervention.
+                    primaryActor: |2-
+                      ACT-04 EDI Integration Account
+                    supportingActors: |2-
+                      ACT-01 Order Clerk
+                    priority: |2-
+                      High
+                    complexity: |2-
+                      Medium
+                SCNST-STEP-LST steps:
+                  SCNST-STEP-1:
+                    content:
+                      stepNumber: 1
+                      actor: |2-
+                        ACT-04 EDI Integration Account
+                      action: |2-
+                        Submits a two-line wholesale order.
+                      systemResponse: |2-
+                        Order captured, validated, priced, reserved, and confirmed within five minutes.
+                  SCNST-STEP-2:
+                    content:
+                      stepNumber: 2
+                      actor: |2-
+                        ACT-01 Order Clerk
+                      action: |2-
+                        Observes the confirmed order on the work list.
+                      systemResponse: |2-
+                        Order shows state Confirmed with both lines priced and reserved.
+                  SCNST-STEP-3:
+                    content:
+                      stepNumber: 3
+                      actor: |2-
+                        System
+                      action: |2-
+                        Receives the warehouse dispatch webhook.
+                      systemResponse: |2-
+                        Order moves to Fulfilled and the public tracking page updates.
+    informationAndDataModel:
+      content: |2-
+        Core aggregates: Order (with Lines), Customer, Product, PriceList, and
+        FulfilmentPlan.
+
+        Orders reference Customers and Products by stable IDs; prices are snapshotted
+        onto each Line at pricing time so historical orders remain reproducible. The
+        event log is the system of record; read models are projections.
+      dataModel:
+        content: |2-
+          The relational core of MOM.
+
+          Order is the aggregate root; each Order owns its OrderLines and references a
+          Customer and, per line, a Product. Prices are snapshotted onto lines so
+          historical orders remain reproducible.
+        DAENT-ENTI-LST entities:
+          DAENT-ENTI-1:
+            identity:
+              entityName: |2-
+                Order
+              tableName: |2-
+                mom_order
+              entityAlias: |2-
+                ORD
+              description: |2-
+                A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
+              entityStereoType: |2-
+                Aggregate Root
+            classification:
+              category: |2-
+                Transactional
+              boundedContext: |2-
+                Ordering
+              owningDomain: |2-
+                Order Management
+              dataOwner: |2-
+                Head of Order Operations
+              sourceSystem: |2-
+                MOM
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                identity:
+                  attributeName: |2-
+                    orderId
+                  columnName: |2-
+                    order_id
+                  description: |2-
+                    Stable order identifier.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-2:
+                identity:
+                  attributeName: |2-
+                    customerId
+                  columnName: |2-
+                    customer_id
+                  description: |2-
+                    Reference to the ordering customer.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-3:
+                identity:
+                  attributeName: |2-
+                    channel
+                  columnName: |2-
+                    channel
+                  description: |2-
+                    Capture channel: EDI or REST.
+                dataTypeSpec:
+                  dataType: |2-
+                    Enum
+                  physicalType: |2-
+                    varchar(8)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-4:
+                identity:
+                  attributeName: |2-
+                    status
+                  columnName: |2-
+                    status
+                  description: |2-
+                    Lifecycle state (Captured..Closed, with Hold).
+                dataTypeSpec:
+                  dataType: |2-
+                    Enum
+                  physicalType: |2-
+                    varchar(16)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-5:
+                identity:
+                  attributeName: |2-
+                    createdAt
+                  columnName: |2-
+                    created_at
+                  description: |2-
+                    Capture timestamp (UTC).
+                dataTypeSpec:
+                  dataType: |2-
+                    Timestamp
+                  physicalType: |2-
+                    timestamptz
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                content:
+                  keyName: |2-
+                    pk_order
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    order_id
+                  description: |2-
+                    Primary key of the order.
+          DAENT-ENTI-2:
+            identity:
+              entityName: |2-
+                OrderLine
+              tableName: |2-
+                mom_order_line
+              entityAlias: |2-
+                OLN
+              description: |2-
+                A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
+              entityStereoType: |2-
+                Entity
+            classification:
+              category: |2-
+                Transactional
+              boundedContext: |2-
+                Ordering
+              owningDomain: |2-
+                Order Management
+              dataOwner: |2-
+                Head of Order Operations
+              sourceSystem: |2-
+                MOM
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                identity:
+                  attributeName: |2-
+                    lineId
+                  columnName: |2-
+                    line_id
+                  description: |2-
+                    Stable line identifier.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-2:
+                identity:
+                  attributeName: |2-
+                    orderId
+                  columnName: |2-
+                    order_id
+                  description: |2-
+                    Owning order reference.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-3:
+                identity:
+                  attributeName: |2-
+                    productId
+                  columnName: |2-
+                    product_id
+                  description: |2-
+                    Referenced product.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-4:
+                identity:
+                  attributeName: |2-
+                    quantity
+                  columnName: |2-
+                    quantity
+                  description: |2-
+                    Ordered quantity.
+                dataTypeSpec:
+                  dataType: |2-
+                    Integer
+                  physicalType: |2-
+                    int
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-5:
+                identity:
+                  attributeName: |2-
+                    unitPrice
+                  columnName: |2-
+                    unit_price
+                  description: |2-
+                    Snapshotted unit price at pricing time.
+                dataTypeSpec:
+                  dataType: |2-
+                    Decimal
+                  physicalType: |2-
+                    numeric(12,2)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                content:
+                  keyName: |2-
+                    pk_order_line
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    line_id
+                  description: |2-
+                    Primary key of the order line.
+              KEATT-KEYA-2:
+                content:
+                  keyName: |2-
+                    fk_line_order
+                  keyType: |2-
+                    Foreign
+                  keyColumns: |2-
+                    order_id
+                  description: |2-
+                    References the owning order.
+                referencedEntityRef: |2-
+                  Order
+          DAENT-ENTI-3:
+            identity:
+              entityName: |2-
+                Customer
+              tableName: |2-
+                mom_customer
+              entityAlias: |2-
+                CUS
+              description: |2-
+                A wholesale or e-commerce customer that places orders. Realizes FR-01.
+              entityStereoType: |2-
+                Aggregate Root
+            classification:
+              category: |2-
+                Master
+              boundedContext: |2-
+                Customer
+              owningDomain: |2-
+                Customer Management
+              dataOwner: |2-
+                Commercial
+              sourceSystem: |2-
+                MOM
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                identity:
+                  attributeName: |2-
+                    customerId
+                  columnName: |2-
+                    customer_id
+                  description: |2-
+                    Stable customer identifier.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-2:
+                identity:
+                  attributeName: |2-
+                    name
+                  columnName: |2-
+                    name
+                  description: |2-
+                    Customer legal name (PII).
+                dataTypeSpec:
+                  dataType: |2-
+                    String
+                  physicalType: |2-
+                    varchar(200)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Confidential
+                  isPii: |2-
+                    true
+              DAATT-ATTR-3:
+                identity:
+                  attributeName: |2-
+                    creditLimit
+                  columnName: |2-
+                    credit_limit
+                  description: |2-
+                    Approved credit limit used by validation.
+                dataTypeSpec:
+                  dataType: |2-
+                    Decimal
+                  physicalType: |2-
+                    numeric(14,2)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Confidential
+                  isPii: |2-
+                    false
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                content:
+                  keyName: |2-
+                    pk_customer
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    customer_id
+                  description: |2-
+                    Primary key of the customer.
+          DAENT-ENTI-4:
+            identity:
+              entityName: |2-
+                Product
+              tableName: |2-
+                mom_product
+              entityAlias: |2-
+                PRD
+              description: |2-
+                A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
+              entityStereoType: |2-
+                Aggregate Root
+            classification:
+              category: |2-
+                Master
+              boundedContext: |2-
+                Catalogue
+              owningDomain: |2-
+                Merchandising
+              dataOwner: |2-
+                Merchandising
+              sourceSystem: |2-
+                MOM
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                identity:
+                  attributeName: |2-
+                    productId
+                  columnName: |2-
+                    product_id
+                  description: |2-
+                    Stable product identifier.
+                dataTypeSpec:
+                  dataType: |2-
+                    UUID
+                  physicalType: |2-
+                    uuid
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-2:
+                identity:
+                  attributeName: |2-
+                    sku
+                  columnName: |2-
+                    sku
+                  description: |2-
+                    Stock-keeping unit.
+                dataTypeSpec:
+                  dataType: |2-
+                    String
+                  physicalType: |2-
+                    varchar(40)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+              DAATT-ATTR-3:
+                identity:
+                  attributeName: |2-
+                    name
+                  columnName: |2-
+                    name
+                  description: |2-
+                    Product display name.
+                dataTypeSpec:
+                  dataType: |2-
+                    String
+                  physicalType: |2-
+                    varchar(200)
+                securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    false
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                content:
+                  keyName: |2-
+                    pk_product
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    product_id
+                  description: |2-
+                    Primary key of the product.
+        entityRelationships:
+          content: |2-
+            The foreign-key relationships binding the ordering core together.
+          ENRLE-ITEM-LST items:
+            ENRLE-ITEM-1:
+              identity:
+                relationshipName: |2-
+                  Order-owns-Lines
+                relationshipType: |2-
+                  Composition
+                description: |2-
+                  An order owns one or more order lines.
+                businessJustification: |2-
+                  Maintains referential integrity across the ordering core.
+                implementationType: |2-
+                  Foreign Key
+              cardinality:
+                sourceCardinality: |2-
+                  1
+                targetCardinality: |2-
+                  1..*
+              navigation:
+                navigability: |2-
+                  Bidirectional
+                foreignKeyLocation: |2-
+                  mom_order_line.order_id
+              sourceEntityRef: |2-
+                Order
+              targetEntityRef: |2-
+                OrderLine
+            ENRLE-ITEM-2:
+              identity:
+                relationshipName: |2-
+                  Order-placed-by-Customer
+                relationshipType: |2-
+                  Association
+                description: |2-
+                  Each order is placed by exactly one customer.
+                businessJustification: |2-
+                  Maintains referential integrity across the ordering core.
+                implementationType: |2-
+                  Foreign Key
+              cardinality:
+                sourceCardinality: |2-
+                  *
+                targetCardinality: |2-
+                  1
+              navigation:
+                navigability: |2-
+                  Bidirectional
+                foreignKeyLocation: |2-
+                  mom_order.customer_id
+              sourceEntityRef: |2-
+                Order
+              targetEntityRef: |2-
+                Customer
+            ENRLE-ITEM-3:
+              identity:
+                relationshipName: |2-
+                  Line-references-Product
+                relationshipType: |2-
+                  Association
+                description: |2-
+                  Each order line references exactly one product.
+                businessJustification: |2-
+                  Maintains referential integrity across the ordering core.
+                implementationType: |2-
+                  Foreign Key
+              cardinality:
+                sourceCardinality: |2-
+                  *
+                targetCardinality: |2-
+                  1
+              navigation:
+                navigability: |2-
+                  Bidirectional
+                foreignKeyLocation: |2-
+                  mom_order_line.product_id
+              sourceEntityRef: |2-
+                OrderLine
+              targetEntityRef: |2-
+                Product
+    requirements:
+      content: |2-
+        Functional:
+
+        - capture orders from EDI and REST
+        - validate against credit and stock
+        - price synchronously and reserve stock
+        - confirm within 5 minutes
+        - support partial amendments and cancellations before dispatch
+
+        Non-functional:
+
+        - 99.9% capture-API availability
+        - p95 confirmation latency < 30s
+        - full audit trail
+        - GDPR-compliant handling of customer data with a 7-year retention policy on
+          order records
+    solutionArchitectureAndTechnology:
+      content: |2-
+        Event-sourced order service (Dart/Flutter back office, Kotlin domain services)
+        on Kubernetes, backed by PostgreSQL for read models and a managed Kafka cluster
+        for the event backbone.
+
+        The public order API is an API-gateway-fronted REST surface; EDI ingestion runs
+        as an adapter that translates to the same command API. Infrastructure is
+        provisioned as code.
+    securityAndAccessModel:
+      content: |2-
+        Access is role-based:
+
+        - Order Clerk
+        - Order Supervisor (may release holds)
+        - Pricing Admin
+        - Integration (machine) accounts scoped to specific channels
+
+        All customer PII is encrypted at rest; the public API uses OAuth2 client
+        credentials with per-partner rate limits. Every state transition is attributed
+        to an authenticated principal in the audit log.
+    experienceAndInterfaceDesign:
+      content: |2-
+        The operations back office is a single-page application organised around the
+        order queue. The primary screen is a state-filtered work list; selecting an
+        order opens a lifecycle timeline with inline actions (release hold, amend line,
+        cancel).
+
+        Design priorities:
+
+        - keyboard-first navigation for high-volume clerks
+        - an unambiguous status colour language shared with the public tracking page
+      screens:
+        screenInventory:
+          SCREN-ITEM-LST items:
+            SCREN-ITEM-1:
+              content:
+                screenId: |2-
+                  SCR-01
+                screenName: |2-
+                  Order Work List
+                purpose: |2-
+                  The single, state-filtered queue from which clerks work every order.
+              classification:
+                content:
+                  screenCategory: |2-
+                    List
+                  routePattern: |2-
+                    /orders
+              access:
+                content:
+                  accessLevel: |2-
+                    Authenticated
+                  requiredRoles: |2-
+                    Order Clerk, Order Supervisor
+                  permissionEffect: |2-
+                    Allow
+              traceability:
+                content:
+                  relatedUseCases: |2-
+                    UC-01, UC-02
+                  relatedRequirements: |2-
+                    FR-01, FR-04, FR-06
+                  dataEntities: |2-
+                    Order
+                  primaryAction: |2-
+                    Open selected order
+              presentation:
+                content:
+                  pageTitleResource: |2-
+                    screen.orders.title
+                  layout: |2-
+                    Master-detail
+              sections:
+                SCRSC-ITEM-LST items:
+                  SCRSC-ITEM-1:
+                    content:
+                      sectionId: |2-
+                        SCR-01-SEC-1
+                      sectionName: |2-
+                        State filter bar
+                      purpose: |2-
+                        Filter the queue by lifecycle state.
+                      sectionType: |2-
+                        Toolbar
+                    layout:
+                      content:
+                        layoutDirection: |2-
+                          Horizontal
+                        displayOrder: 1
+                    SCREL-ELEM-LST elements:
+                      SCREL-ELEM-1:
+                        content:
+                          elementId: |2-
+                            SCR-01-EL-1
+                          elementName: |2-
+                            State selector
+                          elementType: |2-
+                            SegmentedControl
+                        resources:
+                          content:
+                            labelResource: |2-
+                              screen.orders.filter.state
+                            hintResource: |2-
+                              screen.orders.filter.state.hint
+                  SCRSC-ITEM-2:
+                    content:
+                      sectionId: |2-
+                        SCR-01-SEC-2
+                      sectionName: |2-
+                        Order table
+                      purpose: |2-
+                        The work list itself, keyboard-navigable for high-volume clerks.
+                      sectionType: |2-
+                        DataTable
+                    layout:
+                      content:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 2
+                    SCREL-ELEM-LST elements:
+                      SCREL-ELEM-1:
+                        content:
+                          elementId: |2-
+                            SCR-01-EL-2
+                          elementName: |2-
+                            Order ID column
+                          elementType: |2-
+                            TextField
+                        fieldSpec:
+                          content:
+                            fieldName: |2-
+                              orderId
+                            dataType: |2-
+                              UUID
+                      SCREL-ELEM-2:
+                        content:
+                          elementId: |2-
+                            SCR-01-EL-3
+                          elementName: |2-
+                            Status column
+                          elementType: |2-
+                            StatusChip
+                        fieldSpec:
+                          content:
+                            fieldName: |2-
+                              status
+                            dataType: |2-
+                              Enum
+              actions:
+                SCRAC-ITEM-LST items:
+                  SCRAC-ITEM-1:
+                    content:
+                      actionId: |2-
+                        SCR-01-ACT-1
+                      actionName: |2-
+                        Open order
+                      actionType: |2-
+                        Navigate
+                    visual:
+                      content:
+                        labelResource: |2-
+                          screen.orders.action.open
+                        placement: |2-
+                          Row
+                        buttonStyle: |2-
+                          Primary
+              states:
+                SCRST-ITEM-LST items:
+                  SCRST-ITEM-1:
+                    content:
+                      stateName: |2-
+                        Empty queue
+                      description: |2-
+                        No orders match the selected state filter.
+                      messageResource: |2-
+                        screen.orders.empty
+                      primaryActionLabel: |2-
+                        Clear filter
+                      primaryActionTarget: |2-
+                        SCR-01-EL-1
+            SCREN-ITEM-2:
+              content:
+                screenId: |2-
+                  SCR-02
+                screenName: |2-
+                  Order Detail
+                purpose: |2-
+                  The lifecycle timeline and inline actions for a single order.
+              classification:
+                content:
+                  screenCategory: |2-
+                    Detail
+                  parentScreenId: |2-
+                    SCR-01
+                  routePattern: |2-
+                    /orders/:orderId
+              access:
+                content:
+                  accessLevel: |2-
+                    Authenticated
+                  requiredRoles: |2-
+                    Order Clerk, Order Supervisor
+                  permissionEffect: |2-
+                    Allow
+              traceability:
+                content:
+                  relatedUseCases: |2-
+                    UC-02, UC-03
+                  relatedRequirements: |2-
+                    FR-05, FR-06
+                  dataEntities: |2-
+                    Order, OrderLine
+                  primaryAction: |2-
+                    Amend line
+              presentation:
+                content:
+                  pageTitleResource: |2-
+                    screen.order.title
+                  layout: |2-
+                    Single column
+              sections:
+                SCRSC-ITEM-LST items:
+                  SCRSC-ITEM-1:
+                    content:
+                      sectionId: |2-
+                        SCR-02-SEC-1
+                      sectionName: |2-
+                        Lifecycle timeline
+                      purpose: |2-
+                        Show every state transition with its authenticated actor.
+                      sectionType: |2-
+                        Timeline
+                    layout:
+                      content:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 1
+                  SCRSC-ITEM-2:
+                    content:
+                      sectionId: |2-
+                        SCR-02-SEC-2
+                      sectionName: |2-
+                        Order lines
+                      purpose: |2-
+                        Editable list of lines with price and reservation status.
+                      sectionType: |2-
+                        EditableTable
+                    layout:
+                      content:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 2
+                    SCREL-ELEM-LST elements:
+                      SCREL-ELEM-1:
+                        content:
+                          elementId: |2-
+                            SCR-02-EL-1
+                          elementName: |2-
+                            Quantity field
+                          elementType: |2-
+                            NumberField
+                        behavior:
+                          content:
+                            readonlyCondition: |2-
+                              order.status == "Dispatched"
+                        fieldSpec:
+                          content:
+                            fieldName: |2-
+                              quantity
+                            dataType: |2-
+                              Integer
+              actions:
+                SCRAC-ITEM-LST items:
+                  SCRAC-ITEM-1:
+                    content:
+                      actionId: |2-
+                        SCR-02-ACT-1
+                      actionName: |2-
+                        Amend line
+                      actionType: |2-
+                        Submit
+                    visual:
+                      content:
+                        labelResource: |2-
+                          screen.order.action.amend
+                        placement: |2-
+                          Row
+                        buttonStyle: |2-
+                          Primary
+                  SCRAC-ITEM-2:
+                    content:
+                      actionId: |2-
+                        SCR-02-ACT-2
+                      actionName: |2-
+                        Release hold
+                      actionType: |2-
+                        Submit
+                    visual:
+                      content:
+                        labelResource: |2-
+                          screen.order.action.release
+                        placement: |2-
+                          Header
+                        buttonStyle: |2-
+                          Secondary
+              states:
+                SCRST-ITEM-LST items:
+                  SCRST-ITEM-1:
+                    content:
+                      stateName: |2-
+                        Amendment rejected
+                      description: |2-
+                        The new quantity failed validation or reservation.
+                      messageResource: |2-
+                        screen.order.amend.error
+                      primaryActionLabel: |2-
+                        Retry
+                      primaryActionTarget: |2-
+                        SCR-02-ACT-1
+    qualityAndAcceptanceModel:
+      content: |2-
+        Acceptance is gated on:
+
+        1. a fully automated regression suite over the order lifecycle;
+        2. a two-week parallel run against OrderDesk with < 0.1% reconciliation
+           variance;
+        3. a load test sustaining 3x peak-hour order volume within the p95 latency
+           budget.
+
+        Business sign-off requires the operations desk to clear a full day's orders on
+        MOM alone.
+    deliveryTransitionAndRollout:
+      content: |2-
+        Five increments:
+
+        1. order capture + event backbone
+        2. synchronous pricing + warehouse webhook
+        3. fulfilment orchestration + back office
+        4. public API + marketplace onboarding
+        5. legacy decommission
+
+        Transition is channel-by-channel (e-commerce first, then wholesale) with a
+        parallel-run safety net and a documented rollback to OrderDesk until the
+        parallel-run gate passes.
