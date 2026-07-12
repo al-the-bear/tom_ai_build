@@ -71,6 +71,7 @@ const {
   SomListMetaRef,
 } = require('./spec_meta');
 const { buildSomMetaTree } = require('./spec_meta_bridge');
+const { somMetaNodeDiff } = require('./spec_meta_diff');
 const {
   FORMAT_VERSION,
   SpecYamlFormatException,
@@ -163,6 +164,7 @@ module.exports = {
   SomMetaRef,
   SomListMetaRef,
   buildSomMetaTree,
+  somMetaNodeDiff,
   // yaml codec
   FORMAT_VERSION,
   SpecYamlFormatException,

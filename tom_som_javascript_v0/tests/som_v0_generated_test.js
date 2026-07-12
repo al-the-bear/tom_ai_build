@@ -38,7 +38,12 @@ const _runtimePath = path.resolve(
   _PROJECT,
   require(path.join(_PROJECT, 'package.json')).tomSom.runtimePath,
 );
-const { SpecDocument, SomVersionError, SpecSectionIdCollision } = require(_runtimePath);
+const {
+  SpecDocument,
+  SomVersionError,
+  SpecSectionIdCollision,
+  yamlEncode,
+} = require(_runtimePath);
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 let _passed = 0;
@@ -273,7 +278,7 @@ function testOneCallLoading() {
 
     // The former multi-step incantation: parse into a document, then construct
     // the typed root over it with the retained model version.
-    const decoded = SpecDocument.fromYaml(yaml);
+    const decoded = SpecDocument.fromYaml(yaml, m.d00SolutionBlueprintMetaTree);
     const manual = new m.D00SolutionBlueprint(decoded, decoded.modelVersion);
 
     // The one-call convenience.
@@ -310,16 +315,17 @@ function testOneCallLoading() {
     check('load.file.content', fromFile.content === fromYaml.content);
   }
 
-  // 6. SpecDocument.fromYaml retains the parsed model version.
+  // 6. SpecDocument.fromYaml retains the parsed model version. The wire format
+  // is hierarchical v2, so the fixture yaml is built via yamlEncode (mirrors
+  // the Dart suite's buildV2Yaml helper).
+  const buildV2Yaml = (modelVersion) => {
+    const d = new SpecDocument();
+    d.setContent('SBP/content', 'Hello');
+    return yamlEncode(d, m.d00SolutionBlueprintMetaTree, modelVersion);
+  };
   {
-    const yaml =
-      'version: 1\n' +
-      'modelVersion: "1.0"\n' +
-      'document:\n' +
-      '  content:\n' +
-      '    "SBP/content": |2-\n' +
-      '      Hello\n';
-    const doc = SpecDocument.fromYaml(yaml);
+    const yaml = buildV2Yaml('1.0');
+    const doc = SpecDocument.fromYaml(yaml, m.d00SolutionBlueprintMetaTree);
     check('load.fromYaml.modelVersion', doc.modelVersion === '1.0', doc.modelVersion);
     check(
       'load.fromYaml.content',
@@ -330,8 +336,8 @@ function testOneCallLoading() {
 
   // 7. A document with no modelVersion stamp loads with a null stamp.
   {
-    const yaml = 'version: 1\ndocument: {}\n';
-    const doc = SpecDocument.fromYaml(yaml);
+    const yaml = buildV2Yaml(null);
+    const doc = SpecDocument.fromYaml(yaml, m.d00SolutionBlueprintMetaTree);
     check('load.no-stamp.null', doc.modelVersion === null, String(doc.modelVersion));
     try {
       m.D00SolutionBlueprint.loadYaml(yaml);

@@ -26,6 +26,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_javascript_emitter.dart';
+import 'som_javascript_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the JavaScript generator.
@@ -144,6 +145,16 @@ SomJavaScriptGenerationResult writeSomJavaScriptProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── generated metadata module (DR8/DR15): populated SomMetaTrees plus the
+  //    dot-notation and ID-tree access surfaces, required by the facade ───────
+  final metaModuleSource = SomJavaScriptMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  ).generateLibrary();
+  File(p.join(outputRoot, '${packageName}_meta.js'))
+      .writeAsStringSync(metaModuleSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart/Python/Java path — schemas are language-agnostic.
   final schemas =
@@ -197,6 +208,7 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
     // listed explicitly).
     'files': <String>[
       '$name.js',
+      '${name}_meta.js',
       'meta/',
       'schemas/',
       'examples/',

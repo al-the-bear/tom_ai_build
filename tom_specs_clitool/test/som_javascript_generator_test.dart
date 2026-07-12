@@ -74,6 +74,16 @@ void main() {
     expect(source, contains('module.exports = {'));
     expect(result.modulePath, endsWith('tom_som_javascript_v0.js'));
 
+    // The generated metadata module (DR8/DR15) is written alongside the
+    // facade and carries the populated trees + access surfaces.
+    final metaModule = File(p.join(
+        p.dirname(result.modulePath), 'tom_som_javascript_v0_meta.js'));
+    expect(metaModule.existsSync(), isTrue);
+    expect(
+        metaModule.readAsStringSync(),
+        contains(
+            'const d00SolutionBlueprintMetaTree = new SomMetaTree('));
+
     // One DocSpecs schema per @Document root (13).
     expect(result.schemaPaths.length, 13);
     for (final s in result.schemaPaths) {
@@ -106,6 +116,7 @@ void main() {
         files,
         containsAll(<String>[
           'tom_som_javascript_v0.js',
+          'tom_som_javascript_v0_meta.js',
           'meta/',
           'schemas/',
           'README.md',

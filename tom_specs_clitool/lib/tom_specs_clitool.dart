@@ -42,6 +42,7 @@ export 'src/som_python_emitter.dart' show SomPythonEmitter;
 export 'src/som_python_meta_emitter.dart' show SomPythonMetaEmitter;
 export 'src/som_java_emitter.dart' show SomJavaEmitter;
 export 'src/som_javascript_emitter.dart' show SomJavaScriptEmitter;
+export 'src/som_javascript_meta_emitter.dart' show SomJavaScriptMetaEmitter;
 export 'src/som_typescript_emitter.dart' show SomTypeScriptEmitter;
 export 'src/som_go_emitter.dart' show SomGoEmitter;
 export 'src/som_rust_emitter.dart' show SomRustEmitter;

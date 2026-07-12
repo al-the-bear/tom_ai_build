@@ -17,6 +17,11 @@ const {
   somEditabilityFor,
 } = require(_path.resolve(__dirname, _manifest.tomSom.runtimePath));
 
+// The generated metadata module (DR8/DR15): the populated SomMetaTrees plus
+// the dot-notation and ID-tree access surfaces. Its exports are re-exported
+// below, so one require of this facade surfaces both access styles.
+const _meta = require('./tom_som_javascript_v0_meta.js');
+
 // Generated enum for `Probability` values.
 const Probability = Object.freeze({
   "low": "low",
@@ -89,14 +94,14 @@ class SolutionBlueprint extends SomNode {
   // document's authoring stamp already applied (§ item 4) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
-    const doc = SpecDocument.fromYaml(yaml);
+    const doc = SpecDocument.fromYaml(yaml, _meta.solutionBlueprintMetaTree);
     return new SolutionBlueprint(doc, doc.modelVersion);
   }
 
   // Loads a `*.docspecs.yaml` document from the file at `path` — the file
   // companion to `loadYaml`.
   static loadFile(path) {
-    const doc = SpecDocument.fromFile(path);
+    const doc = SpecDocument.fromFile(path, _meta.solutionBlueprintMetaTree);
     return new SolutionBlueprint(doc, doc.modelVersion);
   }
 
@@ -162,25 +167,12 @@ class SolutionBlueprintOwnerForm extends SomNode {
   }
 }
 
-// Generated path constants for the `PD00` document root (§ item 11).
-//
-// Each constant is the absolute generic path of a fixed section, for use with
-// the generic `SpecDocument` API instead of a raw string literal — the safe
-// end of the navigate-then-read hybrid pattern.
-const Pd00Paths = Object.freeze({
-  vision: "PD00/vision",
-  owner: "PD00/owner",
-  risks: "PD00/risks",
-  tags: "PD00/tags",
-  situation: "PD00/situation",
-  situationSummary: "PD00/situation/summary",
-});
-
 module.exports = {
+  // Metadata trees + dot-notation / ID-tree access surfaces (DR8/DR15).
+  ..._meta,
   Probability,
   CurrentLandscapeAssessment,
   Risk,
   SolutionBlueprint,
   SolutionBlueprintOwnerForm,
-  Pd00Paths,
 };

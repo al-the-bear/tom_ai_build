@@ -213,19 +213,30 @@ String? _runtimeDir() {
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_javascript_v0_fixture.js.golden');
+  final metaGoldenPath = p.join(Directory.current.path, 'test', 'golden',
+      'som_javascript_v0_meta_fixture.js.golden');
 
   group('SomJavaScriptEmitter', () {
-    test('emitted output matches the committed golden file', () {
+    test('emitted output matches the committed golden files', () {
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
+      // The facade requires its sibling meta module (DR8/DR15), so the meta
+      // golden is pinned alongside — the runtime facade test loads both.
+      final metaSource =
+          SomJavaScriptMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
+      final metaGolden = File(metaGoldenPath);
       // Bootstrap / intentional regeneration: `UPDATE_GOLDEN=1 dart test ...`.
       if (Platform.environment['UPDATE_GOLDEN'] == '1') {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
+        metaGolden.writeAsStringSync(metaSource);
       }
       expect(golden.existsSync(), isTrue,
           reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(metaGolden.existsSync(), isTrue,
+          reason: 'run with UPDATE_GOLDEN=1 to create the meta golden file');
       expect(source, golden.readAsStringSync());
+      expect(metaSource, metaGolden.readAsStringSync());
     });
 
     test('the generated module loads under node and a typed mutation '
@@ -241,10 +252,15 @@ void main() {
         return;
       }
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
+      final metaSource =
+          SomJavaScriptMetaEmitter(_fixtureModel()).generateLibrary();
       final dir = Directory.systemTemp.createTempSync('som_js_emit_');
       try {
         const moduleName = 'tom_som_javascript_v0';
         File(p.join(dir.path, '$moduleName.js')).writeAsStringSync(source);
+        // The facade requires its sibling meta module (DR8/DR15).
+        File(p.join(dir.path, '${moduleName}_meta.js'))
+            .writeAsStringSync(metaSource);
         // The module resolves the runtime via tomSom.runtimePath in this
         // package.json (relative to the module's own dir).
         final runtimeRel =
@@ -382,22 +398,28 @@ process.stdout.write('OK');
       expect(tagsBody, endsWith('new SomScalar(d, p));'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('path-constant holders are retired; the meta module is re-exported '
+        '(DR8/DR15, DR1 §4)', () {
       final source = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
-      // The holder is a frozen-object namespace named `<Pascal(rootSeg)>Paths`.
-      expect(source, contains('const Pd00Paths = Object.freeze({'));
-      // The six fixed sections reachable from the root each earn a constant,
-      // keyed by camelCase name with the absolute generic path as value.
-      expect(source, contains('vision: "PD00/vision",'));
-      expect(source, contains('owner: "PD00/owner",'));
-      expect(source, contains('risks: "PD00/risks",'));
-      expect(source, contains('tags: "PD00/tags",'));
-      expect(source, contains('situation: "PD00/situation",'));
-      expect(source, contains('situationSummary: "PD00/situation/summary",'));
-      // List elements (`Risk`) are dynamic and never recursed — no leaf key.
-      expect(source, isNot(contains('risksTitle')));
-      // The holder is exported the same CommonJS way as the other symbols.
-      expect(source, contains('  Pd00Paths,\n'));
+      // DR8/DR15: the former per-root `<Code>Paths` holders are gone from the
+      // main facade module …
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('vision: "PD00/vision"')));
+      // … replaced by the generated metadata module (dot-notation + ID tree),
+      // required and spread into the exports so one require gives both
+      // surfaces, and the root load statics pass the populated tree to the
+      // codec.
+      expect(source,
+          contains("require('./tom_som_javascript_v0_meta.js');"));
+      expect(source, contains('  ..._meta,'));
+      expect(
+          source,
+          contains('SpecDocument.fromYaml(yaml, '
+              '_meta.solutionBlueprintMetaTree)'));
+      expect(
+          source,
+          contains('SpecDocument.fromFile(path, '
+              '_meta.solutionBlueprintMetaTree)'));
     });
 
     test('documentRoots subsets the generated classes', () {

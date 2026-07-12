@@ -7,6 +7,7 @@
   "main": "tom_som_javascript_v0.js",
   "files": [
     "tom_som_javascript_v0.js",
+    "tom_som_javascript_v0_meta.js",
     "meta/",
     "schemas/",
     "examples/",

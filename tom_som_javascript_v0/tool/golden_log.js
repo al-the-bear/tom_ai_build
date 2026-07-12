@@ -38,7 +38,7 @@ function main() {
   const sample = process.argv[2] || DEFAULT_SAMPLE;
   const output = process.argv[3] || DEFAULT_OUTPUT;
 
-  const doc = SpecDocument.fromFile(sample);
+  const doc = SpecDocument.fromFile(sample, m.d00SolutionBlueprintMetaTree);
   const sbp = m.D00SolutionBlueprint.loadFile(sample);
 
   const out = [];

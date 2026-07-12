@@ -21,8 +21,6 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// Generates the `tom_som_javascript_v0` module source for a [SpecModel].
 class SomJavaScriptEmitter {
   final SpecModel model;
@@ -116,6 +114,15 @@ class SomJavaScriptEmitter {
       ..writeln('  somEditabilityFor,')
       ..writeln('} = require(_path.resolve(__dirname, '
           '_manifest.tomSom.runtimePath));')
+      ..writeln()
+      ..writeln('// The generated metadata module (DR8/DR15): the populated '
+          'SomMetaTrees plus')
+      ..writeln('// the dot-notation and ID-tree access surfaces. Its exports '
+          'are re-exported')
+      ..writeln('// below, so one require of this facade surfaces both '
+          'access styles.')
+      ..writeln('const _meta = '
+          "require('./tom_som_javascript_${versionLabel}_meta.js');")
       ..writeln();
 
     for (final e in enums) {
@@ -139,43 +146,17 @@ class SomJavaScriptEmitter {
       exported.add(fc.name);
     }
 
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    for (final holder
-        in enumerateSpecPathHolders(model, documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-      exported.add(holder.holderName);
-    }
-
+    // The flat path-constant holders (§ item 11) are retired (DR8/DR15): the
+    // metadata module's dot-notation and ID-tree surfaces own path access.
     buffer.writeln('module.exports = {');
+    buffer.writeln('  // Metadata trees + dot-notation / ID-tree access '
+        'surfaces (DR8/DR15).');
+    buffer.writeln('  ..._meta,');
     for (final name in exported) {
       buffer.writeln('  $name,');
     }
     buffer.writeln('};');
     return buffer.toString();
-  }
-
-  /// Emits the `<Code>Paths` holder — a frozen-object namespace of named path
-  /// constants (§ item 11). Keys are the camelCase constant names, values the
-  /// absolute generic path strings.
-  String _emitPathHolder(SpecPathHolder holder) {
-    final b = StringBuffer()
-      ..writeln('// Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('//')
-      ..writeln('// Each constant is the absolute generic path of a fixed '
-          'section, for use with')
-      ..writeln('// the generic `SpecDocument` API instead of a raw string '
-          'literal — the safe')
-      ..writeln('// end of the navigate-then-read hybrid pattern.')
-      ..writeln('const ${holder.holderName} = Object.freeze({');
-    for (final c in holder.constants) {
-      b.writeln('  ${c.name}: "${_jstr(c.path)}",');
-    }
-    b.writeln('});');
-    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------
@@ -293,7 +274,8 @@ class SomJavaScriptEmitter {
         ..writeln('  // the former decode → loadJson → thread-`documentVersion` '
             'sequence.')
         ..writeln('  static loadYaml(yaml) {')
-        ..writeln('    const doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('    const doc = SpecDocument.fromYaml(yaml, '
+            '_meta.${_camelType(cls.name)}MetaTree);')
         ..writeln('    return new ${cls.name}(doc, doc.modelVersion);')
         ..writeln('  }')
         ..writeln()
@@ -301,7 +283,8 @@ class SomJavaScriptEmitter {
             '`path` — the file')
         ..writeln('  // companion to `loadYaml`.')
         ..writeln('  static loadFile(path) {')
-        ..writeln('    const doc = SpecDocument.fromFile(path);')
+        ..writeln('    const doc = SpecDocument.fromFile(path, '
+            '_meta.${_camelType(cls.name)}MetaTree);')
         ..writeln('    return new ${cls.name}(doc, doc.modelVersion);')
         ..writeln('  }')
         ..writeln()
@@ -523,6 +506,11 @@ class SomJavaScriptEmitter {
   /// stored enum token are derived independently and stay byte-identical to the
   /// other facades, so cross-language documents remain compatible.
   String _acc(String name) => _jsKeywords.contains(name) ? '${name}_' : name;
+
+  /// The lowerCamelCase form of a type name — names the per-root
+  /// `<camelType>MetaTree` constant in the generated metadata module.
+  String _camelType(String s) =>
+      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);
