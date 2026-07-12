@@ -22,6 +22,7 @@ const {
   SpecClass,
   SpecRoot,
   SpecModel,
+  somModelVersionString,
 } = require('./spec_model');
 const {
   SPEC_PATH_SEPARATOR,
@@ -87,8 +88,25 @@ const {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  MarkdownFenceTracker,
   SpecDocumentMarkdown,
 } = require('./spec_document_markdown');
+const {
+  DocSpecsViolationRule,
+  DocSpecsViolation,
+  DocSpecsSection,
+  DocSpecsDocument,
+  docSpecsIdTransform,
+  DocSpecsPatternCheck,
+  DocSpecsSubsectionRule,
+  DocSpecsSectionType,
+  DocSpecsFormField,
+  DocSpecsFormType,
+  DocSpecsDocumentSection,
+  DocSpecsSchema,
+  DocSpecsValidator,
+  bindDocspecsMarkdown,
+} = require('./docspecs_validator');
 
 module.exports = {
   // paths
@@ -106,6 +124,7 @@ module.exports = {
   SpecClass,
   SpecRoot,
   SpecModel,
+  somModelVersionString,
   // reflection
   SpecNodeKind,
   SpecResolution,
@@ -160,5 +179,21 @@ module.exports = {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  MarkdownFenceTracker,
   SpecDocumentMarkdown,
+  // docspecs validation
+  DocSpecsViolationRule,
+  DocSpecsViolation,
+  DocSpecsSection,
+  DocSpecsDocument,
+  docSpecsIdTransform,
+  DocSpecsPatternCheck,
+  DocSpecsSubsectionRule,
+  DocSpecsSectionType,
+  DocSpecsFormField,
+  DocSpecsFormType,
+  DocSpecsDocumentSection,
+  DocSpecsSchema,
+  DocSpecsValidator,
+  bindDocspecsMarkdown,
 };

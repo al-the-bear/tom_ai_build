@@ -169,7 +169,20 @@ class _Yaml {
       } else if (itemText.startsWith('|') || itemText.startsWith('>')) {
         list.push(this.parseBlockScalar(itemText, indent));
       } else {
-        list.push(this.parseFlowScalar(itemText));
+        const colon = _findColon(itemText);
+        const isMapEntry =
+          colon >= 0 &&
+          (colon === itemText.length - 1 || itemText.charAt(colon + 1) === ' ');
+        if (isMapEntry) {
+          // Block-sequence item that is itself a mapping (`- key: value` plus
+          // continuation lines): re-enter the mapping parser with the `- `
+          // prefix counting as indentation (YAML block-sequence rule).
+          this.idx = i;
+          this.lines[i] = ' '.repeat(indent + 2) + line.slice(indent + 2);
+          list.push(this.parseMapping(indent + 2));
+        } else {
+          list.push(this.parseFlowScalar(itemText));
+        }
       }
     }
     return list;

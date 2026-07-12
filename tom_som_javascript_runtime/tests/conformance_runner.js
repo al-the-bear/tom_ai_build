@@ -32,6 +32,7 @@ const _CORPUS = path.normalize(
 
 const {
   SpecDocument,
+  SpecDocumentMarkdown,
   SpecModel,
   buildSomMetaTree,
   SpecReflection,
@@ -174,6 +175,58 @@ function testYamlDecodeRoundTrip(tree) {
   );
   const actual = yamlEncode(contents.document, tree, contents.modelVersion || _MODEL_VERSION);
   _check('yaml.decode.reencode', actual === expected, _byteDiff('yaml.decode.reencode', actual, expected));
+}
+
+function testMarkdownExport(model) {
+  const doc = _documentFromState(_readJson('state.json'));
+  const expected = _read('expected.md');
+  const actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
+  _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
+}
+
+function testMarkdownRoundTrip(model) {
+  const golden = _read('expected.md');
+  const doc = _documentFromState(_readJson('state.json'));
+  const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
+  _check(
+    'md.parse.clean',
+    parsed.rejections.length === 0,
+    parsed.rejections.map((r) => String(r)).join('; '),
+  );
+  const reDoc = new SpecDocument();
+  reDoc.loadJson({
+    content: parsed.content,
+    forms: parsed.forms,
+    lists: parsed.lists,
+  });
+  const actual = new SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots[0]);
+  _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
+}
+
+// Plan item #9: parsing `expected.md` and applying it must reproduce
+// `state.json` (the YAML-route memory) exactly, proving both formats converge
+// on one in-memory document (§4.1).
+function testMarkdownMemoryLanding(model) {
+  const golden = _read('expected.md');
+  const canonical = _readJson('state.json');
+  const doc = _documentFromState(canonical);
+  const parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
+  _check(
+    'md.land.clean',
+    parsed.rejections.length === 0,
+    parsed.rejections.map((r) => String(r)).join('; '),
+  );
+  const landed = new SpecDocument();
+  landed.loadJson({
+    content: parsed.content,
+    forms: parsed.forms,
+    lists: parsed.lists,
+  });
+  _check(
+    'md.land.memory',
+    _deepEqual(landed.toJson(), canonical),
+    _jsonMismatch(landed.toJson(), canonical),
+  );
 }
 
 function testReflection(model) {
@@ -353,10 +406,9 @@ function main() {
   testStateRoundTrip();
   testYamlEncode(tree);
   testYamlDecodeRoundTrip(tree);
-  process.stdout.write(
-    'SKIP: markdown conformance checks (md.export/md.parse/md.land) — corpus ' +
-      "expected.md is DR6 format; the JavaScript DR6/DR7 port is DR14's scope.\n",
-  );
+  testMarkdownExport(model);
+  testMarkdownRoundTrip(model);
+  testMarkdownMemoryLanding(model);
   testReflection(model);
   testValidation(model);
   testOperations();
