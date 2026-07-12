@@ -57,24 +57,22 @@ class SpecDocument {
   // --- loading ------------------------------------------------------------
 
   /**
-   * Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
-   * the sparse stores ({@link loadJson}), and retain the parsed
-   * {@link modelVersion} on the document. Collapses the former three-step
-   * `decode` → `loadJson` → thread-`documentVersion` incantation (§ item 4).
+   * Loads a hierarchical v2 `*.docspecs.yaml` document in one call: decode
+   * the YAML against the document's {@link SomMetaTree} and return the
+   * populated document (with {@link modelVersion} already threaded by the
+   * codec). Collapses the former three-step `decode` → `loadJson` →
+   * thread-`documentVersion` incantation (§ item 4).
    *
    * The yaml codec is required lazily to sidestep any load-order/circular
    * require between this module and `spec_document_yaml.js`.
    *
    * @param {string} yaml
+   * @param {import('./spec_meta').SomMetaTree} tree
    * @returns {SpecDocument}
    */
-  static fromYaml(yaml) {
+  static fromYaml(yaml, tree) {
     const { decode } = require('./spec_document_yaml');
-    const decoded = decode(yaml);
-    const doc = new SpecDocument();
-    doc.loadJson(decoded.document);
-    doc.modelVersion = decoded.modelVersion;
-    return doc;
+    return decode(yaml, tree).document;
   }
 
   /**
@@ -82,10 +80,11 @@ class SpecDocument {
    * companion to {@link fromYaml} the generated `loadFile` static delegates to.
    *
    * @param {string} path
+   * @param {import('./spec_meta').SomMetaTree} tree
    * @returns {SpecDocument}
    */
-  static fromFile(path) {
-    return SpecDocument.fromYaml(require('fs').readFileSync(path, 'utf8'));
+  static fromFile(path, tree) {
+    return SpecDocument.fromYaml(require('fs').readFileSync(path, 'utf8'), tree);
   }
 
   // --- markdown export ----------------------------------------------------
