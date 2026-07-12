@@ -13,6 +13,8 @@ from tom_som_runtime import (
     som_editability_for,
 )
 
+from tom_som_python_v0_meta import *  # noqa: F401,F403
+
 class Probability(Enum):
     """Generated enum for `Probability` values."""
 
@@ -76,14 +78,14 @@ class SolutionBlueprint(SomNode):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
         document's authoring stamp already applied (§ item 4) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
-        doc = SpecDocument.from_yaml(yaml)
+        doc = SpecDocument.from_yaml(yaml, solutionBlueprintMetaTree)
         return cls(doc, document_version=doc.model_version)
 
     @classmethod
     def load_file(cls, path):
         """Loads a `*.docspecs.yaml` document from the file at *path* — the file
         companion to :meth:`load_yaml`."""
-        doc = SpecDocument.from_file(path)
+        doc = SpecDocument.from_file(path, solutionBlueprintMetaTree)
         return cls(doc, document_version=doc.model_version)
 
     @property
@@ -145,19 +147,4 @@ class SolutionBlueprintOwnerForm(SomNode):
     @role.setter
     def role(self, value):
         self.doc.set_form_field(self.path, "role", value)
-
-class Pd00Paths:
-    """Generated path constants for the `PD00` document root (§ item 11).
-
-    Each constant is the absolute generic path of a fixed section, for use with
-    the generic SpecDocument API instead of a raw string literal — the safe
-    end of the navigate-then-read hybrid pattern.
-    """
-
-    vision = "PD00/vision"
-    owner = "PD00/owner"
-    risks = "PD00/risks"
-    tags = "PD00/tags"
-    situation = "PD00/situation"
-    situationSummary = "PD00/situation/summary"
 

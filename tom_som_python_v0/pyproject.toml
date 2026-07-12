@@ -16,11 +16,12 @@ readme = "README.md"
 # below (add it to PYTHONPATH) or `pip install -e ../tom_som_python_runtime`.
 dependencies = ["tom_som_python_runtime>=1.0.0"]
 
-# A single top-level module (not a package) — list it explicitly so setuptools
-# does not attempt flat-layout auto-discovery over the sibling data folders
+# Two top-level modules (not a package) — the typed facade plus its generated
+# metadata module — listed explicitly so setuptools does not attempt
+# flat-layout auto-discovery over the sibling data folders
 # (meta/, schemas/, examples/, tests/).
 [tool.setuptools]
-py-modules = ["tom_som_python_v0"]
+py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta"]
 
 [tool.tom_som]
 # The generic runtime this typed facade edits over. Add it to PYTHONPATH (or

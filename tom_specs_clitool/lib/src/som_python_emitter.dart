@@ -17,8 +17,6 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// Generates the `tom_som_python_v0` package module source for a [SpecModel].
 class SomPythonEmitter {
   final SpecModel model;
@@ -105,6 +103,14 @@ class SomPythonEmitter {
       ..writeln('    check_som_model_version,')
       ..writeln('    som_editability_for,')
       ..writeln(')')
+      ..writeln()
+      // DR8/DR12: the generated metadata module (populated SomMetaTrees + the
+      // dot-notation and ID-tree access surfaces) replaces the retired flat
+      // path-constant holders. Imported here too — the root `load_yaml` /
+      // `load_file` classmethods pass the root's populated tree to the codec.
+      // The wildcard import re-exports the meta surface through this module.
+      ..writeln('from tom_som_python_${versionLabel}_meta import *  '
+          '# noqa: F401,F403')
       ..writeln();
 
     for (final e in enums) {
@@ -122,37 +128,16 @@ class SomPythonEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-    }
+    // DR8/DR12: the flat `<Code>Paths` constant holders are retired — the
+    // generated metadata module (`tom_som_python_<label>_meta`) supplies the
+    // dot-notation and ID-tree access surfaces instead.
     return buffer.toString();
   }
 
-  /// Emits the `<Code>Paths` holder — an idiomatic Python namespace of
-  /// class-level string constants (§ item 11).
-  String _emitPathHolder(SpecPathHolder holder) {
-    final b = StringBuffer()
-      ..writeln('class ${holder.holderName}:')
-      ..writeln('    """Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln()
-      ..writeln('    Each constant is the absolute generic path of a fixed '
-          'section, for use with')
-      ..writeln('    the generic SpecDocument API instead of a raw string '
-          'literal — the safe')
-      ..writeln('    end of the navigate-then-read hybrid pattern.')
-      ..writeln('    """')
-      ..writeln();
-    for (final c in holder.constants) {
-      b.writeln('    ${_acc(c.name)} = "${_pystr(c.path)}"');
-    }
-    return b.toString();
-  }
+  /// The lowerCamelCase form of a root type name, used to reference the
+  /// per-root `SomMetaTree` global `<camelType>MetaTree` (SomPythonMetaEmitter).
+  String _camelType(String s) =>
+      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 
   // --- reachability -------------------------------------------------------
 
@@ -262,7 +247,8 @@ class SomPythonEmitter {
             '— one call for')
         ..writeln('        the former decode → load_json → thread-'
             '`document_version` sequence."""')
-        ..writeln('        doc = SpecDocument.from_yaml(yaml)')
+        ..writeln('        doc = SpecDocument.from_yaml(yaml, '
+            '${_camelType(cls.name)}MetaTree)')
         ..writeln('        return cls(doc, document_version=doc.model_version)')
         ..writeln()
         ..writeln('    @classmethod')
@@ -270,7 +256,8 @@ class SomPythonEmitter {
         ..writeln('        """Loads a `*.docspecs.yaml` document from the file at '
             '*path* — the file')
         ..writeln('        companion to :meth:`load_yaml`."""')
-        ..writeln('        doc = SpecDocument.from_file(path)')
+        ..writeln('        doc = SpecDocument.from_file(path, '
+            '${_camelType(cls.name)}MetaTree)')
         ..writeln('        return cls(doc, document_version=doc.model_version)')
         ..writeln()
         ..writeln('    @property')

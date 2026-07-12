@@ -39,6 +39,7 @@ export 'src/spec_path_constants.dart'
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_dart_meta_emitter.dart' show SomDartMetaEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;
+export 'src/som_python_meta_emitter.dart' show SomPythonMetaEmitter;
 export 'src/som_java_emitter.dart' show SomJavaEmitter;
 export 'src/som_javascript_emitter.dart' show SomJavaScriptEmitter;
 export 'src/som_typescript_emitter.dart' show SomTypeScriptEmitter;

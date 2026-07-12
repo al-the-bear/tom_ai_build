@@ -178,19 +178,29 @@ String? _python() {
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_python_v0_fixture.py.golden');
+  final metaGoldenPath = p.join(Directory.current.path, 'test', 'golden',
+      'som_python_v0_meta_fixture.py.golden');
 
   group('SomPythonEmitter', () {
-    test('emitted output matches the committed golden file', () {
+    test('emitted output matches the committed golden files', () {
       final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
+      // The facade wildcard-imports its sibling meta module (DR8/DR12), so the
+      // meta golden is pinned alongside — the runtime facade test loads both.
+      final metaSource = SomPythonMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
+      final metaGolden = File(metaGoldenPath);
       // Bootstrap / intentional regeneration: `UPDATE_GOLDEN=1 dart test ...`.
       if (Platform.environment['UPDATE_GOLDEN'] == '1') {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
+        metaGolden.writeAsStringSync(metaSource);
       }
       expect(golden.existsSync(), isTrue,
           reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(metaGolden.existsSync(), isTrue,
+          reason: 'run with UPDATE_GOLDEN=1 to create the meta golden file');
       expect(source, golden.readAsStringSync());
+      expect(metaSource, metaGolden.readAsStringSync());
     });
 
     test('the generated module compiles in Python (py_compile)', () {
@@ -290,19 +300,22 @@ void main() {
       expect(tagsBody, isNot(contains('pattern=')));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('path-constant holders are retired; the meta module is re-exported '
+        '(DR8/DR12, DR1 §4)', () {
       final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
-      // The holder is named from the root segment (sectionId `PD00` → `Pd00`).
-      expect(source, contains('class Pd00Paths:'));
-      // A content leaf and a collapsed complex child both earn constants. The
-      // Python member identifier matches the Dart camelCase name (only Python
-      // keywords are sanitised — none of these are).
-      expect(source, contains('vision = "PD00/vision"'));
-      expect(source, contains('situation = "PD00/situation"'));
-      expect(source, contains('situationSummary = "PD00/situation/summary"'));
-      // A list container earns exactly the container path (item excluded).
-      expect(source, contains('risks = "PD00/risks"'));
-      expect(source, isNot(contains('risksTitle')));
+      // DR8/DR12: the former per-root `<Code>Paths` holders are gone from the
+      // main facade module …
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('vision = "PD00/vision"')));
+      // … replaced by the generated metadata module (dot-notation + ID tree),
+      // wildcard re-imported so one import gives both surfaces, and the root
+      // load classmethods pass the populated tree to the codec.
+      expect(source,
+          contains('from tom_som_python_v0_meta import *  # noqa: F401,F403'));
+      expect(source,
+          contains('SpecDocument.from_yaml(yaml, solutionBlueprintMetaTree)'));
+      expect(source,
+          contains('SpecDocument.from_file(path, solutionBlueprintMetaTree)'));
     });
 
     test('documentRoots subsets the generated classes', () {

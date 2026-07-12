@@ -25,6 +25,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_python_emitter.dart';
+import 'som_python_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Python generator.
@@ -143,6 +144,16 @@ SomPythonGenerationResult writeSomPythonProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── generated metadata module (DR8/DR12): populated SomMetaTrees (DR1 §3.2)
+  //    plus the dot-notation and ID-tree access surfaces (DR1 §4), re-exported
+  //    from the main facade module ─────────────────────────────────────────────
+  final metaSource = SomPythonMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  ).generateLibrary();
+  File(p.join(outputRoot, '${packageName}_meta.py')).writeAsStringSync(metaSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart path — schemas are language-agnostic.
   final schemas =
@@ -194,11 +205,12 @@ readme = "README.md"
 # below (add it to PYTHONPATH) or `pip install -e ../tom_som_python_runtime`.
 dependencies = ["tom_som_python_runtime>=$version"]
 
-# A single top-level module (not a package) — list it explicitly so setuptools
-# does not attempt flat-layout auto-discovery over the sibling data folders
+# Two top-level modules (not a package) — the typed facade plus its generated
+# metadata module — listed explicitly so setuptools does not attempt
+# flat-layout auto-discovery over the sibling data folders
 # (meta/, schemas/, examples/, tests/).
 [tool.setuptools]
-py-modules = ["$name"]
+py-modules = ["$name", "${name}_meta"]
 
 [tool.tom_som]
 # The generic runtime this typed facade edits over. Add it to PYTHONPATH (or

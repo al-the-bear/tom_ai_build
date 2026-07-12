@@ -72,6 +72,14 @@ void main() {
     expect(module, contains('class D00SolutionBlueprint'));
     expect(result.modulePath, endsWith('tom_som_python_v0.py'));
 
+    // The generated metadata module (DR8/DR12) is written alongside the
+    // facade and carries the populated trees + access surfaces.
+    final metaModule = File(
+        p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py'));
+    expect(metaModule.existsSync(), isTrue);
+    expect(metaModule.readAsStringSync(),
+        contains('d00SolutionBlueprintMetaTree = SomMetaTree('));
+
     // One DocSpecs schema per @Document root (13).
     expect(result.schemaPaths.length, 13);
     for (final s in result.schemaPaths) {
@@ -90,9 +98,10 @@ void main() {
     expect(pyproject, contains('build-backend = "setuptools.build_meta"'));
     expect(pyproject, contains('version = "1.0.0"'),
         reason: 'facade version is the TomSpecs model version');
-    expect(pyproject, contains('py-modules = ["tom_som_python_v0"]'),
-        reason: 'the single-module facade must be listed explicitly so '
-            'setuptools skips flat-layout auto-discovery');
+    expect(pyproject,
+        contains('py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta"]'),
+        reason: 'the facade and its generated metadata module must be listed '
+            'explicitly so setuptools skips flat-layout auto-discovery');
     expect(pyproject, contains('tom_som_python_runtime>=1.0.0'),
         reason: 'the runtime dep must be pinned to the model version');
     final rtPath =
@@ -184,6 +193,11 @@ void main() {
     final res = Process.runSync(python3, ['-m', 'py_compile', result.modulePath]);
     expect(res.exitCode, 0,
         reason: 'generated Python module must compile:\n${res.stderr}');
+    final metaPath =
+        p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py');
+    final resMeta = Process.runSync(python3, ['-m', 'py_compile', metaPath]);
+    expect(resMeta.exitCode, 0,
+        reason: 'generated Python meta module must compile:\n${resMeta.stderr}');
   });
 }
 

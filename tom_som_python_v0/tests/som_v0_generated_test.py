@@ -251,10 +251,9 @@ def test_one_call_loading() -> None:
     with open(sample_path, "r", encoding="utf-8") as f:
         yaml = f.read()
 
-    decoded = decode(yaml)
-    manual_doc = SpecDocument()
-    manual_doc.load_json(decoded.document)
-    manual = m.D00SolutionBlueprint(manual_doc, document_version=decoded.model_version)
+    decoded = decode(yaml, m.d00SolutionBlueprintMetaTree)
+    manual = m.D00SolutionBlueprint(
+        decoded.document, document_version=decoded.model_version)
 
     one_call = m.D00SolutionBlueprint.load_yaml(yaml)
 
@@ -276,24 +275,27 @@ def test_one_call_loading() -> None:
            from_file.doc.model_version == from_yaml.doc.model_version)
     _check("load.file==yaml.content", from_file.content == from_yaml.content)
 
-    # 6) SpecDocument.from_yaml retains the parsed model version.
-    stamped_yaml = (
-        'version: 1\n'
-        'modelVersion: "1.0"\n'
-        'document:\n'
-        '  content:\n'
-        '    "SBP/content": |2-\n'
-        '      Hello\n'
-    )
-    doc = SpecDocument.from_yaml(stamped_yaml)
+    # 6) SpecDocument.from_yaml retains the parsed model version. The wire
+    # format is hierarchical v2, so the fixture yaml is built via yaml_encode
+    # (mirrors the Dart suite's buildV2Yaml helper).
+    from tom_som_runtime import yaml_encode
+
+    def build_v2_yaml(model_version):
+        d = SpecDocument()
+        d.set_content("SBP/content", "Hello")
+        return yaml_encode(
+            d, m.d00SolutionBlueprintMetaTree, model_version=model_version)
+
+    stamped_yaml = build_v2_yaml("1.0")
+    doc = SpecDocument.from_yaml(stamped_yaml, m.d00SolutionBlueprintMetaTree)
     _check("load.from_yaml.version", doc.model_version == "1.0",
            str(doc.model_version))
     _check("load.from_yaml.content", doc.content("SBP/content") == "Hello",
            str(doc.content("SBP/content")))
 
     # 7) A document with no modelVersion stamp loads with a null stamp.
-    unstamped_yaml = "version: 1\ndocument: {}\n"
-    doc = SpecDocument.from_yaml(unstamped_yaml)
+    unstamped_yaml = build_v2_yaml(None)
+    doc = SpecDocument.from_yaml(unstamped_yaml, m.d00SolutionBlueprintMetaTree)
     _check("load.unstamped.null", doc.model_version is None,
            str(doc.model_version))
     try:

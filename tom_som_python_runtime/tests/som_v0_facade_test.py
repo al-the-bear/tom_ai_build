@@ -41,6 +41,19 @@ _GOLDEN = os.path.normpath(
         "som_python_v0_fixture.py.golden",
     )
 )
+# The facade wildcard-imports its sibling generated metadata module (DR8/DR12)
+# by the committed name `tom_som_python_v0_meta`, so the meta golden is
+# preloaded under exactly that module name before the facade executes.
+_META_GOLDEN = os.path.normpath(
+    os.path.join(
+        _PKG_ROOT,
+        "..",
+        "tom_specs_clitool",
+        "test",
+        "golden",
+        "som_python_v0_meta_fixture.py.golden",
+    )
+)
 
 sys.path.insert(0, _PKG_ROOT)
 
@@ -63,12 +76,20 @@ def _check(name: str, condition: bool, detail: str = "") -> None:
         _failed.append(f"{name}{(': ' + detail) if detail else ''}")
 
 
-def _load_golden():
-    loader = SourceFileLoader("som_python_v0_fixture", _GOLDEN)
+def _load_module(name: str, path: str):
+    loader = SourceFileLoader(name, path)
     spec = importlib.util.spec_from_loader(loader.name, loader)
     module = importlib.util.module_from_spec(spec)
     loader.exec_module(module)
     return module
+
+
+def _load_golden():
+    # Register the meta golden first — the facade's wildcard import resolves
+    # `tom_som_python_v0_meta` through sys.modules.
+    meta = _load_module("tom_som_python_v0_meta", _META_GOLDEN)
+    sys.modules["tom_som_python_v0_meta"] = meta
+    return _load_module("som_python_v0_fixture", _GOLDEN)
 
 
 def test_typed_generic_parity(mod) -> None:
@@ -249,7 +270,7 @@ def test_editability_for(mod) -> None:
 
 
 def main() -> int:
-    if not os.path.isfile(_GOLDEN):
+    if not os.path.isfile(_GOLDEN) or not os.path.isfile(_META_GOLDEN):
         print(f"SKIP: golden facade not found at {_GOLDEN}")
         return 0
     mod = _load_golden()

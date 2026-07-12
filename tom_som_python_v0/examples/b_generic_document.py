@@ -34,8 +34,13 @@ def _add_runtime_path() -> None:
 
 
 _add_runtime_path()
+sys.path.insert(0, _PROJECT)
 
 from tom_som_runtime import SpecDocument, yaml_encode  # noqa: E402
+
+# The generated metadata module: the codec walks the document against the
+# root's populated metadata tree (DR8/DR12).
+from tom_som_python_v0_meta import d00SolutionBlueprintMetaTree  # noqa: E402
 
 
 def main() -> int:
@@ -70,9 +75,10 @@ def main() -> int:
     print("\nDocument JSON:")
     print(json.dumps(doc.to_json(), indent=2, sort_keys=True))
 
-    # … and to the canonical YAML wire format (stamped with the model version).
+    # … and to the canonical hierarchical YAML wire format (walked against the
+    # generated metadata tree, stamped with the model version).
     print("\nDocument YAML:")
-    print(yaml_encode(doc, model_version="0.0"))
+    print(yaml_encode(doc, d00SolutionBlueprintMetaTree, model_version="1.0"))
     return 0
 
 

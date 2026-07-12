@@ -52,7 +52,7 @@ def main() -> None:
     sample = sys.argv[1] if len(sys.argv) > 1 else _DEFAULT_SAMPLE
     output = sys.argv[2] if len(sys.argv) > 2 else _DEFAULT_OUTPUT
 
-    doc = SpecDocument.from_file(sample)
+    doc = SpecDocument.from_file(sample, m.d00SolutionBlueprintMetaTree)
     sbp = m.D00SolutionBlueprint.load_file(sample)
 
     out: list[str] = []

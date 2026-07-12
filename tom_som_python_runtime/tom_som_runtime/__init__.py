@@ -71,6 +71,7 @@ from .spec_meta import (
     SomSecondLevelId,
 )
 from .spec_meta_bridge import build_som_meta_tree
+from .spec_meta_diff import som_meta_node_diff
 from .spec_model import (
     FormFieldSpec,
     SpecAnnotation,
@@ -155,6 +156,7 @@ __all__ = [
     "SpecYamlFormatException",
     "bind_docspecs_markdown",
     "build_som_meta_tree",
+    "som_meta_node_diff",
     "check_som_model_version",
     "doc_specs_id_transform",
     "encode_two_letter_date",
