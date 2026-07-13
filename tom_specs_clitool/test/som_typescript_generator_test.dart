@@ -75,6 +75,16 @@ void main() {
     expect(source, contains("from 'tom_som_typescript_runtime';"));
     expect(result.modulePath, endsWith('tom_som_typescript_v0.ts'));
 
+    // The generated metadata module (DR8/DR18) is written alongside the
+    // facade and carries the populated trees + access surfaces.
+    final metaModule = File(p.join(
+        p.dirname(result.modulePath), 'tom_som_typescript_v0_meta.ts'));
+    expect(metaModule.existsSync(), isTrue);
+    expect(
+        metaModule.readAsStringSync(),
+        contains('export const d00SolutionBlueprintMetaTree: SomMetaTree = '
+            'new SomMetaTree('));
+
     // One DocSpecs schema per @Document root (13).
     expect(result.schemaPaths.length, 13);
     for (final s in result.schemaPaths) {
@@ -123,6 +133,8 @@ void main() {
         containsAll(<String>[
           'dist/tom_som_typescript_v0.js',
           'dist/tom_som_typescript_v0.d.ts',
+          'dist/tom_som_typescript_v0_meta.js',
+          'dist/tom_som_typescript_v0_meta.d.ts',
           'meta/',
           'schemas/',
           'README.md',

@@ -11,7 +11,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { SpecDocument } from 'tom_som_typescript_runtime';
-import { D00SolutionBlueprint } from '../tom_som_typescript_v0';
+import {
+  D00SolutionBlueprint,
+  d00SolutionBlueprintMetaTree,
+} from '../tom_som_typescript_v0';
 
 // __dirname at runtime is dist/tool; the project root is two levels up.
 const PROJECT = path.resolve(__dirname, '..', '..');
@@ -33,7 +36,7 @@ function main(): void {
   const sample = process.argv[2] || DEFAULT_SAMPLE;
   const output = process.argv[3] || DEFAULT_OUTPUT;
 
-  const doc = SpecDocument.fromFile(sample);
+  const doc = SpecDocument.fromFile(sample, d00SolutionBlueprintMetaTree);
   const sbp = D00SolutionBlueprint.loadFile(sample);
 
   const out: string[] = [];

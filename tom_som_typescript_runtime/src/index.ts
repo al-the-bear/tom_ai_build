@@ -101,6 +101,9 @@ export type {
 // meta bridge (spec-model → SomMetaTree)
 export { buildSomMetaTree } from './spec_meta_bridge';
 
+// meta diff (DR8 agreement oracle: generated trees vs bridge-built trees)
+export { somMetaNodeDiff } from './spec_meta_diff';
+
 // yaml codec (hierarchical v2, DR5)
 export {
   FORMAT_VERSION,

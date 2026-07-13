@@ -209,19 +209,30 @@ String? _tsc(String runtimeDir) {
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_typescript_v0_fixture.ts.golden');
+  final metaGoldenPath = p.join(Directory.current.path, 'test', 'golden',
+      'som_typescript_v0_meta_fixture.ts.golden');
 
   group('SomTypeScriptEmitter', () {
-    test('emitted output matches the committed golden file', () {
+    test('emitted output matches the committed golden files', () {
       final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
+      // The facade imports its sibling meta module (DR8/DR18), so the meta
+      // golden is pinned alongside — the compile test type-checks both.
+      final metaSource =
+          SomTypeScriptMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
+      final metaGolden = File(metaGoldenPath);
       // Bootstrap / intentional regeneration: `UPDATE_GOLDEN=1 dart test ...`.
       if (Platform.environment['UPDATE_GOLDEN'] == '1') {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
+        metaGolden.writeAsStringSync(metaSource);
       }
       expect(golden.existsSync(), isTrue,
           reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(metaGolden.existsSync(), isTrue,
+          reason: 'run with UPDATE_GOLDEN=1 to create the meta golden file');
       expect(source, golden.readAsStringSync());
+      expect(metaSource, metaGolden.readAsStringSync());
     });
 
     test('the generated module tsc-compiles clean against the runtime types',
@@ -237,10 +248,15 @@ void main() {
         return;
       }
       final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
+      final metaSource =
+          SomTypeScriptMetaEmitter(_fixtureModel()).generateLibrary();
       final dir = Directory.systemTemp.createTempSync('som_ts_emit_');
       try {
         File(p.join(dir.path, 'tom_som_typescript_v0.ts'))
             .writeAsStringSync(source);
+        // The facade imports its sibling meta module (DR8/DR18).
+        File(p.join(dir.path, 'tom_som_typescript_v0_meta.ts'))
+            .writeAsStringSync(metaSource);
         // Resolve the bare `tom_som_typescript_runtime` specifier to the runtime
         // *source* (index.ts) via a compile-time `paths` mapping — a pure
         // type-check, no `node_modules` link or `node` run required.
@@ -396,20 +412,28 @@ void main() {
       expect(tagsBody, endsWith('new SomScalar(d, p));'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('path-constant holders are retired; the meta module is re-exported '
+        '(DR8/DR18, DR1 §4)', () {
       final source = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
-      // The holder is an idiomatic TS `const`-object namespace, frozen with
-      // `as const`, keyed by the enumerator's camelCase constant names.
-      expect(source, contains('export const Pd00Paths = {'));
-      expect(source, contains('  vision: "PD00/vision",'));
-      expect(source, contains('  owner: "PD00/owner",'));
-      expect(source, contains('  risks: "PD00/risks",'));
-      expect(source, contains('  tags: "PD00/tags",'));
-      expect(source, contains('  situation: "PD00/situation",'));
-      expect(source, contains('  situationSummary: "PD00/situation/summary",'));
-      expect(source, contains('} as const;'));
-      // The `Risk` list element is not recursed — no title constant leaks in.
-      expect(source, isNot(contains('risksTitle')));
+      // DR8/DR18: the former per-root `<Code>Paths` holders are gone from the
+      // main facade module …
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('vision: "PD00/vision"')));
+      // … replaced by the generated metadata module (dot-notation + ID tree),
+      // imported and re-exported so one import gives both surfaces, and the
+      // root load statics pass the populated tree to the codec.
+      expect(source,
+          contains("import * as _meta from './tom_som_typescript_v0_meta';"));
+      expect(source,
+          contains("export * from './tom_som_typescript_v0_meta';"));
+      expect(
+          source,
+          contains('SpecDocument.fromYaml(yaml, '
+              '_meta.solutionBlueprintMetaTree)'));
+      expect(
+          source,
+          contains('SpecDocument.fromFile(path, '
+              '_meta.solutionBlueprintMetaTree)'));
     });
   });
 }

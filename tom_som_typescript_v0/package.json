@@ -10,6 +10,8 @@
   "files": [
     "dist/tom_som_typescript_v0.js",
     "dist/tom_som_typescript_v0.d.ts",
+    "dist/tom_som_typescript_v0_meta.js",
+    "dist/tom_som_typescript_v0_meta.d.ts",
     "meta/",
     "schemas/",
     "README.md",

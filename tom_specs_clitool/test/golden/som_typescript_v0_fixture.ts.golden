@@ -15,6 +15,12 @@ import {
   somEditabilityFor,
 } from 'tom_som_typescript_runtime';
 
+// The generated metadata module (DR8/DR18): the populated SomMetaTrees plus
+// the dot-notation and ID-tree access surfaces. Its exports are re-exported
+// below, so one import of this facade surfaces both access styles.
+import * as _meta from './tom_som_typescript_v0_meta';
+export * from './tom_som_typescript_v0_meta';
+
 // Generated enum for `Probability` values.
 export const Probability = Object.freeze({
   "low": "low",
@@ -87,14 +93,14 @@ export class SolutionBlueprint extends SomNode {
   // document's authoring stamp already applied (§ item 4) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml: string): SolutionBlueprint {
-    const doc = SpecDocument.fromYaml(yaml);
+    const doc = SpecDocument.fromYaml(yaml, _meta.solutionBlueprintMetaTree);
     return new SolutionBlueprint(doc, doc.modelVersion);
   }
 
   // Loads a `*.docspecs.yaml` document from the file at `path` — the file
   // companion to loadYaml.
   static loadFile(path: string): SolutionBlueprint {
-    const doc = SpecDocument.fromFile(path);
+    const doc = SpecDocument.fromFile(path, _meta.solutionBlueprintMetaTree);
     return new SolutionBlueprint(doc, doc.modelVersion);
   }
 
@@ -159,18 +165,4 @@ export class SolutionBlueprintOwnerForm extends SomNode {
     this.doc.setFormField(this.path, "role", value);
   }
 }
-
-// Generated path constants for the `PD00` document root (§ item 11).
-//
-// Each constant is the absolute generic path of a fixed section, for use with
-// the generic `SpecDocument` API instead of a raw string literal — the safe
-// end of the navigate-then-read hybrid pattern.
-export const Pd00Paths = {
-  vision: "PD00/vision",
-  owner: "PD00/owner",
-  risks: "PD00/risks",
-  tags: "PD00/tags",
-  situation: "PD00/situation",
-  situationSummary: "PD00/situation/summary",
-} as const;
 

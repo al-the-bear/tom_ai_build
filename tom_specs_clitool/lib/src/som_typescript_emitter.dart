@@ -23,8 +23,6 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// Generates the `tom_som_typescript_v0` module source for a [SpecModel].
 class SomTypeScriptEmitter {
   final SpecModel model;
@@ -112,6 +110,16 @@ class SomTypeScriptEmitter {
       ..writeln('  checkSomModelVersion,')
       ..writeln('  somEditabilityFor,')
       ..writeln("} from 'tom_som_typescript_runtime';")
+      ..writeln()
+      ..writeln('// The generated metadata module (DR8/DR18): the populated '
+          'SomMetaTrees plus')
+      ..writeln('// the dot-notation and ID-tree access surfaces. Its exports '
+          'are re-exported')
+      ..writeln('// below, so one import of this facade surfaces both '
+          'access styles.')
+      ..writeln("import * as _meta from "
+          "'./tom_som_typescript_${versionLabel}_meta';")
+      ..writeln("export * from './tom_som_typescript_${versionLabel}_meta';")
       ..writeln();
 
     for (final e in enums) {
@@ -129,35 +137,9 @@ class SomTypeScriptEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-    }
+    // The flat path-constant holders (§ item 11) are retired (DR8/DR18): the
+    // metadata module's dot-notation and ID-tree surfaces own path access.
     return buffer.toString();
-  }
-
-  /// Emits the `<Code>Paths` holder — an idiomatic TypeScript `const`-object
-  /// namespace of path constants, frozen with `as const` (§ item 11).
-  String _emitPathHolder(SpecPathHolder holder) {
-    final b = StringBuffer()
-      ..writeln('// Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('//')
-      ..writeln('// Each constant is the absolute generic path of a fixed '
-          'section, for use with')
-      ..writeln('// the generic `SpecDocument` API instead of a raw string '
-          'literal — the safe')
-      ..writeln('// end of the navigate-then-read hybrid pattern.')
-      ..writeln('export const ${holder.holderName} = {');
-    for (final c in holder.constants) {
-      b.writeln('  ${c.name}: "${_jstr(c.path)}",');
-    }
-    b.writeln('} as const;');
-    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------
@@ -278,7 +260,8 @@ class SomTypeScriptEmitter {
         ..writeln('  // the former decode → loadJson → thread-`documentVersion` '
             'sequence.')
         ..writeln('  static loadYaml(yaml: string): ${cls.name} {')
-        ..writeln('    const doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('    const doc = SpecDocument.fromYaml(yaml, '
+            '_meta.${_camelType(cls.name)}MetaTree);')
         ..writeln('    return new ${cls.name}(doc, doc.modelVersion);')
         ..writeln('  }')
         ..writeln()
@@ -286,7 +269,8 @@ class SomTypeScriptEmitter {
             '`path` — the file')
         ..writeln('  // companion to loadYaml.')
         ..writeln('  static loadFile(path: string): ${cls.name} {')
-        ..writeln('    const doc = SpecDocument.fromFile(path);')
+        ..writeln('    const doc = SpecDocument.fromFile(path, '
+            '_meta.${_camelType(cls.name)}MetaTree);')
         ..writeln('    return new ${cls.name}(doc, doc.modelVersion);')
         ..writeln('  }')
         ..writeln()
@@ -513,6 +497,11 @@ class SomTypeScriptEmitter {
   /// stored enum token are derived independently and stay byte-identical to the
   /// other facades, so cross-language documents remain compatible.
   String _acc(String name) => _tsKeywords.contains(name) ? '${name}_' : name;
+
+  /// The lowerCamelCase form of a type name — names the per-root
+  /// `<camelType>MetaTree` constant in the generated metadata module.
+  String _camelType(String s) =>
+      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);

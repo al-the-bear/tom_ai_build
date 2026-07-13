@@ -27,8 +27,12 @@ import {
   SpecDocument,
   SomVersionError,
   SpecSectionIdCollision,
+  yamlEncode,
 } from 'tom_som_typescript_runtime';
-import { D00SolutionBlueprint } from '../tom_som_typescript_v0';
+import {
+  D00SolutionBlueprint,
+  d00SolutionBlueprintMetaTree,
+} from '../tom_som_typescript_v0';
 
 let _passed = 0;
 const _failed: string[] = [];
@@ -257,7 +261,7 @@ function testOneCallLoading(): void {
 
     // The former multi-step incantation: parse into a document, then construct
     // the typed root over it with the retained model version.
-    const decoded = SpecDocument.fromYaml(yaml);
+    const decoded = SpecDocument.fromYaml(yaml, d00SolutionBlueprintMetaTree);
     const manual = new D00SolutionBlueprint(decoded, decoded.modelVersion);
 
     // The one-call convenience.
@@ -294,16 +298,17 @@ function testOneCallLoading(): void {
     check('load.file.content', fromFile.content === fromYaml.content);
   }
 
-  // 6. SpecDocument.fromYaml retains the parsed model version.
+  // 6. SpecDocument.fromYaml retains the parsed model version. The wire format
+  // is hierarchical v2, so the fixture yaml is built via yamlEncode (mirrors
+  // the Dart suite's buildV2Yaml helper).
+  const buildV2Yaml = (modelVersion: string | null): string => {
+    const d = new SpecDocument();
+    d.setContent('SBP/content', 'Hello');
+    return yamlEncode(d, d00SolutionBlueprintMetaTree, modelVersion);
+  };
   {
-    const yaml =
-      'version: 1\n' +
-      'modelVersion: "1.0"\n' +
-      'document:\n' +
-      '  content:\n' +
-      '    "SBP/content": |2-\n' +
-      '      Hello\n';
-    const doc = SpecDocument.fromYaml(yaml);
+    const yaml = buildV2Yaml('1.0');
+    const doc = SpecDocument.fromYaml(yaml, d00SolutionBlueprintMetaTree);
     check('load.fromYaml.modelVersion', doc.modelVersion === '1.0', String(doc.modelVersion));
     check(
       'load.fromYaml.content',
@@ -315,8 +320,8 @@ function testOneCallLoading(): void {
   // 7. A document with no modelVersion stamp loads with a null stamp
   // (TypeScript uses the null convention, not an empty-string sentinel).
   {
-    const yaml = 'version: 1\ndocument: {}\n';
-    const doc = SpecDocument.fromYaml(yaml);
+    const yaml = buildV2Yaml(null);
+    const doc = SpecDocument.fromYaml(yaml, d00SolutionBlueprintMetaTree);
     check('load.no-stamp.null', doc.modelVersion === null, String(doc.modelVersion));
     try {
       D00SolutionBlueprint.loadYaml(yaml);
