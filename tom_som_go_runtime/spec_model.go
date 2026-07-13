@@ -161,6 +161,13 @@ func (m *SpecModel) ClassNamed(name string) *SpecClass {
 	return m.Classes[name]
 }
 
+// ModelVersionString is the `major.minor` version string used in the DocSpecs
+// markdown declaration (DR6/DR11 parity — mirrors Python's
+// `SpecModel.model_version_string`).
+func (m *SpecModel) ModelVersionString() string {
+	return SomModelVersionString(m.ModelVersion, m.ModelVersionLabel)
+}
+
 // RootByType returns the document root whose Type equals the argument (SOM
 // § item 12). It replaces the recurring "range Roots looking for r.Type == …"
 // boilerplate. When no root carries that type it returns a rootTypeNotFoundError
@@ -195,6 +202,38 @@ type rootTypeNotFoundError struct {
 func (e *rootTypeNotFoundError) Error() string {
 	return "no document root with type '" + e.rootType +
 		"' (have: " + strings.Join(e.have, ", ") + ")"
+}
+
+// SomModelVersionString derives the `major.minor` DocSpecs version string from
+// a model's integer version and its optional free-form label (port of Python's
+// `som_model_version_string`).
+//
+// When the label's `+`-stripped core has at least two dot-separated integer
+// components, those become `major.minor`; otherwise the result is `<major>.0`.
+func SomModelVersionString(major int, label string) string {
+	if label != "" {
+		core := strings.TrimSpace(strings.SplitN(label, "+", 2)[0])
+		parts := strings.Split(core, ".")
+		if len(parts) >= 2 {
+			maj := strings.TrimSpace(parts[0])
+			minor := strings.TrimSpace(parts[1])
+			if isSignedDigits(maj) && isSignedDigits(minor) {
+				return itoa(atoi(maj)) + "." + itoa(atoi(minor))
+			}
+		}
+	}
+	return itoa(major) + ".0"
+}
+
+// isSignedDigits reports whether s matches /^[+-]?[0-9]+$/.
+func isSignedDigits(s string) bool {
+	if s == "" {
+		return false
+	}
+	if s[0] == '+' || s[0] == '-' {
+		return isAllDigits(s[1:])
+	}
+	return isAllDigits(s)
 }
 
 // specModelJSON mirrors the on-disk meta-data shape for unmarshalling.

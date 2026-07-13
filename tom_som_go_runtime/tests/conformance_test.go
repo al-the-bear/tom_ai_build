@@ -186,8 +186,9 @@ func TestConformance(t *testing.T) {
 	testStateRoundTrip(c, t)
 	testYamlEncode(c, t, tree)
 	testYamlDecodeRoundTrip(c, t, tree)
-	t.Logf("SKIP: markdown conformance checks (md.export/md.parse/md.land) — " +
-		"corpus expected.md is DR6 format; the Go DR6/DR7 port is DR20's scope.")
+	testMarkdownExport(c, t, model)
+	testMarkdownRoundTrip(c, t, model)
+	testMarkdownMemoryLanding(c, t, model)
 	testReflection(c, t, model)
 	testValidation(c, t, model)
 	testOperations(c, t)
@@ -263,6 +264,74 @@ func testYamlDecodeRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
 		return
 	}
 	c.check("yaml.decode.reencode", actual == expected, byteDiff("yaml.decode.reencode", actual, expected))
+}
+
+// --- markdown conformance (DR6/DR20) ----------------------------------------
+
+func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
+	var state som.DocumentJson
+	readJSON(t, "state.json", &state)
+	doc := docFromState(&state)
+	expected := readCorpus(t, "expected.md")
+	actual, err := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(model.Roots[0])
+	if err != nil {
+		c.check("md.export", false, err.Error())
+		return
+	}
+	c.check("md.export", actual == expected, byteDiff("md.export", actual, expected))
+}
+
+func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
+	golden := readCorpus(t, "expected.md")
+	var state som.DocumentJson
+	readJSON(t, "state.json", &state)
+	doc := docFromState(&state)
+	parsed := som.NewSpecDocumentMarkdown(model, doc).Parse(golden)
+	c.check("md.parse.clean", len(parsed.Rejections) == 0, rejDetail(parsed))
+	reDoc := som.NewSpecDocument()
+	reDoc.LoadJSON(&som.DocumentJson{
+		Content: parsed.Content,
+		Forms:   parsed.Forms,
+		Lists:   parsed.Lists,
+	})
+	actual, err := som.NewSpecDocumentMarkdown(model, reDoc).ExportRoot(model.Roots[0])
+	if err != nil {
+		c.check("md.parse.reexport", false, err.Error())
+		return
+	}
+	c.check("md.parse.reexport", actual == golden, byteDiff("md.parse.reexport", actual, golden))
+}
+
+// Plan item #9: parsing `expected.md` and applying it must reproduce
+// `state.json` (the YAML-route memory) exactly, proving both formats converge
+// on one in-memory document (§4.1).
+func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
+	golden := readCorpus(t, "expected.md")
+	var canonical som.DocumentJson
+	readJSON(t, "state.json", &canonical)
+	doc := docFromState(&canonical)
+	parsed := som.NewSpecDocumentMarkdown(model, doc).Parse(golden)
+	c.check("md.land.clean", len(parsed.Rejections) == 0, rejDetail(parsed))
+	landed := som.NewSpecDocument()
+	landed.LoadJSON(&som.DocumentJson{
+		Content: parsed.Content,
+		Forms:   parsed.Forms,
+		Lists:   parsed.Lists,
+	})
+	got := canonJSON(t, landed.ToJSON())
+	want := canonJSON(t, &canonical)
+	c.check("md.land.memory", got == want, "got "+got+" want "+want)
+}
+
+func rejDetail(r *som.SpecMarkdownResult) string {
+	out := ""
+	for i, rej := range r.Rejections {
+		if i > 0 {
+			out += "; "
+		}
+		out += rej.String()
+	}
+	return out
 }
 
 type reflCase struct {

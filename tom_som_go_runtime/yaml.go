@@ -232,7 +232,18 @@ func (y *yamlReader) parseSequence(indent int) interface{} {
 		} else if strings.HasPrefix(itemText, "|") || strings.HasPrefix(itemText, ">") {
 			list = append(list, y.parseBlockScalar(itemText, indent))
 		} else {
-			list = append(list, y.parseFlowScalar(itemText))
+			// A `- key: …` item is a mapping whose first entry sits on the dash
+			// line; rewrite the dash as indentation and re-parse as a mapping.
+			colon := yamlFindColon(itemText)
+			isMapEntry := colon >= 0 &&
+				(colon == len(itemText)-1 || itemText[colon+1] == ' ')
+			if isMapEntry {
+				y.idx = i
+				y.lines[i] = strings.Repeat(" ", indent+2) + line[indent+2:]
+				list = append(list, y.parseMapping(indent+2))
+			} else {
+				list = append(list, y.parseFlowScalar(itemText))
+			}
 		}
 	}
 	return list

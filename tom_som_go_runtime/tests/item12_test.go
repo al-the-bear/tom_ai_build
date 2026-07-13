@@ -157,7 +157,10 @@ func TestToMarkdownMatchesExplicitCodecForExplicitRootType(t *testing.T) {
 	if err != nil {
 		t.Fatalf("RootByType(DemoDoc): %v", err)
 	}
-	explicit := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(root)
+	explicit, err := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(root)
+	if err != nil {
+		t.Fatalf("ExportRoot(DemoDoc): unexpected error %v", err)
+	}
 	if oneLiner != explicit {
 		t.Errorf("ToMarkdown output differs from explicit codec output\n--- one-liner ---\n%s\n--- explicit ---\n%s", oneLiner, explicit)
 	}

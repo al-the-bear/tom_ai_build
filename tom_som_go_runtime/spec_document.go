@@ -414,7 +414,7 @@ func (d *SpecDocument) ToMarkdown(model *SpecModel, rootType string) (string, er
 	if err != nil {
 		return "", err
 	}
-	return NewSpecDocumentMarkdown(model, d).ExportRoot(root), nil
+	return NewSpecDocumentMarkdown(model, d).ExportRoot(root)
 }
 
 // singlePopulatedRoot returns the one root under which this document holds any
