@@ -75,10 +75,42 @@ export {
   checkSomModelVersion,
 } from './som_facade';
 
-// yaml codec
+// metadata core (DR4)
+export {
+  SomMetaKind,
+  SomContentTypeMeta,
+  SomFormFieldMeta,
+  SomFormMeta,
+  SomDocMeta,
+  SomSecondLevelId,
+  SomMetaExtra,
+  SomMetaNode,
+  SomMetaTree,
+  SomMetaRef,
+  SomListMetaRef,
+} from './spec_meta';
+export type {
+  SomMetaKindValue,
+  SomFormFieldMetaInit,
+  SomDocMetaInit,
+  SomMetaNodeInit,
+  SomMetaRefFactory,
+} from './spec_meta';
+
+// meta bridge (spec-model → SomMetaTree)
+export { buildSomMetaTree } from './spec_meta_bridge';
+
+// yaml codec (hierarchical v2, DR5)
 export {
   FORMAT_VERSION,
+  SpecYamlFormatException,
   SpecYamlContents,
+  nodeKey,
+  yamlKey,
+  plainKey,
+  dedupEmptyLines,
+  writeScalar,
+  writeHeader,
   encode as yamlEncode,
   decode as yamlDecode,
 } from './spec_document_yaml';

@@ -29,9 +29,9 @@
 
 import { readFileSync } from 'fs';
 import { SpecSectionIdCollision } from './spec_section_id';
-import { decode } from './spec_document_yaml';
 import { SpecModel, SpecRoot } from './spec_model';
 import { SpecDocumentMarkdown } from './spec_document_markdown';
+import type { SomMetaTree } from './spec_meta';
 
 /** The plain-data shape of a single list store entry. */
 export interface ListJson {
@@ -64,25 +64,28 @@ export class SpecDocument {
   modelVersion: string | null = null;
 
   /**
-   * Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
-   * the sparse stores ({@link loadJson}), and retain the parsed
-   * {@link modelVersion} on the document. Collapses the former three-step
-   * `decode` → `loadJson` → thread-`documentVersion` incantation (§ item 4).
+   * Loads a hierarchical v2 `*.docspecs.yaml` document in one call: decode
+   * the YAML against the document's {@link SomMetaTree} and return the
+   * populated document (with {@link modelVersion} already threaded by the
+   * codec). Collapses the former three-step `decode` → `loadJson` →
+   * thread-`documentVersion` incantation (§ item 4).
+   *
+   * The yaml codec is required lazily to sidestep any load-order/circular
+   * require between this module and `spec_document_yaml.ts`.
    */
-  static fromYaml(yaml: string): SpecDocument {
-    const decoded = decode(yaml);
-    const doc = new SpecDocument();
-    doc.loadJson(decoded.document);
-    doc.modelVersion = decoded.modelVersion;
-    return doc;
+  static fromYaml(yaml: string, tree: SomMetaTree): SpecDocument {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { decode } =
+      require('./spec_document_yaml') as typeof import('./spec_document_yaml');
+    return decode(yaml, tree).document;
   }
 
   /**
    * Loads a `*.docspecs.yaml` document from the file at `path` — the file
    * companion to {@link fromYaml} the generated `loadFile` static delegates to.
    */
-  static fromFile(path: string): SpecDocument {
-    return SpecDocument.fromYaml(readFileSync(path, 'utf8'));
+  static fromFile(path: string, tree: SomMetaTree): SpecDocument {
+    return SpecDocument.fromYaml(readFileSync(path, 'utf8'), tree);
   }
 
   /**
