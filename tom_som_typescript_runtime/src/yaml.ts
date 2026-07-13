@@ -177,7 +177,19 @@ class _Yaml {
       } else if (itemText.startsWith('|') || itemText.startsWith('>')) {
         list.push(this.parseBlockScalar(itemText, indent));
       } else {
-        list.push(this.parseFlowScalar(itemText));
+        // A `- key: …` item is a mapping whose first entry sits on the dash
+        // line; rewrite the dash as indentation and re-parse as a mapping.
+        const colon = _findColon(itemText);
+        const isMapEntry =
+          colon >= 0 &&
+          (colon === itemText.length - 1 || itemText.charAt(colon + 1) === ' ');
+        if (isMapEntry) {
+          this.idx = i;
+          this.lines[i] = ' '.repeat(indent + 2) + line.slice(indent + 2);
+          list.push(this.parseMapping(indent + 2));
+        } else {
+          list.push(this.parseFlowScalar(itemText));
+        }
       }
     }
     return list;

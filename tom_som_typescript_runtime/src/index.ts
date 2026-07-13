@@ -34,6 +34,7 @@ export {
   SpecClass,
   SpecRoot,
   SpecModel,
+  somModelVersionString,
 } from './spec_model';
 export type { SpecFieldKindValue } from './spec_model';
 
@@ -115,11 +116,35 @@ export {
   decode as yamlDecode,
 } from './spec_document_yaml';
 
-// markdown codec
+// markdown codec (DocSpecs-conform, DR6/DR17)
 export {
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,
+  MarkdownFenceTracker,
   SpecDocumentMarkdown,
 } from './spec_document_markdown';
 export type { SpecMarkdownRejectReasonValue } from './spec_document_markdown';
+
+// docspecs validation (DR7)
+export {
+  DocSpecsViolationRule,
+  DocSpecsViolation,
+  DocSpecsSection,
+  DocSpecsDocument,
+  docSpecsIdTransform,
+  DocSpecsPatternCheck,
+  DocSpecsSubsectionRule,
+  DocSpecsSectionType,
+  DocSpecsFormField,
+  DocSpecsFormType,
+  DocSpecsDocumentSection,
+  DocSpecsSchema,
+  DocSpecsValidator,
+  bindDocspecsMarkdown,
+} from './docspecs_validator';
+export type {
+  DocSpecsViolationRuleValue,
+  DocSpecsSectionTypeInit,
+  DocSpecsFormFieldInit,
+} from './docspecs_validator';

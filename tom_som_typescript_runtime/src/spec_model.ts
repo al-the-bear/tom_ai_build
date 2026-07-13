@@ -306,6 +306,14 @@ export class SpecModel {
   }
 
   /**
+   * The `major.minor` version string used in the DocSpecs markdown declaration
+   * (DR6/DR11 parity — mirrors Python's `SpecModel.model_version_string`).
+   */
+  get modelVersionString(): string {
+    return somModelVersionString(this.modelVersion, this.modelVersionLabel);
+  }
+
+  /**
    * The document root whose {@link SpecRoot.type} equals `type` (§ item 12).
    *
    * Replaces the recurring `roots.find((r) => r.type === …)` boilerplate.
@@ -341,4 +349,31 @@ export class SpecModel {
       modelVersionLabel: label ? label : null,
     });
   }
+}
+
+/**
+ * Derives the `major.minor` DocSpecs version string from a model's integer
+ * version and its optional free-form label (port of Python's
+ * `som_model_version_string`).
+ *
+ * When the label's `+`-stripped core has at least two dot-separated integer
+ * components, those become `major.minor`; otherwise the result is
+ * `<major>.0`.
+ */
+export function somModelVersionString(
+  major: number,
+  label: string | null,
+): string {
+  if (label) {
+    const core = label.split('+')[0].trim();
+    const parts = core.split('.');
+    if (parts.length >= 2) {
+      const maj = parts[0].trim();
+      const minor = parts[1].trim();
+      if (/^[+-]?[0-9]+$/.test(maj) && /^[+-]?[0-9]+$/.test(minor)) {
+        return `${parseInt(maj, 10)}.${parseInt(minor, 10)}`;
+      }
+    }
+  }
+  return `${major}.0`;
 }
