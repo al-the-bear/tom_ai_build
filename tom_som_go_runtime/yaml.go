@@ -11,17 +11,71 @@ package somruntime
 // JSON-quoted flow scalars, plain integers, and the empty flow collections
 // {} / [].
 //
-// The dynamic value model is interface{}: mappings are map[string]interface{},
-// sequences are []interface{}, scalars are string or int. JSON-quoted scalars are
-// parsed with encoding/json.
+// The dynamic value model is interface{}: mappings are *YamlMap (insertion
+// ordered — Go's native maps are unordered, but the hierarchical codec walks
+// keys in document order, exactly like the JS/TS objects and Python dicts of
+// the other ports), sequences are []interface{}, scalars are string or int.
+// JSON-quoted scalars are parsed with encoding/json.
 
 import (
 	"encoding/json"
 	"strings"
 )
 
-func yamlNewMap() map[string]interface{} {
-	return map[string]interface{}{}
+// YamlMap is an insertion-ordered string-keyed mapping — the Go analogue of a
+// JavaScript object / Python dict for the parsed YAML value model. Iterating
+// Keys() yields keys in first-insertion order (a later Set of an existing key
+// replaces the value but keeps the original position), which is what makes the
+// hierarchical decode walk deterministic and byte-compatible with the other
+// language ports.
+type YamlMap struct {
+	keys   []string
+	values map[string]interface{}
+}
+
+// NewYamlMap returns an empty ordered mapping.
+func NewYamlMap() *YamlMap {
+	return &YamlMap{values: map[string]interface{}{}}
+}
+
+// Set stores value under key, preserving the key's first-insertion position.
+func (m *YamlMap) Set(key string, value interface{}) {
+	if _, ok := m.values[key]; !ok {
+		m.keys = append(m.keys, key)
+	}
+	m.values[key] = value
+}
+
+// Get returns the value stored under key, and ok=false when absent.
+func (m *YamlMap) Get(key string) (interface{}, bool) {
+	v, ok := m.values[key]
+	return v, ok
+}
+
+// GetOr returns the value stored under key, or nil when absent.
+func (m *YamlMap) GetOr(key string) interface{} {
+	return m.values[key]
+}
+
+// Has reports whether key is present.
+func (m *YamlMap) Has(key string) bool {
+	_, ok := m.values[key]
+	return ok
+}
+
+// Keys returns the keys in insertion order (the backing slice; callers must
+// not mutate it).
+func (m *YamlMap) Keys() []string {
+	return m.keys
+}
+
+// Len returns the number of entries.
+func (m *YamlMap) Len() int {
+	return len(m.keys)
+}
+
+func yamlNewMap() *YamlMap {
+	return NewYamlMap()
 }
 
 func yamlLeading(line string) int {
@@ -147,7 +201,7 @@ func (y *yamlReader) parseMapping(indent int) interface{} {
 		} else {
 			value = y.parseFlowScalar(rest)
 		}
-		m[key] = value
+		m.Set(key, value)
 	}
 	return m
 }
@@ -304,8 +358,7 @@ func (y *yamlReader) parseBlockScalar(header string, keyIndent int) string {
 	return clipped + "\n"
 }
 
-// YamlParse parses text into the value model (a map[string]interface{} or
-// []interface{}).
+// YamlParse parses text into the value model (a *YamlMap or []interface{}).
 func YamlParse(text string) interface{} {
 	lines := strings.Split(text, "\n")
 	y := &yamlReader{lines: lines, idx: 0}
@@ -316,10 +369,10 @@ func YamlParse(text string) interface{} {
 	return y.parseNode(0)
 }
 
-// YamlParseMap parses text, returning a map (empty when not a mapping).
-func YamlParseMap(text string) map[string]interface{} {
+// YamlParseMap parses text, returning a mapping (empty when not a mapping).
+func YamlParseMap(text string) *YamlMap {
 	v := YamlParse(text)
-	if m, ok := v.(map[string]interface{}); ok {
+	if m, ok := v.(*YamlMap); ok {
 		return m
 	}
 	return yamlNewMap()

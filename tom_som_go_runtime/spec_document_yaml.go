@@ -1,39 +1,107 @@
 package somruntime
 
 // spec_document_yaml.go — generic YAML codec for the native `*.docspecs.yaml`
-// document format, a faithful port of
+// document format — **hierarchical format v2** (DR1 §2); a faithful port of
 // `tom_som_dart_runtime/lib/src/spec_document_yaml.dart` (and the TypeScript
 // `spec_document_yaml.ts`).
 //
-// A header comment, `version:` (the on-disk format version), an optional
-// `modelVersion:` stamp (the authoring object-model major.minor), then the
-// `document:` pass — the live object-model values, sorted by full section path.
+// One nested YAML tree whose indentation mirrors the document structure: every
+// model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
+// sections nest their children, list items appear under their container keyed
+// by their stored section id (or an anonymous positional `<member>-<n>` key), a
+// node's own body text uses the literal key `content`, and form fields use
+// their bare field names. The former flat two-level path-map format
+// (`document: {content: {"A/b": …}}`) is **retired**; readers reject
+// `version: 1` files with a clear error (no compatibility path).
 //
-// All text values are written as literal block scalars (|2-) so multi-line
-// content round-trips verbatim. The emitter is self-verifying: it re-parses each
-// block it produces (via the hand-rolled yaml reader) and falls back to a
-// JSON-quoted scalar (always valid YAML) for any value a clean block can't
-// represent. The JSON quoting is byte-for-byte identical to JavaScript's
-// JSON.stringify (see jsJSONString) so output is stable across every language
-// port — NOT Go's encoding/json, which HTML-escapes < > & and U+2028/U+2029.
+// Text values are written as literal block scalars (`|2-`), with the DR1 §2.4
+// escaping rules: the emitter is **self-verifying** (it re-parses each scalar
+// it produces via the hand-rolled yaml.go reader — the runtime ships no
+// external YAML library — and falls back to a double-quoted JSON-escaped flow
+// scalar when the parse differs), and **runs of 2+ consecutive empty lines are
+// collapsed to one** before serialization (a deliberate, documented lossy
+// normalization — round-trip guarantees are stated "modulo empty-line dedup").
+// Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
+// when they self-verify (§2.5). The JSON quoting is byte-for-byte identical to
+// JavaScript's JSON.stringify (see jsJSONString) so output is stable across
+// every language port — NOT Go's encoding/json, which HTML-escapes < > & and
+// U+2028/U+2029.
+//
+// Both EncodeYaml and DecodeYaml walk the SomMetaTree of the document root:
+// the file carries **no paths** — the runtime reconstructs them by matching
+// keys against the metadata tree, and a key that matches nothing at its
+// position is a structured load error (*SpecYamlFormatException; no silent
+// skips). Symmetrically, EncodeYaml errors when the document holds values the
+// tree cannot place (nothing is silently dropped).
+//
+// The optional `review:` pass stays opaque to the runtime (DecodeYaml returns
+// it as a raw mapping for the editor to interpret).
+//
+// Divergences shared with the hand-rolled parser (documented in the JS/TS
+// ports too): a bare `key:` parses as an empty mapping (which counts as an
+// empty scalar at scalar positions), and the parser never yields booleans, so
+// plain-scalar self-verification needs no bool canonicalisation.
 
 import (
-	"sort"
+	"regexp"
 	"strings"
 )
 
 // FormatVersion is the on-disk format version (independent of the model-version
-// stamp).
-const FormatVersion = 1
+// stamp). Version 2 is the hierarchical tree format; version-1 flat files are
+// rejected on read.
+const FormatVersion = 2
+
+// SpecYamlFormatException is a structural error in a `*.docspecs.yaml` file:
+// wrong/unsupported format version, a key that does not match the metadata
+// tree at its position, a malformed value shape, or (on encode) document
+// values the tree cannot place.
+type SpecYamlFormatException struct {
+	// Message says what went wrong, naming the offending path/key where
+	// applicable.
+	Message string
+}
+
+func (e *SpecYamlFormatException) Error() string {
+	return "SpecYamlFormatException: " + e.Message
+}
+
+func yamlFormatErr(message string) error {
+	return &SpecYamlFormatException{Message: message}
+}
 
 // SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
-// `document:` pass as a SpecDocument.LoadJSON-shaped value, the `review:` pass as
-// a raw map (the runtime is review-agnostic), and the optional authoring
+// `document:` pass as a populated SpecDocument, the `review:` pass as a raw
+// mapping (the runtime is review-agnostic), and the optional authoring
 // model-version stamp.
 type SpecYamlContents struct {
-	Document     *DocumentJson
-	Review       map[string]interface{}
+	// Document is the `document:` pass, loaded into a live document (its
+	// SpecDocument.ModelVersion is already set from the file stamp).
+	Document *SpecDocument
+	// Review is the `review:` pass exactly as parsed (empty when absent). The
+	// runtime does not interpret it; the editor maps it onto its own review
+	// entries.
+	Review *YamlMap
+	// ModelVersion is the authoring object-model version (major.minor) this
+	// document was last written against, or "" for an unstamped/hand-written
+	// file. Distinct from FormatVersion (the on-disk format version).
 	ModelVersion string
+}
+
+// --- Shared scalar machinery (public for the editor's review writer) ---------
+
+// NodeKey returns the mapping key a metadata node writes (DR1 §2.2): its
+// effective section id, one space, then the exact member name (class name on
+// the document root); just the name when the node carries no id.
+func NodeKey(node *SomMetaNode) string {
+	name := node.MemberName
+	if name == "" {
+		name = node.ClassName
+	}
+	if node.SectionID == "" {
+		return name
+	}
+	return node.SectionID + " " + name
 }
 
 const jsHexDigits = "0123456789abcdef"
@@ -81,6 +149,46 @@ func yamlKey(key string) string {
 	return jsJSONString(key)
 }
 
+var plainKeyPattern = regexp.MustCompile(
+	`^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$`)
+
+// PlainKey returns key as a plain key when it is YAML-safe by construction
+// (section ids, member names, `<id> <name>` pairs), else a JSON-quoted one.
+func PlainKey(key string) string {
+	if plainKeyPattern.MatchString(key) {
+		return key
+	}
+	return yamlKey(key)
+}
+
+var blankRuns = regexp.MustCompile(`\n{3,}`)
+
+// DedupEmptyLines collapses runs of two or more consecutive empty lines to a
+// single empty line (DR1 §2.4.3 — the deliberate lossy normalization applied
+// to every text value before serialization).
+func DedupEmptyLines(value string) string {
+	return blankRuns.ReplaceAllString(value, "\n\n")
+}
+
+// parsedScalarStr is the Dart-toString-compatible string of a parsed YAML
+// scalar (the hand-rolled parser yields string or int only, so no bool
+// canonicalisation is needed).
+func parsedScalarStr(v interface{}) string {
+	switch t := v.(type) {
+	case string:
+		return t
+	case int:
+		return itoa(t)
+	case bool:
+		if t {
+			return "true"
+		}
+		return "false"
+	default:
+		return ""
+	}
+}
+
 func trailingNewlines(value string) int {
 	n := 0
 	i := len(value)
@@ -117,14 +225,15 @@ func literalBlock(value string) (string, bool) {
 	return strings.Join(parts, ""), true
 }
 
-// roundTrips reports whether re-parsing "_v: <block>" yields exactly value.
+// roundTrips reports whether re-parsing "_v: <block>" yields exactly value
+// (the emitter's correctness guard).
 func roundTrips(block, value string) bool {
 	parsed := YamlParse("_v: " + block + "\n")
-	m, ok := parsed.(map[string]interface{})
+	m, ok := parsed.(*YamlMap)
 	if !ok {
 		return false
 	}
-	v, ok := m["_v"].(string)
+	v, ok := m.GetOr("_v").(string)
 	return ok && v == value
 }
 
@@ -137,6 +246,33 @@ func scalarRepr(value string) string {
 	return jsJSONString(value)
 }
 
+// plainScalar returns a plain one-line scalar for a non-text value
+// (int/double/bool/enum member name, §2.5) when writing it plainly re-parses
+// to exactly value (string compare, matching the document's string-typed
+// stores); ok=false otherwise.
+func plainScalar(value string) (string, bool) {
+	if value == "" || strings.Contains(value, "\n") {
+		return "", false
+	}
+	parsed := YamlParse("_v: " + value + "\n")
+	m, ok := parsed.(*YamlMap)
+	if !ok {
+		return "", false
+	}
+	v, has := m.Get("_v")
+	if !has || v == nil {
+		return "", false
+	}
+	switch v.(type) {
+	case *YamlMap, []interface{}:
+		return "", false
+	}
+	if parsedScalarStr(v) != value {
+		return "", false
+	}
+	return value, true
+}
+
 type yamlBuffer struct {
 	parts []string
 }
@@ -145,18 +281,18 @@ func (b *yamlBuffer) writeln(text string) {
 	b.parts = append(b.parts, text, "\n")
 }
 
+func (b *yamlBuffer) write(text string) {
+	b.parts = append(b.parts, text)
+}
+
 func (b *yamlBuffer) String() string {
 	return strings.Join(b.parts, "")
 }
 
-// writeScalar writes "<indent><key>: <scalar>" where the scalar is a
-// self-verified block scalar (or a JSON-quoted fallback). Body lines, emitted at
-// a relative indent of 2, are re-indented to keyIndent + 2.
-func writeScalar(b *yamlBuffer, keyIndent int, key, value string) {
+func writeRendered(b *yamlBuffer, keyIndent int, renderedKey, repr string) {
 	pad := strings.Repeat(" ", keyIndent)
-	repr := scalarRepr(value)
 	lines := strings.Split(repr, "\n")
-	b.writeln(pad + yamlKey(key) + ": " + lines[0])
+	b.writeln(pad + renderedKey + ": " + lines[0])
 	for i := 1; i < len(lines); i++ {
 		if lines[i] == "" {
 			b.writeln("")
@@ -166,222 +302,564 @@ func writeScalar(b *yamlBuffer, keyIndent int, key, value string) {
 	}
 }
 
-func sortedKeys(m map[string]string) []string {
-	out := make([]string, 0, len(m))
-	for k := range m {
-		out = append(out, k)
-	}
-	sort.Strings(out)
-	return out
+// writeScalar writes "<indent><key>: <scalar>" where the scalar is a
+// self-verified block scalar (or a JSON-quoted fallback). Block body lines,
+// which the builder emits at a relative indent of 2, are re-indented past
+// keyIndent. (Kept as the shared helper the editor's review writer uses in the
+// other ports.)
+func writeScalar(b *yamlBuffer, keyIndent int, key, value string) {
+	writeRendered(b, keyIndent, yamlKey(key), scalarRepr(value))
 }
 
-func sortedFormKeys(m map[string]map[string]string) []string {
-	out := make([]string, 0, len(m))
-	for k := range m {
-		out = append(out, k)
-	}
-	sort.Strings(out)
-	return out
-}
-
-func sortedListKeys(m map[string]ListJson) []string {
-	out := make([]string, 0, len(m))
-	for k := range m {
-		out = append(out, k)
-	}
-	sort.Strings(out)
-	return out
-}
-
+// writeHeader writes the file header comment + `version:` line, and the
+// optional `modelVersion:` stamp when modelVersion is non-empty.
 func writeHeader(b *yamlBuffer, modelVersion string) {
-	b.writeln("# TomSpecs document (*.docspecs.yaml).")
-	b.writeln("# `document:` holds the object-model values, sorted by section id; text")
-	b.writeln("# values use block scalars so multi-line content round-trips verbatim (\u00A715.1).")
+	b.writeln("# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.")
 	b.writeln("version: " + itoa(FormatVersion))
 	if modelVersion != "" {
 		b.writeln("modelVersion: " + jsJSONString(modelVersion))
 	}
 }
 
-// orderContentKeys / orderFormKeys / orderListKeys order the map keys of the
-// document passes: by SerializationOrder when order != nil (AA1 criterion 7),
-// else alphabetically (the diff-stable default the editor relies on).
-func orderContentKeys(m map[string]string, order *SpecSerializationOrder) []string {
-	if order == nil {
-		return sortedKeys(m)
-	}
-	return order.OrderPaths(mapKeys(m))
+// --- Encode -------------------------------------------------------------------
+
+func isNumericOrBool(typeName string) bool {
+	return typeName == "int" || typeName == "double" || typeName == "num" ||
+		typeName == "bool"
 }
 
-func mapKeys(m map[string]string) []string {
-	out := make([]string, 0, len(m))
-	for k := range m {
-		out = append(out, k)
-	}
-	return out
-}
-
-func writeDocumentPass(b *yamlBuffer, doc *DocumentJson, order *SpecSerializationOrder) {
-	if len(doc.Content) == 0 && len(doc.Forms) == 0 && len(doc.Lists) == 0 {
-		b.writeln("document: {}")
-		return
-	}
-	b.writeln("document:")
-
-	if len(doc.Content) > 0 {
-		b.writeln("  content:")
-		for _, k := range orderContentKeys(doc.Content, order) {
-			writeScalar(b, 4, k, doc.Content[k])
-		}
-	}
-
-	if len(doc.Forms) > 0 {
-		b.writeln("  forms:")
-		formKeys := sortedFormKeys(doc.Forms)
-		if order != nil {
-			keys := make([]string, 0, len(doc.Forms))
-			for k := range doc.Forms {
-				keys = append(keys, k)
-			}
-			formKeys = order.OrderPaths(keys)
-		}
-		for _, k := range formKeys {
-			fields := doc.Forms[k]
-			if len(fields) == 0 {
-				continue
-			}
-			b.writeln("    " + yamlKey(k) + ":")
-			fieldKeys := sortedKeys(fields)
-			if order != nil {
-				fieldKeys = order.OrderFormFields(k, mapKeys(fields))
-			}
-			for _, f := range fieldKeys {
-				writeScalar(b, 6, f, fields[f])
-			}
-		}
-	}
-
-	if len(doc.Lists) > 0 {
-		b.writeln("  lists:")
-		listKeys := sortedListKeys(doc.Lists)
-		if order != nil {
-			keys := make([]string, 0, len(doc.Lists))
-			for k := range doc.Lists {
-				keys = append(keys, k)
-			}
-			listKeys = order.OrderPaths(keys)
-		}
-		for _, k := range listKeys {
-			spec := doc.Lists[k]
-			b.writeln("    " + yamlKey(k) + ":")
-			b.writeln("      seq: " + itoa(spec.Seq))
-			if len(spec.Items) > 0 {
-				b.writeln("      items:")
-				for _, it := range spec.Items {
-					b.writeln("        - " + yamlKey(it))
-				}
-			} else {
-				b.writeln("      items: []")
-			}
-		}
-	}
-}
-
-// EncodeYaml serializes document to a header + `version:` (+ `modelVersion:`) +
-// `document:` pass, with alphabetical member ordering (the diff-stable default).
-func EncodeYaml(document *SpecDocument, modelVersion string) string {
-	return EncodeYamlOrdered(document, modelVersion, nil)
-}
-
-// EncodeYamlOrdered is EncodeYaml with an optional SpecSerializationOrder: when
-// non-nil, each class's members are emitted in @SerializationOrder order (AA1
-// criterion 7) instead of alphabetically.
-func EncodeYamlOrdered(document *SpecDocument, modelVersion string, order *SpecSerializationOrder) string {
+// EncodeYaml serializes document to a header + `version:` (+ `modelVersion:`)
+// + hierarchical `document:` pass, walking tree (the metadata tree of the
+// document's root).
+//
+// Sibling order is the tree's child order (@SerializationOrder), list items
+// follow their stored sequence; emission is sparse (only populated subtrees
+// appear). Returns a *SpecYamlFormatException when the document holds values
+// tree cannot place — nothing is silently dropped.
+func EncodeYaml(document *SpecDocument, tree *SomMetaTree, modelVersion string) (string, error) {
 	b := &yamlBuffer{}
 	writeHeader(b, modelVersion)
-	writeDocumentPass(b, document.ToJSON(), order)
-	return b.String()
+	if err := newYamlEncoder(document).writeDocumentPass(b, tree); err != nil {
+		return "", err
+	}
+	return b.String(), nil
 }
 
-// DecodeYaml parses a `*.docspecs.yaml` document into its passes. A missing pass
-// decodes as empty rather than failing, so a partial/hand-written file still
-// loads what it has.
-func DecodeYaml(yamlText string) *SpecYamlContents {
+// yamlEncoder is one encode run: it walks the metadata tree, consuming values
+// from snapshots of the document's stores so anything left unconsumed at the
+// end is a structured error (nothing is silently dropped).
+type yamlEncoder struct {
+	doc     *SpecDocument
+	content map[string]string
+	forms   map[string]map[string]string
+	lists   map[string]bool
+}
+
+func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
+	e := &yamlEncoder{
+		doc:     doc,
+		content: map[string]string{},
+		forms:   map[string]map[string]string{},
+		lists:   map[string]bool{},
+	}
+	for _, p := range doc.ContentPaths() {
+		e.content[p] = doc.ContentOr(p)
+	}
+	for _, p := range doc.FormPaths() {
+		fields := map[string]string{}
+		for _, f := range doc.FormFieldNames(p) {
+			fields[f] = doc.FormFieldOr(p, f)
+		}
+		e.forms[p] = fields
+	}
+	for _, p := range doc.ListPaths() {
+		e.lists[p] = true
+	}
+	return e
+}
+
+func (e *yamlEncoder) writeDocumentPass(b *yamlBuffer, tree *SomMetaTree) error {
+	root := tree.Root
+	body, err := e.mappingBody(root, root.Segment(), 4)
+	if err != nil {
+		return err
+	}
+	if err := e.assertNothingLeft(); err != nil {
+		return err
+	}
+	if body == "" {
+		b.writeln("document: {}")
+		return nil
+	}
+	b.writeln("document:")
+	b.writeln("  " + PlainKey(NodeKey(root)) + ":")
+	b.write(body)
+	return nil
+}
+
+// mappingBody renders the mapping body of node at path (root, a collapsed
+// section/complex field, or a list item's element), one line per populated
+// entry at indent. Empty when nothing under the node is populated.
+func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (string, error) {
+	b := &yamlBuffer{}
+
+	// The node's own body text — the literal `content` key (DR1 §2.2).
+	if own, ok := e.content[path]; ok {
+		delete(e.content, path)
+		for _, c := range node.Children {
+			if NodeKey(c) == "content" {
+				return "", yamlFormatErr(
+					"cannot emit body text at `" + path + "`: a child of " +
+						node.DebugName() + " also serializes as key `content`")
+			}
+		}
+		e.writeText(b, indent, "content", own)
+	}
+
+	for _, child := range node.Children {
+		childPath := SpecPathJoin(path, child.Segment())
+		key := NodeKey(child)
+		switch child.Kind {
+		case SomMetaKindContent:
+			if v, ok := e.content[childPath]; ok {
+				delete(e.content, childPath)
+				e.writeText(b, indent, key, v)
+			}
+		case SomMetaKindScalar, SomMetaKindEnumValue:
+			if v, ok := e.content[childPath]; ok {
+				delete(e.content, childPath)
+				e.writeValue(b, indent, key, v)
+			}
+		case SomMetaKindForm:
+			if err := e.writeForm(b, indent, key, child, childPath); err != nil {
+				return "", err
+			}
+		case SomMetaKindSection, SomMetaKindComplex:
+			sub, err := e.mappingBody(child, childPath, indent+2)
+			if err != nil {
+				return "", err
+			}
+			if sub != "" {
+				b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
+				b.write(sub)
+			}
+		case SomMetaKindList:
+			if err := e.writeList(b, indent, key, child, childPath); err != nil {
+				return "", err
+			}
+		}
+	}
+	return b.String(), nil
+}
+
+func (e *yamlEncoder) writeForm(
+	b *yamlBuffer, indent int, key string, node *SomMetaNode, path string,
+) error {
+	fields, ok := e.forms[path]
+	delete(e.forms, path)
+	if !ok || len(fields) == 0 {
+		return nil
+	}
+	meta := node.Form
+	if meta == nil {
+		meta = &SomFormMeta{}
+	}
+	for name := range fields {
+		if meta.FieldNamed(name) == nil {
+			return yamlFormatErr(
+				"form `" + path + "` holds a field `" + name + "` unknown to the model")
+		}
+	}
+	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
+	for _, f := range meta.Fields {
+		v, ok := fields[f.Name]
+		if !ok {
+			continue
+		}
+		if isNumericOrBool(f.TypeName) {
+			e.writeValue(b, indent+2, f.Name, v)
+		} else {
+			e.writeText(b, indent+2, f.Name, v)
+		}
+	}
+	return nil
+}
+
+func (e *yamlEncoder) writeList(
+	b *yamlBuffer, indent int, key string, node *SomMetaNode, path string,
+) error {
+	delete(e.lists, path)
+	items := e.doc.ListItems(path)
+	if len(items) == 0 {
+		return nil
+	}
+	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
+	used := map[string]bool{}
+	pos := 0
+	for _, itemPath := range items {
+		pos++
+		storedID, hasStored := e.doc.ItemSectionID(itemPath)
+		itemKey := storedID
+		if !hasStored {
+			itemKey = node.MemberName + "-" + itoa(pos)
+		}
+		if hasStored {
+			if used[itemKey] {
+				return yamlFormatErr(
+					"duplicate list item key `" + itemKey + "` at `" + path + "`")
+			}
+			used[itemKey] = true
+		} else {
+			bump := pos
+			for used[itemKey] {
+				bump++
+				itemKey = node.MemberName + "-" + itoa(bump)
+			}
+			used[itemKey] = true
+		}
+		element := node.ElementNode
+		if element == nil {
+			// Scalar list: the item is a direct value.
+			v := ""
+			if cv, ok := e.content[itemPath]; ok {
+				v = cv
+				delete(e.content, itemPath)
+			}
+			e.writeValue(b, indent+2, itemKey, v)
+		} else {
+			sub, err := e.mappingBody(element, itemPath, indent+4)
+			if err != nil {
+				return err
+			}
+			if sub == "" {
+				b.writeln(strings.Repeat(" ", indent+2) + PlainKey(itemKey) + ": {}")
+			} else {
+				b.writeln(strings.Repeat(" ", indent+2) + PlainKey(itemKey) + ":")
+				b.write(sub)
+			}
+		}
+	}
+	return nil
+}
+
+// writeText writes a text value: empty-line dedup, then a self-verified block
+// scalar (or the JSON-quoted fallback).
+func (e *yamlEncoder) writeText(b *yamlBuffer, indent int, key, value string) {
+	writeRendered(b, indent, PlainKey(key), scalarRepr(DedupEmptyLines(value)))
+}
+
+// writeValue writes a non-text value (§2.5): plain when it self-verifies, else
+// the text path.
+func (e *yamlEncoder) writeValue(b *yamlBuffer, indent int, key, value string) {
+	if plain, ok := plainScalar(value); ok {
+		b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ": " + plain)
+	} else {
+		e.writeText(b, indent, key, value)
+	}
+}
+
+func (e *yamlEncoder) assertNothingLeft() error {
+	var leftovers []string
+	for p := range e.content {
+		leftovers = append(leftovers, "content at `"+p+"`")
+	}
+	for p := range e.forms {
+		leftovers = append(leftovers, "form values at `"+p+"`")
+	}
+	for p := range e.lists {
+		leftovers = append(leftovers, "list items at `"+p+"`")
+	}
+	if len(leftovers) == 0 {
+		return nil
+	}
+	sortStrings(leftovers)
+	return yamlFormatErr(
+		"document holds values the metadata tree cannot place: " +
+			strings.Join(leftovers, "; "))
+}
+
+// sortStrings sorts s ascending (a tiny insertion sort keeps the file free of
+// a sort import dependency at this call site's hot path — leftover lists are
+// error paths and tiny).
+func sortStrings(s []string) {
+	for i := 1; i < len(s); i++ {
+		for j := i; j > 0 && s[j] < s[j-1]; j-- {
+			s[j], s[j-1] = s[j-1], s[j]
+		}
+	}
+}
+
+// --- Decode -------------------------------------------------------------------
+
+// DecodeYaml parses a `*.docspecs.yaml` file into its passes, matching every
+// `document:` key against tree.
+//
+// Returns a *SpecYamlFormatException for a missing/unsupported `version:`
+// (version 1 is rejected explicitly — the flat format has no compatibility
+// path), for any key the metadata tree cannot place, and for malformed value
+// shapes. A missing/empty `document:` pass decodes as an empty document.
+func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 	var root interface{}
 	if strings.TrimSpace(yamlText) != "" {
 		root = YamlParse(yamlText)
 	}
-	rootMap, _ := root.(map[string]interface{})
-
-	doc := docJSONFromYaml(rootMap["document"])
-	rev, _ := rootMap["review"].(map[string]interface{})
-	if rev == nil {
-		rev = map[string]interface{}{}
-	}
-	stamp := ""
-	if s, ok := rootMap["modelVersion"].(string); ok && s != "" {
-		stamp = s
-	}
-	return &SpecYamlContents{Document: doc, Review: rev, ModelVersion: stamp}
-}
-
-// docJSONFromYaml converts the parsed `document:` mapping into a DocumentJson.
-func docJSONFromYaml(v interface{}) *DocumentJson {
-	out := &DocumentJson{}
-	m, ok := v.(map[string]interface{})
+	rootMap, ok := root.(*YamlMap)
 	if !ok {
-		return out
+		return nil, yamlFormatErr(
+			"not a *.docspecs.yaml mapping (expected version/document keys)")
 	}
-	if content, ok := m["content"].(map[string]interface{}); ok && len(content) > 0 {
-		out.Content = map[string]string{}
-		for k, val := range content {
-			out.Content[k] = yamlScalarString(val)
+	version, hasVersion := rootMap.Get("version")
+	if !hasVersion || parsedScalarStr(version) != itoa(FormatVersion) {
+		if !hasVersion {
+			return nil, yamlFormatErr(
+				"missing `version:` (expected version: " + itoa(FormatVersion) + ")")
 		}
+		if parsedScalarStr(version) == "1" {
+			return nil, yamlFormatErr(
+				"format version 1 (flat path-map) is no longer supported; " +
+					"re-save the document in the hierarchical v2 format")
+		}
+		return nil, yamlFormatErr(
+			"unsupported format version `" + versionRepr(version) + "` (expected " +
+				itoa(FormatVersion) + ")")
 	}
-	if forms, ok := m["forms"].(map[string]interface{}); ok && len(forms) > 0 {
-		out.Forms = map[string]map[string]string{}
-		for k, val := range forms {
-			fields, ok := val.(map[string]interface{})
+
+	stamp := ""
+	if raw, ok := rootMap.Get("modelVersion"); ok {
+		stamp = parsedScalarStr(raw)
+	}
+
+	rev, _ := rootMap.GetOr("review").(*YamlMap)
+	if rev == nil {
+		rev = NewYamlMap()
+	}
+
+	document := NewSpecDocument()
+	document.ModelVersion = stamp
+	docPass, hasDoc := rootMap.Get("document")
+	docMap, docIsMap := docPass.(*YamlMap)
+	if hasDoc && docPass != nil && !docIsMap {
+		return nil, yamlFormatErr("`document:` must be a mapping")
+	}
+	if docIsMap && docMap.Len() > 0 {
+		rootKey := NodeKey(tree.Root)
+		keys := docMap.Keys()
+		if len(keys) != 1 || keys[0] != rootKey {
+			found := make([]string, 0, len(keys))
+			for _, k := range keys {
+				found = append(found, "`"+k+"`")
+			}
+			return nil, yamlFormatErr(
+				"expected the single document root key `" + rootKey + "`, found: " +
+					strings.Join(found, ", "))
+		}
+		body := docMap.GetOr(keys[0])
+		if body != nil {
+			bodyMap, ok := body.(*YamlMap)
 			if !ok {
-				continue
+				return nil, yamlFormatErr(
+					"root `" + rootKey + "` must hold a mapping, not a scalar")
 			}
-			entry := map[string]string{}
-			for f, fv := range fields {
-				entry[f] = yamlScalarString(fv)
+			d := &yamlDecoder{doc: document, tree: tree}
+			if err := d.loadMapping(tree.Root, tree.Root.Segment(), bodyMap); err != nil {
+				return nil, err
 			}
-			out.Forms[k] = entry
 		}
 	}
-	if lists, ok := m["lists"].(map[string]interface{}); ok && len(lists) > 0 {
-		out.Lists = map[string]ListJson{}
-		for k, val := range lists {
-			spec, ok := val.(map[string]interface{})
-			if !ok {
-				continue
-			}
-			seq := 0
-			if s, ok := spec["seq"].(int); ok {
-				seq = s
-			}
-			var items []string
-			if rawItems, ok := spec["items"].([]interface{}); ok {
-				for _, it := range rawItems {
-					items = append(items, yamlScalarString(it))
-				}
-			}
-			out.Lists[k] = ListJson{Seq: seq, Items: items}
-		}
-	}
-	return out
+
+	return &SpecYamlContents{Document: document, Review: rev, ModelVersion: stamp}, nil
 }
 
-func yamlScalarString(v interface{}) string {
-	switch t := v.(type) {
-	case string:
-		return t
-	case int:
-		return itoa(t)
+// versionRepr renders the raw parsed `version:` value for the unsupported-
+// version error message (mirroring JS/TS string interpolation, where a
+// non-scalar mapping renders as "[object Object]").
+func versionRepr(v interface{}) string {
+	switch v.(type) {
+	case *YamlMap:
+		return "[object Object]"
 	default:
-		return ""
+		return parsedScalarStr(v)
 	}
+}
+
+// yamlDecoder is one decode run: it walks a parsed YAML mapping alongside the
+// metadata tree and populates doc. Any key that matches nothing at its
+// position is an error.
+type yamlDecoder struct {
+	doc  *SpecDocument
+	tree *SomMetaTree
+}
+
+func (d *yamlDecoder) loadMapping(node *SomMetaNode, path string, body *YamlMap) error {
+	for _, key := range body.Keys() {
+		value := body.GetOr(key)
+		if child := decoderChildByKey(node, key); child != nil {
+			if err := d.loadChild(child, SpecPathJoin(path, child.Segment()), key, value); err != nil {
+				return err
+			}
+			continue
+		}
+		if key == "content" {
+			v, err := decoderScalarOf(value, path+"/content")
+			if err != nil {
+				return err
+			}
+			d.doc.SetContent(path, v)
+			continue
+		}
+		return yamlFormatErr(
+			"key `" + key + "` under `" + path + "` matches no member of " +
+				node.DebugName() + " (expected one of: " +
+				strings.Join(decoderExpectedKeys(node), ", ") + ")")
+	}
+	return nil
+}
+
+func decoderChildByKey(node *SomMetaNode, key string) *SomMetaNode {
+	for _, c := range node.Children {
+		if NodeKey(c) == key {
+			return c
+		}
+	}
+	return nil
+}
+
+func decoderExpectedKeys(node *SomMetaNode) []string {
+	out := make([]string, 0, len(node.Children)+1)
+	for _, c := range node.Children {
+		out = append(out, "`"+NodeKey(c)+"`")
+	}
+	return append(out, "`content`")
+}
+
+func (d *yamlDecoder) loadChild(
+	child *SomMetaNode, path, key string, value interface{},
+) error {
+	switch child.Kind {
+	case SomMetaKindContent, SomMetaKindScalar, SomMetaKindEnumValue:
+		v, err := decoderScalarOf(value, path)
+		if err != nil {
+			return err
+		}
+		d.doc.SetContent(path, v)
+		return nil
+	case SomMetaKindForm:
+		fields, ok := value.(*YamlMap)
+		if !ok {
+			return yamlFormatErr(
+				"form `" + key + "` at `" + path + "` must hold a field mapping")
+		}
+		meta := child.Form
+		if meta == nil {
+			meta = &SomFormMeta{}
+		}
+		for _, name := range fields.Keys() {
+			if meta.FieldNamed(name) == nil {
+				return yamlFormatErr(
+					"form `" + path + "` has no field `" + name + "` in the model")
+			}
+			v, err := decoderScalarOf(fields.GetOr(name), path+"."+name)
+			if err != nil {
+				return err
+			}
+			d.doc.SetFormField(path, name, v)
+		}
+		return nil
+	case SomMetaKindSection, SomMetaKindComplex:
+		if value == nil {
+			return nil
+		}
+		mapping, ok := value.(*YamlMap)
+		if !ok {
+			return yamlFormatErr(
+				"section `" + key + "` at `" + path + "` must hold a mapping, " +
+					"not a scalar")
+		}
+		return d.loadMapping(child, path, mapping)
+	case SomMetaKindList:
+		if value == nil {
+			return nil
+		}
+		items, ok := value.(*YamlMap)
+		if !ok {
+			return yamlFormatErr(
+				"list `" + key + "` at `" + path + "` must hold an item mapping")
+		}
+		return d.loadList(child, path, items)
+	}
+	return nil
+}
+
+func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) error {
+	anonymous := regexp.MustCompile(
+		"^" + regexp.QuoteMeta(node.MemberName) + "-[0-9]+$")
+	for _, key := range items.Keys() {
+		value := items.GetOr(key)
+		var itemPath string
+		if anonymous.MatchString(key) {
+			itemPath = d.doc.AddListItem(path)
+		} else {
+			p, err := d.doc.AddListItemWithSectionID(path, key)
+			if err != nil {
+				return err
+			}
+			itemPath = p
+		}
+		element := node.ElementNode
+		if element == nil {
+			// Scalar list item: the value is the item itself. The hand-rolled
+			// parser cannot distinguish a bare `key:` (null) from `key: {}`, so
+			// an empty mapping counts as "no value" here (Python raises on an
+			// explicit `{}`).
+			if seq, isSeq := value.([]interface{}); isSeq {
+				_ = seq
+				return yamlFormatErr(
+					"scalar list item `" + key + "` at `" + path + "` must hold a scalar")
+			}
+			if m, isMap := value.(*YamlMap); isMap {
+				if m.Len() > 0 {
+					return yamlFormatErr(
+						"scalar list item `" + key + "` at `" + path + "` must hold a scalar")
+				}
+				continue
+			}
+			if value != nil {
+				d.doc.SetContent(itemPath, parsedScalarStr(value))
+			}
+			continue
+		}
+		if value == nil {
+			continue
+		}
+		mapping, ok := value.(*YamlMap)
+		if !ok {
+			return yamlFormatErr(
+				"list item `" + key + "` at `" + path + "` must hold a mapping " +
+					"(use `{}` for an empty item)")
+		}
+		if err := d.loadMapping(element, itemPath, mapping); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// decoderScalarOf coerces a parsed leaf value to the document's string store.
+// The hand-rolled parser yields an empty mapping for a bare `key:` (where a
+// real YAML parser yields null), so an *empty* mapping counts as the empty
+// string; a populated mapping or a sequence is still a structural error.
+func decoderScalarOf(value interface{}, where string) (string, error) {
+	if value == nil {
+		return "", nil
+	}
+	if _, isSeq := value.([]interface{}); isSeq {
+		return "", yamlFormatErr("expected a scalar value at `" + where + "`")
+	}
+	if m, isMap := value.(*YamlMap); isMap {
+		if m.Len() == 0 {
+			return "", nil
+		}
+		return "", yamlFormatErr("expected a scalar value at `" + where + "`")
+	}
+	return parsedScalarStr(value), nil
 }

@@ -79,27 +79,28 @@ func NewSpecDocument() *SpecDocument {
 	}
 }
 
-// FromYaml loads a `*.docspecs.yaml` document in one call: decode the YAML,
-// populate the sparse stores (LoadJSON), and retain the parsed ModelVersion on
-// the document. Collapses the former three-step DecodeYaml → LoadJSON →
-// thread-documentVersion incantation (§ item 4).
-func FromYaml(yaml string) *SpecDocument {
-	decoded := DecodeYaml(yaml)
-	d := NewSpecDocument()
-	d.LoadJSON(decoded.Document)
-	d.ModelVersion = decoded.ModelVersion
-	return d
+// FromYaml loads a hierarchical `*.docspecs.yaml` document in one call: decode
+// the YAML against the document's metadata tree (DR5) and retain the parsed
+// ModelVersion on the document. Collapses the former DecodeYaml →
+// thread-documentVersion incantation (§ item 4). Format problems surface as a
+// *SpecYamlFormatException.
+func FromYaml(yaml string, tree *SomMetaTree) (*SpecDocument, error) {
+	decoded, err := DecodeYaml(yaml, tree)
+	if err != nil {
+		return nil, err
+	}
+	return decoded.Document, nil
 }
 
 // FromFile loads a `*.docspecs.yaml` document from the file at path — the file
 // companion to FromYaml the generated LoadFile funcs delegate to. A read error
 // is returned to the caller (Go has no exceptions).
-func FromFile(path string) (*SpecDocument, error) {
+func FromFile(path string, tree *SomMetaTree) (*SpecDocument, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
-	return FromYaml(string(data)), nil
+	return FromYaml(string(data), tree)
 }
 
 func (d *SpecDocument) ensure() {
