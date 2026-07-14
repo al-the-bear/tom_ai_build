@@ -16,8 +16,8 @@ Install `tom_som_python_runtime` (`pip install tom_som_python_runtime`), then:
 from tom_som_runtime import SpecDocument
 
 doc = SpecDocument()
-doc.set_content("PD/content", "A platform that unifies our order systems.")
-print(doc.content("PD/content"))
+doc.set_content("SBP/content", "A platform that unifies our order systems.")
+print(doc.content("SBP/content"))
 ```
 
 ## Dependency routes

@@ -103,7 +103,7 @@ cd tom_ai/ai_build/tom_som_dart_v0 && dart pub get && dart analyze
 cd tom_ai/ai_build
 python3 -m py_compile tom_som_python_v0/tom_som_python_v0.py
 PYTHONPATH="tom_som_python_runtime:tom_som_python_v0" \
-  python3 -c "import tom_som_python_v0 as m; print(hasattr(m,'SolutionBlueprint'))"
+  python3 -c "import tom_som_python_v0 as m; print(hasattr(m,'D00SolutionBlueprint'))"
 
 # Present-but-projectless toolchains — trivial smoke
 node -e "console.log(1+1)"
@@ -132,7 +132,7 @@ mkdir go_smoke && cd go_smoke && printf 'package main\nimport "fmt"\nfunc main()
 #   fixture exercising interfaces + generics + classes, run the emitted JS.
 mkdir ts_smoke && cd ts_smoke && npm init -y >/dev/null \
   && npm i -D typescript@6.0.3 >/dev/null \
-  && printf 'interface SomNode { id: string }\nclass SomScalar<T> implements SomNode {\n  constructor(public id: string, public value: T) {}\n}\nconst n = new SomScalar<string>("PD", "hello");\nconsole.log(`ts OK: ${n.id}/content=${n.value}`);\n' > probe.ts \
+  && printf 'interface SomNode { id: string }\nclass SomScalar<T> implements SomNode {\n  constructor(public id: string, public value: T) {}\n}\nconst n = new SomScalar<string>("SBP", "hello");\nconsole.log(`ts OK: ${n.id}/content=${n.value}`);\n' > probe.ts \
   && ./node_modules/.bin/tsc --strict --target ES2020 --module commonjs probe.ts \
   && node probe.js && cd .. && rm -rf ts_smoke
 ```

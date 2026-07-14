@@ -25,8 +25,8 @@ npm install tom_som_typescript_runtime
 import { SpecDocument } from 'tom_som_typescript_runtime';
 
 const doc = new SpecDocument();
-doc.setContent('D00/D01', 'A unifying order platform.');
-console.log(doc.content('D00/D01'));
+doc.setContent('SBP/content', 'A unifying order platform.');
+console.log(doc.content('SBP/content'));
 ```
 
 ## Dependency routes

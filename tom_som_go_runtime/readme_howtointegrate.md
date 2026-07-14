@@ -24,8 +24,8 @@ go get github.com/al-the-bear/tom_ai_build/tom_som_go_runtime@v1.0.0
 import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 
 doc := som.NewSpecDocument()
-doc.SetContent("D00/D01", "A unifying order platform.")
-fmt.Println(doc.Content("D00/D01"))
+doc.SetContent("SBP/content", "A unifying order platform.")
+fmt.Println(doc.Content("SBP/content"))
 ```
 
 ## Dependency routes

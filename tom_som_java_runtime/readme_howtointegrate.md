@@ -16,8 +16,8 @@ then:
 import tom_som_runtime.SpecDocument;
 
 SpecDocument doc = new SpecDocument();
-doc.setContent("PD/content", "A platform that unifies our order systems.");
-System.out.println(doc.content("PD/content"));
+doc.setContent("SBP/content", "A platform that unifies our order systems.");
+System.out.println(doc.content("SBP/content"));
 ```
 
 ## Dependency routes

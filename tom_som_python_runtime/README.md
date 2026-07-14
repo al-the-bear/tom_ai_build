@@ -14,8 +14,8 @@ typed facade (`tom_som_python_v0`). To use it directly, install it
 from tom_som_runtime import SpecDocument
 
 doc = SpecDocument()
-doc.set_content("PD/content", "A platform that unifies our order systems.")
-print(doc.content("PD/content"))
+doc.set_content("SBP/content", "A platform that unifies our order systems.")
+print(doc.content("SBP/content"))
 ```
 
 See **readme_howtointegrate.md** for the full integration guide (PyPI / git /

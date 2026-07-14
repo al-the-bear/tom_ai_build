@@ -19,8 +19,8 @@ const {
 
 // A sparse document keyed by section path.
 const doc = new SpecDocument();
-doc.setContent('D00/D01', 'A unifying order platform.');
-console.log(doc.content('D00/D01'));
+doc.setContent('SBP/content', 'A unifying order platform.');
+console.log(doc.content('SBP/content'));
 ```
 
 Typically you drive the runtime through the generated typed facade rather than

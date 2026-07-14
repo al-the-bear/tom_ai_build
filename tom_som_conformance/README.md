@@ -18,7 +18,9 @@ nine language APIs agree.
 
 Each `tom_som_<lang>_v0` project ships a golden generator that loads the shared
 sample and emits a canonical, deterministic reading of *essentially every
-section* through **both** the generic string-path API and the typed facade:
+section* through the generic string-path API, the typed facade, **and** the
+generated metadata tree — then validates the sample's markdown against the
+facade's generated DocSpecs schema:
 
 | Language | Generator |
 | -------- | --------- |
@@ -32,13 +34,26 @@ section* through **both** the generic string-path API and the typed facade:
 | C | `tom_som_c_v0/tool/golden_log.c` |
 | C++ | `tom_som_cpp_v0/tool/golden_log.cpp` |
 
-The log format is defined once in the Dart generator (the reference) and
-mirrored verbatim by the other eight. It is intentionally line-oriented,
-LF-terminated, ASCII-path, and value-escaped so it compares byte-for-byte across
-languages regardless of their native string/collection types. Each generator is
-itself a test: it asserts the typed reads equal the generic reads before writing,
-so a facade/runtime divergence aborts with a non-zero exit instead of emitting a
-silently-wrong log.
+The log format (`FORMAT 2`) is defined once in the Dart generator (the
+reference) and mirrored verbatim by the other eight. It is intentionally
+line-oriented, LF-terminated, ASCII-path, and value-escaped so it compares
+byte-for-byte across languages regardless of their native string/collection
+types. Each log carries these sections, all model-derived so the lines are
+byte-identical across languages even though the accessor *names* differ:
+
+| Section | Content |
+| ------- | ------- |
+| `generic-content` / `generic-forms` / `generic-lists` | Every content leaf, form field, and list container read through the generic string-path API (`SpecDocument`). |
+| `typed` | A curated facade traversal (`.path` / `.content`), each read asserted equal to the generic read. |
+| `meta` | The generated metadata tree resolved by path (`metaTree.byPath`), emitting each node's `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
+| `meta-nav` | Dot-notation navigation accessors (`d00SolutionBlueprint.introductionAndScope.goals`), asserted to resolve to the same node instance `byPath` finds. |
+| `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVHST_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
+| `docspecs` | The sample's markdown validated against the facade's generated DocSpecs schema — root id, warning count, violation count. |
+
+Each generator is itself a test: it asserts the typed reads equal the generic
+reads, the metadata-tree nav/id accessors resolve to the same nodes `byPath`
+finds, and the schema validates — so a facade/runtime divergence aborts with a
+non-zero exit instead of emitting a silently-wrong log.
 
 ### Running
 
@@ -104,28 +119,29 @@ nine language APIs green, and cross-language golden byte-identity unaffected (th
 `regenerate_golden.sh` run above). A green sweep proves the 18 packages are
 internally consistent, versioned to the model, and independently buildable.
 
-## Generated path constants (roadmap item 11)
+## Discoverable path access — metadata tree, nav, and ID-tree (DR8)
 
-Every generated `tom_som_<lang>_v0` facade emits, per document root, a
-`<Root>Paths` holder of named constants whose values are the exact section paths
-(e.g. `SbpPaths.currentLandscapeOperationalMetrics` →
-`'SBP/currentLandscape/CUOPME-OPER-LST'`). They exist so generic consumers — and
-the golden generators above — reference a compiler-checked symbol instead of a
-raw path literal. **The constant names and path values are identical across all
-nine languages**; only the surface syntax differs per language convention:
+The former per-root `<Root>Paths` flat constant holders are **retired** (DR1 §4,
+DR8). In their place every generated `tom_som_<lang>_v0` facade emits a
+**metadata library** carrying, per document root, three discoverable surfaces
+over the same section paths — so generic consumers (and the golden generators
+above) reference a compiler-checked symbol instead of a raw path literal:
 
-| Languages | Member style | Example |
-| --------- | ------------ | ------- |
-| Dart, Python, Java, JavaScript, TypeScript, C++ | camelCase | `SbpPaths.currentLandscapeOperationalMetrics` |
-| Go | PascalCase (exported) | `SbpPaths.CurrentLandscapeOperationalMetrics` |
-| Rust | SCREAMING_SNAKE (associated const) | `SbpPaths::CURRENT_LANDSCAPE_OPERATIONAL_METRICS` |
-| C | SCREAMING_SNAKE `#define` (holder-prefixed) | `SBP_PATHS_CURRENT_LANDSCAPE_OPERATIONAL_METRICS` |
+| Surface | Entry point | What it gives |
+| ------- | ----------- | ------------- |
+| Metadata tree | `<camelRoot>MetaTree` (a `SomMetaTree`) | Resolve any node by path — `metaTree.byPath('SBP/currentLandscape/CUOPME-OPER-LST')` — then read `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
+| Dot-notation nav (DR1 §4.1) | `d00SolutionBlueprint` (a `<Root>$Nav`) | Member-named accessors — `d00SolutionBlueprint.currentLandscape.operationalMetrics` — resolving to a `SomMetaRef`. |
+| ID-tree (DR1 §4.2) | `SBP` (a `<Root>$Id`) | Section-id-named accessors that hoist through id-less members — `SBP.RVHST_REVS_LST.item(0)` — resolving to the *same* `SomMetaRef` instance the nav position finds. |
 
-The single enumeration that drives all nine emitters lives in
-`tom_specs_clitool/lib/src/spec_path_constants.dart`, so the names and paths can
-never drift between facades. Fixed navigable positions earn a constant; dynamic
-list *items* (`…-<seq>`) and form-field sub-keys do not — a list field yields the
-constant for its container path only. See the Dart hybrid sample
-(`tom_som_dart_v0/example/f_sample_hybrid_access.dart`) for the two ways to reach
-a path without a literal: a path constant, or navigate-then-read off a typed
-node's `.path`.
+Each nav / id accessor is a `SomMetaRef` exposing `.path` (the absolute generic
+path string) and `.meta` (its metadata node), so navigating to a symbol and
+reading `.path` yields the exact path literal the old holder constant used to
+carry — now discoverable by navigation. **The tree, nav, and ID-tree data are
+identical across all nine languages**; only the accessor *names* differ per
+language convention (dot-notation members, id members with `-` → `_`).
+
+Fixed navigable positions are reachable through nav; dynamic list *items*
+(`…-<seq>`) are reached with `.item(n)` off a list node, and form-field sub-keys
+are read off the form node — neither is a navigable member. See the Dart hybrid
+sample (`tom_som_dart_v0/example/f_sample_hybrid_access.dart`) for reaching a
+path without a literal by navigate-then-read off a node's `.path`.

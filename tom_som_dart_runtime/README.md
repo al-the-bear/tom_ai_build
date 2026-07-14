@@ -22,9 +22,9 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 void main() {
   // The generic, path-keyed document store underneath every typed facade.
   final doc = SpecDocument();
-  doc.setContent('SBP00/content', 'A platform that unifies our order systems.');
+  doc.setContent('SBP/content', 'A platform that unifies our order systems.');
 
-  print(doc.content('SBP00/content'));
+  print(doc.content('SBP/content'));
 }
 ```
 

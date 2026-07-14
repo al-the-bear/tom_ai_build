@@ -16,8 +16,8 @@ tom_som_rust_runtime = { path = "../tom_som_rust_runtime", version = "1.0.0" }
 use tom_som_rust_runtime as som;
 
 let mut doc = som::SpecDocument::new();
-doc.set_content("D00/D01", "A unifying order platform.");
-println!("{}", doc.content_or("D00/D01"));
+doc.set_content("SBP/content", "A unifying order platform.");
+println!("{}", doc.content_or("SBP/content"));
 ```
 
 The crate is `publish = false` (proprietary), versioned to the TomSpecs **model

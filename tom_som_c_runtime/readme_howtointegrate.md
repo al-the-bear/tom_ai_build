@@ -29,8 +29,8 @@ cc myapp.c $(pkg-config --cflags --libs tom_som_c_runtime) -o myapp
 
 int main(void) {
   SpecDocument *doc = spec_document_new();
-  spec_document_set_content(doc, "D00/D01", "A unifying order platform.");
-  printf("%s\n", spec_document_content_or(doc, "D00/D01", ""));
+  spec_document_set_content(doc, "SBP/content", "A unifying order platform.");
+  printf("%s\n", spec_document_content_or(doc, "SBP/content", ""));
   spec_document_free(doc);
   return 0;
 }

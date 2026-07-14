@@ -15,8 +15,8 @@ typed facade (`tom_som_java_v0`). To use it directly, add `tom_som_java_runtime`
 import tom_som_runtime.SpecDocument;
 
 SpecDocument doc = new SpecDocument();
-doc.setContent("PD/content", "A platform that unifies our order systems.");
-System.out.println(doc.content("PD/content"));
+doc.setContent("SBP/content", "A platform that unifies our order systems.");
+System.out.println(doc.content("SBP/content"));
 ```
 
 See **readme_howtointegrate.md** for the full integration guide (Maven / local
