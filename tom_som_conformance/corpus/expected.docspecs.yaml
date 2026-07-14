@@ -27,6 +27,9 @@ document:
           Second line A
           with ```triple``` ticks
         STS status: done
+    REF-LST refs:
+      refs-1: spec §1.2
+      refs-2: DR1
     META meta:
       OWNR owner: |2-
         alice

@@ -91,6 +91,14 @@
           ]
         },
         {
+          "name": "refs",
+          "kind": "list",
+          "sectionId": "REF-LST",
+          "sectionIdPattern": "REF-xxx",
+          "elementType": "String",
+          "elementIsComplex": false
+        },
+        {
           "name": "meta",
           "kind": "complex",
           "sectionId": "META",

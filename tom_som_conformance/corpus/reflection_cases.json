@@ -80,6 +80,22 @@
     "isValueLeaf": true
   },
   {
+    "path": "DEMO/REF-LST",
+    "resolves": true,
+    "kind": "list",
+    "field": "refs",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/REF-LST-1",
+    "resolves": true,
+    "kind": "listItemScalar",
+    "field": "refs",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
     "path": "DEMO/META",
     "resolves": true,
     "kind": "complex",

@@ -7,6 +7,8 @@
     "DEMO/META/tags-3": "1:30",
     "DEMO/META/tags-4": "plain",
     "DEMO/PRI": "high",
+    "DEMO/REF-LST-1": "spec §1.2",
+    "DEMO/REF-LST-2": "DR1",
     "DEMO/SUM": "Line one\nLine two\n\nLine four",
     "DEMO/TTL": "Hello",
     "DEMO/items-1/STS": "open",
@@ -28,6 +30,13 @@
         "DEMO/META/tags-2",
         "DEMO/META/tags-3",
         "DEMO/META/tags-4"
+      ]
+    },
+    "DEMO/REF-LST": {
+      "seq": 2,
+      "items": [
+        "DEMO/REF-LST-1",
+        "DEMO/REF-LST-2"
       ]
     },
     "DEMO/items": {

@@ -44,6 +44,16 @@ with ```triple``` ticks
 
 done
 
+## <!--[REF-LST]--> Refs
+
+### <!--[REF-1]--> String 1
+
+spec §1.2
+
+### <!--[REF-2]--> String 2
+
+DR1
+
 ## <!--[META]--> Meta
 
 ### <!--[OWNR]--> Owner

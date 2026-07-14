@@ -137,6 +137,80 @@ void main() {
         reason: 'Markdown→memory must equal the canonical state.json memory');
   });
 
+  // DR1 §1.2 list-container contract (DRA1/DRA2): every list heads its own
+  // container section — a real `*-LST` `@SectionId` when the list carries one
+  // (`REF-LST`), else the member-name fallback (`items`, `tags`) — with an
+  // empty body region and its numbered items exactly one level deeper. Pinned
+  // against the committed golden so every language port reproduces the identical
+  // container structure.
+  group('list-container structure (DR1 §1.2)', () {
+    final md = read('expected.md');
+    final lines = md.split('\n');
+
+    int levelAt(int idx) => RegExp(r'^(#+)\s')
+        .firstMatch(lines[idx])!
+        .group(1)!
+        .length;
+
+    int headingIndexOf(String id) {
+      final idx = lines.indexWhere((l) => l.contains('<!--[$id]-->'));
+      expect(idx, greaterThanOrEqualTo(0),
+          reason: 'heading <!--[$id]--> is present in the golden');
+      return idx;
+    }
+
+    /// Asserts [containerId] heads a list container whose body is empty (every
+    /// line up to the next heading is blank) and whose [itemIds] each head
+    /// exactly one level below it.
+    void expectContainer(String containerId, List<String> itemIds) {
+      final ci = headingIndexOf(containerId);
+      final containerLevel = levelAt(ci);
+      var j = ci + 1;
+      while (j < lines.length &&
+          !SpecDocumentMarkdown.headingLine.hasMatch(lines[j])) {
+        expect(lines[j].trim(), isEmpty,
+            reason: 'container <!--[$containerId]--> must carry no body of its '
+                'own (offending line ${j + 1}: "${lines[j]}")');
+        j++;
+      }
+      expect(j, lessThan(lines.length),
+          reason: 'container <!--[$containerId]--> has at least one item');
+      expect(levelAt(j), containerLevel + 1,
+          reason: 'the first item heads one level below its container');
+      for (final itemId in itemIds) {
+        expect(levelAt(headingIndexOf(itemId)), containerLevel + 1,
+            reason: 'item <!--[$itemId]--> heads one level below its container');
+      }
+    }
+
+    test('a `*-LST` list heads under its @SectionId, empty-bodied, items deeper',
+        () {
+      expectContainer('REF-LST', ['REF-1', 'REF-2']);
+    });
+
+    test('id-less lists head under the member-name container, empty-bodied', () {
+      expectContainer('items', ['items-1', 'items-2']);
+      expectContainer('tags', ['tags-1', 'tags-2', 'tags-3', 'tags-4']);
+    });
+
+    test('md round-trips through the container (item values + empty body)', () {
+      final parsed = SpecDocumentMarkdown(model, doc).parse(md);
+      expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
+      final reDoc = SpecDocument()
+        ..loadJson({
+          'content': parsed.content,
+          'forms': parsed.forms,
+          'lists': parsed.lists,
+        });
+      expect(reDoc.listItems('DEMO/REF-LST'),
+          ['DEMO/REF-LST-1', 'DEMO/REF-LST-2']);
+      expect(reDoc.content('DEMO/REF-LST-1'), 'spec §1.2');
+      expect(reDoc.content('DEMO/REF-LST-2'), 'DR1');
+      expect(reDoc.content('DEMO/REF-LST'), isNull,
+          reason: 'the container carries no body content of its own');
+    });
+  });
+
   test('reflection cases match the committed expectations', () {
     final cases = jsonDecode(read('reflection_cases.json')) as List;
     final refl = SpecReflection(model);
@@ -278,6 +352,14 @@ void main() {
 /// `@Form`, a `@Min`-constrained complex list, a nested complex section, and a
 /// (declared-but-unpopulated) scalar list for resolution coverage.
 ///
+/// Both flavours of the DR1 §1.2 `-LST` container rule are pinned: the `refs`
+/// scalar list carries a real `@SectionId`/`@SectionIdPattern`, so its container
+/// heads under `<!--[REF-LST]-->` with pattern items `<!--[REF-1]-->`; the
+/// id-less `items`/`Meta.tags` lists head under the member-name fallback
+/// (`<!--[items]-->`, `<!--[tags]-->`) with `<!--[items-1]-->`/`<!--[tags-1]-->`
+/// items. Either way the container carries no body of its own (schema content
+/// min/max-text-length 0).
+///
 /// All members carry field-level `@SectionId`s (so the Markdown golden heads
 /// every section per the DR3 transparency rule) **except** `Item.label`, which
 /// is deliberately id-less: it pins the transparent-member semantics — its text
@@ -358,6 +440,19 @@ Map<String, dynamic> _buildMeta() => {
               ],
             },
             {
+              // A genuine `*-LST` list: the container heads under its own
+              // `@SectionId` (`REF-LST`, a real `*-LST` id) and the items
+              // resolve against the `@SectionIdPattern` (`REF-xxx` → `REF-1`,
+              // `REF-2`). Kept scalar so it pins the container contract without a
+              // new element class; contrasts with the id-less `Meta.tags` list.
+              'name': 'refs',
+              'kind': 'list',
+              'sectionId': 'REF-LST',
+              'sectionIdPattern': 'REF-xxx',
+              'elementType': 'String',
+              'elementIsComplex': false,
+            },
+            {
               'name': 'meta',
               'kind': 'complex',
               'sectionId': 'META',
@@ -410,6 +505,12 @@ SpecDocument _buildDocument() {
   final i2 = d.addListItem('DEMO/items');
   d.setContent('$i2/label', 'Second line A\nwith ```triple``` ticks');
   d.setContent('$i2/STS', 'done');
+  // A genuine `*-LST` list (id `REF-LST`, pattern `REF-xxx`): its container
+  // heads under `<!--[REF-LST]-->` with `<!--[REF-1]-->` items one level below.
+  for (final ref in ['spec §1.2', 'DR1']) {
+    final r = d.addListItem('DEMO/REF-LST');
+    d.setContent(r, ref);
+  }
   d.setContent('DEMO/META/OWNR', 'alice');
   // Scalar list exercising the YAML 1.1-special quoting rule (DR1 §2.5, DRC6):
   // `on`/`no` are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int — all
@@ -449,6 +550,9 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     'DEMO/items-1',
     'DEMO/items-1/label',
     'DEMO/items-1/STS',
+    // The `*-LST` container path and one of its positional items.
+    'DEMO/REF-LST',
+    'DEMO/REF-LST-1',
     'DEMO/META',
     'DEMO/META/OWNR',
     'DEMO/META/tags',
