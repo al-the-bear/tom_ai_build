@@ -76,3 +76,15 @@ dev_dependencies:
   # applies here.
   tom_d4rt_generator:
     path: ../../d4rt/tom_d4rt_generator
+
+# Local-development source unification for the co-developed SOM siblings.
+# tom_som_dart_v0 declares its runtime dependency as hosted (`^1.0.0`) for
+# publishing, but here it must resolve to the SAME path checkout that the engine
+# depends on directly — otherwise pub sees tom_som_dart_runtime from two sources
+# (path vs hosted) and version solving fails. This mirrors the tracked
+# pubspec_overrides.yaml the SOM packages themselves carry. It is a build-time
+# source override for unpublished path siblings (the engine is publish_to:none),
+# NOT a workaround for a missing-API error on a published artifact.
+dependency_overrides:
+  tom_som_dart_runtime:
+    path: ../tom_som_dart_runtime
