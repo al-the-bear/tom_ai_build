@@ -329,3 +329,84 @@ void spec_model_free(SpecModel *m) {
   }
   free(m);
 }
+
+/* ---- model version string (DR6/DR11 parity) ------------------------------ */
+
+/* Reports whether `s` (the first `n` bytes) matches /^[+-]?[0-9]+$/. */
+static int version_is_signed_digits(const char *s, size_t n) {
+  size_t i = 0;
+  if (n > 0 && (s[0] == '+' || s[0] == '-')) {
+    i = 1;
+  }
+  if (i >= n) {
+    return 0;
+  }
+  for (; i < n; i++) {
+    if (s[i] < '0' || s[i] > '9') {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+static int version_is_space(char c) {
+  return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' ||
+         c == '\v';
+}
+
+/* Trims ASCII whitespace off both ends of [*s, *s + *n). */
+static void version_trim(const char **s, size_t *n) {
+  while (*n > 0 && version_is_space((*s)[0])) {
+    (*s)++;
+    (*n)--;
+  }
+  while (*n > 0 && version_is_space((*s)[*n - 1])) {
+    (*n)--;
+  }
+}
+
+char *som_model_version_string(long long major, const char *label) {
+  if (label != NULL && label[0] != '\0') {
+    /* core = the `+`-stripped, trimmed prefix of the label */
+    const char *core = label;
+    const char *plus = strchr(label, '+');
+    size_t core_len = plus != NULL ? (size_t)(plus - label) : strlen(label);
+    version_trim(&core, &core_len);
+    /* at least two dot-separated components → major.minor */
+    const char *dot = memchr(core, '.', core_len);
+    if (dot != NULL) {
+      const char *maj = core;
+      size_t maj_len = (size_t)(dot - core);
+      const char *minor = dot + 1;
+      size_t minor_len = core_len - maj_len - 1;
+      const char *dot2 = memchr(minor, '.', minor_len);
+      if (dot2 != NULL) {
+        minor_len = (size_t)(dot2 - minor);
+      }
+      version_trim(&maj, &maj_len);
+      version_trim(&minor, &minor_len);
+      if (version_is_signed_digits(maj, maj_len) &&
+          version_is_signed_digits(minor, minor_len)) {
+        char *maj_s = som_strdup_n(maj, maj_len);
+        char *minor_s = som_strdup_n(minor, minor_len);
+        long long maj_v = 0;
+        long long minor_v = 0;
+        som_parse_i64(maj_s, &maj_v);
+        som_parse_i64(minor_s, &minor_v);
+        free(maj_s);
+        free(minor_s);
+        SomBuf b;
+        som_buf_init(&b);
+        som_buf_puti(&b, maj_v);
+        som_buf_putc(&b, '.');
+        som_buf_puti(&b, minor_v);
+        return som_buf_take(&b);
+      }
+    }
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puti(&b, major);
+  som_buf_puts(&b, ".0");
+  return som_buf_take(&b);
+}

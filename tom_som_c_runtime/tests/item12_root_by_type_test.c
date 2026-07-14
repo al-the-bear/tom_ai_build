@@ -125,7 +125,7 @@ static void test_to_markdown_explicit_and_default(void) {
   CHECK(err == NULL, "no error on explicit rootType");
 
   const SpecRoot *root = spec_model_root_by_type(m, "DemoDoc", NULL);
-  char *explicit = spec_markdown_export_root(m, &doc, root);
+  char *explicit = spec_markdown_export_root(m, &doc, root, NULL);
   CHECK(one_liner != NULL && explicit != NULL &&
             strcmp(one_liner, explicit) == 0,
         "toMarkdown(rootType) equals exportRoot(rootByType)");

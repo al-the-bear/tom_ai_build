@@ -319,13 +319,28 @@ static YamlValue *parse_sequence(YamlReader *r, size_t indent) {
     if (strcmp(content, "-") != 0 && strncmp(content, "- ", 2) != 0) {
       break;
     }
-    r->idx = (size_t)i + 1;
     char *item_text;
     if (strcmp(content, "-") == 0) {
       item_text = som_strdup("");
     } else {
       item_text = trim_dup(content + 2, strlen(content + 2));
     }
+    /* A `- key: value` item begins a block mapping whose first entry is on the
+     * dash line (at column indent+2) and whose further entries are on the
+     * following lines indented to the same column. Rewrite the dash marker to
+     * spaces so the line reads as a plain mapping entry, then parse a mapping
+     * at indent+2 (which also consumes the continuation lines). */
+    if (item_text[0] != '\0' && item_text[0] != '|' && item_text[0] != '>' &&
+        find_colon(item_text) >= 0) {
+      char *mutable_line = r->lines.items[i];
+      mutable_line[indent] = ' ';
+      mutable_line[indent + 1] = ' ';
+      /* leave r->idx at this line so parse_mapping re-reads it */
+      seq_push(list, parse_mapping(r, indent + 2));
+      free(item_text);
+      continue;
+    }
+    r->idx = (size_t)i + 1;
     if (item_text[0] == '\0') {
       seq_push(list, parse_nested_after_key(r, indent));
     } else if (item_text[0] == '|' || item_text[0] == '>') {

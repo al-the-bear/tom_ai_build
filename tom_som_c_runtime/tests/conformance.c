@@ -325,9 +325,7 @@ static void test_yaml_decode_round_trip(Checker *c, const SomMetaTree *tree) {
   free(expected);
 }
 
-/* Markdown conformance (md.export / md.parse.* / md.land.*) is gated until
- * the DR29 markdown port lands on the tree-based codec. */
-#if 0
+/* Markdown conformance (md.export / md.parse.* / md.land.*). */
 static void test_markdown_export(Checker *c, const SpecModel *model) {
   SomJson *sj = read_json("state.json");
   DocumentJson state;
@@ -335,7 +333,7 @@ static void test_markdown_export(Checker *c, const SpecModel *model) {
   SpecDocument doc;
   doc_from_state(&doc, &state);
   char *expected = read_corpus("expected.md");
-  char *actual = spec_markdown_export_root(model, &doc, &model->roots[0]);
+  char *actual = spec_markdown_export_root(model, &doc, &model->roots[0], NULL);
   char *d = byte_diff("md.export", actual, expected);
   check(c, "md.export", strcmp(actual, expected) == 0, d);
   free(d);
@@ -368,7 +366,8 @@ static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
   SpecDocument applied;
   spec_document_init(&applied);
   spec_document_load_json(&applied, spec_markdown_result_document(&result));
-  char *actual = spec_markdown_export_root(model, &applied, &model->roots[0]);
+  char *actual =
+      spec_markdown_export_root(model, &applied, &model->roots[0], NULL);
   char *d = byte_diff("md.parse.reexport", actual, expected);
   check(c, "md.parse.reexport", strcmp(actual, expected) == 0, d);
   free(d);
@@ -407,7 +406,6 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   som_json_free(sj);
   free(expected_md);
 }
-#endif /* markdown conformance pending DR29 */
 
 static void test_reflection(Checker *c, const SpecModel *model) {
   SpecReflection refl = spec_reflection_make(model);
@@ -814,9 +812,9 @@ int main(int argc, char **argv) {
   test_state_round_trip(&c);
   test_yaml_encode(&c, tree);
   test_yaml_decode_round_trip(&c, tree);
-  printf(
-      "SKIP: markdown conformance (md.export, md.parse.*, md.land.*) "
-      "pending DR29\n");
+  test_markdown_export(&c, model);
+  test_markdown_round_trip(&c, model);
+  test_markdown_memory_landing(&c, model);
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);

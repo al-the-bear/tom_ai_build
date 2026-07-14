@@ -134,4 +134,13 @@ SpecModel *spec_model_from_json(const SomJson *root);
 
 void spec_model_free(SpecModel *m);
 
+/* Derives the `major.minor` DocSpecs version string from a model's integer
+ * version and its optional free-form label (port of the Go
+ * `SomModelVersionString` / Python `som_model_version_string`).
+ *
+ * When the label's `+`-stripped core has at least two dot-separated integer
+ * components, those become `major.minor`; otherwise the result is `<major>.0`.
+ * Owned result (caller frees with `free`). */
+char *som_model_version_string(long long major, const char *label);
+
 #endif /* SPEC_MODEL_H */
