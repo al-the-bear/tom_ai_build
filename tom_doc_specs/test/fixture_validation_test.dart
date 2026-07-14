@@ -557,17 +557,18 @@ void main() {
   group('form-types schema', () {
     const sf = 'form-types.1.0.docspecs-schema.yaml';
 
+    // Form fields (contact-form) are parsed from the section's text body via
+    // getFormField, not the headline `fields:` map — hence the `Fieldname:
+    // value` lines below rather than a fields map.
     test('valid: all required form fields present', () {
       final errors = validate(sf, doc(
         schemaId: 'form-types/1.0',
         sections: [
           sec(id: 'ent-001', type: 'entry', name: 'Entry',
               format: 'contact-form',
-              fields: {
-                'name': 'John Doe',
-                'email': 'john@example.com',
-                'phone': '555-1234',
-              }),
+              text: 'Name: John Doe\n'
+                  'Email: john@example.com\n'
+                  'Phone: 555-1234'),
         ],
       ));
       expect(errorsOf(errors, ValidationErrorCategory.format), isEmpty);
@@ -579,10 +580,8 @@ void main() {
         sections: [
           sec(id: 'ent-001', type: 'entry', name: 'Entry',
               format: 'contact-form',
-              fields: {
-                'name': 'John Doe',
-                'phone': '555-1234',
-              }),
+              text: 'Name: John Doe\n'
+                  'Phone: 555-1234'),
         ],
       ));
       final formatErrors = errorsOf(errors, ValidationErrorCategory.format);
@@ -597,15 +596,15 @@ void main() {
         sections: [
           sec(id: 'ent-001', type: 'entry', name: 'Entry',
               format: 'contact-form',
-              fields: {
-                'name': 'John Doe',
-                'email': 'not-an-email',
-                'phone': '555-1234',
-              }),
+              text: 'Name: John Doe\n'
+                  'Email: not-an-email\n'
+                  'Phone: 555-1234'),
         ],
       ));
       final formatErrors = errorsOf(errors, ValidationErrorCategory.format);
       expect(formatErrors, isNotEmpty);
+      expect(formatErrors.any((e) =>
+          e.message.toLowerCase().contains('pattern')), isTrue);
     });
   });
 

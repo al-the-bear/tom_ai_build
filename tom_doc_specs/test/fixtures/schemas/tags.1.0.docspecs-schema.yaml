@@ -1,0 +1,13 @@
+# Tag validation
+section-types:
+  task:
+    prefix: task
+    allowed-tags:
+      - priority
+      - status
+      - assignee
+
+document:
+  sections:
+    tasks:
+      section-type: task

@@ -1,0 +1,23 @@
+# Form type validation
+section-types:
+  entry:
+    prefix: ent
+    format: contact-form
+
+form-types:
+  contact:
+    fields:
+      - fieldname: name
+        required: true
+      - fieldname: email
+        required: true
+        pattern-check:
+          pattern: "^[^@]+@[^@]+$"
+          error-message: "Must be a valid email"
+      - fieldname: phone
+        required: false
+
+document:
+  sections:
+    entries:
+      section-type: entry

@@ -8,12 +8,20 @@ import 'package:test/test.dart';
 /// These tests run the actual CLI tool against test fixture files.
 void main() {
   late Directory fixtureDir;
+  late Directory outputDir;
   late String projectRoot;
 
   setUpAll(() {
     projectRoot = Directory.current.path;
-    fixtureDir = Directory(p.join(projectRoot, 'test', 'fixtures'));
-    fixtureDir.createSync(recursive: true);
+
+    // Scratch fixtures live in a temp dir — never under test/fixtures, which
+    // holds the real, tracked schema/document fixtures and would be wiped by
+    // this test's tearDownAll.
+    fixtureDir = Directory.systemTemp.createTempSync('docspecs_cli_fixtures');
+
+    // Scan output must land in a temp dir, not the package root — the CLI's
+    // default target is the current working directory.
+    outputDir = Directory.systemTemp.createTempSync('docspecs_cli_out');
 
     // Create a .docspecs-schemas directory with a test schema
     final schemaDir =
@@ -58,6 +66,9 @@ This is a valid document.
     if (fixtureDir.existsSync()) {
       fixtureDir.deleteSync(recursive: true);
     }
+    if (outputDir.existsSync()) {
+      outputDir.deleteSync(recursive: true);
+    }
   });
 
   Future<ProcessResult> runCli(List<String> args) async {
@@ -94,6 +105,7 @@ This is a valid document.
       final result = await runCli([
         'scan',
         p.join(fixtureDir.path, 'valid.md'),
+        '-target=${outputDir.path}',
       ]);
       // Should produce output (JSON) or report schema not found
       final stdout = result.stdout.toString();

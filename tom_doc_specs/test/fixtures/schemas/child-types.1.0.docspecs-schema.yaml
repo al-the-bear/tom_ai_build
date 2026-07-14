@@ -1,0 +1,16 @@
+# Child type enforcement
+section-types:
+  chapter:
+    prefix: chap
+    subsection-types:
+      paragraph:
+        min-count: 1
+  paragraph:
+    prefix: para
+  appendix:
+    prefix: app
+
+document:
+  sections:
+    chapters:
+      section-type: chapter

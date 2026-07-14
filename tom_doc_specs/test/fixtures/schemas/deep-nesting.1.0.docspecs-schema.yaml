@@ -1,0 +1,21 @@
+# Deeply nested structure
+section-types:
+  chapter:
+    prefix: chap
+    max-subsection-levels: 4
+    subsection-types:
+      section:
+        min-count: 1
+  section:
+    prefix: sec
+    subsection-types:
+      paragraph:
+        min-count: 0
+        max-count: 20
+  paragraph:
+    prefix: para
+
+document:
+  sections:
+    chapters:
+      section-type: chapter

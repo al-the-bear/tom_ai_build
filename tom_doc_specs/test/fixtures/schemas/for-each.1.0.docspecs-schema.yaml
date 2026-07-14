@@ -1,0 +1,16 @@
+# For-each validation (registry linking)
+section-types:
+  item:
+    prefix: item
+  registry-entry:
+    prefix: reg
+
+document:
+  sections:
+    items:
+      section-type: item
+    registry:
+      section-type: registry-entry
+      for-each:
+        section-type: item
+        key: name

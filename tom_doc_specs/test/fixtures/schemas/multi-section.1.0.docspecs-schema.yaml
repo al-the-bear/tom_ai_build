@@ -1,0 +1,18 @@
+# Multiple required and optional sections
+section-types:
+  note:
+    prefix: note
+  requirement:
+    prefix: req
+  configuration:
+    prefix: config
+
+document:
+  sections:
+    overview:
+      section-type: note
+    requirements:
+      section-type: requirement
+    configuration:
+      section-type: configuration
+      optional: true
