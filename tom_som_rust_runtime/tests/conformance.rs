@@ -160,7 +160,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.Demo.found", demo.is_some(), "");
     if let Some(demo) = demo {
         let names: Vec<&str> = demo.fields.iter().map(|f| f.name.as_str()).collect();
-        let want = ["title", "summary", "priority", "count", "details", "items", "meta"];
+        let want = ["title", "summary", "priority", "count", "details", "items", "refs", "meta"];
         c.check("model.Demo.fields", names == want, &names.join(","));
     }
 }

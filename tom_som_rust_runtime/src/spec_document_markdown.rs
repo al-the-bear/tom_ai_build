@@ -9,11 +9,12 @@
 //! DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
 //! human-readable Title-Case member name. Content values are **normal markdown
 //! text** under their heading (no fences, no anchors); `@Form` sections use the
-//! DocSpecs plain-text `FieldName: value` format; list items are sub-headings
-//! carrying the item's section id (stored id, else the `@SectionIdPattern`
-//! resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
-//! `<member>-<pos>`) directly under the owning section — the list container
-//! gets no heading of its own. Id-less members are **transparent** (mirroring
+//! DocSpecs plain-text `FieldName: value` format; a list emits its `-LST`
+//! container heading (id = the list's `@SectionId`, else the member segment)
+//! at the owner's child level, wrapping the numbered item headings one level
+//! deeper — each item carrying the `@SectionIdPattern` resolved with the
+//! 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`, else `<member>-<pos>`).
+//! The container itself carries no body. Id-less members are **transparent** (mirroring
 //! the DR3 schema generator): a transparent value member's text or form block
 //! is the owner's body region, emitted without a heading and bound at its own
 //! path; a transparent section/complex member never heads — its id-bearing
@@ -498,8 +499,9 @@ impl<'a> SpecDocumentMarkdown<'a> {
     //     descendants surface as the owner's direct child headings (the
     //     schema's "nearest section-bearing descendant" hoisting), with
     //     document paths still running through the transparent segments;
-    //   - lists are never transparent — the container never heads, the items
-    //     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+    //   - lists are never transparent — the `-LST` container always heads (DR1
+    //     §1.2) at the owner's child level and the items sit one level below it
+    //     (`@SectionIdPattern` / `<member>-<pos>`).
     //
     // Principled canonicalisation losses (documented, accepted): multiple
     // transparent content members of one owner merge into the first on parse,
@@ -682,8 +684,11 @@ impl<'a> SpecDocumentMarkdown<'a> {
         Ok(())
     }
 
-    /// Emits the items of list `node` as headings **at the owner's child
-    /// level** — the container itself gets no heading (DR1 §1.2).
+    /// Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at
+    /// `depth`, wrapping the numbered item headings one level deeper. The
+    /// container is a real section — the id the DR3 schema keys its container
+    /// type by — but carries **no content of its own** (schema content
+    /// min/max-text-length 0). Item identity is purely positional.
     fn write_list_items(
         &self,
         b: &mut MdBuffer,
@@ -692,6 +697,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
         depth: usize,
     ) -> Result<(), String> {
         let items = self.document.list_items(list_path);
+        if items.is_empty() {
+            return Ok(());
+        }
+        // The container heading: its id is the list's `-LST` `@SectionId` (else
+        // the member segment for a pattern-less list); its title is the member
+        // name.
+        md_write_heading(b, depth, &self.heading_id_of(node), &md_title_of(node));
         let element = node.element_node.as_ref();
         let stem_source = match element {
             Some(e) => e.class_name.clone(),
@@ -721,7 +733,8 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 };
                 format!("{}-{}", member, pos)
             };
-            md_write_heading(b, depth, &item_id, &format!("{} {}", stem, pos));
+            // Items sit one level below the container.
+            md_write_heading(b, depth + 1, &item_id, &format!("{} {}", stem, pos));
             match element {
                 None => {
                     // Scalar list: the item's value is its body.
@@ -731,7 +744,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 Some(e) => {
                     self.write_section_body(b, e, item_path)?;
                     if !e.recursive {
-                        self.write_children(b, e, item_path, depth + 1)?;
+                        self.write_children(b, e, item_path, depth + 2)?;
                     }
                 }
             }
@@ -1084,15 +1097,22 @@ impl<'c, 'a> MdParser<'c, 'a> {
             }
         };
 
-        // 1. A regular (non-list) *effective* child — section-bearing children
-        //    hoisted through transparent sections — whose heading id
-        //    (field/class section id) matches. Transparent value members never
-        //    head, so they never match here; the bound path runs through
-        //    transparent segments.
-        let effective = self.codec.effective_children(&p_node);
-        for entry in &effective {
-            if entry.node.kind != SOM_META_KIND_LIST && self.codec.heading_id_of(&entry.node) == id
-            {
+        // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is
+        //    one of that list's items — resolved positionally, not by the
+        //    schema tree.
+        if p_node.kind == SOM_META_KIND_LIST {
+            self.open_item_heading(level, &parent_path, p_node, &id, line_no);
+            return;
+        }
+
+        // 2. A regular (non-list) or list-**container** *effective* child —
+        //    section-bearing children hoisted through transparent sections —
+        //    whose heading id matches. A list heads its `-LST` container here;
+        //    its items are resolved above once the container frame is open.
+        //    Transparent value members never head, so they never match; the
+        //    bound path runs through the transparent segments.
+        for entry in &self.codec.effective_children(&p_node) {
+            if self.codec.heading_id_of(&entry.node) == id {
                 self.stack.push(MdFrame {
                     level,
                     node: Some(entry.node.clone()),
@@ -1103,57 +1123,6 @@ impl<'c, 'a> MdParser<'c, 'a> {
                 });
                 return;
             }
-        }
-
-        // 2. A list item: anonymous (`<member>-<n>` or the pattern with a
-        //    numeric sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id,
-        //    or (fallback) any id when the parent has exactly one effective
-        //    list.
-        let list_children: Vec<&MdNodeRel> = effective
-            .iter()
-            .filter(|e| e.node.kind == SOM_META_KIND_LIST)
-            .collect();
-        for entry in &list_children {
-            let lc = &entry.node;
-            let list_path = format!("{}/{}", parent_path, entry.rel);
-            let member = if lc.member_name.is_empty() {
-                lc.segment().to_string()
-            } else {
-                lc.member_name.clone()
-            };
-            if let Some(n) = md_anon_item_number(&member, &id) {
-                self.open_item(level, &list_path, lc.clone(), n, "", true, line_no);
-                return;
-            }
-            let element = lc.element_node.as_ref();
-            let mut pattern = lc.section_id_pattern.clone();
-            if pattern.is_empty() {
-                if let Some(e) = element {
-                    pattern = e.section_id_pattern.clone();
-                }
-            }
-            if !pattern.is_empty() {
-                // Canonical anonymous id: the pattern with `xxx` as a number —
-                // parses back as item <n>, NOT as a stored id (DR1 §1.2
-                // round-trip).
-                let parts: Vec<&str> = pattern.split("xxx").collect();
-                if parts.len() == 2 {
-                    if let Some(n) = md_pattern_numbered(parts[0], parts[1], &id) {
-                        self.open_item(level, &list_path, lc.clone(), n, "", true, line_no);
-                        return;
-                    }
-                }
-                if md_pattern_matches(&pattern, &id) {
-                    self.open_item(level, &list_path, lc.clone(), 0, &id, false, line_no);
-                    return;
-                }
-            }
-        }
-        if list_children.len() == 1 {
-            let entry = list_children[0];
-            let list_path = format!("{}/{}", parent_path, entry.rel);
-            self.open_item(level, &list_path, entry.node.clone(), 0, &id, false, line_no);
-            return;
         }
 
         self.rejections.push(SpecMarkdownRejection {
@@ -1216,6 +1185,55 @@ position (under \"{}\")",
             anchor: id.to_string(),
         });
         self.stack.push(MdFrame::ignored(level, line_no));
+    }
+
+    /// Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+    /// heading `id` is matched positionally against the container's list: the
+    /// `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
+    /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped
+    /// stored id, or — for any other id — an anonymous next item carrying the
+    /// stored id.
+    fn open_item_heading(
+        &mut self,
+        level: usize,
+        list_path: &str,
+        list_node: Rc<SomMetaNode>,
+        id: &str,
+        line_no: usize,
+    ) {
+        let member = if list_node.member_name.is_empty() {
+            list_node.segment().to_string()
+        } else {
+            list_node.member_name.clone()
+        };
+        if let Some(n) = md_anon_item_number(&member, id) {
+            self.open_item(level, list_path, list_node, n, "", true, line_no);
+            return;
+        }
+        let mut pattern = list_node.section_id_pattern.clone();
+        if pattern.is_empty() {
+            if let Some(e) = list_node.element_node.as_ref() {
+                pattern = e.section_id_pattern.clone();
+            }
+        }
+        if !pattern.is_empty() {
+            // Canonical anonymous id: the pattern with `xxx` as a number —
+            // parses back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+            let parts: Vec<&str> = pattern.split("xxx").collect();
+            if parts.len() == 2 {
+                if let Some(n) = md_pattern_numbered(parts[0], parts[1], id) {
+                    self.open_item(level, list_path, list_node, n, "", true, line_no);
+                    return;
+                }
+            }
+            if md_pattern_matches(&pattern, id) {
+                self.open_item(level, list_path, list_node, 0, id, false, line_no);
+                return;
+            }
+        }
+        // Any other id under the container is an anonymous next item; a genuine
+        // stored id is kept (it survives only through the yaml format, DR1 §2).
+        self.open_item(level, list_path, list_node, 0, id, false, line_no);
     }
 
     /// Opens a list-item frame. `n` (with `has_n = true`) is the anonymous

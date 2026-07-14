@@ -7,8 +7,9 @@
 //! `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
 //! section is a heading of the form `## <!--[SECTION-ID]--> Title`, content
 //! sections are normal markdown text (no fences), `@Form` sections use the
-//! plain-text `FieldName: value` format, and list items sit as sub-headings
-//! directly under the owner (no container heading).
+//! plain-text `FieldName: value` format, and a list emits its `-LST` container
+//! heading at the owner's child level, wrapping the numbered item headings one
+//! level deeper (DR1 §1.2).
 //!
 //! The model fixture (`demo_model`) and populated document
 //! (`populated_demo_doc`) mirror the Go suite's `item12_test.go` fixtures
@@ -237,22 +238,28 @@ fn test_markdown_export_format(c: &mut Checker) {
     );
     c.check("export.form.sparse.noReviewer", !md.contains("Reviewer"), "");
 
+    // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    // level, its numbered items one level below it, item fields one deeper.
+    c.check(
+        "export.item.container",
+        md.contains("## <!--[D00-ITM]--> Items"),
+        "",
+    );
     c.check(
         "export.item.1",
-        md.contains("## <!--[items-1]--> Demo Item 1"),
+        md.contains("### <!--[items-1]--> Demo Item 1"),
         "",
     );
     c.check(
         "export.item.2",
-        md.contains("## <!--[items-2]--> Demo Item 2"),
+        md.contains("### <!--[items-2]--> Demo Item 2"),
         "",
     );
     c.check(
         "export.item.label",
-        md.contains("### <!--[D01-LBL]--> Label"),
+        md.contains("#### <!--[D01-LBL]--> Label"),
         "",
     );
-    c.check("export.item.noContainer", !md.contains("<!--[D00-ITM]-->"), "");
 
     c.check(
         "export.noSchemaDescription",
@@ -271,8 +278,13 @@ fn test_markdown_export_stored_item_id(c: &mut Checker) {
     // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
     // is not surfaced in md; the anonymous positional id is emitted instead.
     c.check(
+        "export.storedId.container",
+        md.contains("## <!--[D00-ITM]--> Items"),
+        &md,
+    );
+    c.check(
         "export.storedId.positional",
-        md.contains("## <!--[items-1]--> Demo Item 1"),
+        md.contains("### <!--[items-1]--> Demo Item 1"),
         &md,
     );
     c.check("export.storedId.noStored", !md.contains("D01-CUSTOM"), &md);
