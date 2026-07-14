@@ -29,8 +29,8 @@ import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecSectionIdCollision;
-import tom_som_runtime.SpecYamlContents;
 import tom_som_java_v0.TomSomV0;
+import tom_som_java_v0.TomSomV0Meta;
 
 public final class GeneratedModelTest {
   private GeneratedModelTest() {}
@@ -254,6 +254,16 @@ public final class GeneratedModelTest {
     }
   }
 
+  // A "SBP/content: Hello" fixture in the hierarchical v2 wire format, built
+  // via SpecDocumentYaml.encode against the root's metadata tree. A null
+  // modelVersion emits an unstamped file.
+  private static String buildV2Yaml(String modelVersion) {
+    SpecDocument d = new SpecDocument();
+    d.setContent("SBP/content", "Hello");
+    return SpecDocumentYaml.encode(
+        d, TomSomV0Meta.D00SolutionBlueprintMetaTree, modelVersion);
+  }
+
   // Item 4: one-call loading — loadYaml / loadFile / SpecDocument.fromYaml
   // collapse the former decode → loadJson → thread-version incantation and
   // retain the parsed model version (null when unstamped).
@@ -262,19 +272,20 @@ public final class GeneratedModelTest {
     {
       String yaml = readSample();
 
-      // The former three-step incantation.
-      SpecYamlContents decoded = SpecDocumentYaml.decode(yaml);
-      SpecDocument manualDoc = new SpecDocument();
-      manualDoc.loadJson(decoded.document);
+      // The former multi-step incantation, built by hand: parse into a
+      // document (hierarchical v2 decoding needs the root's metadata tree),
+      // then construct the typed root with the retained model version.
+      SpecDocument manualDoc = SpecDocument.fromYaml(
+          yaml, TomSomV0Meta.D00SolutionBlueprintMetaTree);
       TomSomV0.D00SolutionBlueprint manual =
-          new TomSomV0.D00SolutionBlueprint(manualDoc, decoded.modelVersion);
+          new TomSomV0.D00SolutionBlueprint(manualDoc, manualDoc.modelVersion());
 
       // The one-call convenience.
       TomSomV0.D00SolutionBlueprint oneCall =
           TomSomV0.D00SolutionBlueprint.loadYaml(yaml);
 
       check("load.yaml.version",
-          java.util.Objects.equals(oneCall.doc.modelVersion(), decoded.modelVersion),
+          java.util.Objects.equals(oneCall.doc.modelVersion(), manualDoc.modelVersion()),
           String.valueOf(oneCall.doc.modelVersion()));
       check("load.yaml.content",
           java.util.Objects.equals(oneCall.content(), manual.content()));
@@ -301,15 +312,14 @@ public final class GeneratedModelTest {
           java.util.Objects.equals(fromFile.content(), fromYaml.content()));
     }
 
-    // SpecDocument.fromYaml retains the parsed model version.
+    // SpecDocument.fromYaml (the generic one-call loader) retains the parsed
+    // model version. The wire format is hierarchical v2, so the fixture yaml
+    // is built via SpecDocumentYaml.encode against the root's metadata tree
+    // (mirrors the Go suite's buildV2Yaml helper).
     {
-      String yaml = "version: 1\n"
-          + "modelVersion: \"1.0\"\n"
-          + "document:\n"
-          + "  content:\n"
-          + "    \"SBP/content\": |2-\n"
-          + "      Hello\n";
-      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      String yaml = buildV2Yaml("1.0");
+      SpecDocument doc =
+          SpecDocument.fromYaml(yaml, TomSomV0Meta.D00SolutionBlueprintMetaTree);
       check("load.fromyaml.version", "1.0".equals(doc.modelVersion()),
           String.valueOf(doc.modelVersion()));
       check("load.fromyaml.content", "Hello".equals(doc.content("SBP/content")),
@@ -320,8 +330,9 @@ public final class GeneratedModelTest {
     // the null convention, not an empty-string sentinel) and the facade accepts
     // it (a new document is editable).
     {
-      String yaml = "version: 1\ndocument: {}\n";
-      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      String yaml = buildV2Yaml(null);
+      SpecDocument doc =
+          SpecDocument.fromYaml(yaml, TomSomV0Meta.D00SolutionBlueprintMetaTree);
       check("load.unstamped.null", doc.modelVersion() == null,
           String.valueOf(doc.modelVersion()));
       try {

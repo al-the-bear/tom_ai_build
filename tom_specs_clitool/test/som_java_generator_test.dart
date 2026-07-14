@@ -75,6 +75,22 @@ void main() {
     expect(source, contains('class D00SolutionBlueprint extends SomNode'));
     expect(result.sourcePath, endsWith(p.join('tom_som_java_v0', 'TomSomV0.java')));
 
+    // The metadata module (DR24) exists as the facade's package sibling and
+    // carries the per-root trees + access-surface entry points; the facade's
+    // loaders thread the generated tree into the runtime.
+    final metaModule = File(result.metaModulePath);
+    expect(metaModule.existsSync(), isTrue);
+    expect(result.metaModulePath,
+        endsWith(p.join('tom_som_java_v0', 'TomSomV0Meta.java')));
+    final metaSource = metaModule.readAsStringSync();
+    expect(metaSource, contains('public final class TomSomV0Meta'));
+    expect(metaSource, contains('D00SolutionBlueprintMetaTree'));
+    expect(metaSource, contains('SBP ='));
+    expect(
+        source,
+        contains('SpecDocument.fromYaml(yaml, '
+            'TomSomV0Meta.D00SolutionBlueprintMetaTree)'));
+
     // One DocSpecs schema per @Document root (13).
     expect(result.schemaPaths.length, 13);
     for (final s in result.schemaPaths) {
@@ -185,6 +201,8 @@ void main() {
 
     expect(File(rb.sourcePath).readAsStringSync(),
         File(ra.sourcePath).readAsStringSync());
+    expect(File(rb.metaModulePath).readAsStringSync(),
+        File(ra.metaModulePath).readAsStringSync());
     expect(File(rb.metaJsonPath).readAsStringSync(),
         File(ra.metaJsonPath).readAsStringSync());
     expect(File(rb.manifestPath).readAsStringSync(),
@@ -243,6 +261,7 @@ void main() {
       '-sourcepath',
       '${p.join(dir.path, 'src')}$sep${p.join(javaRuntimeDir, 'src')}',
       result.sourcePath,
+      result.metaModulePath,
     ]);
     expect(res.exitCode, 0,
         reason: 'generated Java source must compile:\n${res.stderr}');

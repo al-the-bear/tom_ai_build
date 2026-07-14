@@ -22,6 +22,7 @@ import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SomList;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
+import tom_som_java_v0.TomSomV0Meta;
 
 public final class GoldenLog {
   static String esc(String s) {
@@ -42,7 +43,8 @@ public final class GoldenLog {
     String output = args.length > 1 ? args[1]
         : "../tom_som_conformance/golden/java.log";
 
-    SpecDocument doc = SpecDocument.fromFile(sample);
+    SpecDocument doc = SpecDocument.fromFile(
+        sample, TomSomV0Meta.D00SolutionBlueprintMetaTree);
     D00SolutionBlueprint sbp = D00SolutionBlueprint.loadFile(sample);
 
     List<String> out = new ArrayList<>();

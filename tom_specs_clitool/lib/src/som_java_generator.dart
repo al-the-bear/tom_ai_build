@@ -25,6 +25,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_java_emitter.dart';
+import 'som_java_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Java generator.
@@ -35,6 +36,7 @@ class SomJavaGenerationResult {
     required this.pomPath,
     required this.buildScriptPath,
     required this.sourcePath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.classCount,
@@ -52,6 +54,10 @@ class SomJavaGenerationResult {
   /// The generator-emitted JDK-only `build_jar.sh` fallback for the facade.
   final String buildScriptPath;
   final String sourcePath;
+
+  /// The generated metadata module (`TomSomV0Meta.java`, DR24): populated
+  /// `SomMetaTree`s plus the dot-notation / ID-tree access surfaces.
+  final String metaModulePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
   final int classCount;
@@ -153,6 +159,19 @@ SomJavaGenerationResult writeSomJavaProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── generated metadata module (DR24) ───────────────────────────────────────
+  // The populated SomMetaTrees (DR1 §3.2) plus the dot-notation / ID-tree
+  // access surfaces (DR1 §4), a package sibling of the facade — build_jar.sh's
+  // `src/tom_som_java_v0/*.java` glob picks it up without a script change.
+  final metaSource = SomJavaMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  ).generateLibrary();
+  final metaModulePath = p.join(
+      outputRoot, 'src', 'tom_som_java_$versionLabel', 'TomSomV0Meta.java');
+  File(metaModulePath).writeAsStringSync(metaSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart/Python path — schemas are language-agnostic.
   final schemas =
@@ -195,6 +214,7 @@ SomJavaGenerationResult writeSomJavaProject({
     pomPath: pomPath,
     buildScriptPath: buildScriptPath,
     sourcePath: sourcePath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     classCount: classes.length,

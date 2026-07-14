@@ -211,19 +211,29 @@ String? _runtimeSrc() {
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_java_v0_fixture.java.golden');
+  final metaGoldenPath = p.join(Directory.current.path, 'test', 'golden',
+      'som_java_v0_meta_fixture.java.golden');
 
   group('SomJavaEmitter', () {
-    test('emitted output matches the committed golden file', () {
+    test('emitted output matches the committed golden files (facade + meta)',
+        () {
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
+      final metaSource =
+          SomJavaMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
+      final metaGolden = File(metaGoldenPath);
       // Bootstrap / intentional regeneration: `UPDATE_GOLDEN=1 dart test ...`.
       if (Platform.environment['UPDATE_GOLDEN'] == '1') {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
+        metaGolden.writeAsStringSync(metaSource);
       }
       expect(golden.existsSync(), isTrue,
           reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(metaGolden.existsSync(), isTrue,
+          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
       expect(source, golden.readAsStringSync());
+      expect(metaSource, metaGolden.readAsStringSync());
     });
 
     test('the generated source compiles against the runtime (javac)', () {
@@ -238,11 +248,17 @@ void main() {
         return;
       }
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
+      // The facade's loaders reference the sibling metadata module (DR24), so
+      // the two compile together — exactly how the generator lays them out.
+      final metaSource =
+          SomJavaMetaEmitter(_fixtureModel()).generateLibrary();
       final dir = Directory.systemTemp.createTempSync('som_java_emit_');
       try {
         final pkgDir = Directory(p.join(dir.path, 'src', 'tom_som_java_v0'))
           ..createSync(recursive: true);
         File(p.join(pkgDir.path, 'TomSomV0.java')).writeAsStringSync(source);
+        File(p.join(pkgDir.path, 'TomSomV0Meta.java'))
+            .writeAsStringSync(metaSource);
         final outDir = Directory(p.join(dir.path, 'out'))..createSync();
         final sep = Platform.isWindows ? ';' : ':';
         final r = Process.runSync('javac', [
@@ -252,6 +268,7 @@ void main() {
           '-sourcepath',
           '${p.join(dir.path, 'src')}$sep$runtimeSrc',
           p.join(pkgDir.path, 'TomSomV0.java'),
+          p.join(pkgDir.path, 'TomSomV0Meta.java'),
         ]);
         expect(r.exitCode, 0,
             reason: 'javac reported errors:\n${r.stdout}\n${r.stderr}');
@@ -347,31 +364,23 @@ void main() {
       expect(justRoot, contains('class CurrentLandscapeAssessment extends SomNode'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test(
+        'the flat path-constant holders are retired; the loaders thread the '
+        'generated metadata trees (DR24)', () {
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
-      // The root sectionId `PD00` yields the nested holder `Pd00Paths`, an
-      // uninstantiable namespace of static final String path constants.
-      expect(source, contains('public static final class Pd00Paths {'));
-      expect(source, contains('private Pd00Paths() {}'));
-      // The six fixed navigable positions reachable from the root.
-      expect(source,
-          contains('public static final String vision = "PD00/vision";'));
-      expect(source,
-          contains('public static final String owner = "PD00/owner";'));
-      expect(source,
-          contains('public static final String risks = "PD00/risks";'));
-      expect(source,
-          contains('public static final String tags = "PD00/tags";'));
+      // The former § item 11 `Pd00Paths` holder is gone — the dot-notation /
+      // ID-tree surfaces of the sibling meta module supersede it.
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('public static final String vision')));
+      // The root loaders thread the root's generated SomMetaTree (DR22/DR24).
       expect(
           source,
-          contains(
-              'public static final String situation = "PD00/situation";'));
+          contains('SpecDocument.fromYaml(yaml, '
+              'TomSomV0Meta.SolutionBlueprintMetaTree)'));
       expect(
           source,
-          contains('public static final String situationSummary = '
-              '"PD00/situation/summary";'));
-      // The list element (`Risk`) is not recursed: no `risksTitle` constant.
-      expect(source, isNot(contains('risksTitle')));
+          contains('SpecDocument.fromFile(path, '
+              'TomSomV0Meta.SolutionBlueprintMetaTree)'));
     });
   });
 }

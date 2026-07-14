@@ -20,6 +20,7 @@ mkdir -p "$here/build"
 # Compile everything together: the typed module is found on the source path, and
 # javac pulls in the runtime sources it depends on automatically.
 javac -d "$here/build" -sourcepath "$here/src:$runtime" \
-  "$here"/tests/*.java "$here"/examples/*.java
+  "$here"/tests/*.java "$here"/examples/*.java "$here"/tool/*.java
 
 java -cp "$here/build" GeneratedModelTest
+java -cp "$here/build" MetaAgreementTest

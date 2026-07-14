@@ -14,11 +14,16 @@
 /// mapping. Java's one-public-class-per-file rule is honoured by emitting a
 /// single outer class `TomSomV0` whose every generated class/enum/form-class is
 /// a `public static` nested type; siblings reference each other by simple name.
+///
+/// The facade is generated together with its **metadata module sibling**
+/// (`TomSomV0Meta.java`, emitted by [SomJavaMetaEmitter], DR24): the root
+/// loaders thread the root's generated `SomMetaTree` into the runtime
+/// (`SpecDocument.fromYaml(yaml, tree)` / `fromFile(path, tree)`), and the
+/// dot-notation / ID-tree access surfaces of DR1 §4 replace the retired flat
+/// path-constant holders.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
-
-import 'spec_path_constants.dart';
 
 /// Generates the `tom_som_java_v0` `TomSomV0.java` source for a [SpecModel].
 class SomJavaEmitter {
@@ -124,44 +129,11 @@ class SomJavaEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    // Each holder is a nested `public static final class` so the single-file
-    // facade stays a legal compilation unit.
-    for (final holder
-        in enumerateSpecPathHolders(model, documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-    }
+    // The flat path-constant holders (former § item 11) are retired: the
+    // generated dot-notation / ID-tree access surfaces in the sibling
+    // `TomSomV0Meta` module (DR24) supersede them.
     buffer.writeln('}');
     return buffer.toString();
-  }
-
-  /// Emits the `<Code>Paths` holder — an uninstantiable nested namespace of
-  /// `public static final String` path constants (§ item 11). A private
-  /// no-arg constructor makes it non-instantiable, mirroring the outer
-  /// `TomSomV0` facade's own pattern.
-  String _emitPathHolder(SpecPathHolder holder) {
-    final b = StringBuffer()
-      ..writeln('$_i1// Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('$_i1//')
-      ..writeln('$_i1// Each constant is the absolute generic path of a fixed '
-          'section, for use')
-      ..writeln('$_i1// with the generic SpecDocument API instead of a raw '
-          'string literal — the')
-      ..writeln('$_i1// safe end of the navigate-then-read hybrid pattern.')
-      ..writeln('${_i1}public static final class ${holder.holderName} {')
-      ..writeln('${_i2}private ${holder.holderName}() {}');
-    for (final c in holder.constants) {
-      b
-        ..writeln('$_i2// ${c.path}')
-        ..writeln('${_i2}public static final String ${_acc(c.name)} = '
-            '"${_jstr(c.path)}";');
-    }
-    b.writeln('$_i1}');
-    return b.toString();
   }
 
   // --- reachability -------------------------------------------------------
@@ -289,9 +261,14 @@ class SomJavaEmitter {
         ..writeln("$_i2// document's authoring stamp already applied (§ item 4) "
             '— one call for')
         ..writeln('$_i2// the former decode → loadJson → thread-documentVersion '
-            'sequence.')
+            'sequence. The')
+        ..writeln("$_i2// root's generated metadata tree is threaded into the "
+            'runtime (DR22),')
+        ..writeln('$_i2// keying the YAML mapping off SomMetaTree instead of '
+            'the meta-JSON model.')
         ..writeln('${_i2}public static ${cls.name} loadYaml(String yaml) {')
-        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromYaml(yaml);')
+        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromYaml(yaml, '
+            'TomSomV0Meta.${cls.name}MetaTree);')
         ..writeln('${_i3}return new ${cls.name}(doc, doc.modelVersion());')
         ..writeln('$_i2}')
         ..writeln()
@@ -299,7 +276,8 @@ class SomJavaEmitter {
             'path — the file')
         ..writeln('$_i2// companion to loadYaml.')
         ..writeln('${_i2}public static ${cls.name} loadFile(String path) {')
-        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromFile(path);')
+        ..writeln('${_i3}SpecDocument doc = SpecDocument.fromFile(path, '
+            'TomSomV0Meta.${cls.name}MetaTree);')
         ..writeln('${_i3}return new ${cls.name}(doc, doc.modelVersion());')
         ..writeln('$_i2}')
         ..writeln()

@@ -94,16 +94,18 @@ public final class TomSomV0 {
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
     // document's authoring stamp already applied (§ item 4) — one call for
-    // the former decode → loadJson → thread-documentVersion sequence.
+    // the former decode → loadJson → thread-documentVersion sequence. The
+    // root's generated metadata tree is threaded into the runtime (DR22),
+    // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
     public static SolutionBlueprint loadYaml(String yaml) {
-      SpecDocument doc = SpecDocument.fromYaml(yaml);
+      SpecDocument doc = SpecDocument.fromYaml(yaml, TomSomV0Meta.SolutionBlueprintMetaTree);
       return new SolutionBlueprint(doc, doc.modelVersion());
     }
 
     // Loads a *.docspecs.yaml document from the file at path — the file
     // companion to loadYaml.
     public static SolutionBlueprint loadFile(String path) {
-      SpecDocument doc = SpecDocument.fromFile(path);
+      SpecDocument doc = SpecDocument.fromFile(path, TomSomV0Meta.SolutionBlueprintMetaTree);
       return new SolutionBlueprint(doc, doc.modelVersion());
     }
 
@@ -170,27 +172,6 @@ public final class TomSomV0 {
     public void role(String value) {
       doc.setFormField(path, "role", value);
     }
-  }
-
-  // Generated path constants for the `PD00` document root (§ item 11).
-  //
-  // Each constant is the absolute generic path of a fixed section, for use
-  // with the generic SpecDocument API instead of a raw string literal — the
-  // safe end of the navigate-then-read hybrid pattern.
-  public static final class Pd00Paths {
-    private Pd00Paths() {}
-    // PD00/vision
-    public static final String vision = "PD00/vision";
-    // PD00/owner
-    public static final String owner = "PD00/owner";
-    // PD00/risks
-    public static final String risks = "PD00/risks";
-    // PD00/tags
-    public static final String tags = "PD00/tags";
-    // PD00/situation
-    public static final String situation = "PD00/situation";
-    // PD00/situation/summary
-    public static final String situationSummary = "PD00/situation/summary";
   }
 
 }

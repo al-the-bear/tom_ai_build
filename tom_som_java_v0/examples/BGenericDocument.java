@@ -16,6 +16,7 @@
 import tom_som_runtime.Json;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
+import tom_som_java_v0.TomSomV0Meta;
 
 public final class BGenericDocument {
   private BGenericDocument() {}
@@ -51,7 +52,9 @@ public final class BGenericDocument {
     System.out.println(Json.writePretty(doc.toJson()));
 
     // … and to the canonical YAML wire format (stamped with the model version).
+    // Hierarchical v2 encoding walks the root's generated metadata tree.
     System.out.println("\nDocument YAML:");
-    System.out.println(SpecDocumentYaml.encode(doc, "0.0"));
+    System.out.println(SpecDocumentYaml.encode(
+        doc, TomSomV0Meta.D00SolutionBlueprintMetaTree, "1.0"));
   }
 }
