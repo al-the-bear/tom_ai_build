@@ -51,6 +51,7 @@ export 'src/som_go_meta_emitter.dart' show SomGoMetaEmitter;
 export 'src/som_rust_emitter.dart' show SomRustEmitter;
 export 'src/som_rust_meta_emitter.dart' show SomRustMetaEmitter;
 export 'src/som_c_emitter.dart' show SomCEmitter;
+export 'src/som_c_meta_emitter.dart' show SomCMetaEmitter;
 export 'src/som_cpp_emitter.dart' show SomCppEmitter;
 export 'src/som_generator.dart'
     show generateSomDartProject, writeSomDartProject, SomGenerationResult;

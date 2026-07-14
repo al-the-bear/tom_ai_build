@@ -308,6 +308,8 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
+        stdout.writeln('  meta.h:   ${result.metaModuleHeaderPath}');
+        stdout.writeln('  meta.c:   ${result.metaModuleSourcePath}');
         stdout.writeln('  Makefile: ${result.makefilePath}');
       case SomLanguage.cpp:
         stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');

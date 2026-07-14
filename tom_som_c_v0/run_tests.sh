@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Builds and runs everything hand-authored in this generated tree:
-#   - the behavioural test  (tests/generated_test.c)
-#   - the three samples      (examples/a_typed_access.c, b_, c_)
+#   - the behavioural test      (tests/generated_test.c)
+#   - the metadata agreement test (tests/meta_agreement_test.c)
+#   - the three samples          (examples/a_typed_access.c, b_, c_)
 # all linked against the generated typed facade (build/libtom_som_c_v0.a) and
 # the generic runtime (../tom_som_c_runtime/build/libtom_som_c_runtime.a).
 #
@@ -30,7 +31,15 @@ echo "== behavioural test =="
   -o build/generated_test
 ./build/generated_test
 
-# 3) Compile + run the three samples.
+# 3) Compile + run the metadata agreement test (DR30 §4): the generated static
+#    trees / dot-notation / ID-tree surfaces agree with the bridge-built trees.
+echo "== metadata agreement test =="
+# shellcheck disable=SC2086
+"$CC" $CFLAGS $INCLUDES tests/meta_agreement_test.c "$LIB" "$RUNTIME_LIB" \
+  -o build/meta_agreement_test
+./build/meta_agreement_test
+
+# 4) Compile + run the three samples.
 for sample in a_typed_access b_generic_document c_reflection_metadata; do
   echo "== sample: $sample =="
   # shellcheck disable=SC2086

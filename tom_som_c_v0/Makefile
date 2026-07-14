@@ -25,10 +25,10 @@ SHARED := $(BUILD)/lib$(NAME).so
 # soname carries only the major version (ABI compatibility boundary).
 SONAME := lib$(NAME).so.$(firstword $(subst ., ,$(VERSION)))
 PC     := $(BUILD)/$(NAME).pc
-OBJ    := $(BUILD)/tom_som_c_v0.o
-PICOBJ := $(BUILD)/tom_som_c_v0.pic.o
+OBJ    := $(BUILD)/tom_som_c_v0.o $(BUILD)/tom_som_c_v0_meta.o
+PICOBJ := $(BUILD)/tom_som_c_v0.pic.o $(BUILD)/tom_som_c_v0_meta.pic.o
 RUNTIME_LIB := $(RUNTIME_DIR)/build/libtom_som_c_runtime.a
-HEADER := include/tom_som_c_v0.h
+HEADER := include/tom_som_c_v0.h include/tom_som_c_v0_meta.h
 
 .PHONY: all clean runtime install dist FORCE
 all: $(STATIC) $(SHARED) $(PC)
@@ -41,10 +41,10 @@ runtime:
 
 $(RUNTIME_LIB): runtime
 
-$(OBJ): src/tom_som_c_v0.c $(HEADER) | $(BUILD)
+$(BUILD)/%.o: src/%.c $(HEADER) | $(BUILD)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(PICOBJ): src/tom_som_c_v0.c $(HEADER) | $(BUILD)
+$(BUILD)/%.pic.o: src/%.c $(HEADER) | $(BUILD)
 	$(CC) $(CFLAGS) $(PICFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(STATIC): $(OBJ)

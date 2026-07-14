@@ -76,8 +76,11 @@ int main(int argc, char **argv) {
       : "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
   const char *output = argc > 2 ? argv[2] : "../tom_som_conformance/golden/c.log";
 
-  SpecDocument *doc = spec_document_from_file(sample);
-  if (doc == NULL) die("load sample failed");
+  char *load_generic_err = NULL;
+  SpecDocument *doc = spec_document_from_file(
+      sample, d00_solution_blueprint_meta_tree(), &load_generic_err);
+  if (doc == NULL)
+    die(load_generic_err != NULL ? load_generic_err : "load sample failed");
 
   D00SolutionBlueprint sbp;
   SpecDocument *typed_doc = NULL;

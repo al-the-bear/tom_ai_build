@@ -41,6 +41,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_c_emitter.dart';
+import 'som_c_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the C generator.
@@ -50,6 +51,8 @@ class SomCGenerationResult {
     required this.makefilePath,
     required this.headerPath,
     required this.sourcePath,
+    required this.metaModuleHeaderPath,
+    required this.metaModuleSourcePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.classCount,
@@ -62,6 +65,12 @@ class SomCGenerationResult {
   final String makefilePath;
   final String headerPath;
   final String sourcePath;
+
+  /// The generated metadata module header/source pair (`tom_som_c_v0_meta.h` /
+  /// `.c`, DR30): the populated SomMetaTrees plus the dot-notation and ID-tree
+  /// access surfaces.
+  final String metaModuleHeaderPath;
+  final String metaModuleSourcePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
   final int classCount;
@@ -166,6 +175,25 @@ SomCGenerationResult writeSomCProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(emitter.generateSource());
 
+  // ── generated metadata module (DR30): populated SomMetaTrees plus the
+  //    dot-notation and ID-tree access surfaces, required by the facade's load
+  //    functions (which thread the per-root tree into the runtime decoder) ────
+  final metaEmitter = SomCMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  );
+  final metaModuleHeaderPath =
+      p.join(outputRoot, 'include', 'tom_som_c_v0_meta.h');
+  File(metaModuleHeaderPath)
+    ..parent.createSync(recursive: true)
+    ..writeAsStringSync(metaEmitter.generateHeader());
+  final metaModuleSourcePath =
+      p.join(outputRoot, 'src', 'tom_som_c_v0_meta.c');
+  File(metaModuleSourcePath)
+    ..parent.createSync(recursive: true)
+    ..writeAsStringSync(metaEmitter.generateSource());
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
   final schemas =
@@ -189,6 +217,8 @@ SomCGenerationResult writeSomCProject({
     makefilePath: makefilePath,
     headerPath: headerPath,
     sourcePath: sourcePath,
+    metaModuleHeaderPath: metaModuleHeaderPath,
+    metaModuleSourcePath: metaModuleSourcePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     classCount: classes.length,
@@ -234,10 +264,10 @@ String _makefile(String runtimeRel, String version) {
       '# soname carries only the major version (ABI compatibility boundary).\n'
       'SONAME := lib\$(NAME).so.\$(firstword \$(subst ., ,\$(VERSION)))\n'
       'PC     := \$(BUILD)/\$(NAME).pc\n'
-      'OBJ    := \$(BUILD)/tom_som_c_v0.o\n'
-      'PICOBJ := \$(BUILD)/tom_som_c_v0.pic.o\n'
+      'OBJ    := \$(BUILD)/tom_som_c_v0.o \$(BUILD)/tom_som_c_v0_meta.o\n'
+      'PICOBJ := \$(BUILD)/tom_som_c_v0.pic.o \$(BUILD)/tom_som_c_v0_meta.pic.o\n'
       'RUNTIME_LIB := \$(RUNTIME_DIR)/build/libtom_som_c_runtime.a\n'
-      'HEADER := include/tom_som_c_v0.h\n'
+      'HEADER := include/tom_som_c_v0.h include/tom_som_c_v0_meta.h\n'
       '\n'
       '.PHONY: all clean runtime install dist FORCE\n'
       'all: \$(STATIC) \$(SHARED) \$(PC)\n'
@@ -250,10 +280,10 @@ String _makefile(String runtimeRel, String version) {
       '\n'
       '\$(RUNTIME_LIB): runtime\n'
       '\n'
-      '\$(OBJ): src/tom_som_c_v0.c \$(HEADER) | \$(BUILD)\n'
+      '\$(BUILD)/%.o: src/%.c \$(HEADER) | \$(BUILD)\n'
       '\t\$(CC) \$(CFLAGS) \$(CPPFLAGS) -c \$< -o \$@\n'
       '\n'
-      '\$(PICOBJ): src/tom_som_c_v0.c \$(HEADER) | \$(BUILD)\n'
+      '\$(BUILD)/%.pic.o: src/%.c \$(HEADER) | \$(BUILD)\n'
       '\t\$(CC) \$(CFLAGS) \$(PICFLAGS) \$(CPPFLAGS) -c \$< -o \$@\n'
       '\n'
       '\$(STATIC): \$(OBJ)\n'

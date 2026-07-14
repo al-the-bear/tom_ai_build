@@ -15,8 +15,14 @@
  *
  * Ownership: `spec_document_to_json` / `document_json_to_canonical_json` and
  * `encode_yaml` return owned buffers the caller frees.
+ *
+ * The canonical YAML encoder walks the document root's metadata tree (DR30 §4)
+ * to place every value, so the sole generated symbol this otherwise-generic
+ * sample reaches for is `d00_solution_blueprint_meta_tree()` — mirroring the Go
+ * `b_generic_document` sample, which passes `D00SolutionBlueprintMetaTree`.
  */
 #include "tom_som_c_runtime.h"
+#include "tom_som_c_v0_meta.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,8 +79,16 @@ int main(void) {
   free(json);
   document_json_free(&dj);
 
-  /* … and to the canonical YAML wire format (stamped with the model version). */
-  char *yaml = encode_yaml(&doc, "0.0");
+  /* … and to the canonical YAML wire format (stamped with the model version).
+   * The encoder places each value by walking the root's metadata tree. */
+  char *yerr = NULL;
+  char *yaml = encode_yaml(&doc, d00_solution_blueprint_meta_tree(), "0.0", &yerr);
+  if (yaml == NULL) {
+    fprintf(stderr, "encode_yaml failed: %s\n", yerr != NULL ? yerr : "?");
+    free(yerr);
+    spec_document_free(&doc);
+    return 1;
+  }
   printf("\nDocument YAML:\n%s", yaml);
   free(yaml);
 

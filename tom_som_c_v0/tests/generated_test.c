@@ -409,15 +409,20 @@ static void test_one_call_loading(void) {
     char *yaml = read_file(sample_path);
     ok(yaml != NULL, "sample yaml read");
     if (yaml != NULL) {
-      /* The former three-step incantation. */
+      /* The former two-step incantation. `decode_yaml` walks the root's
+       * generated metadata tree (DR30 §4) to place every key, and now returns
+       * the `document:` pass already populated as a SpecDocument (with its
+       * model_version stamped) — so the manual path just wraps that document in
+       * the typed root, no separate load_json step. */
       SpecYamlContents decoded;
-      decode_yaml(yaml, &decoded);
-      SpecDocument manual_doc;
-      spec_document_init(&manual_doc);
-      spec_document_load_json(&manual_doc, &decoded.document);
+      char *derr = NULL;
+      ok(decode_yaml(yaml, d00_solution_blueprint_meta_tree(), &decoded,
+                     &derr) == 1,
+         "decode_yaml succeeds");
+      free(derr);
       D00SolutionBlueprint manual;
-      d00_solution_blueprint_new(&manual, &manual_doc, decoded.model_version,
-                                 NULL);
+      d00_solution_blueprint_new(&manual, &decoded.document,
+                                 decoded.model_version, NULL);
 
       /* The one-call convenience. */
       D00SolutionBlueprint one_call;
@@ -473,7 +478,6 @@ static void test_one_call_loading(void) {
         free(one_doc);
       }
       d00_solution_blueprint_free(&manual);
-      spec_document_free(&manual_doc);
       spec_yaml_contents_free(&decoded);
     }
     free(yaml);
@@ -522,14 +526,17 @@ static void test_one_call_loading(void) {
   /* The generic one-call yaml loader retains the parsed model version. */
   {
     const char *yaml =
-        "version: 1\n"
+        "version: 2\n"
         "modelVersion: \"1.0\"\n"
         "document:\n"
-        "  content:\n"
-        "    \"SBP/content\": |2-\n"
+        "  SBP D00SolutionBlueprint:\n"
+        "    content: |2-\n"
         "      Hello\n";
-    SpecDocument *doc = spec_document_from_yaml(yaml);
+    char *ferr = NULL;
+    SpecDocument *doc =
+        spec_document_from_yaml(yaml, d00_solution_blueprint_meta_tree(), &ferr);
     ok(doc != NULL, "from_yaml returns a document");
+    free(ferr);
     if (doc != NULL) {
       const char *mv = doc->model_version != NULL ? doc->model_version : "";
       eq_str(mv, "1.0", "from_yaml retains model version");
@@ -543,9 +550,12 @@ static void test_one_call_loading(void) {
   /* An unstamped document loads with the empty-string sentinel model version,
    * and load_yaml still succeeds. */
   {
-    const char *yaml = "version: 1\ndocument: {}\n";
-    SpecDocument *doc = spec_document_from_yaml(yaml);
+    const char *yaml = "version: 2\ndocument: {}\n";
+    char *uerr = NULL;
+    SpecDocument *doc =
+        spec_document_from_yaml(yaml, d00_solution_blueprint_meta_tree(), &uerr);
     ok(doc != NULL, "from_yaml (unstamped) returns a document");
+    free(uerr);
     if (doc != NULL) {
       const char *mv = doc->model_version != NULL ? doc->model_version : "";
       eq_str(mv, "", "unstamped yaml -> empty model version sentinel");

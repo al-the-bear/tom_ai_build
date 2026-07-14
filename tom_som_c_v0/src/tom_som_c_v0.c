@@ -3,6 +3,8 @@
 
 #include "tom_som_c_v0.h"
 
+#include "tom_som_c_v0_meta.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -16044,7 +16046,10 @@ SomEditability d00_solution_blueprint_editability_for(const char *document_versi
   return som_editability_for(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version);
 }
 int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d00_solution_blueprint_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d00_solution_blueprint_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16054,7 +16059,7 @@ int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yam
   return 0;
 }
 int d00_solution_blueprint_load_file(D00SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d00_solution_blueprint_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16199,7 +16204,10 @@ SomEditability d01_current_landscape_assessment_editability_for(const char *docu
   return som_editability_for(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version);
 }
 int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d01_current_landscape_assessment_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d01_current_landscape_assessment_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16209,7 +16217,7 @@ int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *se
   return 0;
 }
 int d01_current_landscape_assessment_load_file(D01CurrentLandscapeAssessment *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d01_current_landscape_assessment_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16319,7 +16327,10 @@ SomEditability d02_target_operating_model_editability_for(const char *document_v
   return som_editability_for(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version);
 }
 int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d02_target_operating_model_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d02_target_operating_model_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16329,7 +16340,7 @@ int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const ch
   return 0;
 }
 int d02_target_operating_model_load_file(D02TargetOperatingModel *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d02_target_operating_model_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16453,7 +16464,10 @@ SomEditability d03_information_model_editability_for(const char *document_versio
   return som_editability_for(D03_INFORMATION_MODEL_MODEL_VERSION, document_version);
 }
 int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d03_information_model_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d03_information_model_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16463,7 +16477,7 @@ int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml,
   return 0;
 }
 int d03_information_model_load_file(D03InformationModel *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d03_information_model_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16587,7 +16601,10 @@ SomEditability d04_requirements_specification_editability_for(const char *docume
   return som_editability_for(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d04_requirements_specification_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d04_requirements_specification_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16597,7 +16614,7 @@ int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self,
   return 0;
 }
 int d04_requirements_specification_load_file(D04RequirementsSpecification *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d04_requirements_specification_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16705,7 +16722,10 @@ SomEditability d05_interaction_scenarios_editability_for(const char *document_ve
   return som_editability_for(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version);
 }
 int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d05_interaction_scenarios_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d05_interaction_scenarios_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16715,7 +16735,7 @@ int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const cha
   return 0;
 }
 int d05_interaction_scenarios_load_file(D05InteractionScenarios *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d05_interaction_scenarios_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16818,7 +16838,10 @@ SomEditability d06_architecture_technology_specification_editability_for(const c
   return som_editability_for(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnologySpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d06_architecture_technology_specification_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d06_architecture_technology_specification_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16828,7 +16851,7 @@ int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnolog
   return 0;
 }
 int d06_architecture_technology_specification_load_file(D06ArchitectureTechnologySpecification *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d06_architecture_technology_specification_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -16966,7 +16989,10 @@ SomEditability d07_integration_interface_specification_editability_for(const cha
   return som_editability_for(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d07_integration_interface_specification_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d07_integration_interface_specification_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -16976,7 +17002,7 @@ int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpe
   return 0;
 }
 int d07_integration_interface_specification_load_file(D07IntegrationInterfaceSpecification *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d07_integration_interface_specification_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -17100,7 +17126,10 @@ SomEditability d08_security_access_specification_editability_for(const char *doc
   return som_editability_for(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d08_security_access_specification_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d08_security_access_specification_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -17110,7 +17139,7 @@ int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *
   return 0;
 }
 int d08_security_access_specification_load_file(D08SecurityAccessSpecification *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d08_security_access_specification_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -17220,7 +17249,10 @@ SomEditability d09_experience_design_specification_editability_for(const char *d
   return som_editability_for(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version);
 }
 int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecification *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d09_experience_design_specification_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d09_experience_design_specification_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -17230,7 +17262,7 @@ int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecificati
   return 0;
 }
 int d09_experience_design_specification_load_file(D09ExperienceDesignSpecification *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d09_experience_design_specification_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -17368,7 +17400,10 @@ SomEditability d10_quality_acceptance_plan_editability_for(const char *document_
   return som_editability_for(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version);
 }
 int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d10_quality_acceptance_plan_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d10_quality_acceptance_plan_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -17378,7 +17413,7 @@ int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const 
   return 0;
 }
 int d10_quality_acceptance_plan_load_file(D10QualityAcceptancePlan *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d10_quality_acceptance_plan_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -17565,7 +17600,10 @@ SomEditability d11_delivery_roadmap_editability_for(const char *document_version
   return som_editability_for(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version);
 }
 int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d11_delivery_roadmap_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d11_delivery_roadmap_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -17575,7 +17613,7 @@ int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, S
   return 0;
 }
 int d11_delivery_roadmap_load_file(D11DeliveryRoadmap *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d11_delivery_roadmap_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
@@ -17692,7 +17730,10 @@ SomEditability d12_transition_rollout_plan_editability_for(const char *document_
   return som_editability_for(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version);
 }
 int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const char *yaml, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_yaml(yaml);
+  SpecDocument *doc = spec_document_from_yaml(yaml, d12_transition_rollout_plan_meta_tree(), err);
+  if (doc == NULL) {
+    return 1;
+  }
   if (d12_transition_rollout_plan_new(self, doc, doc->model_version, err) != 0) {
     spec_document_free(doc);
     free(doc);
@@ -17702,7 +17743,7 @@ int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const 
   return 0;
 }
 int d12_transition_rollout_plan_load_file(D12TransitionRolloutPlan *self, const char *path, SpecDocument **out_doc, char **err) {
-  SpecDocument *doc = spec_document_from_file(path);
+  SpecDocument *doc = spec_document_from_file(path, d12_transition_rollout_plan_meta_tree(), err);
   if (doc == NULL) {
     return 1;
   }
