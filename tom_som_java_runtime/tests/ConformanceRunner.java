@@ -14,8 +14,11 @@ import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SpecClass;
 import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecField;
+import tom_som_runtime.SpecMarkdownRejection;
+import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
@@ -157,6 +160,68 @@ public final class ConformanceRunner {
         "yaml.decode.reencode",
         actual.equals(expected),
         byteDiff("yaml.decode.reencode", actual, expected));
+  }
+
+  // --- markdown conformance (DR6/DR20) ------------------------------------
+
+  private static void testMarkdownExport(SpecModel model) throws IOException {
+    SpecDocument doc = documentFromState(readJsonObject("state.json"));
+    String expected = read("expected.md");
+    String actual;
+    try {
+      actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
+    } catch (RuntimeException e) {
+      check("md.export", false, String.valueOf(e.getMessage()));
+      return;
+    }
+    check("md.export", actual.equals(expected), byteDiff("md.export", actual, expected));
+  }
+
+  private static void testMarkdownRoundTrip(SpecModel model) throws IOException {
+    String golden = read("expected.md");
+    SpecDocument doc = documentFromState(readJsonObject("state.json"));
+    SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
+    check("md.parse.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
+    SpecDocument reDoc = new SpecDocument();
+    reDoc.loadJson(parsed.toLoadJson());
+    String actual;
+    try {
+      actual = new SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.get(0));
+    } catch (RuntimeException e) {
+      check("md.parse.reexport", false, String.valueOf(e.getMessage()));
+      return;
+    }
+    check("md.parse.reexport", actual.equals(golden), byteDiff("md.parse.reexport", actual, golden));
+  }
+
+  /**
+   * Plan item #9: parsing {@code expected.md} and applying it must reproduce
+   * {@code state.json} (the YAML-route memory) exactly, proving both formats
+   * converge on one in-memory document (§4.1).
+   */
+  private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
+    String golden = read("expected.md");
+    Map<String, Object> canonical = readJsonObject("state.json");
+    SpecDocument doc = documentFromState(canonical);
+    SpecMarkdownResult parsed = new SpecDocumentMarkdown(model, doc).parse(golden);
+    check("md.land.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
+    SpecDocument landed = new SpecDocument();
+    landed.loadJson(parsed.toLoadJson());
+    check(
+        "md.land.memory",
+        landed.toJson().equals(canonical),
+        jsonMismatch(landed.toJson(), canonical));
+  }
+
+  private static String rejDetail(SpecMarkdownResult r) {
+    StringBuilder out = new StringBuilder();
+    for (SpecMarkdownRejection rej : r.rejections) {
+      if (out.length() > 0) {
+        out.append("; ");
+      }
+      out.append(rej);
+    }
+    return out.toString();
   }
 
   @SuppressWarnings("unchecked")
@@ -445,8 +510,9 @@ public final class ConformanceRunner {
     testStateRoundTrip();
     testYamlEncode(tree);
     testYamlDecodeRoundTrip(tree);
-    System.out.println(
-        "SKIP: markdown conformance (md.export, md.parse.*, md.land.*) pending DR23");
+    testMarkdownExport(model);
+    testMarkdownRoundTrip(model);
+    testMarkdownMemoryLanding(model);
     testReflection(model);
     testValidation(model);
     testOperations();

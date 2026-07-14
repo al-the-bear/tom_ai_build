@@ -132,7 +132,18 @@ public final class Yaml {
       } else if (itemText.startsWith("|") || itemText.startsWith(">")) {
         list.add(parseBlockScalar(itemText, indent));
       } else {
-        list.add(parseFlowScalar(itemText));
+        // A `- key: …` item is a mapping whose first entry sits on the dash
+        // line; rewrite the dash as indentation and re-parse as a mapping.
+        int colon = findColon(itemText);
+        boolean isMapEntry =
+            colon >= 0 && (colon == itemText.length() - 1 || itemText.charAt(colon + 1) == ' ');
+        if (isMapEntry) {
+          idx = i;
+          lines.set(i, " ".repeat(indent + 2) + line.substring(indent + 2));
+          list.add(parseMapping(indent + 2));
+        } else {
+          list.add(parseFlowScalar(itemText));
+        }
       }
     }
     return list;

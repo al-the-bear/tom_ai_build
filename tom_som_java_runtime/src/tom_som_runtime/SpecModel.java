@@ -27,6 +27,56 @@ public final class SpecModel {
     this.modelVersionLabel = modelVersionLabel;
   }
 
+  /**
+   * The {@code major.minor} version string used in the DocSpecs markdown
+   * declaration (DR6/DR11 parity — mirrors Python's
+   * {@code SpecModel.model_version_string}).
+   */
+  public String modelVersionString() {
+    return somModelVersionString(modelVersion, modelVersionLabel);
+  }
+
+  /**
+   * Derives the {@code major.minor} DocSpecs version string from a model's
+   * integer version and its optional free-form label (port of Python's
+   * {@code som_model_version_string}).
+   *
+   * <p>When the label's {@code +}-stripped core has at least two dot-separated
+   * integer components, those become {@code major.minor}; otherwise the result
+   * is {@code <major>.0}.
+   */
+  public static String somModelVersionString(int major, String label) {
+    if (label != null && !label.isEmpty()) {
+      String core = label.split("\\+", 2)[0].trim();
+      String[] parts = core.split("\\.", -1);
+      if (parts.length >= 2) {
+        String maj = parts[0].trim();
+        String minor = parts[1].trim();
+        if (isSignedDigits(maj) && isSignedDigits(minor)) {
+          return Integer.parseInt(maj) + "." + Integer.parseInt(minor);
+        }
+      }
+    }
+    return major + ".0";
+  }
+
+  /** Whether {@code s} matches {@code /^[+-]?[0-9]+$/}. */
+  private static boolean isSignedDigits(String s) {
+    if (s.isEmpty()) {
+      return false;
+    }
+    int i = (s.charAt(0) == '+' || s.charAt(0) == '-') ? 1 : 0;
+    if (i == s.length()) {
+      return false;
+    }
+    for (; i < s.length(); i++) {
+      if (s.charAt(i) < '0' || s.charAt(i) > '9') {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public SpecClass classNamed(String name) {
     if (name == null) {
       return null;

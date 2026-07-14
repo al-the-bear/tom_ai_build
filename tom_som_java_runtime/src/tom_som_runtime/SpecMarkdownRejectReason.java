@@ -4,7 +4,7 @@ package tom_som_runtime;
 public enum SpecMarkdownRejectReason {
   UNKNOWN_SECTION("unknownSection"),
   KIND_MISMATCH("kindMismatch"),
-  ORPHAN_BLOCK("orphanBlock"),
+  ORPHAN_CONTENT("orphanContent"),
   MISSING_VALUE("missingValue"),
   MALFORMED_HEADING("malformedHeading");
 
