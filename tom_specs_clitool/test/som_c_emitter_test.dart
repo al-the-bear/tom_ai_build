@@ -248,9 +248,14 @@ String? _runtimeDir() {
 }
 
 /// Compiles the generated [header] + [source] as a `tom_som_c_v0` translation
-/// unit against the local runtime headers, asserting the compile succeeds. A
-/// no-op (with a skip note) when the toolchain or runtime cannot be located.
-void _expectCBuilds(String header, String source) {
+/// unit against the local runtime headers, asserting the compile succeeds. The
+/// facade source now `#include`s the generated metadata module and its load
+/// functions reference `<root>_meta_tree()`, so the meta module header (and,
+/// when [metaEmitter] is supplied, its source) is emitted alongside the facade
+/// so the reference resolves. A no-op (with a skip note) when the toolchain or
+/// runtime cannot be located.
+void _expectCBuilds(String header, String source,
+    {SomCMetaEmitter? metaEmitter}) {
   final cc = _cc();
   if (cc == null) {
     markTestSkipped('no C compiler (gcc/cc/clang) found');
@@ -265,6 +270,12 @@ void _expectCBuilds(String header, String source) {
   try {
     File(p.join(dir.path, 'tom_som_c_v0.h')).writeAsStringSync(header);
     File(p.join(dir.path, 'tom_som_c_v0.c')).writeAsStringSync(source);
+    // The facade source #includes the meta module header (its load functions
+    // thread the per-root tree from it). Always emit the header; emit the meta
+    // source too when the caller wants the symbols to link.
+    final meta = metaEmitter;
+    File(p.join(dir.path, 'tom_som_c_v0_meta.h'))
+        .writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
     final runtimeInclude = p.join(runtimeDir, 'include');
     final build = Process.runSync(cc, [
       '-std=c11',
@@ -282,9 +293,51 @@ void _expectCBuilds(String header, String source) {
     ]);
     expect(build.exitCode, 0,
         reason: 'C compile failed:\n${build.stdout}\n${build.stderr}');
+    if (meta != null) {
+      File(p.join(dir.path, 'tom_som_c_v0_meta.c'))
+          .writeAsStringSync(meta.generateSource());
+      final metaBuild = Process.runSync(cc, [
+        '-std=c11',
+        '-Wall',
+        '-Wextra',
+        '-Werror',
+        '-c',
+        '-I',
+        dir.path,
+        '-I',
+        runtimeInclude,
+        p.join(dir.path, 'tom_som_c_v0_meta.c'),
+        '-o',
+        p.join(dir.path, 'tom_som_c_v0_meta.o'),
+      ]);
+      expect(metaBuild.exitCode, 0,
+          reason:
+              'C meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}');
+    }
   } finally {
     dir.deleteSync(recursive: true);
   }
+}
+
+/// Derives a minimal stand-in meta-module header declaring just the tree
+/// accessor(s) the facade [source] references (its load functions call
+/// `<root>_meta_tree()`), so a facade-only compile test (no [SomCMetaEmitter]
+/// supplied) still resolves the declaration without emitting the whole metadata
+/// module.
+String _metaHeaderFor(String source) {
+  final fns = RegExp(r'\b(\w+_meta_tree)\(\)')
+      .allMatches(source)
+      .map((m) => m.group(1)!)
+      .toSet();
+  final b = StringBuffer()
+    ..writeln('#ifndef TOM_SOM_C_V0_META_H')
+    ..writeln('#define TOM_SOM_C_V0_META_H')
+    ..writeln('#include "tom_som_c_runtime.h"');
+  for (final fn in fns) {
+    b.writeln('const SomMetaTree *$fn(void);');
+  }
+  b.writeln('#endif /* TOM_SOM_C_V0_META_H */');
+  return b.toString();
 }
 
 void main() {
@@ -457,20 +510,39 @@ void main() {
               'MigrationRisksGovernanceContentForm_2;'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('the flat path-constant holders are gone (DR33 item 3)', () {
+      // DR30 retired the per-root `<CODE>_PATHS_*` path `#define`s in favour of
+      // the generated metadata module's populated trees + dot-notation / ID-tree
+      // access surfaces. No holder comment or path constant may leak into the
+      // facade header any more.
       final header = SomCEmitter(_fixtureModel()).generateHeader();
-      // Root segment `PD00` → holder `Pd00Paths` → macro prefix `PD00_PATHS`,
-      // matching the header's existing SCREAMING_SNAKE `#define` convention.
-      expect(header, contains('#define PD00_PATHS_VISION "PD00/vision"'));
-      expect(header, contains('#define PD00_PATHS_OWNER "PD00/owner"'));
-      expect(header, contains('#define PD00_PATHS_RISKS "PD00/risks"'));
-      expect(header, contains('#define PD00_PATHS_TAGS "PD00/tags"'));
-      expect(header, contains('#define PD00_PATHS_SITUATION "PD00/situation"'));
-      expect(header,
-          contains('#define PD00_PATHS_SITUATION_SUMMARY "PD00/situation/summary"'));
-      // List elements (`Risk`) are dynamic — no element recursion leaks in.
-      expect(header, isNot(contains('PD00/risks/')));
-      expect(header, isNot(contains('_TITLE "PD00')));
+      expect(header, isNot(contains('_PATHS_')),
+          reason: 'no `<CODE>_PATHS_*` path macro may remain');
+      expect(header, isNot(contains('"PD00/')),
+          reason: 'no flat path constants may remain');
+    });
+
+    test('the facade threads the metadata module into its load functions '
+        '(DR33 items 1–2)', () {
+      final emitter = SomCEmitter(_fixtureModel());
+      final source = emitter.generateSource();
+      // The source pulls in the generated metadata module …
+      expect(source, contains('#include "tom_som_c_v0_meta.h"'));
+      // … and load_yaml/load_file thread the per-root tree accessor from it into
+      // the generic runtime decoder (root type SolutionBlueprint → snake
+      // `solution_blueprint`).
+      expect(
+          source,
+          contains('spec_document_from_yaml(yaml, '
+              'solution_blueprint_meta_tree(), err)'));
+      expect(
+          source,
+          contains('spec_document_from_file(path, '
+              'solution_blueprint_meta_tree(), err)'));
+      // The facade + meta module compile and link together (the threaded tree
+      // accessor is defined by the generated meta module).
+      _expectCBuilds(emitter.generateHeader(), source,
+          metaEmitter: SomCMetaEmitter(_fixtureModel()));
     });
 
     test('documentRoots subsets the generated structs', () {
