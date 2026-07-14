@@ -25,20 +25,22 @@ high
 Owner: Bob
 Contact: bob@example.com
 
-## <!--[items-1]--> Item 1
+## <!--[items]--> Items
+
+### <!--[items-1]--> Item 1
 
 First
 
-### <!--[STS]--> Status
+#### <!--[STS]--> Status
 
 open
 
-## <!--[items-2]--> Item 2
+### <!--[items-2]--> Item 2
 
 Second line A
 with ```triple``` ticks
 
-### <!--[STS]--> Status
+#### <!--[STS]--> Status
 
 done
 
@@ -48,19 +50,21 @@ done
 
 alice
 
-### <!--[tags-1]--> String 1
+### <!--[tags]--> Tags
+
+#### <!--[tags-1]--> String 1
 
 on
 
-### <!--[tags-2]--> String 2
+#### <!--[tags-2]--> String 2
 
 no
 
-### <!--[tags-3]--> String 3
+#### <!--[tags-3]--> String 3
 
 1:30
 
-### <!--[tags-4]--> String 4
+#### <!--[tags-4]--> String 4
 
 plain
 

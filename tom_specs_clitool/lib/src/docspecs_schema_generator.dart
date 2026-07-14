@@ -287,8 +287,12 @@ class _SchemaBuilder {
     return [_ChildRef(typeName, minCount: node.min, maxCount: 1)];
   }
 
-  /// A list field: its element class is the section type, named by the
-  /// `@SectionIdPattern` stem, with a numbered-id pattern check (§5 rule 2).
+  /// A list field: two nesting levels (DR1 §1.2, §5). The element class is the
+  /// item section type, named by the `@SectionIdPattern` stem with a
+  /// numbered-id pattern check (§5 rule 2); its `*-LST` container is a real
+  /// section type with no content (min/max-text-length 0) wrapping the item
+  /// type. The parent references the container; the container references the
+  /// item.
   List<_ChildRef> _visitList(MetaNode node) {
     final pattern = node.sectionIdPattern;
     final element = node.elementNode;
@@ -300,11 +304,10 @@ class _SchemaBuilder {
       return const [];
     }
 
-    final typeName =
-        exactId.replaceAll(RegExp(r'-+$'), '').toLowerCase();
+    final itemTypeName = exactId.replaceAll(RegExp(r'-+$'), '').toLowerCase();
     final subsections = _collectSubsections(element.children);
     _registerSectionType(
-      typeName: typeName,
+      typeName: itemTypeName,
       exactId: exactId,
       node: element,
       listNode: node,
@@ -317,8 +320,65 @@ class _SchemaBuilder {
             ),
       subsections: subsections,
     );
-    final maxCount = _extraInt(node, 'Max', 'count');
-    return [_ChildRef(typeName, minCount: node.min, maxCount: maxCount)];
+    final maxItemCount = _extraInt(node, 'Max', 'count');
+
+    // The `*-LST` container. When the list has no own @SectionId (legacy
+    // uncovered list) there is no container level, so hoist the item type
+    // directly under the parent (pre-DRA1 behaviour).
+    final containerId = node.sectionId;
+    if (containerId == null) {
+      return [_ChildRef(itemTypeName, minCount: node.min, maxCount: maxItemCount)];
+    }
+
+    final containerTypeName =
+        containerId.replaceAll(RegExp(r'-+$'), '').toLowerCase();
+    _registerListContainerType(
+      typeName: containerTypeName,
+      exactId: containerId,
+      node: node,
+      itemTypeName: itemTypeName,
+      itemMinCount: node.min,
+      itemMaxCount: maxItemCount,
+    );
+    // The container appears once under the owner; it is required whenever the
+    // list itself is required (`@Min(1)` on the list → at least one item, so
+    // the container must be present).
+    final containerMin = (node.min ?? 0) >= 1 ? 1 : null;
+    return [_ChildRef(containerTypeName, minCount: containerMin, maxCount: 1)];
+  }
+
+  /// Registers the synthetic `*-LST` list container section type: content is
+  /// forbidden (min/max-text-length 0, DR1 §1.2/§5) and its single subsection
+  /// is the item type. Merges (union) if the container id recurs.
+  void _registerListContainerType({
+    required String typeName,
+    required String exactId,
+    required MetaNode node,
+    required String itemTypeName,
+    int? itemMinCount,
+    int? itemMaxCount,
+  }) {
+    final existing = _sectionTypes[typeName];
+    final prefix = existing?.prefix ?? _prefixFor(exactId);
+    final description = node.contentHelp ??
+        _firstLine(node.docComment) ??
+        existing?.description;
+    final merged = <String, SubsectionConstraint>{
+      ...?existing?.subsectionTypes,
+      itemTypeName: SubsectionConstraint(
+        typeName: itemTypeName,
+        minCount: itemMinCount,
+        maxCount: itemMaxCount,
+      ),
+    };
+    _sectionTypes[typeName] = SectionTypeDef(
+      name: typeName,
+      prefix: prefix,
+      description: description,
+      minTextLength: 0,
+      maxTextLength: 0,
+      subsectionTypes: merged,
+    );
   }
 
   /// The subsection-types map contributed by [children] (nearest

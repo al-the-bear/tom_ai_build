@@ -3,6 +3,135 @@
 
 title-format: "# <!--[TOM]--> Target Operating Model"
 section-types:
+  deprwo-deta-lst:
+    prefix: DEPRWO_DETA_LST
+    subsection-types:
+      deprwo-deta:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Detailed process workflows.
+  bpren-proc-lst:
+    prefix: BPREN_PROC_LST
+    subsection-types:
+      bpren-proc:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process.
+  exipr-expe-lst:
+    prefix: EXIPR_EXPE_LST
+    subsection-types:
+      exipr-expe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per expected improvement.
+  pcctl-cont-lst:
+    prefix: PCCTL_CONT_LST
+    subsection-types:
+      pcctl-cont:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per control applied to this process.
+  pcexc-exce-lst:
+    prefix: PCEXC_EXCE_LST
+    subsection-types:
+      pcexc-exce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per exception scenario for this process.
+  pcimv-impr-lst:
+    prefix: PCIMV_IMPR_LST
+    subsection-types:
+      pcimv-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per planned process improvement.
+  pcinp-inpu-lst:
+    prefix: PCINP_INPU_LST
+    subsection-types:
+      pcinp-inpu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process input.
+  pckpi-kpis-lst:
+    prefix: PCKPI_KPIS_LST
+    subsection-types:
+      pckpi-kpis:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per KPI tracked for this process.
+  pcout-outp-lst:
+    prefix: PCOUT_OUTP_LST
+    subsection-types:
+      pcout-outp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process output.
+  pcrlt-rela-lst:
+    prefix: PCRLT_RELA_LST
+    subsection-types:
+      pcrlt-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per relationship to another process.
+  pcrol-role-lst:
+    prefix: PCROL_ROLE_LST
+    subsection-types:
+      pcrol-role:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process role.
+  pcsla-slas-lst:
+    prefix: PCSLA_SLAS_LST
+    subsection-types:
+      pcsla-slas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per service level agreement for this process.
+  pdpen-prin-lst:
+    prefix: PDPEN_PRIN_LST
+    subsection-types:
+      pdpen-prin:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process design principle.
+  peevt-ende-lst:
+    prefix: PEEVT_ENDE_LST
+    subsection-types:
+      peevt-ende:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process end event.
+  ptren-trig-lst:
+    prefix: PTREN_TRIG_LST
+    subsection-types:
+      ptren-trig:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per process trigger.
+  pmak-proc-lst:
+    prefix: PMAK_PROC_LST
+    subsection-types:
+      pmak-proc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Process metrics and KPIs.
   deprwo-deta:
     prefix: DEPRWO_DETA_
     pattern-check-id:
@@ -169,8 +298,8 @@ section-types:
     subsection-types:
       imov:
         max-count: 1
-      pcimv-impr:
-        max-count: infinite
+      pcimv-impr-lst:
+        max-count: 1
       imbuca:
         max-count: 1
     description: Improvement summary.
@@ -179,10 +308,10 @@ section-types:
     subsection-types:
       inouov:
         max-count: 1
-      pcinp-inpu:
-        max-count: infinite
-      pcout-outp:
-        max-count: infinite
+      pcinp-inpu-lst:
+        max-count: 1
+      pcout-outp-lst:
+        max-count: 1
     description: Process inputs and outputs.
   provdi:
     prefix: PROVDI
@@ -222,8 +351,8 @@ section-types:
     subsection-types:
       dpovw:
         max-count: 1
-      pdpen-prin:
-        max-count: infinite
+      pdpen-prin-lst:
+        max-count: 1
     description: Design principles.
   picls:
     prefix: PICLS
@@ -241,8 +370,8 @@ section-types:
         max-count: 1
       prccl:
         max-count: 1
-      bpren-proc:
-        max-count: infinite
+      bpren-proc-lst:
+        max-count: 1
         min-count: 1
     description: Process catalog.
   prccl:
@@ -274,18 +403,18 @@ section-types:
     subsection-types:
       tgovw:
         max-count: 1
-      ptren-trig:
-        max-count: infinite
-      peevt-ende:
-        max-count: infinite
+      ptren-trig-lst:
+        max-count: 1
+      peevt-ende-lst:
+        max-count: 1
     description: Process triggers and events.
   prviz:
     prefix: PRVIZ
     subsection-types:
       pvovw:
         max-count: 1
-      exipr-expe:
-        max-count: infinite
+      exipr-expe-lst:
+        max-count: 1
       prsuc:
         max-count: 1
     description: Process vision.
@@ -327,8 +456,8 @@ section-types:
     subsection-types:
       prcoov:
         max-count: 1
-      pcctl-cont:
-        max-count: infinite
+      pcctl-cont-lst:
+        max-count: 1
     description: Process controls and compliance.
   prec:
     prefix: PREC
@@ -341,16 +470,16 @@ section-types:
     subsection-types:
       prexov:
         max-count: 1
-      pcexc-exce:
-        max-count: infinite
+      pcexc-exce-lst:
+        max-count: 1
     description: Process exceptions.
   prro:
     prefix: PRRO
     subsection-types:
       prroov:
         max-count: 1
-      pcrol-role:
-        max-count: infinite
+      pcrol-role-lst:
+        max-count: 1
     description: Roles and responsibilities.
   prte:
     prefix: PRTE
@@ -365,16 +494,16 @@ section-types:
     subsection-types:
       prpeov:
         max-count: 1
-      pckpi-kpis:
-        max-count: infinite
-      pcsla-slas:
-        max-count: infinite
+      pckpi-kpis-lst:
+        max-count: 1
+      pcsla-slas-lst:
+        max-count: 1
     description: Process performance.
   pr:
     prefix: PR
     subsection-types:
-      pcrlt-rela:
-        max-count: infinite
+      pcrlt-rela-lst:
+        max-count: 1
     description: Process relationships.
 document:
   sections:
@@ -399,8 +528,8 @@ document:
     pr:
       section-type: pr
       optional: true
-    deprwo-deta:
-      section-type: deprwo-deta
+    deprwo-deta-lst:
+      section-type: deprwo-deta-lst
       optional: true
     crpran:
       section-type: crpran
@@ -408,6 +537,6 @@ document:
     prexha:
       section-type: prexha
       optional: true
-    pmak-proc:
-      section-type: pmak-proc
+    pmak-proc-lst:
+      section-type: pmak-proc-lst
       optional: true

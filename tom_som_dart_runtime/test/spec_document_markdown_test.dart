@@ -6,8 +6,8 @@
 // section is a heading of the form `## <!--[SECTION-ID]--> Title` (headline
 // comment carries the machine id, the text is the human-readable Title-Case
 // member name), content sections are normal markdown text (no fences), `@Form`
-// sections use the plain-text `FieldName: value` format, and list items sit as
-// sub-headings directly under the owner (no container heading).
+// sections use the plain-text `FieldName: value` format, and a list emits its
+// `-LST` container heading with the numbered items one level below it.
 //
 // DR6 done-when: emit + parse round-trip is lossless per DR1 §1, id comment
 // placement and form rendering follow the spec, and content with embedded
@@ -176,13 +176,15 @@ void main() {
       expect(md, isNot(contains('Reviewer')));
     });
 
-    test('list items are headings under the owner; no container heading', () {
+    test('a list emits its -LST container heading with items one level deeper',
+        () {
       final md = _export(_populated());
-      expect(md, contains('## <!--[items-1]--> Demo Item 1'));
-      expect(md, contains('## <!--[items-2]--> Demo Item 2'));
-      expect(md, contains('### <!--[D01-LBL]--> Label'));
-      // The list container itself gets no heading of its own.
-      expect(md, isNot(contains('<!--[D00-ITM]-->')));
+      // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+      // level, its numbered items one level below it, item fields one deeper.
+      expect(md, contains('## <!--[D00-ITM]--> Items'));
+      expect(md, contains('### <!--[items-1]--> Demo Item 1'));
+      expect(md, contains('### <!--[items-2]--> Demo Item 2'));
+      expect(md, contains('#### <!--[D01-LBL]--> Label'));
     });
 
     test('the root schema description is not emitted (only stored content)',
@@ -199,8 +201,10 @@ void main() {
       final md = _export(doc);
       // Option (b): md list identity is purely positional. The stored id
       // (`D01-CUSTOM` — an override, or equally an AA1 generated id) lives only
-      // in the yaml format; md emits the anonymous positional id.
-      expect(md, contains('## <!--[items-1]--> Demo Item 1'));
+      // in the yaml format; md emits the anonymous positional id, one level
+      // below the `-LST` container heading.
+      expect(md, contains('## <!--[D00-ITM]--> Items'));
+      expect(md, contains('### <!--[items-1]--> Demo Item 1'));
       expect(md, isNot(contains('D01-CUSTOM')));
     });
 
@@ -516,12 +520,23 @@ void main() {
         };
 
     // The DR3-generated schema shape: `pattern-check-id` stays a clean `[0-9]+`
-    // (option (b) needs no widening).
+    // (option (b) needs no widening). The `-LST` container is a real section
+    // type (DR1 §1.2/§5) with no content (min/max-text-length 0) wrapping the
+    // element pattern type; section-types are ordered longest-prefix-first so
+    // `GOAL_ITEM_LST` resolves to the container and `GOAL_ITEM_1` to the item.
     // Prefixes are in the DocSpecs id-transform grammar (`-` → `_`); the
     // pattern-check-id runs against the raw heading id.
     const goalsSchemaYaml = '''
 title-format: "# <!--[D00]--> Goal Document"
 section-types:
+  goal-item-lst:
+    prefix: GOAL_ITEM_LST
+    min-text-length: 0
+    max-text-length: 0
+    subsection-types:
+      goal-item:
+        min-count: 1
+        max-count: infinite
   goal-item:
     prefix: GOAL_ITEM_
     pattern-check-id:
@@ -530,9 +545,9 @@ section-types:
   goals:
     prefix: GOALS
     subsection-types:
-      goal-item:
+      goal-item-lst:
         min-count: 1
-        max-count: infinite
+        max-count: 1
 document:
   sections:
     goals:
@@ -563,8 +578,10 @@ document:
       final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(
         m.roots.single,
       );
-      expect(md, contains('### <!--[GOAL-ITEM-1]-->'));
-      expect(md, contains('### <!--[GOAL-ITEM-2]-->'));
+      // The `-LST` container heads; items sit one level below it.
+      expect(md, contains('### <!--[GOAL-ITEM-LST]-->'));
+      expect(md, contains('#### <!--[GOAL-ITEM-1]-->'));
+      expect(md, contains('#### <!--[GOAL-ITEM-2]-->'));
       expect(md, isNot(contains('GOAL-ITEM-GN1')));
       expect(md, isNot(contains('GOAL-ITEM-GN2')));
     });
@@ -587,9 +604,10 @@ document:
       const mdWithStoredIds = '<!-- docspec: goal-document/1.0 -->\n'
           '# <!--[D00]--> Goal Document\n\n'
           '## <!--[GOALS]--> Goals\n\n'
-          '### <!--[GOAL-ITEM-GN1]--> Goal Item 1\n\n'
+          '### <!--[GOAL-ITEM-LST]--> Goal Items\n\n'
+          '#### <!--[GOAL-ITEM-GN1]--> Goal Item 1\n\n'
           'First goal.\n\n'
-          '### <!--[GOAL-ITEM-GN2]--> Goal Item 2\n\n'
+          '#### <!--[GOAL-ITEM-GN2]--> Goal Item 2\n\n'
           'Second goal.\n';
       final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
       final violations =
