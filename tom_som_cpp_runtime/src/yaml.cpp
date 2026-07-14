@@ -29,9 +29,12 @@ YamlRef yamlGet(const YamlRef& v, const std::string& key) {
   if (v == nullptr || v->type != YamlType::Map) {
     return nullptr;
   }
-  auto it = v->map.find(key);
-  return it != v->map.end() ? std::const_pointer_cast<const YamlValue>(it->second)
-                            : nullptr;
+  for (const auto& kv : v->map) {
+    if (kv.first == key) {
+      return std::const_pointer_cast<const YamlValue>(kv.second);
+    }
+  }
+  return nullptr;
 }
 
 const std::string* yamlAsStr(const YamlRef& v) {
@@ -225,7 +228,7 @@ YamlPtr parseMapping(YamlReader& r, std::size_t indent) {
     } else {
       value = parseFlowScalar(rest);
     }
-    m->map[key] = value;
+    m->mapSet(key, value);
   }
   return m;
 }

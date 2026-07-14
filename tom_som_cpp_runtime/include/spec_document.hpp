@@ -17,6 +17,7 @@
 
 #include <cstddef>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -24,7 +25,8 @@
 
 namespace som {
 
-class SpecModel;  // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
+class SpecModel;    // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
+class SomMetaTree;  // fwd (spec_meta.hpp), used by SpecDocument::fromYaml
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
 
@@ -68,15 +70,22 @@ class SpecDocument {
    * automatically. */
   std::string modelVersion;
 
-  /* Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
-   * the sparse stores (loadJson), and retain the parsed model version on the
-   * document. Collapses the former three-step decode -> loadJson ->
-   * thread-documentVersion sequence (item 4). */
-  static SpecDocument fromYaml(const std::string& yaml);
+  /* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
+   * YAML against `tree` (the metadata tree of the document's root), populate the
+   * sparse stores, and retain the parsed model version on the document (§ item
+   * 4). Returns std::nullopt on a format error and, when `err` is non-null,
+   * writes a message — nothing is silently dropped. */
+  static std::optional<SpecDocument> fromYaml(const std::string& yaml,
+                                              const SomMetaTree& tree,
+                                              std::string* err);
 
   /* Loads a `*.docspecs.yaml` document from the file at `path` — the file
-   * companion to fromYaml the generated loadFile static delegates to. */
-  static SpecDocument fromFile(const std::string& path);
+   * companion to fromYaml the generated loadFile static delegates to. Returns
+   * std::nullopt (writing `*err`) when the file cannot be read or fails to
+   * decode. */
+  static std::optional<SpecDocument> fromFile(const std::string& path,
+                                              const SomMetaTree& tree,
+                                              std::string* err);
 
   /* Renders this document to Markdown in one call (§ item 12).
    *

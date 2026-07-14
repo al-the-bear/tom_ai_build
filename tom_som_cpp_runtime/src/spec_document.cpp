@@ -49,19 +49,30 @@ std::string SpecDocument::toMarkdown(const SpecModel& model,
 
 /* ---- one-call document loading (item 4) --------------------------------- */
 
-SpecDocument SpecDocument::fromYaml(const std::string& yaml) {
-  SpecYamlContents decoded = decodeYaml(yaml);
-  SpecDocument doc;
-  doc.loadJson(decoded.document);
-  doc.modelVersion = decoded.modelVersion;
-  return doc;
+std::optional<SpecDocument> SpecDocument::fromYaml(const std::string& yaml,
+                                                   const SomMetaTree& tree,
+                                                   std::string* err) {
+  SpecYamlContents decoded;
+  if (!decodeYaml(yaml, tree, &decoded, err)) {
+    return std::nullopt;
+  }
+  // The decoded document already carries its stamped model version.
+  return std::move(decoded.document);
 }
 
-SpecDocument SpecDocument::fromFile(const std::string& path) {
+std::optional<SpecDocument> SpecDocument::fromFile(const std::string& path,
+                                                   const SomMetaTree& tree,
+                                                   std::string* err) {
   std::ifstream in(path, std::ios::binary);
+  if (!in) {
+    if (err != nullptr) {
+      *err = "cannot read file: " + path;
+    }
+    return std::nullopt;
+  }
   std::stringstream buffer;
   buffer << in.rdbuf();
-  return fromYaml(buffer.str());
+  return fromYaml(buffer.str(), tree, err);
 }
 
 /* ---- is_under ----------------------------------------------------------- */

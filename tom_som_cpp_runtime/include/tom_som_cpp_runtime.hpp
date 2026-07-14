@@ -19,6 +19,8 @@
 #include "spec_reflection.hpp"
 #include "spec_section_id.hpp"
 #include "spec_serialization_order.hpp"
+#include "spec_meta.hpp"
+#include "spec_meta_bridge.hpp"
 #include "spec_document.hpp"
 #include "spec_validator.hpp"
 #include "yaml.hpp"

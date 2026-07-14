@@ -1,14 +1,93 @@
-/* Idiomatic-C++ port of the C `spec_document_yaml` module. */
+/* spec_document_yaml — implementation. See spec_document_yaml.hpp; an
+ * idiomatic-C++ port of the C `spec_document_yaml.c` (hierarchical format v2). */
 #include "spec_document_yaml.hpp"
+
+#include <algorithm>
+#include <map>
+#include <vector>
 
 #include "som_json.hpp"
 #include "som_util.hpp"
-#include "yaml.hpp"
+#include "spec_paths.hpp"
+#include "spec_section_id.hpp"
 
 namespace som {
 
-/* js_json_string / yaml_key — JSON.stringify-compatible quoting. */
+/* ---- small helpers ------------------------------------------------------- */
+
+static void setErr(std::string* err, std::string msg) {
+  if (err != nullptr) {
+    *err = std::move(msg);
+  }
+}
+
+/* Removes the first occurrence of `s` from `v`; true when it was present. */
+static bool removeValue(std::vector<std::string>& v, const std::string& s) {
+  for (auto it = v.begin(); it != v.end(); ++it) {
+    if (*it == s) {
+      v.erase(it);
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool contains(const std::vector<std::string>& v, const std::string& s) {
+  return std::find(v.begin(), v.end(), s) != v.end();
+}
+
+/* ---- shared scalar machinery --------------------------------------------- */
+
 static std::string jsJsonString(const std::string& s) { return jsonEncodeStr(s); }
+
+std::string specYamlNodeKey(const SomMetaNode& node) {
+  const std::string& name =
+      !node.memberName.empty() ? node.memberName : node.className;
+  if (node.sectionId.empty()) {
+    return name;
+  }
+  return node.sectionId + " " + name;
+}
+
+/* plainKeyPattern: ^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$ */
+static bool keyFirst(char c) {
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') ||
+         (c >= '0' && c <= '9') || c == '_';
+}
+static bool keyLast(char c) { return keyFirst(c) || c == '.' || c == '-'; }
+static bool keyMid(char c) { return keyLast(c) || c == ' '; }
+
+std::string specYamlPlainKey(const std::string& key) {
+  std::size_t n = key.size();
+  bool plain = n > 0 && keyFirst(key[0]);
+  if (plain && n > 1) {
+    plain = keyLast(key[n - 1]);
+    for (std::size_t i = 1; plain && i + 1 < n; i++) {
+      plain = keyMid(key[i]);
+    }
+  }
+  return plain ? key : jsJsonString(key);
+}
+
+std::string specYamlDedupEmptyLines(const std::string& value) {
+  std::string b;
+  std::size_t i = 0;
+  while (i < value.size()) {
+    if (value[i] == '\n') {
+      std::size_t run = 0;
+      while (i + run < value.size() && value[i + run] == '\n') {
+        run++;
+      }
+      std::size_t emit = run >= 3 ? 2 : run;
+      b.append(emit, '\n');
+      i += run;
+    } else {
+      b.push_back(value[i]);
+      i++;
+    }
+  }
+  return b;
+}
 
 static std::size_t trailingNewlines(const std::string& value) {
   std::size_t n = value.size();
@@ -19,8 +98,8 @@ static std::size_t trailingNewlines(const std::string& value) {
   return count;
 }
 
-/* Builds a `|2<chomp>` literal block, or std::nullopt when chomping can't
- * reproduce the value's trailing newlines (two or more). */
+/* Builds a `|2<chomp>` literal block with body at relative indent 2, or
+ * std::nullopt when chomping can't reproduce two-or-more trailing newlines. */
 static std::optional<std::string> literalBlock(const std::string& value) {
   std::size_t trailing = trailingNewlines(value);
   std::string chomp;
@@ -37,7 +116,6 @@ static std::optional<std::string> literalBlock(const std::string& value) {
   }
   std::string b = "|2";
   b += chomp;
-  // core.split('\n')
   std::size_t start = 0;
   for (std::size_t i = 0;; i++) {
     if (i == coreLen || value[i] == '\n') {
@@ -73,15 +151,32 @@ static std::string scalarRepr(const std::string& value) {
   return jsJsonString(value);
 }
 
-/* Writes `<indent><key>: <scalar>`, re-indenting body lines to key_indent+2. */
-static void writeScalar(std::string& out, std::size_t keyIndent,
-                        const std::string& key, const std::string& value) {
-  std::string repr = scalarRepr(value);
-  std::string ek = jsJsonString(key);
+/* A plain one-line scalar for a non-text value (§2.5) when writing it plainly
+ * re-parses to exactly `value`. */
+static bool plainScalarOk(const std::string& value) {
+  if (value.empty() || value.find('\n') != std::string::npos) {
+    return false;
+  }
+  std::string probe = "_v: " + value + "\n";
+  YamlPtr parsed = yamlParse(probe);
+  if (parsed == nullptr || parsed->type != YamlType::Map) {
+    return false;
+  }
+  YamlRef v = yamlGet(parsed, "_v");
+  if (v == nullptr || v->type == YamlType::Map || v->type == YamlType::Seq) {
+    return false;
+  }
+  return yamlScalarString(v) == value;
+}
+
+/* `<pad><renderedKey>: <first line>` then the remaining repr lines re-indented
+ * past keyIndent (empty lines stay empty). */
+static void writeRendered(std::string& out, std::size_t keyIndent,
+                          const std::string& renderedKey,
+                          const std::string& repr) {
   out.append(keyIndent, ' ');
-  out += ek;
+  out += renderedKey;
   out += ": ";
-  // repr.split('\n'): first line inline, rest re-indented.
   std::size_t start = 0;
   bool first = true;
   std::size_t rlen = repr.size();
@@ -107,13 +202,15 @@ static void writeScalar(std::string& out, std::size_t keyIndent,
   }
 }
 
+void specYamlWriteScalar(std::string& out, std::size_t keyIndent,
+                         const std::string& key, const std::string& value) {
+  writeRendered(out, keyIndent, jsJsonString(key), scalarRepr(value));
+}
+
+/* The file header comment + `version:` line, and the optional `modelVersion:`
+ * stamp when non-empty. */
 static void writeHeader(std::string& out, const std::string& modelVersion) {
-  out += "# TomSpecs document (*.docspecs.yaml).\n";
-  out +=
-      "# `document:` holds the object-model values, sorted by section id; text\n";
-  out +=
-      "# values use block scalars so multi-line content round-trips verbatim "
-      "(\xC2\xA7""15.1).\n";
+  out += "# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.\n";
   out += "version: ";
   out += formatI64(kSpecYamlFormatVersion);
   out.push_back('\n');
@@ -124,174 +221,571 @@ static void writeHeader(std::string& out, const std::string& modelVersion) {
   }
 }
 
-/* The keys of `keys` in serialization order when `order` is set, else as given
- * (already byte-sorted, since the DocumentJson stores are std::maps). */
-static std::vector<std::string> orderedKeys(const std::vector<std::string>& keys,
-                                            const SpecSerializationOrder* order) {
-  if (order == nullptr) {
-    return keys;
-  }
-  return order->orderPaths(keys);
+/* ---- encode -------------------------------------------------------------- */
+
+static bool isNumericOrBool(const std::string& typeName) {
+  return typeName == "int" || typeName == "double" || typeName == "num" ||
+         typeName == "bool";
 }
 
-static void writeDocumentPass(std::string& out, const DocumentJson& doc,
-                              const SpecSerializationOrder* order) {
-  if (doc.content.empty() && doc.forms.empty() && doc.lists.empty()) {
-    out += "document: {}\n";
-    return;
-  }
-  out += "document:\n";
+namespace {
 
-  if (!doc.content.empty()) {
-    out += "  content:\n";
-    std::vector<std::string> keys;
-    for (const auto& kv : doc.content) {
-      keys.push_back(kv.first);
-    }
-    for (const auto& key : orderedKeys(keys, order)) {
-      writeScalar(out, 4, key, doc.content.at(key));
-    }
-  }
+/* One encode run: it walks the metadata tree, consuming values from snapshots
+ * of the document's stores so anything left unconsumed at the end is a
+ * structured error (nothing is silently dropped). */
+class YamlEncoder {
+ public:
+  const SpecDocument* doc = nullptr;
+  std::map<std::string, std::string> content;  // consumed as the walk places
+  std::vector<std::string> formPaths;          // remaining unconsumed
+  std::vector<std::string> listPaths;          // remaining unconsumed
 
-  if (!doc.forms.empty()) {
-    out += "  forms:\n";
-    std::vector<std::string> keys;
-    for (const auto& kv : doc.forms) {
-      keys.push_back(kv.first);
+  void init(const SpecDocument* d) {
+    doc = d;
+    for (const std::string& path : d->contentPaths()) {
+      const std::string* v = d->contentOpt(path);
+      content[path] = v != nullptr ? *v : "";
     }
-    for (const auto& key : orderedKeys(keys, order)) {
-      const auto& fields = doc.forms.at(key);
-      if (fields.empty()) {
-        continue;
-      }
-      out += "    ";
-      out += jsJsonString(key);
-      out += ":\n";
-      std::vector<std::string> fieldNames;
-      for (const auto& fv : fields) {
-        fieldNames.push_back(fv.first);
-      }
-      if (order != nullptr) {
-        fieldNames = order->orderFormFields(key, fieldNames);
-      }
-      for (const auto& fname : fieldNames) {
-        writeScalar(out, 6, fname, fields.at(fname));
-      }
-    }
+    formPaths = d->formPaths();
+    listPaths = d->listPaths();
   }
 
-  if (!doc.lists.empty()) {
-    out += "  lists:\n";
-    std::vector<std::string> keys;
-    for (const auto& kv : doc.lists) {
-      keys.push_back(kv.first);
+  /* Consumes the content snapshot entry at `path`; true when present. */
+  bool takeContent(const std::string& path, std::string* out) {
+    auto it = content.find(path);
+    if (it == content.end()) {
+      return false;
     }
-    for (const auto& key : orderedKeys(keys, order)) {
-      const auto& entry = doc.lists.at(key);
-      out += "    ";
-      out += jsJsonString(key);
-      out += ":\n";
-      out += "      seq: ";
-      out += formatI64(entry.seq);
-      out.push_back('\n');
-      if (!entry.items.empty()) {
-        out += "      items:\n";
-        for (const auto& it : entry.items) {
-          out += "        - ";
-          out += jsJsonString(it);
-          out.push_back('\n');
+    *out = it->second;
+    content.erase(it);
+    return true;
+  }
+
+  void writeText(std::string& b, std::size_t indent, const std::string& key,
+                 const std::string& value) {
+    std::string repr = scalarRepr(specYamlDedupEmptyLines(value));
+    writeRendered(b, indent, specYamlPlainKey(key), repr);
+  }
+
+  void writeValue(std::string& b, std::size_t indent, const std::string& key,
+                  const std::string& value) {
+    if (plainScalarOk(value)) {
+      b.append(indent, ' ');
+      b += specYamlPlainKey(key);
+      b += ": ";
+      b += value;
+      b.push_back('\n');
+    } else {
+      writeText(b, indent, key, value);
+    }
+  }
+
+  bool writeForm(std::string& b, std::size_t indent, const std::string& key,
+                 const SomMetaNode& node, const std::string& path,
+                 std::string* err) {
+    bool present = removeValue(formPaths, path);
+    std::vector<std::string> names = doc->formFieldNames(path);
+    if (!present || names.empty()) {
+      return true;
+    }
+    for (const std::string& name : names) {
+      if (!node.form.has_value() ||
+          node.form->fieldNamed(name) == nullptr) {
+        setErr(err, "form `" + path + "` holds a field `" + name +
+                        "` unknown to the model");
+        return false;
+      }
+    }
+    b.append(indent, ' ');
+    b += specYamlPlainKey(key);
+    b += ":\n";
+    if (node.form.has_value()) {
+      for (const SomFormFieldMeta& f : node.form->fields) {
+        const std::string* v = doc->formFieldOpt(path, f.name);
+        if (v == nullptr) {
+          continue;
         }
-      } else {
-        out += "      items: []\n";
+        if (isNumericOrBool(f.typeName)) {
+          writeValue(b, indent + 2, f.name, *v);
+        } else {
+          writeText(b, indent + 2, f.name, *v);
+        }
       }
     }
+    return true;
   }
-}
 
-std::string encodeYamlOrdered(const SpecDocument& document,
-                              const std::string& modelVersion,
-                              const SpecSerializationOrder* order) {
+  bool writeList(std::string& b, std::size_t indent, const std::string& key,
+                 const SomMetaNode& node, const std::string& path,
+                 std::string* err) {
+    removeValue(listPaths, path);
+    const std::vector<std::string>* items = doc->listItemsPtr(path);
+    if (items == nullptr || items->empty()) {
+      return true;
+    }
+    b.append(indent, ' ');
+    b += specYamlPlainKey(key);
+    b += ":\n";
+    std::vector<std::string> used;
+    long long pos = 0;
+    for (const std::string& itemPath : *items) {
+      pos++;
+      const std::string* storedId = doc->itemSectionIdOpt(itemPath);
+      std::string itemKey;
+      if (storedId != nullptr) {
+        itemKey = *storedId;
+        if (contains(used, itemKey)) {
+          setErr(err, "duplicate list item key `" + itemKey + "` at `" + path +
+                          "`");
+          return false;
+        }
+        used.push_back(itemKey);
+      } else {
+        long long bump = pos;
+        itemKey = node.memberName + "-" + formatI64(bump);
+        while (contains(used, itemKey)) {
+          bump++;
+          itemKey = node.memberName + "-" + formatI64(bump);
+        }
+        used.push_back(itemKey);
+      }
+      if (!node.elementNode) {
+        // Scalar list: the item is a direct value.
+        std::string v;
+        if (!takeContent(itemPath, &v)) {
+          v = "";
+        }
+        writeValue(b, indent + 2, itemKey, v);
+      } else {
+        std::string sub;
+        if (!mappingBody(*node.elementNode, itemPath, indent + 4, sub, err)) {
+          return false;
+        }
+        std::string ik = specYamlPlainKey(itemKey);
+        if (sub.empty()) {
+          b.append(indent + 2, ' ');
+          b += ik;
+          b += ": {}\n";
+        } else {
+          b.append(indent + 2, ' ');
+          b += ik;
+          b += ":\n";
+          b += sub;
+        }
+      }
+    }
+    return true;
+  }
+
+  /* Renders the mapping body of `node` at `path`, one line per populated entry
+   * at `indent`. Empty when nothing under the node is populated. */
+  bool mappingBody(const SomMetaNode& node, const std::string& path,
+                   std::size_t indent, std::string& out, std::string* err) {
+    std::string b;
+
+    // The node's own body text — the literal `content` key (DR1 §2.2).
+    std::string own;
+    if (takeContent(path, &own)) {
+      for (const auto& child : node.children) {
+        if (specYamlNodeKey(*child) == "content") {
+          setErr(err, "cannot emit body text at `" + path + "`: a child of " +
+                          node.debugName() +
+                          " also serializes as key `content`");
+          return false;
+        }
+      }
+      writeText(b, indent, "content", own);
+    }
+
+    for (const auto& childPtr : node.children) {
+      const SomMetaNode& child = *childPtr;
+      std::string childPath = specPathJoin(path, child.segment());
+      std::string key = specYamlNodeKey(child);
+      std::string kind = child.kind;
+      bool ok = true;
+      if (kind == kSomMetaKindContent) {
+        std::string v;
+        if (takeContent(childPath, &v)) {
+          writeText(b, indent, key, v);
+        }
+      } else if (kind == kSomMetaKindScalar || kind == kSomMetaKindEnumValue) {
+        std::string v;
+        if (takeContent(childPath, &v)) {
+          writeValue(b, indent, key, v);
+        }
+      } else if (kind == kSomMetaKindForm) {
+        ok = writeForm(b, indent, key, child, childPath, err);
+      } else if (kind == kSomMetaKindSection || kind == kSomMetaKindComplex) {
+        std::string sub;
+        ok = mappingBody(child, childPath, indent + 2, sub, err);
+        if (ok && !sub.empty()) {
+          b.append(indent, ' ');
+          b += specYamlPlainKey(key);
+          b += ":\n";
+          b += sub;
+        }
+      } else if (kind == kSomMetaKindList) {
+        ok = writeList(b, indent, key, child, childPath, err);
+      }
+      if (!ok) {
+        return false;
+      }
+    }
+    out = std::move(b);
+    return true;
+  }
+
+  bool assertNothingLeft(std::string* err) {
+    std::vector<std::string> leftovers;
+    for (const auto& kv : content) {
+      leftovers.push_back("content at `" + kv.first + "`");
+    }
+    for (const std::string& p : formPaths) {
+      leftovers.push_back("form values at `" + p + "`");
+    }
+    for (const std::string& p : listPaths) {
+      leftovers.push_back("list items at `" + p + "`");
+    }
+    if (leftovers.empty()) {
+      return true;
+    }
+    std::sort(leftovers.begin(), leftovers.end());
+    std::string joined;
+    for (std::size_t i = 0; i < leftovers.size(); i++) {
+      if (i > 0) {
+        joined += "; ";
+      }
+      joined += leftovers[i];
+    }
+    setErr(err, "document holds values the metadata tree cannot place: " +
+                    joined);
+    return false;
+  }
+};
+
+}  // namespace
+
+std::optional<std::string> encodeYaml(const SpecDocument& document,
+                                      const SomMetaTree& tree,
+                                      const std::string& modelVersion,
+                                      std::string* err) {
   std::string out;
   writeHeader(out, modelVersion);
-  DocumentJson dj = document.toJson();
-  writeDocumentPass(out, dj, order);
+  YamlEncoder e;
+  e.init(&document);
+  std::string body;
+  if (!e.mappingBody(*tree.root(), tree.root()->segment(), 4, body, err)) {
+    return std::nullopt;
+  }
+  if (!e.assertNothingLeft(err)) {
+    return std::nullopt;
+  }
+  if (body.empty()) {
+    out += "document: {}\n";
+  } else {
+    out += "document:\n";
+    out += "  ";
+    out += specYamlPlainKey(specYamlNodeKey(*tree.root()));
+    out += ":\n";
+    out += body;
+  }
   return out;
 }
 
-std::string encodeYaml(const SpecDocument& document,
-                       const std::string& modelVersion) {
-  return encodeYamlOrdered(document, modelVersion, nullptr);
+/* ---- decode -------------------------------------------------------------- */
+
+static YamlPtr newEmptyMap() {
+  return std::make_shared<YamlValue>(YamlType::Map);
 }
 
-/* Converts the parsed `document:` mapping into a DocumentJson. */
-static DocumentJson docJsonFromYaml(const YamlRef& v) {
-  DocumentJson out;
-  if (v == nullptr || v->type != YamlType::Map) {
-    return out;
+/* The raw parsed `version:` value for the unsupported-version error message (a
+ * non-scalar mapping renders as "[object Object]", mirroring JS/TS string
+ * interpolation). */
+static std::string versionRepr(const YamlRef& v) {
+  if (v != nullptr && v->type == YamlType::Map) {
+    return "[object Object]";
   }
-  YamlRef content = yamlGet(v, "content");
-  if (content != nullptr && content->type == YamlType::Map) {
-    for (const auto& kv : content->map) {
-      out.content[kv.first] =
-          yamlScalarString(std::const_pointer_cast<const YamlValue>(kv.second));
+  return yamlScalarString(v);
+}
+
+/* Coerces a parsed leaf value to the document's string store. The hand-rolled
+ * parser yields an empty mapping for a bare `key:`, so an *empty* mapping counts
+ * as the empty string; a populated mapping or a sequence is a structural
+ * error. */
+static bool decoderScalarOf(const YamlRef& value, const std::string& where,
+                            std::string* out, std::string* err) {
+  if (value == nullptr) {
+    *out = "";
+    return true;
+  }
+  if (value->type == YamlType::Seq ||
+      (value->type == YamlType::Map && !value->map.empty())) {
+    setErr(err, "expected a scalar value at `" + where + "`");
+    return false;
+  }
+  if (value->type == YamlType::Map) {
+    *out = "";
+    return true;
+  }
+  *out = yamlScalarString(value);
+  return true;
+}
+
+namespace {
+
+class YamlDecoder {
+ public:
+  SpecDocument* doc = nullptr;
+  const SomMetaTree* tree = nullptr;
+
+  const SomMetaNode* childByKey(const SomMetaNode& node,
+                                const std::string& key) {
+    for (const auto& child : node.children) {
+      if (specYamlNodeKey(*child) == key) {
+        return child.get();
+      }
     }
+    return nullptr;
   }
-  YamlRef forms = yamlGet(v, "forms");
-  if (forms != nullptr && forms->type == YamlType::Map) {
-    for (const auto& kv : forms->map) {
-      if (kv.second->type != YamlType::Map) {
-        continue;
+
+  std::string expectedKeys(const SomMetaNode& node) {
+    std::string joined;
+    for (const auto& child : node.children) {
+      if (!joined.empty()) {
+        joined += ", ";
       }
-      auto& fields = out.forms[kv.first];
-      for (const auto& fv : kv.second->map) {
-        fields[fv.first] =
-            yamlScalarString(std::const_pointer_cast<const YamlValue>(fv.second));
-      }
+      joined += "`" + specYamlNodeKey(*child) + "`";
     }
+    if (!joined.empty()) {
+      joined += ", ";
+    }
+    joined += "`content`";
+    return joined;
   }
-  YamlRef lists = yamlGet(v, "lists");
-  if (lists != nullptr && lists->type == YamlType::Map) {
-    for (const auto& kv : lists->map) {
-      if (kv.second->type != YamlType::Map) {
-        continue;
-      }
-      YamlRef spec = std::const_pointer_cast<const YamlValue>(kv.second);
-      DocListEntry& e = out.lists[kv.first];
-      auto seq = yamlAsInt(yamlGet(spec, "seq"));
-      e.seq = seq.value_or(0);
-      YamlRef items = yamlGet(spec, "items");
-      if (items != nullptr && items->type == YamlType::Seq) {
-        for (const auto& item : items->seq) {
-          e.items.push_back(
-              yamlScalarString(std::const_pointer_cast<const YamlValue>(item)));
+
+  bool loadList(const SomMetaNode& node, const std::string& path,
+                const YamlRef& items, std::string* err) {
+    const std::string& member = node.memberName;
+    for (const auto& kv : items->map) {
+      const std::string& key = kv.first;
+      YamlRef value = std::const_pointer_cast<const YamlValue>(kv.second);
+      // anonymous: ^<memberName>-[0-9]+$
+      bool anonymous = key.size() > member.size() + 1 &&
+                       key.compare(0, member.size(), member) == 0 &&
+                       key[member.size()] == '-' &&
+                       isAllDigits(key.substr(member.size() + 1));
+      std::string itemPath;
+      if (anonymous) {
+        itemPath = doc->addListItem(path);
+      } else {
+        try {
+          itemPath = doc->addListItemWithSectionId(path, key);
+        } catch (const SomSectionIdError&) {
+          setErr(err, "SpecSectionIdCollision: section id \"" + key +
+                          "\" is already used in list \"" + path +
+                          "\"; section ids within a list must be unique.");
+          return false;
         }
       }
+      if (!node.elementNode) {
+        // Scalar list item: the value is the item itself.
+        if (value != nullptr &&
+            (value->type == YamlType::Seq ||
+             (value->type == YamlType::Map && !value->map.empty()))) {
+          setErr(err, "scalar list item `" + key + "` at `" + path +
+                          "` must hold a scalar");
+          return false;
+        }
+        if (value != nullptr && value->type != YamlType::Map) {
+          doc->setContent(itemPath, yamlScalarString(value));
+        }
+        continue;
+      }
+      if (value == nullptr || value->type != YamlType::Map) {
+        setErr(err, "list item `" + key + "` at `" + path +
+                        "` must hold a mapping (use `{}` for an empty item)");
+        return false;
+      }
+      if (!loadMapping(*node.elementNode, itemPath, value, err)) {
+        return false;
+      }
     }
+    return true;
   }
-  return out;
-}
 
-SpecYamlContents decodeYaml(const std::string& yamlText) {
-  SpecYamlContents out;
-  YamlPtr root;
-  // blank -> empty map
-  std::size_t s = 0, e = yamlText.size();
-  while (s < e && (yamlText[s] == ' ' || yamlText[s] == '\t' ||
-                   yamlText[s] == '\r' || yamlText[s] == '\n')) {
-    s++;
+  bool loadChild(const SomMetaNode& child, const std::string& path,
+                 const std::string& key, const YamlRef& value,
+                 std::string* err) {
+    const std::string& kind = child.kind;
+    if (kind == kSomMetaKindContent || kind == kSomMetaKindScalar ||
+        kind == kSomMetaKindEnumValue) {
+      std::string v;
+      if (!decoderScalarOf(value, path, &v, err)) {
+        return false;
+      }
+      doc->setContent(path, v);
+      return true;
+    }
+    if (kind == kSomMetaKindForm) {
+      if (value == nullptr || value->type != YamlType::Map) {
+        setErr(err, "form `" + key + "` at `" + path +
+                        "` must hold a field mapping");
+        return false;
+      }
+      for (const auto& fv : value->map) {
+        const std::string& name = fv.first;
+        if (!child.form.has_value() ||
+            child.form->fieldNamed(name) == nullptr) {
+          setErr(err, "form `" + path + "` has no field `" + name +
+                          "` in the model");
+          return false;
+        }
+        std::string where = path + "." + name;
+        std::string v;
+        if (!decoderScalarOf(std::const_pointer_cast<const YamlValue>(fv.second),
+                             where, &v, err)) {
+          return false;
+        }
+        doc->setFormField(path, name, v);
+      }
+      return true;
+    }
+    if (kind == kSomMetaKindSection || kind == kSomMetaKindComplex) {
+      if (value == nullptr || value->type != YamlType::Map) {
+        setErr(err, "section `" + key + "` at `" + path +
+                        "` must hold a mapping, not a scalar");
+        return false;
+      }
+      return loadMapping(child, path, value, err);
+    }
+    if (kind == kSomMetaKindList) {
+      if (value == nullptr || value->type != YamlType::Map) {
+        setErr(err, "list `" + key + "` at `" + path +
+                        "` must hold an item mapping");
+        return false;
+      }
+      return loadList(child, path, value, err);
+    }
+    return true;
   }
-  if (s == e) {
-    root = yamlParse("");
-  } else {
+
+  bool loadMapping(const SomMetaNode& node, const std::string& path,
+                   const YamlRef& body, std::string* err) {
+    for (const auto& kv : body->map) {
+      const std::string& key = kv.first;
+      YamlRef value = std::const_pointer_cast<const YamlValue>(kv.second);
+      const SomMetaNode* child = childByKey(node, key);
+      if (child != nullptr) {
+        std::string childPath = specPathJoin(path, child->segment());
+        if (!loadChild(*child, childPath, key, value, err)) {
+          return false;
+        }
+        continue;
+      }
+      if (key == "content") {
+        std::string where = path + "/content";
+        std::string v;
+        if (!decoderScalarOf(value, where, &v, err)) {
+          return false;
+        }
+        doc->setContent(path, v);
+        continue;
+      }
+      setErr(err, "key `" + key + "` under `" + path + "` matches no member of " +
+                      node.debugName() + " (expected one of: " +
+                      expectedKeys(node) + ")");
+      return false;
+    }
+    return true;
+  }
+};
+
+}  // namespace
+
+bool decodeYaml(const std::string& yamlText, const SomMetaTree& tree,
+                SpecYamlContents* out, std::string* err) {
+  // Blank input is not a mapping.
+  std::size_t p = 0;
+  while (p < yamlText.size() && (yamlText[p] == ' ' || yamlText[p] == '\t' ||
+                                 yamlText[p] == '\r' || yamlText[p] == '\n')) {
+    p++;
+  }
+  YamlPtr root;
+  if (p < yamlText.size()) {
     root = yamlParse(yamlText);
   }
+  if (root == nullptr || root->type != YamlType::Map) {
+    setErr(err,
+           "not a *.docspecs.yaml mapping (expected version/document keys)");
+    return false;
+  }
 
-  out.document = docJsonFromYaml(yamlGet(root, "document"));
+  YamlRef version = yamlGet(root, "version");
+  std::string vstr = yamlScalarString(version);
+  if (version == nullptr || vstr != "2") {
+    std::string msg;
+    if (version == nullptr) {
+      msg = "missing `version:` (expected version: 2)";
+    } else if (vstr == "1") {
+      msg =
+          "format version 1 (flat path-map) is no longer supported; re-save "
+          "the document in the hierarchical v2 format";
+    } else {
+      msg = "unsupported format version `" + versionRepr(version) +
+            "` (expected 2)";
+    }
+    setErr(err, msg);
+    return false;
+  }
 
-  const std::string* mv = yamlAsStr(yamlGet(root, "modelVersion"));
-  out.modelVersion = mv != nullptr ? *mv : "";
+  std::string stamp = yamlScalarString(yamlGet(root, "modelVersion"));
 
-  return out;
+  YamlRef rev = yamlGet(root, "review");
+  YamlRef review = (rev != nullptr && rev->type == YamlType::Map)
+                       ? rev
+                       : std::const_pointer_cast<const YamlValue>(newEmptyMap());
+
+  SpecDocument document;
+  document.modelVersion = stamp;
+
+  YamlRef docPass = yamlGet(root, "document");
+  if (docPass != nullptr && docPass->type != YamlType::Map) {
+    setErr(err, "`document:` must be a mapping");
+    return false;
+  }
+  if (docPass != nullptr && !docPass->map.empty()) {
+    std::string rootKey = specYamlNodeKey(*tree.root());
+    if (docPass->map.size() != 1 || docPass->map[0].first != rootKey) {
+      std::string joined;
+      for (std::size_t i = 0; i < docPass->map.size(); i++) {
+        if (i > 0) {
+          joined += ", ";
+        }
+        joined += "`" + docPass->map[i].first + "`";
+      }
+      setErr(err, "expected the single document root key `" + rootKey +
+                      "`, found: " + joined);
+      return false;
+    }
+    YamlRef body =
+        std::const_pointer_cast<const YamlValue>(docPass->map[0].second);
+    if (body == nullptr || body->type != YamlType::Map) {
+      setErr(err,
+             "root `" + rootKey + "` must hold a mapping, not a scalar");
+      return false;
+    }
+    YamlDecoder d;
+    d.doc = &document;
+    d.tree = &tree;
+    if (!d.loadMapping(*tree.root(), tree.root()->segment(), body, err)) {
+      return false;
+    }
+  }
+
+  out->document = std::move(document);
+  out->review = review;
+  out->modelVersion = stamp;
+  return true;
 }
 
 }  // namespace som

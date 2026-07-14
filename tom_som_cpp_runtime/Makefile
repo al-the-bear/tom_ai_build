@@ -50,7 +50,8 @@ HEADERS := $(wildcard include/*.hpp)
 # Standalone unit-test binaries (each links the static lib; no corpus needed).
 UNIT_SRC := tests/version_check_test.cpp tests/facade_editability_test.cpp \
             tests/list_add_content_test.cpp tests/can_have_content_test.cpp \
-            tests/item12_test.cpp
+            tests/item12_test.cpp tests/spec_meta_test.cpp \
+            tests/spec_document_yaml_test.cpp
 UNIT_BIN := $(patsubst tests/%.cpp,build/%,$(UNIT_SRC))
 DEP      += $(UNIT_BIN:=.d)
 

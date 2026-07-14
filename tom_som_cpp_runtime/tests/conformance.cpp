@@ -171,28 +171,53 @@ static void test_state_round_trip(Checker& c) {
   c.check("state.toJson", got == want, "got " + got + " want " + want);
 }
 
-static void test_yaml_encode(Checker& c) {
+static void test_yaml_encode(Checker& c, const som::SomMetaTree& tree) {
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson state = som::documentJsonFromJson(sj);
   som::SpecDocument doc = doc_from_state(state);
   std::string expected = read_corpus("expected.docspecs.yaml");
-  std::string actual = som::encodeYaml(doc, MODEL_VERSION);
-  c.check("yaml.encode", actual == expected,
-          byte_diff("yaml.encode", actual, expected));
+  std::string err;
+  auto actual = som::encodeYaml(doc, tree, MODEL_VERSION, &err);
+  if (!actual.has_value()) {
+    c.check("yaml.encode", false, err.empty() ? "(no message)" : err);
+    return;
+  }
+  c.check("yaml.encode", *actual == expected,
+          byte_diff("yaml.encode", *actual, expected));
 }
 
-static void test_yaml_decode_round_trip(Checker& c) {
+static void test_yaml_decode_round_trip(Checker& c, const som::SomMetaTree& tree) {
   std::string expected = read_corpus("expected.docspecs.yaml");
-  som::SpecYamlContents contents = som::decodeYaml(expected);
+  som::SpecYamlContents contents;
+  std::string err;
+  if (!som::decodeYaml(expected, tree, &contents, &err)) {
+    c.check("yaml.decode.stamp", false, err.empty() ? "(no message)" : err);
+    return;
+  }
   c.check("yaml.decode.stamp", contents.modelVersion == MODEL_VERSION,
           contents.modelVersion);
-  som::SpecDocument doc;
-  doc.loadJson(contents.document);
+
+  /* The decoded memory equals the canonical state (the hierarchical decode
+   * lands the same sparse stores state.json describes). */
+  {
+    som::JsonPtr sj = read_json("state.json");
+    som::DocumentJson canonical = som::documentJsonFromJson(sj);
+    som::DocumentJson dj = contents.document.toJson();
+    std::string got = som::documentJsonToCanonicalJson(dj);
+    std::string want = som::documentJsonToCanonicalJson(canonical);
+    c.check("yaml.decode.memory", got == want, "got " + got + " want " + want);
+  }
+
   std::string stamp =
       contents.modelVersion.empty() ? std::string(MODEL_VERSION) : contents.modelVersion;
-  std::string actual = som::encodeYaml(doc, stamp);
-  c.check("yaml.decode.reencode", actual == expected,
-          byte_diff("yaml.decode.reencode", actual, expected));
+  std::string err2;
+  auto actual = som::encodeYaml(contents.document, tree, stamp, &err2);
+  if (!actual.has_value()) {
+    c.check("yaml.decode.reencode", false, err2.empty() ? "(no message)" : err2);
+    return;
+  }
+  c.check("yaml.decode.reencode", *actual == expected,
+          byte_diff("yaml.decode.reencode", *actual, expected));
 }
 
 static void test_markdown_export(Checker& c, const som::SpecModel& model) {
@@ -546,10 +571,17 @@ int main(int argc, char** argv) {
   Checker c;
   auto model = load_model();
 
+  std::string tree_err;
+  auto tree = som::somBuildMetaTree(*model, "", &tree_err);
+  if (tree == nullptr) {
+    std::fprintf(stderr, "build meta tree: %s\n", tree_err.c_str());
+    std::exit(2);
+  }
+
   test_model_meta(c, *model);
   test_state_round_trip(c);
-  test_yaml_encode(c);
-  test_yaml_decode_round_trip(c);
+  test_yaml_encode(c, *tree);
+  test_yaml_decode_round_trip(c, *tree);
   test_markdown_export(c, *model);
   test_markdown_round_trip(c, *model);
   test_markdown_memory_landing(c, *model);
