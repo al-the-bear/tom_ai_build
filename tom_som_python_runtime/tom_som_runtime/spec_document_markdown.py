@@ -7,11 +7,15 @@ section is one markdown heading whose machine-readable identity is the DocSpecs
 headline comment ``<!--[SECTION-ID]-->`` and whose text is the human-readable
 Title-Case member name. Content values are **normal markdown text** under their
 heading (no fences, no anchors); ``@Form`` sections use the DocSpecs plain-text
-``FieldName: value`` format; list items are sub-headings carrying the item's
-section id (stored id, else the ``@SectionIdPattern`` resolved with the 1-based
-position — ``GOAL-ITEM-xxx`` → ``GOAL-ITEM-1`` — else ``<member>-<pos>``)
-directly under the owning section — the list container gets no heading of its
-own. Id-less members are **transparent** (mirroring the DR3 schema generator):
+``FieldName: value`` format; a list emits its ``-LST`` **container heading**
+(the id the DR3 schema keys its container type by), with the numbered items one
+level deeper, each carrying the item's **anonymous positional** section id — the
+``@SectionIdPattern`` resolved with the 1-based position (``GOAL-ITEM-xxx`` →
+``GOAL-ITEM-1``), else ``<member>-<pos>`` for a pattern-less list. The container
+carries no content of its own; a stored ``@SectionId`` is **not** surfaced in md
+(it lives losslessly in the ``*.docspecs.yaml`` format, DR1 §2) so the generated
+schema's ``pattern-check-id`` stays a clean ``^<stem>-[0-9]+$``.
+Id-less members are **transparent** (mirroring the DR3 schema generator):
 a transparent value member's text or form block is the owner's body region,
 emitted without a heading and bound at its own path; a transparent
 section/complex member never heads — its id-bearing descendants hoist to the
@@ -274,8 +278,9 @@ class SpecDocumentMarkdown:
     #     descendants surface as the owner's direct child headings (the
     #     schema's "nearest section-bearing descendant" hoisting), with
     #     document paths still running through the transparent segments;
-    #   * lists are never transparent — the container never heads, the items
-    #     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+    #   * lists are never transparent — the `-LST` container always heads (its
+    #     `@SectionId`, else the member segment) and its numbered items head one
+    #     level deeper (pattern-numbered / `<member>-<pos>`).
     #
     # Principled canonicalisation losses (documented, accepted): multiple
     # transparent content members of one owner merge into the first on parse,
@@ -424,9 +429,20 @@ class SpecDocumentMarkdown:
     def _write_list_items(
         self, b: _Buffer, node: SomMetaNode, list_path: str, depth: int
     ) -> None:
-        """Emits the items of list *node* as headings **at the owner's child
-        level** — the container itself gets no heading (DR1 §1.2)."""
+        """Emits list *node* as its ``-LST`` container heading (DR1 §1.2/§1.5)
+        at *depth*, wrapping the numbered item headings one level deeper. The
+        container is a real section — the id the DR3 schema keys its container
+        type by — but carries **no content of its own** (schema content
+        min/max-text-length 0). Item identity is purely positional."""
         items = self.document.list_items(list_path)
+        if not items:
+            return
+        # The container heading: its id is the list's `-LST` `@SectionId` (else
+        # the member segment for a pattern-less list); its title is the member
+        # name.
+        self._write_heading(
+            b, depth, self._heading_id_of(node), self._title_of(node)
+        )
         element = node.element_node
         stem = self.item_title_stem(
             element.class_name if element is not None else node.type_name
@@ -443,11 +459,12 @@ class SpecDocumentMarkdown:
             # a criterion-5 override) is NOT surfaced — it round-trips through
             # the `*.docspecs.yaml` format (§2), not md — so the exported md
             # always validates against the `[0-9]+` schema pattern (DRC5).
+            # Items sit one level below the container.
             if pattern is not None:
                 item_id = pattern.replace("xxx", str(pos))
             else:
                 item_id = f"{node.member_name or node.segment}-{pos}"
-            self._write_heading(b, depth, item_id, f"{stem} {pos}")
+            self._write_heading(b, depth + 1, item_id, f"{stem} {pos}")
             if element is None:
                 # Scalar list: the item's value is its body.
                 self._write_body(
@@ -456,7 +473,7 @@ class SpecDocumentMarkdown:
             else:
                 self._write_section_body(b, element, item_path)
                 if not element.recursive:
-                    self._write_children(b, element, item_path, depth + 1)
+                    self._write_children(b, element, item_path, depth + 2)
 
     def _form_has_values(self, node: SomMetaNode, path: str) -> bool:
         fields = node.form.fields if node.form is not None else []
@@ -699,14 +716,22 @@ class _Parser:
             )
             return
 
-        # 1. A regular (non-list) *effective* child — section-bearing children
-        #    hoisted through transparent sections — whose heading id
-        #    (field/class section id) matches. Transparent value members never
-        #    head, so they never match here; the bound path runs through
-        #    transparent segments.
+        # 1. Under a `-LST` container frame (DR1 §1.2), every child heading is
+        #    one of that list's items — resolved positionally, not by the
+        #    schema tree.
+        if p_node.kind == SomMetaKind.LIST:
+            self._open_item_heading(level, parent, p_node, id, line_no)
+            return
+
+        # 2. A regular (non-list) or list-**container** *effective* child —
+        #    section-bearing children hoisted through transparent sections —
+        #    whose heading id matches. A list heads its `-LST` container here;
+        #    its items are resolved above once the container frame is open.
+        #    Transparent value members never head, so they never match; the
+        #    bound path runs through the transparent segments.
         effective = self.codec._effective_children(p_node)
         for c, rel in effective:
-            if c.kind != SomMetaKind.LIST and self.codec._heading_id_of(c) == id:
+            if self.codec._heading_id_of(c) == id:
                 self._stack.append(
                     _Frame(
                         level=level,
@@ -716,60 +741,6 @@ class _Parser:
                     )
                 )
                 return
-
-        # 2. A list item: anonymous (`<member>-<n>` or the pattern with a
-        #    numeric sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id,
-        #    or (fallback) any id when the parent has exactly one effective
-        #    list.
-        list_children = [
-            (c, rel) for c, rel in effective if c.kind == SomMetaKind.LIST
-        ]
-        for lc, rel in list_children:
-            list_path = f"{parent.path}/{rel}"
-            anon = re.match(
-                "^" + re.escape(lc.member_name or lc.segment) + "-([0-9]+)$",
-                id,
-            )
-            if anon is not None:
-                self._open_item(
-                    level, list_path, lc, int(anon.group(1)), None, line_no
-                )
-                return
-            element = lc.element_node
-            pattern = lc.section_id_pattern or (
-                element.section_id_pattern if element is not None else None
-            )
-            if pattern is not None:
-                # Canonical anonymous id: the pattern with `xxx` as a number —
-                # parses back as item <n>, NOT as a stored id (DR1 §1.2
-                # round-trip).
-                numbered_re = (
-                    "^"
-                    + "([0-9]+)".join(
-                        re.escape(p) for p in pattern.split("xxx")
-                    )
-                    + "$"
-                )
-                numbered = re.match(numbered_re, id)
-                if numbered is not None and numbered.re.groups == 1:
-                    self._open_item(
-                        level,
-                        list_path,
-                        lc,
-                        int(numbered.group(1)),
-                        None,
-                        line_no,
-                    )
-                    return
-                if self._pattern_matches(pattern, id):
-                    self._open_item(level, list_path, lc, None, id, line_no)
-                    return
-        if len(list_children) == 1:
-            lc, rel = list_children[0]
-            self._open_item(
-                level, f"{parent.path}/{rel}", lc, None, id, line_no
-            )
-            return
 
         self.rejections.append(
             SpecMarkdownRejection(
@@ -785,6 +756,62 @@ class _Parser:
         self._stack.append(
             _Frame(level=level, node=None, path="", line=line_no, ignored=True)
         )
+
+    def _open_item_heading(
+        self,
+        level: int,
+        container: "_Frame",
+        list_node: SomMetaNode,
+        id: str,
+        line_no: int,
+    ) -> None:
+        """Opens a list-item frame under a ``-LST`` container frame (DR1 §1.2).
+        The heading *id* is matched positionally against the container's list:
+        the ``<member>-<n>`` fallback id, the ``@SectionIdPattern`` resolved
+        with a number (``GOAL-ITEM-3``, parses back as item ``<n>``), a
+        pattern-shaped stored id, or — for any other id — an anonymous next
+        item carrying the stored id."""
+        list_path = container.path
+        anon = re.match(
+            "^"
+            + re.escape(list_node.member_name or list_node.segment)
+            + "-([0-9]+)$",
+            id,
+        )
+        if anon is not None:
+            self._open_item(
+                level, list_path, list_node, int(anon.group(1)), None, line_no
+            )
+            return
+        element = list_node.element_node
+        pattern = list_node.section_id_pattern or (
+            element.section_id_pattern if element is not None else None
+        )
+        if pattern is not None:
+            # Canonical anonymous id: the pattern with `xxx` as a number —
+            # parses back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+            numbered_re = (
+                "^"
+                + "([0-9]+)".join(re.escape(p) for p in pattern.split("xxx"))
+                + "$"
+            )
+            numbered = re.match(numbered_re, id)
+            if numbered is not None and numbered.re.groups == 1:
+                self._open_item(
+                    level,
+                    list_path,
+                    list_node,
+                    int(numbered.group(1)),
+                    None,
+                    line_no,
+                )
+                return
+            if self._pattern_matches(pattern, id):
+                self._open_item(level, list_path, list_node, None, id, line_no)
+                return
+        # Any other id under the container is an anonymous next item; a genuine
+        # stored id is kept (it survives only through the yaml format, DR1 §2).
+        self._open_item(level, list_path, list_node, None, id, line_no)
 
     def _open_root(self, level: int, id: str, line_no: int) -> None:
         for root in self.codec.model.roots:

@@ -7,8 +7,8 @@ The generated ``*.md`` is a genuine DocSpecs document: line 1 is the
 ``<!-- docspec: <schema-id>/<version> -->`` declaration, every populated
 section is a heading of the form ``## <!--[SECTION-ID]--> Title``, content
 sections are normal markdown text (no fences), ``@Form`` sections use the
-plain-text ``FieldName: value`` format, and list items sit as sub-headings
-directly under the owner (no container heading).
+plain-text ``FieldName: value`` format, and a list emits its ``-LST`` container
+heading with the numbered items one level deeper.
 
 Run with: ``python3 tests/spec_document_markdown_test.py``. Exit code 0 == green.
 """
@@ -214,10 +214,12 @@ def test_export_format() -> None:
     _check("export.form.sparse.author", "Author: Ada Lovelace" in md)
     _check("export.form.sparse.noReviewer", "Reviewer" not in md)
 
-    _check("export.item.1", "## <!--[items-1]--> Demo Item 1" in md)
-    _check("export.item.2", "## <!--[items-2]--> Demo Item 2" in md)
-    _check("export.item.label", "### <!--[D01-LBL]--> Label" in md)
-    _check("export.item.noContainer", "<!--[D00-ITM]-->" not in md)
+    # The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    # level, its numbered items one level below it, item fields one deeper.
+    _check("export.item.container", "## <!--[D00-ITM]--> Items" in md)
+    _check("export.item.1", "### <!--[items-1]--> Demo Item 1" in md)
+    _check("export.item.2", "### <!--[items-2]--> Demo Item 2" in md)
+    _check("export.item.label", "#### <!--[D01-LBL]--> Label" in md)
 
     _check("export.noSchemaDescription", "A demo document." not in md)
 
@@ -228,9 +230,11 @@ def test_export_stored_item_id() -> None:
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md = _export(doc)
     # DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-    # is not surfaced in md; the anonymous positional id is emitted instead.
+    # is not surfaced in md; the anonymous positional id is emitted instead,
+    # one level below the `-LST` container heading.
+    _check("export.storedId.container", "## <!--[D00-ITM]--> Items" in md, md)
     _check("export.storedId.positional",
-           "## <!--[items-1]--> Demo Item 1" in md, md)
+           "### <!--[items-1]--> Demo Item 1" in md, md)
     _check("export.storedId.noStored", "D01-CUSTOM" not in md, md)
 
 

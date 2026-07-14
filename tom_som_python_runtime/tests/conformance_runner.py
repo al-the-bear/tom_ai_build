@@ -109,7 +109,7 @@ def test_model_meta(model: SpecModel) -> None:
         names = [f.name for f in demo.fields]
         _check(
             "model.Demo.fields",
-            names == ["title", "summary", "priority", "count", "details", "items", "meta"],
+            names == ["title", "summary", "priority", "count", "details", "items", "refs", "meta"],
             str(names),
         )
 
