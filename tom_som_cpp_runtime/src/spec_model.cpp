@@ -19,6 +19,77 @@ JsonRef SpecAnnotation::argument(const std::string& key) const {
   return jsonGet(arguments, key);
 }
 
+namespace {
+
+bool versionIsSpace(char c) {
+  return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' ||
+         c == '\v';
+}
+
+// Trims ASCII whitespace from both ends of [begin, end) within `s`.
+std::string versionTrim(const std::string& s) {
+  std::size_t b = 0;
+  std::size_t e = s.size();
+  while (b < e && versionIsSpace(s[b])) {
+    ++b;
+  }
+  while (e > b && versionIsSpace(s[e - 1])) {
+    --e;
+  }
+  return s.substr(b, e - b);
+}
+
+// Reports whether `s` is a (optionally signed) run of decimal digits.
+bool versionIsSignedDigits(const std::string& s) {
+  if (s.empty()) {
+    return false;
+  }
+  std::size_t i = 0;
+  if (s[0] == '+' || s[0] == '-') {
+    i = 1;
+  }
+  if (i >= s.size()) {
+    return false;
+  }
+  for (; i < s.size(); ++i) {
+    if (s[i] < '0' || s[i] > '9') {
+      return false;
+    }
+  }
+  return true;
+}
+
+}  // namespace
+
+std::string somModelVersionString(long long major, const std::string& label) {
+  if (!label.empty()) {
+    // core = the `+`-stripped, trimmed prefix of the label.
+    std::string core = label;
+    std::size_t plus = core.find('+');
+    if (plus != std::string::npos) {
+      core = core.substr(0, plus);
+    }
+    core = versionTrim(core);
+    // At least two dot-separated components → major.minor.
+    std::size_t dot = core.find('.');
+    if (dot != std::string::npos) {
+      std::string maj = versionTrim(core.substr(0, dot));
+      std::string minor = core.substr(dot + 1);
+      std::size_t dot2 = minor.find('.');
+      if (dot2 != std::string::npos) {
+        minor = minor.substr(0, dot2);
+      }
+      minor = versionTrim(minor);
+      if (versionIsSignedDigits(maj) && versionIsSignedDigits(minor)) {
+        long long majV = std::stoll(maj);
+        long long minorV = std::stoll(minor);
+        return std::to_string(majV) + "." + std::to_string(minorV);
+      }
+    }
+  }
+  return std::to_string(major) + ".0";
+}
+
 bool SpecField::isExpandable() const {
   return kind == kSpecFieldKindList || kind == kSpecFieldKindComplex;
 }

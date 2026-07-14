@@ -31,6 +31,15 @@ inline constexpr const char* kSpecFieldKindScalar = "scalar";
 /* Returns the canonical kind for `raw`, falling back to "scalar". */
 std::string specParseFieldKind(const std::string& raw);
 
+/* Derives the `major.minor` DocSpecs version string from a model's integer
+ * version and its optional free-form label (port of the C
+ * `som_model_version_string` / Go `SomModelVersionString`).
+ *
+ * When the label's `+`-stripped core has at least two dot-separated integer
+ * components, those become `major.minor`; otherwise the result is
+ * `<major>.0`. */
+std::string somModelVersionString(long long major, const std::string& label);
+
 struct SpecAnnotation {
   std::string name;
   JsonRef arguments;  // borrowed object node into the model source (or null)

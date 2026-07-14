@@ -26,6 +26,7 @@
 #include "yaml.hpp"
 #include "spec_document_yaml.hpp"
 #include "spec_document_markdown.hpp"
+#include "docspecs_validator.hpp"
 #include "som_facade.hpp"
 
 #endif  // TOM_SOM_CPP_RUNTIME_HPP

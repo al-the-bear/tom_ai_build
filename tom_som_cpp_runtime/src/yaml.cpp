@@ -249,13 +249,27 @@ YamlPtr parseSequence(YamlReader& r, std::size_t indent) {
     if (content != "-" && content.compare(0, 2, "- ") != 0) {
       break;
     }
-    r.idx = static_cast<std::size_t>(i) + 1;
     std::string itemText;
     if (content == "-") {
       itemText = "";
     } else {
       itemText = trimStr(content.substr(2));
     }
+    // A `- key: value` item begins a block mapping whose first entry is on the
+    // dash line (at column indent+2) and whose further entries are on the
+    // following lines indented to the same column. Rewrite the dash marker to
+    // spaces so the line reads as a plain mapping entry, then parse a mapping
+    // at indent+2 (which also consumes the continuation lines).
+    if (!itemText.empty() && itemText[0] != '|' && itemText[0] != '>' &&
+        findColon(itemText) >= 0) {
+      std::string& mutableLine = r.lines[static_cast<std::size_t>(i)];
+      mutableLine[indent] = ' ';
+      mutableLine[indent + 1] = ' ';
+      // leave r.idx at this line so parseMapping re-reads it
+      list->seq.push_back(parseMapping(r, indent + 2));
+      continue;
+    }
+    r.idx = static_cast<std::size_t>(i) + 1;
     if (itemText.empty()) {
       list->seq.push_back(parseNestedAfterKey(r, indent));
     } else if (itemText[0] == '|' || itemText[0] == '>') {
