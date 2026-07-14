@@ -37,8 +37,6 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// Generates the `tom_som_rust_v0` crate-root source for a [SpecModel].
 class SomRustEmitter {
   final SpecModel model;
@@ -136,6 +134,14 @@ class SomRustEmitter {
     final enums = _reachableEnums(reachable);
     final sortedClasses = reachable.toList()..sort();
 
+    // The generated loader error enum is a fixed crate-level name; a model
+    // class with the same name would collide in the type namespace.
+    if (reachable.contains('SomLoadError')) {
+      throw StateError(
+          'model class "SomLoadError" collides with the generated loader '
+          'error enum');
+    }
+
     _allocateNames(sortedClasses, enums, rootTypes);
 
     final buffer = StringBuffer()
@@ -149,10 +155,16 @@ class SomRustEmitter {
           'dependency through a')
       ..writeln('// relative `path` entry in `Cargo.toml`, so the emitted source '
           'carries no on-disk')
-      ..writeln('// path of its own.')
+      ..writeln('// path of its own. The metadata tree + navigation surfaces '
+          '(§3.2/§4) live in the')
+      ..writeln('// sibling `src/meta.rs` module (SomRustMetaEmitter).')
       ..writeln('#![allow(dead_code)]')
       ..writeln()
+      ..writeln('pub mod meta;')
+      ..writeln()
       ..writeln('use tom_som_rust_runtime as som;')
+      ..writeln()
+      ..write(_emitLoadError())
       ..writeln();
 
     for (final e in enums) {
@@ -174,14 +186,6 @@ class SomRustEmitter {
     for (final fc in formClasses..sort((a, b) => a.name.compareTo(b.name))) {
       buffer
         ..write(fc.source)
-        ..writeln();
-    }
-    // § item 11: per-root path-constant holders. The names/values come from the
-    // shared enumerator so they are byte-identical across all nine languages.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
         ..writeln();
     }
     // Emit with idiomatic 4-space indentation. Indentation is built with tab
@@ -376,21 +380,30 @@ class SomRustEmitter {
             '— one call for')
         ..writeln('\t/// the former decode → load_json → thread-'
             '`document_version` sequence.')
+        ..writeln('\t/// Decoding is metadata-driven (§3.2): the generated tree '
+            'from `meta` guides')
+        ..writeln('\t/// the tree-based codec.')
         ..writeln('\tpub fn load_yaml(yaml: &str) '
-            '-> Result<${cls.name}, som::SomVersionError> {')
-        ..writeln('\t\tlet doc = som::SpecDocument::from_yaml(yaml);')
+            '-> Result<${cls.name}, SomLoadError> {')
+        ..writeln('\t\tlet tree = meta::${_snake(cls.name)}_meta_tree();')
+        ..writeln('\t\tlet doc = som::SpecDocument::from_yaml(yaml, &tree)'
+            '.map_err(SomLoadError::Yaml)?;')
         ..writeln('\t\tlet version = doc.model_version.clone();')
-        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)')
+        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)'
+            '.map_err(SomLoadError::Version)')
         ..writeln('\t}')
         ..writeln()
         ..writeln('\t/// Loads a `*.docspecs.yaml` document from the file at '
             '`path` — the file')
         ..writeln('\t/// companion to [`${cls.name}::load_yaml`].')
         ..writeln('\tpub fn load_file(path: &str) '
-            '-> Result<${cls.name}, som::SomVersionError> {')
-        ..writeln('\t\tlet doc = som::SpecDocument::from_file(path);')
+            '-> Result<${cls.name}, SomLoadError> {')
+        ..writeln('\t\tlet tree = meta::${_snake(cls.name)}_meta_tree();')
+        ..writeln('\t\tlet doc = som::SpecDocument::from_file(path, &tree)'
+            '.map_err(SomLoadError::Yaml)?;')
         ..writeln('\t\tlet version = doc.model_version.clone();')
-        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)')
+        ..writeln('\t\t${cls.name}::new(som::doc_ref(doc), &version)'
+            '.map_err(SomLoadError::Version)')
         ..writeln('\t}');
     } else {
       b
@@ -506,7 +519,7 @@ class SomRustEmitter {
             ..writeln('\t\tsom::SomList::new(')
             ..writeln('\t\t\tself.node.doc(),')
             ..writeln('\t\t\t${_childPath(seg)},')
-            ..writeln('\t\t\tBox::new(|d, p| $et::new(d, p)),')
+            ..writeln('\t\t\tBox::new($et::new),')
             ..writeln('\t\t\t$pat,')
             ..writeln('\t\t)')
             ..writeln('\t}');
@@ -516,7 +529,7 @@ class SomRustEmitter {
             ..writeln('\t\tsom::SomList::new(')
             ..writeln('\t\t\tself.node.doc(),')
             ..writeln('\t\t\t${_childPath(seg)},')
-            ..writeln('\t\t\tBox::new(|d, p| som::SomScalar::new(d, p)),')
+            ..writeln('\t\t\tBox::new(som::SomScalar::new),')
             ..writeln('\t\t\t$pat,')
             ..writeln('\t\t)')
             ..writeln('\t}');
@@ -586,37 +599,36 @@ class SomRustEmitter {
     return b.toString();
   }
 
-  /// Emits the `<Code>Paths` holder as an idiomatic Rust associated-consts
-  /// namespace (§ item 11): a unit struct whose `impl` block exposes one
-  /// `&'static str` associated const per fixed section, accessed as
-  /// `Pd00Paths::VISION`. The constant identifier is the shared enumerator's
-  /// camelCase name folded to SCREAMING_SNAKE_CASE (so no `non_upper_case_globals`
-  /// warning fires); the value is the exact generic path. Both the struct and its
-  /// consts carry `#[allow(dead_code)]` so a facade that references only some of
-  /// them still builds warning-clean (mirroring the crate-level suppression).
-  String _emitPathHolder(SpecPathHolder holder) {
+  /// Emits the generated loader error enum: the tree-based codec (DR25) fails
+  /// with a `som::SpecYamlError` while the §2.2 version check fails with a
+  /// `som::SomVersionError`, so the one-call loaders surface both through a
+  /// single crate-level sum type.
+  String _emitLoadError() {
     final b = StringBuffer()
-      ..writeln('/// Generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('///')
-      ..writeln('/// Each associated const is the absolute generic path of a '
-          'fixed section, for')
-      ..writeln('/// use with the generic `tom_som_rust_runtime` API instead of a '
-          'raw string')
-      ..writeln('/// literal — the safe end of the navigate-then-read hybrid '
-          'pattern.')
-      ..writeln('#[allow(dead_code)]')
-      ..writeln('pub struct ${holder.holderName};')
+      ..writeln('/// Error surfaced by the generated one-call loaders '
+          '(`load_yaml` / `load_file`):')
+      ..writeln('/// either the metadata-driven decode failed '
+          '(`som::SpecYamlError`) or the')
+      ..writeln("/// document's authoring stamp is not editable by this object "
+          'model')
+      ..writeln('/// (`som::SomVersionError`, §2.2).')
+      ..writeln('#[derive(Debug)]')
+      ..writeln('pub enum SomLoadError {')
+      ..writeln('\tYaml(som::SpecYamlError),')
+      ..writeln('\tVersion(som::SomVersionError),')
+      ..writeln('}')
       ..writeln()
-      ..writeln('#[allow(dead_code)]')
-      ..writeln('impl ${holder.holderName} {');
-    for (final c in holder.constants) {
-      b
-        ..writeln('\t/// `${c.path}`')
-        ..writeln('\tpub const ${_screamingSnake(c.name)}: &\'static str = '
-            '"${_rustStr(c.path)}";');
-    }
-    b.writeln('}');
+      ..writeln('impl std::fmt::Display for SomLoadError {')
+      ..writeln('\tfn fmt(&self, f: &mut std::fmt::Formatter<\'_>) '
+          '-> std::fmt::Result {')
+      ..writeln('\t\tmatch self {')
+      ..writeln('\t\t\tSomLoadError::Yaml(e) => write!(f, "{}", e),')
+      ..writeln('\t\t\tSomLoadError::Version(e) => write!(f, "{}", e),')
+      ..writeln('\t\t}')
+      ..writeln('\t}')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('impl std::error::Error for SomLoadError {}');
     return b.toString();
   }
 

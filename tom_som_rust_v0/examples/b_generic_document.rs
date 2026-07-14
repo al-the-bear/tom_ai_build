@@ -16,6 +16,7 @@
 // crate's Cargo.toml), so the sample is portable across checkouts.
 
 use tom_som_rust_runtime as som;
+use tom_som_rust_v0::meta;
 
 fn main() {
     let mut doc = som::SpecDocument::new();
@@ -60,6 +61,11 @@ fn main() {
     println!("{}", doc.to_json().to_canonical_json());
 
     // … and to the canonical YAML wire format (stamped with the model version).
+    // Hierarchical v2 encoding walks the root's generated metadata tree.
     println!("\nDocument YAML:");
-    print!("{}", som::encode_yaml(&doc, "0.0"));
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    print!(
+        "{}",
+        som::encode_yaml(&doc, &tree, "1.0").expect("encode_yaml")
+    );
 }

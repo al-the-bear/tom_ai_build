@@ -75,6 +75,20 @@ void main() {
     expect(source, contains('use tom_som_rust_runtime as som;'));
     expect(result.libPath, endsWith(p.join('src', 'lib.rs')));
 
+    // The metadata module (DR27) sits alongside the facade and is declared by
+    // it; the loaders thread the generated tree through the tree-based codec.
+    expect(result.metaModulePath, endsWith(p.join('src', 'meta.rs')));
+    final metaSource = File(result.metaModulePath).readAsStringSync();
+    expect(metaSource,
+        contains('pub fn d00_solution_blueprint_meta_tree() -> '
+            'som::SomMetaTree {'));
+    expect(metaSource,
+        contains('pub fn d00_solution_blueprint_meta(tree: '
+            '&som::SomMetaTree) -> D00SolutionBlueprintNav<\'_> {'));
+    expect(source, contains('pub mod meta;'));
+    expect(source,
+        contains('let tree = meta::d00_solution_blueprint_meta_tree();'));
+
     // One DocSpecs schema per @Document root (13).
     expect(result.schemaPaths.length, 13);
     for (final s in result.schemaPaths) {
@@ -168,6 +182,8 @@ void main() {
 
     expect(File(rb.libPath).readAsStringSync(),
         File(ra.libPath).readAsStringSync());
+    expect(File(rb.metaModulePath).readAsStringSync(),
+        File(ra.metaModulePath).readAsStringSync());
     expect(File(rb.metaJsonPath).readAsStringSync(),
         File(ra.metaJsonPath).readAsStringSync());
     expect(File(rb.cargoTomlPath).readAsStringSync(),
@@ -196,6 +212,8 @@ void main() {
     );
     expect(File(rf.libPath).readAsStringSync(),
         File(rw.libPath).readAsStringSync());
+    expect(File(rf.metaModulePath).readAsStringSync(),
+        File(rw.metaModulePath).readAsStringSync());
     expect(File(rf.metaJsonPath).readAsStringSync(),
         File(rw.metaJsonPath).readAsStringSync());
   });

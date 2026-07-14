@@ -4,10 +4,34 @@
 //
 // This file is the crate root; the generator wires the runtime dependency through a
 // relative `path` entry in `Cargo.toml`, so the emitted source carries no on-disk
-// path of its own.
+// path of its own. The metadata tree + navigation surfaces (§3.2/§4) live in the
+// sibling `src/meta.rs` module (SomRustMetaEmitter).
 #![allow(dead_code)]
 
+pub mod meta;
+
 use tom_som_rust_runtime as som;
+
+/// Error surfaced by the generated one-call loaders (`load_yaml` / `load_file`):
+/// either the metadata-driven decode failed (`som::SpecYamlError`) or the
+/// document's authoring stamp is not editable by this object model
+/// (`som::SomVersionError`, §2.2).
+#[derive(Debug)]
+pub enum SomLoadError {
+    Yaml(som::SpecYamlError),
+    Version(som::SomVersionError),
+}
+
+impl std::fmt::Display for SomLoadError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SomLoadError::Yaml(e) => write!(f, "{}", e),
+            SomLoadError::Version(e) => write!(f, "{}", e),
+        }
+    }
+}
+
+impl std::error::Error for SomLoadError {}
 
 /// Generated enum constants for `Probability` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
@@ -119,18 +143,22 @@ impl SolutionBlueprint {
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
     /// document's authoring stamp already applied (§ item 4) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
-    pub fn load_yaml(yaml: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
-        let doc = som::SpecDocument::from_yaml(yaml);
+    /// Decoding is metadata-driven (§3.2): the generated tree from `meta` guides
+    /// the tree-based codec.
+    pub fn load_yaml(yaml: &str) -> Result<SolutionBlueprint, SomLoadError> {
+        let tree = meta::solution_blueprint_meta_tree();
+        let doc = som::SpecDocument::from_yaml(yaml, &tree).map_err(SomLoadError::Yaml)?;
         let version = doc.model_version.clone();
-        SolutionBlueprint::new(som::doc_ref(doc), &version)
+        SolutionBlueprint::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
     /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
     /// companion to [`SolutionBlueprint::load_yaml`].
-    pub fn load_file(path: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
-        let doc = som::SpecDocument::from_file(path);
+    pub fn load_file(path: &str) -> Result<SolutionBlueprint, SomLoadError> {
+        let tree = meta::solution_blueprint_meta_tree();
+        let doc = som::SpecDocument::from_file(path, &tree).map_err(SomLoadError::Yaml)?;
         let version = doc.model_version.clone();
-        SolutionBlueprint::new(som::doc_ref(doc), &version)
+        SolutionBlueprint::new(som::doc_ref(doc), &version).map_err(SomLoadError::Version)
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -158,7 +186,7 @@ impl SolutionBlueprint {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "risks"),
-            Box::new(|d, p| Risk::new(d, p)),
+            Box::new(Risk::new),
             "RISK-ITEM-xxx".to_string(),
         )
     }
@@ -167,7 +195,7 @@ impl SolutionBlueprint {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "tags"),
-            Box::new(|d, p| som::SomScalar::new(d, p)),
+            Box::new(som::SomScalar::new),
             "".to_string(),
         )
     }
@@ -212,29 +240,5 @@ impl SolutionBlueprintOwnerForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "role", value);
     }
-}
-
-/// Generated path constants for the `PD00` document root (§ item 11).
-///
-/// Each associated const is the absolute generic path of a fixed section, for
-/// use with the generic `tom_som_rust_runtime` API instead of a raw string
-/// literal — the safe end of the navigate-then-read hybrid pattern.
-#[allow(dead_code)]
-pub struct Pd00Paths;
-
-#[allow(dead_code)]
-impl Pd00Paths {
-    /// `PD00/vision`
-    pub const VISION: &'static str = "PD00/vision";
-    /// `PD00/owner`
-    pub const OWNER: &'static str = "PD00/owner";
-    /// `PD00/risks`
-    pub const RISKS: &'static str = "PD00/risks";
-    /// `PD00/tags`
-    pub const TAGS: &'static str = "PD00/tags";
-    /// `PD00/situation`
-    pub const SITUATION: &'static str = "PD00/situation";
-    /// `PD00/situation/summary`
-    pub const SITUATION_SUMMARY: &'static str = "PD00/situation/summary";
 }
 

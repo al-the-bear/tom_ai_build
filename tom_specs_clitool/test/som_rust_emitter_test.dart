@@ -256,9 +256,11 @@ String? _runtimeDir() {
 }
 
 /// Compiles [source] as a `tom_som_rust_v0` crate against the local runtime via
-/// a relative `path` dependency, asserting `cargo build` succeeds. A no-op (with
-/// a skip note) when the toolchain or runtime cannot be located.
-void _expectRustBuilds(String source) {
+/// a relative `path` dependency, asserting `cargo build` succeeds. The facade
+/// crate root declares `pub mod meta;`, so the sibling [metaSource] module is
+/// written alongside it. A no-op (with a skip note) when the toolchain or
+/// runtime cannot be located.
+void _expectRustBuilds(String source, String metaSource) {
   final cargo = _cargo();
   if (cargo == null) {
     markTestSkipped('no cargo toolchain found');
@@ -273,6 +275,7 @@ void _expectRustBuilds(String source) {
   try {
     Directory(p.join(dir.path, 'src')).createSync(recursive: true);
     File(p.join(dir.path, 'src', 'lib.rs')).writeAsStringSync(source);
+    File(p.join(dir.path, 'src', 'meta.rs')).writeAsStringSync(metaSource);
     final depPath = runtimeDir.replaceAll('\\', '/');
     File(p.join(dir.path, 'Cargo.toml')).writeAsStringSync('[package]\n'
         'name = "tom_som_rust_v0"\n'
@@ -309,7 +312,9 @@ void main() {
     });
 
     test('the generated crate cargo-builds clean against the runtime', () {
-      _expectRustBuilds(SomRustEmitter(_fixtureModel()).generateLibrary());
+      final model = _fixtureModel();
+      _expectRustBuilds(SomRustEmitter(model).generateLibrary(),
+          SomRustMetaEmitter(model).generateLibrary());
     });
 
     test('struct and impl declarations are unique', () {
@@ -457,36 +462,33 @@ void main() {
       expect(justRoot, contains('pub struct CurrentLandscapeAssessment {'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('the flat path-constant holders are retired (DR27)', () {
       final source = SomRustEmitter(_fixtureModel()).generateLibrary();
-      // The holder is a unit struct + an impl block of SCREAMING_SNAKE
-      // associated consts, keyed off the root's `PD00` segment.
-      expect(source, contains('pub struct Pd00Paths;'));
-      expect(source, contains('impl Pd00Paths {'));
-      // Each fixed section of the root earns a constant whose value is the exact
-      // generic path; camelCase names fold to SCREAMING_SNAKE_CASE.
+      // The `Pd00Paths` holder is replaced by the meta module's navigation
+      // surfaces (dot-notation + ID-tree) in `src/meta.rs`.
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, contains('pub mod meta;'));
+    });
+
+    test('the one-call loaders thread the generated metadata tree through the '
+        'tree-based codec (DR25/DR27)', () {
+      final source = SomRustEmitter(_fixtureModel()).generateLibrary();
       expect(source,
-          contains('pub const VISION: &\'static str = "PD00/vision";'));
+          contains('let tree = meta::solution_blueprint_meta_tree();'));
       expect(source,
-          contains('pub const OWNER: &\'static str = "PD00/owner";'));
+          contains('som::SpecDocument::from_yaml(yaml, &tree)'
+              '.map_err(SomLoadError::Yaml)?;'));
       expect(source,
-          contains('pub const RISKS: &\'static str = "PD00/risks";'));
-      expect(source, contains('pub const TAGS: &\'static str = "PD00/tags";'));
+          contains('som::SpecDocument::from_file(path, &tree)'
+              '.map_err(SomLoadError::Yaml)?;'));
+      // The loaders surface both failure modes through one generated sum type.
+      expect(source, contains('pub enum SomLoadError {'));
+      expect(source, contains('Yaml(som::SpecYamlError),'));
+      expect(source, contains('Version(som::SomVersionError),'));
       expect(source,
-          contains('pub const SITUATION: &\'static str = "PD00/situation";'));
-      // The complex `situation` recurses into its target's `summary` leaf.
-      expect(
-          source,
-          contains('pub const SITUATION_SUMMARY: &\'static str = '
-              '"PD00/situation/summary";'));
-      // List elements are dynamic, so `Risk`'s fields never leak into the holder.
-      expect(source, isNot(contains('RISK_TITLE')));
-      expect(source, isNot(contains('PD00/risks/')));
-      // Suppression keeps the build warning-clean even for unused consts.
-      expect(
-          RegExp(r'#\[allow\(dead_code\)\]\npub struct Pd00Paths;')
-              .hasMatch(source),
-          isTrue);
+          contains('pub fn load_yaml(yaml: &str) '
+              '-> Result<SolutionBlueprint, SomLoadError> {'));
+      expect(source, contains('impl std::error::Error for SomLoadError {}'));
     });
   });
 }

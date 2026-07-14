@@ -1,0 +1,893 @@
+/// Emits the generated **metadata module** of the Rust `v0` facade (DR27, the
+/// Rust counterpart of `som_go_meta_emitter.dart` / `som_java_meta_emitter.dart`
+/// / `som_typescript_meta_emitter.dart` / …): the populated `SomMetaTree`s as
+/// generated static data structures in code (DR1 §3.2) plus the two
+/// discoverable access surfaces of DR1 §4 — the **dot-notation tree** (model
+/// member names, §4.1) and the **ID-tree** (section ids, §4.2). This module
+/// replaces the retired flat path-constant holders (`Pd00Paths::…`) in the Rust
+/// facade.
+///
+/// The emitted node values mirror `tom_som_rust_runtime`'s
+/// `build_som_meta_tree` (the meta-JSON bridge) **field for field**, sourced
+/// from the same [SpecModel], so the generated trees and the bridge-built trees
+/// are structurally identical — the facade test suite asserts this exhaustively
+/// with `som::som_meta_node_diff`. Cycle handling matches the bridge: a class
+/// already on the descent stack becomes a terminal re-entry node
+/// (`recursive: true`), which the generated `meta_cx` helper reproduces at
+/// tree-construction time.
+///
+/// Rust divergences from the Go blueprint (all naming/lifetime mechanics — the
+/// emitted path and id string values are byte-identical):
+///
+///   * the meta module is its own **file-module** (`src/meta.rs`, declared
+///     `pub mod meta;` by the facade crate root), so meta identifiers live in
+///     their own namespace and cannot collide with facade identifiers — the
+///     Go flat-package collision guard reduces to an *intra-module* uniqueness
+///     guard here;
+///   * `SomMetaTree` is `Rc`/`Cell`-based and **not `Sync`/`Send`**, so the
+///     per-root trees cannot be package-level statics like Go's vars. The
+///     module instead emits a per-root **construction function**
+///     `<root>_meta_tree()` (per-call construction, exactly how the runtime's
+///     own tests build trees) plus entry points that **borrow a caller-held
+///     tree**: `<root>_meta(&tree)` (dot-notation) and `<ROOT-SEGMENT>(&tree)`
+///     (ID-tree). Construct the tree once, keep it, and bind the surfaces to
+///     the instance;
+///   * accessor types are `<Class>Nav<'a>` / `<Class>Id<'a>` holding a public
+///     `meta_ref: som::SomMetaRef<'a>` (Rust has no embedding, so `path()` /
+///     `meta()` are emitted as delegating methods);
+///   * dot-notation getters are the **snake-cased** member names (the Rust
+///     facade accessor convention), with the facade's keyword escaping
+///     (`type` → `type_`); ID-tree getters keep the section id verbatim
+///     (`-` → `_`) under a module-level `#![allow(non_snake_case)]` — a
+///     digit-leading id would gain an `ID` prefix and a keyword id a trailing
+///     underscore (generation-time safety nets; the model carries neither);
+///   * `SomMetaTree::new` returns `Result`, and the generated data is correct
+///     by construction — the tree builders `.expect(…)` (the Rust analogue of
+///     Go's `mustMetaTree` panic: a wiring failure marks an emitter bug, not a
+///     runtime condition);
+///   * optional ints (`serialization_order` / `min`) are `Option<i64>` slots,
+///     populated as plain `Some(n)` literals (no `metaIntPtr` helper needed).
+library;
+
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+
+/// Annotation names with a dedicated `SomMetaNode` slot — everything else is
+/// captured into `extra`. Must stay identical to the bridge's set.
+const Set<String> _slottedAnnotations = {
+  'SectionId',
+  'SectionIdPattern',
+  'SerializationOrder',
+  'Min',
+  'Unused',
+  'ContentType',
+  'ContentHelp',
+  'Comment',
+  'Form',
+  'Document',
+  'MapsTo',
+  'DetailedIn',
+  'SecondLevelSectionId',
+};
+
+/// Accessor method names a generated Nav/Id impl must never emit: the emitted
+/// `new` constructor and the `path()` / `meta()` delegating methods, and `item`
+/// (the list accessor, reserved uniformly like the Go/TS ports). Collisions
+/// fail generation loudly.
+const Set<String> _reservedAccessorNames = {
+  'new',
+  'path',
+  'meta',
+  'item',
+};
+
+/// Emits the Rust source of the generated metadata module (see the library doc
+/// above) for [model].
+class SomRustMetaEmitter {
+  final SpecModel model;
+  final String versionLabel;
+  final List<String> documentRoots;
+
+  SomRustMetaEmitter(
+    this.model, {
+    this.versionLabel = 'v0',
+    this.documentRoots = const [],
+  });
+
+  List<SpecRoot> get _roots {
+    if (documentRoots.isEmpty) return model.roots;
+    final wanted = documentRoots.toSet();
+    return model.roots.where((r) => wanted.contains(r.type)).toList();
+  }
+
+  /// The complete generated metadata module source.
+  String generateLibrary() {
+    final classNames = model.classes.keys.toList()..sort();
+    final idClasses = _idReachableClasses();
+    _guardModuleCollisions(classNames, idClasses);
+
+    final b = StringBuffer()
+      ..writeln('// GENERATED by tom_specs_clitool SomRustMetaEmitter '
+          '($versionLabel) — do not edit by hand.')
+      ..writeln('//')
+      ..writeln('// The populated SOM metadata trees (DR1 §3.2) and the two')
+      ..writeln('// generated access surfaces of DR1 §4: the dot-notation '
+          'tree')
+      ..writeln('// (model member names) and the ID-tree (section ids). Both')
+      ..writeln('// resolve to the same SomMetaNode and byte-identical path')
+      ..writeln('// strings; the flat path-constant holders are retired.')
+      ..writeln('//')
+      ..writeln('// `SomMetaTree` is `Rc`-based (not `Sync`/`Send`), so the '
+          'trees cannot live in')
+      ..writeln('// statics: each `<root>_meta_tree()` builds its tree per '
+          'call (mirroring how')
+      ..writeln("// the runtime's own tests build trees), and the "
+          'access-surface entry points')
+      ..writeln('// borrow a caller-held tree instance.')
+      ..writeln('#![allow(dead_code)]')
+      ..writeln('#![allow(non_snake_case)]')
+      ..writeln()
+      ..writeln('use std::collections::HashSet;')
+      ..writeln('use std::rc::Rc;')
+      ..writeln()
+      ..writeln('use tom_som_rust_runtime as som;')
+      ..writeln();
+
+    _emitHelpers(b);
+
+    // ── metadata children builders ─────────────────────────────────────────
+    b
+      ..writeln('// ── metadata tree builders (DR1 §3.2) '
+          '─────────────────────────────────────')
+      ..writeln();
+    for (final name in classNames) {
+      _emitMetaChildrenBuilder(b, model.classes[name]!);
+    }
+
+    // ── dot-notation accessor structs ──────────────────────────────────────
+    b
+      ..writeln('// ── dot-notation accessor structs (DR1 §4.1) '
+          '──────────────────────────────')
+      ..writeln();
+    for (final name in classNames) {
+      _emitNavStruct(b, model.classes[name]!);
+    }
+
+    // ── ID-tree accessor structs ───────────────────────────────────────────
+    b
+      ..writeln('// ── ID-tree accessor structs (DR1 §4.2) '
+          '───────────────────────────────────')
+      ..writeln();
+    for (final name in idClasses) {
+      _emitIdStruct(b, model.classes[name]!);
+    }
+
+    // ── per-root trees + access-surface entry points ───────────────────────
+    b
+      ..writeln('// ── document-root metadata trees + access surface roots '
+          '───────────────────')
+      ..writeln();
+    for (final root in _roots) {
+      _emitRoot(b, root);
+    }
+
+    // Emit with idiomatic 4-space indentation (see SomRustEmitter — the only
+    // tabs in the buffer are indentation, string-literal tabs are escaped).
+    return '${b.toString().trimRight().replaceAll('\t', '    ')}\n';
+  }
+
+  // ── generation-time collision guard ────────────────────────────────────────
+
+  /// Fails generation loudly when two meta-module identifiers collide within
+  /// their Rust namespace (types vs values are distinct namespaces; the module
+  /// itself is namespace-isolated from the facade crate root — see the library
+  /// doc). All names derive deterministically from the model, so a collision
+  /// marks a model hazard, not a runtime condition.
+  void _guardModuleCollisions(
+      List<String> classNames, List<String> idClasses) {
+    final types = <String>{};
+    for (final name in classNames) {
+      types.add('${name}Nav');
+    }
+    for (final name in idClasses) {
+      types.add('${name}Id');
+    }
+    if (types.length != classNames.length + idClasses.length) {
+      throw StateError(
+          'generated meta-module accessor type names collide with each other');
+    }
+
+    final values = <String>{'meta_cx'};
+    for (final name in classNames) {
+      values.add('meta_children_${_snake(name)}');
+    }
+    for (final root in _roots) {
+      values
+        ..add('${_snake(root.type)}_meta_tree')
+        ..add('${_snake(root.type)}_meta')
+        ..add(_idName(_rootSegment(root)));
+    }
+    if (values.length != 1 + classNames.length + _roots.length * 3) {
+      throw StateError(
+          'generated meta-module function names collide with each other');
+    }
+  }
+
+  // ── shared helpers ─────────────────────────────────────────────────────────
+
+  void _emitHelpers(StringBuffer b) {
+    b
+      ..writeln('// meta_cx builds a complex/section (or list-element) node '
+          "with the bridge's")
+      ..writeln('// cycle rule: a class already on the descent stack becomes '
+          'a terminal')
+      ..writeln('// re-entry node (recursive: true, no children).')
+      ..writeln('fn meta_cx(')
+      ..writeln('\tcls: &str,')
+      ..writeln('\tstack: &mut HashSet<String>,')
+      ..writeln('\tkids: fn(&mut HashSet<String>) -> '
+          'Vec<Rc<som::SomMetaNode>>,')
+      ..writeln('\tbuild: impl FnOnce(bool, Vec<Rc<som::SomMetaNode>>) -> '
+          'som::SomMetaNode,')
+      ..writeln(') -> Rc<som::SomMetaNode> {')
+      ..writeln('\tif stack.contains(cls) {')
+      ..writeln('\t\treturn Rc::new(build(true, Vec::new()));')
+      ..writeln('\t}')
+      ..writeln('\tstack.insert(cls.to_string());')
+      ..writeln('\tlet c = kids(stack);')
+      ..writeln('\tstack.remove(cls);')
+      ..writeln('\tRc::new(build(false, c))')
+      ..writeln('}')
+      ..writeln();
+  }
+
+  /// The fields of [cls] in emission order: `@SerializationOrder` ascending,
+  /// declaration index as tiebreaker/fallback — identical to the bridge.
+  List<SpecField> _orderedFields(SpecClass cls) {
+    final indexed = cls.fields.asMap().entries.toList()
+      ..sort((a, b) {
+        const fallback = 1 << 30;
+        final oa = a.value.serializationOrder ?? fallback;
+        final ob = b.value.serializationOrder ?? fallback;
+        return oa != ob ? oa.compareTo(ob) : a.key.compareTo(b.key);
+      });
+    return [for (final e in indexed) e.value];
+  }
+
+  String _fieldSegment(SpecField f) => f.sectionId ?? f.name;
+
+  String _rootSegment(SpecRoot root) => root.sectionId ?? root.type;
+
+  /// Whether [cls] has any child built through the `meta_cx` cycle helper —
+  /// the only consumers of the builder's `stack` parameter. A builder that
+  /// never touches the stack names it `_s` so the emitted module builds
+  /// warning-clean.
+  bool _usesStack(SpecClass cls) {
+    for (final f in cls.fields) {
+      final isComplexLike =
+          f.kind == SpecFieldKind.complex || f.kind == SpecFieldKind.section;
+      if (isComplexLike && model.classNamed(f.type ?? '') != null) return true;
+      if (f.kind == SpecFieldKind.list &&
+          f.elementIsComplex &&
+          model.classNamed(f.elementType ?? '') != null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// The Rust `SOM_META_KIND_*` constant for a [SpecFieldKind].
+  String _kindConst(SpecFieldKind kind) {
+    switch (kind) {
+      case SpecFieldKind.list:
+        return 'som::SOM_META_KIND_LIST';
+      case SpecFieldKind.form:
+        return 'som::SOM_META_KIND_FORM';
+      case SpecFieldKind.section:
+        return 'som::SOM_META_KIND_SECTION';
+      case SpecFieldKind.content:
+        return 'som::SOM_META_KIND_CONTENT';
+      case SpecFieldKind.enumValue:
+        return 'som::SOM_META_KIND_ENUM_VALUE';
+      case SpecFieldKind.complex:
+        return 'som::SOM_META_KIND_COMPLEX';
+      case SpecFieldKind.scalar:
+        return 'som::SOM_META_KIND_SCALAR';
+    }
+  }
+
+  /// A Rust double-quoted string literal for [s] (full control-character
+  /// escaping — doc comments and descriptions carry newlines).
+  String _str(String s) => '"${s.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n').replaceAll('\r', '\\r').replaceAll('\t', '\\t')}"';
+
+  /// An owned-`String` literal expression for [s].
+  String _strLit(String s) => '${_str(s)}.to_string()';
+
+  /// A `som::Json` literal for a JSON-shaped annotation-argument [value],
+  /// mirroring what the runtime's JSON parser yields for the exported meta
+  /// (integers parse as `Json::Int`, fractions as `Json::Float`).
+  String _lit(Object? value) {
+    if (value == null) return 'som::Json::Null';
+    if (value is String) return 'som::Json::Str(${_strLit(value)})';
+    if (value is bool) return 'som::Json::Bool($value)';
+    if (value is int) return 'som::Json::Int($value)';
+    if (value is num) return 'som::Json::Float($value)';
+    if (value is List) {
+      return 'som::Json::Array(vec![${value.map(_lit).join(', ')}])';
+    }
+    if (value is Map) {
+      final entries = value.entries
+          .map((e) => '(${_strLit('${e.key}')}, ${_lit(e.value)})')
+          .join(', ');
+      return 'som::Json::Object(vec![$entries])';
+    }
+    throw StateError('unsupported annotation argument literal: '
+        '${value.runtimeType} ($value)');
+  }
+
+  // ── metadata builders ──────────────────────────────────────────────────────
+
+  void _emitMetaChildrenBuilder(StringBuffer b, SpecClass cls) {
+    final param = _usesStack(cls) ? 's' : '_s';
+    b
+      ..writeln('fn meta_children_${_snake(cls.name)}($param: &mut '
+          'HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {')
+      ..writeln('\tvec![');
+    for (final f in _orderedFields(cls)) {
+      _emitFieldNode(b, cls, f);
+    }
+    b
+      ..writeln('\t]')
+      ..writeln('}')
+      ..writeln();
+  }
+
+  /// Writes the element expression building the `SomMetaNode` for field [f]
+  /// of [owner] — value-for-value the bridge's field-node expansion.
+  void _emitFieldNode(StringBuffer b, SpecClass owner, SpecField f) {
+    final isComplexLike =
+        f.kind == SpecFieldKind.complex || f.kind == SpecFieldKind.section;
+    final target = isComplexLike ? model.classNamed(f.type ?? '') : null;
+
+    final args = <String>[];
+    void add(String name, String? expr) {
+      if (expr != null) args.add('$name: $expr');
+    }
+
+    add('class_name', _strLit(target?.name ?? owner.name));
+    add('member_name', _strLit(f.name));
+    if (f.sectionId != null) add('section_id', _strLit(f.sectionId!));
+    if (f.sectionIdPattern != null) {
+      add('section_id_pattern', _strLit(f.sectionIdPattern!));
+    }
+    add('kind', '${_kindConst(f.kind)}.to_string()');
+    add('type_name', _strLit(f.type ?? f.elementType ?? f.enumType ?? 'String'));
+    if (f.serializationOrder != null) {
+      add('serialization_order', 'Some(${f.serializationOrder})');
+    }
+    if (f.min != null) add('min', 'Some(${f.min})');
+    if (f.annotation('Unused') != null) add('unused', 'true');
+    if (f.contentType != null) {
+      final desc =
+          '${f.annotation('ContentType')?.argument('description') ?? ''}';
+      add(
+          'content_type',
+          'Some(som::SomContentTypeMeta { type_: ${_strLit(f.contentType!)}, '
+              'description: ${_strLit(desc)} })');
+    }
+    if (f.help != null) add('content_help', _strLit(f.help!));
+    final comment = '${f.annotation('Comment')?.argument('text') ?? ''}';
+    if (comment.isNotEmpty) add('comment', _strLit(comment));
+    final docComment = f.doc ?? target?.doc;
+    if (docComment != null) add('doc_comment', _strLit(docComment));
+    if (target?.doc != null) add('class_doc_comment', _strLit(target!.doc!));
+    if (f.kind == SpecFieldKind.form) {
+      final fields = <String>[];
+      for (var i = 0; i < f.formFields.length; i++) {
+        final ff = f.formFields[i];
+        fields.add('som::SomFormFieldMeta { name: ${_strLit(ff.name)}, '
+            'type_name: ${_strLit(ff.type)}, '
+            'description: ${_strLit(ff.label)}, '
+            'required: ${ff.required}, '
+            'hint: ${_strLit(ff.hint ?? '')}, '
+            'order: $i }');
+      }
+      add('form',
+          'Some(som::SomFormMeta { fields: vec![${fields.join(', ')}] })');
+    }
+    if (target?.mapsTo != null) add('maps_to', _strLit(target!.mapsTo!));
+    if (target?.detailedIn != null) {
+      add('detailed_in', _strLit(target!.detailedIn!));
+    }
+    final secondLevel = _secondLevelIdsExpr(f.annotations);
+    if (secondLevel != null) add('second_level_ids', secondLevel);
+    final extra = _extrasExpr(f.annotations);
+    if (extra != null) add('extra', extra);
+
+    if (target != null) {
+      // Complex/section: recursive/children resolved by the cycle helper.
+      b
+        ..writeln('\t\tmeta_cx(${_str(target.name)}, s, '
+            'meta_children_${_snake(target.name)}, |r, c| som::SomMetaNode {')
+        ..writeln('\t\t\t${args.join(', ')},')
+        ..writeln('\t\t\trecursive: r, children: c, '
+            '..som::SomMetaNode::default()')
+        ..writeln('\t\t}),');
+      return;
+    }
+
+    // Element subtree of a complex-element list: assigned in a block so the
+    // element's cycle-helper call never sits inside the list node's own
+    // struct literal.
+    final element = f.kind == SpecFieldKind.list && f.elementIsComplex
+        ? model.classNamed(f.elementType ?? '')
+        : null;
+    if (element != null) {
+      final elemArgs = <String>[
+        'class_name: ${_strLit(element.name)}',
+        'kind: som::SOM_META_KIND_COMPLEX.to_string()',
+        'type_name: ${_strLit(element.name)}',
+        if (element.doc != null) 'doc_comment: ${_strLit(element.doc!)}',
+        if (element.doc != null) 'class_doc_comment: ${_strLit(element.doc!)}',
+        if (element.mapsTo != null) 'maps_to: ${_strLit(element.mapsTo!)}',
+        if (element.detailedIn != null)
+          'detailed_in: ${_strLit(element.detailedIn!)}',
+        'recursive: r',
+        'children: c',
+      ];
+      b
+        ..writeln('\t\t{')
+        ..writeln('\t\t\tlet mut n = som::SomMetaNode { ${args.join(', ')}, '
+            '..som::SomMetaNode::default() };')
+        ..writeln('\t\t\tn.element_node = Some(meta_cx(${_str(element.name)}, '
+            's, meta_children_${_snake(element.name)}, |r, c| '
+            'som::SomMetaNode {')
+        ..writeln('\t\t\t\t${elemArgs.join(', ')},')
+        ..writeln('\t\t\t\t..som::SomMetaNode::default()')
+        ..writeln('\t\t\t}));')
+        ..writeln('\t\t\tRc::new(n)')
+        ..writeln('\t\t},');
+      return;
+    }
+
+    b.writeln('\t\tRc::new(som::SomMetaNode { ${args.join(', ')}, '
+        '..som::SomMetaNode::default() }),');
+  }
+
+  String? _secondLevelIdsExpr(List<SpecAnnotation> annotations) {
+    final entries = [
+      for (final a in annotations)
+        if (a.name == 'SecondLevelSectionId')
+          'som::SomSecondLevelId { document_class: '
+              "${_strLit('${a.argument('documentClass') ?? ''}')}, "
+              "id: ${_strLit('${a.argument('id') ?? ''}')} }",
+    ];
+    return entries.isEmpty ? null : 'vec![${entries.join(', ')}]';
+  }
+
+  String? _extrasExpr(List<SpecAnnotation> annotations) {
+    final entries = [
+      for (final a in annotations)
+        if (!_slottedAnnotations.contains(a.name))
+          'som::SomMetaExtra { annotation: ${_strLit(a.name)}, '
+              'args: vec![${a.arguments.entries.map((e) => '(${_strLit(e.key)}, ${_lit(e.value)})').join(', ')}] }',
+    ];
+    return entries.isEmpty ? null : 'vec![${entries.join(', ')}]';
+  }
+
+  // ── per-root emission ──────────────────────────────────────────────────────
+
+  /// Emits the tree-construction function + entry points of [root] (tree,
+  /// dot-notation root, ID-tree root).
+  void _emitRoot(StringBuffer b, SpecRoot root) {
+    final cls = model.classNamed(root.type);
+    final seg = _rootSegment(root);
+    final idSymbol = _idName(seg);
+    final snakeRoot = _snake(root.type);
+
+    final args = <String>['class_name: ${_strLit(root.type)}'];
+    final sectionId = root.sectionId ?? cls?.sectionId;
+    if (sectionId != null) args.add('section_id: ${_strLit(sectionId)}');
+    args
+      ..add('kind: som::SOM_META_KIND_SECTION.to_string()')
+      ..add('type_name: ${_strLit(root.type)}');
+    final doc = root.doc ?? cls?.doc;
+    if (doc != null) args.add('doc_comment: ${_strLit(doc)}');
+    if (cls?.doc != null) {
+      args.add('class_doc_comment: ${_strLit(cls!.doc!)}');
+    }
+    if (cls?.mapsTo != null) args.add('maps_to: ${_strLit(cls!.mapsTo!)}');
+    if (cls?.detailedIn != null) {
+      args.add('detailed_in: ${_strLit(cls!.detailedIn!)}');
+    }
+    final basedOn = _basedOn(cls);
+    args.add('document: Some(som::SomDocMeta { name: ${_strLit(root.title)}, '
+        'description: ${_strLit(root.description ?? '')}, '
+        'based_on: vec![${basedOn.map(_strLit).join(', ')}] })');
+    final secondLevel = _secondLevelIdsExpr(cls?.annotations ?? const []);
+    if (secondLevel != null) args.add('second_level_ids: $secondLevel');
+    final extra = _extrasExpr(cls?.annotations ?? const []);
+    if (extra != null) args.add('extra: $extra');
+    if (cls != null) args.add('children');
+
+    b
+      ..writeln('/// The populated metadata tree of the `${root.type}` '
+          'document root (DR1 §3.2),')
+      ..writeln('/// built per call — `SomMetaTree` is `Rc`-based and not '
+          '`Sync`, so it cannot be')
+      ..writeln('/// a `static`: construct once, keep the instance, and bind '
+          'the access surfaces')
+      ..writeln('/// below to it. The generated data is correct by '
+          'construction, so a wiring')
+      ..writeln('/// failure marks an emitter bug and panics instead of '
+          'surfacing as a runtime')
+      ..writeln('/// condition.')
+      ..writeln('pub fn ${snakeRoot}_meta_tree() -> som::SomMetaTree {');
+    if (cls != null) {
+      b
+        ..writeln('\tlet mut stack: HashSet<String> = HashSet::new();')
+        ..writeln('\tstack.insert(${_strLit(root.type)});')
+        ..writeln('\tlet children = meta_children_${_snake(root.type)}'
+            '(&mut stack);');
+    }
+    b
+      ..writeln('\tlet root = som::SomMetaNode { ${args.join(', ')}, '
+          '..som::SomMetaNode::default() };')
+      ..writeln('\tsom::SomMetaTree::new(Rc::new(root))')
+      ..writeln('\t\t.expect("generated metadata tree failed to wire '
+          '(emitter bug)")')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('/// The dot-notation access root of `${root.type}` '
+          '(DR1 §4.1):')
+      ..writeln('/// `${snakeRoot}_meta(&tree).<member>()….path` / '
+          '`.meta()`.')
+      ..writeln('pub fn ${snakeRoot}_meta(tree: &som::SomMetaTree) -> '
+          '${root.type}Nav<\'_> {')
+      ..writeln('\t${root.type}Nav::new(tree, ${_strLit(seg)})')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('/// The ID-tree access root of `${root.type}` (DR1 §4.2):')
+      ..writeln('/// `$idSymbol(&tree).<SECTION_ID>()….path` / `.meta()`.')
+      ..writeln('pub fn $idSymbol(tree: &som::SomMetaTree) -> '
+          '${root.type}Id<\'_> {')
+      ..writeln('\t${root.type}Id::new(tree, ${_strLit(seg)})')
+      ..writeln('}')
+      ..writeln();
+  }
+
+  List<String> _basedOn(SpecClass? cls) {
+    final raw = cls?.annotation('Document')?.argument('basedOn');
+    if (raw is List) return raw.map((e) => '$e').toList();
+    return const [];
+  }
+
+  // ── dot-notation accessor structs (§4.1) ───────────────────────────────────
+
+  void _emitNavStruct(StringBuffer b, SpecClass cls) {
+    b
+      ..writeln('/// ${cls.name}Nav holds the dot-notation accessors of '
+          '`${cls.name}` (DR1 §4.1).')
+      ..writeln('/// Every method is one navigable position: `.path()` is '
+          'the absolute document')
+      ..writeln('/// path, `.meta()` the metadata node. Past a recursive '
+          're-entry `.path()`')
+      ..writeln('/// chains remain valid document positions while `.meta()` '
+          'returns an error')
+      ..writeln('/// (the metadata tree ends there).')
+      ..writeln('pub struct ${cls.name}Nav<\'a> {')
+      ..writeln('\t/// The bound tree/path position of this accessor.')
+      ..writeln('\tpub meta_ref: som::SomMetaRef<\'a>,')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('impl<\'a> ${cls.name}Nav<\'a> {')
+      ..writeln('\t/// Binds a ${cls.name}Nav accessor to a tree and a path.')
+      ..writeln('\tpub fn new(tree: &\'a som::SomMetaTree, path: String) -> '
+          '${cls.name}Nav<\'a> {')
+      ..writeln('\t\t${cls.name}Nav { meta_ref: som::SomMetaRef::new(tree, '
+          'path) }')
+      ..writeln('\t}')
+      ..writeln()
+      ..writeln('\t/// The absolute document path of this position '
+          '(§4 path grammar).')
+      ..writeln('\tpub fn path(&self) -> &str {')
+      ..writeln('\t\t&self.meta_ref.path')
+      ..writeln('\t}')
+      ..writeln()
+      ..writeln('\t/// The metadata node at this position (an error past a '
+          'recursive re-entry).')
+      ..writeln('\tpub fn meta(&self) -> Result<Rc<som::SomMetaNode>, '
+          'String> {')
+      ..writeln('\t\tself.meta_ref.meta()')
+      ..writeln('\t}');
+    final used = <String>{};
+    for (final f in _orderedFields(cls)) {
+      final acc = _navAccessor(used, cls, f);
+      final seg = _fieldSegment(f);
+      final getter = _navGetter(f, seg);
+      b
+        ..writeln()
+        ..writeln('\tpub fn $acc(&self) -> ${getter.type} {');
+      for (final line in getter.body) {
+        b.writeln('\t\t$line');
+      }
+      b.writeln('\t}');
+    }
+    b
+      ..writeln('}')
+      ..writeln();
+  }
+
+  /// The snake-cased accessor name of a member — the Rust facade accessor
+  /// convention, with the facade's keyword escaping (`type` → `type_`).
+  /// Reserved names fail generation loudly; snake-case collisions within an
+  /// impl dedupe with a numeric suffix.
+  String _navAccessor(Set<String> used, SpecClass cls, SpecField f) {
+    var base = _snake(f.name);
+    if (base.isEmpty) base = 'field';
+    if (_rustKeywords.contains(base)) base = '${base}_';
+    if (_reservedAccessorNames.contains(base)) {
+      throw StateError('model field ${cls.name}.${f.name} collides with a '
+          'reserved accessor member name');
+    }
+    var cand = base;
+    var n = 2;
+    while (!used.add(cand)) {
+      cand = '${base}_$n';
+      n++;
+    }
+    return cand;
+  }
+
+  _TypedBody _navGetter(SpecField f, String seg) {
+    final rel = 'self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, '
+        '"${_gseg(seg)}")';
+    switch (f.kind) {
+      case SpecFieldKind.complex:
+      case SpecFieldKind.section:
+        final target = model.classNamed(f.type ?? '');
+        if (target != null) {
+          return _TypedBody(
+              '${target.name}Nav<\'a>', ['${target.name}Nav::new($rel)']);
+        }
+        return _leafBody(rel);
+      case SpecFieldKind.list:
+        final element =
+            f.elementIsComplex ? model.classNamed(f.elementType ?? '') : null;
+        if (element != null) {
+          return _TypedBody(
+              'som::SomListMetaRef<\'a, ${element.name}Nav<\'a>>',
+              ['som::SomListMetaRef::new($rel, ${element.name}Nav::new)']);
+        }
+        return _scalarListBody(rel);
+      case SpecFieldKind.form:
+      case SpecFieldKind.content:
+      case SpecFieldKind.enumValue:
+      case SpecFieldKind.scalar:
+        return _leafBody(rel);
+    }
+  }
+
+  _TypedBody _leafBody(String rel) =>
+      _TypedBody('som::SomMetaRef<\'a>', ['som::SomMetaRef::new($rel)']);
+
+  _TypedBody _scalarListBody(String rel) => _TypedBody(
+      'som::SomListMetaRef<\'a, som::SomMetaRef<\'a>>',
+      ['som::SomListMetaRef::new($rel, som::SomMetaRef::new)']);
+
+  /// Escapes a path segment for inclusion inside a double-quoted generated
+  /// string literal (segments are ids/identifiers — quotes unexpected,
+  /// guarded anyway).
+  String _gseg(String seg) =>
+      seg.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+
+  // ── ID-tree accessor structs (§4.2) ────────────────────────────────────────
+
+  /// The classes needing a `<Class>Id` accessor struct: the selected roots
+  /// plus every class reachable as an ID-node target (through id-bearing
+  /// complex/section fields, id-bearing complex-element lists, and hoisting
+  /// through id-less complex/section members).
+  List<String> _idReachableClasses() {
+    final reachable = <String>{};
+    final queue = <String>[for (final r in _roots) r.type];
+    while (queue.isNotEmpty) {
+      final name = queue.removeLast();
+      final cls = model.classNamed(name);
+      if (cls == null || !reachable.add(name)) continue;
+      for (final child in _idChildren(cls)) {
+        if (child.targetClass != null) queue.add(child.targetClass!);
+      }
+    }
+    final sorted = reachable.toList()..sort();
+    return sorted;
+  }
+
+  void _emitIdStruct(StringBuffer b, SpecClass cls) {
+    b
+      ..writeln('/// ${cls.name}Id holds the ID-tree accessors of '
+          '`${cls.name}` (DR1 §4.2):')
+      ..writeln('/// methods named by section id (`-` → `_`), hoisted '
+          'through id-less members')
+      ..writeln('/// so every reachable id is one step. `.path` and '
+          '`.meta()` agree with the')
+      ..writeln('/// dot-notation surface.')
+      ..writeln('pub struct ${cls.name}Id<\'a> {')
+      ..writeln('\t/// The bound tree/path position of this accessor.')
+      ..writeln('\tpub meta_ref: som::SomMetaRef<\'a>,')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('impl<\'a> ${cls.name}Id<\'a> {')
+      ..writeln('\t/// Binds a ${cls.name}Id accessor to a tree and a path.')
+      ..writeln('\tpub fn new(tree: &\'a som::SomMetaTree, path: String) -> '
+          '${cls.name}Id<\'a> {')
+      ..writeln('\t\t${cls.name}Id { meta_ref: som::SomMetaRef::new(tree, '
+          'path) }')
+      ..writeln('\t}')
+      ..writeln()
+      ..writeln('\t/// The absolute document path of this position '
+          '(§4 path grammar).')
+      ..writeln('\tpub fn path(&self) -> &str {')
+      ..writeln('\t\t&self.meta_ref.path')
+      ..writeln('\t}')
+      ..writeln()
+      ..writeln('\t/// The metadata node at this position (an error past a '
+          'recursive re-entry).')
+      ..writeln('\tpub fn meta(&self) -> Result<Rc<som::SomMetaNode>, '
+          'String> {')
+      ..writeln('\t\tself.meta_ref.meta()')
+      ..writeln('\t}');
+    for (final child in _idChildren(cls)) {
+      if (_reservedAccessorNames.contains(child.name)) {
+        throw StateError('section id ${child.name} of ${cls.name} collides '
+            'with a reserved accessor member name');
+      }
+      final rel = 'self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, '
+          '"${_gseg(child.relPath)}")';
+      final String type;
+      final List<String> body;
+      if (child.isList) {
+        final elem = child.targetClass;
+        if (elem != null) {
+          type = 'som::SomListMetaRef<\'a, ${elem}Id<\'a>>';
+          body = ['som::SomListMetaRef::new($rel, ${elem}Id::new)'];
+        } else {
+          type = 'som::SomListMetaRef<\'a, som::SomMetaRef<\'a>>';
+          body = ['som::SomListMetaRef::new($rel, som::SomMetaRef::new)'];
+        }
+      } else if (child.targetClass != null) {
+        type = '${child.targetClass}Id<\'a>';
+        body = ['${child.targetClass}Id::new($rel)'];
+      } else {
+        type = 'som::SomMetaRef<\'a>';
+        body = ['som::SomMetaRef::new($rel)'];
+      }
+      b
+        ..writeln()
+        ..writeln('\tpub fn ${child.name}(&self) -> $type {');
+      for (final line in body) {
+        b.writeln('\t\t$line');
+      }
+      b.writeln('\t}');
+    }
+    b
+      ..writeln('}')
+      ..writeln();
+  }
+
+  /// The ID-children of [cls]: one entry per id-bearing position reachable
+  /// without crossing another id (hoisting through id-less complex/section
+  /// members, with a cycle guard). Id-less lists and id-less leaves carry no
+  /// id and are skipped (list items are dynamic — no static hoist through
+  /// them). Identical to the Dart reference implementation.
+  List<_IdChild> _idChildren(SpecClass cls) {
+    final children = <_IdChild>[];
+    final used = <String>{};
+
+    void walk(SpecClass c, String prefix, Set<String> stack) {
+      for (final f in _orderedFields(c)) {
+        final isComplexLike = f.kind == SpecFieldKind.complex ||
+            f.kind == SpecFieldKind.section;
+        if (f.sectionId != null) {
+          var name = _idName(f.sectionId!);
+          var n = 2;
+          while (!used.add(name)) {
+            name = '${_idName(f.sectionId!)}_$n';
+            n++;
+          }
+          final rel = '$prefix${f.sectionId!}';
+          if (f.kind == SpecFieldKind.list) {
+            final elem = f.elementIsComplex
+                ? model.classNamed(f.elementType ?? '')?.name
+                : null;
+            children.add(_IdChild(
+                name: name, relPath: rel, targetClass: elem, isList: true));
+          } else if (isComplexLike) {
+            children.add(_IdChild(
+                name: name,
+                relPath: rel,
+                targetClass: model.classNamed(f.type ?? '')?.name));
+          } else {
+            children.add(_IdChild(name: name, relPath: rel));
+          }
+        } else if (isComplexLike) {
+          final target = model.classNamed(f.type ?? '');
+          if (target != null && !stack.contains(target.name)) {
+            stack.add(target.name);
+            walk(target, '$prefix${f.name}/', stack);
+            stack.remove(target.name);
+          }
+        }
+      }
+    }
+
+    walk(cls, '', <String>{cls.name});
+    return children;
+  }
+
+  /// A section id as a Rust identifier: `-` → `_`, digit-leading ids prefixed
+  /// with `ID` (the Rust analogue of the TS `$` prefix), keyword ids gaining
+  /// a trailing underscore — generation-time safety nets; the model currently
+  /// carries neither hazard. Uppercase ids stay verbatim under the module's
+  /// `#![allow(non_snake_case)]`.
+  String _idName(String id) {
+    var name = id.replaceAll('-', '_');
+    if (RegExp(r'^[0-9]').hasMatch(name)) name = 'ID$name';
+    if (_rustKeywords.contains(name)) name = '${name}_';
+    return name;
+  }
+
+  /// Reserved Rust keywords — identical to the facade emitter's set.
+  static const Set<String> _rustKeywords = {
+    'as', 'break', 'const', 'continue', 'crate', 'dyn', 'else', 'enum',
+    'extern', 'false', 'fn', 'for', 'if', 'impl', 'in', 'let', 'loop', 'match',
+    'mod', 'move', 'mut', 'pub', 'ref', 'return', 'self', 'Self', 'static',
+    'struct', 'super', 'trait', 'true', 'type', 'unsafe', 'use', 'where',
+    'while', 'async', 'await', 'union', 'abstract', 'become', 'box', 'do',
+    'final', 'macro', 'override', 'priv', 'typeof', 'unsized', 'virtual',
+    'yield', 'try', 'gen',
+  };
+
+  String _snake(String s) {
+    final buf = StringBuffer();
+    for (var i = 0; i < s.length; i++) {
+      final c = s[i];
+      if (c == '_' || c == ' ' || c == '-') {
+        buf.write('_');
+        continue;
+      }
+      final isUpper = c.toUpperCase() == c && c.toLowerCase() != c;
+      if (isUpper && i > 0) {
+        final prev = s[i - 1];
+        final prevLower = prev.toLowerCase() == prev && prev.toUpperCase() != prev;
+        final prevDigit =
+            prev.codeUnitAt(0) >= 0x30 && prev.codeUnitAt(0) <= 0x39;
+        if (prevLower || prevDigit) buf.write('_');
+      }
+      buf.write(c.toLowerCase());
+    }
+    var out = buf.toString().replaceAll(RegExp(r'_+'), '_');
+    out = out.replaceAll(RegExp(r'^_+|_+$'), '');
+    return out;
+  }
+}
+
+/// A generated accessor method's Rust return type + body lines.
+class _TypedBody {
+  final String type;
+  final List<String> body;
+  const _TypedBody(this.type, this.body);
+}
+
+/// One ID-tree child position of a class (see `_idChildren`).
+class _IdChild {
+  final String name;
+  final String relPath;
+  final String? targetClass;
+  final bool isList;
+
+  const _IdChild({
+    required this.name,
+    required this.relPath,
+    this.targetClass,
+    this.isList = false,
+  });
+}

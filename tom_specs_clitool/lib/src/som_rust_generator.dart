@@ -35,6 +35,7 @@ import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_rust_emitter.dart';
+import 'som_rust_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Rust generator.
@@ -43,6 +44,7 @@ class SomRustGenerationResult {
     required this.outputRoot,
     required this.cargoTomlPath,
     required this.libPath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.classCount,
@@ -54,6 +56,10 @@ class SomRustGenerationResult {
   final String outputRoot;
   final String cargoTomlPath;
   final String libPath;
+
+  /// The generated metadata module (`src/meta.rs`): populated §3.2 metadata
+  /// trees plus the dot-notation (§4.1) and ID-tree (§4.2) navigation surfaces.
+  final String metaModulePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
   final int classCount;
@@ -156,6 +162,16 @@ SomRustGenerationResult writeSomRustProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── metadata module (populated §3.2 trees + §4.1/§4.2 navigation) ──────────
+  // A sibling file-module declared `pub mod meta;` by the generated lib.rs.
+  final metaSource = SomRustMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+  ).generateLibrary();
+  final metaModulePath = p.join(outputRoot, 'src', 'meta.rs');
+  File(metaModulePath).writeAsStringSync(metaSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
   final schemas =
@@ -179,6 +195,7 @@ SomRustGenerationResult writeSomRustProject({
     outputRoot: outDir.path,
     cargoTomlPath: cargoTomlPath,
     libPath: libPath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     classCount: classes.length,

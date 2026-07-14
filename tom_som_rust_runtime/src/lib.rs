@@ -21,6 +21,7 @@ pub mod spec_document_markdown;
 pub mod spec_document_yaml;
 pub mod spec_meta;
 pub mod spec_meta_bridge;
+pub mod spec_meta_diff;
 pub mod spec_model;
 pub mod spec_paths;
 pub mod spec_reflection;
@@ -67,6 +68,7 @@ pub use spec_meta::{
     SOM_META_KIND_SCALAR, SOM_META_KIND_SECTION,
 };
 pub use spec_meta_bridge::build_som_meta_tree;
+pub use spec_meta_diff::som_meta_node_diff;
 pub use spec_model::{
     parse_field_kind, som_model_version_string, FormFieldSpec, SpecAnnotation, SpecClass,
     SpecField, SpecModel, SpecRoot,

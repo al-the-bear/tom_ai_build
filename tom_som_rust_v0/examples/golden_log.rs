@@ -12,7 +12,7 @@ use std::path::Path;
 use std::process::exit;
 
 use tom_som_rust_runtime as som;
-use tom_som_rust_v0::D00SolutionBlueprint;
+use tom_som_rust_v0::{meta, D00SolutionBlueprint};
 
 fn esc(s: &str) -> String {
     s.replace('\\', "\\\\")
@@ -39,7 +39,12 @@ fn main() {
         "../tom_som_conformance/golden/rust.log".to_string()
     };
 
-    let doc = som::SpecDocument::from_file(&sample);
+    // Hierarchical v2 decoding walks the root's generated metadata tree.
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    let doc = match som::SpecDocument::from_file(&sample, &tree) {
+        Ok(d) => d,
+        Err(e) => die(&format!("load sample failed: {}", e)),
+    };
     let sbp = match D00SolutionBlueprint::load_file(&sample) {
         Ok(s) => s,
         Err(e) => die(&format!("load typed root failed: {}", e)),

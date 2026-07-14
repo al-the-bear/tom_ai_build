@@ -9,7 +9,7 @@
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
-//   - the generated model-version accessor / constant return `0.0`;
+//   - the generated model-version accessor / constant return `1.0`;
 //   - the instantiation-time version check (§2.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp with a `SomVersionError`.
 //
@@ -18,7 +18,7 @@
 
 use tom_som_rust_runtime as som;
 use tom_som_rust_v0::{
-    CurrentOperationalMetric, D00SolutionBlueprint, D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
+    meta, CurrentOperationalMetric, D00SolutionBlueprint, D00_SOLUTION_BLUEPRINT_MODEL_VERSION,
 };
 
 /// A fresh `DocRef` over an empty document.
@@ -309,20 +309,21 @@ fn can_have_content_ignores_document_state() {
 /// `cargo test`'s cwd).
 const SAMPLE_PATH: &str = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
 
-/// `load_yaml` collapses the former decode → load_json → thread-version
+/// `load_yaml` collapses the former parse-into-document → thread-version
 /// incantation into one call, applying the document stamp automatically and
-/// reading identical content to the manually-built three-step equivalent.
+/// reading identical content to the manually-built multi-step equivalent.
 #[test]
 fn load_yaml_collapses_three_step() {
     let yaml = std::fs::read_to_string(SAMPLE_PATH).expect("read sample");
 
-    // The former three-step incantation.
-    let decoded = som::decode_yaml(&yaml);
-    let mut manual_doc = som::SpecDocument::new();
-    manual_doc.load_json(&decoded.document);
-    manual_doc.model_version = decoded.model_version.clone();
+    // The former multi-step incantation, built by hand: parse into a document
+    // (hierarchical v2 decoding needs the root's metadata tree), then
+    // construct the typed root with the retained model version.
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    let manual_doc = som::SpecDocument::from_yaml(&yaml, &tree).expect("SpecDocument::from_yaml");
+    let manual_version = manual_doc.model_version.clone();
     let manual =
-        D00SolutionBlueprint::new(som::doc_ref(manual_doc), &decoded.model_version).unwrap();
+        D00SolutionBlueprint::new(som::doc_ref(manual_doc), &manual_version).unwrap();
 
     // The one-call convenience.
     let one_call = D00SolutionBlueprint::load_yaml(&yaml).expect("load_yaml");
@@ -330,7 +331,7 @@ fn load_yaml_collapses_three_step() {
     // The document stamp is applied automatically — no manual threading.
     assert_eq!(
         one_call.node.doc().borrow().model_version,
-        decoded.model_version,
+        manual_version,
         "model version applied automatically"
     );
     // Both paths read identical content from the shared sample.
@@ -360,12 +361,23 @@ fn load_file_delegates_to_load_yaml() {
     assert_eq!(from_file.content(), from_yaml.content());
 }
 
+/// Builds a minimal hierarchical-v2 fixture yaml via `som::encode_yaml`
+/// against the root's generated metadata tree (mirrors the Dart suite's
+/// `buildV2Yaml` helper and the Go port). `model_version` "" ⇒ unstamped.
+fn build_v2_yaml(model_version: &str) -> String {
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    let mut d = som::SpecDocument::new();
+    d.set_content("SBP/content", "Hello");
+    som::encode_yaml(&d, &tree, model_version).expect("som::encode_yaml")
+}
+
 /// The generic one-call loader `SpecDocument::from_yaml` retains the parsed
 /// model-version stamp and reads its content leaves.
 #[test]
 fn from_yaml_retains_model_version() {
-    let yaml = "version: 1\nmodelVersion: \"1.0\"\ndocument:\n  content:\n    \"SBP/content\": |2-\n      Hello\n";
-    let doc = som::SpecDocument::from_yaml(yaml);
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    let doc =
+        som::SpecDocument::from_yaml(&build_v2_yaml("1.0"), &tree).expect("from_yaml");
     assert_eq!(doc.model_version, "1.0");
     assert_eq!(doc.content_or("SBP/content"), "Hello");
 }
@@ -375,12 +387,13 @@ fn from_yaml_retains_model_version() {
 /// panicking — a new, editable document.
 #[test]
 fn unstamped_document_has_empty_model_version() {
-    let yaml = "version: 1\ndocument: {}\n";
-    let doc = som::SpecDocument::from_yaml(yaml);
+    let yaml = build_v2_yaml("");
+    let tree = meta::d00_solution_blueprint_meta_tree();
+    let doc = som::SpecDocument::from_yaml(&yaml, &tree).expect("from_yaml");
     assert_eq!(doc.model_version, "", "unstamped → empty-string sentinel");
     // An empty stamp is accepted by the facade (a new document is editable).
     assert!(
-        D00SolutionBlueprint::load_yaml(yaml).is_ok(),
+        D00SolutionBlueprint::load_yaml(&yaml).is_ok(),
         "load_yaml accepts an unstamped document"
     );
 }
