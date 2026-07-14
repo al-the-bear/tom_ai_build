@@ -837,20 +837,30 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
 
 /* --- one-call loading (§ item 4) --- */
 
-SpecDocument *spec_document_from_yaml(const char *yaml) {
+SpecDocument *spec_document_from_yaml(const char *yaml,
+                                      const SomMetaTree *tree, char **err) {
   SpecYamlContents decoded;
-  decode_yaml(yaml, &decoded);
+  if (!decode_yaml(yaml, tree, &decoded, err)) {
+    return NULL;
+  }
   SpecDocument *d = (SpecDocument *)malloc(sizeof(SpecDocument));
-  spec_document_init(d);
-  spec_document_load_json(d, &decoded.document);
-  d->model_version = som_strdup(decoded.model_version);
-  spec_yaml_contents_free(&decoded);
+  *d = decoded.document; /* move the decoded document (model version stamped) */
+  yaml_value_free(decoded.review);
+  free(decoded.model_version);
   return d;
 }
 
-SpecDocument *spec_document_from_file(const char *path) {
+SpecDocument *spec_document_from_file(const char *path,
+                                      const SomMetaTree *tree, char **err) {
   FILE *f = fopen(path, "rb");
   if (f == NULL) {
+    if (err != NULL) {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "cannot read file: ");
+      som_buf_puts(&b, path);
+      *err = som_buf_take(&b);
+    }
     return NULL;
   }
   SomBuf b;
@@ -862,7 +872,7 @@ SpecDocument *spec_document_from_file(const char *path) {
   }
   fclose(f);
   char *text = som_buf_take(&b);
-  SpecDocument *d = spec_document_from_yaml(text);
+  SpecDocument *d = spec_document_from_yaml(text, tree, err);
   free(text);
   return d;
 }

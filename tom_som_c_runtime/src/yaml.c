@@ -56,22 +56,15 @@ void yaml_value_free(YamlValue *v) {
   free(v);
 }
 
-/* Inserts/replaces `key`→`value` (key copied, value owned), keeping the map
- * byte-sorted by key. */
+/* Inserts/replaces `key`→`value` (key copied, value owned). Mappings are
+ * **insertion-ordered** (a mirror of the Go/Rust YamlMap): the hierarchical
+ * document codec relies on iterating list items in their source order. */
 static void map_set(YamlValue *m, const char *key, YamlValue *value) {
-  size_t lo = 0, hi = m->as.map.len;
-  while (lo < hi) {
-    size_t mid = lo + (hi - lo) / 2;
-    int cmp = strcmp(m->as.map.entries[mid].key, key);
-    if (cmp == 0) {
-      yaml_value_free(m->as.map.entries[mid].value);
-      m->as.map.entries[mid].value = value;
+  for (size_t i = 0; i < m->as.map.len; i++) {
+    if (strcmp(m->as.map.entries[i].key, key) == 0) {
+      yaml_value_free(m->as.map.entries[i].value);
+      m->as.map.entries[i].value = value;
       return;
-    }
-    if (cmp < 0) {
-      lo = mid + 1;
-    } else {
-      hi = mid;
     }
   }
   if (m->as.map.len == m->as.map.cap) {
@@ -79,10 +72,8 @@ static void map_set(YamlValue *m, const char *key, YamlValue *value) {
     m->as.map.entries = (YamlMapEntry *)realloc(
         m->as.map.entries, m->as.map.cap * sizeof(YamlMapEntry));
   }
-  memmove(&m->as.map.entries[lo + 1], &m->as.map.entries[lo],
-          (m->as.map.len - lo) * sizeof(YamlMapEntry));
-  m->as.map.entries[lo].key = som_strdup(key);
-  m->as.map.entries[lo].value = value;
+  m->as.map.entries[m->as.map.len].key = som_strdup(key);
+  m->as.map.entries[m->as.map.len].value = value;
   m->as.map.len++;
 }
 

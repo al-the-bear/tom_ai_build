@@ -15,6 +15,8 @@
 #include "som_json.h"
 #include "spec_paths.h"
 #include "spec_model.h"
+#include "spec_meta.h"
+#include "spec_meta_bridge.h"
 #include "spec_reflection.h"
 #include "spec_section_id.h"
 #include "spec_serialization_order.h"

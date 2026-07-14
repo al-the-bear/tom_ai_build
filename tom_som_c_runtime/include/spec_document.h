@@ -24,6 +24,7 @@
 
 #include "som_json.h"
 #include "som_util.h"
+#include "spec_meta.h"
 #include "spec_section_id.h"
 
 /* ---- DocumentJson — plain-data view for persistence --------------------- */
@@ -95,16 +96,20 @@ typedef struct {
 void spec_document_init(SpecDocument *d);
 void spec_document_free(SpecDocument *d);
 
-/* Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
- * sparse stores (`spec_document_load_json`), and retain the parsed model version
- * on the document. Collapses the former three-step `decode_yaml` →
- * `spec_document_load_json` → thread-`document_version` incantation (§ item 4).
- * Returns an owned heap document; free with `spec_document_free` + `free`. */
-SpecDocument *spec_document_from_yaml(const char *yaml);
+/* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
+ * YAML against `tree` (the metadata tree of the document's root), populate the
+ * sparse stores, and retain the parsed model version on the document (§ item
+ * 4). Returns an owned heap document (free with `spec_document_free` +
+ * `free`); on a format error returns NULL and, when `err` is non-NULL, writes
+ * an owned message. */
+SpecDocument *spec_document_from_yaml(const char *yaml,
+                                      const SomMetaTree *tree, char **err);
 /* Loads a `*.docspecs.yaml` document from the file at `path` — the file
  * companion to `spec_document_from_yaml` the generated `<root>_load_file`
- * functions delegate to. Returns NULL when the file cannot be read. */
-SpecDocument *spec_document_from_file(const char *path);
+ * functions delegate to. Returns NULL (writing `*err`) when the file cannot
+ * be read or fails to decode. */
+SpecDocument *spec_document_from_file(const char *path,
+                                      const SomMetaTree *tree, char **err);
 
 /* content: returns the value at `path` or NULL; set with empty value to clear. */
 const char *spec_document_content(const SpecDocument *d, const char *path);

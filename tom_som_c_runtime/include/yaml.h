@@ -7,8 +7,10 @@
  * block scalars (`|`, `|-`, `|2`, `|2-` …), JSON-quoted flow scalars, plain
  * integers, and the empty flow collections `{}` / `[]`.
  *
- * The dynamic value model is `YamlValue`: mappings are byte-sorted maps,
- * sequences are arrays, scalars are strings or integers. JSON-quoted scalars are
+ * The dynamic value model is `YamlValue`: mappings are **insertion-ordered**
+ * maps (a mirror of the Go/Rust YamlMap — the hierarchical codec iterates list
+ * items in source order), sequences are arrays, scalars are strings or
+ * integers. JSON-quoted scalars are
  * parsed via the hand-rolled `som_json` parser.
  *
  * Ownership: a parsed value owns its whole subtree; free the root returned by
@@ -32,7 +34,7 @@ struct YamlValue {
   YamlType type;
   union {
     struct {
-      YamlMapEntry *entries; /* byte-sorted by key */
+      YamlMapEntry *entries; /* insertion-ordered */
       size_t len;
       size_t cap;
     } map;
