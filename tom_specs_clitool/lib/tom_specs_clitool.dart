@@ -46,6 +46,7 @@ export 'src/som_javascript_meta_emitter.dart' show SomJavaScriptMetaEmitter;
 export 'src/som_typescript_emitter.dart' show SomTypeScriptEmitter;
 export 'src/som_typescript_meta_emitter.dart' show SomTypeScriptMetaEmitter;
 export 'src/som_go_emitter.dart' show SomGoEmitter;
+export 'src/som_go_meta_emitter.dart' show SomGoMetaEmitter;
 export 'src/som_rust_emitter.dart' show SomRustEmitter;
 export 'src/som_c_emitter.dart' show SomCEmitter;
 export 'src/som_cpp_emitter.dart' show SomCppEmitter;

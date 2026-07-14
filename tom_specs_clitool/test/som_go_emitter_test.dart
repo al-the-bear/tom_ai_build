@@ -306,10 +306,13 @@ String? _runtimeDir() {
   return Directory(candidate).existsSync() ? candidate : null;
 }
 
-/// Compiles [source] as a `tom_som_go_v0` module against the local runtime via
-/// a `replace` directive, asserting `go build` + `go vet` both succeed. A no-op
-/// (with a skip note) when the toolchain or runtime cannot be located.
-void _expectGoBuilds(String source) {
+/// Compiles [source] plus its sibling metadata module [metaSource] as a
+/// `tom_som_go_v0` module against the local runtime via a `replace` directive,
+/// asserting `go build` + `go vet` both succeed. The facade's root load
+/// functions reference the per-root `<Root>MetaTree` vars from the meta module
+/// (DR8/DR21), so both files always compile together. A no-op (with a skip
+/// note) when the toolchain or runtime cannot be located.
+void _expectGoBuilds(String source, String metaSource) {
   final go = _go();
   if (go == null) {
     markTestSkipped('no go toolchain found');
@@ -323,6 +326,9 @@ void _expectGoBuilds(String source) {
   final dir = Directory.systemTemp.createTempSync('som_go_emit_');
   try {
     File(p.join(dir.path, 'tom_som_go_v0.go')).writeAsStringSync(source);
+    // The facade references the meta module's `<Root>MetaTree` vars (DR8/DR21).
+    File(p.join(dir.path, 'tom_som_go_v0_meta.go'))
+        .writeAsStringSync(metaSource);
     final replaceTarget = runtimeDir.replaceAll('\\', '/');
     const runtimeModule =
         'github.com/al-the-bear/tom_ai_build/tom_som_go_runtime';
@@ -347,24 +353,63 @@ void _expectGoBuilds(String source) {
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_go_v0_fixture.go.golden');
+  final metaGoldenPath = p.join(Directory.current.path, 'test', 'golden',
+      'som_go_v0_meta_fixture.go.golden');
 
   group('SomGoEmitter', () {
-    test('emitted output matches the committed golden file', () {
+    test('emitted output matches the committed golden files', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
+      // The facade references its sibling meta module (DR8/DR21), so the meta
+      // golden is pinned alongside — the compile test builds both.
+      final metaSource = SomGoMetaEmitter(_fixtureModel()).generateLibrary();
       final golden = File(goldenPath);
+      final metaGolden = File(metaGoldenPath);
       // Bootstrap / intentional regeneration: `UPDATE_GOLDEN=1 dart test ...`.
       if (Platform.environment['UPDATE_GOLDEN'] == '1') {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
+        metaGolden.writeAsStringSync(metaSource);
       }
       expect(golden.existsSync(), isTrue,
           reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
       expect(source, golden.readAsStringSync());
+      expect(metaGolden.existsSync(), isTrue,
+          reason: 'run with UPDATE_GOLDEN=1 to create the meta golden file');
+      expect(metaSource, metaGolden.readAsStringSync());
     });
 
     test('the generated module go-builds and go-vets clean against the runtime',
         () {
-      _expectGoBuilds(SomGoEmitter(_fixtureModel()).generateLibrary());
+      _expectGoBuilds(SomGoEmitter(_fixtureModel()).generateLibrary(),
+          SomGoMetaEmitter(_fixtureModel()).generateLibrary());
+    });
+
+    test('the emitted module is gofmt-stable by construction', () {
+      final go = _go();
+      if (go == null) {
+        markTestSkipped('no go toolchain found');
+        return;
+      }
+      // gofmt ships inside GOROOT/bin next to the located go binary.
+      final goroot =
+          Process.runSync(go, ['env', 'GOROOT']).stdout.toString().trim();
+      final gofmtBin = p.join(goroot, 'bin', 'gofmt');
+      if (!File(gofmtBin).existsSync()) {
+        markTestSkipped('gofmt not found under GOROOT');
+        return;
+      }
+      final dir = Directory.systemTemp.createTempSync('som_go_fmt_');
+      try {
+        final file = File(p.join(dir.path, 'generated.go'))
+          ..writeAsStringSync(SomGoEmitter(_fixtureModel()).generateLibrary());
+        final gofmt = Process.runSync(gofmtBin, ['-l', file.path]);
+        expect(gofmt.exitCode, 0,
+            reason: 'gofmt failed:\n${gofmt.stdout}\n${gofmt.stderr}');
+        expect(gofmt.stdout.toString().trim(), isEmpty,
+            reason: 'gofmt would reformat the emitted module');
+      } finally {
+        dir.deleteSync(recursive: true);
+      }
     });
 
     test('a New-prefixed type name does not collide with a constructor', () {
@@ -390,7 +435,10 @@ void main() {
       expect(dupes, isEmpty,
           reason: 'colliding package-level identifiers: $dupes');
       // And it must actually compile (the original failure was a go build error).
-      _expectGoBuilds(source);
+      _expectGoBuilds(
+          source,
+          SomGoMetaEmitter(SpecModel.fromJson(_newPrefixCollisionJson()))
+              .generateLibrary());
     });
 
     test('a typed mutation is visible through the generic path and vice-versa',
@@ -466,9 +514,10 @@ void main() {
     test('enum tokens are preserved as exported constants', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
       // Token stays byte-identical; only the constant identifier is derived.
-      expect(source, contains('ProbabilityLow = "low"'));
+      // Names are padded so the `=` column-aligns (gofmt const-group style).
+      expect(source, contains('ProbabilityLow    = "low"'));
       expect(source, contains('ProbabilityMedium = "medium"'));
-      expect(source, contains('ProbabilityHigh = "high"'));
+      expect(source, contains('ProbabilityHigh   = "high"'));
       expect(source, contains('func parseProbability(token string) string'));
     });
 
@@ -522,24 +571,20 @@ void main() {
       expect(justRoot, contains('type CurrentLandscapeAssessment struct {'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('path-constant holders are retired; the meta trees are threaded '
+        '(DR8/DR21, DR1 §4)', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
-      // The root's sectionId `PD00` → an exported struct-value namespace named
-      // `Pd00Paths`, declared as a package-level var.
-      expect(source, contains('var Pd00Paths = struct {'));
-      // Each camelCase constant name is exported (Pascal-cased) as a struct
-      // field bound to its absolute generic path.
-      expect(source, contains('Vision: "PD00/vision",'));
-      expect(source, contains('Owner: "PD00/owner",'));
-      expect(source, contains('Risks: "PD00/risks",'));
-      expect(source, contains('Tags: "PD00/tags",'));
-      expect(source, contains('Situation: "PD00/situation",'));
-      expect(source, contains('SituationSummary: "PD00/situation/summary",'));
-      // The list element `Risk` is dynamic and must NOT be recursed into — no
-      // per-item constant leaks (`title`/`probability` under a risk item).
-      expect(source, isNot(contains('"PD00/risks/title"')));
-      expect(source, isNot(contains('RiskTitle:')));
-      expect(source, isNot(contains('RiskProbability:')));
+      // DR8/DR21: the former per-root `<Code>Paths` holders are gone from the
+      // main facade module …
+      expect(source, isNot(contains('Pd00Paths')));
+      expect(source, isNot(contains('Vision: "PD00/vision"')));
+      // … replaced by the generated metadata module (dot-notation + ID tree,
+      // a sibling file in the same flat package — no import needed), and the
+      // root load functions pass the populated tree to the codec.
+      expect(source,
+          contains('som.FromYaml(yaml, SolutionBlueprintMetaTree)'));
+      expect(source,
+          contains('som.FromFile(path, SolutionBlueprintMetaTree)'));
     });
   });
 }

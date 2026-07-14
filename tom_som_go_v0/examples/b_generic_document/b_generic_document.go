@@ -21,6 +21,7 @@ import (
 	"fmt"
 
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
+	somv0 "github.com/al-the-bear/tom_ai_build/tom_som_go_v0"
 )
 
 func main() {
@@ -59,6 +60,11 @@ func main() {
 	fmt.Println(string(out))
 
 	// … and to the canonical YAML wire format (stamped with the model version).
+	// Hierarchical v2 encoding walks the root's generated metadata tree.
 	fmt.Println("\nDocument YAML:")
-	fmt.Print(som.EncodeYaml(doc, "0.0"))
+	yaml, err := som.EncodeYaml(doc, somv0.D00SolutionBlueprintMetaTree, "1.0")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Print(yaml)
 }

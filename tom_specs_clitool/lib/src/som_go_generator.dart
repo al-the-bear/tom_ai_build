@@ -32,6 +32,7 @@ import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'som_go_emitter.dart';
+import 'som_go_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Go generator.
@@ -40,6 +41,7 @@ class SomGoGenerationResult {
     required this.outputRoot,
     required this.goModPath,
     required this.modulePath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
     required this.classCount,
@@ -51,6 +53,9 @@ class SomGoGenerationResult {
   final String outputRoot;
   final String goModPath;
   final String modulePath;
+
+  /// The generated metadata module (`tom_som_go_<label>_meta.go`, DR8/DR21).
+  final String metaModulePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
   final int classCount;
@@ -155,6 +160,17 @@ SomGoGenerationResult writeSomGoProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
+  // ── generated metadata module (DR8/DR21): populated SomMetaTrees plus the
+  //    dot-notation and ID-tree access surfaces, required by the facade ───────
+  final metaModuleSource = SomGoMetaEmitter(
+    model,
+    versionLabel: versionLabel,
+    documentRoots: documentRoots,
+    packageName: packageName,
+  ).generateLibrary();
+  final metaModulePath = p.join(outputRoot, '${moduleShortName}_meta.go');
+  File(metaModulePath).writeAsStringSync(metaModuleSource);
+
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
   final schemas =
@@ -177,6 +193,7 @@ SomGoGenerationResult writeSomGoProject({
     outputRoot: outDir.path,
     goModPath: goModPath,
     modulePath: modulePath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
     classCount: classes.length,

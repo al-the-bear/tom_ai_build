@@ -9,7 +9,7 @@
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
-//   - the generated model-version accessor / constant return `0.0`;
+//   - the generated model-version accessor / constant return `1.0`;
 //   - the instantiation-time version check (§2.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp with a *som.SomVersionError.
 //
@@ -38,7 +38,7 @@ func TestRootAndParity(t *testing.T) {
 	}
 
 	if pd.Path() != "SBP" {
-		t.Errorf("root segment = %q, want PD", pd.Path())
+		t.Errorf("root segment = %q, want SBP", pd.Path())
 	}
 
 	// Typed write → generic read.
@@ -347,19 +347,22 @@ func TestCanHaveContent(t *testing.T) {
 // unstamped). Reads the shared sample via samplePath, so `go test` must run
 // from the project directory.
 func TestOneCallLoading(t *testing.T) {
-	// LoadYaml collapses decode → LoadJSON → thread-version into one call.
-	t.Run("LoadYaml collapses the three-step load", func(t *testing.T) {
+	// LoadYaml collapses parse-into-document → thread-version into one call.
+	t.Run("LoadYaml collapses the multi-step load", func(t *testing.T) {
 		data, err := os.ReadFile(samplePath)
 		if err != nil {
 			t.Fatalf("read sample: %v", err)
 		}
 		yaml := string(data)
 
-		// The former three-step incantation, built by hand.
-		decoded := som.DecodeYaml(yaml)
-		manualDoc := som.NewSpecDocument()
-		manualDoc.LoadJSON(decoded.Document)
-		manual, err := NewD00SolutionBlueprint(manualDoc, decoded.ModelVersion)
+		// The former multi-step incantation, built by hand: parse into a
+		// document (hierarchical v2 decoding needs the root's metadata tree),
+		// then construct the typed root with the retained model version.
+		manualDoc, err := som.FromYaml(yaml, D00SolutionBlueprintMetaTree)
+		if err != nil {
+			t.Fatalf("som.FromYaml: %v", err)
+		}
+		manual, err := NewD00SolutionBlueprint(manualDoc, manualDoc.ModelVersion)
 		if err != nil {
 			t.Fatalf("manual NewD00SolutionBlueprint: %v", err)
 		}
@@ -371,7 +374,7 @@ func TestOneCallLoading(t *testing.T) {
 		}
 
 		// The document stamp is applied automatically — no manual threading.
-		if got, want := oneCall.Doc().ModelVersion, decoded.ModelVersion; got != want {
+		if got, want := oneCall.Doc().ModelVersion, manualDoc.ModelVersion; got != want {
 			t.Errorf("one-call ModelVersion = %q, want %q", got, want)
 		}
 		// Both paths read identical content from the shared sample.
@@ -410,15 +413,25 @@ func TestOneCallLoading(t *testing.T) {
 		}
 	})
 
+	// The wire format is hierarchical v2, so the fixture yaml is built via
+	// som.EncodeYaml against the root's metadata tree (mirrors the Dart
+	// suite's buildV2Yaml helper). modelVersion "" ⇒ unstamped.
+	buildV2Yaml := func(modelVersion string) string {
+		d := som.NewSpecDocument()
+		d.SetContent("SBP/content", "Hello")
+		yaml, err := som.EncodeYaml(d, D00SolutionBlueprintMetaTree, modelVersion)
+		if err != nil {
+			t.Fatalf("som.EncodeYaml: %v", err)
+		}
+		return yaml
+	}
+
 	// FromYaml (the generic one-call loader) retains the parsed model version.
 	t.Run("FromYaml retains the parsed model version", func(t *testing.T) {
-		const yaml = "version: 1\n" +
-			"modelVersion: \"1.0\"\n" +
-			"document:\n" +
-			"  content:\n" +
-			"    \"SBP/content\": |2-\n" +
-			"      Hello\n"
-		doc := som.FromYaml(yaml)
+		doc, err := som.FromYaml(buildV2Yaml("1.0"), D00SolutionBlueprintMetaTree)
+		if err != nil {
+			t.Fatalf("som.FromYaml: %v", err)
+		}
 		if got := doc.ModelVersion; got != "1.0" {
 			t.Errorf("ModelVersion = %q, want 1.0", got)
 		}
@@ -430,8 +443,11 @@ func TestOneCallLoading(t *testing.T) {
 	// An unstamped document loads with the empty-string sentinel (Go's null-free
 	// convention) and the facade accepts it without error.
 	t.Run("unstamped document yields the empty-string sentinel", func(t *testing.T) {
-		const yaml = "version: 1\ndocument: {}\n"
-		doc := som.FromYaml(yaml)
+		yaml := buildV2Yaml("")
+		doc, err := som.FromYaml(yaml, D00SolutionBlueprintMetaTree)
+		if err != nil {
+			t.Fatalf("som.FromYaml: %v", err)
+		}
 		if got := doc.ModelVersion; got != "" {
 			t.Errorf("unstamped ModelVersion = %q, want \"\" sentinel", got)
 		}

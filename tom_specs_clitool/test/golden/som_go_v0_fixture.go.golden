@@ -5,6 +5,10 @@
 // The generic runtime is imported through its domain-qualified module path; the
 // generator wires local resolution by writing a `go.mod` with a `require` + local
 // `replace` directive, so this module builds both standalone (`go get`) and in-repo.
+//
+// The generated metadata module (DR8/DR21) — the populated SomMetaTrees plus the
+// dot-notation and ID-tree access surfaces — lives in the sibling `_meta.go` file
+// of this same package, so one import surfaces both access styles.
 package somv0
 
 import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
@@ -17,9 +21,9 @@ const Version = "v0.0.0"
 // Generated enum constants for `Probability` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 const (
-	ProbabilityLow = "low"
+	ProbabilityLow    = "low"
 	ProbabilityMedium = "medium"
-	ProbabilityHigh = "high"
+	ProbabilityHigh   = "high"
 )
 
 // parseProbability returns token when it is a known Probability value, else "".
@@ -45,7 +49,7 @@ func (x *CurrentLandscapeAssessment) Summary() string {
 }
 
 func (x *CurrentLandscapeAssessment) SetSummary(value string) {
-	x.Doc().SetContent(x.Path() + "/summary", value)
+	x.Doc().SetContent(x.Path()+"/summary", value)
 }
 
 type Risk struct {
@@ -62,7 +66,7 @@ func (x *Risk) Title() string {
 }
 
 func (x *Risk) SetTitle(value string) {
-	x.Doc().SetContent(x.Path() + "/title", value)
+	x.Doc().SetContent(x.Path()+"/title", value)
 }
 
 func (x *Risk) Probability() string {
@@ -70,7 +74,7 @@ func (x *Risk) Probability() string {
 }
 
 func (x *Risk) SetProbability(value string) {
-	x.Doc().SetContent(x.Path() + "/prob", value)
+	x.Doc().SetContent(x.Path()+"/prob", value)
 }
 
 // Root of a project definition document.
@@ -110,17 +114,22 @@ func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditab
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
 // decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
-// *som.SomVersionError when the stamp is not editable (§2.2).
+// *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
+// against the generated SolutionBlueprintMetaTree, so v2 hierarchical documents
+// resolve their section paths through the metadata tree (DR8/DR21).
 func LoadYamlSolutionBlueprint(yaml string) (*SolutionBlueprint, error) {
-	doc := som.FromYaml(yaml)
+	doc, err := som.FromYaml(yaml, SolutionBlueprintMetaTree)
+	if err != nil {
+		return nil, err
+	}
 	return NewSolutionBlueprint(doc, doc.ModelVersion)
 }
 
 // LoadFileSolutionBlueprint loads a `*.docspecs.yaml` document from the file at path —
-// the file companion to LoadYamlSolutionBlueprint. A read error is returned to the
-// caller.
+// the file companion to LoadYamlSolutionBlueprint. A read or decode error is returned
+// to the caller.
 func LoadFileSolutionBlueprint(path string) (*SolutionBlueprint, error) {
-	doc, err := som.FromFile(path)
+	doc, err := som.FromFile(path, SolutionBlueprintMetaTree)
 	if err != nil {
 		return nil, err
 	}
@@ -133,27 +142,27 @@ func (x *SolutionBlueprint) Vision() string {
 }
 
 func (x *SolutionBlueprint) SetVision(value string) {
-	x.Doc().SetContent(x.Path() + "/vision", value)
+	x.Doc().SetContent(x.Path()+"/vision", value)
 }
 
 func (x *SolutionBlueprint) Owner() *SolutionBlueprintOwnerForm {
-	return NewSolutionBlueprintOwnerForm(x.Doc(), x.Path() + "/owner")
+	return NewSolutionBlueprintOwnerForm(x.Doc(), x.Path()+"/owner")
 }
 
 func (x *SolutionBlueprint) Risks() *som.SomList[*Risk] {
-	return som.NewSomList(x.Doc(), x.Path() + "/risks", func(d *som.SpecDocument, p string) *Risk {
+	return som.NewSomList(x.Doc(), x.Path()+"/risks", func(d *som.SpecDocument, p string) *Risk {
 		return NewRisk(d, p)
 	}, "RISK-ITEM-xxx")
 }
 
 func (x *SolutionBlueprint) Tags() *som.SomList[*som.SomScalar] {
-	return som.NewSomList(x.Doc(), x.Path() + "/tags", func(d *som.SpecDocument, p string) *som.SomScalar {
+	return som.NewSomList(x.Doc(), x.Path()+"/tags", func(d *som.SpecDocument, p string) *som.SomScalar {
 		return som.NewSomScalar(d, p)
 	}, "")
 }
 
 func (x *SolutionBlueprint) Situation() *CurrentLandscapeAssessment {
-	return NewCurrentLandscapeAssessment(x.Doc(), x.Path() + "/situation")
+	return NewCurrentLandscapeAssessment(x.Doc(), x.Path()+"/situation")
 }
 
 // SolutionBlueprintOwnerForm is the generated form facade for the `owner` @Form section.
@@ -181,25 +190,3 @@ func (x *SolutionBlueprintOwnerForm) Role() string {
 func (x *SolutionBlueprintOwnerForm) SetRole(value string) {
 	x.Doc().SetFormField(x.Path(), "role", value)
 }
-
-// Pd00Paths holds generated path constants for the `PD00` document root (§ item 11).
-//
-// Each field is the absolute generic path of a fixed section, for use with the
-// generic SpecDocument API instead of a raw string literal — the safe end of
-// the navigate-then-read hybrid pattern.
-var Pd00Paths = struct {
-	Vision string
-	Owner string
-	Risks string
-	Tags string
-	Situation string
-	SituationSummary string
-}{
-	Vision: "PD00/vision",
-	Owner: "PD00/owner",
-	Risks: "PD00/risks",
-	Tags: "PD00/tags",
-	Situation: "PD00/situation",
-	SituationSummary: "PD00/situation/summary",
-}
-

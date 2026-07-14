@@ -43,7 +43,7 @@ func main() {
 		output = os.Args[2]
 	}
 
-	doc, err := som.FromFile(sample)
+	doc, err := som.FromFile(sample, somv0.D00SolutionBlueprintMetaTree)
 	if err != nil {
 		die("load sample failed: " + err.Error())
 	}

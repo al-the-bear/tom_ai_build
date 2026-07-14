@@ -37,7 +37,6 @@ library;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import 'packaging.dart' show packageVersionFromModel;
-import 'spec_path_constants.dart';
 
 /// Generates the `tom_som_go_v0` module source for a [SpecModel].
 class SomGoEmitter {
@@ -144,6 +143,13 @@ class SomGoEmitter {
           '`require` + local')
       ..writeln('// `replace` directive, so this module builds both standalone '
           '(`go get`) and in-repo.')
+      ..writeln('//')
+      ..writeln('// The generated metadata module (DR8/DR21) — the populated '
+          'SomMetaTrees plus the')
+      ..writeln('// dot-notation and ID-tree access surfaces — lives in the '
+          'sibling `_meta.go` file')
+      ..writeln('// of this same package, so one import surfaces both access '
+          'styles.')
       ..writeln('package $packageName')
       ..writeln()
       ..writeln('import som "$_runtimeModulePath"')
@@ -179,49 +185,8 @@ class SomGoEmitter {
         ..writeln();
     }
 
-    // § item 11: one exported struct-value namespace of generated path
-    // constants per document root.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      buffer
-        ..write(_emitPathHolder(holder))
-        ..writeln();
-    }
-    return buffer.toString();
-  }
-
-  /// Emits the `<Code>Paths` holder as an idiomatic Go exported struct-value
-  /// namespace (§ item 11): a package-level `var` bound to an anonymous struct
-  /// whose exported fields hold the absolute generic path of each fixed section.
-  ///
-  /// Go has no class namespaces, so `SbpPaths.CurrentLandscape` reads a field of
-  /// a value rather than a static constant. The holder var name is reserved in
-  /// [_packageIdents] like every other package-level identifier, so it can never
-  /// collide with a type / constructor / constant.
-  String _emitPathHolder(SpecPathHolder holder) {
-    final varName = _alloc(holder.holderName);
-    final fields = [
-      for (final c in holder.constants) (name: _pascal(c.name), path: c.path)
-    ];
-    final b = StringBuffer()
-      ..writeln('// $varName holds generated path constants for the '
-          '`${holder.rootSegment}` document root (§ item 11).')
-      ..writeln('//')
-      ..writeln('// Each field is the absolute generic path of a fixed section, '
-          'for use with the')
-      ..writeln('// generic SpecDocument API instead of a raw string literal — '
-          'the safe end of')
-      ..writeln('// the navigate-then-read hybrid pattern.')
-      ..writeln('var $varName = struct {');
-    for (final f in fields) {
-      b.writeln('\t${f.name} string');
-    }
-    b.writeln('}{');
-    for (final f in fields) {
-      b.writeln('\t${f.name}: "${_goStr(f.path)}",');
-    }
-    b.writeln('}');
-    return b.toString();
+    // gofmt strips trailing blank lines — end with exactly one newline.
+    return '${buffer.toString().trimRight()}\n';
   }
 
   /// Allocates every package-level identifier up front so emission can reference
@@ -335,9 +300,13 @@ class SomGoEmitter {
       ..writeln('// identical across every language port, so documents stay '
           'cross-compatible.');
     if (consts.isNotEmpty) {
+      // gofmt column-aligns the `=` of a const group — pad to the widest name
+      // so the emitted block is gofmt-stable.
+      final width =
+          consts.map((c) => c.ident.length).reduce((a, b) => a > b ? a : b);
       b.writeln('const (');
       for (final c in consts) {
-        b.writeln('\t${c.ident} = "${_goStr(c.token)}"');
+        b.writeln('\t${c.ident.padRight(width)} = "${_goStr(c.token)}"');
       }
       b.writeln(')');
       b.writeln();
@@ -426,21 +395,28 @@ class SomGoEmitter {
         ..writeln('// decode → loadJson → thread-documentVersion sequence '
             '(§ item 4). Returns a')
         ..writeln('// *som.SomVersionError when the stamp is not editable '
-            '(§2.2).')
+            '(§2.2). Decoding runs')
+        ..writeln('// against the generated ${cls.name}MetaTree, so v2 '
+            'hierarchical documents')
+        ..writeln('// resolve their section paths through the metadata tree '
+            '(DR8/DR21).')
         ..writeln('func LoadYaml${cls.name}(yaml string) (*${cls.name}, error) '
             '{')
-        ..writeln('\tdoc := som.FromYaml(yaml)')
+        ..writeln('\tdoc, err := som.FromYaml(yaml, ${cls.name}MetaTree)')
+        ..writeln('\tif err != nil {')
+        ..writeln('\t\treturn nil, err')
+        ..writeln('\t}')
         ..writeln('\treturn $ctor(doc, doc.ModelVersion)')
         ..writeln('}')
         ..writeln()
         ..writeln('// LoadFile${cls.name} loads a `*.docspecs.yaml` document '
             'from the file at path —')
-        ..writeln('// the file companion to LoadYaml${cls.name}. A read error '
-            'is returned to the')
-        ..writeln('// caller.')
+        ..writeln('// the file companion to LoadYaml${cls.name}. A read or '
+            'decode error is returned')
+        ..writeln('// to the caller.')
         ..writeln('func LoadFile${cls.name}(path string) (*${cls.name}, error) '
             '{')
-        ..writeln('\tdoc, err := som.FromFile(path)')
+        ..writeln('\tdoc, err := som.FromFile(path, ${cls.name}MetaTree)')
         ..writeln('\tif err != nil {')
         ..writeln('\t\treturn nil, err')
         ..writeln('\t}')
@@ -497,16 +473,21 @@ class SomGoEmitter {
     void Function(_FormClass) collectForm,
   ) {
     final seg = _ref.fieldSegment(f);
+    // gofmt's spacing heuristic is context-sensitive: the concat keeps spaces
+    // around `+` as a lone call argument, but is tightened when it sits among
+    // multiple arguments. Emit both forms so the output is gofmt-stable.
     final childPath = 'x.Path() + "/${_goStr(seg)}"';
+    final childPathTight = 'x.Path()+"/${_goStr(seg)}"';
     final acc = _allocAccessor(usedAcc, f.name);
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
-        _emitStringProperty(b, cls.name, acc, childPath, f.doc);
+        _emitStringProperty(b, cls.name, acc, childPath, childPathTight, f.doc);
         break;
       case SpecFieldKind.enumValue:
         if (f.enumType == null) {
-          _emitStringProperty(b, cls.name, acc, childPath, f.doc);
+          _emitStringProperty(
+              b, cls.name, acc, childPath, childPathTight, f.doc);
         } else {
           final et = f.enumType!;
           final parse = _parseName[et] ?? 'parse$et';
@@ -517,7 +498,7 @@ class SomGoEmitter {
             ..writeln('}')
             ..writeln()
             ..writeln('func (x *${cls.name}) Set$acc(value string) {')
-            ..writeln('\tx.Doc().SetContent($childPath, value)')
+            ..writeln('\tx.Doc().SetContent($childPathTight, value)')
             ..writeln('}');
         }
         break;
@@ -531,7 +512,7 @@ class SomGoEmitter {
           final targetCtor = _ctorName[target] ?? 'New$target';
           b
             ..writeln('func (x *${cls.name}) $acc() *$target {')
-            ..writeln('\treturn $targetCtor(x.Doc(), $childPath)')
+            ..writeln('\treturn $targetCtor(x.Doc(), $childPathTight)')
             ..writeln('}');
         }
         break;
@@ -543,7 +524,7 @@ class SomGoEmitter {
           final etCtor = _ctorName[et] ?? 'New$et';
           b
             ..writeln('func (x *${cls.name}) $acc() *som.SomList[*$et] {')
-            ..writeln('\treturn som.NewSomList(x.Doc(), $childPath, '
+            ..writeln('\treturn som.NewSomList(x.Doc(), $childPathTight, '
                 'func(d *som.SpecDocument, p string) *$et {')
             ..writeln('\t\treturn $etCtor(d, p)')
             ..writeln('\t}, $pat)')
@@ -552,7 +533,7 @@ class SomGoEmitter {
           b
             ..writeln('func (x *${cls.name}) $acc() *som.SomList[*som.SomScalar] '
                 '{')
-            ..writeln('\treturn som.NewSomList(x.Doc(), $childPath, '
+            ..writeln('\treturn som.NewSomList(x.Doc(), $childPathTight, '
                 'func(d *som.SpecDocument, p string) *som.SomScalar {')
             ..writeln('\t\treturn som.NewSomScalar(d, p)')
             ..writeln('\t}, $pat)')
@@ -567,14 +548,14 @@ class SomGoEmitter {
         _writeComment(b, f.doc, '');
         b
           ..writeln('func (x *${cls.name}) $acc() *$formName {')
-          ..writeln('\treturn $formCtor(x.Doc(), $childPath)')
+          ..writeln('\treturn $formCtor(x.Doc(), $childPathTight)')
           ..writeln('}');
         break;
     }
   }
 
-  void _emitStringProperty(
-      StringBuffer b, String owner, String name, String childPath, String? doc) {
+  void _emitStringProperty(StringBuffer b, String owner, String name,
+      String childPath, String childPathTight, String? doc) {
     _writeComment(b, doc, '');
     b
       ..writeln('func (x *$owner) $name() string {')
@@ -582,7 +563,7 @@ class SomGoEmitter {
       ..writeln('}')
       ..writeln()
       ..writeln('func (x *$owner) Set$name(value string) {')
-      ..writeln('\tx.Doc().SetContent($childPath, value)')
+      ..writeln('\tx.Doc().SetContent($childPathTight, value)')
       ..writeln('}');
   }
 
@@ -619,8 +600,13 @@ class SomGoEmitter {
   /// Emits a doc block as `//` line comments at [indent].
   void _writeDoc(StringBuffer b, String? doc, String indent) {
     if (doc == null || doc.trim().isEmpty) return;
+    // Consecutive blank lines collapse to one — gofmt folds repeated empty
+    // `//` comment lines, so emitting them would not be gofmt-stable.
+    var lastEmpty = false;
     for (final line in doc.trimRight().split('\n')) {
       final text = line.trimRight();
+      if (text.isEmpty && lastEmpty) continue;
+      lastEmpty = text.isEmpty;
       b.writeln(text.isEmpty ? '$indent//' : '$indent// $text');
     }
   }
