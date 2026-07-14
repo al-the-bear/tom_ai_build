@@ -32,14 +32,21 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-import 'spec_path_constants.dart';
-
 /// The header include-guard macro and the generated file basenames.
 const String _headerGuard = 'TOM_SOM_CPP_V0_HPP';
 const String _headerBasename = 'tom_som_cpp_v0.hpp';
 
+/// The generated metadata-module header (populated SomMetaTrees + the two access
+/// surfaces). The facade's load functions thread the per-root tree from it into
+/// the generic runtime decoder.
+const String _metaHeaderBasename = 'tom_som_cpp_v0_meta.hpp';
+
 /// The C++ namespace every generated type lives in.
 const String _namespace = 'tom_som_v0';
+
+/// The namespace the generated metadata module lives in (mirrors
+/// `SomCppMetaEmitter._namespace`).
+const String _metaNamespace = 'tom_som_v0_meta';
 
 /// Generates the `tom_som_cpp_v0` header + source for a [SpecModel].
 class SomCppEmitter {
@@ -194,6 +201,8 @@ class SomCppEmitter {
       ..writeln();
 
     final typeOrder = _classPlans.keys.toList()..sort();
+    // (meta module header referenced only from the source translation unit; see
+    // generateSource.)
 
     // enum structs (token constants + parse declaration)
     for (final e in _enums) {
@@ -219,15 +228,6 @@ class SomCppEmitter {
     }
     for (final fp in _formPlans) {
       _declForm(b, fp);
-      b.writeln();
-    }
-
-    // § item 11: per-root path-constant holders — a struct of
-    // `static constexpr const char*` members naming every fixed navigable
-    // path, so generic consumers reference a symbol instead of a raw string.
-    for (final holder in enumerateSpecPathHolders(model,
-        documentRoots: documentRoots)) {
-      _declPathHolder(b, holder);
       b.writeln();
     }
 
@@ -400,31 +400,6 @@ class SomCppEmitter {
     b.writeln('};');
   }
 
-  /// Emits the `<Code>Paths` holder — a struct of `static constexpr const
-  /// char*` path constants (§ item 11). In C++17 an in-class `static constexpr`
-  /// member is implicitly `inline`, so no out-of-line definition is needed and
-  /// header inclusion in multiple translation units raises no ODR conflict.
-  void _declPathHolder(StringBuffer b, SpecPathHolder holder) {
-    b
-      ..writeln('/// Generated path constants for the `${holder.rootSegment}` '
-          'document root (item 11).')
-      ..writeln('///')
-      ..writeln('/// Each constant is the absolute generic path of a fixed '
-          'section, for use with')
-      ..writeln('/// the generic som::SpecDocument API instead of a raw string '
-          'literal.')
-      ..writeln('struct ${holder.holderName} {');
-    for (final c in holder.constants) {
-      b
-        ..writeln('  // `${c.path}`')
-        ..writeln('  static constexpr const char* ${c.name} = '
-            '"${_cppStr(c.path)}";');
-    }
-    b
-      ..writeln('  ${holder.holderName}() = delete;')
-      ..writeln('};');
-  }
-
   // --- source --------------------------------------------------------------
 
   /// Builds the generated source (`tom_som_cpp_v0.cpp`).
@@ -435,7 +410,12 @@ class SomCppEmitter {
     b
       ..writeln('#include "$_headerBasename"')
       ..writeln()
+      ..writeln('#include <optional>')
       ..writeln('#include <utility>')
+      ..writeln()
+      // The generated metadata module: the per-root SomMetaTree accessors the
+      // load functions thread into the generic runtime decoder.
+      ..writeln('#include "$_metaHeaderBasename"')
       ..writeln()
       ..writeln('namespace $_namespace {')
       ..writeln();
@@ -491,12 +471,28 @@ class SomCppEmitter {
         ..writeln('}')
         ..writeln('$t $t::loadYaml(som::SpecDocument& doc, '
             'const std::string& yaml) {')
-        ..writeln('  doc = som::SpecDocument::fromYaml(yaml);')
+        ..writeln('  std::string err;')
+        ..writeln('  std::optional<som::SpecDocument> parsed =')
+        ..writeln('      som::SpecDocument::fromYaml(yaml, '
+            '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);')
+        ..writeln('  if (!parsed) {')
+        ..writeln('    throw som::SomVersionError('
+            'err.empty() ? "loadYaml: decode failed" : err);')
+        ..writeln('  }')
+        ..writeln('  doc = std::move(*parsed);')
         ..writeln('  return $t(doc, doc.modelVersion);')
         ..writeln('}')
         ..writeln('$t $t::loadFile(som::SpecDocument& doc, '
             'const std::string& path) {')
-        ..writeln('  doc = som::SpecDocument::fromFile(path);')
+        ..writeln('  std::string err;')
+        ..writeln('  std::optional<som::SpecDocument> parsed =')
+        ..writeln('      som::SpecDocument::fromFile(path, '
+            '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);')
+        ..writeln('  if (!parsed) {')
+        ..writeln('    throw som::SomVersionError('
+            'err.empty() ? "loadFile: decode failed" : err);')
+        ..writeln('  }')
+        ..writeln('  doc = std::move(*parsed);')
         ..writeln('  return $t(doc, doc.modelVersion);')
         ..writeln('}')
         ..writeln('std::string $t::objectModelVersion() const {')
@@ -718,6 +714,15 @@ class SomCppEmitter {
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s-]+')).where((p) => p.isNotEmpty);
     return parts.map((p) => p[0].toUpperCase() + p.substring(1)).join();
+  }
+
+  /// camelCase — Pascal with a lowercased leading char. Matches
+  /// `SomCppMetaEmitter._camel` so the threaded `<camel>MetaTree()` accessor
+  /// name resolves to the emitted metadata-module entry point.
+  String _camel(String s) {
+    final p = _pascal(s);
+    if (p.isEmpty) return p;
+    return p[0].toLowerCase() + p.substring(1);
   }
 }
 

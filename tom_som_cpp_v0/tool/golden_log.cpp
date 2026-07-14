@@ -11,10 +11,12 @@
 //     -o build/golden_log
 //   ./build/golden_log [samplePath] [outputPath]
 #include "tom_som_cpp_v0.hpp"
+#include "tom_som_cpp_v0_meta.hpp"
 
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -48,8 +50,12 @@ int main(int argc, char** argv) {
   const std::string output =
       argc > 2 ? argv[2] : "../tom_som_conformance/golden/cpp.log";
 
-  // Generic view.
-  som::SpecDocument doc = som::SpecDocument::fromFile(sample);
+  // Generic view — decode against the D00 root's metadata tree (DR33).
+  std::string genErr;
+  std::optional<som::SpecDocument> genDoc = som::SpecDocument::fromFile(
+      sample, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &genErr);
+  if (!genDoc) die("fromFile failed: " + genErr);
+  som::SpecDocument doc = std::move(*genDoc);
   // Typed view — the facade borrows a separate caller-owned document loaded from
   // the same file, so its reads must agree with the generic `doc` byte-for-byte.
   som::SpecDocument typedDoc;

@@ -3,7 +3,10 @@
 
 #include "tom_som_cpp_v0.hpp"
 
+#include <optional>
 #include <utility>
+
+#include "tom_som_cpp_v0_meta.hpp"
 
 namespace tom_som_v0 {
 
@@ -49,11 +52,23 @@ SolutionBlueprint::SolutionBlueprint(som::SpecDocument& doc, const std::string& 
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 SolutionBlueprint SolutionBlueprint::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::solutionBlueprintMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return SolutionBlueprint(doc, doc.modelVersion);
 }
 SolutionBlueprint SolutionBlueprint::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::solutionBlueprintMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return SolutionBlueprint(doc, doc.modelVersion);
 }
 std::string SolutionBlueprint::objectModelVersion() const {

@@ -3,7 +3,10 @@
 
 #include "tom_som_cpp_v0.hpp"
 
+#include <optional>
 #include <utility>
+
+#include "tom_som_cpp_v0_meta.hpp"
 
 namespace tom_som_v0 {
 
@@ -5919,11 +5922,23 @@ D00SolutionBlueprint::D00SolutionBlueprint(som::SpecDocument& doc, const std::st
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D00SolutionBlueprint D00SolutionBlueprint::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D00SolutionBlueprint(doc, doc.modelVersion);
 }
 D00SolutionBlueprint D00SolutionBlueprint::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D00SolutionBlueprint(doc, doc.modelVersion);
 }
 std::string D00SolutionBlueprint::objectModelVersion() const {
@@ -5986,11 +6001,23 @@ D01CurrentLandscapeAssessment::D01CurrentLandscapeAssessment(som::SpecDocument& 
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D01CurrentLandscapeAssessment D01CurrentLandscapeAssessment::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d01CurrentLandscapeAssessmentMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D01CurrentLandscapeAssessment(doc, doc.modelVersion);
 }
 D01CurrentLandscapeAssessment D01CurrentLandscapeAssessment::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d01CurrentLandscapeAssessmentMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D01CurrentLandscapeAssessment(doc, doc.modelVersion);
 }
 std::string D01CurrentLandscapeAssessment::objectModelVersion() const {
@@ -6038,11 +6065,23 @@ D02TargetOperatingModel::D02TargetOperatingModel(som::SpecDocument& doc, const s
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D02TargetOperatingModel D02TargetOperatingModel::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d02TargetOperatingModelMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D02TargetOperatingModel(doc, doc.modelVersion);
 }
 D02TargetOperatingModel D02TargetOperatingModel::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d02TargetOperatingModelMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D02TargetOperatingModel(doc, doc.modelVersion);
 }
 std::string D02TargetOperatingModel::objectModelVersion() const {
@@ -6096,11 +6135,23 @@ D03InformationModel::D03InformationModel(som::SpecDocument& doc, const std::stri
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D03InformationModel D03InformationModel::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d03InformationModelMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D03InformationModel(doc, doc.modelVersion);
 }
 D03InformationModel D03InformationModel::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d03InformationModelMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D03InformationModel(doc, doc.modelVersion);
 }
 std::string D03InformationModel::objectModelVersion() const {
@@ -6154,11 +6205,23 @@ D04RequirementsSpecification::D04RequirementsSpecification(som::SpecDocument& do
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D04RequirementsSpecification D04RequirementsSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d04RequirementsSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D04RequirementsSpecification(doc, doc.modelVersion);
 }
 D04RequirementsSpecification D04RequirementsSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d04RequirementsSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D04RequirementsSpecification(doc, doc.modelVersion);
 }
 std::string D04RequirementsSpecification::objectModelVersion() const {
@@ -6206,11 +6269,23 @@ D05InteractionScenarios::D05InteractionScenarios(som::SpecDocument& doc, const s
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D05InteractionScenarios D05InteractionScenarios::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d05InteractionScenariosMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D05InteractionScenarios(doc, doc.modelVersion);
 }
 D05InteractionScenarios D05InteractionScenarios::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d05InteractionScenariosMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D05InteractionScenarios(doc, doc.modelVersion);
 }
 std::string D05InteractionScenarios::objectModelVersion() const {
@@ -6255,11 +6330,23 @@ D06ArchitectureTechnologySpecification::D06ArchitectureTechnologySpecification(s
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D06ArchitectureTechnologySpecification D06ArchitectureTechnologySpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d06ArchitectureTechnologySpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D06ArchitectureTechnologySpecification(doc, doc.modelVersion);
 }
 D06ArchitectureTechnologySpecification D06ArchitectureTechnologySpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d06ArchitectureTechnologySpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D06ArchitectureTechnologySpecification(doc, doc.modelVersion);
 }
 std::string D06ArchitectureTechnologySpecification::objectModelVersion() const {
@@ -6319,11 +6406,23 @@ D07IntegrationInterfaceSpecification::D07IntegrationInterfaceSpecification(som::
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D07IntegrationInterfaceSpecification D07IntegrationInterfaceSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d07IntegrationInterfaceSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D07IntegrationInterfaceSpecification(doc, doc.modelVersion);
 }
 D07IntegrationInterfaceSpecification D07IntegrationInterfaceSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d07IntegrationInterfaceSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D07IntegrationInterfaceSpecification(doc, doc.modelVersion);
 }
 std::string D07IntegrationInterfaceSpecification::objectModelVersion() const {
@@ -6377,11 +6476,23 @@ D08SecurityAccessSpecification::D08SecurityAccessSpecification(som::SpecDocument
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D08SecurityAccessSpecification D08SecurityAccessSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d08SecurityAccessSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D08SecurityAccessSpecification(doc, doc.modelVersion);
 }
 D08SecurityAccessSpecification D08SecurityAccessSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d08SecurityAccessSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D08SecurityAccessSpecification(doc, doc.modelVersion);
 }
 std::string D08SecurityAccessSpecification::objectModelVersion() const {
@@ -6429,11 +6540,23 @@ D09ExperienceDesignSpecification::D09ExperienceDesignSpecification(som::SpecDocu
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D09ExperienceDesignSpecification D09ExperienceDesignSpecification::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d09ExperienceDesignSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D09ExperienceDesignSpecification(doc, doc.modelVersion);
 }
 D09ExperienceDesignSpecification D09ExperienceDesignSpecification::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d09ExperienceDesignSpecificationMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D09ExperienceDesignSpecification(doc, doc.modelVersion);
 }
 std::string D09ExperienceDesignSpecification::objectModelVersion() const {
@@ -6493,11 +6616,23 @@ D10QualityAcceptancePlan::D10QualityAcceptancePlan(som::SpecDocument& doc, const
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D10QualityAcceptancePlan D10QualityAcceptancePlan::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d10QualityAcceptancePlanMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D10QualityAcceptancePlan(doc, doc.modelVersion);
 }
 D10QualityAcceptancePlan D10QualityAcceptancePlan::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d10QualityAcceptancePlanMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D10QualityAcceptancePlan(doc, doc.modelVersion);
 }
 std::string D10QualityAcceptancePlan::objectModelVersion() const {
@@ -6578,11 +6713,23 @@ D11DeliveryRoadmap::D11DeliveryRoadmap(som::SpecDocument& doc, const std::string
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D11DeliveryRoadmap D11DeliveryRoadmap::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d11DeliveryRoadmapMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D11DeliveryRoadmap(doc, doc.modelVersion);
 }
 D11DeliveryRoadmap D11DeliveryRoadmap::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d11DeliveryRoadmapMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D11DeliveryRoadmap(doc, doc.modelVersion);
 }
 std::string D11DeliveryRoadmap::objectModelVersion() const {
@@ -6633,11 +6780,23 @@ D12TransitionRolloutPlan::D12TransitionRolloutPlan(som::SpecDocument& doc, const
   som::checkSomModelVersion(kModelVersion, documentVersion);
 }
 D12TransitionRolloutPlan D12TransitionRolloutPlan::loadYaml(som::SpecDocument& doc, const std::string& yaml) {
-  doc = som::SpecDocument::fromYaml(yaml);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromYaml(yaml, tom_som_v0_meta::d12TransitionRolloutPlanMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadYaml: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D12TransitionRolloutPlan(doc, doc.modelVersion);
 }
 D12TransitionRolloutPlan D12TransitionRolloutPlan::loadFile(som::SpecDocument& doc, const std::string& path) {
-  doc = som::SpecDocument::fromFile(path);
+  std::string err;
+  std::optional<som::SpecDocument> parsed =
+      som::SpecDocument::fromFile(path, tom_som_v0_meta::d12TransitionRolloutPlanMetaTree(), &err);
+  if (!parsed) {
+    throw som::SomVersionError(err.empty() ? "loadFile: decode failed" : err);
+  }
+  doc = std::move(*parsed);
   return D12TransitionRolloutPlan(doc, doc.modelVersion);
 }
 std::string D12TransitionRolloutPlan::objectModelVersion() const {

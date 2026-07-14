@@ -328,6 +328,8 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
+        stdout.writeln('  meta.hpp: ${result.metaModuleHeaderPath}');
+        stdout.writeln('  meta.cpp: ${result.metaModuleSourcePath}');
         stdout.writeln('  Makefile: ${result.makefilePath}');
     }
 

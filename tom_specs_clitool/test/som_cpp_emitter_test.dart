@@ -262,10 +262,15 @@ String? _runtimeDir() {
       : null;
 }
 
-/// Compiles the generated [header] + [source] as a `tom_som_cpp_v0` translation
-/// unit against the local runtime headers, asserting the compile succeeds. A
-/// no-op (with a skip note) when the toolchain or runtime cannot be located.
-void _expectCppBuilds(String header, String source) {
+/// Compiles the generated facade [header] + [source] as a `tom_som_cpp_v0`
+/// translation unit against the local runtime headers, asserting the compile
+/// succeeds. The facade source now `#include`s the generated metadata module and
+/// its load functions reference `tom_som_v0_meta::<root>MetaTree()`, so the meta
+/// module header (and, when [metaEmitter] is supplied, its source) is emitted
+/// alongside the facade so the reference resolves. A no-op (with a skip note)
+/// when the toolchain or runtime cannot be located.
+void _expectCppBuilds(String header, String source,
+    {SomCppMetaEmitter? metaEmitter}) {
   final cxx = _cxx();
   if (cxx == null) {
     markTestSkipped('no C++ compiler (g++/c++/clang++) found');
@@ -280,6 +285,12 @@ void _expectCppBuilds(String header, String source) {
   try {
     File(p.join(dir.path, 'tom_som_cpp_v0.hpp')).writeAsStringSync(header);
     File(p.join(dir.path, 'tom_som_cpp_v0.cpp')).writeAsStringSync(source);
+    // The facade source #includes the meta module header (its load functions
+    // thread the per-root tree from it). Always emit the header; emit the meta
+    // source too when the caller wants the symbols to link.
+    final meta = metaEmitter;
+    File(p.join(dir.path, 'tom_som_cpp_v0_meta.hpp'))
+        .writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
     final runtimeInclude = p.join(runtimeDir, 'include');
     final build = Process.runSync(cxx, [
       '-std=c++17',
@@ -296,10 +307,55 @@ void _expectCppBuilds(String header, String source) {
       p.join(dir.path, 'tom_som_cpp_v0.o'),
     ]);
     expect(build.exitCode, 0,
-        reason: 'C++ compile failed:\n${build.stdout}\n${build.stderr}');
+        reason: 'C++ facade compile failed:\n${build.stdout}\n${build.stderr}');
+    if (meta != null) {
+      File(p.join(dir.path, 'tom_som_cpp_v0_meta.cpp'))
+          .writeAsStringSync(meta.generateSource());
+      final metaBuild = Process.runSync(cxx, [
+        '-std=c++17',
+        '-Wall',
+        '-Wextra',
+        '-Werror',
+        '-c',
+        '-I',
+        dir.path,
+        '-I',
+        runtimeInclude,
+        p.join(dir.path, 'tom_som_cpp_v0_meta.cpp'),
+        '-o',
+        p.join(dir.path, 'tom_som_cpp_v0_meta.o'),
+      ]);
+      expect(metaBuild.exitCode, 0,
+          reason:
+              'C++ meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}');
+    }
   } finally {
     dir.deleteSync(recursive: true);
   }
+}
+
+/// Derives a minimal stand-in meta-module header declaring just the tree
+/// accessor(s) the facade [source] references (its load functions call
+/// `tom_som_v0_meta::<camel>MetaTree()`), so a facade-only compile test (no
+/// [SomCppMetaEmitter] supplied) still resolves the declaration without emitting
+/// the whole metadata module.
+String _metaHeaderFor(String source) {
+  final fns = RegExp(r'tom_som_v0_meta::(\w+MetaTree)\(\)')
+      .allMatches(source)
+      .map((m) => m.group(1)!)
+      .toSet();
+  final b = StringBuffer()
+    ..writeln('#ifndef TOM_SOM_CPP_V0_META_HPP')
+    ..writeln('#define TOM_SOM_CPP_V0_META_HPP')
+    ..writeln('#include "tom_som_cpp_runtime.hpp"')
+    ..writeln('namespace tom_som_v0_meta {');
+  for (final fn in fns) {
+    b.writeln('const som::SomMetaTree& $fn();');
+  }
+  b
+    ..writeln('}  // namespace tom_som_v0_meta')
+    ..writeln('#endif  // TOM_SOM_CPP_V0_META_HPP');
+  return b.toString();
 }
 
 void main() {
@@ -513,45 +569,41 @@ void main() {
           contains('class CurrentLandscapeAssessment : public som::SomNode {'));
     });
 
-    test('emits a per-root path-constant holder (§ item 11)', () {
+    test('the flat path-constant holders are gone (DR33 item 3)', () {
+      // DR33 retires the per-root `<Code>Paths` constexpr holders in favour of
+      // the generated metadata module's populated trees + dot-notation / ID-tree
+      // access surfaces. No holder struct or path constant may leak into the
+      // facade header any more.
+      final header = SomCppEmitter(_fixtureModel()).generateHeader();
+      expect(header, isNot(contains('struct Pd00Paths')),
+          reason: 'path-constant holder struct must be removed');
+      expect(header, isNot(contains('Paths {')),
+          reason: 'no `<Code>Paths` holder may remain');
+      expect(header, isNot(contains('= "PD00/')),
+          reason: 'no flat path constants may remain');
+    });
+
+    test('the facade threads the metadata module into its load functions '
+        '(DR33 items 1–2)', () {
       final emitter = SomCppEmitter(_fixtureModel());
-      final header = emitter.generateHeader();
-      // The holder struct is named `<Pascal(rootSegment)>Paths` (PD00 → Pd00).
-      expect(header, contains('struct Pd00Paths {'));
-      // The six fixed navigable positions each earn a constexpr constant.
+      final source = emitter.generateSource();
+      // The source pulls in the generated metadata module …
+      expect(source, contains('#include "tom_som_cpp_v0_meta.hpp"'));
+      // … and loadYaml/loadFile thread the per-root tree from it into the
+      // generic runtime decoder (the root type SolutionBlueprint → camel
+      // `solutionBlueprint`).
       expect(
-          header,
-          contains(
-              'static constexpr const char* vision = "PD00/vision";'));
+          source,
+          contains('som::SpecDocument::fromYaml(yaml, '
+              'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)'));
       expect(
-          header,
-          contains(
-              'static constexpr const char* owner = "PD00/owner";'));
-      expect(
-          header,
-          contains(
-              'static constexpr const char* risks = "PD00/risks";'));
-      expect(
-          header,
-          contains('static constexpr const char* tags = "PD00/tags";'));
-      expect(
-          header,
-          contains(
-              'static constexpr const char* situation = "PD00/situation";'));
-      expect(
-          header,
-          contains('static constexpr const char* situationSummary = '
-              '"PD00/situation/summary";'));
-      // The list element type `Risk` is NOT recursed — no per-element paths
-      // leak into the holder.
-      expect(header, isNot(contains('"PD00/risks/')));
-      expect(header, isNot(contains('risksTitle')));
-      expect(header, isNot(contains('risksProbability')));
-      // Header-only ODR safety: the holder is uninstantiable and its members
-      // are implicitly-inline constexpr (no out-of-line definitions needed).
-      expect(header, contains('Pd00Paths() = delete;'));
-      // The whole translation unit (incl. the holder) must still compile.
-      _expectCppBuilds(header, emitter.generateSource());
+          source,
+          contains('som::SpecDocument::fromFile(path, '
+              'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)'));
+      // The facade + meta module compile and link together (the threaded
+      // tree accessor is defined by the generated meta module).
+      _expectCppBuilds(emitter.generateHeader(), source,
+          metaEmitter: SomCppMetaEmitter(_fixtureModel()));
     });
   });
 }

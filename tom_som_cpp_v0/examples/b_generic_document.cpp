@@ -16,8 +16,14 @@
 // Ownership (RAII): every value is owned and returned by value (std::string,
 // DocumentJson) — nothing to free by hand.
 #include "tom_som_cpp_runtime.hpp"
+// The generated metadata module: encodeYaml walks the document root's metadata
+// tree (DR33). The generic store is edited with raw paths above; only the wire
+// serialization needs the root's tree, threaded from the generated module.
+#include "tom_som_cpp_v0_meta.hpp"
 
 #include <iostream>
+#include <optional>
+#include <string>
 
 int main() {
   som::SpecDocument doc;
@@ -54,8 +60,16 @@ int main() {
   std::cout << "\nDocument JSON:\n"
             << som::documentJsonToCanonicalJson(dj) << "\n";
 
-  // … and to the canonical YAML wire format (stamped with the model version).
-  std::cout << "\nDocument YAML:\n" << som::encodeYaml(doc, "0.0");
+  // … and to the canonical YAML wire format (stamped with the model version),
+  // walking the document root's metadata tree.
+  std::string err;
+  std::optional<std::string> yaml = som::encodeYaml(
+      doc, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), "0.0", &err);
+  if (!yaml) {
+    std::cerr << "encodeYaml failed: " << err << "\n";
+    return 1;
+  }
+  std::cout << "\nDocument YAML:\n" << *yaml;
 
   return 0;
 }

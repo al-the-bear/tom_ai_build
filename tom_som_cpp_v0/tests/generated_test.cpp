@@ -20,11 +20,13 @@
 // RAII does the memory management the C harness did by hand: a borrowed
 // som::SpecDocument outlives every facade bound to it; facades are values.
 #include "tom_som_cpp_v0.hpp"
+#include "tom_som_cpp_v0_meta.hpp"
 
 #include "spec_document_yaml.hpp"
 
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -363,10 +365,15 @@ void testOneCallLoading() {
   {
     const std::string yaml = readFile(samplePath);
 
-    // The former three-step incantation.
-    const som::SpecYamlContents decoded = som::decodeYaml(yaml);
-    som::SpecDocument manualDoc;
-    manualDoc.loadJson(decoded.document);
+    // The former three-step incantation — decode against the root's metadata
+    // tree, then thread the parsed model version to the typed facade by hand.
+    som::SpecYamlContents decoded;
+    std::string decodeErr;
+    ok(som::decodeYaml(
+           yaml, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &decoded,
+           &decodeErr),
+       "decodeYaml parses the sample");
+    som::SpecDocument manualDoc = std::move(decoded.document);
     tom_som_v0::D00SolutionBlueprint manual(manualDoc, decoded.modelVersion);
 
     // The one-call convenience (facade borrows a caller-owned doc).
@@ -401,27 +408,47 @@ void testOneCallLoading() {
           "loadFile content == loadYaml");
   }
 
-  // (6) SpecDocument::fromYaml retains the parsed model version.
+  // (6) SpecDocument::fromYaml retains the parsed model version. The wire format
+  // is the hierarchical v2 form keyed by the root section (`SBP` +
+  // D00SolutionBlueprint), the only format the runtime decoder accepts.
   {
     const std::string yaml =
-        "version: 1\n"
+        "version: 2\n"
         "modelVersion: \"1.0\"\n"
         "document:\n"
-        "  content:\n"
-        "    \"SBP/content\": |2-\n"
+        "  SBP D00SolutionBlueprint:\n"
+        "    content: |2-\n"
         "      Hello\n";
-    som::SpecDocument doc = som::SpecDocument::fromYaml(yaml);
-    eqStr(doc.modelVersion, "1.0", "fromYaml retains model version");
-    eqStr(doc.content("SBP/content"), "Hello", "fromYaml retains content");
+    std::string err;
+    std::optional<som::SpecDocument> doc = som::SpecDocument::fromYaml(
+        yaml, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &err);
+    ok(doc.has_value(), "fromYaml decodes stamped document");
+    if (doc) {
+      eqStr(doc->modelVersion, "1.0", "fromYaml retains model version");
+      eqStr(doc->content("SBP/content"), "Hello", "fromYaml retains content");
+    } else {
+      std::cerr << "  fromYaml err: " << err << "\n";
+    }
   }
 
-  // (7) An unstamped document loads with the empty-string sentinel, and the
-  // facade accepts it (a new document is editable).
+  // (7) An unstamped v2 document (no `modelVersion:`) loads with the
+  // empty-string sentinel, and the facade accepts it (a new document is
+  // editable).
   {
-    const std::string yaml = "version: 1\ndocument: {}\n";
-    som::SpecDocument doc = som::SpecDocument::fromYaml(yaml);
-    eqStr(doc.modelVersion, "", "unstamped doc has empty-string sentinel");
-    som::SpecDocument facadeDoc = som::SpecDocument::fromYaml(yaml);
+    const std::string yaml =
+        "version: 2\n"
+        "document:\n"
+        "  SBP D00SolutionBlueprint: {}\n";
+    std::string err;
+    std::optional<som::SpecDocument> doc = som::SpecDocument::fromYaml(
+        yaml, tom_som_v0_meta::d00SolutionBlueprintMetaTree(), &err);
+    ok(doc.has_value(), "unstamped doc decodes");
+    if (doc) {
+      eqStr(doc->modelVersion, "", "unstamped doc has empty-string sentinel");
+    } else {
+      std::cerr << "  fromYaml err: " << err << "\n";
+    }
+    som::SpecDocument facadeDoc;
     bool loadOk = true;
     try {
       tom_som_v0::D00SolutionBlueprint::loadYaml(facadeDoc, yaml);
