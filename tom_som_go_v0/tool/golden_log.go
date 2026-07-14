@@ -27,6 +27,31 @@ func esc(s string) string {
 	return s
 }
 
+// kindName maps a native Go SomMetaKind* value to the canonical DART enum
+// spelling used across every language's golden log. Only the enum spelling
+// differs between the two vocabularies (Go "enum" → Dart "enumValue"); the
+// rest are identical, but the full mapping is written out for correctness.
+func kindName(kind string) string {
+	switch kind {
+	case som.SomMetaKindList:
+		return "list"
+	case som.SomMetaKindForm:
+		return "form"
+	case som.SomMetaKindSection:
+		return "section"
+	case som.SomMetaKindContent:
+		return "content"
+	case som.SomMetaKindEnumValue:
+		return "enumValue"
+	case som.SomMetaKindComplex:
+		return "complex"
+	case som.SomMetaKindScalar:
+		return "scalar"
+	default:
+		return kind
+	}
+}
+
 func die(msg string) {
 	fmt.Fprintln(os.Stderr, msg)
 	os.Exit(2)
@@ -55,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t1")
+	out = append(out, "FORMAT\t2")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -141,6 +166,109 @@ func main() {
 			die("TYPED LIST ITEM MISMATCH at " + leaf)
 		}
 		out = append(out, "TI\t"+leaf+"\t"+esc(elem.Content()))
+	}
+
+	// --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
+	// path and every emitted field is model-derived, so the lines are byte-
+	// identical across all nine languages even though the accessor names and
+	// node types differ. ---
+	metaTree := somv0.D00SolutionBlueprintMetaTree
+
+	// Metadata reads: for a curated set of nodes resolved by path, emit the
+	// node's kind (mapped to the canonical Dart enum spelling) plus its help /
+	// comment / doc-comment.
+	out = append(out, "SECTION\tmeta")
+	metaNode := func(path string) {
+		n := metaTree.ByPath(path)
+		if n == nil {
+			fmt.Fprintln(os.Stderr, "META MISSING at "+path)
+			os.Exit(3)
+		}
+		out = append(out, "M\t"+path+"\t"+kindName(n.Kind)+"\t"+esc(n.SectionID)+
+			"\t"+esc(n.ContentHelp)+"\t"+esc(n.Comment)+"\t"+esc(n.DocComment))
+	}
+	metaNode("SBP")
+	metaNode("SBP/documentControl")
+	metaNode("SBP/documentControl/revisionHistory")
+	metaNode("SBP/documentControl/revisionHistory/RVHST-REVS-LST")
+	metaNode("SBP/introductionAndScope")
+	metaNode("SBP/introductionAndScope/goals")
+	metaNode("SBP/introductionAndScope/goals/content")
+	metaNode("SBP/currentLandscape")
+	metaNode("SBP/currentLandscape/CUOPME-OPER-LST")
+	metaNode("SBP/requirements")
+	metaNode("SBP/requirements/content")
+
+	// Dot-notation navigation: the typed nav accessors must resolve to exactly
+	// the path ByPath finds, and to the same node instance.
+	out = append(out, "SECTION\tmeta-nav")
+	metaNav := func(ref *som.SomMetaRef, expectedPath string) {
+		if ref.Path != expectedPath {
+			fmt.Fprintln(os.Stderr, "META NAV PATH at "+ref.Path+" expected "+expectedPath)
+			os.Exit(3)
+		}
+		node, err := ref.Meta()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "META NAV Meta() at "+expectedPath+": "+err.Error())
+			os.Exit(3)
+		}
+		byPath := metaTree.ByPath(expectedPath)
+		if byPath == nil || node != byPath {
+			fmt.Fprintln(os.Stderr, "META NAV NODE mismatch at "+expectedPath)
+			os.Exit(3)
+		}
+		out = append(out, "N\t"+expectedPath)
+	}
+	nav := somv0.D00SolutionBlueprintMeta
+	metaNav(&nav.SomMetaRef, "SBP")
+	metaNav(&nav.DocumentControl().SomMetaRef, "SBP/documentControl")
+	metaNav(&nav.IntroductionAndScope().SomMetaRef, "SBP/introductionAndScope")
+	metaNav(&nav.IntroductionAndScope().Goals().SomMetaRef, "SBP/introductionAndScope/goals")
+	metaNav(nav.IntroductionAndScope().Goals().Content(), "SBP/introductionAndScope/goals/content")
+	metaNav(&nav.CurrentLandscape().SomMetaRef, "SBP/currentLandscape")
+	metaNav(&nav.Requirements().SomMetaRef, "SBP/requirements")
+	metaNav(nav.Requirements().Content(), "SBP/requirements/content")
+
+	// ID-tree navigation: the hoisted-id accessors must agree — same path, same
+	// node instance — with the dot-notation position, including list elements.
+	out = append(out, "SECTION\tmeta-id")
+	metaID := func(idRef, navRef *som.SomMetaRef) {
+		idNode, errI := idRef.Meta()
+		navNode, errN := navRef.Meta()
+		if errI != nil || errN != nil || idRef.Path != navRef.Path || idNode != navNode {
+			fmt.Fprintln(os.Stderr, "META ID mismatch at "+idRef.Path+" vs "+navRef.Path)
+			os.Exit(3)
+		}
+		out = append(out, "D\t"+idRef.Path)
+	}
+	revs := nav.DocumentControl().RevisionHistory().Revisions()
+	metaID(&somv0.SBP.SomMetaRef, &nav.SomMetaRef)
+	metaID(&somv0.SBP.RVHST_REVS_LST().SomMetaRef, &revs.SomMetaRef)
+	metaID(&somv0.SBP.RVHST_REVS_LST().Item(0).SomMetaRef, &revs.Item(0).SomMetaRef)
+
+	// DocSpecs validation: the shared markdown rendering of the sample validates
+	// cleanly against the facade's generated Solution-Blueprint schema.
+	out = append(out, "SECTION\tdocspecs")
+	schemaText, err := os.ReadFile(filepath.Join(
+		"schemas", "solution-blueprint", "solution-blueprint.1.0.docspecs-schema.yaml"))
+	if err != nil {
+		die("read schema failed: " + err.Error())
+	}
+	schema, err := som.DocSpecsSchemaFromYamlText(string(schemaText))
+	if err != nil {
+		die("parse schema failed: " + err.Error())
+	}
+	sampleMd, err := os.ReadFile(filepath.Join("..", "tom_som_conformance", "samples",
+		"meridian_order_management.md"))
+	if err != nil {
+		die("read sample md failed: " + err.Error())
+	}
+	violations := som.NewDocSpecsValidator(schema).ValidateMarkdown(string(sampleMd))
+	out = append(out, "DS\troot\t"+esc(schema.RootSectionID()))
+	out = append(out, fmt.Sprintf("DS\twarnings\t%d", len(schema.Warnings)))
+	out = append(out, fmt.Sprintf("DS\tviolations\t%d", len(violations)))
+	for _, v := range violations {
+		out = append(out, fmt.Sprintf("DV\t%s\t%s\t%d", v.Rule, esc(v.SectionID), v.Line))
 	}
 
 	if err := os.MkdirAll(filepath.Dir(output), 0o755); err != nil {

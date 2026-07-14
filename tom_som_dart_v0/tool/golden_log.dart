@@ -28,6 +28,10 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 const _defaultSample =
     '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+const _defaultSampleMd =
+    '../tom_som_conformance/samples/meridian_order_management.md';
+const _defaultSchema =
+    'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
 const _defaultOutput = '../tom_som_conformance/golden/dart.log';
 
 /// Escapes a value so it occupies exactly one log line: backslash first (so the
@@ -53,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t1');
+  out.add('FORMAT\t2');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -147,6 +151,101 @@ void main(List<String> args) {
       exit(2);
     }
     out.add('TI\t$leaf\t${esc(elem.content)}');
+  }
+
+  // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
+  // path and every emitted field is model-derived, so the lines are byte-
+  // identical across all nine languages even though the accessor *names* and
+  // node *types* differ. The SBP root's static tree is the one the sample is
+  // decoded against. ---
+  final metaTree = d00SolutionBlueprintMetaTree;
+
+  // Metadata reads: for a curated set of nodes resolved by path, emit the
+  // node's kind plus its help / comment / doc-comment. help and comment are
+  // empty across the current model, but reading them exercises the accessor;
+  // docComment is populated, so the section proves the read path end-to-end.
+  out.add('SECTION\tmeta');
+  void metaNode(String path) {
+    final n = metaTree.byPath(path);
+    if (n == null) {
+      stderr.writeln('META MISSING at $path');
+      exit(3);
+    }
+    out.add('M\t$path\t${n.kind.name}\t${esc(n.sectionId ?? '')}\t'
+        '${esc(n.contentHelp ?? '')}\t${esc(n.comment ?? '')}\t'
+        '${esc(n.docComment ?? '')}');
+  }
+
+  metaNode('SBP');
+  metaNode('SBP/documentControl');
+  metaNode('SBP/documentControl/revisionHistory');
+  metaNode('SBP/documentControl/revisionHistory/RVHST-REVS-LST');
+  metaNode('SBP/introductionAndScope');
+  metaNode('SBP/introductionAndScope/goals');
+  metaNode('SBP/introductionAndScope/goals/content');
+  metaNode('SBP/currentLandscape');
+  metaNode('SBP/currentLandscape/CUOPME-OPER-LST');
+  metaNode('SBP/requirements');
+  metaNode('SBP/requirements/content');
+
+  // Dot-notation navigation: the typed nav accessors must resolve to exactly
+  // the path byPath finds, and to the *same* node instance. The emitted line
+  // is just the path — the accessor chain that produced it is language-local.
+  out.add('SECTION\tmeta-nav');
+  void metaNav(SomMetaRef ref, String expectedPath) {
+    if (ref.path != expectedPath) {
+      stderr.writeln('META NAV PATH at ${ref.path} expected $expectedPath');
+      exit(3);
+    }
+    final byPath = metaTree.byPath(expectedPath);
+    if (byPath == null || !identical(ref.meta, byPath)) {
+      stderr.writeln('META NAV NODE mismatch at $expectedPath');
+      exit(3);
+    }
+    out.add('N\t$expectedPath');
+  }
+
+  metaNav(d00SolutionBlueprint, 'SBP');
+  metaNav(d00SolutionBlueprint.documentControl, 'SBP/documentControl');
+  metaNav(d00SolutionBlueprint.introductionAndScope, 'SBP/introductionAndScope');
+  metaNav(d00SolutionBlueprint.introductionAndScope.goals,
+      'SBP/introductionAndScope/goals');
+  metaNav(d00SolutionBlueprint.introductionAndScope.goals.content,
+      'SBP/introductionAndScope/goals/content');
+  metaNav(d00SolutionBlueprint.currentLandscape, 'SBP/currentLandscape');
+  metaNav(d00SolutionBlueprint.requirements, 'SBP/requirements');
+  metaNav(d00SolutionBlueprint.requirements.content, 'SBP/requirements/content');
+
+  // ID-tree navigation: the hoisted-id accessors must agree — same path, same
+  // node instance — with the dot-notation position, including list elements.
+  out.add('SECTION\tmeta-id');
+  void metaId(SomMetaRef idRef, SomMetaRef navRef) {
+    if (idRef.path != navRef.path || !identical(idRef.meta, navRef.meta)) {
+      stderr.writeln('META ID mismatch at ${idRef.path} vs ${navRef.path}');
+      exit(3);
+    }
+    out.add('D\t${idRef.path}');
+  }
+
+  metaId(SBP, d00SolutionBlueprint);
+  metaId(SBP.RVHST_REVS_LST,
+      d00SolutionBlueprint.documentControl.revisionHistory.revisions);
+  metaId(SBP.RVHST_REVS_LST.item(0),
+      d00SolutionBlueprint.documentControl.revisionHistory.revisions.item(0));
+
+  // DocSpecs validation: the shared markdown rendering of the sample validates
+  // cleanly against the facade's generated Solution-Blueprint schema. root id,
+  // warning count, and violation count are all model-derived and identical.
+  out.add('SECTION\tdocspecs');
+  final schema =
+      DocSpecsSchema.fromYamlText(File(_defaultSchema).readAsStringSync());
+  final sampleMd = File(_defaultSampleMd).readAsStringSync();
+  final violations = DocSpecsValidator(schema).validateMarkdown(sampleMd);
+  out.add('DS\troot\t${esc(schema.rootSectionId ?? '')}');
+  out.add('DS\twarnings\t${schema.warnings.length}');
+  out.add('DS\tviolations\t${violations.length}');
+  for (final v in violations) {
+    out.add('DV\t${v.rule.name}\t${esc(v.sectionId ?? '')}\t${v.line}');
   }
 
   final file = File(outputPath);

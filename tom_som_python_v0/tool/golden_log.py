@@ -31,8 +31,32 @@ def _runtime_dir() -> str:
 sys.path.insert(0, _runtime_dir())
 sys.path.insert(0, _PROJECT)
 
-from tom_som_runtime import SpecDocument  # noqa: E402
+from tom_som_runtime import (  # noqa: E402
+    DocSpecsSchema,
+    DocSpecsValidator,
+    SomMetaKind,
+    SpecDocument,
+)
 import tom_som_python_v0 as m  # noqa: E402
+
+_DEFAULT_SAMPLE_MD = os.path.normpath(os.path.join(
+    _PROJECT, "..", "tom_som_conformance", "samples",
+    "meridian_order_management.md"))
+_DEFAULT_SCHEMA = os.path.join(
+    _PROJECT, "schemas", "solution-blueprint",
+    "solution-blueprint.1.0.docspecs-schema.yaml")
+
+#: Map the native Python kind enum to the DART enum spelling the golden log
+#: emits (portability rule 1). Values are the canonical cross-language names.
+_KIND_DART_NAME = {
+    SomMetaKind.LIST: "list",
+    SomMetaKind.FORM: "form",
+    SomMetaKind.SECTION: "section",
+    SomMetaKind.CONTENT: "content",
+    SomMetaKind.ENUM_VALUE: "enumValue",
+    SomMetaKind.COMPLEX: "complex",
+    SomMetaKind.SCALAR: "scalar",
+}
 
 _DEFAULT_SAMPLE = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_conformance", "samples",
@@ -58,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t1")
+    out.append("FORMAT\t2")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -129,6 +153,92 @@ def main() -> None:
             sys.stderr.write("TYPED LIST ITEM MISMATCH at %s\n" % leaf)
             sys.exit(2)
         out.append("TI\t%s\t%s" % (leaf, esc(elem.content)))
+
+    # --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
+    meta_tree = m.d00SolutionBlueprintMetaTree
+
+    out.append("SECTION\tmeta")
+
+    def meta_node(path: str) -> None:
+        n = meta_tree.by_path(path)
+        if n is None:
+            sys.stderr.write("META MISSING at %s\n" % path)
+            sys.exit(3)
+        out.append("M\t%s\t%s\t%s\t%s\t%s\t%s" % (
+            path,
+            _KIND_DART_NAME[n.kind],
+            esc(n.section_id or ""),
+            esc(n.content_help or ""),
+            esc(n.comment or ""),
+            esc(n.doc_comment or ""),
+        ))
+
+    meta_node("SBP")
+    meta_node("SBP/documentControl")
+    meta_node("SBP/documentControl/revisionHistory")
+    meta_node("SBP/documentControl/revisionHistory/RVHST-REVS-LST")
+    meta_node("SBP/introductionAndScope")
+    meta_node("SBP/introductionAndScope/goals")
+    meta_node("SBP/introductionAndScope/goals/content")
+    meta_node("SBP/currentLandscape")
+    meta_node("SBP/currentLandscape/CUOPME-OPER-LST")
+    meta_node("SBP/requirements")
+    meta_node("SBP/requirements/content")
+
+    out.append("SECTION\tmeta-nav")
+
+    def meta_nav(ref, expected_path: str) -> None:
+        if ref.path != expected_path:
+            sys.stderr.write(
+                "META NAV PATH at %s expected %s\n" % (ref.path, expected_path))
+            sys.exit(3)
+        by_path = meta_tree.by_path(expected_path)
+        if by_path is None or ref.meta is not by_path:
+            sys.stderr.write("META NAV NODE mismatch at %s\n" % expected_path)
+            sys.exit(3)
+        out.append("N\t%s" % expected_path)
+
+    meta_nav(m.d00SolutionBlueprint, "SBP")
+    meta_nav(m.d00SolutionBlueprint.documentControl, "SBP/documentControl")
+    meta_nav(m.d00SolutionBlueprint.introductionAndScope,
+             "SBP/introductionAndScope")
+    meta_nav(m.d00SolutionBlueprint.introductionAndScope.goals,
+             "SBP/introductionAndScope/goals")
+    meta_nav(m.d00SolutionBlueprint.introductionAndScope.goals.content,
+             "SBP/introductionAndScope/goals/content")
+    meta_nav(m.d00SolutionBlueprint.currentLandscape, "SBP/currentLandscape")
+    meta_nav(m.d00SolutionBlueprint.requirements, "SBP/requirements")
+    meta_nav(m.d00SolutionBlueprint.requirements.content,
+             "SBP/requirements/content")
+
+    out.append("SECTION\tmeta-id")
+
+    def meta_id(id_ref, nav_ref) -> None:
+        if id_ref.path != nav_ref.path or id_ref.meta is not nav_ref.meta:
+            sys.stderr.write(
+                "META ID mismatch at %s vs %s\n" % (id_ref.path, nav_ref.path))
+            sys.exit(3)
+        out.append("D\t%s" % id_ref.path)
+
+    meta_id(m.SBP, m.d00SolutionBlueprint)
+    meta_id(m.SBP.RVHST_REVS_LST,
+            m.d00SolutionBlueprint.documentControl.revisionHistory.revisions)
+    meta_id(m.SBP.RVHST_REVS_LST.item(0),
+            m.d00SolutionBlueprint.documentControl.revisionHistory
+            .revisions.item(0))
+
+    out.append("SECTION\tdocspecs")
+    with open(_DEFAULT_SCHEMA, encoding="utf-8") as fh:
+        schema = DocSpecsSchema.from_yaml_text(fh.read())
+    with open(_DEFAULT_SAMPLE_MD, encoding="utf-8") as fh:
+        sample_md = fh.read()
+    violations = DocSpecsValidator(schema).validate_markdown(sample_md)
+    out.append("DS\troot\t%s" % esc(schema.root_section_id or ""))
+    out.append("DS\twarnings\t%d" % len(schema.warnings))
+    out.append("DS\tviolations\t%d" % len(violations))
+    for v in violations:
+        out.append("DV\t%s\t%s\t%d" % (
+            v.rule.value, esc(v.section_id or ""), v.line))
 
     os.makedirs(os.path.dirname(output), exist_ok=True)
     with open(output, "w", encoding="utf-8", newline="\n") as fh:

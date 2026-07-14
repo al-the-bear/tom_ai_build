@@ -17,14 +17,43 @@ const _runtimePath = path.resolve(
   _PROJECT,
   require(path.join(_PROJECT, 'package.json')).tomSom.runtimePath,
 );
-const { SpecDocument } = require(_runtimePath);
+const { SpecDocument, DocSpecsSchema, DocSpecsValidator } = require(_runtimePath);
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 const DEFAULT_SAMPLE = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'samples',
   'meridian_order_management.docspecs.yaml');
+const DEFAULT_SAMPLE_MD = path.resolve(
+  _PROJECT, '..', 'tom_som_conformance', 'samples',
+  'meridian_order_management.md');
+const DEFAULT_SCHEMA = path.resolve(
+  _PROJECT, 'schemas', 'solution-blueprint',
+  'solution-blueprint.1.0.docspecs-schema.yaml');
 const DEFAULT_OUTPUT = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'golden', 'javascript.log');
+
+// Maps a native meta-node `kind` to the canonical DART enum spelling, so the
+// emitted `M` lines are byte-identical across languages. In the JS port the
+// kind is already the lowercase DART spelling, but the explicit map keeps the
+// contract correct for all seven kinds regardless of native naming.
+const _KIND_MAP = {
+  list: 'list',
+  form: 'form',
+  section: 'section',
+  content: 'content',
+  enumValue: 'enumValue',
+  complex: 'complex',
+  scalar: 'scalar',
+};
+
+function kindName(kind) {
+  const mapped = _KIND_MAP[kind];
+  if (mapped === undefined) {
+    process.stderr.write('UNKNOWN META KIND ' + kind + '\n');
+    process.exit(3);
+  }
+  return mapped;
+}
 
 function esc(s) {
   return String(s)
@@ -44,7 +73,7 @@ function main() {
   const out = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t1');
+  out.push('FORMAT\t2');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   // Generic: content leaves, sorted by path.
@@ -124,6 +153,92 @@ function main() {
       process.exit(2);
     }
     out.push('TI\t' + leaf + '\t' + esc(elem.content));
+  }
+
+  // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
+  const metaTree = m.d00SolutionBlueprintMetaTree;
+
+  out.push('SECTION\tmeta');
+  function metaNode(nodePath) {
+    const n = metaTree.byPath(nodePath);
+    if (n == null) {
+      process.stderr.write('META MISSING at ' + nodePath + '\n');
+      process.exit(3);
+    }
+    out.push(
+      'M\t' + nodePath + '\t' + kindName(n.kind) + '\t' +
+        esc(n.sectionId || '') + '\t' + esc(n.contentHelp || '') + '\t' +
+        esc(n.comment || '') + '\t' + esc(n.docComment || ''),
+    );
+  }
+
+  metaNode('SBP');
+  metaNode('SBP/documentControl');
+  metaNode('SBP/documentControl/revisionHistory');
+  metaNode('SBP/documentControl/revisionHistory/RVHST-REVS-LST');
+  metaNode('SBP/introductionAndScope');
+  metaNode('SBP/introductionAndScope/goals');
+  metaNode('SBP/introductionAndScope/goals/content');
+  metaNode('SBP/currentLandscape');
+  metaNode('SBP/currentLandscape/CUOPME-OPER-LST');
+  metaNode('SBP/requirements');
+  metaNode('SBP/requirements/content');
+
+  out.push('SECTION\tmeta-nav');
+  function metaNav(ref, expectedPath) {
+    if (ref.path !== expectedPath) {
+      process.stderr.write(
+        'META NAV PATH at ' + ref.path + ' expected ' + expectedPath + '\n',
+      );
+      process.exit(3);
+    }
+    const byPath = metaTree.byPath(expectedPath);
+    if (byPath == null || ref.meta !== byPath) {
+      process.stderr.write('META NAV NODE mismatch at ' + expectedPath + '\n');
+      process.exit(3);
+    }
+    out.push('N\t' + expectedPath);
+  }
+
+  metaNav(m.d00SolutionBlueprint, 'SBP');
+  metaNav(m.d00SolutionBlueprint.documentControl, 'SBP/documentControl');
+  metaNav(m.d00SolutionBlueprint.introductionAndScope, 'SBP/introductionAndScope');
+  metaNav(m.d00SolutionBlueprint.introductionAndScope.goals,
+    'SBP/introductionAndScope/goals');
+  metaNav(m.d00SolutionBlueprint.introductionAndScope.goals.content,
+    'SBP/introductionAndScope/goals/content');
+  metaNav(m.d00SolutionBlueprint.currentLandscape, 'SBP/currentLandscape');
+  metaNav(m.d00SolutionBlueprint.requirements, 'SBP/requirements');
+  metaNav(m.d00SolutionBlueprint.requirements.content, 'SBP/requirements/content');
+
+  out.push('SECTION\tmeta-id');
+  function metaId(idRef, navRef) {
+    if (idRef.path !== navRef.path || idRef.meta !== navRef.meta) {
+      process.stderr.write(
+        'META ID mismatch at ' + idRef.path + ' vs ' + navRef.path + '\n',
+      );
+      process.exit(3);
+    }
+    out.push('D\t' + idRef.path);
+  }
+
+  metaId(m.SBP, m.d00SolutionBlueprint);
+  metaId(m.SBP.RVHST_REVS_LST,
+    m.d00SolutionBlueprint.documentControl.revisionHistory.revisions);
+  metaId(m.SBP.RVHST_REVS_LST.item(0),
+    m.d00SolutionBlueprint.documentControl.revisionHistory.revisions.item(0));
+
+  out.push('SECTION\tdocspecs');
+  const schema = DocSpecsSchema.fromYamlText(
+    fs.readFileSync(DEFAULT_SCHEMA, 'utf8'),
+  );
+  const sampleMd = fs.readFileSync(DEFAULT_SAMPLE_MD, 'utf8');
+  const violations = new DocSpecsValidator(schema).validateMarkdown(sampleMd);
+  out.push('DS\troot\t' + esc(schema.rootSectionId || ''));
+  out.push('DS\twarnings\t' + schema.warnings.length);
+  out.push('DS\tviolations\t' + violations.length);
+  for (const v of violations) {
+    out.push('DV\t' + v.rule.name + '\t' + esc(v.sectionId || '') + '\t' + v.line);
   }
 
   fs.mkdirSync(path.dirname(output), { recursive: true });

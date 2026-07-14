@@ -13,6 +13,8 @@
  */
 #include "tom_som_c_v0.h"
 
+#include "docspecs_validator.h"
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -53,6 +55,24 @@ static void die(const char *msg) {
   exit(2);
 }
 
+/* Reads a whole file into an owned NUL-terminated buffer, or aborts. */
+static char *read_text_file(const char *path) {
+  FILE *f = fopen(path, "rb");
+  if (f == NULL) die(fmt("read %s: cannot open", path));
+  fseek(f, 0, SEEK_END);
+  long n = ftell(f);
+  if (n < 0) {
+    fclose(f);
+    die(fmt("read %s: ftell failed", path));
+  }
+  fseek(f, 0, SEEK_SET);
+  char *buf = malloc((size_t)n + 1);
+  size_t got = fread(buf, 1, (size_t)n, f);
+  fclose(f);
+  buf[got] = '\0';
+  return buf;
+}
+
 /* Asserts the typed content equals the generic read at <node_path>/content,
  * appends the `T` line, and frees the (owned) typed value. */
 static void typed_content(SpecDocument *doc, SomStrList *out,
@@ -68,6 +88,85 @@ static void typed_content(SpecDocument *doc, SomStrList *out,
   free(e);
   free(leaf);
   free(value);
+}
+
+/* Maps a runtime kind literal (SOM_META_KIND_*) to the canonical DART enum
+ * spelling used in the cross-language golden log. The runtime spells the
+ * enum-value kind "enum"; the Dart reference spells it "enumValue". Every other
+ * kind already matches the Dart `SomMetaKind.name`. */
+static const char *kind_dart(const char *kind) {
+  if (strcmp(kind, SOM_META_KIND_LIST) == 0) return "list";
+  if (strcmp(kind, SOM_META_KIND_FORM) == 0) return "form";
+  if (strcmp(kind, SOM_META_KIND_SECTION) == 0) return "section";
+  if (strcmp(kind, SOM_META_KIND_CONTENT) == 0) return "content";
+  if (strcmp(kind, SOM_META_KIND_ENUM_VALUE) == 0) return "enumValue";
+  if (strcmp(kind, SOM_META_KIND_COMPLEX) == 0) return "complex";
+  if (strcmp(kind, SOM_META_KIND_SCALAR) == 0) return "scalar";
+  die(fmt("UNKNOWN KIND %s", kind));
+  return "";
+}
+
+/* Emits one `M` line for the node the tree resolves at `path`: kind (DART
+ * spelling) plus sectionId / contentHelp / comment / docComment, each escaped
+ * and blank when absent. C node string fields are owned char* that are never
+ * NULL ("" == absent), matching the reference's empty trailing fields. Aborts
+ * (exit 3) if the path resolves to no node, mirroring the Dart generator. */
+static void meta_node(const SomMetaTree *tree, SomStrList *out,
+                      const char *path) {
+  const SomMetaNode *n = som_meta_tree_by_path(tree, path);
+  if (n == NULL) {
+    fprintf(stderr, "META MISSING at %s\n", path);
+    exit(3);
+  }
+  char *sid = esc(n->section_id);
+  char *help = esc(n->content_help);
+  char *comment = esc(n->comment);
+  char *doc = esc(n->doc_comment);
+  som_strlist_push(out, fmt("M\t%s\t%s\t%s\t%s\t%s\t%s", path, kind_dart(n->kind),
+                            sid, help, comment, doc));
+  free(sid);
+  free(help);
+  free(comment);
+  free(doc);
+}
+
+/* Emits one `N` line: asserts the nav ref resolves to `expected_path` and to
+ * the *same* node instance the by-path lookup finds (pointer identity, the C
+ * analogue of Dart `identical`). */
+static void meta_nav(const SomMetaTree *tree, SomStrList *out,
+                     const SomMetaRef *ref, const char *expected_path) {
+  if (strcmp(ref->path, expected_path) != 0) {
+    fprintf(stderr, "META NAV PATH at %s expected %s\n", ref->path,
+            expected_path);
+    exit(3);
+  }
+  char *err = NULL;
+  const SomMetaNode *via_ref = som_meta_ref_meta(ref, &err);
+  free(err);
+  const SomMetaNode *via_path = som_meta_tree_by_path(tree, expected_path);
+  if (via_path == NULL || via_ref != via_path) {
+    fprintf(stderr, "META NAV NODE mismatch at %s\n", expected_path);
+    exit(3);
+  }
+  som_strlist_push(out, fmt("N\t%s", expected_path));
+}
+
+/* Emits one `D` line: asserts the ID-tree ref and the dot-notation ref share
+ * the same path and resolve to the same node instance. */
+static void meta_id(SomStrList *out, const SomMetaRef *id_ref,
+                    const SomMetaRef *nav_ref) {
+  char *e1 = NULL;
+  char *e2 = NULL;
+  const SomMetaNode *idn = som_meta_ref_meta(id_ref, &e1);
+  const SomMetaNode *navn = som_meta_ref_meta(nav_ref, &e2);
+  free(e1);
+  free(e2);
+  if (strcmp(id_ref->path, nav_ref->path) != 0 || idn != navn) {
+    fprintf(stderr, "META ID mismatch at %s vs %s\n", id_ref->path,
+            nav_ref->path);
+    exit(3);
+  }
+  som_strlist_push(out, fmt("D\t%s", id_ref->path));
 }
 
 int main(int argc, char **argv) {
@@ -95,7 +194,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t1");
+  som_strlist_push_copy(&out, "FORMAT\t2");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -250,6 +349,128 @@ int main(int argc, char **argv) {
     free(value);
     free(leaf);
     current_operational_metric_free(&elem);
+  }
+
+  /* --- Meta (FORMAT 2): the generated metadata tree read three ways. The SBP
+   * root's static tree is the one the sample is decoded against. Every emitted
+   * path/field is model-derived, so the lines are byte-identical across all
+   * nine languages even though accessor names and node types differ. --- */
+  const SomMetaTree *meta_tree = d00_solution_blueprint_meta_tree();
+
+  som_strlist_push_copy(&out, "SECTION\tmeta");
+  meta_node(meta_tree, &out, "SBP");
+  meta_node(meta_tree, &out, "SBP/documentControl");
+  meta_node(meta_tree, &out, "SBP/documentControl/revisionHistory");
+  meta_node(meta_tree, &out, "SBP/documentControl/revisionHistory/RVHST-REVS-LST");
+  meta_node(meta_tree, &out, "SBP/introductionAndScope");
+  meta_node(meta_tree, &out, "SBP/introductionAndScope/goals");
+  meta_node(meta_tree, &out, "SBP/introductionAndScope/goals/content");
+  meta_node(meta_tree, &out, "SBP/currentLandscape");
+  meta_node(meta_tree, &out, "SBP/currentLandscape/CUOPME-OPER-LST");
+  meta_node(meta_tree, &out, "SBP/requirements");
+  meta_node(meta_tree, &out, "SBP/requirements/content");
+
+  /* Dot-notation navigation: the typed nav accessors must resolve to exactly
+   * the path byPath finds, and to the *same* node instance. */
+  som_strlist_push_copy(&out, "SECTION\tmeta-nav");
+  {
+    som_nav_d00_solution_blueprint nroot = d00_solution_blueprint_meta(meta_tree);
+    som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
+    som_nav_introduction_and_scope n_intro =
+        d00_solution_blueprint_nav_introduction_and_scope(nroot);
+    som_nav_goals n_goals = introduction_and_scope_nav_goals(n_intro);
+    SomMetaRef n_goals_content = goals_nav_content(n_goals);
+    som_nav_current_landscape n_cl = d00_solution_blueprint_nav_current_landscape(nroot);
+    som_nav_requirements n_req = d00_solution_blueprint_nav_requirements(nroot);
+    SomMetaRef n_req_content = requirements_nav_content(n_req);
+
+    meta_nav(meta_tree, &out, &nroot.ref, "SBP");
+    meta_nav(meta_tree, &out, &n_dc.ref, "SBP/documentControl");
+    meta_nav(meta_tree, &out, &n_intro.ref, "SBP/introductionAndScope");
+    meta_nav(meta_tree, &out, &n_goals.ref, "SBP/introductionAndScope/goals");
+    meta_nav(meta_tree, &out, &n_goals_content,
+             "SBP/introductionAndScope/goals/content");
+    meta_nav(meta_tree, &out, &n_cl.ref, "SBP/currentLandscape");
+    meta_nav(meta_tree, &out, &n_req.ref, "SBP/requirements");
+    meta_nav(meta_tree, &out, &n_req_content, "SBP/requirements/content");
+
+    som_meta_ref_free(&n_req_content);
+    som_meta_ref_free(&n_req.ref);
+    som_meta_ref_free(&n_cl.ref);
+    som_meta_ref_free(&n_goals_content);
+    som_meta_ref_free(&n_goals.ref);
+    som_meta_ref_free(&n_intro.ref);
+    som_meta_ref_free(&n_dc.ref);
+    som_meta_ref_free(&nroot.ref);
+  }
+
+  /* ID-tree navigation: the hoisted-id accessors must agree — same path, same
+   * node instance — with the dot-notation position, including list elements. */
+  som_strlist_push_copy(&out, "SECTION\tmeta-id");
+  {
+    som_id_d00_solution_blueprint id_sbp = SBP(meta_tree);
+    som_nav_d00_solution_blueprint nroot = d00_solution_blueprint_meta(meta_tree);
+    meta_id(&out, &id_sbp.ref, &nroot.ref);
+
+    SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(id_sbp);
+    som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
+    som_nav_revision_history n_rh = document_control_nav_revision_history(n_dc);
+    SomListMetaRef nav_revs = revision_history_nav_revisions(n_rh);
+    meta_id(&out, &id_revs.ref, &nav_revs.ref);
+
+    void *id_item0 = som_list_meta_ref_item(&id_revs, 0);
+    void *nav_item0 = som_list_meta_ref_item(&nav_revs, 0);
+    meta_id(&out, (SomMetaRef *)id_item0, (SomMetaRef *)nav_item0);
+    som_meta_ref_free((SomMetaRef *)id_item0);
+    free(id_item0);
+    som_meta_ref_free((SomMetaRef *)nav_item0);
+    free(nav_item0);
+
+    som_meta_ref_free(&nav_revs.ref);
+    som_meta_ref_free(&n_rh.ref);
+    som_meta_ref_free(&n_dc.ref);
+    som_meta_ref_free(&id_revs.ref);
+    som_meta_ref_free(&nroot.ref);
+    som_meta_ref_free(&id_sbp.ref);
+  }
+
+  /* DocSpecs validation: the shared markdown rendering of the sample validates
+   * cleanly against the facade's generated Solution-Blueprint schema. */
+  som_strlist_push_copy(&out, "SECTION\tdocspecs");
+  {
+    char *schema_text =
+        read_text_file("schemas/solution-blueprint/"
+                       "solution-blueprint.1.0.docspecs-schema.yaml");
+    char *sample_md =
+        read_text_file("../tom_som_conformance/samples/meridian_order_management.md");
+    DocSpecsSchema *schema = NULL;
+    char *ds_err = NULL;
+    if (!docspecs_schema_from_yaml_text(schema_text, &schema, &ds_err)) {
+      die(ds_err != NULL ? ds_err : "schema load failed");
+    }
+    DocSpecsValidator val = docspecs_validator_new(schema);
+    DocSpecsViolationList violations;
+    docspecs_violation_list_init(&violations);
+    docspecs_validator_validate_markdown(&val, sample_md, &violations);
+
+    char *root = docspecs_schema_root_section_id(schema);
+    char *root_e = esc(root != NULL ? root : "");
+    som_strlist_push(&out, fmt("DS\troot\t%s", root_e));
+    free(root_e);
+    free(root);
+    som_strlist_push(&out, fmt("DS\twarnings\t%zu", schema->warnings.len));
+    som_strlist_push(&out, fmt("DS\tviolations\t%zu", violations.len));
+    for (size_t i = 0; i < violations.len; i++) {
+      const DocSpecsViolation *v = &violations.items[i];
+      char *sid = esc(v->section_id);
+      som_strlist_push(&out, fmt("DV\t%s\t%s\t%d", v->rule, sid, v->line));
+      free(sid);
+    }
+
+    docspecs_violation_list_free(&violations);
+    docspecs_schema_free(schema);
+    free(sample_md);
+    free(schema_text);
   }
 
   char *body = som_strlist_join(&out, "\n");
