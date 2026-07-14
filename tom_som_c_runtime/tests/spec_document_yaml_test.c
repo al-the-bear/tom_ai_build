@@ -265,6 +265,44 @@ static void yaml_test_encode(void) {
     spec_document_free(&doc2);
   }
 
+  /* YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+   * 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
+   * YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
+   * every runtime reads back the exact string; an ordinary token stays plain. */
+  {
+    SpecDocument special;
+    spec_document_init(&special);
+    const char *vals[4] = {"on", "no", "1:30", "plain"};
+    for (int i = 0; i < 4; i++) {
+      char *p = spec_document_add_list_item(&special, "D00/D00-TAG");
+      spec_document_set_content(&special, p, vals[i]);
+      free(p);
+    }
+    char *yaml3 = yaml_enc(&special, "");
+    check("encode.yaml11.on",
+          strstr(yaml3, "\n      tags-1: |2-\n        on\n") != NULL, "");
+    check("encode.yaml11.no",
+          strstr(yaml3, "\n      tags-2: |2-\n        no\n") != NULL, "");
+    check("encode.yaml11.sexagesimal",
+          strstr(yaml3, "\n      tags-3: |2-\n        1:30\n") != NULL, "");
+    check("encode.yaml11.plain",
+          strstr(yaml3, "\n      tags-4: plain\n") != NULL, "");
+    free(yaml3);
+    SpecYamlContents rt_special;
+    yaml_round_trip(&special, &rt_special);
+    const SpecDocument *outs = &rt_special.document;
+    const SomStrList *stags = spec_document_list_items(outs, "D00/D00-TAG");
+    check("encode.yaml11.roundTrip",
+          stags != NULL && stags->len == 4 &&
+              str_eq(content_or(outs, stags->items[0]), "on") &&
+              str_eq(content_or(outs, stags->items[1]), "no") &&
+              str_eq(content_or(outs, stags->items[2]), "1:30") &&
+              str_eq(content_or(outs, stags->items[3]), "plain"),
+          "");
+    spec_yaml_contents_free(&rt_special);
+    spec_document_free(&special);
+  }
+
   /* an empty document emits `document: {}` */
   {
     SpecDocument empty;

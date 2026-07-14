@@ -171,6 +171,29 @@ void main() {
       expect(yaml, contains('\n      revision: 7\n'));
     });
 
+    test('YAML 1.1-special values are quoted, not plain (§2.5, DRC6)', () {
+      // `on`/`no` are YAML 1.1-only booleans and `1:30` is a 1.1 sexagesimal
+      // int: all three parse as plain strings under YAML 1.2 (Dart) but as
+      // bool/number under YAML 1.1 (e.g. PyYAML). They must be emitted as
+      // block scalars so a 1.1 parser reads them back as the exact string; an
+      // ordinary token still emits plainly.
+      final doc = SpecDocument();
+      for (final v in ['on', 'no', '1:30', 'plain']) {
+        doc.setContent(doc.addListItem('D00/D00-TAG'), v);
+      }
+      final yaml = enc(doc);
+      // Specials become literal block scalars (unambiguous strings in 1.1/1.2).
+      expect(yaml, contains('\n      tags-1: |2-\n        on\n'));
+      expect(yaml, contains('\n      tags-2: |2-\n        no\n'));
+      expect(yaml, contains('\n      tags-3: |2-\n        1:30\n'));
+      // A non-special token stays plain.
+      expect(yaml, contains('\n      tags-4: plain\n'));
+      // And every value survives the round-trip verbatim.
+      final out = roundTrip(doc);
+      expect(out.listItems('D00/D00-TAG').map(out.content),
+          ['on', 'no', '1:30', 'plain']);
+    });
+
     test('an empty document emits `document: {}`', () {
       final yaml = enc(SpecDocument());
       expect(yaml, contains('document: {}'));

@@ -246,12 +246,33 @@ func scalarRepr(value string) string {
 	return jsJSONString(value)
 }
 
+var yaml11Bool = regexp.MustCompile(
+	`^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$`)
+var yaml11SexagesimalInt = regexp.MustCompile(`^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$`)
+var yaml11SexagesimalFloat = regexp.MustCompile(
+	`^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$`)
+
+// isYaml11Special reports whether value's text is a YAML 1.1 special that a
+// 1.1 parser would resolve to a non-string, so it must never be emitted as a
+// plain scalar (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal
+// int/float literals. Mirrors the Dart reference rule so every emitter's
+// plain-scalar decision is identical regardless of the local YAML library.
+func isYaml11Special(value string) bool {
+	return yaml11Bool.MatchString(value) ||
+		yaml11SexagesimalInt.MatchString(value) ||
+		yaml11SexagesimalFloat.MatchString(value)
+}
+
 // plainScalar returns a plain one-line scalar for a non-text value
 // (int/double/bool/enum member name, §2.5) when writing it plainly re-parses
 // to exactly value (string compare, matching the document's string-typed
-// stores); ok=false otherwise.
+// stores); ok=false otherwise. Values whose text is a YAML 1.1 special are
+// forced to the quoted/block path so cross-language round-trips stay identical.
 func plainScalar(value string) (string, bool) {
 	if value == "" || strings.Contains(value, "\n") {
+		return "", false
+	}
+	if isYaml11Special(value) {
 		return "", false
 	}
 	parsed := YamlParse("_v: " + value + "\n")

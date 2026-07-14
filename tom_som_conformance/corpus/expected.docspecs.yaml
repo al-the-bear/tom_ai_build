@@ -30,3 +30,11 @@ document:
     META meta:
       OWNR owner: |2-
         alice
+      tags:
+        tags-1: |2-
+          on
+        tags-2: |2-
+          no
+        tags-3: |2-
+          1:30
+        tags-4: plain

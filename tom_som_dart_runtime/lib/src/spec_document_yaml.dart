@@ -181,8 +181,18 @@ class SpecDocumentYaml {
   /// A plain one-line scalar for a non-text value (int/double/bool/enum member
   /// name, §2.5) when writing it plainly re-parses to exactly [value] (string
   /// compare, matching the document's string-typed stores); `null` otherwise.
+  ///
+  /// The self-verification uses package:yaml, which is a **YAML 1.2** parser
+  /// (only `true`/`false` are booleans, no sexagesimal numbers). A value whose
+  /// text is a YAML **1.1** special — a 1.1-only boolean word (`yes`/`no`/
+  /// `on`/`off`/`y`/`n` and case variants) or a sexagesimal int/float — parses
+  /// as a plain string here yet would be mis-read as a bool/number by a 1.1
+  /// parser (e.g. PyYAML). Emitting it plainly would break cross-language
+  /// round-trips, so such values are forced to the quoted/block path
+  /// (returns `null`). Reference rule for DR1 §2.5; mirrored by every port.
   static String? _plainScalar(String value) {
     if (value.isEmpty || value.contains('\n')) return null;
+    if (_isYaml11Special(value)) return null;
     try {
       final parsed = loadYaml('_v: $value\n');
       if (parsed is! Map) return null;
@@ -193,6 +203,29 @@ class SpecDocumentYaml {
       return null;
     }
   }
+
+  /// Whether [value]'s text is a YAML **1.1** special that a 1.1 parser would
+  /// resolve to a non-string (so it must never be emitted as a plain scalar,
+  /// DR1 §2.5). Covers the 1.1-only boolean words (`y`/`yes`/`n`/`no`/`on`/
+  /// `off` and their case variants — lowercase `true`/`false` are consistent
+  /// across 1.1/1.2 and handled by the normal self-verify) and sexagesimal
+  /// int/float literals.
+  static bool _isYaml11Special(String value) =>
+      _yaml11Bool.hasMatch(value) ||
+      _yaml11SexagesimalInt.hasMatch(value) ||
+      _yaml11SexagesimalFloat.hasMatch(value);
+
+  /// YAML 1.1 boolean words that YAML 1.2 treats as plain strings.
+  static final RegExp _yaml11Bool =
+      RegExp(r'^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$');
+
+  /// YAML 1.1 sexagesimal integer (e.g. `1:30`, `-12:00:00`).
+  static final RegExp _yaml11SexagesimalInt =
+      RegExp(r'^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$');
+
+  /// YAML 1.1 sexagesimal float (e.g. `1:30.5`).
+  static final RegExp _yaml11SexagesimalFloat =
+      RegExp(r'^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$');
 
   /// Builds a literal block scalar (`|2<chomp>`) with body at relative indent
   /// 2, or `null` when chomping can't reproduce the value's trailing newlines

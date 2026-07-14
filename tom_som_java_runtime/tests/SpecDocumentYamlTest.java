@@ -206,6 +206,34 @@ public final class SpecDocumentYamlTest {
     check("encode.plainInt", yaml2.contains("\n    count: 3\n"), "");
     check("encode.plainFormInt", yaml2.contains("\n      revision: 7\n"), "");
 
+    // YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+    // 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
+    // YAML 1.2 but bool/number under YAML 1.1 (SnakeYAML). They must emit as
+    // block scalars so every runtime reads back the exact string; an ordinary
+    // token stays plain.
+    SpecDocument special = new SpecDocument();
+    for (String v : new String[] {"on", "no", "1:30", "plain"}) {
+      special.setContent(special.addListItem("D00/D00-TAG"), v);
+    }
+    String yaml3 = SpecDocumentYaml.encode(special, tree, null);
+    check("encode.yaml11.on", yaml3.contains("\n      tags-1: |2-\n        on\n"), "");
+    check("encode.yaml11.no", yaml3.contains("\n      tags-2: |2-\n        no\n"), "");
+    check(
+        "encode.yaml11.sexagesimal",
+        yaml3.contains("\n      tags-3: |2-\n        1:30\n"),
+        "");
+    check("encode.yaml11.plain", yaml3.contains("\n      tags-4: plain\n"), "");
+    SpecDocument outSpecial = roundTrip(tree, special);
+    java.util.List<String> specialTags = outSpecial.listItems("D00/D00-TAG");
+    check(
+        "encode.yaml11.roundTrip",
+        specialTags.size() == 4
+            && "on".equals(outSpecial.content(specialTags.get(0)))
+            && "no".equals(outSpecial.content(specialTags.get(1)))
+            && "1:30".equals(outSpecial.content(specialTags.get(2)))
+            && "plain".equals(outSpecial.content(specialTags.get(3))),
+        "");
+
     // an empty document emits `document: {}`
     check(
         "encode.emptyDoc",

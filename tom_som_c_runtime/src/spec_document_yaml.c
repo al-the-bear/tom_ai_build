@@ -2,6 +2,7 @@
  * port of the Go `spec_document_yaml.go` (hierarchical format v2). */
 #include "spec_document_yaml.h"
 
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -194,11 +195,94 @@ static char *scalar_repr(const char *value) {
   return js_json_string(value);
 }
 
+/* Whether `value` is a YAML 1.1 boolean word that YAML 1.2 treats as a plain
+ * string. */
+static int is_yaml11_bool(const char *value) {
+  static const char *const words[] = {
+      "y",  "Y",  "yes", "Yes", "YES", "n",   "N",  "no",
+      "No", "NO", "on",  "On",  "ON",  "off", "Off", "OFF"};
+  for (size_t i = 0; i < sizeof(words) / sizeof(words[0]); i++) {
+    if (strcmp(value, words[i]) == 0) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+/* Whether `value` is a YAML 1.1 sexagesimal literal — an int
+ * (^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$) when is_float is 0, or a float
+ * (^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$) when 1. A dependency-free
+ * stand-in for the other ports' regexes. */
+static int is_yaml11_sexagesimal(const char *value, int is_float) {
+  size_t n = strlen(value);
+  size_t i = 0;
+  if (n == 0) {
+    return 0;
+  }
+  if (value[i] == '+' || value[i] == '-') {
+    i++;
+  }
+  if (i >= n) {
+    return 0;
+  }
+  if (is_float) {
+    if (!isdigit((unsigned char)value[i])) {
+      return 0;
+    }
+  } else if (!(value[i] >= '1' && value[i] <= '9')) {
+    return 0;
+  }
+  i++;
+  while (i < n && (isdigit((unsigned char)value[i]) || value[i] == '_')) {
+    i++;
+  }
+  size_t groups = 0;
+  while (i < n && value[i] == ':') {
+    i++;
+    if (i >= n || !isdigit((unsigned char)value[i])) {
+      return 0;
+    }
+    if (value[i] >= '0' && value[i] <= '5' && i + 1 < n &&
+        isdigit((unsigned char)value[i + 1])) {
+      i += 2;
+    } else {
+      i++;
+    }
+    groups++;
+  }
+  if (groups == 0) {
+    return 0;
+  }
+  if (is_float) {
+    if (i >= n || value[i] != '.') {
+      return 0;
+    }
+    i++;
+    while (i < n && (isdigit((unsigned char)value[i]) || value[i] == '_')) {
+      i++;
+    }
+  }
+  return i == n;
+}
+
+/* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
+ * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * Mirrors the Dart reference rule so every emitter agrees regardless of the
+ * local YAML parser's schema. */
+static int is_yaml11_special(const char *value) {
+  return is_yaml11_bool(value) || is_yaml11_sexagesimal(value, 0) ||
+         is_yaml11_sexagesimal(value, 1);
+}
+
 /* plainScalar: a plain one-line scalar for a non-text value (§2.5) when
  * writing it plainly re-parses to exactly `value` (string compare, matching
- * the document's string-typed stores). */
+ * the document's string-typed stores). Values whose text is a YAML 1.1 special
+ * are forced to the quoted/block path so cross-language round-trips match. */
 static int plain_scalar_ok(const char *value) {
   if (value[0] == '\0' || strchr(value, '\n') != NULL) {
+    return 0;
+  }
+  if (is_yaml11_special(value)) {
     return 0;
   }
   char *probe = vcat("_v: ", value, "\n", NULL);

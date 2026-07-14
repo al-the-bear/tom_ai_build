@@ -256,12 +256,110 @@ fn scalar_repr(value: &str) -> String {
     js_json_string(value)
 }
 
+/// Reports whether `value` is a YAML 1.1 boolean word that YAML 1.2 treats as
+/// a plain string (`^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$`).
+fn is_yaml11_bool(value: &str) -> bool {
+    matches!(
+        value,
+        "y" | "Y"
+            | "yes"
+            | "Yes"
+            | "YES"
+            | "n"
+            | "N"
+            | "no"
+            | "No"
+            | "NO"
+            | "on"
+            | "On"
+            | "ON"
+            | "off"
+            | "Off"
+            | "OFF"
+    )
+}
+
+/// Reports whether `value` is a YAML 1.1 sexagesimal literal — an int
+/// (`^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$`) when `float` is false, or a float
+/// (`^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$`) when true. A dependency-free
+/// stand-in for the other ports' regexes (Rust runtime has no `regex` crate).
+fn is_yaml11_sexagesimal(value: &str, float: bool) -> bool {
+    let b = value.as_bytes();
+    let n = b.len();
+    let mut i = 0usize;
+    if n == 0 {
+        return false;
+    }
+    if b[i] == b'+' || b[i] == b'-' {
+        i += 1;
+    }
+    if i >= n {
+        return false;
+    }
+    // First digit: [1-9] for int, [0-9] for float.
+    if float {
+        if !b[i].is_ascii_digit() {
+            return false;
+        }
+    } else if !(b[i] >= b'1' && b[i] <= b'9') {
+        return false;
+    }
+    i += 1;
+    // [0-9_]*
+    while i < n && (b[i].is_ascii_digit() || b[i] == b'_') {
+        i += 1;
+    }
+    // (:[0-5]?[0-9])+  — greedy two-digit consumption is equivalent to the
+    // regex here (any trailing digit that is not `:`/end/`.` fails either way).
+    let mut groups = 0usize;
+    while i < n && b[i] == b':' {
+        i += 1;
+        if i >= n || !b[i].is_ascii_digit() {
+            return false;
+        }
+        if b[i] >= b'0' && b[i] <= b'5' && i + 1 < n && b[i + 1].is_ascii_digit() {
+            i += 2;
+        } else {
+            i += 1;
+        }
+        groups += 1;
+    }
+    if groups == 0 {
+        return false;
+    }
+    if float {
+        if i >= n || b[i] != b'.' {
+            return false;
+        }
+        i += 1;
+        while i < n && (b[i].is_ascii_digit() || b[i] == b'_') {
+            i += 1;
+        }
+    }
+    i == n
+}
+
+/// Reports whether `value`'s text is a YAML 1.1 special that a 1.1 parser would
+/// resolve to a non-string, so it must never be emitted as a plain scalar
+/// (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal int/float
+/// literals. Mirrors the Dart reference rule so every emitter's plain-scalar
+/// decision is identical regardless of the local YAML parser's schema.
+fn is_yaml11_special(value: &str) -> bool {
+    is_yaml11_bool(value)
+        || is_yaml11_sexagesimal(value, false)
+        || is_yaml11_sexagesimal(value, true)
+}
+
 /// Returns a plain one-line scalar for a non-text value (int/double/bool/enum
 /// member name, §2.5) when writing it plainly re-parses to exactly `value`
 /// (string compare, matching the document's string-typed stores); `None`
-/// otherwise.
+/// otherwise. Values whose text is a YAML 1.1 special are forced to the
+/// quoted/block path so cross-language round-trips stay identical.
 fn plain_scalar(value: &str) -> Option<String> {
     if value.is_empty() || value.contains('\n') {
+        return None;
+    }
+    if is_yaml11_special(value) {
         return None;
     }
     let parsed = yaml_parse(&format!("_v: {}\n", value));

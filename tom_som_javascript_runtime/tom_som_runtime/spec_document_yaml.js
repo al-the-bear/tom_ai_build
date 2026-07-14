@@ -211,13 +211,37 @@ function _scalar(value) {
   return JSON.stringify(value);
 }
 
+const _YAML11_BOOL = /^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$/;
+const _YAML11_SEXAGESIMAL_INT = /^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$/;
+const _YAML11_SEXAGESIMAL_FLOAT = /^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$/;
+
+/**
+ * Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
+ * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * Covers the 1.1-only boolean words and sexagesimal int/float literals.
+ * Mirrors the Dart reference rule so every emitter's plain-scalar decision is
+ * identical regardless of the local YAML library's schema.
+ */
+function _isYaml11Special(value) {
+  return (
+    _YAML11_BOOL.test(value) ||
+    _YAML11_SEXAGESIMAL_INT.test(value) ||
+    _YAML11_SEXAGESIMAL_FLOAT.test(value)
+  );
+}
+
 /**
  * A plain one-line scalar for a non-text value (int/double/bool/enum member
  * name, §2.5) when writing it plainly re-parses to exactly `value` (string
  * compare, matching the document's string-typed stores); `null` otherwise.
+ * Values whose text is a YAML 1.1 special are forced to the quoted/block path
+ * so cross-language round-trips stay identical.
  */
 function _plainScalar(value) {
   if (value === '' || value.includes('\n')) {
+    return null;
+  }
+  if (_isYaml11Special(value)) {
     return null;
   }
   try {

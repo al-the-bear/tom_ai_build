@@ -151,10 +151,93 @@ static std::string scalarRepr(const std::string& value) {
   return jsJsonString(value);
 }
 
+/* Whether `value` is a YAML 1.1 boolean word that YAML 1.2 treats as a plain
+ * string. */
+static bool isYaml11Bool(const std::string& value) {
+  static const char* const words[] = {
+      "y",  "Y",  "yes", "Yes", "YES", "n",   "N",   "no",
+      "No", "NO", "on",  "On",  "ON",  "off", "Off", "OFF"};
+  for (const char* w : words) {
+    if (value == w) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/* Whether `value` is a YAML 1.1 sexagesimal literal — an int
+ * (^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$) when isFloat is false, or a float
+ * (^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$) when true. A dependency-free
+ * stand-in for the other ports' regexes. */
+static bool isYaml11Sexagesimal(const std::string& value, bool isFloat) {
+  auto isDigit = [](char c) { return c >= '0' && c <= '9'; };
+  std::size_t n = value.size();
+  std::size_t i = 0;
+  if (n == 0) {
+    return false;
+  }
+  if (value[i] == '+' || value[i] == '-') {
+    i++;
+  }
+  if (i >= n) {
+    return false;
+  }
+  if (isFloat) {
+    if (!isDigit(value[i])) {
+      return false;
+    }
+  } else if (!(value[i] >= '1' && value[i] <= '9')) {
+    return false;
+  }
+  i++;
+  while (i < n && (isDigit(value[i]) || value[i] == '_')) {
+    i++;
+  }
+  std::size_t groups = 0;
+  while (i < n && value[i] == ':') {
+    i++;
+    if (i >= n || !isDigit(value[i])) {
+      return false;
+    }
+    if (value[i] >= '0' && value[i] <= '5' && i + 1 < n && isDigit(value[i + 1])) {
+      i += 2;
+    } else {
+      i++;
+    }
+    groups++;
+  }
+  if (groups == 0) {
+    return false;
+  }
+  if (isFloat) {
+    if (i >= n || value[i] != '.') {
+      return false;
+    }
+    i++;
+    while (i < n && (isDigit(value[i]) || value[i] == '_')) {
+      i++;
+    }
+  }
+  return i == n;
+}
+
+/* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
+ * to a non-string, so it must never be emitted as a plain scalar (DR1 §2.5).
+ * Mirrors the Dart reference rule so every emitter agrees regardless of the
+ * local YAML parser's schema. */
+static bool isYaml11Special(const std::string& value) {
+  return isYaml11Bool(value) || isYaml11Sexagesimal(value, false) ||
+         isYaml11Sexagesimal(value, true);
+}
+
 /* A plain one-line scalar for a non-text value (§2.5) when writing it plainly
- * re-parses to exactly `value`. */
+ * re-parses to exactly `value`. Values whose text is a YAML 1.1 special are
+ * forced to the quoted/block path so cross-language round-trips match. */
 static bool plainScalarOk(const std::string& value) {
   if (value.empty() || value.find('\n') != std::string::npos) {
+    return false;
+  }
+  if (isYaml11Special(value)) {
     return false;
   }
   std::string probe = "_v: " + value + "\n";

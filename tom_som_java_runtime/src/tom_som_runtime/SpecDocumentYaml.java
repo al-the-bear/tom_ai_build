@@ -199,14 +199,38 @@ public final class SpecDocumentYaml {
     return Json.encodeString(value);
   }
 
+  private static final Pattern YAML11_BOOL =
+      Pattern.compile("^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$");
+  private static final Pattern YAML11_SEXAGESIMAL_INT =
+      Pattern.compile("^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$");
+  private static final Pattern YAML11_SEXAGESIMAL_FLOAT =
+      Pattern.compile("^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\\.[0-9_]*$");
+
+  /**
+   * Whether {@code value}'s text is a YAML 1.1 special that a 1.1 parser would
+   * resolve to a non-string, so it must never be emitted as a plain scalar
+   * (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal int/float
+   * literals. Mirrors the Dart reference rule so every emitter's plain-scalar
+   * decision is identical regardless of the local YAML library's schema.
+   */
+  private static boolean isYaml11Special(String value) {
+    return YAML11_BOOL.matcher(value).matches()
+        || YAML11_SEXAGESIMAL_INT.matcher(value).matches()
+        || YAML11_SEXAGESIMAL_FLOAT.matcher(value).matches();
+  }
+
   /**
    * A plain one-line scalar for a non-text value (int/double/bool/enum member
    * name, §2.5) when writing it plainly re-parses to exactly {@code value}
    * (string compare, matching the document's string-typed stores);
-   * {@code null} otherwise.
+   * {@code null} otherwise. Values whose text is a YAML 1.1 special are forced
+   * to the quoted/block path so cross-language round-trips stay identical.
    */
   private static String plainScalar(String value) {
     if (value.isEmpty() || value.indexOf('\n') >= 0) {
+      return null;
+    }
+    if (isYaml11Special(value)) {
       return null;
     }
     Object parsed;

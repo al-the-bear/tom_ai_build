@@ -185,6 +185,32 @@ func yamlTestEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 	c.check("encode.plainFormInt",
 		strings.Contains(yaml2, "\n      revision: 7\n"), "")
 
+	// YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+	// 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
+	// YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
+	// every runtime reads back the exact string; an ordinary token stays plain.
+	special := som.NewSpecDocument()
+	for _, v := range []string{"on", "no", "1:30", "plain"} {
+		special.SetContent(special.AddListItem("D00/D00-TAG"), v)
+	}
+	yaml3 := yamlEnc(t, tree, special, "")
+	c.check("encode.yaml11.on",
+		strings.Contains(yaml3, "\n      tags-1: |2-\n        on\n"), "")
+	c.check("encode.yaml11.no",
+		strings.Contains(yaml3, "\n      tags-2: |2-\n        no\n"), "")
+	c.check("encode.yaml11.sexagesimal",
+		strings.Contains(yaml3, "\n      tags-3: |2-\n        1:30\n"), "")
+	c.check("encode.yaml11.plain",
+		strings.Contains(yaml3, "\n      tags-4: plain\n"), "")
+	outSpecial := yamlRoundTrip(t, tree, special)
+	specialTags := outSpecial.ListItems("D00/D00-TAG")
+	specialOk := len(specialTags) == 4 &&
+		outSpecial.ContentOr(specialTags[0]) == "on" &&
+		outSpecial.ContentOr(specialTags[1]) == "no" &&
+		outSpecial.ContentOr(specialTags[2]) == "1:30" &&
+		outSpecial.ContentOr(specialTags[3]) == "plain"
+	c.check("encode.yaml11.roundTrip", specialOk, "")
+
 	// an empty document emits `document: {}`
 	c.check("encode.emptyDoc",
 		strings.Contains(yamlEnc(t, tree, som.NewSpecDocument(), ""),

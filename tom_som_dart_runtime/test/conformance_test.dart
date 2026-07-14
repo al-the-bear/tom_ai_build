@@ -411,6 +411,16 @@ SpecDocument _buildDocument() {
   d.setContent('$i2/label', 'Second line A\nwith ```triple``` ticks');
   d.setContent('$i2/STS', 'done');
   d.setContent('DEMO/META/OWNR', 'alice');
+  // Scalar list exercising the YAML 1.1-special quoting rule (DR1 §2.5, DRC6):
+  // `on`/`no` are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int — all
+  // three parse as plain strings under YAML 1.2 (Dart) but as bool/number under
+  // YAML 1.1 (PyYAML). The emitter must quote them so every runtime reads back
+  // the exact string. `plain` proves an ordinary scalar still emits plainly.
+  final tags = ['on', 'no', '1:30', 'plain'];
+  for (final tag in tags) {
+    final t = d.addListItem('DEMO/META/tags');
+    d.setContent(t, tag);
+  }
   return d;
 }
 

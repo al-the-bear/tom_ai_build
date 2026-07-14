@@ -201,12 +201,33 @@ def _scalar(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+_YAML11_BOOL = re.compile(r"^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$")
+_YAML11_SEXAGESIMAL_INT = re.compile(r"^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$")
+_YAML11_SEXAGESIMAL_FLOAT = re.compile(r"^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$")
+
+
+def _is_yaml11_special(value: str) -> bool:
+    """Whether *value*'s text is a YAML **1.1** special that a 1.1 parser would
+    resolve to a non-string, so it must never be emitted as a plain scalar
+    (DR1 §2.5). Covers the 1.1-only boolean words and sexagesimal int/float
+    literals. Mirrors the Dart reference rule so every emitter's plain-scalar
+    decision is identical regardless of the local YAML library's schema."""
+    return bool(
+        _YAML11_BOOL.match(value)
+        or _YAML11_SEXAGESIMAL_INT.match(value)
+        or _YAML11_SEXAGESIMAL_FLOAT.match(value)
+    )
+
+
 def _plain_scalar(value: str) -> Optional[str]:
     """A plain one-line scalar for a non-text value (int/double/bool/enum
     member name, §2.5) when writing it plainly re-parses to exactly *value*
     (string compare, matching the document's string-typed stores); ``None``
-    otherwise."""
+    otherwise. Values whose text is a YAML 1.1 special are forced to the
+    quoted/block path so cross-language round-trips stay identical."""
     if value == "" or "\n" in value:
+        return None
+    if _is_yaml11_special(value):
         return None
     try:
         parsed = _require_yaml().safe_load(f"_v: {value}\n")

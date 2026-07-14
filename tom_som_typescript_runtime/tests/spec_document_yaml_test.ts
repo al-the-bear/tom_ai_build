@@ -224,6 +224,30 @@ function testEncode(): void {
   _check('encode.plainInt', yaml2.includes('\n    count: 3\n'));
   _check('encode.plainFormInt', yaml2.includes('\n      revision: 7\n'));
 
+  // YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+  // 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
+  // YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
+  // every runtime reads back the exact string; an ordinary token stays plain.
+  const special = new SpecDocument();
+  for (const v of ['on', 'no', '1:30', 'plain']) {
+    special.setContent(special.addListItem('D00/D00-TAG'), v);
+  }
+  const yaml3 = _enc(special);
+  _check('encode.yaml11.on', yaml3.includes('\n      tags-1: |2-\n        on\n'));
+  _check('encode.yaml11.no', yaml3.includes('\n      tags-2: |2-\n        no\n'));
+  _check(
+    'encode.yaml11.sexagesimal',
+    yaml3.includes('\n      tags-3: |2-\n        1:30\n'),
+  );
+  _check('encode.yaml11.plain', yaml3.includes('\n      tags-4: plain\n'));
+  const outSpecial = _roundTrip(special);
+  _check(
+    'encode.yaml11.roundTrip',
+    JSON.stringify(
+      outSpecial.listItems('D00/D00-TAG').map((t) => outSpecial.content(t)),
+    ) === JSON.stringify(['on', 'no', '1:30', 'plain']),
+  );
+
   // an empty document emits `document: {}`
   _check('encode.emptyDoc', _enc(new SpecDocument()).includes('document: {}'));
 

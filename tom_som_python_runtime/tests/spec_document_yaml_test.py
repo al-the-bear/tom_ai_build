@@ -232,6 +232,26 @@ def test_encode() -> None:
     _check("encode.plainInt", "\n    count: 3\n" in yaml2)
     _check("encode.plainFormInt", "\n      revision: 7\n" in yaml2)
 
+    # YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no`
+    # are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings
+    # under YAML 1.2 but bool/number under YAML 1.1 (PyYAML). They must emit as
+    # block scalars so every runtime reads back the exact string; an ordinary
+    # token still emits plainly.
+    special = SpecDocument()
+    for v in ("on", "no", "1:30", "plain"):
+        special.set_content(special.add_list_item("D00/D00-TAG"), v)
+    yaml3 = _enc(special)
+    _check("encode.yaml11.on", "\n      tags-1: |2-\n        on\n" in yaml3)
+    _check("encode.yaml11.no", "\n      tags-2: |2-\n        no\n" in yaml3)
+    _check("encode.yaml11.sexagesimal", "\n      tags-3: |2-\n        1:30\n" in yaml3)
+    _check("encode.yaml11.plain", "\n      tags-4: plain\n" in yaml3)
+    out_special = _round_trip(special)
+    _check(
+        "encode.yaml11.roundTrip",
+        [out_special.content(t) for t in out_special.list_items("D00/D00-TAG")]
+        == ["on", "no", "1:30", "plain"],
+    )
+
     # an empty document emits `document: {}`
     _check("encode.emptyDoc", "document: {}" in _enc(SpecDocument()))
 

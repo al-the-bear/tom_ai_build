@@ -5,6 +5,10 @@
       "content": {
         "DEMO/CNT": "3",
         "DEMO/META/OWNR": "alice",
+        "DEMO/META/tags-1": "on",
+        "DEMO/META/tags-2": "no",
+        "DEMO/META/tags-3": "1:30",
+        "DEMO/META/tags-4": "plain",
         "DEMO/PRI": "high",
         "DEMO/SUM": "Line one\nLine two\n\nLine four",
         "DEMO/TTL": "Hello",
@@ -20,6 +24,15 @@
         }
       },
       "lists": {
+        "DEMO/META/tags": {
+          "seq": 4,
+          "items": [
+            "DEMO/META/tags-1",
+            "DEMO/META/tags-2",
+            "DEMO/META/tags-3",
+            "DEMO/META/tags-4"
+          ]
+        },
         "DEMO/items": {
           "seq": 2,
           "items": [

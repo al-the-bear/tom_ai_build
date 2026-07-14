@@ -48,3 +48,19 @@ done
 
 alice
 
+### <!--[tags-1]--> String 1
+
+on
+
+### <!--[tags-2]--> String 2
+
+no
+
+### <!--[tags-3]--> String 3
+
+1:30
+
+### <!--[tags-4]--> String 4
+
+plain
+

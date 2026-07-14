@@ -208,6 +208,31 @@ void yamlTestEncode() {
     check("encode.plainFormInt", contains(yaml2, "\n      revision: 7\n"));
   }
 
+  /* YAML 1.1-special values are quoted, not plain (§2.5, DRC6). `on`/`no` are
+   * 1.1-only booleans and `1:30` is a 1.1 sexagesimal int: plain strings under
+   * YAML 1.2 but bool/number under YAML 1.1. They must emit as block scalars so
+   * every runtime reads back the exact string; an ordinary token stays plain. */
+  {
+    som::SpecDocument special;
+    for (const char* v : {"on", "no", "1:30", "plain"}) {
+      special.setContent(special.addListItem("D00/D00-TAG"), v);
+    }
+    std::string yaml3 = yamlEnc(special, "");
+    check("encode.yaml11.on", contains(yaml3, "\n      tags-1: |2-\n        on\n"));
+    check("encode.yaml11.no", contains(yaml3, "\n      tags-2: |2-\n        no\n"));
+    check("encode.yaml11.sexagesimal",
+          contains(yaml3, "\n      tags-3: |2-\n        1:30\n"));
+    check("encode.yaml11.plain", contains(yaml3, "\n      tags-4: plain\n"));
+    som::SpecYamlContents rtSpecial = yamlRoundTrip(special);
+    std::vector<std::string> stags = rtSpecial.document.listItems("D00/D00-TAG");
+    check("encode.yaml11.roundTrip",
+          stags.size() == 4 &&
+              contentOr(rtSpecial.document, stags[0]) == "on" &&
+              contentOr(rtSpecial.document, stags[1]) == "no" &&
+              contentOr(rtSpecial.document, stags[2]) == "1:30" &&
+              contentOr(rtSpecial.document, stags[3]) == "plain");
+  }
+
   /* an empty document emits `document: {}` */
   {
     som::SpecDocument empty;
