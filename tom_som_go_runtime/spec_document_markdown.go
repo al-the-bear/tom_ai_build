@@ -11,11 +11,12 @@ package somruntime
 // DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
 // human-readable Title-Case member name. Content values are **normal markdown
 // text** under their heading (no fences, no anchors); `@Form` sections use the
-// DocSpecs plain-text `FieldName: value` format; list items are sub-headings
-// carrying the item's section id (stored id, else the `@SectionIdPattern`
-// resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
-// `<member>-<pos>`) directly under the owning section — the list container
-// gets no heading of its own. Id-less members are **transparent** (mirroring
+// DocSpecs plain-text `FieldName: value` format; a list emits its `-LST`
+// container heading (id = the list's `@SectionId`, else the member segment)
+// at the owner's child level, wrapping the numbered item headings one level
+// deeper — each item carrying the `@SectionIdPattern` resolved with the 1-based
+// position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`, else `<member>-<pos>`). The
+// container itself carries no body. Id-less members are **transparent** (mirroring
 // the DR3 schema generator): a transparent value member's text or form block
 // is the owner's body region, emitted without a heading and bound at its own
 // path; a transparent section/complex member never heads — its id-bearing
@@ -336,8 +337,9 @@ func (c *SpecDocumentMarkdown) headingIdOf(node *SomMetaNode) string {
 //     descendants surface as the owner's direct child headings (the
 //     schema's "nearest section-bearing descendant" hoisting), with document
 //     paths still running through the transparent segments;
-//   - lists are never transparent — the container never heads, the items
-//     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+//   - lists are never transparent — the `-LST` container always heads (DR1
+//     §1.2) at the owner's child level and the items sit one level below it
+//     (`@SectionIdPattern` / `<member>-<pos>`).
 //
 // Principled canonicalisation losses (documented, accepted): multiple
 // transparent content members of one owner merge into the first on parse,
@@ -522,12 +524,21 @@ func (c *SpecDocumentMarkdown) writeChildren(
 	return nil
 }
 
-// writeListItems emits the items of list node as headings **at the owner's
-// child level** — the container itself gets no heading (DR1 §1.2).
+// writeListItems emits list node as its `-LST` container heading (DR1
+// §1.2/§1.5) at depth, wrapping the numbered item headings one level deeper.
+// The container is a real section — the id the DR3 schema keys its container
+// type by — but carries **no content of its own** (schema content
+// min/max-text-length 0). Item identity is purely positional.
 func (c *SpecDocumentMarkdown) writeListItems(
 	b *mdBuffer, node *SomMetaNode, listPath string, depth int,
 ) error {
 	items := c.Document.ListItems(listPath)
+	if len(items) == 0 {
+		return nil
+	}
+	// The container heading: its id is the list's `-LST` `@SectionId` (else the
+	// member segment for a pattern-less list); its title is the member name.
+	mdWriteHeading(b, depth, c.headingIdOf(node), mdTitleOf(node))
 	element := node.ElementNode
 	stemSource := node.TypeName
 	if element != nil {
@@ -557,7 +568,8 @@ func (c *SpecDocumentMarkdown) writeListItems(
 			}
 			itemID = member + "-" + itoa(pos)
 		}
-		mdWriteHeading(b, depth, itemID, stem+" "+itoa(pos))
+		// Items sit one level below the container.
+		mdWriteHeading(b, depth+1, itemID, stem+" "+itoa(pos))
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -569,7 +581,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 				return err
 			}
 			if !element.Recursive {
-				if err := c.writeChildren(b, element, itemPath, depth+1); err != nil {
+				if err := c.writeChildren(b, element, itemPath, depth+2); err != nil {
 					return err
 				}
 			}
@@ -841,13 +853,21 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		return
 	}
 
-	// 1. A regular (non-list) *effective* child — section-bearing children
-	//    hoisted through transparent sections — whose heading id (field/class
-	//    section id) matches. Transparent value members never head, so they
-	//    never match here; the bound path runs through transparent segments.
-	effective := p.codec.effectiveChildren(pNode)
-	for _, entry := range effective {
-		if entry.node.Kind != SomMetaKindList && p.codec.headingIdOf(entry.node) == id {
+	// 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
+	//    of that list's items — resolved positionally, not by the schema tree.
+	if pNode.Kind == SomMetaKindList {
+		p.openItemHeading(level, parent, pNode, id, lineNo)
+		return
+	}
+
+	// 2. A regular (non-list) or list-**container** *effective* child —
+	//    section-bearing children hoisted through transparent sections — whose
+	//    heading id matches. A list heads its `-LST` container here; its items
+	//    are resolved above once the container frame is open. Transparent value
+	//    members never head, so they never match; the bound path runs through
+	//    the transparent segments.
+	for _, entry := range p.codec.effectiveChildren(pNode) {
+		if p.codec.headingIdOf(entry.node) == id {
 			p.stack = append(p.stack, &mdFrame{
 				level: level,
 				node:  entry.node,
@@ -858,61 +878,6 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		}
 	}
 
-	// 2. A list item: anonymous (`<member>-<n>` or the pattern with a numeric
-	//    sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id, or
-	//    (fallback) any id when the parent has exactly one effective list.
-	var listChildren []mdNodeRel
-	for _, entry := range effective {
-		if entry.node.Kind == SomMetaKindList {
-			listChildren = append(listChildren, entry)
-		}
-	}
-	for _, entry := range listChildren {
-		lc := entry.node
-		listPath := parent.path + "/" + entry.rel
-		member := lc.MemberName
-		if member == "" {
-			member = lc.Segment()
-		}
-		anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
-		if err == nil {
-			if anon := anonRE.FindStringSubmatch(id); anon != nil {
-				p.openItem(level, listPath, lc, atoi(anon[1]), "", true, lineNo)
-				return
-			}
-		}
-		element := lc.ElementNode
-		pattern := lc.SectionIDPattern
-		if pattern == "" && element != nil {
-			pattern = element.SectionIDPattern
-		}
-		if pattern != "" {
-			// Canonical anonymous id: the pattern with `xxx` as a number —
-			// parses back as item <n>, NOT as a stored id (DR1 §1.2
-			// round-trip).
-			parts := strings.Split(pattern, "xxx")
-			if len(parts) == 2 {
-				numberedRE, err := regexp.Compile("^" + regexp.QuoteMeta(parts[0]) +
-					"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
-				if err == nil {
-					if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-						p.openItem(level, listPath, lc, atoi(numbered[1]), "", true, lineNo)
-						return
-					}
-				}
-			}
-			if mdPatternMatches(pattern, id) {
-				p.openItem(level, listPath, lc, 0, id, false, lineNo)
-				return
-			}
-		}
-	}
-	if len(listChildren) == 1 {
-		entry := listChildren[0]
-		p.openItem(level, parent.path+"/"+entry.rel, entry.node, 0, id, false, lineNo)
-		return
-	}
-
 	p.rejections = append(p.rejections, &SpecMarkdownRejection{
 		Line:   lineNo,
 		Reason: SpecMarkdownRejectUnknownSection,
@@ -921,6 +886,55 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		Anchor: id,
 	})
 	p.stack = append(p.stack, &mdFrame{level: level, line: lineNo, ignored: true})
+}
+
+// openItemHeading opens a list-item frame under a `-LST` container frame (DR1
+// §1.2). The heading id is matched positionally against the container's list:
+// the `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
+// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
+// id, or — for any other id — an anonymous next item carrying the stored id.
+func (p *mdParser) openItemHeading(
+	level int, container *mdFrame, listNode *SomMetaNode, id string, lineNo int,
+) {
+	listPath := container.path
+	member := listNode.MemberName
+	if member == "" {
+		member = listNode.Segment()
+	}
+	anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
+	if err == nil {
+		if anon := anonRE.FindStringSubmatch(id); anon != nil {
+			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, lineNo)
+			return
+		}
+	}
+	element := listNode.ElementNode
+	pattern := listNode.SectionIDPattern
+	if pattern == "" && element != nil {
+		pattern = element.SectionIDPattern
+	}
+	if pattern != "" {
+		// Canonical anonymous id: the pattern with `xxx` as a number — parses
+		// back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+		parts := strings.Split(pattern, "xxx")
+		if len(parts) == 2 {
+			numberedRE, err := regexp.Compile("^" + regexp.QuoteMeta(parts[0]) +
+				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
+			if err == nil {
+				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
+					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, lineNo)
+					return
+				}
+			}
+		}
+		if mdPatternMatches(pattern, id) {
+			p.openItem(level, listPath, listNode, 0, id, false, lineNo)
+			return
+		}
+	}
+	// Any other id under the container is an anonymous next item; a genuine
+	// stored id is kept (it survives only through the yaml format, DR1 §2).
+	p.openItem(level, listPath, listNode, 0, id, false, lineNo)
 }
 
 func (p *mdParser) openRoot(level int, id string, lineNo int) {

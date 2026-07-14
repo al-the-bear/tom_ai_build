@@ -210,7 +210,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 		for _, f := range demo.Fields {
 			names = append(names, f.Name)
 		}
-		want := []string{"title", "summary", "priority", "count", "details", "items", "meta"}
+		want := []string{"title", "summary", "priority", "count", "details", "items", "refs", "meta"}
 		c.check("model.Demo.fields", sliceEq(names, want), join(names))
 	}
 }
