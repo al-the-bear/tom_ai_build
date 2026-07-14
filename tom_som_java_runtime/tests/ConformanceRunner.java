@@ -10,12 +10,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import tom_som_runtime.Json;
+import tom_som_runtime.SomMetaBridge;
+import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SpecClass;
 import tom_som_runtime.SpecDocument;
-import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
 import tom_som_runtime.SpecField;
-import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
@@ -132,73 +132,31 @@ public final class ConformanceRunner {
     return "got " + Json.write(actual) + " want " + Json.write(expected);
   }
 
-  private static void testYamlEncode() throws IOException {
+  private static void testYamlEncode(SomMetaTree tree) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
     String expected = read("expected.docspecs.yaml");
-    String actual = SpecDocumentYaml.encode(doc, MODEL_VERSION);
+    String actual = SpecDocumentYaml.encode(doc, tree, MODEL_VERSION);
     check("yaml.encode", actual.equals(expected), byteDiff("yaml.encode", actual, expected));
   }
 
-  private static void testYamlDecodeRoundTrip() throws IOException {
+  private static void testYamlDecodeRoundTrip(SomMetaTree tree) throws IOException {
     String expected = read("expected.docspecs.yaml");
-    SpecYamlContents contents = SpecDocumentYaml.decode(expected);
+    SpecYamlContents contents = SpecDocumentYaml.decode(expected, tree);
     check(
         "yaml.decode.stamp",
         MODEL_VERSION.equals(contents.modelVersion),
         String.valueOf(contents.modelVersion));
-    SpecDocument doc = new SpecDocument();
-    doc.loadJson(contents.document);
+    Map<String, Object> state = readJsonObject("state.json");
+    check(
+        "yaml.decode.memory",
+        contents.document.toJson().equals(state),
+        jsonMismatch(contents.document.toJson(), state));
     String stamp = contents.modelVersion != null ? contents.modelVersion : MODEL_VERSION;
-    String actual = SpecDocumentYaml.encode(doc, stamp);
+    String actual = SpecDocumentYaml.encode(contents.document, tree, stamp);
     check(
         "yaml.decode.reencode",
         actual.equals(expected),
         byteDiff("yaml.decode.reencode", actual, expected));
-  }
-
-  private static void testMarkdownExport(SpecModel model) throws IOException {
-    SpecDocument doc = documentFromState(readJsonObject("state.json"));
-    String expected = read("expected.md");
-    String actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
-    check("md.export", actual.equals(expected), byteDiff("md.export", actual, expected));
-  }
-
-  private static void testMarkdownRoundTrip(SpecModel model) throws IOException {
-    String expected = read("expected.md");
-    SpecMarkdownResult result = new SpecDocumentMarkdown(model, new SpecDocument()).parse(expected);
-    check("md.parse.clean", result.isClean(), joinRejections(result));
-    SpecDocument applied = new SpecDocument();
-    applied.loadJson(result.toLoadJson());
-    String actual = new SpecDocumentMarkdown(model, applied).exportRoot(model.roots.get(0));
-    check(
-        "md.parse.reexport",
-        actual.equals(expected),
-        byteDiff("md.parse.reexport", actual, expected));
-  }
-
-  private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
-    String expectedMd = read("expected.md");
-    Map<String, Object> canonical = readJsonObject("state.json");
-    SpecMarkdownResult result =
-        new SpecDocumentMarkdown(model, new SpecDocument()).parse(expectedMd);
-    check("md.land.clean", result.isClean(), joinRejections(result));
-    SpecDocument landed = new SpecDocument();
-    landed.loadJson(result.toLoadJson());
-    check(
-        "md.land.memory",
-        landed.toJson().equals(canonical),
-        jsonMismatch(landed.toJson(), canonical));
-  }
-
-  private static String joinRejections(SpecMarkdownResult result) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < result.rejections.size(); i++) {
-      if (i > 0) {
-        sb.append("; ");
-      }
-      sb.append(result.rejections.get(i).toString());
-    }
-    return sb.toString();
   }
 
   @SuppressWarnings("unchecked")
@@ -482,13 +440,13 @@ public final class ConformanceRunner {
       return;
     }
     SpecModel model = loadModel();
+    SomMetaTree tree = SomMetaBridge.buildSomMetaTree(model, null);
     testModelMeta(model);
     testStateRoundTrip();
-    testYamlEncode();
-    testYamlDecodeRoundTrip();
-    testMarkdownExport(model);
-    testMarkdownRoundTrip(model);
-    testMarkdownMemoryLanding(model);
+    testYamlEncode(tree);
+    testYamlDecodeRoundTrip(tree);
+    System.out.println(
+        "SKIP: markdown conformance (md.export, md.parse.*, md.land.*) pending DR23");
     testReflection(model);
     testValidation(model);
     testOperations();

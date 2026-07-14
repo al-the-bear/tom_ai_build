@@ -54,30 +54,51 @@ public final class SpecDocument {
   }
 
   /**
-   * Loads a {@code *.docspecs.yaml} document in one call: decode the YAML,
-   * populate the sparse stores ({@link #loadJson}), and retain the parsed
-   * {@link #modelVersion} on the document. Collapses the former three-step
-   * decode → loadJson → thread-{@code documentVersion} incantation.
+   * Loads a hierarchical-v2 {@code *.docspecs.yaml} document in one call:
+   * decode the YAML against the metadata {@code tree} and retain the parsed
+   * {@link #modelVersion} on the document (the decoder already stamps it).
+   * Collapses the former three-step decode → loadJson →
+   * thread-{@code documentVersion} incantation.
    */
-  public static SpecDocument fromYaml(String yaml) {
-    SpecYamlContents decoded = SpecDocumentYaml.decode(yaml);
-    SpecDocument doc = new SpecDocument();
-    doc.loadJson(decoded.document);
-    doc.modelVersion = decoded.modelVersion;
-    return doc;
+  public static SpecDocument fromYaml(String yaml, SomMetaTree tree) {
+    return SpecDocumentYaml.decode(yaml, tree).document;
   }
 
   /**
    * Loads a {@code *.docspecs.yaml} document from the file at {@code path} — the
-   * file companion to {@link #fromYaml} the generated {@code loadFile} static
-   * delegates to.
+   * file companion to {@link #fromYaml(String, SomMetaTree)} the generated
+   * {@code loadFile} static delegates to.
    */
-  public static SpecDocument fromFile(String path) {
+  public static SpecDocument fromFile(String path, SomMetaTree tree) {
     try {
-      return fromYaml(Files.readString(Path.of(path)));
+      return fromYaml(Files.readString(Path.of(path)), tree);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  /**
+   * @deprecated The flat v1 format is gone (DR22); loading requires the
+   *     metadata tree. Use {@link #fromYaml(String, SomMetaTree)}. The
+   *     generated facade regains a tree-threading overload in DR24.
+   */
+  @Deprecated
+  public static SpecDocument fromYaml(String yaml) {
+    throw new UnsupportedOperationException(
+        "fromYaml(String) is gone with the flat v1 format; use "
+            + "fromYaml(String, SomMetaTree) (facade regeneration: DR24)");
+  }
+
+  /**
+   * @deprecated The flat v1 format is gone (DR22); loading requires the
+   *     metadata tree. Use {@link #fromFile(String, SomMetaTree)}. The
+   *     generated facade regains a tree-threading overload in DR24.
+   */
+  @Deprecated
+  public static SpecDocument fromFile(String path) {
+    throw new UnsupportedOperationException(
+        "fromFile(String) is gone with the flat v1 format; use "
+            + "fromFile(String, SomMetaTree) (facade regeneration: DR24)");
   }
 
   // --- markdown export ----------------------------------------------------
