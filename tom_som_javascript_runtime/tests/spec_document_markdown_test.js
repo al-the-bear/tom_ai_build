@@ -11,8 +11,8 @@
  * `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
  * section is a heading of the form `## <!--[SECTION-ID]--> Title`, content
  * sections are normal markdown text (no fences), `@Form` sections use the
- * plain-text `FieldName: value` format, and list items sit as sub-headings
- * directly under the owner (no container heading).
+ * plain-text `FieldName: value` format, and a list emits its `-LST` container
+ * heading with the numbered items one level deeper.
  *
  * Run with: `node tests/spec_document_markdown_test.js`. Exit code 0 == green.
  */
@@ -212,10 +212,12 @@ function testExportFormat() {
   _check('export.form.sparse.author', md.includes('Author: Ada Lovelace'));
   _check('export.form.sparse.noReviewer', !md.includes('Reviewer'));
 
-  _check('export.item.1', md.includes('## <!--[items-1]--> Demo Item 1'));
-  _check('export.item.2', md.includes('## <!--[items-2]--> Demo Item 2'));
-  _check('export.item.label', md.includes('### <!--[D01-LBL]--> Label'));
-  _check('export.item.noContainer', !md.includes('<!--[D00-ITM]-->'));
+  // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child level,
+  // its numbered items one level below it, item fields one deeper.
+  _check('export.item.container', md.includes('## <!--[D00-ITM]--> Items'));
+  _check('export.item.1', md.includes('### <!--[items-1]--> Demo Item 1'));
+  _check('export.item.2', md.includes('### <!--[items-2]--> Demo Item 2'));
+  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> Label'));
 
   _check('export.noSchemaDescription', !md.includes('A demo document.'));
 }
@@ -226,8 +228,10 @@ function testExportStoredItemId() {
   doc.setContent(`${item}/D01-LBL`, 'Custom-id item');
   const md = _export(doc);
   // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-  // is not surfaced in md; the anonymous positional id is emitted instead.
-  _check('export.storedId.positional', md.includes('## <!--[items-1]--> Demo Item 1'), md);
+  // is not surfaced in md; the anonymous positional id is emitted instead, one
+  // level below the `-LST` container heading.
+  _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> Items'), md);
+  _check('export.storedId.positional', md.includes('### <!--[items-1]--> Demo Item 1'), md);
   _check('export.storedId.noStored', !md.includes('D01-CUSTOM'), md);
 }
 

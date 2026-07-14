@@ -145,7 +145,7 @@ function testModelMeta(model) {
     const names = demo.fields.map((f) => f.name);
     _check(
       'model.Demo.fields',
-      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'meta']),
+      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'refs', 'meta']),
       String(names),
     );
   }

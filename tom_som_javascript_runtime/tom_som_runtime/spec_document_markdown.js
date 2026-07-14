@@ -11,11 +11,15 @@
  * DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
  * human-readable Title-Case member name. Content values are **normal markdown
  * text** under their heading (no fences, no anchors); `@Form` sections use the
- * DocSpecs plain-text `FieldName: value` format; list items are sub-headings
- * carrying the item's section id (stored id, else the `@SectionIdPattern`
- * resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
- * `<member>-<pos>`) directly under the owning section — the list container
- * gets no heading of its own. Id-less members are **transparent** (mirroring
+ * DocSpecs plain-text `FieldName: value` format; a list emits its `-LST`
+ * **container heading** (the id the DR3 schema keys its container type by),
+ * with the numbered items one level deeper, each carrying the item's
+ * **anonymous positional** section id — the `@SectionIdPattern` resolved with
+ * the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), else `<member>-<pos>`
+ * for a pattern-less list. The container carries no content of its own; a
+ * stored `@SectionId` is **not** surfaced in md (it lives losslessly in the
+ * `*.docspecs.yaml` format, DR1 §2) so the generated schema's `pattern-check-id`
+ * stays a clean `^<stem>-[0-9]+$`. Id-less members are **transparent** (mirroring
  * the DR3 schema generator): a transparent value member's text or form block
  * is the owner's body region, emitted without a heading and bound at its own
  * path; a transparent section/complex member never heads — its id-bearing
@@ -309,8 +313,9 @@ class SpecDocumentMarkdown {
   //     descendants surface as the owner's direct child headings (the
   //     schema's "nearest section-bearing descendant" hoisting), with document
   //     paths still running through the transparent segments;
-  //   * lists are never transparent — the container never heads, the items
-  //     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+  //   * lists are never transparent — the `-LST` container always heads (its
+  //     `@SectionId`, else the member segment) and its numbered items head one
+  //     level deeper (pattern-numbered / `<member>-<pos>`).
   //
   // Principled canonicalisation losses (documented, accepted): multiple
   // transparent content members of one owner merge into the first on parse,
@@ -495,11 +500,23 @@ class SpecDocumentMarkdown {
   }
 
   /**
-   * Emits the items of list `node` as headings **at the owner's child level**
-   * — the container itself gets no heading (DR1 §1.2).
+   * Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at
+   * `depth`, wrapping the numbered item headings one level deeper. The
+   * container is a real section — the id the DR3 schema keys its container
+   * type by — but carries **no content of its own** (schema content
+   * min/max-text-length 0). Item identity is purely positional.
    */
   _writeListItems(b, node, listPath, depth) {
     const items = this.document.listItems(listPath);
+    if (items.length === 0) return;
+    // The container heading: its id is the list's `-LST` `@SectionId` (else the
+    // member segment for a pattern-less list); its title is the member name.
+    SpecDocumentMarkdown._writeHeading(
+      b,
+      depth,
+      this._headingIdOf(node),
+      SpecDocumentMarkdown._titleOf(node),
+    );
     const element = node.elementNode;
     const stem = SpecDocumentMarkdown.itemTitleStem(
       element !== null && element !== undefined
@@ -521,21 +538,21 @@ class SpecDocumentMarkdown {
       // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
       // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
       // md — so the exported md always validates against the `[0-9]+` schema
-      // pattern (DRC5).
+      // pattern (DRC5). Items sit one level below the container.
       let itemId;
       if (pattern !== null) {
         itemId = pattern.split('xxx').join(String(pos));
       } else {
         itemId = `${node.memberName || node.segment}-${pos}`;
       }
-      SpecDocumentMarkdown._writeHeading(b, depth, itemId, `${stem} ${pos}`);
+      SpecDocumentMarkdown._writeHeading(b, depth + 1, itemId, `${stem} ${pos}`);
       if (element === null || element === undefined) {
         // Scalar list: the item's value is its body.
         this._writeBody(b, this.document.content(itemPath) || '', itemPath);
       } else {
         this._writeSectionBody(b, element, itemPath);
         if (!element.recursive) {
-          this._writeChildren(b, element, itemPath, depth + 1);
+          this._writeChildren(b, element, itemPath, depth + 2);
         }
       }
     }
@@ -808,79 +825,27 @@ class _Parser {
       return;
     }
 
-    // 1. A regular (non-list) *effective* child — section-bearing children
-    //    hoisted through transparent sections — whose heading id (field/class
-    //    section id) matches. Transparent value members never head, so they
-    //    never match here; the bound path runs through transparent segments.
+    // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
+    //    of that list's items — resolved positionally, not by the schema tree.
+    if (pNode.kind === SomMetaKind.LIST) {
+      this._openItemHeading(level, parent, pNode, id, lineNo);
+      return;
+    }
+
+    // 2. A regular (non-list) or list-**container** *effective* child —
+    //    section-bearing children hoisted through transparent sections — whose
+    //    heading id matches. A list heads its `-LST` container here; its items
+    //    are resolved above once the container frame is open. Transparent value
+    //    members never head, so they never match; the bound path runs through
+    //    the transparent segments.
     const effective = this.codec._effectiveChildren(pNode);
     for (const [c, rel] of effective) {
-      if (c.kind !== SomMetaKind.LIST && this.codec._headingIdOf(c) === id) {
+      if (this.codec._headingIdOf(c) === id) {
         this._stack.push(
           new _Frame(level, c, `${parent.path}/${rel}`, lineNo),
         );
         return;
       }
-    }
-
-    // 2. A list item: anonymous (`<member>-<n>` or the pattern with a numeric
-    //    sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id, or
-    //    (fallback) any id when the parent has exactly one effective list.
-    const listChildren = effective.filter(
-      ([c]) => c.kind === SomMetaKind.LIST,
-    );
-    for (const [lc, rel] of listChildren) {
-      const listPath = `${parent.path}/${rel}`;
-      const anon = new RegExp(
-        '^' + _escapeRegExp(lc.memberName || lc.segment) + '-([0-9]+)$',
-      ).exec(id);
-      if (anon !== null) {
-        this._openItem(
-          level,
-          listPath,
-          lc,
-          parseInt(anon[1], 10),
-          null,
-          lineNo,
-        );
-        return;
-      }
-      const element = lc.elementNode;
-      const pattern =
-        lc.sectionIdPattern ||
-        (element !== null && element !== undefined
-          ? element.sectionIdPattern
-          : null) ||
-        null;
-      if (pattern !== null) {
-        // Canonical anonymous id: the pattern with `xxx` as a number — parses
-        // back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
-        const parts = pattern.split('xxx');
-        if (parts.length === 2) {
-          const numbered = new RegExp(
-            '^' + parts.map(_escapeRegExp).join('([0-9]+)') + '$',
-          ).exec(id);
-          if (numbered !== null) {
-            this._openItem(
-              level,
-              listPath,
-              lc,
-              parseInt(numbered[1], 10),
-              null,
-              lineNo,
-            );
-            return;
-          }
-        }
-        if (_Parser._patternMatches(pattern, id)) {
-          this._openItem(level, listPath, lc, null, id, lineNo);
-          return;
-        }
-      }
-    }
-    if (listChildren.length === 1) {
-      const [lc, rel] = listChildren[0];
-      this._openItem(level, `${parent.path}/${rel}`, lc, null, id, lineNo);
-      return;
     }
 
     this.rejections.push(
@@ -893,6 +858,59 @@ class _Parser {
       ),
     );
     this._stack.push(new _Frame(level, null, '', lineNo, true));
+  }
+
+  /**
+   * Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+   * heading `id` is matched positionally against the container's list: the
+   * `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
+   * (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored id, or
+   * — for any other id — an anonymous next item carrying the stored id.
+   */
+  _openItemHeading(level, container, listNode, id, lineNo) {
+    const listPath = container.path;
+    const anon = new RegExp(
+      '^' + _escapeRegExp(listNode.memberName || listNode.segment) + '-([0-9]+)$',
+    ).exec(id);
+    if (anon !== null) {
+      this._openItem(level, listPath, listNode, parseInt(anon[1], 10), null, lineNo);
+      return;
+    }
+    const element = listNode.elementNode;
+    const pattern =
+      listNode.sectionIdPattern ||
+      (element !== null && element !== undefined
+        ? element.sectionIdPattern
+        : null) ||
+      null;
+    if (pattern !== null) {
+      // Canonical anonymous id: the pattern with `xxx` as a number — parses
+      // back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+      const parts = pattern.split('xxx');
+      if (parts.length === 2) {
+        const numbered = new RegExp(
+          '^' + parts.map(_escapeRegExp).join('([0-9]+)') + '$',
+        ).exec(id);
+        if (numbered !== null) {
+          this._openItem(
+            level,
+            listPath,
+            listNode,
+            parseInt(numbered[1], 10),
+            null,
+            lineNo,
+          );
+          return;
+        }
+      }
+      if (_Parser._patternMatches(pattern, id)) {
+        this._openItem(level, listPath, listNode, null, id, lineNo);
+        return;
+      }
+    }
+    // Any other id under the container is an anonymous next item; a genuine
+    // stored id is kept (it survives only through the yaml format, DR1 §2).
+    this._openItem(level, listPath, listNode, null, id, lineNo);
   }
 
   _openRoot(level, id, lineNo) {
