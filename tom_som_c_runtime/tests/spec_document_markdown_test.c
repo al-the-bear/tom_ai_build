@@ -8,8 +8,9 @@
  * `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
  * section is a heading of the form `## <!--[SECTION-ID]--> Title`, content
  * sections are normal markdown text (no fences), `@Form` sections use the
- * plain-text `FieldName: value` format, and list items sit as sub-headings
- * directly under the owner (no container heading).
+ * plain-text `FieldName: value` format, and a `List<T>` field heads a
+ * `<!--[FOO-LST]-->` container section with its numbered items one level
+ * deeper and their item-element children one level deeper again.
  *
  * The model fixture (demoModelJSON) and populated document (populatedDemoDoc)
  * mirror item12_test.go / item12_root_by_type_test.c.
@@ -321,13 +322,14 @@ static void test_markdown_export_format(void) {
            NULL);
   md_check("export.form.sparse.noReviewer", !contains(md, "Reviewer"), NULL);
 
-  md_check("export.item.1", contains(md, "## <!--[items-1]--> Demo Item 1"),
+  md_check("export.item.container",
+           contains(md, "## <!--[D00-ITM]--> Items"), NULL);
+  md_check("export.item.1", contains(md, "### <!--[items-1]--> Demo Item 1"),
            NULL);
-  md_check("export.item.2", contains(md, "## <!--[items-2]--> Demo Item 2"),
+  md_check("export.item.2", contains(md, "### <!--[items-2]--> Demo Item 2"),
            NULL);
-  md_check("export.item.label", contains(md, "### <!--[D01-LBL]--> Label"),
+  md_check("export.item.label", contains(md, "#### <!--[D01-LBL]--> Label"),
            NULL);
-  md_check("export.item.noContainer", !contains(md, "<!--[D00-ITM]-->"), NULL);
 
   md_check("export.noSchemaDescription", !contains(md, "A demo document."),
            NULL);
@@ -354,8 +356,10 @@ static void test_markdown_export_stored_item_id(void) {
   char *md = md_export(m, &doc);
   /* DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
      is not surfaced in md; the anonymous positional id is emitted instead. */
+  md_check("export.storedId.container",
+           contains(md, "## <!--[D00-ITM]--> Items"), md);
   md_check("export.storedId.positional",
-           contains(md, "## <!--[items-1]--> Demo Item 1"), md);
+           contains(md, "### <!--[items-1]--> Demo Item 1"), md);
   md_check("export.storedId.noStored", !contains(md, "D01-CUSTOM"), md);
 
   free(md);

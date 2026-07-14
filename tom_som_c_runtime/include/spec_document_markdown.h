@@ -8,9 +8,11 @@
  * DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
  * human-readable Title-Case member name. Content values are **normal markdown
  * text** under their heading (no fences, no anchors); `@Form` sections use the
- * DocSpecs plain-text `FieldName: value` format; list items are sub-headings
- * carrying the item's section id directly under the owning section — the list
- * container gets no heading of its own. Id-less members are **transparent**
+ * DocSpecs plain-text `FieldName: value` format; a `List<T>` field heads a
+ * `<!--[FOO-LST]-->` container section (DR1 §1.2/§1.5) at the owner's child
+ * level, its numbered item sub-headings one level deeper and their item-element
+ * children one level deeper again — the container itself carries no body.
+ * Id-less members are **transparent**
  * (mirroring the DR3 schema generator): a transparent value member's text or
  * form block is the owner's body region, emitted without a heading and bound
  * at its own path; a transparent section/complex member never heads — its

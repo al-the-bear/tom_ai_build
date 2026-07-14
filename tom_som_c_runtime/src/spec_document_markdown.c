@@ -3,9 +3,11 @@
  * markdown codec). The Go regexps are reproduced as hand-rolled scanners so the
  * runtime stays zero-dependency C11.
  *
- * The current hoisting model deliberately hoists list items directly under the
- * owning section (no `<!--[FOO-LST]-->` container heading) — the container
- * retrofit (DRA9) is out of scope. */
+ * Every `List<T>` field maps to a two-level md hierarchy: a `<!--[FOO-LST]-->`
+ * container heading (DR1 §1.2/§1.5) at the owner's child level, holding the
+ * numbered item headings one level deeper, with item-element children one level
+ * deeper again. The container carries no body of its own; item identity is
+ * purely positional. */
 #include "spec_document_markdown.h"
 
 #include <ctype.h>
@@ -888,9 +890,27 @@ static int write_section_body(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   return 1;
 }
 
+/* Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at `depth`,
+   wrapping the numbered item headings one level deeper. The container is a real
+   section — the id the DR3 schema keys its container type by — but carries no
+   content of its own (schema content min/max-text-length 0). Item identity is
+   purely positional. */
 static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                             const char *list_path, int depth, char **err) {
   const SomStrList *items = spec_document_list_items(c->document, list_path);
+  size_t n = items != NULL ? items->len : 0;
+  if (n == 0) {
+    return 1;
+  }
+  /* The container heading: its id is the list's `-LST` @SectionId (else the
+     member segment for a pattern-less list); its title is the member name. */
+  {
+    char *chid = heading_id_of(c, node);
+    char *ctitle = md_title_of(node);
+    md_write_heading(b, depth, chid, ctitle);
+    free(chid);
+    free(ctitle);
+  }
   const SomMetaNode *element = node->element_node;
   const char *stem_source =
       element != NULL ? element->class_name : node->type_name;
@@ -899,7 +919,6 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   if (pattern[0] == '\0' && element != NULL) {
     pattern = element->section_id_pattern;
   }
-  size_t n = items != NULL ? items->len : 0;
   for (size_t i = 0; i < n; i++) {
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
@@ -933,7 +952,8 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     char *pos_str = itoa_dup(pos);
     char *title = vcat3(stem, " ", pos_str);
     free(pos_str);
-    md_write_heading(b, depth, item_id, title);
+    /* Items sit one level below the container heading. */
+    md_write_heading(b, depth + 1, item_id, title);
     free(title);
     free(item_id);
     if (element == NULL) {
@@ -948,7 +968,8 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         return 0;
       }
       if (!element->recursive) {
-        if (!write_children(c, b, element, item_path, depth + 1, err)) {
+        /* Item-element children go one level deeper again. */
+        if (!write_children(c, b, element, item_path, depth + 2, err)) {
           free(stem);
           return 0;
         }
@@ -1702,6 +1723,44 @@ static int numbered_pattern_match(const char *pattern, const char *id,
 static void parser_open_root(MdParser *p, int level, const char *id,
                              size_t line);
 
+/* Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+   heading `id` is matched positionally against the container's list: the
+   `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
+   (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
+   for any other id — an anonymous next item carrying the stored id. */
+static void parser_open_item_heading(MdParser *p, int level,
+                                     const char *list_path,
+                                     const SomMetaNode *list_node,
+                                     const char *id, size_t line) {
+  const char *member = list_node->member_name[0] != '\0'
+                           ? list_node->member_name
+                           : som_meta_node_segment(list_node);
+  long long n = 0;
+  if (anon_member_match(member, id, &n)) {
+    parser_open_item(p, level, list_path, list_node, n, "", 1, line);
+    return;
+  }
+  const SomMetaNode *element = list_node->element_node;
+  const char *pattern = list_node->section_id_pattern;
+  if (pattern[0] == '\0' && element != NULL) {
+    pattern = element->section_id_pattern;
+  }
+  if (pattern[0] != '\0') {
+    long long num = 0;
+    if (numbered_pattern_match(pattern, id, &num)) {
+      parser_open_item(p, level, list_path, list_node, num, "", 1, line);
+      return;
+    }
+    if (pattern_matches(pattern, id)) {
+      parser_open_item(p, level, list_path, list_node, 0, id, 0, line);
+      return;
+    }
+  }
+  /* Any other id under the container is an anonymous next item; a genuine
+     stored id is kept (it survives only through the yaml format, DR1 §2). */
+  parser_open_item(p, level, list_path, list_node, 0, id, 0, line);
+}
+
 static void parser_open_heading(MdParser *p, int level, const char *rest,
                                 size_t line) {
   char *trimmed = trim_space(rest);
@@ -1744,15 +1803,23 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
 
   char *parent_path = som_strdup(parent->path); /* stable across pushes */
 
-  /* 1. regular effective child match */
+  /* 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
+     that list's items — resolved positionally, not by the schema tree. */
+  if (strcmp(p_node->kind, SOM_META_KIND_LIST) == 0) {
+    parser_open_item_heading(p, level, parent_path, p_node, id, line);
+    free(parent_path);
+    free(id);
+    return;
+  }
+
+  /* 2. A regular (non-list) or list-**container** effective child whose heading
+     id matches. A list heads its `-LST` container here; its items are resolved
+     above once the container frame is open. */
   NodeRelVec eff;
   effective_children(p->codec, p_node, &eff);
   int handled = 0;
   for (size_t i = 0; i < eff.len; i++) {
     const SomMetaNode *en = eff.items[i].node;
-    if (strcmp(en->kind, SOM_META_KIND_LIST) == 0) {
-      continue;
-    }
     char *hid = heading_id_of(p->codec, en);
     int hit = strcmp(hid, id) == 0;
     free(hid);
@@ -1768,62 +1835,6 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(parent_path);
     free(id);
     return;
-  }
-
-  /* 2. list item */
-  /* gather list children */
-  size_t list_count = 0;
-  size_t single_idx = 0;
-  for (size_t i = 0; i < eff.len; i++) {
-    if (strcmp(eff.items[i].node->kind, SOM_META_KIND_LIST) == 0) {
-      list_count++;
-      single_idx = i;
-    }
-  }
-  for (size_t i = 0; i < eff.len && !handled; i++) {
-    const SomMetaNode *lc = eff.items[i].node;
-    if (strcmp(lc->kind, SOM_META_KIND_LIST) != 0) {
-      continue;
-    }
-    char *list_path = spec_path_join(parent_path, eff.items[i].rel);
-    const char *member = lc->member_name[0] != '\0'
-                             ? lc->member_name
-                             : som_meta_node_segment(lc);
-    long long n = 0;
-    if (anon_member_match(member, id, &n)) {
-      parser_open_item(p, level, list_path, lc, n, "", 1, line);
-      handled = 1;
-      free(list_path);
-      break;
-    }
-    const SomMetaNode *element = lc->element_node;
-    const char *pattern = lc->section_id_pattern;
-    if (pattern[0] == '\0' && element != NULL) {
-      pattern = element->section_id_pattern;
-    }
-    if (pattern[0] != '\0') {
-      long long num = 0;
-      if (numbered_pattern_match(pattern, id, &num)) {
-        parser_open_item(p, level, list_path, lc, num, "", 1, line);
-        handled = 1;
-        free(list_path);
-        break;
-      }
-      if (pattern_matches(pattern, id)) {
-        parser_open_item(p, level, list_path, lc, 0, id, 0, line);
-        handled = 1;
-        free(list_path);
-        break;
-      }
-    }
-    free(list_path);
-  }
-  if (!handled && list_count == 1) {
-    char *list_path = spec_path_join(parent_path, eff.items[single_idx].rel);
-    parser_open_item(p, level, list_path, eff.items[single_idx].node, 0, id, 0,
-                     line);
-    handled = 1;
-    free(list_path);
   }
 
   if (!handled) {

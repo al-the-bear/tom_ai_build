@@ -149,13 +149,13 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   c.check("model.Demo.found", demo != nullptr, "");
   if (demo != nullptr) {
     const char* want[] = {"title",   "summary", "priority", "count",
-                          "details", "items",   "meta"};
-    bool ok = demo->fields.size() == 7;
+                          "details", "items",   "refs",     "meta"};
+    bool ok = demo->fields.size() == 8;
     std::string names;
     for (std::size_t i = 0; i < demo->fields.size(); i++) {
       if (i > 0) names.push_back(',');
       names += demo->fields[i].name;
-      if (ok && i < 7 && demo->fields[i].name != want[i]) ok = false;
+      if (ok && i < 8 && demo->fields[i].name != want[i]) ok = false;
     }
     c.check("model.Demo.fields", ok, names);
   }

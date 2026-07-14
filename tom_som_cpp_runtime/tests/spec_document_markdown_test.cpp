@@ -8,8 +8,9 @@
  * `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
  * section is a heading of the form `## <!--[SECTION-ID]--> Title`, content
  * sections are normal markdown text (no fences), `@Form` sections use the
- * plain-text `FieldName: value` format, and list items sit as sub-headings
- * directly under the owner (no container heading).
+ * plain-text `FieldName: value` format, and a `List<T>` field heads a
+ * `<!--[FOO-LST]-->` container section with its numbered items one level
+ * deeper and their item-element children one level deeper again.
  */
 #include <cstdio>
 #include <cstdlib>
@@ -275,10 +276,10 @@ void testMarkdownExportFormat() {
   mdCheck("export.form.sparse.author", contains(md, "Author: Ada Lovelace"));
   mdCheck("export.form.sparse.noReviewer", !contains(md, "Reviewer"));
 
-  mdCheck("export.item.1", contains(md, "## <!--[items-1]--> Demo Item 1"));
-  mdCheck("export.item.2", contains(md, "## <!--[items-2]--> Demo Item 2"));
-  mdCheck("export.item.label", contains(md, "### <!--[D01-LBL]--> Label"));
-  mdCheck("export.item.noContainer", !contains(md, "<!--[D00-ITM]-->"));
+  mdCheck("export.item.container", contains(md, "## <!--[D00-ITM]--> Items"));
+  mdCheck("export.item.1", contains(md, "### <!--[items-1]--> Demo Item 1"));
+  mdCheck("export.item.2", contains(md, "### <!--[items-2]--> Demo Item 2"));
+  mdCheck("export.item.label", contains(md, "#### <!--[D01-LBL]--> Label"));
 
   mdCheck("export.noSchemaDescription", !contains(md, "A demo document."));
 }
@@ -293,8 +294,10 @@ void testMarkdownExportStoredItemId() {
   std::string md = mdExport(*m, doc);
   // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
   // is not surfaced in md; the anonymous positional id is emitted instead.
+  mdCheck("export.storedId.container",
+          contains(md, "## <!--[D00-ITM]--> Items"), md);
   mdCheck("export.storedId.positional",
-          contains(md, "## <!--[items-1]--> Demo Item 1"), md);
+          contains(md, "### <!--[items-1]--> Demo Item 1"), md);
   mdCheck("export.storedId.noStored", !contains(md, "D01-CUSTOM"), md);
 }
 

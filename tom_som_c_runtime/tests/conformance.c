@@ -213,14 +213,14 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   check(c, "model.Demo.found", demo != NULL, "");
   if (demo != NULL) {
     const char *want[] = {"title",   "summary", "priority", "count",
-                          "details", "items",   "meta"};
-    int ok = demo->fields_len == 7;
+                          "details", "items",   "refs",     "meta"};
+    int ok = demo->fields_len == 8;
     SomBuf names;
     som_buf_init(&names);
     for (size_t i = 0; i < demo->fields_len; i++) {
       if (i > 0) som_buf_putc(&names, ',');
       som_buf_puts(&names, demo->fields[i].name);
-      if (ok && i < 7 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
+      if (ok && i < 8 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
     }
     char *joined = som_buf_take(&names);
     check(c, "model.Demo.fields", ok, joined);

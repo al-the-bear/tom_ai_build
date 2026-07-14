@@ -3,8 +3,11 @@
  * codec). The Go regexps are reproduced as hand-rolled scanners so the runtime
  * stays dependency-free.
  *
- * The current hoisting model deliberately hoists list items directly under the
- * owning section (no `<!--[FOO-LST]-->` container heading). */
+ * Every `List<T>` field maps to a two-level md hierarchy: a `<!--[FOO-LST]-->`
+ * container heading (DR1 §1.2/§1.5) at the owner's child level, holding the
+ * numbered item headings one level deeper, with item-element children one level
+ * deeper again. The container carries no body of its own; item identity is
+ * purely positional. */
 #include "spec_document_markdown.hpp"
 
 #include <map>
@@ -702,10 +705,22 @@ void writeSectionBody(MdCodec& c, std::string& b, const SomMetaNode& node,
   }
 }
 
+// Emits list `node` as its `-LST` container heading (DR1 §1.2/§1.5) at `depth`,
+// wrapping the numbered item headings one level deeper and their item-element
+// children one level deeper again. The container is a real section — the id the
+// DR3 schema keys its container type by — but carries no content of its own
+// (schema content min/max-text-length 0). Item identity is purely positional.
 void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
                     const std::string& listPath, int depth) {
   const SpecDocument& doc = *c.document();
   const std::vector<std::string>* items = doc.listItemsPtr(listPath);
+  std::size_t n = items != nullptr ? items->size() : 0;
+  if (n == 0) {
+    return;
+  }
+  // The container heading: its id is the list's `-LST` @SectionId (else the
+  // member segment for a pattern-less list); its title is the member name.
+  mdWriteHeading(b, depth, headingIdOf(c, node), mdTitleOf(node));
   const SomMetaNode* element = node.elementNode.get();
   std::string stemSource =
       element != nullptr ? element->className : node.typeName;
@@ -714,7 +729,6 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   if (pattern.empty() && element != nullptr) {
     pattern = element->sectionIdPattern;
   }
-  std::size_t n = items != nullptr ? items->size() : 0;
   for (std::size_t i = 0; i < n; i++) {
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
@@ -737,7 +751,8 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
       itemId = member + "-" + formatI64(pos);
     }
     std::string title = stem + " " + formatI64(pos);
-    mdWriteHeading(b, depth, itemId, title);
+    // Items sit one level below the container heading.
+    mdWriteHeading(b, depth + 1, itemId, title);
     if (element == nullptr) {
       bool present = false;
       std::string v = contentOf(doc, itemPath, &present);
@@ -745,7 +760,8 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     } else {
       writeSectionBody(c, b, *element, itemPath);
       if (!element->recursive) {
-        writeChildren(c, b, *element, itemPath, depth + 1);
+        // Item-element children go one level deeper again.
+        writeChildren(c, b, *element, itemPath, depth + 2);
       }
     }
   }
@@ -931,6 +947,9 @@ class MdParser {
   void openItem(int level, const std::string& listPath,
                 const SomMetaNode& listNode, long long n,
                 const std::string& storedId, bool hasN, std::size_t line);
+  void openItemHeading(int level, const std::string& listPath,
+                       const SomMetaNode& listNode, const std::string& id,
+                       std::size_t line);
   void openHeading(int level, const std::string& rest, std::size_t line);
   void openRoot(int level, const std::string& id, std::size_t line);
   void emitLists();
@@ -1297,6 +1316,42 @@ bool numberedPatternMatch(const std::string& pattern, const std::string& id,
   return true;
 }
 
+// Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
+// heading [id] is matched positionally against the container's list: the
+// `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
+// (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
+// for any other id — an anonymous next item carrying the stored id.
+void MdParser::openItemHeading(int level, const std::string& listPath,
+                               const SomMetaNode& listNode,
+                               const std::string& id, std::size_t line) {
+  std::string member =
+      !listNode.memberName.empty() ? listNode.memberName : listNode.segment();
+  long long n = 0;
+  if (anonMemberMatch(member, id, &n)) {
+    openItem(level, listPath, listNode, n, "", true, line);
+    return;
+  }
+  const SomMetaNode* element = listNode.elementNode.get();
+  std::string pattern = listNode.sectionIdPattern;
+  if (pattern.empty() && element != nullptr) {
+    pattern = element->sectionIdPattern;
+  }
+  if (!pattern.empty()) {
+    long long num = 0;
+    if (numberedPatternMatch(pattern, id, &num)) {
+      openItem(level, listPath, listNode, num, "", true, line);
+      return;
+    }
+    if (patternMatches(pattern, id)) {
+      openItem(level, listPath, listNode, 0, id, false, line);
+      return;
+    }
+  }
+  // Any other id under the container is an anonymous next item; a genuine
+  // stored id is kept (it survives only through the yaml format, DR1 §2).
+  openItem(level, listPath, listNode, 0, id, false, line);
+}
+
 void MdParser::openHeading(int level, const std::string& rest,
                            std::size_t line) {
   std::string trimmed = trimSpace(rest);
@@ -1330,14 +1385,20 @@ void MdParser::openHeading(int level, const std::string& rest,
 
   std::string parentPath = stack_.back().path;  // stable across pushes
 
-  /* 1. regular effective child match */
+  // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
+  //    that list's items — resolved positionally, not by the schema tree.
+  if (kindEq(pNode->kind, kSomMetaKindList)) {
+    openItemHeading(level, parentPath, *pNode, id, line);
+    return;
+  }
+
+  // 2. A regular (non-list) or list-**container** effective child whose heading
+  //    id matches. A list heads its `-LST` container here; its items are
+  //    resolved above once the container frame is open.
   std::vector<NodeRel> eff = effectiveChildren(codec_, *pNode);
   bool handled = false;
   for (const auto& nr : eff) {
     const SomMetaNode* en = nr.node;
-    if (kindEq(en->kind, kSomMetaKindList)) {
-      continue;
-    }
     if (headingIdOf(codec_, *en) == id) {
       std::string path = specPathJoin(parentPath, nr.rel);
       MdFrame f;
@@ -1353,54 +1414,6 @@ void MdParser::openHeading(int level, const std::string& rest,
   }
   if (handled) {
     return;
-  }
-
-  /* 2. list item */
-  std::size_t listCount = 0;
-  std::size_t singleIdx = 0;
-  for (std::size_t i = 0; i < eff.size(); i++) {
-    if (kindEq(eff[i].node->kind, kSomMetaKindList)) {
-      listCount++;
-      singleIdx = i;
-    }
-  }
-  for (std::size_t i = 0; i < eff.size() && !handled; i++) {
-    const SomMetaNode* lc = eff[i].node;
-    if (!kindEq(lc->kind, kSomMetaKindList)) {
-      continue;
-    }
-    std::string listPath = specPathJoin(parentPath, eff[i].rel);
-    std::string member =
-        !lc->memberName.empty() ? lc->memberName : lc->segment();
-    long long n = 0;
-    if (anonMemberMatch(member, id, &n)) {
-      openItem(level, listPath, *lc, n, "", true, line);
-      handled = true;
-      break;
-    }
-    const SomMetaNode* element = lc->elementNode.get();
-    std::string pattern = lc->sectionIdPattern;
-    if (pattern.empty() && element != nullptr) {
-      pattern = element->sectionIdPattern;
-    }
-    if (!pattern.empty()) {
-      long long num = 0;
-      if (numberedPatternMatch(pattern, id, &num)) {
-        openItem(level, listPath, *lc, num, "", true, line);
-        handled = true;
-        break;
-      }
-      if (patternMatches(pattern, id)) {
-        openItem(level, listPath, *lc, 0, id, false, line);
-        handled = true;
-        break;
-      }
-    }
-  }
-  if (!handled && listCount == 1) {
-    std::string listPath = specPathJoin(parentPath, eff[singleIdx].rel);
-    openItem(level, listPath, *eff[singleIdx].node, 0, id, false, line);
-    handled = true;
   }
 
   if (!handled) {
