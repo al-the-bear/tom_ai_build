@@ -352,10 +352,11 @@ static void test_markdown_export_stored_item_id(void) {
   free(item);
 
   char *md = md_export(m, &doc);
-  md_check("export.storedId.custom",
-           contains(md, "## <!--[D01-CUSTOM]--> Demo Item 1"), md);
-  md_check("export.storedId.noAnonymous", !contains(md, "<!--[items-1]-->"),
-           NULL);
+  /* DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
+     is not surfaced in md; the anonymous positional id is emitted instead. */
+  md_check("export.storedId.positional",
+           contains(md, "## <!--[items-1]--> Demo Item 1"), md);
+  md_check("export.storedId.noStored", !contains(md, "D01-CUSTOM"), md);
 
   free(md);
   spec_document_free(&doc);
@@ -576,6 +577,8 @@ static void test_markdown_round_trip_stored_item_id(void) {
   free(lbl);
   free(item);
   char *md1 = md_export(m, &doc);
+  /* DRC5: a stored id does not round-trip through md; item reloads anonymous. */
+  md_check("storedId.noStored", !contains(md1, "D01-CUSTOM"), md1);
 
   SpecDocument reloaded;
   SpecMarkdownResult report;
@@ -589,8 +592,7 @@ static void test_markdown_round_trip_stored_item_id(void) {
   md_check("storedId.itemCount", items_len == 1, NULL);
   if (items_len == 1) {
     md_check("storedId.sectionId",
-             strcmp(item_section_id_or(&reloaded, items->items[0]),
-                    "D01-CUSTOM") == 0,
+             item_section_id_or(&reloaded, items->items[0])[0] == '\0',
              item_section_id_or(&reloaded, items->items[0]));
     char path[128];
     sprintf(path, "%s/D01-LBL", items->items[0]);

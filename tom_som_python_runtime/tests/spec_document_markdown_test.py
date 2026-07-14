@@ -227,9 +227,11 @@ def test_export_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md = _export(doc)
-    _check("export.storedId.custom",
-           "## <!--[D01-CUSTOM]--> Demo Item 1" in md, md)
-    _check("export.storedId.noAnonymous", "<!--[items-1]-->" not in md)
+    # DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
+    # is not surfaced in md; the anonymous positional id is emitted instead.
+    _check("export.storedId.positional",
+           "## <!--[items-1]--> Demo Item 1" in md, md)
+    _check("export.storedId.noStored", "D01-CUSTOM" not in md, md)
 
 
 def test_export_unterminated_fence_throws() -> None:
@@ -347,6 +349,8 @@ def test_round_trip_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md1 = _export(doc)
+    # DRC5: a stored id does not round-trip through md; the item reloads anonymous.
+    _check("storedId.noStored", "D01-CUSTOM" not in md1, md1)
     reloaded, report = _reload(md1)
     _check("storedId.clean", report.is_clean,
            "; ".join(str(r) for r in report.rejections))
@@ -354,7 +358,7 @@ def test_round_trip_stored_item_id() -> None:
     _check("storedId.itemCount", len(items) == 1, str(items))
     if len(items) == 1:
         _check("storedId.sectionId",
-               reloaded.item_section_id(items[0]) == "D01-CUSTOM",
+               reloaded.item_section_id(items[0]) is None,
                str(reloaded.item_section_id(items[0])))
         _check("storedId.label",
                reloaded.content(f"{items[0]}/D01-LBL") == "Custom-id item")

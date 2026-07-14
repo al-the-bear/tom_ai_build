@@ -436,13 +436,14 @@ class SpecDocumentMarkdown:
         )
         for i, item_path in enumerate(items):
             pos = i + 1
-            # DR1 §1.2: an anonymous item's heading id is the resolved
-            # `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-            # pattern-less lists fall back to `<member>-<pos>`.
-            stored = self.document.item_section_id(item_path)
-            if stored is not None:
-                item_id = stored
-            elif pattern is not None:
+            # DR1 §1.2: md list identity is purely positional. The heading id is
+            # the `@SectionIdPattern` resolved with the 1-based position
+            # (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only pattern-less lists fall
+            # back to `<member>-<pos>`. A stored `@SectionId` (AA1 generated or
+            # a criterion-5 override) is NOT surfaced — it round-trips through
+            # the `*.docspecs.yaml` format (§2), not md — so the exported md
+            # always validates against the `[0-9]+` schema pattern (DRC5).
+            if pattern is not None:
                 item_id = pattern.replace("xxx", str(pos))
             else:
                 item_id = f"{node.member_name or node.segment}-{pos}"

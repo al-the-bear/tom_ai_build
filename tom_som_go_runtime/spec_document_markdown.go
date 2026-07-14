@@ -540,13 +540,15 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	for i, itemPath := range items {
 		pos := i + 1
-		// DR1 §1.2: an anonymous item's heading id is the resolved
-		// `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-		// pattern-less lists fall back to `<member>-<pos>`.
+		// DR1 §1.2: md list identity is purely positional. The heading id is the
+		// `@SectionIdPattern` resolved with the 1-based position
+		// (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only pattern-less lists fall back to
+		// `<member>-<pos>`. A stored `@SectionId` (AA1 generated or a
+		// criterion-5 override) is NOT surfaced — it round-trips through the
+		// `*.docspecs.yaml` format (§2), not md — so the exported md always
+		// validates against the `[0-9]+` schema pattern (DRC5).
 		var itemID string
-		if stored, ok := c.Document.ItemSectionID(itemPath); ok {
-			itemID = stored
-		} else if pattern != "" {
+		if pattern != "" {
 			itemID = strings.Join(strings.Split(pattern, "xxx"), itoa(pos))
 		} else {
 			member := node.MemberName

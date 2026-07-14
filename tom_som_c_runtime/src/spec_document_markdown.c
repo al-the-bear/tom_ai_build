@@ -904,10 +904,10 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
     char *item_id = NULL;
-    const char *stored = spec_document_item_section_id(c->document, item_path);
-    if (stored != NULL) {
-      item_id = som_strdup(stored);
-    } else if (pattern[0] != '\0') {
+    /* DRC5: md list identity is purely positional. A stored @SectionId is
+       never surfaced in md; it is preserved losslessly only in the yaml
+       format. */
+    if (pattern[0] != '\0') {
       /* pattern with "xxx" → pos */
       SomBuf ib;
       som_buf_init(&ib);

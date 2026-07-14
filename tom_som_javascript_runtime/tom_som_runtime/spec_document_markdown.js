@@ -515,14 +515,15 @@ class SpecDocumentMarkdown {
     for (let i = 0; i < items.length; i++) {
       const itemPath = items[i];
       const pos = i + 1;
-      // DR1 §1.2: an anonymous item's heading id is the resolved
-      // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-      // pattern-less lists fall back to `<member>-<pos>`.
-      const stored = this.document.itemSectionId(itemPath);
+      // DR1 §1.2: md list identity is purely positional. The heading id is the
+      // `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx`
+      // → `GOAL-ITEM-1`); only pattern-less lists fall back to `<member>-<pos>`.
+      // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
+      // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
+      // md — so the exported md always validates against the `[0-9]+` schema
+      // pattern (DRC5).
       let itemId;
-      if (stored !== null && stored !== undefined) {
-        itemId = stored;
-      } else if (pattern !== null) {
+      if (pattern !== null) {
         itemId = pattern.split('xxx').join(String(pos));
       } else {
         itemId = `${node.memberName || node.segment}-${pos}`;

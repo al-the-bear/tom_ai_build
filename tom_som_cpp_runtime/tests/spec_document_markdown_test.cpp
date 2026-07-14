@@ -291,9 +291,11 @@ void testMarkdownExportStoredItemId() {
   doc.setContent(item + "/D01-LBL", "Custom-id item");
 
   std::string md = mdExport(*m, doc);
-  mdCheck("export.storedId.custom",
-          contains(md, "## <!--[D01-CUSTOM]--> Demo Item 1"), md);
-  mdCheck("export.storedId.noAnonymous", !contains(md, "<!--[items-1]-->"));
+  // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
+  // is not surfaced in md; the anonymous positional id is emitted instead.
+  mdCheck("export.storedId.positional",
+          contains(md, "## <!--[items-1]--> Demo Item 1"), md);
+  mdCheck("export.storedId.noStored", !contains(md, "D01-CUSTOM"), md);
 }
 
 void testMarkdownExportUntermFenceErrors() {
@@ -451,6 +453,8 @@ void testMarkdownRoundTripStoredItemId() {
       doc.addListItemWithSectionId("D00/D00-ITM", "D01-CUSTOM");
   doc.setContent(item + "/D01-LBL", "Custom-id item");
   std::string md1 = mdExport(*m, doc);
+  // DRC5: a stored id does not round-trip through md; the item reloads anonymous.
+  mdCheck("storedId.noStored", !contains(md1, "D01-CUSTOM"), md1);
 
   som::SpecMarkdownResult report;
   som::SpecDocument reloaded = mdReload(*m, md1, report);
@@ -460,7 +464,7 @@ void testMarkdownRoundTripStoredItemId() {
   mdCheck("storedId.itemCount", items.size() == 1);
   if (items.size() == 1) {
     mdCheck("storedId.sectionId",
-            itemSectionIdOr(reloaded, items[0]) == "D01-CUSTOM",
+            itemSectionIdOr(reloaded, items[0]).empty(),
             itemSectionIdOr(reloaded, items[0]));
     mdCheck("storedId.label",
             contentOr(reloaded, items[0] + "/D01-LBL") == "Custom-id item");

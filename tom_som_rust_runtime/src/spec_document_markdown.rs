@@ -706,12 +706,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
         }
         for (i, item_path) in items.iter().enumerate() {
             let pos = i + 1;
-            // DR1 §1.2: an anonymous item's heading id is the resolved
-            // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-            // pattern-less lists fall back to `<member>-<pos>`.
-            let item_id = if let Some(stored) = self.document.item_section_id(item_path) {
-                stored.clone()
-            } else if !pattern.is_empty() {
+            // DR1 §1.2 (DRC5): md list identity is purely positional. The
+            // item's heading id is the resolved `@SectionIdPattern` id
+            // (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); pattern-less lists fall back
+            // to `<member>-<pos>`. A stored `@SectionId` is never surfaced in
+            // md; it is preserved losslessly only in `*.docspecs.yaml`.
+            let item_id = if !pattern.is_empty() {
                 pattern.replace("xxx", &pos.to_string())
             } else {
                 let member = if node.member_name.is_empty() {

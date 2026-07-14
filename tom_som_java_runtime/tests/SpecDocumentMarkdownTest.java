@@ -231,9 +231,11 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md = mdExport(doc);
-    check("export.storedId.custom",
-        md.contains("## <!--[D01-CUSTOM]--> Demo Item 1"), md);
-    check("export.storedId.noAnonymous", !md.contains("<!--[items-1]-->"));
+    // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
+    // is not surfaced in md; the anonymous positional id is emitted instead.
+    check("export.storedId.positional",
+        md.contains("## <!--[items-1]--> Demo Item 1"), md);
+    check("export.storedId.noStored", !md.contains("D01-CUSTOM"), md);
   }
 
   private static void testExportUntermFenceErrors() {
@@ -359,6 +361,8 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md1 = mdExport(doc);
+    // DRC5: a stored id does not round-trip through md; item reloads anonymous.
+    check("storedId.noStored", !md1.contains("D01-CUSTOM"), md1);
     Object[] pair = mdReload(md1);
     SpecDocument reloaded = (SpecDocument) pair[0];
     SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
@@ -367,7 +371,7 @@ public final class SpecDocumentMarkdownTest {
     check("storedId.itemCount", items.size() == 1, items.toString());
     if (items.size() == 1) {
       check("storedId.sectionId",
-          "D01-CUSTOM".equals(reloaded.itemSectionId(items.get(0))),
+          reloaded.itemSectionId(items.get(0)) == null,
           or(reloaded.itemSectionId(items.get(0))));
       check("storedId.label",
           "Custom-id item".equals(reloaded.content(items.get(0) + "/D01-LBL")));

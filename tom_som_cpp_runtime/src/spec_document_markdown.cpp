@@ -719,10 +719,10 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
     std::string itemId;
-    const std::string* stored = doc.itemSectionIdOpt(itemPath);
-    if (stored != nullptr) {
-      itemId = *stored;
-    } else if (!pattern.empty()) {
+    // DRC5: md list identity is purely positional. A stored @SectionId is
+    // never surfaced in md; it is preserved losslessly only in the yaml
+    // format.
+    if (!pattern.empty()) {
       std::string num = formatI64(pos);
       std::size_t p = 0, xxx;
       while ((xxx = pattern.find("xxx", p)) != std::string::npos) {

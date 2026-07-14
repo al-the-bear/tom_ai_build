@@ -404,14 +404,15 @@ public final class SpecDocumentMarkdown {
     for (int i = 0; i < items.size(); i++) {
       String itemPath = items.get(i);
       int pos = i + 1;
-      // DR1 §1.2: an anonymous item's heading id is the resolved
-      // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-      // pattern-less lists fall back to `<member>-<pos>`.
-      String stored = document.itemSectionId(itemPath);
+      // DR1 §1.2: md list identity is purely positional. The heading id is the
+      // `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx`
+      // → `GOAL-ITEM-1`); only pattern-less lists fall back to `<member>-<pos>`.
+      // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
+      // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
+      // md — so the exported md always validates against the `[0-9]+` schema
+      // pattern (DRC5).
       String itemId;
-      if (stored != null) {
-        itemId = stored;
-      } else if (pattern != null && !pattern.isEmpty()) {
+      if (pattern != null && !pattern.isEmpty()) {
         itemId = String.join(String.valueOf(pos), splitAll(pattern, "xxx"));
       } else {
         String member = node.memberName;

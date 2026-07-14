@@ -191,14 +191,17 @@ void main() {
       expect(md, isNot(contains('A demo document.')));
     });
 
-    test('a stored item section id replaces the anonymous <member>-<n> id',
-        () {
+    test('a stored item section id is NOT surfaced — the positional id is used '
+        '(DR1 §1.2, DRC5)', () {
       final doc = SpecDocument();
       final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
       doc.setContent('$item/D01-LBL', 'Custom-id item');
       final md = _export(doc);
-      expect(md, contains('## <!--[D01-CUSTOM]--> Demo Item 1'));
-      expect(md, isNot(contains('<!--[items-1]-->')));
+      // Option (b): md list identity is purely positional. The stored id
+      // (`D01-CUSTOM` — an override, or equally an AA1 generated id) lives only
+      // in the yaml format; md emits the anonymous positional id.
+      expect(md, contains('## <!--[items-1]--> Demo Item 1'));
+      expect(md, isNot(contains('D01-CUSTOM')));
     });
 
     test('a content value with an unterminated fence throws ArgumentError',
@@ -316,16 +319,19 @@ void main() {
       expect(_export(reloaded), md1);
     });
 
-    test('a stored item section id survives the round-trip', () {
+    test('a stored item section id does NOT round-trip through md — the item is '
+        'anonymous on reload (DR1 §1.2.1 loss 3, DRC5)', () {
       final doc = SpecDocument();
       final item = doc.addListItem('D00/D00-ITM', sectionId: 'D01-CUSTOM');
       doc.setContent('$item/D01-LBL', 'Custom-id item');
       final md1 = _export(doc);
+      expect(md1, isNot(contains('D01-CUSTOM')));
       final (reloaded, report) = _reload(md1);
       expect(report.isClean, isTrue, reason: report.rejections.toString());
       final items = reloaded.listItems('D00/D00-ITM');
       expect(items, hasLength(1));
-      expect(reloaded.itemSectionId(items.single), 'D01-CUSTOM');
+      // Option (b): md drops the stored id; the item is recovered as anonymous.
+      expect(reloaded.itemSectionId(items.single), isNull);
       expect(reloaded.content('${items.single}/D01-LBL'), 'Custom-id item');
       expect(_export(reloaded), md1);
     });
@@ -463,6 +469,137 @@ void main() {
       expect(report.content['D00/D00-OVR'],
           '```\n## <!--[D00-ST]--> not a real heading\n```');
       expect(report.content.containsKey('D00/D00-ST'), isFalse);
+    });
+  });
+
+  // DRC5: the AA1 list-item id scheme (`<stem><two-letter-date><n>`, e.g.
+  // `GOAL-ITEM-GN1`) conflicts with the DR3 schema's `pattern-check-id`, which
+  // compiles `@SectionIdPattern xxx` to `[0-9]+`. Option (b): the md emitter
+  // writes the anonymous positional id for every list item and never surfaces
+  // the stored id, so a facade-authored document with generated ids exports to
+  // md that validates cleanly against its own schema (DR1 §1.2, §1.2.1 loss 3).
+  group('DRC5 — AA1 generated ids export to schema-valid md', () {
+    // A minimal document root whose only content is a patterned list, mirroring
+    // the DR3 `goals` → `goal-item` structure the validator fixtures use.
+    Map<String, dynamic> goalsJson() => {
+          'roots': [
+            {'type': 'GoalDoc', 'title': 'Goal Document', 'sectionId': 'D00'},
+          ],
+          'classes': {
+            'GoalDoc': {
+              'name': 'GoalDoc',
+              'sectionId': 'D00',
+              'fields': [
+                {
+                  'name': 'goals',
+                  'kind': 'complex',
+                  'type': 'Goals',
+                  'sectionId': 'GOALS',
+                },
+              ],
+            },
+            'Goals': {
+              'name': 'Goals',
+              'sectionId': 'GOALS',
+              'fields': [
+                {
+                  'name': 'goalItems',
+                  'kind': 'list',
+                  'sectionId': 'GOAL-ITEM-LST',
+                  'sectionIdPattern': 'GOAL-ITEM-xxx',
+                  'elementType': 'String',
+                  'elementIsComplex': false,
+                },
+              ],
+            },
+          },
+        };
+
+    // The DR3-generated schema shape: `pattern-check-id` stays a clean `[0-9]+`
+    // (option (b) needs no widening).
+    // Prefixes are in the DocSpecs id-transform grammar (`-` → `_`); the
+    // pattern-check-id runs against the raw heading id.
+    const goalsSchemaYaml = '''
+title-format: "# <!--[D00]--> Goal Document"
+section-types:
+  goal-item:
+    prefix: GOAL_ITEM_
+    pattern-check-id:
+      pattern: "^GOAL-ITEM-[0-9]+\$"
+      error-message: Goal item ids are GOAL-ITEM-<n>
+  goals:
+    prefix: GOALS
+    subsection-types:
+      goal-item:
+        min-count: 1
+        max-count: infinite
+document:
+  sections:
+    goals:
+      section-type: goals
+''';
+
+    SpecModel model() => SpecModel.fromJson(goalsJson());
+
+    // Author two items exactly as SomList.add does: AA1 date-lettered ids.
+    SpecDocument authorWithAa1Ids() {
+      final doc = SpecDocument();
+      final date = DateTime(2026, 7, 14); // month 7 → G, day 14 → N
+      const listPath = 'D00/GOALS/GOAL-ITEM-LST';
+      final id1 = generateListItemSectionId('GOAL-ITEM-xxx', date, const []);
+      final p1 = doc.addListItem(listPath, sectionId: id1);
+      doc.setContent(p1, 'First goal.');
+      final id2 = generateListItemSectionId('GOAL-ITEM-xxx', date, [id1]);
+      final p2 = doc.addListItem(listPath, sectionId: id2);
+      doc.setContent(p2, 'Second goal.');
+      // Sanity: the generated ids carry the AA1 date-letter grammar, which does
+      // NOT satisfy the schema's `^GOAL-ITEM-[0-9]+$` if surfaced.
+      expect([id1, id2], ['GOAL-ITEM-GN1', 'GOAL-ITEM-GN2']);
+      return doc;
+    }
+
+    test('the emitter drops AA1 ids and writes positional ids', () {
+      final m = model();
+      final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(
+        m.roots.single,
+      );
+      expect(md, contains('### <!--[GOAL-ITEM-1]-->'));
+      expect(md, contains('### <!--[GOAL-ITEM-2]-->'));
+      expect(md, isNot(contains('GOAL-ITEM-GN1')));
+      expect(md, isNot(contains('GOAL-ITEM-GN2')));
+    });
+
+    test('the exported md validates cleanly against the [0-9]+ DR3 schema '
+        '(DRC5 done-condition)', () {
+      final m = model();
+      final md = SpecDocumentMarkdown(m, authorWithAa1Ids()).exportRoot(
+        m.roots.single,
+      );
+      final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
+      expect(schema.warnings, isEmpty);
+      final violations = DocSpecsValidator(schema).validateMarkdown(md);
+      expect(violations, isEmpty, reason: violations.toString());
+    });
+
+    test('the AA1 ids WOULD be rejected if surfaced — proving the fix matters',
+        () {
+      // Same document but with the stored AA1 ids written into the headings.
+      const mdWithStoredIds = '<!-- docspec: goal-document/1.0 -->\n'
+          '# <!--[D00]--> Goal Document\n\n'
+          '## <!--[GOALS]--> Goals\n\n'
+          '### <!--[GOAL-ITEM-GN1]--> Goal Item 1\n\n'
+          'First goal.\n\n'
+          '### <!--[GOAL-ITEM-GN2]--> Goal Item 2\n\n'
+          'Second goal.\n';
+      final schema = DocSpecsSchema.fromYamlText(goalsSchemaYaml);
+      final violations =
+          DocSpecsValidator(schema).validateMarkdown(mdWithStoredIds);
+      expect(violations, isNotEmpty);
+      expect(
+        violations.any((v) => v.rule == DocSpecsViolationRule.idPatternMismatch),
+        isTrue,
+        reason: violations.toString(),
+      );
     });
   });
 }

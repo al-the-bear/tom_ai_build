@@ -268,16 +268,14 @@ fn test_markdown_export_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md = md_export(&doc);
+    // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
+    // is not surfaced in md; the anonymous positional id is emitted instead.
     c.check(
-        "export.storedId.custom",
-        md.contains("## <!--[D01-CUSTOM]--> Demo Item 1"),
+        "export.storedId.positional",
+        md.contains("## <!--[items-1]--> Demo Item 1"),
         &md,
     );
-    c.check(
-        "export.storedId.noAnonymous",
-        !md.contains("<!--[items-1]-->"),
-        "",
-    );
+    c.check("export.storedId.noStored", !md.contains("D01-CUSTOM"), &md);
 }
 
 fn test_markdown_export_unterm_fence_errors(c: &mut Checker) {
@@ -434,6 +432,8 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md1 = md_export(&doc);
+    // DRC5: a stored id does not round-trip through md; item reloads anonymous.
+    c.check("storedId.noStored", !md1.contains("D01-CUSTOM"), &md1);
     let (reloaded, report) = md_reload(&md1);
     c.check("storedId.clean", report.is_clean(), &md_rej_str(&report));
     let items = reloaded.list_items("D00/D00-ITM");
@@ -441,7 +441,7 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
     if items.len() == 1 {
         c.check(
             "storedId.sectionId",
-            reloaded.item_section_id_or(&items[0]) == "D01-CUSTOM",
+            reloaded.item_section_id_or(&items[0]).is_empty(),
             &reloaded.item_section_id_or(&items[0]),
         );
         c.check(

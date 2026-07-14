@@ -7,10 +7,16 @@
 /// human-readable Title-Case member name. Content values are **normal markdown
 /// text** under their heading (no fences, no anchors); `@Form` sections use the
 /// DocSpecs plain-text `FieldName: value` format; list items are sub-headings
-/// carrying the item's section id (stored id, else the `@SectionIdPattern`
-/// resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
-/// `<member>-<pos>`) directly under the owning section — the list container
-/// gets no heading of its own. Id-less members are **transparent** (mirroring
+/// carrying the item's **anonymous positional** section id — the
+/// `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx` →
+/// `GOAL-ITEM-1`), else `<member>-<pos>` for a pattern-less list — directly
+/// under the owning section, and the list container gets no heading of its own.
+/// The md format's list identity is **purely positional** (DR1 §1.2): a stored
+/// `@SectionId` (an AA1 date-lettered generated id or a criterion-5 override) is
+/// **not** surfaced here — it lives losslessly in the hierarchical
+/// `*.docspecs.yaml` format (DR1 §2). This keeps the generated DR3 schema's
+/// `pattern-check-id` a clean `^<stem>-[0-9]+$`, so every facade-authored
+/// document validates regardless of its stored ids. Id-less members are **transparent** (mirroring
 /// the DR3 schema generator): a transparent value member's text or form block
 /// is the owner's body region, emitted without a heading and bound at its own
 /// path; a transparent section/complex member never heads — its id-bearing
@@ -350,11 +356,14 @@ class SpecDocumentMarkdown {
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];
       final pos = i + 1;
-      // DR1 §1.2: an anonymous item's heading id is the resolved
-      // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
-      // pattern-less lists fall back to `<member>-<pos>`.
-      final id = document.itemSectionId(itemPath) ??
-          pattern?.replaceAll('xxx', '$pos') ??
+      // DR1 §1.2: md list identity is purely positional. The heading id is the
+      // `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx`
+      // → `GOAL-ITEM-1`); only pattern-less lists fall back to `<member>-<pos>`.
+      // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
+      // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
+      // md — so the exported md always validates against the `[0-9]+` schema
+      // pattern-check-id (DR1 §5).
+      final id = pattern?.replaceAll('xxx', '$pos') ??
           '${node.memberName ?? node.segment}-$pos';
       _writeHeading(b, depth, id, '$stem $pos');
       final element = node.elementNode;
