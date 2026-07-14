@@ -10,12 +10,12 @@
 //!   - YAML encode == expected.docspecs.yaml (byte-for-byte, hierarchical v2);
 //!   - YAML decode → memory → encode is byte-stable + preserves the stamp and
 //!     lands the fixture memory (state.json);
+//!   - Markdown export == expected.md, parse round-trips byte-stable, and the
+//!     parsed values land the fixture memory (md.export / md.parse.* /
+//!     md.land.*);
 //!   - reflection resolution cases;
 //!   - validation cases;
 //!   - the imperative operations script.
-//!
-//! The Markdown corpus checks (md.export / md.parse.* / md.land.*) are gated
-//! out pending the DR26 DocSpecs markdown codec.
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -23,6 +23,7 @@ use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
+use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
@@ -134,7 +135,9 @@ fn conformance() {
     test_state_round_trip(&mut c);
     test_yaml_encode(&mut c, &tree);
     test_yaml_decode_round_trip(&mut c, &tree);
-    println!("SKIP: md.export / md.parse.* / md.land.* — pending DR26 (DocSpecs markdown codec)");
+    test_markdown_export(&mut c, &model);
+    test_markdown_round_trip(&mut c, &model);
+    test_markdown_memory_landing(&mut c, &model);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
@@ -224,6 +227,68 @@ fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
         ),
         Err(e) => c.check("yaml.decode.reencode", false, &e.to_string()),
     }
+}
+
+// --- markdown conformance (DR6/DR20) ----------------------------------------
+
+fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&state);
+    let expected = read_corpus("expected.md");
+    match SpecDocumentMarkdown::new(model, &doc).export_root(&model.roots[0]) {
+        Ok(actual) => c.check(
+            "md.export",
+            actual == expected,
+            &byte_diff("md.export", &actual, &expected),
+        ),
+        Err(e) => c.check("md.export", false, &e),
+    }
+}
+
+fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
+    let golden = read_corpus("expected.md");
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&state);
+    let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&golden);
+    c.check("md.parse.clean", parsed.rejections.is_empty(), &rej_detail(&parsed));
+    let mut re_doc = SpecDocument::new();
+    re_doc.load_json(&parsed.to_document_json());
+    match SpecDocumentMarkdown::new(model, &re_doc).export_root(&model.roots[0]) {
+        Ok(actual) => c.check(
+            "md.parse.reexport",
+            actual == golden,
+            &byte_diff("md.parse.reexport", &actual, &golden),
+        ),
+        Err(e) => c.check("md.parse.reexport", false, &e),
+    }
+}
+
+// Plan item #9: parsing `expected.md` and applying it must reproduce
+// `state.json` (the YAML-route memory) exactly, proving both formats converge
+// on one in-memory document (§4.1).
+fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
+    let golden = read_corpus("expected.md");
+    let canonical = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&canonical);
+    let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&golden);
+    c.check("md.land.clean", parsed.rejections.is_empty(), &rej_detail(&parsed));
+    let mut landed = SpecDocument::new();
+    landed.load_json(&parsed.to_document_json());
+    let got = landed.to_json().to_canonical_json();
+    let want = canonical.to_canonical_json();
+    c.check(
+        "md.land.memory",
+        got == want,
+        &format!("got {} want {}", got, want),
+    );
+}
+
+fn rej_detail(r: &SpecMarkdownResult) -> String {
+    r.rejections
+        .iter()
+        .map(|rej| rej.to_display())
+        .collect::<Vec<String>>()
+        .join("; ")
 }
 
 fn test_reflection(c: &mut Checker, model: &SpecModel) {

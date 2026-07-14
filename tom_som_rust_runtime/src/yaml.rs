@@ -272,7 +272,20 @@ impl YamlReader {
             } else if item_text.starts_with('|') || item_text.starts_with('>') {
                 list.push(YamlValue::Str(self.parse_block_scalar(&item_text, indent)));
             } else {
-                list.push(self.parse_flow_scalar(&item_text));
+                // A `- key: …` item is a mapping whose first entry sits on the
+                // dash line; rewrite the dash as indentation and re-parse as a
+                // mapping (mirrors the Go reader).
+                let colon = yaml_find_colon(&item_text);
+                let is_map_entry = colon.is_some_and(|c| {
+                    c == item_text.len() - 1 || item_text.as_bytes()[c + 1] == b' '
+                });
+                if is_map_entry {
+                    self.idx = i;
+                    self.lines[i] = format!("{}{}", " ".repeat(indent + 2), &line[indent + 2..]);
+                    list.push(self.parse_mapping(indent + 2));
+                } else {
+                    list.push(self.parse_flow_scalar(&item_text));
+                }
             }
         }
         YamlValue::Seq(list)

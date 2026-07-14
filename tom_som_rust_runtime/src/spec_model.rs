@@ -171,6 +171,12 @@ impl SpecModel {
         ))
     }
 
+    /// Returns the `major.minor` DocSpecs version string for this model — see
+    /// [`som_model_version_string`].
+    pub fn model_version_string(&self) -> String {
+        som_model_version_string(self.model_version, &self.model_version_label)
+    }
+
     /// Decodes a meta-data JSON document into a `SpecModel`, normalising every
     /// field kind through [`parse_field_kind`].
     pub fn from_json_str(data: &str) -> Result<SpecModel, String> {
@@ -210,6 +216,38 @@ impl SpecModel {
             model_version_label,
         }
     }
+}
+
+/// Derives the `major.minor` DocSpecs version string from a model's integer
+/// version and its optional free-form label (port of Go's
+/// `SomModelVersionString` / Python's `som_model_version_string`).
+///
+/// When the label's `+`-stripped core has at least two dot-separated integer
+/// components, those become `major.minor`; otherwise the result is `<major>.0`.
+pub fn som_model_version_string(major: i64, label: &str) -> String {
+    if !label.is_empty() {
+        let core = label.split('+').next().unwrap_or("").trim();
+        let parts: Vec<&str> = core.split('.').collect();
+        if parts.len() >= 2 {
+            let maj = parts[0].trim();
+            let minor = parts[1].trim();
+            if is_signed_digits(maj) && is_signed_digits(minor) {
+                let maj_n: i64 = maj.parse().unwrap_or(0);
+                let minor_n: i64 = minor.parse().unwrap_or(0);
+                return format!("{}.{}", maj_n, minor_n);
+            }
+        }
+    }
+    format!("{}.0", major)
+}
+
+/// Reports whether `s` matches `/^[+-]?[0-9]+$/`.
+fn is_signed_digits(s: &str) -> bool {
+    let body = match s.strip_prefix(['+', '-']) {
+        Some(rest) => rest,
+        None => s,
+    };
+    !body.is_empty() && body.bytes().all(|b| b.is_ascii_digit())
 }
 
 fn class_from_json(name: &str, cls: &Json) -> SpecClass {

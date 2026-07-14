@@ -1,38 +1,79 @@
-//! `spec_document_markdown` — generic, meta-data-driven Markdown codec for a
-//! TomSpecs document, a faithful port of the Go `spec_document_markdown.go`.
+//! `spec_document_markdown` — DocSpecs-conform Markdown codec for a TomSpecs
+//! document (DR1 §1), a faithful port of the Go `spec_document_markdown.go`
+//! (itself a port of `tom_som_dart_runtime/lib/src/spec_document_markdown.dart`
+//! and the TypeScript `spec_document_markdown.ts`).
 //!
-//! A `<!-- docspec: -->` header, then one heading per populated section (sparse,
-//! in schema order), with each section's machine-readable section path as the
-//! first token of its heading so import maps back unambiguously. Leaf values
-//! live in fenced code blocks whose fence is widened past any backtick run in
-//! the value, so embedded code bodies round-trip verbatim. Form fields are
-//! introduced by a `<!-- field: name -->` anchor; list items appear as nested
-//! `…-N` sections, so list membership is recovered from the paths alone on
-//! import.
+//! The generated/authored `*.md` **is a genuine DocSpecs document**: line 1 is
+//! the `<!-- docspec: <schema-id>/<version> -->` declaration, every populated
+//! section is one markdown heading whose machine-readable identity is the
+//! DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
+//! human-readable Title-Case member name. Content values are **normal markdown
+//! text** under their heading (no fences, no anchors); `@Form` sections use the
+//! DocSpecs plain-text `FieldName: value` format; list items are sub-headings
+//! carrying the item's section id (stored id, else the `@SectionIdPattern`
+//! resolved with the 1-based position — `GOAL-ITEM-xxx` → `GOAL-ITEM-1` — else
+//! `<member>-<pos>`) directly under the owning section — the list container
+//! gets no heading of its own. Id-less members are **transparent** (mirroring
+//! the DR3 schema generator): a transparent value member's text or form block
+//! is the owner's body region, emitted without a heading and bound at its own
+//! path; a transparent section/complex member never heads — its id-bearing
+//! descendants hoist to the owner's child level (paths keep the transparent
+//! segments). Section/complex headings without a field-level `@SectionId`
+//! carry the target class's `@SectionId`.
 //!
-//! [`SpecDocumentMarkdown::parse`] does not mutate the document — it returns
-//! staged values keyed exactly like [`DocumentJson`] plus a rejection report;
-//! the caller applies them. Regex matching from the Go port is hand-rolled here
-//! to keep the zero-dependency promise.
+//! Escaping (DR1 §1.3): a content line starting with `#` at column 0 is
+//! emitted as `\#` (and a leading `\#`… run gains one more backslash), except
+//! inside fenced code blocks, which shield their lines verbatim. Consecutive
+//! blank lines are collapsed to one on emit; parse trims each value of
+//! leading/trailing blank lines and does not re-collapse.
+//!
+//! The codec is free of any UI: it reads from / resolves against a
+//! [`SpecModel`] (through the [`build_som_meta_tree`] metadata tree) and a
+//! [`SpecDocument`]. Parse does **not** mutate the document — it returns
+//! staged values keyed exactly like `SpecDocument::to_json` plus a rejection
+//! report; the caller applies them. Anything that cannot be mapped — an
+//! unknown section id, a child heading under a value leaf, orphaned text — is
+//! collected into [`SpecMarkdownResult::rejections`] rather than dropped
+//! (DR1 §1.7).
+//!
+//! Rust conventions (DR25): where the other ports throw, `export_root` returns
+//! `Err(String)` (the unterminated-fence case); the empty string stands in for
+//! a null anchor. The Go regexes are hand-rolled here to keep the
+//! zero-dependency promise; the message strings are byte-identical to Go.
 
-use std::collections::{BTreeMap, BTreeSet, HashSet};
+use std::cell::RefCell;
+use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::rc::Rc;
 
 use crate::spec_document::{DocumentJson, ListJson, SpecDocument};
-use crate::spec_model::{
-    SpecClass, SpecField, SpecModel, SpecRoot, SPEC_FIELD_KIND_COMPLEX, SPEC_FIELD_KIND_CONTENT,
-    SPEC_FIELD_KIND_ENUM, SPEC_FIELD_KIND_FORM, SPEC_FIELD_KIND_LIST, SPEC_FIELD_KIND_SCALAR,
-    SPEC_FIELD_KIND_SECTION,
+use crate::spec_meta::{
+    SomFormFieldMeta, SomMetaNode, SomMetaTree, SOM_META_KIND_COMPLEX, SOM_META_KIND_CONTENT,
+    SOM_META_KIND_ENUM_VALUE, SOM_META_KIND_FORM, SOM_META_KIND_LIST, SOM_META_KIND_SCALAR,
+    SOM_META_KIND_SECTION,
 };
-use crate::spec_reflection::{SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST};
+use crate::spec_meta_bridge::build_som_meta_tree;
+use crate::spec_model::{SpecModel, SpecRoot};
 
-/// Why an imported Markdown block was rejected.
+// Why an imported Markdown block was rejected (DR1 §1.7 rejection protocol).
+
+/// The heading's section id does not resolve against the schema tree at its
+/// nesting position.
 pub const SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION: &str = "unknownSection";
+/// A structurally impossible combination, e.g. a child heading nested under a
+/// value-leaf (content/scalar/enum) section.
 pub const SPEC_MARKDOWN_REJECT_KIND_MISMATCH: &str = "kindMismatch";
-pub const SPEC_MARKDOWN_REJECT_ORPHAN_BLOCK: &str = "orphanBlock";
+/// Body text with no owning value slot, e.g. prose inside a `@Form` section
+/// before the first `FieldName:` line.
+pub const SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT: &str = "orphanContent";
+/// A value-leaf section heading with an empty body.
 pub const SPEC_MARKDOWN_REJECT_MISSING_VALUE: &str = "missingValue";
+/// A heading line without a parseable `<!--[id]-->` headline comment.
 pub const SPEC_MARKDOWN_REJECT_MALFORMED_HEADING: &str = "malformedHeading";
 
-/// One rejected block in a Markdown import. Reported, never silently dropped.
+/// One rejected block in a Markdown import (DR1 §1.7). Reported, never
+/// silently dropped: each carries the source `line`, the offending `anchor`
+/// (section path or id, `""` when none), the `reason`, and a human-readable
+/// `message`.
 #[derive(Debug, Clone)]
 pub struct SpecMarkdownRejection {
     pub line: usize,
@@ -49,7 +90,10 @@ impl SpecMarkdownRejection {
         } else {
             format!(" ({})", self.anchor)
         };
-        format!("line {}: {}{} \u{2014} {}", self.line, self.reason, anchor, self.message)
+        format!(
+            "line {}: {}{} \u{2014} {}",
+            self.line, self.reason, anchor, self.message
+        )
     }
 }
 
@@ -59,24 +103,34 @@ impl std::fmt::Display for SpecMarkdownRejection {
     }
 }
 
-/// The outcome of parsing a Markdown document: the staged values plus every
-/// rejected block. The values are keyed exactly like [`DocumentJson`].
+/// The outcome of parsing a Markdown document (DR1 §1.7): the staged values
+/// plus every rejected block. The values are keyed exactly like
+/// `SpecDocument::to_json` so a caller can merge them into a live document as
+/// a full overwrite of the covered scope.
 #[derive(Debug, Clone, Default)]
 pub struct SpecMarkdownResult {
+    /// Content/scalar/enum leaf values (and section body text): path → value.
     pub content: BTreeMap<String, String>,
+    /// Form values: form path → (field name → value).
     pub forms: BTreeMap<String, BTreeMap<String, String>>,
+    /// List membership: list path → `{seq, items, ids?}` (the
+    /// `SpecDocument::to_json` shape), recovered from the item headings.
     pub lists: BTreeMap<String, ListJson>,
+    /// Every rejected block, in source order.
     pub rejections: Vec<SpecMarkdownRejection>,
+    /// The root segment(s) the import covers (the first segment of each
+    /// accepted path) — the scope a full-overwrite apply purges first.
     pub root_prefixes: BTreeSet<String>,
 }
 
 impl SpecMarkdownResult {
-    /// Reports whether no block was rejected.
+    /// Reports whether the parse was clean (no rejections).
     pub fn is_clean(&self) -> bool {
         self.rejections.is_empty()
     }
 
-    /// Returns the number of content + form-field values staged.
+    /// Returns the number of leaf values successfully parsed (content + form
+    /// fields).
     pub fn applied_count(&self) -> usize {
         self.content.len() + self.forms.values().map(|m| m.len()).sum::<usize>()
     }
@@ -91,54 +145,77 @@ impl SpecMarkdownResult {
     }
 }
 
-/// A value target between a section/field anchor and its fenced block.
-struct Pending {
-    line: usize,
-    path: String,
-    field: String,
-    has_fld: bool,
-    filled: bool,
+/// A fence state machine (CommonMark-ish): a line whose first non-space run
+/// (up to 3 spaces indent) is 3+ backticks or tildes opens a fence; a matching
+/// same-character run at least as long closes it.
+///
+/// Public so other markdown-processing modules (the DocSpecs validator's
+/// generic parser) share exactly the same fence semantics as this codec.
+#[derive(Debug, Default)]
+pub struct MarkdownFenceTracker {
+    ch: u8,
+    size: usize,
 }
 
-impl Pending {
-    fn anchor(&self) -> String {
-        if self.has_fld {
-            format!("{} :: {}", self.path, self.field)
-        } else {
-            self.path.clone()
+impl MarkdownFenceTracker {
+    /// Returns a tracker outside any fence.
+    pub fn new() -> MarkdownFenceTracker {
+        MarkdownFenceTracker::default()
+    }
+
+    /// Reports whether the tracker is currently inside a fence.
+    pub fn in_fence(&self) -> bool {
+        self.ch != 0
+    }
+
+    /// Advances the state machine by one line.
+    pub fn feed(&mut self, line: &str) {
+        let (run_char, run_len) = match md_fence_open_run(line) {
+            Some(r) => r,
+            None => return,
+        };
+        if self.ch == 0 {
+            self.ch = run_char;
+            self.size = run_len;
+            return;
+        }
+        let trimmed = line.trim();
+        if run_char == self.ch
+            && run_len >= self.size
+            && !trimmed.is_empty()
+            && trimmed.bytes().all(|b| b == self.ch)
+        {
+            self.ch = 0;
+            self.size = 0;
         }
     }
 }
 
-/// Renders a fenced code block holding `value` verbatim. The fence is one
-/// backtick longer than the longest backtick run in `value` (min 3).
-fn fence(value: &str, info: &str) -> String {
-    let mut max_run = 0;
-    let mut run = 0;
-    for ch in value.chars() {
-        if ch == '`' {
-            run += 1;
-            if run > max_run {
-                max_run = run;
-            }
-        } else {
-            run = 0;
-        }
+/// `mdFenceOpenRE`: `^ {0,3}(`​`{3,}`​`|~{3,})` — up to 3 spaces indent, then a
+/// run of 3+ backticks or tildes. Returns the run's character and length.
+fn md_fence_open_run(line: &str) -> Option<(u8, usize)> {
+    let b = line.as_bytes();
+    let mut i = 0;
+    while i < b.len() && i < 3 && b[i] == b' ' {
+        i += 1;
     }
-    let n = std::cmp::max(3, max_run + 1);
-    let f = "`".repeat(n);
-    let mut out = String::new();
-    out.push_str(&f);
-    out.push_str(info);
-    out.push('\n');
-    for line in value.split('\n') {
-        out.push_str(line);
-        out.push('\n');
+    if i >= b.len() || (b[i] != b'`' && b[i] != b'~') {
+        return None;
     }
-    out.push_str(&f);
-    out
+    let ch = b[i];
+    let start = i;
+    while i < b.len() && b[i] == ch {
+        i += 1;
+    }
+    let len = i - start;
+    if len >= 3 {
+        Some((ch, len))
+    } else {
+        None
+    }
 }
 
+/// mdBuffer — a tiny StringBuffer with Dart-style writeln semantics.
 struct MdBuffer {
     out: String,
 }
@@ -154,386 +231,1339 @@ impl MdBuffer {
     }
 }
 
-fn md_heading(b: &mut MdBuffer, depth: usize, path: &str, name: &str) {
-    let d = std::cmp::min(depth, 6);
-    b.writeln(&format!("{} {} \u{2014} {}", "#".repeat(d), path, name));
+// --- Hand-rolled line matchers (shared with the DocSpecs validator) -----------
+
+/// Go `\s` character class (`[\t\n\f\r ]`).
+fn is_go_space(c: char) -> bool {
+    matches!(c, ' ' | '\t' | '\n' | '\x0C' | '\r')
 }
 
-/// A codec binding a [`SpecModel`] and a concrete [`SpecDocument`] to the
-/// Markdown import/export format.
+/// `mdHeadingLineRE`: `^(#+)\s+(.*)$` — returns (level, rest).
+pub(crate) fn md_heading_line(line: &str) -> Option<(usize, &str)> {
+    let b = line.as_bytes();
+    let mut n = 0;
+    while n < b.len() && b[n] == b'#' {
+        n += 1;
+    }
+    if n == 0 {
+        return None;
+    }
+    let rest = &line[n..];
+    let stripped = rest.trim_start_matches(is_go_space);
+    if stripped.len() == rest.len() {
+        return None; // `\s+` needs at least one whitespace character.
+    }
+    Some((n, stripped))
+}
+
+/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]-->\s*(.*)$` — returns the id.
+pub(crate) fn md_headline_comment(rest: &str) -> Option<&str> {
+    let r = rest.strip_prefix("<!--[")?;
+    let close = r.find(']')?;
+    if close == 0 {
+        return None;
+    }
+    let after = &r[close..];
+    after.strip_prefix("]-->")?;
+    Some(&r[..close])
+}
+
+/// `mdDocspecCommentRE`: `^<!--\s*docspec:.*-->\s*$` (on a right-trimmed line).
+pub(crate) fn md_docspec_comment(line: &str) -> bool {
+    let r = match line.strip_prefix("<!--") {
+        Some(r) => r,
+        None => return false,
+    };
+    let r = r.trim_start_matches(is_go_space);
+    match r.strip_prefix("docspec:") {
+        Some(r) => r.ends_with("-->"),
+        None => false,
+    }
+}
+
+/// `mdTrailingWSRE`: strips a trailing `\s+` run.
+fn md_trim_trailing_ws(line: &str) -> &str {
+    line.trim_end_matches(is_go_space)
+}
+
+/// `mdEscapableRE`: `^\\*#` — an optional run of backslashes followed by `#`
+/// at column 0.
+fn md_escapable(line: &str) -> bool {
+    let b = line.as_bytes();
+    let mut i = 0;
+    while i < b.len() && b[i] == b'\\' {
+        i += 1;
+    }
+    i < b.len() && b[i] == b'#'
+}
+
+/// `mdEscapedHeadingRE`: `^\\+#` — one-or-more backslashes then `#`.
+fn md_escaped_heading(line: &str) -> bool {
+    let b = line.as_bytes();
+    let mut i = 0;
+    while i < b.len() && b[i] == b'\\' {
+        i += 1;
+    }
+    i > 0 && i < b.len() && b[i] == b'#'
+}
+
+/// Matches `[A-Za-z][A-Za-z0-9_]*:` at position `at`; returns the index just
+/// past the colon, or `None`.
+fn label_end(b: &[u8], at: usize) -> Option<usize> {
+    if at >= b.len() || !b[at].is_ascii_alphabetic() {
+        return None;
+    }
+    let mut i = at + 1;
+    while i < b.len() && (b[i].is_ascii_alphanumeric() || b[i] == b'_') {
+        i += 1;
+    }
+    if i < b.len() && b[i] == b':' {
+        Some(i + 1)
+    } else {
+        None
+    }
+}
+
+/// `mdLabelShapedRE`: `^ *[A-Za-z][A-Za-z0-9_]*:` — a line that would parse as
+/// a form-field label (optionally already space-prefixed).
+fn md_label_shaped(line: &str) -> bool {
+    let b = line.as_bytes();
+    let mut i = 0;
+    while i < b.len() && b[i] == b' ' {
+        i += 1;
+    }
+    label_end(b, i).is_some()
+}
+
+/// `mdContinuationLabelRE`: `^ +[A-Za-z][A-Za-z0-9_]*:`.
+fn md_continuation_label(line: &str) -> bool {
+    let b = line.as_bytes();
+    let mut i = 0;
+    while i < b.len() && b[i] == b' ' {
+        i += 1;
+    }
+    i > 0 && label_end(b, i).is_some()
+}
+
+/// `mdFieldLabelRE`: `^([A-Za-z][A-Za-z0-9_]*): ?(.*)$` — returns
+/// (label, first value line).
+fn md_field_label(line: &str) -> Option<(&str, &str)> {
+    let b = line.as_bytes();
+    let colon_end = label_end(b, 0)?;
+    let label = &line[..colon_end - 1];
+    let mut rest = &line[colon_end..];
+    if let Some(r) = rest.strip_prefix(' ') {
+        rest = r; // `: ?` — at most one space consumed.
+    }
+    Some((label, rest))
+}
+
+// --- Value normalisation helpers ----------------------------------------------
+
+/// `mdBlankRunRE` (`\n{3,}` → `\n\n`), then `^\n+` / `\n+$` trims.
+fn md_collapse_blank_runs(value: &str) -> String {
+    let mut out = String::with_capacity(value.len());
+    let mut run = 0;
+    for ch in value.chars() {
+        if ch == '\n' {
+            run += 1;
+            if run <= 2 {
+                out.push('\n');
+            }
+        } else {
+            run = 0;
+            out.push(ch);
+        }
+    }
+    let out = out.trim_start_matches('\n');
+    let out = out.trim_end_matches('\n');
+    out.to_string()
+}
+
+/// `mdLeadingBlankLnRE`: strips `^([ \t]*\n)+`.
+fn md_strip_leading_blank_lines(s: &str) -> &str {
+    let b = s.as_bytes();
+    let mut start = 0;
+    loop {
+        let mut i = start;
+        while i < b.len() && (b[i] == b' ' || b[i] == b'\t') {
+            i += 1;
+        }
+        if i < b.len() && b[i] == b'\n' {
+            start = i + 1;
+        } else {
+            break;
+        }
+    }
+    &s[start..]
+}
+
+/// `mdTrailingBlankLnRE`: strips `(\n[ \t]*)+$`.
+fn md_strip_trailing_blank_lines(s: &str) -> &str {
+    let b = s.as_bytes();
+    let mut end = b.len();
+    loop {
+        let mut i = end;
+        while i > 0 && (b[i - 1] == b' ' || b[i - 1] == b'\t') {
+            i -= 1;
+        }
+        if i > 0 && b[i - 1] == b'\n' {
+            end = i - 1;
+        } else {
+            break;
+        }
+    }
+    &s[..end]
+}
+
+/// mdNodeRel — a body slot / effective child: the node plus its relative path.
+struct MdNodeRel {
+    node: Rc<SomMetaNode>,
+    rel: String,
+}
+
+/// Reports a value member (content/scalar/enum/form) with no `@SectionId`:
+/// emitted into the owner's body region instead of under an own heading.
+fn md_is_transparent_value(n: &SomMetaNode) -> bool {
+    n.section_id.is_empty()
+        && (n.kind == SOM_META_KIND_CONTENT
+            || n.kind == SOM_META_KIND_SCALAR
+            || n.kind == SOM_META_KIND_ENUM_VALUE
+            || n.kind == SOM_META_KIND_FORM)
+}
+
+/// SpecDocumentMarkdown is the codec binding a [`SpecModel`] and a concrete
+/// [`SpecDocument`] to the DocSpecs Markdown import/export format (DR1 §1).
 pub struct SpecDocumentMarkdown<'a> {
     pub model: &'a SpecModel,
     pub document: &'a SpecDocument,
-    reflection: SpecReflection<'a>,
+    // Metadata trees per root type, built lazily (DR8's generated facades will
+    // hand these in directly; until then the bridge derives them).
+    trees: RefCell<HashMap<String, Rc<SomMetaTree>>>,
 }
 
 impl<'a> SpecDocumentMarkdown<'a> {
-    /// Binds a model and document to the Markdown codec.
+    /// Binds model and document to the codec.
     pub fn new(model: &'a SpecModel, document: &'a SpecDocument) -> SpecDocumentMarkdown<'a> {
         SpecDocumentMarkdown {
             model,
             document,
-            reflection: SpecReflection::new(model),
+            trees: RefCell::new(HashMap::new()),
         }
     }
 
-    fn field_seg(&self, f: &SpecField) -> String {
-        self.reflection.field_segment(f)
+    fn tree_for(&self, root_type: &str) -> Result<Rc<SomMetaTree>, String> {
+        if let Some(tree) = self.trees.borrow().get(root_type) {
+            return Ok(tree.clone());
+        }
+        let tree = Rc::new(build_som_meta_tree(self.model, root_type)?);
+        self.trees
+            .borrow_mut()
+            .insert(root_type.to_string(), tree.clone());
+        Ok(tree)
     }
 
-    // --- Export ------------------------------------------------------------
+    // --- Naming / heading helpers (DR1 §1.2 / §1.6) ---------------------------
 
-    /// Renders the populated subtree of `root` as a schema-conformant Markdown
-    /// document with a `<!-- docspec: -->` header.
-    pub fn export_root(&self, root: &SpecRoot) -> String {
+    /// The section id written into (and matched from) a heading for `node`
+    /// (DR1 §1.2/§1.6): the field-level `@SectionId` when present; for
+    /// section/complex nodes whose field carries none, the target **class**'s
+    /// `@SectionId` (the id the DR3 schema types are keyed by); else the path
+    /// segment (the member name).
+    fn heading_id_of(&self, node: &SomMetaNode) -> String {
+        if !node.section_id.is_empty() {
+            return node.section_id.clone();
+        }
+        if node.kind == SOM_META_KIND_SECTION || node.kind == SOM_META_KIND_COMPLEX {
+            if let Some(cls) = self.model.class_named(&node.class_name) {
+                if !cls.section_id.is_empty() {
+                    return cls.section_id.clone();
+                }
+            }
+        }
+        node.segment().to_string()
+    }
+
+    // --- Transparency (DR1 §1.2, mirroring the DR3 schema generator) ----------
+    //
+    // The DR3 `docspecs-schema` generator is normative: only **section-bearing**
+    // nodes (those with a real `@SectionId`, field- or class-level) become
+    // section types; id-less members are *transparent* — they are not sections
+    // of their own. The markdown format mirrors that exactly:
+    //
+    //   - a transparent value member (content/scalar/enum/form without an id)
+    //     is emitted headinglessly into its owner's *body region* (text, or a
+    //     `FieldName: value` form block);
+    //   - a transparent section/complex member gets no heading; its id-bearing
+    //     descendants surface as the owner's direct child headings (the
+    //     schema's "nearest section-bearing descendant" hoisting), with
+    //     document paths still running through the transparent segments;
+    //   - lists are never transparent — the container never heads, the items
+    //     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+    //
+    // Principled canonicalisation losses (documented, accepted): multiple
+    // transparent content members of one owner merge into the first on parse,
+    // and a form-field label colliding across an owner's transparent forms
+    // binds to the nearest form in slot order.
+
+    /// A section/complex member with no field- or class-level `@SectionId`:
+    /// heading-less, its children hoist to the owner.
+    fn is_transparent_section(&self, n: &SomMetaNode) -> bool {
+        if n.kind != SOM_META_KIND_SECTION && n.kind != SOM_META_KIND_COMPLEX {
+            return false;
+        }
+        if !n.section_id.is_empty() {
+            return false;
+        }
+        match self.model.class_named(&n.class_name) {
+            Some(cls) => cls.section_id.is_empty(),
+            None => true,
+        }
+    }
+
+    /// The ordered *body slots* of `node`: every transparent value member and
+    /// every transparent section (whose own path may carry body text),
+    /// collected depth-first through transparent sections. These are the value
+    /// positions that share the owner's heading body.
+    fn body_slots(&self, node: &SomMetaNode) -> Vec<MdNodeRel> {
+        let mut out = Vec::new();
+        self.collect_body_slots(node, "", &mut out);
+        out
+    }
+
+    fn collect_body_slots(&self, n: &SomMetaNode, prefix: &str, out: &mut Vec<MdNodeRel>) {
+        for child in &n.children {
+            if child.recursive {
+                continue;
+            }
+            let rel = if prefix.is_empty() {
+                child.segment().to_string()
+            } else {
+                format!("{}/{}", prefix, child.segment())
+            };
+            if md_is_transparent_value(child) {
+                out.push(MdNodeRel {
+                    node: child.clone(),
+                    rel,
+                });
+            } else if self.is_transparent_section(child) {
+                out.push(MdNodeRel {
+                    node: child.clone(),
+                    rel: rel.clone(),
+                });
+                self.collect_body_slots(child, &rel, out);
+            }
+        }
+    }
+
+    /// The ordered *effective children* of `node`: every section-bearing child
+    /// and every list, hoisted through transparent sections — exactly the
+    /// headings (and item-heading owners) the DR3 schema knows at this
+    /// position. Each entry carries the relative path from `node` (which runs
+    /// through the transparent segments).
+    fn effective_children(&self, node: &SomMetaNode) -> Vec<MdNodeRel> {
+        let mut out = Vec::new();
+        self.collect_effective_children(node, "", &mut out);
+        out
+    }
+
+    fn collect_effective_children(&self, n: &SomMetaNode, prefix: &str, out: &mut Vec<MdNodeRel>) {
+        for child in &n.children {
+            if child.recursive {
+                continue;
+            }
+            let rel = if prefix.is_empty() {
+                child.segment().to_string()
+            } else {
+                format!("{}/{}", prefix, child.segment())
+            };
+            if md_is_transparent_value(child) {
+                continue; // body region
+            }
+            if self.is_transparent_section(child) {
+                self.collect_effective_children(child, &rel, out);
+            } else {
+                out.push(MdNodeRel {
+                    node: child.clone(),
+                    rel,
+                });
+            }
+        }
+    }
+
+    // --- Export (DR1 §1.1–§1.6) ------------------------------------------------
+
+    /// Renders the populated subtree of `root` as a DocSpecs-conform Markdown
+    /// document. Returns an error when a content value contains an
+    /// unterminated fenced code block (which would shield the remainder of the
+    /// document from heading detection and break the round-trip) — the Rust
+    /// analogue of the other ports' throw.
+    pub fn export_root(&self, root: &SpecRoot) -> Result<String, String> {
+        let tree = self.tree_for(&root.type_)?;
+        let node = tree.root.clone();
         let mut b = MdBuffer::new();
-        let seg = self.reflection.root_segment(root);
-        b.writeln(&format!("<!-- docspec: {}/1 -->", seg.to_lowercase()));
-        b.writeln(&format!("# {} \u{2014} {}", seg, root.title));
-        if !root.description.trim().is_empty() {
-            b.writeln("");
-            b.writeln(root.description.trim());
-        }
-        if let Some(cls) = self.model.class_named(&root.type_) {
-            let mut seen = HashSet::new();
-            seen.insert(root.type_.clone());
-            self.export_class(&mut b, cls, &seg, 2, &seen);
-        }
-        b.out
+        b.writeln(&format!(
+            "<!-- docspec: {}/{} -->",
+            spec_markdown_kebab_case(&root.title),
+            self.model.model_version_string()
+        ));
+        let root_seg = node.segment().to_string();
+        md_write_heading(&mut b, 1, &root_seg, &root.title);
+        self.write_section_body(&mut b, &node, &root_seg)?;
+        self.write_children(&mut b, &node, &root_seg, 2)?;
+        Ok(b.out)
     }
 
-    fn export_class(
+    /// Writes the body region of a section heading: the section path's own
+    /// content value plus every transparent body slot (id-less content text
+    /// and form blocks, hoisted through transparent sections) in model order.
+    fn write_section_body(
         &self,
         b: &mut MdBuffer,
-        cls: &SpecClass,
+        node: &SomMetaNode,
+        path: &str,
+    ) -> Result<(), String> {
+        if let Some(value) = self.document.content(path) {
+            self.write_body(b, value, path)?;
+        }
+        for slot in self.body_slots(node) {
+            let slot_path = format!("{}/{}", path, slot.rel);
+            if slot.node.kind == SOM_META_KIND_FORM {
+                if self.form_has_values(&slot.node, &slot_path) {
+                    self.write_form(b, &slot.node, &slot_path)?;
+                }
+            } else if let Some(value) = self.document.content(&slot_path) {
+                self.write_body(b, value, &slot_path)?;
+            }
+        }
+        Ok(())
+    }
+
+    fn write_children(
+        &self,
+        b: &mut MdBuffer,
+        node: &SomMetaNode,
         base_path: &str,
         depth: usize,
-        seen_types: &HashSet<String>,
-    ) {
-        for field in &cls.fields {
-            let path = format!("{}/{}", base_path, self.field_seg(field));
+    ) -> Result<(), String> {
+        for entry in self.effective_children(node) {
+            let child = &entry.node;
+            let path = format!("{}/{}", base_path, entry.rel);
             if !self.document.has_values_under(&path) {
                 continue;
             }
-            match field.kind.as_str() {
-                SPEC_FIELD_KIND_CONTENT | SPEC_FIELD_KIND_SCALAR | SPEC_FIELD_KIND_ENUM => {
+            match child.kind.as_str() {
+                SOM_META_KIND_CONTENT | SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
                     let value = match self.document.content(&path) {
                         Some(v) => v.clone(),
                         None => continue,
                     };
-                    md_heading(b, depth, &path, &field.name);
-                    b.writeln(&fence(&value, &field.content_type));
-                    b.writeln("");
+                    md_write_heading(b, depth, &self.heading_id_of(child), &md_title_of(child));
+                    self.write_body(b, &value, &path)?;
                 }
-                SPEC_FIELD_KIND_FORM => {
-                    md_heading(b, depth, &path, &field.name);
-                    for ff in &field.form_fields {
-                        let value = match self.document.form_field(&path, &ff.name) {
-                            Some(v) => v.clone(),
-                            None => continue,
-                        };
-                        b.writeln(&format!("<!-- field: {} -->", ff.name));
-                        b.writeln(&fence(&value, ""));
-                        b.writeln("");
+                SOM_META_KIND_FORM => {
+                    if !self.form_has_values(child, &path) {
+                        continue;
                     }
+                    md_write_heading(b, depth, &self.heading_id_of(child), &md_title_of(child));
+                    self.write_form(b, child, &path)?;
                 }
-                SPEC_FIELD_KIND_LIST => {
-                    let elem = self.model.class_named(&field.element_type);
-                    let recursive =
-                        !field.element_type.is_empty() && seen_types.contains(&field.element_type);
-                    md_heading(b, depth, &path, &field.name);
-                    b.writeln("");
-                    let elem = match elem {
-                        Some(e) if !recursive => e,
-                        _ => continue,
-                    };
-                    let mut next_seen = seen_types.clone();
-                    next_seen.insert(field.element_type.clone());
-                    for item_path in self.document.list_items(&path) {
-                        let label = if field.element_type.is_empty() {
-                            "item".to_string()
-                        } else {
-                            field.element_type.clone()
-                        };
-                        md_heading(b, depth + 1, &item_path, &label);
-                        b.writeln("");
-                        self.export_class(b, elem, &item_path, depth + 2, &next_seen);
-                    }
+                SOM_META_KIND_SECTION | SOM_META_KIND_COMPLEX => {
+                    md_write_heading(b, depth, &self.heading_id_of(child), &md_title_of(child));
+                    self.write_section_body(b, child, &path)?;
+                    self.write_children(b, child, &path, depth + 1)?;
                 }
-                SPEC_FIELD_KIND_COMPLEX | SPEC_FIELD_KIND_SECTION => {
-                    let nested = self.model.class_named(&field.type_);
-                    let recursive = !field.type_.is_empty() && seen_types.contains(&field.type_);
-                    let nested = match nested {
-                        Some(n) if !recursive => n,
-                        _ => continue,
-                    };
-                    md_heading(b, depth, &path, &field.name);
-                    b.writeln("");
-                    let mut next_seen = seen_types.clone();
-                    next_seen.insert(field.type_.clone());
-                    self.export_class(b, nested, &path, depth + 1, &next_seen);
+                SOM_META_KIND_LIST => {
+                    self.write_list_items(b, child, &path, depth)?;
                 }
                 _ => {}
             }
         }
+        Ok(())
     }
 
-    // --- Import ------------------------------------------------------------
-
-    /// Parses `text` into staged values + a rejection report, without mutating
-    /// the document.
-    pub fn parse(&self, text: &str) -> SpecMarkdownResult {
-        let lines: Vec<&str> = text.split('\n').collect();
-        let mut result = SpecMarkdownResult::default();
-
-        let mut pend: Option<Pending> = None;
-        let mut current_kind = String::new();
-        let mut current_path = String::new();
-
-        let mut i = 0;
-        while i < lines.len() {
-            let raw = lines[i];
-            let line_no = i + 1;
-            let trimmed = raw.trim_end_matches([' ', '\t', '\r', '\n', '\u{000C}', '\u{000B}']);
-
-            // Heading.
-            if let Some(path) = heading_path(trimmed) {
-                flush_missing(&mut pend, &mut result);
-                match self.reflection.resolve(&path) {
-                    None => {
-                        result.rejections.push(SpecMarkdownRejection {
-                            line: line_no,
-                            reason: SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION.to_string(),
-                            message: "section path does not resolve against the model".to_string(),
-                            anchor: path.clone(),
-                        });
-                        current_kind.clear();
-                        current_path.clear();
-                        i += 1;
-                        continue;
-                    }
-                    Some(node) => {
-                        current_kind = node.kind.clone();
-                        current_path = path.clone();
-                        if let Some(prefix) = path.split('/').next() {
-                            result.root_prefixes.insert(prefix.to_string());
-                        }
-                        if node.is_value_leaf() {
-                            pend = Some(Pending {
-                                line: line_no,
-                                path: path.clone(),
-                                field: String::new(),
-                                has_fld: false,
-                                filled: false,
-                            });
-                        }
-                    }
-                }
-                i += 1;
-                continue;
-            }
-
-            // Form-field anchor.
-            if let Some(field_name) = field_anchor(trimmed) {
-                flush_missing(&mut pend, &mut result);
-                if current_path.is_empty() || current_kind != SPEC_NODE_KIND_FORM {
-                    result.rejections.push(SpecMarkdownRejection {
-                        line: line_no,
-                        reason: SPEC_MARKDOWN_REJECT_KIND_MISMATCH.to_string(),
-                        message: "form-field anchor outside a `@Form` section".to_string(),
-                        anchor: field_name,
-                    });
-                    i += 1;
-                    continue;
-                }
-                pend = Some(Pending {
-                    line: line_no,
-                    path: current_path.clone(),
-                    field: field_name,
-                    has_fld: true,
-                    filled: false,
-                });
-                i += 1;
-                continue;
-            }
-
-            // Fence opener.
-            if let Some(fence_len) = fence_open(trimmed) {
-                let mut body = Vec::new();
-                let mut j = i + 1;
-                let closer = "`".repeat(fence_len);
-                while j < lines.len()
-                    && lines[j].trim_end_matches([' ', '\t', '\r', '\n', '\u{000C}', '\u{000B}'])
-                        != closer
-                {
-                    body.push(lines[j]);
-                    j += 1;
-                }
-                let value = body.join("\n");
-                match pend.take() {
-                    None => {
-                        result.rejections.push(SpecMarkdownRejection {
-                            line: line_no,
-                            reason: SPEC_MARKDOWN_REJECT_ORPHAN_BLOCK.to_string(),
-                            message: "fenced value with no owning section or field".to_string(),
-                            anchor: String::new(),
-                        });
-                    }
-                    Some(p) => {
-                        if p.has_fld {
-                            result
-                                .forms
-                                .entry(p.path.clone())
-                                .or_default()
-                                .insert(p.field.clone(), value);
-                        } else {
-                            result.content.insert(p.path.clone(), value);
-                        }
-                    }
-                }
-                i = if j < lines.len() { j + 1 } else { j };
-                continue;
-            }
-
-            i += 1;
-        }
-        flush_missing(&mut pend, &mut result);
-
-        result.lists = self.reconstruct_lists(&result.content, &result.forms);
-        result
-    }
-
-    /// Recovers list membership from the leaf paths: any `<base>-<n>` segment
-    /// whose `<base>` ancestor resolves to a list field denotes item `<n>` of
-    /// that list.
-    fn reconstruct_lists(
+    /// Emits the items of list `node` as headings **at the owner's child
+    /// level** — the container itself gets no heading (DR1 §1.2).
+    fn write_list_items(
         &self,
-        content: &BTreeMap<String, String>,
-        forms: &BTreeMap<String, BTreeMap<String, String>>,
-    ) -> BTreeMap<String, ListJson> {
-        let mut items: BTreeMap<String, Vec<String>> = BTreeMap::new();
-        let mut seq: BTreeMap<String, i64> = BTreeMap::new();
-
-        let mut scan = |path: &str| {
-            let segs: Vec<&str> = path.split('/').collect();
-            let mut prefix = segs[0].to_string();
-            for seg in &segs[1..] {
-                if let Some((base, n)) = item_seg(seg) {
-                    let list_path = format!("{}/{}", prefix, base);
-                    let item_path = format!("{}/{}", prefix, seg);
-                    if let Some(node) = self.reflection.resolve(&list_path) {
-                        if node.kind == SPEC_NODE_KIND_LIST {
-                            let bucket = items.entry(list_path.clone()).or_default();
-                            if !bucket.iter().any(|it| it == &item_path) {
-                                bucket.push(item_path);
-                            }
-                            let entry = seq.entry(list_path).or_insert(0);
-                            if n > *entry {
-                                *entry = n;
-                            }
-                        }
+        b: &mut MdBuffer,
+        node: &SomMetaNode,
+        list_path: &str,
+        depth: usize,
+    ) -> Result<(), String> {
+        let items = self.document.list_items(list_path);
+        let element = node.element_node.as_ref();
+        let stem_source = match element {
+            Some(e) => e.class_name.clone(),
+            None => node.type_name.clone(),
+        };
+        let stem = spec_markdown_item_title_stem(&stem_source);
+        let mut pattern = node.section_id_pattern.clone();
+        if pattern.is_empty() {
+            if let Some(e) = element {
+                pattern = e.section_id_pattern.clone();
+            }
+        }
+        for (i, item_path) in items.iter().enumerate() {
+            let pos = i + 1;
+            // DR1 §1.2: an anonymous item's heading id is the resolved
+            // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only
+            // pattern-less lists fall back to `<member>-<pos>`.
+            let item_id = if let Some(stored) = self.document.item_section_id(item_path) {
+                stored.clone()
+            } else if !pattern.is_empty() {
+                pattern.replace("xxx", &pos.to_string())
+            } else {
+                let member = if node.member_name.is_empty() {
+                    node.segment().to_string()
+                } else {
+                    node.member_name.clone()
+                };
+                format!("{}-{}", member, pos)
+            };
+            md_write_heading(b, depth, &item_id, &format!("{} {}", stem, pos));
+            match element {
+                None => {
+                    // Scalar list: the item's value is its body.
+                    let value = self.document.content_or(item_path);
+                    self.write_body(b, &value, item_path)?;
+                }
+                Some(e) => {
+                    self.write_section_body(b, e, item_path)?;
+                    if !e.recursive {
+                        self.write_children(b, e, item_path, depth + 1)?;
                     }
                 }
-                prefix = format!("{}/{}", prefix, seg);
             }
+        }
+        Ok(())
+    }
+
+    fn form_has_values(&self, node: &SomMetaNode, path: &str) -> bool {
+        match &node.form {
+            None => false,
+            Some(form) => form
+                .fields
+                .iter()
+                .any(|f| self.document.form_field(path, &f.name).is_some()),
+        }
+    }
+
+    fn write_form(&self, b: &mut MdBuffer, node: &SomMetaNode, path: &str) -> Result<(), String> {
+        let empty: Vec<SomFormFieldMeta> = Vec::new();
+        let fields = match &node.form {
+            Some(form) => &form.fields,
+            None => &empty,
         };
+        for f in fields {
+            let value = match self.document.form_field(path, &f.name) {
+                Some(v) => v.clone(),
+                None => continue,
+            };
+            let prepared = self.prepare_value(&value, path)?;
+            let mut lines = prepared.split('\n');
+            let first = lines.next().unwrap_or("");
+            b.writeln(&format!("{}: {}", spec_markdown_form_label(&f.name), first));
+            for line in lines {
+                // §1.4.3 generalised: any continuation line that could be
+                // mistaken for a field-label line gains one leading space;
+                // parse strips it.
+                if md_label_shaped(line) {
+                    b.writeln(&format!(" {}", line));
+                } else {
+                    b.writeln(line);
+                }
+            }
+        }
+        b.writeln("");
+        Ok(())
+    }
 
-        for p in content.keys() {
-            scan(p);
+    /// Writes `value` as a section body followed by a blank line; no-op for
+    /// blank values.
+    fn write_body(&self, b: &mut MdBuffer, value: &str, path: &str) -> Result<(), String> {
+        let prepared = self.prepare_value(value, path)?;
+        if prepared.is_empty() {
+            return Ok(());
         }
-        for p in forms.keys() {
-            scan(p);
-        }
+        b.writeln(&prepared);
+        b.writeln("");
+        Ok(())
+    }
 
-        let mut out = BTreeMap::new();
-        for (key, value) in items {
-            let s = seq.get(&key).copied().unwrap_or(value.len() as i64);
-            out.insert(
-                key,
-                ListJson {
-                    seq: s,
-                    items: value,
-                    ids: BTreeMap::new(),
-                },
-            );
+    /// The emit-side value normalisation (DR1 §1.3): collapse 2+ blank lines
+    /// to one, trim leading/trailing blank lines, escape heading-like lines
+    /// outside fences. Returns an error for an unterminated fence.
+    fn prepare_value(&self, value: &str, path: &str) -> Result<String, String> {
+        let collapsed = md_collapse_blank_runs(value);
+        let mut fence = MarkdownFenceTracker::new();
+        let mut out: Vec<String> = Vec::new();
+        for line in collapsed.split('\n') {
+            if fence.in_fence() {
+                out.push(line.to_string()); // §1.3.4: fences shield their lines.
+            } else if md_escapable(line) {
+                out.push(format!("\\{}", line));
+            } else {
+                out.push(line.to_string());
+            }
+            fence.feed(line);
         }
-        out
+        if fence.in_fence() {
+            return Err(format!(
+                "content at \"{}\" contains an unterminated fenced code block; \
+it cannot be represented in the DocSpecs markdown format",
+                path
+            ));
+        }
+        Ok(out.join("\n"))
+    }
+
+    // --- Import (DR1 §1.7) -------------------------------------------------------
+
+    /// Parses `text` into staged values + a rejection report, **without**
+    /// mutating the document. The caller applies the result as a full
+    /// overwrite.
+    pub fn parse(&self, text: &str) -> SpecMarkdownResult {
+        let mut p = MdParser::new(self);
+        p.run(text.split('\n'));
+        SpecMarkdownResult {
+            content: p.content,
+            forms: p.forms,
+            lists: md_lists_json(&p.list_order, &p.lists),
+            rejections: p.rejections,
+            root_prefixes: p.root_prefixes,
+        }
     }
 }
 
-fn flush_missing(pend: &mut Option<Pending>, result: &mut SpecMarkdownResult) {
-    if let Some(p) = pend.take() {
-        if !p.filled {
-            result.rejections.push(SpecMarkdownRejection {
-                line: p.line,
-                reason: SPEC_MARKDOWN_REJECT_MISSING_VALUE.to_string(),
-                message: "no fenced value followed this anchor".to_string(),
-                anchor: p.anchor(),
+/// `## <!--[ID]--> Title` at `depth`. DR1 §1.2 is normative — heading level =
+/// 1 + section depth, **uncapped**: deep models (the Solution Blueprint nests
+/// past markdown's native 6 levels) keep their structure; the parse grammar
+/// accepts `#{7,}` accordingly. Capping would silently flatten distinct
+/// nesting positions into siblings and break schema validation.
+fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str) {
+    b.writeln(&format!("{} <!--[{}]--> {}", "#".repeat(depth), id, title));
+    b.writeln("");
+}
+
+fn md_title_of(node: &SomMetaNode) -> String {
+    let name = if node.member_name.is_empty() {
+        &node.class_name
+    } else {
+        &node.member_name
+    };
+    spec_markdown_title_case(name)
+}
+
+// --- Naming helpers (DR1 §1.2 / §1.5) ------------------------------------------
+
+/// Expands a camel/Pascal-case identifier into Title Case:
+/// `introductionAndScope` / `DemoItem` → `Introduction And Scope` /
+/// `Demo Item`.
+pub fn spec_markdown_title_case(name: &str) -> String {
+    let mut words: Vec<String> = Vec::new();
+    let mut buf = String::new();
+    for r in name.chars() {
+        if r.is_uppercase() && !buf.is_empty() {
+            words.push(std::mem::take(&mut buf));
+        }
+        buf.push(r);
+    }
+    if !buf.is_empty() {
+        words.push(buf);
+    }
+    let out: Vec<String> = words
+        .iter()
+        .map(|w| {
+            let mut cs = w.chars();
+            match cs.next() {
+                None => String::new(),
+                Some(first) => first.to_uppercase().collect::<String>() + cs.as_str(),
+            }
+        })
+        .collect();
+    out.join(" ")
+}
+
+/// Derives the DocSpecs schema id of a `@Document` name (DR1 §1.1):
+/// `Demo Document` → `demo-document`.
+pub fn spec_markdown_kebab_case(title: &str) -> String {
+    let s = title.trim();
+    // `[\s_]+` → `-`.
+    let mut dashed = String::with_capacity(s.len());
+    let mut in_run = false;
+    for c in s.chars() {
+        if c.is_whitespace() || c == '_' {
+            if !in_run {
+                dashed.push('-');
+                in_run = true;
+            }
+        } else {
+            dashed.push(c);
+            in_run = false;
+        }
+    }
+    // Drop `[^A-Za-z0-9-]`, then lower-case.
+    dashed
+        .chars()
+        .filter(|c| c.is_ascii_alphanumeric() || *c == '-')
+        .collect::<String>()
+        .to_lowercase()
+}
+
+/// The item heading title stem: Title-Case element class name with a trailing
+/// `Entry` dropped (DR1 §1.5, normative).
+pub fn spec_markdown_item_title_stem(element_class_name: &str) -> String {
+    let mut stem = element_class_name;
+    if stem.len() > 5 && stem.ends_with("Entry") {
+        stem = &stem[..stem.len() - 5];
+    }
+    spec_markdown_title_case(stem)
+}
+
+/// The `FieldName` label written for a form field: the model field name with
+/// the first letter upper-cased (DR1 §1.4.1).
+pub fn spec_markdown_form_label(field_name: &str) -> String {
+    let mut cs = field_name.chars();
+    match cs.next() {
+        None => String::new(),
+        Some(first) => first.to_uppercase().collect::<String>() + cs.as_str(),
+    }
+}
+
+// --- Parser --------------------------------------------------------------------
+
+/// One open section during the parse: its heading level, resolved node (`None`
+/// for an unresolvable/ignored section), path, and accumulated body lines.
+struct MdFrame {
+    level: usize,
+    node: Option<Rc<SomMetaNode>>,
+    path: String,
+    line: usize,
+    ignored: bool,
+    body: Vec<String>,
+}
+
+impl MdFrame {
+    fn ignored(level: usize, line: usize) -> MdFrame {
+        MdFrame {
+            level,
+            node: None,
+            path: String::new(),
+            line,
+            ignored: true,
+            body: Vec::new(),
+        }
+    }
+}
+
+/// Per-list bookkeeping while parsing: ordered item paths, stored ids, and the
+/// highest item number handed out (drives both fresh numbers for stored-id
+/// items and the resulting seq).
+#[derive(Default)]
+struct MdListState {
+    items: Vec<String>,
+    ids: BTreeMap<String, String>,
+    max_n: i64,
+}
+
+struct MdParser<'c, 'a> {
+    codec: &'c SpecDocumentMarkdown<'a>,
+    content: BTreeMap<String, String>,
+    forms: BTreeMap<String, BTreeMap<String, String>>,
+    lists: HashMap<String, MdListState>,
+    list_order: Vec<String>,
+    rejections: Vec<SpecMarkdownRejection>,
+    root_prefixes: BTreeSet<String>,
+    stack: Vec<MdFrame>,
+    fence: MarkdownFenceTracker,
+}
+
+impl<'c, 'a> MdParser<'c, 'a> {
+    fn new(codec: &'c SpecDocumentMarkdown<'a>) -> MdParser<'c, 'a> {
+        MdParser {
+            codec,
+            content: BTreeMap::new(),
+            forms: BTreeMap::new(),
+            lists: HashMap::new(),
+            list_order: Vec::new(),
+            rejections: Vec::new(),
+            root_prefixes: BTreeSet::new(),
+            stack: Vec::new(),
+            fence: MarkdownFenceTracker::new(),
+        }
+    }
+
+    fn run<'t>(&mut self, lines: impl Iterator<Item = &'t str>) {
+        for (i, raw) in lines.enumerate() {
+            let line_no = i + 1;
+            let trimmed = md_trim_trailing_ws(raw);
+
+            if !self.fence.in_fence() {
+                if self.stack.is_empty() && md_docspec_comment(trimmed) {
+                    continue; // §1.1 header — informational.
+                }
+                if let Some((level, rest)) = md_heading_line(trimmed) {
+                    self.close_to(level);
+                    self.open_heading(level, rest, line_no);
+                    continue;
+                }
+            }
+            if let Some(top) = self.stack.last_mut() {
+                top.body.push(raw.to_string());
+            } else if !trimmed.is_empty() {
+                self.rejections.push(SpecMarkdownRejection {
+                    line: line_no,
+                    reason: SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT.to_string(),
+                    message: "text before the document root heading".to_string(),
+                    anchor: String::new(),
+                });
+            }
+            self.fence.feed(raw);
+        }
+        self.close_to(1);
+        while let Some(frame) = self.stack.pop() {
+            self.finalize(frame);
+        }
+    }
+
+    /// Pops (and finalizes) every frame at `level` or deeper.
+    fn close_to(&mut self, level: usize) {
+        while self.stack.last().is_some_and(|f| f.level >= level) {
+            let frame = self.stack.pop().unwrap();
+            self.finalize(frame);
+        }
+    }
+
+    fn open_heading(&mut self, level: usize, rest: &str, line_no: usize) {
+        let id = match md_headline_comment(rest.trim()) {
+            Some(id) => id.to_string(),
+            None => {
+                self.rejections.push(SpecMarkdownRejection {
+                    line: line_no,
+                    reason: SPEC_MARKDOWN_REJECT_MALFORMED_HEADING.to_string(),
+                    message: "heading carries no <!--[SECTION-ID]--> headline comment"
+                        .to_string(),
+                    anchor: rest.trim().to_string(),
+                });
+                self.stack.push(MdFrame::ignored(level, line_no));
+                return;
+            }
+        };
+
+        if self.stack.is_empty() {
+            self.open_root(level, &id, line_no);
+            return;
+        }
+
+        let (parent_ignored, parent_node, parent_path) = {
+            let parent = self.stack.last().unwrap();
+            (parent.ignored, parent.node.clone(), parent.path.clone())
+        };
+        if parent_ignored {
+            self.rejections.push(SpecMarkdownRejection {
+                line: line_no,
+                reason: SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION.to_string(),
+                message: "section nested under an unresolvable parent".to_string(),
+                anchor: id,
+            });
+            self.stack.push(MdFrame::ignored(level, line_no));
+            return;
+        }
+        let p_node = match &parent_node {
+            Some(n) if !md_is_value_leaf(&n.kind) => n.clone(),
+            _ => {
+                self.rejections.push(SpecMarkdownRejection {
+                    line: line_no,
+                    reason: SPEC_MARKDOWN_REJECT_KIND_MISMATCH.to_string(),
+                    message: "child heading under a value-leaf or form section".to_string(),
+                    anchor: id,
+                });
+                self.stack.push(MdFrame::ignored(level, line_no));
+                return;
+            }
+        };
+
+        // 1. A regular (non-list) *effective* child — section-bearing children
+        //    hoisted through transparent sections — whose heading id
+        //    (field/class section id) matches. Transparent value members never
+        //    head, so they never match here; the bound path runs through
+        //    transparent segments.
+        let effective = self.codec.effective_children(&p_node);
+        for entry in &effective {
+            if entry.node.kind != SOM_META_KIND_LIST && self.codec.heading_id_of(&entry.node) == id
+            {
+                self.stack.push(MdFrame {
+                    level,
+                    node: Some(entry.node.clone()),
+                    path: format!("{}/{}", parent_path, entry.rel),
+                    line: line_no,
+                    ignored: false,
+                    body: Vec::new(),
+                });
+                return;
+            }
+        }
+
+        // 2. A list item: anonymous (`<member>-<n>` or the pattern with a
+        //    numeric sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id,
+        //    or (fallback) any id when the parent has exactly one effective
+        //    list.
+        let list_children: Vec<&MdNodeRel> = effective
+            .iter()
+            .filter(|e| e.node.kind == SOM_META_KIND_LIST)
+            .collect();
+        for entry in &list_children {
+            let lc = &entry.node;
+            let list_path = format!("{}/{}", parent_path, entry.rel);
+            let member = if lc.member_name.is_empty() {
+                lc.segment().to_string()
+            } else {
+                lc.member_name.clone()
+            };
+            if let Some(n) = md_anon_item_number(&member, &id) {
+                self.open_item(level, &list_path, lc.clone(), n, "", true, line_no);
+                return;
+            }
+            let element = lc.element_node.as_ref();
+            let mut pattern = lc.section_id_pattern.clone();
+            if pattern.is_empty() {
+                if let Some(e) = element {
+                    pattern = e.section_id_pattern.clone();
+                }
+            }
+            if !pattern.is_empty() {
+                // Canonical anonymous id: the pattern with `xxx` as a number —
+                // parses back as item <n>, NOT as a stored id (DR1 §1.2
+                // round-trip).
+                let parts: Vec<&str> = pattern.split("xxx").collect();
+                if parts.len() == 2 {
+                    if let Some(n) = md_pattern_numbered(parts[0], parts[1], &id) {
+                        self.open_item(level, &list_path, lc.clone(), n, "", true, line_no);
+                        return;
+                    }
+                }
+                if md_pattern_matches(&pattern, &id) {
+                    self.open_item(level, &list_path, lc.clone(), 0, &id, false, line_no);
+                    return;
+                }
+            }
+        }
+        if list_children.len() == 1 {
+            let entry = list_children[0];
+            let list_path = format!("{}/{}", parent_path, entry.rel);
+            self.open_item(level, &list_path, entry.node.clone(), 0, &id, false, line_no);
+            return;
+        }
+
+        self.rejections.push(SpecMarkdownRejection {
+            line: line_no,
+            reason: SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION.to_string(),
+            message: format!(
+                "section id does not resolve against the schema tree at this \
+position (under \"{}\")",
+                parent_path
+            ),
+            anchor: id,
+        });
+        self.stack.push(MdFrame::ignored(level, line_no));
+    }
+
+    fn open_root(&mut self, level: usize, id: &str, line_no: usize) {
+        for root in &self.codec.model.roots {
+            let seg = if root.section_id.is_empty() {
+                root.type_.as_str()
+            } else {
+                root.section_id.as_str()
+            };
+            if seg == id {
+                let tree = match self.codec.tree_for(&root.type_) {
+                    Ok(t) => t,
+                    Err(_) => break,
+                };
+                self.root_prefixes.insert(seg.to_string());
+                self.stack.push(MdFrame {
+                    level,
+                    node: Some(tree.root.clone()),
+                    path: seg.to_string(),
+                    line: line_no,
+                    ignored: false,
+                    body: Vec::new(),
+                });
+                return;
+            }
+        }
+        let known: Vec<&str> = self
+            .codec
+            .model
+            .roots
+            .iter()
+            .map(|r| {
+                if r.section_id.is_empty() {
+                    r.type_.as_str()
+                } else {
+                    r.section_id.as_str()
+                }
+            })
+            .collect();
+        self.rejections.push(SpecMarkdownRejection {
+            line: line_no,
+            reason: SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION.to_string(),
+            message: format!(
+                "no document root with this section id (known: {})",
+                known.join(", ")
+            ),
+            anchor: id.to_string(),
+        });
+        self.stack.push(MdFrame::ignored(level, line_no));
+    }
+
+    /// Opens a list-item frame. `n` (with `has_n = true`) is the anonymous
+    /// heading number (also the path number); a stored-id item gets the next
+    /// free number instead.
+    #[allow(clippy::too_many_arguments)]
+    fn open_item(
+        &mut self,
+        level: usize,
+        list_path: &str,
+        list_node: Rc<SomMetaNode>,
+        n: i64,
+        stored_id: &str,
+        has_n: bool,
+        line_no: usize,
+    ) {
+        if !self.lists.contains_key(list_path) {
+            self.lists.insert(list_path.to_string(), MdListState::default());
+            self.list_order.push(list_path.to_string());
+        }
+        let state = self.lists.get_mut(list_path).unwrap();
+        let number = if has_n { n } else { state.max_n + 1 };
+        if number > state.max_n {
+            state.max_n = number;
+        }
+        let item_path = format!("{}-{}", list_path, number);
+        state.items.push(item_path.clone());
+        if !has_n {
+            state.ids.insert(item_path.clone(), stored_id.to_string());
+        }
+        self.stack.push(MdFrame {
+            level,
+            node: list_node.element_node.clone(),
+            path: item_path,
+            line: line_no,
+            ignored: false,
+            body: Vec::new(),
+        });
+    }
+
+    // --- Body finalisation -----------------------------------------------------
+
+    fn finalize(&mut self, frame: MdFrame) {
+        if frame.ignored {
+            return;
+        }
+        if let Some(node) = &frame.node {
+            if node.kind == SOM_META_KIND_FORM {
+                let node = node.clone();
+                self.finalize_form(&frame, &node, &frame.path.clone());
+                return;
+            }
+        }
+        let slots = match &frame.node {
+            Some(node) => self.codec.body_slots(node),
+            None => Vec::new(),
+        };
+        if slots.is_empty() {
+            let value = md_restore_value(&frame.body);
+            if !value.is_empty() {
+                self.content.insert(frame.path.clone(), value);
+            } else if frame.node.as_ref().is_some_and(|n| md_is_value_leaf(&n.kind)) {
+                self.rejections.push(SpecMarkdownRejection {
+                    line: frame.line,
+                    reason: SPEC_MARKDOWN_REJECT_MISSING_VALUE.to_string(),
+                    message: "no value text under this section heading".to_string(),
+                    anchor: frame.path.clone(),
+                });
+            }
+            return;
+        }
+        self.finalize_body_slots(&frame, slots);
+    }
+
+    /// Binds a heading's body region against the owner's transparent body
+    /// slots (DR1 §1.2 transparency): `FieldName:` lines matching a
+    /// transparent form's fields route to that form (nearest form in slot
+    /// order, wrapping); all other text binds to the first non-form slot — or
+    /// to the owner's own path when no such slot exists.
+    fn finalize_body_slots(&mut self, frame: &MdFrame, slots: Vec<MdNodeRel>) {
+        let mut form_slots: Vec<MdNodeRel> = Vec::new();
+        let mut content_slots: Vec<MdNodeRel> = Vec::new();
+        for s in slots {
+            if s.node.kind == SOM_META_KIND_FORM {
+                form_slots.push(s);
+            } else {
+                content_slots.push(s);
+            }
+        }
+        let content_path = if content_slots.is_empty() {
+            frame.path.clone()
+        } else {
+            format!("{}/{}", frame.path, content_slots[0].rel)
+        };
+
+        if form_slots.is_empty() {
+            let value = md_restore_value(&frame.body);
+            if !value.is_empty() {
+                self.content.insert(content_path, value);
+            }
+            return;
+        }
+
+        // Rolling pointer into the body region's transparent form slots —
+        // labels bind to the nearest form at or after the last hit (wrapping),
+        // so repeated field names across an owner's transparent forms follow
+        // emit order.
+        let mut current_form_idx: usize = 0;
+        let find_field = |from_idx: usize, label: &str| -> Option<(usize, String)> {
+            let lower = label.to_lowercase();
+            for k in 0..form_slots.len() {
+                let idx = (from_idx + k) % form_slots.len();
+                let form = match &form_slots[idx].node.form {
+                    Some(f) => f,
+                    None => continue,
+                };
+                for f in &form.fields {
+                    if f.name.to_lowercase() == lower {
+                        return Some((idx, f.name.clone()));
+                    }
+                }
+            }
+            None
+        };
+
+        let mut fence = MarkdownFenceTracker::new();
+        let mut current_field = String::new();
+        let mut current_form_path = String::new();
+        let mut have_field = false;
+        let mut current_lines: Vec<String> = Vec::new();
+        let mut content_lines: Vec<String> = Vec::new();
+
+        for line in &frame.body {
+            if !fence.in_fence() {
+                if let Some((label, first)) = md_field_label(line) {
+                    if let Some((idx, name)) = find_field(current_form_idx, label) {
+                        if have_field {
+                            stage_form_value(
+                                &mut self.forms,
+                                &current_form_path,
+                                &current_field,
+                                &current_lines,
+                            );
+                        }
+                        current_lines = Vec::new();
+                        current_form_idx = idx;
+                        have_field = true;
+                        current_field = name;
+                        current_form_path = format!("{}/{}", frame.path, form_slots[idx].rel);
+                        current_lines.push(first.to_string());
+                        fence.feed(line);
+                        continue;
+                    }
+                }
+            }
+            // Continuation: strip the one escape space of a label-shaped line.
+            let text = if !fence.in_fence() && have_field && md_continuation_label(line) {
+                &line[1..]
+            } else {
+                line.as_str()
+            };
+            if have_field {
+                current_lines.push(text.to_string());
+            } else {
+                content_lines.push(text.to_string());
+            }
+            fence.feed(line);
+        }
+        if have_field {
+            stage_form_value(
+                &mut self.forms,
+                &current_form_path,
+                &current_field,
+                &current_lines,
+            );
+        }
+        let value = md_restore_value(&content_lines);
+        if !value.is_empty() {
+            self.content.insert(content_path, value);
+        }
+    }
+
+    fn finalize_form(&mut self, frame: &MdFrame, node: &SomMetaNode, path: &str) {
+        let mut fields_by_lower: HashMap<String, String> = HashMap::new();
+        if let Some(form) = &node.form {
+            for f in &form.fields {
+                fields_by_lower.insert(f.name.to_lowercase(), f.name.clone());
+            }
+        }
+        let mut fence = MarkdownFenceTracker::new();
+        let mut current_field = String::new();
+        let mut have_field = false;
+        let mut current_lines: Vec<String> = Vec::new();
+
+        for (i, line) in frame.body.iter().enumerate() {
+            if !fence.in_fence() {
+                if let Some((label, first)) = md_field_label(line) {
+                    if let Some(field_name) = fields_by_lower.get(&label.to_lowercase()) {
+                        self.flush_form_lines(
+                            path,
+                            have_field,
+                            &current_field,
+                            &current_lines,
+                            frame.line + i,
+                        );
+                        current_lines = Vec::new();
+                        have_field = true;
+                        current_field = field_name.clone();
+                        current_lines.push(first.to_string());
+                        fence.feed(line);
+                        continue;
+                    }
+                }
+            }
+            // Continuation: strip the one escape space of a label-shaped line.
+            if !fence.in_fence() && md_continuation_label(line) {
+                current_lines.push(line[1..].to_string());
+            } else {
+                current_lines.push(line.clone());
+            }
+            fence.feed(line);
+        }
+        self.flush_form_lines(
+            path,
+            have_field,
+            &current_field,
+            &current_lines,
+            frame.line + frame.body.len(),
+        );
+    }
+
+    fn flush_form_lines(
+        &mut self,
+        path: &str,
+        have_field: bool,
+        current_field: &str,
+        current_lines: &[String],
+        line_no: usize,
+    ) {
+        if have_field {
+            stage_form_value(&mut self.forms, path, current_field, current_lines);
+        } else if current_lines.iter().any(|l| !l.trim().is_empty()) {
+            self.rejections.push(SpecMarkdownRejection {
+                line: line_no,
+                reason: SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT.to_string(),
+                message: "text in a @Form section before the first field label".to_string(),
+                anchor: path.to_string(),
             });
         }
     }
 }
 
-/// Returns the section path of a heading line (`#{1,6} <path> …`).
-fn heading_path(line: &str) -> Option<String> {
-    let bytes = line.as_bytes();
-    let mut hashes = 0;
-    while hashes < bytes.len() && bytes[hashes] == b'#' {
-        hashes += 1;
-    }
-    if hashes == 0 || hashes > 6 {
-        return None;
-    }
-    let rest = &line[hashes..];
-    // Require at least one whitespace character after the hashes.
-    if rest.is_empty() || !rest.chars().next().unwrap().is_whitespace() {
-        return None;
-    }
-    let token = rest.split_whitespace().next()?;
-    if token.is_empty() {
-        None
-    } else {
-        Some(token.to_string())
+fn stage_form_value(
+    forms: &mut BTreeMap<String, BTreeMap<String, String>>,
+    path: &str,
+    field: &str,
+    lines: &[String],
+) {
+    let value = md_restore_value(lines);
+    if !value.is_empty() {
+        forms
+            .entry(path.to_string())
+            .or_default()
+            .insert(field.to_string(), value);
     }
 }
 
-/// Returns the field name of a `<!-- field: name -->` anchor line.
-fn field_anchor(line: &str) -> Option<String> {
-    let t = line.trim();
-    let inner = t.strip_prefix("<!--")?.strip_suffix("-->")?.trim();
-    let rest = inner.strip_prefix("field:")?.trim();
-    let token = rest.split_whitespace().next()?;
-    if token.is_empty() || rest.split_whitespace().count() != 1 {
-        None
-    } else {
-        Some(token.to_string())
-    }
-}
-
-/// Returns the fence length of a fence-opener line (3+ backticks).
-fn fence_open(line: &str) -> Option<usize> {
-    let bytes = line.as_bytes();
-    let mut n = 0;
-    while n < bytes.len() && bytes[n] == b'`' {
-        n += 1;
-    }
-    if n >= 3 {
-        Some(n)
-    } else {
-        None
-    }
-}
-
-/// Splits a list-item segment `<base>-<digits>` into base and number.
-fn item_seg(seg: &str) -> Option<(String, i64)> {
-    let dash = seg.rfind('-')?;
-    if dash == 0 || dash == seg.len() - 1 {
+/// `^<member>-([0-9]+)$` — the anonymous `<member>-<n>` item id.
+fn md_anon_item_number(member: &str, id: &str) -> Option<i64> {
+    let rest = id.strip_prefix(member)?.strip_prefix('-')?;
+    if rest.is_empty() || !rest.bytes().all(|b| b.is_ascii_digit()) {
         return None;
     }
-    let base = &seg[..dash];
-    let tail = &seg[dash + 1..];
-    if tail.is_empty() || !tail.bytes().all(|b| b.is_ascii_digit()) {
+    rest.parse::<i64>().ok()
+}
+
+/// `^<prefix>([0-9]+)<suffix>$` — the pattern with `xxx` as a number.
+fn md_pattern_numbered(prefix: &str, suffix: &str, id: &str) -> Option<i64> {
+    let mid = id.strip_prefix(prefix)?.strip_suffix(suffix)?;
+    if mid.is_empty() || !mid.bytes().all(|b| b.is_ascii_digit()) {
         return None;
     }
-    Some((base.to_string(), tail.parse::<i64>().ok()?))
+    mid.parse::<i64>().ok()
+}
+
+/// `GOAL-ITEM-xxx` → `^GOAL-ITEM-.+$` — the `@SectionIdPattern` wildcard.
+fn md_pattern_matches(pattern: &str, id: &str) -> bool {
+    let parts: Vec<&str> = pattern.split("xxx").collect();
+    md_match_dot_plus(&parts, id)
+}
+
+/// Matches `parts` joined by `.+` (one-or-more characters) against `s`.
+fn md_match_dot_plus(parts: &[&str], s: &str) -> bool {
+    let first = parts[0];
+    if !s.starts_with(first) {
+        return false;
+    }
+    let rest = &s[first.len()..];
+    if parts.len() == 1 {
+        return rest.is_empty();
+    }
+    let mut boundaries: Vec<usize> = rest.char_indices().map(|(i, _)| i).collect();
+    boundaries.push(rest.len());
+    for &k in boundaries.iter().skip(1) {
+        if md_match_dot_plus(&parts[1..], &rest[k..]) {
+            return true;
+        }
+    }
+    false
+}
+
+fn md_is_value_leaf(kind: &str) -> bool {
+    kind == SOM_META_KIND_CONTENT || kind == SOM_META_KIND_SCALAR || kind == SOM_META_KIND_ENUM_VALUE
+}
+
+/// The parse-side value restoration (DR1 §1.3): trim leading/trailing blank
+/// lines and unescape `\#`-escaped heading lines outside fences.
+fn md_restore_value(body: &[String]) -> String {
+    let mut fence = MarkdownFenceTracker::new();
+    let mut out: Vec<&str> = Vec::with_capacity(body.len());
+    for line in body {
+        if !fence.in_fence() && md_escaped_heading(line) {
+            out.push(&line[1..]);
+        } else {
+            out.push(line);
+        }
+        fence.feed(line);
+    }
+    let joined = out.join("\n");
+    let stripped = md_strip_leading_blank_lines(&joined);
+    md_strip_trailing_blank_lines(stripped).to_string()
+}
+
+fn md_lists_json(
+    list_order: &[String],
+    lists: &HashMap<String, MdListState>,
+) -> BTreeMap<String, ListJson> {
+    let mut out = BTreeMap::new();
+    for key in list_order {
+        let state = &lists[key];
+        out.insert(
+            key.clone(),
+            ListJson {
+                seq: state.max_n,
+                items: state.items.clone(),
+                ids: state.ids.clone(),
+            },
+        );
+    }
+    out
 }

@@ -263,7 +263,7 @@ impl SpecDocument {
             Some(ty) => model.root_by_type(ty)?,
             None => self.single_populated_root(model)?,
         };
-        Ok(SpecDocumentMarkdown::new(model, self).export_root(root))
+        SpecDocumentMarkdown::new(model, self).export_root(root)
     }
 
     /// Returns the one root under which this document holds any value, for
@@ -711,7 +711,8 @@ mod tests {
         let doc = populated();
         let one_liner = doc.to_markdown(&model, Some("DemoDoc")).unwrap();
         let explicit = SpecDocumentMarkdown::new(&model, &doc)
-            .export_root(model.root_by_type("DemoDoc").unwrap());
+            .export_root(model.root_by_type("DemoDoc").unwrap())
+            .unwrap();
         assert_eq!(one_liner, explicit);
     }
 
