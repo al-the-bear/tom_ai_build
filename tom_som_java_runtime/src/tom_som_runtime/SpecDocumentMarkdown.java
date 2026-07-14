@@ -20,11 +20,13 @@ import java.util.regex.Pattern;
  * whose text is the human-readable Title-Case member name. Content values are
  * <b>normal markdown text</b> under their heading (no fences, no anchors);
  * {@code @Form} sections use the DocSpecs plain-text {@code FieldName: value}
- * format; list items are sub-headings carrying the item's section id (stored
- * id, else the {@code @SectionIdPattern} resolved with the 1-based position —
- * {@code GOAL-ITEM-xxx} → {@code GOAL-ITEM-1} — else {@code <member>-<pos>})
- * directly under the owning section — the list container gets no heading of
- * its own. Id-less members are <b>transparent</b> (mirroring the DR3 schema
+ * format; a list emits its {@code -LST} container heading (id = the list's
+ * {@code @SectionId}, else the member segment) at the owner's child level,
+ * wrapping the numbered item headings one level deeper — each item carrying the
+ * {@code @SectionIdPattern} resolved with the 1-based position
+ * ({@code GOAL-ITEM-xxx} → {@code GOAL-ITEM-1}, else {@code <member>-<pos>}).
+ * The container itself carries no body. Id-less members are <b>transparent</b>
+ * (mirroring the DR3 schema
  * generator): a transparent value member's text or form block is the owner's
  * body region, emitted without a heading and bound at its own path; a
  * transparent section/complex member never heads — its id-bearing descendants
@@ -205,8 +207,9 @@ public final class SpecDocumentMarkdown {
   //     descendants surface as the owner's direct child headings (the
   //     schema's "nearest section-bearing descendant" hoisting), with document
   //     paths still running through the transparent segments;
-  //   - lists are never transparent — the container never heads, the items
-  //     always do (stored id / `@SectionIdPattern` / `<member>-<pos>`).
+  //   - lists are never transparent — the `-LST` container always heads (DR1
+  //     §1.2) at the owner's child level and the items sit one level below it
+  //     (`@SectionIdPattern` / `<member>-<pos>`).
   //
   // Principled canonicalisation losses (documented, accepted): multiple
   // transparent content members of one owner merge into the first on parse,
@@ -389,11 +392,20 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * Emits the items of list {@code node} as headings <b>at the owner's child
-   * level</b> — the container itself gets no heading (DR1 §1.2).
+   * Emits list {@code node} as its {@code -LST} container heading (DR1
+   * §1.2/§1.5) at {@code depth}, wrapping the numbered item headings one level
+   * deeper. The container is a real section — the id the DR3 schema keys its
+   * container type by — but carries <b>no content of its own</b> (schema
+   * content min/max-text-length 0). Item identity is purely positional.
    */
   private void writeListItems(StringBuilder b, SomMetaNode node, String listPath, int depth) {
     List<String> items = document.listItems(listPath);
+    if (items.isEmpty()) {
+      return;
+    }
+    // The container heading: its id is the list's `-LST` `@SectionId` (else the
+    // member segment for a pattern-less list); its title is the member name.
+    writeHeading(b, depth, headingIdOf(node), titleOf(node));
     SomMetaNode element = node.elementNode;
     String stemSource = element != null ? element.className : node.typeName;
     String stem = itemTitleStem(stemSource);
@@ -421,7 +433,8 @@ public final class SpecDocumentMarkdown {
         }
         itemId = member + "-" + pos;
       }
-      writeHeading(b, depth, itemId, stem + " " + pos);
+      // Items sit one level below the container.
+      writeHeading(b, depth + 1, itemId, stem + " " + pos);
       if (element == null) {
         // Scalar list: the item's value is its body.
         String value = document.content(itemPath);
@@ -429,7 +442,7 @@ public final class SpecDocumentMarkdown {
       } else {
         writeSectionBody(b, element, itemPath);
         if (!element.recursive) {
-          writeChildren(b, element, itemPath, depth + 1);
+          writeChildren(b, element, itemPath, depth + 2);
         }
       }
     }
@@ -704,74 +717,25 @@ public final class SpecDocumentMarkdown {
         return;
       }
 
-      // 1. A regular (non-list) *effective* child — section-bearing children
-      //    hoisted through transparent sections — whose heading id (field/class
-      //    section id) matches. Transparent value members never head, so they
-      //    never match here; the bound path runs through transparent segments.
-      List<NodeRel> effective = codec.effectiveChildren(pNode);
-      for (NodeRel entry : effective) {
-        if (!SomMetaKind.LIST.equals(entry.node.kind)
-            && codec.headingIdOf(entry.node).equals(id)) {
+      // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
+      //    of that list's items — resolved positionally, not by the schema tree.
+      if (SomMetaKind.LIST.equals(pNode.kind)) {
+        openItemHeading(level, parent, pNode, id, lineNo);
+        return;
+      }
+
+      // 2. A regular (non-list) or list-**container** *effective* child —
+      //    section-bearing children hoisted through transparent sections —
+      //    whose heading id matches. A list heads its `-LST` container here; its
+      //    items are resolved above once the container frame is open.
+      //    Transparent value members never head, so they never match; the bound
+      //    path runs through the transparent segments.
+      for (NodeRel entry : codec.effectiveChildren(pNode)) {
+        if (codec.headingIdOf(entry.node).equals(id)) {
           stack.add(new MdFrame(
               level, entry.node, parent.path + "/" + entry.rel, lineNo, false));
           return;
         }
-      }
-
-      // 2. A list item: anonymous (`<member>-<n>` or the pattern with a numeric
-      //    sequence, e.g. `GOAL-ITEM-3`), pattern-shaped stored id, or
-      //    (fallback) any id when the parent has exactly one effective list.
-      List<NodeRel> listChildren = new ArrayList<>();
-      for (NodeRel entry : effective) {
-        if (SomMetaKind.LIST.equals(entry.node.kind)) {
-          listChildren.add(entry);
-        }
-      }
-      for (NodeRel entry : listChildren) {
-        SomMetaNode lc = entry.node;
-        String listPath = parent.path + "/" + entry.rel;
-        String member = lc.memberName;
-        if (member == null || member.isEmpty()) {
-          member = lc.segment();
-        }
-        Matcher anon = Pattern
-            .compile("^" + Pattern.quote(member) + "-([0-9]+)$")
-            .matcher(id);
-        if (anon.matches()) {
-          openItem(level, listPath, lc, Integer.parseInt(anon.group(1)), null, true, lineNo);
-          return;
-        }
-        SomMetaNode element = lc.elementNode;
-        String pattern = lc.sectionIdPattern;
-        if ((pattern == null || pattern.isEmpty()) && element != null) {
-          pattern = element.sectionIdPattern;
-        }
-        if (pattern != null && !pattern.isEmpty()) {
-          // Canonical anonymous id: the pattern with `xxx` as a number —
-          // parses back as item <n>, NOT as a stored id (DR1 §1.2
-          // round-trip).
-          String[] parts = splitAll(pattern, "xxx");
-          if (parts.length == 2) {
-            Matcher numbered = Pattern
-                .compile("^" + Pattern.quote(parts[0]) + "([0-9]+)"
-                    + Pattern.quote(parts[1]) + "$")
-                .matcher(id);
-            if (numbered.matches()) {
-              openItem(level, listPath, lc, Integer.parseInt(numbered.group(1)),
-                  null, true, lineNo);
-              return;
-            }
-          }
-          if (patternMatches(pattern, id)) {
-            openItem(level, listPath, lc, 0, id, false, lineNo);
-            return;
-          }
-        }
-      }
-      if (listChildren.size() == 1) {
-        NodeRel entry = listChildren.get(0);
-        openItem(level, parent.path + "/" + entry.rel, entry.node, 0, id, false, lineNo);
-        return;
       }
 
       rejections.add(new SpecMarkdownRejection(
@@ -781,6 +745,58 @@ public final class SpecDocumentMarkdown {
               + "position (under \"" + parent.path + "\")",
           id));
       stack.add(new MdFrame(level, null, null, lineNo, true));
+    }
+
+    /**
+     * Opens a list-item frame under a {@code -LST} container frame (DR1 §1.2).
+     * The heading {@code id} is matched positionally against the container's
+     * list: the {@code <member>-<n>} fallback id, the {@code @SectionIdPattern}
+     * resolved with a number ({@code GOAL-ITEM-3}, parses back as item
+     * {@code <n>}), a pattern-shaped stored id, or — for any other id — an
+     * anonymous next item carrying the stored id.
+     */
+    void openItemHeading(int level, MdFrame container, SomMetaNode listNode,
+        String id, int lineNo) {
+      String listPath = container.path;
+      String member = listNode.memberName;
+      if (member == null || member.isEmpty()) {
+        member = listNode.segment();
+      }
+      Matcher anon = Pattern
+          .compile("^" + Pattern.quote(member) + "-([0-9]+)$")
+          .matcher(id);
+      if (anon.matches()) {
+        openItem(level, listPath, listNode, Integer.parseInt(anon.group(1)), null, true, lineNo);
+        return;
+      }
+      SomMetaNode element = listNode.elementNode;
+      String pattern = listNode.sectionIdPattern;
+      if ((pattern == null || pattern.isEmpty()) && element != null) {
+        pattern = element.sectionIdPattern;
+      }
+      if (pattern != null && !pattern.isEmpty()) {
+        // Canonical anonymous id: the pattern with `xxx` as a number — parses
+        // back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+        String[] parts = splitAll(pattern, "xxx");
+        if (parts.length == 2) {
+          Matcher numbered = Pattern
+              .compile("^" + Pattern.quote(parts[0]) + "([0-9]+)"
+                  + Pattern.quote(parts[1]) + "$")
+              .matcher(id);
+          if (numbered.matches()) {
+            openItem(level, listPath, listNode, Integer.parseInt(numbered.group(1)),
+                null, true, lineNo);
+            return;
+          }
+        }
+        if (patternMatches(pattern, id)) {
+          openItem(level, listPath, listNode, 0, id, false, lineNo);
+          return;
+        }
+      }
+      // Any other id under the container is an anonymous next item; a genuine
+      // stored id is kept (it survives only through the yaml format, DR1 §2).
+      openItem(level, listPath, listNode, 0, id, false, lineNo);
     }
 
     void openRoot(int level, String id, int lineNo) {

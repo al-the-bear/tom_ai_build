@@ -117,7 +117,7 @@ public final class ConformanceRunner {
         names.add(f.name);
       }
       List<String> want =
-          List.of("title", "summary", "priority", "count", "details", "items", "meta");
+          List.of("title", "summary", "priority", "count", "details", "items", "refs", "meta");
       check("model.Demo.fields", names.equals(want), names.toString());
     }
   }

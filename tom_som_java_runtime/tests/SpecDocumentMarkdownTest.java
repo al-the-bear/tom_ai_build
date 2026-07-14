@@ -21,8 +21,9 @@ import tom_som_runtime.SpecModel;
  * {@code <!-- docspec: <schema-id>/<version> -->} declaration, every populated
  * section is a heading of the form {@code ## <!--[SECTION-ID]--> Title},
  * content sections are normal markdown text (no fences), {@code @Form}
- * sections use the plain-text {@code FieldName: value} format, and list items
- * sit as sub-headings directly under the owner (no container heading).
+ * sections use the plain-text {@code FieldName: value} format, and a list emits
+ * its {@code -LST} container heading at the owner's child level, wrapping the
+ * numbered item headings one level deeper (DR1 §1.2).
  *
  * <p>JUnit is unavailable on the build host, so this is a plain {@code main()}
  * that exits 0 on success and 1 on failure (same shape as SomFacadeTest).
@@ -218,10 +219,12 @@ public final class SpecDocumentMarkdownTest {
     check("export.form.sparse.author", md.contains("Author: Ada Lovelace"));
     check("export.form.sparse.noReviewer", !md.contains("Reviewer"));
 
-    check("export.item.1", md.contains("## <!--[items-1]--> Demo Item 1"));
-    check("export.item.2", md.contains("## <!--[items-2]--> Demo Item 2"));
-    check("export.item.label", md.contains("### <!--[D01-LBL]--> Label"));
-    check("export.item.noContainer", !md.contains("<!--[D00-ITM]-->"));
+    // The list container heads (DR1 §1.2): `D00-ITM` at the owner's child
+    // level, its numbered items one level below it, item fields one deeper.
+    check("export.item.container", md.contains("## <!--[D00-ITM]--> Items"));
+    check("export.item.1", md.contains("### <!--[items-1]--> Demo Item 1"));
+    check("export.item.2", md.contains("### <!--[items-2]--> Demo Item 2"));
+    check("export.item.label", md.contains("#### <!--[D01-LBL]--> Label"));
 
     check("export.noSchemaDescription", !md.contains("A demo document."));
   }
@@ -233,8 +236,10 @@ public final class SpecDocumentMarkdownTest {
     String md = mdExport(doc);
     // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
     // is not surfaced in md; the anonymous positional id is emitted instead.
+    check("export.storedId.container",
+        md.contains("## <!--[D00-ITM]--> Items"), md);
     check("export.storedId.positional",
-        md.contains("## <!--[items-1]--> Demo Item 1"), md);
+        md.contains("### <!--[items-1]--> Demo Item 1"), md);
     check("export.storedId.noStored", !md.contains("D01-CUSTOM"), md);
   }
 
