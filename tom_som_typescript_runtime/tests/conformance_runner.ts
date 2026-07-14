@@ -152,6 +152,7 @@ function testModelMeta(model: SpecModel): void {
         'count',
         'details',
         'items',
+        'refs',
         'meta',
       ]),
       String(names),
