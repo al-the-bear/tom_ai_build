@@ -219,26 +219,29 @@ impl SpecDocument {
         SpecDocument::default()
     }
 
-    /// Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate
-    /// the sparse stores ([`SpecDocument::load_json`]), and retain the parsed
-    /// `model_version` on the document. Collapses the former three-step
-    /// `decode_yaml` → `load_json` → thread-`document_version` incantation
-    /// (§ item 4).
-    pub fn from_yaml(yaml: &str) -> SpecDocument {
-        let decoded = crate::spec_document_yaml::decode_yaml(yaml);
-        let mut doc = SpecDocument::new();
-        doc.load_json(&decoded.document);
-        doc.model_version = decoded.model_version;
-        doc
+    /// Loads a `*.docspecs.yaml` document in one call: decode the hierarchical
+    /// v2 YAML against `tree` (the document root's metadata tree) and retain
+    /// the parsed `model_version` on the document. Collapses the former
+    /// `decode_yaml` → thread-`model_version` incantation (§ item 4). Returns
+    /// the decoder's structured error for a malformed file.
+    pub fn from_yaml(
+        yaml: &str,
+        tree: &crate::spec_meta::SomMetaTree,
+    ) -> Result<SpecDocument, crate::spec_document_yaml::SpecYamlError> {
+        let decoded = crate::spec_document_yaml::decode_yaml(yaml, tree)?;
+        Ok(decoded.document)
     }
 
     /// Loads a `*.docspecs.yaml` document from the file at `path` — the file
     /// companion to [`SpecDocument::from_yaml`] the generated `load_file`
     /// associated function delegates to.
-    pub fn from_file(path: &str) -> SpecDocument {
+    pub fn from_file(
+        path: &str,
+        tree: &crate::spec_meta::SomMetaTree,
+    ) -> Result<SpecDocument, crate::spec_document_yaml::SpecYamlError> {
         let yaml = std::fs::read_to_string(path)
             .unwrap_or_else(|e| panic!("failed to read {}: {}", path, e));
-        SpecDocument::from_yaml(&yaml)
+        SpecDocument::from_yaml(&yaml, tree)
     }
 
     /// Renders this document to Markdown in one call (§ item 12).
@@ -310,7 +313,7 @@ impl SpecDocument {
     /// `path` (leaf-exact; a value nested beneath `path` does not count).
     /// Null-free companion to [`content`](Self::content) (SOM roadmap § item 5).
     pub fn has_content(&self, path: &str) -> bool {
-        self.content(path).map_or(false, |v| !v.is_empty())
+        self.content(path).is_some_and(|v| !v.is_empty())
     }
 
     /// Sets the content string at `path`. An empty value clears it.
@@ -566,8 +569,10 @@ impl SpecDocument {
     /// Returns a plain-data view of every value held, for persistence. Only
     /// non-empty stores are included. The inverse of [`SpecDocument::load_json`].
     pub fn to_json(&self) -> DocumentJson {
-        let mut out = DocumentJson::default();
-        out.content = self.content.clone();
+        let mut out = DocumentJson {
+            content: self.content.clone(),
+            ..DocumentJson::default()
+        };
         for (k, fields) in &self.form {
             out.forms.insert(k.clone(), fields.clone());
         }
@@ -576,7 +581,7 @@ impl SpecDocument {
                 .list_seq
                 .get(k)
                 .copied()
-                .unwrap_or_else(|| items.len() as i64);
+                .unwrap_or(items.len() as i64);
             let mut ids = BTreeMap::new();
             for item_path in items {
                 if let Some(id) = self.item_section_id.get(item_path) {

@@ -9,18 +9,72 @@
 //! `|2-` …), JSON-quoted flow scalars, plain integers, and the empty flow
 //! collections `{}` / `[]`.
 //!
-//! The dynamic value model is [`YamlValue`]: mappings are maps, sequences are
-//! vectors, scalars are strings or integers. JSON-quoted scalars are parsed via
-//! the hand-rolled [`crate::json`] parser.
-
-use std::collections::BTreeMap;
+//! The dynamic value model is [`YamlValue`]: mappings are **insertion-ordered**
+//! maps ([`YamlMap`], mirroring the Go `YamlMap` — the hierarchical v2 codec
+//! walks keys in file order), sequences are vectors, scalars are strings or
+//! integers. JSON-quoted scalars are parsed via the hand-rolled [`crate::json`]
+//! parser.
 
 use crate::json::Json;
+
+/// An insertion-ordered string-keyed mapping, the Rust mirror of the Go
+/// `YamlMap`: keys iterate in the order they first appeared in the source, and
+/// re-setting an existing key updates it in place.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub struct YamlMap {
+    entries: Vec<(String, YamlValue)>,
+}
+
+impl YamlMap {
+    /// Returns an empty map.
+    pub fn new() -> YamlMap {
+        YamlMap::default()
+    }
+
+    /// Returns the number of entries.
+    pub fn len(&self) -> usize {
+        self.entries.len()
+    }
+
+    /// Reports whether the map holds no entries.
+    pub fn is_empty(&self) -> bool {
+        self.entries.is_empty()
+    }
+
+    /// Reports whether `key` is present.
+    pub fn has(&self, key: &str) -> bool {
+        self.entries.iter().any(|(k, _)| k == key)
+    }
+
+    /// Returns the value at `key`, or `None`.
+    pub fn get(&self, key: &str) -> Option<&YamlValue> {
+        self.entries.iter().find(|(k, _)| k == key).map(|(_, v)| v)
+    }
+
+    /// Sets `key` to `value`: updates in place when present, appends otherwise.
+    pub fn insert(&mut self, key: String, value: YamlValue) {
+        if let Some(slot) = self.entries.iter_mut().find(|(k, _)| *k == key) {
+            slot.1 = value;
+        } else {
+            self.entries.push((key, value));
+        }
+    }
+
+    /// Returns the keys in insertion order.
+    pub fn keys(&self) -> Vec<&str> {
+        self.entries.iter().map(|(k, _)| k.as_str()).collect()
+    }
+
+    /// Iterates the entries in insertion order.
+    pub fn iter(&self) -> impl Iterator<Item = &(String, YamlValue)> {
+        self.entries.iter()
+    }
+}
 
 /// A parsed YAML value.
 #[derive(Debug, Clone, PartialEq)]
 pub enum YamlValue {
-    Map(BTreeMap<String, YamlValue>),
+    Map(YamlMap),
     Seq(Vec<YamlValue>),
     Str(String),
     Int(i64),
@@ -28,7 +82,7 @@ pub enum YamlValue {
 
 impl YamlValue {
     fn empty_map() -> YamlValue {
-        YamlValue::Map(BTreeMap::new())
+        YamlValue::Map(YamlMap::new())
     }
 
     /// Returns the value at `key` when this is a map, else `None`.
@@ -40,7 +94,7 @@ impl YamlValue {
     }
 
     /// Returns the map entries when this is a map, else `None`.
-    pub fn as_map(&self) -> Option<&BTreeMap<String, YamlValue>> {
+    pub fn as_map(&self) -> Option<&YamlMap> {
         match self {
             YamlValue::Map(m) => Some(m),
             _ => None,
@@ -168,12 +222,8 @@ impl YamlReader {
     }
 
     fn parse_mapping(&mut self, indent: usize) -> YamlValue {
-        let mut m: BTreeMap<String, YamlValue> = BTreeMap::new();
-        loop {
-            let i = match self.next_significant(self.idx) {
-                Some(i) => i,
-                None => break,
-            };
+        let mut m = YamlMap::new();
+        while let Some(i) = self.next_significant(self.idx) {
             let line = self.lines[i].clone();
             let cur_indent = yaml_leading(&line);
             if cur_indent != indent {
@@ -201,11 +251,7 @@ impl YamlReader {
 
     fn parse_sequence(&mut self, indent: usize) -> YamlValue {
         let mut list = Vec::new();
-        loop {
-            let i = match self.next_significant(self.idx) {
-                Some(i) => i,
-                None => break,
-            };
+        while let Some(i) = self.next_significant(self.idx) {
             let line = self.lines[i].clone();
             let cur_indent = yaml_leading(&line);
             if cur_indent != indent {

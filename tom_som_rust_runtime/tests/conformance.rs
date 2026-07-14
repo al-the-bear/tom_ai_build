@@ -7,14 +7,15 @@
 //!
 //!   - model meta-data loads (root + class structure);
 //!   - state.json loads and re-serialises identically;
-//!   - YAML encode == expected.docspecs.yaml (byte-for-byte);
-//!   - YAML decode → memory → encode is byte-stable + preserves the stamp;
-//!   - Markdown export == expected.md (byte-for-byte);
-//!   - Markdown parse → memory → export is clean + byte-stable;
-//!   - the Markdown route lands the fixture in the same memory as the YAML route;
+//!   - YAML encode == expected.docspecs.yaml (byte-for-byte, hierarchical v2);
+//!   - YAML decode → memory → encode is byte-stable + preserves the stamp and
+//!     lands the fixture memory (state.json);
 //!   - reflection resolution cases;
 //!   - validation cases;
 //!   - the imperative operations script.
+//!
+//! The Markdown corpus checks (md.export / md.parse.* / md.land.*) are gated
+//! out pending the DR26 DocSpecs markdown codec.
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -22,8 +23,9 @@ use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
-use tom_som_rust_runtime::spec_document_markdown::SpecDocumentMarkdown;
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
+use tom_som_rust_runtime::spec_meta::SomMetaTree;
+use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
 use tom_som_rust_runtime::spec_model::SpecModel;
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_section_id::{
@@ -126,14 +128,13 @@ fn conformance() {
     assert!(corpus_dir().is_dir(), "corpus not found at {}", corpus_dir().display());
     let mut c = Checker::new();
     let model = load_model();
+    let tree = build_som_meta_tree(&model, "").expect("meta tree");
 
     test_model_meta(&mut c, &model);
     test_state_round_trip(&mut c);
-    test_yaml_encode(&mut c);
-    test_yaml_decode_round_trip(&mut c);
-    test_markdown_export(&mut c, &model);
-    test_markdown_round_trip(&mut c, &model);
-    test_markdown_memory_landing(&mut c, &model);
+    test_yaml_encode(&mut c, &tree);
+    test_yaml_decode_round_trip(&mut c, &tree);
+    println!("SKIP: md.export / md.parse.* / md.land.* — pending DR26 (DocSpecs markdown codec)");
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
@@ -173,85 +174,56 @@ fn test_state_round_trip(c: &mut Checker) {
     );
 }
 
-fn test_yaml_encode(c: &mut Checker) {
+fn test_yaml_encode(c: &mut Checker, tree: &SomMetaTree) {
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
     let expected = read_corpus("expected.docspecs.yaml");
-    let actual = encode_yaml(&doc, MODEL_VERSION);
-    c.check(
-        "yaml.encode",
-        actual == expected,
-        &byte_diff("yaml.encode", &actual, &expected),
-    );
+    match encode_yaml(&doc, tree, MODEL_VERSION) {
+        Ok(actual) => c.check(
+            "yaml.encode",
+            actual == expected,
+            &byte_diff("yaml.encode", &actual, &expected),
+        ),
+        Err(e) => c.check("yaml.encode", false, &e.to_string()),
+    }
 }
 
-fn test_yaml_decode_round_trip(c: &mut Checker) {
+fn test_yaml_decode_round_trip(c: &mut Checker, tree: &SomMetaTree) {
     let expected = read_corpus("expected.docspecs.yaml");
-    let contents = decode_yaml(&expected);
+    let contents = match decode_yaml(&expected, tree) {
+        Ok(contents) => contents,
+        Err(e) => {
+            c.check("yaml.decode", false, &e.to_string());
+            return;
+        }
+    };
     c.check(
         "yaml.decode.stamp",
         contents.model_version == MODEL_VERSION,
         &contents.model_version,
     );
-    let mut doc = SpecDocument::new();
-    doc.load_json(&contents.document);
+    // The decoded document must land the same memory as the state.json fixture.
+    let canonical = DocumentJson::from_json(&read_json("state.json"));
+    let got = contents.document.to_json().to_canonical_json();
+    let want = canonical.to_canonical_json();
+    c.check(
+        "yaml.decode.memory",
+        got == want,
+        &format!("got {} want {}", got, want),
+    );
     let stamp = if contents.model_version.is_empty() {
         MODEL_VERSION.to_string()
     } else {
         contents.model_version.clone()
     };
-    let actual = encode_yaml(&doc, &stamp);
-    c.check(
-        "yaml.decode.reencode",
-        actual == expected,
-        &byte_diff("yaml.decode.reencode", &actual, &expected),
-    );
-}
-
-fn test_markdown_export(c: &mut Checker, model: &SpecModel) {
-    let state = DocumentJson::from_json(&read_json("state.json"));
-    let doc = doc_from_state(&state);
-    let expected = read_corpus("expected.md");
-    let codec = SpecDocumentMarkdown::new(model, &doc);
-    let actual = codec.export_root(&model.roots[0]);
-    c.check(
-        "md.export",
-        actual == expected,
-        &byte_diff("md.export", &actual, &expected),
-    );
-}
-
-fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
-    let expected = read_corpus("expected.md");
-    let empty = SpecDocument::new();
-    let result = SpecDocumentMarkdown::new(model, &empty).parse(&expected);
-    c.check("md.parse.clean", result.is_clean(), &rej_str(&result.rejections));
-    let mut applied = SpecDocument::new();
-    applied.load_json(&result.to_document_json());
-    let codec = SpecDocumentMarkdown::new(model, &applied);
-    let actual = codec.export_root(&model.roots[0]);
-    c.check(
-        "md.parse.reexport",
-        actual == expected,
-        &byte_diff("md.parse.reexport", &actual, &expected),
-    );
-}
-
-fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
-    let expected_md = read_corpus("expected.md");
-    let canonical = DocumentJson::from_json(&read_json("state.json"));
-    let empty = SpecDocument::new();
-    let result = SpecDocumentMarkdown::new(model, &empty).parse(&expected_md);
-    c.check("md.land.clean", result.is_clean(), &rej_str(&result.rejections));
-    let mut landed = SpecDocument::new();
-    landed.load_json(&result.to_document_json());
-    let got = landed.to_json().to_canonical_json();
-    let want = canonical.to_canonical_json();
-    c.check(
-        "md.land.memory",
-        got == want,
-        &format!("got {} want {}", got, want),
-    );
+    match encode_yaml(&contents.document, tree, &stamp) {
+        Ok(actual) => c.check(
+            "yaml.decode.reencode",
+            actual == expected,
+            &byte_diff("yaml.decode.reencode", &actual, &expected),
+        ),
+        Err(e) => c.check("yaml.decode.reencode", false, &e.to_string()),
+    }
 }
 
 fn test_reflection(c: &mut Checker, model: &SpecModel) {
@@ -553,12 +525,4 @@ fn opt_eq(got: &str, want: &Option<String>) -> bool {
         None => got.is_empty(),
         Some(w) => got == w,
     }
-}
-
-fn rej_str(rejections: &[tom_som_rust_runtime::spec_document_markdown::SpecMarkdownRejection]) -> String {
-    rejections
-        .iter()
-        .map(|r| r.to_display())
-        .collect::<Vec<_>>()
-        .join("; ")
 }

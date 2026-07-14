@@ -18,6 +18,8 @@ pub mod som_facade;
 pub mod spec_document;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
+pub mod spec_meta;
+pub mod spec_meta_bridge;
 pub mod spec_model;
 pub mod spec_paths;
 pub mod spec_reflection;
@@ -39,8 +41,16 @@ pub use spec_document_markdown::{
     SpecDocumentMarkdown, SpecMarkdownRejection, SpecMarkdownResult,
 };
 pub use spec_document_yaml::{
-    decode_yaml, encode_yaml, encode_yaml_ordered, js_json_string, SpecYamlContents, FORMAT_VERSION,
+    decode_yaml, dedup_empty_lines, encode_yaml, js_json_string, node_key, plain_key,
+    SpecYamlContents, SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
 };
+pub use spec_meta::{
+    SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,
+    SomMetaNode, SomMetaRef, SomMetaTree, SomSecondLevelId, SOM_META_KIND_COMPLEX,
+    SOM_META_KIND_CONTENT, SOM_META_KIND_ENUM_VALUE, SOM_META_KIND_FORM, SOM_META_KIND_LIST,
+    SOM_META_KIND_SCALAR, SOM_META_KIND_SECTION,
+};
+pub use spec_meta_bridge::build_som_meta_tree;
 pub use spec_model::{
     parse_field_kind, FormFieldSpec, SpecAnnotation, SpecClass, SpecField, SpecModel, SpecRoot,
 };
