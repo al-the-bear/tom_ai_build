@@ -7,9 +7,11 @@
 /// The expansion follows the same walk [SpecReflection.resolve] performs —
 /// crucially, a node's [SomMetaNode.sectionId] is the **field-level** id
 /// exactly as exported (`field.sectionId`), so the tree's path grammar stays
-/// byte-compatible with the paths a [SpecDocument] is keyed by. (DR1 §2.2's
-/// "field id, else target-class id" resolution is applied at *export* time by
-/// the model exporter / DR8 generator, not re-derived here.)
+/// byte-compatible with the paths a [SpecDocument] is keyed by. DR1 §2.2's
+/// "field id, else target-class id" resolution for a section/complex node's
+/// display *key* is carried alongside it in [SomMetaNode.classSectionId] (the
+/// target class's own id) — a codec renders `sectionId ?? classSectionId`
+/// without re-consulting the model, and neither id enters [SomMetaNode.segment].
 ///
 /// Recursive class references become terminal re-entry nodes
 /// ([SomMetaNode.recursive]), mirroring how the generated chains terminate.
@@ -51,6 +53,7 @@ SomMetaTree buildSomMetaTree(SpecModel model, {String? rootType}) {
   final rootNode = SomMetaNode(
     className: root.type,
     sectionId: root.sectionId ?? cls?.sectionId,
+    classSectionId: cls?.sectionId,
     kind: SomMetaKind.section,
     typeName: root.type,
     docComment: root.doc ?? cls?.doc,
@@ -126,6 +129,7 @@ SomMetaNode _fieldNode(
       }
       elementNode = SomMetaNode(
         className: element.name,
+        classSectionId: element.sectionId,
         kind: SomMetaKind.complex,
         typeName: element.name,
         docComment: element.doc,
@@ -142,6 +146,7 @@ SomMetaNode _fieldNode(
     className: target?.name ?? owner.name,
     memberName: field.name,
     sectionId: field.sectionId,
+    classSectionId: target?.sectionId,
     sectionIdPattern: field.sectionIdPattern,
     kind: kind,
     typeName: field.type ?? field.elementType ?? field.enumType ?? 'String',

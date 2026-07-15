@@ -239,6 +239,9 @@ class SomDartMetaEmitter {
     add('className', _str(target?.name ?? owner.name));
     add('memberName', _str(f.name));
     if (f.sectionId != null) add('sectionId', _str(f.sectionId!));
+    if (target?.sectionId != null) {
+      add('classSectionId', _str(target!.sectionId!));
+    }
     if (f.sectionIdPattern != null) {
       add('sectionIdPattern', _str(f.sectionIdPattern!));
     }
@@ -294,6 +297,8 @@ class SomDartMetaEmitter {
       if (element != null) {
         final elemArgs = <String>[
           'className: ${_str(element.name)}',
+          if (element.sectionId != null)
+            'classSectionId: ${_str(element.sectionId!)}',
           'kind: SomMetaKind.complex',
           'typeName: ${_str(element.name)}',
           if (element.doc != null) 'docComment: ${_str(element.doc!)}',
@@ -353,6 +358,9 @@ class SomDartMetaEmitter {
     final args = <String>['className: ${_str(root.type)}'];
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) args.add('sectionId: ${_str(sectionId)}');
+    if (cls?.sectionId != null) {
+      args.add('classSectionId: ${_str(cls!.sectionId!)}');
+    }
     args
       ..add('kind: SomMetaKind.section')
       ..add('typeName: ${_str(root.type)}');

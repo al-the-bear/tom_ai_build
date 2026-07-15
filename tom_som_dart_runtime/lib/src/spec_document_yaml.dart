@@ -3,12 +3,17 @@
 ///
 /// One nested YAML tree whose indentation mirrors the document structure:
 /// every model node becomes a mapping key (`<section-id> <member-name>`, DR1
-/// §2.2), sections nest their children, list items appear under their
-/// container keyed by their stored section id (or an anonymous positional
-/// `<member>-<n>` key), a node's own body text uses the literal key `content`,
-/// and form fields use their bare field names. The former flat two-level
-/// path-map format (`document: {content: {"A/b": …}}`) is **retired**; readers
-/// reject `version: 1` files with a clear error (no compatibility path).
+/// §2.2). The section id is the field-level `@SectionId` when present; for a
+/// section/complex node whose field carries none, it is the target **class**'s
+/// `@SectionId` (the id its DR3 schema type is keyed by — the same "field id,
+/// else target-class id" fallback the markdown codec's headings use). Sections
+/// nest their children, list items appear under their container keyed by their
+/// stored section id (or an anonymous positional `<member>-<n>` key), a node's
+/// own body text uses the literal key `content`, and form fields use their bare
+/// field names (no class fallback for content/form/list/scalar/enum keys). The
+/// former flat two-level path-map format (`document: {content: {"A/b": …}}`) is
+/// **retired**; readers reject `version: 1` files with a clear error (no
+/// compatibility path).
 ///
 /// Text values are written as literal block scalars (`|2-`), with the DR1
 /// §2.4 escaping rules: the emitter is **self-verifying** (it re-parses each
@@ -120,9 +125,19 @@ class SpecDocumentYaml {
   /// The mapping key a metadata node writes (DR1 §2.2): its effective section
   /// id, one space, then the exact member name (class name on the document
   /// root); just the name when the node carries no id.
+  ///
+  /// The id is the field-level [SomMetaNode.sectionId] when present; for a
+  /// section/complex node whose field carries none, the target **class**'s id
+  /// ([SomMetaNode.classSectionId]) — the id its DR3 schema type is keyed by.
+  /// This mirrors the markdown codec's heading rule exactly. Content, scalar,
+  /// enum, form and list keys keep only their field-level id (no class
+  /// fallback), and the path [SomMetaNode.segment] is unaffected in every case.
   static String nodeKey(SomMetaNode node) {
     final name = node.memberName ?? node.className;
-    final id = node.sectionId;
+    final id = node.sectionId ??
+        ((node.kind == SomMetaKind.section || node.kind == SomMetaKind.complex)
+            ? node.classSectionId
+            : null);
     return id == null ? name : '$id $name';
   }
 

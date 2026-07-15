@@ -78,6 +78,23 @@ SpecModel _model() => SpecModel.fromJson({
               'type': 'int',
               'serializationOrder': 6,
             },
+            {
+              // A section whose @SectionId lives on the TARGET CLASS only
+              // (the SBP pattern): the field carries no id, so its key must
+              // fall back to Control's `CTRL` (DR1 §2.2 field-id-else-class-id).
+              'name': 'control',
+              'kind': 'complex',
+              'type': 'Control',
+              'serializationOrder': 7,
+            },
+          ],
+        },
+        'Control': {
+          'name': 'Control',
+          'sectionId': 'CTRL',
+          'fields': [
+            {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
+            {'name': 'owner', 'kind': 'content'},
           ],
         },
         'Scope': {
@@ -192,6 +209,25 @@ void main() {
       final out = roundTrip(doc);
       expect(out.listItems('D00/D00-TAG').map(out.content),
           ['on', 'no', '1:30', 'plain']);
+    });
+
+    test('a section whose id is class-level renders the class id as its key '
+        '(DR1 §2.2 field-id-else-class-id)', () {
+      final doc = SpecDocument()
+        ..setContent('D00/control/CTRL-SUM', 'controlled summary')
+        ..setContent('D00/control/owner', 'the owner');
+      final yaml = enc(doc);
+      // `control` carries no field-level @SectionId, so the key falls back to
+      // the target class Control's id (`CTRL`) — the markdown heading rule.
+      expect(yaml, contains('\n    CTRL control:\n'));
+      expect(yaml, contains('\n      CTRL-SUM summary:'));
+      // A content leaf without any id stays bare (no class fallback here).
+      expect(yaml, contains('\n      owner:'));
+      // Decode is symmetric: the class-id key round-trips to the field path,
+      // and the path segment (`control`) is unchanged by the key fallback.
+      final out = roundTrip(doc);
+      expect(out.content('D00/control/CTRL-SUM'), 'controlled summary');
+      expect(out.content('D00/control/owner'), 'the owner');
     });
 
     test('an empty document emits `document: {}`', () {

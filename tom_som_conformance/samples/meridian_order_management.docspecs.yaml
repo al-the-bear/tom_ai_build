@@ -11,7 +11,7 @@ document:
       distributor. This blueprint is the master specification from which the twelve
       Phase 3 documents (CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM, TRP)
       are derived.
-    documentControl:
+    DOCTL documentControl:
       content: |2-
         - Version: 1.0
         - Status: Approved
@@ -21,7 +21,7 @@ document:
 
         Revision history is tracked in the programme wiki. This blueprint supersedes
         the 2025 "Order Platform Vision" one-pager.
-    introductionAndScope:
+    INSC introductionAndScope:
       content: |2-
         MOM covers order capture, validation, pricing, fulfilment orchestration, and
         post-sale amendments across the wholesale (EDI) and e-commerce (REST) channels.
@@ -32,7 +32,7 @@ document:
         - general-ledger posting (delegated to the existing finance ERP via a
           published interface)
         - CRM lead management
-      goals:
+      GOALS goals:
         content: |2-
           Primary goals:
 
@@ -48,13 +48,13 @@ document:
           - "OrderDesk" — green-screen order entry, 1998
           - "PriceCalc" — a spreadsheet-derived pricing service
           - "BatchSync" — the nightly file exchange with the warehouse
-      requirements:
+      RO requirements:
         content: |2-
           The requirements below are the contract MOM is built and accepted against.
 
           IDs are stable and referenced from the use cases, screens, and data model so
           every downstream artifact traces back to a requirement.
-        functionalRequirements:
+        FR functionalRequirements:
           FRE-REQU-LST requirements:
             FRE-REQU-1:
               content:
@@ -64,7 +64,7 @@ document:
                   Capture orders from EDI and REST channels
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
@@ -72,7 +72,7 @@ document:
                     Functional
                   category: |2-
                     Order Capture
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Must
@@ -82,7 +82,7 @@ document:
                     M
                   riskLevel: |2-
                     Medium
-              source:
+              FRES source:
                 content:
                   source: |2-
                     VP Operations
@@ -90,7 +90,7 @@ document:
                     2026-04-02
                   rationale: |2-
                     Both channels must feed the same lifecycle to retire re-keying.
-              verification:
+              FREV verification:
                 content:
                   fitCriterion: |2-
                     An EDI and a REST order both produce an Order in state Captured within 2s.
@@ -98,7 +98,7 @@ document:
                     5
                   customerDissatisfaction: |2-
                     1
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -148,7 +148,7 @@ document:
                   Price orders synchronously at capture time
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
@@ -156,7 +156,7 @@ document:
                     Functional
                   category: |2-
                     Pricing
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Must
@@ -166,11 +166,11 @@ document:
                     M
                   riskLevel: |2-
                     Medium
-              verification:
+              FREV verification:
                 content:
                   fitCriterion: |2-
                     Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -200,7 +200,7 @@ document:
                   Reserve stock before confirmation
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
@@ -208,7 +208,7 @@ document:
                     Functional
                   category: |2-
                     Fulfilment
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Must
@@ -218,7 +218,7 @@ document:
                     L
                   riskLevel: |2-
                     High
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -268,7 +268,7 @@ document:
                   Confirm orders within five minutes
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
@@ -276,7 +276,7 @@ document:
                     Functional
                   category: |2-
                     Order Lifecycle
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Must
@@ -286,7 +286,7 @@ document:
                     M
                   riskLevel: |2-
                     Medium
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -336,7 +336,7 @@ document:
                   Amend or cancel an order before dispatch
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
@@ -344,7 +344,7 @@ document:
                     Functional
                   category: |2-
                     Order Amendment
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Should
@@ -354,7 +354,7 @@ document:
                     M
                   riskLevel: |2-
                     Medium
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -404,7 +404,7 @@ document:
                   Release a manual hold
                 status: |2-
                   Approved
-              details:
+              FRED details:
                 content:
                   description: |2-
                     An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
@@ -412,7 +412,7 @@ document:
                     Functional
                   category: |2-
                     Exception Handling
-              priority:
+              FREP priority:
                 content:
                   priority: |2-
                     Must
@@ -422,7 +422,7 @@ document:
                     S
                   riskLevel: |2-
                     Low
-              acceptanceCriteria:
+              RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
                     content:
@@ -444,7 +444,7 @@ document:
                         Must
                       status: |2-
                         Draft
-        technicalRequirements:
+        TR1 technicalRequirements:
           TERQ-REQU-LST requirements:
             TERQ-REQU-1:
               content:
@@ -454,7 +454,7 @@ document:
                   Confirmation latency budget
                 status: |2-
                   Approved
-              details:
+              TRED details:
                 content:
                   description: |2-
                     The 95th-percentile order-confirmation latency must stay within budget under peak load.
@@ -468,7 +468,7 @@ document:
                     Operations SLA
                   rationale: |2-
                     Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
-              measurement:
+              TREM measurement:
                 content:
                   metric: |2-
                     p95 capture-to-confirmation latency
@@ -490,7 +490,7 @@ document:
                   Capture API availability
                 status: |2-
                   Approved
-              details:
+              TRED details:
                 content:
                   description: |2-
                     The order-capture API must meet a 99.9% monthly availability target.
@@ -504,7 +504,7 @@ document:
                     Partner integration agreement
                   rationale: |2-
                     Marketplace partners depend on the capture API being continuously reachable.
-              measurement:
+              TREM measurement:
                 content:
                   metric: |2-
                     Monthly capture-API availability
@@ -522,7 +522,7 @@ document:
                   Event-sourced order service
                 status: |2-
                   Approved
-              details:
+              TRED details:
                 content:
                   description: |2-
                     The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
@@ -536,7 +536,7 @@ document:
                     Enterprise Architecture Board
                   rationale: |2-
                     Reproducible history and rebuildable projections are core to auditability.
-        securityRequirements:
+        SR1 securityRequirements:
           SECRQ-REQU-LST requirements:
             SECRQ-REQU-1:
               content:
@@ -546,7 +546,7 @@ document:
                   Role-based access control
                 description: |2-
                   Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
-              classification:
+              SEREENCL classification:
                 content:
                   category: |2-
                     Access Control
@@ -562,7 +562,7 @@ document:
                     Unauthorized order manipulation
                   dataClassification: |2-
                     Internal
-              compliance:
+              SEREENCO compliance:
                 content:
                   owaspCategory: |2-
                     A01:2021 Broken Access Control
@@ -578,7 +578,7 @@ document:
                   Encrypt customer PII at rest
                 description: |2-
                   All customer personally identifiable information must be encrypted at rest.
-              classification:
+              SEREENCL classification:
                 content:
                   category: |2-
                     Data Protection
@@ -594,7 +594,7 @@ document:
                     PII disclosure from storage compromise
                   dataClassification: |2-
                     Confidential
-              compliance:
+              SEREENCO compliance:
                 content:
                   nistControl: |2-
                     SC-28
@@ -608,7 +608,7 @@ document:
                   OAuth2 client credentials on the public API
                 description: |2-
                   The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
-              classification:
+              SEREENCL classification:
                 content:
                   category: |2-
                     API Security
@@ -624,13 +624,13 @@ document:
                     Credential replay and partner impersonation
                   dataClassification: |2-
                     Internal
-              compliance:
+              SEREENCO compliance:
                 content:
                   owaspCategory: |2-
                     API2:2023 Broken Authentication
                   nistControl: |2-
                     IA-5
-        organizationalRequirements:
+        OR organizationalRequirements:
           ORRQ-REQU-LST requirements:
             ORRQ-REQU-1:
               content:
@@ -640,7 +640,7 @@ document:
                   Train the operations desk on MOM
                 description: |2-
                   Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
-              impact:
+              OREI impact:
                 content:
                   impactedGroups: |2-
                     Order Operations desk
@@ -660,7 +660,7 @@ document:
                   Staff the parallel run
                 description: |2-
                   The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
-              impact:
+              OREI impact:
                 content:
                   impactedGroups: |2-
                     Order Operations, Finance
@@ -672,7 +672,7 @@ document:
                     Medium
                   resistance: |2-
                     Medium
-    glossaryAndAbbreviations:
+    GLAB glossaryAndAbbreviations:
       content: |2-
         - **MOM** — Meridian Order Management.
         - **Line** — a single product/quantity within an order.
@@ -680,7 +680,7 @@ document:
         - **Fulfilment window** — the committed dispatch date range communicated to
           the customer.
         - **EDI** — the wholesale electronic data interchange channel.
-    stakeholdersAndGovernance:
+    STKG stakeholdersAndGovernance:
       content: |2-
         - Sponsor: VP Operations
         - Product owner: Head of Order Operations
@@ -690,7 +690,7 @@ document:
 
         Governance runs through a fortnightly steering board; architectural decisions
         are recorded as ADRs owned by the Enterprise Architecture Board.
-    currentLandscape:
+    CULA currentLandscape:
       content: |2-
         Today, order entry is manual and channel-specific. Wholesale orders arrive by
         EDI and are re-keyed into OrderDesk; e-commerce orders drop into a queue that a
@@ -712,7 +712,7 @@ document:
         CUOPME-OPER-4:
           content: |2-
             Order-status enquiry calls: ~340/week to the operations desk.
-    assumptionsConstraintsDependencies:
+    ACDP assumptionsConstraintsDependencies:
       content: |2-
         - **Assumption** — the finance ERP order-posting interface remains stable for
           the programme's duration.
@@ -720,7 +720,7 @@ document:
           zone and uses only the approved managed-database catalogue.
         - **Dependency** — the warehouse team delivers the new dispatch-event webhook
           by the end of increment 2.
-    targetOperatingModelConcept:
+    TOMC targetOperatingModelConcept:
       content: |2-
         Orders flow through a single event-driven pipeline:
 
@@ -729,12 +729,12 @@ document:
         An orthogonal Hold sub-state covers manual review. Every transition emits a
         domain event; operations staff work from one queue view filtered by state.
         Pricing becomes a synchronous call, eliminating the batch window.
-      targetBusinessProcess:
-        processStepsAndActorInteractions:
-          actorOverview:
+      TBPM targetBusinessProcess:
+        PSAAI processStepsAndActorInteractions:
+          ACOV actorOverview:
             ACEN-ACTO-LST actors:
               ACEN-ACTO-1:
-                identification:
+                ACID identification:
                   content:
                     actorId: |2-
                       ACT-01
@@ -753,7 +753,7 @@ document:
                     geographicDistribution: |2-
                       Single distribution centre
               ACEN-ACTO-2:
-                identification:
+                ACID identification:
                   content:
                     actorId: |2-
                       ACT-02
@@ -772,7 +772,7 @@ document:
                     geographicDistribution: |2-
                       Single distribution centre
               ACEN-ACTO-3:
-                identification:
+                ACID identification:
                   content:
                     actorId: |2-
                       ACT-03
@@ -791,7 +791,7 @@ document:
                     geographicDistribution: |2-
                       Single distribution centre
               ACEN-ACTO-4:
-                identification:
+                ACID identification:
                   content:
                     actorId: |2-
                       ACT-04
@@ -809,10 +809,10 @@ document:
                       1
                     geographicDistribution: |2-
                       Single distribution centre
-          interactionCatalog:
+          INCA interactionCatalog:
             INEN-INTE-LST interactions:
               INEN-INTE-1:
-                identification:
+                INID identification:
                   content:
                     interactionId: |2-
                       UC-01
@@ -854,7 +854,7 @@ document:
                         The Order is in state Confirmed with priced, reserved lines and a full event history.
                       dataPostcondition: |2-
                         Order and OrderLine rows persisted; reservation recorded against Product stock.
-                mainScenario:
+                MASUSC mainScenario:
                   MNSST-STEP-LST steps:
                     MNSST-STEP-1:
                       content:
@@ -911,7 +911,7 @@ document:
                           Order
                         businessRuleApplied: |2-
                           FR-04 five-minute confirmation
-                extensions:
+                USCAEX extensions:
                   EXTEN-EXTE-LST extensions:
                     EXTEN-EXTE-1:
                       content:
@@ -968,7 +968,7 @@ document:
                             response: |2-
                               The order is partially reserved; the held line is flagged for follow-up.
               INEN-INTE-2:
-                identification:
+                INID identification:
                   content:
                     interactionId: |2-
                       UC-02
@@ -1004,7 +1004,7 @@ document:
                         The order resumes at the transition that placed it on Hold, with the release reason audited.
                       auditTrail: |2-
                         Release attributed to the supervisor principal with timestamp and reason.
-                mainScenario:
+                MASUSC mainScenario:
                   MNSST-STEP-LST steps:
                     MNSST-STEP-1:
                       content:
@@ -1029,7 +1029,7 @@ document:
                         businessRuleApplied: |2-
                           FR-06 hold release
               INEN-INTE-3:
-                identification:
+                INID identification:
                   content:
                     interactionId: |2-
                       UC-03
@@ -1065,7 +1065,7 @@ document:
                         The amended line carries a fresh price snapshot and reservation; the amendment is audited.
                       dataPostcondition: |2-
                         OrderLine updated; prior values retained in the event history.
-                mainScenario:
+                MASUSC mainScenario:
                   MNSST-STEP-LST steps:
                     MNSST-STEP-1:
                       content:
@@ -1089,10 +1089,10 @@ document:
                           Product
                         businessRuleApplied: |2-
                           FR-03 reserve before confirm
-          keyScenarios:
+          KESC keyScenarios:
             SCNRY-SCEN-LST scenarios:
               SCNRY-SCEN-1:
-                identification:
+                SCID identification:
                   content:
                     scenarioId: |2-
                       SCN-01
@@ -1140,7 +1140,7 @@ document:
                         Receives the warehouse dispatch webhook.
                       systemResponse: |2-
                         Order moves to Fulfilled and the public tracking page updates.
-    informationAndDataModel:
+    INDM informationAndDataModel:
       content: |2-
         Core aggregates: Order (with Lines), Customer, Product, PriceList, and
         FulfilmentPlan.
@@ -1148,7 +1148,7 @@ document:
         Orders reference Customers and Products by stable IDs; prices are snapshotted
         onto each Line at pricing time so historical orders remain reproducible. The
         event log is the system of record; read models are projections.
-      dataModel:
+      DATMD dataModel:
         content: |2-
           The relational core of MOM.
 
@@ -1596,7 +1596,7 @@ document:
                     product_id
                   description: |2-
                     Primary key of the product.
-        entityRelationships:
+        ENREL entityRelationships:
           content: |2-
             The foreign-key relationships binding the ordering core together.
           ENRLE-ITEM-LST items:
@@ -1678,7 +1678,7 @@ document:
                 OrderLine
               targetEntityRef: |2-
                 Product
-    requirements:
+    REQS requirements:
       content: |2-
         Functional:
 
@@ -1695,7 +1695,7 @@ document:
         - full audit trail
         - GDPR-compliant handling of customer data with a 7-year retention policy on
           order records
-    solutionArchitectureAndTechnology:
+    SOAT solutionArchitectureAndTechnology:
       content: |2-
         Event-sourced order service (Dart/Flutter back office, Kotlin domain services)
         on Kubernetes, backed by PostgreSQL for read models and a managed Kafka cluster
@@ -1704,7 +1704,7 @@ document:
         The public order API is an API-gateway-fronted REST surface; EDI ingestion runs
         as an adapter that translates to the same command API. Infrastructure is
         provisioned as code.
-    securityAndAccessModel:
+    SAAM securityAndAccessModel:
       content: |2-
         Access is role-based:
 
@@ -1716,7 +1716,7 @@ document:
         All customer PII is encrypted at rest; the public API uses OAuth2 client
         credentials with per-partner rate limits. Every state transition is attributed
         to an authenticated principal in the audit log.
-    experienceAndInterfaceDesign:
+    XID experienceAndInterfaceDesign:
       content: |2-
         The operations back office is a single-page application organised around the
         order queue. The primary screen is a state-filtered work list; selecting an
@@ -1727,8 +1727,8 @@ document:
 
         - keyboard-first navigation for high-volume clerks
         - an unambiguous status colour language shared with the public tracking page
-      screens:
-        screenInventory:
+      SCRDZ screens:
+        SCRINV screenInventory:
           SCREN-ITEM-LST items:
             SCREN-ITEM-1:
               content:
@@ -1738,13 +1738,13 @@ document:
                   Order Work List
                 purpose: |2-
                   The single, state-filtered queue from which clerks work every order.
-              classification:
+              SCECL classification:
                 content:
                   screenCategory: |2-
                     List
                   routePattern: |2-
                     /orders
-              access:
+              SCEAC access:
                 content:
                   accessLevel: |2-
                     Authenticated
@@ -1752,7 +1752,7 @@ document:
                     Order Clerk, Order Supervisor
                   permissionEffect: |2-
                     Allow
-              traceability:
+              SCETR traceability:
                 content:
                   relatedUseCases: |2-
                     UC-01, UC-02
@@ -1762,13 +1762,13 @@ document:
                     Order
                   primaryAction: |2-
                     Open selected order
-              presentation:
+              SCENPR presentation:
                 content:
                   pageTitleResource: |2-
                     screen.orders.title
                   layout: |2-
                     Master-detail
-              sections:
+              SCSE sections:
                 SCRSC-ITEM-LST items:
                   SCRSC-ITEM-1:
                     content:
@@ -1780,7 +1780,7 @@ document:
                         Filter the queue by lifecycle state.
                       sectionType: |2-
                         Toolbar
-                    layout:
+                    SSEL layout:
                       content:
                         layoutDirection: |2-
                           Horizontal
@@ -1794,7 +1794,7 @@ document:
                             State selector
                           elementType: |2-
                             SegmentedControl
-                        resources:
+                        SEER resources:
                           content:
                             labelResource: |2-
                               screen.orders.filter.state
@@ -1810,7 +1810,7 @@ document:
                         The work list itself, keyboard-navigable for high-volume clerks.
                       sectionType: |2-
                         DataTable
-                    layout:
+                    SSEL layout:
                       content:
                         layoutDirection: |2-
                           Vertical
@@ -1824,7 +1824,7 @@ document:
                             Order ID column
                           elementType: |2-
                             TextField
-                        fieldSpec:
+                        SEFS fieldSpec:
                           content:
                             fieldName: |2-
                               orderId
@@ -1838,13 +1838,13 @@ document:
                             Status column
                           elementType: |2-
                             StatusChip
-                        fieldSpec:
+                        SEFS fieldSpec:
                           content:
                             fieldName: |2-
                               status
                             dataType: |2-
                               Enum
-              actions:
+              SCAC actions:
                 SCRAC-ITEM-LST items:
                   SCRAC-ITEM-1:
                     content:
@@ -1854,7 +1854,7 @@ document:
                         Open order
                       actionType: |2-
                         Navigate
-                    visual:
+                    SAEV visual:
                       content:
                         labelResource: |2-
                           screen.orders.action.open
@@ -1862,7 +1862,7 @@ document:
                           Row
                         buttonStyle: |2-
                           Primary
-              states:
+              SCST states:
                 SCRST-ITEM-LST items:
                   SCRST-ITEM-1:
                     content:
@@ -1884,7 +1884,7 @@ document:
                   Order Detail
                 purpose: |2-
                   The lifecycle timeline and inline actions for a single order.
-              classification:
+              SCECL classification:
                 content:
                   screenCategory: |2-
                     Detail
@@ -1892,7 +1892,7 @@ document:
                     SCR-01
                   routePattern: |2-
                     /orders/:orderId
-              access:
+              SCEAC access:
                 content:
                   accessLevel: |2-
                     Authenticated
@@ -1900,7 +1900,7 @@ document:
                     Order Clerk, Order Supervisor
                   permissionEffect: |2-
                     Allow
-              traceability:
+              SCETR traceability:
                 content:
                   relatedUseCases: |2-
                     UC-02, UC-03
@@ -1910,13 +1910,13 @@ document:
                     Order, OrderLine
                   primaryAction: |2-
                     Amend line
-              presentation:
+              SCENPR presentation:
                 content:
                   pageTitleResource: |2-
                     screen.order.title
                   layout: |2-
                     Single column
-              sections:
+              SCSE sections:
                 SCRSC-ITEM-LST items:
                   SCRSC-ITEM-1:
                     content:
@@ -1928,7 +1928,7 @@ document:
                         Show every state transition with its authenticated actor.
                       sectionType: |2-
                         Timeline
-                    layout:
+                    SSEL layout:
                       content:
                         layoutDirection: |2-
                           Vertical
@@ -1943,7 +1943,7 @@ document:
                         Editable list of lines with price and reservation status.
                       sectionType: |2-
                         EditableTable
-                    layout:
+                    SSEL layout:
                       content:
                         layoutDirection: |2-
                           Vertical
@@ -1957,17 +1957,17 @@ document:
                             Quantity field
                           elementType: |2-
                             NumberField
-                        behavior:
+                        SEEB behavior:
                           content:
                             readonlyCondition: |2-
                               order.status == "Dispatched"
-                        fieldSpec:
+                        SEFS fieldSpec:
                           content:
                             fieldName: |2-
                               quantity
                             dataType: |2-
                               Integer
-              actions:
+              SCAC actions:
                 SCRAC-ITEM-LST items:
                   SCRAC-ITEM-1:
                     content:
@@ -1977,7 +1977,7 @@ document:
                         Amend line
                       actionType: |2-
                         Submit
-                    visual:
+                    SAEV visual:
                       content:
                         labelResource: |2-
                           screen.order.action.amend
@@ -1993,7 +1993,7 @@ document:
                         Release hold
                       actionType: |2-
                         Submit
-                    visual:
+                    SAEV visual:
                       content:
                         labelResource: |2-
                           screen.order.action.release
@@ -2001,7 +2001,7 @@ document:
                           Header
                         buttonStyle: |2-
                           Secondary
-              states:
+              SCST states:
                 SCRST-ITEM-LST items:
                   SCRST-ITEM-1:
                     content:
@@ -2015,7 +2015,7 @@ document:
                         Retry
                       primaryActionTarget: |2-
                         SCR-02-ACT-1
-    qualityAndAcceptanceModel:
+    QACM qualityAndAcceptanceModel:
       content: |2-
         Acceptance is gated on:
 
@@ -2027,7 +2027,7 @@ document:
 
         Business sign-off requires the operations desk to clear a full day's orders on
         MOM alone.
-    deliveryTransitionAndRollout:
+    DTRO deliveryTransitionAndRollout:
       content: |2-
         Five increments:
 

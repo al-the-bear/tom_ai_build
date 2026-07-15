@@ -172,7 +172,21 @@ class SomMetaNode {
   final String? memberName;
 
   /// The effective `@SectionId` (field-level wins over class-level), when any.
+  ///
+  /// This stays **field-level** (`field.sectionId`) so [segment] — and every
+  /// document path derived from it — is byte-compatible with the paths a
+  /// [SpecDocument] is keyed by. The target class's id (used only to render a
+  /// section/complex node's *display key*, not its path) is carried separately
+  /// in [classSectionId].
   final String? sectionId;
+
+  /// The target class's own `@SectionId`, for section/complex nodes whose field
+  /// carries no field-level [sectionId] (else `null`).
+  ///
+  /// Codecs resolve a section/complex node's key as `sectionId ?? classSectionId`
+  /// (DR1 §1.2 / §2.2 "field id, else target-class id"). It never enters
+  /// [segment], so it does not affect paths.
+  final String? classSectionId;
 
   /// The `@SectionIdPattern` on a list field (item ids), when any.
   final String? sectionIdPattern;
@@ -244,6 +258,7 @@ class SomMetaNode {
     required this.className,
     this.memberName,
     this.sectionId,
+    this.classSectionId,
     this.sectionIdPattern,
     required this.kind,
     required this.typeName,
