@@ -44,9 +44,10 @@ std::string specYamlNodeKey(const SomMetaNode& node) {
   const std::string& name =
       !node.memberName.empty() ? node.memberName : node.className;
   // Section/complex keys carry the full section id: the field-level @SectionId
-  // when present, else the target class's own @SectionId (DR1 §2.2), mirroring
-  // the markdown heading rule. Content/scalar/enum/form/list-item keys keep
-  // only the field-level id.
+  // when present, else the target class's own @SectionId (classSectionId, the
+  // DR1 §2.2 class fallback), mirroring the markdown codec's heading rule.
+  // Content/scalar/enum/form/list-item keys keep only their field-level id; the
+  // path segment is never affected (see SomMetaNode::segment).
   const std::string& id =
       (node.sectionId.empty() &&
        (node.kind == kSomMetaKindSection || node.kind == kSomMetaKindComplex))
