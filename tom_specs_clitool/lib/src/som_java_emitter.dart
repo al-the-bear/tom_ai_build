@@ -426,32 +426,126 @@ class SomJavaEmitter {
       ..writeln('$_i2}');
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the section's
+  /// own `content` text FIRST, then one correctly-typed member per `@Form`
+  /// `Field(name, Type, …)` entry, in declaration order. A member's declared
+  /// scalar type (`int` → `Integer`, `double`/`num` → `Double`, `bool` →
+  /// `Boolean`) becomes its parsed Java return type; any non-primitive (enums,
+  /// `List`, …) falls back to `String`. Members read/write through the generic
+  /// form store, so the on-disk markdown format and the conformance golden stay
+  /// byte-identical.
   String _emitFormClass(String name, SpecField f) {
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
-      ..writeln('$_i1// Generated form facade for the `${f.name}` '
-          '@Form section.')
+      ..writeln('$_i1// Generated section facade for the `${f.name}` @Form '
+          'section: its own content')
+      ..writeln('$_i1// text followed by one typed member per form field.')
       ..writeln('${_i1}public static final class $name extends SomNode {')
       ..writeln('${_i2}public $name(SpecDocument doc, String path) {')
       ..writeln('${_i3}super(doc, path);')
+      ..writeln('$_i2}')
+      ..writeln()
+      ..writeln('$_i2@Override')
+      ..writeln('${_i2}public boolean canHaveContent() {')
+      ..writeln('${_i3}return true;')
       ..writeln('$_i2}');
-    for (final ff in f.formFields) {
-      final field = '"${_jstr(ff.name)}"';
-      // The form-field key string ($field) is preserved; only the Java accessor
-      // identifier is keyword-sanitised.
-      final acc = _acc(ff.name);
+    if (!hasContentMember) {
       b
         ..writeln()
-        ..writeln('${_i2}public String $acc() {')
-        ..writeln('${_i3}String v = doc.formField(path, $field);')
+        ..writeln('${_i2}public String content() {')
+        ..writeln('${_i3}String v = doc.content(path);')
         ..writeln('${_i3}return v == null ? "" : v;')
         ..writeln('$_i2}')
         ..writeln()
-        ..writeln('${_i2}public void $acc(String value) {')
-        ..writeln('${_i3}doc.setFormField(path, $field, value);')
+        ..writeln('${_i2}public void content(String value) {')
+        ..writeln('${_i3}doc.setContent(path, value);')
         ..writeln('$_i2}');
+    }
+    for (final ff in f.formFields) {
+      _writeFormMember(b, ff);
     }
     b.writeln('$_i1}');
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member accessor pair backed by the generic
+  /// form store, so the on-disk format and the generic reading are unchanged;
+  /// only the Java type mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
+    final field = '"${_jstr(ff.name)}"';
+    // The form-field key string ($field) is preserved; only the Java accessor
+    // identifier is keyword-sanitised.
+    final acc = _acc(ff.name);
+    b.writeln();
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('${_i2}public Integer $acc() {')
+          ..writeln('${_i3}String v = doc.formField(path, $field);')
+          ..writeln('${_i3}if (v == null || v.isEmpty()) return null;')
+          ..writeln('${_i3}try { return Integer.parseInt(v); } '
+              'catch (NumberFormatException e) { return null; }')
+          ..writeln('$_i2}')
+          ..writeln()
+          ..writeln('${_i2}public void $acc(Integer value) {')
+          ..writeln('${_i3}doc.setFormField(path, $field, '
+              'value == null ? "" : String.valueOf(value));')
+          ..writeln('$_i2}');
+      case 'double':
+      case 'num':
+        b
+          ..writeln('${_i2}public Double $acc() {')
+          ..writeln('${_i3}String v = doc.formField(path, $field);')
+          ..writeln('${_i3}if (v == null || v.isEmpty()) return null;')
+          ..writeln('${_i3}try { return Double.parseDouble(v); } '
+              'catch (NumberFormatException e) { return null; }')
+          ..writeln('$_i2}')
+          ..writeln()
+          ..writeln('${_i2}public void $acc(Double value) {')
+          ..writeln('${_i3}doc.setFormField(path, $field, '
+              'value == null ? "" : String.valueOf(value));')
+          ..writeln('$_i2}');
+      case 'bool':
+        b
+          ..writeln('${_i2}public Boolean $acc() {')
+          ..writeln('${_i3}String v = doc.formField(path, $field);')
+          ..writeln('${_i3}if (v == null) return null;')
+          ..writeln('${_i3}return Boolean.valueOf("true".equals(v));')
+          ..writeln('$_i2}')
+          ..writeln()
+          ..writeln('${_i2}public void $acc(Boolean value) {')
+          ..writeln('${_i3}doc.setFormField(path, $field, '
+              'value == null ? "" : (value ? "true" : "false"));')
+          ..writeln('$_i2}');
+      default:
+        b
+          ..writeln('${_i2}public String $acc() {')
+          ..writeln('${_i3}String v = doc.formField(path, $field);')
+          ..writeln('${_i3}return v == null ? "" : v;')
+          ..writeln('$_i2}')
+          ..writeln()
+          ..writeln('${_i2}public void $acc(String value) {')
+          ..writeln('${_i3}doc.setFormField(path, $field, value);')
+          ..writeln('$_i2}');
+    }
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always round-trips as text.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   /// Emits a doc block as `//` line comments at [indent]. Java comments need no
