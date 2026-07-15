@@ -243,9 +243,30 @@ These are the rules for how model classes must be designed. The validator checks
 
 | Rule | Description |
 |------|-------------|
-| **No `List<String>`** | All list fields must use complex types. `List<String>` or `List<basicType>` is an error. |
-| **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String?` and annotated with `@Type()`. |
+| **No `List<String>`** | All list fields must use complex types (see §6.1a shape (5)/(6) for the annotated-`List<String>` sub-section form). A bare `List<String>` or `List<basicType>` without `@SectionId`/`@SectionIdPattern` is an error. |
+| **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String?` and annotated with `@Type()`. Typed scalars appear only as `@Form` field members (see §6.1a). |
 | **`content: String?` expected** | Every model class should have a `content: String?` field. Missing = **warning** (not an error) — generation proceeds. |
+
+### 6.1a Canonical Field Shapes (YRB1)
+
+A model class may contain **only** the following six member shapes — nothing else. These are the canonical rules that the validator enforces as **hard errors**; they supersede the earlier single-mechanism framing (where a sub-section could be expressed *only* as a dedicated class).
+
+| # | Shape | Meaning |
+|---|-------|---------|
+| **(1)** | `String content` (plain) | The section's OWN content. The section id comes from the **class**, not the field. |
+| **(2)** | `String content` with `@Form` | The `content` value is the pre-form narrative, followed by the form's field members. |
+| **(3)** | `String <name>` with a **field-level `@SectionId`** (optionally `@Form`) | An inline sub-section whose content IS this field. This lets a leaf sub-section be expressed as a field instead of a dedicated class (see TSMA1). With `@Form` it is a section with content + form members. A `@Reference` field is this shape (its id is required — see §7.1 / YRB3). |
+| **(4)** | `<SectionClass> field` | A sub-section class; the class owns the id (a field-level id may still override). |
+| **(5)** | `List<SectionClass>` with `@SectionId` + `@SectionIdPattern` | A list of sub-section classes; each element gets a per-instance id from the pattern. |
+| **(6)** | `List<String>` with `@SectionId` + `@SectionIdPattern` (optionally `@Form`) | An inline list of content sub-sections. |
+
+**Error cases** (hard validator errors):
+
+- **Non-String scalar** — any `int`/`bool`/`double`/`num`/`DateTime` free field. The census confirms **zero** exist today; keep it so. Typed scalars are legitimate only as `@Form` field members, never as free model fields.
+- **Non-`content` String without a field-level `@SectionId`** — a descriptively-named `String`/`String?` field (content-kind or `@Form` form-kind) that lacks a field-level `@SectionId`. Every such field is an inline sub-section (shape (3)) and must be addressable, so the id is mandatory. (These are the offenders fixed by the YRB5 id sweep.)
+- **Misused reserved name `content`** — a field named `content` that is not a plain `String`/`String?` value (e.g. a complex sub-section named `content`), or a `content` field that carries a field-level `@SectionId`. The name `content` is reserved for the section's own content (shapes (1)/(2)); its id comes from the class.
+
+Enum fields are outside these String/scalar rules and are neither required to carry a field-level id nor forbidden.
 
 ### 6.2 Class Style
 

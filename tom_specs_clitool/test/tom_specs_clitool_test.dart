@@ -143,11 +143,71 @@ void main() {
       },
     );
 
-    test('outliner validates IntegrationInterfaceSpecification root without errors', () {
+    test('outliner validates IntegrationInterfaceSpecification root '
+        'without non-field-shape errors', () {
       // IIS is a smoke-test root known to be clean of §6.1 ContentType issues.
+      // The §6.1 field-shape rules (YRB1) DO fire here — D07 projects SBP
+      // sections that still carry un-ided inline sub-section String fields
+      // (the YRB5 id-sweep backlog). Those are enforced by the dedicated
+      // field-shape count test below; this smoke test asserts the root is
+      // otherwise structurally clean, so filter the known backlog out.
       final result = validateModel(classes, 'D07IntegrationInterfaceSpecification');
-      expect(result.errors, isEmpty, reason: result.errors.join('\n'));
+      final otherErrors = result.errors
+          .where((e) => !e.contains('§6.1 field-shape'))
+          .toList();
+      expect(otherErrors, isEmpty, reason: otherErrors.join('\n'));
     });
+
+    test(
+      '§6.1 field-shape (YRB1): every reachable non-"content" String '
+      'sub-section field without a field-level @SectionId is flagged '
+      '(the YRB5 id-sweep backlog)',
+      () {
+        // Walk the whole model from the canonical container so every reachable
+        // class is checked, then count the rule-1 offenders: descriptively
+        // named String / `@Form`-on-String fields (shape (3)) that lack a
+        // field-level @SectionId. YRB1 only ENFORCES the rule (adds the errors
+        // + this guard); it does not fix the model — that is YRB5.
+        //
+        // Count = 177. A by-kind census of the exported spec_model.json reports
+        // 185 (65 content-kind + 120 form-kind), but that over-counts the
+        // canonical String rule by 8:
+        //   • 7 of the 120 "form-kind" fields are `TextSection?` sub-sections
+        //     carrying `@Form` (shape (4) — the class owns the id, so no
+        //     field-level id is required). The exporter labels them `form`
+        //     because they have form members; the validator excludes them
+        //     because they are not `String` (isString == false).
+        //   • 1 content-kind offender (UserCategories.userCategoryDiagram) lives
+        //     in an orphan class unreachable from the container, so no document
+        //     tree ever reaches it. (Orphan-class hygiene is out of YRB1 scope.)
+        final result = validateModel(classes, 'DocSpecsProject');
+        final missingId = result.errors
+            .where((e) => e.contains('§6.1 field-shape') &&
+                e.contains('must carry a field-level @SectionId'))
+            .toList();
+        expect(missingId.length, 177,
+            reason: 'expected exactly 177 un-ided inline sub-section String '
+                'fields; got ${missingId.length}');
+      },
+    );
+
+    test(
+      '§6.1 field-shape (YRB1): the reserved name "content" is only misused by '
+      'ResponsiveBehavior.content (tracked in YRC1)',
+      () {
+        // The reserved-name rule flags any `content` field that is not a plain
+        // String value. Exactly one such case exists today —
+        // ResponsiveBehavior.content is a complex sub-section named `content`.
+        // Its model fix (rename + regen) is YRB5-category work, filed as YRC1.
+        final result = validateModel(classes, 'DocSpecsProject');
+        final reserved = result.errors
+            .where((e) => e.contains('§6.1 field-shape') &&
+                e.contains('reserved field name'))
+            .toList();
+        expect(reserved.length, 1, reason: reserved.join('\n'));
+        expect(reserved.single, contains('ResponsiveBehavior.content'));
+      },
+    );
 
     test('T1: the canonical container is DocSpecsProject', () {
       expect(findContainerRoot(classes), 'DocSpecsProject');
@@ -762,6 +822,135 @@ void main() {
           .where((e) => e.contains('§8.6 pure-projection'))
           .toList();
       expect(pureProjectionErrors, isEmpty);
+    });
+  });
+
+  group('unit: §6.1 canonical field shapes (YRB1)', () {
+    // Field-shape errors carry the '§6.1 field-shape' prefix. Synthetic models
+    // deliberately omit D00SolutionBlueprint so the §8.6 invariants stay a
+    // no-op and only the field-shape rules under test can fire.
+    List<String> shapeErrors(Map<String, ModelClass> classes, String root) =>
+        validateModel(classes, root)
+            .errors
+            .where((e) => e.contains('§6.1 field-shape'))
+            .toList();
+
+    ModelField idField(String name, String typeName,
+            [List<AnnotationData> extra = const []]) =>
+        _field(name, typeName, [
+          AnnotationData('SectionId', {'id': 'SEC-${name.toUpperCase()}'}),
+          ...extra,
+        ]);
+
+    test('errors when a non-"content" String field lacks a field-level @SectionId',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('purpose', 'String'), // shape (3) but MISSING the id
+        ]),
+      };
+      final errs = shapeErrors(classes, 'Sec');
+      expect(
+        errs.any((e) =>
+            e.contains('Sec.purpose') &&
+            e.contains('must carry a field-level @SectionId')),
+        isTrue,
+        reason: errs.join('\n'),
+      );
+    });
+
+    test('passes when a non-"content" String field carries a field-level @SectionId',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          idField('purpose', 'String'), // shape (3), id present
+        ]),
+      };
+      expect(shapeErrors(classes, 'Sec'), isEmpty);
+    });
+
+    test('passes for the reserved "content" String field without an id (shape 1)',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('content', 'String'),
+        ]),
+      };
+      expect(shapeErrors(classes, 'Sec'), isEmpty);
+    });
+
+    test('passes for a "content" String field with @Form (shape 2)', () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('content', 'String', [AnnotationData('Form', {})]),
+        ]),
+      };
+      expect(shapeErrors(classes, 'Sec'), isEmpty);
+    });
+
+    test('errors when "content" is a complex (non-String) field (reserved name)',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('content', 'ChildSection'), // reserved name misused
+        ]),
+        'ChildSection':
+            _cls('ChildSection', [AnnotationData('SectionId', {'id': 'SEC-CHD'})]),
+      };
+      final errs = shapeErrors(classes, 'Sec');
+      expect(
+        errs.any((e) =>
+            e.contains('Sec.content') && e.contains('reserved field name')),
+        isTrue,
+        reason: errs.join('\n'),
+      );
+    });
+
+    test('errors when the reserved "content" field carries a field-level @SectionId',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('content', 'String',
+              [AnnotationData('SectionId', {'id': 'SEC-CONTENT'})]),
+        ]),
+      };
+      final errs = shapeErrors(classes, 'Sec');
+      expect(
+        errs.any((e) =>
+            e.contains('Sec.content') && e.contains('must not carry')),
+        isTrue,
+        reason: errs.join('\n'),
+      );
+    });
+
+    test('the field-shape rule does not fire for a non-String int scalar '
+        '(that is the separate scalar rule)', () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          _field('count', 'int'),
+        ]),
+      };
+      // No field-shape error (isString is false) …
+      expect(shapeErrors(classes, 'Sec'), isEmpty);
+      // … but the pre-existing non-String primitive rule still rejects it.
+      final all = validateModel(classes, 'Sec').errors;
+      expect(all.any((e) => e.contains('Sec.count') && e.contains('not allowed')),
+          isTrue, reason: all.join('\n'));
+    });
+
+    test('passes for an enum field without a field-level @SectionId (boundary)',
+        () {
+      final classes = {
+        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
+          ModelField(
+            name: 'status',
+            typeName: 'Status',
+            isEnum: true,
+            enumValues: const ['open', 'closed'],
+          ),
+        ]),
+      };
+      expect(shapeErrors(classes, 'Sec'), isEmpty);
     });
   });
 

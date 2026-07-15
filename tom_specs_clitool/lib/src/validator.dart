@@ -52,6 +52,34 @@ import 'model_reader.dart';
           'use String? with @Form Field type parameter instead',
         );
       }
+
+      // §6.1 (YRB1) — canonical field shapes. The name `content` is reserved
+      // for the section's OWN content (shapes (1)/(2)): its section id comes
+      // from the class, so it must be a String and must NOT carry a
+      // field-level @SectionId. Every OTHER String field is an inline
+      // sub-section (shape (3)) and MUST carry a field-level @SectionId.
+      if (field.name == 'content') {
+        if (!field.isString) {
+          errors.add(
+            '§6.1 field-shape: $className.content — the reserved field name '
+            '"content" is only valid for the section\'s own String content, '
+            'but its type is "${field.typeName}"',
+          );
+        } else if (field.getAnnotation('SectionId') != null) {
+          errors.add(
+            '§6.1 field-shape: $className.content — the section\'s own '
+            '"content" must not carry a field-level @SectionId; its id comes '
+            'from the class',
+          );
+        }
+      } else if (field.isString && field.getAnnotation('SectionId') == null) {
+        errors.add(
+          '§6.1 field-shape: $className.${field.name} — a non-"content" String '
+          'field must carry a field-level @SectionId (it is an inline '
+          'sub-section), or be named "content" if it is the section\'s own '
+          'content',
+        );
+      }
     }
 
     // §6.4 — ContentType constraints
