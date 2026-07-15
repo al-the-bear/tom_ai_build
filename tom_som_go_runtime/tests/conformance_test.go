@@ -202,7 +202,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 	root := model.Roots[0]
 	c.check("model.root.sectionId", root.SectionID == "DEMO", root.SectionID)
 	c.check("model.root.type", root.Type == "Demo", root.Type)
-	c.check("model.classCount", len(model.Classes) == 3, itoa(len(model.Classes)))
+	c.check("model.classCount", len(model.Classes) == 4, itoa(len(model.Classes)))
 	demo := model.ClassNamed("Demo")
 	c.check("model.Demo.found", demo != nil, "")
 	if demo != nil {
@@ -210,7 +210,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 		for _, f := range demo.Fields {
 			names = append(names, f.Name)
 		}
-		want := []string{"title", "summary", "priority", "count", "details", "items", "refs", "meta"}
+		want := []string{"title", "summary", "priority", "count", "details", "items", "refs", "meta", "control"}
 		c.check("model.Demo.fields", sliceEq(names, want), join(names))
 	}
 }

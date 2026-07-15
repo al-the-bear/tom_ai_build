@@ -64,7 +64,17 @@ const yamlTestModelJSON = `{
          "enumType": "Priority", "enumValues": ["low", "high"],
          "serializationOrder": 5},
         {"name": "count", "kind": "scalar", "type": "int",
-         "serializationOrder": 6}
+         "serializationOrder": 6},
+        {"name": "control", "kind": "complex", "type": "Control",
+         "serializationOrder": 7}
+      ]
+    },
+    "Control": {
+      "name": "Control",
+      "sectionId": "CTRL",
+      "fields": [
+        {"name": "summary", "kind": "content", "sectionId": "CTRL-SUM"},
+        {"name": "owner", "kind": "content"}
       ]
     },
     "Scope": {
@@ -363,5 +373,29 @@ func TestSpecDocumentYaml(t *testing.T) {
 	yamlTestEncode(c, t, tree)
 	yamlTestRoundTrip(c, t, tree)
 	yamlTestStrictDecode(c, t, tree)
+	yamlTestClassLevelOnlyKey(c, t, tree)
 	c.finish()
+}
+
+// yamlTestClassLevelOnlyKey verifies a section whose @SectionId lives only on
+// the target class keys by that class id (DR1 §2.2 field-id-else-class-id). The
+// `control` field carries no id; its target class `Control` carries `CTRL`, so
+// the key is `CTRL control:`. The leaves keep their own content keys:
+// `CTRL-SUM summary:` (field id) and bare `owner:` (no id).
+func yamlTestClassLevelOnlyKey(c *checker, t *testing.T, tree *som.SomMetaTree) {
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/control/CTRL-SUM", "controlled summary")
+	doc.SetContent("D00/control/owner", "the owner")
+	yaml := yamlEnc(t, tree, doc, "")
+	c.check("clskey.section",
+		strings.Contains(yaml, "\n    CTRL control:\n"), yaml)
+	c.check("clskey.leafId",
+		strings.Contains(yaml, "\n      CTRL-SUM summary:"), yaml)
+	c.check("clskey.leafBare",
+		strings.Contains(yaml, "\n      owner:"), yaml)
+	out := yamlRoundTrip(t, tree, doc)
+	c.check("clskey.rt.summary",
+		out.ContentOr("D00/control/CTRL-SUM") == "controlled summary", "")
+	c.check("clskey.rt.owner",
+		out.ContentOr("D00/control/owner") == "the owner", "")
 }

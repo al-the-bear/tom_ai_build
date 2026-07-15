@@ -151,6 +151,11 @@ type SomMetaNode struct {
 	// SectionID is the effective @SectionId (field-level wins over
 	// class-level), "" when none.
 	SectionID string
+	// ClassSectionID is the target class's own @SectionId (DR1 §2.2
+	// fallback): the id its DR3 schema type is keyed by, used only to build
+	// the mapping key of a section/complex node whose field carries no id.
+	// Never enters Segment — the path stays field-level. "" when none.
+	ClassSectionID string
 	// SectionIDPattern is the @SectionIdPattern on a list field (item ids),
 	// "" when none.
 	SectionIDPattern string

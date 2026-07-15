@@ -93,15 +93,27 @@ type SpecYamlContents struct {
 // NodeKey returns the mapping key a metadata node writes (DR1 §2.2): its
 // effective section id, one space, then the exact member name (class name on
 // the document root); just the name when the node carries no id.
+//
+// The id is the field-level SectionID when present; for a section/complex node
+// whose field carries none, the target class's id (ClassSectionID) — the id
+// its DR3 schema type is keyed by. This mirrors the markdown codec's heading
+// rule exactly. Content, scalar, enum, form and list keys keep only their
+// field-level id (no class fallback), and the path Segment is unaffected in
+// every case.
 func NodeKey(node *SomMetaNode) string {
 	name := node.MemberName
 	if name == "" {
 		name = node.ClassName
 	}
-	if node.SectionID == "" {
+	id := node.SectionID
+	if id == "" &&
+		(node.Kind == SomMetaKindSection || node.Kind == SomMetaKindComplex) {
+		id = node.ClassSectionID
+	}
+	if id == "" {
 		return name
 	}
-	return node.SectionID + " " + name
+	return id + " " + name
 }
 
 const jsHexDigits = "0123456789abcdef"

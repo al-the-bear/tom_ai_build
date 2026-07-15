@@ -70,6 +70,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 	sectionID := root.SectionID
 	docComment := root.Doc
 	classDoc, mapsTo, detailedIn := "", "", ""
+	classSectionID := ""
 	var annotations []*SpecAnnotation
 	var children []*SomMetaNode
 	if cls != nil {
@@ -80,6 +81,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 			docComment = cls.Doc
 		}
 		classDoc = cls.Doc
+		classSectionID = cls.SectionID
 		mapsTo = cls.MapsTo
 		detailedIn = cls.DetailedIn
 		annotations = cls.Annotations
@@ -88,6 +90,7 @@ func BuildSomMetaTree(model *SpecModel, rootType string) (*SomMetaTree, error) {
 	rootNode := &SomMetaNode{
 		ClassName:       root.Type,
 		SectionID:       sectionID,
+		ClassSectionID:  classSectionID,
 		Kind:            SomMetaKindSection,
 		TypeName:        root.Type,
 		DocComment:      docComment,
@@ -212,6 +215,7 @@ func bridgeFieldNode(
 			}
 			elementNode = &SomMetaNode{
 				ClassName:       element.Name,
+				ClassSectionID:  element.SectionID,
 				Kind:            SomMetaKindComplex,
 				TypeName:        element.Name,
 				DocComment:      element.Doc,
@@ -257,12 +261,14 @@ func bridgeFieldNode(
 	className := owner.Name
 	docComment := field.Doc
 	classDoc, mapsTo, detailedIn := "", "", ""
+	classSectionID := ""
 	if target != nil {
 		className = target.Name
 		if docComment == "" {
 			docComment = target.Doc
 		}
 		classDoc = target.Doc
+		classSectionID = target.SectionID
 		mapsTo = target.MapsTo
 		detailedIn = target.DetailedIn
 	}
@@ -281,6 +287,7 @@ func bridgeFieldNode(
 		ClassName:          className,
 		MemberName:         field.Name,
 		SectionID:          field.SectionID,
+		ClassSectionID:     classSectionID,
 		SectionIDPattern:   field.SectionIDPattern,
 		Kind:               kind,
 		TypeName:           typeName,
