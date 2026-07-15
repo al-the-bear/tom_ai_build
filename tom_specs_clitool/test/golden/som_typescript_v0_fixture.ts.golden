@@ -143,10 +143,22 @@ export class SolutionBlueprint extends SomNode {
   }
 }
 
-// Generated form facade for the `owner` @Form section.
+// Generated section facade for the `owner` @Form section: its own content text followed by one typed member per form field.
 export class SolutionBlueprintOwnerForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
   }
 
   get name(): string {

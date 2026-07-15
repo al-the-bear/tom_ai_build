@@ -72,9 +72,13 @@ void main() {
     // Typed facade module exists and declares the global root struct.
     final source = File(result.modulePath).readAsStringSync();
     expect(source, contains('type D00SolutionBlueprint struct {'));
+    // The runtime module is imported and bound to `som` — either as a plain
+    // single-line import or, when typed `@Form` members pull in `strconv`, as a
+    // member of a grouped `import (...)` block. Assert the binding itself so the
+    // check is robust to the import grouping.
     expect(
         source,
-        contains('import som '
+        contains('som '
             '"github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"'));
     expect(result.modulePath, endsWith('tom_som_go_v0.go'));
 

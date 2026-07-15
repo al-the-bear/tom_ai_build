@@ -127,13 +127,24 @@ class SolutionBlueprint(SomNode):
         return CurrentLandscapeAssessment(self.doc, f"{self.path}/situation")
 
 class SolutionBlueprintOwnerForm(SomNode):
-    """Generated form facade for the `owner` @Form section."""
+    """Generated section facade for the `owner` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
+    def can_have_content(self):
+        return True
+
     @property
-    def name(self):
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def name(self) -> str:
         return self.doc.form_field(self.path, "name") or ""
 
     @name.setter
@@ -141,7 +152,7 @@ class SolutionBlueprintOwnerForm(SomNode):
         self.doc.set_form_field(self.path, "name", value)
 
     @property
-    def role(self):
+    def role(self) -> str:
         return self.doc.form_field(self.path, "role") or ""
 
     @role.setter

@@ -169,6 +169,13 @@ void solution_blueprint_owner_form_init(SolutionBlueprintOwnerForm *self, SpecDo
 void solution_blueprint_owner_form_free(SolutionBlueprintOwnerForm *self) {
   som_node_free(&self->node);
 }
+char *solution_blueprint_owner_form_content(const SolutionBlueprintOwnerForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void solution_blueprint_owner_form_set_content(SolutionBlueprintOwnerForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
 char *solution_blueprint_owner_form_name(const SolutionBlueprintOwnerForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
   return som_strdup(v != NULL ? v : "");

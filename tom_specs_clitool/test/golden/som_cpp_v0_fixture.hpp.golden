@@ -81,10 +81,14 @@ class SolutionBlueprint : public som::SomNode {
   CurrentLandscapeAssessment situation() const;
 };
 
-// Generated form facade for the `owner` @Form section.
+// Generated section facade for the `owner` @Form section: its own `content` text followed by one typed member per form field.
 class SolutionBlueprintOwnerForm : public som::SomNode {
  public:
   SolutionBlueprintOwnerForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
   std::string name() const;
   void setName(const std::string& value);
   std::string role() const;

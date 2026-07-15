@@ -149,10 +149,25 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated form facade for the `owner` @Form section.
+  // Generated section facade for the `owner` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class SolutionBlueprintOwnerForm extends SomNode {
     public SolutionBlueprintOwnerForm(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
     }
 
     public String name() {

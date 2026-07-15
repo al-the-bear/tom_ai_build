@@ -80,9 +80,12 @@ SomList solution_blueprint_risks(const SolutionBlueprint *self);
 SomList solution_blueprint_tags(const SolutionBlueprint *self);
 CurrentLandscapeAssessment solution_blueprint_situation(const SolutionBlueprint *self);
 
-// SolutionBlueprintOwnerForm is the generated form facade for the `owner` @Form section.
+// SolutionBlueprintOwnerForm is the generated section facade for the `owner` @Form section: its own `content` text followed by one typed member per form field.
 void solution_blueprint_owner_form_init(SolutionBlueprintOwnerForm *self, SpecDocument *doc, const char *path);
 void solution_blueprint_owner_form_free(SolutionBlueprintOwnerForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *solution_blueprint_owner_form_content(const SolutionBlueprintOwnerForm *self);
+void solution_blueprint_owner_form_set_content(SolutionBlueprintOwnerForm *self, const char *value);
 char *solution_blueprint_owner_form_name(const SolutionBlueprintOwnerForm *self);
 void solution_blueprint_owner_form_set_name(SolutionBlueprintOwnerForm *self, const char *value);
 char *solution_blueprint_owner_form_role(const SolutionBlueprintOwnerForm *self);

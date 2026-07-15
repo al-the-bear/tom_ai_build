@@ -144,10 +144,22 @@ class SolutionBlueprint extends SomNode {
   }
 }
 
-// Generated form facade for the `owner` @Form section.
+// Generated section facade for the `owner` @Form section: its own content text followed by one typed member per form field.
 class SolutionBlueprintOwnerForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
   }
 
   get name() {

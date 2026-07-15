@@ -165,7 +165,8 @@ func (x *SolutionBlueprint) Situation() *CurrentLandscapeAssessment {
 	return NewCurrentLandscapeAssessment(x.Doc(), x.Path()+"/situation")
 }
 
-// SolutionBlueprintOwnerForm is the generated form facade for the `owner` @Form section.
+// SolutionBlueprintOwnerForm is the generated section facade for the `owner` @Form section: its own
+// content text followed by one typed member per form field.
 type SolutionBlueprintOwnerForm struct {
 	som.SomNode
 }
@@ -173,6 +174,21 @@ type SolutionBlueprintOwnerForm struct {
 // NewSolutionBlueprintOwnerForm binds a SolutionBlueprintOwnerForm facade to a document and a path.
 func NewSolutionBlueprintOwnerForm(doc *som.SpecDocument, path string) *SolutionBlueprintOwnerForm {
 	return &SolutionBlueprintOwnerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+func (x *SolutionBlueprintOwnerForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SolutionBlueprintOwnerForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SolutionBlueprintOwnerForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
 }
 
 func (x *SolutionBlueprintOwnerForm) Name() string {

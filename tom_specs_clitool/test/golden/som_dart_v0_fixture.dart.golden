@@ -89,9 +89,17 @@ class SolutionBlueprint extends SomNode {
   CurrentLandscapeAssessment get situation => CurrentLandscapeAssessment(doc, '$path/situation');
 }
 
-/// Generated form facade for the `owner` `@Form` section.
+/// Generated section facade for the `owner` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class SolutionBlueprintOwnerForm extends SomNode {
   SolutionBlueprintOwnerForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
 
   String get name => doc.formField(path, 'name') ?? '';
   set name(String value) => doc.setFormField(path, 'name', value);

@@ -98,6 +98,12 @@ CurrentLandscapeAssessment SolutionBlueprint::situation() const {
 
 SolutionBlueprintOwnerForm::SolutionBlueprintOwnerForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
+std::string SolutionBlueprintOwnerForm::content() const {
+  return doc().content(path());
+}
+void SolutionBlueprintOwnerForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
 std::string SolutionBlueprintOwnerForm::name() const {
   return doc().formField(path(), "name");
 }
