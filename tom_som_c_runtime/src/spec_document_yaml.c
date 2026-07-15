@@ -67,10 +67,20 @@ static char *js_json_string(const char *s) { return som_json_encode_str(s); }
 char *spec_yaml_node_key(const SomMetaNode *node) {
   const char *name =
       node->member_name[0] != '\0' ? node->member_name : node->class_name;
-  if (node->section_id[0] == '\0') {
+  /* A section/complex node's key carries the full section id: the field-level
+   * id if present, else the target class's own id (DR1 §2.2 class fallback),
+   * mirroring the markdown codec's heading rule. Content/scalar/enum/form and
+   * list-item keys keep only their field-level id; the path segment is never
+   * affected (see the node's segment()). */
+  const char *id = node->section_id;
+  if (id[0] == '\0' && (strcmp(node->kind, SOM_META_KIND_SECTION) == 0 ||
+                        strcmp(node->kind, SOM_META_KIND_COMPLEX) == 0)) {
+    id = node->class_section_id;
+  }
+  if (id[0] == '\0') {
     return som_strdup(name);
   }
-  return vcat(node->section_id, " ", name, NULL);
+  return vcat(id, " ", name, NULL);
 }
 
 /* plainKeyPattern: ^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$ */

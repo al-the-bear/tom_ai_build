@@ -185,6 +185,7 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
       SomMetaNode *element_node = som_meta_node_new();
       element_node->kind = SOM_META_KIND_COMPLEX;
       set_str(&element_node->class_name, element->name);
+      set_str(&element_node->class_section_id, element->section_id);
       set_str(&element_node->type_name, element->name);
       set_str(&element_node->doc_comment, element->doc);
       set_str(&element_node->class_doc_comment, element->doc);
@@ -239,6 +240,7 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
   set_str(&node->doc_comment, field->doc);
   if (target != NULL) {
     set_str(&node->class_name, target->name);
+    set_str(&node->class_section_id, target->section_id);
     if (node->doc_comment[0] == '\0') {
       set_str(&node->doc_comment, target->doc);
     }
@@ -306,6 +308,7 @@ SomMetaTree *som_build_meta_tree(const SpecModel *model, const char *root_type,
     if (node->section_id[0] == '\0') {
       set_str(&node->section_id, cls->section_id);
     }
+    set_str(&node->class_section_id, cls->section_id);
     if (node->doc_comment[0] == '\0') {
       set_str(&node->doc_comment, cls->doc);
     }

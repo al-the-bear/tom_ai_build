@@ -104,7 +104,10 @@ static const char *yaml_test_model_json =
     "\"high\"],\n"
     "         \"serializationOrder\": 5},\n"
     "        {\"name\": \"count\", \"kind\": \"scalar\", \"type\": \"int\",\n"
-    "         \"serializationOrder\": 6}\n"
+    "         \"serializationOrder\": 6},\n"
+    "        {\"name\": \"control\", \"kind\": \"complex\", \"type\": "
+    "\"Control\",\n"
+    "         \"serializationOrder\": 7}\n"
     "      ]\n"
     "    },\n"
     "    \"Scope\": {\n"
@@ -113,6 +116,15 @@ static const char *yaml_test_model_json =
     "        {\"name\": \"inScope\", \"kind\": \"content\", \"sectionId\": "
     "\"D00-INS\"},\n"
     "        {\"name\": \"outOfScope\", \"kind\": \"content\"}\n"
+    "      ]\n"
+    "    },\n"
+    "    \"Control\": {\n"
+    "      \"name\": \"Control\",\n"
+    "      \"sectionId\": \"CTRL\",\n"
+    "      \"fields\": [\n"
+    "        {\"name\": \"summary\", \"kind\": \"content\", \"sectionId\": "
+    "\"CTRL-SUM\"},\n"
+    "        {\"name\": \"owner\", \"kind\": \"content\"}\n"
     "      ]\n"
     "    },\n"
     "    \"Requirement\": {\n"
@@ -569,6 +581,38 @@ static void yaml_test_strict_decode(void) {
   }
 }
 
+/* A section/complex node whose field carries no @SectionId takes its target
+ * class's id for the mapping key (DR1 §2.2 class fallback), while its path
+ * segment stays field-level. `control` (id-less field) → `Control` (class id
+ * `CTRL`) emits `CTRL control:`; its id-less leaf `owner` stays a bare key; the
+ * path is field-level throughout. */
+static void yaml_test_class_level_only_key(void) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+  spec_document_set_content(&doc, "D00/control/CTRL-SUM", "controlled summary");
+  spec_document_set_content(&doc, "D00/control/owner", "the owner");
+  char *yaml = yaml_enc(&doc, "");
+
+  /* the complex node's key gains the target class id; the path stays field-level */
+  check("classKey.section", strstr(yaml, "\n    CTRL control:\n") != NULL, yaml);
+  check("classKey.idLeaf", strstr(yaml, "\n      CTRL-SUM summary:") != NULL,
+        yaml);
+  check("classKey.bareLeaf", strstr(yaml, "\n      owner:") != NULL, yaml);
+  free(yaml);
+
+  SpecYamlContents out;
+  yaml_round_trip(&doc, &out);
+  check("classKey.rt.summary",
+        strcmp(content_or(&out.document, "D00/control/CTRL-SUM"),
+               "controlled summary") == 0,
+        "");
+  check("classKey.rt.owner",
+        strcmp(content_or(&out.document, "D00/control/owner"), "the owner") == 0,
+        "");
+  spec_yaml_contents_free(&out);
+  spec_document_free(&doc);
+}
+
 int main(void) {
   char *err = NULL;
   g_model = spec_model_from_json_str(yaml_test_model_json, &err);
@@ -579,6 +623,7 @@ int main(void) {
   yaml_test_encode();
   yaml_test_round_trip();
   yaml_test_strict_decode();
+  yaml_test_class_level_only_key();
 
   som_meta_tree_free(g_tree);
   spec_model_free(g_model);

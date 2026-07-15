@@ -124,6 +124,10 @@ struct SomMetaNode {
   char *member_name; /* exact field name in the parent class, "" on the
                       * document root and on list element subtrees */
   char *section_id;  /* effective @SectionId (field wins over class), "" none */
+  char *class_section_id; /* target class's own @SectionId (DR1 §2.2 fallback):
+                           * used only for a section/complex node's mapping key
+                           * when its field carries no id; never enters the path
+                           * segment. "" when none */
   char *section_id_pattern; /* @SectionIdPattern on a list field, "" none */
   const char *kind;  /* a SOM_META_KIND_* constant (static literal) */
   char *type_name;   /* Dart type name ("String", "GoalEntry", …) */

@@ -49,6 +49,7 @@ SomMetaNode *som_meta_node_new(void) {
   n->class_name = som_strdup("");
   n->member_name = som_strdup("");
   n->section_id = som_strdup("");
+  n->class_section_id = som_strdup("");
   n->section_id_pattern = som_strdup("");
   n->kind = SOM_META_KIND_SCALAR;
   n->type_name = som_strdup("");
@@ -66,6 +67,7 @@ static void free_node_contents(SomMetaNode *n) {
   free(n->class_name);
   free(n->member_name);
   free(n->section_id);
+  free(n->class_section_id);
   free(n->section_id_pattern);
   free(n->type_name);
   free(n->content_help);
