@@ -554,9 +554,11 @@ section-types:
     description: Add one entry per entitlement.
   auroenst:
     prefix: AUROENST
+    format: auroenst-form
     description: Data access and role status flags.
   idsoenco:
     prefix: IDSOENCO
+    format: idsoenco-form
     description: Connectivity and trust details.
   accopo:
     prefix: ACCOPO
@@ -701,12 +703,15 @@ section-types:
     description: Event Attribute Policy.
   idprma:
     prefix: IDPRMA
+    format: idprma-form
     description: Attribute mapping.
   idprse:
     prefix: IDPRSE
+    format: idprse-form
     description: Certificates and encryption.
   idprtr:
     prefix: IDPRTR
+    format: idprtr-form
     description: Trust and security.
   idvepo:
     prefix: IDVEPO
@@ -874,12 +879,15 @@ section-types:
     description: Standard TomSpecs document header.
   iameg:
     prefix: IAMEG
+    format: iameg-form
     description: "Validation, classification, and purpose."
   iames:
     prefix: IAMES
+    format: iames-form
     description: Synchronization and conflict handling.
   iamet:
     prefix: IAMET
+    format: iamet-form
     description: Transformation and defaulting behavior.
   idaut:
     prefix: IDAUT
@@ -910,24 +918,31 @@ section-types:
     description: Key Escrow and Backup Policy.
   lfseb:
     prefix: LFSEB
+    format: lfseb-form
     description: Outcomes and optional execution rules.
   lfsep:
     prefix: LFSEP
+    format: lfsep-form
     description: Protocol-level and descriptive details.
   lfsev:
     prefix: LFSEV
+    format: lfsev-form
     description: Inputs and validation behavior.
   mcrea:
     prefix: MCREA
+    format: mcrea-form
     description: Allowed authenticators and phishing-resistance rules.
   mcreo:
     prefix: MCREO
+    format: mcreo-form
     description: "Fallback, timeouts, and rationale."
   mcret:
     prefix: MCRET
+    format: mcret-form
     description: Enrollment and remembered-device timing.
   srpbp:
     prefix: SRPBP
+    format: srpbp-form
     description: Bot protection settings.
   ssacm:
     prefix: SSACM
@@ -935,15 +950,19 @@ section-types:
     description: 9.1.2.8. Self-Service Account Management.
   ssopa:
     prefix: SSOPA
+    format: ssopa-form
     description: Access and consent behavior.
   ssopf:
     prefix: SSOPF
+    format: ssopf-form
     description: Gateway and federation setup.
   ssopo:
     prefix: SSOPO
+    format: ssopo-form
     description: Platform integration and monitoring.
   ssops:
     prefix: SSOPS
+    format: ssops-form
     description: Session and logout behavior.
   uacst:
     prefix: UACST
@@ -951,12 +970,15 @@ section-types:
     description: 9.1.2.1. Account States.
   ultap:
     prefix: ULTAP
+    format: ultap-form
     description: Approval requirements.
   ultau:
     prefix: ULTAU
+    format: ultau-form
     description: Reversal and automation.
   ultef:
     prefix: ULTEF
+    format: ultef-form
     description: Side effects and notifications.
   ultrs:
     prefix: ULTRS
@@ -1017,15 +1039,19 @@ section-types:
     description: API Key Management Policy.
   amea:
     prefix: AMEA
+    format: amea-form
     description: Usage scope of the authentication method.
   amee:
     prefix: AMEE
+    format: amee-form
     description: Enrollment and activation workflow.
   ameo:
     prefix: AMEO
+    format: ameo-form
     description: Operational controls and lifecycle settings.
   ames:
     prefix: AMES
+    format: ames-form
     description: Security posture of the authentication method.
   apse:
     prefix: APSE
@@ -1045,12 +1071,15 @@ section-types:
     description: 9.3.2. API Security.
   areg:
     prefix: AREG
+    format: areg-form
     description: Risk and activation controls.
   arel:
     prefix: AREL
+    format: arel-form
     description: Provisioning and review settings.
   ares:
     prefix: ARES
+    format: ares-form
     description: Scope and inheritance metadata.
   arvp:
     prefix: ARVP
@@ -1161,27 +1190,35 @@ section-types:
     description: File Upload Validation Policy.
   isel:
     prefix: ISEL
+    format: isel-form
     description: Synchronization and provisioning details.
   isem:
     prefix: ISEM
+    format: isem-form
     description: Attribute mapping details.
   iseo:
     prefix: ISEO
+    format: iseo-form
     description: Operational behavior.
   ivpd:
     prefix: IVPD
+    format: ivpd-form
     description: Required proofing artifacts.
   ivpf:
     prefix: IVPF
+    format: ivpf-form
     description: Failure handling rules.
   ivpl:
     prefix: IVPL
+    format: ivpl-form
     description: Reverification and retention settings.
   ivpm:
     prefix: IVPM
+    format: ivpm-form
     description: Contact and provider verification.
   ivpw:
     prefix: IVPW
+    format: ivpw-form
     description: Workflow and approval settings.
   kcrp:
     prefix: KCRP
@@ -1266,15 +1303,19 @@ section-types:
     description: 9.2.4. Session Management.
   srpa:
     prefix: SRPA
+    format: srpa-form
     description: Approval workflow.
   srpf:
     prefix: SRPF
+    format: srpf-form
     description: Field configuration.
   srps:
     prefix: SRPS
+    format: srps-form
     description: Security restrictions.
   srpv:
     prefix: SRPV
+    format: srpv-form
     description: Verification requirements.
   ssop:
     prefix: SSOP
@@ -1614,6 +1655,30 @@ form-types:
         description: "Maximum time to fulfill an erasure request (e.g., 30 days per GDPR)"
       - fieldname: thirdPartyDataDeletion
         description: How data shared with third parties is removed or anonymized
+  ultap-form:
+    fields:
+      - fieldname: approvalRequired
+        description: "Yes | No — whether manual approval is needed"
+      - fieldname: approverRole
+        description: "Role that must approve (admin, manager, DPO)"
+      - fieldname: approvalSla
+        description: Maximum time allowed for approval decision
+  ultef-form:
+    fields:
+      - fieldname: sideEffects
+        description: "Actions performed on transition (revoke tokens, send email, deprovision)"
+      - fieldname: notificationRecipients
+        description: "Who is notified (user, admin, manager)"
+      - fieldname: notificationChannels
+        description: "Email | SMS | InApp | Webhook"
+  ultau-form:
+    fields:
+      - fieldname: reversible
+        description: "Yes | No — whether this transition can be undone"
+      - fieldname: reverseTransitionName
+        description: Name of the reverse transition if applicable
+      - fieldname: automationSupported
+        description: "Yes | No — whether this transition can be automated"
   ultrs-form:
     fields:
       - fieldname: transitionModel
@@ -1696,6 +1761,220 @@ form-types:
         description: "Naming pattern for service accounts (e.g., svc-{app}-{environment})"
       - fieldname: documentationRequirements
         description: "What must be documented for each service account (purpose, owner, scope)"
+  idsoenco-form:
+    fields:
+      - fieldname: sourceEndpoint
+        description: Connection endpoint URL or hostname
+      - fieldname: sourceProtocol
+        description: LDAP / LDAPS / SCIM / SAML / OIDC / REST / DatabaseDirect / Custom
+      - fieldname: priority
+        description: Primary / Secondary / Tertiary / Fallback — source precedence
+      - fieldname: trustLevel
+        description: Full / High / Medium / Low / Untrusted — degree of trust in identities from this source
+      - fieldname: authoritative
+        description: Yes / No — whether this source is the golden record for identity attributes
+  isel-form:
+    fields:
+      - fieldname: synchronizationMode
+        description: RealTime / Scheduled / OnDemand / EventDriven / Manual
+      - fieldname: synchronizationFrequency
+        description: "Sync interval if scheduled, e.g. 15min, 1h, 24h, weekly"
+      - fieldname: provisioningMethod
+        description: JustInTime / PreProvisioned / SCIM / Manual / Automated
+      - fieldname: deprovisioningMethod
+        description: Automatic / Manual / Delayed / Cascading — how identities are removed
+      - fieldname: conflictResolution
+        description: SourceWins / TargetWins / MostRecent / ManualReview / MergeAttributes
+  isem-form:
+    fields:
+      - fieldname: attributeFilter
+        description: "Which attributes are imported, e.g. all, name+email+groups, custom list"
+      - fieldname: groupMappingEnabled
+        description: Yes / No — whether groups/roles from this source are mapped to application roles
+  iseo-form:
+    fields:
+      - fieldname: failoverBehavior
+        description: RetryWithBackoff / FallbackToCache / FailClosed / FailOpen
+      - fieldname: enabled
+        description: Yes / No — whether this source is currently active
+      - fieldname: description
+        description: Detailed description of this identity source and its role
+  ivpd-form:
+    fields:
+      - fieldname: requiredDocuments
+        description: "Document types required for proofing, e.g. Government ID, Passport, Utility Bill, None"
+      - fieldname: documentVerificationMethod
+        description: VisualInspection / OCR / NFC / DatabaseCheck / BiometricMatch / ThirdPartyService
+      - fieldname: biometricVerification
+        description: None / FaceMatch / Fingerprint / LivenessDetection
+  ivpm-form:
+    fields:
+      - fieldname: emailVerification
+        description: Required / Optional / NotApplicable
+      - fieldname: phoneVerification
+        description: Required / Optional / NotApplicable
+      - fieldname: verificationServiceProvider
+        description: "Third-party provider, e.g. Jumio, Onfido, LexisNexis, Internal"
+  ivpw-form:
+    fields:
+      - fieldname: verificationSteps
+        description: "Ordered proofing steps, e.g. EmailConfirm → DocUpload → FaceMatch → AdminApproval"
+      - fieldname: supervisorApprovalRequired
+        description: Yes / No / ForExternalOnly — whether a supervisor must approve identity proofing
+      - fieldname: proofingChannels
+        description: InPerson / Remote / Hybrid — where identity proofing occurs
+  ivpl-form:
+    fields:
+      - fieldname: reverificationTriggers
+        description: "Events triggering re-proofing, e.g. RoleChange, SuspiciousActivity, Periodic, DataBreach"
+      - fieldname: reverificationPeriod
+        description: "How often identities must be re-verified, e.g. 1y, 2y, never, onRiskEvent"
+      - fieldname: verificationRecordRetention
+        description: "How long verification evidence is retained, e.g. 5y, 7y, permanent"
+  ivpf-form:
+    fields:
+      - fieldname: failedVerificationPolicy
+        description: Deny / RetryLimited / ManualEscalation / AlternativeProofing
+      - fieldname: maxVerificationAttempts
+        description: "Maximum proofing attempts before lockout, e.g. 3, 5"
+  idprma-form:
+    fields:
+      - fieldname: attributeMapping
+        description: How IdP claims/attributes map to application user attributes
+      - fieldname: groupClaimName
+        description: Claim/attribute containing group memberships
+      - fieldname: defaultRoles
+        description: Roles assigned by default to users from this IdP
+      - fieldname: justInTimeProvisioning
+        description: Yes / No — whether accounts are auto-created on first login
+      - fieldname: accountLinkingStrategy
+        description: EmailMatch / ExternalId / ManualLink / None
+  idprtr-form:
+    fields:
+      - fieldname: trustLevel
+        description: Full / High / Medium / Low
+      - fieldname: federationAgreement
+        description: Reference to federation agreement governing this IdP
+      - fieldname: mfaCapability
+        description: Supported / Required / NotSupported
+      - fieldname: failoverIdp
+        description: Backup identity provider if unavailable
+  idprse-form:
+    fields:
+      - fieldname: certificateManagement
+        description: How signing/encryption certificates are managed
+      - fieldname: tokenSigningAlgorithm
+        description: RS256 / RS384 / RS512 / ES256 / EdDSA
+      - fieldname: encryptionRequired
+        description: Yes / No — whether assertions/tokens must be encrypted
+  ssopf-form:
+    fields:
+      - fieldname: ssoGatewayProduct
+        description: "Product/service acting as SSO hub, e.g. Keycloak, PingGateway, Azure AD"
+      - fieldname: sessionPropagationMethod
+        description: SharedCookie / TokenRelay / BackChannel / FrontChannelRedirect
+      - fieldname: crossDomainTrustModel
+        description: SharedIdP / FederatedTrust / BrokeredTrust / None
+      - fieldname: identityFederationEnabled
+        description: Yes / No — whether identities federate across organizational boundaries
+  ssops-form:
+    fields:
+      - fieldname: logoutPropagation
+        description: SingleLogout / LocalOnly / BestEffort — how logout propagates across SSO-connected apps
+      - fieldname: logoutProtocol
+        description: FrontChannel / BackChannel / Both — SLO mechanism
+      - fieldname: ssoSessionLifetime
+        description: "Maximum SSO session duration before re-authentication, e.g. 8h, 24h, 30d"
+      - fieldname: ssoIdleTimeout
+        description: "Idle timeout before SSO session expires, e.g. 30min, 1h, 4h"
+  ssopa-form:
+    fields:
+      - fieldname: accountLinkingStrategy
+        description: AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None
+      - fieldname: consentRequirements
+        description: None / FirstLoginOnly / PerApplication / PerScope / Periodic
+      - fieldname: ssoPortalUrl
+        description: URL for the central SSO portal or application launcher
+      - fieldname: ssoBypassRules
+        description: "Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass"
+  ssopo-form:
+    fields:
+      - fieldname: desktopSsoIntegration
+        description: Kerberos / WindowsIntegrated / None — integration with desktop/OS authentication
+      - fieldname: mobileSsoStrategy
+        description: SharedKeychain / AppLinks / BrowserBased / NativeSDK — SSO approach for mobile apps
+      - fieldname: ssoMonitoring
+        description: "How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate"
+  srpf-form:
+    fields:
+      - fieldname: optionalFields
+        description: "Fields available but not required, e.g. organization, jobTitle, avatar"
+      - fieldname: termsAcceptanceRequired
+        description: Yes / No — whether ToS/privacy policy acceptance is required
+  srpbp-form:
+    fields:
+      - fieldname: captchaRequired
+        description: Yes / No / Adaptive — whether CAPTCHA/bot protection is required
+      - fieldname: captchaProvider
+        description: reCAPTCHAv2 / reCAPTCHAv3 / hCaptcha / Turnstile / Custom
+  srpv-form:
+    fields:
+      - fieldname: emailVerificationRequired
+        description: Yes / No — whether email must be verified before account is active
+      - fieldname: emailVerificationMethod
+        description: ClickLink / EnterCode / MagicLink
+      - fieldname: phoneVerificationRequired
+        description: Yes / No — whether phone must be verified
+      - fieldname: phoneVerificationMethod
+        description: SMS / VoiceCall / WhatsApp
+  srpa-form:
+    fields:
+      - fieldname: approvalRequired
+        description: Yes / No / Conditional — whether admin approval is needed before activation
+      - fieldname: approvalWorkflow
+        description: SingleApprover / DualApproval / ManagerApproval / AutoApprove
+      - fieldname: defaultRole
+        description: "Role assigned to newly self-registered users, e.g. BasicUser, Viewer, Pending"
+      - fieldname: defaultGroup
+        description: Group assigned to newly self-registered users
+      - fieldname: accountActivationDelay
+        description: "Delay between registration and account becoming usable, e.g. immediate, afterVerification, 24h"
+      - fieldname: welcomeNotification
+        description: Yes / No — whether a welcome email/message is sent after registration
+  srps-form:
+    fields:
+      - fieldname: allowedEmailDomains
+        description: "Domain restrictions for registration, e.g. *, company.com, *.edu"
+      - fieldname: blockedEmailDomains
+        description: "Domains blocked from registration, e.g. tempmail.com, guerrillamail.com"
+      - fieldname: duplicateDetectionMethod
+        description: EmailUniqueness / PhoneUniqueness / NameFuzzyMatch / None
+      - fieldname: rateLimiting
+        description: "Registration rate limits, e.g. 5/hour per IP, 10/day per domain"
+  iamet-form:
+    fields:
+      - fieldname: transformationRule
+        description: None / Lowercase / Uppercase / Trim / RegexExtract / Concatenate / MapValues / Custom
+      - fieldname: transformationExpression
+        description: "Expression if Custom/RegexExtract, e.g. {firstName} {lastName}"
+      - fieldname: defaultValue
+        description: Value used when source attribute is missing or null
+      - fieldname: multiValueHandling
+        description: FirstValue / AllValues / Concatenate / PrimaryOnly
+  iames-form:
+    fields:
+      - fieldname: mandatory
+        description: Yes / No — whether this attribute must be present for identity to be valid
+      - fieldname: syncDirection
+        description: SourceToTarget / TargetToSource / Bidirectional / OneTimeImport
+      - fieldname: conflictResolution
+        description: SourceWins / TargetWins / MostRecent / ManualReview — when source and target values differ
+  iameg-form:
+    fields:
+      - fieldname: piiClassification
+        description: None / PII / SensitivePII / SpecialCategory — data sensitivity for GDPR/compliance
+      - fieldname: description
+        description: Purpose and context for this attribute mapping
   mc-form:
     fields:
       - fieldname: mfaRequired
@@ -1830,6 +2109,46 @@ form-types:
         description: "OAuth2ClientCredentials | JWT | Custom — machine-to-machine token types"
       - fieldname: tokenLifetime
         description: "Default lifetime for service tokens (e.g., 1h, 24h)"
+  ames-form:
+    fields:
+      - fieldname: assuranceLevel
+        description: "AAL1 | AAL2 | AAL3 — NIST authentication assurance level"
+      - fieldname: phishingResistant
+        description: "Yes | No — whether this method resists phishing per NIST SP 800-63B §3.2.5"
+      - fieldname: replayResistant
+        description: "Yes | No — whether this method resists replay attacks"
+      - fieldname: hardwareRequirement
+        description: "None | SecurityKey | SmartCard | TPM | HSM — required hardware"
+      - fieldname: fipsValidationLevel
+        description: "None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable"
+      - fieldname: securityLevel
+        description: "Low | Medium | High | Critical — overall security classification"
+  amea-form:
+    fields:
+      - fieldname: applicableUserCategories
+        description: "InternalUsers | ExternalUsers | Admins | ServiceAccounts | All"
+      - fieldname: primaryOrSecondary
+        description: "Primary | Secondary | Either — role in authentication flow"
+  amee-form:
+    fields:
+      - fieldname: enrollmentProcess
+        description: "How users enroll in this method (self-service, admin-provisioned, automated)"
+      - fieldname: enrollmentVerification
+        description: "Verification required during enrollment (identity proofing, email confirmation)"
+      - fieldname: activationRequirement
+        description: "PIN | Password | Biometric | None — activation factor for multi-factor authenticators"
+      - fieldname: fallbackMethod
+        description: "Alternative method when this one is unavailable (recovery codes, admin reset)"
+  ameo-form:
+    fields:
+      - fieldname: maxFailedAttempts
+        description: "Maximum consecutive failed attempts before lockout (e.g., 5, 10, 100)"
+      - fieldname: lockoutPolicy
+        description: "TemporaryDelay | AccountLock | RequireRebinding — action after max failures"
+      - fieldname: reauthenticationTimeout
+        description: "Session timeout requiring reauthentication (e.g., 15min, 12h, 30d per AAL)"
+      - fieldname: description
+        description: Detailed description of this authentication method
   lfc-form:
     fields:
       - fieldname: loginEntryPoint
@@ -2002,6 +2321,30 @@ form-types:
         description: "Built-in | Third-party service name — provider of adaptive authentication"
       - fieldname: continuousAuthEnabled
         description: "Yes | No — whether session is continuously monitored for risk changes"
+  lfsev-form:
+    fields:
+      - fieldname: inputRequired
+        description: "Username | Password | OTP | BiometricSample | ConsentApproval | None"
+      - fieldname: validationAction
+        description: "CredentialVerification | TokenValidation | RiskAssessment | MfaVerification | None"
+      - fieldname: timeoutSeconds
+        description: "Maximum time allowed for this step (e.g., 300, 600)"
+  lfseb-form:
+    fields:
+      - fieldname: successOutcome
+        description: "NextStep | TokenIssued | SessionCreated | RedirectToApp — outcome on success"
+      - fieldname: failureOutcome
+        description: "RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure"
+      - fieldname: optional
+        description: "Yes | No — whether this step can be skipped"
+      - fieldname: conditionalTrigger
+        description: "Condition under which this step is activated (e.g., MFA required, new device)"
+  lfsep-form:
+    fields:
+      - fieldname: protocolMessage
+        description: "OAuth2 AuthZ Request | Token Request | SAML AuthnRequest | OIDC Userinfo — protocol-level message"
+      - fieldname: description
+        description: Detailed description of what happens in this step
   prp-form:
     fields:
       - fieldname: minimumLengthSingleFactor
@@ -2188,6 +2531,32 @@ form-types:
         description: "Yes | No — whether application credentials are injected from a secrets vault at runtime"
       - fieldname: hardcodedCredentialDetection
         description: "Yes | No — whether CI/CD scans for hardcoded credentials in source code"
+  mcrea-form:
+    fields:
+      - fieldname: allowedAuthenticatorTypes
+        description: "TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types"
+      - fieldname: phishingResistanceRequired
+        description: "Yes | No | Recommended — whether phishing-resistant authenticators are required"
+  mcret-form:
+    fields:
+      - fieldname: mfaEnrollmentDeadline
+        description: "Deadline or grace period for MFA enrollment (e.g., Immediate, 30d, 90d)"
+      - fieldname: mfaGracePeriod
+        description: Period after enrollment deadline during which MFA is recommended but not enforced
+      - fieldname: rememberDeviceEnabled
+        description: "Yes | No — whether trusted device remembering can skip MFA temporarily"
+      - fieldname: rememberDeviceDuration
+        description: "Duration the device is trusted (e.g., 7d, 30d, 90d)"
+  mcreo-form:
+    fields:
+      - fieldname: fallbackMechanismIfUnavailable
+        description: "RecoveryCode | AdminAssist | Deny — fallback when primary MFA is unavailable"
+      - fieldname: reauthenticationTimeout
+        description: "Overall session timeout requiring re-authentication (NIST: AAL1=30d, AAL2=24h, AAL3=12h)"
+      - fieldname: inactivityTimeout
+        description: "Session inactivity timeout (NIST: AAL2=1h, AAL3=15min)"
+      - fieldname: description
+        description: Description of MFA requirements and rationale for this user category
   stp-form:
     fields:
       - fieldname: idleTimeoutDefault
@@ -3040,6 +3409,44 @@ form-types:
         description: "Yes | No — provide permission hints to UI for UX purposes while enforcing all checks server-side"
       - fieldname: notes
         description: Additional permission evaluation behavior notes
+  ares-form:
+    fields:
+      - fieldname: roleScope
+        description: "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable"
+      - fieldname: inheritsFrom
+        description: Parent role name or "none" for top-level roles; child roles inherit all permissions of the parent
+      - fieldname: permissionSet
+        description: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)"
+  areg-form:
+    fields:
+      - fieldname: riskLevel
+        description: "Critical | High | Medium | Low — privilege risk classification for access review prioritization"
+      - fieldname: maxHolders
+        description: Maximum number of users who can hold this role concurrently; 0 = unlimited
+      - fieldname: activationType
+        description: "AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the role is permanently active or requires activation"
+      - fieldname: activationDuration
+        description: "Maximum duration for on-demand or time-limited activation (e.g. 8h, 24h, 7d)"
+      - fieldname: approvalRequired
+        description: "Yes | No — whether role assignment requires explicit approval"
+      - fieldname: approver
+        description: "Role or person responsible for approving role assignments (e.g. Line Manager, Security Officer, System Owner)"
+  arel-form:
+    fields:
+      - fieldname: provisioningMethod
+        description: "Manual | Automatic | ApprovalBased | SelfService | RuleBased — how the role is assigned to users"
+      - fieldname: reviewFrequency
+        description: "Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — how often role assignments are reviewed for appropriateness"
+  auroenst-form:
+    fields:
+      - fieldname: dataAccessScope
+        description: "AllData | TenantData | DepartmentData | TeamData | OwnData | None — breadth of data accessible through this role"
+      - fieldname: isDefault
+        description: "Yes | No — automatically assigned to new users upon creation"
+      - fieldname: isSystem
+        description: "Yes | No — system-defined role that cannot be modified or deleted by administrators"
+      - fieldname: notes
+        description: Additional role definition notes
   rohipo-form:
     fields:
       - fieldname: hierarchyModel

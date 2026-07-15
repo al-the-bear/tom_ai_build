@@ -277,21 +277,26 @@ section-types:
     description: Cross-process analysis.
   imbuca:
     prefix: IMBUCA
+    format: imbuca-form
     description: Business case summary.
   inouov:
     prefix: INOUOV
+    format: inouov-form
     description: Inputs overview.
   prcoov:
     prefix: PRCOOV
+    format: prcoov-form
     description: Controls overview.
   prdiov:
     prefix: PRDIOV
+    format: prdiov-form
     description: Diagram overview.
   prexha:
     prefix: PREXHA
     description: Process exception handling.
   prexov:
     prefix: PREXOV
+    format: prexov-form
     description: Exceptions overview.
   primsu:
     prefix: PRIMSU
@@ -321,30 +326,38 @@ section-types:
     description: Process overview diagram.
   prpeov:
     prefix: PRPEOV
+    format: prpeov-form
     description: Performance overview.
   prroov:
     prefix: PRROOV
+    format: prroov-form
     description: Roles overview.
   prteex:
     prefix: PRTEEX
+    format: prteex-form
     description: Access channel and analytics capabilities.
   prtein:
     prefix: PRTEIN
+    format: prtein-form
     description: "Data, reporting, and document tooling."
   dochd:
     prefix: DOCHD
     description: Standard TomSpecs document header.
   dpovw:
     prefix: DPOVW
+    format: dpovw-form
     description: Design principles overview.
   pcbiz:
     prefix: PCBIZ
+    format: pcbiz-form
     description: Demand and business value profile.
   pcops:
     prefix: PCOPS
+    format: pcops-form
     description: Operational characteristics and automation level.
   pcovw:
     prefix: PCOVW
+    format: pcovw-form
     description: Process catalog overview.
   pdpri:
     prefix: PDPRI
@@ -356,12 +369,15 @@ section-types:
     description: Design principles.
   picls:
     prefix: PICLS
+    format: picls-form
     description: Position in the process hierarchy and taxonomy.
   pidef:
     prefix: PIDEF
+    format: pidef-form
     description: "Narrative description, purpose, and scope."
   pigov:
     prefix: PIGOV
+    format: pigov-form
     description: Ownership and lifecycle metadata.
   prcat:
     prefix: PRCAT
@@ -376,6 +392,7 @@ section-types:
     description: Process catalog.
   prccl:
     prefix: PRCCL
+    format: prccl-form
     description: Process classification scheme.
   prchr:
     prefix: PRCHR
@@ -397,6 +414,7 @@ section-types:
     description: Process identification.
   prsuc:
     prefix: PRSUC
+    format: prsuc-form
     description: Success criteria for process transformation.
   prtrg:
     prefix: PRTRG
@@ -420,36 +438,47 @@ section-types:
     description: Process vision.
   pvovw:
     prefix: PVOVW
+    format: pvovw-form
     description: Process vision overview.
   tgovw:
     prefix: TGOVW
+    format: tgovw-form
     description: Main trigger overview.
   imov:
     prefix: IMOV
+    format: imov-form
     description: Improvement overview.
   pceo:
     prefix: PCEO
+    format: pceo-form
     description: Control operation and ownership.
   pcev:
     prefix: PCEV
+    format: pcev-form
     description: "Evidence, testing, and failure handling."
   peea:
     prefix: PEEA
+    format: peea-form
     description: "Likelihood, impact, and detection."
   peer:
     prefix: PEER
+    format: peer-form
     description: Resolution and prevention approach.
   pieb:
     prefix: PIEB
+    format: pieb-form
     description: Target outcome and value case.
   pied:
     prefix: PIED
+    format: pied-form
     description: "Enablers, dependencies, and verification."
   pkem:
     prefix: PKEM
+    format: pkem-form
     description: Measurement targets and thresholds.
   pkeo:
     prefix: PKEO
+    format: pkeo-form
     description: Reporting ownership and improvement use.
   prco:
     prefix: PRCO
@@ -461,9 +490,11 @@ section-types:
     description: Process controls and compliance.
   prec:
     prefix: PREC
+    format: prec-form
     description: "Access, coverage, and handoff expectations."
   pree:
     prefix: PREE
+    format: pree-form
     description: Process participation and authority.
   prex:
     prefix: PREX
@@ -505,6 +536,379 @@ section-types:
       pcrlt-rela-lst:
         max-count: 1
     description: Process relationships.
+form-types:
+  pvovw-form:
+    fields:
+      - fieldname: visionStatement
+        description: One or two sentences describing the future-state process
+      - fieldname: strategicAlignment
+        description: Link processes to strategic goals
+      - fieldname: transformationTheme
+        description: "The unifying theme of the change (e.g. digital, automation)"
+      - fieldname: targetMaturityLevel
+        description: Desired maturity level to reach
+      - fieldname: timeHorizon
+        description: Timeframe for achieving the vision
+      - fieldname: keyEnabler
+        description: What must be in place to enable the vision
+      - fieldname: changeScope
+        description: How wide and deep the change reaches
+      - fieldname: stakeholderImpact
+        description: Groups affected and the nature of impact
+  prsuc-form:
+    fields:
+      - fieldname: kpiTargets
+        description: Concrete KPI values that signal success
+      - fieldname: timeToValue
+        description: How soon benefits should appear
+      - fieldname: adoptionTargets
+        description: Expected user adoption levels
+      - fieldname: qualityTargets
+        description: Target defect or error rates
+      - fieldname: performanceTargets
+        description: Target response time or throughput
+      - fieldname: userSatisfaction
+        description: Target satisfaction or NPS scores
+      - fieldname: businessOutcomes
+        description: Expected business-level outcomes
+      - fieldname: measurementApproach
+        description: How and when success is measured
+  dpovw-form:
+    fields:
+      - fieldname: principlePhilosophy
+        description: The guiding philosophy behind the principles
+      - fieldname: priorityOrder
+        description: How competing principles are ranked
+      - fieldname: exceptionHandling
+        description: How deviations from principles are handled
+      - fieldname: continuousImprovement
+        description: How principles adapt over time
+  pcovw-form:
+    fields:
+      - fieldname: totalProcessCount
+        description: Number of processes in the catalog
+      - fieldname: scopeStatement
+        description: What the catalog does and does not cover
+      - fieldname: classificationFramework
+        description: Framework used to classify processes
+      - fieldname: namingConvention
+        description: Rules for naming processes
+      - fieldname: idConvention
+        description: Rules for assigning process IDs
+      - fieldname: processOwnership
+        description: How process owners are determined
+      - fieldname: governanceModel
+        description: How process changes are controlled
+      - fieldname: versioningApproach
+        description: How process versions are tracked
+  prccl-form:
+    fields:
+      - fieldname: level1Categories
+        description: Top-level process categories
+      - fieldname: level2Breakdown
+        description: Major process groups within each category
+      - fieldname: level3Detail
+        description: Specific processes at the detailed level
+      - fieldname: crossFunctional
+        description: Processes that cross organisational boundaries
+      - fieldname: customerFacing
+        description: Processes with direct customer contact
+      - fieldname: valueDriving
+        description: Processes central to the value chain
+      - fieldname: supportProcesses
+        description: Enabling or support processes
+      - fieldname: managementProcesses
+        description: Governance and strategic processes
+  picls-form:
+    fields:
+      - fieldname: parentProcess
+        description: The higher-level process this rolls up to
+      - fieldname: processCategory
+        description: The category the process falls into
+      - fieldname: processType
+        description: The functional type of the process
+  pidef-form:
+    fields:
+      - fieldname: description
+        description: What the process actually does
+      - fieldname: purpose
+        description: Why the process exists
+      - fieldname: scope
+        description: Where the process starts and ends
+  pigov-form:
+    fields:
+      - fieldname: processOwner
+        description: Role or person accountable for the process
+      - fieldname: processManager
+        description: Role responsible for daily operation
+      - fieldname: effectiveDate
+        description: Date the process becomes active
+      - fieldname: version
+        description: Current version of the process
+      - fieldname: status
+        description: Lifecycle status of the process
+  pcops-form:
+    fields:
+      - fieldname: criticality
+        description: How business-critical the process is
+      - fieldname: automationLevel
+        description: Share of the process that is automated
+      - fieldname: straightThroughRate
+        description: Share completed with no human touch
+      - fieldname: exceptionRate
+        description: Share needing manual intervention
+  pcbiz-form:
+    fields:
+      - fieldname: volumeEstimate
+        description: Expected number of cases per period
+      - fieldname: seasonality
+        description: Seasonal demand variation
+      - fieldname: valueAdded
+        description: Value the process contributes
+      - fieldname: costDriver
+        description: Main factors that drive process cost
+  tgovw-form:
+    fields:
+      - fieldname: primaryTrigger
+        description: The most common way the process starts
+      - fieldname: triggerChannel
+        description: Channel through which triggers arrive
+      - fieldname: triggerFrequency
+        description: How often the process is triggered
+      - fieldname: peakTriggerTime
+        description: When trigger volume peaks
+      - fieldname: preTriggerState
+        description: System state expected before triggering
+  inouov-form:
+    fields:
+      - fieldname: inputSummary
+        description: High-level overview of required inputs
+      - fieldname: outputSummary
+        description: High-level overview of produced outputs
+      - fieldname: dataFlowSummary
+        description: How data flows through the process
+  prroov-form:
+    fields:
+      - fieldname: primaryActor
+        description: The main role that executes the process
+      - fieldname: processOwner
+        description: Role accountable for process outcomes
+      - fieldname: supportRoles
+        description: Roles that assist the process
+      - fieldname: escalationPath
+        description: Who issues are escalated to
+      - fieldname: raciSummary
+        description: Overview of the RACI assignments
+  pree-form:
+    fields:
+      - fieldname: stepsInvolved
+        description: List the steps this role performs
+      - fieldname: decisionAuthority
+        description: State the decisions this role may make
+      - fieldname: skillsRequired
+        description: List the competencies the role needs
+      - fieldname: systemAccess
+        description: Name the system permissions required
+  prec-form:
+    fields:
+      - fieldname: availability
+        description: Describe required availability windows
+      - fieldname: backupRole
+        description: Name the role that covers absences
+      - fieldname: handoffTo
+        description: List downstream roles receiving work
+      - fieldname: handoffFrom
+        description: List upstream roles supplying work
+  prpeov-form:
+    fields:
+      - fieldname: targetCycleTime
+        description: Give the expected end-to-end duration
+      - fieldname: targetThroughput
+        description: Give the expected cases per period
+      - fieldname: targetQuality
+        description: State the target error/first-time-right rate
+      - fieldname: targetCost
+        description: Give the target cost per transaction
+      - fieldname: targetCustomerSat
+        description: Give the CSAT/NPS satisfaction target
+      - fieldname: monitoringFrequency
+        description: State how often metrics are reviewed
+      - fieldname: dashboardLocation
+        description: Name where the metrics dashboard lives
+      - fieldname: improvementGoals
+        description: State improvement targets for next period
+  pkem-form:
+    fields:
+      - fieldname: unit
+        description: State the unit of measurement
+      - fieldname: targetValue
+        description: Give the target value to achieve
+      - fieldname: thresholds
+        description: Define the RAG threshold boundaries
+      - fieldname: dataSource
+        description: Name the source of the data
+  pkeo-form:
+    fields:
+      - fieldname: calculationFrequency
+        description: State how often the KPI is calculated
+      - fieldname: reportingFrequency
+        description: State how often the KPI is reported
+      - fieldname: owner
+        description: Name the accountable owner
+      - fieldname: improvementLever
+        description: Describe how to move the KPI
+  prcoov-form:
+    fields:
+      - fieldname: controlFramework
+        description: Name the governing control framework
+      - fieldname: riskLevel
+        description: State the inherent risk level
+      - fieldname: complianceRequirements
+        description: List applicable regulations/standards
+      - fieldname: auditFrequency
+        description: State how often the process is audited
+      - fieldname: segregationOfDuties
+        description: Describe duty separation rules
+      - fieldname: approvalMatrix
+        description: Define who approves which actions
+      - fieldname: documentationRequirements
+        description: List what must be documented
+      - fieldname: retentionRequirements
+        description: State record retention periods
+  pceo-form:
+    fields:
+      - fieldname: controlDescription
+        description: Describe what the control does
+      - fieldname: riskAddressed
+        description: State the risk it mitigates
+      - fieldname: controlOwner
+        description: Name the responsible owner
+      - fieldname: frequency
+        description: State how often the control runs
+      - fieldname: automation
+        description: State the automation level
+  pcev-form:
+    fields:
+      - fieldname: evidenceProduced
+        description: Describe the evidence generated
+      - fieldname: testingApproach
+        description: Describe how the control is tested
+      - fieldname: failureAction
+        description: State the action on control failure
+  prtein-form:
+    fields:
+      - fieldname: dataRepositories
+        description: List the databases and data stores
+      - fieldname: reportingTools
+        description: List BI and dashboard tools
+      - fieldname: communicationTools
+        description: List communication/notification tools
+      - fieldname: documentManagement
+        description: Name the document storage system
+  prteex-form:
+    fields:
+      - fieldname: mobileCapability
+        description: State mobile access requirements
+      - fieldname: offlineCapability
+        description: State offline operation requirements
+      - fieldname: analyticsCapability
+        description: State analytics/process mining needs
+  prexov-form:
+    fields:
+      - fieldname: exceptionPhilosophy
+        description: State the overall exception approach
+      - fieldname: exceptionRate
+        description: Give the expected exception rate
+      - fieldname: exceptionRouting
+        description: State where exceptions are routed
+      - fieldname: resolutionSla
+        description: Give the exception resolution SLA
+      - fieldname: escalationPath
+        description: Name who handles escalations
+      - fieldname: rootCauseAnalysis
+        description: Describe root-cause analysis approach
+      - fieldname: continuousImprovement
+        description: Describe how exceptions drive change
+  peea-form:
+    fields:
+      - fieldname: probability
+        description: State how likely the exception is
+      - fieldname: impact
+        description: Describe the impact if it occurs
+      - fieldname: detectionMethod
+        description: Describe how it is detected
+  peer-form:
+    fields:
+      - fieldname: resolutionSteps
+        description: Describe the steps to resolve it
+      - fieldname: resolutionOwner
+        description: Name who resolves the exception
+      - fieldname: resolutionSla
+        description: Give the resolution SLA
+      - fieldname: preventionStrategy
+        description: Describe how to prevent recurrence
+      - fieldname: workArounds
+        description: List temporary workarounds
+  prdiov-form:
+    fields:
+      - fieldname: diagramPurpose
+        description: State what the diagram conveys
+      - fieldname: diagramScope
+        description: State what is in and out of scope
+      - fieldname: notation
+        description: Name the diagram notation used
+      - fieldname: readingGuide
+        description: Explain how to read the diagram
+      - fieldname: legend
+        description: Define the symbols used
+  imov-form:
+    fields:
+      - fieldname: improvementTheme
+        description: State the overall improvement theme
+      - fieldname: baselineDate
+        description: Give the baseline measurement date
+      - fieldname: targetDate
+        description: Give the target achievement date
+      - fieldname: benefitRealizationPlan
+        description: Describe how benefits are tracked
+      - fieldname: changeEnablers
+        description: List what enables the improvement
+  pieb-form:
+    fields:
+      - fieldname: targetState
+        description: Give the target-state measurement
+      - fieldname: improvementPercent
+        description: Give the expected percent gain
+      - fieldname: monetaryBenefit
+        description: Give the financial value
+      - fieldname: beneficiaries
+        description: Name who benefits from it
+  pied-form:
+    fields:
+      - fieldname: enablers
+        description: List what enables the improvement
+      - fieldname: dependencies
+        description: List prerequisites for delivery
+      - fieldname: risks
+        description: List delivery risks
+      - fieldname: measurementMethod
+        description: Describe how the gain is verified
+  imbuca-form:
+    fields:
+      - fieldname: totalInvestment
+        description: Give the total investment cost
+      - fieldname: annualBenefits
+        description: Give the yearly value delivered
+      - fieldname: paybackPeriod
+        description: Give the time to break even
+      - fieldname: roi
+        description: Give the return on investment
+      - fieldname: npv
+        description: Give the net present value
+      - fieldname: intangibleBenefits
+        description: List non-financial benefits
+      - fieldname: riskAdjustment
+        description: State the confidence/risk factor
 document:
   sections:
     dochd:

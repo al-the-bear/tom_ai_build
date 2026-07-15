@@ -1671,12 +1671,15 @@ section-types:
     description: Current-state risk assessment.
   daduensy:
     prefix: DADUENSY
+    format: daduensy-form
     description: Synchronization and consistency details.
   daowenst:
     prefix: DAOWENST
+    format: daowenst-form
     description: Stewardship and custodianship assignments.
   sydascmi:
     prefix: SYDASCMI
+    format: sydascmi-form
     description: Migration preparation and archive handling.
   bupapo:
     prefix: BUPAPO
@@ -1744,6 +1747,7 @@ section-types:
     description: Current data landscape.
   daclsu:
     prefix: DACLSU
+    format: daclsu-form
     description: Classification framework summary.
   daduan:
     prefix: DADUAN
@@ -1757,9 +1761,11 @@ section-types:
     description: 1.4.3. Data Duplication Analysis.
   dadusu:
     prefix: DADUSU
+    format: dadusu-form
     description: Duplication analysis summary.
   dagoma:
     prefix: DAGOMA
+    format: dagoma-form
     description: Governance maturity assessment.
   dainpo:
     prefix: DAINPO
@@ -1774,12 +1780,15 @@ section-types:
     description: 1.4.9. Data Integration Points.
   dainsu:
     prefix: DAINSU
+    format: dainsu-form
     description: Integration summary.
   dalasu:
     prefix: DALASU
+    format: dalasu-form
     description: Summary statistics and health indicators.
   daowsu:
     prefix: DAOWSU
+    format: daowsu-form
     description: Ownership model summary.
   daquas:
     prefix: DAQUAS
@@ -1805,9 +1814,11 @@ section-types:
     description: 1.4.6. Retention Policies.
   dasocl:
     prefix: DASOCL
+    format: dasocl-form
     description: Classification.
   dasoi1:
     prefix: DASOI1
+    format: dasoi1-form
     description: Integration.
   dasoin:
     prefix: DASOIN
@@ -1819,18 +1830,23 @@ section-types:
     description: 1.4.1. Data Source Inventory.
   dasoli:
     prefix: DASOLI
+    format: dasoli-form
     description: Lifecycle.
   dasoow:
     prefix: DASOOW
+    format: dasoow-form
     description: Ownership and governance.
   dasoqu:
     prefix: DASOQU
+    format: dasoqu-form
     description: Quality and reliability.
   dasote:
     prefix: DASOTE
+    format: dasote-form
     description: Technical details.
   dasovo:
     prefix: DASOVO
+    format: dasovo-form
     description: Volume and performance.
   davosu:
     prefix: DAVOSU
@@ -1844,15 +1860,19 @@ section-types:
     description: Volume and growth summary.
   gaende:
     prefix: GAENDE
+    format: gaende-form
     description: Gap description and business impact.
   gaendi:
     prefix: GAENDI
+    format: gaendi-form
     description: Discovery and validation.
   gaenre:
     prefix: GAENRE
+    format: gaenre-form
     description: Resolution planning.
   gaenwo:
     prefix: GAENWO
+    format: gaenwo-form
     description: Current workarounds.
   inhesu:
     prefix: INHESU
@@ -1900,42 +1920,55 @@ section-types:
     description: Migration considerations.
   mirias:
     prefix: MIRIAS
+    format: mirias-form
     description: Assessment methodology settings.
   mirico:
     prefix: MIRICO
+    format: mirico-form
     description: Contingency planning.
   mirigo:
     prefix: MIRIGO
+    format: mirigo-form
     description: Governance and decision authority.
   mirihi:
     prefix: MIRIHI
+    format: mirihi-form
     description: History and lessons learned.
   miriid:
     prefix: MIRIID
+    format: miriid-form
     description: Risk identification details.
   miriim:
     prefix: MIRIIM
+    format: miriim-form
     description: Impact assessment.
   mirimi:
     prefix: MIRIMI
+    format: mirimi-form
     description: Mitigation strategy.
   miripr:
     prefix: MIRIPR
+    format: miripr-form
     description: Probability assessment.
   miriqu:
     prefix: MIRIQU
+    format: miriqu-form
     description: Risk quantification.
   mirir1:
     prefix: MIRIR1
+    format: mirir1-form
     description: Related items.
   mirire:
     prefix: MIRIRE
+    format: mirire-form
     description: Reporting settings.
   mirith:
     prefix: MIRITH
+    format: mirith-form
     description: Threshold and trigger settings.
   miritr:
     prefix: MIRITR
+    format: miritr-form
     description: Ownership and tracking.
   oppapo:
     prefix: OPPAPO
@@ -1947,21 +1980,27 @@ section-types:
     description: 1.3.1. Operational Pain Points.
   papocl:
     prefix: PAPOCL
+    format: papocl-form
     description: Classification.
   papoev:
     prefix: PAPOEV
+    format: papoev-form
     description: Evidence and validation.
   papoim:
     prefix: PAPOIM
+    format: papoim-form
     description: Impact assessment.
   papore:
     prefix: PAPORE
+    format: papore-form
     description: Resolution planning.
   paposu:
     prefix: PAPOSU
+    format: paposu-form
     description: "Summarize the documented pain points as a whole: totals by severity, aggregate cost and productivity loss, and the most affected process and stakeholder group. Derive these from the individual entries."
   papowo:
     prefix: PAPOWO
+    format: papowo-form
     description: Current state and workarounds.
   prinma:
     prefix: PRINMA
@@ -1993,6 +2032,7 @@ section-types:
     description: Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases.
   reposu:
     prefix: REPOSU
+    format: reposu-form
     description: Retention policy summary.
   sybucr:
     prefix: SYBUCR
@@ -2032,15 +2072,19 @@ section-types:
     description: Data migration scope and assessment.
   syinmo:
     prefix: SYINMO
+    format: syinmo-form
     description: Monitoring and failover.
   syinow:
     prefix: SYINOW
+    format: syinow-form
     description: Ownership and documentation.
   syinpr:
     prefix: SYINPR
+    format: syinpr-form
     description: Protocol and transport details.
   syinth:
     prefix: SYINTH
+    format: syinth-form
     description: Throughput and capacity.
   sykntr:
     prefix: SYKNTR
@@ -2140,30 +2184,38 @@ section-types:
     description: 1.1.3. Dependencies and Integrations.
   dgpeg:
     prefix: DGPEG
+    format: dgpeg-form
     description: "Ownership, enforcement, and compliance status."
   dgpel:
     prefix: DGPEL
+    format: dgpel-form
     description: Policy lifecycle and applicability.
   dochd:
     prefix: DOCHD
     description: Standard TomSpecs document header.
   dqiec:
     prefix: DQIEC
+    format: dqiec-form
     description: Classification and severity.
   dqiei:
     prefix: DQIEI
+    format: dqiei-form
     description: Business impact and diagnostics.
   dqier:
     prefix: DQIER
+    format: dqier-form
     description: Resolution planning.
   esbct:
     prefix: ESBCT
+    format: esbct-form
     description: Business context.
   esinf:
     prefix: ESINF
+    format: esinf-form
     description: Infrastructure details.
   esint:
     prefix: ESINT
+    format: esint-form
     description: Integration profile.
   eslan:
     prefix: ESLAN
@@ -2177,24 +2229,31 @@ section-types:
     description: "Describe the existing systems landscape: inventory every relevant system, sketch the current architecture, and map dependencies and integrations. Include a context diagram showing how the systems interact."
   eslcy:
     prefix: ESLCY
+    format: eslcy-form
     description: Lifecycle information.
   esqua:
     prefix: ESQUA
+    format: esqua-form
     description: Quality and risk assessment.
   estec:
     prefix: ESTEC
+    format: estec-form
     description: Technology stack details.
   esusg:
     prefix: ESUSG
+    format: esusg-form
     description: Usage metrics.
   exsop:
     prefix: EXSOP
+    format: exsop-form
     description: Availability and data handling details.
   exsrk:
     prefix: EXSRK
+    format: exsrk-form
     description: Risk and fallback considerations.
   exsrl:
     prefix: EXSRL
+    format: exsrl-form
     description: Internal dependency and contract details.
   extdp:
     prefix: EXTDP
@@ -2210,18 +2269,23 @@ section-types:
     description: 1.1.3.1. Internal Dependencies.
   mddeg:
     prefix: MDDEG
+    format: mddeg-form
     description: Ownership and improvement planning.
   mddeq:
     prefix: MDDEQ
+    format: mddeq-form
     description: Volume and quality indicators.
   mddeu:
     prefix: MDDEU
+    format: mddeu-form
     description: Downstream usage and cadence.
   scacc:
     prefix: SCACC
+    format: scacc-form
     description: Current-state support and total annual cost.
   sdede:
     prefix: SDEDE
+    format: sdede-form
     description: Data exchange characteristics.
   shdep:
     prefix: SHDEP
@@ -2231,12 +2295,15 @@ section-types:
     description: 1.1.3.3. Shared Infrastructure Dependencies.
   strep:
     prefix: STREP
+    format: strep-form
     description: Classification and ownership details.
   strev:
     prefix: STREV
+    format: strev-form
     description: Vendor and contract status.
   suicp:
     prefix: SUICP
+    format: suicp-form
     description: User-facing change profile.
   syinv:
     prefix: SYINV
@@ -2247,6 +2314,7 @@ section-types:
     description: "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear."
   bpps:
     prefix: BPPS
+    format: bpps-form
     description: "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints."
   dago:
     prefix: DAGO
@@ -2272,30 +2340,39 @@ section-types:
     description: 1.4.4. Data Ownership and Stewardship.
   ddeg:
     prefix: DDEG
+    format: ddeg-form
     description: Business impact and resolution guidance.
   ddes:
     prefix: DDES
+    format: ddes-form
     description: Sources and duplication shape.
   diee:
     prefix: DIEE
+    format: diee-form
     description: Endpoints and type.
   dieo:
     prefix: DIEO
+    format: dieo-form
     description: Ownership and issues.
   dier:
     prefix: DIER
+    format: dier-form
     description: Reliability and monitoring.
   diet:
     prefix: DIET
+    format: diet-form
     description: Volume and transport.
   doeg:
     prefix: DOEG
+    format: doeg-form
     description: Access and coverage governance.
   dqds:
     prefix: DQDS
+    format: dqds-form
     description: Data quality dimensions summary.
   dsrp:
     prefix: DSRP
+    format: dsrp-form
     description: Retention Policy for this data source.
   dvag:
     prefix: DVAG
@@ -2310,12 +2387,15 @@ section-types:
     description: 1.4.5. Data Volumes and Growth.
   dvsc:
     prefix: DVSC
+    format: dvsc-form
     description: Capacity pressure and cost impact.
   dvsg:
     prefix: DVSG
+    format: dvsg-form
     description: Historical growth behavior.
   dvsp:
     prefix: DVSP
+    format: dvsp-form
     description: Forward-looking forecasts and utilization.
   gaps:
     prefix: GAPS
@@ -2325,6 +2405,7 @@ section-types:
     description: 1.3.4. Gaps.
   mdsu:
     prefix: MDSU
+    format: mdsu-form
     description: MDM maturity and status summary.
   mire:
     prefix: MIRE
@@ -2355,12 +2436,15 @@ section-types:
     description: Migration risks.
   opps:
     prefix: OPPS
+    format: opps-form
     description: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds."
   pmem:
     prefix: PMEM
+    format: pmem-form
     description: "Record how this metric is measured — the method, data source, and how often it is collected."
   pmet:
     prefix: PMET
+    format: pmet-form
     description: "Record the target value for this metric, its current trend, and any industry benchmark for comparison."
   ppag:
     prefix: PPAG
@@ -2393,84 +2477,111 @@ section-types:
     description: Cross-reference between pain points and gaps.
   pprc:
     prefix: PPRC
+    format: pprc-form
     description: Root cause analysis.
   rpeg:
     prefix: RPEG
+    format: rpeg-form
     description: Compliance and accountability status.
   rpel:
     prefix: RPEL
+    format: rpel-form
     description: Archival and deletion lifecycle handling.
   rper:
     prefix: RPER
+    format: rper-form
     description: Retention timing and legal basis.
   sbcg:
     prefix: SBCG
+    format: sbcg-form
     description: Delivery and compliance constraints.
   sbco:
     prefix: SBCO
+    format: sbco-form
     description: Usage scale and commercial impact.
   scab:
     prefix: SCAB
+    format: scab-form
     description: Target-state cost and ROI indicators.
   scam:
     prefix: SCAM
+    format: scam-form
     description: One-time migration and transition investments.
   sdem:
     prefix: SDEM
+    format: sdem-form
     description: Mechanism and coupling.
   sdeo:
     prefix: SDEO
+    format: sdeo-form
     description: Operations and documentation.
   sder:
     prefix: SDER
+    format: sder-form
     description: Reliability and SLA.
   sdsg:
     prefix: SDSG
+    format: sdsg-form
     description: Data sensitivity and quality posture.
   side:
     prefix: SIDE
+    format: side-form
     description: Data exchange configuration.
   siec:
     prefix: SIEC
+    format: siec-form
     description: Capacity constraints.
   sieh:
     prefix: SIEH
+    format: sieh-form
     description: Error handling and retry.
   sieo:
     prefix: SIEO
+    format: sieo-form
     description: Ownership and maintenance.
   sier:
     prefix: SIER
+    format: sier-form
     description: Criticality and resilience.
   smpc:
     prefix: SMPC
+    format: smpc-form
     description: Cutover window and business fallback.
   smpe:
     prefix: SMPE
+    format: smpe-form
     description: Migration execution and validation details.
   srsc:
     prefix: SRSC
+    format: srsc-form
     description: Cutover and rollback profile.
   srst:
     prefix: SRST
+    format: srst-form
     description: Replacement timeline milestones.
   stal:
     prefix: STAL
+    format: stal-form
     description: Support and lifecycle details.
   stap:
     prefix: STAP
+    format: stap-form
     description: Platform and age details.
   staq:
     prefix: STAQ
+    format: staq-form
     description: Technical quality indicators.
   suia:
     prefix: SUIA
+    format: suia-form
     description: Communication and adoption support.
   suie:
     prefix: SUIE
+    format: suie-form
     description: Training and enablement plan.
   tpps:
     prefix: TPPS
+    format: tpps-form
     description: "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity."
   wode:
     prefix: WODE
@@ -2491,6 +2602,7 @@ section-types:
     description: Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation.
   woti:
     prefix: WOTI
+    format: woti-form
     description: Workflow timing and performance.
   wotr:
     prefix: WOTR
@@ -2514,6 +2626,7 @@ section-types:
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   pc:
     prefix: PC
+    format: pc-form
     description: "Describe why this process exists, what business value it delivers, and how it fits into the overall organizational workflow."
   pm:
     prefix: PM
@@ -2542,6 +2655,963 @@ section-types:
         max-count: 1
     description: Replacement inventory.
 form-types:
+  estec-form:
+    fields:
+      - fieldname: primaryPlatform
+        description: "Dominant platform, e.g. \".NET\", \"Java EE\", \"SAP NetWeaver\"."
+      - fieldname: programmingLanguages
+        description: "Languages in use, comma-separated, e.g. \"Java, JavaScript, SQL\"."
+      - fieldname: databaseTechnology
+        description: "Database engine, e.g. \"Oracle 19c\", \"PostgreSQL\", \"MS SQL\"."
+      - fieldname: operatingSystem
+        description: "Host OS, e.g. \"RHEL 8\", \"Windows Server 2019\"."
+      - fieldname: frameworksMiddleware
+        description: "Key frameworks/middleware, e.g. \"Spring Boot, WebLogic\"."
+      - fieldname: frontendTechnology
+        description: "Frontend stack, e.g. \"Angular\", \"JSP\", \"SAP GUI\" — blank if none."
+  esbct-form:
+    fields:
+      - fieldname: purpose
+        required: true
+        description: "What the system does for the business, in one or two sentences."
+      - fieldname: businessDomain
+        description: "Primary domain served, e.g. Finance, Sales, Operations, HR."
+      - fieldname: owningDepartment
+        description: Business unit accountable for the system.
+      - fieldname: businessCriticality
+        description: "How critical to operations: Mission Critical, Business Critical, Standard, or Low."
+      - fieldname: businessOwner
+        description: "Person or role owning the business outcomes, e.g. \"Head of Sales\"."
+      - fieldname: technicalOwner
+        description: Person or role owning the technical operation of the system.
+  esusg-form:
+    fields:
+      - fieldname: activeUsers
+        description: "Total registered/licensed users, e.g. 1200."
+      - fieldname: dailyActiveUsers
+        description: Typical number of users active on a normal day.
+      - fieldname: peakConcurrentUsers
+        description: Highest number of simultaneous users observed.
+      - fieldname: transactionVolumeDaily
+        description: "Average daily transactions, e.g. \"~50k orders/day\"."
+      - fieldname: dataVolumeCurrent
+        description: "Size of the data set today, e.g. \"2.5 TB\"."
+      - fieldname: dataGrowthRate
+        description: "How fast data grows, e.g. \"~50 GB/month\"."
+      - fieldname: availabilityRequirement
+        description: "Required uptime, e.g. \"99.9%\", \"24x7\", \"business hours\"."
+  eslcy-form:
+    fields:
+      - fieldname: goLiveDate
+        description: When the system first went into production (ISO 8601).
+      - fieldname: lastMajorUpgrade
+        description: Date of the most recent major upgrade (ISO 8601).
+      - fieldname: currentVersion
+        description: Version currently running in production.
+      - fieldname: supportStatus
+        description: "Vendor support state: Active, Limited, Extended, or End-of-Life."
+      - fieldname: supportExpiryDate
+        description: "Date vendor support ends (ISO 8601), if known."
+      - fieldname: plannedRetirementDate
+        description: "Target decommission date, if one is planned."
+      - fieldname: migrationUrgency
+        description: "How soon migration is needed: Immediate, Within 1 year, etc."
+  esint-form:
+    fields:
+      - fieldname: apiTypesAvailable
+        description: "APIs the system exposes: REST, SOAP, GraphQL, gRPC, or none."
+      - fieldname: integrationMethods
+        description: "How it integrates: API, File Transfer, Database Link, MQ, manual."
+      - fieldname: dataFormats
+        description: "Formats exchanged: JSON, XML, CSV, EDI, etc."
+      - fieldname: realTimeCapable
+        description: True if the system supports real-time integration.
+      - fieldname: batchProcessingWindows
+        description: "Scheduled batch windows, e.g. \"nightly 01:00–03:00\"."
+      - fieldname: externalInterfaceCount
+        description: Count of interfaces to systems outside the organization.
+      - fieldname: internalInterfaceCount
+        description: Count of interfaces to other internal systems.
+  esinf-form:
+    fields:
+      - fieldname: hostingModel
+        description: "Where it runs: On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS."
+      - fieldname: cloudProvider
+        description: "Cloud provider, e.g. \"AWS\", \"Azure\", \"GCP\" — blank if on-prem."
+      - fieldname: environmentCount
+        description: "How many environments exist (Dev, Test, Staging, Prod, ...)."
+      - fieldname: geographicDeployment
+        description: "Deployment reach: Single region, Multi-region, or Global."
+      - fieldname: disasterRecovery
+        description: "DR posture: Hot standby, Warm standby, Cold backup, or None."
+      - fieldname: backupFrequency
+        description: "How often backups run, e.g. \"hourly\", \"nightly\"."
+  esqua-form:
+    fields:
+      - fieldname: technicalDebtLevel
+        description: "Accumulated technical debt: Low, Medium, High, or Critical."
+      - fieldname: codeQuality
+        description: "Code quality judgement: Good, Acceptable, Poor, or Unknown."
+      - fieldname: documentationStatus
+        description: "State of docs: Current, Outdated, Minimal, or None."
+      - fieldname: availabilitySla
+        description: "Actual availability achieved, e.g. \"99.5%\" — not the target."
+      - fieldname: securityComplianceStatus
+        description: "Compliance standing, e.g. \"PCI-DSS compliant\", \"gaps open\"."
+      - fieldname: lastSecurityAudit
+        description: Date of the most recent security audit (ISO 8601).
+      - fieldname: lastPenetrationTest
+        description: Date of the most recent penetration test (ISO 8601).
+      - fieldname: accessibilityCompliance
+        description: "Accessibility standing, e.g. \"WCAG 2.1 AA\", \"Section 508\"."
+  sdem-form:
+    fields:
+      - fieldname: mechanism
+        description: API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL
+      - fieldname: couplingStrength
+        description: Tight / Moderate / Loose — degree of coupling between systems
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+  sdede-form:
+    fields:
+      - fieldname: dataExchanged
+        description: Key data entities or types flowing through this dependency
+      - fieldname: dataVolume
+        description: "Typical volume, e.g. ~5k records/day, 200 MB/hour"
+      - fieldname: dataFreshness
+        description: RealTime / NearRealTime / Hourly / Daily / OnDemand
+  sder-form:
+    fields:
+      - fieldname: failureImpact
+        description: What happens when this dependency fails — business consequences
+      - fieldname: cascadeRisk
+        description: None / Contained / ModerateCascade / SevereCascade — propagation to other systems
+      - fieldname: latencyRequirement
+        description: "Maximum acceptable latency, e.g. <500ms, within same business day"
+      - fieldname: availabilityRequirement
+        description: "Required uptime, e.g. 99.9%, business hours only"
+      - fieldname: sla
+        description: "Formal SLA reference or key terms, e.g. 4h response, 24h resolution"
+      - fieldname: fallbackProcedure
+        description: Manual or automated fallback when this dependency is unavailable
+  sdeo-form:
+    fields:
+      - fieldname: monitoringStatus
+        description: Monitored / PartiallyMonitored / Unmonitored
+      - fieldname: documentationStatus
+        description: Documented / PartiallyDocumented / Undocumented
+      - fieldname: dependencyOwner
+        description: Team or role responsible for maintaining this dependency
+      - fieldname: technicalDebt
+        description: None / Low / Moderate / High — accumulated technical debt
+      - fieldname: technicalDebtDetails
+        description: "Description of known issues, outdated protocols, or maintenance burden"
+      - fieldname: plannedChanges
+        description: Any known upcoming changes to this dependency
+  exsrl-form:
+    fields:
+      - fieldname: dependentSystems
+        description: List of internal systems that use this external service
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: contractStatus
+        description: Active / Renewal Due / Negotiating / Month-to-Month
+      - fieldname: contractExpiry
+        description: Date the current contract expires (ISO 8601).
+  exsop-form:
+    fields:
+      - fieldname: slaGuarantee
+        description: "Vendor-provided availability guarantee, e.g., 99.9%"
+      - fieldname: actualAvailability
+        description: Measured availability over past period
+      - fieldname: dataExchanged
+        description: Types of data sent to/received from service
+      - fieldname: dataResidency
+        description: Where vendor stores/processes data - relevant for compliance
+      - fieldname: securityCertifications
+        description: "SOC2, ISO 27001, HIPAA, etc."
+  exsrk-form:
+    fields:
+      - fieldname: vendorLockIn
+        description: None / Low / Moderate / High / Severe
+      - fieldname: switchingCost
+        description: Estimated effort to migrate to alternative
+      - fieldname: alternativeProviders
+        description: Known alternatives if migration needed
+      - fieldname: fallbackProcedure
+        description: Manual workaround or degraded operation mode
+      - fieldname: lastOutage
+        description: Date and impact of last vendor outage
+      - fieldname: communicationChannel
+        description: How incidents are reported and tracked
+  sier-form:
+    fields:
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: singlePointOfFailure
+      - fieldname: redundancyLevel
+        description: None / Active-Passive / Active-Active / Multi-Region
+      - fieldname: failoverTime
+        description: Time to recover if component fails
+      - fieldname: lastFailure
+        description: Date and summary of last significant failure
+  siec-form:
+    fields:
+      - fieldname: capacityHeadroom
+        description: "Current utilization vs capacity, e.g., 60% of max"
+      - fieldname: scalingLimitations
+        description: Constraints on horizontal or vertical scaling
+  sieo-form:
+    fields:
+      - fieldname: managedBy
+        description: Team or vendor responsible for this component
+      - fieldname: maintenanceWindow
+        description: Regular maintenance schedule
+      - fieldname: documentationStatus
+        description: Current / Outdated / Minimal / None
+  syinpr-form:
+    fields:
+      - fieldname: protocol
+        description: REST / SOAP / gRPC / SFTP / JDBC / AMQP / Kafka / Custom
+      - fieldname: direction
+        description: Inbound / Outbound / Bidirectional
+      - fieldname: frequency
+        description: Continuous / Hourly / Daily / Weekly / OnDemand
+      - fieldname: middlewareUsed
+        description: "MuleSoft, Azure Service Bus, none"
+      - fieldname: authenticationMethod
+        description: OAuth2 / APIKey / mTLS / BasicAuth / SAML / None
+  side-form:
+    fields:
+      - fieldname: dataExchanged
+        description: Key data entities or payloads exchanged
+      - fieldname: messageFormat
+        description: JSON / XML / CSV / Avro / Protobuf / EDI / Custom
+      - fieldname: schemaVersion
+        description: Current schema or API version
+      - fieldname: transformationRequired
+        description: Yes / No
+      - fieldname: dataMappingComplexity
+        description: Simple / Moderate / Complex
+  sieh-form:
+    fields:
+      - fieldname: errorHandling
+        description: Retry / DeadLetter / Alert / ManualIntervention
+      - fieldname: retryPolicy
+        description: 3 retries with exponential backoff
+  syinth-form:
+    fields:
+      - fieldname: throughputCapacity
+        description: "10k msg/sec, 500 records/batch"
+      - fieldname: currentUtilization
+        description: Typical load vs capacity
+      - fieldname: peakLoadHandling
+        description: Scales / Queues / Throttles / Degrades
+  syinmo-form:
+    fields:
+      - fieldname: monitoringAlerting
+        description: Monitoring tools and alert thresholds
+      - fieldname: failoverBehavior
+        description: AutomaticFailover / ManualFailover / NoFailover
+  syinow-form:
+    fields:
+      - fieldname: integrationAge
+        description: "When established, e.g. 2019, 7 years"
+      - fieldname: documentationQuality
+        description: Comprehensive / Adequate / Minimal / Undocumented
+      - fieldname: maintenanceOwner
+        description: Team or role responsible
+      - fieldname: securityClassification
+        description: Public / Internal / Confidential / Restricted
+      - fieldname: complianceRequirements
+        description: "PCI-DSS, GDPR data transfer"
+      - fieldname: technicalDebt
+        description: None / Low / Moderate / High
+  pmem-form:
+    fields:
+      - fieldname: measurementMethod
+      - fieldname: dataSource
+      - fieldname: frequency
+  pmet-form:
+    fields:
+      - fieldname: targetValue
+      - fieldname: trend
+      - fieldname: benchmark
+  pc-form:
+    fields:
+      - fieldname: businessPurpose
+      - fieldname: businessValue
+      - fieldname: regulatoryRequirements
+      - fieldname: slaRequirements
+      - fieldname: upstreamDependencies
+      - fieldname: downstreamConsumers
+  woti-form:
+    fields:
+      - fieldname: startToEndTime
+      - fieldname: processingTime
+      - fieldname: waitTime
+      - fieldname: slaTarget
+      - fieldname: slaMet
+      - fieldname: peakPeriods
+      - fieldname: bottlenecks
+  paposu-form:
+    fields:
+      - fieldname: totalPainPoints
+        description: Total number of documented pain points across all categories
+      - fieldname: criticalCount
+        description: Number of pain points rated as critical severity
+      - fieldname: highCount
+        description: Number of pain points rated as high severity
+      - fieldname: mediumCount
+        description: Number of pain points rated as medium severity
+      - fieldname: lowCount
+        description: Number of pain points rated as low severity
+      - fieldname: totalEstimatedAnnualCost
+        description: "Aggregate annual cost of all documented pain points, e.g. €850k/year"
+      - fieldname: totalProductivityLoss
+        description: "Aggregate productivity loss, e.g. 120 FTE hours/month"
+      - fieldname: mostAffectedProcess
+        description: Business process with the highest concentration of pain points
+      - fieldname: mostAffectedStakeholder
+        description: User role or department most impacted by pain points
+      - fieldname: averageResolutionComplexity
+        description: Low / Medium / High / Very High
+  opps-form:
+    fields:
+      - fieldname: averageDowntimePerMonth
+        description: "Total system/process downtime, e.g. 4.5 hours/month"
+      - fieldname: manualWorkaroundsCount
+        description: Count of documented manual workarounds in use
+      - fieldname: dataInconsistencyFrequency
+        description: "How often data inconsistencies occur, e.g. Daily / Weekly / Monthly"
+      - fieldname: criticalProcessesAffected
+        description: Number of critical business processes impacted
+      - fieldname: staffOverhead
+        description: "FTE hours spent on operational workarounds, e.g. 40 hours/week"
+  papocl-form:
+    fields:
+      - fieldname: description
+        description: Detailed description of the problem
+      - fieldname: category
+        description: Operational / Business / Technical
+      - fieldname: subCategory
+        description: E.g. Performance / DataQuality / Usability
+      - fieldname: urgency
+        description: Immediate / ShortTerm / MediumTerm / LongTerm
+      - fieldname: priority
+        description: P1-Critical / P2-High / P3-Medium / P4-Low
+  pprc-form:
+    fields:
+      - fieldname: rootCause
+        description: Underlying cause of the pain point
+      - fieldname: rootCauseCategory
+        description: Process / Technology / People / Data / Integration / External
+      - fieldname: contributingFactors
+        description: Additional factors that exacerbate the problem
+  papoim-form:
+    fields:
+      - fieldname: affectedProcess
+        description: Primary business process impacted
+      - fieldname: affectedSystems
+        description: Systems involved or causing the pain point
+      - fieldname: affectedStakeholders
+        description: "User roles, departments, or external parties impacted"
+      - fieldname: userCount
+        description: Approximate count of users experiencing this issue
+      - fieldname: frequency
+        description: Continuous / Daily / Weekly / Monthly / Sporadic
+      - fieldname: businessImpact
+        description: Description of impact on business outcomes
+      - fieldname: quantifiedCost
+        description: "Estimated annual cost, e.g. €75k/year"
+      - fieldname: productivityLoss
+        description: "Time lost per occurrence, e.g. 30 min/occurrence"
+  papoev-form:
+    fields:
+      - fieldname: discoveryMethod
+        description: UserFeedback / Incident / Audit / ProcessReview
+      - fieldname: dateIdentified
+        description: When the pain point was first documented
+      - fieldname: validationStatus
+        description: Identified / Confirmed / Quantified / RootCauseAnalyzed
+      - fieldname: evidenceSources
+        description: Data sources supporting this pain point
+      - fieldname: incidentReferences
+        description: References to specific incidents
+  papowo-form:
+    fields:
+      - fieldname: currentWorkaround
+        description: How users currently work around this issue
+      - fieldname: workaroundEffectiveness
+        description: None / Poor / Partial / Adequate
+      - fieldname: workaroundCost
+        description: Cost of maintaining the workaround
+      - fieldname: riskIfNotAddressed
+        description: Consequences of leaving the pain point unresolved
+  papore-form:
+    fields:
+      - fieldname: proposedResolution
+        description: High-level approach to resolve the pain point
+      - fieldname: resolutionComplexity
+        description: Low / Medium / High / VeryHigh
+      - fieldname: estimatedResolutionEffort
+        description: Time or cost to resolve
+      - fieldname: expectedBenefit
+        description: Quantified benefit after resolution
+      - fieldname: successCriteria
+        description: How to measure that the pain point is resolved
+  bpps-form:
+    fields:
+      - fieldname: estimatedRevenueLoss
+        description: "Revenue lost due to business pain points, e.g. €250k/year"
+      - fieldname: complianceRiskExposure
+        description: "Potential regulatory penalties or fines, e.g. up to €500k"
+      - fieldname: customerSatisfactionImpact
+        description: "NPS or CSAT impact, e.g. -15 NPS points"
+      - fieldname: marketShareImpact
+        description: "Estimated market share loss, e.g. 2-3% market share"
+      - fieldname: missedOpportunitiesCost
+        description: "Revenue from opportunities not pursued, e.g. €400k/year"
+      - fieldname: scalabilityConstraints
+        description: "Growth limitations, e.g. Cannot support >10k concurrent users"
+  tpps-form:
+    fields:
+      - fieldname: technicalDebtEstimate
+        description: "Estimated cost to address technical debt, e.g. €1.2M or 18 months"
+      - fieldname: securityVulnerabilityCount
+        description: Number of documented security vulnerabilities
+      - fieldname: criticalSecurityIssues
+        description: Number of critical/high severity security vulnerabilities
+      - fieldname: systemsAtEndOfLife
+        description: Number of systems using unsupported or EOL technology
+      - fieldname: undocumentedSystems
+        description: Number of systems with inadequate documentation
+      - fieldname: vendorLockInRisk
+        description: Low / Medium / High — based on proprietary dependencies
+      - fieldname: integrationComplexityScore
+        description: "Overall integration complexity, e.g. High (47 point-to-point integrations)"
+  gaende-form:
+    fields:
+      - fieldname: description
+        description: Detailed description of what is missing or inadequate
+      - fieldname: priority
+        description: MustAddress / ShouldAddress / NiceToHave
+      - fieldname: businessImpact
+        description: "How this gap affects business outcomes, revenue, or operations"
+      - fieldname: quantifiedCost
+        description: "Estimated annual cost or productivity loss, e.g. ~€120k/year in manual processing"
+      - fieldname: affectedProcess
+        description: Primary business process impacted by this gap
+      - fieldname: affectedStakeholders
+        description: "Roles, departments, or external parties impacted"
+  gaendi-form:
+    fields:
+      - fieldname: complianceDriver
+        description: "Regulation or standard making this gap critical, e.g. GDPR Art. 17, SOX Section 404"
+      - fieldname: discoveryMethod
+        description: Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange
+      - fieldname: gapAge
+        description: "How long this gap has been known, e.g. Since 2023-Q2, 18 months"
+      - fieldname: validationStatus
+        description: Identified / Confirmed / Quantified / Accepted
+      - fieldname: relatedPainPoints
+        description: References to pain point entries that stem from this gap
+  gaenwo-form:
+    fields:
+      - fieldname: interimWorkaround
+        description: Current workaround in place and its limitations
+      - fieldname: workaroundCost
+        description: "Cost or effort of maintaining the workaround, e.g. 2 FTE hours/week"
+      - fieldname: riskIfNotAddressed
+        description: Consequences and risk level if gap remains unresolved
+  gaenre-form:
+    fields:
+      - fieldname: proposedResolution
+        description: High-level approach to closing the gap
+      - fieldname: expectedTimeline
+        description: "Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months"
+      - fieldname: successCriteria
+        description: Measurable criteria that confirm the gap is closed
+      - fieldname: dependsOnGaps
+        description: "Other gaps that must be resolved first, by name or ID"
+  dalasu-form:
+    fields:
+      - fieldname: totalDataSources
+        description: Number of distinct data sources/stores
+      - fieldname: totalDataVolume
+        description: "Aggregate data volume across all sources, e.g. 15 TB"
+      - fieldname: overallDataQualityScore
+        description: "Aggregate quality score, e.g. 72% or B+"
+      - fieldname: criticalDataAssets
+        description: Number of data assets classified as business-critical
+      - fieldname: dataGovernanceMaturity
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: knownDuplicationRate
+        description: "Estimated percentage of duplicated data, e.g. 15%"
+      - fieldname: complianceStatus
+        description: Compliant / PartiallyCompliant / NonCompliant / Unknown
+      - fieldname: dataSecurityRiskLevel
+        description: Low / Medium / High / Critical
+      - fieldname: averageDataAge
+        description: "Average age of data across sources, e.g. 18 months"
+      - fieldname: dataDocumentationCoverage
+        description: Percentage of data assets with adequate documentation
+  dasocl-form:
+    fields:
+      - fieldname: description
+        description: Brief description of what data this source contains
+      - fieldname: sourceCategory
+        description: Transactional / Analytical / Master / Reference / Archive
+      - fieldname: businessDomain
+        description: "E.g. Sales, Finance, HR, Operations, Customer"
+  dasote-form:
+    fields:
+      - fieldname: storeType
+        description: Database / DataWarehouse / DataLake / FileSystem / API
+      - fieldname: technology
+        description: "E.g. PostgreSQL, Oracle, MongoDB, S3, Salesforce"
+      - fieldname: version
+        description: Software/platform version
+      - fieldname: hostingLocation
+        description: OnPremise / CloudAWS / CloudAzure / CloudGCP / SaaS
+      - fieldname: dataFormat
+        description: Relational / Document / Key-Value / CSV / JSON / XML
+  dasovo-form:
+    fields:
+      - fieldname: estimatedVolume
+        description: "E.g. 500 GB, 2 TB, 50 million records"
+      - fieldname: estimatedRecordCount
+        description: Number of records/rows/documents
+      - fieldname: growthRate
+        description: "E.g. 5% per month, 100 GB per quarter"
+      - fieldname: accessFrequency
+        description: Realtime / Hourly / Daily / Weekly / Monthly
+      - fieldname: peakLoadPeriods
+        description: When the source experiences highest load
+  dasoqu-form:
+    fields:
+      - fieldname: dataQualityScore
+        description: "Quality rating, e.g. 85%, A, High"
+      - fieldname: knownQualityIssues
+        description: Summary of quality problems
+      - fieldname: dataFreshness
+        description: "How current the data is, e.g. RealTime / Daily"
+      - fieldname: reliabilityScore
+        description: "Uptime/reliability, e.g. 99.5%"
+  dasoow-form:
+    fields:
+      - fieldname: businessOwner
+        description: Department or role responsible for data
+      - fieldname: technicalOwner
+        description: Team or role responsible for technical management
+      - fieldname: dataSteward
+        description: Person responsible for data quality
+      - fieldname: accessControlModel
+        description: RBAC / ABAC / ACL / Open
+      - fieldname: sensitivityLevel
+        description: Public / Internal / Confidential / Restricted
+  dasoi1-form:
+    fields:
+      - fieldname: integratedSystems
+        description: Systems that read from or write to this source
+      - fieldname: upstreamSources
+        description: Data sources that feed into this one
+      - fieldname: downstreamConsumers
+        description: Systems that consume data from this source
+  dasoli-form:
+    fields:
+      - fieldname: creationDate
+        description: When the data source was established
+      - fieldname: lastMajorUpdate
+        description: When the source was last significantly modified
+      - fieldname: plannedDecommission
+        description: "If scheduled for retirement, target date"
+      - fieldname: documentationStatus
+        description: Complete / Partial / Minimal / None
+      - fieldname: schemaDocumentationLink
+        description: Link to detailed schema documentation
+  dsrp-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is kept, e.g. 7 years, indefinite"
+      - fieldname: archivalPolicy
+        description: How data is archived after active use
+      - fieldname: deletionPolicy
+        description: How data is deleted/purged
+      - fieldname: legalBasis
+        description: Regulatory or legal requirement driving retention
+      - fieldname: complianceNotes
+        description: Additional compliance considerations
+  dqds-form:
+    fields:
+      - fieldname: accuracyScore
+        description: "Overall accuracy of data, e.g. 92%"
+      - fieldname: completenessScore
+        description: "Percentage of required data present, e.g. 88%"
+      - fieldname: consistencyScore
+        description: "Data consistency across sources, e.g. 79%"
+      - fieldname: timelinessScore
+        description: "How current data is, e.g. 95%"
+      - fieldname: validityScore
+        description: "Conformance to business rules, e.g. 85%"
+      - fieldname: uniquenessScore
+        description: "Absence of duplicate records, e.g. 91%"
+      - fieldname: integrityScore
+        description: "Integrity of relationships, e.g. 88%"
+      - fieldname: assessmentDate
+        description: When this assessment was performed
+      - fieldname: assessmentScope
+        description: What was included in the assessment
+      - fieldname: assessmentMethodology
+        description: How the assessment was conducted
+  dqiec-form:
+    fields:
+      - fieldname: affectedEntities
+        description: Which data entities/tables are impacted
+      - fieldname: qualityDimension
+        description: Accuracy / Completeness / Consistency / Timeliness / Validity
+      - fieldname: severity
+        description: Critical / High / Medium / Low
+  dqiei-form:
+    fields:
+      - fieldname: impactDescription
+        description: How this quality issue affects business operations
+      - fieldname: quantifiedImpact
+        description: "Measurable impact, e.g. EUR50k/year, 10% error rate"
+      - fieldname: rootCause
+        description: Underlying cause of the quality issue
+      - fieldname: affectedRecordCount
+        description: Number or percentage of records affected
+      - fieldname: dateIdentified
+        description: When the issue was discovered
+  dqier-form:
+    fields:
+      - fieldname: currentWorkaround
+        description: How users currently cope with this issue
+      - fieldname: proposedResolution
+        description: Recommended approach to fix the issue
+      - fieldname: resolutionPriority
+        description: P1 / P2 / P3 / P4
+  dadusu-form:
+    fields:
+      - fieldname: overallDuplicationRate
+        description: "Estimated percentage of duplicated data, e.g. 23%"
+      - fieldname: duplicateDataVolume
+        description: "Volume of duplicated data, e.g. 2.3 TB"
+      - fieldname: numberOfDuplicationInstances
+        description: Count of documented duplication cases
+      - fieldname: storageWasteEstimate
+        description: "Cost of storing duplicate data, e.g. €15k/year"
+      - fieldname: synchronizationChallenges
+        description: Number of sync issues caused by duplication
+      - fieldname: dataInconsistencyRisk
+        description: Low / Medium / High / Critical
+      - fieldname: consolidationOpportunities
+        description: Number of identified consolidation opportunities
+      - fieldname: deduplicationPriority
+        description: Organizational priority for deduplication efforts
+  ddes-form:
+    fields:
+      - fieldname: primarySource
+        description: Authoritative source for this data
+      - fieldname: duplicateSources
+        description: Other locations where this data exists
+      - fieldname: duplicationType
+        description: FullCopy / PartialCopy / Denormalized / CachedCopy
+  daduensy-form:
+    fields:
+      - fieldname: synchronizationMethod
+        description: "How duplicates are kept in sync, if at all"
+      - fieldname: syncFrequency
+        description: RealTime / Hourly / Daily / Manual / None
+      - fieldname: knownInconsistencies
+        description: Documented cases of data drift between copies
+  ddeg-form:
+    fields:
+      - fieldname: businessReason
+        description: Why this duplication exists
+      - fieldname: consolidationFeasibility
+        description: Easy / Moderate / Difficult / NotFeasible
+      - fieldname: impactOfDuplication
+        description: Negative effects of this duplication
+      - fieldname: recommendedAction
+        description: Proposed resolution
+  daowsu-form:
+    fields:
+      - fieldname: ownershipModel
+        description: Centralized / Federated / Hybrid
+      - fieldname: totalDataDomains
+        description: Number of defined data domains
+      - fieldname: assignedOwnershipPercentage
+        description: "Percentage of data with clear ownership, e.g. 78%"
+      - fieldname: activeStewards
+        description: Number of active data stewards
+      - fieldname: ownershipGaps
+        description: Number of data assets without clear ownership
+      - fieldname: stewardshipMaturity
+        description: Initial / Developing / Established / Optimizing
+      - fieldname: governanceCouncilExists
+        description: Yes / No — whether a data governance council exists
+      - fieldname: escalationProcess
+        description: Whether clear escalation paths exist
+  daowenst-form:
+    fields:
+      - fieldname: dataSteward
+        description: Person responsible for day-to-day data management
+      - fieldname: stewardRole
+        description: Job title/role of the data steward
+      - fieldname: technicalCustodian
+        description: IT person/team responsible for technical data management
+      - fieldname: qualityAccountable
+        description: Who is accountable for data quality
+  doeg-form:
+    fields:
+      - fieldname: accessApprover
+        description: Who approves access to this data
+      - fieldname: coverageStatus
+        description: Full / Partial / Minimal ownership coverage
+      - fieldname: lastReviewDate
+        description: When ownership was last reviewed
+  dvsg-form:
+    fields:
+      - fieldname: annualGrowthRate
+        description: "Year-over-year growth percentage, e.g. 25%"
+      - fieldname: monthlyGrowthRate
+        description: "Month-over-month growth, e.g. 2%"
+      - fieldname: peakGrowthPeriods
+        description: "When data grows fastest, e.g. Q4, month-end"
+  dvsp-form:
+    fields:
+      - fieldname: projectedVolumeOneYear
+        description: Expected volume in 12 months
+      - fieldname: projectedVolumeThreeYears
+        description: Expected volume in 36 months
+      - fieldname: capacityUtilization
+        description: "Percentage of storage capacity used, e.g. 72%"
+  dvsc-form:
+    fields:
+      - fieldname: capacityConstraints
+        description: Any current or anticipated capacity issues
+      - fieldname: storageCost
+        description: "Annual cost of data storage, e.g. €250k/year"
+      - fieldname: costGrowthProjection
+        description: Expected storage cost growth
+  reposu-form:
+    fields:
+      - fieldname: policyFrameworkExists
+        description: Yes / Partial / No
+      - fieldname: primaryRegulations
+        description: "Key regulations driving retention, e.g. GDPR, SOX, HIPAA"
+      - fieldname: defaultRetentionPeriod
+        description: "Default retention if not specified, e.g. 7 years"
+      - fieldname: policyComplianceRate
+        description: Percentage of data following retention policies
+      - fieldname: archivalSystemExists
+        description: Yes / No — whether systematic archival exists
+      - fieldname: automatedPurging
+        description: Yes / Partial / Manual — purging automation level
+      - fieldname: legalHoldProcess
+        description: Whether legal hold process is defined
+      - fieldname: retentionGaps
+        description: Number of data areas without retention policies
+      - fieldname: lastPolicyReview
+        description: When retention policies were last reviewed
+  rper-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is retained, e.g. 7 years"
+      - fieldname: retentionTrigger
+        description: "What starts the retention clock, e.g. creation date, last access"
+      - fieldname: legalBasis
+        description: Regulation or law requiring this retention
+  rpel-form:
+    fields:
+      - fieldname: archivalMethod
+        description: "How data is archived, e.g. cold storage, tape, cloud archive"
+      - fieldname: deletionMethod
+        description: "How data is deleted, e.g. logical delete, physical purge, secure wipe"
+      - fieldname: exceptionProcess
+        description: How exceptions to the policy are handled
+  rpeg-form:
+    fields:
+      - fieldname: complianceStatus
+        description: Compliant / PartiallyCompliant / NonCompliant
+      - fieldname: implementationStatus
+        description: Implemented / InProgress / Planned / NotImplemented
+      - fieldname: responsibleParty
+        description: Who is responsible for enforcing this policy
+  dagoma-form:
+    fields:
+      - fieldname: overallMaturityLevel
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: strategyMaturity
+        description: Maturity of data governance strategy
+      - fieldname: organizationMaturity
+        description: Maturity of governance organizational structure
+      - fieldname: policyMaturity
+        description: Maturity of governance policies
+      - fieldname: processMaturity
+        description: Maturity of governance processes
+      - fieldname: technologyMaturity
+        description: Maturity of supporting technology/tools
+      - fieldname: cultureMaturity
+        description: Data-aware culture maturity
+      - fieldname: assessmentDate
+        description: When maturity was last assessed
+      - fieldname: targetMaturityLevel
+        description: Desired maturity level
+      - fieldname: maturityGaps
+        description: Areas needing most improvement
+  dgpel-form:
+    fields:
+      - fieldname: scope
+        description: What the policy applies to
+      - fieldname: status
+        description: Draft / Approved / InForce / UnderReview / Retired
+      - fieldname: effectiveDate
+        description: When the policy became effective
+      - fieldname: reviewFrequency
+        description: How often the policy is reviewed
+  dgpeg-form:
+    fields:
+      - fieldname: policyOwner
+        description: Who owns the policy
+      - fieldname: enforcementMechanism
+        description: How the policy is enforced
+      - fieldname: complianceLevel
+        description: Current compliance with this policy
+  daclsu-form:
+    fields:
+      - fieldname: classificationFrameworkExists
+        description: Yes / Partial / No
+      - fieldname: frameworkName
+        description: Name of classification framework if standardized
+      - fieldname: numberOfLevels
+        description: How many classification levels are defined
+      - fieldname: classificationCoverage
+        description: Percentage of data that is classified
+      - fieldname: autoClassificationExists
+        description: Yes / Partial / No — automated classification tools
+      - fieldname: labelingImplemented
+        description: Whether data is actively labeled
+      - fieldname: handlingProceduresDocumented
+        description: Whether handling procedures per level are documented
+      - fieldname: trainingProvided
+        description: Whether classification training is provided
+      - fieldname: lastFrameworkReview
+        description: When the framework was last reviewed
+  dainsu-form:
+    fields:
+      - fieldname: totalIntegrationPoints
+        description: Number of distinct data integration points
+      - fieldname: integrationArchitecture
+        description: PointToPoint / Hub / ESB / EventDriven / Hybrid
+      - fieldname: primaryIntegrationTool
+        description: Main ETL/integration platform
+      - fieldname: realtimeIntegrations
+        description: Number of real-time integrations
+      - fieldname: batchIntegrations
+        description: Number of batch/scheduled integrations
+      - fieldname: apiIntegrations
+        description: Number of API-based integrations
+      - fieldname: integrationReliability
+        description: "Success rate of integrations, e.g. 98.5%"
+      - fieldname: averageLatency
+        description: Typical integration latency
+      - fieldname: knownBottlenecks
+        description: Number of integration bottlenecks
+      - fieldname: integrationDebt
+        description: Technical debt in integration layer
+  diee-form:
+    fields:
+      - fieldname: sourceSystem
+        description: System providing the data
+      - fieldname: targetSystem
+        description: System receiving the data
+      - fieldname: integrationType
+        description: ETL / ELT / API / FileTransfer / EventStream / CDC
+  diet-form:
+    fields:
+      - fieldname: dataVolume
+        description: Typical volume per execution
+      - fieldname: frequency
+        description: RealTime / NearRealTime / Hourly / Daily / Weekly / OnDemand
+      - fieldname: technology
+        description: Integration technology used
+      - fieldname: protocol
+        description: "Communication protocol, e.g. REST, SOAP, SFTP, Kafka"
+      - fieldname: dataTransformation
+        description: Type/complexity of transformation
+  dier-form:
+    fields:
+      - fieldname: errorHandling
+        description: How errors are handled
+      - fieldname: monitoringStatus
+        description: None / Basic / Comprehensive
+      - fieldname: reliability
+        description: "Success rate, e.g. 99.2%"
+      - fieldname: latency
+        description: "Typical latency, e.g. 5 seconds, 2 hours"
+      - fieldname: sla
+        description: Service level agreement if defined
+  dieo-form:
+    fields:
+      - fieldname: businessOwner
+        description: Who owns this integration
+      - fieldname: technicalOwner
+        description: Who maintains this integration
+      - fieldname: criticality
+        description: Critical / High / Medium / Low
+      - fieldname: knownIssues
+        description: Current problems with this integration
+  mdsu-form:
+    fields:
+      - fieldname: mdmMaturityLevel
+        description: Level 1-5 or Initial/Managed/Defined/Measured/Optimized
+      - fieldname: mdmStrategy
+        description: Centralized / RegionalHubs / Federated / NoStrategy
+      - fieldname: mdmPlatform
+        description: Technology used for MDM if any
+      - fieldname: totalMasterDataDomains
+        description: Number of defined master data domains
+      - fieldname: goldenRecordCoverage
+        description: Percentage of master data with golden records
+      - fieldname: dataQualityInMaster
+        description: Quality level of master data
+      - fieldname: synchronizationApproach
+        description: How master data is synchronized across systems
+      - fieldname: dataMatchingCapability
+        description: Level of deduplication/matching capability
+      - fieldname: hierarchyManagement
+        description: How organizational/product hierarchies are managed
+      - fieldname: mdmGaps
+        description: Primary gaps in master data management
+  mddeq-form:
+    fields:
+      - fieldname: recordCount
+        description: Number of master records
+      - fieldname: qualityScore
+        description: Quality of master data in this domain
+      - fieldname: duplicateRate
+        description: "Estimated duplication, e.g. 3%"
+  mddeu-form:
+    fields:
+      - fieldname: consumingSystems
+        description: Systems that use this master data
+      - fieldname: updateFrequency
+        description: How often master data is updated
+      - fieldname: governanceLevel
+        description: Level of governance for this domain
+  mddeg-form:
+    fields:
+      - fieldname: domainOwner
+        description: Who owns this master data domain
+      - fieldname: dataSteward
+        description: Steward responsible for data quality
+      - fieldname: knownIssues
+        description: Current issues with this master data
+      - fieldname: improvementPlan
+        description: Plans to improve this domain
   sytore-iden-form:
     fields:
       - fieldname: systemId
@@ -2554,6 +3624,182 @@ form-types:
         description: "Vendor/product name and edition, if a commercial system"
       - fieldname: systemDescription
         description: Brief description of what the system does and who uses it
+  strep-form:
+    fields:
+      - fieldname: systemCategory
+        description: Functional category of the system
+      - fieldname: applicationTier
+        description: Criticality tier of the application
+      - fieldname: businessOwner
+        description: Person or role accountable for the business function
+      - fieldname: technicalOwner
+        description: Person or role accountable for the technical platform
+  strev-form:
+    fields:
+      - fieldname: vendorName
+        description: Name of the supplying vendor or provider
+      - fieldname: contractStatus
+        description: Current state of the vendor contract
+      - fieldname: contractEndDate
+        description: Date the current contract expires
+  stap-form:
+    fields:
+      - fieldname: operatingSystem
+        description: OS the system runs on
+      - fieldname: middlewareComponents
+        description: "Application servers, message brokers, or other middleware"
+      - fieldname: deploymentDate
+        description: When the system was first put into production
+      - fieldname: systemAge
+        description: Age of the system in years
+      - fieldname: lastMajorUpgrade
+        description: Date or version of the most recent major upgrade
+  stal-form:
+    fields:
+      - fieldname: vendorSupportStatus
+        description: Current vendor support level for the system
+      - fieldname: endOfSupportDate
+        description: Date after which the vendor no longer supports the system
+  staq-form:
+    fields:
+      - fieldname: technicalDebtRating
+        description: Overall accumulated technical debt of the system
+      - fieldname: securityPosture
+        description: Overall security health of the system
+      - fieldname: performanceStatus
+        description: Current runtime performance state
+      - fieldname: scalabilityLimitations
+        description: Known limits on scaling the system
+      - fieldname: maintainability
+        description: How easily the system can be changed or maintained
+      - fieldname: documentationQuality
+        description: Quality and completeness of system documentation
+  sbco-form:
+    fields:
+      - fieldname: peakConcurrentUsers
+        description: Maximum simultaneous users observed
+      - fieldname: transactionVolume
+        description: Typical transaction throughput
+      - fieldname: dataVolume
+        description: Approximate volume of data handled
+      - fieldname: revenueImpact
+        description: How the system affects revenue
+  sbcg-form:
+    fields:
+      - fieldname: operationsImpact
+        description: Severity of disruption if the system is unavailable
+      - fieldname: complianceRole
+        description: Regulatory or compliance function the system serves
+      - fieldname: maxDowntime
+        description: Maximum tolerable outage / recovery time objective
+  srst-form:
+    fields:
+      - fieldname: plannedStartDate
+        description: When replacement work is scheduled to begin
+      - fieldname: targetCutoverDate
+        description: Planned date to switch over to the new system
+      - fieldname: decommissionDate
+        description: When the old system will be retired
+      - fieldname: parallelRunPeriod
+        description: How long old and new systems run side by side
+  srsc-form:
+    fields:
+      - fieldname: cutoverStrategy
+        description: How the switchover to the new system is performed
+      - fieldname: rollbackCapability
+        description: Extent to which the cutover can be reversed
+      - fieldname: rollbackWindow
+        description: Time window during which rollback remains possible
+  sdsg-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: Confidentiality classification of the data
+      - fieldname: retentionRequirements
+        description: Legal or policy retention obligations
+      - fieldname: dataQuality
+        description: Overall quality of the data
+      - fieldname: cleansingRequired
+        description: Whether and what data cleansing is needed
+  sydascmi-form:
+    fields:
+      - fieldname: deduplicationNeeded
+        description: Whether duplicate records must be removed
+      - fieldname: transformationComplexity
+        description: How complex the data transformation will be
+      - fieldname: migrationScope
+        description: Which subset of data will be migrated
+      - fieldname: archiveStrategy
+        description: How non-migrated data will be archived
+  suicp-form:
+    fields:
+      - fieldname: workflowChange
+        description: How much user workflows change
+      - fieldname: uiChange
+        description: How much the user interface changes
+      - fieldname: functionalityChange
+        description: How much functionality changes for users
+  suie-form:
+    fields:
+      - fieldname: trainingRequired
+        description: What training users will need
+      - fieldname: estimatedTrainingHours
+        description: Estimated training time per user
+      - fieldname: trainingApproach
+        description: How training will be delivered
+      - fieldname: trainingMaterials
+        description: Training materials that must be produced
+  suia-form:
+    fields:
+      - fieldname: communicationPlan
+        description: How change will be communicated to users
+      - fieldname: changeChampions
+        description: People who will advocate for adoption
+  scacc-form:
+    fields:
+      - fieldname: annualSupportCost
+        description: Yearly support cost of the current system
+      - fieldname: totalCurrentAnnualCost
+        description: Total yearly cost of operating the current system
+  scam-form:
+    fields:
+      - fieldname: migrationProjectCost
+        description: Cost of the migration project itself
+      - fieldname: dataConversionCost
+        description: Cost to convert and migrate data
+      - fieldname: integrationCost
+        description: Cost to rebuild integrations
+      - fieldname: trainingCost
+        description: Cost of user training
+      - fieldname: parallelRunCost
+        description: Cost of running old and new systems together
+  scab-form:
+    fields:
+      - fieldname: newSystemAnnualCost
+        description: Expected yearly cost of the replacement system
+      - fieldname: annualSavings
+        description: Expected yearly savings versus the current system
+      - fieldname: paybackPeriod
+        description: Time to recoup the migration investment
+      - fieldname: fiveYearTco
+        description: Total cost of ownership over five years
+  smpe-form:
+    fields:
+      - fieldname: duration
+        description: Expected duration of the migration execution
+      - fieldname: testingApproach
+        description: How the migration will be tested
+      - fieldname: dataValidationMethod
+        description: How migrated data will be validated
+      - fieldname: uatScope
+        description: Scope of user acceptance testing
+  smpc-form:
+    fields:
+      - fieldname: cutoverWindow
+        description: Scheduled window for performing the cutover
+      - fieldname: cutoverDuration
+        description: How long the cutover is expected to take
+      - fieldname: businessContingency
+        description: Business fallback if the cutover fails
   migcon-stra-form:
     fields:
       - fieldname: overallStrategy
@@ -2576,6 +3822,189 @@ form-types:
         description: Mandate and remit of the risk committee
       - fieldname: riskReviewFrequency
         description: "Weekly, bi-weekly, monthly cycles"
+  mirigo-form:
+    fields:
+      - fieldname: riskEscalationPath
+        description: PM → Steering Committee → Executive Sponsor
+      - fieldname: riskToleranceLevel
+        description: Enterprise risk appetite for migration
+      - fieldname: riskDecisionAuthority
+        description: Who approves risk acceptance/transfer
+  mirias-form:
+    fields:
+      - fieldname: riskAssessmentFramework
+        description: "PMBOK, ISO 31000, COSO, custom"
+      - fieldname: probabilityScale
+        description: "1-5, percentage bands, qualitative"
+      - fieldname: impactScale
+        description: "1-5, monetary, qualitative"
+      - fieldname: riskScoringMethod
+        description: "P×I matrix, expected value, Monte Carlo"
+      - fieldname: riskCategoryTaxonomy
+        description: "Technical, schedule, resource, business"
+  mirith-form:
+    fields:
+      - fieldname: criticalRiskThreshold
+        description: Score ≥ X requires executive attention
+      - fieldname: highRiskThreshold
+        description: Score range classified as high risk
+      - fieldname: mediumRiskThreshold
+        description: Score range classified as medium risk
+      - fieldname: emergentRiskTriggers
+        description: Indicators requiring immediate risk review
+  mirire-form:
+    fields:
+      - fieldname: riskReportingCadence
+        description: How often risk reports are produced
+      - fieldname: riskDashboardTools
+        description: Tools for risk visualization
+      - fieldname: riskRegisterRepository
+        description: Where risk register is maintained
+  miriid-form:
+    fields:
+      - fieldname: riskDescription
+        required: true
+        description: Detailed description of the risk event
+      - fieldname: riskCategory
+        description: "Technical, schedule, resource, business, regulatory"
+      - fieldname: riskSubcategory
+        description: More specific categorization
+      - fieldname: identifiedDate
+        description: Date the risk was first recorded
+      - fieldname: identifiedBy
+        description: Person/role who identified the risk
+      - fieldname: identificationMethod
+        description: "Workshop, review, incident, expert judgment"
+      - fieldname: affectedSystems
+        description: List of systems impacted
+      - fieldname: affectedPhases
+        description: Migration phases where risk applies
+      - fieldname: affectedStreams
+        description: "Data, application, infrastructure, etc."
+  miripr-form:
+    fields:
+      - fieldname: probabilityRating
+        description: "Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)"
+      - fieldname: probabilityScore
+        description: Numeric score for calculations
+      - fieldname: probabilityRationale
+        description: Why this probability was assigned
+      - fieldname: probabilityTrend
+        description: "Increasing, stable, decreasing"
+  miriim-form:
+    fields:
+      - fieldname: overallImpactRating
+        description: "Critical, High, Medium, Low, Minimal"
+      - fieldname: overallImpactScore
+        description: Numeric overall impact for calculations
+      - fieldname: scheduleImpact
+        description: Days/weeks delay if risk materializes
+      - fieldname: scheduleImpactScore
+        description: Numeric schedule impact (1-5)
+      - fieldname: costImpact
+        description: Budget impact if risk materializes
+      - fieldname: costImpactScore
+        description: Numeric cost impact (1-5)
+      - fieldname: businessImpact
+        description: Business disruption level
+      - fieldname: businessImpactScore
+        description: Numeric business impact (1-5)
+      - fieldname: reputationImpact
+        description: Customer/market perception impact
+      - fieldname: dataIntegrityImpact
+        description: Risk to data quality/completeness
+      - fieldname: complianceImpact
+        description: Regulatory/audit implications
+      - fieldname: impactRationale
+        description: Justification for impact assessment
+  miriqu-form:
+    fields:
+      - fieldname: riskScore
+        description: Probability × Impact (1-25)
+      - fieldname: riskPriority
+        description: "Critical, High, Medium, Low"
+      - fieldname: expectedMonetaryValue
+        description: P × Cost Impact
+      - fieldname: worstCaseScenario
+        description: Maximum potential impact
+      - fieldname: bestCaseScenario
+        description: Minimum impact if mitigated
+      - fieldname: mostLikelyScenario
+        description: Expected impact under typical conditions
+  mirimi-form:
+    fields:
+      - fieldname: responseStrategy
+        description: "Avoid, mitigate, transfer, accept"
+      - fieldname: mitigationDescription
+        description: Primary mitigation approach
+      - fieldname: mitigationActions
+        description: Specific actions to reduce risk
+      - fieldname: mitigationOwner
+        description: Responsible for mitigation execution
+      - fieldname: mitigationDueDate
+        description: Target completion date for mitigation
+      - fieldname: mitigationCost
+        description: Cost to implement mitigation
+      - fieldname: mitigationStatus
+        description: "Not started, in progress, completed"
+      - fieldname: residualProbability
+        description: Probability after mitigation
+      - fieldname: residualImpact
+        description: Impact after mitigation
+      - fieldname: residualRiskScore
+        description: Risk score after mitigation
+  mirico-form:
+    fields:
+      - fieldname: contingencyPlan
+        description: Actions if risk materializes
+      - fieldname: contingencyTrigger
+        description: What triggers contingency execution
+      - fieldname: contingencyOwner
+        description: Responsible for executing the contingency
+      - fieldname: contingencyBudget
+        description: Reserved budget for contingency
+      - fieldname: rollbackProcedure
+        description: Steps to revert if risk realized
+      - fieldname: recoveryTimeObjective
+        description: Time to recover from risk event
+  miritr-form:
+    fields:
+      - fieldname: riskDelegate
+        description: Day-to-day risk monitoring
+      - fieldname: escalationContact
+        description: Escalation point if risk increases
+      - fieldname: status
+        description: "Open, mitigating, closed, realized, transferred"
+      - fieldname: statusDate
+        description: Last status update
+      - fieldname: statusNotes
+        description: Current status commentary
+      - fieldname: nextReviewDate
+        description: When the risk is next scheduled for review
+      - fieldname: closureDate
+        description: When risk was closed
+      - fieldname: closureReason
+        description: "Why risk was closed: mitigated, accepted, transferred, expired"
+  mirir1-form:
+    fields:
+      - fieldname: relatedRisks
+        description: Risk IDs that are correlated
+      - fieldname: relatedIssues
+        description: Issue IDs linked to this risk
+      - fieldname: relatedRequirements
+        description: Requirements impacted by risk
+      - fieldname: relatedDecisions
+        description: Decisions affecting this risk
+      - fieldname: dependencyChain
+        description: Other risks this depends on
+  mirihi-form:
+    fields:
+      - fieldname: previousScores
+        description: History of risk scores
+      - fieldname: previousStatuses
+        description: Status change history
+      - fieldname: lessonsLearned
+        description: Insights from risk handling
 document:
   sections:
     dochd:

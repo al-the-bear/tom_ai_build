@@ -13,14 +13,13 @@ void main() {
     test('registerSpecOps registers ops for the whole model + section leaves',
         () {
       DocSpecsProject(); // idempotent registration
-      // 3080 reflected model classes (after L34C-8's ISO/IEC 25010:2023 quality
-      // regroup: the three handbook buckets `UserQualityCriteria`,
-      // `TechnicalQualityCriteria` and `OperationsQualityCriteria` were dissolved
-      // and replaced by the eight `*Characteristic` classes — a net +5 over the
-      // 3075 post-L34C-7 count), minus the two hand-written `SpecNode` leaves
-      // (DocumentHeader, SectionMeta) that adopt the contract via the mixin
-      // fast-path, plus the 10 tom_specs_core section content leaves.
-      expect(SpecRegistry.length, greaterThanOrEqualTo(3080 - 2 + 10));
+      // 1267 reflected model classes after TSMA1's single-field-leaf collapse
+      // (1813 leaf sub-section classes were folded into field-level
+      // content/form fields, 3080 → 1267), minus the two hand-written
+      // `SpecNode` leaves (DocumentHeader, SectionMeta) that adopt the contract
+      // via the mixin fast-path, plus the 10 tom_specs_core section content
+      // leaves — SpecRegistry.length == 1275.
+      expect(SpecRegistry.length, greaterThanOrEqualTo(1267 - 2 + 10));
       // A representative deep model class resolves to real ops.
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });

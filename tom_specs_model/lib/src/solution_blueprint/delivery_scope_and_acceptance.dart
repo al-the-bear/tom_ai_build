@@ -7,8 +7,6 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-
-
 /// 14. Delivery Scope and Acceptance.
 @StandardReferences(
   [
@@ -74,7 +72,8 @@ commitments.
 
   /// 14.1.2. Documentation Deliverables.
   @SerializationOrder(2)
-  DocumentationDeliverables documentationDeliverables = DocumentationDeliverables();
+  DocumentationDeliverables documentationDeliverables =
+      DocumentationDeliverables();
 
   /// 14.1.3. Training Deliverables.
   @SerializationOrder(3)
@@ -237,35 +236,210 @@ response times, coverage period, and handover criteria.
 @SectionId('DLVEN')
 class DeliverableEntry {
   @Form([
-    Field('deliverableId', String, 'Deliverable ID',
-        hint: 'Unique identifier — e.g. DEL-SOF-001', required: true),
-    Field('deliverableName', String, 'Deliverable Name',
-        hint: 'Concise name — e.g. "Customer Management API"', required: true),
-    Field('priority', String, 'Priority',
-        hint: 'Critical / High / Medium / Low'),
+    Field(
+      'deliverableId',
+      String,
+      'Deliverable ID',
+      hint: 'Unique identifier — e.g. DEL-SOF-001',
+      required: true,
+    ),
+    Field(
+      'deliverableName',
+      String,
+      'Deliverable Name',
+      hint: 'Concise name — e.g. "Customer Management API"',
+      required: true,
+    ),
+    Field(
+      'priority',
+      String,
+      'Priority',
+      hint: 'Critical / High / Medium / Low',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Identification details.
+  @SectionId('DLVID')
+  @StandardReferences([
+    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+  ], 'Captures the identifying description and category of a deliverable.')
+  @Form([
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What this deliverable contains and its purpose',
+    ),
+    Field(
+      'category',
+      String,
+      'Category',
+      hint: 'Application / Library / Tool / Configuration / Document',
+    ),
+  ])
   @SerializationOrder(1)
-  DeliverableIdentity identity = DeliverableIdentity();
+  String? identity;
 
   /// Delivery logistics.
+  @SectionId('DLVLOG')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+    ],
+    'Captures the delivery format, mechanism, target environment, and scheduling logistics of a deliverable.',
+  )
+  @Form([
+    Field(
+      'deliveryFormat',
+      String,
+      'Delivery Format',
+      hint: 'Docker Image / NPM Package / Dart Package / APK / IPA',
+    ),
+    Field(
+      'deliveryMechanism',
+      String,
+      'Delivery Mechanism',
+      hint: 'Container Registry / Artifact Repository / App Store',
+    ),
+    Field(
+      'deliveryEnvironment',
+      String,
+      'Target Environment',
+      hint: 'Production / Staging / All Environments',
+    ),
+    Field(
+      'plannedDeliveryDate',
+      String,
+      'Planned Delivery Date',
+      hint: 'Target date — e.g. 2026-Q3',
+    ),
+    Field(
+      'deliveryStage',
+      String,
+      'Delivery Stage',
+      hint: 'Stage in which this deliverable is delivered',
+    ),
+    Field(
+      'deliveryFrequency',
+      String,
+      'Delivery Frequency',
+      hint: 'OneTime / PerRelease / Continuous / OnDemand',
+    ),
+  ])
   @SerializationOrder(2)
-  DeliverableLogistics logistics = DeliverableLogistics();
+  String? logistics;
 
   /// Version and compatibility.
+  @SectionId('DLVVR')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+      'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+    ],
+    'Captures the version requirements, compatibility constraints, and backward-compatibility posture of a deliverable.',
+  )
+  @Form([
+    Field(
+      'versionRequirement',
+      String,
+      'Version Requirement',
+      hint: 'Minimum version or version range',
+    ),
+    Field(
+      'compatibilityConstraints',
+      String,
+      'Compatibility Constraints',
+      hint: 'Platform, OS, browser, or dependency version requirements',
+    ),
+    Field(
+      'backwardCompatibility',
+      String,
+      'Backward Compatibility',
+      hint: 'Yes / No / Partial',
+    ),
+  ])
   @SerializationOrder(3)
-  DeliverableVersion version = DeliverableVersion();
+  String? version;
 
   /// Quality and acceptance.
+  @SectionId('DLVQL')
+  @StandardReferences(
+    [
+      'ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model',
+      'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
+    ],
+    'Captures the quality standards, acceptance criteria, and verification methods applied to a deliverable.',
+  )
+  @Form([
+    Field(
+      'qualityStandard',
+      String,
+      'Quality Standard',
+      hint: 'Quality standards applied — e.g. ISO 25010, WCAG 2.1 AA',
+    ),
+    Field(
+      'acceptanceCriteria',
+      String,
+      'Acceptance Criteria',
+      hint: 'Specific criteria for accepting this deliverable',
+    ),
+    Field(
+      'verificationMethod',
+      String,
+      'Verification Method',
+      hint: 'Testing / Inspection / Review / Demonstration',
+    ),
+    Field(
+      'testCoverage',
+      String,
+      'Required Test Coverage',
+      hint: 'Minimum test coverage — e.g. 80% unit',
+    ),
+  ])
   @SerializationOrder(4)
-  DeliverableQuality quality = DeliverableQuality();
+  String? quality;
 
   /// Ownership and responsibility.
+  @SectionId('DLVOW')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
+      'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+    ],
+    'Captures the ownership and responsibility roles for creating, reviewing, receiving, and maintaining a deliverable.',
+  )
+  @Form([
+    Field(
+      'responsibleParty',
+      String,
+      'Responsible Party',
+      hint: 'Team or role responsible for creating',
+    ),
+    Field(
+      'reviewer',
+      String,
+      'Reviewer',
+      hint: 'Who reviews and approves before delivery',
+    ),
+    Field(
+      'recipient',
+      String,
+      'Recipient',
+      hint: 'Who receives the deliverable',
+    ),
+    Field(
+      'maintenanceOwner',
+      String,
+      'Maintenance Owner',
+      hint: 'Who maintains the deliverable post-delivery',
+    ),
+  ])
   @SerializationOrder(5)
-  DeliverableOwnership ownership = DeliverableOwnership();
+  String? ownership;
 
   /// Dependencies.
   @StandardReferences(
@@ -282,130 +456,68 @@ class DeliverableEntry {
   List<DeliverableDependencies> dependencies = [];
 
   /// Licensing and legal.
+  @SectionId('DLVLG')
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+    ],
+    'Captures the licensing terms, intellectual-property ownership, and third-party components of a deliverable.',
+  )
+  @Form([
+    Field(
+      'licenseType',
+      String,
+      'License Type',
+      hint: 'Commercial / OpenSource / Proprietary / Mixed',
+    ),
+    Field(
+      'intellectualProperty',
+      String,
+      'IP Ownership',
+      hint: 'Who owns the IP — client, vendor, shared',
+    ),
+    Field(
+      'thirdPartyComponents',
+      String,
+      'Third-Party Components',
+      hint: 'Third-party libraries included and their licenses',
+    ),
+  ])
   @SerializationOrder(7)
-  DeliverableLegal legal = DeliverableLegal();
+  String? legal;
 
   /// Documentation.
+  @SectionId('DLVDC')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products',
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
+    ],
+    'Captures the documentation associated with a deliverable and its release-note requirements.',
+  )
+  @Form([
+    Field(
+      'associatedDocumentation',
+      String,
+      'Associated Documentation',
+      hint: 'Related documentation deliverable IDs',
+    ),
+    Field(
+      'releaseNotes',
+      String,
+      'Release Notes Required',
+      hint: 'Yes / No — whether release notes accompany delivery',
+    ),
+    Field(
+      'notes',
+      String,
+      'Notes',
+      hint: 'Additional context or special instructions',
+    ),
+  ])
   @SerializationOrder(8)
-  DeliverableDocumentation documentation = DeliverableDocumentation();
-}
-
-/// Identity for deliverable.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
-  ],
-  'Captures the identifying description and category of a deliverable.',
-)
-@SectionId('DLVID')
-class DeliverableIdentity {
-  @Form([
-    Field('description', String, 'Description',
-        hint: 'What this deliverable contains and its purpose'),
-    Field('category', String, 'Category',
-        hint: 'Application / Library / Tool / Configuration / Document'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Logistics for deliverable.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
-  ],
-  'Captures the delivery format, mechanism, target environment, and scheduling logistics of a deliverable.',
-)
-@SectionId('DLVLOG')
-class DeliverableLogistics {
-  @Form([
-    Field('deliveryFormat', String, 'Delivery Format',
-        hint: 'Docker Image / NPM Package / Dart Package / APK / IPA'),
-    Field('deliveryMechanism', String, 'Delivery Mechanism',
-        hint: 'Container Registry / Artifact Repository / App Store'),
-    Field('deliveryEnvironment', String, 'Target Environment',
-        hint: 'Production / Staging / All Environments'),
-    Field('plannedDeliveryDate', String, 'Planned Delivery Date',
-        hint: 'Target date — e.g. 2026-Q3'),
-    Field('deliveryStage', String, 'Delivery Stage',
-        hint: 'Stage in which this deliverable is delivered'),
-    Field('deliveryFrequency', String, 'Delivery Frequency',
-        hint: 'OneTime / PerRelease / Continuous / OnDemand'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Version for deliverable.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
-    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
-  ],
-  'Captures the version requirements, compatibility constraints, and backward-compatibility posture of a deliverable.',
-)
-@SectionId('DLVVR')
-class DeliverableVersion {
-  @Form([
-    Field('versionRequirement', String, 'Version Requirement',
-        hint: 'Minimum version or version range'),
-    Field('compatibilityConstraints', String, 'Compatibility Constraints',
-        hint: 'Platform, OS, browser, or dependency version requirements'),
-    Field('backwardCompatibility', String, 'Backward Compatibility',
-        hint: 'Yes / No / Partial'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Quality for deliverable.
-@StandardReferences(
-  [
-    'ISO/IEC 25040:2011 — the systems and software quality evaluation standard defines the evaluation process reference model',
-    'ISO/IEC/IEEE 15288:2023 — the system life-cycle processes standard defines the delivery, transition, and acceptance processes',
-  ],
-  'Captures the quality standards, acceptance criteria, and verification methods applied to a deliverable.',
-)
-@SectionId('DLVQL')
-class DeliverableQuality {
-  @Form([
-    Field('qualityStandard', String, 'Quality Standard',
-        hint: 'Quality standards applied — e.g. ISO 25010, WCAG 2.1 AA'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint: 'Specific criteria for accepting this deliverable'),
-    Field('verificationMethod', String, 'Verification Method',
-        hint: 'Testing / Inspection / Review / Demonstration'),
-    Field('testCoverage', String, 'Required Test Coverage',
-        hint: 'Minimum test coverage — e.g. 80% unit'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Ownership for deliverable.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover',
-    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
-  ],
-  'Captures the ownership and responsibility roles for creating, reviewing, receiving, and maintaining a deliverable.',
-)
-@SectionId('DLVOW')
-class DeliverableOwnership {
-  @Form([
-    Field('responsibleParty', String, 'Responsible Party',
-        hint: 'Team or role responsible for creating'),
-    Field('reviewer', String, 'Reviewer',
-        hint: 'Who reviews and approves before delivery'),
-    Field('recipient', String, 'Recipient',
-        hint: 'Who receives the deliverable'),
-    Field('maintenanceOwner', String, 'Maintenance Owner',
-        hint: 'Who maintains the deliverable post-delivery'),
-  ])
-  @SerializationOrder(0)
-  String? content;
+  String? documentation;
 }
 
 /// Dependencies for deliverable.
@@ -419,54 +531,18 @@ class DeliverableOwnership {
 @SectionId('DLVDP')
 class DeliverableDependencies {
   @Form([
-    Field('dependsOn', String, 'Depends On',
-        hint: 'Other deliverable IDs this depends on'),
-    Field('prerequisiteForDelivery', String, 'Prerequisites',
-        hint: 'Conditions that must be met before delivery'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Legal for deliverable.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines deliverable definition, scope, dependencies, and handover',
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
-  ],
-  'Captures the licensing terms, intellectual-property ownership, and third-party components of a deliverable.',
-)
-@SectionId('DLVLG')
-class DeliverableLegal {
-  @Form([
-    Field('licenseType', String, 'License Type',
-        hint: 'Commercial / OpenSource / Proprietary / Mixed'),
-    Field('intellectualProperty', String, 'IP Ownership',
-        hint: 'Who owns the IP — client, vendor, shared'),
-    Field('thirdPartyComponents', String, 'Third-Party Components',
-        hint: 'Third-party libraries included and their licenses'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Documentation for deliverable.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products',
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition',
-  ],
-  'Captures the documentation associated with a deliverable and its release-note requirements.',
-)
-@SectionId('DLVDC')
-class DeliverableDocumentation {
-  @Form([
-    Field('associatedDocumentation', String, 'Associated Documentation',
-        hint: 'Related documentation deliverable IDs'),
-    Field('releaseNotes', String, 'Release Notes Required',
-        hint: 'Yes / No — whether release notes accompany delivery'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional context or special instructions'),
+    Field(
+      'dependsOn',
+      String,
+      'Depends On',
+      hint: 'Other deliverable IDs this depends on',
+    ),
+    Field(
+      'prerequisiteForDelivery',
+      String,
+      'Prerequisites',
+      hint: 'Conditions that must be met before delivery',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -579,160 +655,187 @@ Each criterion must be:
 @SectionId('DACEN')
 class DeliveryAcceptanceCriterionEntry {
   @Form([
-    Field('criterionId', String, 'Criterion ID',
-        hint: 'Unique identifier — e.g. AC-001', required: true),
-    Field('criterion', String, 'Criterion Statement',
-        hint: 'Clear, measurable statement of what must be true',
-        required: true),
-    Field('category', String, 'Category',
-        hint:
-            'Functional / Performance / Security / Usability / '
-            'Documentation / Training / Operational / Compliance'),
+    Field(
+      'criterionId',
+      String,
+      'Criterion ID',
+      hint: 'Unique identifier — e.g. AC-001',
+      required: true,
+    ),
+    Field(
+      'criterion',
+      String,
+      'Criterion Statement',
+      hint: 'Clear, measurable statement of what must be true',
+      required: true,
+    ),
+    Field(
+      'category',
+      String,
+      'Category',
+      hint:
+          'Functional / Performance / Security / Usability / '
+          'Documentation / Training / Operational / Compliance',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Priority and description.
+  @SectionId('DACED')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines prioritization and description of acceptance test items',
+      'ISO/IEC 25010:2023 — the product quality model defines quality characteristics that shape acceptance-criterion priority',
+    ],
+    'Captures the priority and detailed description that scope an acceptance criterion.',
+  )
+  @Form([
+    Field(
+      'priority',
+      String,
+      'Priority',
+      hint: 'MustPass / ShouldPass / NiceToPass — relative importance',
+    ),
+    Field(
+      'description',
+      String,
+      'Detailed Description',
+      hint: 'Extended explanation including context and boundaries',
+    ),
+  ])
   @SerializationOrder(1)
-  DeliveryAcceptanceCriterionEntryDefinition definition =
-      DeliveryAcceptanceCriterionEntryDefinition();
+  String? definition;
 
   /// Verification method and evidence.
+  @SectionId('DACEV')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines verification methods, thresholds, and evidence for acceptance criteria',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the procedures and evidence recorded for acceptance items',
+    ],
+    'Captures the verification method, thresholds, tools, and evidence required to confirm an acceptance criterion.',
+  )
+  @Form([
+    Field(
+      'verificationMethod',
+      String,
+      'Verification Method',
+      hint:
+          'Testing / Demonstration / Inspection / Analysis / '
+          'Review / CertificatePresentation',
+    ),
+    Field(
+      'verificationProcedure',
+      String,
+      'Verification Procedure',
+      hint: 'Steps to verify — brief procedure description',
+    ),
+    Field(
+      'acceptanceThreshold',
+      String,
+      'Acceptance Threshold',
+      hint: 'Quantitative threshold — e.g. response < 2s, uptime >= 99.9%',
+    ),
+    Field(
+      'measurementTool',
+      String,
+      'Measurement Tool',
+      hint: 'Tool used to measure — e.g. JMeter, Lighthouse, manual checklist',
+    ),
+    Field(
+      'evidenceRequired',
+      String,
+      'Evidence Required',
+      hint: 'Documentation of proof — test report, screenshot, certificate',
+    ),
+  ])
   @SerializationOrder(2)
-  DeliveryAcceptanceCriterionEntryVerification verification =
-      DeliveryAcceptanceCriterionEntryVerification();
+  String? verification;
 
   /// Traceability links.
+  @SectionId('DACET')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria',
+      'IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents',
+    ],
+    'Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.',
+  )
+  @Form([
+    Field(
+      'requirementRef',
+      String,
+      'Requirement Reference',
+      hint: 'Linked requirement ID(s) — e.g. REQ-042',
+    ),
+    Field(
+      'deliverableRef',
+      String,
+      'Deliverable Reference',
+      hint: 'Linked deliverable ID — e.g. DEL-SOF-001',
+    ),
+    Field(
+      'testScenarioRef',
+      String,
+      'Test Scenario Reference',
+      hint: 'UAT scenario ID that validates this criterion',
+    ),
+  ])
   @SerializationOrder(3)
-  DeliveryAcceptanceCriterionEntryTraceability traceability =
-      DeliveryAcceptanceCriterionEntryTraceability();
+  String? traceability;
 
   /// Responsibility assignments.
+  @SectionId('DACEOW')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the roles that verify and confirm acceptance criteria',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames responsibility assignments for deliverable acceptance',
+    ],
+    'Captures the verifier and approver responsible for confirming an acceptance criterion.',
+  )
+  @Form([
+    Field(
+      'verifier',
+      String,
+      'Verifier',
+      hint: 'Role or person who performs verification',
+    ),
+    Field(
+      'approver',
+      String,
+      'Approver',
+      hint: 'Role or person who confirms acceptance',
+    ),
+  ])
   @SerializationOrder(4)
-  DeliveryAcceptanceCriterionEntryOwnership ownership =
-      DeliveryAcceptanceCriterionEntryOwnership();
+  String? ownership;
 
   /// Current status and notes.
+  @SectionId('DACES')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-item status and result reporting for acceptance criteria',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and status records for acceptance items',
+    ],
+    'Captures the current pass or fail status and notes for an acceptance criterion.',
+  )
+  @Form([
+    Field(
+      'currentStatus',
+      String,
+      'Current Status',
+      hint: 'NotTested / Passed / Failed / Conditional / Deferred',
+    ),
+    Field(
+      'notes',
+      String,
+      'Notes',
+      hint: 'Clarifications, exceptions, or conditions',
+    ),
+  ])
   @SerializationOrder(5)
-  DeliveryAcceptanceCriterionEntryStatus status =
-      DeliveryAcceptanceCriterionEntryStatus();
-}
-
-/// Priority and description.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines prioritization and description of acceptance test items',
-    'ISO/IEC 25010:2023 — the product quality model defines quality characteristics that shape acceptance-criterion priority',
-  ],
-  'Captures the priority and detailed description that scope an acceptance criterion.',
-)
-@SectionId('DACED')
-class DeliveryAcceptanceCriterionEntryDefinition {
-  @Form([
-    Field('priority', String, 'Priority',
-        hint:
-            'MustPass / ShouldPass / NiceToPass — relative importance'),
-    Field('description', String, 'Detailed Description',
-        hint:
-            'Extended explanation including context and boundaries'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Verification method and evidence.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines verification methods, thresholds, and evidence for acceptance criteria',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the procedures and evidence recorded for acceptance items',
-  ],
-  'Captures the verification method, thresholds, tools, and evidence required to confirm an acceptance criterion.',
-)
-@SectionId('DACEV')
-class DeliveryAcceptanceCriterionEntryVerification {
-  @Form([
-    Field('verificationMethod', String, 'Verification Method',
-        hint:
-            'Testing / Demonstration / Inspection / Analysis / '
-            'Review / CertificatePresentation'),
-    Field('verificationProcedure', String, 'Verification Procedure',
-        hint:
-            'Steps to verify — brief procedure description'),
-    Field('acceptanceThreshold', String, 'Acceptance Threshold',
-        hint:
-            'Quantitative threshold — e.g. response < 2s, uptime >= 99.9%'),
-    Field('measurementTool', String, 'Measurement Tool',
-        hint:
-            'Tool used to measure — e.g. JMeter, Lighthouse, manual checklist'),
-    Field('evidenceRequired', String, 'Evidence Required',
-        hint:
-            'Documentation of proof — test report, screenshot, certificate'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Traceability links.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria',
-    'IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents',
-  ],
-  'Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.',
-)
-@SectionId('DACET')
-class DeliveryAcceptanceCriterionEntryTraceability {
-  @Form([
-    Field('requirementRef', String, 'Requirement Reference',
-        hint: 'Linked requirement ID(s) — e.g. REQ-042'),
-    Field('deliverableRef', String, 'Deliverable Reference',
-        hint: 'Linked deliverable ID — e.g. DEL-SOF-001'),
-    Field('testScenarioRef', String, 'Test Scenario Reference',
-        hint: 'UAT scenario ID that validates this criterion'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Responsibility assignments.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the roles that verify and confirm acceptance criteria',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames responsibility assignments for deliverable acceptance',
-  ],
-  'Captures the verifier and approver responsible for confirming an acceptance criterion.',
-)
-@SectionId('DACEOW')
-class DeliveryAcceptanceCriterionEntryOwnership {
-  @Form([
-    Field('verifier', String, 'Verifier',
-        hint: 'Role or person who performs verification'),
-    Field('approver', String, 'Approver',
-        hint: 'Role or person who confirms acceptance'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Current status and notes.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-item status and result reporting for acceptance criteria',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and status records for acceptance items',
-  ],
-  'Captures the current pass or fail status and notes for an acceptance criterion.',
-)
-@SectionId('DACES')
-class DeliveryAcceptanceCriterionEntryStatus {
-  @Form([
-    Field('currentStatus', String, 'Current Status',
-        hint:
-            'NotTested / Passed / Failed / Conditional / Deferred'),
-    Field('notes', String, 'Notes',
-        hint: 'Clarifications, exceptions, or conditions'),
-  ])
-  @SerializationOrder(0)
-  String? content;
+  String? status;
 }
 
 /// 14.2.2. Acceptance Process.
@@ -752,47 +855,238 @@ class DeliveryAcceptanceCriterionEntryStatus {
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRO')
 class AcceptanceProcess {
   @Form([
-    Field('processName', String, 'Process Name',
-        hint: 'e.g. "Formal Acceptance Process v2"'),
-    Field('processOwner', String, 'Process Owner',
-        hint: 'Role responsible for managing the acceptance process'),
-    Field('acceptanceType', String, 'Acceptance Type',
-        hint: 'Formal / Informal / Staged / Conditional'),
+    Field(
+      'processName',
+      String,
+      'Process Name',
+      hint: 'e.g. "Formal Acceptance Process v2"',
+    ),
+    Field(
+      'processOwner',
+      String,
+      'Process Owner',
+      hint: 'Role responsible for managing the acceptance process',
+    ),
+    Field(
+      'acceptanceType',
+      String,
+      'Acceptance Type',
+      hint: 'Formal / Informal / Staged / Conditional',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Process overview.
+  @SectionId('ACPROV')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process flow from initiation to sign-off',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the high-level deliverable acceptance workflow',
+    ],
+    'Captures the high-level description of the acceptance-process workflow from initiation through sign-off.',
+  )
+  @Form([
+    Field(
+      'processDescription',
+      String,
+      'Process Description',
+      hint: 'High-level workflow: initiation → testing → review → sign-off',
+    ),
+  ])
   @SerializationOrder(1)
-  AcceptanceProcessOverview overview = AcceptanceProcessOverview();
+  String? overview;
 
   /// Participants and governance.
+  @SectionId('ACPRPA')
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management defines governance roles and responsibilities for deliverable acceptance',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames stakeholder roles and RACI assignments in acceptance',
+    ],
+    'Captures the acceptance board, reviewers, participants, and RACI matrix that govern the acceptance process.',
+  )
+  @Form([
+    Field(
+      'acceptanceBoard',
+      String,
+      'Acceptance Board',
+      hint: 'Members of the acceptance board',
+    ),
+    Field(
+      'technicalReviewers',
+      String,
+      'Technical Reviewers',
+      hint: 'Technical staff who verify technical acceptance criteria',
+    ),
+    Field(
+      'businessReviewers',
+      String,
+      'Business Reviewers',
+      hint: 'Business stakeholders who verify business acceptance',
+    ),
+    Field(
+      'participants',
+      String,
+      'All Participants',
+      hint: 'Complete list of roles involved',
+    ),
+    Field(
+      'raciMatrix',
+      String,
+      'RACI Matrix',
+      hint: 'Responsible / Accountable / Consulted / Informed',
+    ),
+  ])
   @SerializationOrder(2)
-  AcceptanceProcessParticipants participants =
-      AcceptanceProcessParticipants();
+  String? participants;
 
   /// Timeline and schedule.
+  @SectionId('ACPRTI')
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management defines scheduling and milestones for deliverable acceptance and handover',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames acceptance windows and milestone timing',
+    ],
+    'Captures the planned duration, acceptance window, and milestones that schedule the acceptance process.',
+  )
+  @Form([
+    Field(
+      'plannedDuration',
+      String,
+      'Planned Duration',
+      hint: 'Expected total duration of acceptance process',
+    ),
+    Field(
+      'acceptanceWindowStart',
+      String,
+      'Acceptance Window Start',
+      hint: 'Earliest date acceptance can begin',
+    ),
+    Field(
+      'acceptanceWindowEnd',
+      String,
+      'Acceptance Window End',
+      hint: 'Latest date acceptance must conclude',
+    ),
+    Field(
+      'milestones',
+      String,
+      'Key Milestones',
+      hint: 'Entry gate, mid-point review, final review, sign-off',
+    ),
+  ])
   @SerializationOrder(3)
-  AcceptanceProcessTimeline timeline = AcceptanceProcessTimeline();
+  String? timeline;
 
   /// Decision framework.
+  @SectionId('ACPRDE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions',
+    ],
+    'Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work.',
+  )
+  @Form([
+    Field(
+      'decisionCriteria',
+      String,
+      'Decision Criteria',
+      hint: 'How accept/reject/conditional decisions are made',
+    ),
+    Field(
+      'defectThreshold',
+      String,
+      'Acceptable Defect Threshold',
+      hint: 'Maximum open defects by severity to proceed',
+    ),
+    Field(
+      'conditionalAcceptanceRules',
+      String,
+      'Conditional Acceptance Rules',
+      hint: 'Conditions under which acceptance with known issues is allowed',
+    ),
+    Field(
+      'rejectionCriteria',
+      String,
+      'Rejection Criteria',
+      hint: 'Conditions that automatically block acceptance',
+    ),
+  ])
   @SerializationOrder(4)
-  AcceptanceProcessDecision decision = AcceptanceProcessDecision();
+  String? decision;
 
   /// Escalation.
+  @SectionId('ACPRES')
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management defines escalation and dispute resolution during deliverable acceptance',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames escalation paths and issue resolution',
+    ],
+    'Captures the escalation process, escalation levels, and dispute-resolution approach for acceptance decisions.',
+  )
+  @Form([
+    Field(
+      'escalationProcess',
+      String,
+      'Escalation Process',
+      hint: 'Escalation path for disputes or blockers',
+    ),
+    Field(
+      'escalationLevels',
+      String,
+      'Escalation Levels',
+      hint: 'L1: Project Manager, L2: Steering Committee, L3: Sponsor',
+    ),
+    Field(
+      'disputeResolution',
+      String,
+      'Dispute Resolution',
+      hint: 'How disagreements about acceptance are resolved',
+    ),
+  ])
   @SerializationOrder(5)
-  AcceptanceProcessEscalation escalation =
-      AcceptanceProcessEscalation();
+  String? escalation;
 
   /// Documentation.
+  @SectionId('ACPRDO')
+  @StandardReferences(
+    [
+      'IEEE 829-2008 — the standard for software and system test documentation defines the acceptance-report and evidence documents',
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test documentation retained as acceptance evidence',
+    ],
+    'Captures the report templates, evidence package contents, and archival requirements for acceptance documentation.',
+  )
+  @Form([
+    Field(
+      'acceptanceReportTemplate',
+      String,
+      'Acceptance Report Template',
+      hint: 'Template for the formal acceptance report',
+    ),
+    Field(
+      'evidencePackageContents',
+      String,
+      'Evidence Package Contents',
+      hint: 'What must be in the evidence package',
+    ),
+    Field(
+      'archivalRequirements',
+      String,
+      'Archival Requirements',
+      hint: 'How acceptance evidence is archived',
+    ),
+  ])
   @SerializationOrder(6)
-  AcceptanceProcessDocumentation documentation =
-      AcceptanceProcessDocumentation();
+  String? documentation;
 
   /// Acceptance process narrative description.
-  @ContentHelp('Detailed walkthrough of the acceptance process: '
-      'step-by-step flow, decision points, parallel tracks, '
-      'timing dependencies, and integration with project closeout.')
+  @ContentHelp(
+    'Detailed walkthrough of the acceptance process: '
+    'step-by-step flow, decision points, parallel tracks, '
+    'timing dependencies, and integration with project closeout.',
+  )
   @SerializationOrder(7)
   TextSection processNarrative = TextSection();
 
@@ -811,143 +1105,6 @@ class AcceptanceProcess {
   List<AcceptanceStepEntry> steps = [];
 }
 
-/// Process overview.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-test process flow from initiation to sign-off',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames the high-level deliverable acceptance workflow',
-  ],
-  'Captures the high-level description of the acceptance-process workflow from initiation through sign-off.',
-)
-@SectionId('ACPROV')
-class AcceptanceProcessOverview {
-  @Form([
-    Field('processDescription', String, 'Process Description',
-        hint: 'High-level workflow: initiation → testing → review → sign-off'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Participants and governance.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines governance roles and responsibilities for deliverable acceptance',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames stakeholder roles and RACI assignments in acceptance',
-  ],
-  'Captures the acceptance board, reviewers, participants, and RACI matrix that govern the acceptance process.',
-)
-@SectionId('ACPRPA')
-class AcceptanceProcessParticipants {
-  @Form([
-    Field('acceptanceBoard', String, 'Acceptance Board',
-        hint: 'Members of the acceptance board'),
-    Field('technicalReviewers', String, 'Technical Reviewers',
-        hint: 'Technical staff who verify technical acceptance criteria'),
-    Field('businessReviewers', String, 'Business Reviewers',
-        hint: 'Business stakeholders who verify business acceptance'),
-    Field('participants', String, 'All Participants',
-        hint: 'Complete list of roles involved'),
-    Field('raciMatrix', String, 'RACI Matrix',
-        hint: 'Responsible / Accountable / Consulted / Informed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Timeline and schedule.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines scheduling and milestones for deliverable acceptance and handover',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames acceptance windows and milestone timing',
-  ],
-  'Captures the planned duration, acceptance window, and milestones that schedule the acceptance process.',
-)
-@SectionId('ACPRTI')
-class AcceptanceProcessTimeline {
-  @Form([
-    Field('plannedDuration', String, 'Planned Duration',
-        hint: 'Expected total duration of acceptance process'),
-    Field('acceptanceWindowStart', String, 'Acceptance Window Start',
-        hint: 'Earliest date acceptance can begin'),
-    Field('acceptanceWindowEnd', String, 'Acceptance Window End',
-        hint: 'Latest date acceptance must conclude'),
-    Field('milestones', String, 'Key Milestones',
-        hint: 'Entry gate, mid-point review, final review, sign-off'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Decision framework.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit criteria and defect thresholds governing accept and reject decisions',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable accept, reject, and conditional decisions',
-  ],
-  'Captures the decision criteria, defect thresholds, and conditional or rejection rules used to accept delivered work.',
-)
-@SectionId('ACPRDE')
-class AcceptanceProcessDecision {
-  @Form([
-    Field('decisionCriteria', String, 'Decision Criteria',
-        hint: 'How accept/reject/conditional decisions are made'),
-    Field('defectThreshold', String, 'Acceptable Defect Threshold',
-        hint: 'Maximum open defects by severity to proceed'),
-    Field('conditionalAcceptanceRules', String,
-        'Conditional Acceptance Rules',
-        hint: 'Conditions under which acceptance with known issues is allowed'),
-    Field('rejectionCriteria', String, 'Rejection Criteria',
-        hint: 'Conditions that automatically block acceptance'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Escalation.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines escalation and dispute resolution during deliverable acceptance',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames escalation paths and issue resolution',
-  ],
-  'Captures the escalation process, escalation levels, and dispute-resolution approach for acceptance decisions.',
-)
-@SectionId('ACPRES')
-class AcceptanceProcessEscalation {
-  @Form([
-    Field('escalationProcess', String, 'Escalation Process',
-        hint: 'Escalation path for disputes or blockers'),
-    Field('escalationLevels', String, 'Escalation Levels',
-        hint: 'L1: Project Manager, L2: Steering Committee, L3: Sponsor'),
-    Field('disputeResolution', String, 'Dispute Resolution',
-        hint: 'How disagreements about acceptance are resolved'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Documentation.
-@StandardReferences(
-  [
-    'IEEE 829-2008 — the standard for software and system test documentation defines the acceptance-report and evidence documents',
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test documentation retained as acceptance evidence',
-  ],
-  'Captures the report templates, evidence package contents, and archival requirements for acceptance documentation.',
-)
-@SectionId('ACPRDO')
-class AcceptanceProcessDocumentation {
-  @Form([
-    Field('acceptanceReportTemplate', String, 'Acceptance Report Template',
-        hint: 'Template for the formal acceptance report'),
-    Field('evidencePackageContents', String, 'Evidence Package Contents',
-        hint: 'What must be in the evidence package'),
-    Field('archivalRequirements', String, 'Archival Requirements',
-        hint: 'How acceptance evidence is archived'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
 /// An acceptance step entry (form).
 ///
 /// A single step in the formal acceptance workflow, with entry/exit
@@ -962,74 +1119,107 @@ class AcceptanceProcessDocumentation {
 @SectionId('ACST')
 class AcceptanceStepEntry {
   @Form([
-    Field('stepNumber', String, 'Step Number',
-        hint: 'Sequential number — e.g. 1, 2, 3', required: true),
-    Field('stepName', String, 'Step Name',
-        hint: 'Concise action name — e.g. "Technical Review"',
-        required: true),
-    Field('description', String, 'Description',
-        hint: 'What happens in this step'),
-    Field('responsibleRole', String, 'Responsible Role',
-        hint: 'Who performs or leads this step'),
+    Field(
+      'stepNumber',
+      String,
+      'Step Number',
+      hint: 'Sequential number — e.g. 1, 2, 3',
+      required: true,
+    ),
+    Field(
+      'stepName',
+      String,
+      'Step Name',
+      hint: 'Concise action name — e.g. "Technical Review"',
+      required: true,
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What happens in this step',
+    ),
+    Field(
+      'responsibleRole',
+      String,
+      'Responsible Role',
+      hint: 'Who performs or leads this step',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Participants and execution flow.
+  @SectionId('ASEF')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry and exit criteria and activities for each test-process step',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames participant roles across acceptance activities',
+    ],
+    'Captures the participants, entry and exit criteria, and activities that make up an acceptance-process step.',
+  )
+  @Form([
+    Field(
+      'participants',
+      String,
+      'Participants',
+      hint: 'Additional roles involved',
+    ),
+    Field(
+      'entryCriteria',
+      String,
+      'Entry Criteria',
+      hint: 'What must be true before this step can start',
+    ),
+    Field(
+      'activities',
+      String,
+      'Activities',
+      hint: 'Key activities performed in this step',
+    ),
+    Field(
+      'exitCriteria',
+      String,
+      'Exit Criteria',
+      hint: 'What must be true for this step to be complete',
+    ),
+  ])
   @SerializationOrder(1)
-  AcceptanceStepEntryFlow flow = AcceptanceStepEntryFlow();
+  String? flow;
 
   /// Exit outcomes and timing.
+  @SectionId('ASEO')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit conditions and step outputs within the test process',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames step outcomes and decisions during deliverable acceptance',
+    ],
+    'Captures the outputs, expected duration, and decision options that conclude an acceptance-process step.',
+  )
+  @Form([
+    Field(
+      'outputs',
+      String,
+      'Outputs',
+      hint: 'Documents, decisions, or artifacts produced',
+    ),
+    Field(
+      'duration',
+      String,
+      'Expected Duration',
+      hint: 'How long this step takes — e.g. 2 business days',
+    ),
+    Field(
+      'decisionOptions',
+      String,
+      'Decision Options',
+      hint:
+          'Possible outcomes — e.g. Pass / Fail / Conditional / '
+          'Escalate',
+    ),
+  ])
   @SerializationOrder(2)
-  AcceptanceStepEntryOutcome outcome = AcceptanceStepEntryOutcome();
-}
-
-/// Participants and execution flow.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry and exit criteria and activities for each test-process step',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames participant roles across acceptance activities',
-  ],
-  'Captures the participants, entry and exit criteria, and activities that make up an acceptance-process step.',
-)
-@SectionId('ASEF')
-class AcceptanceStepEntryFlow {
-  @Form([
-    Field('participants', String, 'Participants',
-        hint: 'Additional roles involved'),
-    Field('entryCriteria', String, 'Entry Criteria',
-        hint: 'What must be true before this step can start'),
-    Field('activities', String, 'Activities',
-        hint: 'Key activities performed in this step'),
-    Field('exitCriteria', String, 'Exit Criteria',
-        hint: 'What must be true for this step to be complete'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Exit outcomes and timing.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines exit conditions and step outputs within the test process',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames step outcomes and decisions during deliverable acceptance',
-  ],
-  'Captures the outputs, expected duration, and decision options that conclude an acceptance-process step.',
-)
-@SectionId('ASEO')
-class AcceptanceStepEntryOutcome {
-  @Form([
-    Field('outputs', String, 'Outputs',
-        hint: 'Documents, decisions, or artifacts produced'),
-    Field('duration', String, 'Expected Duration',
-        hint: 'How long this step takes — e.g. 2 business days'),
-    Field('decisionOptions', String, 'Decision Options',
-        hint:
-            'Possible outcomes — e.g. Pass / Fail / Conditional / '
-            'Escalate'),
-  ])
-  @SerializationOrder(0)
-  String? content;
+  String? outcome;
 }
 
 /// 14.2.3. User Acceptance Testing.
@@ -1050,73 +1240,470 @@ class AcceptanceStepEntryOutcome {
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-UAT')
 class UserAcceptanceTesting {
   @Form([
-    Field('uatObjective', String, 'UAT Objective',
-        hint: 'Primary goal — e.g. validate business requirements before go-live'),
-    Field('uatApproach', String, 'UAT Approach',
-        hint: 'Scripted / Exploratory / Hybrid'),
-    Field('uatLead', String, 'UAT Lead',
-        hint: 'Name and role of the person coordinating UAT'),
+    Field(
+      'uatObjective',
+      String,
+      'UAT Objective',
+      hint: 'Primary goal — e.g. validate business requirements before go-live',
+    ),
+    Field(
+      'uatApproach',
+      String,
+      'UAT Approach',
+      hint: 'Scripted / Exploratory / Hybrid',
+    ),
+    Field(
+      'uatLead',
+      String,
+      'UAT Lead',
+      hint: 'Name and role of the person coordinating UAT',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Scope and objectives.
+  @SectionId('UASC')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the scope, features-to-be-tested, and test types',
+      'IEEE 829-2008 — the standard for software and system test documentation defines features and test types in a test plan',
+    ],
+    'Captures the scope summary, exclusions, and included test types for the acceptance test effort.',
+  )
+  @Form([
+    Field(
+      'scope',
+      String,
+      'Scope Summary',
+      hint: 'Modules, features, and integrations included in UAT',
+    ),
+    Field(
+      'outOfScope',
+      String,
+      'Out of Scope',
+      hint: 'Explicitly excluded items',
+    ),
+    Field(
+      'testTypes',
+      String,
+      'Test Types Included',
+      hint: 'Functional / Regression / Usability / Accessibility / End-to-End',
+    ),
+  ])
   @SerializationOrder(1)
-  UatScope scope = UatScope();
+  String? scope;
 
   /// Environment.
+  @SectionId('UAEN')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-environment requirements and readiness',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the environmental-needs section of a test plan',
+    ],
+    'Captures the identity, access, configuration, refresh policy, and access control of the UAT environment.',
+  )
+  @Form([
+    Field(
+      'environmentName',
+      String,
+      'Environment Name',
+      hint: 'Name or identifier of the UAT environment',
+    ),
+    Field(
+      'environmentUrl',
+      String,
+      'Environment URL',
+      hint: 'Access URL or endpoint',
+    ),
+    Field(
+      'environmentDescription',
+      String,
+      'Environment Description',
+      hint: 'Hardware, OS, software stack, network configuration',
+    ),
+    Field(
+      'environmentRefreshPolicy',
+      String,
+      'Environment Refresh Policy',
+      hint: 'How and when environment data is refreshed',
+    ),
+    Field(
+      'environmentAccessControl',
+      String,
+      'Access Control',
+      hint: 'Who has access, authentication method',
+    ),
+  ])
   @SerializationOrder(2)
-  UatEnvironment environment = UatEnvironment();
+  String? environment;
 
   /// Test data.
+  @SectionId('UATEDA')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-data management and requirements for test execution',
+      'IEEE 829-2008 — the standard for software and system test documentation defines test-data needs in the test plan',
+    ],
+    'Captures the test-data strategy, preparation, privacy compliance, and refresh cadence for acceptance testing.',
+  )
+  @Form([
+    Field(
+      'testDataStrategy',
+      String,
+      'Test Data Strategy',
+      hint: 'Synthetic / MaskedProduction / Subset',
+    ),
+    Field(
+      'testDataPreparation',
+      String,
+      'Test Data Preparation',
+      hint: 'Who prepares test data, lead time, and tools used',
+    ),
+    Field(
+      'testDataPrivacy',
+      String,
+      'Data Privacy Compliance',
+      hint: 'GDPR / HIPAA / PCI-DSS compliance',
+    ),
+    Field(
+      'testDataRefreshCadence',
+      String,
+      'Test Data Refresh Cadence',
+      hint: 'How often test data is refreshed',
+    ),
+  ])
   @SerializationOrder(3)
-  UatTestData testData = UatTestData();
+  String? testData;
 
   /// Participants and governance.
+  @SectionId('UAGO')
+  @StandardReferences(
+    [
+      'ISO 21502:2020 — the guidance on project management defines governance, roles, and stakeholder responsibilities',
+      'IEEE 829-2008 — the standard for software and system test documentation defines responsibilities and staffing in a test plan',
+    ],
+    'Captures the ownership, tester roles, support team, RACI, escalation path, and communication plan governing acceptance testing.',
+  )
+  @Form([
+    Field(
+      'businessOwner',
+      String,
+      'Business Owner',
+      hint: 'Stakeholder accountable for UAT sign-off',
+    ),
+    Field(
+      'testerRoles',
+      String,
+      'Tester Roles',
+      hint: 'Business analysts, end-users, SMEs, external testers',
+    ),
+    Field(
+      'supportTeam',
+      String,
+      'Support Team',
+      hint: 'Dev, QA, and ops contacts available during UAT',
+    ),
+    Field(
+      'raciSummary',
+      String,
+      'RACI Summary',
+      hint: 'Responsible / Accountable / Consulted / Informed',
+    ),
+    Field(
+      'escalationPath',
+      String,
+      'Escalation Path',
+      hint: 'Escalation chain for blocking defects',
+    ),
+    Field(
+      'communicationPlan',
+      String,
+      'Communication Plan',
+      hint: 'Status update frequency, channels, and audience',
+    ),
+  ])
   @SerializationOrder(4)
-  UatGovernance governance = UatGovernance();
+  String? governance;
 
   /// Schedule and cycles.
+  @SectionId('UASC1')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test scheduling and milestones within the test plan',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames scheduling and milestone planning',
+    ],
+    'Captures the planned dates, cycle count, cycle duration, and key milestones for the acceptance test effort.',
+  )
+  @Form([
+    Field(
+      'plannedStartDate',
+      String,
+      'Planned Start Date',
+      hint: 'Target start date for UAT execution',
+    ),
+    Field(
+      'plannedEndDate',
+      String,
+      'Planned End Date',
+      hint: 'Target completion date',
+    ),
+    Field(
+      'numberOfCycles',
+      String,
+      'Number of Test Cycles',
+      hint: 'e.g. 2 cycles — initial execution + regression',
+    ),
+    Field(
+      'cycleDuration',
+      String,
+      'Cycle Duration',
+      hint: 'Expected duration per cycle',
+    ),
+    Field(
+      'milestones',
+      String,
+      'Key Milestones',
+      hint: 'Entry gate, mid-cycle checkpoint, exit gate',
+    ),
+  ])
   @SerializationOrder(5)
-  UatSchedule schedule = UatSchedule();
+  String? schedule;
 
   /// Entry, exit, and suspension criteria.
+  @SectionId('UACR')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry, exit, and suspension-resumption criteria for test execution',
+      'IEEE 829-2008 — the standard for software and system test documentation defines suspension and resumption criteria in a test plan',
+    ],
+    'Captures the entry, exit, suspension, and resumption criteria that gate the acceptance test effort.',
+  )
+  @Form([
+    Field(
+      'entryCriteria',
+      String,
+      'Entry Criteria',
+      hint: 'Prerequisites: system testing passed, environment ready',
+    ),
+    Field(
+      'exitCriteria',
+      String,
+      'Exit Criteria',
+      hint: 'Completion conditions: pass rate >= 95%, no Sev-1 open',
+    ),
+    Field(
+      'suspensionCriteria',
+      String,
+      'Suspension Criteria',
+      hint: 'Conditions that halt UAT',
+    ),
+    Field(
+      'resumptionCriteria',
+      String,
+      'Resumption Criteria',
+      hint: 'Conditions to restart after suspension',
+    ),
+  ])
   @SerializationOrder(6)
-  UatCriteria criteria = UatCriteria();
+  String? criteria;
 
   /// Defect management.
+  @SectionId('UADEMA')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines incident and defect management within the test process',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the anomaly and defect report',
+    ],
+    'Captures the tools, severity levels, SLAs, thresholds, and triage process governing defects found during acceptance testing.',
+  )
+  @Form([
+    Field(
+      'defectTool',
+      String,
+      'Defect Tracking Tool',
+      hint: 'Jira / Azure DevOps / ServiceNow',
+    ),
+    Field(
+      'defectSeverityLevels',
+      String,
+      'Severity Levels',
+      hint: 'Define Sev-1 through Sev-4 with examples',
+    ),
+    Field(
+      'defectResolutionSla',
+      String,
+      'Resolution SLAs',
+      hint: 'Target fix times per severity',
+    ),
+    Field(
+      'defectThreshold',
+      String,
+      'Acceptable Defect Threshold',
+      hint: 'Max open defects per severity to proceed',
+    ),
+    Field(
+      'defectTriageProcess',
+      String,
+      'Triage Process',
+      hint: 'Frequency, participants, and decision-making',
+    ),
+    Field(
+      'retestProcess',
+      String,
+      'Retest Process',
+      hint: 'How fixed defects are retested',
+    ),
+  ])
   @SerializationOrder(7)
-  UatDefectManagement defectManagement = UatDefectManagement();
+  String? defectManagement;
 
   /// Reporting.
+  @SectionId('UARE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-status reporting and completion reports',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the test-summary and status reports',
+    ],
+    'Captures the status reporting, tracked metrics, and final-report contents for the acceptance test effort.',
+  )
+  @Form([
+    Field(
+      'dailyStatusFormat',
+      String,
+      'Daily Status Format',
+      hint: 'Contents: executed, passed, failed, blocked',
+    ),
+    Field(
+      'metricsTracked',
+      String,
+      'Metrics Tracked',
+      hint: 'Pass rate, defect density, test coverage',
+    ),
+    Field(
+      'dashboardTool',
+      String,
+      'Dashboard Tool',
+      hint: 'Tool for real-time UAT metrics',
+    ),
+    Field(
+      'finalReportContents',
+      String,
+      'Final Report Contents',
+      hint: 'Summary, results matrix, open defects',
+    ),
+  ])
   @SerializationOrder(8)
-  UatReporting reporting = UatReporting();
+  String? reporting;
 
   /// Non-functional acceptance.
+  @SectionId('UANOFU')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the product quality model defines non-functional quality characteristics used as acceptance criteria',
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines non-functional test types and techniques',
+    ],
+    'Captures the accessibility, performance, security, and regression acceptance conditions for the delivered system.',
+  )
+  @Form([
+    Field(
+      'accessibilityAcceptance',
+      String,
+      'Accessibility Acceptance',
+      hint: 'WCAG level, screen-reader compatibility',
+    ),
+    Field(
+      'performanceAcceptance',
+      String,
+      'Performance Acceptance',
+      hint: 'Response time thresholds, concurrent users',
+    ),
+    Field(
+      'securityAcceptance',
+      String,
+      'Security Acceptance',
+      hint: 'Authentication, authorization, data checks',
+    ),
+    Field(
+      'regressionApproach',
+      String,
+      'Regression Approach',
+      hint: 'Scope and method for regression testing',
+    ),
+  ])
   @SerializationOrder(9)
-  UatNonFunctional nonFunctional = UatNonFunctional();
+  String? nonFunctional;
 
   /// Sign-off.
+  @SectionId('UASIOF')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames formal deliverable validation and acceptance sign-off',
+      'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and formal authorization',
+    ],
+    'Captures the authority, criteria, and conditional-acceptance policy governing formal UAT sign-off.',
+  )
+  @Form([
+    Field(
+      'signOffAuthority',
+      String,
+      'Sign-Off Authority',
+      hint: 'Role(s) authorized to provide formal UAT sign-off',
+    ),
+    Field(
+      'signOffCriteria',
+      String,
+      'Sign-Off Criteria',
+      hint: 'Exit criteria + risk acceptance conditions',
+    ),
+    Field(
+      'conditionalAcceptancePolicy',
+      String,
+      'Conditional Acceptance Policy',
+      hint: 'Conditions under which UAT passes with known defects',
+    ),
+  ])
   @SerializationOrder(10)
-  UatSignOff signOff = UatSignOff();
+  String? signOff;
 
   /// Training and readiness.
+  @SectionId('UATR')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines training and operational-readiness support activities',
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard frames tester readiness and preparation for test execution',
+    ],
+    'Captures the tester training and user-documentation readiness that prepare participants for acceptance testing.',
+  )
+  @Form([
+    Field(
+      'testerTraining',
+      String,
+      'Tester Training',
+      hint: 'Training provided: system walkthrough, tool orientation',
+    ),
+    Field(
+      'userDocumentation',
+      String,
+      'User Documentation Availability',
+      hint: 'Guides, FAQs, and quick-start docs available',
+    ),
+  ])
   @SerializationOrder(11)
-  UatTraining training = UatTraining();
+  String? training;
 
   /// Narrative overview of the UAT approach and philosophy.
-  @ContentHelp('Describe the UAT philosophy, how it integrates with prior '
-      'test levels, key risks, and lessons from previous projects.')
+  @ContentHelp(
+    'Describe the UAT philosophy, how it integrates with prior '
+    'test levels, key risks, and lessons from previous projects.',
+  )
   @SerializationOrder(12)
   TextSection uatOverview = TextSection();
 
   /// Contains 0+× UatTestCycle.
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-cycle and level-test-plan structures',
-    ],
-    'Lists the acceptance test cycles executed during the UAT effort.',
-  )
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-cycle and level-test-plan structures',
+  ], 'Lists the acceptance test cycles executed during the UAT effort.')
   @SectionId('UATCY-TEST-LST')
   @SectionIdPattern('UATCY-TEST-xxx')
   @ContentHelp('Add one entry per user-acceptance test cycle.')
@@ -1124,285 +1711,14 @@ class UserAcceptanceTesting {
   List<UatTestCycleEntry> testCycles = [];
 
   /// Contains 0+× TestScenario.
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures',
-    ],
-    'Lists the acceptance test scenarios covered by the UAT suite.',
-  )
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-scenario and test-case structures',
+  ], 'Lists the acceptance test scenarios covered by the UAT suite.')
   @SectionId('TSSC-TEST-LST')
   @SectionIdPattern('TSSC-TEST-xxx')
   @ContentHelp('Add one entry per test scenario.')
   @SerializationOrder(14)
   List<TestScenarioEntry> testScenarios = [];
-}
-
-/// Scope and objectives for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the scope, features-to-be-tested, and test types',
-    'IEEE 829-2008 — the standard for software and system test documentation defines features and test types in a test plan',
-  ],
-  'Captures the scope summary, exclusions, and included test types for the acceptance test effort.',
-)
-@SectionId('UASC')
-class UatScope {
-  @Form([
-    Field('scope', String, 'Scope Summary',
-        hint: 'Modules, features, and integrations included in UAT'),
-    Field('outOfScope', String, 'Out of Scope',
-        hint: 'Explicitly excluded items'),
-    Field('testTypes', String, 'Test Types Included',
-        hint: 'Functional / Regression / Usability / Accessibility / End-to-End'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Environment for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-environment requirements and readiness',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the environmental-needs section of a test plan',
-  ],
-  'Captures the identity, access, configuration, refresh policy, and access control of the UAT environment.',
-)
-@SectionId('UAEN')
-class UatEnvironment {
-  @Form([
-    Field('environmentName', String, 'Environment Name',
-        hint: 'Name or identifier of the UAT environment'),
-    Field('environmentUrl', String, 'Environment URL',
-        hint: 'Access URL or endpoint'),
-    Field('environmentDescription', String, 'Environment Description',
-        hint: 'Hardware, OS, software stack, network configuration'),
-    Field('environmentRefreshPolicy', String, 'Environment Refresh Policy',
-        hint: 'How and when environment data is refreshed'),
-    Field('environmentAccessControl', String, 'Access Control',
-        hint: 'Who has access, authentication method'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Test data for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-data management and requirements for test execution',
-    'IEEE 829-2008 — the standard for software and system test documentation defines test-data needs in the test plan',
-  ],
-  'Captures the test-data strategy, preparation, privacy compliance, and refresh cadence for acceptance testing.',
-)
-@SectionId('UATEDA')
-class UatTestData {
-  @Form([
-    Field('testDataStrategy', String, 'Test Data Strategy',
-        hint: 'Synthetic / MaskedProduction / Subset'),
-    Field('testDataPreparation', String, 'Test Data Preparation',
-        hint: 'Who prepares test data, lead time, and tools used'),
-    Field('testDataPrivacy', String, 'Data Privacy Compliance',
-        hint: 'GDPR / HIPAA / PCI-DSS compliance'),
-    Field('testDataRefreshCadence', String, 'Test Data Refresh Cadence',
-        hint: 'How often test data is refreshed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Governance for UAT.
-@StandardReferences(
-  [
-    'ISO 21502:2020 — the guidance on project management defines governance, roles, and stakeholder responsibilities',
-    'IEEE 829-2008 — the standard for software and system test documentation defines responsibilities and staffing in a test plan',
-  ],
-  'Captures the ownership, tester roles, support team, RACI, escalation path, and communication plan governing acceptance testing.',
-)
-@SectionId('UAGO')
-class UatGovernance {
-  @Form([
-    Field('businessOwner', String, 'Business Owner',
-        hint: 'Stakeholder accountable for UAT sign-off'),
-    Field('testerRoles', String, 'Tester Roles',
-        hint: 'Business analysts, end-users, SMEs, external testers'),
-    Field('supportTeam', String, 'Support Team',
-        hint: 'Dev, QA, and ops contacts available during UAT'),
-    Field('raciSummary', String, 'RACI Summary',
-        hint: 'Responsible / Accountable / Consulted / Informed'),
-    Field('escalationPath', String, 'Escalation Path',
-        hint: 'Escalation chain for blocking defects'),
-    Field('communicationPlan', String, 'Communication Plan',
-        hint: 'Status update frequency, channels, and audience'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Schedule for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test scheduling and milestones within the test plan',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames scheduling and milestone planning',
-  ],
-  'Captures the planned dates, cycle count, cycle duration, and key milestones for the acceptance test effort.',
-)
-@SectionId('UASC1')
-class UatSchedule {
-  @Form([
-    Field('plannedStartDate', String, 'Planned Start Date',
-        hint: 'Target start date for UAT execution'),
-    Field('plannedEndDate', String, 'Planned End Date',
-        hint: 'Target completion date'),
-    Field('numberOfCycles', String, 'Number of Test Cycles',
-        hint: 'e.g. 2 cycles — initial execution + regression'),
-    Field('cycleDuration', String, 'Cycle Duration',
-        hint: 'Expected duration per cycle'),
-    Field('milestones', String, 'Key Milestones',
-        hint: 'Entry gate, mid-cycle checkpoint, exit gate'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Criteria for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines entry, exit, and suspension-resumption criteria for test execution',
-    'IEEE 829-2008 — the standard for software and system test documentation defines suspension and resumption criteria in a test plan',
-  ],
-  'Captures the entry, exit, suspension, and resumption criteria that gate the acceptance test effort.',
-)
-@SectionId('UACR')
-class UatCriteria {
-  @Form([
-    Field('entryCriteria', String, 'Entry Criteria',
-        hint: 'Prerequisites: system testing passed, environment ready'),
-    Field('exitCriteria', String, 'Exit Criteria',
-        hint: 'Completion conditions: pass rate >= 95%, no Sev-1 open'),
-    Field('suspensionCriteria', String, 'Suspension Criteria',
-        hint: 'Conditions that halt UAT'),
-    Field('resumptionCriteria', String, 'Resumption Criteria',
-        hint: 'Conditions to restart after suspension'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Defect management for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines incident and defect management within the test process',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the anomaly and defect report',
-  ],
-  'Captures the tools, severity levels, SLAs, thresholds, and triage process governing defects found during acceptance testing.',
-)
-@SectionId('UADEMA')
-class UatDefectManagement {
-  @Form([
-    Field('defectTool', String, 'Defect Tracking Tool',
-        hint: 'Jira / Azure DevOps / ServiceNow'),
-    Field('defectSeverityLevels', String, 'Severity Levels',
-        hint: 'Define Sev-1 through Sev-4 with examples'),
-    Field('defectResolutionSla', String, 'Resolution SLAs',
-        hint: 'Target fix times per severity'),
-    Field('defectThreshold', String, 'Acceptable Defect Threshold',
-        hint: 'Max open defects per severity to proceed'),
-    Field('defectTriageProcess', String, 'Triage Process',
-        hint: 'Frequency, participants, and decision-making'),
-    Field('retestProcess', String, 'Retest Process',
-        hint: 'How fixed defects are retested'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Reporting for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test-status reporting and completion reports',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the test-summary and status reports',
-  ],
-  'Captures the status reporting, tracked metrics, and final-report contents for the acceptance test effort.',
-)
-@SectionId('UARE')
-class UatReporting {
-  @Form([
-    Field('dailyStatusFormat', String, 'Daily Status Format',
-        hint: 'Contents: executed, passed, failed, blocked'),
-    Field('metricsTracked', String, 'Metrics Tracked',
-        hint: 'Pass rate, defect density, test coverage'),
-    Field('dashboardTool', String, 'Dashboard Tool',
-        hint: 'Tool for real-time UAT metrics'),
-    Field('finalReportContents', String, 'Final Report Contents',
-        hint: 'Summary, results matrix, open defects'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Non-functional acceptance for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — the product quality model defines non-functional quality characteristics used as acceptance criteria',
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines non-functional test types and techniques',
-  ],
-  'Captures the accessibility, performance, security, and regression acceptance conditions for the delivered system.',
-)
-@SectionId('UANOFU')
-class UatNonFunctional {
-  @Form([
-    Field('accessibilityAcceptance', String, 'Accessibility Acceptance',
-        hint: 'WCAG level, screen-reader compatibility'),
-    Field('performanceAcceptance', String, 'Performance Acceptance',
-        hint: 'Response time thresholds, concurrent users'),
-    Field('securityAcceptance', String, 'Security Acceptance',
-        hint: 'Authentication, authorization, data checks'),
-    Field('regressionApproach', String, 'Regression Approach',
-        hint: 'Scope and method for regression testing'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Sign-off for UAT.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames formal deliverable validation and acceptance sign-off',
-    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and formal authorization',
-  ],
-  'Captures the authority, criteria, and conditional-acceptance policy governing formal UAT sign-off.',
-)
-@SectionId('UASIOF')
-class UatSignOff {
-  @Form([
-    Field('signOffAuthority', String, 'Sign-Off Authority',
-        hint: 'Role(s) authorized to provide formal UAT sign-off'),
-    Field('signOffCriteria', String, 'Sign-Off Criteria',
-        hint: 'Exit criteria + risk acceptance conditions'),
-    Field('conditionalAcceptancePolicy', String, 'Conditional Acceptance Policy',
-        hint: 'Conditions under which UAT passes with known defects'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Training and readiness for UAT.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines training and operational-readiness support activities',
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard frames tester readiness and preparation for test execution',
-  ],
-  'Captures the tester training and user-documentation readiness that prepare participants for acceptance testing.',
-)
-@SectionId('UATR')
-class UatTraining {
-  @Form([
-    Field('testerTraining', String, 'Tester Training',
-        hint: 'Training provided: system walkthrough, tool orientation'),
-    Field('userDocumentation', String, 'User Documentation Availability',
-        hint: 'Guides, FAQs, and quick-start docs available'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// A UAT test cycle entry.
@@ -1420,75 +1736,104 @@ class UatTraining {
 @SectionId('UATCY')
 class UatTestCycleEntry {
   @Form([
-    Field('cycleName', String, 'Cycle Name',
-        hint:
-            'e.g. "Cycle 1 — Initial Execution" or "Regression Cycle"',
-        required: true),
-    Field('cycleObjective', String, 'Cycle Objective',
-        hint:
-            'Purpose: full execution, regression, retest only, or targeted'),
-    Field('plannedStartDate', String, 'Planned Start Date',
-        hint: 'Start date for this cycle'),
-    Field('plannedEndDate', String, 'Planned End Date',
-        hint: 'End date for this cycle'),
+    Field(
+      'cycleName',
+      String,
+      'Cycle Name',
+      hint: 'e.g. "Cycle 1 — Initial Execution" or "Regression Cycle"',
+      required: true,
+    ),
+    Field(
+      'cycleObjective',
+      String,
+      'Cycle Objective',
+      hint: 'Purpose: full execution, regression, retest only, or targeted',
+    ),
+    Field(
+      'plannedStartDate',
+      String,
+      'Planned Start Date',
+      hint: 'Start date for this cycle',
+    ),
+    Field(
+      'plannedEndDate',
+      String,
+      'Planned End Date',
+      hint: 'End date for this cycle',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Scope and pass criteria for this cycle.
+  @SectionId('UTCES')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines scope, entry and exit criteria for test execution',
+      'IEEE 829-2008 — the standard for software and system test documentation defines features-to-be-tested and pass criteria',
+    ],
+    'Captures the in-scope scenarios, focus areas, entry and exit criteria, and pass criterion for an acceptance test cycle.',
+  )
+  @Form([
+    Field(
+      'scenariosInScope',
+      String,
+      'Scenarios in Scope',
+      hint: 'Scenario IDs or categories included in this cycle',
+    ),
+    Field(
+      'focusAreas',
+      String,
+      'Focus Areas',
+      hint: 'Specific modules, features, or risk areas targeted',
+    ),
+    Field(
+      'entryCriteria',
+      String,
+      'Cycle Entry Criteria',
+      hint: 'Prerequisites specific to this cycle — e.g. prior cycle passed',
+    ),
+    Field(
+      'exitCriteria',
+      String,
+      'Cycle Exit Criteria',
+      hint: 'Completion conditions for this cycle',
+    ),
+    Field(
+      'passCriterion',
+      String,
+      'Pass Criterion',
+      hint: 'Required pass rate — e.g. >= 95% of scenarios',
+    ),
+  ])
   @SerializationOrder(1)
-  UatTestCycleEntryScope scope = UatTestCycleEntryScope();
+  String? scope;
 
   /// Staffing and risk context.
+  @SectionId('UTCEE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines staffing and risk considerations for test execution',
+      'IEEE 829-2008 — the standard for software and system test documentation defines staffing and responsibilities in a test plan',
+    ],
+    'Captures the assigned testers and known risks for an acceptance test cycle.',
+  )
+  @Form([
+    Field(
+      'assignedTesters',
+      String,
+      'Assigned Testers',
+      hint: 'Tester names/roles allocated for this cycle',
+    ),
+    Field(
+      'riskNotes',
+      String,
+      'Risk Notes',
+      hint: 'Known risks or dependencies for this cycle',
+    ),
+  ])
   @SerializationOrder(2)
-  UatTestCycleEntryExecution execution = UatTestCycleEntryExecution();
-}
-
-/// Scope and pass criteria for this cycle.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines scope, entry and exit criteria for test execution',
-    'IEEE 829-2008 — the standard for software and system test documentation defines features-to-be-tested and pass criteria',
-  ],
-  'Captures the in-scope scenarios, focus areas, entry and exit criteria, and pass criterion for an acceptance test cycle.',
-)
-@SectionId('UTCES')
-class UatTestCycleEntryScope {
-  @Form([
-    Field('scenariosInScope', String, 'Scenarios in Scope',
-        hint: 'Scenario IDs or categories included in this cycle'),
-    Field('focusAreas', String, 'Focus Areas',
-        hint: 'Specific modules, features, or risk areas targeted'),
-    Field('entryCriteria', String, 'Cycle Entry Criteria',
-        hint:
-            'Prerequisites specific to this cycle — e.g. prior cycle passed'),
-    Field('exitCriteria', String, 'Cycle Exit Criteria',
-        hint: 'Completion conditions for this cycle'),
-    Field('passCriterion', String, 'Pass Criterion',
-        hint: 'Required pass rate — e.g. >= 95% of scenarios'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Staffing and risk context.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines staffing and risk considerations for test execution',
-    'IEEE 829-2008 — the standard for software and system test documentation defines staffing and responsibilities in a test plan',
-  ],
-  'Captures the assigned testers and known risks for an acceptance test cycle.',
-)
-@SectionId('UTCEE')
-class UatTestCycleEntryExecution {
-  @Form([
-    Field('assignedTesters', String, 'Assigned Testers',
-        hint: 'Tester names/roles allocated for this cycle'),
-    Field('riskNotes', String, 'Risk Notes',
-        hint: 'Known risks or dependencies for this cycle'),
-  ])
-  @SerializationOrder(0)
-  String? content;
+  String? execution;
 }
 
 /// A test scenario entry (form).
@@ -1507,39 +1852,251 @@ class UatTestCycleEntryExecution {
 @SectionId('TSSC')
 class TestScenarioEntry {
   @Form([
-    Field('scenarioId', String, 'Scenario ID',
-        hint: 'Unique identifier — e.g. UAT-SC-001', required: true),
-    Field('scenarioName', String, 'Scenario Name',
-        hint: 'Concise name describing the user journey', required: true),
-    Field('priority', String, 'Priority',
-        hint: 'Critical / High / Medium / Low'),
+    Field(
+      'scenarioId',
+      String,
+      'Scenario ID',
+      hint: 'Unique identifier — e.g. UAT-SC-001',
+      required: true,
+    ),
+    Field(
+      'scenarioName',
+      String,
+      'Scenario Name',
+      hint: 'Concise name describing the user journey',
+      required: true,
+    ),
+    Field(
+      'priority',
+      String,
+      'Priority',
+      hint: 'Critical / High / Medium / Low',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Identification.
+  @SectionId('TESCID')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines identification and classification of test cases',
+      'IEEE 829-2008 — the standard for software and system test documentation defines test-case identifiers and descriptions',
+    ],
+    'Captures the descriptive identification, complexity, and category of an acceptance test scenario.',
+  )
+  @Form([
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'Detailed narrative of what is tested and why',
+    ),
+    Field(
+      'complexity',
+      String,
+      'Complexity',
+      hint: 'Simple / Medium / Complex',
+    ),
+    Field(
+      'category',
+      String,
+      'Category',
+      hint: 'Functional / Regression / Integration / End-to-End',
+    ),
+  ])
   @SerializationOrder(1)
-  TestScenarioIdentification identification = TestScenarioIdentification();
+  String? identification;
 
   /// Business context.
+  @SectionId('TESCBU')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions',
+      'ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables',
+    ],
+    'Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario.',
+  )
+  @Form([
+    Field(
+      'businessProcessRef',
+      String,
+      'Business Process Reference',
+      hint: 'ID or name of the business process being validated',
+    ),
+    Field(
+      'businessRulesValidated',
+      String,
+      'Business Rules Validated',
+      hint: 'Business rules this scenario verifies',
+    ),
+    Field(
+      'userRolePerforming',
+      String,
+      'User Role Performing Test',
+      hint: 'Persona or role executing',
+    ),
+    Field(
+      'regulatoryRelevance',
+      String,
+      'Regulatory Relevance',
+      hint: 'Compliance requirements addressed',
+    ),
+  ])
   @SerializationOrder(2)
-  TestScenarioBusiness business = TestScenarioBusiness();
+  String? business;
 
   /// Traceability.
+  @SectionId('TESCTR')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria',
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements',
+    ],
+    'Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.',
+  )
+  @Form([
+    Field(
+      'requirementRef',
+      String,
+      'Requirement Reference',
+      hint: 'Requirement ID(s) — e.g. REQ-042',
+    ),
+    Field(
+      'useCaseRef',
+      String,
+      'Use Case Reference',
+      hint: 'Related use case ID',
+    ),
+    Field(
+      'acceptanceCriterionRef',
+      String,
+      'Acceptance Criterion Reference',
+      hint: 'Linked criterion ID',
+    ),
+    Field(
+      'designRef',
+      String,
+      'Design / Screen Reference',
+      hint: 'UI screens or mockup references',
+    ),
+  ])
   @SerializationOrder(3)
-  TestScenarioTraceability traceability = TestScenarioTraceability();
+  String? traceability;
 
   /// Preconditions and setup.
+  @SectionId('TESCSE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case',
+      'IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records',
+    ],
+    'Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs.',
+  )
+  @Form([
+    Field(
+      'preconditions',
+      String,
+      'Preconditions',
+      hint: 'System state required before execution',
+    ),
+    Field(
+      'testDataRequirements',
+      String,
+      'Test Data Requirements',
+      hint: 'Specific data needed',
+    ),
+    Field(
+      'environmentRequirements',
+      String,
+      'Environment Requirements',
+      hint: 'Special environment config',
+    ),
+    Field(
+      'dependsOnScenarios',
+      String,
+      'Depends on Scenarios',
+      hint: 'Scenario IDs that must pass before this one',
+    ),
+  ])
   @SerializationOrder(4)
-  TestScenarioSetup setup = TestScenarioSetup();
+  String? setup;
 
   /// Execution.
+  @SectionId('TESCEX')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-execution activity and expected results',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and acceptance criteria',
+    ],
+    'Captures the execution summary, expected result, and acceptance criteria for an acceptance test scenario.',
+  )
+  @Form([
+    Field(
+      'testStepsSummary',
+      String,
+      'Test Steps Summary',
+      hint: 'High-level step sequence',
+    ),
+    Field(
+      'expectedResult',
+      String,
+      'Expected Result',
+      hint: 'Overall expected outcome',
+    ),
+    Field(
+      'acceptanceCriteria',
+      String,
+      'Acceptance Criteria',
+      hint: 'Specific pass/fail conditions',
+    ),
+    Field(
+      'estimatedDuration',
+      String,
+      'Estimated Duration',
+      hint: 'Expected execution time',
+    ),
+    Field(
+      'assignedTesterRole',
+      String,
+      'Assigned Tester Role',
+      hint: 'Role or name of the person assigned',
+    ),
+  ])
   @SerializationOrder(5)
-  TestScenarioExecution execution = TestScenarioExecution();
+  String? execution;
 
   /// Post-execution.
+  @SectionId('TSPE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines postconditions and result evaluation within a test case',
+      'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and result-capture records',
+    ],
+    'Captures postconditions, cleanup steps, and defect thresholds evaluated after an acceptance test scenario runs.',
+  )
+  @Form([
+    Field(
+      'postconditions',
+      String,
+      'Postconditions',
+      hint: 'Expected system state after execution',
+    ),
+    Field(
+      'cleanupSteps',
+      String,
+      'Cleanup Steps',
+      hint: 'Actions to reset environment',
+    ),
+    Field(
+      'defectThreshold',
+      String,
+      'Defect Threshold',
+      hint: 'Max defects for pass',
+    ),
+  ])
   @SerializationOrder(6)
-  TestScenarioPostExecution postExecution = TestScenarioPostExecution();
+  String? postExecution;
 
   /// Notes.
   @StandardReferences(
@@ -1555,159 +2112,14 @@ class TestScenarioEntry {
   List<TestScenarioNotes> notes = [];
 
   /// Contains 0+× UatTestStep for this scenario.
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered test steps that make up a test procedure',
-    ],
-    'Lists the individual acceptance test steps that make up this scenario.',
-  )
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the ordered test steps that make up a test procedure',
+  ], 'Lists the individual acceptance test steps that make up this scenario.')
   @SectionId('UATSST-TEST-LST')
   @SectionIdPattern('UATSST-TEST-xxx')
   @ContentHelp('Add one entry per user-acceptance test step.')
   @SerializationOrder(8)
   List<UatTestStepEntry> testSteps = [];
-}
-
-/// Identification for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines identification and classification of test cases',
-    'IEEE 829-2008 — the standard for software and system test documentation defines test-case identifiers and descriptions',
-  ],
-  'Captures the descriptive identification, complexity, and category of an acceptance test scenario.',
-)
-@SectionId('TESCID')
-class TestScenarioIdentification {
-  @Form([
-    Field('description', String, 'Description',
-        hint: 'Detailed narrative of what is tested and why'),
-    Field('complexity', String, 'Complexity',
-        hint: 'Simple / Medium / Complex'),
-    Field('category', String, 'Category',
-        hint: 'Functional / Regression / Integration / End-to-End'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Business context for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions',
-    'ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables',
-  ],
-  'Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario.',
-)
-@SectionId('TESCBU')
-class TestScenarioBusiness {
-  @Form([
-    Field('businessProcessRef', String, 'Business Process Reference',
-        hint: 'ID or name of the business process being validated'),
-    Field('businessRulesValidated', String, 'Business Rules Validated',
-        hint: 'Business rules this scenario verifies'),
-    Field('userRolePerforming', String, 'User Role Performing Test',
-        hint: 'Persona or role executing'),
-    Field('regulatoryRelevance', String, 'Regulatory Relevance',
-        hint: 'Compliance requirements addressed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Traceability for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria',
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements',
-  ],
-  'Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.',
-)
-@SectionId('TESCTR')
-class TestScenarioTraceability {
-  @Form([
-    Field('requirementRef', String, 'Requirement Reference',
-        hint: 'Requirement ID(s) — e.g. REQ-042'),
-    Field('useCaseRef', String, 'Use Case Reference',
-        hint: 'Related use case ID'),
-    Field('acceptanceCriterionRef', String, 'Acceptance Criterion Reference',
-        hint: 'Linked criterion ID'),
-    Field('designRef', String, 'Design / Screen Reference',
-        hint: 'UI screens or mockup references'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Setup for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case',
-    'IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records',
-  ],
-  'Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs.',
-)
-@SectionId('TESCSE')
-class TestScenarioSetup {
-  @Form([
-    Field('preconditions', String, 'Preconditions',
-        hint: 'System state required before execution'),
-    Field('testDataRequirements', String, 'Test Data Requirements',
-        hint: 'Specific data needed'),
-    Field('environmentRequirements', String, 'Environment Requirements',
-        hint: 'Special environment config'),
-    Field('dependsOnScenarios', String, 'Depends on Scenarios',
-        hint: 'Scenario IDs that must pass before this one'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Execution for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the test-execution activity and expected results',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the level test procedure and acceptance criteria',
-  ],
-  'Captures the execution summary, expected result, and acceptance criteria for an acceptance test scenario.',
-)
-@SectionId('TESCEX')
-class TestScenarioExecution {
-  @Form([
-    Field('testStepsSummary', String, 'Test Steps Summary',
-        hint: 'High-level step sequence'),
-    Field('expectedResult', String, 'Expected Result',
-        hint: 'Overall expected outcome'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint: 'Specific pass/fail conditions'),
-    Field('estimatedDuration', String, 'Estimated Duration',
-        hint: 'Expected execution time'),
-    Field('assignedTesterRole', String, 'Assigned Tester Role',
-        hint: 'Role or name of the person assigned'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Post-execution for test scenario.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines postconditions and result evaluation within a test case',
-    'IEEE 829-2008 — the standard for software and system test documentation defines the test-log and result-capture records',
-  ],
-  'Captures postconditions, cleanup steps, and defect thresholds evaluated after an acceptance test scenario runs.',
-)
-@SectionId('TSPE')
-class TestScenarioPostExecution {
-  @Form([
-    Field('postconditions', String, 'Postconditions',
-        hint: 'Expected system state after execution'),
-    Field('cleanupSteps', String, 'Cleanup Steps',
-        hint: 'Actions to reset environment'),
-    Field('defectThreshold', String, 'Defect Threshold',
-        hint: 'Max defects for pass'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// Notes for test scenario.
@@ -1720,12 +2132,19 @@ class TestScenarioPostExecution {
 @SectionId('TESCNO')
 class TestScenarioNotes {
   @Form([
-    Field('assumptions', String, 'Assumptions',
-        hint: 'Assumptions made when designing'),
-    Field('risksAndMitigations', String, 'Risks & Mitigations',
-        hint: 'Known risks and mitigation strategies'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional context or known issues'),
+    Field(
+      'assumptions',
+      String,
+      'Assumptions',
+      hint: 'Assumptions made when designing',
+    ),
+    Field(
+      'risksAndMitigations',
+      String,
+      'Risks & Mitigations',
+      hint: 'Known risks and mitigation strategies',
+    ),
+    Field('notes', String, 'Notes', hint: 'Additional context or known issues'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1746,23 +2165,51 @@ class TestScenarioNotes {
 @SectionId('UATSST')
 class UatTestStepEntry {
   @Form([
-    Field('stepNumber', String, 'Step Number',
-        hint: 'Sequential number — e.g. 1, 2, 3', required: true),
-    Field('action', String, 'Action',
-        hint:
-            'What the tester does — e.g. "Navigate to Invoice screen and select order"'),
-    Field('inputData', String, 'Input Data',
-        hint:
-            'Specific data to enter — e.g. "Amount: 500.00, Currency: EUR"'),
-    Field('expectedResult', String, 'Expected Result',
-        hint:
-            'What should happen — e.g. "Invoice generated with correct line items"'),
-    Field('uiScreenRef', String, 'UI Screen Reference',
-        hint: 'Screen or page where this step is performed'),
-    Field('passCriteria', String, 'Pass Criteria',
-        hint: 'How to determine if this individual step passed'),
-    Field('notes', String, 'Notes',
-        hint: 'Clarification, timing notes, or alternative paths'),
+    Field(
+      'stepNumber',
+      String,
+      'Step Number',
+      hint: 'Sequential number — e.g. 1, 2, 3',
+      required: true,
+    ),
+    Field(
+      'action',
+      String,
+      'Action',
+      hint:
+          'What the tester does — e.g. "Navigate to Invoice screen and select order"',
+    ),
+    Field(
+      'inputData',
+      String,
+      'Input Data',
+      hint: 'Specific data to enter — e.g. "Amount: 500.00, Currency: EUR"',
+    ),
+    Field(
+      'expectedResult',
+      String,
+      'Expected Result',
+      hint:
+          'What should happen — e.g. "Invoice generated with correct line items"',
+    ),
+    Field(
+      'uiScreenRef',
+      String,
+      'UI Screen Reference',
+      hint: 'Screen or page where this step is performed',
+    ),
+    Field(
+      'passCriteria',
+      String,
+      'Pass Criteria',
+      hint: 'How to determine if this individual step passed',
+    ),
+    Field(
+      'notes',
+      String,
+      'Notes',
+      hint: 'Clarification, timing notes, or alternative paths',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1789,159 +2236,216 @@ class UatTestStepEntry {
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DEF')
 class DefectResolution {
   @Form([
-    Field('severityScheme', String, 'Severity Scheme',
-        hint:
-            'Severity levels defined — e.g. Sev-1 Critical, Sev-2 Major, '
-            'Sev-3 Minor, Sev-4 Trivial'),
-    Field('priorityScheme', String, 'Priority Scheme',
-        hint:
-            'Priority levels — Urgent / High / Medium / Low — '
-            'determines fix sequencing'),
-    Field('classificationAuthority', String, 'Classification Authority',
-        hint:
-            'Who decides severity/priority — UAT lead, business owner, or joint'),
+    Field(
+      'severityScheme',
+      String,
+      'Severity Scheme',
+      hint:
+          'Severity levels defined — e.g. Sev-1 Critical, Sev-2 Major, '
+          'Sev-3 Minor, Sev-4 Trivial',
+    ),
+    Field(
+      'priorityScheme',
+      String,
+      'Priority Scheme',
+      hint:
+          'Priority levels — Urgent / High / Medium / Low — '
+          'determines fix sequencing',
+    ),
+    Field(
+      'classificationAuthority',
+      String,
+      'Classification Authority',
+      hint:
+          'Who decides severity/priority — UAT lead, business owner, or joint',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Classification refinement and SLA targets.
+  @SectionId('DERESL')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service-level and problem-management targets',
+      'ITIL 4 2019 — the service management framework defines defect-resolution service-level practices',
+    ],
+    'Captures the classification refinement and SLA targets including reclassification process and per-severity resolution times.',
+  )
+  @Form([
+    Field(
+      'reclassificationProcess',
+      String,
+      'Reclassification Process',
+      hint:
+          'How severity can be changed after initial assignment — '
+          'who, when, criteria',
+    ),
+    Field(
+      'sev1ResolutionTime',
+      String,
+      'Sev-1 Resolution Time',
+      hint: 'Target fix time — e.g. 4 hours, next business day',
+    ),
+    Field(
+      'sev2ResolutionTime',
+      String,
+      'Sev-2 Resolution Time',
+      hint: 'Target fix time — e.g. 2 business days',
+    ),
+    Field(
+      'sev3ResolutionTime',
+      String,
+      'Sev-3 Resolution Time',
+      hint: 'Target fix time — e.g. 5 business days',
+    ),
+    Field(
+      'sev4ResolutionTime',
+      String,
+      'Sev-4 Resolution Time',
+      hint: 'Target fix time — e.g. next release, or backlog',
+    ),
+    Field(
+      'slaExceptions',
+      String,
+      'SLA Exceptions',
+      hint:
+          'Conditions under which SLAs are suspended — holidays, force majeure',
+    ),
+  ])
   @SerializationOrder(1)
-  DefectResolutionSla sla = DefectResolutionSla();
+  String? sla;
 
   /// Acceptance thresholds and deferral rules.
+  @SectionId('DERETH')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames defect prioritization and deliverable acceptance thresholds',
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and test exit conditions',
+    ],
+    'Captures the acceptance thresholds and deferral rules including blocking thresholds, conditional-pass limits, and deferral policy.',
+  )
+  @Form([
+    Field(
+      'blockingThreshold',
+      String,
+      'Blocking Threshold',
+      hint:
+          'Max open defects that block acceptance — '
+          'e.g. 0 Sev-1, 0 Sev-2 unresolved',
+    ),
+    Field(
+      'conditionalPassThreshold',
+      String,
+      'Conditional Pass Threshold',
+      hint:
+          'Defects allowed for conditional acceptance — '
+          'e.g. <= 3 Sev-3, agreed workaround for each',
+    ),
+    Field(
+      'deferralPolicy',
+      String,
+      'Deferral Policy',
+      hint:
+          'When defects can be deferred to post-go-live — '
+          'criteria and approval process',
+    ),
+  ])
   @SerializationOrder(2)
-  DefectResolutionThresholds thresholds = DefectResolutionThresholds();
+  String? thresholds;
 
   /// Triage, retest, and escalation process.
+  @SectionId('DEREPR')
+  @StandardReferences(
+    [
+      'ITIL 4 2019 — the service management framework defines incident triage and defect-resolution practices',
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines problem management including triage and escalation',
+    ],
+    'Captures the defect triage, retest, and escalation process including tracking tools, triage cadence, and regression policy.',
+  )
+  @Form([
+    Field(
+      'defectTrackingTool',
+      String,
+      'Defect Tracking Tool',
+      hint: 'Jira / Azure DevOps / ServiceNow — tool details',
+    ),
+    Field(
+      'triageProcess',
+      String,
+      'Triage Process',
+      hint:
+          'Frequency, participants, and decision criteria '
+          'for defect triage meetings',
+    ),
+    Field(
+      'retestProcess',
+      String,
+      'Retest Process',
+      hint:
+          'How fixed defects are verified — who retests, '
+          'environment, evidence required',
+    ),
+    Field(
+      'regressionPolicy',
+      String,
+      'Regression Policy',
+      hint: 'Whether fix deployment triggers regression — scope and criteria',
+    ),
+    Field(
+      'escalationPath',
+      String,
+      'Escalation Path',
+      hint: 'Escalation for overdue defects — levels and timing',
+    ),
+  ])
   @SerializationOrder(3)
-  DefectResolutionProcess process = DefectResolutionProcess();
+  String? process;
 
   /// Reporting and closure rules.
+  @SectionId('DERERE')
+  @StandardReferences(
+    [
+      'IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting',
+      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes and documentation including defect reporting',
+    ],
+    'Captures the defect reporting and closure rules including reporting frequency, metrics tracked, and closure criteria.',
+  )
+  @Form([
+    Field(
+      'reportingFrequency',
+      String,
+      'Reporting Frequency',
+      hint: 'Daily / Per Triage / Weekly — defect status reporting',
+    ),
+    Field(
+      'metricsTracked',
+      String,
+      'Metrics Tracked',
+      hint:
+          'Open/closed counts, mean time to fix, aging, '
+          'reopen rate, severity distribution',
+    ),
+    Field(
+      'closureCriteria',
+      String,
+      'Closure Criteria',
+      hint:
+          'When a defect is considered closed — retest passed, '
+          'evidence documented, reporter confirmed',
+    ),
+  ])
   @SerializationOrder(4)
-  DefectResolutionReporting reporting = DefectResolutionReporting();
+  String? reporting;
 
   /// Defect management narrative.
-  @ContentHelp('Detailed description of the defect lifecycle: '
-      'from discovery through classification, assignment, fix, '
-      'retest, and closure. Include workflow diagrams if applicable.')
+  @ContentHelp(
+    'Detailed description of the defect lifecycle: '
+    'from discovery through classification, assignment, fix, '
+    'retest, and closure. Include workflow diagrams if applicable.',
+  )
   @SerializationOrder(5)
   TextSection defectManagementNarrative = TextSection();
-}
-
-/// Classification refinement and SLA targets.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines service-level and problem-management targets',
-    'ITIL 4 2019 — the service management framework defines defect-resolution service-level practices',
-  ],
-  'Captures the classification refinement and SLA targets including reclassification process and per-severity resolution times.',
-)
-@SectionId('DERESL')
-class DefectResolutionSla {
-  @Form([
-    Field('reclassificationProcess', String, 'Reclassification Process',
-        hint:
-            'How severity can be changed after initial assignment — '
-            'who, when, criteria'),
-    Field('sev1ResolutionTime', String, 'Sev-1 Resolution Time',
-        hint: 'Target fix time — e.g. 4 hours, next business day'),
-    Field('sev2ResolutionTime', String, 'Sev-2 Resolution Time',
-        hint: 'Target fix time — e.g. 2 business days'),
-    Field('sev3ResolutionTime', String, 'Sev-3 Resolution Time',
-        hint: 'Target fix time — e.g. 5 business days'),
-    Field('sev4ResolutionTime', String, 'Sev-4 Resolution Time',
-        hint: 'Target fix time — e.g. next release, or backlog'),
-    Field('slaExceptions', String, 'SLA Exceptions',
-        hint: 'Conditions under which SLAs are suspended — holidays, force majeure'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Acceptance thresholds and deferral rules.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames defect prioritization and deliverable acceptance thresholds',
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines acceptance criteria and test exit conditions',
-  ],
-  'Captures the acceptance thresholds and deferral rules including blocking thresholds, conditional-pass limits, and deferral policy.',
-)
-@SectionId('DERETH')
-class DefectResolutionThresholds {
-  @Form([
-    Field('blockingThreshold', String, 'Blocking Threshold',
-        hint:
-            'Max open defects that block acceptance — '
-            'e.g. 0 Sev-1, 0 Sev-2 unresolved'),
-    Field('conditionalPassThreshold', String, 'Conditional Pass Threshold',
-        hint:
-            'Defects allowed for conditional acceptance — '
-            'e.g. <= 3 Sev-3, agreed workaround for each'),
-    Field('deferralPolicy', String, 'Deferral Policy',
-        hint:
-            'When defects can be deferred to post-go-live — '
-            'criteria and approval process'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Triage, retest, and escalation process.
-@StandardReferences(
-  [
-    'ITIL 4 2019 — the service management framework defines incident triage and defect-resolution practices',
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines problem management including triage and escalation',
-  ],
-  'Captures the defect triage, retest, and escalation process including tracking tools, triage cadence, and regression policy.',
-)
-@SectionId('DEREPR')
-class DefectResolutionProcess {
-  @Form([
-    Field('defectTrackingTool', String, 'Defect Tracking Tool',
-        hint: 'Jira / Azure DevOps / ServiceNow — tool details'),
-    Field('triageProcess', String, 'Triage Process',
-        hint:
-            'Frequency, participants, and decision criteria '
-            'for defect triage meetings'),
-    Field('retestProcess', String, 'Retest Process',
-        hint:
-            'How fixed defects are verified — who retests, '
-            'environment, evidence required'),
-    Field('regressionPolicy', String, 'Regression Policy',
-        hint:
-            'Whether fix deployment triggers regression — scope and criteria'),
-    Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation for overdue defects — levels and timing'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Reporting and closure rules.
-@StandardReferences(
-  [
-    'IEEE 829-2008 — the standard for software and system test documentation defines test-incident and defect reporting',
-    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines test processes and documentation including defect reporting',
-  ],
-  'Captures the defect reporting and closure rules including reporting frequency, metrics tracked, and closure criteria.',
-)
-@SectionId('DERERE')
-class DefectResolutionReporting {
-  @Form([
-    Field('reportingFrequency', String, 'Reporting Frequency',
-        hint: 'Daily / Per Triage / Weekly — defect status reporting'),
-    Field('metricsTracked', String, 'Metrics Tracked',
-        hint:
-            'Open/closed counts, mean time to fix, aging, '
-            'reopen rate, severity distribution'),
-    Field('closureCriteria', String, 'Closure Criteria',
-        hint:
-            'When a defect is considered closed — retest passed, '
-            'evidence documented, reporter confirmed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1965,188 +2469,231 @@ class DefectResolutionReporting {
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SIG')
 class SignOffProcess {
   @Form([
-    Field('signOffAuthority', String, 'Sign-Off Authority',
-        hint:
-            'Primary role/body authorized to sign — '
-            'e.g. Business Acceptance Board, Project Sponsor',
-        required: true),
-    Field('technicalSignOff', String, 'Technical Sign-Off',
-        hint:
-            'Role for technical acceptance — '
-            'e.g. Technical Lead, Solution Architect'),
-    Field('businessSignOff', String, 'Business Sign-Off',
-        hint:
-            'Role for business acceptance — '
-            'e.g. Business Owner, Product Owner'),
+    Field(
+      'signOffAuthority',
+      String,
+      'Sign-Off Authority',
+      hint:
+          'Primary role/body authorized to sign — '
+          'e.g. Business Acceptance Board, Project Sponsor',
+      required: true,
+    ),
+    Field(
+      'technicalSignOff',
+      String,
+      'Technical Sign-Off',
+      hint:
+          'Role for technical acceptance — '
+          'e.g. Technical Lead, Solution Architect',
+    ),
+    Field(
+      'businessSignOff',
+      String,
+      'Business Sign-Off',
+      hint:
+          'Role for business acceptance — '
+          'e.g. Business Owner, Product Owner',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Signatory and quorum governance.
+  @SectionId('SOPG')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance governance and closure',
+      'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover roles',
+    ],
+    'Captures the signatory and quorum governance for sign-off including operational readiness roles and quorum requirements.',
+  )
+  @Form([
+    Field(
+      'operationsSignOff',
+      String,
+      'Operations Sign-Off',
+      hint:
+          'Role for operational readiness — '
+          'e.g. Operations Manager, SRE Lead',
+    ),
+    Field(
+      'quorumRequirements',
+      String,
+      'Quorum Requirements',
+      hint: 'Minimum signatories — e.g. all 3 boards, or 2-of-3',
+    ),
+  ])
   @SerializationOrder(1)
-  SignOffProcessGovernance governance = SignOffProcessGovernance();
+  String? governance;
 
   /// Evidence and checklist requirements.
+  @SectionId('SOPE')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process and evidence',
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance evidence and closure',
+    ],
+    'Captures the evidence and checklist requirements for sign-off including document templates, required attachments, and pre-sign-off criteria.',
+  )
+  @Form([
+    Field(
+      'signOffDocumentTemplate',
+      String,
+      'Sign-Off Document Template',
+      hint: 'Standard form/template used for formal sign-off',
+    ),
+    Field(
+      'requiredAttachments',
+      String,
+      'Required Attachments',
+      hint:
+          'Evidence package: test reports, acceptance report, '
+          'risk assessment, open defect list',
+    ),
+    Field(
+      'signOffCriteria',
+      String,
+      'Sign-Off Criteria',
+      hint:
+          'Criteria that must be demonstrated before sign-off '
+          'can proceed',
+    ),
+    Field(
+      'preSignOffChecklistItems',
+      String,
+      'Pre-Sign-Off Checklist',
+      hint: 'Final verification checklist — all items must be confirmed',
+    ),
+  ])
   @SerializationOrder(2)
-  SignOffProcessEvidence evidence = SignOffProcessEvidence();
+  String? evidence;
 
   /// Conditional or partial acceptance policies.
+  @SectionId('SOPA')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and rejection handling',
+      'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support and validation processes',
+    ],
+    'Captures the conditional and partial acceptance policies including rejection handling and outstanding-item action plans.',
+  )
+  @Form([
+    Field(
+      'conditionalAcceptancePolicy',
+      String,
+      'Conditional Acceptance Policy',
+      hint:
+          'Conditions allowing sign-off with known issues or '
+          'outstanding items — action plan required',
+    ),
+    Field(
+      'partialAcceptancePolicy',
+      String,
+      'Partial Acceptance Policy',
+      hint:
+          'Whether acceptance of individual deliverables '
+          'is possible — scope and implications',
+    ),
+    Field(
+      'rejectionProcess',
+      String,
+      'Rejection Process',
+      hint:
+          'What happens on rejection — rework, resubmission timeline, '
+          'impact on project',
+    ),
+  ])
   @SerializationOrder(3)
-  SignOffProcessAcceptance acceptance = SignOffProcessAcceptance();
+  String? acceptance;
 
   /// Legal and contractual consequences.
+  @SectionId('SOPC')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and contractual closure',
+      'ISO 21502:2020 — the guidance on project management defines deliverable acceptance, handover, and closure',
+    ],
+    'Captures the legal and contractual consequences of sign-off including warranty activation, payment linkage, and contractual references.',
+  )
+  @Form([
+    Field(
+      'legalImplications',
+      String,
+      'Legal Implications',
+      hint:
+          'What sign-off means legally — warranties activate, '
+          'payment milestones trigger, liability transfers',
+    ),
+    Field(
+      'contractualReferences',
+      String,
+      'Contractual References',
+      hint: 'Contract clauses governing acceptance — section numbers',
+    ),
+    Field(
+      'paymentLinkage',
+      String,
+      'Payment Linkage',
+      hint:
+          'Payment milestones triggered by sign-off — '
+          'amounts and timing',
+    ),
+    Field(
+      'warrantyActivation',
+      String,
+      'Warranty Activation',
+      hint:
+          'When warranty period starts — from sign-off date, '
+          'from go-live date',
+    ),
+  ])
   @SerializationOrder(4)
-  SignOffProcessContractual contractual = SignOffProcessContractual();
+  String? contractual;
 
   /// Review timeline.
+  @SectionId('SOPT')
+  @StandardReferences(
+    [
+      'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and closure timing',
+      'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover timelines',
+    ],
+    'Captures the sign-off review timeline including deadlines, review period, and silent-acceptance policy.',
+  )
+  @Form([
+    Field(
+      'signOffDeadline',
+      String,
+      'Sign-Off Deadline',
+      hint: 'Final date by which sign-off must be obtained',
+    ),
+    Field(
+      'reviewPeriod',
+      String,
+      'Review Period',
+      hint:
+          'Time allowed for review before sign-off — '
+          'e.g. 5 business days after evidence delivery',
+    ),
+    Field(
+      'silentAcceptancePolicy',
+      String,
+      'Silent Acceptance Policy',
+      hint:
+          'Whether non-response constitutes acceptance — '
+          'Yes/No, after what period',
+    ),
+  ])
   @SerializationOrder(5)
-  SignOffProcessTimeline timeline = SignOffProcessTimeline();
+  String? timeline;
 
   /// Sign-off process narrative.
-  @ContentHelp('Detailed walkthrough of the sign-off ceremony: '
-      'how the meeting is conducted, document review procedure, '
-      'voting mechanism, dissent handling, and record keeping.')
+  @ContentHelp(
+    'Detailed walkthrough of the sign-off ceremony: '
+    'how the meeting is conducted, document review procedure, '
+    'voting mechanism, dissent handling, and record keeping.',
+  )
   @SerializationOrder(6)
   TextSection signOffNarrative = TextSection();
-}
-
-/// Signatory and quorum governance.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance governance and closure',
-    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover roles',
-  ],
-  'Captures the signatory and quorum governance for sign-off including operational readiness roles and quorum requirements.',
-)
-@SectionId('SOPG')
-class SignOffProcessGovernance {
-    @Form([
-        Field('operationsSignOff', String, 'Operations Sign-Off',
-                hint:
-                        'Role for operational readiness — '
-                        'e.g. Operations Manager, SRE Lead'),
-        Field('quorumRequirements', String, 'Quorum Requirements',
-                hint:
-                        'Minimum signatories — e.g. all 3 boards, or 2-of-3'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Evidence and checklist requirements.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support process and evidence',
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance evidence and closure',
-  ],
-  'Captures the evidence and checklist requirements for sign-off including document templates, required attachments, and pre-sign-off criteria.',
-)
-@SectionId('SOPE')
-class SignOffProcessEvidence {
-    @Form([
-        Field('signOffDocumentTemplate', String, 'Sign-Off Document Template',
-                hint:
-                        'Standard form/template used for formal sign-off'),
-        Field('requiredAttachments', String, 'Required Attachments',
-                hint:
-                        'Evidence package: test reports, acceptance report, '
-                        'risk assessment, open defect list'),
-        Field('signOffCriteria', String, 'Sign-Off Criteria',
-                hint:
-                        'Criteria that must be demonstrated before sign-off '
-                        'can proceed'),
-        Field('preSignOffChecklistItems', String, 'Pre-Sign-Off Checklist',
-                hint:
-                        'Final verification checklist — all items must be confirmed'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Conditional or partial acceptance policies.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and rejection handling',
-    'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the acceptance-support and validation processes',
-  ],
-  'Captures the conditional and partial acceptance policies including rejection handling and outstanding-item action plans.',
-)
-@SectionId('SOPA')
-class SignOffProcessAcceptance {
-    @Form([
-        Field('conditionalAcceptancePolicy', String,
-                'Conditional Acceptance Policy',
-                hint:
-                        'Conditions allowing sign-off with known issues or '
-                        'outstanding items — action plan required'),
-        Field('partialAcceptancePolicy', String, 'Partial Acceptance Policy',
-                hint:
-                        'Whether acceptance of individual deliverables '
-                        'is possible — scope and implications'),
-        Field('rejectionProcess', String, 'Rejection Process',
-                hint:
-                        'What happens on rejection — rework, resubmission timeline, '
-                        'impact on project'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Legal and contractual consequences.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and contractual closure',
-    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance, handover, and closure',
-  ],
-  'Captures the legal and contractual consequences of sign-off including warranty activation, payment linkage, and contractual references.',
-)
-@SectionId('SOPC')
-class SignOffProcessContractual {
-    @Form([
-        Field('legalImplications', String, 'Legal Implications',
-                hint:
-                        'What sign-off means legally — warranties activate, '
-                        'payment milestones trigger, liability transfers'),
-        Field('contractualReferences', String, 'Contractual References',
-                hint:
-                        'Contract clauses governing acceptance — section numbers'),
-        Field('paymentLinkage', String, 'Payment Linkage',
-                hint:
-                        'Payment milestones triggered by sign-off — '
-                        'amounts and timing'),
-        Field('warrantyActivation', String, 'Warranty Activation',
-                hint:
-                        'When warranty period starts — from sign-off date, '
-                        'from go-live date'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Review timeline.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable acceptance and closure timing',
-    'ISO 21502:2020 — the guidance on project management defines deliverable acceptance and handover timelines',
-  ],
-  'Captures the sign-off review timeline including deadlines, review period, and silent-acceptance policy.',
-)
-@SectionId('SOPT')
-class SignOffProcessTimeline {
-    @Form([
-        Field('signOffDeadline', String, 'Sign-Off Deadline',
-                hint: 'Final date by which sign-off must be obtained'),
-        Field('reviewPeriod', String, 'Review Period',
-                hint:
-                        'Time allowed for review before sign-off — '
-                        'e.g. 5 business days after evidence delivery'),
-        Field('silentAcceptancePolicy', String, 'Silent Acceptance Policy',
-                hint:
-                        'Whether non-response constitutes acceptance — '
-                        'Yes/No, after what period'),
-    ])
-    @SerializationOrder(0)
-    String? content;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -2169,33 +2716,92 @@ class SignOffProcessTimeline {
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-WAR')
 class WarrantyTerms {
   @Form([
-    Field('warrantyDuration', String, 'Warranty Duration',
-        hint: 'Length of warranty period — e.g. 90 days, 6 months',
-        required: true),
-    Field('warrantyStartTrigger', String, 'Warranty Start Trigger',
-        hint: 'What starts the warranty — sign-off date, go-live date'),
-    Field('warrantyScope', String, 'Warranty Scope',
-        hint: 'What is covered: defect fixes, configuration issues',
-        required: true),
+    Field(
+      'warrantyDuration',
+      String,
+      'Warranty Duration',
+      hint: 'Length of warranty period — e.g. 90 days, 6 months',
+      required: true,
+    ),
+    Field(
+      'warrantyStartTrigger',
+      String,
+      'Warranty Start Trigger',
+      hint: 'What starts the warranty — sign-off date, go-live date',
+    ),
+    Field(
+      'warrantyScope',
+      String,
+      'Warranty Scope',
+      hint: 'What is covered: defect fixes, configuration issues',
+      required: true,
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Duration and activation.
-  @SerializationOrder(1)
-  WarrantyDuration duration = WarrantyDuration();
-
-  /// Scope of coverage.
-  @SerializationOrder(2)
-  WarrantyCoverage coverage = WarrantyCoverage();
-
-  /// Service levels.
+  @SectionId('WADU')
   @StandardReferences(
     [
-      'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments',
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty periods and commitments',
+      'ISO 21502:2020 — the guidance on project management defines deliverable handover timing and closure',
     ],
-    'Lists the warranty service elements offered during the warranty period.',
+    'Captures the duration and activation details of the warranty including end date and extension policy.',
   )
+  @Form([
+    Field(
+      'warrantyEndDate',
+      String,
+      'Warranty End Date',
+      hint: 'Calculated or fixed end date of warranty',
+    ),
+    Field(
+      'extensionPolicy',
+      String,
+      'Extension Policy',
+      hint: 'Conditions for warranty extension',
+    ),
+  ])
+  @SerializationOrder(1)
+  String? duration;
+
+  /// Scope of coverage.
+  @SectionId('WACO')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries',
+      'ITIL 4 2019 — the service management framework defines warranty coverage and support scope',
+    ],
+    'Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty.',
+  )
+  @Form([
+    Field(
+      'exclusions',
+      String,
+      'Exclusions',
+      hint: 'What is NOT covered: new features, user errors',
+    ),
+    Field(
+      'coveredDeliverables',
+      String,
+      'Covered Deliverables',
+      hint: 'Which deliverables are under warranty',
+    ),
+    Field(
+      'environmentsCovered',
+      String,
+      'Environments Covered',
+      hint: 'Production only, or also staging/UAT',
+    ),
+  ])
+  @SerializationOrder(2)
+  String? coverage;
+
+  /// Service levels.
+  @StandardReferences([
+    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments',
+  ], 'Lists the warranty service elements offered during the warranty period.')
   @SectionId('WASELE-SERV-LST')
   @SectionIdPattern('WASELE-SERV-xxx')
   @ContentHelp('Add one entry per warranty service element.')
@@ -2203,66 +2809,116 @@ class WarrantyTerms {
   List<WarrantyServiceLevels> serviceLevels = [];
 
   /// Process for defect handling.
+  @SectionId('WAPR')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines problem and incident management for warranty defect handling',
+      'ITIL 4 2019 — the service management framework defines support and defect-resolution practices during warranty',
+    ],
+    'Captures the process for handling warranty defects including reporting channels, fix delivery, regression testing, and communication cadence.',
+  )
+  @Form([
+    Field(
+      'defectReportingChannel',
+      String,
+      'Defect Reporting Channel',
+      hint: 'How to report warranty defects',
+    ),
+    Field(
+      'fixDeliveryMechanism',
+      String,
+      'Fix Delivery Mechanism',
+      hint: 'How fixes are delivered — hotfix, patch release',
+    ),
+    Field(
+      'regressionTestingPolicy',
+      String,
+      'Regression Testing Policy',
+      hint: 'Who performs regression testing on warranty fixes',
+    ),
+    Field(
+      'communicationCadence',
+      String,
+      'Communication Cadence',
+      hint: 'Status reporting during warranty',
+    ),
+  ])
   @SerializationOrder(4)
-  WarrantyProcess process = WarrantyProcess();
+  String? process;
 
   /// Transition to support.
+  @SectionId('WATR')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines the transition from warranty into ongoing service support',
+      'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure into operations',
+    ],
+    'Captures how the warranty period transitions into standard ongoing support including post-warranty terms and knowledge transfer.',
+  )
+  @Form([
+    Field(
+      'transitionToSupport',
+      String,
+      'Transition to Standard Support',
+      hint: 'How warranty transitions to ongoing support',
+    ),
+    Field(
+      'postWarrantyTerms',
+      String,
+      'Post-Warranty Terms',
+      hint: 'Support terms after warranty expires',
+    ),
+    Field(
+      'knowledgeTransferPlan',
+      String,
+      'Knowledge Transfer Plan',
+      hint: 'Activities to ensure support team can maintain system',
+    ),
+  ])
   @SerializationOrder(5)
-  WarrantyTransition transition = WarrantyTransition();
+  String? transition;
 
   /// Financial terms.
+  @SectionId('WAFI')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including financial terms',
+      'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure including cost aspects',
+    ],
+    'Captures the financial terms of the warranty including cost, penalties for SLA breaches, and charging for out-of-scope work.',
+  )
+  @Form([
+    Field(
+      'warrantyCost',
+      String,
+      'Warranty Cost',
+      hint: 'Whether warranty is included in project price',
+    ),
+    Field(
+      'penaltyForSlaBreaches',
+      String,
+      'Penalty for SLA Breaches',
+      hint: 'Contractual penalties for failing to meet warranty SLAs',
+    ),
+    Field(
+      'additionalWorkCharging',
+      String,
+      'Additional Work Charging',
+      hint: 'How out-of-scope requests during warranty are charged',
+    ),
+  ])
   @SerializationOrder(6)
-  WarrantyFinancial financial = WarrantyFinancial();
+  String? financial;
 
   /// Warranty terms narrative.
-  @ContentHelp('Detailed warranty terms description: legal context, '
-      'relationship to contract, scenarios and examples, '
-      'common issues and their warranty status, '
-      'handover checklist for transition to support.')
+  @ContentHelp(
+    'Detailed warranty terms description: legal context, '
+    'relationship to contract, scenarios and examples, '
+    'common issues and their warranty status, '
+    'handover checklist for transition to support.',
+  )
   @SerializationOrder(7)
   TextSection warrantyNarrative = TextSection();
-}
-
-/// Duration and activation.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty periods and commitments',
-    'ISO 21502:2020 — the guidance on project management defines deliverable handover timing and closure',
-  ],
-  'Captures the duration and activation details of the warranty including end date and extension policy.',
-)
-@SectionId('WADU')
-class WarrantyDuration {
-  @Form([
-    Field('warrantyEndDate', String, 'Warranty End Date',
-        hint: 'Calculated or fixed end date of warranty'),
-    Field('extensionPolicy', String, 'Extension Policy',
-        hint: 'Conditions for warranty extension'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Scope of coverage.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty scope and coverage boundaries',
-    'ITIL 4 2019 — the service management framework defines warranty coverage and support scope',
-  ],
-  'Captures the scope of warranty coverage including exclusions, covered deliverables, and environments under warranty.',
-)
-@SectionId('WACO')
-class WarrantyCoverage {
-  @Form([
-    Field('exclusions', String, 'Exclusions',
-        hint: 'What is NOT covered: new features, user errors'),
-    Field('coveredDeliverables', String, 'Covered Deliverables',
-        hint: 'Which deliverables are under warranty'),
-    Field('environmentsCovered', String, 'Environments Covered',
-        hint: 'Production only, or also staging/UAT'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// Service levels.
@@ -2276,86 +2932,42 @@ class WarrantyCoverage {
 @SectionId('WASELE')
 class WarrantyServiceLevels {
   @Form([
-    Field('supportHours', String, 'Support Hours',
-        hint: 'Hours during which warranty support is available'),
-    Field('responseTimeSev1', String, 'Response Time Sev-1',
-        hint: 'Initial response time — e.g. 1 hour'),
-    Field('responseTimeSev2', String, 'Response Time Sev-2',
-        hint: 'Initial response time — e.g. 4 hours'),
-    Field('resolutionTimeSev1', String, 'Resolution Time Sev-1',
-        hint: 'Target fix time — e.g. 8 hours'),
-    Field('resolutionTimeSev2', String, 'Resolution Time Sev-2',
-        hint: 'Target fix time — e.g. 2 business days'),
-    Field('escalationContacts', String, 'Escalation Contacts',
-        hint: 'Named contacts or roles for escalation'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Process for defect handling.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines problem and incident management for warranty defect handling',
-    'ITIL 4 2019 — the service management framework defines support and defect-resolution practices during warranty',
-  ],
-  'Captures the process for handling warranty defects including reporting channels, fix delivery, regression testing, and communication cadence.',
-)
-@SectionId('WAPR')
-class WarrantyProcess {
-  @Form([
-    Field('defectReportingChannel', String, 'Defect Reporting Channel',
-        hint: 'How to report warranty defects'),
-    Field('fixDeliveryMechanism', String, 'Fix Delivery Mechanism',
-        hint: 'How fixes are delivered — hotfix, patch release'),
-    Field('regressionTestingPolicy', String, 'Regression Testing Policy',
-        hint: 'Who performs regression testing on warranty fixes'),
-    Field('communicationCadence', String, 'Communication Cadence',
-        hint: 'Status reporting during warranty'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Transition to support.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines the transition from warranty into ongoing service support',
-    'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure into operations',
-  ],
-  'Captures how the warranty period transitions into standard ongoing support including post-warranty terms and knowledge transfer.',
-)
-@SectionId('WATR')
-class WarrantyTransition {
-  @Form([
-    Field('transitionToSupport', String, 'Transition to Standard Support',
-        hint: 'How warranty transitions to ongoing support'),
-    Field('postWarrantyTerms', String, 'Post-Warranty Terms',
-        hint: 'Support terms after warranty expires'),
-    Field('knowledgeTransferPlan', String, 'Knowledge Transfer Plan',
-        hint: 'Activities to ensure support team can maintain system'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Financial terms.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — the IT service management standard defines service warranty and support commitments including financial terms',
-    'ISO 21502:2020 — the guidance on project management defines deliverable handover and closure including cost aspects',
-  ],
-  'Captures the financial terms of the warranty including cost, penalties for SLA breaches, and charging for out-of-scope work.',
-)
-@SectionId('WAFI')
-class WarrantyFinancial {
-  @Form([
-    Field('warrantyCost', String, 'Warranty Cost',
-        hint: 'Whether warranty is included in project price'),
-    Field('penaltyForSlaBreaches', String, 'Penalty for SLA Breaches',
-        hint: 'Contractual penalties for failing to meet warranty SLAs'),
-    Field('additionalWorkCharging', String, 'Additional Work Charging',
-        hint: 'How out-of-scope requests during warranty are charged'),
+    Field(
+      'supportHours',
+      String,
+      'Support Hours',
+      hint: 'Hours during which warranty support is available',
+    ),
+    Field(
+      'responseTimeSev1',
+      String,
+      'Response Time Sev-1',
+      hint: 'Initial response time — e.g. 1 hour',
+    ),
+    Field(
+      'responseTimeSev2',
+      String,
+      'Response Time Sev-2',
+      hint: 'Initial response time — e.g. 4 hours',
+    ),
+    Field(
+      'resolutionTimeSev1',
+      String,
+      'Resolution Time Sev-1',
+      hint: 'Target fix time — e.g. 8 hours',
+    ),
+    Field(
+      'resolutionTimeSev2',
+      String,
+      'Resolution Time Sev-2',
+      hint: 'Target fix time — e.g. 2 business days',
+    ),
+    Field(
+      'escalationContacts',
+      String,
+      'Escalation Contacts',
+      hint: 'Named contacts or roles for escalation',
+    ),
   ])
   @SerializationOrder(0)
   String? content;

@@ -333,23 +333,23 @@ every downstream artifact traces back to a requirement.''');
     ..requirementId = 'FR-01'
     ..title = 'Capture orders from EDI and REST channels'
     ..status = 'Approved';
-  fr1.details.content
+  fr1.details
     ..description = _p('''
 The system must accept orders from the wholesale EDI adapter and the public
 REST order API, translating both into a single internal order-capture command
 so downstream processing is channel-agnostic.''')
     ..requirementType = 'Functional'
     ..category = 'Order Capture';
-  fr1.priority.content
+  fr1.priority
     ..priority = 'Must'
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
-  fr1.source.content
+  fr1.source
     ..source = 'VP Operations'
     ..requestDate = '2026-04-02'
     ..rationale = 'Both channels must feed the same lifecycle to retire re-keying.';
-  fr1.verification.content
+  fr1.verification
     ..fitCriterion = 'An EDI and a REST order both produce an Order in state Captured within 2s.'
     ..customerSatisfaction = '5'
     ..customerDissatisfaction = '1';
@@ -369,19 +369,19 @@ so downstream processing is channel-agnostic.''')
     ..requirementId = 'FR-02'
     ..title = 'Price orders synchronously at capture time'
     ..status = 'Approved';
-  fr2.details.content
+  fr2.details
     ..description = _p('''
 Pricing must be computed synchronously during order processing and the resulting
 unit price snapshotted onto each order line, eliminating the nightly batch and
 making historical orders reproducible.''')
     ..requirementType = 'Functional'
     ..category = 'Pricing';
-  fr2.priority.content
+  fr2.priority
     ..priority = 'Must'
     ..businessValue = 'High'
     ..effort = 'M'
     ..riskLevel = 'Medium';
-  fr2.verification.content.fitCriterion =
+  fr2.verification.fitCriterion =
       'Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.';
   _acceptance(fr2.acceptanceCriteria.criteria.add(), 'FR-02-AC-1',
       'Price snapshotted onto line',
@@ -394,14 +394,14 @@ making historical orders reproducible.''')
     ..requirementId = 'FR-03'
     ..title = 'Reserve stock before confirmation'
     ..status = 'Approved';
-  fr3.details.content
+  fr3.details
     ..description = _p('''
 Before an order is confirmed the system must reserve stock for every line;
 insufficient stock places the affected line on Hold rather than failing the
 whole order.''')
     ..requirementType = 'Functional'
     ..category = 'Fulfilment';
-  fr3.priority.content
+  fr3.priority
     ..priority = 'Must'
     ..businessValue = 'High'
     ..effort = 'L'
@@ -422,14 +422,14 @@ whole order.''')
     ..requirementId = 'FR-04'
     ..title = 'Confirm orders within five minutes'
     ..status = 'Approved';
-  fr4.details.content
+  fr4.details
     ..description = _p('''
 An order that passes validation, pricing, and reservation must reach state
 Confirmed within five minutes of capture, with the confirmation communicated on
 the operations work list and the public tracking page.''')
     ..requirementType = 'Functional'
     ..category = 'Order Lifecycle';
-  fr4.priority.content
+  fr4.priority
     ..priority = 'Must'
     ..businessValue = 'High'
     ..effort = 'M'
@@ -450,14 +450,14 @@ the operations work list and the public tracking page.''')
     ..requirementId = 'FR-05'
     ..title = 'Amend or cancel an order before dispatch'
     ..status = 'Approved';
-  fr5.details.content
+  fr5.details
     ..description = _p('''
 Until an order is dispatched, a clerk must be able to amend line quantities and
 cancel lines or the whole order; each amendment re-runs pricing and reservation
 for the affected lines and is fully audited.''')
     ..requirementType = 'Functional'
     ..category = 'Order Amendment';
-  fr5.priority.content
+  fr5.priority
     ..priority = 'Should'
     ..businessValue = 'Medium'
     ..effort = 'M'
@@ -478,13 +478,13 @@ for the affected lines and is fully audited.''')
     ..requirementId = 'FR-06'
     ..title = 'Release a manual hold'
     ..status = 'Approved';
-  fr6.details.content
+  fr6.details
     ..description = _p('''
 An Order Supervisor must be able to review an order on Hold and release it back
 into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..requirementType = 'Functional'
     ..category = 'Exception Handling';
-  fr6.priority.content
+  fr6.priority
     ..priority = 'Must'
     ..businessValue = 'High'
     ..effort = 'S'
@@ -503,14 +503,14 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..requirementId = 'TR-01'
     ..title = 'Confirmation latency budget'
     ..status = 'Approved';
-  tr1.details.content
+  tr1.details
     ..description = 'The 95th-percentile order-confirmation latency must stay within budget under peak load.'
     ..category = 'Performance'
     ..subcategory = 'Latency'
     ..priority = 'Must'
     ..source = 'Operations SLA'
     ..rationale = 'Sub-30s p95 keeps the five-minute business promise safe under 3x peak.';
-  tr1.measurement.content
+  tr1.measurement
     ..metric = 'p95 capture-to-confirmation latency'
     ..currentValue = '4.2h (legacy)'
     ..targetValue = '< 30s'
@@ -523,14 +523,14 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..requirementId = 'TR-02'
     ..title = 'Capture API availability'
     ..status = 'Approved';
-  tr2.details.content
+  tr2.details
     ..description = 'The order-capture API must meet a 99.9% monthly availability target.'
     ..category = 'Reliability'
     ..subcategory = 'Availability'
     ..priority = 'Must'
     ..source = 'Partner integration agreement'
     ..rationale = 'Marketplace partners depend on the capture API being continuously reachable.';
-  tr2.measurement.content
+  tr2.measurement
     ..metric = 'Monthly capture-API availability'
     ..targetValue = '>= 99.9%'
     ..measurementMethod = 'Synthetic probes + gateway success-rate metrics'
@@ -541,7 +541,7 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..requirementId = 'TR-03'
     ..title = 'Event-sourced order service'
     ..status = 'Approved';
-  tr3.details.content
+  tr3.details
     ..description = _p('''
 The order service must be event-sourced: the append-only event log is the system
 of record and all read models are projections rebuildable from the log.''')
@@ -562,7 +562,7 @@ of record and all read models are projections rebuildable from the log.''')
 Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin,
 and Integration (machine) accounts scoped to specific channels; every state
 transition is attributed to an authenticated principal.''');
-  sr1.classification.content
+  sr1.classification
     ..category = 'Access Control'
     ..subcategory = 'Authorization'
     ..priority = 'Must'
@@ -570,7 +570,7 @@ transition is attributed to an authenticated principal.''');
     ..rationale = 'Least privilege across human and machine actors.'
     ..threatMitigated = 'Unauthorized order manipulation'
     ..dataClassification = 'Internal';
-  sr1.compliance.content
+  sr1.compliance
     ..owaspCategory = 'A01:2021 Broken Access Control'
     ..nistControl = 'AC-6'
     ..complianceReference = 'Corporate IAM policy v3';
@@ -580,7 +580,7 @@ transition is attributed to an authenticated principal.''');
     ..requirementId = 'SR-02'
     ..title = 'Encrypt customer PII at rest'
     ..description = 'All customer personally identifiable information must be encrypted at rest.';
-  sr2.classification.content
+  sr2.classification
     ..category = 'Data Protection'
     ..subcategory = 'Encryption'
     ..priority = 'Must'
@@ -588,7 +588,7 @@ transition is attributed to an authenticated principal.''');
     ..rationale = 'GDPR obligations on customer records with a 7-year retention.'
     ..threatMitigated = 'PII disclosure from storage compromise'
     ..dataClassification = 'Confidential';
-  sr2.compliance.content
+  sr2.compliance
     ..nistControl = 'SC-28'
     ..complianceReference = 'GDPR Art. 32';
 
@@ -599,7 +599,7 @@ transition is attributed to an authenticated principal.''');
     ..description = _p('''
 The public order API must authenticate partners with OAuth2 client-credentials
 tokens and enforce per-partner rate limits at the gateway.''');
-  sr3.classification.content
+  sr3.classification
     ..category = 'API Security'
     ..subcategory = 'Authentication'
     ..priority = 'Must'
@@ -607,7 +607,7 @@ tokens and enforce per-partner rate limits at the gateway.''');
     ..rationale = 'Machine-to-machine partner access without shared secrets in code.'
     ..threatMitigated = 'Credential replay and partner impersonation'
     ..dataClassification = 'Internal';
-  sr3.compliance.content
+  sr3.compliance
     ..owaspCategory = 'API2:2023 Broken Authentication'
     ..nistControl = 'IA-5';
 
@@ -621,7 +621,7 @@ tokens and enforce per-partner rate limits at the gateway.''');
     ..description = _p('''
 Before cutover the order-operations desk must be trained to run the full order
 lifecycle on MOM alone, including hold release and amendments.''');
-  or1.impact.content
+  or1.impact
     ..impactedGroups = 'Order Operations desk'
     ..impactedUserCount = '25'
     ..changeType = 'Process + tooling'
@@ -635,7 +635,7 @@ lifecycle on MOM alone, including hold release and amendments.''');
     ..description = _p('''
 The two-week parallel run against OrderDesk requires staffing to reconcile both
 systems daily until the < 0.1% variance gate passes.''');
-  or2.impact.content
+  or2.impact
     ..impactedGroups = 'Order Operations, Finance'
     ..impactedUserCount = '30'
     ..changeType = 'Temporary dual-running'
@@ -687,7 +687,7 @@ void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
 
   // UC-01 Capture Wholesale Order (EDI).
   final uc1 = ucs.add();
-  uc1.identification.content
+  uc1.identification
     ..interactionId = 'UC-01'
     ..useCaseName = 'Capture Wholesale Order (EDI)'
     ..processReference = 'BP-Order-Capture'
@@ -764,7 +764,7 @@ transition so the work list and public tracking page stay current.''')
 
   // UC-02 Release Order Hold.
   final uc2 = ucs.add();
-  uc2.identification.content
+  uc2.identification
     ..interactionId = 'UC-02'
     ..useCaseName = 'Release Order Hold'
     ..processReference = 'BP-Order-Exception'
@@ -797,7 +797,7 @@ on Hold — or cancels it, recording a reason in both cases.''')
 
   // UC-03 Amend Order Line before dispatch.
   final uc3 = ucs.add();
-  uc3.identification.content
+  uc3.identification
     ..interactionId = 'UC-03'
     ..useCaseName = 'Amend Order Line Before Dispatch'
     ..processReference = 'BP-Order-Amendment'
@@ -830,7 +830,7 @@ audit trail.''')
 
   // --- Key end-to-end scenario ------------------------------------------
   final scn = psai.keyScenarios.scenarios.add();
-  scn.identification.content
+  scn.identification
     ..scenarioId = 'SCN-01'
     ..scenarioName = 'Happy-path wholesale order, capture to fulfilment'
     ..scenarioType = 'End-to-end'
@@ -854,7 +854,7 @@ audit trail.''')
 void _actor(dynamic a, String id, String name, String type, String category,
     String description,
     {required String unit, required String count}) {
-  a.identification.content
+  a.identification
     ..actorId = id
     ..actorName = name
     ..actorType = type
@@ -1093,19 +1093,19 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..screenId = 'SCR-01'
     ..screenName = 'Order Work List'
     ..purpose = 'The single, state-filtered queue from which clerks work every order.';
-  wl.classification.content
+  wl.classification
     ..screenCategory = 'List'
     ..routePattern = '/orders';
-  wl.access.content
+  wl.access
     ..accessLevel = 'Authenticated'
     ..requiredRoles = 'Order Clerk, Order Supervisor'
     ..permissionEffect = 'Allow';
-  wl.traceability.content
+  wl.traceability
     ..relatedUseCases = 'UC-01, UC-02'
     ..relatedRequirements = 'FR-01, FR-04, FR-06'
     ..dataEntities = 'Order'
     ..primaryAction = 'Open selected order';
-  wl.presentation.content
+  wl.presentation
     ..pageTitleResource = 'screen.orders.title'
     ..layout = 'Master-detail';
 
@@ -1115,7 +1115,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionName = 'State filter bar'
     ..purpose = 'Filter the queue by lifecycle state.'
     ..sectionType = 'Toolbar';
-  filters.layout.content
+  filters.layout
     ..layoutDirection = 'Horizontal'
     ..displayOrder = 1;
   final stateFilter = filters.elements.add();
@@ -1123,7 +1123,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..elementId = 'SCR-01-EL-1'
     ..elementName = 'State selector'
     ..elementType = 'SegmentedControl';
-  stateFilter.resources.content
+  stateFilter.resources
     ..labelResource = 'screen.orders.filter.state'
     ..hintResource = 'screen.orders.filter.state.hint';
 
@@ -1133,7 +1133,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionName = 'Order table'
     ..purpose = 'The work list itself, keyboard-navigable for high-volume clerks.'
     ..sectionType = 'DataTable';
-  list.layout.content
+  list.layout
     ..layoutDirection = 'Vertical'
     ..displayOrder = 2;
   final idCol = list.elements.add();
@@ -1158,7 +1158,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..actionId = 'SCR-01-ACT-1'
     ..actionName = 'Open order'
     ..actionType = 'Navigate';
-  openAction.visual.content
+  openAction.visual
     ..labelResource = 'screen.orders.action.open'
     ..placement = 'Row'
     ..buttonStyle = 'Primary';
@@ -1177,20 +1177,20 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..screenId = 'SCR-02'
     ..screenName = 'Order Detail'
     ..purpose = 'The lifecycle timeline and inline actions for a single order.';
-  detail.classification.content
+  detail.classification
     ..screenCategory = 'Detail'
     ..parentScreenId = 'SCR-01'
     ..routePattern = '/orders/:orderId';
-  detail.access.content
+  detail.access
     ..accessLevel = 'Authenticated'
     ..requiredRoles = 'Order Clerk, Order Supervisor'
     ..permissionEffect = 'Allow';
-  detail.traceability.content
+  detail.traceability
     ..relatedUseCases = 'UC-02, UC-03'
     ..relatedRequirements = 'FR-05, FR-06'
     ..dataEntities = 'Order, OrderLine'
     ..primaryAction = 'Amend line';
-  detail.presentation.content
+  detail.presentation
     ..pageTitleResource = 'screen.order.title'
     ..layout = 'Single column';
 
@@ -1200,7 +1200,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionName = 'Lifecycle timeline'
     ..purpose = 'Show every state transition with its authenticated actor.'
     ..sectionType = 'Timeline';
-  timeline.layout.content
+  timeline.layout
     ..layoutDirection = 'Vertical'
     ..displayOrder = 1;
 
@@ -1210,7 +1210,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionName = 'Order lines'
     ..purpose = 'Editable list of lines with price and reservation status.'
     ..sectionType = 'EditableTable';
-  lines.layout.content
+  lines.layout
     ..layoutDirection = 'Vertical'
     ..displayOrder = 2;
   final qty = lines.elements.add();
@@ -1221,14 +1221,14 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   qty.fieldSpec.content
     ..fieldName = 'quantity'
     ..dataType = 'Integer';
-  qty.behavior.content.readonlyCondition = 'order.status == "Dispatched"';
+  qty.behavior.readonlyCondition = 'order.status == "Dispatched"';
 
   final amend = detail.actions.items.add();
   amend.content
     ..actionId = 'SCR-02-ACT-1'
     ..actionName = 'Amend line'
     ..actionType = 'Submit';
-  amend.visual.content
+  amend.visual
     ..labelResource = 'screen.order.action.amend'
     ..placement = 'Row'
     ..buttonStyle = 'Primary';
@@ -1237,7 +1237,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..actionId = 'SCR-02-ACT-2'
     ..actionName = 'Release hold'
     ..actionType = 'Submit';
-  release.visual.content
+  release.visual
     ..labelResource = 'screen.order.action.release'
     ..placement = 'Header'
     ..buttonStyle = 'Secondary';

@@ -58,12 +58,15 @@ section-types:
     description: User documentation requirements (doc half of the former DOANTR;
   loprde:
     prefix: LOPRDE
+    format: loprde-form
     description: Deployment settings.
   loprfo:
     prefix: LOPRFO
+    format: loprfo-form
     description: Formatting rules.
   loprr1:
     prefix: LOPRR1
+    format: loprr1-form
     description: Review process.
   migpln:
     prefix: MIGPLN
@@ -76,15 +79,19 @@ section-types:
     description: Rollout plan.
   trpron:
     prefix: TRPRON
+    format: trpron-form
     description: Ongoing localization operations.
   trprqu:
     prefix: TRPRQU
+    format: trprqu-form
     description: Quality assurance.
   trprte:
     prefix: TRPRTE
+    format: trprte-form
     description: Terminology and voice management.
   trprwo:
     prefix: TRPRWO
+    format: trprwo-form
     description: Translation workflow.
   usrman:
     prefix: USRMAN
@@ -111,9 +118,11 @@ section-types:
     description: Warranty and support.
   datd:
     prefix: DATD
+    format: datd-form
     description: Documentation deliverables provided to users.
   datl:
     prefix: DATL
+    format: datl-form
     description: Documentation localization approach.
   lopr:
     prefix: LOPR
@@ -154,6 +163,34 @@ form-types:
         description: How content is tagged for translation
       - fieldname: localizationScope
         description: "UI text, images, audio, video, documents"
+  loprr1-form:
+    fields:
+      - fieldname: reviewWorkflow
+        description: Steps in the localization review
+      - fieldname: stakeholderApproval
+        description: Who approves localized content
+      - fieldname: qualityAssurance
+        description: QA process for localized content
+  loprfo-form:
+    fields:
+      - fieldname: dateFormatRules
+        description: Locale-specific date formatting
+      - fieldname: numberFormatRules
+        description: Locale-specific number formatting
+      - fieldname: currencyFormatRules
+        description: Locale-specific currency formatting
+      - fieldname: addressFormatRules
+        description: Locale-specific address formatting
+      - fieldname: phoneFormatRules
+        description: Locale-specific phone number formatting
+  loprde-form:
+    fields:
+      - fieldname: localeDeployment
+        description: How locales are deployed
+      - fieldname: localeToggling
+        description: Feature flags for locales
+      - fieldname: perLocaleCustomization
+        description: Locale-specific features or content
   trpr-tran-form:
     fields:
       - fieldname: translationManagementSystem
@@ -164,6 +201,38 @@ form-types:
         description: "MT usage (Google, DeepL, none)"
       - fieldname: catTools
         description: Computer-assisted translation tools
+  trprwo-form:
+    fields:
+      - fieldname: translationWorkflow
+        description: "Steps: extract → translate → review → integrate"
+      - fieldname: reviewCycles
+        description: Number of review rounds
+      - fieldname: inCountryReview
+        description: Native speaker review process
+      - fieldname: contextualReview
+        description: In-app review process
+  trprqu-form:
+    fields:
+      - fieldname: qualityChecks
+        description: Automated quality checks
+      - fieldname: linguisticQA
+        description: Linguistic quality assurance
+      - fieldname: functionalQA
+        description: Functional testing of translations
+  trprte-form:
+    fields:
+      - fieldname: glossaryManagement
+        description: Term base management
+      - fieldname: styleGuide
+        description: Translation style guidelines
+      - fieldname: brandVoice
+        description: How brand voice is maintained
+  trpron-form:
+    fields:
+      - fieldname: continuousLocalization
+        description: CI/CD integration for translations
+      - fieldname: translationMemoryMaintenance
+        description: How translation memory is maintained
   doantr-docu-form:
     fields:
       - fieldname: documentationFormat
@@ -172,6 +241,28 @@ form-types:
         description: "GitBook, Notion, custom, Confluence"
       - fieldname: documentationVersioning
         description: How docs are versioned with releases
+  datd-form:
+    fields:
+      - fieldname: userGuide
+        description: Include a full user guide (true or false)
+      - fieldname: quickStartGuide
+        description: Include a quick start guide (true or false)
+      - fieldname: onlineHelp
+        description: Include online help pages (true or false)
+      - fieldname: videoTutorials
+        description: Include video tutorials (true or false)
+      - fieldname: contextualHelp
+        description: Include in-context help hints (true or false)
+      - fieldname: faq
+        description: Include a frequently-asked-questions page (true or false)
+      - fieldname: releaseNotes
+        description: Include per-release notes (true or false)
+  datl-form:
+    fields:
+      - fieldname: documentationLanguages
+        description: Languages for documentation
+      - fieldname: documentationTranslation
+        description: Translation approach for docs
   trmat-trai-form:
     fields:
       - fieldname: trainingMaterials

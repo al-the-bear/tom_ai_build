@@ -65,39 +65,35 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Order Capture
+                description: |2-
+                  The system must accept orders from the wholesale EDI adapter and the public REST order API, translating both into a single internal order-capture command so downstream processing is channel-agnostic.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Order Capture
               FREP priority:
-                content:
-                  priority: |2-
-                    Must
-                  businessValue: |2-
-                    High
-                  effort: |2-
-                    M
-                  riskLevel: |2-
-                    Medium
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  M
+                riskLevel: |2-
+                  Medium
               FRES source:
-                content:
-                  source: |2-
-                    VP Operations
-                  requestDate: |2-
-                    2026-04-02
-                  rationale: |2-
-                    Both channels must feed the same lifecycle to retire re-keying.
+                source: |2-
+                  VP Operations
+                requestDate: |2-
+                  2026-04-02
+                rationale: |2-
+                  Both channels must feed the same lifecycle to retire re-keying.
               FREV verification:
-                content:
-                  fitCriterion: |2-
-                    An EDI and a REST order both produce an Order in state Captured within 2s.
-                  customerSatisfaction: |2-
-                    5
-                  customerDissatisfaction: |2-
-                    1
+                fitCriterion: |2-
+                  An EDI and a REST order both produce an Order in state Captured within 2s.
+                customerSatisfaction: |2-
+                  5
+                customerDissatisfaction: |2-
+                  1
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -149,27 +145,24 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Pricing
+                description: |2-
+                  Pricing must be computed synchronously during order processing and the resulting unit price snapshotted onto each order line, eliminating the nightly batch and making historical orders reproducible.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Pricing
               FREP priority:
-                content:
-                  priority: |2-
-                    Must
-                  businessValue: |2-
-                    High
-                  effort: |2-
-                    M
-                  riskLevel: |2-
-                    Medium
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  M
+                riskLevel: |2-
+                  Medium
               FREV verification:
-                content:
-                  fitCriterion: |2-
-                    Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
+                fitCriterion: |2-
+                  Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -201,23 +194,21 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Fulfilment
+                description: |2-
+                  Before an order is confirmed the system must reserve stock for every line; insufficient stock places the affected line on Hold rather than failing the whole order.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Fulfilment
               FREP priority:
-                content:
-                  priority: |2-
-                    Must
-                  businessValue: |2-
-                    High
-                  effort: |2-
-                    L
-                  riskLevel: |2-
-                    High
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  L
+                riskLevel: |2-
+                  High
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -269,23 +260,21 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Order Lifecycle
+                description: |2-
+                  An order that passes validation, pricing, and reservation must reach state Confirmed within five minutes of capture, with the confirmation communicated on the operations work list and the public tracking page.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Order Lifecycle
               FREP priority:
-                content:
-                  priority: |2-
-                    Must
-                  businessValue: |2-
-                    High
-                  effort: |2-
-                    M
-                  riskLevel: |2-
-                    Medium
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  M
+                riskLevel: |2-
+                  Medium
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -337,23 +326,21 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Order Amendment
+                description: |2-
+                  Until an order is dispatched, a clerk must be able to amend line quantities and cancel lines or the whole order; each amendment re-runs pricing and reservation for the affected lines and is fully audited.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Order Amendment
               FREP priority:
-                content:
-                  priority: |2-
-                    Should
-                  businessValue: |2-
-                    Medium
-                  effort: |2-
-                    M
-                  riskLevel: |2-
-                    Medium
+                priority: |2-
+                  Should
+                businessValue: |2-
+                  Medium
+                effort: |2-
+                  M
+                riskLevel: |2-
+                  Medium
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -405,23 +392,21 @@ document:
                 status: |2-
                   Approved
               FRED details:
-                content:
-                  description: |2-
-                    An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
-                  requirementType: |2-
-                    Functional
-                  category: |2-
-                    Exception Handling
+                description: |2-
+                  An Order Supervisor must be able to review an order on Hold and release it back into the lifecycle, recording a reason that is attached to the audit trail.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Exception Handling
               FREP priority:
-                content:
-                  priority: |2-
-                    Must
-                  businessValue: |2-
-                    High
-                  effort: |2-
-                    S
-                  riskLevel: |2-
-                    Low
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  S
+                riskLevel: |2-
+                  Low
               RAC acceptanceCriteria:
                 ACCR-CRIT-LST criteria:
                   ACCR-CRIT-1:
@@ -455,33 +440,31 @@ document:
                 status: |2-
                   Approved
               TRED details:
-                content:
-                  description: |2-
-                    The 95th-percentile order-confirmation latency must stay within budget under peak load.
-                  category: |2-
-                    Performance
-                  subcategory: |2-
-                    Latency
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Operations SLA
-                  rationale: |2-
-                    Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
+                description: |2-
+                  The 95th-percentile order-confirmation latency must stay within budget under peak load.
+                category: |2-
+                  Performance
+                subcategory: |2-
+                  Latency
+                priority: |2-
+                  Must
+                source: |2-
+                  Operations SLA
+                rationale: |2-
+                  Sub-30s p95 keeps the five-minute business promise safe under 3x peak.
               TREM measurement:
-                content:
-                  metric: |2-
-                    p95 capture-to-confirmation latency
-                  currentValue: |2-
-                    4.2h (legacy)
-                  targetValue: |2-
-                    < 30s
-                  measurementMethod: |2-
-                    Distributed tracing over the confirmation span
-                  measurementEnvironment: |2-
-                    Load test at 3x peak-hour volume
-                  measurementFrequency: |2-
-                    Per release + continuous in production
+                metric: |2-
+                  p95 capture-to-confirmation latency
+                currentValue: |2-
+                  4.2h (legacy)
+                targetValue: |2-
+                  < 30s
+                measurementMethod: |2-
+                  Distributed tracing over the confirmation span
+                measurementEnvironment: |2-
+                  Load test at 3x peak-hour volume
+                measurementFrequency: |2-
+                  Per release + continuous in production
             TERQ-REQU-2:
               content:
                 requirementId: |2-
@@ -491,29 +474,27 @@ document:
                 status: |2-
                   Approved
               TRED details:
-                content:
-                  description: |2-
-                    The order-capture API must meet a 99.9% monthly availability target.
-                  category: |2-
-                    Reliability
-                  subcategory: |2-
-                    Availability
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Partner integration agreement
-                  rationale: |2-
-                    Marketplace partners depend on the capture API being continuously reachable.
+                description: |2-
+                  The order-capture API must meet a 99.9% monthly availability target.
+                category: |2-
+                  Reliability
+                subcategory: |2-
+                  Availability
+                priority: |2-
+                  Must
+                source: |2-
+                  Partner integration agreement
+                rationale: |2-
+                  Marketplace partners depend on the capture API being continuously reachable.
               TREM measurement:
-                content:
-                  metric: |2-
-                    Monthly capture-API availability
-                  targetValue: |2-
-                    >= 99.9%
-                  measurementMethod: |2-
-                    Synthetic probes + gateway success-rate metrics
-                  measurementFrequency: |2-
-                    Monthly
+                metric: |2-
+                  Monthly capture-API availability
+                targetValue: |2-
+                  >= 99.9%
+                measurementMethod: |2-
+                  Synthetic probes + gateway success-rate metrics
+                measurementFrequency: |2-
+                  Monthly
             TERQ-REQU-3:
               content:
                 requirementId: |2-
@@ -523,19 +504,18 @@ document:
                 status: |2-
                   Approved
               TRED details:
-                content:
-                  description: |2-
-                    The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
-                  category: |2-
-                    Architecture
-                  subcategory: |2-
-                    Persistence
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Enterprise Architecture Board
-                  rationale: |2-
-                    Reproducible history and rebuildable projections are core to auditability.
+                description: |2-
+                  The order service must be event-sourced: the append-only event log is the system of record and all read models are projections rebuildable from the log.
+                category: |2-
+                  Architecture
+                subcategory: |2-
+                  Persistence
+                priority: |2-
+                  Must
+                source: |2-
+                  Enterprise Architecture Board
+                rationale: |2-
+                  Reproducible history and rebuildable projections are core to auditability.
         SR1 securityRequirements:
           SECRQ-REQU-LST requirements:
             SECRQ-REQU-1:
@@ -547,29 +527,27 @@ document:
                 description: |2-
                   Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
               SEREENCL classification:
-                content:
-                  category: |2-
-                    Access Control
-                  subcategory: |2-
-                    Authorization
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Security chapter
-                  rationale: |2-
-                    Least privilege across human and machine actors.
-                  threatMitigated: |2-
-                    Unauthorized order manipulation
-                  dataClassification: |2-
-                    Internal
+                category: |2-
+                  Access Control
+                subcategory: |2-
+                  Authorization
+                priority: |2-
+                  Must
+                source: |2-
+                  Security chapter
+                rationale: |2-
+                  Least privilege across human and machine actors.
+                threatMitigated: |2-
+                  Unauthorized order manipulation
+                dataClassification: |2-
+                  Internal
               SEREENCO compliance:
-                content:
-                  owaspCategory: |2-
-                    A01:2021 Broken Access Control
-                  nistControl: |2-
-                    AC-6
-                  complianceReference: |2-
-                    Corporate IAM policy v3
+                owaspCategory: |2-
+                  A01:2021 Broken Access Control
+                nistControl: |2-
+                  AC-6
+                complianceReference: |2-
+                  Corporate IAM policy v3
             SECRQ-REQU-2:
               content:
                 requirementId: |2-
@@ -579,27 +557,25 @@ document:
                 description: |2-
                   All customer personally identifiable information must be encrypted at rest.
               SEREENCL classification:
-                content:
-                  category: |2-
-                    Data Protection
-                  subcategory: |2-
-                    Encryption
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Data Protection Officer
-                  rationale: |2-
-                    GDPR obligations on customer records with a 7-year retention.
-                  threatMitigated: |2-
-                    PII disclosure from storage compromise
-                  dataClassification: |2-
-                    Confidential
+                category: |2-
+                  Data Protection
+                subcategory: |2-
+                  Encryption
+                priority: |2-
+                  Must
+                source: |2-
+                  Data Protection Officer
+                rationale: |2-
+                  GDPR obligations on customer records with a 7-year retention.
+                threatMitigated: |2-
+                  PII disclosure from storage compromise
+                dataClassification: |2-
+                  Confidential
               SEREENCO compliance:
-                content:
-                  nistControl: |2-
-                    SC-28
-                  complianceReference: |2-
-                    GDPR Art. 32
+                nistControl: |2-
+                  SC-28
+                complianceReference: |2-
+                  GDPR Art. 32
             SECRQ-REQU-3:
               content:
                 requirementId: |2-
@@ -609,27 +585,25 @@ document:
                 description: |2-
                   The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
               SEREENCL classification:
-                content:
-                  category: |2-
-                    API Security
-                  subcategory: |2-
-                    Authentication
-                  priority: |2-
-                    Must
-                  source: |2-
-                    Security chapter
-                  rationale: |2-
-                    Machine-to-machine partner access without shared secrets in code.
-                  threatMitigated: |2-
-                    Credential replay and partner impersonation
-                  dataClassification: |2-
-                    Internal
+                category: |2-
+                  API Security
+                subcategory: |2-
+                  Authentication
+                priority: |2-
+                  Must
+                source: |2-
+                  Security chapter
+                rationale: |2-
+                  Machine-to-machine partner access without shared secrets in code.
+                threatMitigated: |2-
+                  Credential replay and partner impersonation
+                dataClassification: |2-
+                  Internal
               SEREENCO compliance:
-                content:
-                  owaspCategory: |2-
-                    API2:2023 Broken Authentication
-                  nistControl: |2-
-                    IA-5
+                owaspCategory: |2-
+                  API2:2023 Broken Authentication
+                nistControl: |2-
+                  IA-5
         OR organizationalRequirements:
           ORRQ-REQU-LST requirements:
             ORRQ-REQU-1:
@@ -641,17 +615,16 @@ document:
                 description: |2-
                   Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
               OREI impact:
-                content:
-                  impactedGroups: |2-
-                    Order Operations desk
-                  impactedUserCount: |2-
-                    25
-                  changeType: |2-
-                    Process + tooling
-                  changeComplexity: |2-
-                    Medium
-                  resistance: |2-
-                    Low
+                impactedGroups: |2-
+                  Order Operations desk
+                impactedUserCount: |2-
+                  25
+                changeType: |2-
+                  Process + tooling
+                changeComplexity: |2-
+                  Medium
+                resistance: |2-
+                  Low
             ORRQ-REQU-2:
               content:
                 requirementId: |2-
@@ -661,17 +634,16 @@ document:
                 description: |2-
                   The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
               OREI impact:
-                content:
-                  impactedGroups: |2-
-                    Order Operations, Finance
-                  impactedUserCount: |2-
-                    30
-                  changeType: |2-
-                    Temporary dual-running
-                  changeComplexity: |2-
-                    Medium
-                  resistance: |2-
-                    Medium
+                impactedGroups: |2-
+                  Order Operations, Finance
+                impactedUserCount: |2-
+                  30
+                changeType: |2-
+                  Temporary dual-running
+                changeComplexity: |2-
+                  Medium
+                resistance: |2-
+                  Medium
     GLAB glossaryAndAbbreviations:
       content: |2-
         - **MOM** — Meridian Order Management.
@@ -735,103 +707,98 @@ document:
             ACEN-ACTO-LST actors:
               ACEN-ACTO-1:
                 ACID identification:
-                  content:
-                    actorId: |2-
-                      ACT-01
-                    actorName: |2-
-                      Order Clerk
-                    actorType: |2-
-                      Human
-                    category: |2-
-                      Primary
-                    description: |2-
-                      Clears the order work list, amends lines, and cancels orders before dispatch.
-                    organizationalUnit: |2-
-                      Order Operations
-                    estimatedCount: |2-
-                      25
-                    geographicDistribution: |2-
-                      Single distribution centre
+                  actorId: |2-
+                    ACT-01
+                  actorName: |2-
+                    Order Clerk
+                  actorType: |2-
+                    Human
+                  category: |2-
+                    Primary
+                  description: |2-
+                    Clears the order work list, amends lines, and cancels orders before dispatch.
+                  organizationalUnit: |2-
+                    Order Operations
+                  estimatedCount: |2-
+                    25
+                  geographicDistribution: |2-
+                    Single distribution centre
               ACEN-ACTO-2:
                 ACID identification:
-                  content:
-                    actorId: |2-
-                      ACT-02
-                    actorName: |2-
-                      Order Supervisor
-                    actorType: |2-
-                      Human
-                    category: |2-
-                      Primary
-                    description: |2-
-                      Reviews orders on Hold and releases them back into the lifecycle.
-                    organizationalUnit: |2-
-                      Order Operations
-                    estimatedCount: |2-
-                      4
-                    geographicDistribution: |2-
-                      Single distribution centre
+                  actorId: |2-
+                    ACT-02
+                  actorName: |2-
+                    Order Supervisor
+                  actorType: |2-
+                    Human
+                  category: |2-
+                    Primary
+                  description: |2-
+                    Reviews orders on Hold and releases them back into the lifecycle.
+                  organizationalUnit: |2-
+                    Order Operations
+                  estimatedCount: |2-
+                    4
+                  geographicDistribution: |2-
+                    Single distribution centre
               ACEN-ACTO-3:
                 ACID identification:
-                  content:
-                    actorId: |2-
-                      ACT-03
-                    actorName: |2-
-                      Pricing Admin
-                    actorType: |2-
-                      Human
-                    category: |2-
-                      Supporting
-                    description: |2-
-                      Maintains the price lists that the synchronous pricing step consumes.
-                    organizationalUnit: |2-
-                      Commercial
-                    estimatedCount: |2-
-                      3
-                    geographicDistribution: |2-
-                      Single distribution centre
+                  actorId: |2-
+                    ACT-03
+                  actorName: |2-
+                    Pricing Admin
+                  actorType: |2-
+                    Human
+                  category: |2-
+                    Supporting
+                  description: |2-
+                    Maintains the price lists that the synchronous pricing step consumes.
+                  organizationalUnit: |2-
+                    Commercial
+                  estimatedCount: |2-
+                    3
+                  geographicDistribution: |2-
+                    Single distribution centre
               ACEN-ACTO-4:
                 ACID identification:
-                  content:
-                    actorId: |2-
-                      ACT-04
-                    actorName: |2-
-                      EDI Integration Account
-                    actorType: |2-
-                      System
-                    category: |2-
-                      Primary
-                    description: |2-
-                      Machine account through which the wholesale EDI adapter submits orders.
-                    organizationalUnit: |2-
-                      Integration
-                    estimatedCount: |2-
-                      1
-                    geographicDistribution: |2-
-                      Single distribution centre
+                  actorId: |2-
+                    ACT-04
+                  actorName: |2-
+                    EDI Integration Account
+                  actorType: |2-
+                    System
+                  category: |2-
+                    Primary
+                  description: |2-
+                    Machine account through which the wholesale EDI adapter submits orders.
+                  organizationalUnit: |2-
+                    Integration
+                  estimatedCount: |2-
+                    1
+                  geographicDistribution: |2-
+                    Single distribution centre
           INCA interactionCatalog:
             INEN-INTE-LST interactions:
               INEN-INTE-1:
                 INID identification:
-                  content:
-                    interactionId: |2-
-                      UC-01
-                    useCaseName: |2-
-                      Capture Wholesale Order (EDI)
-                    processReference: |2-
-                      BP-Order-Capture
-                    briefDescription: |2-
-                      A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
-                    fullDescription: |2-
-                      The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
-                    primaryActor: |2-
-                      ACT-04 EDI Integration Account
-                    supportingActors: |2-
-                      ACT-01 Order Clerk
-                    goalLevel: |2-
-                      User goal
-                    designScope: |2-
-                      System
+                  interactionId: |2-
+                    UC-01
+                  useCaseName: |2-
+                    Capture Wholesale Order (EDI)
+                  processReference: |2-
+                    BP-Order-Capture
+                  briefDescription: |2-
+                    A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
+                  fullDescription: |2-
+                    The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
+                  primaryActor: |2-
+                    ACT-04 EDI Integration Account
+                  supportingActors: |2-
+                    ACT-01 Order Clerk
+                  goalLevel: |2-
+                    User goal
+                  designScope: |2-
+                    System
                 PRANTR-PREC-LST preconditions:
                   PRANTR-PREC-1:
                     content:
@@ -969,23 +936,22 @@ document:
                               The order is partially reserved; the held line is flagged for follow-up.
               INEN-INTE-2:
                 INID identification:
-                  content:
-                    interactionId: |2-
-                      UC-02
-                    useCaseName: |2-
-                      Release Order Hold
-                    processReference: |2-
-                      BP-Order-Exception
-                    briefDescription: |2-
-                      A supervisor reviews an order on Hold and releases it back into the lifecycle.
-                    fullDescription: |2-
-                      A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
-                    primaryActor: |2-
-                      ACT-02 Order Supervisor
-                    goalLevel: |2-
-                      User goal
-                    designScope: |2-
-                      System
+                  interactionId: |2-
+                    UC-02
+                  useCaseName: |2-
+                    Release Order Hold
+                  processReference: |2-
+                    BP-Order-Exception
+                  briefDescription: |2-
+                    A supervisor reviews an order on Hold and releases it back into the lifecycle.
+                  fullDescription: |2-
+                    A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
+                  primaryActor: |2-
+                    ACT-02 Order Supervisor
+                  goalLevel: |2-
+                    User goal
+                  designScope: |2-
+                    System
                 PRANTR-PREC-LST preconditions:
                   PRANTR-PREC-1:
                     content:
@@ -1030,23 +996,22 @@ document:
                           FR-06 hold release
               INEN-INTE-3:
                 INID identification:
-                  content:
-                    interactionId: |2-
-                      UC-03
-                    useCaseName: |2-
-                      Amend Order Line Before Dispatch
-                    processReference: |2-
-                      BP-Order-Amendment
-                    briefDescription: |2-
-                      A clerk changes a line quantity before dispatch, re-running pricing and reservation.
-                    fullDescription: |2-
-                      A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
-                    primaryActor: |2-
-                      ACT-01 Order Clerk
-                    goalLevel: |2-
-                      User goal
-                    designScope: |2-
-                      System
+                  interactionId: |2-
+                    UC-03
+                  useCaseName: |2-
+                    Amend Order Line Before Dispatch
+                  processReference: |2-
+                    BP-Order-Amendment
+                  briefDescription: |2-
+                    A clerk changes a line quantity before dispatch, re-running pricing and reservation.
+                  fullDescription: |2-
+                    A clerk edits the quantity of a line on a not-yet-dispatched order. The system re-prices and re-reserves only the affected line and records the amendment on the audit trail.
+                  primaryActor: |2-
+                    ACT-01 Order Clerk
+                  goalLevel: |2-
+                    User goal
+                  designScope: |2-
+                    System
                 PRANTR-PREC-LST preconditions:
                   PRANTR-PREC-1:
                     content:
@@ -1093,25 +1058,24 @@ document:
             SCNRY-SCEN-LST scenarios:
               SCNRY-SCEN-1:
                 SCID identification:
-                  content:
-                    scenarioId: |2-
-                      SCN-01
-                    scenarioName: |2-
-                      Happy-path wholesale order, capture to fulfilment
-                    scenarioType: |2-
-                      End-to-end
-                    description: |2-
-                      A clean wholesale order flows from EDI capture through to fulfilment with no holds.
-                    businessGoal: |2-
-                      Confirm and fulfil a wholesale order without manual intervention.
-                    primaryActor: |2-
-                      ACT-04 EDI Integration Account
-                    supportingActors: |2-
-                      ACT-01 Order Clerk
-                    priority: |2-
-                      High
-                    complexity: |2-
-                      Medium
+                  scenarioId: |2-
+                    SCN-01
+                  scenarioName: |2-
+                    Happy-path wholesale order, capture to fulfilment
+                  scenarioType: |2-
+                    End-to-end
+                  description: |2-
+                    A clean wholesale order flows from EDI capture through to fulfilment with no holds.
+                  businessGoal: |2-
+                    Confirm and fulfil a wholesale order without manual intervention.
+                  primaryActor: |2-
+                    ACT-04 EDI Integration Account
+                  supportingActors: |2-
+                    ACT-01 Order Clerk
+                  priority: |2-
+                    High
+                  complexity: |2-
+                    Medium
                 SCNST-STEP-LST steps:
                   SCNST-STEP-1:
                     content:
@@ -1739,35 +1703,31 @@ document:
                 purpose: |2-
                   The single, state-filtered queue from which clerks work every order.
               SCECL classification:
-                content:
-                  screenCategory: |2-
-                    List
-                  routePattern: |2-
-                    /orders
+                screenCategory: |2-
+                  List
+                routePattern: |2-
+                  /orders
               SCEAC access:
-                content:
-                  accessLevel: |2-
-                    Authenticated
-                  requiredRoles: |2-
-                    Order Clerk, Order Supervisor
-                  permissionEffect: |2-
-                    Allow
+                accessLevel: |2-
+                  Authenticated
+                requiredRoles: |2-
+                  Order Clerk, Order Supervisor
+                permissionEffect: |2-
+                  Allow
               SCETR traceability:
-                content:
-                  relatedUseCases: |2-
-                    UC-01, UC-02
-                  relatedRequirements: |2-
-                    FR-01, FR-04, FR-06
-                  dataEntities: |2-
-                    Order
-                  primaryAction: |2-
-                    Open selected order
+                relatedUseCases: |2-
+                  UC-01, UC-02
+                relatedRequirements: |2-
+                  FR-01, FR-04, FR-06
+                dataEntities: |2-
+                  Order
+                primaryAction: |2-
+                  Open selected order
               SCENPR presentation:
-                content:
-                  pageTitleResource: |2-
-                    screen.orders.title
-                  layout: |2-
-                    Master-detail
+                pageTitleResource: |2-
+                  screen.orders.title
+                layout: |2-
+                  Master-detail
               SCSE sections:
                 SCRSC-ITEM-LST items:
                   SCRSC-ITEM-1:
@@ -1781,10 +1741,9 @@ document:
                       sectionType: |2-
                         Toolbar
                     SSEL layout:
-                      content:
-                        layoutDirection: |2-
-                          Horizontal
-                        displayOrder: 1
+                      layoutDirection: |2-
+                        Horizontal
+                      displayOrder: 1
                     SCREL-ELEM-LST elements:
                       SCREL-ELEM-1:
                         content:
@@ -1795,11 +1754,10 @@ document:
                           elementType: |2-
                             SegmentedControl
                         SEER resources:
-                          content:
-                            labelResource: |2-
-                              screen.orders.filter.state
-                            hintResource: |2-
-                              screen.orders.filter.state.hint
+                          labelResource: |2-
+                            screen.orders.filter.state
+                          hintResource: |2-
+                            screen.orders.filter.state.hint
                   SCRSC-ITEM-2:
                     content:
                       sectionId: |2-
@@ -1811,10 +1769,9 @@ document:
                       sectionType: |2-
                         DataTable
                     SSEL layout:
-                      content:
-                        layoutDirection: |2-
-                          Vertical
-                        displayOrder: 2
+                      layoutDirection: |2-
+                        Vertical
+                      displayOrder: 2
                     SCREL-ELEM-LST elements:
                       SCREL-ELEM-1:
                         content:
@@ -1855,13 +1812,12 @@ document:
                       actionType: |2-
                         Navigate
                     SAEV visual:
-                      content:
-                        labelResource: |2-
-                          screen.orders.action.open
-                        placement: |2-
-                          Row
-                        buttonStyle: |2-
-                          Primary
+                      labelResource: |2-
+                        screen.orders.action.open
+                      placement: |2-
+                        Row
+                      buttonStyle: |2-
+                        Primary
               SCST states:
                 SCRST-ITEM-LST items:
                   SCRST-ITEM-1:
@@ -1885,37 +1841,33 @@ document:
                 purpose: |2-
                   The lifecycle timeline and inline actions for a single order.
               SCECL classification:
-                content:
-                  screenCategory: |2-
-                    Detail
-                  parentScreenId: |2-
-                    SCR-01
-                  routePattern: |2-
-                    /orders/:orderId
+                screenCategory: |2-
+                  Detail
+                parentScreenId: |2-
+                  SCR-01
+                routePattern: |2-
+                  /orders/:orderId
               SCEAC access:
-                content:
-                  accessLevel: |2-
-                    Authenticated
-                  requiredRoles: |2-
-                    Order Clerk, Order Supervisor
-                  permissionEffect: |2-
-                    Allow
+                accessLevel: |2-
+                  Authenticated
+                requiredRoles: |2-
+                  Order Clerk, Order Supervisor
+                permissionEffect: |2-
+                  Allow
               SCETR traceability:
-                content:
-                  relatedUseCases: |2-
-                    UC-02, UC-03
-                  relatedRequirements: |2-
-                    FR-05, FR-06
-                  dataEntities: |2-
-                    Order, OrderLine
-                  primaryAction: |2-
-                    Amend line
+                relatedUseCases: |2-
+                  UC-02, UC-03
+                relatedRequirements: |2-
+                  FR-05, FR-06
+                dataEntities: |2-
+                  Order, OrderLine
+                primaryAction: |2-
+                  Amend line
               SCENPR presentation:
-                content:
-                  pageTitleResource: |2-
-                    screen.order.title
-                  layout: |2-
-                    Single column
+                pageTitleResource: |2-
+                  screen.order.title
+                layout: |2-
+                  Single column
               SCSE sections:
                 SCRSC-ITEM-LST items:
                   SCRSC-ITEM-1:
@@ -1929,10 +1881,9 @@ document:
                       sectionType: |2-
                         Timeline
                     SSEL layout:
-                      content:
-                        layoutDirection: |2-
-                          Vertical
-                        displayOrder: 1
+                      layoutDirection: |2-
+                        Vertical
+                      displayOrder: 1
                   SCRSC-ITEM-2:
                     content:
                       sectionId: |2-
@@ -1944,10 +1895,9 @@ document:
                       sectionType: |2-
                         EditableTable
                     SSEL layout:
-                      content:
-                        layoutDirection: |2-
-                          Vertical
-                        displayOrder: 2
+                      layoutDirection: |2-
+                        Vertical
+                      displayOrder: 2
                     SCREL-ELEM-LST elements:
                       SCREL-ELEM-1:
                         content:
@@ -1958,9 +1908,8 @@ document:
                           elementType: |2-
                             NumberField
                         SEEB behavior:
-                          content:
-                            readonlyCondition: |2-
-                              order.status == "Dispatched"
+                          readonlyCondition: |2-
+                            order.status == "Dispatched"
                         SEFS fieldSpec:
                           content:
                             fieldName: |2-
@@ -1978,13 +1927,12 @@ document:
                       actionType: |2-
                         Submit
                     SAEV visual:
-                      content:
-                        labelResource: |2-
-                          screen.order.action.amend
-                        placement: |2-
-                          Row
-                        buttonStyle: |2-
-                          Primary
+                      labelResource: |2-
+                        screen.order.action.amend
+                      placement: |2-
+                        Row
+                      buttonStyle: |2-
+                        Primary
                   SCRAC-ITEM-2:
                     content:
                       actionId: |2-
@@ -1994,13 +1942,12 @@ document:
                       actionType: |2-
                         Submit
                     SAEV visual:
-                      content:
-                        labelResource: |2-
-                          screen.order.action.release
-                        placement: |2-
-                          Header
-                        buttonStyle: |2-
-                          Secondary
+                      labelResource: |2-
+                        screen.order.action.release
+                      placement: |2-
+                        Header
+                      buttonStyle: |2-
+                        Secondary
               SCST states:
                 SCRST-ITEM-LST items:
                   SCRST-ITEM-1:

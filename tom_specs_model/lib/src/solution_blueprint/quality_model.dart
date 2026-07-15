@@ -31,47 +31,191 @@ import 'delivery_scope_and_acceptance.dart';
 class SystemQualityGoals {
   @SectionId('SYQG-GOVE')
   @Form([
-    Field('qualityApproach', String, 'Quality Approach',
-        hint: 'Overall quality philosophy: proactive, reactive, hybrid'),
-    Field('qualityStandards', String, 'Applicable Quality Standards',
-        hint: 'ISO 25010, ISO 9001, CMMI, industry-specific'),
-    Field('qualityOwner', String, 'Quality Owner',
-        hint: 'Role accountable for quality outcomes'),
+    Field(
+      'qualityApproach',
+      String,
+      'Quality Approach',
+      hint: 'Overall quality philosophy: proactive, reactive, hybrid',
+    ),
+    Field(
+      'qualityStandards',
+      String,
+      'Applicable Quality Standards',
+      hint: 'ISO 25010, ISO 9001, CMMI, industry-specific',
+    ),
+    Field(
+      'qualityOwner',
+      String,
+      'Quality Owner',
+      hint: 'Role accountable for quality outcomes',
+    ),
   ])
   @SerializationOrder(0)
   String? governanceContent;
 
   /// Governance board and escalation details.
+  @SectionId('SQGGV')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system',
+  ], 'Captures the governance board and escalation path for quality decisions.')
+  @Form([
+    Field(
+      'qualityReviewBoard',
+      String,
+      'Quality Review Board',
+      hint: 'Governance body for quality decisions',
+    ),
+    Field(
+      'qualityMeetingCadence',
+      String,
+      'Quality Meeting Cadence',
+      hint: 'Weekly, bi-weekly, sprint-aligned',
+    ),
+    Field(
+      'qualityEscalationPath',
+      String,
+      'Escalation Path',
+      hint: 'How quality issues escalate to leadership',
+    ),
+  ])
   @SerializationOrder(1)
-  QualityGoalsGovernance governance = QualityGoalsGovernance();
+  String? governance;
 
   /// Baseline and target settings.
+  @SectionId('SQGBS')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement',
+    ],
+    'Captures the quality baseline and target settings used as a reference for improvement.',
+  )
+  @Form([
+    Field(
+      'qualityBaselineDate',
+      String,
+      'Quality Baseline Date',
+      hint: 'When quality targets were baselined',
+    ),
+    Field(
+      'qualityBaselineVersion',
+      String,
+      'Baseline Version',
+      hint: 'Version identifier of the quality baseline snapshot',
+    ),
+    Field(
+      'overallQualityTargetLevel',
+      String,
+      'Overall Quality Target Level',
+      hint: 'High, production-grade, MVP-acceptable',
+    ),
+    Field(
+      'qualityRiskTolerance',
+      String,
+      'Quality Risk Tolerance',
+      hint: 'Low (zero defects), medium, high tolerance',
+    ),
+  ])
   @SerializationOrder(2)
-  QualityGoalsBaseline baseline = QualityGoalsBaseline();
+  String? baseline;
 
   /// Measurement and reporting approach.
+  @SectionId('SQGMS')
+  @StandardReferences([
+    'ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product',
+  ], 'Captures how quality is measured, reported, and tracked over time.')
+  @Form([
+    Field(
+      'qualityMetricsFramework',
+      String,
+      'Metrics Framework',
+      hint: 'How quality is measured: GQM, balanced scorecard',
+    ),
+    Field(
+      'qualityReportingFrequency',
+      String,
+      'Reporting Frequency',
+      hint: 'Daily, weekly, sprint, release',
+    ),
+    Field(
+      'qualityDashboardTool',
+      String,
+      'Quality Dashboard Tool',
+      hint: 'SonarQube, custom dashboard, spreadsheet',
+    ),
+    Field(
+      'defectTrackingSystem',
+      String,
+      'Defect Tracking System',
+      hint: 'Jira, Azure DevOps, GitHub Issues',
+    ),
+    Field(
+      'qualityTrendAnalysis',
+      String,
+      'Trend Analysis Approach',
+      hint: 'How quality trends are tracked over time',
+    ),
+  ])
   @SerializationOrder(3)
-  QualityGoalsMeasurement measurement = QualityGoalsMeasurement();
+  String? measurement;
 
   /// Quality resources and enablement.
+  @SectionId('SQGRS')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified',
+    ],
+    'Captures the resources, budget, and enablement assigned to achieve quality goals.',
+  )
+  @Form([
+    Field(
+      'qualityBudget',
+      String,
+      'Quality Budget',
+      hint: 'Budget allocated for QA activities',
+    ),
+    Field(
+      'qaTeamSize',
+      String,
+      'QA Team Size',
+      hint: 'Number of dedicated QA resources',
+    ),
+    Field(
+      'testAutomationTarget',
+      String,
+      'Test Automation Target %',
+      hint: 'Target percentage of automated tests',
+    ),
+    Field(
+      'qualityTrainingPlan',
+      String,
+      'Quality Training Plan',
+      hint: 'Training for team on quality practices',
+    ),
+  ])
   @SerializationOrder(4)
-  QualityGoalsResources resources = QualityGoalsResources();
+  String? resources;
 
   /// Executive summary of quality goals and approach.
-  @ContentHelp('High-level overview of quality objectives, expected quality '
-      'level, key quality risks, and approach summary.')
+  @ContentHelp(
+    'High-level overview of quality objectives, expected quality '
+    'level, key quality risks, and approach summary.',
+  )
   @SerializationOrder(5)
   TextSection executiveSummary = TextSection();
 
   /// Quality vision and principles.
-  @ContentHelp('Quality vision statement, core principles guiding '
-      'quality decisions, and non-negotiable quality standards.')
+  @ContentHelp(
+    'Quality vision statement, core principles guiding '
+    'quality decisions, and non-negotiable quality standards.',
+  )
   @SerializationOrder(6)
   TextSection qualityVision = TextSection();
 
   /// Quality assurance strategy.
-  @ContentHelp('Overall QA strategy: shift-left testing, continuous testing, '
-      'test pyramid approach, verification vs validation approach.')
+  @ContentHelp(
+    'Overall QA strategy: shift-left testing, continuous testing, '
+    'test pyramid approach, verification vs validation approach.',
+  )
   @SerializationOrder(7)
   TextSection qaStrategy = TextSection();
 
@@ -157,98 +301,6 @@ class SystemQualityGoals {
   TestStrategy testStrategy = TestStrategy();
 }
 
-/// Governance board and escalation details.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system',
-  ],
-  'Captures the governance board and escalation path for quality decisions.',
-)
-@SectionId('SQGGV')
-class QualityGoalsGovernance {
-    @Form([
-        Field('qualityReviewBoard', String, 'Quality Review Board',
-                hint: 'Governance body for quality decisions'),
-        Field('qualityMeetingCadence', String, 'Quality Meeting Cadence',
-                hint: 'Weekly, bi-weekly, sprint-aligned'),
-        Field('qualityEscalationPath', String, 'Escalation Path',
-                hint: 'How quality issues escalate to leadership'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Baseline and target settings.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement',
-  ],
-  'Captures the quality baseline and target settings used as a reference for improvement.',
-)
-@SectionId('SQGBS')
-class QualityGoalsBaseline {
-    @Form([
-        Field('qualityBaselineDate', String, 'Quality Baseline Date',
-                hint: 'When quality targets were baselined'),
-        Field('qualityBaselineVersion', String, 'Baseline Version',
-            hint: 'Version identifier of the quality baseline snapshot'),
-        Field('overallQualityTargetLevel', String, 'Overall Quality Target Level',
-                hint: 'High, production-grade, MVP-acceptable'),
-        Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
-                hint: 'Low (zero defects), medium, high tolerance'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Measurement and reporting approach.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product',
-  ],
-  'Captures how quality is measured, reported, and tracked over time.',
-)
-@SectionId('SQGMS')
-class QualityGoalsMeasurement {
-    @Form([
-        Field('qualityMetricsFramework', String, 'Metrics Framework',
-                hint: 'How quality is measured: GQM, balanced scorecard'),
-        Field('qualityReportingFrequency', String, 'Reporting Frequency',
-                hint: 'Daily, weekly, sprint, release'),
-        Field('qualityDashboardTool', String, 'Quality Dashboard Tool',
-                hint: 'SonarQube, custom dashboard, spreadsheet'),
-        Field('defectTrackingSystem', String, 'Defect Tracking System',
-                hint: 'Jira, Azure DevOps, GitHub Issues'),
-        Field('qualityTrendAnalysis', String, 'Trend Analysis Approach',
-                hint: 'How quality trends are tracked over time'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Quality resources and enablement.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified',
-  ],
-  'Captures the resources, budget, and enablement assigned to achieve quality goals.',
-)
-@SectionId('SQGRS')
-class QualityGoalsResources {
-    @Form([
-        Field('qualityBudget', String, 'Quality Budget',
-                hint: 'Budget allocated for QA activities'),
-        Field('qaTeamSize', String, 'QA Team Size',
-                hint: 'Number of dedicated QA resources'),
-        Field('testAutomationTarget', String, 'Test Automation Target %',
-                hint: 'Target percentage of automated tests'),
-        Field('qualityTrainingPlan', String, 'Quality Training Plan',
-                hint: 'Training for team on quality practices'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
 /// 11.1. Quality Framework.
 ///
 /// Overall quality approach for the project defining objectives, categories,
@@ -269,38 +321,144 @@ class QualityFramework {
   @SectionId('QLFWK-FRAM')
   @Form([
     // Framework selection
-    Field('qualityModel', String, 'Quality Model',
-        hint: 'ISO 25010, McCall, Boehm, custom'),
-    Field('qualityModelVersion', String, 'Model Version',
-        hint: 'Specific version of quality model'),
-    Field('qualityModelAdaptations', String, 'Model Adaptations',
-        hint: 'How standard model is adapted for this project'),
+    Field(
+      'qualityModel',
+      String,
+      'Quality Model',
+      hint: 'ISO 25010, McCall, Boehm, custom',
+    ),
+    Field(
+      'qualityModelVersion',
+      String,
+      'Model Version',
+      hint: 'Specific version of quality model',
+    ),
+    Field(
+      'qualityModelAdaptations',
+      String,
+      'Model Adaptations',
+      hint: 'How standard model is adapted for this project',
+    ),
   ])
   @SerializationOrder(0)
   String? frameworkContent;
 
   /// Quality objective structure and alignment.
+  @SectionId('QFOBJ')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets',
+  ], 'Captures the structure and business alignment of the quality objectives.')
+  @Form([
+    Field(
+      'objectivesHierarchy',
+      String,
+      'Objectives Hierarchy',
+      hint: 'How quality objectives are structured',
+    ),
+    Field(
+      'objectivesAlignment',
+      String,
+      'Objectives Alignment',
+      hint: 'How quality objectives align with business goals',
+    ),
+    Field(
+      'objectivesMeasurability',
+      String,
+      'Measurability Requirement',
+      hint: 'All objectives SMART, key objectives only',
+    ),
+  ])
   @SerializationOrder(1)
-  QualityFrameworkObjectives objectives = QualityFrameworkObjectives();
+  String? objectives;
 
   /// Trade-off priorities and decision authority.
+  @SectionId('QFTRD')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified',
+    ],
+    'Captures the trade-off priorities and decision authority between quality attributes.',
+  )
+  @Form([
+    Field(
+      'primaryQualityAttribute',
+      String,
+      'Primary Quality Attribute',
+      hint: 'Most important attribute when trade-offs required',
+    ),
+    Field(
+      'secondaryQualityAttribute',
+      String,
+      'Secondary Quality Attribute',
+      hint: 'Attribute yielded when the primary attribute takes precedence',
+    ),
+    Field(
+      'tradeOffApproach',
+      String,
+      'Trade-off Approach',
+      hint: 'How conflicts between attributes are resolved',
+    ),
+    Field(
+      'qualityCompromiseAuthority',
+      String,
+      'Compromise Authority',
+      hint: 'Who can authorize quality trade-offs',
+    ),
+  ])
   @SerializationOrder(2)
-  QualityFrameworkTradeOffs tradeOffs = QualityFrameworkTradeOffs();
+  String? tradeOffs;
 
   /// Verification and defect handling approach.
+  @SectionId('QFVER')
+  @StandardReferences(
+    [
+      'ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality',
+      'ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels',
+    ],
+    'Captures how quality is verified and how defects are classified and handled.',
+  )
+  @Form([
+    Field(
+      'verificationStrategy',
+      String,
+      'Verification Strategy',
+      hint: 'Testing, review, analysis, demonstration',
+    ),
+    Field(
+      'verificationCoverage',
+      String,
+      'Verification Coverage',
+      hint: 'All attributes, critical only, risk-based',
+    ),
+    Field(
+      'defectClassification',
+      String,
+      'Defect Classification Scheme',
+      hint: 'Critical, major, minor, trivial',
+    ),
+    Field(
+      'defectPriorityScheme',
+      String,
+      'Defect Priority Scheme',
+      hint: 'P1-P5, urgent/high/medium/low',
+    ),
+  ])
   @SerializationOrder(3)
-  QualityFrameworkVerification verification =
-      QualityFrameworkVerification();
+  String? verification;
 
   /// 11.1.1. Quality Objectives Overview.
-  @ContentHelp('Overall quality objectives: expected quality level, '
-      'how quality will be measured, acceptable trade-offs.')
+  @ContentHelp(
+    'Overall quality objectives: expected quality level, '
+    'how quality will be measured, acceptable trade-offs.',
+  )
   @SerializationOrder(4)
   TextSection qualityObjectivesOverview = TextSection();
 
   /// Quality objectives breakdown by category.
-  @ContentHelp('Structured breakdown of objectives for each quality '
-      'category with measurable targets.')
+  @ContentHelp(
+    'Structured breakdown of objectives for each quality '
+    'category with measurable targets.',
+  )
   @SerializationOrder(5)
   TextSection objectivesBreakdown = TextSection();
 
@@ -331,74 +489,6 @@ class QualityFramework {
   List<CategoryDependencyEntry> categoryDependencies = [];
 }
 
-/// Quality objective structure and alignment.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets',
-  ],
-  'Captures the structure and business alignment of the quality objectives.',
-)
-@SectionId('QFOBJ')
-class QualityFrameworkObjectives {
-    @Form([
-        Field('objectivesHierarchy', String, 'Objectives Hierarchy',
-                hint: 'How quality objectives are structured'),
-        Field('objectivesAlignment', String, 'Objectives Alignment',
-                hint: 'How quality objectives align with business goals'),
-        Field('objectivesMeasurability', String, 'Measurability Requirement',
-                hint: 'All objectives SMART, key objectives only'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Trade-off priorities and decision authority.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified',
-  ],
-  'Captures the trade-off priorities and decision authority between quality attributes.',
-)
-@SectionId('QFTRD')
-class QualityFrameworkTradeOffs {
-    @Form([
-        Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
-                hint: 'Most important attribute when trade-offs required'),
-        Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute',
-                hint: 'Attribute yielded when the primary attribute takes precedence'),
-        Field('tradeOffApproach', String, 'Trade-off Approach',
-                hint: 'How conflicts between attributes are resolved'),
-        Field('qualityCompromiseAuthority', String, 'Compromise Authority',
-                hint: 'Who can authorize quality trade-offs'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Verification and defect handling approach.
-@StandardReferences(
-  [
-    'ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality',
-    'ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels',
-  ],
-  'Captures how quality is verified and how defects are classified and handled.',
-)
-@SectionId('QFVER')
-class QualityFrameworkVerification {
-    @Form([
-        Field('verificationStrategy', String, 'Verification Strategy',
-                hint: 'Testing, review, analysis, demonstration'),
-        Field('verificationCoverage', String, 'Verification Coverage',
-                hint: 'All attributes, critical only, risk-based'),
-        Field('defectClassification', String, 'Defect Classification Scheme',
-                hint: 'Critical, major, minor, trivial'),
-        Field('defectPriorityScheme', String, 'Defect Priority Scheme',
-                hint: 'P1-P5, urgent/high/medium/low'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
 /// A quality category entry (form).
 ///
 /// Defines a quality category with its attributes, weight, and relationship
@@ -412,127 +502,172 @@ class QualityFrameworkVerification {
 @SectionId('QCATE')
 class QualityCategoryEntry {
   @Form([
-    Field('categoryId', String, 'Category ID',
-        hint: 'Unique identifier (e.g., QC-USER-01)'),
-    Field('categoryName', String, 'Category Name', required: true,
-        hint: 'User-Related, Technical, Operational, Documentation'),
-    Field('categoryWeight', int, 'Category Weight (1-100)',
-        hint: 'Relative importance in overall quality'),
+    Field(
+      'categoryId',
+      String,
+      'Category ID',
+      hint: 'Unique identifier (e.g., QC-USER-01)',
+    ),
+    Field(
+      'categoryName',
+      String,
+      'Category Name',
+      required: true,
+      hint: 'User-Related, Technical, Operational, Documentation',
+    ),
+    Field(
+      'categoryWeight',
+      int,
+      'Category Weight (1-100)',
+      hint: 'Relative importance in overall quality',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Description and priority context.
+  @SectionId('QCADF')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured',
+    ],
+    'Captures the definition, scope, and priority context of this quality category.',
+  )
+  @Form([
+    Field(
+      'categoryDescription',
+      String,
+      'Description',
+      hint: 'Purpose and scope of this category',
+    ),
+    Field(
+      'categoryScope',
+      String,
+      'Scope',
+      hint: 'What aspects of quality this covers',
+    ),
+    Field(
+      'categoryPriority',
+      String,
+      'Priority',
+      hint: 'Critical, high, medium, low',
+    ),
+    Field(
+      'categoryRationale',
+      String,
+      'Priority Rationale',
+      hint: 'Why this priority level',
+    ),
+  ])
   @SerializationOrder(1)
-  QualityCategoryEntryDefinition definition = QualityCategoryEntryDefinition();
+  String? definition;
 
   /// Category relationships.
+  @SectionId('QCARL')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use',
+    ],
+    'Captures how this quality category relates to and depends on other categories.',
+  )
+  @Form([
+    Field(
+      'parentCategory',
+      String,
+      'Parent Category',
+      hint: 'Higher-level category if hierarchical',
+    ),
+    Field(
+      'relatedCategories',
+      String,
+      'Related Categories',
+      hint: 'Categories that interact with this one',
+    ),
+    Field(
+      'conflictingCategories',
+      String,
+      'Conflicting Categories',
+      hint: 'Categories that may trade off against this',
+    ),
+  ])
   @SerializationOrder(2)
-  QualityCategoryEntryRelationships relationships =
-      QualityCategoryEntryRelationships();
+  String? relationships;
 
   /// Governance ownership.
+  @SectionId('QCAGV')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — ownership and governance of each quality category are assigned to ensure the associated requirements are maintained',
+    ],
+    'Captures the ownership and governance responsibilities for this quality category.',
+  )
+  @Form([
+    Field(
+      'categoryOwner',
+      String,
+      'Category Owner',
+      hint: 'Role responsible for this quality area',
+    ),
+    Field(
+      'reviewFrequency',
+      String,
+      'Review Frequency',
+      hint: 'How often category metrics are reviewed',
+    ),
+    Field(
+      'escalationThreshold',
+      String,
+      'Escalation Threshold',
+      hint: 'When category issues escalate',
+    ),
+  ])
   @SerializationOrder(3)
-  QualityCategoryEntryGovernance governance =
-      QualityCategoryEntryGovernance();
+  String? governance;
 
   /// Measurement targets.
+  @SectionId('QCAMT')
+  @StandardReferences(
+    [
+      'ISO/IEC 25023:2016 — quality measures and measurement functions are defined to quantify each quality characteristic during evaluation',
+    ],
+    'Captures the metrics and target values used to measure this quality category.',
+  )
+  @Form([
+    Field(
+      'primaryMetric',
+      String,
+      'Primary Metric',
+      hint: 'Main metric for this category',
+    ),
+    Field(
+      'secondaryMetrics',
+      String,
+      'Secondary Metrics',
+      hint: 'Supporting metrics',
+    ),
+    Field(
+      'targetValue',
+      String,
+      'Target Value',
+      hint: 'Target for primary metric',
+    ),
+    Field(
+      'currentBaseline',
+      String,
+      'Current Baseline',
+      hint: 'Starting baseline value',
+    ),
+  ])
   @SerializationOrder(4)
-  QualityCategoryEntryMetrics metrics = QualityCategoryEntryMetrics();
+  String? metrics;
 
   /// Detailed category definition.
-  @ContentHelp('Extended description of category scope, boundaries, '
-      'and quality attributes included.')
+  @ContentHelp(
+    'Extended description of category scope, boundaries, '
+    'and quality attributes included.',
+  )
   @SerializationOrder(5)
   TextSection categoryDetails = TextSection();
-}
-
-/// Description and priority context.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — each quality characteristic is defined so that the intended meaning is unambiguous and can be measured',
-  ],
-  'Captures the definition, scope, and priority context of this quality category.',
-)
-@SectionId('QCADF')
-class QualityCategoryEntryDefinition {
-  @Form([
-    Field('categoryDescription', String, 'Description',
-        hint: 'Purpose and scope of this category'),
-    Field('categoryScope', String, 'Scope',
-        hint: 'What aspects of quality this covers'),
-    Field('categoryPriority', String, 'Priority',
-        hint: 'Critical, high, medium, low'),
-    Field('categoryRationale', String, 'Priority Rationale',
-        hint: 'Why this priority level'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Category relationships.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — the relevance of each quality characteristic to the system is justified against the stated needs and context of use',
-  ],
-  'Captures how this quality category relates to and depends on other categories.',
-)
-@SectionId('QCARL')
-class QualityCategoryEntryRelationships {
-  @Form([
-    Field('parentCategory', String, 'Parent Category',
-        hint: 'Higher-level category if hierarchical'),
-    Field('relatedCategories', String, 'Related Categories',
-        hint: 'Categories that interact with this one'),
-    Field('conflictingCategories', String, 'Conflicting Categories',
-        hint: 'Categories that may trade off against this'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Governance ownership.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — ownership and governance of each quality category are assigned to ensure the associated requirements are maintained',
-  ],
-  'Captures the ownership and governance responsibilities for this quality category.',
-)
-@SectionId('QCAGV')
-class QualityCategoryEntryGovernance {
-  @Form([
-    Field('categoryOwner', String, 'Category Owner',
-        hint: 'Role responsible for this quality area'),
-    Field('reviewFrequency', String, 'Review Frequency',
-        hint: 'How often category metrics are reviewed'),
-    Field('escalationThreshold', String, 'Escalation Threshold',
-        hint: 'When category issues escalate'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Measurement targets.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — quality measures and measurement functions are defined to quantify each quality characteristic during evaluation',
-  ],
-  'Captures the metrics and target values used to measure this quality category.',
-)
-@SectionId('QCAMT')
-class QualityCategoryEntryMetrics {
-  @Form([
-    Field('primaryMetric', String, 'Primary Metric',
-        hint: 'Main metric for this category'),
-    Field('secondaryMetrics', String, 'Secondary Metrics',
-        hint: 'Supporting metrics'),
-    Field('targetValue', String, 'Target Value',
-        hint: 'Target for primary metric'),
-    Field('currentBaseline', String, 'Current Baseline',
-        hint: 'Starting baseline value'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
@@ -555,27 +690,39 @@ class FunctionalSuitabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('FNSU-FUNC')
   @Form([
-    Field('functionalSuitabilityApproach', String,
-        'Functional Suitability Approach',
-        hint: 'How functional completeness and correctness are assured'),
-    Field('functionalCoverageTarget', String, 'Functional Coverage Target',
-        hint: 'Required vs. optional feature coverage'),
-    Field('correctnessStandard', String, 'Correctness Standard',
-        hint: 'Acceptable defect density, accuracy thresholds'),
+    Field(
+      'functionalSuitabilityApproach',
+      String,
+      'Functional Suitability Approach',
+      hint: 'How functional completeness and correctness are assured',
+    ),
+    Field(
+      'functionalCoverageTarget',
+      String,
+      'Functional Coverage Target',
+      hint: 'Required vs. optional feature coverage',
+    ),
+    Field(
+      'correctnessStandard',
+      String,
+      'Correctness Standard',
+      hint: 'Acceptable defect density, accuracy thresholds',
+    ),
   ])
   @SerializationOrder(0)
   String? functionalSuitabilityContent;
 
   /// Functional suitability overview.
-  @ContentHelp('Executive summary of functional-suitability goals, '
-      'coverage targets, and correctness metrics.')
+  @ContentHelp(
+    'Executive summary of functional-suitability goals, '
+    'coverage targets, and correctness metrics.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.2.1. Functional Completeness.
   @SerializationOrder(2)
-  FunctionalCompleteness functionalCompleteness =
-      FunctionalCompleteness();
+  FunctionalCompleteness functionalCompleteness = FunctionalCompleteness();
 
   /// 11.2.2. Correctness.
   @SerializationOrder(3)
@@ -603,25 +750,51 @@ class InteractionCapabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('INCP-INTE')
   @Form([
-    Field('userQualityPhilosophy', String, 'User Quality Philosophy',
-        hint: 'User-first, balanced, efficiency-focused'),
-    Field('targetUserExperience', String, 'Target User Experience',
-        hint: 'Delightful, efficient, adequate, minimal'),
-    Field('userResearchBasis', String, 'User Research Basis',
-        hint: 'Personas, surveys, interviews, analytics'),
-    Field('userFeedbackChannel', String, 'User Feedback Channel',
-        hint: 'How user quality feedback is collected'),
-    Field('userSatisfactionTarget', String, 'User Satisfaction Target',
-        hint: 'NPS > 50, CSAT > 80%, etc.'),
-    Field('accessibilityLevel', String, 'Accessibility Level',
-        hint: 'WCAG 2.1 AA, AAA, Section 508'),
+    Field(
+      'userQualityPhilosophy',
+      String,
+      'User Quality Philosophy',
+      hint: 'User-first, balanced, efficiency-focused',
+    ),
+    Field(
+      'targetUserExperience',
+      String,
+      'Target User Experience',
+      hint: 'Delightful, efficient, adequate, minimal',
+    ),
+    Field(
+      'userResearchBasis',
+      String,
+      'User Research Basis',
+      hint: 'Personas, surveys, interviews, analytics',
+    ),
+    Field(
+      'userFeedbackChannel',
+      String,
+      'User Feedback Channel',
+      hint: 'How user quality feedback is collected',
+    ),
+    Field(
+      'userSatisfactionTarget',
+      String,
+      'User Satisfaction Target',
+      hint: 'NPS > 50, CSAT > 80%, etc.',
+    ),
+    Field(
+      'accessibilityLevel',
+      String,
+      'Accessibility Level',
+      hint: 'WCAG 2.1 AA, AAA, Section 508',
+    ),
   ])
   @SerializationOrder(0)
   String? interactionCapabilityContent;
 
   /// Interaction capability overview.
-  @ContentHelp('Executive summary of interaction-capability goals, '
-      'target user experience, and key user-quality metrics.')
+  @ContentHelp(
+    'Executive summary of interaction-capability goals, '
+    'target user experience, and key user-quality metrics.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -631,186 +804,258 @@ class InteractionCapabilityCharacteristic {
 }
 
 /// 11.2.1. Usability quality.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement',
-  ],
-  'This section captures the usability quality group of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — interaction capability includes appropriateness recognizability, learnability, operability, user error protection, and user engagement',
+], 'This section captures the usability quality group of the solution.')
 @SectionId('USAQL')
 class Usability {
   @Form([
-    Field('operabilityTarget', String, 'Operability Target',
-        hint: 'Ease of operation: intuitive, training-required'),
-    Field('ergonomicsStandard', String, 'Ergonomics Standard',
-        hint: 'ISO 9241, platform guidelines'),
-    Field('learnabilityTarget', String, 'Learnability Target',
-        hint: 'Time to proficiency: <1 hour, <1 day'),
+    Field(
+      'operabilityTarget',
+      String,
+      'Operability Target',
+      hint: 'Ease of operation: intuitive, training-required',
+    ),
+    Field(
+      'ergonomicsStandard',
+      String,
+      'Ergonomics Standard',
+      hint: 'ISO 9241, platform guidelines',
+    ),
+    Field(
+      'learnabilityTarget',
+      String,
+      'Learnability Target',
+      hint: 'Time to proficiency: <1 hour, <1 day',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Operability verification and ergonomics goals.
+  @SectionId('USAOP')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — operability is the degree to which a product or system has attributes that make it easy to operate and control',
+    ],
+    'This section captures operability verification and ergonomics goals for the solution.',
+  )
+  @Form([
+    Field(
+      'operabilityMetric',
+      String,
+      'Operability Metric',
+      hint: 'Task completion rate, error rate',
+    ),
+    Field(
+      'operabilityVerification',
+      String,
+      'Operability Verification',
+      hint: 'Usability testing, heuristic evaluation',
+    ),
+    Field(
+      'ergonomicsTarget',
+      String,
+      'Ergonomics Target',
+      hint: 'Reduce cognitive load, minimize clicks',
+    ),
+  ])
   @SerializationOrder(1)
-  UsabilityOperability operability = UsabilityOperability();
+  String? operability;
 
   /// Learnability and onboarding expectations.
+  @SectionId('USALN')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — learnability is the degree to which a product or system can be used by specified users to achieve specified goals of learning to use the product with effectiveness, efficiency, freedom from risk, and satisfaction',
+    ],
+    'This section captures learnability and onboarding expectations for the solution.',
+  )
+  @Form([
+    Field(
+      'learnabilityVerification',
+      String,
+      'Learnability Verification',
+      hint: 'First-use testing, training time measurement',
+    ),
+    Field(
+      'onboardingRequirement',
+      String,
+      'Onboarding Requirement',
+      hint: 'Self-service, guided tour, training required',
+    ),
+  ])
   @SerializationOrder(2)
-  UsabilityLearnability learnability = UsabilityLearnability();
+  String? learnability;
 
   /// Clarity and complexity constraints.
+  @SectionId('USACL')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — self-descriptiveness is the degree to which a product presents appropriate information, where needed by the user, to make the product immediately obvious without excessive interactions with the product or other resources',
+    ],
+    'This section captures clarity and complexity constraints supporting self-descriptiveness.',
+  )
+  @Form([
+    Field(
+      'functionalClarityTarget',
+      String,
+      'Functional Clarity Target',
+      hint: 'Labels, icons, workflows self-explanatory',
+    ),
+    Field(
+      'helpSystemRequirement',
+      String,
+      'Help System Requirement',
+      hint: 'Contextual help, tooltips, documentation',
+    ),
+    Field(
+      'complexityLimit',
+      String,
+      'Complexity Limit',
+      hint: 'Max steps per workflow, max form fields',
+    ),
+    Field(
+      'cognitiveLoadTarget',
+      String,
+      'Cognitive Load Target',
+      hint: 'Info per screen, decision points',
+    ),
+  ])
   @SerializationOrder(3)
-  UsabilityClarity clarity = UsabilityClarity();
+  String? clarity;
 
   /// Interaction control settings.
+  @SectionId('USAIN')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — user engagement is the degree to which the user interface presents functions and information in an inviting and motivating manner encouraging continued interaction',
+    ],
+    'This section captures interaction control settings that shape user engagement.',
+  )
+  @Form([
+    Field(
+      'undoRequirement',
+      String,
+      'Undo Requirement',
+      hint: 'All actions, critical actions, none',
+    ),
+    Field(
+      'customizationLevel',
+      String,
+      'Customization Level',
+      hint: 'User preferences, layout, workflow',
+    ),
+  ])
   @SerializationOrder(4)
-  UsabilityInteraction interaction = UsabilityInteraction();
+  String? interaction;
 
   /// Perceived and measured responsiveness targets.
+  @SectionId('USAPR')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — inclusivity is the degree to which a product can be used by people with the widest range of characteristics and capabilities to achieve specified goals in a specified context of use',
+    ],
+    'This section captures perceived and measured responsiveness targets for usability performance.',
+  )
+  @Form([
+    Field(
+      'responseTimeP50',
+      String,
+      'Response Time P50',
+      hint: 'Median response time target (e.g., <200ms)',
+    ),
+    Field(
+      'responseTimeP95',
+      String,
+      'Response Time P95',
+      hint: '95th percentile (e.g., <500ms)',
+    ),
+    Field(
+      'responseTimeP99',
+      String,
+      'Response Time P99',
+      hint: '99th percentile (e.g., <1s)',
+    ),
+    Field(
+      'perceivedPerformance',
+      String,
+      'Perceived Performance',
+      hint: 'Loading indicators, optimistic updates',
+    ),
+  ])
   @SerializationOrder(5)
-  UsabilityPerformance performance = UsabilityPerformance();
+  String? performance;
 
   /// Detailed usability requirements narrative.
   @SerializationOrder(6)
   TextSection narrative = TextSection();
 }
 
-/// Operability verification and ergonomics goals.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — operability is the degree to which a product or system has attributes that make it easy to operate and control',
-  ],
-  'This section captures operability verification and ergonomics goals for the solution.',
-)
-@SectionId('USAOP')
-class UsabilityOperability {
-  @Form([
-    Field('operabilityMetric', String, 'Operability Metric',
-        hint: 'Task completion rate, error rate'),
-    Field('operabilityVerification', String, 'Operability Verification',
-        hint: 'Usability testing, heuristic evaluation'),
-    Field('ergonomicsTarget', String, 'Ergonomics Target',
-        hint: 'Reduce cognitive load, minimize clicks'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Learnability and onboarding expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — learnability is the degree to which a product or system can be used by specified users to achieve specified goals of learning to use the product with effectiveness, efficiency, freedom from risk, and satisfaction',
-  ],
-  'This section captures learnability and onboarding expectations for the solution.',
-)
-@SectionId('USALN')
-class UsabilityLearnability {
-  @Form([
-    Field('learnabilityVerification', String, 'Learnability Verification',
-        hint: 'First-use testing, training time measurement'),
-    Field('onboardingRequirement', String, 'Onboarding Requirement',
-        hint: 'Self-service, guided tour, training required'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Clarity and complexity constraints.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — self-descriptiveness is the degree to which a product presents appropriate information, where needed by the user, to make the product immediately obvious without excessive interactions with the product or other resources',
-  ],
-  'This section captures clarity and complexity constraints supporting self-descriptiveness.',
-)
-@SectionId('USACL')
-class UsabilityClarity {
-  @Form([
-    Field('functionalClarityTarget', String, 'Functional Clarity Target',
-        hint: 'Labels, icons, workflows self-explanatory'),
-    Field('helpSystemRequirement', String, 'Help System Requirement',
-        hint: 'Contextual help, tooltips, documentation'),
-    Field('complexityLimit', String, 'Complexity Limit',
-        hint: 'Max steps per workflow, max form fields'),
-    Field('cognitiveLoadTarget', String, 'Cognitive Load Target',
-        hint: 'Info per screen, decision points'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Interaction control settings.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — user engagement is the degree to which the user interface presents functions and information in an inviting and motivating manner encouraging continued interaction',
-  ],
-  'This section captures interaction control settings that shape user engagement.',
-)
-@SectionId('USAIN')
-class UsabilityInteraction {
-  @Form([
-    Field('undoRequirement', String, 'Undo Requirement',
-        hint: 'All actions, critical actions, none'),
-    Field('customizationLevel', String, 'Customization Level',
-        hint: 'User preferences, layout, workflow'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Perceived and measured responsiveness targets.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — inclusivity is the degree to which a product can be used by people with the widest range of characteristics and capabilities to achieve specified goals in a specified context of use',
-  ],
-  'This section captures perceived and measured responsiveness targets for usability performance.',
-)
-@SectionId('USAPR')
-class UsabilityPerformance {
-  @Form([
-    Field('responseTimeP50', String, 'Response Time P50',
-        hint: 'Median response time target (e.g., <200ms)'),
-    Field('responseTimeP95', String, 'Response Time P95',
-        hint: '95th percentile (e.g., <500ms)'),
-    Field('responseTimeP99', String, 'Response Time P99',
-        hint: '99th percentile (e.g., <1s)'),
-    Field('perceivedPerformance', String, 'Perceived Performance',
-        hint: 'Loading indicators, optimistic updates'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
 /// 11.2.2. Functional completeness quality.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives',
-  ],
-  'This section captures the functional completeness quality of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — functional completeness is the degree to which the set of functions covers all the specified tasks and intended user objectives',
+], 'This section captures the functional completeness quality of the solution.')
 @SectionId('FNCOQ')
 class FunctionalCompleteness {
   @Form([
     // Coverage
-    Field('featureCoverageTarget', String, 'Feature Coverage Target %',
-        hint: 'Percentage of specified features implemented'),
-    Field('coreWorkflowCoverage', String, 'Core Workflow Coverage',
-        hint: '100% of core, 80% of secondary'),
-    Field('edgeCaseHandling', String, 'Edge Case Handling',
-        hint: 'Explicit handling, graceful degradation'),
+    Field(
+      'featureCoverageTarget',
+      String,
+      'Feature Coverage Target %',
+      hint: 'Percentage of specified features implemented',
+    ),
+    Field(
+      'coreWorkflowCoverage',
+      String,
+      'Core Workflow Coverage',
+      hint: '100% of core, 80% of secondary',
+    ),
+    Field(
+      'edgeCaseHandling',
+      String,
+      'Edge Case Handling',
+      hint: 'Explicit handling, graceful degradation',
+    ),
     // Scope management
-    Field('scopePrioritization', String, 'Scope Prioritization',
-        hint: 'MoSCoW, weighted scoring'),
-    Field('mvpDefinition', String, 'MVP Definition',
-        hint: 'Minimum feature set for launch'),
-    Field('deferredFeatureHandling', String, 'Deferred Feature Handling',
-        hint: 'How deferred features are communicated'),
+    Field(
+      'scopePrioritization',
+      String,
+      'Scope Prioritization',
+      hint: 'MoSCoW, weighted scoring',
+    ),
+    Field(
+      'mvpDefinition',
+      String,
+      'MVP Definition',
+      hint: 'Minimum feature set for launch',
+    ),
+    Field(
+      'deferredFeatureHandling',
+      String,
+      'Deferred Feature Handling',
+      hint: 'How deferred features are communicated',
+    ),
     // Verification
-    Field('completenessVerification', String, 'Completeness Verification',
-        hint: 'Traceability matrix, acceptance testing'),
-    Field('userStoryTracking', String, 'User Story Tracking',
-        hint: 'How coverage is tracked to requirements'),
-    Field('gapAnalysisFrequency', String, 'Gap Analysis Frequency',
-        hint: 'Sprint, release, milestone'),
+    Field(
+      'completenessVerification',
+      String,
+      'Completeness Verification',
+      hint: 'Traceability matrix, acceptance testing',
+    ),
+    Field(
+      'userStoryTracking',
+      String,
+      'User Story Tracking',
+      hint: 'How coverage is tracked to requirements',
+    ),
+    Field(
+      'gapAnalysisFrequency',
+      String,
+      'Gap Analysis Frequency',
+      hint: 'Sprint, release, milestone',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -830,95 +1075,124 @@ class FunctionalCompleteness {
 @SectionId('COQU')
 class Correctness {
   @Form([
-    Field('defectDensityTarget', String, 'Defect Density Target',
-        hint: 'Defects per KLOC, per function point'),
-    Field('criticalDefectTarget', String, 'Critical Defect Target',
-        hint: 'Zero critical/blocking, <N major'),
-    Field('defectEscapeRate', String, 'Defect Escape Rate',
-        hint: 'Defects found post-release'),
+    Field(
+      'defectDensityTarget',
+      String,
+      'Defect Density Target',
+      hint: 'Defects per KLOC, per function point',
+    ),
+    Field(
+      'criticalDefectTarget',
+      String,
+      'Critical Defect Target',
+      hint: 'Zero critical/blocking, <N major',
+    ),
+    Field(
+      'defectEscapeRate',
+      String,
+      'Defect Escape Rate',
+      hint: 'Defects found post-release',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Data integrity expectations.
+  @SectionId('COQUIN')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — functional correctness is the degree to which a product provides the correct results with the needed degree of precision',
+    ],
+    'This section captures data integrity expectations that support correct results.',
+  )
+  @Form([
+    Field(
+      'dataIntegrityRequirement',
+      String,
+      'Data Integrity Requirement',
+      hint: 'ACID, eventual consistency',
+    ),
+    Field(
+      'dataValidationCoverage',
+      String,
+      'Data Validation Coverage',
+      hint: 'All inputs, critical inputs',
+    ),
+    Field(
+      'dataCorruptionHandling',
+      String,
+      'Data Corruption Handling',
+      hint: 'Detection, recovery, prevention',
+    ),
+  ])
   @SerializationOrder(1)
-  CorrectnessIntegrity integrity = CorrectnessIntegrity();
+  String? integrity;
 
   /// Accuracy and auditability requirements.
+  @SectionId('COQUAC')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users under specified conditions',
+    ],
+    'This section captures accuracy targets and auditability requirements for correct results.',
+  )
+  @Form([
+    Field(
+      'calculationAccuracyTarget',
+      String,
+      'Calculation Accuracy Target',
+      hint: 'Decimal precision, rounding rules',
+    ),
+    Field(
+      'financialAccuracyRequirement',
+      String,
+      'Financial Accuracy',
+      hint: 'Penny-accurate, significant figures',
+    ),
+    Field(
+      'auditTrailRequirement',
+      String,
+      'Audit Trail Requirement',
+      hint: 'All changes, financial only',
+    ),
+  ])
   @SerializationOrder(2)
-  CorrectnessAccuracy accuracy = CorrectnessAccuracy();
+  String? accuracy;
 
   /// Verification and regression approach.
+  @SectionId('COQUVE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the functional suitability of the system and software product',
+    ],
+    'This section captures how functional suitability is verified through defined quality measures.',
+  )
+  @Form([
+    Field(
+      'correctnessVerification',
+      String,
+      'Correctness Verification',
+      hint: 'Unit tests, integration tests, UAT',
+    ),
+    Field(
+      'testCoverageTarget',
+      String,
+      'Test Coverage Target',
+      hint: 'Code coverage %, requirement coverage',
+    ),
+    Field(
+      'regressionTestingApproach',
+      String,
+      'Regression Testing',
+      hint: 'Automated, manual, risk-based',
+    ),
+  ])
   @SerializationOrder(3)
-  CorrectnessVerification verification =
-      CorrectnessVerification();
+  String? verification;
 
   /// Detailed correctness requirements narrative.
   @SerializationOrder(4)
   TextSection narrative = TextSection();
-}
-
-/// Data integrity expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — functional correctness is the degree to which a product provides the correct results with the needed degree of precision',
-  ],
-  'This section captures data integrity expectations that support correct results.',
-)
-@SectionId('COQUIN')
-class CorrectnessIntegrity {
-  @Form([
-    Field('dataIntegrityRequirement', String, 'Data Integrity Requirement',
-        hint: 'ACID, eventual consistency'),
-    Field('dataValidationCoverage', String, 'Data Validation Coverage',
-        hint: 'All inputs, critical inputs'),
-    Field('dataCorruptionHandling', String, 'Data Corruption Handling',
-        hint: 'Detection, recovery, prevention'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Accuracy and auditability requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — functional correctness is the degree to which a product or system provides accurate results when used by intended users under specified conditions',
-  ],
-  'This section captures accuracy targets and auditability requirements for correct results.',
-)
-@SectionId('COQUAC')
-class CorrectnessAccuracy {
-  @Form([
-    Field('calculationAccuracyTarget', String, 'Calculation Accuracy Target',
-        hint: 'Decimal precision, rounding rules'),
-    Field('financialAccuracyRequirement', String, 'Financial Accuracy',
-        hint: 'Penny-accurate, significant figures'),
-    Field('auditTrailRequirement', String, 'Audit Trail Requirement',
-        hint: 'All changes, financial only'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Verification and regression approach.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the functional suitability of the system and software product',
-  ],
-  'This section captures how functional suitability is verified through defined quality measures.',
-)
-@SectionId('COQUVE')
-class CorrectnessVerification {
-  @Form([
-    Field('correctnessVerification', String, 'Correctness Verification',
-        hint: 'Unit tests, integration tests, UAT'),
-    Field('testCoverageTarget', String, 'Test Coverage Target',
-        hint: 'Code coverage %, requirement coverage'),
-    Field('regressionTestingApproach', String, 'Regression Testing',
-        hint: 'Automated, manual, risk-based'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
@@ -942,23 +1216,45 @@ class PerformanceEfficiencyCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('PEEF-PERF')
   @Form([
-    Field('technicalQualityPhilosophy', String, 'Technical Quality Philosophy',
-        hint: 'Performance-first, maintainability-first, balanced'),
-    Field('architecturalQualityGoals', String, 'Architectural Quality Goals',
-        hint: 'Key architectural quality attributes'),
-    Field('technicalDebtTolerance', String, 'Technical Debt Tolerance',
-        hint: 'Zero, controlled, pragmatic'),
-    Field('codeQualityStandard', String, 'Code Quality Standard',
-        hint: 'Style guide, linting rules'),
-    Field('designPrinciplesAdherence', String, 'Design Principles Adherence',
-        hint: 'SOLID, DRY, KISS, YAGNI'),
+    Field(
+      'technicalQualityPhilosophy',
+      String,
+      'Technical Quality Philosophy',
+      hint: 'Performance-first, maintainability-first, balanced',
+    ),
+    Field(
+      'architecturalQualityGoals',
+      String,
+      'Architectural Quality Goals',
+      hint: 'Key architectural quality attributes',
+    ),
+    Field(
+      'technicalDebtTolerance',
+      String,
+      'Technical Debt Tolerance',
+      hint: 'Zero, controlled, pragmatic',
+    ),
+    Field(
+      'codeQualityStandard',
+      String,
+      'Code Quality Standard',
+      hint: 'Style guide, linting rules',
+    ),
+    Field(
+      'designPrinciplesAdherence',
+      String,
+      'Design Principles Adherence',
+      hint: 'SOLID, DRY, KISS, YAGNI',
+    ),
   ])
   @SerializationOrder(0)
   String? performanceEfficiencyContent;
 
   /// Performance efficiency overview.
-  @ContentHelp('Executive summary of performance-efficiency goals, '
-      'architectural decisions, and key technical metrics.')
+  @ContentHelp(
+    'Executive summary of performance-efficiency goals, '
+    'architectural decisions, and key technical metrics.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -985,10 +1281,18 @@ class PerformanceEfficiencyCharacteristic {
 class CompatibilityCharacteristic {
   @SectionId('CMPT-COMP')
   @Form([
-    Field('coExistenceRequirements', String, 'Co-existence Requirements',
-        hint: 'Other products sharing the environment without adverse impact'),
-    Field('interoperabilityStandards', String, 'Interoperability Standards',
-        hint: 'Protocols/formats for exchanging and using information'),
+    Field(
+      'coExistenceRequirements',
+      String,
+      'Co-existence Requirements',
+      hint: 'Other products sharing the environment without adverse impact',
+    ),
+    Field(
+      'interoperabilityStandards',
+      String,
+      'Interoperability Standards',
+      hint: 'Protocols/formats for exchanging and using information',
+    ),
   ])
   @SerializationOrder(0)
   String? compatibilityContent;
@@ -1017,17 +1321,27 @@ class CompatibilityCharacteristic {
 class FlexibilityCharacteristic {
   @SectionId('FLXC-FLEX')
   @Form([
-    Field('flexibilityApproach', String, 'Flexibility Approach',
-        hint: 'How adaptability, scalability and portability are achieved'),
-    Field('portabilityTarget', String, 'Portability Target',
-        hint: 'Target environments/platforms the product must run on'),
+    Field(
+      'flexibilityApproach',
+      String,
+      'Flexibility Approach',
+      hint: 'How adaptability, scalability and portability are achieved',
+    ),
+    Field(
+      'portabilityTarget',
+      String,
+      'Portability Target',
+      hint: 'Target environments/platforms the product must run on',
+    ),
   ])
   @SerializationOrder(0)
   String? flexibilityContent;
 
   /// Flexibility overview.
-  @ContentHelp('Executive summary of flexibility, adaptability and '
-      'portability goals.')
+  @ContentHelp(
+    'Executive summary of flexibility, adaptability and '
+    'portability goals.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -1057,17 +1371,27 @@ class FlexibilityCharacteristic {
 class SecurityCharacteristic {
   @SectionId('SECC-SECU')
   @Form([
-    Field('securityApproach', String, 'Security Approach',
-        hint: 'Zero-trust, defence-in-depth, least-privilege'),
-    Field('securityComplianceTarget', String, 'Security Compliance Target',
-        hint: 'ISO 27001, SOC 2, GDPR, sector-specific'),
+    Field(
+      'securityApproach',
+      String,
+      'Security Approach',
+      hint: 'Zero-trust, defence-in-depth, least-privilege',
+    ),
+    Field(
+      'securityComplianceTarget',
+      String,
+      'Security Compliance Target',
+      hint: 'ISO 27001, SOC 2, GDPR, sector-specific',
+    ),
   ])
   @SerializationOrder(0)
   String? securityContent;
 
   /// Security overview.
-  @ContentHelp('Executive summary of security goals, threat model, and '
-      'compliance targets.')
+  @ContentHelp(
+    'Executive summary of security goals, threat model, and '
+    'compliance targets.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -1097,10 +1421,18 @@ class SecurityCharacteristic {
 class MaintainabilityCharacteristic {
   @SectionId('MNTC-MAIN')
   @Form([
-    Field('maintainabilityApproach', String, 'Maintainability Approach',
-        hint: 'Modularity, analyzability, testability priorities'),
-    Field('maintainabilityStandard', String, 'Maintainability Standard',
-        hint: 'Complexity thresholds, test-coverage targets'),
+    Field(
+      'maintainabilityApproach',
+      String,
+      'Maintainability Approach',
+      hint: 'Modularity, analyzability, testability priorities',
+    ),
+    Field(
+      'maintainabilityStandard',
+      String,
+      'Maintainability Standard',
+      hint: 'Complexity thresholds, test-coverage targets',
+    ),
   ])
   @SerializationOrder(0)
   String? maintainabilityContent;
@@ -1126,100 +1458,134 @@ class MaintainabilityCharacteristic {
 class Efficiency {
   @Form([
     // Response time
-    Field('responseTimeP50Target', String, 'Response Time P50',
-        hint: 'Median response time (e.g., <100ms)'),
-    Field('responseTimeP95Target', String, 'Response Time P95',
-        hint: '95th percentile (e.g., <300ms)'),
-    Field('responseTimeP99Target', String, 'Response Time P99',
-        hint: '99th percentile (e.g., <1s)'),
+    Field(
+      'responseTimeP50Target',
+      String,
+      'Response Time P50',
+      hint: 'Median response time (e.g., <100ms)',
+    ),
+    Field(
+      'responseTimeP95Target',
+      String,
+      'Response Time P95',
+      hint: '95th percentile (e.g., <300ms)',
+    ),
+    Field(
+      'responseTimeP99Target',
+      String,
+      'Response Time P99',
+      hint: '99th percentile (e.g., <1s)',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Throughput and scale targets.
+  @SectionId('EFQUTH')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements',
+    'ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements',
+  ], 'This section captures throughput, capacity, and scalability targets.')
+  @Form([
+    Field(
+      'throughputTarget',
+      String,
+      'Throughput Target',
+      hint: 'Requests/second, transactions/minute',
+    ),
+    Field(
+      'concurrentUsersTarget',
+      String,
+      'Concurrent Users Target',
+      hint: 'Peak concurrent users supported',
+    ),
+    Field(
+      'scalabilityModel',
+      String,
+      'Scalability Model',
+      hint: 'Horizontal, vertical, auto-scaling',
+    ),
+  ])
   @SerializationOrder(1)
-  EfficiencyThroughput throughput = EfficiencyThroughput();
+  String? throughput;
 
   /// Resource utilization constraints.
+  @SectionId('EFQURE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — resource utilization is the degree to which the amounts and types of resources used by a product or system meet requirements',
+    ],
+    'This section captures resource utilization constraints for CPU, memory, storage, and network.',
+  )
+  @Form([
+    Field(
+      'cpuUtilizationLimit',
+      String,
+      'CPU Utilization Limit',
+      hint: 'Max sustained CPU usage (e.g., <70%)',
+    ),
+    Field(
+      'memoryUtilizationLimit',
+      String,
+      'Memory Utilization Limit',
+      hint: 'Max memory usage',
+    ),
+    Field(
+      'storageEfficiencyTarget',
+      String,
+      'Storage Efficiency Target',
+      hint: 'Data storage per user/record',
+    ),
+    Field(
+      'networkBandwidthLimit',
+      String,
+      'Network Bandwidth Limit',
+      hint: 'Max bandwidth consumption',
+    ),
+  ])
   @SerializationOrder(2)
-  EfficiencyResources resources = EfficiencyResources();
+  String? resources;
 
   /// Performance validation and SLA commitments.
+  @SectionId('EFQUVE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product',
+    ],
+    'This section captures verification of performance efficiency through load testing and SLA commitments.',
+  )
+  @Form([
+    Field(
+      'loadTestingRequirement',
+      String,
+      'Load Testing Requirement',
+      hint: 'Load test scenarios, thresholds',
+    ),
+    Field(
+      'performanceProfilingApproach',
+      String,
+      'Performance Profiling',
+      hint: 'APM tools, custom instrumentation',
+    ),
+    Field(
+      'performanceBaselineDate',
+      String,
+      'Performance Baseline Date',
+      hint: 'When baseline was established',
+    ),
+    Field(
+      'performanceSlaDefinition',
+      String,
+      'Performance SLA Definition',
+      hint: 'SLA for performance metrics',
+    ),
+  ])
   @SerializationOrder(3)
-  EfficiencyVerification verification =
-      EfficiencyVerification();
+  String? verification;
 
   /// Detailed efficiency requirements narrative.
   @SerializationOrder(4)
   TextSection narrative = TextSection();
-}
-
-/// Throughput and scale targets.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — capacity is the degree to which the maximum limits of a product or system parameter meet requirements',
-    'ISO/IEC 25010:2023 — time behaviour is the degree to which response, processing times, and throughput rates meet requirements',
-  ],
-  'This section captures throughput, capacity, and scalability targets.',
-)
-@SectionId('EFQUTH')
-class EfficiencyThroughput {
-  @Form([
-    Field('throughputTarget', String, 'Throughput Target',
-        hint: 'Requests/second, transactions/minute'),
-    Field('concurrentUsersTarget', String, 'Concurrent Users Target',
-        hint: 'Peak concurrent users supported'),
-    Field('scalabilityModel', String, 'Scalability Model',
-        hint: 'Horizontal, vertical, auto-scaling'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Resource utilization constraints.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — resource utilization is the degree to which the amounts and types of resources used by a product or system meet requirements',
-  ],
-  'This section captures resource utilization constraints for CPU, memory, storage, and network.',
-)
-@SectionId('EFQURE')
-class EfficiencyResources {
-  @Form([
-    Field('cpuUtilizationLimit', String, 'CPU Utilization Limit',
-        hint: 'Max sustained CPU usage (e.g., <70%)'),
-    Field('memoryUtilizationLimit', String, 'Memory Utilization Limit',
-        hint: 'Max memory usage'),
-    Field('storageEfficiencyTarget', String, 'Storage Efficiency Target',
-        hint: 'Data storage per user/record'),
-    Field('networkBandwidthLimit', String, 'Network Bandwidth Limit',
-        hint: 'Max bandwidth consumption'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Performance validation and SLA commitments.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify performance efficiency of the system and software product',
-  ],
-  'This section captures verification of performance efficiency through load testing and SLA commitments.',
-)
-@SectionId('EFQUVE')
-class EfficiencyVerification {
-  @Form([
-    Field('loadTestingRequirement', String, 'Load Testing Requirement',
-        hint: 'Load test scenarios, thresholds'),
-    Field('performanceProfilingApproach', String, 'Performance Profiling',
-        hint: 'APM tools, custom instrumentation'),
-    Field('performanceBaselineDate', String, 'Performance Baseline Date',
-        hint: 'When baseline was established'),
-    Field('performanceSlaDefinition', String, 'Performance SLA Definition',
-        hint: 'SLA for performance metrics'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.3.2. Portability quality.
@@ -1233,29 +1599,69 @@ class EfficiencyVerification {
 class Portability {
   @Form([
     // Platform support
-    Field('targetPlatforms', String, 'Target Platforms',
-        hint: 'iOS, Android, Web, Windows, macOS, Linux'),
-    Field('browserSupport', String, 'Browser Support',
-        hint: 'Chrome, Firefox, Safari, Edge versions'),
-    Field('mobileOsVersions', String, 'Mobile OS Versions',
-        hint: 'iOS 14+, Android 10+'),
-    Field('desktopOsVersions', String, 'Desktop OS Versions',
-        hint: 'Windows 10+, macOS 11+'),
+    Field(
+      'targetPlatforms',
+      String,
+      'Target Platforms',
+      hint: 'iOS, Android, Web, Windows, macOS, Linux',
+    ),
+    Field(
+      'browserSupport',
+      String,
+      'Browser Support',
+      hint: 'Chrome, Firefox, Safari, Edge versions',
+    ),
+    Field(
+      'mobileOsVersions',
+      String,
+      'Mobile OS Versions',
+      hint: 'iOS 14+, Android 10+',
+    ),
+    Field(
+      'desktopOsVersions',
+      String,
+      'Desktop OS Versions',
+      hint: 'Windows 10+, macOS 11+',
+    ),
     // Migration
-    Field('migrationEffortConstraint', String, 'Migration Effort Constraint',
-        hint: 'Max effort to migrate to new platform'),
-    Field('dataPortability', String, 'Data Portability',
-        hint: 'Export formats, import capabilities'),
-    Field('vendorLockInAvoidance', String, 'Vendor Lock-in Avoidance',
-        hint: 'Standards-based, abstraction layers'),
+    Field(
+      'migrationEffortConstraint',
+      String,
+      'Migration Effort Constraint',
+      hint: 'Max effort to migrate to new platform',
+    ),
+    Field(
+      'dataPortability',
+      String,
+      'Data Portability',
+      hint: 'Export formats, import capabilities',
+    ),
+    Field(
+      'vendorLockInAvoidance',
+      String,
+      'Vendor Lock-in Avoidance',
+      hint: 'Standards-based, abstraction layers',
+    ),
     // Containerization
-    Field('containerizationRequirement', String, 'Containerization',
-        hint: 'Docker, Kubernetes requirements'),
-    Field('infrastructureAsCode', String, 'Infrastructure as Code',
-        hint: 'Terraform, CloudFormation'),
+    Field(
+      'containerizationRequirement',
+      String,
+      'Containerization',
+      hint: 'Docker, Kubernetes requirements',
+    ),
+    Field(
+      'infrastructureAsCode',
+      String,
+      'Infrastructure as Code',
+      hint: 'Terraform, CloudFormation',
+    ),
     // Verification
-    Field('portabilityVerification', String, 'Portability Verification',
-        hint: 'Cross-platform testing, compatibility matrix'),
+    Field(
+      'portabilityVerification',
+      String,
+      'Portability Verification',
+      hint: 'Cross-platform testing, compatibility matrix',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1275,95 +1681,124 @@ class Portability {
 @SectionId('FLQU')
 class Flexibility {
   @Form([
-    Field('componentArchitecture', String, 'Component Architecture',
-        hint: 'Microservices, modular monolith, plugins'),
-    Field('componentGranularity', String, 'Component Granularity',
-        hint: 'Fine-grained, coarse-grained'),
-    Field('componentReplaceability', String, 'Component Replaceability',
-        hint: 'Hot-swap, restart required'),
+    Field(
+      'componentArchitecture',
+      String,
+      'Component Architecture',
+      hint: 'Microservices, modular monolith, plugins',
+    ),
+    Field(
+      'componentGranularity',
+      String,
+      'Component Granularity',
+      hint: 'Fine-grained, coarse-grained',
+    ),
+    Field(
+      'componentReplaceability',
+      String,
+      'Component Replaceability',
+      hint: 'Hot-swap, restart required',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Modularity and reuse goals.
+  @SectionId('FLQUMO')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments',
+    ],
+    'This section captures modularity and reuse goals supporting modifiability.',
+  )
+  @Form([
+    Field(
+      'modularityLevel',
+      String,
+      'Modularity Level',
+      hint: 'Highly modular, moderately, monolithic',
+    ),
+    Field(
+      'moduleIndependence',
+      String,
+      'Module Independence',
+      hint: 'Loose coupling, shared libraries',
+    ),
+    Field(
+      'moduleReusability',
+      String,
+      'Module Reusability',
+      hint: 'Design for reuse, single-purpose',
+    ),
+  ])
   @SerializationOrder(1)
-  FlexibilityModularity modularity = FlexibilityModularity();
+  String? modularity;
 
   /// Distribution and configurability model.
+  @SectionId('FLQUDE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — installability is the degree of effectiveness and efficiency with which a product can be successfully installed or uninstalled in a specified environment',
+    ],
+    'This section captures deployment, distribution, and installability characteristics.',
+  )
+  @Form([
+    Field(
+      'distributionCapability',
+      String,
+      'Distribution Capability',
+      hint: 'Multi-region, single-region, on-premise',
+    ),
+    Field(
+      'multiTenancy',
+      String,
+      'Multi-Tenancy',
+      hint: 'Shared, isolated, hybrid',
+    ),
+    Field(
+      'configurabilityLevel',
+      String,
+      'Configurability Level',
+      hint: 'Feature flags, runtime config, deploy-time',
+    ),
+  ])
   @SerializationOrder(2)
-  FlexibilityDeployment deployment = FlexibilityDeployment();
+  String? deployment;
 
   /// Extensibility and verification expectations.
+  @SectionId('FLQUEX')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted or extended for evolving requirements and environments',
+    ],
+    'This section captures extensibility expectations and how flexibility is verified.',
+  )
+  @Form([
+    Field(
+      'extensibilityModel',
+      String,
+      'Extensibility Model',
+      hint: 'Plugins, APIs, webhooks',
+    ),
+    Field(
+      'customizationScope',
+      String,
+      'Customization Scope',
+      hint: 'UI, business rules, workflows',
+    ),
+    Field(
+      'flexibilityVerification',
+      String,
+      'Flexibility Verification',
+      hint: 'Architecture review, change impact analysis',
+    ),
+  ])
   @SerializationOrder(3)
-  FlexibilityExtensibility extensibility =
-      FlexibilityExtensibility();
+  String? extensibility;
 
   /// Detailed flexibility requirements narrative.
   @SerializationOrder(4)
   TextSection narrative = TextSection();
-}
-
-/// Modularity and reuse goals.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments',
-  ],
-  'This section captures modularity and reuse goals supporting modifiability.',
-)
-@SectionId('FLQUMO')
-class FlexibilityModularity {
-  @Form([
-    Field('modularityLevel', String, 'Modularity Level',
-        hint: 'Highly modular, moderately, monolithic'),
-    Field('moduleIndependence', String, 'Module Independence',
-        hint: 'Loose coupling, shared libraries'),
-    Field('moduleReusability', String, 'Module Reusability',
-        hint: 'Design for reuse, single-purpose'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Distribution and configurability model.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — installability is the degree of effectiveness and efficiency with which a product can be successfully installed or uninstalled in a specified environment',
-  ],
-  'This section captures deployment, distribution, and installability characteristics.',
-)
-@SectionId('FLQUDE')
-class FlexibilityDeployment {
-  @Form([
-    Field('distributionCapability', String, 'Distribution Capability',
-        hint: 'Multi-region, single-region, on-premise'),
-    Field('multiTenancy', String, 'Multi-Tenancy',
-        hint: 'Shared, isolated, hybrid'),
-    Field('configurabilityLevel', String, 'Configurability Level',
-        hint: 'Feature flags, runtime config, deploy-time'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Extensibility and verification expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted or extended for evolving requirements and environments',
-  ],
-  'This section captures extensibility expectations and how flexibility is verified.',
-)
-@SectionId('FLQUEX')
-class FlexibilityExtensibility {
-  @Form([
-    Field('extensibilityModel', String, 'Extensibility Model',
-        hint: 'Plugins, APIs, webhooks'),
-    Field('customizationScope', String, 'Customization Scope',
-        hint: 'UI, business rules, workflows'),
-    Field('flexibilityVerification', String, 'Flexibility Verification',
-        hint: 'Architecture review, change impact analysis'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.3.4. Security quality.
@@ -1376,127 +1811,165 @@ class FlexibilityExtensibility {
 @SectionId('SEQU')
 class Security {
   @Form([
-    Field('encryptionAtRest', String, 'Encryption at Rest',
-        hint: 'AES-256, database-level, disk-level'),
-    Field('encryptionInTransit', String, 'Encryption in Transit',
-        hint: 'TLS 1.2+, certificate requirements'),
-    Field('keyManagement', String, 'Key Management',
-        hint: 'HSM, KMS, key rotation policy'),
+    Field(
+      'encryptionAtRest',
+      String,
+      'Encryption at Rest',
+      hint: 'AES-256, database-level, disk-level',
+    ),
+    Field(
+      'encryptionInTransit',
+      String,
+      'Encryption in Transit',
+      hint: 'TLS 1.2+, certificate requirements',
+    ),
+    Field(
+      'keyManagement',
+      String,
+      'Key Management',
+      hint: 'HSM, KMS, key rotation policy',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Authentication controls.
+  @SectionId('SEQUAU')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed',
+  ], 'This section captures authentication controls and proof of identity.')
+  @Form([
+    Field(
+      'authenticationMethod',
+      String,
+      'Authentication Method',
+      hint: 'OAuth2, SAML, OIDC, MFA',
+    ),
+    Field(
+      'mfaRequirement',
+      String,
+      'MFA Requirement',
+      hint: 'All users, privileged users, optional',
+    ),
+    Field(
+      'passwordPolicy',
+      String,
+      'Password Policy',
+      hint: 'Complexity, rotation, history',
+    ),
+    Field(
+      'sessionManagement',
+      String,
+      'Session Management',
+      hint: 'Timeout, concurrent sessions',
+    ),
+  ])
   @SerializationOrder(1)
-  SecurityAuthentication authentication =
-      SecurityAuthentication();
+  String? authentication;
 
   /// Authorization controls.
+  @SectionId('SEQUA1')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access',
+    ],
+    'This section captures authorization controls and confidentiality of access.',
+  )
+  @Form([
+    Field(
+      'authorizationModel',
+      String,
+      'Authorization Model',
+      hint: 'RBAC, ABAC, ACL',
+    ),
+    Field(
+      'authorizationCoverage',
+      String,
+      'Authorization Coverage',
+      hint: 'All resources, sensitive resources',
+    ),
+    Field(
+      'privilegeEscalationPrevention',
+      String,
+      'Privilege Escalation',
+      hint: 'Controls to prevent escalation',
+    ),
+  ])
   @SerializationOrder(2)
-  SecurityAuthorization authorization =
-      SecurityAuthorization();
+  String? authorization;
 
   /// Vulnerability management expectations.
+  @SectionId('SEQUVU')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — resistance is the degree to which the product sustains operations while under attack from a malicious actor',
+    ],
+    'This section captures vulnerability management and resistance expectations.',
+  )
+  @Form([
+    Field(
+      'vulnerabilityScanFrequency',
+      String,
+      'Vulnerability Scan Frequency',
+      hint: 'Continuous, weekly, per-release',
+    ),
+    Field(
+      'penetrationTestFrequency',
+      String,
+      'Penetration Test Frequency',
+      hint: 'Annual, semi-annual, per-release',
+    ),
+    Field(
+      'cveResponseTime',
+      String,
+      'CVE Response Time',
+      hint: 'Critical: 24h, high: 7d',
+    ),
+  ])
   @SerializationOrder(3)
-  SecurityVulnerability vulnerability =
-      SecurityVulnerability();
+  String? vulnerability;
 
   /// Compliance and verification settings.
+  @SectionId('SEQUCO')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — accountability is the degree to which the actions of an entity can be traced uniquely to the entity',
+      'ISO/IEC 27001:2022 — an information security management system establishes controls to meet security requirements',
+    ],
+    'This section captures security compliance, accountability, and verification settings.',
+  )
+  @Form([
+    Field(
+      'securityCompliance',
+      String,
+      'Security Compliance',
+      hint: 'SOC2, ISO 27001, GDPR',
+    ),
+    Field(
+      'securityCertifications',
+      String,
+      'Security Certifications',
+      hint: 'Required certifications',
+    ),
+    Field(
+      'securityAuditFrequency',
+      String,
+      'Security Audit Frequency',
+      hint: 'Annual, continuous',
+    ),
+    Field(
+      'securityVerification',
+      String,
+      'Security Verification',
+      hint: 'SAST, DAST, security review',
+    ),
+  ])
   @SerializationOrder(4)
-  SecurityCompliance compliance = SecurityCompliance();
+  String? compliance;
 
   /// Detailed security requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
-}
-
-/// Authentication controls.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — authenticity is the degree to which the identity of a subject or resource can be proved to be the one claimed',
-  ],
-  'This section captures authentication controls and proof of identity.',
-)
-@SectionId('SEQUAU')
-class SecurityAuthentication {
-  @Form([
-    Field('authenticationMethod', String, 'Authentication Method',
-        hint: 'OAuth2, SAML, OIDC, MFA'),
-    Field('mfaRequirement', String, 'MFA Requirement',
-        hint: 'All users, privileged users, optional'),
-    Field('passwordPolicy', String, 'Password Policy',
-        hint: 'Complexity, rotation, history'),
-    Field('sessionManagement', String, 'Session Management',
-        hint: 'Timeout, concurrent sessions'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Authorization controls.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — confidentiality is the degree to which a product ensures that data are accessible only to those authorized to have access',
-  ],
-  'This section captures authorization controls and confidentiality of access.',
-)
-@SectionId('SEQUA1')
-class SecurityAuthorization {
-  @Form([
-    Field('authorizationModel', String, 'Authorization Model',
-        hint: 'RBAC, ABAC, ACL'),
-    Field('authorizationCoverage', String, 'Authorization Coverage',
-        hint: 'All resources, sensitive resources'),
-    Field('privilegeEscalationPrevention', String, 'Privilege Escalation',
-        hint: 'Controls to prevent escalation'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Vulnerability management expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — resistance is the degree to which the product sustains operations while under attack from a malicious actor',
-  ],
-  'This section captures vulnerability management and resistance expectations.',
-)
-@SectionId('SEQUVU')
-class SecurityVulnerability {
-  @Form([
-    Field('vulnerabilityScanFrequency', String, 'Vulnerability Scan Frequency',
-        hint: 'Continuous, weekly, per-release'),
-    Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
-        hint: 'Annual, semi-annual, per-release'),
-    Field('cveResponseTime', String, 'CVE Response Time',
-        hint: 'Critical: 24h, high: 7d'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Compliance and verification settings.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — accountability is the degree to which the actions of an entity can be traced uniquely to the entity',
-    'ISO/IEC 27001:2022 — an information security management system establishes controls to meet security requirements',
-  ],
-  'This section captures security compliance, accountability, and verification settings.',
-)
-@SectionId('SEQUCO')
-class SecurityCompliance {
-  @Form([
-    Field('securityCompliance', String, 'Security Compliance',
-        hint: 'SOC2, ISO 27001, GDPR'),
-    Field('securityCertifications', String, 'Security Certifications',
-        hint: 'Required certifications'),
-    Field('securityAuditFrequency', String, 'Security Audit Frequency',
-        hint: 'Annual, continuous'),
-    Field('securityVerification', String, 'Security Verification',
-        hint: 'SAST, DAST, security review'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.3.5. Maintainability quality.
@@ -1509,125 +1982,152 @@ class SecurityCompliance {
 @SectionId('MAQU')
 class Maintainability {
   @Form([
-    Field('adaptabilityTarget', String, 'Adaptability Target',
-        hint: 'Change implementation time'),
-    Field('changeImpactLimit', String, 'Change Impact Limit',
-        hint: 'Max components affected by change'),
+    Field(
+      'adaptabilityTarget',
+      String,
+      'Adaptability Target',
+      hint: 'Change implementation time',
+    ),
+    Field(
+      'changeImpactLimit',
+      String,
+      'Change Impact Limit',
+      hint: 'Max components affected by change',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Analyzability requirements.
+  @SectionId('MAQUAN')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — analysability is the degree of effectiveness and efficiency with which it is possible to assess the impact of an intended change, to diagnose deficiencies or causes of failures, or to identify parts to be modified',
+  ], 'This section captures analyzability requirements for the solution.')
+  @Form([
+    Field(
+      'codeReadabilityStandard',
+      String,
+      'Code Readability Standard',
+      hint: 'Style guide, code review criteria',
+    ),
+    Field(
+      'documentationRequirement',
+      String,
+      'Documentation Requirement',
+      hint: 'Inline, API docs, architecture docs',
+    ),
+    Field(
+      'loggingStandard',
+      String,
+      'Logging Standard',
+      hint: 'Structured logging, log levels',
+    ),
+  ])
   @SerializationOrder(1)
-  MaintainabilityAnalyzability analyzability =
-      MaintainabilityAnalyzability();
+  String? analyzability;
 
   /// Changeability requirements.
+  @SectionId('MAQUCH')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — modifiability is the degree to which a product can be effectively and efficiently modified without introducing defects or degrading existing product quality',
+  ], 'This section captures changeability and modifiability requirements.')
+  @Form([
+    Field(
+      'codeCoverageMinimum',
+      String,
+      'Code Coverage Minimum',
+      hint: 'Unit test coverage % target',
+    ),
+    Field(
+      'cyclomaticComplexityLimit',
+      String,
+      'Cyclomatic Complexity Limit',
+      hint: 'Max complexity per function',
+    ),
+    Field(
+      'methodLengthLimit',
+      String,
+      'Method Length Limit',
+      hint: 'Max lines per method',
+    ),
+    Field(
+      'classLengthLimit',
+      String,
+      'Class Length Limit',
+      hint: 'Max lines per class',
+    ),
+  ])
   @SerializationOrder(2)
-  MaintainabilityChangeability changeability =
-      MaintainabilityChangeability();
+  String? changeability;
 
   /// Testability requirements.
+  @SectionId('MAQUTE')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — testability is the degree of effectiveness and efficiency with which test criteria can be established for a system and tests performed to determine whether those criteria have been met',
+  ], 'This section captures testability requirements for the solution.')
+  @Form([
+    Field(
+      'testabilityDesign',
+      String,
+      'Testability Design',
+      hint: 'Dependency injection, mocking support',
+    ),
+    Field(
+      'testPyramidRatio',
+      String,
+      'Test Pyramid Ratio',
+      hint: 'Unit:Integration:E2E ratio',
+    ),
+    Field(
+      'testDataManagement',
+      String,
+      'Test Data Management',
+      hint: 'Fixtures, factories, production-like',
+    ),
+  ])
   @SerializationOrder(3)
-  MaintainabilityTestability testability =
-      MaintainabilityTestability();
+  String? testability;
 
   /// Extensibility and verification requirements.
+  @SectionId('MAQUGO')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — modularity is the degree to which a system is composed of discrete components such that a change to one component has minimal impact on other components',
+    ],
+    'This section captures maintainability governance through modularity and extensibility.',
+  )
+  @Form([
+    Field(
+      'extensibilityPattern',
+      String,
+      'Extensibility Pattern',
+      hint: 'Plugin architecture, middleware, hooks',
+    ),
+    Field(
+      'apiVersioningStrategy',
+      String,
+      'API Versioning Strategy',
+      hint: 'URL path, header, query param',
+    ),
+    Field(
+      'maintainabilityVerification',
+      String,
+      'Maintainability Verification',
+      hint: 'Static analysis, architecture fitness functions',
+    ),
+    Field(
+      'technicalDebtTracking',
+      String,
+      'Technical Debt Tracking',
+      hint: 'SonarQube, manual tracking',
+    ),
+  ])
   @SerializationOrder(4)
-  MaintainabilityGovernance governance =
-      MaintainabilityGovernance();
+  String? governance;
 
   /// Detailed maintainability requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
-}
-
-/// Analyzability requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — analysability is the degree of effectiveness and efficiency with which it is possible to assess the impact of an intended change, to diagnose deficiencies or causes of failures, or to identify parts to be modified',
-  ],
-  'This section captures analyzability requirements for the solution.',
-)
-@SectionId('MAQUAN')
-class MaintainabilityAnalyzability {
-  @Form([
-    Field('codeReadabilityStandard', String, 'Code Readability Standard',
-        hint: 'Style guide, code review criteria'),
-    Field('documentationRequirement', String, 'Documentation Requirement',
-        hint: 'Inline, API docs, architecture docs'),
-    Field('loggingStandard', String, 'Logging Standard',
-        hint: 'Structured logging, log levels'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Changeability requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — modifiability is the degree to which a product can be effectively and efficiently modified without introducing defects or degrading existing product quality',
-  ],
-  'This section captures changeability and modifiability requirements.',
-)
-@SectionId('MAQUCH')
-class MaintainabilityChangeability {
-  @Form([
-    Field('codeCoverageMinimum', String, 'Code Coverage Minimum',
-        hint: 'Unit test coverage % target'),
-    Field('cyclomaticComplexityLimit', String, 'Cyclomatic Complexity Limit',
-        hint: 'Max complexity per function'),
-    Field('methodLengthLimit', String, 'Method Length Limit',
-        hint: 'Max lines per method'),
-    Field('classLengthLimit', String, 'Class Length Limit',
-        hint: 'Max lines per class'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Testability requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — testability is the degree of effectiveness and efficiency with which test criteria can be established for a system and tests performed to determine whether those criteria have been met',
-  ],
-  'This section captures testability requirements for the solution.',
-)
-@SectionId('MAQUTE')
-class MaintainabilityTestability {
-  @Form([
-    Field('testabilityDesign', String, 'Testability Design',
-        hint: 'Dependency injection, mocking support'),
-    Field('testPyramidRatio', String, 'Test Pyramid Ratio',
-        hint: 'Unit:Integration:E2E ratio'),
-    Field('testDataManagement', String, 'Test Data Management',
-        hint: 'Fixtures, factories, production-like'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Extensibility and verification requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — modularity is the degree to which a system is composed of discrete components such that a change to one component has minimal impact on other components',
-  ],
-  'This section captures maintainability governance through modularity and extensibility.',
-)
-@SectionId('MAQUGO')
-class MaintainabilityGovernance {
-  @Form([
-    Field('extensibilityPattern', String, 'Extensibility Pattern',
-        hint: 'Plugin architecture, middleware, hooks'),
-    Field('apiVersioningStrategy', String, 'API Versioning Strategy',
-        hint: 'URL path, header, query param'),
-    Field('maintainabilityVerification', String, 'Maintainability Verification',
-        hint: 'Static analysis, architecture fitness functions'),
-    Field('technicalDebtTracking', String, 'Technical Debt Tracking',
-        hint: 'SonarQube, manual tracking'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.3.6. Reliability quality.
@@ -1640,122 +2140,137 @@ class MaintainabilityGovernance {
 @SectionId('REQU')
 class Reliability {
   @Form([
-    Field('uptimeTarget', String, 'Uptime Target',
-        hint: '99.9%, 99.95%, 99.99%'),
-    Field('plannedDowntimeWindow', String, 'Planned Downtime Window',
-        hint: 'Maintenance window schedule'),
-    Field('degradedModeCapability', String, 'Degraded Mode Capability',
-        hint: 'Graceful degradation approach'),
+    Field(
+      'uptimeTarget',
+      String,
+      'Uptime Target',
+      hint: '99.9%, 99.95%, 99.99%',
+    ),
+    Field(
+      'plannedDowntimeWindow',
+      String,
+      'Planned Downtime Window',
+      hint: 'Maintenance window schedule',
+    ),
+    Field(
+      'degradedModeCapability',
+      String,
+      'Degraded Mode Capability',
+      hint: 'Graceful degradation approach',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Recovery objectives.
+  @SectionId('REQURE')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — recoverability is the degree to which, in the event of an interruption or a failure, a product can recover the data directly affected and re-establish the desired state of the system',
+  ], 'This section captures recovery objectives and recoverability targets.')
+  @Form([
+    Field(
+      'mtbfTarget',
+      String,
+      'MTBF Target',
+      hint: 'Mean time between failures',
+    ),
+    Field('mttrTarget', String, 'MTTR Target', hint: 'Mean time to recovery'),
+    Field('rtoTarget', String, 'RTO Target', hint: 'Recovery time objective'),
+    Field('rpoTarget', String, 'RPO Target', hint: 'Recovery point objective'),
+  ])
   @SerializationOrder(1)
-  ReliabilityRecovery recovery = ReliabilityRecovery();
+  String? recovery;
 
   /// Failover requirements.
+  @SectionId('REQUFA')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system, product, or component operates as intended despite the presence of hardware or software faults',
+  ], 'This section captures failover and fault tolerance requirements.')
+  @Form([
+    Field(
+      'failoverStrategy',
+      String,
+      'Failover Strategy',
+      hint: 'Active-passive, active-active',
+    ),
+    Field(
+      'failoverTime',
+      String,
+      'Failover Time',
+      hint: 'Time to complete failover',
+    ),
+    Field(
+      'failoverTesting',
+      String,
+      'Failover Testing',
+      hint: 'Chaos engineering, DR drills',
+    ),
+  ])
   @SerializationOrder(2)
-  ReliabilityFailover failover = ReliabilityFailover();
+  String? failover;
 
   /// Data durability requirements.
+  @SectionId('REQUDU')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — faultlessness is the degree to which a system, product, or component performs specified functions without fault under normal operation',
+  ], 'This section captures data durability and faultlessness expectations.')
+  @Form([
+    Field(
+      'dataDurability',
+      String,
+      'Data Durability',
+      hint: '99.999999999% (11 nines)',
+    ),
+    Field(
+      'backupFrequency',
+      String,
+      'Backup Frequency',
+      hint: 'Continuous, hourly, daily',
+    ),
+    Field(
+      'backupRetention',
+      String,
+      'Backup Retention',
+      hint: 'Retention period',
+    ),
+    Field(
+      'backupVerification',
+      String,
+      'Backup Verification',
+      hint: 'Restore testing frequency',
+    ),
+  ])
   @SerializationOrder(3)
-  ReliabilityDurability durability = ReliabilityDurability();
+  String? durability;
 
   /// Verification and learning.
+  @SectionId('REQUVE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the reliability characteristics of the system and software product',
+    ],
+    'This section captures how reliability is verified and how learning is fed back.',
+  )
+  @Form([
+    Field(
+      'reliabilityVerification',
+      String,
+      'Reliability Verification',
+      hint: 'Soak testing, chaos engineering',
+    ),
+    Field(
+      'incidentPostmortem',
+      String,
+      'Incident Postmortem',
+      hint: 'Blameless postmortem process',
+    ),
+  ])
   @SerializationOrder(4)
-  ReliabilityVerification verification =
-      ReliabilityVerification();
+  String? verification;
 
   /// Detailed reliability requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
-}
-
-/// Recovery objectives.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — recoverability is the degree to which, in the event of an interruption or a failure, a product can recover the data directly affected and re-establish the desired state of the system',
-  ],
-  'This section captures recovery objectives and recoverability targets.',
-)
-@SectionId('REQURE')
-class ReliabilityRecovery {
-  @Form([
-    Field('mtbfTarget', String, 'MTBF Target',
-        hint: 'Mean time between failures'),
-    Field('mttrTarget', String, 'MTTR Target',
-        hint: 'Mean time to recovery'),
-    Field('rtoTarget', String, 'RTO Target',
-        hint: 'Recovery time objective'),
-    Field('rpoTarget', String, 'RPO Target',
-        hint: 'Recovery point objective'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Failover requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system, product, or component operates as intended despite the presence of hardware or software faults',
-  ],
-  'This section captures failover and fault tolerance requirements.',
-)
-@SectionId('REQUFA')
-class ReliabilityFailover {
-  @Form([
-    Field('failoverStrategy', String, 'Failover Strategy',
-        hint: 'Active-passive, active-active'),
-    Field('failoverTime', String, 'Failover Time',
-        hint: 'Time to complete failover'),
-    Field('failoverTesting', String, 'Failover Testing',
-        hint: 'Chaos engineering, DR drills'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Data durability requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — faultlessness is the degree to which a system, product, or component performs specified functions without fault under normal operation',
-  ],
-  'This section captures data durability and faultlessness expectations.',
-)
-@SectionId('REQUDU')
-class ReliabilityDurability {
-  @Form([
-    Field('dataDurability', String, 'Data Durability',
-        hint: '99.999999999% (11 nines)'),
-    Field('backupFrequency', String, 'Backup Frequency',
-        hint: 'Continuous, hourly, daily'),
-    Field('backupRetention', String, 'Backup Retention',
-        hint: 'Retention period'),
-    Field('backupVerification', String, 'Backup Verification',
-        hint: 'Restore testing frequency'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Verification and learning.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — quality measures are defined and applied to quantify the reliability characteristics of the system and software product',
-  ],
-  'This section captures how reliability is verified and how learning is fed back.',
-)
-@SectionId('REQUVE')
-class ReliabilityVerification {
-  @Form([
-    Field('reliabilityVerification', String, 'Reliability Verification',
-        hint: 'Soak testing, chaos engineering'),
-    Field('incidentPostmortem', String, 'Incident Postmortem',
-        hint: 'Blameless postmortem process'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.6. Reliability (ISO/IEC 25010:2023).
@@ -1766,12 +2281,9 @@ class ReliabilityVerification {
 /// leaf and the operations-bucket availability, service-level and monitoring
 /// leaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality
 /// overview form is preserved here so no authored content is lost.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — reliability is the degree to which a system performs specified functions under specified conditions for a specified period of time',
-  ],
-  'This section describes the reliability characteristic of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — reliability is the degree to which a system performs specified functions under specified conditions for a specified period of time',
+], 'This section describes the reliability characteristic of the solution.')
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-REL')
@@ -1781,25 +2293,51 @@ class ReliabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('RELC-RELI')
   @Form([
-    Field('operationsMaturityModel', String, 'Operations Maturity Model',
-        hint: 'ITIL, DevOps, SRE'),
-    Field('operationsPhilosophy', String, 'Operations Philosophy',
-        hint: 'Ops-driven, DevOps, NoOps'),
-    Field('operationsResponsibility', String, 'Operations Responsibility',
-        hint: 'Dedicated team, shared, outsourced'),
-    Field('incidentManagementProcess', String, 'Incident Management Process',
-        hint: 'PagerDuty, custom, ITIL-based'),
-    Field('changeManagementProcess', String, 'Change Management Process',
-        hint: 'ITIL change management, lightweight'),
-    Field('operationsToolchain', String, 'Operations Toolchain',
-        hint: 'Key ops tools and platforms'),
+    Field(
+      'operationsMaturityModel',
+      String,
+      'Operations Maturity Model',
+      hint: 'ITIL, DevOps, SRE',
+    ),
+    Field(
+      'operationsPhilosophy',
+      String,
+      'Operations Philosophy',
+      hint: 'Ops-driven, DevOps, NoOps',
+    ),
+    Field(
+      'operationsResponsibility',
+      String,
+      'Operations Responsibility',
+      hint: 'Dedicated team, shared, outsourced',
+    ),
+    Field(
+      'incidentManagementProcess',
+      String,
+      'Incident Management Process',
+      hint: 'PagerDuty, custom, ITIL-based',
+    ),
+    Field(
+      'changeManagementProcess',
+      String,
+      'Change Management Process',
+      hint: 'ITIL change management, lightweight',
+    ),
+    Field(
+      'operationsToolchain',
+      String,
+      'Operations Toolchain',
+      hint: 'Key ops tools and platforms',
+    ),
   ])
   @SerializationOrder(0)
   String? reliabilityContent;
 
   /// Reliability overview narrative.
-  @ContentHelp('Executive summary of reliability and operational requirements, '
-      'support model, and key operational metrics.')
+  @ContentHelp(
+    'Executive summary of reliability and operational requirements, '
+    'support model, and key operational metrics.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -1821,186 +2359,340 @@ class ReliabilityCharacteristic {
 }
 
 /// 11.4.1. Availability quality.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use',
-  ],
-  'This section describes the availability quality of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — availability is the degree to which a system is operational and accessible when required for use',
+], 'This section describes the availability quality of the solution.')
 @SectionId('AVQU')
 class Availability {
   @Form([
-    Field('uptimeTargetPercentage', String, 'Uptime Target %',
-        hint: '99.9% (8.76h/year downtime)'),
-    Field('uptimeCalculationMethod', String, 'Uptime Calculation Method',
-        hint: 'Excluding planned, including all'),
-    Field('uptimeMeasurementPeriod', String, 'Measurement Period',
-        hint: 'Monthly, quarterly, annually'),
+    Field(
+      'uptimeTargetPercentage',
+      String,
+      'Uptime Target %',
+      hint: '99.9% (8.76h/year downtime)',
+    ),
+    Field(
+      'uptimeCalculationMethod',
+      String,
+      'Uptime Calculation Method',
+      hint: 'Excluding planned, including all',
+    ),
+    Field(
+      'uptimeMeasurementPeriod',
+      String,
+      'Measurement Period',
+      hint: 'Monthly, quarterly, annually',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Operating-hour expectations.
+  @SectionId('AQOH')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — availability is specified over the operating hours during which the system must be accessible',
+  ], 'This section describes the operating-hour expectations for availability.')
+  @Form([
+    Field(
+      'operatingHours',
+      String,
+      'Operating Hours',
+      hint: '24/7, business hours, regional',
+    ),
+    Field(
+      'peakHoursDefinition',
+      String,
+      'Peak Hours Definition',
+      hint: 'When peak hours apply',
+    ),
+    Field(
+      'peakHoursAvailability',
+      String,
+      'Peak Hours Availability',
+      hint: 'Higher availability during peaks',
+    ),
+  ])
   @SerializationOrder(1)
-  AvailabilityOperatingHours operatingHoursDetails =
-      AvailabilityOperatingHours();
+  String? operatingHoursDetails;
 
   /// Maintenance window policy.
+  @SectionId('AVQUMA')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — availability accounts for planned maintenance windows during which the system may be unavailable',
+    ],
+    'This section describes the maintenance window policy affecting availability.',
+  )
+  @Form([
+    Field(
+      'scheduledMaintenanceWindow',
+      String,
+      'Scheduled Maintenance Window',
+      hint: 'When maintenance can occur',
+    ),
+    Field(
+      'maintenanceNotification',
+      String,
+      'Maintenance Notification',
+      hint: 'How users are notified',
+    ),
+    Field(
+      'maintenanceFrequency',
+      String,
+      'Maintenance Frequency',
+      hint: 'Weekly, monthly, quarterly',
+    ),
+    Field(
+      'maintenanceDurationLimit',
+      String,
+      'Maintenance Duration Limit',
+      hint: 'Max duration per window',
+    ),
+  ])
   @SerializationOrder(2)
-  AvailabilityMaintenance maintenance =
-      AvailabilityMaintenance();
+  String? maintenance;
 
   /// Degraded-mode behavior.
+  @SectionId('AQDM')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system operates as intended despite the presence of faults, including in a degraded mode',
+    ],
+    'This section describes degraded-mode behavior when the system operates with reduced capability.',
+  )
+  @Form([
+    Field(
+      'degradedModeDefinition',
+      String,
+      'Degraded Mode Definition',
+      hint: 'What constitutes degraded mode',
+    ),
+    Field(
+      'degradedModeCapabilities',
+      String,
+      'Degraded Mode Capabilities',
+      hint: 'Features available in degraded mode',
+    ),
+    Field(
+      'degradedModeCommunication',
+      String,
+      'Degraded Mode Communication',
+      hint: 'How users are informed',
+    ),
+  ])
   @SerializationOrder(3)
-  AvailabilityDegradedMode degradedMode =
-      AvailabilityDegradedMode();
+  String? degradedMode;
 
   /// Monitoring and reporting.
+  @SectionId('AVQUVE')
+  @StandardReferences(
+    [
+      'ISO/IEC 25023:2016 — quality measures quantify availability so that targets can be verified',
+    ],
+    'This section describes monitoring and reporting used to verify availability.',
+  )
+  @Form([
+    Field(
+      'availabilityMonitoring',
+      String,
+      'Availability Monitoring',
+      hint: 'Synthetic monitoring, real user',
+    ),
+    Field(
+      'availabilityReporting',
+      String,
+      'Availability Reporting',
+      hint: 'Dashboard, reports, SLA tracking',
+    ),
+  ])
   @SerializationOrder(4)
-  AvailabilityVerification verification =
-      AvailabilityVerification();
+  String? verification;
 
   /// Detailed availability requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
-/// Operating-hour expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — availability is specified over the operating hours during which the system must be accessible',
-  ],
-  'This section describes the operating-hour expectations for availability.',
-)
-@SectionId('AQOH')
-class AvailabilityOperatingHours {
-  @Form([
-    Field('operatingHours', String, 'Operating Hours',
-        hint: '24/7, business hours, regional'),
-    Field('peakHoursDefinition', String, 'Peak Hours Definition',
-        hint: 'When peak hours apply'),
-    Field('peakHoursAvailability', String, 'Peak Hours Availability',
-        hint: 'Higher availability during peaks'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Maintenance window policy.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — availability accounts for planned maintenance windows during which the system may be unavailable',
-  ],
-  'This section describes the maintenance window policy affecting availability.',
-)
-@SectionId('AVQUMA')
-class AvailabilityMaintenance {
-  @Form([
-    Field('scheduledMaintenanceWindow', String, 'Scheduled Maintenance Window',
-        hint: 'When maintenance can occur'),
-    Field('maintenanceNotification', String, 'Maintenance Notification',
-        hint: 'How users are notified'),
-    Field('maintenanceFrequency', String, 'Maintenance Frequency',
-        hint: 'Weekly, monthly, quarterly'),
-    Field('maintenanceDurationLimit', String, 'Maintenance Duration Limit',
-        hint: 'Max duration per window'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Degraded-mode behavior.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — fault tolerance is the degree to which a system operates as intended despite the presence of faults, including in a degraded mode',
-  ],
-  'This section describes degraded-mode behavior when the system operates with reduced capability.',
-)
-@SectionId('AQDM')
-class AvailabilityDegradedMode {
-  @Form([
-    Field('degradedModeDefinition', String, 'Degraded Mode Definition',
-        hint: 'What constitutes degraded mode'),
-    Field('degradedModeCapabilities', String, 'Degraded Mode Capabilities',
-        hint: 'Features available in degraded mode'),
-    Field('degradedModeCommunication', String, 'Degraded Mode Communication',
-        hint: 'How users are informed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Monitoring and reporting.
-@StandardReferences(
-  [
-    'ISO/IEC 25023:2016 — quality measures quantify availability so that targets can be verified',
-  ],
-  'This section describes monitoring and reporting used to verify availability.',
-)
-@SectionId('AVQUVE')
-class AvailabilityVerification {
-  @Form([
-    Field('availabilityMonitoring', String, 'Availability Monitoring',
-        hint: 'Synthetic monitoring, real user'),
-    Field('availabilityReporting', String, 'Availability Reporting',
-        hint: 'Dashboard, reports, SLA tracking'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
 /// 11.4.2. Service level quality.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver',
-  ],
-  'This section describes the service level quality of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 20000-1:2018 — agreed service levels define the service targets that the provider commits to deliver',
+], 'This section describes the service level quality of the solution.')
 @SectionId('SELEQU')
 class ServiceLevel {
   @Form([
-    Field('supportTierStructure', String, 'Support Tier Structure',
-        hint: 'L1/L2/L3, single tier'),
-    Field('criticalResponseTime', String, 'Critical Response Time',
-        hint: 'Response time for P1 issues'),
-    Field('highResponseTime', String, 'High Response Time',
-        hint: 'Response time for P2 issues'),
+    Field(
+      'supportTierStructure',
+      String,
+      'Support Tier Structure',
+      hint: 'L1/L2/L3, single tier',
+    ),
+    Field(
+      'criticalResponseTime',
+      String,
+      'Critical Response Time',
+      hint: 'Response time for P1 issues',
+    ),
+    Field(
+      'highResponseTime',
+      String,
+      'High Response Time',
+      hint: 'Response time for P2 issues',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Remaining response targets.
+  @SectionId('SLQR')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management',
+    ],
+    'This section describes remaining response-time targets for service levels.',
+  )
+  @Form([
+    Field(
+      'mediumResponseTime',
+      String,
+      'Medium Response Time',
+      hint: 'Response time for P3 issues',
+    ),
+    Field(
+      'lowResponseTime',
+      String,
+      'Low Response Time',
+      hint: 'Response time for P4 issues',
+    ),
+  ])
   @SerializationOrder(1)
-  ServiceLevelResponse response = ServiceLevelResponse();
+  String? response;
 
   /// Resolution targets.
+  @SectionId('SLQR1')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — resolution-time targets are set and monitored for service requests and incidents',
+    ],
+    'This section describes resolution-time targets for service requests and incidents.',
+  )
+  @Form([
+    Field(
+      'criticalResolutionTime',
+      String,
+      'Critical Resolution Time',
+      hint: 'Resolution target for P1',
+    ),
+    Field(
+      'highResolutionTime',
+      String,
+      'High Resolution Time',
+      hint: 'Resolution target for P2',
+    ),
+    Field(
+      'mediumResolutionTime',
+      String,
+      'Medium Resolution Time',
+      hint: 'Resolution target for P3',
+    ),
+    Field(
+      'lowResolutionTime',
+      String,
+      'Low Resolution Time',
+      hint: 'Resolution target for P4',
+    ),
+  ])
   @SerializationOrder(2)
-  ServiceLevelResolution resolution = ServiceLevelResolution();
+  String? resolution;
 
   /// Escalation rules.
+  @SectionId('SLQE')
+  @StandardReferences([
+    'ISO/IEC 20000-1:2018 — escalation procedures are defined so unmet targets are raised in a timely way',
+  ], 'This section describes escalation rules for service level management.')
+  @Form([
+    Field(
+      'escalationTimeframes',
+      String,
+      'Escalation Timeframes',
+      hint: 'When issues escalate',
+    ),
+    Field(
+      'escalationContacts',
+      String,
+      'Escalation Contacts',
+      hint: 'Who to escalate to',
+    ),
+    Field(
+      'executiveEscalation',
+      String,
+      'Executive Escalation',
+      hint: 'When executive escalation occurs',
+    ),
+  ])
   @SerializationOrder(3)
-  ServiceLevelEscalation escalation = ServiceLevelEscalation();
+  String? escalation;
 
   /// On-call support expectations.
+  @SectionId('SLQOC')
+  @StandardReferences([
+    'ISO/IEC 20000-1:2018 — on-call and support-coverage arrangements underpin the agreed service levels',
+  ], 'This section describes on-call and support-coverage expectations.')
+  @Form([
+    Field(
+      'onCallCoverage',
+      String,
+      'On-Call Coverage',
+      hint: '24/7, business hours, regional',
+    ),
+    Field(
+      'onCallRotation',
+      String,
+      'On-Call Rotation',
+      hint: 'Weekly, bi-weekly',
+    ),
+    Field(
+      'onCallCompensation',
+      String,
+      'On-Call Compensation',
+      hint: 'Compensation model',
+    ),
+  ])
   @SerializationOrder(4)
-  ServiceLevelOnCall onCall = ServiceLevelOnCall();
+  String? onCall;
 
   /// Restoration and communication priorities.
+  @SectionId('SLQR2')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — recoverability re-establishes service and restores data after an interruption or failure',
+    ],
+    'This section describes restoration and communication priorities during service outages.',
+  )
+  @Form([
+    Field(
+      'serviceRestorationPriority',
+      String,
+      'Service Restoration Priority',
+      hint: 'Order of restoration',
+    ),
+    Field(
+      'communicationDuringOutage',
+      String,
+      'Communication During Outage',
+      hint: 'Status page, email, SMS',
+    ),
+  ])
   @SerializationOrder(5)
-  ServiceLevelRestoration restoration =
-      ServiceLevelRestoration();
+  String? restoration;
 
   /// Detailed service level requirements narrative.
   @SerializationOrder(6)
   TextSection narrative = TextSection();
 
   /// Service Level Agreement entries.
-  @StandardReferences(
-    [
-      'ISO/IEC 20000-1:2018 — service level agreements record the agreed targets between provider and customer',
-    ],
-    'This list holds the service level agreement entries for the solution.',
-  )
+  @StandardReferences([
+    'ISO/IEC 20000-1:2018 — service level agreements record the agreed targets between provider and customer',
+  ], 'This list holds the service level agreement entries for the solution.')
   @SectionId('SLAE-SLAE-LST')
   @SectionIdPattern('SLAE-SLAE-xxx')
   @ContentHelp('Add one entry per service level agreement.')
@@ -2008,410 +2700,399 @@ class ServiceLevel {
   List<ServiceLevelAgreementEntry> slaEntries = [];
 }
 
-/// Remaining response targets.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management',
-  ],
-  'This section describes remaining response-time targets for service levels.',
-)
-@SectionId('SLQR')
-class ServiceLevelResponse {
-    @Form([
-        Field('mediumResponseTime', String, 'Medium Response Time',
-                hint: 'Response time for P3 issues'),
-        Field('lowResponseTime', String, 'Low Response Time',
-                hint: 'Response time for P4 issues'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Resolution targets.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — resolution-time targets are set and monitored for service requests and incidents',
-  ],
-  'This section describes resolution-time targets for service requests and incidents.',
-)
-@SectionId('SLQR1')
-class ServiceLevelResolution {
-    @Form([
-        Field('criticalResolutionTime', String, 'Critical Resolution Time',
-                hint: 'Resolution target for P1'),
-        Field('highResolutionTime', String, 'High Resolution Time',
-                hint: 'Resolution target for P2'),
-        Field('mediumResolutionTime', String, 'Medium Resolution Time',
-                hint: 'Resolution target for P3'),
-        Field('lowResolutionTime', String, 'Low Resolution Time',
-                hint: 'Resolution target for P4'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Escalation rules.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — escalation procedures are defined so unmet targets are raised in a timely way',
-  ],
-  'This section describes escalation rules for service level management.',
-)
-@SectionId('SLQE')
-class ServiceLevelEscalation {
-    @Form([
-        Field('escalationTimeframes', String, 'Escalation Timeframes',
-                hint: 'When issues escalate'),
-        Field('escalationContacts', String, 'Escalation Contacts',
-                hint: 'Who to escalate to'),
-        Field('executiveEscalation', String, 'Executive Escalation',
-                hint: 'When executive escalation occurs'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// On-call support expectations.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — on-call and support-coverage arrangements underpin the agreed service levels',
-  ],
-  'This section describes on-call and support-coverage expectations.',
-)
-@SectionId('SLQOC')
-class ServiceLevelOnCall {
-    @Form([
-        Field('onCallCoverage', String, 'On-Call Coverage',
-                hint: '24/7, business hours, regional'),
-        Field('onCallRotation', String, 'On-Call Rotation',
-                hint: 'Weekly, bi-weekly'),
-        Field('onCallCompensation', String, 'On-Call Compensation',
-                hint: 'Compensation model'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Restoration and communication priorities.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — recoverability re-establishes service and restores data after an interruption or failure',
-  ],
-  'This section describes restoration and communication priorities during service outages.',
-)
-@SectionId('SLQR2')
-class ServiceLevelRestoration {
-    @Form([
-        Field('serviceRestorationPriority', String, 'Service Restoration Priority',
-                hint: 'Order of restoration'),
-        Field('communicationDuringOutage', String, 'Communication During Outage',
-                hint: 'Status page, email, SMS'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
 /// A service level agreement entry.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured',
-  ],
-  'This section describes a single service level agreement entry.',
-)
+@StandardReferences([
+  'ISO/IEC 20000-1:2018 — each service level agreement entry records an agreed target and how it is measured',
+], 'This section describes a single service level agreement entry.')
 @SectionId('SLAE')
 class ServiceLevelAgreementEntry {
   @Form([
-    Field('slaId', String, 'SLA ID',
-        hint: 'SLA-001, unique identifier'),
-    Field('slaName', String, 'SLA Name',
-        hint: 'Uptime SLA, Response Time SLA', required: true),
-    Field('slaDescription', String, 'Description',
-        hint: 'What this SLA covers'),
-    Field('slaMetric', String, 'Metric',
-        hint: 'What is measured'),
-    Field('slaTarget', String, 'Target',
-        hint: 'Target value'),
-    Field('slaMeasurementMethod', String, 'Measurement Method',
-        hint: 'How the metric is measured'),
-    Field('slaReportingFrequency', String, 'Reporting Frequency',
-        hint: 'Monthly, quarterly'),
-    Field('slaPenalty', String, 'Penalty',
-        hint: 'Consequence of missing SLA'),
-    Field('slaExclusions', String, 'Exclusions',
-        hint: 'What is excluded from SLA'),
+    Field('slaId', String, 'SLA ID', hint: 'SLA-001, unique identifier'),
+    Field(
+      'slaName',
+      String,
+      'SLA Name',
+      hint: 'Uptime SLA, Response Time SLA',
+      required: true,
+    ),
+    Field(
+      'slaDescription',
+      String,
+      'Description',
+      hint: 'What this SLA covers',
+    ),
+    Field('slaMetric', String, 'Metric', hint: 'What is measured'),
+    Field('slaTarget', String, 'Target', hint: 'Target value'),
+    Field(
+      'slaMeasurementMethod',
+      String,
+      'Measurement Method',
+      hint: 'How the metric is measured',
+    ),
+    Field(
+      'slaReportingFrequency',
+      String,
+      'Reporting Frequency',
+      hint: 'Monthly, quarterly',
+    ),
+    Field('slaPenalty', String, 'Penalty', hint: 'Consequence of missing SLA'),
+    Field(
+      'slaExclusions',
+      String,
+      'Exclusions',
+      hint: 'What is excluded from SLA',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// 11.4.3. Monitoring quality.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system',
-  ],
-  'This section describes operational monitoring quality of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — availability and reliability in operation are sustained through monitoring of the running system',
+], 'This section describes operational monitoring quality of the solution.')
 @SectionId('MOQU')
 class OperationalMonitoring {
   @Form([
-    Field('scalabilityMonitoringApproach', String, 'Scalability Monitoring',
-        hint: 'Auto-scaling triggers, capacity alerts'),
-    Field('capacityPlanningProcess', String, 'Capacity Planning Process',
-        hint: 'How capacity is planned'),
-    Field('growthProjections', String, 'Growth Projections',
-        hint: 'Expected growth rate'),
+    Field(
+      'scalabilityMonitoringApproach',
+      String,
+      'Scalability Monitoring',
+      hint: 'Auto-scaling triggers, capacity alerts',
+    ),
+    Field(
+      'capacityPlanningProcess',
+      String,
+      'Capacity Planning Process',
+      hint: 'How capacity is planned',
+    ),
+    Field(
+      'growthProjections',
+      String,
+      'Growth Projections',
+      hint: 'Expected growth rate',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Component monitoring coverage.
+  @SectionId('MOQUCO')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — monitoring coverage is defined so the health of services and components is observed',
+    ],
+    'This section describes the component and infrastructure coverage of monitoring.',
+  )
+  @Form([
+    Field(
+      'infrastructureMonitoring',
+      String,
+      'Infrastructure Monitoring',
+      hint: 'Servers, containers, network',
+    ),
+    Field(
+      'applicationMonitoring',
+      String,
+      'Application Monitoring',
+      hint: 'APM, logs, traces',
+    ),
+    Field(
+      'databaseMonitoring',
+      String,
+      'Database Monitoring',
+      hint: 'Queries, connections, storage',
+    ),
+    Field(
+      'thirdPartyMonitoring',
+      String,
+      'Third-Party Monitoring',
+      hint: 'External service monitoring',
+    ),
+  ])
   @SerializationOrder(1)
-  MonitoringCoverage coverage = MonitoringCoverage();
+  String? coverage;
 
   /// Alert automation capabilities.
+  @SectionId('MOQUAU')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — monitoring is automated so conditions are detected without manual inspection',
+    ],
+    'This section describes alert automation and self-healing capabilities for monitoring.',
+  )
+  @Form([
+    Field(
+      'alertAutomation',
+      String,
+      'Alert Automation',
+      hint: 'Automated response to alerts',
+    ),
+    Field(
+      'selfHealingCapability',
+      String,
+      'Self-Healing Capability',
+      hint: 'Auto-recovery mechanisms',
+    ),
+    Field(
+      'runbookAutomation',
+      String,
+      'Runbook Automation',
+      hint: 'Automated runbook execution',
+    ),
+  ])
   @SerializationOrder(2)
-  MonitoringAutomation automation = MonitoringAutomation();
+  String? automation;
 
   /// Alerting strategy and channels.
+  @SectionId('MOQUAL')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — alerting notifies responsible parties when monitored thresholds are breached',
+    ],
+    'This section describes the alerting strategy and notification channels for monitoring.',
+  )
+  @Form([
+    Field(
+      'alertingStrategy',
+      String,
+      'Alerting Strategy',
+      hint: 'Threshold-based, anomaly detection',
+    ),
+    Field(
+      'alertPrioritization',
+      String,
+      'Alert Prioritization',
+      hint: 'How alerts are prioritized',
+    ),
+    Field(
+      'alertNotificationChannels',
+      String,
+      'Notification Channels',
+      hint: 'Slack, PagerDuty, email, SMS',
+    ),
+    Field(
+      'alertFatiguePrevention',
+      String,
+      'Alert Fatigue Prevention',
+      hint: 'De-duplication, correlation',
+    ),
+  ])
   @SerializationOrder(3)
-  MonitoringAlerting alerting = MonitoringAlerting();
+  String? alerting;
 
   /// Planning and observability settings.
+  @SectionId('MOQUOP')
+  @StandardReferences(
+    [
+      'ISO/IEC 20000-1:2018 — operational monitoring feeds the day-to-day running and support of the service',
+    ],
+    'This section describes planning and observability settings for operational monitoring.',
+  )
+  @Form([
+    Field(
+      'resourcePlanningFrequency',
+      String,
+      'Resource Planning Frequency',
+      hint: 'Quarterly, annually',
+    ),
+    Field(
+      'proactiveMaintenanceSchedule',
+      String,
+      'Proactive Maintenance',
+      hint: 'Scheduled maintenance activities',
+    ),
+    Field(
+      'observabilityPillars',
+      String,
+      'Observability Pillars',
+      hint: 'Logs, metrics, traces',
+    ),
+    Field(
+      'distributedTracingRequirement',
+      String,
+      'Distributed Tracing',
+      hint: 'Tracing implementation',
+    ),
+    Field(
+      'logRetentionPeriod',
+      String,
+      'Log Retention Period',
+      hint: 'How long logs are kept',
+    ),
+  ])
   @SerializationOrder(4)
-  MonitoringOperations operations = MonitoringOperations();
+  String? operations;
 
   /// Detailed monitoring requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
-/// Component monitoring coverage.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — monitoring coverage is defined so the health of services and components is observed',
-  ],
-  'This section describes the component and infrastructure coverage of monitoring.',
-)
-@SectionId('MOQUCO')
-class MonitoringCoverage {
-  @Form([
-    Field('infrastructureMonitoring', String, 'Infrastructure Monitoring',
-        hint: 'Servers, containers, network'),
-    Field('applicationMonitoring', String, 'Application Monitoring',
-        hint: 'APM, logs, traces'),
-    Field('databaseMonitoring', String, 'Database Monitoring',
-        hint: 'Queries, connections, storage'),
-    Field('thirdPartyMonitoring', String, 'Third-Party Monitoring',
-        hint: 'External service monitoring'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Alert automation capabilities.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — monitoring is automated so conditions are detected without manual inspection',
-  ],
-  'This section describes alert automation and self-healing capabilities for monitoring.',
-)
-@SectionId('MOQUAU')
-class MonitoringAutomation {
-  @Form([
-    Field('alertAutomation', String, 'Alert Automation',
-        hint: 'Automated response to alerts'),
-    Field('selfHealingCapability', String, 'Self-Healing Capability',
-        hint: 'Auto-recovery mechanisms'),
-    Field('runbookAutomation', String, 'Runbook Automation',
-        hint: 'Automated runbook execution'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Alerting strategy and channels.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — alerting notifies responsible parties when monitored thresholds are breached',
-  ],
-  'This section describes the alerting strategy and notification channels for monitoring.',
-)
-@SectionId('MOQUAL')
-class MonitoringAlerting {
-  @Form([
-    Field('alertingStrategy', String, 'Alerting Strategy',
-        hint: 'Threshold-based, anomaly detection'),
-    Field('alertPrioritization', String, 'Alert Prioritization',
-        hint: 'How alerts are prioritized'),
-    Field('alertNotificationChannels', String, 'Notification Channels',
-        hint: 'Slack, PagerDuty, email, SMS'),
-    Field('alertFatiguePrevention', String, 'Alert Fatigue Prevention',
-        hint: 'De-duplication, correlation'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Planning and observability settings.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1:2018 — operational monitoring feeds the day-to-day running and support of the service',
-  ],
-  'This section describes planning and observability settings for operational monitoring.',
-)
-@SectionId('MOQUOP')
-class MonitoringOperations {
-  @Form([
-    Field('resourcePlanningFrequency', String, 'Resource Planning Frequency',
-        hint: 'Quarterly, annually'),
-    Field('proactiveMaintenanceSchedule', String, 'Proactive Maintenance',
-        hint: 'Scheduled maintenance activities'),
-    Field('observabilityPillars', String, 'Observability Pillars',
-        hint: 'Logs, metrics, traces'),
-    Field('distributedTracingRequirement', String, 'Distributed Tracing',
-        hint: 'Tracing implementation'),
-    Field('logRetentionPeriod', String, 'Log Retention Period',
-        hint: 'How long logs are kept'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
 /// 11.4.4. IT Security Operations quality.
-@StandardReferences(
-  [
-    'ISO/IEC 27001:2022 — information-security controls are operated so confidentiality, integrity, and availability are protected in production',
-    'ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations',
-  ],
-  'This section describes the IT security operations quality of the solution.',
-)
+@StandardReferences([
+  'ISO/IEC 27001:2022 — information-security controls are operated so confidentiality, integrity, and availability are protected in production',
+  'ISO/IEC 25010:2023 — the security and reliability of a product in operation depend on disciplined security operations',
+], 'This section describes the IT security operations quality of the solution.')
 @SectionId('ISOQ')
 class ItSecurityOperations {
   @Form([
-    Field('accessControlModel', String, 'Access Control Model',
-        hint: 'RBAC, ABAC, zero-trust'),
-    Field('drPlanRequired', bool, 'DR Plan Required',
-        hint: 'Whether a disaster recovery plan is required'),
-    Field('incidentResponsePlan', String, 'Incident Response Plan',
-        hint: 'NIST, custom'),
+    Field(
+      'accessControlModel',
+      String,
+      'Access Control Model',
+      hint: 'RBAC, ABAC, zero-trust',
+    ),
+    Field(
+      'drPlanRequired',
+      bool,
+      'DR Plan Required',
+      hint: 'Whether a disaster recovery plan is required',
+    ),
+    Field(
+      'incidentResponsePlan',
+      String,
+      'Incident Response Plan',
+      hint: 'NIST, custom',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Access protection controls.
+  @SectionId('ISOQA')
+  @StandardReferences([
+    'ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry',
+  ], 'This section defines access protection controls.')
+  @Form([
+    Field(
+      'privilegedAccessManagement',
+      String,
+      'Privileged Access Management',
+      hint: 'PAM solution, just-in-time',
+    ),
+    Field(
+      'accessReviewFrequency',
+      String,
+      'Access Review Frequency',
+      hint: 'Quarterly, annually',
+    ),
+    Field(
+      'accessAuditLogging',
+      String,
+      'Access Audit Logging',
+      hint: 'What access is logged',
+    ),
+  ])
   @SerializationOrder(1)
-  ItSecurityOperationsAccess access =
-      ItSecurityOperationsAccess();
+  String? access;
 
   /// Disaster recovery planning details.
+  @SectionId('ISOQR')
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — recoverability re-establishes the desired state after a security incident or failure',
+    'ISO/IEC 27031:2011 — ICT readiness supports continuity and recovery of operations after disruption',
+  ], 'This section describes disaster recovery planning details.')
+  @Form([
+    Field(
+      'drTestingFrequency',
+      String,
+      'DR Testing Frequency',
+      hint: 'Annual, semi-annual',
+    ),
+    Field(
+      'drRecoveryTargets',
+      String,
+      'DR Recovery Targets',
+      hint: 'RTO/RPO for DR scenarios',
+    ),
+    Field(
+      'drDataCenterStrategy',
+      String,
+      'Data Center Strategy',
+      hint: 'Multi-region, hot/warm/cold',
+    ),
+    Field(
+      'drCommunicationPlan',
+      String,
+      'DR Communication Plan',
+      hint: 'How stakeholders are notified',
+    ),
+  ])
   @SerializationOrder(2)
-  ItSecurityOperationsRecovery recovery =
-      ItSecurityOperationsRecovery();
+  String? recovery;
 
   /// Penetration testing and remediation.
+  @SectionId('ISOQT')
+  @StandardReferences([
+    'ISO/IEC 27001:2022 — security controls are tested and evaluated so their effectiveness is confirmed',
+  ], 'This section covers penetration testing and remediation of findings.')
+  @Form([
+    Field(
+      'penetrationTestScope',
+      String,
+      'Penetration Test Scope',
+      hint: 'Internal, external, both',
+    ),
+    Field(
+      'penetrationTestFrequency',
+      String,
+      'Penetration Test Frequency',
+      hint: 'Annual, per-release',
+    ),
+    Field(
+      'vulnerabilitySlaResolution',
+      String,
+      'Vulnerability SLA',
+      hint: 'Resolution timeframes by severity',
+    ),
+    Field(
+      'bugBountyProgram',
+      bool,
+      'Bug Bounty Program',
+      hint: 'Whether a bug bounty program is in place',
+    ),
+  ])
   @SerializationOrder(3)
-  ItSecurityOperationsTesting testing =
-      ItSecurityOperationsTesting();
+  String? testing;
 
   /// Incident handling and reporting.
+  @SectionId('ISOQI')
+  @StandardReferences([
+    'ISO/IEC 27035-1:2023 — information-security incidents are detected, reported, and responded to in a managed way',
+  ], 'This section captures how security incidents are handled and reported.')
+  @Form([
+    Field(
+      'securityIncidentClassification',
+      String,
+      'Incident Classification',
+      hint: 'Severity levels',
+    ),
+    Field(
+      'securityIncidentNotification',
+      String,
+      'Incident Notification',
+      hint: 'Who is notified, when',
+    ),
+    Field(
+      'forensicsCapability',
+      String,
+      'Forensics Capability',
+      hint: 'Evidence preservation',
+    ),
+    Field(
+      'regulatoryReporting',
+      String,
+      'Regulatory Reporting',
+      hint: 'Breach notification requirements',
+    ),
+  ])
   @SerializationOrder(4)
-  ItSecurityOperationsIncident incident =
-      ItSecurityOperationsIncident();
+  String? incident;
 
   /// Detailed IT security operations narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
-}
-
-/// Access protection controls.
-@StandardReferences(
-  [
-    'ISO/IEC 27001:2022 — access to information and systems is restricted so only authorised parties gain entry',
-  ],
-  'This section defines access protection controls.',
-)
-@SectionId('ISOQA')
-class ItSecurityOperationsAccess {
-  @Form([
-    Field('privilegedAccessManagement', String, 'Privileged Access Management',
-        hint: 'PAM solution, just-in-time'),
-    Field('accessReviewFrequency', String, 'Access Review Frequency',
-        hint: 'Quarterly, annually'),
-    Field('accessAuditLogging', String, 'Access Audit Logging',
-        hint: 'What access is logged'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Disaster recovery planning details.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — recoverability re-establishes the desired state after a security incident or failure',
-    'ISO/IEC 27031:2011 — ICT readiness supports continuity and recovery of operations after disruption',
-  ],
-  'This section describes disaster recovery planning details.',
-)
-@SectionId('ISOQR')
-class ItSecurityOperationsRecovery {
-  @Form([
-    Field('drTestingFrequency', String, 'DR Testing Frequency',
-        hint: 'Annual, semi-annual'),
-    Field('drRecoveryTargets', String, 'DR Recovery Targets',
-        hint: 'RTO/RPO for DR scenarios'),
-    Field('drDataCenterStrategy', String, 'Data Center Strategy',
-        hint: 'Multi-region, hot/warm/cold'),
-    Field('drCommunicationPlan', String, 'DR Communication Plan',
-        hint: 'How stakeholders are notified'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Penetration testing and remediation.
-@StandardReferences(
-  [
-    'ISO/IEC 27001:2022 — security controls are tested and evaluated so their effectiveness is confirmed',
-  ],
-  'This section covers penetration testing and remediation of findings.',
-)
-@SectionId('ISOQT')
-class ItSecurityOperationsTesting {
-  @Form([
-    Field('penetrationTestScope', String, 'Penetration Test Scope',
-        hint: 'Internal, external, both'),
-    Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
-        hint: 'Annual, per-release'),
-    Field('vulnerabilitySlaResolution', String, 'Vulnerability SLA',
-        hint: 'Resolution timeframes by severity'),
-    Field('bugBountyProgram', bool, 'Bug Bounty Program',
-        hint: 'Whether a bug bounty program is in place'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Incident handling and reporting.
-@StandardReferences(
-  [
-    'ISO/IEC 27035-1:2023 — information-security incidents are detected, reported, and responded to in a managed way',
-  ],
-  'This section captures how security incidents are handled and reported.',
-)
-@SectionId('ISOQI')
-class ItSecurityOperationsIncident {
-  @Form([
-    Field('securityIncidentClassification', String, 'Incident Classification',
-        hint: 'Severity levels'),
-    Field('securityIncidentNotification', String, 'Incident Notification',
-        hint: 'Who is notified, when'),
-    Field('forensicsCapability', String, 'Forensics Capability',
-        hint: 'Evidence preservation'),
-    Field('regulatoryReporting', String, 'Regulatory Reporting',
-        hint: 'Breach notification requirements'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.10. Documentation Quality (ISO/IEC 26514 annex).
@@ -2439,25 +3120,51 @@ class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('DOQUCR-DOCU')
   @Form([
-    Field('documentationStrategy', String, 'Documentation Strategy',
-        hint: 'Comprehensive, minimal, just-in-time'),
-    Field('documentationOwnership', String, 'Documentation Ownership',
-        hint: 'Technical writers, developers, shared'),
-    Field('documentationPlatform', String, 'Documentation Platform',
-        hint: 'Confluence, GitBook, custom'),
-    Field('documentationReviewProcess', String, 'Review Process',
-        hint: 'Peer review, editorial review'),
-    Field('documentationVersionControl', String, 'Version Control',
-        hint: 'Git, CMS versioning, manual'),
-    Field('documentationUpdateCadence', String, 'Update Cadence',
-        hint: 'Continuous, per-release, scheduled'),
+    Field(
+      'documentationStrategy',
+      String,
+      'Documentation Strategy',
+      hint: 'Comprehensive, minimal, just-in-time',
+    ),
+    Field(
+      'documentationOwnership',
+      String,
+      'Documentation Ownership',
+      hint: 'Technical writers, developers, shared',
+    ),
+    Field(
+      'documentationPlatform',
+      String,
+      'Documentation Platform',
+      hint: 'Confluence, GitBook, custom',
+    ),
+    Field(
+      'documentationReviewProcess',
+      String,
+      'Review Process',
+      hint: 'Peer review, editorial review',
+    ),
+    Field(
+      'documentationVersionControl',
+      String,
+      'Version Control',
+      hint: 'Git, CMS versioning, manual',
+    ),
+    Field(
+      'documentationUpdateCadence',
+      String,
+      'Update Cadence',
+      hint: 'Continuous, per-release, scheduled',
+    ),
   ])
   @SerializationOrder(0)
   String? documentationOverviewContent;
 
   /// Documentation quality overview narrative.
-  @ContentHelp('Executive summary of documentation goals, '
-      'target audiences, and key documentation metrics.')
+  @ContentHelp(
+    'Executive summary of documentation goals, '
+    'target audiences, and key documentation metrics.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -2479,165 +3186,231 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.5.1. Readability quality.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience',
-  ],
-  'Captures readability requirements for user documentation.',
-)
+@StandardReferences([
+  'ISO/IEC 26514:2008 — information for users is written so that it can be read and understood by the intended audience',
+], 'Captures readability requirements for user documentation.')
 @SectionId('REQU1')
 class Readability {
   @Form([
-    Field('terminologyStandard', String, 'Terminology Standard',
-        hint: 'Glossary, controlled vocabulary'),
-    Field('ambiguityPrevention', String, 'Ambiguity Prevention',
-        hint: 'Review checklist, automated checks'),
-    Field('jargonPolicy', String, 'Jargon Policy',
-        hint: 'Define all terms, minimize jargon'),
+    Field(
+      'terminologyStandard',
+      String,
+      'Terminology Standard',
+      hint: 'Glossary, controlled vocabulary',
+    ),
+    Field(
+      'ambiguityPrevention',
+      String,
+      'Ambiguity Prevention',
+      hint: 'Review checklist, automated checks',
+    ),
+    Field(
+      'jargonPolicy',
+      String,
+      'Jargon Policy',
+      hint: 'Define all terms, minimize jargon',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Identifiability and navigation.
+  @SectionId('REQUNA')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — information is structured with navigation aids so that users can locate relevant topics',
+    ],
+    'Captures identifiability and navigation aids that help users locate topics.',
+  )
+  @Form([
+    Field(
+      'sectionNumbering',
+      String,
+      'Section Numbering',
+      hint: 'Hierarchical, flat, none',
+    ),
+    Field(
+      'crossReferenceStandard',
+      String,
+      'Cross-Reference Standard',
+      hint: 'Section IDs, hyperlinks',
+    ),
+    Field(
+      'searchability',
+      String,
+      'Searchability',
+      hint: 'Full-text search, tagged',
+    ),
+  ])
   @SerializationOrder(1)
-  ReadabilityNavigation navigation = ReadabilityNavigation();
+  String? navigation;
 
   /// Comprehensibility requirements.
+  @SectionId('REQUCO')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — content is presented at a reading level and in a format appropriate to the intended user',
+    ],
+    'Captures reading level and format requirements for comprehensible documentation.',
+  )
+  @Form([
+    Field(
+      'readingLevelTarget',
+      String,
+      'Reading Level Target',
+      hint: 'Grade level, technical audience',
+    ),
+    Field(
+      'formatStandards',
+      String,
+      'Format Standards',
+      hint: 'Headings, lists, tables usage',
+    ),
+    Field(
+      'visualAidRequirements',
+      String,
+      'Visual Aid Requirements',
+      hint: 'Diagrams, screenshots, examples',
+    ),
+  ])
   @SerializationOrder(2)
-  ReadabilityComprehensibility comprehensibility =
-      ReadabilityComprehensibility();
+  String? comprehensibility;
 
   /// Document structure rules.
+  @SectionId('REQUST')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — information is organised into a consistent structure with a defined information hierarchy',
+    ],
+    'Captures the structural template and information hierarchy for documentation.',
+  )
+  @Form([
+    Field(
+      'documentStructureTemplate',
+      String,
+      'Structure Template',
+      hint: 'Standard document templates',
+    ),
+    Field(
+      'informationHierarchy',
+      String,
+      'Information Hierarchy',
+      hint: 'How information is organized',
+    ),
+    Field(
+      'navigationAids',
+      String,
+      'Navigation Aids',
+      hint: 'TOC, index, breadcrumbs',
+    ),
+  ])
   @SerializationOrder(3)
-  ReadabilityStructure structure = ReadabilityStructure();
+  String? structure;
 
   /// Style guide alignment.
+  @SectionId('REQUS1')
+  @StandardReferences([
+    'ISO/IEC 26514:2008 — a documented style guide governs terminology, writing voice, and formatting conventions',
+  ], 'Captures alignment of documentation with a defined style guide.')
+  @Form([
+    Field(
+      'styleGuideReference',
+      String,
+      'Style Guide Reference',
+      hint: 'Google, Microsoft, custom',
+    ),
+    Field(
+      'writingVoice',
+      String,
+      'Writing Voice',
+      hint: 'Active, passive, imperative',
+    ),
+    Field(
+      'formattingConventions',
+      String,
+      'Formatting Conventions',
+      hint: 'Code, commands, UI elements',
+    ),
+  ])
   @SerializationOrder(4)
-  ReadabilityStyle style = ReadabilityStyle();
+  String? style;
 
   /// Detailed readability requirements narrative.
   @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
-/// Identifiability and navigation.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information is structured with navigation aids so that users can locate relevant topics',
-  ],
-  'Captures identifiability and navigation aids that help users locate topics.',
-)
-@SectionId('REQUNA')
-class ReadabilityNavigation {
-  @Form([
-    Field('sectionNumbering', String, 'Section Numbering',
-        hint: 'Hierarchical, flat, none'),
-    Field('crossReferenceStandard', String, 'Cross-Reference Standard',
-        hint: 'Section IDs, hyperlinks'),
-    Field('searchability', String, 'Searchability',
-        hint: 'Full-text search, tagged'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Comprehensibility requirements.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — content is presented at a reading level and in a format appropriate to the intended user',
-  ],
-  'Captures reading level and format requirements for comprehensible documentation.',
-)
-@SectionId('REQUCO')
-class ReadabilityComprehensibility {
-  @Form([
-    Field('readingLevelTarget', String, 'Reading Level Target',
-        hint: 'Grade level, technical audience'),
-    Field('formatStandards', String, 'Format Standards',
-        hint: 'Headings, lists, tables usage'),
-    Field('visualAidRequirements', String, 'Visual Aid Requirements',
-        hint: 'Diagrams, screenshots, examples'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Document structure rules.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information is organised into a consistent structure with a defined information hierarchy',
-  ],
-  'Captures the structural template and information hierarchy for documentation.',
-)
-@SectionId('REQUST')
-class ReadabilityStructure {
-  @Form([
-    Field('documentStructureTemplate', String, 'Structure Template',
-        hint: 'Standard document templates'),
-    Field('informationHierarchy', String, 'Information Hierarchy',
-        hint: 'How information is organized'),
-    Field('navigationAids', String, 'Navigation Aids',
-        hint: 'TOC, index, breadcrumbs'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Style guide alignment.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — a documented style guide governs terminology, writing voice, and formatting conventions',
-  ],
-  'Captures alignment of documentation with a defined style guide.',
-)
-@SectionId('REQUS1')
-class ReadabilityStyle {
-  @Form([
-    Field('styleGuideReference', String, 'Style Guide Reference',
-        hint: 'Google, Microsoft, custom'),
-    Field('writingVoice', String, 'Writing Voice',
-        hint: 'Active, passive, imperative'),
-    Field('formattingConventions', String, 'Formatting Conventions',
-        hint: 'Code, commands, UI elements'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
 /// 11.5.2. Documentation completeness quality.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product',
-  ],
-  'Captures whether documentation covers all tasks and topics users need.',
-)
+@StandardReferences([
+  'ISO/IEC 26514:2008 — the information covers all tasks and topics that the intended users need to use the product',
+], 'Captures whether documentation covers all tasks and topics users need.')
 @SectionId('DOCOQU')
 class DocCompleteness {
   @Form([
     // Topic coverage
-    Field('requiredTopics', String, 'Required Topics',
-        hint: 'List of required documentation topics'),
-    Field('topicCoverageTarget', String, 'Topic Coverage Target %',
-        hint: '100% of required, 80% of optional'),
-    Field('audienceCoverage', String, 'Audience Coverage',
-        hint: 'End users, admins, developers'),
+    Field(
+      'requiredTopics',
+      String,
+      'Required Topics',
+      hint: 'List of required documentation topics',
+    ),
+    Field(
+      'topicCoverageTarget',
+      String,
+      'Topic Coverage Target %',
+      hint: '100% of required, 80% of optional',
+    ),
+    Field(
+      'audienceCoverage',
+      String,
+      'Audience Coverage',
+      hint: 'End users, admins, developers',
+    ),
     // Detail level
-    Field('detailLevelExpectation', String, 'Detail Level Expectation',
-        hint: 'Comprehensive, overview, reference'),
-    Field('exampleRequirements', String, 'Example Requirements',
-        hint: 'Examples for all features, key features'),
-    Field('screenshotRequirements', String, 'Screenshot Requirements',
-        hint: 'All UI, key workflows'),
+    Field(
+      'detailLevelExpectation',
+      String,
+      'Detail Level Expectation',
+      hint: 'Comprehensive, overview, reference',
+    ),
+    Field(
+      'exampleRequirements',
+      String,
+      'Example Requirements',
+      hint: 'Examples for all features, key features',
+    ),
+    Field(
+      'screenshotRequirements',
+      String,
+      'Screenshot Requirements',
+      hint: 'All UI, key workflows',
+    ),
     // Cross-reference
-    Field('crossReferenceIntegrity', String, 'Cross-Reference Integrity',
-        hint: 'Automated link checking'),
-    Field('relatedTopicsLinking', String, 'Related Topics Linking',
-        hint: 'Manual, automated suggestions'),
+    Field(
+      'crossReferenceIntegrity',
+      String,
+      'Cross-Reference Integrity',
+      hint: 'Automated link checking',
+    ),
+    Field(
+      'relatedTopicsLinking',
+      String,
+      'Related Topics Linking',
+      hint: 'Manual, automated suggestions',
+    ),
     // Verification
-    Field('completenessReview', String, 'Completeness Review',
-        hint: 'Checklist, traceability matrix'),
-    Field('gapIdentificationProcess', String, 'Gap Identification',
-        hint: 'User feedback, coverage reports'),
+    Field(
+      'completenessReview',
+      String,
+      'Completeness Review',
+      hint: 'Checklist, traceability matrix',
+    ),
+    Field(
+      'gapIdentificationProcess',
+      String,
+      'Gap Identification',
+      hint: 'User feedback, coverage reports',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2648,85 +3421,110 @@ class DocCompleteness {
 }
 
 /// 11.5.3. Documentation correctness quality.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product',
-  ],
-  'Captures correctness of documentation as verified against the product.',
-)
+@StandardReferences([
+  'ISO/IEC 26514:2008 — information for users is technically accurate and free of errors when verified against the product',
+], 'Captures correctness of documentation as verified against the product.')
 @SectionId('DOCOQ1')
 class DocCorrectness {
   @Form([
     // Error-freedom
-    Field('spellingGrammarCheck', String, 'Spelling/Grammar Check',
-        hint: 'Automated tools, manual review'),
-    Field('technicalAccuracyReview', String, 'Technical Accuracy Review',
-        hint: 'SME review, testing against product'),
-    Field('errorToleranceLevel', String, 'Error Tolerance Level',
-        hint: 'Zero errors, minor allowed'),
+    Field(
+      'spellingGrammarCheck',
+      String,
+      'Spelling/Grammar Check',
+      hint: 'Automated tools, manual review',
+    ),
+    Field(
+      'technicalAccuracyReview',
+      String,
+      'Technical Accuracy Review',
+      hint: 'SME review, testing against product',
+    ),
+    Field(
+      'errorToleranceLevel',
+      String,
+      'Error Tolerance Level',
+      hint: 'Zero errors, minor allowed',
+    ),
     // Consistency
-    Field('terminologyConsistency', String, 'Terminology Consistency',
-        hint: 'Glossary enforcement'),
+    Field(
+      'terminologyConsistency',
+      String,
+      'Terminology Consistency',
+      hint: 'Glossary enforcement',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Formatting and implementation alignment.
+  @SectionId('DCQA')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — information is kept consistent across documents and aligned with the corresponding product version',
+    ],
+    'Captures formatting consistency and alignment of documentation with the product.',
+  )
+  @Form([
+    Field(
+      'formatConsistency',
+      String,
+      'Format Consistency',
+      hint: 'Template adherence',
+    ),
+    Field(
+      'crossDocumentConsistency',
+      String,
+      'Cross-Document Consistency',
+      hint: 'Consistency across documents',
+    ),
+    Field(
+      'documentationSyncProcess',
+      String,
+      'Documentation Sync Process',
+      hint: 'How docs stay aligned with code',
+    ),
+    Field(
+      'versionAlignment',
+      String,
+      'Version Alignment',
+      hint: 'Docs versioned with product',
+    ),
+    Field(
+      'deprecationHandling',
+      String,
+      'Deprecation Handling',
+      hint: 'How deprecated features are handled',
+    ),
+  ])
   @SerializationOrder(1)
-  DocCorrectnessAlignment alignment = DocCorrectnessAlignment();
+  String? alignment;
 
   /// Verification and feedback handling.
+  @SectionId('DCQV')
+  @StandardReferences([
+    'ISO/IEC 26514:2008 — information is reviewed and validated, and user feedback is incorporated into revisions',
+  ], 'Captures verification of documentation and the handling of user feedback.')
+  @Form([
+    Field(
+      'correctnessVerification',
+      String,
+      'Correctness Verification',
+      hint: 'Testing docs against product',
+    ),
+    Field(
+      'userFeedbackIntegration',
+      String,
+      'User Feedback Integration',
+      hint: 'How user-reported errors are handled',
+    ),
+  ])
   @SerializationOrder(2)
-  DocCorrectnessVerification verification =
-      DocCorrectnessVerification();
+  String? verification;
 
   /// Detailed correctness requirements narrative.
   @SerializationOrder(3)
   TextSection narrative = TextSection();
-}
-
-/// Formatting and implementation alignment.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information is kept consistent across documents and aligned with the corresponding product version',
-  ],
-  'Captures formatting consistency and alignment of documentation with the product.',
-)
-@SectionId('DCQA')
-class DocCorrectnessAlignment {
-    @Form([
-        Field('formatConsistency', String, 'Format Consistency',
-                hint: 'Template adherence'),
-        Field('crossDocumentConsistency', String, 'Cross-Document Consistency',
-                hint: 'Consistency across documents'),
-        Field('documentationSyncProcess', String, 'Documentation Sync Process',
-                hint: 'How docs stay aligned with code'),
-        Field('versionAlignment', String, 'Version Alignment',
-                hint: 'Docs versioned with product'),
-        Field('deprecationHandling', String, 'Deprecation Handling',
-                hint: 'How deprecated features are handled'),
-    ])
-    @SerializationOrder(0)
-    String? content;
-}
-
-/// Verification and feedback handling.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information is reviewed and validated, and user feedback is incorporated into revisions',
-  ],
-  'Captures verification of documentation and the handling of user feedback.',
-)
-@SectionId('DCQV')
-class DocCorrectnessVerification {
-    @Form([
-        Field('correctnessVerification', String, 'Correctness Verification',
-                hint: 'Testing docs against product'),
-        Field('userFeedbackIntegration', String, 'User Feedback Integration',
-                hint: 'How user-reported errors are handled'),
-    ])
-    @SerializationOrder(0)
-    String? content;
 }
 
 /// 11.5.4. Documentation changeability quality.
@@ -2739,97 +3537,124 @@ class DocCorrectnessVerification {
 @SectionId('DOCHQU')
 class DocChangeability {
   @Form([
-    Field('versioningStrategy', String, 'Versioning Strategy',
-        hint: 'Semantic, date-based, product-aligned'),
-    Field('versionHistoryTracking', String, 'Version History Tracking',
-        hint: 'Changelog, git history'),
-    Field('multiVersionSupport', String, 'Multi-Version Support',
-        hint: 'Multiple product versions documented'),
+    Field(
+      'versioningStrategy',
+      String,
+      'Versioning Strategy',
+      hint: 'Semantic, date-based, product-aligned',
+    ),
+    Field(
+      'versionHistoryTracking',
+      String,
+      'Version History Tracking',
+      hint: 'Changelog, git history',
+    ),
+    Field(
+      'multiVersionSupport',
+      String,
+      'Multi-Version Support',
+      hint: 'Multiple product versions documented',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Extensibility and localization readiness.
+  @SectionId('DCQE')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — information is structured to support extension and translation into other languages',
+    ],
+    'Captures how documentation supports extension and readiness for localization.',
+  )
+  @Form([
+    Field(
+      'extensibilityApproach',
+      String,
+      'Extensibility Approach',
+      hint: 'Modular, template-based',
+    ),
+    Field(
+      'newSectionGuidelines',
+      String,
+      'New Section Guidelines',
+      hint: 'How to add new content',
+    ),
+    Field(
+      'localizationReadiness',
+      String,
+      'Localization Readiness',
+      hint: 'i18n considerations',
+    ),
+  ])
   @SerializationOrder(1)
-  DocChangeabilityExtensibility extensibility =
-      DocChangeabilityExtensibility();
+  String? extensibility;
 
   /// Sizing and structural consistency rules.
+  @SectionId('DCQS')
+  @StandardReferences(
+    [
+      'ISO/IEC 26514:2008 — information units are sized and made granular so that topics remain manageable and consistent',
+    ],
+    'Captures document sizing, topic granularity, and structural consistency rules.',
+  )
+  @Form([
+    Field(
+      'documentSizingGuideline',
+      String,
+      'Document Sizing',
+      hint: 'Max pages, when to split',
+    ),
+    Field(
+      'topicGranularity',
+      String,
+      'Topic Granularity',
+      hint: 'One topic per page, combined',
+    ),
+    Field(
+      'templateAdherence',
+      String,
+      'Template Adherence',
+      hint: 'Required, recommended',
+    ),
+    Field(
+      'structuralChangeProcess',
+      String,
+      'Structural Change Process',
+      hint: 'How structure changes are made',
+    ),
+  ])
   @SerializationOrder(2)
-  DocChangeabilityStructure structure =
-      DocChangeabilityStructure();
+  String? structure;
 
   /// Review and retirement maintenance process.
+  @SectionId('DCQM')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate',
+    ],
+    'Captures the review cadence and retirement process for user documentation.',
+  )
+  @Form([
+    Field(
+      'reviewCycle',
+      String,
+      'Review Cycle',
+      hint: 'Periodic review schedule',
+    ),
+    Field(
+      'retirementProcess',
+      String,
+      'Retirement Process',
+      hint: 'How outdated docs are retired',
+    ),
+  ])
   @SerializationOrder(3)
-  DocChangeabilityMaintenance maintenance =
-      DocChangeabilityMaintenance();
+  String? maintenance;
 
   /// Detailed changeability requirements narrative.
   @SerializationOrder(4)
   TextSection narrative = TextSection();
-}
-
-/// Extensibility and localization readiness.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information is structured to support extension and translation into other languages',
-  ],
-  'Captures how documentation supports extension and readiness for localization.',
-)
-@SectionId('DCQE')
-class DocChangeabilityExtensibility {
-  @Form([
-    Field('extensibilityApproach', String, 'Extensibility Approach',
-        hint: 'Modular, template-based'),
-    Field('newSectionGuidelines', String, 'New Section Guidelines',
-        hint: 'How to add new content'),
-    Field('localizationReadiness', String, 'Localization Readiness',
-        hint: 'i18n considerations'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Sizing and structural consistency rules.
-@StandardReferences(
-  [
-    'ISO/IEC 26514:2008 — information units are sized and made granular so that topics remain manageable and consistent',
-  ],
-  'Captures document sizing, topic granularity, and structural consistency rules.',
-)
-@SectionId('DCQS')
-class DocChangeabilityStructure {
-  @Form([
-    Field('documentSizingGuideline', String, 'Document Sizing',
-        hint: 'Max pages, when to split'),
-    Field('topicGranularity', String, 'Topic Granularity',
-        hint: 'One topic per page, combined'),
-    Field('templateAdherence', String, 'Template Adherence',
-        hint: 'Required, recommended'),
-    Field('structuralChangeProcess', String, 'Structural Change Process',
-        hint: 'How structure changes are made'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Review and retirement maintenance process.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate',
-  ],
-  'Captures the review cadence and retirement process for user documentation.',
-)
-@SectionId('DCQM')
-class DocChangeabilityMaintenance {
-  @Form([
-    Field('reviewCycle', String, 'Review Cycle',
-        hint: 'Periodic review schedule'),
-    Field('retirementProcess', String, 'Retirement Process',
-        hint: 'How outdated docs are retired'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.6. Quality Prioritization.
@@ -2852,25 +3677,51 @@ class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('QUPR-PRIO')
   @Form([
-    Field('prioritizationMethod', String, 'Prioritization Method',
-        hint: 'Weighted scoring, AHP, forced ranking'),
-    Field('prioritizationStakeholders', String, 'Prioritization Stakeholders',
-        hint: 'Who participates in prioritization'),
-    Field('prioritizationFrequency', String, 'Prioritization Frequency',
-        hint: 'Once, per-phase, continuous'),
-    Field('prioritizationDocumentation', String, 'Prioritization Documentation',
-        hint: 'How decisions are documented'),
-    Field('prioritizationReview', String, 'Prioritization Review',
-        hint: 'When priorities are reviewed'),
-    Field('conflictResolutionAuthority', String, 'Conflict Resolution Authority',
-        hint: 'Who resolves priority conflicts'),
+    Field(
+      'prioritizationMethod',
+      String,
+      'Prioritization Method',
+      hint: 'Weighted scoring, AHP, forced ranking',
+    ),
+    Field(
+      'prioritizationStakeholders',
+      String,
+      'Prioritization Stakeholders',
+      hint: 'Who participates in prioritization',
+    ),
+    Field(
+      'prioritizationFrequency',
+      String,
+      'Prioritization Frequency',
+      hint: 'Once, per-phase, continuous',
+    ),
+    Field(
+      'prioritizationDocumentation',
+      String,
+      'Prioritization Documentation',
+      hint: 'How decisions are documented',
+    ),
+    Field(
+      'prioritizationReview',
+      String,
+      'Prioritization Review',
+      hint: 'When priorities are reviewed',
+    ),
+    Field(
+      'conflictResolutionAuthority',
+      String,
+      'Conflict Resolution Authority',
+      hint: 'Who resolves priority conflicts',
+    ),
   ])
   @SerializationOrder(0)
   String? prioritizationFrameworkContent;
 
   /// Prioritization approach overview.
-  @ContentHelp('Overview of how quality attributes are prioritized, '
-      'including stakeholder involvement and decision process.')
+  @ContentHelp(
+    'Overview of how quality attributes are prioritized, '
+    'including stakeholder involvement and decision process.',
+  )
   @SerializationOrder(1)
   TextSection prioritizationOverview = TextSection();
 
@@ -2894,23 +3745,45 @@ class QualityPrioritization {
 class WeightedQualityMatrix {
   @SectionId('WEQUMA-MATR')
   @Form([
-    Field('matrixFormat', String, 'Matrix Format',
-        hint: 'Spreadsheet, radar chart, heatmap'),
-    Field('weightingScale', String, 'Weighting Scale',
-        hint: '1-5, 1-10, percentage'),
-    Field('totalWeightRequirement', String, 'Total Weight Requirement',
-        hint: 'Sum to 100%, relative weights'),
-    Field('weightJustificationRequired', bool, 'Weight Justification Required',
-        hint: 'Whether each weight needs a documented justification'),
-    Field('matrixUpdateProcess', String, 'Matrix Update Process',
-        hint: 'How weights are updated'),
+    Field(
+      'matrixFormat',
+      String,
+      'Matrix Format',
+      hint: 'Spreadsheet, radar chart, heatmap',
+    ),
+    Field(
+      'weightingScale',
+      String,
+      'Weighting Scale',
+      hint: '1-5, 1-10, percentage',
+    ),
+    Field(
+      'totalWeightRequirement',
+      String,
+      'Total Weight Requirement',
+      hint: 'Sum to 100%, relative weights',
+    ),
+    Field(
+      'weightJustificationRequired',
+      bool,
+      'Weight Justification Required',
+      hint: 'Whether each weight needs a documented justification',
+    ),
+    Field(
+      'matrixUpdateProcess',
+      String,
+      'Matrix Update Process',
+      hint: 'How weights are updated',
+    ),
   ])
   @SerializationOrder(0)
   String? matrixConfigContent;
 
   /// Weighted quality matrix narrative.
-  @ContentHelp('Description of weighted quality matrix including '
-      'weights assigned to each attribute and rationale.')
+  @ContentHelp(
+    'Description of weighted quality matrix including '
+    'weights assigned to each attribute and rationale.',
+  )
   @SerializationOrder(1)
   TextSection matrixNarrative = TextSection();
 
@@ -2944,18 +3817,32 @@ class WeightedQualityMatrix {
 class QualityWeightEntry {
   @Form([
     Field('qualityAttribute', String, 'Quality Attribute', required: true),
-    Field('qualityCategory', String, 'Category',
-        hint: 'User, Technical, Operations, Documentation'),
-    Field('weight', int, 'Weight (1-100)',
-        hint: 'Numeric weight from 1 to 100'),
-    Field('priority', String, 'Priority',
-        hint: 'Critical, high, medium, low'),
-    Field('rationale', String, 'Rationale',
-        hint: 'Why this weight'),
-    Field('stakeholderAgreement', String, 'Stakeholder Agreement',
-        hint: 'Who agreed to this weight'),
-    Field('tradeOffImplications', String, 'Trade-off Implications',
-        hint: 'What this priority means for other attributes'),
+    Field(
+      'qualityCategory',
+      String,
+      'Category',
+      hint: 'User, Technical, Operations, Documentation',
+    ),
+    Field(
+      'weight',
+      int,
+      'Weight (1-100)',
+      hint: 'Numeric weight from 1 to 100',
+    ),
+    Field('priority', String, 'Priority', hint: 'Critical, high, medium, low'),
+    Field('rationale', String, 'Rationale', hint: 'Why this weight'),
+    Field(
+      'stakeholderAgreement',
+      String,
+      'Stakeholder Agreement',
+      hint: 'Who agreed to this weight',
+    ),
+    Field(
+      'tradeOffImplications',
+      String,
+      'Trade-off Implications',
+      hint: 'What this priority means for other attributes',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2974,21 +3861,39 @@ class QualityWeightEntry {
 class TradeOffDecisions {
   @SectionId('TROFDE-TRAD')
   @Form([
-    Field('tradeOffGovernance', String, 'Trade-off Governance',
-        hint: 'Who can make trade-off decisions'),
-    Field('tradeOffDocumentation', String, 'Trade-off Documentation',
-        hint: 'How decisions are documented'),
-    Field('tradeOffReview', String, 'Trade-off Review',
-        hint: 'When trade-offs are reviewed'),
-    Field('tradeOffReversal', String, 'Trade-off Reversal',
-        hint: 'Process to reverse a trade-off decision'),
+    Field(
+      'tradeOffGovernance',
+      String,
+      'Trade-off Governance',
+      hint: 'Who can make trade-off decisions',
+    ),
+    Field(
+      'tradeOffDocumentation',
+      String,
+      'Trade-off Documentation',
+      hint: 'How decisions are documented',
+    ),
+    Field(
+      'tradeOffReview',
+      String,
+      'Trade-off Review',
+      hint: 'When trade-offs are reviewed',
+    ),
+    Field(
+      'tradeOffReversal',
+      String,
+      'Trade-off Reversal',
+      hint: 'Process to reverse a trade-off decision',
+    ),
   ])
   @SerializationOrder(0)
   String? tradeOffGovernanceContent;
 
   /// Trade-off decisions overview.
-  @ContentHelp('Overview of major trade-off decisions and their impact '
-      'on system quality and design choices.')
+  @ContentHelp(
+    'Overview of major trade-off decisions and their impact '
+    'on system quality and design choices.',
+  )
   @SerializationOrder(1)
   TextSection tradeOffOverview = TextSection();
 
@@ -3016,154 +3921,206 @@ class TradeOffDecisions {
 @SectionId('TODE')
 class TradeOffDecisionEntry {
   @Form([
-    Field('decisionId', String, 'Decision ID',
-        hint: 'Unique identifier (e.g., TRADEOFF-001)'),
+    Field(
+      'decisionId',
+      String,
+      'Decision ID',
+      hint: 'Unique identifier (e.g., TRADEOFF-001)',
+    ),
     Field('decisionTitle', String, 'Decision Title', required: true),
-    Field('decisionStatus', String, 'Status',
-        hint: 'Proposed, approved, implemented, reversed'),
+    Field(
+      'decisionStatus',
+      String,
+      'Status',
+      hint: 'Proposed, approved, implemented, reversed',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Qualities in conflict.
+  @SectionId('TODEQ')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the quality characteristics prioritised and deprioritised in a trade-off are identified',
+    ],
+    'Captures the quality attributes prioritised and deprioritised within a trade-off.',
+  )
+  @Form([
+    Field(
+      'prioritizedQuality',
+      String,
+      'Prioritized Quality',
+      required: true,
+      hint: 'Quality attribute given priority',
+    ),
+    Field(
+      'deprioritizedQuality',
+      String,
+      'Deprioritized Quality',
+      required: true,
+      hint: 'Quality attribute traded off',
+    ),
+    Field(
+      'additionalQualitiesAffected',
+      String,
+      'Additional Qualities Affected',
+      hint: 'Other qualities impacted',
+    ),
+  ])
   @SerializationOrder(1)
-  TradeOffDecisionEntryQualities qualities = TradeOffDecisionEntryQualities();
+  String? qualities;
 
   /// Rationale for trade-off.
+  @SectionId('TODER')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the business and technical rationale for a quality trade-off is documented',
+    ],
+    'Captures the business and technical rationale behind a quality trade-off decision.',
+  )
+  @Form([
+    Field(
+      'businessRationale',
+      String,
+      'Business Rationale',
+      hint: 'Business reason for trade-off',
+    ),
+    Field(
+      'technicalRationale',
+      String,
+      'Technical Rationale',
+      hint: 'Technical considerations',
+    ),
+    Field(
+      'constraintsInfluencing',
+      String,
+      'Constraints Influencing',
+      hint: 'Constraints that drove decision',
+    ),
+    Field(
+      'alternativesConsidered',
+      String,
+      'Alternatives Considered',
+      hint: 'Other approaches evaluated',
+    ),
+  ])
   @SerializationOrder(2)
-  TradeOffDecisionEntryRationale rationale = TradeOffDecisionEntryRationale();
+  String? rationale;
 
   /// Impact assessment.
+  @SectionId('TODEI')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — the impact of a quality trade-off on requirements, architecture, schedule, and cost is assessed',
+    ],
+    'Captures the assessed impact of a quality trade-off across requirements, architecture, schedule, and cost.',
+  )
+  @Form([
+    Field(
+      'impactOnRequirements',
+      String,
+      'Impact on Requirements',
+      hint: 'Requirements affected',
+    ),
+    Field(
+      'impactOnArchitecture',
+      String,
+      'Impact on Architecture',
+      hint: 'Architectural implications',
+    ),
+    Field(
+      'impactOnSchedule',
+      String,
+      'Impact on Schedule',
+      hint: 'Schedule implications',
+    ),
+    Field('impactOnCost', String, 'Impact on Cost', hint: 'Cost implications'),
+    Field(
+      'impactOnUserExperience',
+      String,
+      'Impact on User Experience',
+      hint: 'UX implications',
+    ),
+  ])
   @SerializationOrder(3)
-  TradeOffDecisionEntryImpact impact = TradeOffDecisionEntryImpact();
+  String? impact;
 
   /// Mitigation measures.
+  @SectionId('TODEM')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — measures are defined to mitigate the effect of a deprioritised quality characteristic',
+    ],
+    'Captures measures that mitigate the effect of a deprioritised quality attribute.',
+  )
+  @Form([
+    Field(
+      'mitigationMeasures',
+      String,
+      'Mitigation Measures',
+      hint: 'How deprioritized quality is mitigated',
+    ),
+    Field(
+      'acceptanceCriteria',
+      String,
+      'Acceptance Criteria',
+      hint: 'Minimum acceptable level',
+    ),
+    Field(
+      'monitoringApproach',
+      String,
+      'Monitoring Approach',
+      hint: 'How impact is monitored',
+    ),
+  ])
   @SerializationOrder(4)
-  TradeOffDecisionEntryMitigation mitigation =
-      TradeOffDecisionEntryMitigation();
+  String? mitigation;
 
   /// Approval and governance.
+  @SectionId('TODEA')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders',
+    ],
+    'Captures approval and governance details for a quality trade-off decision.',
+  )
+  @Form([
+    Field(
+      'decisionDate',
+      String,
+      'Decision Date',
+      hint: 'Date the trade-off decision was made',
+    ),
+    Field(
+      'approvedBy',
+      String,
+      'Approved By',
+      hint: 'Who approved the trade-off',
+    ),
+    Field(
+      'stakeholdersConsulted',
+      String,
+      'Stakeholders Consulted',
+      hint: 'Who was consulted',
+    ),
+    Field(
+      'reviewDate',
+      String,
+      'Review Date',
+      hint: 'When decision will be reviewed',
+    ),
+  ])
   @SerializationOrder(5)
-  TradeOffDecisionEntryApproval approval = TradeOffDecisionEntryApproval();
+  String? approval;
 
   /// Detailed trade-off analysis.
-  @ContentHelp('Extended analysis of trade-off decision including '
-      'quantitative impact assessment.')
+  @ContentHelp(
+    'Extended analysis of trade-off decision including '
+    'quantitative impact assessment.',
+  )
   @SerializationOrder(6)
   TextSection detailedAnalysis = TextSection();
-}
-
-/// Qualities in conflict for trade-off decision.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — the quality characteristics prioritised and deprioritised in a trade-off are identified',
-  ],
-  'Captures the quality attributes prioritised and deprioritised within a trade-off.',
-)
-@SectionId('TODEQ')
-class TradeOffDecisionEntryQualities {
-  @Form([
-    Field('prioritizedQuality', String, 'Prioritized Quality', required: true,
-        hint: 'Quality attribute given priority'),
-    Field('deprioritizedQuality', String, 'Deprioritized Quality', required: true,
-        hint: 'Quality attribute traded off'),
-    Field('additionalQualitiesAffected', String, 'Additional Qualities Affected',
-        hint: 'Other qualities impacted'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Rationale for trade-off decision.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — the business and technical rationale for a quality trade-off is documented',
-  ],
-  'Captures the business and technical rationale behind a quality trade-off decision.',
-)
-@SectionId('TODER')
-class TradeOffDecisionEntryRationale {
-  @Form([
-    Field('businessRationale', String, 'Business Rationale',
-        hint: 'Business reason for trade-off'),
-    Field('technicalRationale', String, 'Technical Rationale',
-        hint: 'Technical considerations'),
-    Field('constraintsInfluencing', String, 'Constraints Influencing',
-        hint: 'Constraints that drove decision'),
-    Field('alternativesConsidered', String, 'Alternatives Considered',
-        hint: 'Other approaches evaluated'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Impact assessment for trade-off decision.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — the impact of a quality trade-off on requirements, architecture, schedule, and cost is assessed',
-  ],
-  'Captures the assessed impact of a quality trade-off across requirements, architecture, schedule, and cost.',
-)
-@SectionId('TODEI')
-class TradeOffDecisionEntryImpact {
-  @Form([
-    Field('impactOnRequirements', String, 'Impact on Requirements',
-        hint: 'Requirements affected'),
-    Field('impactOnArchitecture', String, 'Impact on Architecture',
-        hint: 'Architectural implications'),
-    Field('impactOnSchedule', String, 'Impact on Schedule',
-        hint: 'Schedule implications'),
-    Field('impactOnCost', String, 'Impact on Cost',
-        hint: 'Cost implications'),
-    Field('impactOnUserExperience', String, 'Impact on User Experience',
-        hint: 'UX implications'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Mitigation measures for trade-off decision.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — measures are defined to mitigate the effect of a deprioritised quality characteristic',
-  ],
-  'Captures measures that mitigate the effect of a deprioritised quality attribute.',
-)
-@SectionId('TODEM')
-class TradeOffDecisionEntryMitigation {
-  @Form([
-    Field('mitigationMeasures', String, 'Mitigation Measures',
-        hint: 'How deprioritized quality is mitigated'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint: 'Minimum acceptable level'),
-    Field('monitoringApproach', String, 'Monitoring Approach',
-        hint: 'How impact is monitored'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Approval and governance for trade-off decision.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders',
-  ],
-  'Captures approval and governance details for a quality trade-off decision.',
-)
-@SectionId('TODEA')
-class TradeOffDecisionEntryApproval {
-  @Form([
-    Field('decisionDate', String, 'Decision Date',
-        hint: 'Date the trade-off decision was made'),
-    Field('approvedBy', String, 'Approved By',
-        hint: 'Who approved the trade-off'),
-    Field('stakeholdersConsulted', String, 'Stakeholders Consulted',
-        hint: 'Who was consulted'),
-    Field('reviewDate', String, 'Review Date',
-        hint: 'When decision will be reviewed'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.7. Acceptance Criteria Summary.
@@ -3191,27 +4148,57 @@ class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   @SectionId('ACCRSU-ACCE')
   @Form([
-    Field('acceptanceProcess', String, 'Acceptance Process',
-        hint: 'Formal UAT, continuous acceptance'),
-    Field('acceptanceAuthority', String, 'Acceptance Authority',
-        hint: 'Who signs off on acceptance'),
-    Field('acceptanceScope', String, 'Acceptance Scope',
-        hint: 'Full system, incremental, phase-based'),
-    Field('acceptanceEnvironment', String, 'Acceptance Environment',
-        hint: 'Where acceptance testing occurs'),
-    Field('acceptanceTimeline', String, 'Acceptance Timeline',
-        hint: 'Duration of acceptance period'),
-    Field('partialAcceptance', String, 'Partial Acceptance',
-        hint: 'Policy on accepting with defects'),
-    Field('acceptanceRejectionCriteria', String, 'Rejection Criteria',
-        hint: 'What triggers rejection'),
+    Field(
+      'acceptanceProcess',
+      String,
+      'Acceptance Process',
+      hint: 'Formal UAT, continuous acceptance',
+    ),
+    Field(
+      'acceptanceAuthority',
+      String,
+      'Acceptance Authority',
+      hint: 'Who signs off on acceptance',
+    ),
+    Field(
+      'acceptanceScope',
+      String,
+      'Acceptance Scope',
+      hint: 'Full system, incremental, phase-based',
+    ),
+    Field(
+      'acceptanceEnvironment',
+      String,
+      'Acceptance Environment',
+      hint: 'Where acceptance testing occurs',
+    ),
+    Field(
+      'acceptanceTimeline',
+      String,
+      'Acceptance Timeline',
+      hint: 'Duration of acceptance period',
+    ),
+    Field(
+      'partialAcceptance',
+      String,
+      'Partial Acceptance',
+      hint: 'Policy on accepting with defects',
+    ),
+    Field(
+      'acceptanceRejectionCriteria',
+      String,
+      'Rejection Criteria',
+      hint: 'What triggers rejection',
+    ),
   ])
   @SerializationOrder(0)
   String? acceptanceFrameworkContent;
 
   /// Acceptance criteria overview.
-  @ContentHelp('Overview of acceptance process, key acceptance criteria, '
-      'and acceptance governance.')
+  @ContentHelp(
+    'Overview of acceptance process, key acceptance criteria, '
+    'and acceptance governance.',
+  )
   @SerializationOrder(1)
   TextSection acceptanceOverview = TextSection();
 
@@ -3250,23 +4237,45 @@ class AcceptanceCriteriaSummary {
 class MustPassCriteria {
   @SectionId('MUPACR-MUST')
   @Form([
-    Field('mustPassPhilosophy', String, 'Must-Pass Philosophy',
-        hint: 'All must pass, weighted approach'),
-    Field('mustPassCount', int, 'Number of Must-Pass Criteria',
-        hint: 'Total count of must-pass criteria'),
-    Field('criticalityDefinition', String, 'Criticality Definition',
-        hint: 'What makes a criterion must-pass'),
-    Field('waiverProcess', String, 'Waiver Process',
-        hint: 'Can must-pass criteria be waived'),
-    Field('waiverAuthority', String, 'Waiver Authority',
-        hint: 'Who can grant waivers'),
+    Field(
+      'mustPassPhilosophy',
+      String,
+      'Must-Pass Philosophy',
+      hint: 'All must pass, weighted approach',
+    ),
+    Field(
+      'mustPassCount',
+      int,
+      'Number of Must-Pass Criteria',
+      hint: 'Total count of must-pass criteria',
+    ),
+    Field(
+      'criticalityDefinition',
+      String,
+      'Criticality Definition',
+      hint: 'What makes a criterion must-pass',
+    ),
+    Field(
+      'waiverProcess',
+      String,
+      'Waiver Process',
+      hint: 'Can must-pass criteria be waived',
+    ),
+    Field(
+      'waiverAuthority',
+      String,
+      'Waiver Authority',
+      hint: 'Who can grant waivers',
+    ),
   ])
   @SerializationOrder(0)
   String? mustPassOverviewContent;
 
   /// Must-pass criteria overview.
-  @ContentHelp('Overview of must-pass criteria approach and '
-      'rationale for selection.')
+  @ContentHelp(
+    'Overview of must-pass criteria approach and '
+    'rationale for selection.',
+  )
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
@@ -3294,133 +4303,181 @@ class MustPassCriteria {
 @SectionId('MSTPCR')
 class MustPassCriterionEntry {
   @Form([
-    Field('criterionId', String, 'Criterion ID',
-        hint: 'Unique identifier (e.g., MP-001)'),
+    Field(
+      'criterionId',
+      String,
+      'Criterion ID',
+      hint: 'Unique identifier (e.g., MP-001)',
+    ),
     Field('criterionName', String, 'Criterion Name', required: true),
-    Field('verificationMethod', String, 'Verification Method', required: true,
-        hint: 'Test, demonstration, analysis, inspection'),
+    Field(
+      'verificationMethod',
+      String,
+      'Verification Method',
+      required: true,
+      hint: 'Test, demonstration, analysis, inspection',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Classification and intent of the criterion.
+  @SectionId('MPCED')
+  @StandardReferences(
+    [
+      'ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category',
+    ],
+    'Captures the classification and intent of the criterion including its quality category and attribute.',
+  )
+  @Form([
+    Field(
+      'criterionDescription',
+      String,
+      'Description',
+      hint: 'What must be achieved',
+    ),
+    Field(
+      'qualityCategory',
+      String,
+      'Quality Category',
+      hint: 'User, Technical, Operations, Documentation',
+    ),
+    Field(
+      'qualityAttribute',
+      String,
+      'Quality Attribute',
+      hint: 'Specific attribute this relates to',
+    ),
+  ])
   @SerializationOrder(1)
-  MustPassCriterionEntryDefinition definition =
-      MustPassCriterionEntryDefinition();
+  String? definition;
 
   /// Verification and threshold details.
+  @SectionId('MPCEV')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — a verification procedure and pass or fail threshold are defined for each criterion',
+    ],
+    'Captures the verification procedure, evidence, and pass or fail threshold for a criterion.',
+  )
+  @Form([
+    Field(
+      'verificationProcedure',
+      String,
+      'Verification Procedure',
+      hint: 'Steps to verify',
+    ),
+    Field(
+      'verificationEvidence',
+      String,
+      'Verification Evidence',
+      hint: 'What evidence is required',
+    ),
+    Field(
+      'acceptanceThreshold',
+      String,
+      'Acceptance Threshold',
+      required: true,
+      hint: 'Pass/fail criteria',
+    ),
+    Field(
+      'measurementMethod',
+      String,
+      'Measurement Method',
+      hint: 'How threshold is measured',
+    ),
+    Field(
+      'toleranceAllowed',
+      String,
+      'Tolerance Allowed',
+      hint: 'Any acceptable variance',
+    ),
+  ])
   @SerializationOrder(2)
-  MustPassCriterionEntryVerification verification =
-      MustPassCriterionEntryVerification();
+  String? verification;
 
   /// Responsibility and dependency information.
+  @SectionId('MPCEG')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned',
+    ],
+    'Captures who is responsible for performing, reviewing, and approving verification of the criterion.',
+  )
+  @Form([
+    Field(
+      'responsibleParty',
+      String,
+      'Responsible Party',
+      hint: 'Who is responsible for verification',
+    ),
+    Field(
+      'reviewerParty',
+      String,
+      'Reviewer Party',
+      hint: 'Who reviews the evidence',
+    ),
+    Field(
+      'approverParty',
+      String,
+      'Approver Party',
+      hint: 'Who approves the result',
+    ),
+    Field(
+      'dependsOnCriteria',
+      String,
+      'Depends On',
+      hint: 'Other criteria this depends on',
+    ),
+    Field(
+      'blockedByCriteria',
+      String,
+      'Blocked By',
+      hint: 'Criteria that block this',
+    ),
+  ])
   @SerializationOrder(3)
-  MustPassCriterionEntryGovernance governance =
-      MustPassCriterionEntryGovernance();
+  String? governance;
 
   /// Execution status and defects.
+  @SectionId('MPCES')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — the test status and associated defects are recorded against each criterion',
+    ],
+    'Captures the execution status, test outcome, and defects recorded for a must-pass criterion.',
+  )
+  @Form([
+    Field(
+      'criterionStatus',
+      String,
+      'Status',
+      hint: 'Not tested, passed, failed, waived',
+    ),
+    Field(
+      'testDate',
+      String,
+      'Test Date',
+      hint: 'Date the criterion was tested',
+    ),
+    Field(
+      'testResult',
+      String,
+      'Test Result',
+      hint: 'Outcome of the test (pass or fail)',
+    ),
+    Field('defectIds', String, 'Defect IDs', hint: 'Defects blocking pass'),
+  ])
   @SerializationOrder(4)
-  MustPassCriterionEntryStatus status = MustPassCriterionEntryStatus();
+  String? status;
 
   /// Additional criterion details.
-  @ContentHelp('Extended description of criterion including '
-      'edge cases and special considerations.')
+  @ContentHelp(
+    'Extended description of criterion including '
+    'edge cases and special considerations.',
+  )
   @SerializationOrder(5)
   TextSection details = TextSection();
-}
-
-/// Classification and intent of the criterion.
-@StandardReferences(
-  [
-    'ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category',
-  ],
-  'Captures the classification and intent of the criterion including its quality category and attribute.',
-)
-@SectionId('MPCED')
-class MustPassCriterionEntryDefinition {
-  @Form([
-    Field('criterionDescription', String, 'Description',
-        hint: 'What must be achieved'),
-    Field('qualityCategory', String, 'Quality Category',
-        hint: 'User, Technical, Operations, Documentation'),
-    Field('qualityAttribute', String, 'Quality Attribute',
-        hint: 'Specific attribute this relates to'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Verification and threshold details.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — a verification procedure and pass or fail threshold are defined for each criterion',
-  ],
-  'Captures the verification procedure, evidence, and pass or fail threshold for a criterion.',
-)
-@SectionId('MPCEV')
-class MustPassCriterionEntryVerification {
-  @Form([
-    Field('verificationProcedure', String, 'Verification Procedure',
-        hint: 'Steps to verify'),
-    Field('verificationEvidence', String, 'Verification Evidence',
-        hint: 'What evidence is required'),
-    Field('acceptanceThreshold', String, 'Acceptance Threshold', required: true,
-        hint: 'Pass/fail criteria'),
-    Field('measurementMethod', String, 'Measurement Method',
-        hint: 'How threshold is measured'),
-    Field('toleranceAllowed', String, 'Tolerance Allowed',
-        hint: 'Any acceptable variance'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Responsibility and dependency information.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — responsibility for performing, reviewing, and approving verification is assigned',
-  ],
-  'Captures who is responsible for performing, reviewing, and approving verification of the criterion.',
-)
-@SectionId('MPCEG')
-class MustPassCriterionEntryGovernance {
-  @Form([
-    Field('responsibleParty', String, 'Responsible Party',
-        hint: 'Who is responsible for verification'),
-    Field('reviewerParty', String, 'Reviewer Party',
-        hint: 'Who reviews the evidence'),
-    Field('approverParty', String, 'Approver Party',
-        hint: 'Who approves the result'),
-    Field('dependsOnCriteria', String, 'Depends On',
-        hint: 'Other criteria this depends on'),
-    Field('blockedByCriteria', String, 'Blocked By',
-        hint: 'Criteria that block this'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Execution status and defects.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — the test status and associated defects are recorded against each criterion',
-  ],
-  'Captures the execution status, test outcome, and defects recorded for a must-pass criterion.',
-)
-@SectionId('MPCES')
-class MustPassCriterionEntryStatus {
-  @Form([
-    Field('criterionStatus', String, 'Status',
-        hint: 'Not tested, passed, failed, waived'),
-    Field('testDate', String, 'Test Date',
-        hint: 'Date the criterion was tested'),
-    Field('testResult', String, 'Test Result',
-        hint: 'Outcome of the test (pass or fail)'),
-    Field('defectIds', String, 'Defect IDs',
-        hint: 'Defects blocking pass'),
-  ])
-  @SerializationOrder(0)
-  String? content;
 }
 
 /// 11.7.2. Quality Gate Checklist.
@@ -3437,16 +4494,36 @@ class MustPassCriterionEntryStatus {
 class QualityGateChecklist {
   @SectionId('QUGACH-CHEC')
   @Form([
-    Field('checklistPurpose', String, 'Checklist Purpose',
-        hint: 'Gate review, final acceptance, milestone'),
-    Field('checklistCompleteness', String, 'Completeness Requirement',
-        hint: 'All checks required, critical only'),
-    Field('checklistReviewProcess', String, 'Review Process',
-        hint: 'Individual, committee, automated'),
-    Field('checklistSignoff', String, 'Signoff Requirement',
-        hint: 'Single, multiple signoffs'),
-    Field('checklistFrequency', String, 'Checklist Frequency',
-        hint: 'When checklist is used'),
+    Field(
+      'checklistPurpose',
+      String,
+      'Checklist Purpose',
+      hint: 'Gate review, final acceptance, milestone',
+    ),
+    Field(
+      'checklistCompleteness',
+      String,
+      'Completeness Requirement',
+      hint: 'All checks required, critical only',
+    ),
+    Field(
+      'checklistReviewProcess',
+      String,
+      'Review Process',
+      hint: 'Individual, committee, automated',
+    ),
+    Field(
+      'checklistSignoff',
+      String,
+      'Signoff Requirement',
+      hint: 'Single, multiple signoffs',
+    ),
+    Field(
+      'checklistFrequency',
+      String,
+      'Checklist Frequency',
+      hint: 'When checklist is used',
+    ),
   ])
   @SerializationOrder(0)
   String? checklistOverviewContent;
@@ -3471,155 +4548,178 @@ class QualityGateChecklist {
 }
 
 /// A quality gate check entry (form).
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it',
-  ],
-  'Defines the item being verified and the method used to verify it.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 29119 — each check defines the item being verified and the method used to verify it',
+], 'Defines the item being verified and the method used to verify it.')
 @SectionId('QGCHK')
 class QualityGateCheckEntry {
   @Form([
-    Field('checkId', String, 'Check ID',
-        hint: 'Unique identifier (e.g., QGC-001)'),
-    Field('checkItem', String, 'Check Item', required: true,
-        hint: 'What is being checked'),
-    Field('verificationMethod', String, 'Verification Method', required: true,
-        hint: 'How check is verified'),
+    Field(
+      'checkId',
+      String,
+      'Check ID',
+      hint: 'Unique identifier (e.g., QGC-001)',
+    ),
+    Field(
+      'checkItem',
+      String,
+      'Check Item',
+      required: true,
+      hint: 'What is being checked',
+    ),
+    Field(
+      'verificationMethod',
+      String,
+      'Verification Method',
+      required: true,
+      hint: 'How check is verified',
+    ),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Check definition and categorization.
+  @SectionId('QGCED')
+  @StandardReferences([
+    'ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation',
+  ], 'Categorises a check and relates it to a quality category.')
+  @Form([
+    Field(
+      'checkDescription',
+      String,
+      'Check Description',
+      hint: 'Detailed description of check',
+    ),
+    Field('checkCategory', String, 'Check Category', hint: 'Category of check'),
+    Field(
+      'qualityCategory',
+      String,
+      'Quality Category',
+      hint: 'User, Technical, Operations, Documentation',
+    ),
+  ])
   @SerializationOrder(1)
-  QualityGateCheckEntryDefinition definition =
-      QualityGateCheckEntryDefinition();
+  String? definition;
 
   /// Verification criteria and evidence.
+  @SectionId('QGCEV')
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 — pass and fail criteria and the evidence required are defined for each check',
+  ], 'Defines pass and fail criteria and the evidence required for a check.')
+  @Form([
+    Field(
+      'verificationCriteria',
+      String,
+      'Verification Criteria',
+      hint: 'Pass/fail criteria',
+    ),
+    Field(
+      'evidenceRequired',
+      String,
+      'Evidence Required',
+      hint: 'What evidence is needed',
+    ),
+    Field(
+      'automatedCheck',
+      bool,
+      'Automated Check',
+      hint: 'Is check automated',
+    ),
+  ])
   @SerializationOrder(2)
-  QualityGateCheckEntryVerification verification =
-      QualityGateCheckEntryVerification();
+  String? verification;
 
   /// Responsibility and timing.
+  @SectionId('QGCEE')
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 — responsibility, timing, and dependencies for performing a check are assigned',
+  ], 'Assigns responsibility, timing, and dependencies for performing a check.')
+  @Form([
+    Field(
+      'responsibleParty',
+      String,
+      'Responsible Party',
+      required: true,
+      hint: 'Who performs the check',
+    ),
+    Field(
+      'reviewerParty',
+      String,
+      'Reviewer Party',
+      hint: 'Who reviews the result',
+    ),
+    Field(
+      'checkTiming',
+      String,
+      'Check Timing',
+      hint: 'When check is performed',
+    ),
+    Field(
+      'checkDuration',
+      String,
+      'Check Duration',
+      hint: 'Expected time to complete',
+    ),
+    Field(
+      'checkDependencies',
+      String,
+      'Dependencies',
+      hint: 'What must be complete first',
+    ),
+  ])
   @SerializationOrder(3)
-  QualityGateCheckEntryExecution execution = QualityGateCheckEntryExecution();
+  String? execution;
 
   /// Status and observations.
+  @SectionId('QGCES')
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 — the result and observations of a check are recorded as evidence of completion',
+  ], 'Records the status, result, and observations for a gate check.')
+  @Form([
+    Field(
+      'checkStatus',
+      String,
+      'Status',
+      hint: 'Not started, in progress, passed, failed',
+    ),
+    Field(
+      'checkDate',
+      String,
+      'Check Date',
+      hint: 'Date the gate check was performed',
+    ),
+    Field(
+      'checkResult',
+      String,
+      'Check Result',
+      hint: 'Outcome of the gate check (pass or fail)',
+    ),
+    Field('checkNotes', String, 'Notes', hint: 'Additional observations'),
+  ])
   @SerializationOrder(4)
-  QualityGateCheckEntryStatus status = QualityGateCheckEntryStatus();
+  String? status;
 
   /// Blocking behavior.
-  @SerializationOrder(5)
-  QualityGateCheckEntryBlocking blocking = QualityGateCheckEntryBlocking();
-}
-
-/// Check definition and categorization.
-@StandardReferences(
-  [
-    'ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation',
-  ],
-  'Categorises a check and relates it to a quality category.',
-)
-@SectionId('QGCED')
-class QualityGateCheckEntryDefinition {
-  @Form([
-    Field('checkDescription', String, 'Check Description',
-        hint: 'Detailed description of check'),
-    Field('checkCategory', String, 'Check Category',
-        hint: 'Category of check'),
-    Field('qualityCategory', String, 'Quality Category',
-        hint: 'User, Technical, Operations, Documentation'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Verification criteria and evidence.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — pass and fail criteria and the evidence required are defined for each check',
-  ],
-  'Defines pass and fail criteria and the evidence required for a check.',
-)
-@SectionId('QGCEV')
-class QualityGateCheckEntryVerification {
-  @Form([
-    Field('verificationCriteria', String, 'Verification Criteria',
-        hint: 'Pass/fail criteria'),
-    Field('evidenceRequired', String, 'Evidence Required',
-        hint: 'What evidence is needed'),
-    Field('automatedCheck', bool, 'Automated Check',
-        hint: 'Is check automated'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Responsibility and timing.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — responsibility, timing, and dependencies for performing a check are assigned',
-  ],
-  'Assigns responsibility, timing, and dependencies for performing a check.',
-)
-@SectionId('QGCEE')
-class QualityGateCheckEntryExecution {
-  @Form([
-    Field('responsibleParty', String, 'Responsible Party', required: true,
-        hint: 'Who performs the check'),
-    Field('reviewerParty', String, 'Reviewer Party',
-        hint: 'Who reviews the result'),
-    Field('checkTiming', String, 'Check Timing',
-        hint: 'When check is performed'),
-    Field('checkDuration', String, 'Check Duration',
-        hint: 'Expected time to complete'),
-    Field('checkDependencies', String, 'Dependencies',
-        hint: 'What must be complete first'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Status and observations.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — the result and observations of a check are recorded as evidence of completion',
-  ],
-  'Records the status, result, and observations for a gate check.',
-)
-@SectionId('QGCES')
-class QualityGateCheckEntryStatus {
-  @Form([
-    Field('checkStatus', String, 'Status',
-        hint: 'Not started, in progress, passed, failed'),
-    Field('checkDate', String, 'Check Date',
-        hint: 'Date the gate check was performed'),
-    Field('checkResult', String, 'Check Result',
-        hint: 'Outcome of the gate check (pass or fail)'),
-    Field('checkNotes', String, 'Notes',
-        hint: 'Additional observations'),
-  ])
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// Blocking behavior.
-@StandardReferences(
-  [
+  @SectionId('QGCEB')
+  @StandardReferences([
     'ISO/IEC 25040:2011 — a gate check may block acceptance when the evaluated result does not meet the required level',
-  ],
-  'Captures whether a failed check blocks acceptance and the rationale.',
-)
-@SectionId('QGCEB')
-class QualityGateCheckEntryBlocking {
+  ], 'Captures whether a failed check blocks acceptance and the rationale.')
   @Form([
-    Field('isBlocking', bool, 'Is Blocking',
-        hint: 'Does failure block acceptance'),
-    Field('blockingRationale', String, 'Blocking Rationale',
-        hint: 'Why this check blocks'),
+    Field(
+      'isBlocking',
+      bool,
+      'Is Blocking',
+      hint: 'Does failure block acceptance',
+    ),
+    Field(
+      'blockingRationale',
+      String,
+      'Blocking Rationale',
+      hint: 'Why this check blocks',
+    ),
   ])
-  @SerializationOrder(0)
-  String? content;
+  @SerializationOrder(5)
+  String? blocking;
 }
 
 // ---------------------------------------------------------------------------
@@ -3629,13 +4729,10 @@ class QualityGateCheckEntryBlocking {
 /// 11.8. Test Strategy.
 ///
 /// Overall test strategy for the project..
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29119 — a test strategy defines the overall approach, test levels, and coverage for verifying the system',
-    'ISO/IEC/IEEE 29119 — testing spans unit, integration, system, and acceptance levels within an organised process',
-  ],
-  'Defines the overall testing approach, levels, and coverage for the project.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 29119 — a test strategy defines the overall approach, test levels, and coverage for verifying the system',
+  'ISO/IEC/IEEE 29119 — testing spans unit, integration, system, and acceptance levels within an organised process',
+], 'Defines the overall testing approach, levels, and coverage for the project.')
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TST')
@@ -3669,7 +4766,10 @@ quality-goal sections; this section integrates them.
 )
 @SectionId('CATEG')
 class CategoryDependencyEntry {
-  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @ContentType(
+    'text',
+    'The description for the content is provided by the doc-comment on the field declaration of this type',
+  )
   @SerializationOrder(0)
   String? content;
 }
@@ -3683,7 +4783,10 @@ class CategoryDependencyEntry {
 )
 @SectionId('ATTRI')
 class AttributeInterdependencyEntry {
-  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @ContentType(
+    'text',
+    'The description for the content is provided by the doc-comment on the field declaration of this type',
+  )
   @SerializationOrder(0)
   String? content;
 }

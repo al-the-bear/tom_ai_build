@@ -264,27 +264,35 @@ section-types:
     description: Error handling and resilience.
   ingoco:
     prefix: INGOCO
+    format: ingoco-form
     description: Contract and commercial terms.
   ingoli:
     prefix: INGOLI
+    format: ingoli-form
     description: Change management expectations.
   inopmo:
     prefix: INOPMO
+    format: inopmo-form
     description: Monitoring configuration.
   inopsu:
     prefix: INOPSU
+    format: inopsu-form
     description: Support model.
   inseau:
     prefix: INSEAU
+    format: inseau-form
     description: Authorization boundaries.
   inseco:
     prefix: INSECO
+    format: inseco-form
     description: Compliance and audit expectations.
   inseen:
     prefix: INSEEN
+    format: inseen-form
     description: Encryption controls.
   inteda:
     prefix: INTEDA
+    format: inteda-form
     description: Test data strategy.
   intes1:
     prefix: INTES1
@@ -303,9 +311,11 @@ section-types:
     description: Technical details of the interface.
   intest:
     prefix: INTEST
+    format: intest-form
     description: Validation approach across test layers.
   inwesp:
     prefix: INWESP
+    format: inwesp-form
     description: Webhook/callback configurations if applicable.
   ouofsc:
     prefix: OUOFSC
@@ -321,15 +331,19 @@ section-types:
     description: Standard TomSpecs document header.
   oosed:
     prefix: OOSED
+    format: oosed-form
     description: Decision history and future reconsideration.
   oosem:
     prefix: OOSEM
+    format: oosem-form
     description: Alternatives and inclusion risk.
   baer:
     prefix: BAER
+    format: baer-form
     description: Risk framing and contingency planning.
   baev:
     prefix: BAEV
+    format: baev-form
     description: Validation ownership and confidence.
   boas:
     prefix: BOAS
@@ -348,12 +362,15 @@ section-types:
     description: External interfaces.
   iehf:
     prefix: IEHF
+    format: iehf-form
     description: Fallback behavior and manual recovery.
   iehr:
     prefix: IEHR
+    format: iehr-form
     description: Non-retryable errors and retry strategy.
   ieht:
     prefix: IEHT
+    format: ieht-form
     description: Connection and transaction timeouts.
   ingo:
     prefix: INGO
@@ -387,12 +404,15 @@ section-types:
     description: Testing and environment information.
   iorl:
     prefix: IORL
+    format: iorl-form
     description: Rate limiting rules.
   itsc:
     prefix: ITSC
+    format: itsc-form
     description: Directionality and messaging pattern.
   itse:
     prefix: ITSE
+    format: itse-form
     description: Endpoint and documentation references.
   is:
     prefix: IS
@@ -426,6 +446,204 @@ form-types:
         description: Relative importance of this interface
       - fieldname: status
         description: Lifecycle status of the interface
+  itsc-form:
+    fields:
+      - fieldname: direction
+        description: Flow direction relative to our system
+      - fieldname: initiator
+        description: Which side initiates the exchange
+      - fieldname: communicationStyle
+        description: Synchronicity style of communication
+      - fieldname: deliveryGuarantee
+        description: Message delivery guarantee provided
+  itse-form:
+    fields:
+      - fieldname: baseEndpoint
+        description: Primary base URL of the interface
+      - fieldname: apiVersion
+        description: Version of the API consumed
+      - fieldname: documentationUrl
+        description: Link to the external API documentation
+      - fieldname: sandboxEndpoint
+        description: Base URL of the sandbox/test environment
+  inwesp-form:
+    fields:
+      - fieldname: webhooksUsed
+        description: Whether the interface uses webhooks/callbacks
+      - fieldname: webhookEndpoint
+        description: Our endpoint that receives callbacks
+      - fieldname: eventTypes
+        description: Event types delivered via webhook
+      - fieldname: signatureVerification
+        description: How webhook authenticity is verified
+      - fieldname: retryPolicy
+        description: External retry behavior on delivery failure
+      - fieldname: idempotencyHandling
+        description: How duplicate webhook deliveries are handled
+  inseau-form:
+    fields:
+      - fieldname: authorizationModel
+        description: Authorization model governing access
+      - fieldname: scopesPermissions
+        description: Scopes or permissions required to call
+      - fieldname: ipWhitelisting
+        description: Whether IP allowlisting is enforced
+  inseen-form:
+    fields:
+      - fieldname: encryptionInTransit
+        description: Encryption applied to data in transit
+      - fieldname: encryptionAtRest
+        description: Encryption applied to data at rest
+      - fieldname: fieldLevelEncryption
+        description: Field-level encryption for sensitive data
+  inseco-form:
+    fields:
+      - fieldname: complianceRequirements
+        description: Compliance regimes the interface must meet
+      - fieldname: auditLogging
+        description: Audit logging the interface must produce
+      - fieldname: dataResidency
+        description: Geographic data residency constraints
+  iorl-form:
+    fields:
+      - fieldname: rateLimits
+        description: Sustained request-rate limit
+      - fieldname: quotaLimits
+        description: Longer-period quota limit
+      - fieldname: burstCapacity
+        description: Short-term burst allowance
+  inopmo-form:
+    fields:
+      - fieldname: healthCheckEndpoint
+        description: Endpoint used for health checks
+      - fieldname: statusPageUrl
+        description: External status page for the system
+      - fieldname: monitoringApproach
+        description: How the interface is monitored
+      - fieldname: alertingThresholds
+        description: Thresholds that trigger alerts
+  inopsu-form:
+    fields:
+      - fieldname: supportHours
+        description: Hours during which support is available
+      - fieldname: supportContact
+        description: Primary support contact
+      - fieldname: incidentProcess
+        description: Process for raising incidents
+      - fieldname: escalationPath
+        description: Escalation path for unresolved issues
+  iehr-form:
+    fields:
+      - fieldname: fatalErrors
+        description: Errors that must not be retried
+      - fieldname: retryStrategy
+        description: Strategy used when retrying
+      - fieldname: maxRetries
+        description: Maximum number of retry attempts
+      - fieldname: retryInterval
+        description: Delay between retry attempts
+      - fieldname: circuitBreakerConfig
+        description: Circuit-breaker thresholds and behavior
+  iehf-form:
+    fields:
+      - fieldname: fallbackBehavior
+        description: Behavior when the interface fails
+      - fieldname: degradedMode
+        description: How the system runs in degraded mode
+      - fieldname: manualRecovery
+        description: Manual steps to recover from failure
+  ieht-form:
+    fields:
+      - fieldname: connectionTimeout
+        description: Timeout for establishing a connection
+      - fieldname: readTimeout
+        description: Timeout for reading a response
+      - fieldname: overallTimeout
+        description: Total timeout for the whole transaction
+  ingoco-form:
+    fields:
+      - fieldname: contractType
+        description: Type of contract in place
+      - fieldname: contractExpiry
+        description: When the contract expires
+      - fieldname: renewalTerms
+        description: Terms governing renewal
+      - fieldname: costModel
+        description: How usage is billed
+      - fieldname: estimatedCost
+        description: Estimated recurring cost
+  ingoli-form:
+    fields:
+      - fieldname: versioningStrategy
+        description: How the interface is versioned
+      - fieldname: deprecationPolicy
+        description: Policy for deprecating versions
+      - fieldname: changeNotificationLead
+        description: Notice given before changes
+      - fieldname: breakingChangePolicy
+        description: How breaking changes are handled
+  inteda-form:
+    fields:
+      - fieldname: testDataApproach
+        description: How test data is sourced or generated
+      - fieldname: syntheticDataSupport
+        description: Whether synthetic test data is supported
+      - fieldname: productionMirror
+        description: Whether production data is mirrored for tests
+  intest-form:
+    fields:
+      - fieldname: unitTestApproach
+        description: Approach to unit testing the interface
+      - fieldname: integrationTestApproach
+        description: Approach to integration testing
+      - fieldname: contractTestApproach
+        description: Approach to contract testing
+      - fieldname: e2eTestApproach
+        description: Approach to end-to-end testing
+      - fieldname: performanceTestApproach
+        description: Approach to performance testing
+  oosed-form:
+    fields:
+      - fieldname: requestedBy
+        description: Stakeholder who originally requested this item
+      - fieldname: decisionMaker
+        description: Person who decided to exclude the item
+      - fieldname: decisionDate
+        description: When the exclusion decision was made
+      - fieldname: futureConsideration
+        description: Whether the item may be revisited later
+      - fieldname: targetPhase
+        description: Project phase when the item might be reconsidered
+  oosem-form:
+    fields:
+      - fieldname: alternativeSolution
+        description: Substitute approach for the excluded capability
+      - fieldname: riskIfIncluded
+        description: Risk that would arise if the item were added to scope
+  baev-form:
+    fields:
+      - fieldname: rationale
+        description: Reasoning or evidence supporting the assumption
+      - fieldname: owner
+        description: Person responsible for validating the assumption
+      - fieldname: validationMethod
+        description: How the assumption will be checked
+      - fieldname: validationDate
+        description: When validation is expected to be completed
+      - fieldname: validationStatus
+        description: Current validation state of the assumption
+      - fieldname: confidence
+        description: How confident the team is the assumption holds
+  baer-form:
+    fields:
+      - fieldname: riskIfWrong
+        description: What happens if the assumption proves false
+      - fieldname: riskImpact
+        description: Severity of the impact if the assumption fails
+      - fieldname: contingencyPlan
+        description: Planned response if the assumption is invalidated
+      - fieldname: relatedRiskId
+        description: Identifier of the linked risk register entry
 document:
   sections:
     dochd:

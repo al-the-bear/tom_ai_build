@@ -7,9 +7,10 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
 import 'delivery_roadmap.dart';
 import 'experience_and_interface_design.dart'
-    show LocalizationProcess, LocaleRolloutPlan, TranslationProcess;
+    show LocalizationProcess, TranslationProcess;
 import 'transition_and_rollout_plan.dart';
 
 /// SBP.15 Delivery, Transition & Rollout.
@@ -43,9 +44,39 @@ class DeliveryTransitionAndRollout {
       LocalizationTranslationProcess();
 
   /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
+  @SectionId('LOCRP')
+  @StandardReferences(
+    [
+      'ISO 3166 — country and region codes define the geographic rollout order',
+      'ISO 8601 — the standard representation for the rollout timeline and schedule',
+    ],
+    'The rollout strategy, timeline, and regional sequencing for locale availability.',
+  )
+  @MapsTo(D12TransitionRolloutPlan)
+  @DetailedIn(D12TransitionRolloutPlan)
+  @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-RLP')
+  @Form([
+    Field(
+      'rolloutStrategy',
+      String,
+      'Rollout Strategy',
+      hint: 'Big bang, phased, pilot',
+    ),
+    Field(
+      'rolloutTimeline',
+      String,
+      'Rollout Timeline',
+      hint: 'High-level rollout schedule',
+    ),
+    Field(
+      'rolloutRegions',
+      String,
+      'Rollout Regions',
+      hint: 'Geographic rollout order',
+    ),
+  ])
   @SerializationOrder(4)
-  LocaleRolloutPlan localeRolloutPlan =
-      LocaleRolloutPlan();
+  String? localeRolloutPlan;
 }
 
 /// Localization & Translation execution processes.

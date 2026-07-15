@@ -376,12 +376,15 @@ section-types:
     description: UI specification form.
   sereencl:
     prefix: SEREENCL
+    format: sereencl-form
     description: Category and classification.
   sereenco:
     prefix: SEREENCO
+    format: sereenco-form
     description: Compliance framework mapping.
   sereenst:
     prefix: SEREENST
+    format: sereenst-form
     description: Status and ownership.
   sr1-summ:
     prefix: SR1_SUMM
@@ -420,54 +423,70 @@ section-types:
     description: Define test cases that verify requirement implementation.
   retrar:
     prefix: RETRAR
+    format: retrar-form
     description: Linked artifacts and test coverage references.
   retrim:
     prefix: RETRIM
+    format: retrim-form
     description: Implementation and deployment tracking.
   scfico:
     prefix: SCFICO
+    format: scfico-form
     description: Conditional behavior.
   scfila:
     prefix: SCFILA
+    format: scfila-form
     description: UI and layout.
   scfiva:
     prefix: SCFIVA
+    format: scfiva-form
     description: Validation rules.
   dochd:
     prefix: DOCHD
     description: Standard TomSpecs document header.
   rtcea:
     prefix: RTCEA
+    format: rtcea-form
     description: Automation and prioritization details.
   rtcee:
     prefix: RTCEE
+    format: rtcee-form
     description: Test execution details.
   frec:
     prefix: FREC
+    format: frec-form
     description: Assumptions and constraints.
   fred:
     prefix: FRED
+    format: fred-form
     description: "Requirement details: description, type, category."
   frem:
     prefix: FREM
+    format: frem-form
     description: Version metadata.
   frep:
     prefix: FREP
+    format: frep-form
     description: Priority and effort assessment.
   fres:
     prefix: FRES
+    format: fres-form
     description: Source and rationale.
   frev:
     prefix: FREV
+    format: frev-form
     description: Verification criteria.
   orec:
     prefix: OREC
+    format: orec-form
     description: Requirement classification and source.
   orei:
     prefix: OREI
+    format: orei-form
     description: Impact and change profile.
   orep:
     prefix: OREP
+    format: orep-form
     description: "Planning, ownership, and success tracking."
   orip:
     prefix: ORIP
@@ -479,9 +498,11 @@ section-types:
     description: Define the implementation approach for this organizational change requirement.
   scei:
     prefix: SCEI
+    format: scei-form
     description: Control implementation details.
   scev:
     prefix: SCEV
+    format: scev-form
     description: Testing and lifecycle status.
   seco:
     prefix: SECO
@@ -491,24 +512,31 @@ section-types:
     description: Define security controls that implement this requirement.
   sfdb:
     prefix: SFDB
+    format: sfdb-form
     description: Data binding and defaults.
   srev:
     prefix: SREV
+    format: srev-form
     description: Implementation and verification.
   trec:
     prefix: TREC
+    format: trec-form
     description: Assumptions and constraints.
   tred:
     prefix: TRED
+    format: tred-form
     description: "Requirement details: description, category, priority."
   trei:
     prefix: TREI
+    format: trei-form
     description: Impact assessment.
   trem:
     prefix: TREM
+    format: trem-form
     description: Measurement specifications.
   trev:
     prefix: TREV
+    format: trev-form
     description: Verification approach and tools.
   rac:
     prefix: RAC
@@ -602,6 +630,59 @@ form-types:
         description: Count of Won't-Have-This-Time functional requirements
       - fieldname: coverageNote
         description: Notes on coverage and any gaps in the requirement set
+  fred-form:
+    fields:
+      - fieldname: description
+        required: true
+        description: Detailed "the system shall..." statement of the requirement
+      - fieldname: requirementType
+        description: "Feature, User Story, Business Rule, Report, Integration, etc."
+      - fieldname: category
+        description: Functional-area grouping for this requirement
+  frep-form:
+    fields:
+      - fieldname: priority
+        required: true
+        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+      - fieldname: businessValue
+        description: High / Medium / Low benefit to the business
+      - fieldname: effort
+        description: "Estimated effort: Small, Medium, Large, or XLarge"
+      - fieldname: riskLevel
+        description: High / Medium / Low risk of not meeting the requirement
+  fres-form:
+    fields:
+      - fieldname: source
+        required: true
+        description: "Who requested it: stakeholder name, workshop, or document"
+      - fieldname: requestDate
+        description: Date the requirement was requested
+      - fieldname: rationale
+        description: Why this requirement is needed
+  frev-form:
+    fields:
+      - fieldname: fitCriterion
+        description: Measurable condition that must hold for acceptance
+      - fieldname: customerSatisfaction
+        description: 1-5 scale of satisfaction if the requirement is delivered
+      - fieldname: customerDissatisfaction
+        description: 1-5 scale of dissatisfaction if it is NOT delivered
+  frec-form:
+    fields:
+      - fieldname: assumptions
+        description: Conditions assumed to be true for this requirement
+      - fieldname: constraints
+        description: Limitations on how the requirement may be implemented
+      - fieldname: conflictsWith
+        description: IDs of requirements this one conflicts with
+  frem-form:
+    fields:
+      - fieldname: version
+        description: Version number of this requirement
+      - fieldname: lastModified
+        description: Date the requirement was last modified
+      - fieldname: modifiedBy
+        description: Who last modified the requirement
   rus-uifo-form:
     fields:
       - fieldname: screenName
@@ -614,6 +695,58 @@ form-types:
         description: Roles allowed to access this screen
       - fieldname: responsiveBreakpoints
         description: "Responsive breakpoints: mobile, tablet, desktop"
+  sfdb-form:
+    fields:
+      - fieldname: dataBinding
+        description: Entity.attribute the field binds to
+      - fieldname: defaultValue
+        description: Default value for the field
+      - fieldname: placeholder
+        description: Placeholder text shown when empty
+      - fieldname: helpText
+        description: Help text or tooltip for the field
+  scfico-form:
+    fields:
+      - fieldname: required
+        description: "Yes, No, or Conditional"
+      - fieldname: requiredCondition
+        description: Condition under which the field is required
+      - fieldname: readOnly
+        description: "Yes, No, or Conditional"
+      - fieldname: readOnlyCondition
+        description: Condition under which the field is read-only
+      - fieldname: visible
+        description: "Yes, No, or Conditional"
+      - fieldname: visibilityCondition
+        description: Condition under which the field is visible
+  scfiva-form:
+    fields:
+      - fieldname: minLength
+        description: Minimum allowed input length
+      - fieldname: maxLength
+        description: Maximum allowed input length
+      - fieldname: minValue
+        description: Minimum allowed value
+      - fieldname: maxValue
+        description: Maximum allowed value
+      - fieldname: pattern
+        description: Regular expression the input must match
+      - fieldname: validationMessage
+        description: Message shown when validation fails
+  scfila-form:
+    fields:
+      - fieldname: dropdownSource
+        description: "Where dropdown options come from: static, API, or entity"
+      - fieldname: dropdownValues
+        description: Static list of dropdown values
+      - fieldname: dependsOn
+        description: Field IDs that affect this field
+      - fieldname: width
+        description: "full, half, third, quarter, or custom"
+      - fieldname: order
+        description: Order in which the field is displayed
+      - fieldname: grouping
+        description: Group or section the field belongs to
   rt-trac-form:
     fields:
       - fieldname: relatedGoals
@@ -624,6 +757,41 @@ form-types:
         description: IDs of related business processes
       - fieldname: relatedUserStories
         description: "Related user stories, if using Agile"
+  retrar-form:
+    fields:
+      - fieldname: relatedScreens
+        description: UI screens or views related to this requirement
+      - fieldname: relatedDataEntities
+        description: Data entities related to this requirement
+      - fieldname: relatedTestCases
+        description: IDs of test cases covering this requirement
+      - fieldname: relatedDocuments
+        description: Related documents or other artifacts
+  retrim-form:
+    fields:
+      - fieldname: implementationComponent
+        description: Module or service that implements the requirement
+      - fieldname: implementationStatus
+        description: "Not Started, In Progress, or Done"
+      - fieldname: deploymentVersion
+        description: Version in which the requirement first ships
+  rtcee-form:
+    fields:
+      - fieldname: testSteps
+        description: Ordered steps to execute the test
+      - fieldname: testData
+        description: Data used when running the test
+      - fieldname: expectedResult
+        required: true
+        description: Expected outcome of the test
+  rtcea-form:
+    fields:
+      - fieldname: automationStatus
+        description: "Automated, Manual, or To Be Automated"
+      - fieldname: automationScript
+        description: Reference to the automation script
+      - fieldname: priority
+        description: "Critical, High, Medium, or Low"
   tr1-summ-form:
     fields:
       - fieldname: totalTechnicalRequirements
@@ -638,6 +806,61 @@ form-types:
         description: Number of requirements at Low priority
       - fieldname: architectureDrivers
         description: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users"
+  tred-form:
+    fields:
+      - fieldname: description
+        required: true
+        description: "Full requirement statement, e.g., The system shall respond within 100ms"
+      - fieldname: category
+        required: true
+        description: ISO 25010 quality characteristic the requirement addresses
+      - fieldname: subcategory
+        description: "More specific aspect, e.g., response time within Performance"
+      - fieldname: priority
+        required: true
+        description: "Critical, High, Medium, or Low"
+      - fieldname: source
+        required: true
+        description: "Stakeholder, document, or standard that originated it"
+      - fieldname: rationale
+        description: Why this requirement is needed
+  trem-form:
+    fields:
+      - fieldname: metric
+        description: "e.g., p95 response time, throughput, uptime percentage"
+      - fieldname: currentValue
+        description: "Present-day measured value, if known"
+      - fieldname: targetValue
+        required: true
+        description: "Required threshold the metric must meet, e.g., < 100ms"
+      - fieldname: measurementMethod
+        description: "How the metric is captured, e.g., APM instrumentation"
+      - fieldname: measurementEnvironment
+        description: "Where measured: production, staging, or load test"
+      - fieldname: measurementFrequency
+        description: "How often measured, e.g., continuous, per release"
+  trev-form:
+    fields:
+      - fieldname: verificationApproach
+        description: "Test, inspection, analysis, or demonstration"
+      - fieldname: verificationTool
+        description: "Tool used to verify, e.g., load testing framework"
+      - fieldname: verificationTiming
+        description: "When verified: unit, integration, acceptance, or production"
+  trei-form:
+    fields:
+      - fieldname: architectureImpact
+        description: How satisfying this shapes the system design
+      - fieldname: estimatedEffort
+        description: "Rough effort to implement, e.g., 2 sprints"
+      - fieldname: riskIfNotMet
+        description: Consequence if the requirement is not satisfied
+  trec-form:
+    fields:
+      - fieldname: assumptions
+        description: Conditions assumed true for the requirement to hold
+      - fieldname: constraints
+        description: "Limits or boundaries that apply, e.g., fixed infrastructure"
   sr1-summ-form:
     fields:
       - fieldname: totalSecurityRequirements
@@ -654,6 +877,72 @@ form-types:
         description: Regulations the system must comply with
       - fieldname: threatCategories
         description: Classes of attack the requirements mitigate
+  sereencl-form:
+    fields:
+      - fieldname: category
+        required: true
+        description: Security domain the requirement falls under
+      - fieldname: subcategory
+        description: More specific aspect within the category
+      - fieldname: priority
+        required: true
+        description: "Critical, High, Medium, or Low"
+      - fieldname: source
+        required: true
+        description: "Stakeholder, standard, or document that originated it"
+      - fieldname: rationale
+        description: Why this security requirement is needed
+      - fieldname: threatMitigated
+        description: Attack or risk this requirement prevents
+      - fieldname: dataClassification
+        description: Sensitivity of data the requirement protects
+  sereenco-form:
+    fields:
+      - fieldname: owaspCategory
+        description: "OWASP Top 10 / ASVS category, if applicable"
+      - fieldname: cisControl
+        description: "Matching CIS Control number, if applicable"
+      - fieldname: nistControl
+        description: "Matching NIST SP 800-53 control, if applicable"
+      - fieldname: iso27001Control
+        description: "Matching ISO 27001 Annex A control, if applicable"
+      - fieldname: complianceReference
+        description: "Specific regulation clause, e.g., GDPR Art. 32"
+  srev-form:
+    fields:
+      - fieldname: implementationApproach
+        description: How the requirement will be technically realized
+      - fieldname: verificationMethod
+        description: "How conformance is checked, e.g., penetration test"
+      - fieldname: verificationFrequency
+        description: "How often verified: continuous, release, quarterly, annual"
+  sereenst-form:
+    fields:
+      - fieldname: residualRisk
+        description: Risk remaining once controls are applied
+      - fieldname: riskOwner
+        description: Person or role accountable for the residual risk
+      - fieldname: status
+        required: true
+        description: "Draft, Proposed, Approved, Implemented, or Verified"
+  scei-form:
+    fields:
+      - fieldname: description
+        description: What the control does
+      - fieldname: implementationDetails
+        description: How the control is configured or deployed
+      - fieldname: effectiveDate
+        description: Date the control becomes active
+  scev-form:
+    fields:
+      - fieldname: testFrequency
+        description: How often the control is tested
+      - fieldname: lastTestDate
+        description: Date the control was last tested
+      - fieldname: testResult
+        description: Outcome of the most recent test
+      - fieldname: status
+        description: "Planned, Implemented, Active, or Retired"
   or-summ-form:
     fields:
       - fieldname: totalOrgRequirements
@@ -670,6 +959,50 @@ form-types:
         description: Number of communication requirements
       - fieldname: changeReadinessScore
         description: Assessed readiness of the organization to adopt the change
+  orec-form:
+    fields:
+      - fieldname: category
+        required: true
+        description: Type of organizational change the requirement entails
+      - fieldname: subcategory
+        description: More specific aspect within the category
+      - fieldname: priority
+        required: true
+        description: "MoSCoW priority: Must, Should, Could, or Won't-This-Time"
+      - fieldname: source
+        required: true
+        description: Stakeholder or document that originated it
+      - fieldname: rationale
+        description: Why this organizational change is needed
+  orei-form:
+    fields:
+      - fieldname: impactedGroups
+        description: "Departments, roles, or user categories affected"
+      - fieldname: impactedUserCount
+        description: Approximate number of people affected
+      - fieldname: changeType
+        description: "Behavioral, Procedural, Structural, or Cultural"
+      - fieldname: changeComplexity
+        description: "Low, Medium, or High"
+      - fieldname: resistance
+        description: "Anticipated resistance: Low, Medium, or High"
+  orep-form:
+    fields:
+      - fieldname: timeline
+        description: When the change must be completed
+      - fieldname: dependencies
+        description: Other changes that must happen first
+      - fieldname: owner
+        description: Person or role accountable for the change
+      - fieldname: sponsor
+        description: Leadership sponsor backing the change
+      - fieldname: successCriteria
+        description: How success of the change is defined
+      - fieldname: measurementMethod
+        description: How success criteria are measured
+      - fieldname: status
+        required: true
+        description: "Draft, Proposed, Approved, In Progress, or Completed"
   orip-plan-form:
     fields:
       - fieldname: approach

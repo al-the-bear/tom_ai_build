@@ -16,10 +16,7 @@ import 'project_process_adjustments.dart';
 
 /// SBP.4 Stakeholders & Governance.
 @StandardReferences(
-  [
-    'BABOK v3 — stakeholder analysis',
-    'PMBOK — project governance',
-  ],
+  ['BABOK v3 — stakeholder analysis', 'PMBOK — project governance'],
   'Who has a stake in the project and how it is governed: steering, RACI, '
   'communication, change control, and legal/contractual framing.',
 )
@@ -36,8 +33,79 @@ from standard organizational project governance procedures.
 
   /// Governance overview summary statistics (folded in from the former
   /// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+  @SectionId('ADMSM')
+  @StandardReferences(
+    [
+      'PMBOK — project governance & organizational structure',
+      'ISO 21500 — project management (governance, roles & responsibilities)',
+    ],
+    'An at-a-glance roll-up of the project administration: team size, governance '
+    'model, key decision-maker, and meeting cadence.',
+  )
+  @Form([
+    Field(
+      'totalTeamMembers',
+      int,
+      'Total Team Members',
+      hint: 'Number of people assigned to the project',
+    ),
+    Field(
+      'internalResources',
+      int,
+      'Internal Resources',
+      hint: 'Number of internal staff',
+    ),
+    Field(
+      'externalResources',
+      int,
+      'External Resources',
+      hint: 'Number of contractors, consultants, vendors',
+    ),
+    Field(
+      'steeringCommitteeSize',
+      int,
+      'Steering Committee Size',
+      hint: 'Number of steering committee members',
+    ),
+    Field(
+      'distributionListSize',
+      int,
+      'Distribution List Size',
+      hint: 'Total recipients across all distribution lists',
+    ),
+    Field(
+      'referenceDocumentsCount',
+      int,
+      'Reference Documents Count',
+      hint: 'Number of referenced documents',
+    ),
+    Field(
+      'keyDecisionMaker',
+      String,
+      'Key Decision Maker',
+      hint: 'Primary authority for project decisions',
+    ),
+    Field(
+      'projectManagerName',
+      String,
+      'Project Manager',
+      hint: 'Name of the project manager',
+    ),
+    Field(
+      'governanceModel',
+      String,
+      'Governance Model',
+      hint: 'Type of governance structure in place',
+    ),
+    Field(
+      'meetingCadenceOverview',
+      String,
+      'Meeting Cadence Overview',
+      hint: 'Summary of regular meetings and frequency',
+    ),
+  ])
   @SerializationOrder(1)
-  AdministrativeSummary summary = AdministrativeSummary();
+  String? summary;
 
   /// Governance, steering committee, RACI, process deviations.
   @SerializationOrder(2)

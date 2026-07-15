@@ -733,21 +733,27 @@ section-types:
     description: Add one entry per compliance requirement.
   fuencl:
     prefix: FUENCL
+    format: fuencl-form
     description: Decomposition position and classification.
   fuenim:
     prefix: FUENIM
+    format: fuenim-form
     description: Automation and data handling summary.
   fuenop:
     prefix: FUENOP
+    format: fuenop-form
     description: Execution profile and criticality.
   boaed:
     prefix: BOAED
+    format: boaed-form
     description: Format and requirement details.
   boaeg:
     prefix: BOAEG
+    format: boaeg-form
     description: Sensitivity and presentation guidance.
   boaev:
     prefix: BOAEV
+    format: boaev-form
     description: Validation and derivation rules.
   datcl:
     prefix: DATCL
@@ -768,12 +774,15 @@ section-types:
     description: Entity relationships.
   keagn:
     prefix: KEAGN
+    format: keagn-form
     description: Key generation settings.
   keagv:
     prefix: KEAGV
+    format: keagv-form
     description: Constraint semantics and business meaning.
   kearf:
     prefix: KEARF
+    format: kearf-form
     description: Foreign-key reference and cascade behavior.
   dadi:
     prefix: DADI
@@ -783,21 +792,27 @@ section-types:
     description: Integrity constraints.
   ltec:
     prefix: LTEC
+    format: ltec-form
     description: Transition conditions and guarantees.
   ltee:
     prefix: LTEE
+    format: ltee-form
     description: "Actions, actors, and rollback handling."
   ltet:
     prefix: LTET
+    format: ltet-form
     description: Triggering event details.
   ooee:
     prefix: OOEE
+    format: ooee-form
     description: Execution contract for this operation.
   ooeg:
     prefix: OOEG
+    format: ooeg-form
     description: Authorization and usage boundaries.
   ooel:
     prefix: OOEL
+    format: ooel-form
     description: State and event lifecycle details.
   vaco:
     prefix: VACO
@@ -923,6 +938,28 @@ form-types:
         description: Upstream sources that feed this attribute
       - fieldname: qualityRules
         description: "Data quality checks (e.g., completeness, accuracy)"
+  keagn-form:
+    fields:
+      - fieldname: generationStrategy
+        description: "Auto | Sequence | UUID | ULID | Custom | Natural"
+      - fieldname: sequenceName
+        description: Database sequence name if applicable
+      - fieldname: isNaturalKey
+        description: "Whether key has business meaning: Yes | No"
+  kearf-form:
+    fields:
+      - fieldname: referencedEntity
+        description: "For foreign keys: target entity name"
+      - fieldname: referencedKey
+        description: "For foreign keys: target key/column name"
+      - fieldname: onDeleteAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault"
+      - fieldname: onUpdateAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault"
+  keagv-form:
+    fields:
+      - fieldname: deferrable
+        description: "Whether constraint check can be deferred: Yes | No"
   enrle-iden-form:
     fields:
       - fieldname: relationshipName
@@ -1096,6 +1133,102 @@ form-types:
         description: "Optimistic | Pessimistic | None"
       - fieldname: auditTrail
         description: "What changes are tracked: None | StateChanges | AllChanges | FullHistory"
+  boaed-form:
+    fields:
+      - fieldname: format
+        description: "Business format (e.g., currency, percentage, phone)"
+      - fieldname: mandatory
+        description: "Required | Optional | ConditionallyRequired"
+      - fieldname: defaultValue
+        description: Default value or derivation
+  boaev-form:
+    fields:
+      - fieldname: validationRules
+        description: Business validation rules
+      - fieldname: allowedValues
+        description: Enumerated values or range
+      - fieldname: businessRules
+        description: Rules affecting this attribute
+      - fieldname: derivation
+        description: How value is derived if calculated
+  boaeg-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: "Public | Internal | Confidential | PII | PHI"
+      - fieldname: displayOrder
+        description: Order for UI presentation
+  ltet-form:
+    fields:
+      - fieldname: trigger
+        description: What initiates this transition
+      - fieldname: triggerType
+        description: "UserAction | SystemEvent | Timer | ExternalEvent"
+  ltec-form:
+    fields:
+      - fieldname: guardConditions
+        description: Conditions that must be true for transition
+      - fieldname: preConditions
+        description: What must be true before transition
+      - fieldname: postConditions
+        description: What is guaranteed after transition
+  ltee-form:
+    fields:
+      - fieldname: actions
+        description: Actions performed during transition
+      - fieldname: sideEffects
+        description: "Events published, notifications sent"
+      - fieldname: allowedActors
+        description: Who can trigger this transition
+      - fieldname: rollbackStrategy
+        description: How to handle transition failure
+  ooee-form:
+    fields:
+      - fieldname: preconditions
+        description: What must be true before operation
+      - fieldname: postconditions
+        description: What is guaranteed after operation
+      - fieldname: inputParameters
+        description: Required inputs for this operation
+      - fieldname: outputResult
+        description: What the operation returns
+  ooel-form:
+    fields:
+      - fieldname: businessRulesApplied
+        description: Rules evaluated during operation
+      - fieldname: stateTransitions
+        description: Possible state changes
+      - fieldname: eventsPublished
+        description: Domain events triggered
+  ooeg-form:
+    fields:
+      - fieldname: allowedInStates
+        description: States where operation is permitted
+      - fieldname: authorization
+        description: Who can perform this operation
+      - fieldname: idempotent
+        description: "Whether operation is idempotent: Yes | No"
+  fuencl-form:
+    fields:
+      - fieldname: level
+        description: "Hierarchy level: 1 | 2 | 3 etc."
+      - fieldname: functionType
+        description: "Operational | Support | Management | Information"
+      - fieldname: owningProcess
+        description: Business process this belongs to
+  fuenop-form:
+    fields:
+      - fieldname: frequency
+        description: "How often executed: Continuous | Daily | OnDemand | Periodic"
+      - fieldname: volumeEstimate
+        description: Estimated execution frequency/volume
+      - fieldname: criticalityLevel
+        description: "Business criticality: Critical | High | Medium | Low"
+  fuenim-form:
+    fields:
+      - fieldname: automationLevel
+        description: "Manual | SemiAutomated | FullyAutomated"
+      - fieldname: dataAccess
+        description: Summary of data entities accessed with CRUD
   biru-iden-form:
     fields:
       - fieldname: ruleId
