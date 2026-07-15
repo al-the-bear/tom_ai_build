@@ -170,6 +170,7 @@ class SomMetaNode:
         type_name: str,
         member_name: Optional[str] = None,
         section_id: Optional[str] = None,
+        class_section_id: Optional[str] = None,
         section_id_pattern: Optional[str] = None,
         serialization_order: Optional[int] = None,
         min: Optional[int] = None,
@@ -196,8 +197,16 @@ class SomMetaNode:
         #: The exact field name in the parent class, or ``None`` on the
         #: document root and on list element subtrees.
         self.member_name = member_name
-        #: The effective ``@SectionId`` (field-level wins over class-level).
+        #: The effective **field-level** ``@SectionId``. Kept field-level so the
+        #: tree's path grammar (:attr:`segment`) stays byte-compatible with the
+        #: document store; the target class's own id (for a section/complex node
+        #: whose field carries no id) is carried separately in
+        #: :attr:`class_section_id`.
         self.section_id = section_id
+        #: The target class's own ``@SectionId`` (root/section/complex nodes),
+        #: the DR1 §2.2 fallback for a display/mapping key when
+        #: :attr:`section_id` is ``None``. Never enters :attr:`segment`.
+        self.class_section_id = class_section_id
         #: The ``@SectionIdPattern`` on a list field (item ids), when any.
         self.section_id_pattern = section_id_pattern
         #: The structural kind of the node.

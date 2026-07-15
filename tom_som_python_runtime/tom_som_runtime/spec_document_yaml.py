@@ -108,11 +108,21 @@ class SpecYamlContents:
 
 
 def node_key(node: SomMetaNode) -> str:
-    """The mapping key a metadata node writes (DR1 §2.2): its effective
-    section id, one space, then the exact member name (class name on the
-    document root); just the name when the node carries no id."""
+    """The mapping key a metadata node writes (DR1 §2.2): its section id, one
+    space, then the exact member name (class name on the document root); just
+    the name when the node carries no id.
+
+    A section/complex node's key resolves the id as **field id, else the target
+    class's id** — mirroring the markdown codec's class fallback — so a
+    sub-section whose ``@SectionId`` lives on the target class still heads under
+    its id (e.g. ``CTRL control:``). Content/scalar/enum/form/list-item keys use
+    only the field-level id. The path :attr:`SomMetaNode.segment` stays
+    field-level regardless, so document-store paths are unaffected; encode and
+    decode both route through this one function, so they stay symmetric."""
     name = node.member_name if node.member_name is not None else node.class_name
     id = node.section_id
+    if id is None and node.kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
+        id = node.class_section_id
     return name if id is None else f"{id} {name}"
 
 

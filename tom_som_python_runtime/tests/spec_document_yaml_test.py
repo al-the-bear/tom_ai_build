@@ -123,6 +123,23 @@ def _model() -> SpecModel:
                             "type": "int",
                             "serializationOrder": 6,
                         },
+                        {
+                            # Class-level-only @SectionId: the field carries no
+                            # id, so its key resolves to the target class's id
+                            # (`CTRL control:`) — the DR1 §2.2 fallback.
+                            "name": "control",
+                            "kind": "complex",
+                            "type": "Control",
+                            "serializationOrder": 7,
+                        },
+                    ],
+                },
+                "Control": {
+                    "name": "Control",
+                    "sectionId": "CTRL",
+                    "fields": [
+                        {"name": "summary", "kind": "content", "sectionId": "CTRL-SUM"},
+                        {"name": "owner", "kind": "content"},
                     ],
                 },
                 "Scope": {
@@ -419,10 +436,29 @@ def test_strict_decode() -> None:
     _check("decode.review", "D00/a" in {str(k) for k in c.review})
 
 
+def test_class_level_only_key() -> None:
+    # A section whose id is class-level renders the class id as its key
+    # (DR1 §2.2 field-id-else-class-id). The `control` field carries no id;
+    # its target class `Control` carries `CTRL`, so the key is `CTRL control:`.
+    # The leaves keep their own content keys: `CTRL-SUM summary:` (field id)
+    # and bare `owner:` (id-less content).
+    doc = SpecDocument()
+    doc.set_content("D00/control/CTRL-SUM", "controlled summary")
+    doc.set_content("D00/control/owner", "the owner")
+    yaml = _enc(doc)
+    _check("clskey.section", "\n    CTRL control:\n" in yaml, yaml)
+    _check("clskey.leafId", "\n      CTRL-SUM summary:" in yaml, yaml)
+    _check("clskey.leafBare", "\n      owner:" in yaml, yaml)
+    out = _round_trip(doc)
+    _check("clskey.rt.summary", out.content("D00/control/CTRL-SUM") == "controlled summary")
+    _check("clskey.rt.owner", out.content("D00/control/owner") == "the owner")
+
+
 def main() -> int:
     test_encode()
     test_round_trip()
     test_strict_decode()
+    test_class_level_only_key()
 
     total = _passed + len(_failed)
     if _failed:

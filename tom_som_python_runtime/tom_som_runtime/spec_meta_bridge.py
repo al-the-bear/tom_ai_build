@@ -77,6 +77,7 @@ def build_som_meta_tree(
     root_node = SomMetaNode(
         class_name=root.type,
         section_id=root.section_id or (cls.section_id if cls else None),
+        class_section_id=cls.section_id if cls else None,
         kind=SomMetaKind.SECTION,
         type_name=root.type,
         doc_comment=root.doc or (cls.doc if cls else None),
@@ -150,6 +151,7 @@ def _field_node(
                 stack.remove(element.name)
             element_node = SomMetaNode(
                 class_name=element.name,
+                class_section_id=element.section_id,
                 kind=SomMetaKind.COMPLEX,
                 type_name=element.name,
                 doc_comment=element.doc,
@@ -195,6 +197,7 @@ def _field_node(
         class_name=target.name if target else owner.name,
         member_name=field.name,
         section_id=field.section_id,
+        class_section_id=target.section_id if target else None,
         section_id_pattern=field.section_id_pattern,
         kind=kind,
         type_name=field.type or field.element_type or field.enum_type
