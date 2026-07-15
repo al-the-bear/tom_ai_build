@@ -350,21 +350,101 @@ class SomDartEmitter {
     }
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the
+  /// section's own `content` text FIRST, then one correctly-typed member per
+  /// `@Form` `Field(name, Type, …)` entry, in declaration order. The `@Form`
+  /// members are the only place typed non-String scalars legitimately appear;
+  /// their static type mirrors the declared field type (`String`/`int`/`bool`/
+  /// `double`/`num`). Non-primitive member types (enums, `List`, …) fall back
+  /// to `String` so the generated facade always compiles; the underlying value
+  /// store and markdown format are unchanged (the members read/write through
+  /// the generic `formField` store, so the golden reading is byte-identical).
   String _emitFormClass(String name, SpecField f) {
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
-      ..writeln('/// Generated form facade for the `${f.name}` `@Form` section.')
+      ..writeln('/// Generated section facade for the `${f.name}` `@Form` '
+          'section:')
+      ..writeln('/// its own `content` text followed by one typed member per '
+          'form field.')
       ..writeln('class $name extends SomNode {')
-      ..writeln('  $name(super.doc, super.path);');
-    for (final ff in f.formFields) {
+      ..writeln('  $name(super.doc, super.path);')
+      ..writeln()
+      ..writeln('  @override')
+      ..writeln('  bool get canHaveContent => true;');
+    if (!hasContentMember) {
       b
         ..writeln()
-        ..writeln(
-            '  String get ${ff.name} => doc.formField(path, \'${_escape(ff.name)}\') ?? \'\';')
-        ..writeln('  set ${ff.name}(String value) => '
-            'doc.setFormField(path, \'${_escape(ff.name)}\', value);');
+        ..writeln('  /// The section\'s own free-text content, before the form '
+            'fields.')
+        ..writeln('  String get content => doc.content(path) ?? \'\';')
+        ..writeln('  set content(String value) => '
+            'doc.setContent(path, value);');
+    }
+    for (final ff in f.formFields) {
+      b.writeln();
+      _writeFormMember(b, ff);
     }
     b.writeln('}');
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member accessor. The value is stored through
+  /// the generic form store (`formField`/`setFormField`), so the on-disk format
+  /// and the generic reading are unchanged; only the facade's static type
+  /// mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
+    final n = ff.name;
+    final key = _escape(n);
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('  int? get $n { final v = doc.formField(path, \'$key\'); '
+              'return v == null ? null : int.tryParse(v); }')
+          ..writeln('  set $n(int? value) => '
+              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+      case 'double':
+        b
+          ..writeln('  double? get $n { final v = doc.formField(path, '
+              '\'$key\'); return v == null ? null : double.tryParse(v); }')
+          ..writeln('  set $n(double? value) => '
+              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+      case 'num':
+        b
+          ..writeln('  num? get $n { final v = doc.formField(path, \'$key\'); '
+              'return v == null ? null : num.tryParse(v); }')
+          ..writeln('  set $n(num? value) => '
+              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+      case 'bool':
+        b
+          ..writeln('  bool? get $n { final v = doc.formField(path, \'$key\'); '
+              'return v == null ? null : v == \'true\'; }')
+          ..writeln('  set $n(bool? value) => '
+              'doc.setFormField(path, \'$key\', value?.toString() ?? \'\');');
+      default:
+        b
+          ..writeln('  String get $n => '
+              'doc.formField(path, \'$key\') ?? \'\';')
+          ..writeln('  set $n(String value) => '
+              'doc.setFormField(path, \'$key\', value);');
+    }
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always compiles.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   void _writeDoc(StringBuffer b, String? doc, String indent) {
