@@ -127,6 +127,9 @@ class SomGoEmitter {
     final reachable = _reachableClasses(rootTypes);
     final enums = _reachableEnums(reachable);
     final sortedClasses = reachable.toList()..sort();
+    // YRB2: typed `@Form` members parse their stored text via `strconv`, so the
+    // module imports it only when at least one non-String scalar member exists.
+    final needsStrconv = _hasTypedFormMember(reachable);
 
     _allocatePackageNames(sortedClasses, enums, rootTypes);
 
@@ -151,8 +154,18 @@ class SomGoEmitter {
       ..writeln('// of this same package, so one import surfaces both access '
           'styles.')
       ..writeln('package $packageName')
-      ..writeln()
-      ..writeln('import som "$_runtimeModulePath"')
+      ..writeln();
+    if (needsStrconv) {
+      buffer
+        ..writeln('import (')
+        ..writeln('\t"strconv"')
+        ..writeln()
+        ..writeln('\tsom "$_runtimeModulePath"')
+        ..writeln(')');
+    } else {
+      buffer.writeln('import som "$_runtimeModulePath"');
+    }
+    buffer
       ..writeln()
       ..writeln('// Version is the semantic version of this generated facade '
           'module, matching the')
@@ -567,11 +580,21 @@ class SomGoEmitter {
       ..writeln('}');
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the section's
+  /// own `content` text FIRST, then one correctly-typed member per `@Form`
+  /// `Field(name, Type, …)` entry, in declaration order. A member's declared
+  /// scalar type (`int` → `*int`, `double`/`num` → `*float64`, `bool` →
+  /// `*bool`) becomes its parsed Go return type; any non-primitive (enums,
+  /// `List`, …) falls back to `string`. Members read/write through the generic
+  /// form store, so the on-disk markdown format and the conformance golden stay
+  /// byte-identical.
   String _emitFormClass(String name, SpecField f) {
     final ctor = _ctorName[name] ?? 'New$name';
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
-      ..writeln('// $name is the generated form facade for the `${f.name}` '
-          '@Form section.')
+      ..writeln('// $name is the generated section facade for the `${f.name}` '
+          '@Form section: its own')
+      ..writeln('// content text followed by one typed member per form field.')
       ..writeln('type $name struct {')
       ..writeln('\tsom.SomNode')
       ..writeln('}')
@@ -579,22 +602,157 @@ class SomGoEmitter {
       ..writeln('// $ctor binds a $name facade to a document and a path.')
       ..writeln('func $ctor(doc *som.SpecDocument, path string) *$name {')
       ..writeln('\treturn &$name{SomNode: som.NewSomNode(doc, path)}')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('// CanHaveContent reports that this @Form section holds body '
+          'text before its')
+      ..writeln('// form fields (§ item 10) — it shadows the embedded '
+          'som.SomNode false default.')
+      ..writeln('func (x *$name) CanHaveContent() bool {')
+      ..writeln('\treturn true')
       ..writeln('}');
     final usedAcc = <String>{};
-    for (final ff in f.formFields) {
-      final field = '"${_goStr(ff.name)}"';
-      final acc = _allocAccessor(usedAcc, ff.name);
+    if (!hasContentMember) {
+      usedAcc..add('Content')..add('SetContent');
       b
         ..writeln()
-        ..writeln('func (x *$name) $acc() string {')
-        ..writeln('\treturn x.Doc().FormFieldOr(x.Path(), $field)')
+        ..writeln("// Content is the section's own free-text content, before "
+            'the form fields.')
+        ..writeln('func (x *$name) Content() string {')
+        ..writeln('\treturn x.Doc().ContentOr(x.Path())')
         ..writeln('}')
         ..writeln()
-        ..writeln('func (x *$name) Set$acc(value string) {')
-        ..writeln('\tx.Doc().SetFormField(x.Path(), $field, value)')
+        ..writeln('func (x *$name) SetContent(value string) {')
+        ..writeln('\tx.Doc().SetContent(x.Path(), value)')
         ..writeln('}');
     }
+    for (final ff in f.formFields) {
+      _writeFormMember(b, name, usedAcc, ff);
+    }
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member accessor pair backed by the generic
+  /// form store, so the on-disk format and the generic reading are unchanged;
+  /// only the Go return type mirrors the declared form-field type.
+  void _writeFormMember(
+      StringBuffer b, String name, Set<String> usedAcc, FormFieldSpec ff) {
+    final field = '"${_goStr(ff.name)}"';
+    final acc = _allocAccessor(usedAcc, ff.name);
+    b.writeln();
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('func (x *$name) $acc() *int {')
+          ..writeln('\tv := x.Doc().FormFieldOr(x.Path(), $field)')
+          ..writeln('\tif v == "" {')
+          ..writeln('\t\treturn nil')
+          ..writeln('\t}')
+          ..writeln('\tn, err := strconv.Atoi(v)')
+          ..writeln('\tif err != nil {')
+          ..writeln('\t\treturn nil')
+          ..writeln('\t}')
+          ..writeln('\treturn &n')
+          ..writeln('}')
+          ..writeln()
+          ..writeln('func (x *$name) Set$acc(value *int) {')
+          ..writeln('\tif value == nil {')
+          ..writeln('\t\tx.Doc().SetFormField(x.Path(), $field, "")')
+          ..writeln('\t\treturn')
+          ..writeln('\t}')
+          ..writeln('\tx.Doc().SetFormField(x.Path(), $field, '
+              'strconv.Itoa(*value))')
+          ..writeln('}');
+      case 'double':
+      case 'num':
+        b
+          ..writeln('func (x *$name) $acc() *float64 {')
+          ..writeln('\tv := x.Doc().FormFieldOr(x.Path(), $field)')
+          ..writeln('\tif v == "" {')
+          ..writeln('\t\treturn nil')
+          ..writeln('\t}')
+          ..writeln('\tf, err := strconv.ParseFloat(v, 64)')
+          ..writeln('\tif err != nil {')
+          ..writeln('\t\treturn nil')
+          ..writeln('\t}')
+          ..writeln('\treturn &f')
+          ..writeln('}')
+          ..writeln()
+          ..writeln('func (x *$name) Set$acc(value *float64) {')
+          ..writeln('\tif value == nil {')
+          ..writeln('\t\tx.Doc().SetFormField(x.Path(), $field, "")')
+          ..writeln('\t\treturn')
+          ..writeln('\t}')
+          ..writeln('\tx.Doc().SetFormField(x.Path(), $field, '
+              "strconv.FormatFloat(*value, 'g', -1, 64))")
+          ..writeln('}');
+      case 'bool':
+        b
+          ..writeln('func (x *$name) $acc() *bool {')
+          ..writeln('\tv := x.Doc().FormFieldOr(x.Path(), $field)')
+          ..writeln('\tif v == "" {')
+          ..writeln('\t\treturn nil')
+          ..writeln('\t}')
+          ..writeln('\tresult := v == "true"')
+          ..writeln('\treturn &result')
+          ..writeln('}')
+          ..writeln()
+          ..writeln('func (x *$name) Set$acc(value *bool) {')
+          ..writeln('\tif value == nil {')
+          ..writeln('\t\tx.Doc().SetFormField(x.Path(), $field, "")')
+          ..writeln('\t\treturn')
+          ..writeln('\t}')
+          ..writeln('\tif *value {')
+          ..writeln('\t\tx.Doc().SetFormField(x.Path(), $field, "true")')
+          ..writeln('\t} else {')
+          ..writeln('\t\tx.Doc().SetFormField(x.Path(), $field, "false")')
+          ..writeln('\t}')
+          ..writeln('}');
+      default:
+        b
+          ..writeln('func (x *$name) $acc() string {')
+          ..writeln('\treturn x.Doc().FormFieldOr(x.Path(), $field)')
+          ..writeln('}')
+          ..writeln()
+          ..writeln('func (x *$name) Set$acc(value string) {')
+          ..writeln('\tx.Doc().SetFormField(x.Path(), $field, value)')
+          ..writeln('}');
+    }
+  }
+
+  /// Whether any reachable class declares a `@Form` field with at least one
+  /// non-String scalar member — the signal that the module must import
+  /// `strconv` to parse typed member text.
+  bool _hasTypedFormMember(Iterable<String> classNames) {
+    for (final n in classNames) {
+      final cls = model.classNamed(n);
+      if (cls == null) continue;
+      for (final f in cls.fields) {
+        if (f.kind != SpecFieldKind.form) continue;
+        for (final ff in f.formFields) {
+          if (_scalarType(ff.type) != 'String') return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always round-trips as text.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   /// Emits a doc block as `//` line comments at [indent].
