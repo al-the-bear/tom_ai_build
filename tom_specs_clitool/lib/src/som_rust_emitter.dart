@@ -562,10 +562,20 @@ class SomRustEmitter {
       ..writeln('\t}');
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the section's
+  /// own `content` text FIRST, then one correctly-typed member per `@Form`
+  /// `Field(name, Type, …)` entry, in declaration order. A member's declared
+  /// scalar type (`int` → `Option<i64>`, `double`/`num` → `Option<f64>`, `bool`
+  /// → `Option<bool>`) becomes its parsed Rust return type; any non-primitive
+  /// (enums, `List`, …) falls back to `String`. Members read/write through the
+  /// generic form store, so the on-disk markdown format and the conformance
+  /// golden stay byte-identical.
   String _emitFormClass(String name, SpecField f) {
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
-      ..writeln('/// $name is the generated form facade for the `${f.name}` '
-          '@Form section.')
+      ..writeln('/// $name is the generated section facade for the `${f.name}` '
+          '@Form section: its own')
+      ..writeln('/// content text followed by one typed member per form field.')
       ..writeln('pub struct $name {')
       ..writeln('\tpub node: som::SomNode,')
       ..writeln('}')
@@ -575,28 +585,118 @@ class SomRustEmitter {
       ..writeln('\tpub fn new(doc: som::DocRef, path: String) -> $name {')
       ..writeln('\t\t$name { node: som::SomNode::new(doc, path) }')
       ..writeln('\t}');
-    // A @Form section never declares a `content` text leaf (its typed accessors
-    // are its form fields), so `can_have_content` is always `false` here.
-    _emitCanHaveContent(b, false);
+    // A @Form section holds body text before its form fields, so it can have
+    // content (§ item 10 analogue).
+    _emitCanHaveContent(b, true);
     final usedAcc = <String>{};
-    for (final ff in f.formFields) {
-      final field = '"${_rustStr(ff.name)}"';
-      final acc = _allocAccessor(usedAcc, ff.name);
+    if (!hasContentMember) {
+      usedAcc..add('content')..add('set_content');
       b
         ..writeln()
-        ..writeln('\tpub fn $acc(&self) -> String {')
-        ..writeln('\t\tself.node.doc().borrow().form_field_or'
-            '(self.node.path(), $field)')
+        ..writeln("\t/// The section's own free-text content, before the form "
+            'fields.')
+        ..writeln('\tpub fn content(&self) -> String {')
+        ..writeln('\t\tself.node.doc().borrow().content_or(self.node.path())')
         ..writeln('\t}')
         ..writeln()
-        ..writeln('\tpub fn set_$acc(&self, value: &str) {')
+        ..writeln('\tpub fn set_content(&self, value: &str) {')
         ..writeln('\t\tlet path = self.node.path().to_string();')
-        ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
-            '(&path, $field, value);')
+        ..writeln('\t\tself.node.doc().borrow_mut().set_content(&path, value);')
         ..writeln('\t}');
+    }
+    for (final ff in f.formFields) {
+      _writeFormMember(b, usedAcc, ff);
     }
     b.writeln('}');
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member accessor pair backed by the generic
+  /// form store, so the on-disk format and the generic reading are unchanged;
+  /// only the Rust return type mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, Set<String> usedAcc, FormFieldSpec ff) {
+    final field = '"${_rustStr(ff.name)}"';
+    final acc = _allocAccessor(usedAcc, ff.name);
+    b.writeln();
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('\tpub fn $acc(&self) -> Option<i64> {')
+          ..writeln('\t\tlet v = self.node.doc().borrow().form_field_or'
+              '(self.node.path(), $field);')
+          ..writeln('\t\tif v.is_empty() { None } else { v.parse::<i64>().ok() }')
+          ..writeln('\t}')
+          ..writeln()
+          ..writeln('\tpub fn set_$acc(&self, value: Option<i64>) {')
+          ..writeln('\t\tlet path = self.node.path().to_string();')
+          ..writeln('\t\tlet text = match value { Some(v) => v.to_string(), '
+              'None => String::new() };')
+          ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
+              '(&path, $field, &text);')
+          ..writeln('\t}');
+      case 'double':
+      case 'num':
+        b
+          ..writeln('\tpub fn $acc(&self) -> Option<f64> {')
+          ..writeln('\t\tlet v = self.node.doc().borrow().form_field_or'
+              '(self.node.path(), $field);')
+          ..writeln('\t\tif v.is_empty() { None } else { v.parse::<f64>().ok() }')
+          ..writeln('\t}')
+          ..writeln()
+          ..writeln('\tpub fn set_$acc(&self, value: Option<f64>) {')
+          ..writeln('\t\tlet path = self.node.path().to_string();')
+          ..writeln('\t\tlet text = match value { Some(v) => v.to_string(), '
+              'None => String::new() };')
+          ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
+              '(&path, $field, &text);')
+          ..writeln('\t}');
+      case 'bool':
+        b
+          ..writeln('\tpub fn $acc(&self) -> Option<bool> {')
+          ..writeln('\t\tlet v = self.node.doc().borrow().form_field_or'
+              '(self.node.path(), $field);')
+          ..writeln('\t\tif v.is_empty() { None } else { Some(v == "true") }')
+          ..writeln('\t}')
+          ..writeln()
+          ..writeln('\tpub fn set_$acc(&self, value: Option<bool>) {')
+          ..writeln('\t\tlet path = self.node.path().to_string();')
+          ..writeln('\t\tlet text = match value { Some(true) => '
+              '"true".to_string(), Some(false) => "false".to_string(), '
+              'None => String::new() };')
+          ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
+              '(&path, $field, &text);')
+          ..writeln('\t}');
+      default:
+        b
+          ..writeln('\tpub fn $acc(&self) -> String {')
+          ..writeln('\t\tself.node.doc().borrow().form_field_or'
+              '(self.node.path(), $field)')
+          ..writeln('\t}')
+          ..writeln()
+          ..writeln('\tpub fn set_$acc(&self, value: &str) {')
+          ..writeln('\t\tlet path = self.node.path().to_string();')
+          ..writeln('\t\tself.node.doc().borrow_mut().set_form_field'
+              '(&path, $field, value);')
+          ..writeln('\t}');
+    }
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always round-trips as text.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   /// Emits the generated loader error enum: the tree-based codec (DR25) fails
