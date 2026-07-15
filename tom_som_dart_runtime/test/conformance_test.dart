@@ -347,10 +347,27 @@ void main() {
 
 // --- Fixture construction (the reference data the corpus is generated from) --
 
-/// A compact, hand-authored meta-model that still exercises every field kind:
-/// content (incl. a multi-line block-scalar value), enum, scalar, a two-field
-/// `@Form`, a `@Min`-constrained complex list, a nested complex section, and a
-/// (declared-but-unpopulated) scalar list for resolution coverage.
+/// A SYNTHETIC codec-exerciser — NOT a model-convention reference.
+///
+/// This compact, hand-authored meta-model exists to exercise the codec's full
+/// field-kind matrix across all nine language runtimes, so it deliberately
+/// contains shapes that do NOT occur in the real `tom_specs_model` and must not
+/// be read as conventions to imitate:
+///   * `count` (kind `scalar`, type `int`) — the real model has ZERO non-String
+///     primitive leaves;
+///   * id-less `content` leaves (e.g. `Item.label`, `Control.owner`) — real
+///     content leaves carry a field- or class-level `@SectionId`;
+///   * `Control` — a class with TWO `content` leaves; real classes have exactly
+///     one `content` body.
+/// They exist only to force the codec down every branch (int scalar, id
+/// fallback, transparent member, multi-content). For a convention-conformant
+/// fixture, see the `realistic (convention-conformant) model` group in
+/// `spec_document_yaml_test.dart`.
+///
+/// The kind coverage: content (incl. a multi-line block-scalar value), enum,
+/// scalar, a two-field `@Form`, a `@Min`-constrained complex list, a nested
+/// complex section, and a (declared-but-unpopulated) scalar list for resolution
+/// coverage.
 ///
 /// Both flavours of the DR1 §1.2 `-LST` container rule are pinned: the `refs`
 /// scalar list carries a real `@SectionId`/`@SectionIdPattern`, so its container
@@ -374,7 +391,10 @@ Map<String, dynamic> _buildMeta() => {
           'type': 'Demo',
           'title': 'Demo Document',
           'sectionId': 'DEMO',
-          'description': 'A compact conformance fixture.',
+          'description': 'A compact conformance fixture. SYNTHETIC codec-'
+              'exerciser covering the full field-kind matrix (incl. an int '
+              'scalar, id-less content leaves, and a dual-content class) — NOT '
+              'a tom_specs_model convention reference.',
         }
       ],
       'classes': {

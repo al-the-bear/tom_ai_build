@@ -10,9 +10,25 @@
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-/// A model exercising every field kind: root body content, a content section
+/// A SYNTHETIC codec-exerciser — NOT a model-convention reference.
+///
+/// This fixture deliberately covers the codec's full field-kind matrix so the
+/// round-trip logic is tested end to end: root body content, a content section
 /// with a nested complex section, a complex list with `@SectionIdPattern`,
-/// a scalar list, a `@Form` with a numeric field, enum and int leaves.
+/// a scalar list, a `@Form` with a numeric field, an enum, and an int scalar.
+///
+/// Several shapes here do NOT occur in the real `tom_specs_model` and must not
+/// be read as conventions to imitate:
+///   * `count` (kind `scalar`, type `int`) — the real model has ZERO non-String
+///     primitive leaves;
+///   * id-less `content` leaves (`Control.owner`, `Scope.outOfScope`,
+///     `Requirement.text`) — real content leaves carry a field- or class-level
+///     `@SectionId`;
+///   * `Control` — a class with TWO `content` leaves (`summary` + `owner`); real
+///     classes have exactly one `content` body.
+/// They exist only to force the codec down the id-fallback and multi-content
+/// branches. For a fixture that mirrors real-model conventions, see
+/// [_realisticModel] below.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [
@@ -113,6 +129,102 @@ SpecModel _model() => SpecModel.fromJson({
               'kind': 'list',
               'elementType': 'String',
               'elementIsComplex': false,
+            },
+          ],
+        },
+      },
+    });
+
+/// A REALISTIC fixture mirroring the conventions of the real `tom_specs_model`.
+///
+/// Unlike [_model] (a synthetic codec-exerciser), every shape here follows the
+/// canonical DR1 §6.1a conventions so it can serve as a convention reference:
+///   * exactly one `content` body leaf per class, and it carries a field-level
+///     `@SectionId`;
+///   * every non-content field carries a field-level `@SectionId`;
+///   * a `@Form` group for structured header metadata;
+///   * `@Reference` leaves modelled as `content` String fields with a field-level
+///     `@SectionId` and a captured `Reference` annotation (the real model has no
+///     dedicated reference kind — a reference is a String leaf plus the marker);
+///   * NO `int`/non-String scalar leaves.
+SpecModel _realisticModel() => SpecModel.fromJson({
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Plan', 'title': 'Plan Document', 'sectionId': 'P00'},
+      ],
+      'classes': {
+        'Plan': {
+          'name': 'Plan',
+          'sectionId': 'P00',
+          'fields': [
+            {
+              'name': 'overview',
+              'kind': 'content',
+              'sectionId': 'P00-OVR',
+              'serializationOrder': 0,
+            },
+            {
+              'name': 'header',
+              'kind': 'form',
+              'sectionId': 'P00-HDR',
+              'serializationOrder': 1,
+              'formFields': [
+                {'name': 'author', 'label': 'Author', 'type': 'String'},
+                {'name': 'status', 'label': 'Status', 'type': 'String'},
+              ],
+            },
+            {
+              'name': 'owner',
+              'kind': 'content',
+              'sectionId': 'P00-OWN',
+              'serializationOrder': 2,
+              'annotations': [
+                {
+                  'name': 'Reference',
+                  'arguments': {'target': 'Party'},
+                },
+              ],
+            },
+            {
+              'name': 'requirements',
+              'kind': 'list',
+              'sectionId': 'P00-REQ',
+              'sectionIdPattern': 'REQ-xxx',
+              'elementType': 'Requirement',
+              'elementIsComplex': true,
+              'serializationOrder': 3,
+            },
+          ],
+        },
+        'Requirement': {
+          'name': 'Requirement',
+          'sectionId': 'REQ',
+          'fields': [
+            {
+              'name': 'description',
+              'kind': 'content',
+              'sectionId': 'REQ-DSC',
+              'serializationOrder': 0,
+            },
+            {
+              'name': 'priority',
+              'kind': 'enum',
+              'sectionId': 'REQ-PRI',
+              'enumType': 'Priority',
+              'enumValues': ['low', 'high'],
+              'serializationOrder': 1,
+            },
+            {
+              'name': 'relatedTo',
+              'kind': 'content',
+              'sectionId': 'REQ-REL',
+              'serializationOrder': 2,
+              'annotations': [
+                {
+                  'name': 'Reference',
+                  'arguments': {'target': 'Requirement'},
+                },
+              ],
             },
           ],
         },
@@ -372,6 +484,48 @@ review:
 ''';
       final c = dec(fixture);
       expect(c.review.keys.map((k) => '$k'), contains('D00/a'));
+    });
+  });
+
+  // A convention-conformant fixture (single content body per class, field-level
+  // @SectionId everywhere, @Form groups, @Reference String leaves, no int
+  // scalars). It exists so the codec is exercised against a shape that actually
+  // occurs in the real tom_specs_model — not just the [_model] kind-matrix.
+  group('realistic (convention-conformant) model', () {
+    final realTree = buildSomMetaTree(_realisticModel());
+    String encReal(SpecDocument d) =>
+        SpecDocumentYaml.encode(document: d, tree: realTree);
+    SpecDocument roundTripReal(SpecDocument d) =>
+        SpecDocumentYaml.decode(encReal(d), realTree).document;
+
+    test('every field-level @SectionId keys its section, @Reference leaves '
+        'behave as plain content', () {
+      final doc = SpecDocument()
+        ..setContent('P00/P00-OVR', 'the overview body')
+        ..setContent('P00/P00-OWN', 'Party/ACME') // @Reference leaf
+        ..setFormField('P00/P00-HDR', 'author', 'Ada')
+        ..setFormField('P00/P00-HDR', 'status', 'draft');
+      final r = doc.addListItem('P00/P00-REQ', sectionId: 'REQ-001');
+      doc
+        ..setContent('$r/REQ-DSC', 'requirement text')
+        ..setContent('$r/REQ-PRI', 'high')
+        ..setContent('$r/REQ-REL', 'Requirement/REQ-000'); // @Reference leaf
+      final yaml = encReal(doc);
+      // Field-level ids drive every key (no class-id fallback needed here).
+      expect(yaml, contains('\n    P00-OVR overview:'));
+      expect(yaml, contains('\n    P00-OWN owner:'));
+      expect(yaml, contains('\n    P00-HDR header:\n'));
+      expect(yaml, contains('\n    P00-REQ requirements:\n      REQ-001:\n'));
+      expect(yaml, contains('\n        REQ-REL relatedTo:'));
+      // Round-trip is lossless including the @Reference String leaves.
+      final out = roundTripReal(doc);
+      expect(out.content('P00/P00-OVR'), 'the overview body');
+      expect(out.content('P00/P00-OWN'), 'Party/ACME');
+      expect(out.formField('P00/P00-HDR', 'status'), 'draft');
+      final items = out.listItems('P00/P00-REQ');
+      expect(out.itemSectionId(items.single), 'REQ-001');
+      expect(out.content('${items.single}/REQ-DSC'), 'requirement text');
+      expect(out.content('${items.single}/REQ-REL'), 'Requirement/REQ-000');
     });
   });
 }

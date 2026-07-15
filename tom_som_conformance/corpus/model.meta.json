@@ -7,7 +7,7 @@
       "type": "Demo",
       "title": "Demo Document",
       "sectionId": "DEMO",
-      "description": "A compact conformance fixture."
+      "description": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference."
     }
   ],
   "classes": {
