@@ -3,6 +3,622 @@
 
 title-format: "# <!--[ATS]--> Architecture & Technology Specification"
 section-types:
+  accstd-acce-lst:
+    prefix: ACCSTD_ACCE_LST
+    subsection-types:
+      accstd-acce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per accessibility standard.
+  aldeen-aler-lst:
+    prefix: ALDEEN_ALER_LST
+    subsection-types:
+      aldeen-aler:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alert definition.
+  alruen-aler-lst:
+    prefix: ALRUEN_ALER_LST
+    subsection-types:
+      alruen-aler:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alert rule.
+  alsuru-supp-lst:
+    prefix: ALSURU_SUPP_LST
+    subsection-types:
+      alsuru-supp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per suppression or maintenance window.
+  bapoen-back-lst:
+    prefix: BAPOEN_BACK_LST
+    subsection-types:
+      bapoen-back:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per backup policy.
+  bocoen-boun-lst:
+    prefix: BOCOEN_BOUN_LST
+    subsection-types:
+      bocoen-boun:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per bounded context.
+  brcoen-brow-lst:
+    prefix: BRCOEN_BROW_LST
+    subsection-types:
+      brcoen-brow:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported browser.
+  brreen-brow-lst:
+    prefix: BRREEN_BROW_LST
+    subsection-types:
+      brreen-brow:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported web browser.
+  bucoen-busi-lst:
+    prefix: BUCOEN_BUSI_LST
+    subsection-types:
+      bucoen-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business component.
+  coreen-resp-lst:
+    prefix: COREEN_RESP_LST
+    subsection-types:
+      coreen-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component responsibility.
+  costen-codi-lst:
+    prefix: COSTEN_CODI_LST
+    subsection-types:
+      costen-codi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per coding standard.
+  cumeen-cust-lst:
+    prefix: CUMEEN_CUST_LST
+    subsection-types:
+      cumeen-cust:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per custom metric.
+  dacoen-data-lst:
+    prefix: DACOEN_DATA_LST
+    subsection-types:
+      dacoen-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported database.
+  decoen-deve-lst:
+    prefix: DECOEN_DEVE_LST
+    subsection-types:
+      decoen-deve:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per development convention.
+  deenen-envi-lst:
+    prefix: DEENEN_ENVI_LST
+    subsection-types:
+      deenen-envi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per deployment environment.
+  detaen-depl-lst:
+    prefix: DETAEN_DEPL_LST
+    subsection-types:
+      detaen-depl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per deployment target.
+  expaop-oper-lst:
+    prefix: EXPAOP_OPER_LST
+    subsection-types:
+      expaop-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per operational contact.
+  ftrmod-feat-lst:
+    prefix: FTRMOD_FEAT_LST
+    subsection-types:
+      ftrmod-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature module.
+  idreen-ider-lst:
+    prefix: IDREEN_IDER_LST
+    subsection-types:
+      idreen-ider:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per IDE or editor.
+  incoe1-inte-lst:
+    prefix: INCOE1_INTE_LST
+    subsection-types:
+      incoe1-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect."
+  incoen-infr-lst:
+    prefix: INCOEN_INFR_LST
+    subsection-types:
+      incoen-infr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per infrastructure component.
+  inspen-inte-lst:
+    prefix: INSPEN_INTE_LST
+    subsection-types:
+      inspen-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per interface specification.
+  insten-indu-lst:
+    prefix: INSTEN_INDU_LST
+    subsection-types:
+      insten-indu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per industry standard.
+  lecoen-lega-lst:
+    prefix: LECOEN_LEGA_LST
+    subsection-types:
+      lecoen-lega:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per legacy system.
+  mawien-main-lst:
+    prefix: MAWIEN_MAIN_LST
+    subsection-types:
+      mawien-main:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance window.
+  mocoen-mobi-lst:
+    prefix: MOCOEN_MOBI_LST
+    subsection-types:
+      mocoen-mobi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported mobile platform.
+  oscoen-osco-lst:
+    prefix: OSCOEN_OSCO_LST
+    subsection-types:
+      oscoen-osco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported operating system.
+  pijoen-jobs-lst:
+    prefix: PIJOEN_JOBS_LST
+    subsection-types:
+      pijoen-jobs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per pipeline job.
+  pisten-stag-lst:
+    prefix: PISTEN_STAG_LST
+    subsection-types:
+      pisten-stag:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per pipeline stage.
+  recoen-regu-lst:
+    prefix: RECOEN_REGU_LST
+    subsection-types:
+      recoen-regu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per regulation.
+  ruicmp-uico-lst:
+    prefix: RUICMP_UICO_LST
+    subsection-types:
+      ruicmp-uico:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per UI component.
+  seauen-audi-lst:
+    prefix: SEAUEN_AUDI_LST
+    subsection-types:
+      seauen-audi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security audit requirement.
+  seenen-envi-lst:
+    prefix: SEENEN_ENVI_LST
+    subsection-types:
+      seenen-envi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per server environment.
+  seroen-serv-lst:
+    prefix: SEROEN_SERV_LST
+    subsection-types:
+      seroen-serv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per server role.
+  sesten-stan-lst:
+    prefix: SESTEN_STAN_LST
+    subsection-types:
+      sesten-stan:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security standard.
+  solaen-soft-lst:
+    prefix: SOLAEN_SOFT_LST
+    subsection-types:
+      solaen-soft:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per software layer.
+  testen-tech-lst:
+    prefix: TESTEN_TECH_LST
+    subsection-types:
+      testen-tech:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
+  thpali-thir-lst:
+    prefix: THPALI_THIR_LST
+    subsection-types:
+      thpali-thir:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per third-party library.
+  vpreen-vpnr-lst:
+    prefix: VPREEN_VPNR_LST
+    subsection-types:
+      vpreen-vpnr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per VPN requirement.
+  btcen-buil-lst:
+    prefix: BTCEN_BUIL_LST
+    subsection-types:
+      btcen-buil:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per build tool.
+  cmpnt-comp-lst:
+    prefix: CMPNT_COMP_LST
+    subsection-types:
+      cmpnt-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per cataloged component.
+  datac-data-lst:
+    prefix: DATAC_DATA_LST
+    subsection-types:
+      datac-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints."
+  devop-devo-lst:
+    prefix: DEVOP_DEVO_LST
+    subsection-types:
+      devop-devo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules."
+  dore1-desk-lst:
+    prefix: DORE1_DESK_LST
+    subsection-types:
+      dore1-desk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported desktop operating system.
+  evcen-item-lst:
+    prefix: EVCEN_ITEM_LST
+    subsection-types:
+      evcen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per evaluation criterion.
+  fwren-fram-lst:
+    prefix: FWREN_FRAM_LST
+    subsection-types:
+      fwren-fram:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per framework or library.
+  maint-main-lst:
+    prefix: MAINT_MAIN_LST
+    subsection-types:
+      maint-main:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance procedure.
+  mndep-item-lst:
+    prefix: MNDEP_ITEM_LST
+    subsection-types:
+      mndep-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance dependency.
+  moen1-modu-lst:
+    prefix: MOEN1_MODU_LST
+    subsection-types:
+      moen1-modu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per module.
+  obser-obse-lst:
+    prefix: OBSER_OBSE_LST
+    subsection-types:
+      obser-obse:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms."
+  plgen-prog-lst:
+    prefix: PLGEN_PROG_LST
+    subsection-types:
+      plgen-prog:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per programming language.
+  qlstd-qual-lst:
+    prefix: QLSTD_QUAL_LST
+    subsection-types:
+      qlstd-qual:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per quality standard.
+  rguse-reus-lst:
+    prefix: RGUSE_REUS_LST
+    subsection-types:
+      rguse-reus:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per reuse goal.
+  rndep-item-lst:
+    prefix: RNDEP_ITEM_LST
+    subsection-types:
+      rndep-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per runtime dependency.
+  shlcp-shar-lst:
+    prefix: SHLCP_SHAR_LST
+    subsection-types:
+      shlcp-shar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per shared library.
+  shlib-shar-lst:
+    prefix: SHLIB_SHAR_LST
+    subsection-types:
+      shlib-shar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per shared library.
+  tgplt-targ-lst:
+    prefix: TGPLT_TARG_LST
+    subsection-types:
+      tgplt-targ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per target platform.
+  apcp-apic-lst:
+    prefix: APCP_APIC_LST
+    subsection-types:
+      apcp-apic:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per API or protocol.
+  arcm-comp-lst:
+    prefix: ARCM_COMP_LST
+    subsection-types:
+      arcm-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per architecture component or service.
+  arde-deci-lst:
+    prefix: ARDE_DECI_LST
+    subsection-types:
+      arde-deci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per architecture decision record.
+  arpr-prin-lst:
+    prefix: ARPR_PRIN_LST
+    subsection-types:
+      arpr-prin:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per architecture principle.
+  cmif-inte-lst:
+    prefix: CMIF_INTE_LST
+    subsection-types:
+      cmif-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component interface.
+  cmrs-risk-lst:
+    prefix: CMRS_RISK_LST
+    subsection-types:
+      cmrs-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component risk.
+  codo-docs-lst:
+    prefix: CODO_DOCS_LST
+    subsection-types:
+      codo-docs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component document.
+  copl-item-lst:
+    prefix: COPL_ITEM_LST
+    subsection-types:
+      copl-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per contingency plan.
+  daen-dash-lst:
+    prefix: DAEN_DASH_LST
+    subsection-types:
+      daen-dash:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per dashboard.
+  date-dash-lst:
+    prefix: DATE_DASH_LST
+    subsection-types:
+      date-dash:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per dashboard template.
+  dspt-desi-lst:
+    prefix: DSPT_DESI_LST
+    subsection-types:
+      dspt-desi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design pattern.
+  epce-part-lst:
+    prefix: EPCE_PART_LST
+    subsection-types:
+      epce-part:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per external partner connection.
+  esce-ente-lst:
+    prefix: ESCE_ENTE_LST
+    subsection-types:
+      esce-ente:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per enterprise system.
+  ipce-indu-lst:
+    prefix: IPCE_INDU_LST
+    subsection-types:
+      ipce-indu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per industry protocol.
+  isce-itst-lst:
+    prefix: ISCE_ITST_LST
+    subsection-types:
+      isce-itst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per IT standard.
+  mdre-mobi-lst:
+    prefix: MDRE_MOBI_LST
+    subsection-types:
+      mdre-mobi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported mobile platform.
+  pren-prot-lst:
+    prefix: PREN_PROT_LST
+    subsection-types:
+      pren-prot:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per protocol.
+  slen-slos-lst:
+    prefix: SLEN_SLOS_LST
+    subsection-types:
+      slen-slos:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per SLO.
+  ssce-secu-lst:
+    prefix: SSCE_SECU_LST
+    subsection-types:
+      ssce-secu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security standard.
+  tpce-thir-lst:
+    prefix: TPCE_THIR_LST
+    subsection-types:
+      tpce-thir:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per third-party software product.
   accstd-acce:
     prefix: ACCSTD_ACCE_
     subsection-types:
@@ -608,14 +1224,14 @@ section-types:
         max-count: 1
       cori:
         max-count: 1
-      codo-docs:
-        max-count: infinite
-      cmif-inte:
-        max-count: infinite
+      codo-docs-lst:
+        max-count: 1
+      cmif-inte-lst:
+        max-count: 1
       colien:
         max-count: 1
-      coreen-resp:
-        max-count: infinite
+      coreen-resp-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^CMPNT-COMP-[0-9]+$"
       error-message: IDs of this section must match CMPNT-COMP-xxx
@@ -994,8 +1610,8 @@ section-types:
         max-count: 1
       epdh:
         max-count: 1
-      expaop-oper:
-        max-count: infinite
+      expaop-oper-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^EPCE-PART-[0-9]+$"
       error-message: IDs of this section must match EPCE-PART-xxx
@@ -1605,12 +2221,12 @@ section-types:
   clrese:
     prefix: CLRESE
     subsection-types:
-      brreen-brow:
-        max-count: infinite
-      dore1-desk:
-        max-count: infinite
-      mdre-mobi:
-        max-count: infinite
+      brreen-brow-lst:
+        max-count: 1
+      dore1-desk-lst:
+        max-count: 1
+      mdre-mobi-lst:
+        max-count: 1
       dire:
         max-count: 1
       clnere:
@@ -1786,8 +2402,8 @@ section-types:
   conpla:
     prefix: CONPLA
     subsection-types:
-      copl-item:
-        max-count: infinite
+      copl-item-lst:
+        max-count: 1
     description: 12.6.2. Contingency Plans.
   conres:
     prefix: CONRES
@@ -1883,8 +2499,8 @@ section-types:
   corias:
     prefix: CORIAS
     subsection-types:
-      cmrs-risk:
-        max-count: infinite
+      cmrs-risk-lst:
+        max-count: 1
       conpla:
         max-count: 1
     description: 12.6. Risk Assessment.
@@ -2500,8 +3116,8 @@ section-types:
         max-count: 1
       ditrsp:
         max-count: 1
-      cumeen-cust:
-        max-count: infinite
+      cumeen-cust-lst:
+        max-count: 1
     description: 8.7.2.3. Metrics and Observability.
   mecore:
     prefix: MECORE
@@ -2959,20 +3575,20 @@ section-types:
   stcose:
     prefix: STCOSE
     subsection-types:
-      isce-itst:
-        max-count: infinite
-      ipce-indu:
-        max-count: infinite
-      inspen-inte:
-        max-count: infinite
-      recoen-regu:
-        max-count: infinite
-      ssce-secu:
-        max-count: infinite
-      accstd-acce:
-        max-count: infinite
-      qlstd-qual:
-        max-count: infinite
+      isce-itst-lst:
+        max-count: 1
+      ipce-indu-lst:
+        max-count: 1
+      inspen-inte-lst:
+        max-count: 1
+      recoen-regu-lst:
+        max-count: 1
+      ssce-secu-lst:
+        max-count: 1
+      accstd-acce-lst:
+        max-count: 1
+      qlstd-qual-lst:
+        max-count: 1
       dostse:
         max-count: 1
       costse:
@@ -3033,10 +3649,10 @@ section-types:
   teenne:
     prefix: TEENNE
     subsection-types:
-      devop-devo:
-        max-count: infinite
-      obser-obse:
-        max-count: infinite
+      devop-devo-lst:
+        max-count: 1
+      obser-obse-lst:
+        max-count: 1
     description: Network and infrastructure standards.
   teenst:
     prefix: TEENST
@@ -3232,8 +3848,8 @@ section-types:
         max-count: 1
       cspln:
         max-count: 1
-      rguse-reus:
-        max-count: infinite
+      rguse-reus-lst:
+        max-count: 1
       evcri:
         max-count: 1
     description: 12.1. Component Strategy.
@@ -3392,8 +4008,8 @@ section-types:
   evcri:
     prefix: EVCRI
     subsection-types:
-      evcen-item:
-        max-count: infinite
+      evcen-item-lst:
+        max-count: 1
     description: 12.1.2. Evaluation Criteria.
   fwrcp:
     prefix: FWRCP
@@ -3568,16 +4184,16 @@ section-types:
   pllng:
     prefix: PLLNG
     subsection-types:
-      tgplt-targ:
-        max-count: infinite
-      plgen-prog:
-        max-count: infinite
-      fwren-fram:
-        max-count: infinite
-      btcen-buil:
-        max-count: infinite
-      detaen-depl:
-        max-count: infinite
+      tgplt-targ-lst:
+        max-count: 1
+      plgen-prog-lst:
+        max-count: 1
+      fwren-fram-lst:
+        max-count: 1
+      btcen-buil-lst:
+        max-count: 1
+      detaen-depl-lst:
+        max-count: 1
       dema:
         max-count: 1
       ruen:
@@ -3802,12 +4418,12 @@ section-types:
     subsection-types:
       alnoch:
         max-count: 1
-      alruen-aler:
-        max-count: infinite
+      alruen-aler-lst:
+        max-count: 1
       alespo:
         max-count: 1
-      alsuru-supp:
-        max-count: infinite
+      alsuru-supp-lst:
+        max-count: 1
       ocsc:
         max-count: 1
     description: 8.7.2.2. Alerting Configuration.
@@ -3956,8 +4572,8 @@ section-types:
     subsection-types:
       badacl:
         max-count: 1
-      bapoen-back:
-        max-count: infinite
+      bapoen-back-lst:
+        max-count: 1
       rprtre:
         max-count: 1
       bain:
@@ -4140,12 +4756,12 @@ section-types:
   ccpc:
     prefix: CCPC
     subsection-types:
-      pisten-stag:
-        max-count: infinite
-      pijoen-jobs:
-        max-count: infinite
-      deenen-envi:
-        max-count: infinite
+      pisten-stag-lst:
+        max-count: 1
+      pijoen-jobs-lst:
+        max-count: 1
+      deenen-envi-lst:
+        max-count: 1
     description: CI/CD pipeline requirements.
   ccpr:
     prefix: CCPR
@@ -4239,8 +4855,8 @@ section-types:
     subsection-types:
       cmstr:
         max-count: 1
-      cmpnt-comp:
-        max-count: infinite
+      cmpnt-comp-lst:
+        max-count: 1
       rude:
         max-count: 1
       made:
@@ -4498,8 +5114,8 @@ section-types:
   deen:
     prefix: DEEN
     subsection-types:
-      idreen-ider:
-        max-count: infinite
+      idreen-ider-lst:
+        max-count: 1
       butoco:
         max-count: 1
       vecoco:
@@ -4713,14 +5329,14 @@ section-types:
   dpas:
     prefix: DPAS
     subsection-types:
-      dspt-desi:
-        max-count: infinite
-      costen-codi:
-        max-count: infinite
-      decoen-deve:
-        max-count: infinite
-      insten-indu:
-        max-count: infinite
+      dspt-desi-lst:
+        max-count: 1
+      costen-codi-lst:
+        max-count: 1
+      decoen-deve-lst:
+        max-count: 1
+      insten-indu-lst:
+        max-count: 1
       coqume:
         max-count: 1
       dost:
@@ -5099,8 +5715,8 @@ section-types:
   isss:
     prefix: ISSS
     subsection-types:
-      sesten-stan:
-        max-count: infinite
+      sesten-stan-lst:
+        max-count: 1
       apsere:
         max-count: 1
       inseha:
@@ -5148,24 +5764,24 @@ section-types:
   lams:
     prefix: LAMS
     subsection-types:
-      solaen-soft:
-        max-count: infinite
+      solaen-soft-lst:
+        max-count: 1
       lacoru:
         max-count: 1
-      bocoen-boun:
-        max-count: infinite
+      bocoen-boun-lst:
+        max-count: 1
       paor:
         max-count: 1
-      moen1-modu:
-        max-count: infinite
-      shlib-shar:
-        max-count: infinite
+      moen1-modu-lst:
+        max-count: 1
+      shlib-shar-lst:
+        max-count: 1
       deinst:
         max-count: 1
       crcuco:
         max-count: 1
-      ftrmod-feat:
-        max-count: infinite
+      ftrmod-feat-lst:
+        max-count: 1
       movest:
         max-count: 1
     description: |
@@ -5258,8 +5874,8 @@ section-types:
         max-count: 1
       alre:
         max-count: 1
-      aldeen-aler:
-        max-count: infinite
+      aldeen-aler-lst:
+        max-count: 1
       dare:
         max-count: 1
       oncapr:
@@ -5303,8 +5919,8 @@ section-types:
   made:
     prefix: MADE
     subsection-types:
-      mndep-item:
-        max-count: infinite
+      mndep-item-lst:
+        max-count: 1
     description: 12.5. Maintenance Dependencies.
   mcec:
     prefix: MCEC
@@ -5360,10 +5976,10 @@ section-types:
   moda:
     prefix: MODA
     subsection-types:
-      daen-dash:
-        max-count: infinite
-      date-dash:
-        max-count: infinite
+      daen-dash-lst:
+        max-count: 1
+      date-dash-lst:
+        max-count: 1
     description: 8.7.2.4. Monitoring Dashboards.
   moin:
     prefix: MOIN
@@ -5549,8 +6165,8 @@ section-types:
   pass:
     prefix: PASS
     subsection-types:
-      pren-prot:
-        max-count: infinite
+      pren-prot-lst:
+        max-count: 1
       tlre:
         max-count: 1
       cema:
@@ -5785,8 +6401,8 @@ section-types:
   rude:
     prefix: RUDE
     subsection-types:
-      rndep-item:
-        max-count: infinite
+      rndep-item-lst:
+        max-count: 1
     description: 12.4. Runtime Dependencies.
   ruen:
     prefix: RUEN
@@ -5829,8 +6445,8 @@ section-types:
         max-count: 1
       seteau:
         max-count: 1
-      seauen-audi:
-        max-count: infinite
+      seauen-audi-lst:
+        max-count: 1
     description: |
       Specify security audit requirements including penetration testing, code
       review, dependency scanning, and compliance audits. Regular auditing
@@ -5874,8 +6490,8 @@ section-types:
     subsection-types:
       selein:
         max-count: 1
-      slen-slos:
-        max-count: infinite
+      slen-slos-lst:
+        max-count: 1
       erbutr:
         max-count: 1
     description: 8.7.2.5. SLA and SLO Monitoring.
@@ -6117,12 +6733,12 @@ section-types:
         max-count: 1
       teenne:
         max-count: 1
-      datac-data:
-        max-count: infinite
-      testen-tech:
-        max-count: infinite
-      incoe1-inte:
-        max-count: infinite
+      datac-data-lst:
+        max-count: 1
+      testen-tech-lst:
+        max-count: 1
+      incoe1-inte-lst:
+        max-count: 1
     description: Technical framework conditions (whole).
   tlre:
     prefix: TLRE
@@ -6334,22 +6950,22 @@ section-types:
   crs:
     prefix: CRS
     subsection-types:
-      oscoen-osco:
-        max-count: infinite
-      brcoen-brow:
-        max-count: infinite
-      dacoen-data:
-        max-count: infinite
-      esce-ente:
-        max-count: infinite
-      apcp-apic:
-        max-count: infinite
-      lecoen-lega:
-        max-count: infinite
-      mocoen-mobi:
-        max-count: infinite
-      tpce-thir:
-        max-count: infinite
+      oscoen-osco-lst:
+        max-count: 1
+      brcoen-brow-lst:
+        max-count: 1
+      dacoen-data-lst:
+        max-count: 1
+      esce-ente-lst:
+        max-count: 1
+      apcp-apic-lst:
+        max-count: 1
+      lecoen-lega-lst:
+        max-count: 1
+      mocoen-mobi-lst:
+        max-count: 1
+      tpce-thir-lst:
+        max-count: 1
       dafoco:
         max-count: 1
       bacore:
@@ -6431,8 +7047,8 @@ section-types:
   ecs:
     prefix: ECS
     subsection-types:
-      epce-part:
-        max-count: infinite
+      epce-part-lst:
+        max-count: 1
       clsein:
         max-count: 1
       tpai:
@@ -6479,8 +7095,8 @@ section-types:
     subsection-types:
       scmapo:
         max-count: 1
-      mawien-main:
-        max-count: infinite
+      mawien-main-lst:
+        max-count: 1
       emmapr:
         max-count: 1
       machma:
@@ -6531,8 +7147,8 @@ section-types:
         max-count: 1
       neavre:
         max-count: 1
-      vpreen-vpnr:
-        max-count: infinite
+      vpreen-vpnr-lst:
+        max-count: 1
       fire:
         max-count: 1
       gedire:
@@ -6577,16 +7193,16 @@ section-types:
     subsection-types:
       repr:
         max-count: 1
-      shlcp-shar:
-        max-count: infinite
-      ruicmp-uico:
-        max-count: infinite
-      bucoen-busi:
-        max-count: infinite
-      incoen-infr:
-        max-count: infinite
-      thpali-thir:
-        max-count: infinite
+      shlcp-shar-lst:
+        max-count: 1
+      ruicmp-uico-lst:
+        max-count: 1
+      bucoen-busi-lst:
+        max-count: 1
+      incoen-infr-lst:
+        max-count: 1
+      thpali-thir-lst:
+        max-count: 1
       cogo:
         max-count: 1
       core:
@@ -6649,10 +7265,10 @@ section-types:
   srs:
     prefix: SRS
     subsection-types:
-      seenen-envi:
-        max-count: infinite
-      seroen-serv:
-        max-count: infinite
+      seenen-envi-lst:
+        max-count: 1
+      seroen-serv-lst:
+        max-count: 1
       corere:
         max-count: 1
       sestre:
@@ -6771,12 +7387,12 @@ section-types:
     subsection-types:
       arov:
         max-count: 1
-      arpr-prin:
-        max-count: infinite
+      arpr-prin-lst:
+        max-count: 1
       coor:
         max-count: 1
-      arcm-comp:
-        max-count: infinite
+      arcm-comp-lst:
+        max-count: 1
       compat:
         max-count: 1
       daar:
@@ -6787,8 +7403,8 @@ section-types:
         max-count: 1
       deto:
         max-count: 1
-      arde-deci:
-        max-count: infinite
+      arde-deci-lst:
+        max-count: 1
     description: |
       Define the system's architectural style and structural organization.
       Architecture decisions have long-lasting impacts on maintainability,
@@ -6876,8 +7492,8 @@ section-types:
     subsection-types:
       ars:
         max-count: 1
-      maint-main:
-        max-count: infinite
+      maint-main-lst:
+        max-count: 1
     description: |
       Specify day-to-day system operation requirements including administration,
       maintenance, and user management. Efficient operations reduce toil and

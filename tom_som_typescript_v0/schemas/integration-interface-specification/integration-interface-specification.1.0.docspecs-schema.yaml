@@ -3,6 +3,118 @@
 
 title-format: "# <!--[IIS]--> Integration & Interface Specification"
 section-types:
+  boasen-item-lst:
+    prefix: BOASEN_ITEM_LST
+    subsection-types:
+      boasen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
+  boinpa-inte-lst:
+    prefix: BOINPA_INTE_LST
+    subsection-types:
+      boinpa-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Boundary interaction patterns.
+  exinen-inte-lst:
+    prefix: EXINEN_INTE_LST
+    subsection-types:
+      exinen-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
+  inopen-oper-lst:
+    prefix: INOPEN_OPER_LST
+    subsection-types:
+      inopen-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
+  depen-depe-lst:
+    prefix: DEPEN_DEPE_LST
+    subsection-types:
+      depen-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
+  error-erro-lst:
+    prefix: ERROR_ERRO_LST
+    subsection-types:
+      error-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
+  itse1-test-lst:
+    prefix: ITSE1_TEST_LST
+    subsection-types:
+      itse1-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
+  mappi-mapp-lst:
+    prefix: MAPPI_MAPP_LST
+    subsection-types:
+      mappi-mapp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: List data mapping and transformation rules between external and internal representations.
+  valid-vali-lst:
+    prefix: VALID_VALI_LST
+    subsection-types:
+      valid-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
+  cboc-oper-lst:
+    prefix: CBOC_OPER_LST
+    subsection-types:
+      cboc-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Cross-boundary operational considerations.
+  ibpe-depe-lst:
+    prefix: IBPE_DEPE_LST
+    subsection-types:
+      ibpe-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  idee-data-lst:
+    prefix: IDEE_DATA_LST
+    subsection-types:
+      idee-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
+  miin-migr-lst:
+    prefix: MIIN_MIGR_LST
+    subsection-types:
+      miin-migr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Migration interactions.
+  oose-item-lst:
+    prefix: OOSE_ITEM_LST
+    subsection-types:
+      oose-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   boasen-item:
     prefix: BOASEN_ITEM_
     subsection-types:
@@ -117,18 +229,18 @@ section-types:
   inbuco:
     prefix: INBUCO
     subsection-types:
-      ibpe-depe:
-        max-count: infinite
+      ibpe-depe-lst:
+        max-count: 1
     description: Business purpose and value of this interface.
   indasp:
     prefix: INDASP
     subsection-types:
-      idee-data:
-        max-count: infinite
-      mappi-mapp:
-        max-count: infinite
-      valid-vali:
-        max-count: infinite
+      idee-data-lst:
+        max-count: 1
+      mappi-mapp-lst:
+        max-count: 1
+      valid-vali-lst:
+        max-count: 1
     description: Data exchange specification.
   indean:
     prefix: INDEAN
@@ -142,8 +254,8 @@ section-types:
         max-count: 1
       ieht:
         max-count: 1
-      error-erro:
-        max-count: infinite
+      error-erro-lst:
+        max-count: 1
     description: Error handling and resilience.
   ingoco:
     prefix: INGOCO
@@ -179,8 +291,8 @@ section-types:
         max-count: 1
       itse:
         max-count: 1
-      inopen-oper:
-        max-count: infinite
+      inopen-oper-lst:
+        max-count: 1
       inwesp:
         max-count: 1
     description: Technical details of the interface.
@@ -193,8 +305,8 @@ section-types:
   ouofsc:
     prefix: OUOFSC
     subsection-types:
-      oose-item:
-        max-count: infinite
+      oose-item-lst:
+        max-count: 1
     description: Out of scope.
   sylain:
     prefix: SYLAIN
@@ -217,8 +329,8 @@ section-types:
   boas:
     prefix: BOAS
     subsection-types:
-      boasen-item:
-        max-count: infinite
+      boasen-item-lst:
+        max-count: 1
     description: Boundary assumptions.
   cbeh:
     prefix: CBEH
@@ -226,8 +338,8 @@ section-types:
   exin:
     prefix: EXIN
     subsection-types:
-      exinen-inte:
-        max-count: infinite
+      exinen-inte-lst:
+        max-count: 1
     description: External interfaces.
   iehf:
     prefix: IEHF
@@ -255,8 +367,8 @@ section-types:
         max-count: 1
       inopsu:
         max-count: 1
-      depen-depe:
-        max-count: infinite
+      depen-depe-lst:
+        max-count: 1
     description: Operational and SLA requirements.
   inte:
     prefix: INTE
@@ -265,8 +377,8 @@ section-types:
         max-count: 1
       intest:
         max-count: 1
-      itse1-test:
-        max-count: infinite
+      itse1-test-lst:
+        max-count: 1
     description: Testing and environment information.
   iorl:
     prefix: IORL
@@ -304,8 +416,8 @@ document:
     sylain:
       section-type: sylain
       optional: true
-    boinpa-inte:
-      section-type: boinpa-inte
+    boinpa-inte-lst:
+      section-type: boinpa-inte-lst
       optional: true
     intes1:
       section-type: intes1
@@ -313,11 +425,11 @@ document:
     indean:
       section-type: indean
       optional: true
-    miin-migr:
-      section-type: miin-migr
+    miin-migr-lst:
+      section-type: miin-migr-lst
       optional: true
-    cboc-oper:
-      section-type: cboc-oper
+    cboc-oper-lst:
+      section-type: cboc-oper-lst
       optional: true
     cbeh:
       section-type: cbeh

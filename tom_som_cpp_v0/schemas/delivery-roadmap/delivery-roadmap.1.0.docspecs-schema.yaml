@@ -3,6 +3,251 @@
 
 title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
+  deopen-opti-lst:
+    prefix: DEOPEN_OPTI_LST
+    subsection-types:
+      deopen-opti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per decision option.
+  depoen-item-lst:
+    prefix: DEPOEN_ITEM_LST
+    subsection-types:
+      depoen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per decision point.
+  fedeen-item-lst:
+    prefix: FEDEEN_ITEM_LST
+    subsection-types:
+      fedeen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature dependency.
+  fepren-item-lst:
+    prefix: FEPREN_ITEM_LST
+    subsection-types:
+      fepren-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per prioritized feature.
+  festm1-item-lst:
+    prefix: FESTM1_ITEM_LST
+    subsection-types:
+      festm1-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature-stage mapping.
+  miphre-reso-lst:
+    prefix: MIPHRE_RESO_LST
+    subsection-types:
+      miphre-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration-phase resource.
+  stagdp-depe-lst:
+    prefix: STAGDP_DEPE_LST
+    subsection-types:
+      stagdp-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per staging dependency.
+  stagdr-driv-lst:
+    prefix: STAGDR_DRIV_LST
+    subsection-types:
+      stagdr-driv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per staging driver.
+  stagse-stag-lst:
+    prefix: STAGSE_STAG_LST
+    subsection-types:
+      stagse-stag:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per stage summary.
+  stgmrs-item-lst:
+    prefix: STGMRS_ITEM_LST
+    subsection-types:
+      stgmrs-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration risk.
+  stgsuc-succ-lst:
+    prefix: STGSUC_SUCC_LST
+    subsection-types:
+      stgsuc-succ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Success Criteria — contains 0+× StageSuccessCriterion.
+  stmire-reso-lst:
+    prefix: STMIRE_RESO_LST
+    subsection-types:
+      stmire-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration resource.
+  stsude-depe-lst:
+    prefix: STSUDE_DEPE_LST
+    subsection-types:
+      stsude-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Dependencies and risks.
+  stsure-reso-lst:
+    prefix: STSURE_RESO_LST
+    subsection-types:
+      stsure-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Resources and budget.
+  keyas-keya-lst:
+    prefix: KEYAS_KEYA_LST
+    subsection-types:
+      keyas-keya:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key assumption.
+  mgphs-item-lst:
+    prefix: MGPHS_ITEM_LST
+    subsection-types:
+      mgphs-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration phase.
+  rvcri-revi-lst:
+    prefix: RVCRI_REVI_LST
+    subsection-types:
+      rvcri-revi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per review criterion.
+  stage-stag-lst:
+    prefix: STAGE_STAG_LST
+    subsection-types:
+      stage-stag:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Stages (list).
+  stagi-cons-lst:
+    prefix: STAGI_CONS_LST
+    subsection-types:
+      stagi-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per staging constraint.
+  susst-subs-lst:
+    prefix: SUSST_SUBS_LST
+    subsection-types:
+      susst-subs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Sub-stages and Milestones — contains 0+× SubStage.
+  fest-stak-lst:
+    prefix: FEST_STAK_LST
+    subsection-types:
+      fest-stak:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature stakeholder.
+  mien-envi-lst:
+    prefix: MIEN_ENVI_LST
+    subsection-types:
+      mien-envi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration environment.
+  mist-stak-lst:
+    prefix: MIST_STAK_LST
+    subsection-types:
+      mist-stak:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration stakeholder.
+  misy-syst-lst:
+    prefix: MISY_SYST_LST
+    subsection-types:
+      misy-syst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per source system.
+  moen-item-lst:
+    prefix: MOEN_ITEM_LST
+    subsection-types:
+      moen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per MoSCoW-classified feature.
+  mpdr-dryr-lst:
+    prefix: MPDR_DRYR_LST
+    subsection-types:
+      mpdr-dryr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration dry run.
+  pgre-item-lst:
+    prefix: PGRE_ITEM_LST
+    subsection-types:
+      pgre-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per phase gate review.
+  stde-depe-lst:
+    prefix: STDE_DEPE_LST
+    subsection-types:
+      stde-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Dependencies.
+  stre-reso-lst:
+    prefix: STRE_RESO_LST
+    subsection-types:
+      stre-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Resources and budget.
+  stst-stak-lst:
+    prefix: STST_STAK_LST
+    subsection-types:
+      stst-stak:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Stakeholders and communication.
   deopen-opti:
     prefix: DEOPEN_OPTI_
     subsection-types:
@@ -54,8 +299,8 @@ section-types:
         max-count: 1
       fedein:
         max-count: 1
-      fest-stak:
-        max-count: infinite
+      fest-stak-lst:
+        max-count: 1
       fetr:
         max-count: 1
       fs:
@@ -106,10 +351,10 @@ section-types:
         max-count: 1
       stsusc:
         max-count: 1
-      stsure-reso:
-        max-count: infinite
-      stsude-depe:
-        max-count: infinite
+      stsure-reso-lst:
+        max-count: 1
+      stsude-depe-lst:
+        max-count: 1
       stsuqu:
         max-count: 1
       stsust:
@@ -191,16 +436,16 @@ section-types:
         max-count: 1
       miphsc:
         max-count: 1
-      mpdr-dryr:
-        max-count: infinite
+      mpdr-dryr-lst:
+        max-count: 1
       miphva:
         max-count: 1
       miphac:
         max-count: 1
       miphro:
         max-count: 1
-      miphre-reso:
-        max-count: infinite
+      miphre-reso-lst:
+        max-count: 1
       miphst:
         max-count: 1
     pattern-check-id:
@@ -227,24 +472,24 @@ section-types:
         max-count: 1
       stsc:
         max-count: 1
-      stde-depe:
-        max-count: infinite
-      stre-reso:
-        max-count: infinite
+      stde-depe-lst:
+        max-count: 1
+      stre-reso-lst:
+        max-count: 1
       stqu:
         max-count: 1
       sd:
         max-count: 1
-      stst-stak:
-        max-count: infinite
+      stst-stak-lst:
+        max-count: 1
       stri:
         max-count: 1
       stme:
         max-count: 1
-      susst-subs:
-        max-count: infinite
-      stgsuc-succ:
-        max-count: infinite
+      susst-subs-lst:
+        max-count: 1
+      stgsuc-succ-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^STAGE-STAG-[0-9]+$"
       error-message: IDs of this section must match STAGE-STAG-xxx
@@ -332,8 +577,8 @@ section-types:
         max-count: 1
       phgaex:
         max-count: 1
-      rvcri-revi:
-        max-count: infinite
+      rvcri-revi-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PGRE-ITEM-[0-9]+$"
       error-message: IDs of this section must match PGRE-ITEM-xxx
@@ -375,14 +620,14 @@ section-types:
         max-count: 1
       misc:
         max-count: 1
-      misy-syst:
-        max-count: infinite
+      misy-syst-lst:
+        max-count: 1
       midaqu:
         max-count: 1
       mito:
         max-count: 1
-      mien-envi:
-        max-count: infinite
+      mien-envi-lst:
+        max-count: 1
       micu:
         max-count: 1
       miro:
@@ -391,10 +636,10 @@ section-types:
         max-count: 1
       mime:
         max-count: 1
-      mist-stak:
-        max-count: infinite
-      stmire-reso:
-        max-count: infinite
+      mist-stak-lst:
+        max-count: 1
+      stmire-reso-lst:
+        max-count: 1
       ms:
         max-count: 1
       miph:
@@ -423,8 +668,8 @@ section-types:
   feprre:
     prefix: FEPRRE
     subsection-types:
-      fepren-item:
-        max-count: infinite
+      fepren-item-lst:
+        max-count: 1
         min-count: 1
     description: 13.4.3. Feature Priority Register.
   feprsc:
@@ -442,8 +687,8 @@ section-types:
   festma:
     prefix: FESTMA
     subsection-types:
-      festm1-item:
-        max-count: infinite
+      festm1-item-lst:
+        max-count: 1
     description: 13.4.2. Feature-Stage Matrix.
   indefl:
     prefix: INDEFL
@@ -506,8 +751,8 @@ section-types:
         max-count: 1
       pgro:
         max-count: 1
-      pgre-item:
-        max-count: infinite
+      pgre-item-lst:
+        max-count: 1
     description: Gate criteria (promoted from GOV).
   phgasc:
     prefix: PHGASC
@@ -570,8 +815,8 @@ section-types:
         max-count: 1
       stovc1:
         max-count: 1
-      stagse-stag:
-        max-count: infinite
+      stagse-stag-lst:
+        max-count: 1
         min-count: 1
     description: Stage overview.
   stagrd:
@@ -593,8 +838,8 @@ section-types:
         max-count: 1
       stagrt:
         max-count: 1
-      stagdr-driv:
-        max-count: infinite
+      stagdr-driv-lst:
+        max-count: 1
       stagrk:
         max-count: 1
       stagcx:
@@ -609,20 +854,20 @@ section-types:
         max-count: 1
       stagfa:
         max-count: 1
-      stagdp-depe:
-        max-count: infinite
+      stagdp-depe-lst:
+        max-count: 1
       staggv:
         max-count: 1
-      keyas-keya:
-        max-count: infinite
-      stagi-cons:
-        max-count: infinite
+      keyas-keya-lst:
+        max-count: 1
+      stagi-cons-lst:
+        max-count: 1
     description: Staging strategy.
   stmiri:
     prefix: STMIRI
     subsection-types:
-      stgmrs-item:
-        max-count: infinite
+      stgmrs-item-lst:
+        max-count: 1
         min-count: 1
     description: 13.5.2. Migration Risks.
   stovc1:
@@ -682,8 +927,8 @@ section-types:
   depo:
     prefix: DEPO
     subsection-types:
-      depoen-item:
-        max-count: infinite
+      depoen-item-lst:
+        max-count: 1
     description: Decision processes (promoted from GOV).
   doef:
     prefix: DOEF
@@ -700,8 +945,8 @@ section-types:
   dper:
     prefix: DPER
     subsection-types:
-      deopen-opti:
-        max-count: infinite
+      deopen-opti-lst:
+        max-count: 1
     description: Resolution details (filled when decided).
   dpes:
     prefix: DPES
@@ -709,8 +954,8 @@ section-types:
   fede:
     prefix: FEDE
     subsection-types:
-      fedeen-item:
-        max-count: infinite
+      fedeen-item-lst:
+        max-count: 1
     description: 13.4.4. Feature Dependencies.
   feef:
     prefix: FEEF
@@ -772,8 +1017,8 @@ section-types:
   miph:
     prefix: MIPH
     subsection-types:
-      mgphs-item:
-        max-count: infinite
+      mgphs-item-lst:
+        max-count: 1
         min-count: 1
     description: 13.5.1. Migration Phases.
   miro:
@@ -788,8 +1033,8 @@ section-types:
   moan:
     prefix: MOAN
     subsection-types:
-      moen-item:
-        max-count: infinite
+      moen-item-lst:
+        max-count: 1
     description: 13.4.1. MoSCoW Analysis.
   mpds:
     prefix: MPDS
@@ -874,8 +1119,8 @@ document:
     stagov:
       section-type: stagov
       optional: true
-    stage-stag:
-      section-type: stage-stag
+    stage-stag-lst:
+      section-type: stage-stag-lst
     fepr:
       section-type: fepr
       optional: true

@@ -3,6 +3,265 @@
 
 title-format: "# <!--[IFM]--> Information Model"
 section-types:
+  biobat-attr-lst:
+    prefix: BIOBAT_ATTR_LST
+    subsection-types:
+      biobat-attr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business object attribute.
+  birure-keyb-lst:
+    prefix: BIRURE_KEYB_LST
+    subsection-types:
+      birure-keyb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business rule reference.
+  rulexm-exam-lst:
+    prefix: RULEXM_EXAM_LST
+    subsection-types:
+      rulexm-exam:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per rule example.
+  acrse-acce-lst:
+    prefix: ACRSE_ACCE_LST
+    subsection-types:
+      acrse-acce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per access restriction.
+  behav-beha-lst:
+    prefix: BEHAV_BEHA_LST
+    subsection-types:
+      behav-beha:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per behavior rule.
+  bjoen-obje-lst:
+    prefix: BJOEN_OBJE_LST
+    subsection-types:
+      bjoen-obje:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Business object catalog (list).
+  daatt-attr-lst:
+    prefix: DAATT_ATTR_LST
+    subsection-types:
+      daatt-attr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data attribute.
+  daent-enti-lst:
+    prefix: DAENT_ENTI_LST
+    subsection-types:
+      daent-enti:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Entity inventory (list).
+  dataa-cons-lst:
+    prefix: DATAA_CONS_LST
+    subsection-types:
+      dataa-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per attribute constraint.
+  dclse-item-lst:
+    prefix: DCLSE_ITEM_LST
+    subsection-types:
+      dclse-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data classification level.
+  displ-disp-lst:
+    prefix: DISPL_DISP_LST
+    subsection-types:
+      displ-disp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per display property.
+  encns-cons-lst:
+    prefix: ENCNS_CONS_LST
+    subsection-types:
+      encns-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity constraint.
+  enidx-inde-lst:
+    prefix: ENIDX_INDE_LST
+    subsection-types:
+      enidx-inde:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity index.
+  enrle-item-lst:
+    prefix: ENRLE_ITEM_LST
+    subsection-types:
+      enrle-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entity relationship.
+  fndmx-func-lst:
+    prefix: FNDMX_FUNC_LST
+    subsection-types:
+      fndmx-func:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Function-to-data matrix (list).
+  funct-func-lst:
+    prefix: FUNCT_FUNC_LST
+    subsection-types:
+      funct-func:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Function decomposition (list).
+  hndre-hand-lst:
+    prefix: HNDRE_HAND_LST
+    subsection-types:
+      hndre-hand:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per handling requirement.
+  integ-inte-lst:
+    prefix: INTEG_INTE_LST
+    subsection-types:
+      integ-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per integration point.
+  keatt-keya-lst:
+    prefix: KEATT_KEYA_LST
+    subsection-types:
+      keatt-keya:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key attribute.
+  lftrs-life-lst:
+    prefix: LFTRS_LIFE_LST
+    subsection-types:
+      lftrs-life:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per lifecycle transition.
+  migme-migr-lst:
+    prefix: MIGME_MIGR_LST
+    subsection-types:
+      migme-migr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per migration mapping.
+  obinv-inva-lst:
+    prefix: OBINV_INVA_LST
+    subsection-types:
+      obinv-inva:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object invariant.
+  parti-part-lst:
+    prefix: PARTI_PART_LST
+    subsection-types:
+      parti-part:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per participating entity.
+  relat-rela-lst:
+    prefix: RELAT_RELA_LST
+    subsection-types:
+      relat-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per relationship attribute.
+  techn-tech-lst:
+    prefix: TECHN_TECH_LST
+    subsection-types:
+      techn-tech:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per technical characteristic.
+  volum-volu-lst:
+    prefix: VOLUM_VOLU_LST
+    subsection-types:
+      volum-volu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per volume metric.
+  affn-affe-lst:
+    prefix: AFFN_AFFE_LST
+    subsection-types:
+      affn-affe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per affected function.
+  afob-affe-lst:
+    prefix: AFOB_AFFE_LST
+    subsection-types:
+      afob-affe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per affected object.
+  biru-busi-lst:
+    prefix: BIRU_BUSI_LST
+    subsection-types:
+      biru-busi:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Business rules catalog (list).
+  obop-oper-lst:
+    prefix: OBOP_OPER_LST
+    subsection-types:
+      obop-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object operation.
+  obst-keys-lst:
+    prefix: OBST_KEYS_LST
+    subsection-types:
+      obst-keys:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per object state.
+  sufn-subf-lst:
+    prefix: SUFN_SUBF_LST
+    subsection-types:
+      sufn-subf:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per sub-function.
   biobat-attr:
     prefix: BIOBAT_ATTR_
     subsection-types:
@@ -22,6 +281,14 @@ section-types:
       pattern: "^BIRURE-KEYB-[0-9]+$"
       error-message: IDs of this section must match BIRURE-KEYB-xxx
     description: Add one entry per business rule reference.
+  cre-comp-lst:
+    prefix: CRE_COMP_LST
+    subsection-types:
+      cre-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per compliance requirement.
   rulexm-exam:
     prefix: RULEXM_EXAM_
     pattern-check-id:
@@ -43,22 +310,22 @@ section-types:
   bjoen-obje:
     prefix: BJOEN_OBJE_
     subsection-types:
-      behav-beha:
-        max-count: infinite
-      integ-inte:
-        max-count: infinite
-      biobat-attr:
-        max-count: infinite
-      obst-keys:
-        max-count: infinite
-      birure-keyb:
-        max-count: infinite
-      lftrs-life:
-        max-count: infinite
-      obop-oper:
-        max-count: infinite
-      obinv-inva:
-        max-count: infinite
+      behav-beha-lst:
+        max-count: 1
+      integ-inte-lst:
+        max-count: 1
+      biobat-attr-lst:
+        max-count: 1
+      obst-keys-lst:
+        max-count: 1
+      birure-keyb-lst:
+        max-count: 1
+      lftrs-life-lst:
+        max-count: 1
+      obop-oper-lst:
+        max-count: 1
+      obinv-inva-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^BJOEN-OBJE-[0-9]+$"
       error-message: IDs of this section must match BJOEN-OBJE-xxx
@@ -66,10 +333,10 @@ section-types:
   daatt-attr:
     prefix: DAATT_ATTR_
     subsection-types:
-      dataa-cons:
-        max-count: infinite
-      displ-disp:
-        max-count: infinite
+      dataa-cons-lst:
+        max-count: 1
+      displ-disp-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^DAATT-ATTR-[0-9]+$"
       error-message: IDs of this section must match DAATT-ATTR-xxx
@@ -77,22 +344,22 @@ section-types:
   daent-enti:
     prefix: DAENT_ENTI_
     subsection-types:
-      volum-volu:
-        max-count: infinite
-      cre-comp:
-        max-count: infinite
-      techn-tech:
-        max-count: infinite
-      daatt-attr:
-        max-count: infinite
-      keatt-keya:
-        max-count: infinite
-      enidx-inde:
-        max-count: infinite
-      encns-cons:
-        max-count: infinite
-      migme-migr:
-        max-count: infinite
+      volum-volu-lst:
+        max-count: 1
+      cre-comp-lst:
+        max-count: 1
+      techn-tech-lst:
+        max-count: 1
+      daatt-attr-lst:
+        max-count: 1
+      keatt-keya-lst:
+        max-count: 1
+      enidx-inde-lst:
+        max-count: 1
+      encns-cons-lst:
+        max-count: 1
+      migme-migr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^DAENT-ENTI-[0-9]+$"
       error-message: IDs of this section must match DAENT-ENTI-xxx
@@ -106,10 +373,10 @@ section-types:
   dclse-item:
     prefix: DCLSE_ITEM_
     subsection-types:
-      hndre-hand:
-        max-count: infinite
-      acrse-acce:
-        max-count: infinite
+      hndre-hand-lst:
+        max-count: 1
+      acrse-acce-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^DCLSE-ITEM-[0-9]+$"
       error-message: IDs of this section must match DCLSE-ITEM-xxx
@@ -135,10 +402,10 @@ section-types:
   enrle-item:
     prefix: ENRLE_ITEM_
     subsection-types:
-      parti-part:
-        max-count: infinite
-      relat-rela:
-        max-count: infinite
+      parti-part-lst:
+        max-count: 1
+      relat-rela-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^ENRLE-ITEM-[0-9]+$"
       error-message: IDs of this section must match ENRLE-ITEM-xxx
@@ -158,8 +425,8 @@ section-types:
         max-count: 1
       fuenim:
         max-count: 1
-      sufn-subf:
-        max-count: infinite
+      sufn-subf-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^FUNCT-FUNC-[0-9]+$"
       error-message: IDs of this section must match FUNCT-FUNC-xxx
@@ -253,12 +520,12 @@ section-types:
   biru-busi:
     prefix: BIRU_BUSI_
     subsection-types:
-      afob-affe:
-        max-count: infinite
-      affn-affe:
-        max-count: infinite
-      rulexm-exam:
-        max-count: infinite
+      afob-affe-lst:
+        max-count: 1
+      affn-affe-lst:
+        max-count: 1
+      rulexm-exam-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^BIRU-BUSI-[0-9]+$"
       error-message: IDs of this section must match BIRU-BUSI-xxx
@@ -315,8 +582,8 @@ section-types:
   datcl:
     prefix: DATCL
     subsection-types:
-      dclse-item:
-        max-count: infinite
+      dclse-item-lst:
+        max-count: 1
     description: Data classification.
   dochd:
     prefix: DOCHD
@@ -324,8 +591,8 @@ section-types:
   enrel:
     prefix: ENREL
     subsection-types:
-      enrle-item:
-        max-count: infinite
+      enrle-item-lst:
+        max-count: 1
     description: Entity relationships.
   keagn:
     prefix: KEAGN
@@ -368,24 +635,24 @@ document:
     dochd:
       section-type: dochd
       optional: true
-    daent-enti:
-      section-type: daent-enti
+    daent-enti-lst:
+      section-type: daent-enti-lst
     enrel:
       section-type: enrel
       optional: true
     datcl:
       section-type: datcl
       optional: true
-    bjoen-obje:
-      section-type: bjoen-obje
-    funct-func:
-      section-type: funct-func
+    bjoen-obje-lst:
+      section-type: bjoen-obje-lst
+    funct-func-lst:
+      section-type: funct-func-lst
       optional: true
-    fndmx-func:
-      section-type: fndmx-func
+    fndmx-func-lst:
+      section-type: fndmx-func-lst
       optional: true
-    biru-busi:
-      section-type: biru-busi
+    biru-busi-lst:
+      section-type: biru-busi-lst
     dadi:
       section-type: dadi
       optional: true

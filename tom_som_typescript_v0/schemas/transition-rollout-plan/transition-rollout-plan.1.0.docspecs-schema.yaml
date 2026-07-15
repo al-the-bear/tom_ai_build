@@ -3,6 +3,22 @@
 
 title-format: "# <!--[TRP]--> Transition & Rollout Plan"
 section-types:
+  trmoen-trai-lst:
+    prefix: TRMOEN_TRAI_LST
+    subsection-types:
+      trmoen-trai:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per training module.
+  trveen-vend-lst:
+    prefix: TRVEEN_VEND_LST
+    subsection-types:
+      trveen-vend:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per translation vendor.
   trmoen-trai:
     prefix: TRMOEN_TRAI_
     pattern-check-id:
@@ -71,8 +87,8 @@ section-types:
   trmat:
     prefix: TRMAT
     subsection-types:
-      trmoen-trai:
-        max-count: infinite
+      trmoen-trai-lst:
+        max-count: 1
     description: Training deliverable requirements (training half of the former DOANTR;
   wrtsp:
     prefix: WRTSP
@@ -104,8 +120,8 @@ section-types:
         max-count: 1
       trpron:
         max-count: 1
-      trveen-vend:
-        max-count: infinite
+      trveen-vend-lst:
+        max-count: 1
     description: Translation process.
 document:
   sections:

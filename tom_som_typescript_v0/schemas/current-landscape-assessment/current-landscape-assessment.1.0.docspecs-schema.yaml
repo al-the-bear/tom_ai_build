@@ -3,12 +3,593 @@
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
+  repsdep-depe-lst:
+    prefix: REPSDEP_DEPE_LST
+    subsection-types:
+      repsdep-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  bupapo-item-lst:
+    prefix: BUPAPO_ITEM_LST
+    subsection-types:
+      bupapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
+  cubipr-proc-lst:
+    prefix: CUBIPR_PROC_LST
+    subsection-types:
+      cubipr-proc:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per business process in scope. Document each process in full — its workflows, actors, metrics, and pain points."
+  cuopme-oper-lst:
+    prefix: CUOPME_OPER_LST
+    subsection-types:
+      cuopme-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Current operational metrics.
+  daowen-owne-lst:
+    prefix: DAOWEN_OWNE_LST
+    subsection-types:
+      daowen-owne:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
+  daqlis-qual-lst:
+    prefix: DAQLIS_QUAL_LST
+    subsection-types:
+      daqlis-qual:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
+  davoen-volu-lst:
+    prefix: DAVOEN_VOLU_LST
+    subsection-types:
+      davoen-volu:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  mebaen-entr-lst:
+    prefix: MEBAEN_ENTR_LST
+    subsection-types:
+      mebaen-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
+  miriin-indi-lst:
+    prefix: MIRIIN_INDI_LST
+    subsection-types:
+      miriin-indi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
+  oppapo-item-lst:
+    prefix: OPPAPO_ITEM_LST
+    subsection-types:
+      oppapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
+  papor1-rela-lst:
+    prefix: PAPOR1_RELA_LST
+    subsection-types:
+      papor1-rela:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
+  prdeen-depe-lst:
+    prefix: PRDEEN_DEPE_LST
+    subsection-types:
+      prdeen-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
+  prmeca-cost-lst:
+    prefix: PRMECA_COST_LST
+    subsection-types:
+      prmeca-cost:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add cost metrics — cost per transaction, resource costs."
+  prmeca-effi-lst:
+    prefix: PRMECA_EFFI_LST
+    subsection-types:
+      prmeca-effi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add efficiency metrics — throughput, cycle times, utilization."
+  prmeca-manu-lst:
+    prefix: PRMECA_MANU_LST
+    subsection-types:
+      prmeca-manu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add manual-intervention metrics — manual steps, human intervention frequency."
+  prmeca-qual-lst:
+    prefix: PRMECA_QUAL_LST
+    subsection-types:
+      prmeca-qual:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add quality metrics — error rates, defect rates, rework rates."
+  prmeca-volu-lst:
+    prefix: PRMECA_VOLU_LST
+    subsection-types:
+      prmeca-volu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add volume metrics — transaction counts, throughput volumes."
+  prscen-insc-lst:
+    prefix: PRSCEN_INSC_LST
+    subsection-types:
+      prscen-insc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
+  prscen-outo-lst:
+    prefix: PRSCEN_OUTO_LST
+    subsection-types:
+      prscen-outo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
+  repphs-phas-lst:
+    prefix: REPPHS_PHAS_LST
+    subsection-types:
+      repphs-phas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  sytore-syst-lst:
+    prefix: SYTORE_SYST_LST
+    subsection-types:
+      sytore-syst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
+  tepapo-item-lst:
+    prefix: TEPAPO_ITEM_LST
+    subsection-types:
+      tepapo-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
+  woburu-busi-lst:
+    prefix: WOBURU_BUSI_LST
+    subsection-types:
+      woburu-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+  wodepo-deci-lst:
+    prefix: WODEPO_DECI_LST
+    subsection-types:
+      wodepo-deci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
+  woexen-exce-lst:
+    prefix: WOEXEN_EXCE_LST
+    subsection-types:
+      woexen-exce:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
+  woinen-inpu-lst:
+    prefix: WOINEN_INPU_LST
+    subsection-types:
+      woinen-inpu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+  woouen-outp-lst:
+    prefix: WOOUEN_OUTP_LST
+    subsection-types:
+      woouen-outp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per output this step produces, with its destination and format."
+  wostis-know-lst:
+    prefix: WOSTIS_KNOW_LST
+    subsection-types:
+      wostis-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
+  wostsy-syst-lst:
+    prefix: WOSTSY_SYST_LST
+    subsection-types:
+      wostsy-syst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system the step uses.
+  wosuen-entr-lst:
+    prefix: WOSUEN_ENTR_LST
+    subsection-types:
+      wosuen-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
+  wotren-trig-lst:
+    prefix: WOTREN_TRIG_LST
+    subsection-types:
+      wotren-trig:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
+  criti-crit-lst:
+    prefix: CRITI_CRIT_LST
+    subsection-types:
+      criti-crit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  escal-esca-lst:
+    prefix: ESCAL_ESCA_LST
+    subsection-types:
+      escal-esca:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
+  esent-syst-lst:
+    prefix: ESENT_SYST_LST
+    subsection-types:
+      esent-syst:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system."
+  exsde-item-lst:
+    prefix: EXSDE_ITEM_LST
+    subsection-types:
+      exsde-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
+  fragi-frag-lst:
+    prefix: FRAGI_FRAG_LST
+    subsection-types:
+      fragi-frag:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
+  known-know-lst:
+    prefix: KNOWN_KNOW_LST
+    subsection-types:
+      known-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
+  limet-know-lst:
+    prefix: LIMET_KNOW_LST
+    subsection-types:
+      limet-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Document each known limitation with its impact on current operations and any workarounds in place.
+  mgmls-mile-lst:
+    prefix: MGMLS_MILE_LST
+    subsection-types:
+      mgmls-mile:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met."
+  mgrsk-item-lst:
+    prefix: MGRSK_ITEM_LST
+    subsection-types:
+      mgrsk-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
+  monit-moni-lst:
+    prefix: MONIT_MONI_LST
+    subsection-types:
+      monit-moni:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  msddo-mast-lst:
+    prefix: MSDDO_MAST_LST
+    subsection-types:
+      msddo-mast:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  nonfi-nonf-lst:
+    prefix: NONFI_NONF_LST
+    subsection-types:
+      nonfi-nonf:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
+  ppgce-corr-lst:
+    prefix: PPGCE_CORR_LST
+    subsection-types:
+      ppgce-corr:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
+  prede-pred-lst:
+    prefix: PREDE_PRED_LST
+    subsection-types:
+      prede-pred:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  repol-rete-lst:
+    prefix: REPOL_RETE_LST
+    subsection-types:
+      repol-rete:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
+  respo-resp-lst:
+    prefix: RESPO_RESP_LST
+    subsection-types:
+      respo-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  riskb-risk-lst:
+    prefix: RISKB_RISK_LST
+    subsection-types:
+      riskb-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
+  riskc-risk-lst:
+    prefix: RISKC_RISK_LST
+    subsection-types:
+      riskc-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
+  secur-secu-lst:
+    prefix: SECUR_SECU_LST
+    subsection-types:
+      secur-secu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
+  share-shar-lst:
+    prefix: SHARE_SHAR_LST
+    subsection-types:
+      share-shar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
+  shien-item-lst:
+    prefix: SHIEN_ITEM_LST
+    subsection-types:
+      shien-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
+  cpie-impr-lst:
+    prefix: CPIE_IMPR_LST
+    subsection-types:
+      cpie-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
+  cuwf-work-lst:
+    prefix: CUWF_WORK_LST
+    subsection-types:
+      cuwf-work:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per workflow within this process, documenting its triggers, steps, actors, inputs, outputs, and timing."
+  dadu-dupl-lst:
+    prefix: DADU_DUPL_LST
+    subsection-types:
+      dadu-dupl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
+  dain-inte-lst:
+    prefix: DAIN_INTE_LST
+    subsection-types:
+      dain-inte:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
+  dasr-data-lst:
+    prefix: DASR_DATA_LST
+    subsection-types:
+      dasr-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
+  dcle-clas-lst:
+    prefix: DCLE_CLAS_LST
+    subsection-types:
+      dcle-clas:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
+  dcse-clas-lst:
+    prefix: DCSE_CLAS_LST
+    subsection-types:
+      dcse-clas:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
+  deme-enti-lst:
+    prefix: DEME_ENTI_LST
+    subsection-types:
+      deme-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
+  dgpe-gove-lst:
+    prefix: DGPE_GOVE_LST
+    subsection-types:
+      dgpe-gove:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
+  dqie-impr-lst:
+    prefix: DQIE_IMPR_LST
+    subsection-types:
+      dqie-impr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
+  dsee-keye-lst:
+    prefix: DSEE_KEYE_LST
+    subsection-types:
+      dsee-keye:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
+  gape-item-lst:
+    prefix: GAPE_ITEM_LST
+    subsection-types:
+      gape-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
   repsdep-depe:
     prefix: REPSDEP_DEPE_
     pattern-check-id:
       pattern: "^REPSDEP-DEPE-[0-9]+$"
       error-message: IDs of this section must match REPSDEP-DEPE-xxx
     description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  sbpe-supp-lst:
+    prefix: SBPE_SUPP_LST
+    subsection-types:
+      sbpe-supp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sbue-busi-lst:
+    prefix: SBUE_BUSI_LST
+    subsection-types:
+      sbue-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business unit using the system; note user count and dependency level.
+  smre-risk-lst:
+    prefix: SMRE_RISK_LST
+    subsection-types:
+      smre-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
+  syde-item-lst:
+    prefix: SYDE_ITEM_LST
+    subsection-types:
+      syde-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
+  syin-item-lst:
+    prefix: SYIN_ITEM_LST
+    subsection-types:
+      syin-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
+  ugie-user-lst:
+    prefix: UGIE_USER_LST
+    subsection-types:
+      ugie-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
+  wfac-acto-lst:
+    prefix: WFAC_ACTO_LST
+    subsection-types:
+      wfac-acto:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
   bupapo-item:
     prefix: BUPAPO_ITEM_
     subsection-types:
@@ -24,8 +605,8 @@ section-types:
         max-count: 1
       papore:
         max-count: 1
-      papor1-rela:
-        max-count: infinite
+      papor1-rela-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^BUPAPO-ITEM-[0-9]+$"
       error-message: IDs of this section must match BUPAPO-ITEM-xxx
@@ -81,6 +662,22 @@ section-types:
       pattern: "^DAVOEN-VOLU-[0-9]+$"
       error-message: IDs of this section must match DAVOEN-VOLU-xxx
     description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  ipe-inte-lst:
+    prefix: IPE_INTE_LST
+    subsection-types:
+      ipe-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
+  kie-know-lst:
+    prefix: KIE_KNOW_LST
+    subsection-types:
+      kie-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
   mebaen-entr:
     prefix: MEBAEN_ENTR_
     pattern-check-id:
@@ -108,8 +705,8 @@ section-types:
         max-count: 1
       papore:
         max-count: 1
-      papor1-rela:
-        max-count: infinite
+      papor1-rela-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^OPPAPO-ITEM-[0-9]+$"
       error-message: IDs of this section must match OPPAPO-ITEM-xxx
@@ -120,6 +717,30 @@ section-types:
       pattern: "^PAPOR1-RELA-[0-9]+$"
       error-message: IDs of this section must match PAPOR1-RELA-xxx
     description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
+  pme-item-lst:
+    prefix: PME_ITEM_LST
+    subsection-types:
+      pme-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add any individual metrics that do not fit a specific category above.
+  pme-keym-lst:
+    prefix: PME_KEYM_LST
+    subsection-types:
+      pme-keym:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add the most important metrics that characterize overall process performance at a glance.
+  pme-metr-lst:
+    prefix: PME_METR_LST
+    subsection-types:
+      pme-metr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per metric in this category, with its current value, unit, and measurement details."
   prdeen-depe:
     prefix: PRDEEN_DEPE_
     pattern-check-id:
@@ -129,8 +750,8 @@ section-types:
   prmeca-cost:
     prefix: PRMECA_COST_
     subsection-types:
-      pme-metr:
-        max-count: infinite
+      pme-metr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PRMECA-COST-[0-9]+$"
       error-message: IDs of this section must match PRMECA-COST-xxx
@@ -138,8 +759,8 @@ section-types:
   prmeca-effi:
     prefix: PRMECA_EFFI_
     subsection-types:
-      pme-metr:
-        max-count: infinite
+      pme-metr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PRMECA-EFFI-[0-9]+$"
       error-message: IDs of this section must match PRMECA-EFFI-xxx
@@ -147,8 +768,8 @@ section-types:
   prmeca-manu:
     prefix: PRMECA_MANU_
     subsection-types:
-      pme-metr:
-        max-count: infinite
+      pme-metr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PRMECA-MANU-[0-9]+$"
       error-message: IDs of this section must match PRMECA-MANU-xxx
@@ -156,8 +777,8 @@ section-types:
   prmeca-qual:
     prefix: PRMECA_QUAL_
     subsection-types:
-      pme-metr:
-        max-count: infinite
+      pme-metr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PRMECA-QUAL-[0-9]+$"
       error-message: IDs of this section must match PRMECA-QUAL-xxx
@@ -165,8 +786,8 @@ section-types:
   prmeca-volu:
     prefix: PRMECA_VOLU_
     subsection-types:
-      pme-metr:
-        max-count: infinite
+      pme-metr-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^PRMECA-VOLU-[0-9]+$"
       error-message: IDs of this section must match PRMECA-VOLU-xxx
@@ -204,8 +825,8 @@ section-types:
         max-count: 1
       sydasc:
         max-count: 1
-      repsdep-depe:
-        max-count: infinite
+      repsdep-depe-lst:
+        max-count: 1
       syusim:
         max-count: 1
       sycoan:
@@ -233,8 +854,8 @@ section-types:
         max-count: 1
       papore:
         max-count: 1
-      papor1-rela:
-        max-count: infinite
+      papor1-rela-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^TEPAPO-ITEM-[0-9]+$"
       error-message: IDs of this section must match TEPAPO-ITEM-xxx
@@ -293,6 +914,30 @@ section-types:
       pattern: "^WOTREN-TRIG-[0-9]+$"
       error-message: IDs of this section must match WOTREN-TRIG-xxx
     description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
+  wse-erro-lst:
+    prefix: WSE_ERRO_LST
+    subsection-types:
+      wse-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Identify steps with known issues, high error rates, or workarounds."
+  wse-manu-lst:
+    prefix: WSE_MANU_LST
+    subsection-types:
+      wse-manu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Identify steps that cannot be automated or require human judgment.
+  wse-step-lst:
+    prefix: WSE_STEP_LST
+    subsection-types:
+      wse-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
   criti-crit:
     prefix: CRITI_CRIT_
     pattern-check-id:
@@ -320,8 +965,8 @@ section-types:
         max-count: 1
       esinf:
         max-count: 1
-      limet-know:
-        max-count: infinite
+      limet-know-lst:
+        max-count: 1
       esqua:
         max-count: 1
     pattern-check-id:
@@ -382,8 +1027,8 @@ section-types:
         max-count: 1
       mirico:
         max-count: 1
-      miriin-indi:
-        max-count: infinite
+      miriin-indi-lst:
+        max-count: 1
       miritr:
         max-count: 1
       mirir1:
@@ -498,22 +1143,22 @@ section-types:
     subsection-types:
       wotr:
         max-count: 1
-      wse-step:
-        max-count: infinite
-      wfac-acto:
-        max-count: infinite
-      woinen-inpu:
-        max-count: infinite
-      woouen-outp:
-        max-count: infinite
-      wodepo-deci:
-        max-count: infinite
-      woburu-busi:
-        max-count: infinite
-      wse-manu:
-        max-count: infinite
-      wse-erro:
-        max-count: infinite
+      wse-step-lst:
+        max-count: 1
+      wfac-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wse-manu-lst:
+        max-count: 1
+      wse-erro-lst:
+        max-count: 1
       woti:
         max-count: 1
       woex:
@@ -569,8 +1214,8 @@ section-types:
         max-count: 1
       dsrp:
         max-count: 1
-      dsee-keye:
-        max-count: infinite
+      dsee-keye-lst:
+        max-count: 1
         min-count: 1
     pattern-check-id:
       pattern: "^DASR-DATA-[0-9]+$"
@@ -757,16 +1402,16 @@ section-types:
   wse-erro:
     prefix: WSE_ERRO_
     subsection-types:
-      wostsy-syst:
-        max-count: infinite
-      woinen-inpu:
-        max-count: infinite
-      woouen-outp:
-        max-count: infinite
-      woburu-busi:
-        max-count: infinite
-      wostis-know:
-        max-count: infinite
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^WSE-ERRO-[0-9]+$"
       error-message: IDs of this section must match WSE-ERRO-xxx
@@ -774,16 +1419,16 @@ section-types:
   wse-manu:
     prefix: WSE_MANU_
     subsection-types:
-      wostsy-syst:
-        max-count: infinite
-      woinen-inpu:
-        max-count: infinite
-      woouen-outp:
-        max-count: infinite
-      woburu-busi:
-        max-count: infinite
-      wostis-know:
-        max-count: infinite
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^WSE-MANU-[0-9]+$"
       error-message: IDs of this section must match WSE-MANU-xxx
@@ -791,16 +1436,16 @@ section-types:
   wse-step:
     prefix: WSE_STEP_
     subsection-types:
-      wostsy-syst:
-        max-count: infinite
-      woinen-inpu:
-        max-count: infinite
-      woouen-outp:
-        max-count: infinite
-      woburu-busi:
-        max-count: infinite
-      wostis-know:
-        max-count: infinite
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^WSE-STEP-[0-9]+$"
       error-message: IDs of this section must match WSE-STEP-xxx
@@ -822,8 +1467,8 @@ section-types:
     subsection-types:
       bpps:
         max-count: 1
-      bupapo-item:
-        max-count: infinite
+      bupapo-item-lst:
+        max-count: 1
     description: 1.3.2. Business Pain Points.
   cubipr:
     prefix: CUBIPR
@@ -846,8 +1491,8 @@ section-types:
         max-count: 1
       prpesu:
         max-count: 1
-      cubipr-proc:
-        max-count: infinite
+      cubipr-proc-lst:
+        max-count: 1
         min-count: 1
     description: Current business processes.
   cudacl:
@@ -855,11 +1500,11 @@ section-types:
     subsection-types:
       daclsu:
         max-count: 1
-      dcle-clas:
-        max-count: infinite
+      dcle-clas-lst:
+        max-count: 1
         min-count: 1
-      dcse-clas:
-        max-count: infinite
+      dcse-clas-lst:
+        max-count: 1
     description: 1.4.8. Data Classification.
   cudala:
     prefix: CUDALA
@@ -895,8 +1540,8 @@ section-types:
     subsection-types:
       dadusu:
         max-count: 1
-      dadu-dupl:
-        max-count: infinite
+      dadu-dupl-lst:
+        max-count: 1
     description: 1.4.3. Data Duplication Analysis.
   dadusu:
     prefix: DADUSU
@@ -909,8 +1554,8 @@ section-types:
     subsection-types:
       dainsu:
         max-count: 1
-      dain-inte:
-        max-count: infinite
+      dain-inte-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.9. Data Integration Points.
   dainsu:
@@ -927,19 +1572,19 @@ section-types:
     subsection-types:
       dqds:
         max-count: 1
-      daqlis-qual:
-        max-count: infinite
+      daqlis-qual-lst:
+        max-count: 1
         min-count: 1
-      dqie-impr:
-        max-count: infinite
+      dqie-impr-lst:
+        max-count: 1
     description: 1.4.2. Data Quality Assessment.
   darepo:
     prefix: DAREPO
     subsection-types:
       reposu:
         max-count: 1
-      repol-rete:
-        max-count: infinite
+      repol-rete-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.6. Retention Policies.
   dasocl:
@@ -951,8 +1596,8 @@ section-types:
   dasoin:
     prefix: DASOIN
     subsection-types:
-      dasr-data:
-        max-count: infinite
+      dasr-data-lst:
+        max-count: 1
     description: 1.4.1. Data Source Inventory.
   dasoli:
     prefix: DASOLI
@@ -994,29 +1639,29 @@ section-types:
   inhesu:
     prefix: INHESU
     subsection-types:
-      fragi-frag:
-        max-count: infinite
+      fragi-frag-lst:
+        max-count: 1
     description: 1.1.3.5. Integration Health Summary.
   integr:
     prefix: INTEGR
     subsection-types:
-      syin-item:
-        max-count: infinite
+      syin-item-lst:
+        max-count: 1
     description: 1.1.3.4. System Integrations.
   madama:
     prefix: MADAMA
     subsection-types:
       mdsu:
         max-count: 1
-      msddo-mast:
-        max-count: infinite
+      msddo-mast-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.10. Master Data Management.
   mebata:
     prefix: MEBATA
     subsection-types:
-      mebaen-entr:
-        max-count: infinite
+      mebaen-entr-lst:
+        max-count: 1
     description: Baseline comparison table.
   medasu:
     prefix: MEDASU
@@ -1028,10 +1673,10 @@ section-types:
         max-count: 1
       miri:
         max-count: 1
-      mgmls-mile:
-        max-count: infinite
-      escal-esca:
-        max-count: infinite
+      mgmls-mile-lst:
+        max-count: 1
+      escal-esca-lst:
+        max-count: 1
     description: Migration considerations.
   mirias:
     prefix: MIRIAS
@@ -1077,8 +1722,8 @@ section-types:
     subsection-types:
       opps:
         max-count: 1
-      oppapo-item:
-        max-count: infinite
+      oppapo-item-lst:
+        max-count: 1
     description: 1.3.1. Operational Pain Points.
   papocl:
     prefix: PAPOCL
@@ -1101,28 +1746,28 @@ section-types:
   prinma:
     prefix: PRINMA
     subsection-types:
-      prdeen-depe:
-        max-count: infinite
+      prdeen-depe-lst:
+        max-count: 1
     description: "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
   prpapo:
     prefix: PRPAPO
     subsection-types:
-      cpie-impr:
-        max-count: infinite
+      cpie-impr-lst:
+        max-count: 1
     description: Capture the problems and improvement opportunities specific to this process — what works poorly today and where it could be better.
   prpesu:
     prefix: PRPESU
     subsection-types:
-      pme-keym:
-        max-count: infinite
+      pme-keym-lst:
+        max-count: 1
     description: "Summarize the overall health of the current processes — maturity, automation level, manual and error-prone steps, bottlenecks, and the estimated cost of inefficiency."
   prscsu:
     prefix: PRSCSU
     subsection-types:
-      prscen-insc:
-        max-count: infinite
-      prscen-outo:
-        max-count: infinite
+      prscen-insc-lst:
+        max-count: 1
+      prscen-outo-lst:
+        max-count: 1
     description: Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases.
   reposu:
     prefix: REPOSU
@@ -1134,10 +1779,10 @@ section-types:
         max-count: 1
       sbcg:
         max-count: 1
-      sbue-busi:
-        max-count: infinite
-      sbpe-supp:
-        max-count: infinite
+      sbue-busi-lst:
+        max-count: 1
+      sbpe-supp-lst:
+        max-count: 1
     description: Business value and criticality assessment.
   sycoan:
     prefix: SYCOAN
@@ -1148,8 +1793,8 @@ section-types:
         max-count: 1
       scab:
         max-count: 1
-      nonfi-nonf:
-        max-count: infinite
+      nonfi-nonf-lst:
+        max-count: 1
     description: Financial analysis for replacement decision.
   sydasc:
     prefix: SYDASC
@@ -1158,10 +1803,10 @@ section-types:
         max-count: 1
       sydascmi:
         max-count: 1
-      deme-enti:
-        max-count: infinite
-      known-know:
-        max-count: infinite
+      deme-enti-lst:
+        max-count: 1
+      known-know-lst:
+        max-count: 1
     description: Data migration scope and assessment.
   syinmo:
     prefix: SYINMO
@@ -1178,8 +1823,8 @@ section-types:
   sykntr:
     prefix: SYKNTR
     subsection-types:
-      criti-crit:
-        max-count: infinite
+      criti-crit-lst:
+        max-count: 1
     description: Documentation and knowledge transfer status.
   symipl:
     prefix: SYMIPL
@@ -1188,8 +1833,8 @@ section-types:
         max-count: 1
       smpc:
         max-count: 1
-      smre-risk:
-        max-count: infinite
+      smre-risk-lst:
+        max-count: 1
     description: Per-system migration considerations.
   syrest:
     prefix: SYREST
@@ -1198,10 +1843,10 @@ section-types:
         max-count: 1
       srsc:
         max-count: 1
-      repphs-phas:
-        max-count: infinite
-      prede-pred:
-        max-count: infinite
+      repphs-phas-lst:
+        max-count: 1
+      prede-pred-lst:
+        max-count: 1
     description: Detailed replacement approach.
   syteas:
     prefix: SYTEAS
@@ -1212,10 +1857,10 @@ section-types:
         max-count: 1
       staq:
         max-count: 1
-      kie-know:
-        max-count: infinite
-      secur-secu:
-        max-count: infinite
+      kie-know-lst:
+        max-count: 1
+      secur-secu-lst:
+        max-count: 1
     description: Technical stack and architecture assessment.
   syusim:
     prefix: SYUSIM
@@ -1226,30 +1871,30 @@ section-types:
         max-count: 1
       suia:
         max-count: 1
-      ugie-user:
-        max-count: infinite
+      ugie-user-lst:
+        max-count: 1
     description: User impact and change management needs.
   tepapo:
     prefix: TEPAPO
     subsection-types:
       tpps:
         max-count: 1
-      tepapo-item:
-        max-count: infinite
+      tepapo-item-lst:
+        max-count: 1
     description: 1.3.3. Technical Pain Points.
   wosuta:
     prefix: WOSUTA
     subsection-types:
-      wosuen-entr:
-        max-count: infinite
+      wosuen-entr-lst:
+        max-count: 1
     description: "Summarize the workflows for this process — totals, average cycle time, and automation potential — then add one summary row per workflow."
   carch:
     prefix: CARCH
     subsection-types:
-      ipe-inte:
-        max-count: infinite
-      share-shar:
-        max-count: infinite
+      ipe-inte-lst:
+        max-count: 1
+      share-shar-lst:
+        max-count: 1
     description: 1.1.2. Current Architecture.
   depnt:
     prefix: DEPNT
@@ -1301,8 +1946,8 @@ section-types:
         max-count: 1
       esinf:
         max-count: 1
-      limet-know:
-        max-count: infinite
+      limet-know-lst:
+        max-count: 1
       esqua:
         max-count: 1
     description: An existing system entry (form).
@@ -1346,14 +1991,14 @@ section-types:
   extdp:
     prefix: EXTDP
     subsection-types:
-      exsde-item:
-        max-count: infinite
+      exsde-item-lst:
+        max-count: 1
     description: 1.1.3.2. External Service Dependencies.
   intdp:
     prefix: INTDP
     subsection-types:
-      syde-item:
-        max-count: infinite
+      syde-item-lst:
+        max-count: 1
     description: 1.1.3.1. Internal Dependencies.
   mddeg:
     prefix: MDDEG
@@ -1373,8 +2018,8 @@ section-types:
   shdep:
     prefix: SHDEP
     subsection-types:
-      shien-item:
-        max-count: infinite
+      shien-item-lst:
+        max-count: 1
     description: 1.1.3.3. Shared Infrastructure Dependencies.
   strep:
     prefix: STREP
@@ -1388,8 +2033,8 @@ section-types:
   syinv:
     prefix: SYINV
     subsection-types:
-      esent-syst:
-        max-count: infinite
+      esent-syst-lst:
+        max-count: 1
         min-count: 1
     description: "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear."
   bpps:
@@ -1400,8 +2045,8 @@ section-types:
     subsection-types:
       dagoma:
         max-count: 1
-      dgpe-gove:
-        max-count: infinite
+      dgpe-gove-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.7. Data Governance.
   daow:
@@ -1409,8 +2054,8 @@ section-types:
     subsection-types:
       daowsu:
         max-count: 1
-      daowen-owne:
-        max-count: infinite
+      daowen-owne-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.4. Data Ownership and Stewardship.
   ddeg:
@@ -1445,8 +2090,8 @@ section-types:
     subsection-types:
       davosu:
         max-count: 1
-      davoen-volu:
-        max-count: infinite
+      davoen-volu-lst:
+        max-count: 1
         min-count: 1
     description: 1.4.5. Data Volumes and Growth.
   dvsc:
@@ -1461,8 +2106,8 @@ section-types:
   gaps:
     prefix: GAPS
     subsection-types:
-      gape-item:
-        max-count: infinite
+      gape-item-lst:
+        max-count: 1
     description: 1.3.4. Gaps.
   mdsu:
     prefix: MDSU
@@ -1481,16 +2126,16 @@ section-types:
         max-count: 1
       mirire:
         max-count: 1
-      riskc-risk:
-        max-count: infinite
-      riskb-risk:
-        max-count: infinite
-      monit-moni:
-        max-count: infinite
-      respo-resp:
-        max-count: infinite
-      mgrsk-item:
-        max-count: infinite
+      riskc-risk-lst:
+        max-count: 1
+      riskb-risk-lst:
+        max-count: 1
+      monit-moni-lst:
+        max-count: 1
+      respo-resp-lst:
+        max-count: 1
+      mgrsk-item-lst:
+        max-count: 1
     description: Migration risks.
   opps:
     prefix: OPPS
@@ -1520,8 +2165,8 @@ section-types:
   ppgc:
     prefix: PPGC
     subsection-types:
-      ppgce-corr:
-        max-count: infinite
+      ppgce-corr-lst:
+        max-count: 1
         min-count: 1
     description: Cross-reference between pain points and gaps.
   pprc:
@@ -1610,15 +2255,15 @@ section-types:
     subsection-types:
       wosuta:
         max-count: 1
-      cuwf-work:
-        max-count: infinite
+      cuwf-work-lst:
+        max-count: 1
         min-count: 1
     description: Describe the workflows that make up this process. Use the overview diagram for how they fit together and add one entry per individual workflow below.
   woex:
     prefix: WOEX
     subsection-types:
-      woexen-exce:
-        max-count: infinite
+      woexen-exce-lst:
+        max-count: 1
     description: Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation.
   woti:
     prefix: WOTI
@@ -1626,22 +2271,22 @@ section-types:
   wotr:
     prefix: WOTR
     subsection-types:
-      wotren-trig:
-        max-count: infinite
+      wotren-trig-lst:
+        max-count: 1
     description: "Describe what initiates this workflow and list each distinct trigger with its type, source, and conditions."
   wse:
     prefix: WSE
     subsection-types:
-      wostsy-syst:
-        max-count: infinite
-      woinen-inpu:
-        max-count: infinite
-      woouen-outp:
-        max-count: infinite
-      woburu-busi:
-        max-count: infinite
-      wostis-know:
-        max-count: infinite
+      wostsy-syst-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wostis-know-lst:
+        max-count: 1
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   pc:
     prefix: PC
@@ -1651,26 +2296,26 @@ section-types:
     subsection-types:
       medasu:
         max-count: 1
-      prmeca-effi:
-        max-count: infinite
-      prmeca-qual:
-        max-count: infinite
-      prmeca-volu:
-        max-count: infinite
-      prmeca-cost:
-        max-count: infinite
-      prmeca-manu:
-        max-count: infinite
-      pme-item:
-        max-count: infinite
+      prmeca-effi-lst:
+        max-count: 1
+      prmeca-qual-lst:
+        max-count: 1
+      prmeca-volu-lst:
+        max-count: 1
+      prmeca-cost-lst:
+        max-count: 1
+      prmeca-manu-lst:
+        max-count: 1
+      pme-item-lst:
+        max-count: 1
       mebata:
         max-count: 1
     description: "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured."
   ri:
     prefix: RI
     subsection-types:
-      sytore-syst:
-        max-count: infinite
+      sytore-syst-lst:
+        max-count: 1
     description: Replacement inventory.
 document:
   sections:
@@ -1689,8 +2334,8 @@ document:
     cudala:
       section-type: cudala
       optional: true
-    cuopme-oper:
-      section-type: cuopme-oper
+    cuopme-oper-lst:
+      section-type: cuopme-oper-lst
       optional: true
     custrias:
       section-type: custrias

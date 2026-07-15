@@ -3,6 +3,247 @@
 
 title-format: "# <!--[SAS]--> Security & Access Specification"
 section-types:
+  reskref-reso-lst:
+    prefix: RESKREF_RESO_LST
+    subsection-types:
+      reskref-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per resource reference.
+  roldscp-data-lst:
+    prefix: ROLDSCP_DATA_LST
+    subsection-types:
+      roldscp-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data scope.
+  rolperm-dire-lst:
+    prefix: ROLPERM_DIRE_LST
+    subsection-types:
+      rolperm-dire:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per direct permission.
+  cochen-comm-lst:
+    prefix: COCHEN_COMM_LST
+    subsection-types:
+      cochen-comm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per communication channel.
+  endaca-encr-lst:
+    prefix: ENDACA_ENCR_LST
+    subsection-types:
+      endaca-encr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per encrypted data category.
+  enrefe-enti-lst:
+    prefix: ENREFE_ENTI_LST
+    subsection-types:
+      enrefe-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entitlement reference.
+  idprde-deta-lst:
+    prefix: IDPRDE_DETA_LST
+    subsection-types:
+      idprde-deta:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per provider-detail entry.
+  idpren-endp-lst:
+    prefix: IDPREN_ENDP_LST
+    subsection-types:
+      idpren-endp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per provider-endpoint entry.
+  mfacrq-mfac-lst:
+    prefix: MFACRQ_MFAC_LST
+    subsection-types:
+      mfacrq-mfac:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per MFA credential requirement.
+  reskey-reso-lst:
+    prefix: RESKEY_RESO_LST
+    subsection-types:
+      reskey-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per protected resource.
+  rolexc-mutu-lst:
+    prefix: ROLEXC_MUTU_LST
+    subsection-types:
+      rolexc-mutu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per mutually exclusive role.
+  rolhld-typi-lst:
+    prefix: ROLHLD_TYPI_LST
+    subsection-types:
+      rolhld-typi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per typical role holder.
+  rolref-cont-lst:
+    prefix: ROLREF_CONT_LST
+    subsection-types:
+      rolref-cont:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per contained role.
+  rspref-resp-lst:
+    prefix: RSPREF_RESP_LST
+    subsection-types:
+      rspref-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per responsibility reference.
+  gbrlx-glob-lst:
+    prefix: GBRLX_GLOB_LST
+    subsection-types:
+      gbrlx-glob:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per global role exclusion.
+  idtam-attr-lst:
+    prefix: IDTAM_ATTR_LST
+    subsection-types:
+      idtam-attr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per identity-attribute mapping.
+  idtpv-iden-lst:
+    prefix: IDTPV_IDEN_LST
+    subsection-types:
+      idtpv-iden:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per identity-provider entry.
+  idtsr-iden-lst:
+    prefix: IDTSR_IDEN_LST
+    subsection-types:
+      idtsr-iden:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per identifier source.
+  lgfls-logi-lst:
+    prefix: LGFLS_LOGI_LST
+    subsection-types:
+      lgfls-logi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per login flow step.
+  mfade-mfad-lst:
+    prefix: MFADE_MFAD_LST
+    subsection-types:
+      mfade-mfad:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per MFA method definition.
+  rlcmb-comb-lst:
+    prefix: RLCMB_COMB_LST
+    subsection-types:
+      rlcmb-comb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per role combination rule.
+  rlinh-inhe-lst:
+    prefix: RLINH_INHE_LST
+    subsection-types:
+      rlinh-inhe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per role inheritance relationship.
+  saclc-serv-lst:
+    prefix: SACLC_SERV_LST
+    subsection-types:
+      saclc-serv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per service-account lifecycle entry.
+  stepu-step-lst:
+    prefix: STEPU_STEP_LST
+    subsection-types:
+      stepu-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per step-up authentication step.
+  ultre-item-lst:
+    prefix: ULTRE_ITEM_LST
+    subsection-types:
+      ultre-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user-lifecycle transition entry.
+  usate-item-lst:
+    prefix: USATE_ITEM_LST
+    subsection-types:
+      usate-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user-attribute entry.
+  uscdf-item-lst:
+    prefix: USCDF_ITEM_LST
+    subsection-types:
+      uscdf-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user-category definition.
+  atme-item-lst:
+    prefix: ATME_ITEM_LST
+    subsection-types:
+      atme-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per authentication method.
+  azgr-grou-lst:
+    prefix: AZGR_GROU_LST
+    subsection-types:
+      azgr-grou:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per authorization group.
+  azro-role-lst:
+    prefix: AZRO_ROLE_LST
+    subsection-types:
+      azro-role:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per authorization role.
   reskref-reso:
     prefix: RESKREF_RESO_
     pattern-check-id:
@@ -21,6 +262,22 @@ section-types:
       pattern: "^ROLPERM-DIRE-[0-9]+$"
       error-message: IDs of this section must match ROLPERM-DIRE-xxx
     description: Add one entry per direct permission.
+  sevt-cust-lst:
+    prefix: SEVT_CUST_LST
+    subsection-types:
+      sevt-cust:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per custom security event.
+  tncs-tena-lst:
+    prefix: TNCS_TENA_LST
+    subsection-types:
+      tncs-tena:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tenant.
   cochen-comm:
     prefix: COCHEN_COMM_
     pattern-check-id:
@@ -39,6 +296,15 @@ section-types:
       pattern: "^ENREFE-ENTI-[0-9]+$"
       error-message: IDs of this section must match ENREFE-ENTI-xxx
     description: Add one entry per entitlement reference.
+  ent-enti-lst:
+    prefix: ENT_ENTI_LST
+    subsection-types:
+      ent-enti:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entitlement.
   idprde-deta:
     prefix: IDPRDE_DETA_
     pattern-check-id:
@@ -116,10 +382,10 @@ section-types:
   idtpv-iden:
     prefix: IDTPV_IDEN_
     subsection-types:
-      idprde-deta:
-        max-count: infinite
-      idpren-endp:
-        max-count: infinite
+      idprde-deta-lst:
+        max-count: 1
+      idpren-endp-lst:
+        max-count: 1
       idprma:
         max-count: 1
       idprtr:
@@ -232,8 +498,8 @@ section-types:
   azgr-grou:
     prefix: AZGR_GROU_
     subsection-types:
-      rolref-cont:
-        max-count: infinite
+      rolref-cont-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^AZGR-GROU-[0-9]+$"
       error-message: IDs of this section must match AZGR-GROU-xxx
@@ -249,18 +515,18 @@ section-types:
         max-count: 1
       auroenst:
         max-count: 1
-      rspref-resp:
-        max-count: infinite
-      enrefe-enti:
-        max-count: infinite
-      rolperm-dire:
-        max-count: infinite
-      roldscp-data:
-        max-count: infinite
-      rolexc-mutu:
-        max-count: infinite
-      rolhld-typi:
-        max-count: infinite
+      rspref-resp-lst:
+        max-count: 1
+      enrefe-enti-lst:
+        max-count: 1
+      rolperm-dire-lst:
+        max-count: 1
+      roldscp-data-lst:
+        max-count: 1
+      rolexc-mutu-lst:
+        max-count: 1
+      rolhld-typi-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^AZRO-ROLE-[0-9]+$"
       error-message: IDs of this section must match AZRO-ROLE-xxx
@@ -280,8 +546,8 @@ section-types:
   ent-enti:
     prefix: ENT_ENTI_
     subsection-types:
-      reskref-reso:
-        max-count: infinite
+      reskref-reso-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^ENT-ENTI-[0-9]+$"
       error-message: IDs of this section must match ENT-ENTI-xxx
@@ -407,8 +673,8 @@ section-types:
     subsection-types:
       earp:
         max-count: 1
-      endaca-encr:
-        max-count: infinite
+      endaca-encr-lst:
+        max-count: 1
       daenpo:
         max-count: 1
       fsep:
@@ -423,8 +689,8 @@ section-types:
         max-count: 1
       cemapo:
         max-count: 1
-      cochen-comm:
-        max-count: infinite
+      cochen-comm-lst:
+        max-count: 1
       mutlpo:
         max-count: 1
       trsepo:
@@ -540,8 +806,8 @@ section-types:
         max-count: 1
       adevpo:
         max-count: 1
-      sevt-cust:
-        max-count: infinite
+      sevt-cust-lst:
+        max-count: 1
     description: 9.6.1. Security Events.
   serepo:
     prefix: SEREPO
@@ -600,8 +866,8 @@ section-types:
   ausct:
     prefix: AUSCT
     subsection-types:
-      uscdf-item:
-        max-count: infinite
+      uscdf-item-lst:
+        max-count: 1
     description: 9.1.1. User Categories.
   dochd:
     prefix: DOCHD
@@ -626,18 +892,18 @@ section-types:
   ident:
     prefix: IDENT
     subsection-types:
-      idtsr-iden:
-        max-count: infinite
+      idtsr-iden-lst:
+        max-count: 1
       idvepo:
         max-count: 1
-      idtpv-iden:
-        max-count: infinite
+      idtpv-iden-lst:
+        max-count: 1
       ssop:
         max-count: 1
       serepo:
         max-count: 1
-      idtam-attr:
-        max-count: infinite
+      idtam-attr-lst:
+        max-count: 1
     description: 9.2.1. Identification.
   keabp:
     prefix: KEABP
@@ -695,8 +961,8 @@ section-types:
   ultrs:
     prefix: ULTRS
     subsection-types:
-      ultre-item:
-        max-count: infinite
+      ultre-item-lst:
+        max-count: 1
     format: ultrs-form
     description: 9.1.2.7. Lifecycle Transitions and Approvals.
   urreg:
@@ -706,8 +972,8 @@ section-types:
   usatt:
     prefix: USATT
     subsection-types:
-      usate-item:
-        max-count: infinite
+      usate-item-lst:
+        max-count: 1
     description: 9.1.3. User Attributes.
   uslcs:
     prefix: USLCS
@@ -728,8 +994,8 @@ section-types:
         max-count: 1
       ssacm:
         max-count: 1
-      saclc-serv:
-        max-count: infinite
+      saclc-serv-lst:
+        max-count: 1
     description: 9.1.2. User Lifecycle.
   usmgt:
     prefix: USMGT
@@ -805,8 +1071,8 @@ section-types:
         max-count: 1
       suap:
         max-count: 1
-      lgfls-logi:
-        max-count: infinite
+      lgfls-logi-lst:
+        max-count: 1
     description: 9.2.2.2. Authentication Flow.
   aume:
     prefix: AUME
@@ -821,8 +1087,8 @@ section-types:
         max-count: 1
       akmp:
         max-count: 1
-      atme-item:
-        max-count: infinite
+      atme-item-lst:
+        max-count: 1
     description: 9.2.2.1. Authentication Methods.
   aumo:
     prefix: AUMO
@@ -951,8 +1217,8 @@ section-types:
         max-count: 1
       sacp:
         max-count: 1
-      mfacrq-mfac:
-        max-count: infinite
+      mfacrq-mfac-lst:
+        max-count: 1
     description: 9.2.3. Password and Credential Policy.
   rlsp:
     prefix: RLSP
@@ -963,12 +1229,12 @@ section-types:
     subsection-types:
       rohipo:
         max-count: 1
-      rlinh-inhe:
-        max-count: infinite
-      rlcmb-comb:
-        max-count: infinite
-      gbrlx-glob:
-        max-count: infinite
+      rlinh-inhe-lst:
+        max-count: 1
+      rlcmb-comb-lst:
+        max-count: 1
+      gbrlx-glob-lst:
+        max-count: 1
       rocepo:
         max-count: 1
     description: 9.4.6. Role Hierarchy.
@@ -1025,8 +1291,8 @@ section-types:
   suap:
     prefix: SUAP
     subsection-types:
-      stepu-step:
-        max-count: infinite
+      stepu-step-lst:
+        max-count: 1
     format: suap-form
     description: Step-Up and Adaptive Authentication.
   tbep:
@@ -1044,8 +1310,8 @@ section-types:
         max-count: 1
       ctap:
         max-count: 1
-      tncs-tena:
-        max-count: infinite
+      tncs-tena-lst:
+        max-count: 1
       teonpo:
         max-count: 1
       tbep:
@@ -1056,16 +1322,16 @@ section-types:
     subsection-types:
       aumo:
         max-count: 1
-      azgr-grou:
-        max-count: infinite
-      azro-role:
-        max-count: infinite
+      azgr-grou-lst:
+        max-count: 1
+      azro-role-lst:
+        max-count: 1
         min-count: 1
-      ent-enti:
-        max-count: infinite
+      ent-enti-lst:
+        max-count: 1
         min-count: 1
-      reskey-reso:
-        max-count: infinite
+      reskey-reso-lst:
+        max-count: 1
       rohi:
         max-count: 1
       teis:
@@ -1161,8 +1427,8 @@ section-types:
   mc:
     prefix: MC
     subsection-types:
-      mfade-mfad:
-        max-count: infinite
+      mfade-mfad-lst:
+        max-count: 1
     format: mc-form
     description: Multi-Factor Authentication Configuration.
   sp:

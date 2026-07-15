@@ -3,6 +3,147 @@
 
 title-format: "# <!--[ISC]--> Interaction Scenarios"
 section-types:
+  inburu-busi-lst:
+    prefix: INBURU_BUSI_LST
+    subsection-types:
+      inburu-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business-rule group.
+  poangu-post-lst:
+    prefix: POANGU_POST_LST
+    subsection-types:
+      poangu-post:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per postcondition/guarantee set.
+  prantr-prec-lst:
+    prefix: PRANTR_PREC_LST
+    subsection-types:
+      prantr-prec:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per precondition/trigger set.
+  stanin-stak-lst:
+    prefix: STANIN_STAK_LST
+    subsection-types:
+      stanin-stak:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per stakeholder interest.
+  tedava-vari-lst:
+    prefix: TEDAVA_VARI_LST
+    subsection-types:
+      tedava-vari:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per variation.
+  etets-endt-lst:
+    prefix: ETETS_ENDT_LST
+    subsection-types:
+      etets-endt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: End-to-end test scenarios.
+  exten-exte-lst:
+    prefix: EXTEN_EXTE_LST
+    subsection-types:
+      exten-exte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per extension flow.
+  extst-step-lst:
+    prefix: EXTST_STEP_LST
+    subsection-types:
+      extst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per extension step.
+  mnsst-step-lst:
+    prefix: MNSST_STEP_LST
+    subsection-types:
+      mnsst-step:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per numbered step.
+  scnry-scen-lst:
+    prefix: SCNRY_SCEN_LST
+    subsection-types:
+      scnry-scen:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key scenario.
+  scnst-step-lst:
+    prefix: SCNST_STEP_LST
+    subsection-types:
+      scnst-step:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per main-flow step, in order."
+  acen-acto-lst:
+    prefix: ACEN_ACTO_LST
+    subsection-types:
+      acen-acto:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor.
+  acgo-goal-lst:
+    prefix: ACGO_GOAL_LST
+    subsection-types:
+      acgo-goal:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor goal.
+  acpe-perm-lst:
+    prefix: ACPE_PERM_LST
+    subsection-types:
+      acpe-perm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per actor permission set.
+  alfl-alte-lst:
+    prefix: ALFL_ALTE_LST
+    subsection-types:
+      alfl-alte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alternative or exception flow.
+  alst-step-lst:
+    prefix: ALST_STEP_LST
+    subsection-types:
+      alst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per step of this alternative flow, in order."
+  inen-inte-lst:
+    prefix: INEN_INTE_LST
+    subsection-types:
+      inen-inte:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per interaction.
   inburu-busi:
     prefix: INBURU_BUSI_
     pattern-check-id:
@@ -42,8 +183,8 @@ section-types:
   exten-exte:
     prefix: EXTEN_EXTE_
     subsection-types:
-      extst-step:
-        max-count: infinite
+      extst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^EXTEN-EXTE-[0-9]+$"
       error-message: IDs of this section must match EXTEN-EXTE-xxx
@@ -67,11 +208,11 @@ section-types:
         max-count: 1
       scco:
         max-count: 1
-      scnst-step:
-        max-count: infinite
+      scnst-step-lst:
+        max-count: 1
         min-count: 1
-      alfl-alte:
-        max-count: infinite
+      alfl-alte-lst:
+        max-count: 1
       scda:
         max-count: 1
       scti:
@@ -100,10 +241,10 @@ section-types:
         max-count: 1
       actcha:
         max-count: 1
-      acgo-goal:
-        max-count: infinite
-      acpe-perm:
-        max-count: infinite
+      acgo-goal-lst:
+        max-count: 1
+      acpe-perm-lst:
+        max-count: 1
       actepr:
         max-count: 1
       acinsu:
@@ -127,8 +268,8 @@ section-types:
   alfl-alte:
     prefix: ALFL_ALTE_
     subsection-types:
-      alst-step:
-        max-count: infinite
+      alst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^ALFL-ALTE-[0-9]+$"
       error-message: IDs of this section must match ALFL-ALTE-xxx
@@ -146,26 +287,26 @@ section-types:
         max-count: 1
       ucsc:
         max-count: 1
-      stanin-stak:
-        max-count: infinite
-      prantr-prec:
-        max-count: infinite
-      poangu-post:
-        max-count: infinite
+      stanin-stak-lst:
+        max-count: 1
+      prantr-prec-lst:
+        max-count: 1
+      poangu-post-lst:
+        max-count: 1
       masusc:
         max-count: 1
       uscaex:
         max-count: 1
-      tedava-vari:
-        max-count: infinite
+      tedava-vari-lst:
+        max-count: 1
       uirp:
         max-count: 1
       inpe:
         max-count: 1
       inse:
         max-count: 1
-      inburu-busi:
-        max-count: infinite
+      inburu-busi-lst:
+        max-count: 1
       intr:
         max-count: 1
     pattern-check-id:
@@ -216,8 +357,8 @@ section-types:
   masusc:
     prefix: MASUSC
     subsection-types:
-      mnsst-step:
-        max-count: infinite
+      mnsst-step-lst:
+        max-count: 1
         min-count: 1
     description: Main success scenario (basic flow).
   prstov:
@@ -226,8 +367,8 @@ section-types:
   uscaex:
     prefix: USCAEX
     subsection-types:
-      exten-exte:
-        max-count: infinite
+      exten-exte-lst:
+        max-count: 1
     description: Extensions (alternative and exception flows).
   uscatr:
     prefix: USCATR
@@ -243,8 +384,8 @@ section-types:
     subsection-types:
       acovna:
         max-count: 1
-      acen-acto:
-        max-count: infinite
+      acen-acto-lst:
+        max-count: 1
         min-count: 1
       accasu:
         max-count: 1
@@ -254,8 +395,8 @@ section-types:
     subsection-types:
       incaov:
         max-count: 1
-      inen-inte:
-        max-count: infinite
+      inen-inte-lst:
+        max-count: 1
         min-count: 1
       inpr:
         max-count: 1
@@ -280,8 +421,8 @@ section-types:
     subsection-types:
       scov:
         max-count: 1
-      scnry-scen:
-        max-count: infinite
+      scnry-scen-lst:
+        max-count: 1
         min-count: 1
     description: Key scenarios.
   scco:
@@ -331,8 +472,8 @@ document:
     acredi:
       section-type: acredi
       optional: true
-    etets-endt:
-      section-type: etets-endt
+    etets-endt-lst:
+      section-type: etets-endt-lst
       optional: true
     uscatr:
       section-type: uscatr

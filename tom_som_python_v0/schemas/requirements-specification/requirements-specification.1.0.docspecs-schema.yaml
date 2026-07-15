@@ -3,12 +3,149 @@
 
 title-format: "# <!--[RSP]--> Requirements Specification"
 section-types:
+  daenre-enti-lst:
+    prefix: DAENRE_ENTI_LST
+    subsection-types:
+      daenre-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
+  rqbiru-rule-lst:
+    prefix: RQBIRU_RULE_LST
+    subsection-types:
+      rqbiru-rule:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business rule that constrains or guides this requirement.
+  rqscac-acti-lst:
+    prefix: RQSCAC_ACTI_LST
+    subsection-types:
+      rqscac-acti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Define actions available in the UI.
+  fldvl-vali-lst:
+    prefix: FLDVL_VALI_LST
+    subsection-types:
+      fldvl-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation rule applied to this field.
+  orgim-acti-lst:
+    prefix: ORGIM_ACTI_LST
+    subsection-types:
+      orgim-acti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per implementation activity for this organizational change.
+  rqdep-item-lst:
+    prefix: RQDEP_ITEM_LST
+    subsection-types:
+      rqdep-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per dependency on another requirement.
+  rqtsc-test-lst:
+    prefix: RQTSC_TEST_LST
+    subsection-types:
+      rqtsc-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per test case that verifies this requirement.
+  scbhv-beha-lst:
+    prefix: SCBHV_BEHA_LST
+    subsection-types:
+      scbhv-beha:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Define dynamic behaviors and interactions.
+  scfld-fiel-lst:
+    prefix: SCFLD_FIEL_LST
+    subsection-types:
+      scfld-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Define each field in the UI.
+  secct-cont-lst:
+    prefix: SECCT_CONT_LST
+    subsection-types:
+      secct-cont:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security control implementing this requirement.
+  secrq-requ-lst:
+    prefix: SECRQ_REQU_LST
+    subsection-types:
+      secrq-requ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security requirement.
+  accr-crit-lst:
+    prefix: ACCR_CRIT_LST
+    subsection-types:
+      accr-crit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one criterion per testable condition.
+  acpr-para-lst:
+    prefix: ACPR_PARA_LST
+    subsection-types:
+      acpr-para:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per parameter passed to this action.
+  orrq-requ-lst:
+    prefix: ORRQ_REQU_LST
+    subsection-types:
+      orrq-requ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per organizational requirement.
+  rere-requ-lst:
+    prefix: RERE_REQU_LST
+    subsection-types:
+      rere-requ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Requirement relationships.
+  terq-requ-lst:
+    prefix: TERQ_REQU_LST
+    subsection-types:
+      terq-requ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per technical requirement.
   daenre-enti:
     prefix: DAENRE_ENTI_
     pattern-check-id:
       pattern: "^DAENRE-ENTI-[0-9]+$"
       error-message: IDs of this section must match DAENRE-ENTI-xxx
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
+  fre-requ-lst:
+    prefix: FRE_REQU_LST
+    subsection-types:
+      fre-requ:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
   rqbiru-rule:
     prefix: RQBIRU_RULE_
     pattern-check-id:
@@ -18,8 +155,8 @@ section-types:
   rqscac-acti:
     prefix: RQSCAC_ACTI_
     subsection-types:
-      acpr-para:
-        max-count: infinite
+      acpr-para-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^RQSCAC-ACTI-[0-9]+$"
       error-message: IDs of this section must match RQSCAC-ACTI-xxx
@@ -70,8 +207,8 @@ section-types:
         max-count: 1
       scfila:
         max-count: 1
-      fldvl-vali:
-        max-count: infinite
+      fldvl-vali-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^SCFLD-FIEL-[0-9]+$"
       error-message: IDs of this section must match SCFLD-FIEL-xxx
@@ -218,14 +355,14 @@ section-types:
   reqdep:
     prefix: REQDEP
     subsection-types:
-      rqdep-item:
-        max-count: infinite
+      rqdep-item-lst:
+        max-count: 1
     description: Identify requirements that must be implemented before or alongside this requirement.
   reteca:
     prefix: RETECA
     subsection-types:
-      rqtsc-test:
-        max-count: infinite
+      rqtsc-test-lst:
+        max-count: 1
     description: Define test cases that verify requirement implementation.
   retrar:
     prefix: RETRAR
@@ -281,8 +418,8 @@ section-types:
   orip:
     prefix: ORIP
     subsection-types:
-      orgim-acti:
-        max-count: infinite
+      orgim-acti-lst:
+        max-count: 1
     description: Define the implementation approach for this organizational change requirement.
   scei:
     prefix: SCEI
@@ -293,8 +430,8 @@ section-types:
   seco:
     prefix: SECO
     subsection-types:
-      secct-cont:
-        max-count: infinite
+      secct-cont-lst:
+        max-count: 1
     description: Define security controls that implement this requirement.
   sfdb:
     prefix: SFDB
@@ -320,55 +457,55 @@ section-types:
   rac:
     prefix: RAC
     subsection-types:
-      accr-crit:
-        max-count: infinite
+      accr-crit-lst:
+        max-count: 1
     description: "Define clear, testable acceptance criteria. Use Given-When-Then format: Given [context], When [action], Then [expected result]."
   rbr:
     prefix: RBR
     subsection-types:
-      rqbiru-rule:
-        max-count: infinite
+      rqbiru-rule-lst:
+        max-count: 1
     description: "Define business rules that affect this requirement. Business rules are constraints, calculations, or policies from the business domain."
   rdr:
     prefix: RDR
     subsection-types:
-      daenre-enti:
-        max-count: infinite
+      daenre-enti-lst:
+        max-count: 1
     description: "Define the data entities and attributes this requirement reads, creates, updates, or deletes."
   rus:
     prefix: RUS
     subsection-types:
-      scfld-fiel:
-        max-count: infinite
-      rqscac-acti:
-        max-count: infinite
-      scbhv-beha:
-        max-count: infinite
+      scfld-fiel-lst:
+        max-count: 1
+      rqscac-acti-lst:
+        max-count: 1
+      scbhv-beha-lst:
+        max-count: 1
     description: "Define the UI elements needed to support this requirement. Specify screens, forms, fields, actions, and behaviors."
   sr1:
     prefix: SR1
     subsection-types:
-      secrq-requ:
-        max-count: infinite
+      secrq-requ-lst:
+        max-count: 1
     description: "Security requirements protect confidentiality, integrity, and availability of information. Include authentication, authorization, data protection, and compliance requirements."
   tr1:
     prefix: TR1
     subsection-types:
-      terq-requ:
-        max-count: infinite
+      terq-requ-lst:
+        max-count: 1
     description: "Technical requirements describe non-functional aspects and constraints. Each should be measurable and testable. Common categories: Performance, Scalability, Availability, Security, Maintainability."
   fr:
     prefix: FR
     subsection-types:
-      fre-requ:
-        max-count: infinite
+      fre-requ-lst:
+        max-count: 1
         min-count: 1
     description: "Functional requirements describe system capabilities, behaviors, and features. Use clear, testable language. Each requirement should answer: What must the system do? For whom? Under what conditions?"
   or:
     prefix: OR
     subsection-types:
-      orrq-requ:
-        max-count: infinite
+      orrq-requ-lst:
+        max-count: 1
     description: "Organizational requirements describe non-technical changes needed for system success: training, process changes, role changes, support structures, and communication."
   rt:
     prefix: RT
@@ -395,8 +532,8 @@ document:
     or:
       section-type: or
       optional: true
-    rere-requ:
-      section-type: rere-requ
+    rere-requ-lst:
+      section-type: rere-requ-lst
       optional: true
     reqcov:
       section-type: reqcov

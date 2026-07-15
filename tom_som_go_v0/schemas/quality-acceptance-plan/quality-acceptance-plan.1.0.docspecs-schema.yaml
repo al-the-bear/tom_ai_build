@@ -3,6 +3,118 @@
 
 title-format: "# <!--[QAP]--> Quality & Acceptance Plan"
 section-types:
+  mstpcr-item-lst:
+    prefix: MSTPCR_ITEM_LST
+    subsection-types:
+      mstpcr-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per must-pass criterion.
+  tescno-note-lst:
+    prefix: TESCNO_NOTE_LST
+    subsection-types:
+      tescno-note:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per test-scenario note.
+  uatsst-test-lst:
+    prefix: UATSST_TEST_LST
+    subsection-types:
+      uatsst-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user-acceptance test step.
+  wasele-serv-lst:
+    prefix: WASELE_SERV_LST
+    subsection-types:
+      wasele-serv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per warranty service element.
+  categ-cate-lst:
+    prefix: CATEG_CATE_LST
+    subsection-types:
+      categ-cate:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per category dependency.
+  dacen-item-lst:
+    prefix: DACEN_ITEM_LST
+    subsection-types:
+      dacen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per acceptance criterion.
+  qcate-qual-lst:
+    prefix: QCATE_QUAL_LST
+    subsection-types:
+      qcate-qual:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per quality category.
+  qgchk-item-lst:
+    prefix: QGCHK_ITEM_LST
+    subsection-types:
+      qgchk-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per quality gate check.
+  qlwgt-weig-lst:
+    prefix: QLWGT_WEIG_LST
+    subsection-types:
+      qlwgt-weig:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per quality attribute weight.
+  uatcy-test-lst:
+    prefix: UATCY_TEST_LST
+    subsection-types:
+      uatcy-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user-acceptance test cycle.
+  acst-step-lst:
+    prefix: ACST_STEP_LST
+    subsection-types:
+      acst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per acceptance-process step.
+  slae-slae-lst:
+    prefix: SLAE_SLAE_LST
+    subsection-types:
+      slae-slae:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per service level agreement.
+  tode-item-lst:
+    prefix: TODE_ITEM_LST
+    subsection-types:
+      tode-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per trade-off decision.
+  tssc-test-lst:
+    prefix: TSSC_TEST_LST
+    subsection-types:
+      tssc-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per test scenario.
   mstpcr-item:
     prefix: MSTPCR_ITEM_
     subsection-types:
@@ -157,10 +269,10 @@ section-types:
         max-count: 1
       tspe:
         max-count: 1
-      tescno-note:
-        max-count: infinite
-      uatsst-test:
-        max-count: infinite
+      tescno-note-lst:
+        max-count: 1
+      uatsst-test-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^TSSC-TEST-[0-9]+$"
       error-message: IDs of this section must match TSSC-TEST-xxx
@@ -196,8 +308,8 @@ section-types:
   acritl:
     prefix: ACRITL
     subsection-types:
-      dacen-item:
-        max-count: infinite
+      dacen-item-lst:
+        max-count: 1
     description: Acceptance criteria.
   avquma:
     prefix: AVQUMA
@@ -307,14 +419,14 @@ section-types:
   mupacr:
     prefix: MUPACR
     subsection-types:
-      mstpcr-item:
-        max-count: infinite
+      mstpcr-item-lst:
+        max-count: 1
     description: 11.7.1. Must-Pass Criteria.
   qugach:
     prefix: QUGACH
     subsection-types:
-      qgchk-item:
-        max-count: infinite
+      qgchk-item-lst:
+        max-count: 1
     description: 11.7.2. Quality Gate Checklist.
   requco:
     prefix: REQUCO
@@ -353,8 +465,8 @@ section-types:
         max-count: 1
       slqr2:
         max-count: 1
-      slae-slae:
-        max-count: infinite
+      slae-slae-lst:
+        max-count: 1
     description: 11.6.3. Service Level Requirements.
   sequa1:
     prefix: SEQUA1
@@ -400,8 +512,8 @@ section-types:
   trofde:
     prefix: TROFDE
     subsection-types:
-      tode-item:
-        max-count: infinite
+      tode-item-lst:
+        max-count: 1
     description: 11.6.2. Trade-off Decisions.
   uadema:
     prefix: UADEMA
@@ -440,16 +552,16 @@ section-types:
         max-count: 1
       uatr:
         max-count: 1
-      uatcy-test:
-        max-count: infinite
-      tssc-test:
-        max-count: infinite
+      uatcy-test-lst:
+        max-count: 1
+      tssc-test-lst:
+        max-count: 1
     description: User acceptance testing.
   wequma:
     prefix: WEQUMA
     subsection-types:
-      qlwgt-weig:
-        max-count: infinite
+      qlwgt-weig-lst:
+        max-count: 1
     description: 11.6.1. Weighted Quality Matrix.
   acpr1:
     prefix: ACPR1
@@ -466,8 +578,8 @@ section-types:
         max-count: 1
       acprdo:
         max-count: 1
-      acst-step:
-        max-count: infinite
+      acst-step-lst:
+        max-count: 1
     description: Acceptance process.
   daced:
     prefix: DACED
@@ -556,10 +668,10 @@ section-types:
         max-count: 1
       qfver:
         max-count: 1
-      qcate-qual:
-        max-count: infinite
-      categ-cate:
-        max-count: infinite
+      qcate-qual-lst:
+        max-count: 1
+      categ-cate-lst:
+        max-count: 1
     description: Quality framework.
   requ1:
     prefix: REQU1
@@ -908,8 +1020,8 @@ section-types:
         max-count: 1
       waco:
         max-count: 1
-      wasele-serv:
-        max-count: infinite
+      wasele-serv-lst:
+        max-count: 1
       wapr:
         max-count: 1
       watr:

@@ -3,6 +3,513 @@
 
 title-format: "# <!--[XDS]--> Experience Design Specification"
 section-types:
+  delnpt-patt-lst:
+    prefix: DELNPT_PATT_LST
+    subsection-types:
+      delnpt-patt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per deep-link URL pattern.
+  exfoen-expo-lst:
+    prefix: EXFOEN_EXPO_LST
+    subsection-types:
+      exfoen-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export format.
+  exsise-size-lst:
+    prefix: EXSISE_SIZE_LST
+    subsection-types:
+      exsise-size:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per size-and-splitting setting.
+  exteen-expo-lst:
+    prefix: EXTEEN_EXPO_LST
+    subsection-types:
+      exteen-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export template.
+  famref-comp-lst:
+    prefix: FAMREF_COMP_LST
+    subsection-types:
+      famref-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component in the family.
+  ftrtur-feat-lst:
+    prefix: FTRTUR_FEAT_LST
+    subsection-types:
+      ftrtur-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per feature tour.
+  navgrd-guar-lst:
+    prefix: NAVGRD_GUAR_LST
+    subsection-types:
+      navgrd-guar:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation guard rule.
+  navgrp-grou-lst:
+    prefix: NAVGRP_GROU_LST
+    subsection-types:
+      navgrp-grou:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation group.
+  naviit-item-lst:
+    prefix: NAVIIT_ITEM_LST
+    subsection-types:
+      naviit-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per navigation item in this group.
+  prfeen-feat-lst:
+    prefix: PRFEEN_FEAT_LST
+    subsection-types:
+      prfeen-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per prototype feature.
+  prgoen-goal-lst:
+    prefix: PRGOEN_GOAL_LST
+    subsection-types:
+      prgoen-goal:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per prototype goal.
+  rcvscn-reco-lst:
+    prefix: RCVSCN_RECO_LST
+    subsection-types:
+      rcvscn-reco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per common recovery scenario.
+  rechax-axes-lst:
+    prefix: RECHAX_AXES_LST
+    subsection-types:
+      rechax-axes:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart axis configuration.
+  rechen-char-lst:
+    prefix: RECHEN_CHAR_LST
+    subsection-types:
+      rechen-char:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart shown in the section.
+  recoe1-colu-lst:
+    prefix: RECOE1_COLU_LST
+    subsection-types:
+      recoe1-colu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per column in the section table.
+  redien-dist-lst:
+    prefix: REDIEN_DIST_LST
+    subsection-types:
+      redien-dist:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report distribution channel.
+  refien-filt-lst:
+    prefix: REFIEN_FILT_LST
+    subsection-types:
+      refien-filt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report data filter.
+  rereen-reci-lst:
+    prefix: REREEN_RECI_LST
+    subsection-types:
+      rereen-reci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report recipient.
+  rescen-sche-lst:
+    prefix: RESCEN_SCHE_LST
+    subsection-types:
+      rescen-sche:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report generation schedule.
+  resee1-sect-lst:
+    prefix: RESEE1_SECT_LST
+    subsection-types:
+      resee1-sect:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report section.
+  respsr-scre-lst:
+    prefix: RESPSR_SCRE_LST
+    subsection-types:
+      respsr-scre:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen with distinct responsive rules.
+  scrusc-user-lst:
+    prefix: SCRUSC_USER_LST
+    subsection-types:
+      scrusc-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user category.
+  taiten-tabs-lst:
+    prefix: TAITEN_TABS_LST
+    subsection-types:
+      taiten-tabs:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab item in the tab bar.
+  uicoen-comp-lst:
+    prefix: UICOEN_COMP_LST
+    subsection-types:
+      uicoen-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per catalog component.
+  vamete-mess-lst:
+    prefix: VAMETE_MESS_LST
+    subsection-types:
+      vamete-mess:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation message template.
+  desig-desi-lst:
+    prefix: DESIG_DESI_LST
+    subsection-types:
+      desig-desi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design foundation.
+  dgoen-item-lst:
+    prefix: DGOEN_ITEM_LST
+    subsection-types:
+      dgoen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design goal.
+  field-fiel-lst:
+    prefix: FIELD_FIEL_LST
+    subsection-types:
+      field-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field validation rule.
+  fldhp-fiel-lst:
+    prefix: FLDHP_FIEL_LST
+    subsection-types:
+      fldhp-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per field that needs contextual help.
+  globa-glob-lst:
+    prefix: GLOBA_GLOB_LST
+    subsection-types:
+      globa-glob:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per global entry point.
+  peren-item-lst:
+    prefix: PEREN_ITEM_LST
+    subsection-types:
+      peren-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user persona.
+  pgoen-item-lst:
+    prefix: PGOEN_ITEM_LST
+    subsection-types:
+      pgoen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona goal.
+  pppen-item-lst:
+    prefix: PPPEN_ITEM_LST
+    subsection-types:
+      pppen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona pain point.
+  pscen-item-lst:
+    prefix: PSCEN_ITEM_LST
+    subsection-types:
+      pscen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per persona scenario.
+  recov-reco-lst:
+    prefix: RECOV_RECO_LST
+    subsection-types:
+      recov-reco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per recovery flow.
+  scrac-item-lst:
+    prefix: SCRAC_ITEM_LST
+    subsection-types:
+      scrac-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen action.
+  screl-elem-lst:
+    prefix: SCREL_ELEM_LST
+    subsection-types:
+      screl-elem:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen element.
+  scren-item-lst:
+    prefix: SCREN_ITEM_LST
+    subsection-types:
+      scren-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen.
+  scrsc-item-lst:
+    prefix: SCRSC_ITEM_LST
+    subsection-types:
+      scrsc-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen section.
+  scrst-item-lst:
+    prefix: SCRST_ITEM_LST
+    subsection-types:
+      scrst-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per screen state.
+  turst-step-lst:
+    prefix: TURST_STEP_LST
+    subsection-types:
+      turst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per guided-tour step.
+  acch-item-lst:
+    prefix: ACCH_ITEM_LST
+    subsection-types:
+      acch-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per accessibility check.
+  cmac-acti-lst:
+    prefix: CMAC_ACTI_LST
+    subsection-types:
+      cmac-acti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component action.
+  cmfa-comp-lst:
+    prefix: CMFA_COMP_LST
+    subsection-types:
+      cmfa-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component family.
+  cmpr-prop-lst:
+    prefix: CMPR_PROP_LST
+    subsection-types:
+      cmpr-prop:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component property.
+  cmsl-slot-lst:
+    prefix: CMSL_SLOT_LST
+    subsection-types:
+      cmsl-slot:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component slot.
+  cmst-stat-lst:
+    prefix: CMST_STAT_LST
+    subsection-types:
+      cmst-stat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component state.
+  cmvn-vari-lst:
+    prefix: CMVN_VARI_LST
+    subsection-types:
+      cmvn-vari:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component variant.
+  copa-colo-lst:
+    prefix: COPA_COLO_LST
+    subsection-types:
+      copa-colo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per colour palette.
+  dpen-item-lst:
+    prefix: DPEN_ITEM_LST
+    subsection-types:
+      dpen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per design principle.
+  efme-fiel-lst:
+    prefix: EFME_FIEL_LST
+    subsection-types:
+      efme-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export field mapping.
+  epde-erro-lst:
+    prefix: EPDE_ERRO_LST
+    subsection-types:
+      epde-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per error page design.
+  epnt-entr-lst:
+    prefix: EPNT_ENTR_LST
+    subsection-types:
+      epnt-entr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per entry point.
+  evre-vali-lst:
+    prefix: EVRE_VALI_LST
+    subsection-types:
+      evre-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation rule.
+  reen-repo-lst:
+    prefix: REEN_REPO_LST
+    subsection-types:
+      reen-repo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report.
+  sece-erro-lst:
+    prefix: SECE_ERRO_LST
+    subsection-types:
+      sece-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system error code.
+  srre-resp-lst:
+    prefix: SRRE_RESP_LST
+    subsection-types:
+      srre-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per responsive rule.
+  tbde-tabb-lst:
+    prefix: TBDE_TABB_LST
+    subsection-types:
+      tbde-tabb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab bar or segmented control.
+  tyst-typo-lst:
+    prefix: TYST_TYPO_LST
+    subsection-types:
+      tyst-typo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per typography style.
+  umie-menu-lst:
+    prefix: UMIE_MENU_LST
+    subsection-types:
+      umie-menu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility menu item.
+  unie-item-lst:
+    prefix: UNIE_ITEM_LST
+    subsection-types:
+      unie-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility navigation item.
+  wsce-succ-lst:
+    prefix: WSCE_SUCC_LST
+    subsection-types:
+      wsce-succ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per WCAG success criterion.
+  bre-brea-lst:
+    prefix: BRE_BREA_LST
+    subsection-types:
+      bre-brea:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per layout breakpoint.
   delnpt-patt:
     prefix: DELNPT_PATT_
     pattern-check-id:
@@ -20,16 +527,16 @@ section-types:
         max-count: 1
       exdafo:
         max-count: 1
-      exsise-size:
-        max-count: infinite
+      exsise-size-lst:
+        max-count: 1
       exse:
         max-count: 1
       exou:
         max-count: 1
       exac:
         max-count: 1
-      efme-fiel:
-        max-count: infinite
+      efme-fiel-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^EXFOEN-EXPO-[0-9]+$"
       error-message: IDs of this section must match EXFOEN-EXPO-xxx
@@ -64,8 +571,8 @@ section-types:
   ftrtur-feat:
     prefix: FTRTUR_FEAT_
     subsection-types:
-      turst-step:
-        max-count: infinite
+      turst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^FTRTUR-FEAT-[0-9]+$"
       error-message: IDs of this section must match FTRTUR-FEAT-xxx
@@ -90,8 +597,8 @@ section-types:
         max-count: 1
       nges:
         max-count: 1
-      naviit-item:
-        max-count: infinite
+      naviit-item-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^NAVGRP-GROU-[0-9]+$"
       error-message: IDs of this section must match NAVGRP-GROU-xxx
@@ -140,8 +647,8 @@ section-types:
   rechen-char:
     prefix: RECHEN_CHAR_
     subsection-types:
-      rechax-axes:
-        max-count: infinite
+      rechax-axes-lst:
+        max-count: 1
       rechse:
         max-count: 1
       rechdi:
@@ -236,10 +743,10 @@ section-types:
         max-count: 1
       reseag:
         max-count: 1
-      recoe1-colu:
-        max-count: infinite
-      rechen-char:
-        max-count: infinite
+      recoe1-colu-lst:
+        max-count: 1
+      rechen-char-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^RESEE1-SECT-[0-9]+$"
       error-message: IDs of this section must match RESEE1-SECT-xxx
@@ -281,16 +788,16 @@ section-types:
         max-count: 1
       uicoensc:
         max-count: 1
-      cmst-stat:
-        max-count: infinite
-      cmvn-vari:
-        max-count: infinite
-      cmac-acti:
-        max-count: infinite
-      cmsl-slot:
-        max-count: infinite
-      cmpr-prop:
-        max-count: infinite
+      cmst-stat-lst:
+        max-count: 1
+      cmvn-vari-lst:
+        max-count: 1
+      cmac-acti-lst:
+        max-count: 1
+      cmsl-slot-lst:
+        max-count: 1
+      cmpr-prop-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^UICOEN-COMP-[0-9]+$"
       error-message: IDs of this section must match UICOEN-COMP-xxx
@@ -404,8 +911,8 @@ section-types:
         max-count: 1
       sedd:
         max-count: 1
-      evre-vali:
-        max-count: infinite
+      evre-vali-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^SCREL-ELEM-[0-9]+$"
       error-message: IDs of this section must match SCREL-ELEM-xxx
@@ -427,12 +934,12 @@ section-types:
         max-count: 1
       scst:
         max-count: 1
-      scrusc-user:
-        max-count: infinite
-      epnt-entr:
-        max-count: infinite
-      srre-resp:
-        max-count: infinite
+      scrusc-user-lst:
+        max-count: 1
+      epnt-entr-lst:
+        max-count: 1
+      srre-resp-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^SCREN-ITEM-[0-9]+$"
       error-message: IDs of this section must match SCREN-ITEM-xxx
@@ -444,8 +951,8 @@ section-types:
         max-count: 1
       sseb:
         max-count: 1
-      screl-elem:
-        max-count: infinite
+      screl-elem-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^SCRSC-ITEM-[0-9]+$"
       error-message: IDs of this section must match SCRSC-ITEM-xxx
@@ -489,8 +996,8 @@ section-types:
   cmfa-comp:
     prefix: CMFA_COMP_
     subsection-types:
-      famref-comp:
-        max-count: infinite
+      famref-comp-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^CMFA-COMP-[0-9]+$"
       error-message: IDs of this section must match CMFA-COMP-xxx
@@ -601,16 +1108,16 @@ section-types:
         max-count: 1
       reli:
         max-count: 1
-      resee1-sect:
-        max-count: infinite
-      refien-filt:
-        max-count: infinite
-      rescen-sche:
-        max-count: infinite
-      redien-dist:
-        max-count: infinite
-      rereen-reci:
-        max-count: infinite
+      resee1-sect-lst:
+        max-count: 1
+      refien-filt-lst:
+        max-count: 1
+      rescen-sche-lst:
+        max-count: 1
+      redien-dist-lst:
+        max-count: 1
+      rereen-reci-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^REEN-REPO-[0-9]+$"
       error-message: IDs of this section must match REEN-REPO-xxx
@@ -639,8 +1146,8 @@ section-types:
         max-count: 1
       tbdel:
         max-count: 1
-      taiten-tabs:
-        max-count: infinite
+      taiten-tabs-lst:
+        max-count: 1
         min-count: 1
     pattern-check-id:
       pattern: "^TBDE-TABB-[0-9]+$"
@@ -670,8 +1177,8 @@ section-types:
         max-count: 1
       unieb:
         max-count: 1
-      umie-menu:
-        max-count: infinite
+      umie-menu-lst:
+        max-count: 1
     pattern-check-id:
       pattern: "^UNIE-ITEM-[0-9]+$"
       error-message: IDs of this section must match UNIE-ITEM-xxx
@@ -737,8 +1244,8 @@ section-types:
   acchls:
     prefix: ACCHLS
     subsection-types:
-      acch-item:
-        max-count: infinite
+      acch-item-lst:
+        max-count: 1
     description: 10.9.2. Accessibility Checklist.
   acstgy:
     prefix: ACSTGY
@@ -826,8 +1333,8 @@ section-types:
         max-count: 1
       pfsf:
         max-count: 1
-      prfeen-feat:
-        max-count: infinite
+      prfeen-feat-lst:
+        max-count: 1
     description: 10.13.2. Selected Feature Subset.
   prgofe:
     prefix: PRGOFE
@@ -972,8 +1479,8 @@ section-types:
   scrinv:
     prefix: SCRINV
     subsection-types:
-      scren-item:
-        max-count: infinite
+      scren-item-lst:
+        max-count: 1
         min-count: 1
     description: 10.2.1. Screen Inventory.
   suacti:
@@ -990,10 +1497,10 @@ section-types:
         max-count: 1
       sedf:
         max-count: 1
-      epde-erro:
-        max-count: infinite
-      sece-erro:
-        max-count: infinite
+      epde-erro-lst:
+        max-count: 1
+      sece-erro-lst:
+        max-count: 1
     description: 10.7.2. System Error Display.
   thprdi:
     prefix: THPRDI
@@ -1046,14 +1553,14 @@ section-types:
   degol:
     prefix: DEGOL
     subsection-types:
-      dgoen-item:
-        max-count: infinite
+      dgoen-item-lst:
+        max-count: 1
     description: 10.1.1. Design Goals.
   depri:
     prefix: DEPRI
     subsection-types:
-      dpen-item:
-        max-count: infinite
+      dpen-item-lst:
+        max-count: 1
     description: 10.1.2. Design Principles.
   deviz:
     prefix: DEVIZ
@@ -1089,8 +1596,8 @@ section-types:
   peppt:
     prefix: PEPPT
     subsection-types:
-      pppen-item:
-        max-count: infinite
+      pppen-item-lst:
+        max-count: 1
     description: 10.1.3.n.2. Persona Pain Points.
   peprf:
     prefix: PEPRF
@@ -1098,14 +1605,14 @@ section-types:
   pergl:
     prefix: PERGL
     subsection-types:
-      pgoen-item:
-        max-count: infinite
+      pgoen-item-lst:
+        max-count: 1
     description: 10.1.3.n.1. Persona Goals.
   persc:
     prefix: PERSC
     subsection-types:
-      pscen-item:
-        max-count: infinite
+      pscen-item-lst:
+        max-count: 1
     description: 10.1.3.n.3. Persona Scenarios.
   sceac:
     prefix: SCEAC
@@ -1175,8 +1682,8 @@ section-types:
   usper:
     prefix: USPER
     subsection-types:
-      peren-item:
-        max-count: infinite
+      peren-item-lst:
+        max-count: 1
         min-count: 1
     description: 10.1.3. User Personas.
   acec:
@@ -1217,14 +1724,14 @@ section-types:
         max-count: 1
       coheri:
         max-count: 1
-      fldhp-fiel:
-        max-count: infinite
+      fldhp-fiel-lst:
+        max-count: 1
     description: 10.8.1. Contextual Help.
   coli:
     prefix: COLI
     subsection-types:
-      desig-desi:
-        max-count: infinite
+      desig-desi-lst:
+        max-count: 1
       colico:
         max-count: 1
       colity:
@@ -1235,10 +1742,10 @@ section-types:
         max-count: 1
       colivi:
         max-count: 1
-      copa-colo:
-        max-count: infinite
-      tyst-typo:
-        max-count: infinite
+      copa-colo-lst:
+        max-count: 1
+      tyst-typo-lst:
+        max-count: 1
     description: 10.11.1. Component Library.
   cona:
     prefix: CONA
@@ -1264,8 +1771,8 @@ section-types:
   deli:
     prefix: DELI
     subsection-types:
-      delnpt-patt:
-        max-count: infinite
+      delnpt-patt-lst:
+        max-count: 1
     description: 10.3.1.7. Deep Linking.
   ehca:
     prefix: EHCA
@@ -1295,10 +1802,10 @@ section-types:
         max-count: 1
       ersh:
         max-count: 1
-      recov-reco:
-        max-count: infinite
-      rcvscn-reco:
-        max-count: infinite
+      recov-reco-lst:
+        max-count: 1
+      rcvscn-reco-lst:
+        max-count: 1
     description: 10.7.3. Error Recovery.
   errm:
     prefix: ERRM
@@ -1348,14 +1855,14 @@ section-types:
   nagu:
     prefix: NAGU
     subsection-types:
-      navgrd-guar:
-        max-count: infinite
+      navgrd-guar-lst:
+        max-count: 1
     description: 10.3.1.8. Navigation Guards.
   nahi:
     prefix: NAHI
     subsection-types:
-      navgrp-grou:
-        max-count: infinite
+      navgrp-grou-lst:
+        max-count: 1
     description: 10.3.1.2. Navigation Hierarchy.
   namo:
     prefix: NAMO
@@ -1423,8 +1930,8 @@ section-types:
         max-count: 1
       onhere:
         max-count: 1
-      ftrtur-feat:
-        max-count: infinite
+      ftrtur-feat-lst:
+        max-count: 1
     description: 10.8.2. Onboarding.
   pfsf:
     prefix: PFSF
@@ -1457,12 +1964,12 @@ section-types:
         max-count: 1
       prlaar:
         max-count: 1
-      reen-repo:
-        max-count: infinite
-      exfoen-expo:
-        max-count: infinite
-      exteen-expo:
-        max-count: infinite
+      reen-repo-lst:
+        max-count: 1
+      exfoen-expo-lst:
+        max-count: 1
+      exteen-expo-lst:
+        max-count: 1
     description: Print layout.
   prna:
     prefix: PRNA
@@ -1494,8 +2001,8 @@ section-types:
         max-count: 1
       rebeco:
         max-count: 1
-      respsr-scre:
-        max-count: infinite
+      respsr-scre-lst:
+        max-count: 1
     description: 10.10.2. Responsive Behavior.
   rede:
     prefix: REDE
@@ -1580,20 +2087,20 @@ section-types:
   scac:
     prefix: SCAC
     subsection-types:
-      scrac-item:
-        max-count: infinite
+      scrac-item-lst:
+        max-count: 1
     description: 10.2.1.n.2. Screen Actions.
   scse:
     prefix: SCSE
     subsection-types:
-      scrsc-item:
-        max-count: infinite
+      scrsc-item-lst:
+        max-count: 1
     description: 10.2.1.n.1. Screen Sections.
   scst:
     prefix: SCST
     subsection-types:
-      scrst-item:
-        max-count: infinite
+      scrst-item-lst:
+        max-count: 1
     description: 10.2.1.n.3. Screen States.
   seae:
     prefix: SEAE
@@ -1639,8 +2146,8 @@ section-types:
   sena:
     prefix: SENA
     subsection-types:
-      tbde-tabb:
-        max-count: infinite
+      tbde-tabb-lst:
+        max-count: 1
     description: 10.3.1.4. Secondary Navigation.
   sseb:
     prefix: SSEB
@@ -1704,10 +2211,10 @@ section-types:
         max-count: 1
       coli:
         max-count: 1
-      uicoen-comp:
-        max-count: infinite
-      cmfa-comp:
-        max-count: infinite
+      uicoen-comp-lst:
+        max-count: 1
+      cmfa-comp-lst:
+        max-count: 1
     description: UI components.
   usas:
     prefix: USAS
@@ -1726,8 +2233,8 @@ section-types:
   utna:
     prefix: UTNA
     subsection-types:
-      unie-item:
-        max-count: infinite
+      unie-item-lst:
+        max-count: 1
     description: 10.3.1.5. Utility Navigation.
   vafe:
     prefix: VAFE
@@ -1740,10 +2247,10 @@ section-types:
         max-count: 1
       vafebe:
         max-count: 1
-      vamete-mess:
-        max-count: infinite
-      field-fiel:
-        max-count: infinite
+      vamete-mess-lst:
+        max-count: 1
+      field-fiel-lst:
+        max-count: 1
     description: 10.7.1. Validation Feedback.
   wcco:
     prefix: WCCO
@@ -1754,20 +2261,20 @@ section-types:
         max-count: 1
       wccoro:
         max-count: 1
-      wsce-succ:
-        max-count: infinite
+      wsce-succ-lst:
+        max-count: 1
     description: 10.9.1. WCAG Compliance Level.
   bc:
     prefix: BC
     subsection-types:
-      bre-brea:
-        max-count: infinite
+      bre-brea-lst:
+        max-count: 1
     description: 10.10.1. Breakpoints.
   ia:
     prefix: IA
     subsection-types:
-      globa-glob:
-        max-count: infinite
+      globa-glob-lst:
+        max-count: 1
     description: 10.2.2. Information Architecture.
   pg:
     prefix: PG
@@ -1776,8 +2283,8 @@ section-types:
         max-count: 1
       prgofe:
         max-count: 1
-      prgoen-goal:
-        max-count: infinite
+      prgoen-goal-lst:
+        max-count: 1
     description: 10.13.1. Prototype Goals.
   rf:
     prefix: RF
