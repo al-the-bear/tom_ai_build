@@ -153,14 +153,16 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.root.type", root.type_ == "Demo", &root.type_);
     c.check(
         "model.classCount",
-        model.classes.len() == 3,
+        model.classes.len() == 4,
         &model.classes.len().to_string(),
     );
     let demo = model.class_named("Demo");
     c.check("model.Demo.found", demo.is_some(), "");
     if let Some(demo) = demo {
         let names: Vec<&str> = demo.fields.iter().map(|f| f.name.as_str()).collect();
-        let want = ["title", "summary", "priority", "count", "details", "items", "refs", "meta"];
+        let want = [
+            "title", "summary", "priority", "count", "details", "items", "refs", "meta", "control",
+        ];
         c.check("model.Demo.fields", names == want, &names.join(","));
     }
 }

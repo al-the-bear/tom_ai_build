@@ -96,7 +96,9 @@ const YAML_TEST_MODEL_JSON: &str = r#"{
          "enumType": "Priority", "enumValues": ["low", "high"],
          "serializationOrder": 5},
         {"name": "count", "kind": "scalar", "type": "int",
-         "serializationOrder": 6}
+         "serializationOrder": 6},
+        {"name": "control", "kind": "complex", "type": "Control",
+         "serializationOrder": 7}
       ]
     },
     "Scope": {
@@ -104,6 +106,14 @@ const YAML_TEST_MODEL_JSON: &str = r#"{
       "fields": [
         {"name": "inScope", "kind": "content", "sectionId": "D00-INS"},
         {"name": "outOfScope", "kind": "content"}
+      ]
+    },
+    "Control": {
+      "name": "Control",
+      "sectionId": "CTRL",
+      "fields": [
+        {"name": "summary", "kind": "content", "sectionId": "CTRL-SUM"},
+        {"name": "owner", "kind": "content"}
       ]
     },
     "Requirement": {
@@ -488,7 +498,40 @@ fn yaml_test_strict_decode(c: &mut Checker, tree: &SomMetaTree) {
     c.check("decode.review", contents.review.has("D00/a"), "");
 }
 
-/// Runs the shared DR5 hierarchical-codec suite (58 checks).
+/// A section/complex node whose field carries no `@SectionId` takes its target
+/// class's id for the mapping key (DR1 §2.2 class fallback), while its path
+/// segment stays field-level. `control` (id-less field) → `Control` (class id
+/// `CTRL`) emits `CTRL control:`; its id-less leaf `owner` stays a bare key;
+/// the path is field-level throughout.
+fn yaml_test_class_level_only_key(c: &mut Checker, tree: &SomMetaTree) {
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/control/CTRL-SUM", "controlled summary");
+    doc.set_content("D00/control/owner", "the owner");
+    let yaml = yaml_enc(tree, &doc, "");
+
+    // the complex node's key gains the target class id; the path stays field-level
+    c.check("classKey.section", yaml.contains("\n    CTRL control:\n"), &yaml);
+    c.check(
+        "classKey.idLeaf",
+        yaml.contains("\n      CTRL-SUM summary:"),
+        &yaml,
+    );
+    c.check("classKey.bareLeaf", yaml.contains("\n      owner:"), &yaml);
+
+    let out = yaml_round_trip(tree, &doc);
+    c.check(
+        "classKey.rt.summary",
+        out.content_or("D00/control/CTRL-SUM") == "controlled summary",
+        "",
+    );
+    c.check(
+        "classKey.rt.owner",
+        out.content_or("D00/control/owner") == "the owner",
+        "",
+    );
+}
+
+/// Runs the shared DR5 hierarchical-codec suite.
 #[test]
 fn spec_document_yaml() {
     let mut c = Checker::new();
@@ -496,5 +539,6 @@ fn spec_document_yaml() {
     yaml_test_encode(&mut c, &tree);
     yaml_test_round_trip(&mut c, &tree);
     yaml_test_strict_decode(&mut c, &tree);
+    yaml_test_class_level_only_key(&mut c, &tree);
     c.finish();
 }

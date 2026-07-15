@@ -124,16 +124,30 @@ pub struct SpecYamlContents {
 /// Returns the mapping key a metadata node writes (DR1 §2.2): its effective
 /// section id, one space, then the exact member name (class name on the
 /// document root); just the name when the node carries no id.
+///
+/// A section/complex node's key carries the *full* section id — the field-level
+/// `@SectionId` if present, else the target class's own `@SectionId`
+/// (`class_section_id`, the DR1 §2.2 class fallback) — mirroring the markdown
+/// codec's heading rule. Content/scalar/enum/form and list-item keys keep only
+/// their field-level id; the path segment is never affected (see
+/// [`SomMetaNode::segment`]).
 pub fn node_key(node: &SomMetaNode) -> String {
     let name = if node.member_name.is_empty() {
         &node.class_name
     } else {
         &node.member_name
     };
-    if node.section_id.is_empty() {
+    let id = if node.section_id.is_empty()
+        && matches!(node.kind.as_str(), SOM_META_KIND_SECTION | SOM_META_KIND_COMPLEX)
+    {
+        &node.class_section_id
+    } else {
+        &node.section_id
+    };
+    if id.is_empty() {
         return name.clone();
     }
-    format!("{} {}", node.section_id, name)
+    format!("{} {}", id, name)
 }
 
 /// Renders `s` exactly as JavaScript's `JSON.stringify` would: wrapped in

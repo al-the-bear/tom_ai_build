@@ -69,6 +69,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
     let cls = model.class_named(&root.type_);
 
     let mut section_id = root.section_id.clone();
+    let mut class_section_id = String::new();
     let mut doc_comment = root.doc.clone();
     let mut class_doc = String::new();
     let mut maps_to = String::new();
@@ -79,6 +80,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
         if section_id.is_empty() {
             section_id = cls.section_id.clone();
         }
+        class_section_id = cls.section_id.clone();
         if doc_comment.is_empty() {
             doc_comment = cls.doc.clone();
         }
@@ -93,6 +95,7 @@ pub fn build_som_meta_tree(model: &SpecModel, root_type: &str) -> Result<SomMeta
     let root_node = SomMetaNode {
         class_name: root.type_.clone(),
         section_id,
+        class_section_id,
         kind: SOM_META_KIND_SECTION.to_string(),
         type_name: root.type_.clone(),
         doc_comment,
@@ -199,6 +202,7 @@ fn bridge_field_node(
             }
             element_node = Some(Rc::new(SomMetaNode {
                 class_name: element.name.clone(),
+                class_section_id: element.section_id.clone(),
                 kind: SOM_META_KIND_COMPLEX.to_string(),
                 type_name: element.name.clone(),
                 doc_comment: element.doc.clone(),
@@ -252,12 +256,14 @@ fn bridge_field_node(
     };
 
     let mut class_name = owner.name.clone();
+    let mut class_section_id = String::new();
     let mut doc_comment = field.doc.clone();
     let mut class_doc = String::new();
     let mut maps_to = String::new();
     let mut detailed_in = String::new();
     if let Some(target) = target {
         class_name = target.name.clone();
+        class_section_id = target.section_id.clone();
         if doc_comment.is_empty() {
             doc_comment = target.doc.clone();
         }
@@ -280,6 +286,7 @@ fn bridge_field_node(
         class_name,
         member_name: field.name.clone(),
         section_id: field.section_id.clone(),
+        class_section_id,
         section_id_pattern: field.section_id_pattern.clone(),
         kind,
         type_name,

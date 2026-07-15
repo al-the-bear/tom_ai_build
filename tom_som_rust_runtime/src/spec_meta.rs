@@ -153,6 +153,11 @@ pub struct SomMetaNode {
     /// The effective `@SectionId` (field-level wins over class-level), `""`
     /// when none.
     pub section_id: String,
+    /// The target class's own `@SectionId` (DR1 §2.2 fallback): the id its DR3
+    /// schema type is keyed by, used only to build the mapping key of a
+    /// section/complex node whose field carries no id. Never enters
+    /// [`SomMetaNode::segment`] — the path stays field-level. `""` when none.
+    pub class_section_id: String,
     /// The `@SectionIdPattern` on a list field (item ids), `""` when none.
     pub section_id_pattern: String,
     /// The structural kind of the node (a `SOM_META_KIND_*` constant).
