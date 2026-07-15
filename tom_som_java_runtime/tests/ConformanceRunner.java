@@ -108,7 +108,7 @@ public final class ConformanceRunner {
     SpecRoot root = model.roots.get(0);
     check("model.root.sectionId", "DEMO".equals(root.sectionId), String.valueOf(root.sectionId));
     check("model.root.type", "Demo".equals(root.type), String.valueOf(root.type));
-    check("model.classCount", model.classes.size() == 3, String.valueOf(model.classes.size()));
+    check("model.classCount", model.classes.size() == 4, String.valueOf(model.classes.size()));
     SpecClass demo = model.classNamed("Demo");
     check("model.Demo.found", demo != null, "");
     if (demo != null) {
@@ -117,7 +117,9 @@ public final class ConformanceRunner {
         names.add(f.name);
       }
       List<String> want =
-          List.of("title", "summary", "priority", "count", "details", "items", "refs", "meta");
+          List.of(
+              "title", "summary", "priority", "count", "details", "items", "refs", "meta",
+              "control");
       check("model.Demo.fields", names.equals(want), names.toString());
     }
   }

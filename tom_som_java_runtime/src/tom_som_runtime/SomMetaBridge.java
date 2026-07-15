@@ -74,6 +74,7 @@ public final class SomMetaBridge {
     String sectionId = root.sectionId;
     String docComment = root.doc;
     String classDoc = null;
+    String classSectionId = null;
     String mapsTo = null;
     String detailedIn = null;
     List<SpecAnnotation> annotations = new ArrayList<>();
@@ -86,6 +87,7 @@ public final class SomMetaBridge {
         docComment = cls.doc;
       }
       classDoc = cls.doc;
+      classSectionId = cls.sectionId;
       mapsTo = cls.mapsTo;
       detailedIn = cls.detailedIn;
       annotations = cls.annotations;
@@ -95,6 +97,7 @@ public final class SomMetaBridge {
     }
     SomMetaNode rootNode = new SomMetaNode(root.type, SomMetaKind.SECTION, root.type);
     rootNode.sectionId = sectionId;
+    rootNode.classSectionId = classSectionId;
     rootNode.docComment = docComment;
     rootNode.classDocComment = classDoc;
     rootNode.mapsTo = mapsTo;
@@ -203,6 +206,7 @@ public final class SomMetaBridge {
           stack.remove(element.name);
         }
         elementNode = new SomMetaNode(element.name, SomMetaKind.COMPLEX, element.name);
+        elementNode.classSectionId = element.sectionId;
         elementNode.docComment = element.doc;
         elementNode.classDocComment = element.doc;
         elementNode.mapsTo = element.mapsTo;
@@ -242,6 +246,7 @@ public final class SomMetaBridge {
     String className = owner.name;
     String docComment = field.doc;
     String classDoc = null;
+    String classSectionId = null;
     String mapsTo = null;
     String detailedIn = null;
     if (target != null) {
@@ -250,6 +255,7 @@ public final class SomMetaBridge {
         docComment = target.doc;
       }
       classDoc = target.doc;
+      classSectionId = target.sectionId;
       mapsTo = target.mapsTo;
       detailedIn = target.detailedIn;
     }
@@ -267,6 +273,7 @@ public final class SomMetaBridge {
     SomMetaNode node = new SomMetaNode(className, kind, typeName);
     node.memberName = field.name;
     node.sectionId = field.sectionId;
+    node.classSectionId = classSectionId;
     node.sectionIdPattern = field.sectionIdPattern;
     node.serializationOrder = field.serializationOrder;
     node.min = field.min;

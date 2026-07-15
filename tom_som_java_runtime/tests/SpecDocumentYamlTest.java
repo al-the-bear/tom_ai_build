@@ -74,7 +74,9 @@ public final class SpecDocumentYamlTest {
                "enumType": "Priority", "enumValues": ["low", "high"],
                "serializationOrder": 5},
               {"name": "count", "kind": "scalar", "type": "int",
-               "serializationOrder": 6}
+               "serializationOrder": 6},
+              {"name": "control", "kind": "complex", "type": "Control",
+               "serializationOrder": 7}
             ]
           },
           "Scope": {
@@ -82,6 +84,14 @@ public final class SpecDocumentYamlTest {
             "fields": [
               {"name": "inScope", "kind": "content", "sectionId": "D00-INS"},
               {"name": "outOfScope", "kind": "content"}
+            ]
+          },
+          "Control": {
+            "name": "Control",
+            "sectionId": "CTRL",
+            "fields": [
+              {"name": "summary", "kind": "content", "sectionId": "CTRL-SUM"},
+              {"name": "owner", "kind": "content"}
             ]
           },
           "Requirement": {
@@ -421,11 +431,38 @@ public final class SpecDocumentYamlTest {
     check("decode.review", contents.review.containsKey("D00/a"), "");
   }
 
+  /**
+   * A section/complex node whose field carries no {@code @SectionId} takes its
+   * target class's id for the mapping key (DR1 §2.2 class fallback), while its
+   * path segment stays field-level. {@code control} (id-less field) → {@code
+   * Control} (class id {@code CTRL}) emits {@code CTRL control:}; its id-less
+   * leaf {@code owner} stays a bare key; the path is field-level throughout.
+   */
+  private static void yamlTestClassLevelOnlyKey(SomMetaTree tree) {
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/control/CTRL-SUM", "controlled summary");
+    doc.setContent("D00/control/owner", "the owner");
+    String yaml = SpecDocumentYaml.encode(doc, tree, null);
+
+    // the complex node's key gains the target class id; the path stays field-level
+    check("classKey.section", yaml.contains("\n    CTRL control:\n"), yaml);
+    check("classKey.idLeaf", yaml.contains("\n      CTRL-SUM summary:"), yaml);
+    check("classKey.bareLeaf", yaml.contains("\n      owner:"), yaml);
+
+    SpecDocument out = roundTrip(tree, doc);
+    check(
+        "classKey.rt.summary",
+        "controlled summary".equals(out.content("D00/control/CTRL-SUM")),
+        "");
+    check("classKey.rt.owner", "the owner".equals(out.content("D00/control/owner")), "");
+  }
+
   public static void main(String[] args) {
     SomMetaTree tree = yamlTestTree();
     yamlTestEncode(tree);
     yamlTestRoundTrip(tree);
     yamlTestStrictDecode(tree);
+    yamlTestClassLevelOnlyKey(tree);
 
     if (!failed.isEmpty()) {
       System.out.println("FAILED (" + failed.size() + " of " + (passed + failed.size()) + "):");

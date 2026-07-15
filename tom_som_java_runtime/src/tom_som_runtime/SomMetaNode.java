@@ -38,6 +38,14 @@ public final class SomMetaNode {
    */
   public String sectionId;
 
+  /**
+   * The target class's own {@code @SectionId} (DR1 §2.2 fallback): the id its
+   * DR3 schema type is keyed by, used only to build the mapping key of a
+   * section/complex node whose field carries no id. Never enters
+   * {@link #segment} — the path stays field-level. {@code null} when none.
+   */
+  public String classSectionId;
+
   /** The {@code @SectionIdPattern} on a list field (item ids), {@code null} when none. */
   public String sectionIdPattern;
 

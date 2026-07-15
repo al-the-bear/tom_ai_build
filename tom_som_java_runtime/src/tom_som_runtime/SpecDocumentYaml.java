@@ -69,16 +69,30 @@ public final class SpecDocumentYaml {
    * The mapping key a metadata node writes (DR1 §2.2): its effective section
    * id, one space, then the exact member name (class name on the document
    * root); just the name when the node carries no id.
+   *
+   * <p>The id is the field-level {@link SomMetaNode#sectionId} when present;
+   * for a section/complex node whose field carries none, the target
+   * <b>class</b>'s id ({@link SomMetaNode#classSectionId}) — the id its DR3
+   * schema type is keyed by. This mirrors the markdown codec's heading rule
+   * exactly. Content, scalar, enum, form and list keys keep only their
+   * field-level id (no class fallback), and the path
+   * {@link SomMetaNode#segment} is unaffected in every case.
    */
   public static String nodeKey(SomMetaNode node) {
     String name = node.memberName;
     if (name == null || name.isEmpty()) {
       name = node.className;
     }
-    if (node.sectionId == null || node.sectionId.isEmpty()) {
+    String id = node.sectionId;
+    if ((id == null || id.isEmpty())
+        && (SomMetaKind.SECTION.equals(node.kind)
+            || SomMetaKind.COMPLEX.equals(node.kind))) {
+      id = node.classSectionId;
+    }
+    if (id == null || id.isEmpty()) {
       return name;
     }
-    return node.sectionId + " " + name;
+    return id + " " + name;
   }
 
   /**
