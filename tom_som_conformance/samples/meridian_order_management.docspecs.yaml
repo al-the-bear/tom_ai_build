@@ -1157,7 +1157,7 @@ document:
           historical orders remain reproducible.
         DAENT-ENTI-LST entities:
           DAENT-ENTI-1:
-            identity:
+            DAENT-IDEN identity:
               entityName: |2-
                 Order
               tableName: |2-
@@ -1168,7 +1168,7 @@ document:
                 A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
               entityStereoType: |2-
                 Aggregate Root
-            classification:
+            DAENT-CLAS classification:
               category: |2-
                 Transactional
               boundedContext: |2-
@@ -1181,91 +1181,91 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     orderId
                   columnName: |2-
                     order_id
                   description: |2-
                     Stable order identifier.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-2:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     customerId
                   columnName: |2-
                     customer_id
                   description: |2-
                     Reference to the ordering customer.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-3:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     channel
                   columnName: |2-
                     channel
                   description: |2-
                     Capture channel: EDI or REST.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Enum
                   physicalType: |2-
                     varchar(8)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-4:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     status
                   columnName: |2-
                     status
                   description: |2-
                     Lifecycle state (Captured..Closed, with Hold).
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Enum
                   physicalType: |2-
                     varchar(16)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-5:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     createdAt
                   columnName: |2-
                     created_at
                   description: |2-
                     Capture timestamp (UTC).
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Timestamp
                   physicalType: |2-
                     timestamptz
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
@@ -1282,7 +1282,7 @@ document:
                   description: |2-
                     Primary key of the order.
           DAENT-ENTI-2:
-            identity:
+            DAENT-IDEN identity:
               entityName: |2-
                 OrderLine
               tableName: |2-
@@ -1293,7 +1293,7 @@ document:
                 A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
               entityStereoType: |2-
                 Entity
-            classification:
+            DAENT-CLAS classification:
               category: |2-
                 Transactional
               boundedContext: |2-
@@ -1306,91 +1306,91 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     lineId
                   columnName: |2-
                     line_id
                   description: |2-
                     Stable line identifier.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-2:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     orderId
                   columnName: |2-
                     order_id
                   description: |2-
                     Owning order reference.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-3:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     productId
                   columnName: |2-
                     product_id
                   description: |2-
                     Referenced product.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-4:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     quantity
                   columnName: |2-
                     quantity
                   description: |2-
                     Ordered quantity.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Integer
                   physicalType: |2-
                     int
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-5:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     unitPrice
                   columnName: |2-
                     unit_price
                   description: |2-
                     Snapshotted unit price at pricing time.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Decimal
                   physicalType: |2-
                     numeric(12,2)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
@@ -1419,7 +1419,7 @@ document:
                 KEATT-REFE-REF referencedEntityRef: |2-
                   Order
           DAENT-ENTI-3:
-            identity:
+            DAENT-IDEN identity:
               entityName: |2-
                 Customer
               tableName: |2-
@@ -1430,7 +1430,7 @@ document:
                 A wholesale or e-commerce customer that places orders. Realizes FR-01.
               entityStereoType: |2-
                 Aggregate Root
-            classification:
+            DAENT-CLAS classification:
               category: |2-
                 Master
               boundedContext: |2-
@@ -1443,55 +1443,55 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     customerId
                   columnName: |2-
                     customer_id
                   description: |2-
                     Stable customer identifier.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-2:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     name
                   columnName: |2-
                     name
                   description: |2-
                     Customer legal name (PII).
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     String
                   physicalType: |2-
                     varchar(200)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Confidential
                   isPii: |2-
                     true
               DAATT-ATTR-3:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     creditLimit
                   columnName: |2-
                     credit_limit
                   description: |2-
                     Approved credit limit used by validation.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     Decimal
                   physicalType: |2-
                     numeric(14,2)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Confidential
                   isPii: |2-
@@ -1508,7 +1508,7 @@ document:
                   description: |2-
                     Primary key of the customer.
           DAENT-ENTI-4:
-            identity:
+            DAENT-IDEN identity:
               entityName: |2-
                 Product
               tableName: |2-
@@ -1519,7 +1519,7 @@ document:
                 A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
               entityStereoType: |2-
                 Aggregate Root
-            classification:
+            DAENT-CLAS classification:
               category: |2-
                 Master
               boundedContext: |2-
@@ -1532,55 +1532,55 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     productId
                   columnName: |2-
                     product_id
                   description: |2-
                     Stable product identifier.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     UUID
                   physicalType: |2-
                     uuid
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-2:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     sku
                   columnName: |2-
                     sku
                   description: |2-
                     Stock-keeping unit.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     String
                   physicalType: |2-
                     varchar(40)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
                     false
               DAATT-ATTR-3:
-                identity:
+                DAATT-IDEN identity:
                   attributeName: |2-
                     name
                   columnName: |2-
                     name
                   description: |2-
                     Product display name.
-                dataTypeSpec:
+                DAATT-DATA dataTypeSpec:
                   dataType: |2-
                     String
                   physicalType: |2-
                     varchar(200)
-                securityClassification:
+                DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
                   isPii: |2-
@@ -1601,7 +1601,7 @@ document:
             The foreign-key relationships binding the ordering core together.
           ENRLE-ITEM-LST items:
             ENRLE-ITEM-1:
-              identity:
+              ENRLE-IDEN identity:
                 relationshipName: |2-
                   Order-owns-Lines
                 relationshipType: |2-
@@ -1612,12 +1612,12 @@ document:
                   Maintains referential integrity across the ordering core.
                 implementationType: |2-
                   Foreign Key
-              cardinality:
+              ENRLE-CARD cardinality:
                 sourceCardinality: |2-
                   1
                 targetCardinality: |2-
                   1..*
-              navigation:
+              ENRLE-NAVI navigation:
                 navigability: |2-
                   Bidirectional
                 foreignKeyLocation: |2-
@@ -1627,7 +1627,7 @@ document:
               ENRLE-TARG-REF targetEntityRef: |2-
                 OrderLine
             ENRLE-ITEM-2:
-              identity:
+              ENRLE-IDEN identity:
                 relationshipName: |2-
                   Order-placed-by-Customer
                 relationshipType: |2-
@@ -1638,12 +1638,12 @@ document:
                   Maintains referential integrity across the ordering core.
                 implementationType: |2-
                   Foreign Key
-              cardinality:
+              ENRLE-CARD cardinality:
                 sourceCardinality: |2-
                   *
                 targetCardinality: |2-
                   1
-              navigation:
+              ENRLE-NAVI navigation:
                 navigability: |2-
                   Bidirectional
                 foreignKeyLocation: |2-
@@ -1653,7 +1653,7 @@ document:
               ENRLE-TARG-REF targetEntityRef: |2-
                 Customer
             ENRLE-ITEM-3:
-              identity:
+              ENRLE-IDEN identity:
                 relationshipName: |2-
                   Line-references-Product
                 relationshipType: |2-
@@ -1664,12 +1664,12 @@ document:
                   Maintains referential integrity across the ordering core.
                 implementationType: |2-
                   Foreign Key
-              cardinality:
+              ENRLE-CARD cardinality:
                 sourceCardinality: |2-
                   *
                 targetCardinality: |2-
                   1
-              navigation:
+              ENRLE-NAVI navigation:
                 navigability: |2-
                   Bidirectional
                 foreignKeyLocation: |2-

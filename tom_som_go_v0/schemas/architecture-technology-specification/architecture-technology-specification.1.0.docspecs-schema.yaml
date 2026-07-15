@@ -1301,6 +1301,9 @@ section-types:
       pattern: "^MAINT-MAIN-[0-9]+$"
       error-message: IDs of this section must match MAINT-MAIN-xxx
     description: Add one entry per maintenance procedure.
+  meanob-metr:
+    prefix: MEANOB_METR
+    format: meanob-metr-form
   mndep-item:
     prefix: MNDEP_ITEM_
     subsection-types:
@@ -1331,6 +1334,9 @@ section-types:
       pattern: "^MOEN1-MODU-[0-9]+$"
       error-message: IDs of this section must match MOEN1-MODU-xxx
     description: Add one entry per module.
+  monito-moni:
+    prefix: MONITO_MONI
+    format: monito-moni-form
   obser-obse:
     prefix: OBSER_OBSE_
     pattern-check-id:
@@ -1442,6 +1448,9 @@ section-types:
       pattern: "^TGPLT-TARG-[0-9]+$"
       error-message: IDs of this section must match TGPLT-TARG-xxx
     description: Add one entry per target platform.
+  trareq-tran:
+    prefix: TRAREQ_TRAN
+    format: trareq-tran-form
   apcp-apic:
     prefix: APCP_APIC_
     subsection-types:
@@ -1743,6 +1752,18 @@ section-types:
       pattern: "^TPCE-THIR-[0-9]+$"
       error-message: IDs of this section must match TPCE-THIR-xxx
     description: Add one entry per third-party software product.
+  alco-aler:
+    prefix: ALCO_ALER
+    format: alco-aler-form
+  moda-dash:
+    prefix: MODA_DASH
+    format: moda-dash-form
+  sasm-slao:
+    prefix: SASM_SLAO
+    format: sasm-slao-form
+  teen-tech:
+    prefix: TEEN_TECH
+    format: teen-tech-form
   adinreda:
     prefix: ADINREDA
     description: Data management tooling.
@@ -3108,6 +3129,8 @@ section-types:
   meanob:
     prefix: MEANOB
     subsection-types:
+      meanob-metr:
+        max-count: 1
       apmesp:
         max-count: 1
       inmesp:
@@ -3170,6 +3193,8 @@ section-types:
   monito:
     prefix: MONITO
     subsection-types:
+      monito-moni:
+        max-count: 1
       hcads:
         max-count: 1
       alco:
@@ -3678,6 +3703,8 @@ section-types:
   trareq:
     prefix: TRAREQ
     subsection-types:
+      trareq-tran:
+        max-count: 1
       trrert:
         max-count: 1
       trrefo:
@@ -4416,6 +4443,8 @@ section-types:
   alco:
     prefix: ALCO
     subsection-types:
+      alco-aler:
+        max-count: 1
       alnoch:
         max-count: 1
       alruen-aler-lst:
@@ -5976,6 +6005,8 @@ section-types:
   moda:
     prefix: MODA
     subsection-types:
+      moda-dash:
+        max-count: 1
       daen-dash-lst:
         max-count: 1
       date-dash-lst:
@@ -6488,6 +6519,8 @@ section-types:
   sasm:
     prefix: SASM
     subsection-types:
+      sasm-slao:
+        max-count: 1
       selein:
         max-count: 1
       slen-slos-lst:
@@ -6725,6 +6758,8 @@ section-types:
   teen:
     prefix: TEEN
     subsection-types:
+      teen-tech:
+        max-count: 1
       teengo:
         max-count: 1
       teenst:
@@ -7534,6 +7569,129 @@ section-types:
       testto:
         max-count: 1
     description: Testing standards and requirements.
+form-types:
+  monito-moni-form:
+    fields:
+      - fieldname: monitoringStrategy
+        description: "Proactive, reactive, hybrid approach"
+      - fieldname: observabilityMaturity
+        description: Current maturity level (L1-L4)
+      - fieldname: monitoringScope
+        description: "Infrastructure, application, business metrics"
+      - fieldname: primaryMonitoringPlatform
+        description: "Datadog, New Relic, Prometheus, CloudWatch"
+      - fieldname: metricsStore
+        description: "InfluxDB, Prometheus, CloudWatch Metrics"
+      - fieldname: tracingPlatform
+        description: "Jaeger, Zipkin, AWS X-Ray, Datadog APM"
+      - fieldname: loggingPlatform
+        description: "ELK Stack, Loki, CloudWatch Logs"
+      - fieldname: coverageRequirement
+        description: Which services must be monitored
+      - fieldname: dataRetention
+        description: "Metrics: 15d, traces: 7d, logs: 30d"
+      - fieldname: costBudget
+        description: Monthly monitoring cost budget
+  alco-aler-form:
+    fields:
+      - fieldname: alertingPhilosophy
+        description: "Page on symptoms, not causes; reduce noise"
+      - fieldname: alertSeverityLevels
+        description: "Critical, Warning, Info"
+      - fieldname: onCallModel
+        description: "Follow-the-sun, regional, single team"
+      - fieldname: criticalResponseTime
+        description: Max time to acknowledge critical alerts
+      - fieldname: warningResponseTime
+        description: Max time to acknowledge warnings
+      - fieldname: infoResponseTime
+        description: Expected review time for info alerts
+      - fieldname: alertReviewCadence
+        description: How often alert rules are reviewed
+      - fieldname: noisyAlertPolicy
+        description: Process for tuning noisy alerts
+      - fieldname: staleAlertCleanup
+        description: Removing outdated alert rules
+  meanob-metr-form:
+    fields:
+      - fieldname: metricsEnabled
+        description: Whether metrics collection is enabled
+      - fieldname: logsEnabled
+        description: Whether log collection is enabled
+      - fieldname: tracesEnabled
+        description: Whether distributed tracing is enabled
+      - fieldname: profilesEnabled
+        description: Continuous profiling
+      - fieldname: metricsFormat
+        description: "Prometheus, OpenMetrics, StatsD"
+      - fieldname: logsFormat
+        description: "Structured JSON, syslog"
+      - fieldname: tracingStandard
+        description: "OpenTelemetry, OpenTracing, W3C Trace Context"
+      - fieldname: collectionMethod
+        description: "Pull (Prometheus), push (agent), sidecar"
+      - fieldname: scrapeInterval
+        description: Metrics collection frequency
+      - fieldname: samplingRate
+        description: Trace sampling percentage
+  moda-dash-form:
+    fields:
+      - fieldname: dashboardPlatform
+        description: "Grafana, Datadog, CloudWatch, custom"
+      - fieldname: dashboardAccessControl
+        description: "Who can view, edit dashboards"
+      - fieldname: dashboardVersioning
+        description: Version control for dashboards
+      - fieldname: dashboardNamingConvention
+        description: Naming standards for dashboards
+      - fieldname: standardLayout
+        description: Common layout patterns
+      - fieldname: colorCodingStandards
+        description: "Red=bad, green=good conventions"
+      - fieldname: executiveDashboards
+        description: High-level business KPIs
+      - fieldname: operationalDashboards
+        description: Real-time ops dashboards
+      - fieldname: serviceDashboards
+        description: Per-service detail dashboards
+      - fieldname: infrastructureDashboards
+        description: Infra-level dashboards
+  sasm-slao-form:
+    fields:
+      - fieldname: sloFramework
+        description: "Google SRE, custom"
+      - fieldname: errorBudgetPolicy
+        description: How error budget is managed
+      - fieldname: errorBudgetExhaustionPolicy
+        description: Actions when budget exhausted
+      - fieldname: slaReportingCadence
+        description: "Weekly, monthly SLA reports"
+      - fieldname: slaReportingAudience
+        description: Who receives SLA reports
+      - fieldname: slaBreachProcess
+        description: Process when SLA is breached
+      - fieldname: customerFacingSLAs
+        description: SLAs published to customers
+      - fieldname: slaCredits
+        description: Credit/refund policy for breaches
+      - fieldname: slaExclusions
+        description: "Maintenance windows, force majeure"
+  teen-tech-form:
+    fields:
+      - fieldname: architectureMaturity
+        description: TOGAF maturity level or equivalent
+      - fieldname: cloudStrategy
+        description: "Cloud-first, hybrid, on-premises, multi-cloud"
+      - fieldname: primaryCloudProvider
+        description: "AWS, Azure, GCP, private cloud, none"
+  trareq-tran-form:
+    fields:
+      - fieldname: i18nFramework
+        description: "flutter_localizations, intl, easy_localization"
+      - fieldname: stringExternalizationFormat
+        description: "ARB, JSON, YAML, Gettext"
+      - fieldname: localeHandling
+        description: How locales are loaded and switched
 document:
   sections:
     dochd:

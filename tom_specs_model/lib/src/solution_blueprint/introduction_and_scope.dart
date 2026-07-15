@@ -37,6 +37,7 @@ a quick understanding without reading the full specification.
   SystemSummary summary = SystemSummary();
 
   /// System context diagram showing major system boundaries.
+  @SectionId('INSC-SYST')
   @ContentType('mermaid', 'High-level context diagram showing the system, '
       'its users, and external system interfaces')
   @SerializationOrder(2)
@@ -328,6 +329,7 @@ class SystemPurpose {
   String? content;
 
   /// Vision Statement.
+  @SectionId('SYPUP-VISI')
   @ContentType('description', 'A concise, memorable statement (1-3 sentences) '
       'that captures the essence of what the system will achieve.')
   @ContentHelp('Write a clear and inspiring vision statement that describes '
@@ -932,6 +934,7 @@ class ContextDiagram {
   String? content;
 
   /// Context diagram in Mermaid format.
+  @SectionId('CD-DIAG')
   @ContentType('mermaid-flowchart', 'Context diagram showing the system '
       'as a central node with external actors and systems connected by '
       'labeled data flows')
@@ -942,6 +945,7 @@ class ContextDiagram {
   String? diagram;
 
   /// Diagram legend and conventions.
+  @SectionId('CD-LEGE')
   @ContentType('description', 'Legend explaining shapes, colors, and '
       'line styles used in the diagram.')
   @SerializationOrder(2)
@@ -1214,6 +1218,7 @@ class ExternalSystemContextEntry {
       ExternalSystemContextEntryGovernance();
 
   /// Data mapping details.
+  @SectionId('EXSYCOEN-DATA')
   @ContentType('description', 'Details of data transformation and '
       'mapping between systems.')
   @SerializationOrder(4)
@@ -1407,6 +1412,7 @@ class OrganizationalContext {
   List<OrganizationalUnitContextEntry> organizationalUnits = [];
 
   /// Business process coverage.
+  @SectionId('OC-BUSI')
   @ContentType('description', 'Which business processes does this system '
       'support or automate?')
   @SerializationOrder(2)
@@ -1811,6 +1817,7 @@ class KeyConcepts {
   String? content;
 
   /// Conceptual domain model diagram.
+  @SectionId('KC-CONC')
   @ContentType('mermaid-classDiagram', 'Conceptual domain model showing '
       'key entities and their relationships')
   @ContentHelp('Create a Mermaid class diagram showing the main domain '
@@ -1910,6 +1917,7 @@ class DomainBoundaries {
   String? content;
 
   /// Context map showing domain boundaries.
+  @SectionId('DB-CONT')
   @ContentType('mermaid-flowchart', 'Context map showing this domain '
       'and its relationships to adjacent domains')
   @ContentHelp('Create a context map showing this domain (bounded context) '
@@ -1918,12 +1926,14 @@ class DomainBoundaries {
   String? contextMap;
 
   /// Within-scope items.
+  @SectionId('DB-WITH')
   @ContentType('description', 'Concepts, processes, and responsibilities '
       'that are within this domain\'s scope.')
   @SerializationOrder(2)
   String? withinScope;
 
   /// Outside-scope items.
+  @SectionId('DB-OUTS')
   @ContentType('description', 'Concepts and responsibilities that belong '
       'to other domains and are outside this domain\'s scope.')
   @SerializationOrder(3)
@@ -2138,6 +2148,7 @@ class DomainProcesses {
   String? content;
 
   /// Process overview diagram.
+  @SectionId('DP-PROC')
   @ContentType('mermaid-flowchart', 'High-level process map showing '
       'main processes and their relationships')
   @ContentHelp('Create a process map showing the main business processes '
@@ -2457,6 +2468,7 @@ class AccessChannels {
   String? content;
 
   /// Channel architecture diagram.
+  @SectionId('AC1-CHAN')
   @ContentType('mermaid-flowchart', 'Diagram showing access channels, '
       'their relationships, and user flows')
   @ContentHelp('Create a diagram showing how different channels connect '
@@ -2911,6 +2923,7 @@ class AccessLevels {
   String? content;
 
   /// Access level hierarchy diagram.
+  @SectionId('AL-ACCE')
   @ContentType('mermaid-flowchart', 'Access level hierarchy showing '
       'inheritance and relationships')
   @ContentHelp('Create a diagram showing the access level hierarchy.')
@@ -2933,6 +2946,7 @@ class AccessLevels {
   List<AccessLevelEntry> levels = [];
 
   /// Permission matrix linking access levels to features.
+  @SectionId('AL-PERM')
   @ContentType('description', 'Matrix showing which access levels have '
       'which permissions. Can be a table or detailed description.')
   @ContentHelp('Create a permission matrix showing the relationship between '
@@ -3072,6 +3086,7 @@ class SessionModel {
   String? content;
 
   /// Session configuration.
+  @SectionId('SM-SESS')
   @Form([
     Field('sessionType', String, 'Session Type',
         hint: 'Server-side, Client-side (JWT), Hybrid'),
@@ -3339,6 +3354,7 @@ class MultiChannelExperience {
   String? content;
 
   /// Multi-channel configuration.
+  @SectionId('MCE-MULT')
   @Form([
     Field('channelHandoff', String, 'Channel Handoff',
         hint: 'How users switch between channels seamlessly'),
@@ -3574,6 +3590,7 @@ class UserPersonaDetails {
   String? content;
 
   /// Persona Details Form.
+  @SectionId('UPD-PERS')
   @Form([
     Field('representativeName', String,
         'Representative Name (fictional name for this persona)',
@@ -3601,6 +3618,7 @@ class UserPersonaDetails {
   UserPersonaDetailsBehavior behavior = UserPersonaDetailsBehavior();
 
   /// Representative photo or avatar description.
+  @SectionId('UPD-VISU')
   @ContentType('description', 'Description of a representative photo or '
       'avatar that embodies this persona (for design reference).')
   @SerializationOrder(5)
@@ -3912,6 +3930,7 @@ class UserAccessPermissions {
   String? content;
 
   /// Access Permissions Form.
+  @SectionId('UAP-PERM')
   @Form([
     Field('accessLevel', String,
         'Access Level (Guest, User, Power User, Administrator, Super Admin)',
@@ -4055,6 +4074,7 @@ class UserTrainingRequirements {
   String? content;
 
   /// Training Requirements Form.
+  @SectionId('USTRRE-TRAI')
   @Form([
     Field('initialTrainingRequired', bool,
         'Initial Training Required (is formal training needed)',
@@ -4150,6 +4170,7 @@ class UserAccessibilityNeeds {
   String? content;
 
   /// Accessibility Needs Form.
+  @SectionId('UAN-ACCE')
   @Form([
     Field('visualRequirements', String,
         'Visual Requirements (screen reader, high contrast, magnification)',
@@ -4199,6 +4220,7 @@ class UserJourney {
   String? content;
 
   /// User journey diagram.
+  @SectionId('UJ-JOUR')
   @ContentType('mermaid-flowchart', 'User journey map showing stages, '
       'touchpoints, and emotional peaks/valleys')
   @ContentHelp('Create a journey map showing the user\'s experience '
@@ -4250,6 +4272,7 @@ class UserJourney {
   List<UserJourneyPainPointEntry> painPoints = [];
 
   /// Opportunities for delight.
+  @SectionId('UJ-OPPO')
   @ContentType('description', 'Opportunities to exceed user expectations '
       'and create positive experiences.')
   @SerializationOrder(5)
@@ -4318,6 +4341,7 @@ class Goals {
   String? content;
 
   /// Goal hierarchy diagram.
+  @SectionId('GOALS-GOAL')
   @ContentType('mermaid-flowchart', 'Goal hierarchy and dependency diagram '
       'showing relationships between business and technical goals')
   @ContentHelp('Create a diagram showing goal categories, dependencies, '
@@ -4920,6 +4944,7 @@ class GoalResources {
   String? content;
 
   /// Resource requirement form.
+  @SectionId('GORE-RESO')
   @Form([
     Field('totalBudget', String, 'Total Budget (estimated or allocated)',
         hint: 'Estimated or allocated total budget'),
@@ -5259,6 +5284,7 @@ class TechnicalGoalTestCriteria {
   String? content;
 
   /// Test criteria form.
+  @SectionId('TGTC-TEST')
   @Form([
     Field('testType', String,
         'Test Type (Performance, Load, Stress, Security, Penetration, '
@@ -5523,6 +5549,7 @@ class SuccessCriteria {
   SuccessCriteriaByCategory byCategory = SuccessCriteriaByCategory();
 
   /// Success criteria matrix — overall view.
+  @SectionId('SC-SUCC')
   @ContentType('description', 'Success criteria matrix showing all criteria, '
       'their weights, and evaluation status.')
   @ContentHelp('Create a summary matrix of all success criteria.')
@@ -5621,6 +5648,7 @@ class SuccessCriteriaFramework {
 @SectionId('SCBC')
 class SuccessCriteriaByCategory {
   /// Business outcome criteria overview.
+  @SectionId('SCBC-BUSI')
   @ContentType('description', 'Overview of business-focused success criteria '
       'including ROI, market impact, and strategic alignment.')
   @ContentHelp('Describe how business outcomes will be measured.')
@@ -5628,6 +5656,7 @@ class SuccessCriteriaByCategory {
   String? businessCriteria;
 
   /// Technical quality criteria overview.
+  @SectionId('SCBC-TECH')
   @ContentType('description', 'Overview of technical quality criteria '
       'including performance, reliability, and maintainability.')
   @ContentHelp('Describe how technical quality will be measured.')
@@ -5635,6 +5664,7 @@ class SuccessCriteriaByCategory {
   String? technicalCriteria;
 
   /// User satisfaction criteria overview.
+  @SectionId('SCBC-USER')
   @ContentType('description', 'Overview of user-focused success criteria '
       'including adoption, satisfaction, and productivity.')
   @ContentHelp('Describe how user satisfaction will be measured.')
@@ -5642,6 +5672,7 @@ class SuccessCriteriaByCategory {
   String? userCriteria;
 
   /// Compliance criteria overview.
+  @SectionId('SCBC-COMP')
   @ContentType('description', 'Overview of compliance-related success criteria '
       'including regulatory, security, and audit requirements.')
   @ContentHelp('Describe how compliance will be verified.')
@@ -5649,6 +5680,7 @@ class SuccessCriteriaByCategory {
   String? complianceCriteria;
 
   /// Timeline and budget criteria overview.
+  @SectionId('SCBC-PROJ')
   @ContentType('description', 'Overview of project management criteria '
       'including timeline adherence, budget compliance, and scope management.')
   @ContentHelp('Describe how project execution will be measured.')
@@ -5926,6 +5958,7 @@ class RequirementsOverview {
   String? content;
 
   /// Requirements overview form.
+  @SectionId('RO-REQU')
   @Form([
     Field('requirementsProcess', String,
         'Requirements Process (how requirements are elicited and managed)',
@@ -5953,6 +5986,7 @@ class RequirementsOverview {
   String? requirementsForm;
 
   /// Traceability matrix overview.
+  @SectionId('RO-TRAC')
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
   @ContentHelp('Provide a high-level view of requirement traceability.')
@@ -6027,6 +6061,7 @@ class FunctionalRequirements {
   String? content;
 
   /// Functional requirements summary form.
+  @SectionId('FR-SUMM')
   @Form([
     Field('totalFunctionalRequirements', String,
         'Total Functional Requirements',
@@ -6552,6 +6587,7 @@ class RequirementUiSpecification {
   String? content;
 
   /// UI specification form.
+  @SectionId('RUS-UIFO')
   @Form([
     Field('screenName', String, 'Screen/View Name',
         hint: 'Name of the screen or view'),
@@ -6570,6 +6606,7 @@ class RequirementUiSpecification {
   String? uiForm;
 
   /// UI layout specification (D4rt Flutter code).
+  @SectionId('RUS-LAYO')
   @ContentType('code-dart', 'Flutter/D4rt code specifying the UI layout '
       'using tom_flutter_ui components.')
   @ContentHelp('Provide D4rt Flutter code for the UI layout, using '
@@ -6578,6 +6615,7 @@ class RequirementUiSpecification {
   String? layoutCode;
 
   /// UI mockup diagram (fallback if code not available).
+  @SectionId('RUS-MOCK')
   @ContentType('description', 'ASCII or text description of UI mockup '
       'if D4rt code is not available.')
   @SerializationOrder(3)
@@ -7052,6 +7090,7 @@ class RequirementTraceability {
   String? content;
 
   /// Traceability links form.
+  @SectionId('RT-TRAC')
   @Form([
     Field('relatedGoals', String, 'Related Business Goals (IDs)',
         hint: 'IDs of related business goals'),
@@ -7274,6 +7313,7 @@ class TechnicalRequirements {
   String? content;
 
   /// Technical requirements summary form.
+  @SectionId('TR1-SUMM')
   @Form([
     Field('totalTechnicalRequirements', String, 'Total Technical Requirements',
         hint: 'Total count of technical requirements captured'),
@@ -7537,6 +7577,7 @@ class SecurityRequirements {
   String? content;
 
   /// Security requirements summary form.
+  @SectionId('SR1-SUMM')
   @Form([
     Field('totalSecurityRequirements', String, 'Total Security Requirements',
         hint: 'Total count of security requirements captured'),
@@ -7918,6 +7959,7 @@ class OrganizationalRequirements {
   String? content;
 
   /// Organizational requirements summary form.
+  @SectionId('OR-SUMM')
   @Form([
     Field('totalOrgRequirements', String, 'Total Organizational Requirements',
         hint: 'Total count of organizational requirements captured'),
@@ -8130,6 +8172,7 @@ class OrgRequirementImplementationPlan {
   String? content;
 
   /// Implementation plan form.
+  @SectionId('ORIP-PLAN')
   @Form([
     Field('approach', String,
         'Approach (Big Bang, Phased, Pilot, Parallel)',
@@ -8314,6 +8357,7 @@ class SystemToReplaceEntry {
   // System Identification
   // -------------------------------------------------------------------------
 
+  @SectionId('SYTORE-IDEN')
   @Form([
     Field('systemId', String, 'System ID (e.g., SYS-CRM-001)', required: true,
         hint: 'Stable identifier for the legacy system being replaced'),
@@ -9585,6 +9629,7 @@ class SystemKnowledgeTransfer {
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MIG')
 class MigrationConsiderations {
+  @SectionId('MIGCON-STRA')
   @Form([
     Field('overallStrategy', String,
         'Overall Strategy (Big Bang, Phased, Parallel, Strangler)',
@@ -9759,6 +9804,7 @@ class MigrationMilestoneEntry {
 )
 @SectionId('MIRI')
 class MigrationRisks {
+  @SectionId('MIRI-GOVE')
   @Form([
     Field('riskGovernanceModel', String, 'Risk Governance Model',
         hint: 'Centralized, federated, hybrid approach'),
@@ -10576,6 +10622,7 @@ class ExternalInterfaceEntry {
   // Interface Identification
   // -------------------------------------------------------------------------
 
+  @SectionId('EIE-IDEN')
   @Form([
     Field('interfaceId', String, 'Interface ID (e.g., IF-PAY-001)',
         required: true, hint: 'Unique stable identifier for this interface'),
@@ -11868,6 +11915,7 @@ class OrganizationalEnvironment {
   // -------------------------------------------------------------------------
   // Organizational Overview
   // -------------------------------------------------------------------------
+  @SectionId('OREN-ORGA')
   @Form([
     Field('organizationName', String, 'Organization Name',
         hint: 'Legal or common name of the organization'),
@@ -12425,6 +12473,7 @@ class TechnicalEnvironment {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
   // -------------------------------------------------------------------------
+  @SectionId('TEEN-TECH')
   @Form([
     Field('architectureMaturity', String, 'Architecture Maturity',
         hint: 'TOGAF maturity level or equivalent'),

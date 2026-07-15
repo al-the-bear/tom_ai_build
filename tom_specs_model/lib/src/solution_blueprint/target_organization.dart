@@ -103,6 +103,7 @@ class ChangesFromCurrentStructure {
   // -------------------------------------------------------------------------
   // Change Overview
   // -------------------------------------------------------------------------
+  @SectionId('OCCHG-OVER')
   @Form([
     Field('changeScope', String, 'Change Scope',
         hint: 'Departments and functions affected by restructuring'),

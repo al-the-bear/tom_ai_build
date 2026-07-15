@@ -325,7 +325,15 @@ section-types:
   bjoen-obje:
     prefix: BJOEN_OBJE_
     subsection-types:
+      bjoen-iden:
+        max-count: 1
+      bjoen-doma:
+        max-count: 1
+      bjoen-life:
+        max-count: 1
       behav-beha-lst:
+        max-count: 1
+      bjoen-owne:
         max-count: 1
       integ-inte-lst:
         max-count: 1
@@ -348,7 +356,17 @@ section-types:
   daatt-attr:
     prefix: DAATT_ATTR_
     subsection-types:
+      daatt-iden:
+        max-count: 1
+      daatt-data:
+        max-count: 1
       dataa-cons-lst:
+        max-count: 1
+      daatt-deri:
+        max-count: 1
+      daatt-secu:
+        max-count: 1
+      daatt-migr:
         max-count: 1
       displ-disp-lst:
         max-count: 1
@@ -359,9 +377,17 @@ section-types:
   daent-enti:
     prefix: DAENT_ENTI_
     subsection-types:
+      daent-iden:
+        max-count: 1
+      daent-clas:
+        max-count: 1
       volum-volu-lst:
         max-count: 1
+      daent-life:
+        max-count: 1
       cre-comp-lst:
+        max-count: 1
+      daent-rela:
         max-count: 1
       techn-tech-lst:
         max-count: 1
@@ -388,6 +414,16 @@ section-types:
   dclse-item:
     prefix: DCLSE_ITEM_
     subsection-types:
+      dclse-iden:
+        max-count: 1
+      dclse-stor:
+        max-count: 1
+      dclse-acce:
+        max-count: 1
+      dclse-rete:
+        max-count: 1
+      dclse-comp:
+        max-count: 1
       hndre-hand-lst:
         max-count: 1
       acrse-acce-lst:
@@ -417,7 +453,15 @@ section-types:
   enrle-item:
     prefix: ENRLE_ITEM_
     subsection-types:
+      enrle-iden:
+        max-count: 1
       parti-part-lst:
+        max-count: 1
+      enrle-card:
+        max-count: 1
+      enrle-refe:
+        max-count: 1
+      enrle-navi:
         max-count: 1
       relat-rela-lst:
         max-count: 1
@@ -547,6 +591,18 @@ section-types:
   biru-busi:
     prefix: BIRU_BUSI_
     subsection-types:
+      biru-iden:
+        max-count: 1
+      biru-clas:
+        max-count: 1
+      biru-rule:
+        max-count: 1
+      biru-impl:
+        max-count: 1
+      biru-exce:
+        max-count: 1
+      biru-gove:
+        max-count: 1
       afob-affe-lst:
         max-count: 1
       affn-affe-lst:
@@ -557,6 +613,75 @@ section-types:
       pattern: "^BIRU-BUSI-[0-9]+$"
       error-message: IDs of this section must match BIRU-BUSI-xxx
     description: A business rule entry (form).
+  bjoen-doma:
+    prefix: BJOEN_DOMA
+    format: bjoen-doma-form
+  bjoen-iden:
+    prefix: BJOEN_IDEN
+    format: bjoen-iden-form
+  bjoen-life:
+    prefix: BJOEN_LIFE
+    format: bjoen-life-form
+  bjoen-owne:
+    prefix: BJOEN_OWNE
+    format: bjoen-owne-form
+  daatt-data:
+    prefix: DAATT_DATA
+    format: daatt-data-form
+  daatt-deri:
+    prefix: DAATT_DERI
+    format: daatt-deri-form
+  daatt-iden:
+    prefix: DAATT_IDEN
+    format: daatt-iden-form
+  daatt-migr:
+    prefix: DAATT_MIGR
+    format: daatt-migr-form
+  daatt-secu:
+    prefix: DAATT_SECU
+    format: daatt-secu-form
+  daent-clas:
+    prefix: DAENT_CLAS
+    format: daent-clas-form
+  daent-iden:
+    prefix: DAENT_IDEN
+    format: daent-iden-form
+  daent-life:
+    prefix: DAENT_LIFE
+    format: daent-life-form
+  daent-rela:
+    prefix: DAENT_RELA
+    format: daent-rela-form
+  datcl-over:
+    prefix: DATCL_OVER
+    format: datcl-over-form
+  dclse-acce:
+    prefix: DCLSE_ACCE
+    format: dclse-acce-form
+  dclse-comp:
+    prefix: DCLSE_COMP
+    format: dclse-comp-form
+  dclse-iden:
+    prefix: DCLSE_IDEN
+    format: dclse-iden-form
+  dclse-rete:
+    prefix: DCLSE_RETE
+    format: dclse-rete-form
+  dclse-stor:
+    prefix: DCLSE_STOR
+    format: dclse-stor-form
+  enrle-card:
+    prefix: ENRLE_CARD
+    format: enrle-card-form
+  enrle-iden:
+    prefix: ENRLE_IDEN
+    format: enrle-iden-form
+  enrle-navi:
+    prefix: ENRLE_NAVI
+    format: enrle-navi-form
+  enrle-refe:
+    prefix: ENRLE_REFE
+    format: enrle-refe-form
   obop-oper:
     prefix: OBOP_OPER_
     subsection-types:
@@ -582,6 +707,24 @@ section-types:
       pattern: "^SUFN-SUBF-[0-9]+$"
       error-message: IDs of this section must match SUFN-SUBF-xxx
     description: Add one entry per sub-function.
+  biru-clas:
+    prefix: BIRU_CLAS
+    format: biru-clas-form
+  biru-exce:
+    prefix: BIRU_EXCE
+    format: biru-exce-form
+  biru-gove:
+    prefix: BIRU_GOVE
+    format: biru-gove-form
+  biru-iden:
+    prefix: BIRU_IDEN
+    format: biru-iden-form
+  biru-impl:
+    prefix: BIRU_IMPL
+    format: biru-impl-form
+  biru-rule:
+    prefix: BIRU_RULE
+    format: biru-rule-form
   cre-comp:
     prefix: CRE_COMP_
     pattern-check-id:
@@ -609,6 +752,8 @@ section-types:
   datcl:
     prefix: DATCL
     subsection-types:
+      datcl-over:
+        max-count: 1
       dclse-item-lst:
         max-count: 1
     description: Data classification.
@@ -657,6 +802,370 @@ section-types:
   vaco:
     prefix: VACO
     description: Validation constraints.
+form-types:
+  daent-iden-form:
+    fields:
+      - fieldname: entityName
+        required: true
+        description: "Singular noun or noun phrase (e.g., Customer, OrderItem)"
+      - fieldname: tableName
+        description: Database table name if different from logical name
+      - fieldname: entityAlias
+        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
+      - fieldname: description
+        description: Clear definition of what this entity represents
+      - fieldname: entityStereoType
+        description: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge"
+  daent-clas-form:
+    fields:
+      - fieldname: category
+        description: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData"
+      - fieldname: boundedContext
+        description: Domain-driven design bounded context this entity belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this entity
+      - fieldname: dataOwner
+        description: Role or team accountable for data quality
+      - fieldname: dataSteward
+        description: Person or role responsible for data governance
+      - fieldname: sourceSystem
+        description: System of record or originating system for migration
+  daent-life-form:
+    fields:
+      - fieldname: lifecyclePhases
+        description: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted"
+      - fieldname: retentionPolicy
+        description: "How long data is retained and why (e.g., 7 years per tax regulations)"
+      - fieldname: archivalTrigger
+        description: "Condition for moving to archive (e.g., 2 years after last activity)"
+      - fieldname: archivalDestination
+        description: "Where archived data goes: ColdStorage | Archive | DataLake"
+      - fieldname: purgePolicy
+        description: When and how data is permanently deleted
+      - fieldname: anonymizationPolicy
+        description: "PII anonymization rules (e.g., hash email after deletion)"
+      - fieldname: auditRequirements
+        description: "What changes must be tracked: None | KeyFields | AllFields | FullHistory"
+      - fieldname: auditRetention
+        description: How long audit records are kept
+  daent-rela-form:
+    fields:
+      - fieldname: parentEntities
+        description: "Entities this depends on (e.g., Order depends on Customer)"
+      - fieldname: childEntities
+        description: "Entities that depend on this (e.g., OrderItem depends on Order)"
+      - fieldname: referencedEntities
+        description: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)"
+      - fieldname: crossDomainRelationships
+        description: Relationships that cross bounded context boundaries
+  daatt-iden-form:
+    fields:
+      - fieldname: attributeName
+        required: true
+        description: Logical attribute name in camelCase
+      - fieldname: columnName
+        description: "Database column name if different (e.g., snake_case)"
+      - fieldname: description
+        description: Clear definition of what this attribute represents
+      - fieldname: businessTerm
+        description: Business glossary term this maps to
+      - fieldname: exampleValues
+        description: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")"
+  daatt-data-form:
+    fields:
+      - fieldname: dataType
+        description: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary"
+      - fieldname: physicalType
+        description: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP"
+      - fieldname: length
+        description: Maximum length for strings or size for binary
+      - fieldname: precision
+        description: Total digits for numeric types
+      - fieldname: scale
+        description: Decimal places for numeric types
+      - fieldname: collation
+        description: "Character collation for text (e.g., utf8_general_ci)"
+      - fieldname: timezone
+        description: "For datetime: UTC | Local | WithOffset"
+      - fieldname: format
+        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-deri-form:
+    fields:
+      - fieldname: isComputed
+        description: "Whether value is computed: Yes | No"
+      - fieldname: computeFormula
+        description: Formula or expression for computed fields
+      - fieldname: isDerived
+        description: "Whether derived from other attributes: Yes | No"
+      - fieldname: derivationLogic
+        description: How derived value is calculated
+  daatt-secu-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: "Public | Internal | Confidential | Restricted | PII | PHI"
+      - fieldname: isPii
+        description: "Personally identifiable information: Yes | No"
+      - fieldname: maskingRule
+        description: "How to mask in logs/displays: None | Partial | Full | Hash"
+      - fieldname: encryptionLevel
+        description: "Field-level encryption: None | Encrypted | Tokenized"
+      - fieldname: auditLevel
+        description: "Change tracking: None | ValueChanges | FullHistory"
+  daatt-migr-form:
+    fields:
+      - fieldname: sourceSystem
+        description: Originating system for data lineage
+      - fieldname: sourceAttribute
+        description: Source field name for migration mapping
+      - fieldname: transformationRule
+        description: Transformation applied during migration/ETL
+      - fieldname: dataLineage
+        description: Upstream sources that feed this attribute
+      - fieldname: qualityRules
+        description: "Data quality checks (e.g., completeness, accuracy)"
+  enrle-iden-form:
+    fields:
+      - fieldname: relationshipName
+        required: true
+        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
+      - fieldname: relationshipType
+        description: "Association | Aggregation | Composition | Generalization | Dependency"
+      - fieldname: description
+        description: Business meaning of this relationship
+      - fieldname: businessJustification
+        description: Why this relationship exists from business perspective
+      - fieldname: implementationType
+        description: "ForeignKey | JunctionTable | Embedded | Reference"
+  enrle-card-form:
+    fields:
+      - fieldname: sourceCardinality
+        description: "Source side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: targetCardinality
+        description: "Target side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: sourceParticipation
+        description: "Mandatory | Optional (whether source must participate)"
+      - fieldname: targetParticipation
+        description: "Mandatory | Optional (whether target must participate)"
+      - fieldname: minSourceInstances
+        description: Minimum number of source entity instances
+      - fieldname: maxTargetInstances
+        description: Maximum number of related target instances
+  enrle-refe-form:
+    fields:
+      - fieldname: onDeleteAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive"
+      - fieldname: onUpdateAction
+        description: "Cascade | SetNull | Restrict | NoAction"
+      - fieldname: enforcementLevel
+        description: "Database | Application | Both | None"
+      - fieldname: isDeferrable
+        description: "Whether constraint check can be deferred: Yes | No"
+      - fieldname: cascadeScope
+        description: "For cascading: DirectOnly | AllDescendants | Custom"
+      - fieldname: orphanHandling
+        description: "How orphaned records are handled: Prevent | Allow | AssignDefault"
+  enrle-navi-form:
+    fields:
+      - fieldname: navigability
+        description: "Bidirectional | SourceToTarget | TargetToSource"
+      - fieldname: loadingStrategy
+        description: "Eager | Lazy | Explicit | None"
+      - fieldname: foreignKeyLocation
+        description: "Where FK resides: Source | Target | JunctionTable"
+      - fieldname: junctionTableName
+        description: "For many-to-many: name of the junction/bridge table"
+      - fieldname: inverseRelationship
+        description: Name of the relationship from the other side
+  datcl-over-form:
+    fields:
+      - fieldname: classificationFramework
+        description: "Standard used: Custom | ISO27001 | NIST | IndustrySpecific"
+      - fieldname: defaultClassification
+        description: Default sensitivity for unclassified data
+      - fieldname: classificationOwner
+        description: Role responsible for data classification decisions
+      - fieldname: reviewFrequency
+        description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
+  dclse-iden-form:
+    fields:
+      - fieldname: classificationName
+        required: true
+        description: Name of this classification level
+      - fieldname: classificationLevel
+        description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
+      - fieldname: description
+        description: What this classification means
+      - fieldname: dataCategories
+        description: "Types of data in this class: PII | PHI | Financial | Legal | Technical"
+      - fieldname: examples
+        description: Examples of data at this classification
+  dclse-stor-form:
+    fields:
+      - fieldname: encryptionAtRest
+        description: "Encryption requirement for storage: None | Standard | Strong | FieldLevel"
+      - fieldname: encryptionInTransit
+        description: "Encryption for transmission: TLS | mTLS | EndToEnd"
+      - fieldname: storageLocations
+        description: "Where data can be stored: OnPremise | Cloud | Either | Restricted"
+      - fieldname: geographicRestrictions
+        description: "Data residency requirements (e.g., EU only)"
+      - fieldname: backupRequirements
+        description: Special backup considerations
+  dclse-acce-form:
+    fields:
+      - fieldname: accessLevels
+        description: "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly"
+      - fieldname: authenticationRequirements
+        description: "Required auth: Basic | MFA | CertificateBased | Biometric"
+      - fieldname: authorizationModel
+        description: "RBAC | ABAC | MAC | DAC"
+      - fieldname: auditRequirements
+        description: "Access audit: None | ReadAudit | WriteAudit | FullAudit"
+      - fieldname: accessRequestProcess
+        description: "How access is granted: SelfService | ManagerApproval | SecurityApproval"
+  dclse-rete-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is retained (e.g., 7 years)"
+      - fieldname: retentionBasis
+        description: "Legal | Regulatory | Business | CustomerContract"
+      - fieldname: archivalPolicy
+        description: "When and how to archive: AfterPeriod | OnInactivity | Never"
+      - fieldname: disposalMethod
+        description: "How data is disposed: Delete | Anonymize | Shred | CryptoErase"
+      - fieldname: disposalApproval
+        description: "Who approves disposal: Automatic | DataOwner | Legal"
+  dclse-comp-form:
+    fields:
+      - fieldname: applicableRegulations
+        description: "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA"
+      - fieldname: complianceRequirements
+        description: Specific compliance requirements
+      - fieldname: breachNotificationSla
+        description: "Time to notify on breach (e.g., 72 hours for GDPR)"
+      - fieldname: dataSubjectRights
+        description: "Applicable rights: Access | Rectification | Erasure | Portability"
+  bjoen-iden-form:
+    fields:
+      - fieldname: objectName
+        required: true
+        description: "Business name in PascalCase (e.g., Order, Customer)"
+      - fieldname: objectAlias
+        description: "Short alias for diagrams (e.g., ORD, CUST)"
+      - fieldname: description
+        description: Clear business definition of what this object represents
+      - fieldname: businessGlossaryTerm
+        description: Official business glossary term if different
+      - fieldname: category
+        description: "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event"
+      - fieldname: stereotypePattern
+        description: "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga"
+  bjoen-doma-form:
+    fields:
+      - fieldname: boundedContext
+        description: DDD bounded context this object belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this object
+      - fieldname: domainExpert
+        description: Business expert who defines this object
+      - fieldname: ubiquitousLanguageTerm
+        description: How this is referred to in the ubiquitous language
+      - fieldname: relatedObjects
+        description: Key related business objects
+  bjoen-life-form:
+    fields:
+      - fieldname: keyStates
+        description: "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)"
+      - fieldname: initialState
+        description: State when object is created
+      - fieldname: terminalStates
+        description: "States where lifecycle ends (e.g., Closed, Cancelled, Deleted)"
+      - fieldname: stateTransitionRules
+        description: Summary of allowed state transitions
+      - fieldname: lifecycleOwner
+        description: System or process responsible for lifecycle management
+  bjoen-owne-form:
+    fields:
+      - fieldname: dataOwner
+        description: Business role accountable for this object
+      - fieldname: dataSteward
+        description: Role responsible for data quality
+      - fieldname: versioningStrategy
+        description: "None | Sequential | Timestamp | Optimistic | EventSourced"
+      - fieldname: concurrencyControl
+        description: "Optimistic | Pessimistic | None"
+      - fieldname: auditTrail
+        description: "What changes are tracked: None | StateChanges | AllChanges | FullHistory"
+  biru-iden-form:
+    fields:
+      - fieldname: ruleId
+        required: true
+        description: "Unique rule identifier (e.g., BR-001)"
+      - fieldname: ruleName
+        required: true
+        description: Descriptive name
+      - fieldname: ruleVersion
+        description: Version number for change tracking
+      - fieldname: description
+        description: Full statement of the business rule
+      - fieldname: businessStatement
+        description: Natural language statement from business perspective
+  biru-clas-form:
+    fields:
+      - fieldname: ruleType
+        description: "Structural | Derivation | Constraint | Authorization | Workflow | Calculation"
+      - fieldname: ruleCategory
+        description: "Validation | Computation | Inference | Action-Enabling"
+      - fieldname: enforcementLevel
+        description: "Mandatory | Guideline | Advisory"
+      - fieldname: priority
+        description: "When rules conflict: 1 (highest) to 5 (lowest)"
+      - fieldname: source
+        description: "Where rule originates: Regulation | Policy | Contract | BestPractice"
+  biru-rule-form:
+    fields:
+      - fieldname: condition
+        description: Trigger condition in natural language or pseudo-code
+      - fieldname: action
+        description: What happens when condition is true
+      - fieldname: elseAction
+        description: What happens when condition is false
+      - fieldname: expression
+        description: Formalized rule logic
+      - fieldname: parameters
+        description: Configurable values in the rule
+  biru-impl-form:
+    fields:
+      - fieldname: enforcement
+        description: "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual"
+      - fieldname: implementationPoint
+        description: "Where implemented: UI | API | Service | Database | Integration"
+      - fieldname: validationTiming
+        description: "When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime"
+      - fieldname: systemsInvolved
+        description: Which systems enforce this rule
+      - fieldname: testability
+        description: "How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly"
+  biru-exce-form:
+    fields:
+      - fieldname: exceptionHandling
+        description: How violations are handled
+      - fieldname: overridePolicy
+        description: Whether and how rule can be overridden
+      - fieldname: overrideApproval
+        description: Who can approve overrides
+      - fieldname: escalationPath
+        description: How exceptions are escalated
+  biru-gove-form:
+    fields:
+      - fieldname: ruleOwner
+        description: Business owner responsible for this rule
+      - fieldname: effectiveDate
+        description: When rule becomes/became effective
+      - fieldname: expirationDate
+        description: When rule expires (if applicable)
+      - fieldname: reviewFrequency
+        description: "How often rule is reviewed: Annually | OnChange | Never"
 document:
   sections:
     dochd:

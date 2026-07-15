@@ -148,6 +148,9 @@ section-types:
       pattern: "^WASELE-SERV-[0-9]+$"
       error-message: IDs of this section must match WASELE-SERV-xxx
     description: Add one entry per warranty service element.
+  accrsu-acce:
+    prefix: ACCRSU_ACCE
+    format: accrsu-acce-form
   categ-cate:
     prefix: CATEG_CATE_
     pattern-check-id:
@@ -171,6 +174,12 @@ section-types:
       pattern: "^DACEN-ITEM-[0-9]+$"
       error-message: IDs of this section must match DACEN-ITEM-xxx
     description: Add one entry per acceptance criterion.
+  doqucr-docu:
+    prefix: DOQUCR_DOCU
+    format: doqucr-docu-form
+  mupacr-must:
+    prefix: MUPACR_MUST
+    format: mupacr-must-form
   qcate-qual:
     prefix: QCATE_QUAL_
     subsection-types:
@@ -209,6 +218,12 @@ section-types:
       pattern: "^QLWGT-WEIG-[0-9]+$"
       error-message: IDs of this section must match QLWGT-WEIG-xxx
     description: Add one entry per quality attribute weight.
+  qugach-chec:
+    prefix: QUGACH_CHEC
+    format: qugach-chec-form
+  trofde-trad:
+    prefix: TROFDE_TRAD
+    format: trofde-trad-form
   uatcy-test:
     prefix: UATCY_TEST_
     subsection-types:
@@ -220,6 +235,9 @@ section-types:
       pattern: "^UATCY-TEST-[0-9]+$"
       error-message: IDs of this section must match UATCY-TEST-xxx
     description: Add one entry per user-acceptance test cycle.
+  wequma-matr:
+    prefix: WEQUMA_MATR
+    format: wequma-matr-form
   acst-step:
     prefix: ACST_STEP_
     subsection-types:
@@ -231,6 +249,9 @@ section-types:
       pattern: "^ACST-STEP-[0-9]+$"
       error-message: IDs of this section must match ACST-STEP-xxx
     description: Add one entry per acceptance-process step.
+  qlfwk-fram:
+    prefix: QLFWK_FRAM
+    format: qlfwk-fram-form
   slae-slae:
     prefix: SLAE_SLAE_
     pattern-check-id:
@@ -277,9 +298,38 @@ section-types:
       pattern: "^TSSC-TEST-[0-9]+$"
       error-message: IDs of this section must match TSSC-TEST-xxx
     description: Add one entry per test scenario.
+  cmpt-comp:
+    prefix: CMPT_COMP
+    format: cmpt-comp-form
+  flxc-flex:
+    prefix: FLXC_FLEX
+    format: flxc-flex-form
+  fnsu-func:
+    prefix: FNSU_FUNC
+    format: fnsu-func-form
+  incp-inte:
+    prefix: INCP_INTE
+    format: incp-inte-form
+  mntc-main:
+    prefix: MNTC_MAIN
+    format: mntc-main-form
+  peef-perf:
+    prefix: PEEF_PERF
+    format: peef-perf-form
+  qupr-prio:
+    prefix: QUPR_PRIO
+    format: qupr-prio-form
+  relc-reli:
+    prefix: RELC_RELI
+    format: relc-reli-form
+  secc-secu:
+    prefix: SECC_SECU
+    format: secc-secu-form
   accrsu:
     prefix: ACCRSU
     subsection-types:
+      accrsu-acce:
+        max-count: 1
       mupacr:
         max-count: 1
       qugach:
@@ -365,6 +415,8 @@ section-types:
   doqucr:
     prefix: DOQUCR
     subsection-types:
+      doqucr-docu:
+        max-count: 1
       requ1:
         max-count: 1
       docoqu:
@@ -419,12 +471,16 @@ section-types:
   mupacr:
     prefix: MUPACR
     subsection-types:
+      mupacr-must:
+        max-count: 1
       mstpcr-item-lst:
         max-count: 1
     description: 11.7.1. Must-Pass Criteria.
   qugach:
     prefix: QUGACH
     subsection-types:
+      qugach-chec:
+        max-count: 1
       qgchk-item-lst:
         max-count: 1
     description: 11.7.2. Quality Gate Checklist.
@@ -512,6 +568,8 @@ section-types:
   trofde:
     prefix: TROFDE
     subsection-types:
+      trofde-trad:
+        max-count: 1
       tode-item-lst:
         max-count: 1
     description: 11.6.2. Trade-off Decisions.
@@ -560,6 +618,8 @@ section-types:
   wequma:
     prefix: WEQUMA
     subsection-types:
+      wequma-matr:
+        max-count: 1
       qlwgt-weig-lst:
         max-count: 1
     description: 11.6.1. Weighted Quality Matrix.
@@ -662,6 +722,8 @@ section-types:
   qlfwk:
     prefix: QLFWK
     subsection-types:
+      qlfwk-fram:
+        max-count: 1
       qfobj:
         max-count: 1
       qftrd:
@@ -773,6 +835,9 @@ section-types:
     description: 11.6.2. Availability.
   cmpt:
     prefix: CMPT
+    subsection-types:
+      cmpt-comp:
+        max-count: 1
     description: Compatibility (ISO/IEC 25010:2023).
   coqu:
     prefix: COQU
@@ -834,6 +899,8 @@ section-types:
   flxc:
     prefix: FLXC
     subsection-types:
+      flxc-flex:
+        max-count: 1
       flqu:
         max-count: 1
       poqu:
@@ -842,6 +909,8 @@ section-types:
   fnsu:
     prefix: FNSU
     subsection-types:
+      fnsu-func:
+        max-count: 1
       fncoq:
         max-count: 1
       coqu:
@@ -850,6 +919,8 @@ section-types:
   incp:
     prefix: INCP
     subsection-types:
+      incp-inte:
+        max-count: 1
       usaql:
         max-count: 1
     description: Interaction capability (ISO/IEC 25010:2023; formerly Usability).
@@ -880,6 +951,8 @@ section-types:
   mntc:
     prefix: MNTC
     subsection-types:
+      mntc-main:
+        max-count: 1
       maqu:
         max-count: 1
     description: Maintainability (ISO/IEC 25010:2023).
@@ -898,6 +971,8 @@ section-types:
   peef:
     prefix: PEEF
     subsection-types:
+      peef-perf:
+        max-count: 1
       efqu:
         max-count: 1
     description: Performance efficiency (ISO/IEC 25010:2023).
@@ -907,6 +982,8 @@ section-types:
   qupr:
     prefix: QUPR
     subsection-types:
+      qupr-prio:
+        max-count: 1
       wequma:
         max-count: 1
       trofde:
@@ -915,6 +992,8 @@ section-types:
   relc:
     prefix: RELC
     subsection-types:
+      relc-reli:
+        max-count: 1
       requ:
         max-count: 1
       avqu:
@@ -939,6 +1018,8 @@ section-types:
   secc:
     prefix: SECC
     subsection-types:
+      secc-secu:
+        max-count: 1
       sequ:
         max-count: 1
       isoq:
@@ -1032,6 +1113,177 @@ section-types:
   watr:
     prefix: WATR
     description: Transition to support.
+form-types:
+  qlfwk-fram-form:
+    fields:
+      - fieldname: qualityModel
+        description: "ISO 25010, McCall, Boehm, custom"
+      - fieldname: qualityModelVersion
+        description: Specific version of quality model
+      - fieldname: qualityModelAdaptations
+        description: How standard model is adapted for this project
+  fnsu-func-form:
+    fields:
+      - fieldname: functionalSuitabilityApproach
+        description: How functional completeness and correctness are assured
+      - fieldname: functionalCoverageTarget
+        description: Required vs. optional feature coverage
+      - fieldname: correctnessStandard
+        description: "Acceptable defect density, accuracy thresholds"
+  peef-perf-form:
+    fields:
+      - fieldname: technicalQualityPhilosophy
+        description: "Performance-first, maintainability-first, balanced"
+      - fieldname: architecturalQualityGoals
+        description: Key architectural quality attributes
+      - fieldname: technicalDebtTolerance
+        description: "Zero, controlled, pragmatic"
+      - fieldname: codeQualityStandard
+        description: "Style guide, linting rules"
+      - fieldname: designPrinciplesAdherence
+        description: "SOLID, DRY, KISS, YAGNI"
+  cmpt-comp-form:
+    fields:
+      - fieldname: coExistenceRequirements
+        description: Other products sharing the environment without adverse impact
+      - fieldname: interoperabilityStandards
+        description: Protocols/formats for exchanging and using information
+  incp-inte-form:
+    fields:
+      - fieldname: userQualityPhilosophy
+        description: "User-first, balanced, efficiency-focused"
+      - fieldname: targetUserExperience
+        description: "Delightful, efficient, adequate, minimal"
+      - fieldname: userResearchBasis
+        description: "Personas, surveys, interviews, analytics"
+      - fieldname: userFeedbackChannel
+        description: How user quality feedback is collected
+      - fieldname: userSatisfactionTarget
+        description: "NPS > 50, CSAT > 80%, etc."
+      - fieldname: accessibilityLevel
+        description: "WCAG 2.1 AA, AAA, Section 508"
+  relc-reli-form:
+    fields:
+      - fieldname: operationsMaturityModel
+        description: "ITIL, DevOps, SRE"
+      - fieldname: operationsPhilosophy
+        description: "Ops-driven, DevOps, NoOps"
+      - fieldname: operationsResponsibility
+        description: "Dedicated team, shared, outsourced"
+      - fieldname: incidentManagementProcess
+        description: "PagerDuty, custom, ITIL-based"
+      - fieldname: changeManagementProcess
+        description: "ITIL change management, lightweight"
+      - fieldname: operationsToolchain
+        description: Key ops tools and platforms
+  secc-secu-form:
+    fields:
+      - fieldname: securityApproach
+        description: "Zero-trust, defence-in-depth, least-privilege"
+      - fieldname: securityComplianceTarget
+        description: "ISO 27001, SOC 2, GDPR, sector-specific"
+  mntc-main-form:
+    fields:
+      - fieldname: maintainabilityApproach
+        description: "Modularity, analyzability, testability priorities"
+      - fieldname: maintainabilityStandard
+        description: "Complexity thresholds, test-coverage targets"
+  flxc-flex-form:
+    fields:
+      - fieldname: flexibilityApproach
+        description: "How adaptability, scalability and portability are achieved"
+      - fieldname: portabilityTarget
+        description: Target environments/platforms the product must run on
+  doqucr-docu-form:
+    fields:
+      - fieldname: documentationStrategy
+        description: "Comprehensive, minimal, just-in-time"
+      - fieldname: documentationOwnership
+        description: "Technical writers, developers, shared"
+      - fieldname: documentationPlatform
+        description: "Confluence, GitBook, custom"
+      - fieldname: documentationReviewProcess
+        description: "Peer review, editorial review"
+      - fieldname: documentationVersionControl
+        description: "Git, CMS versioning, manual"
+      - fieldname: documentationUpdateCadence
+        description: "Continuous, per-release, scheduled"
+  qupr-prio-form:
+    fields:
+      - fieldname: prioritizationMethod
+        description: "Weighted scoring, AHP, forced ranking"
+      - fieldname: prioritizationStakeholders
+        description: Who participates in prioritization
+      - fieldname: prioritizationFrequency
+        description: "Once, per-phase, continuous"
+      - fieldname: prioritizationDocumentation
+        description: How decisions are documented
+      - fieldname: prioritizationReview
+        description: When priorities are reviewed
+      - fieldname: conflictResolutionAuthority
+        description: Who resolves priority conflicts
+  wequma-matr-form:
+    fields:
+      - fieldname: matrixFormat
+        description: "Spreadsheet, radar chart, heatmap"
+      - fieldname: weightingScale
+        description: "1-5, 1-10, percentage"
+      - fieldname: totalWeightRequirement
+        description: "Sum to 100%, relative weights"
+      - fieldname: weightJustificationRequired
+        description: Whether each weight needs a documented justification
+      - fieldname: matrixUpdateProcess
+        description: How weights are updated
+  trofde-trad-form:
+    fields:
+      - fieldname: tradeOffGovernance
+        description: Who can make trade-off decisions
+      - fieldname: tradeOffDocumentation
+        description: How decisions are documented
+      - fieldname: tradeOffReview
+        description: When trade-offs are reviewed
+      - fieldname: tradeOffReversal
+        description: Process to reverse a trade-off decision
+  accrsu-acce-form:
+    fields:
+      - fieldname: acceptanceProcess
+        description: "Formal UAT, continuous acceptance"
+      - fieldname: acceptanceAuthority
+        description: Who signs off on acceptance
+      - fieldname: acceptanceScope
+        description: "Full system, incremental, phase-based"
+      - fieldname: acceptanceEnvironment
+        description: Where acceptance testing occurs
+      - fieldname: acceptanceTimeline
+        description: Duration of acceptance period
+      - fieldname: partialAcceptance
+        description: Policy on accepting with defects
+      - fieldname: acceptanceRejectionCriteria
+        description: What triggers rejection
+  mupacr-must-form:
+    fields:
+      - fieldname: mustPassPhilosophy
+        description: "All must pass, weighted approach"
+      - fieldname: mustPassCount
+        description: Total count of must-pass criteria
+      - fieldname: criticalityDefinition
+        description: What makes a criterion must-pass
+      - fieldname: waiverProcess
+        description: Can must-pass criteria be waived
+      - fieldname: waiverAuthority
+        description: Who can grant waivers
+  qugach-chec-form:
+    fields:
+      - fieldname: checklistPurpose
+        description: "Gate review, final acceptance, milestone"
+      - fieldname: checklistCompleteness
+        description: "All checks required, critical only"
+      - fieldname: checklistReviewProcess
+        description: "Individual, committee, automated"
+      - fieldname: checklistSignoff
+        description: "Single, multiple signoffs"
+      - fieldname: checklistFrequency
+        description: When checklist is used
 document:
   sections:
     dochd:

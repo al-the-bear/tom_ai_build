@@ -15720,6 +15720,7 @@ static void meta_build_acceptance_criteria_list_items_elem(SomMetaNode *n) {
 static void meta_build_acceptance_criteria_summary_acceptance_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaSummary");
   meta_set(&n->member_name, "acceptanceFrameworkContent");
+  meta_set(&n->section_id, "ACCRSU-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -16439,6 +16440,7 @@ static void meta_build_access_channels_content(SomMetaNode *n) {
 static void meta_build_access_channels_channel_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessChannels");
   meta_set(&n->member_name, "channelDiagram");
+  meta_set(&n->section_id, "AC1-CHAN");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -16691,6 +16693,7 @@ static void meta_build_access_levels_content(SomMetaNode *n) {
 static void meta_build_access_levels_access_level_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessLevels");
   meta_set(&n->member_name, "accessLevelDiagram");
+  meta_set(&n->section_id, "AL-ACCE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -16730,6 +16733,7 @@ static void meta_build_access_levels_levels_elem(SomMetaNode *n) {
 static void meta_build_access_levels_permission_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessLevels");
   meta_set(&n->member_name, "permissionMatrix");
+  meta_set(&n->section_id, "AL-PERM");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -16832,6 +16836,7 @@ static void meta_build_access_user_categories_items_elem(SomMetaNode *n) {
 static void meta_build_accessibility_accessibility_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Accessibility");
   meta_set(&n->member_name, "accessibilityOverviewContent");
+  meta_set(&n->section_id, "ACCESS-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -17135,6 +17140,7 @@ static void meta_build_accessibility_check_entry_remediation_content(SomMetaNode
 static void meta_build_accessibility_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessibilityChecklist");
   meta_set(&n->member_name, "checklistOverviewContent");
+  meta_set(&n->section_id, "ACCHLS-CHEC");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -19794,6 +19800,7 @@ static void meta_build_alert_suppression_rules_content(SomMetaNode *n) {
 static void meta_build_alerting_configuration_alerting_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertingConfiguration");
   meta_set(&n->member_name, "alertingOverview");
+  meta_set(&n->section_id, "ALCO-ALER");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -26696,6 +26703,7 @@ static void meta_build_breadcrumb_configuration_content(SomMetaNode *n) {
 static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "BreakpointConfiguration");
   meta_set(&n->member_name, "breakpointOverview");
+  meta_set(&n->section_id, "BC-BREA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -28732,6 +28740,7 @@ static void meta_build_business_object_attribute_entry_validation_content(SomMet
 static void meta_build_business_object_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "BJOEN-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -28779,6 +28788,7 @@ static void meta_build_business_object_entry_identity(SomMetaNode *n) {
 static void meta_build_business_object_entry_domain_context(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
   meta_set(&n->member_name, "domainContext");
+  meta_set(&n->section_id, "BJOEN-DOMA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -28820,6 +28830,7 @@ static void meta_build_business_object_entry_domain_context(SomMetaNode *n) {
 static void meta_build_business_object_entry_lifecycle_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
   meta_set(&n->member_name, "lifecycleSummary");
+  meta_set(&n->section_id, "BJOEN-LIFE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -28884,6 +28895,7 @@ static void meta_build_business_object_entry_behavior_rules_elem(SomMetaNode *n)
 static void meta_build_business_object_entry_ownership(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
   meta_set(&n->member_name, "ownership");
+  meta_set(&n->section_id, "BJOEN-OWNE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29505,6 +29517,7 @@ static void meta_build_business_process_entry_process_flow_preview(SomMetaNode *
 static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "BIRU-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29546,6 +29559,7 @@ static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
 static void meta_build_business_rule_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "classification");
+  meta_set(&n->section_id, "BIRU-CLAS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29587,6 +29601,7 @@ static void meta_build_business_rule_entry_classification(SomMetaNode *n) {
 static void meta_build_business_rule_entry_rule_logic(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "ruleLogic");
+  meta_set(&n->section_id, "BIRU-RULE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29628,6 +29643,7 @@ static void meta_build_business_rule_entry_rule_logic(SomMetaNode *n) {
 static void meta_build_business_rule_entry_implementation(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "implementation");
+  meta_set(&n->section_id, "BIRU-IMPL");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29669,6 +29685,7 @@ static void meta_build_business_rule_entry_implementation(SomMetaNode *n) {
 static void meta_build_business_rule_entry_exception_handling(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "exceptionHandling");
+  meta_set(&n->section_id, "BIRU-EXCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29704,6 +29721,7 @@ static void meta_build_business_rule_entry_exception_handling(SomMetaNode *n) {
 static void meta_build_business_rule_entry_governance(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
   meta_set(&n->member_name, "governance");
+  meta_set(&n->section_id, "BIRU-GOVE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -32815,6 +32833,7 @@ static void meta_build_changed_role_transition_training_content(SomMetaNode *n) 
 static void meta_build_changes_from_current_structure_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangesFromCurrentStructure");
   meta_set(&n->member_name, "overviewContent");
+  meta_set(&n->section_id, "OCCHG-OVER");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -35959,6 +35978,7 @@ static void meta_build_communication_matrix_content(SomMetaNode *n) {
 static void meta_build_communication_matrix_communication_flow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CommunicationMatrix");
   meta_set(&n->member_name, "communicationFlowDiagram");
+  meta_set(&n->section_id, "COMA-COMM");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -36411,6 +36431,7 @@ static void meta_build_communication_type_entry_content(SomMetaNode *n) {
 static void meta_build_compatibility_characteristic_compatibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityCharacteristic");
   meta_set(&n->member_name, "compatibilityContent");
+  meta_set(&n->section_id, "CMPT-COMP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -42127,6 +42148,7 @@ static void meta_build_context_diagram_content(SomMetaNode *n) {
 static void meta_build_context_diagram_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextDiagram");
   meta_set(&n->member_name, "diagram");
+  meta_set(&n->section_id, "CD-DIAG");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -42140,6 +42162,7 @@ static void meta_build_context_diagram_diagram(SomMetaNode *n) {
 static void meta_build_context_diagram_legend(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextDiagram");
   meta_set(&n->member_name, "legend");
+  meta_set(&n->section_id, "CD-LEGE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -42152,6 +42175,7 @@ static void meta_build_context_diagram_legend(SomMetaNode *n) {
 static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextualHelp");
   meta_set(&n->member_name, "contextualHelpContent");
+  meta_set(&n->section_id, "COHE-CONT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43247,6 +43271,7 @@ static void meta_build_current_architecture_content(SomMetaNode *n) {
 static void meta_build_current_architecture_architecture_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentArchitecture");
   meta_set(&n->member_name, "architectureDiagram");
+  meta_set(&n->section_id, "CARCH-ARCH");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43260,6 +43285,7 @@ static void meta_build_current_architecture_architecture_diagram(SomMetaNode *n)
 static void meta_build_current_architecture_deployment_topology(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentArchitecture");
   meta_set(&n->member_name, "deploymentTopology");
+  meta_set(&n->section_id, "CARCH-DEPL");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43416,6 +43442,7 @@ static void meta_build_current_business_processes_content(SomMetaNode *n) {
 static void meta_build_current_business_processes_process_landscape_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentBusinessProcesses");
   meta_set(&n->member_name, "processLandscapeDiagram");
+  meta_set(&n->section_id, "CUBUPR-PROC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43576,6 +43603,7 @@ static void meta_build_current_data_landscape_content(SomMetaNode *n) {
 static void meta_build_current_data_landscape_data_landscape_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentDataLandscape");
   meta_set(&n->member_name, "dataLandscapeOverviewDiagram");
+  meta_set(&n->section_id, "CUDALA-DATAL");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43588,6 +43616,7 @@ static void meta_build_current_data_landscape_data_landscape_overview_diagram(So
 static void meta_build_current_data_landscape_data_architecture_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentDataLandscape");
   meta_set(&n->member_name, "dataArchitectureDiagram");
+  meta_set(&n->section_id, "CUDALA-DATA");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -43936,6 +43965,7 @@ static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
 static void meta_build_current_workflow_entry_workflow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentWorkflowEntry");
   meta_set(&n->member_name, "workflowDiagram");
+  meta_set(&n->section_id, "CUWF-WORK");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -45050,6 +45080,7 @@ static void meta_build_d04_requirements_specification_organizational_requirement
 static void meta_build_d04_requirements_specification_traceability_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
   meta_set(&n->member_name, "traceabilityMatrix");
+  meta_set(&n->section_id, "RSP-TRAC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47163,6 +47194,7 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
 static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "DAATT-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47204,6 +47236,7 @@ static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
 static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "dataTypeSpec");
+  meta_set(&n->section_id, "DAATT-DATA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47286,6 +47319,7 @@ static void meta_build_data_attribute_entry_constraints_elem(SomMetaNode *n) {
 static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "derivation");
+  meta_set(&n->section_id, "DAATT-DERI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47321,6 +47355,7 @@ static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
 static void meta_build_data_attribute_entry_security_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "securityClassification");
+  meta_set(&n->section_id, "DAATT-SECU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47362,6 +47397,7 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
 static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "migrationLineage");
+  meta_set(&n->section_id, "DAATT-MIGR");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47426,6 +47462,7 @@ static void meta_build_data_attribute_entry_display_properties_elem(SomMetaNode 
 static void meta_build_data_classification_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassification");
   meta_set(&n->member_name, "overview");
+  meta_set(&n->section_id, "DATCL-OVER");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47485,6 +47522,7 @@ static void meta_build_data_classification_items_elem(SomMetaNode *n) {
 static void meta_build_data_classification_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "DCLSE-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47526,6 +47564,7 @@ static void meta_build_data_classification_entry_identity(SomMetaNode *n) {
 static void meta_build_data_classification_entry_storage_transmission(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "storageTransmission");
+  meta_set(&n->section_id, "DCLSE-STOR");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47567,6 +47606,7 @@ static void meta_build_data_classification_entry_storage_transmission(SomMetaNod
 static void meta_build_data_classification_entry_access_control(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "accessControl");
+  meta_set(&n->section_id, "DCLSE-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47608,6 +47648,7 @@ static void meta_build_data_classification_entry_access_control(SomMetaNode *n) 
 static void meta_build_data_classification_entry_retention_disposal(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "retentionDisposal");
+  meta_set(&n->section_id, "DCLSE-RETE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47649,6 +47690,7 @@ static void meta_build_data_classification_entry_retention_disposal(SomMetaNode 
 static void meta_build_data_classification_entry_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "compliance");
+  meta_set(&n->section_id, "DCLSE-COMP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -47950,6 +47992,7 @@ static void meta_build_data_duplication_analysis_duplication_summary(SomMetaNode
 static void meta_build_data_duplication_analysis_duplication_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataDuplicationAnalysis");
   meta_set(&n->member_name, "duplicationDiagram");
+  meta_set(&n->section_id, "DADUAN-DUPL");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48200,6 +48243,7 @@ static void meta_build_data_duplication_summary_content(SomMetaNode *n) {
 static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "DAENT-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48241,6 +48285,7 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
 static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
   meta_set(&n->member_name, "classification");
+  meta_set(&n->section_id, "DAENT-CLAS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48311,6 +48356,7 @@ static void meta_build_data_entity_entry_volume_metrics_elem(SomMetaNode *n) {
 static void meta_build_data_entity_entry_lifecycle_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
   meta_set(&n->member_name, "lifecyclePolicy");
+  meta_set(&n->section_id, "DAENT-LIFE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48393,6 +48439,7 @@ static void meta_build_data_entity_entry_compliance_requirements_elem(SomMetaNod
 static void meta_build_data_entity_entry_relationship_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
   meta_set(&n->member_name, "relationshipSummary");
+  meta_set(&n->section_id, "DAENT-RELA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48899,6 +48946,7 @@ static void meta_build_data_governance_governance_maturity(SomMetaNode *n) {
 static void meta_build_data_governance_governance_org_chart(SomMetaNode *n) {
   meta_set(&n->class_name, "DataGovernance");
   meta_set(&n->member_name, "governanceOrgChart");
+  meta_set(&n->section_id, "DAGO-GOVE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -49601,6 +49649,7 @@ static void meta_build_data_integration_points_integration_summary(SomMetaNode *
 static void meta_build_data_integration_points_data_flow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataIntegrationPoints");
   meta_set(&n->member_name, "dataFlowDiagram");
+  meta_set(&n->section_id, "DAINPO-DATA");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -50286,6 +50335,7 @@ static void meta_build_data_ownership_ownership_summary(SomMetaNode *n) {
 static void meta_build_data_ownership_ownership_matrix_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataOwnership");
   meta_set(&n->member_name, "ownershipMatrixDiagram");
+  meta_set(&n->section_id, "DAOW-OWNE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -51024,6 +51074,7 @@ static void meta_build_data_quality_assessment_dimensions_summary(SomMetaNode *n
 static void meta_build_data_quality_assessment_quality_issues_severity_chart(SomMetaNode *n) {
   meta_set(&n->class_name, "DataQualityAssessment");
   meta_set(&n->member_name, "qualityIssuesSeverityChart");
+  meta_set(&n->section_id, "DAQUAS-QUAL");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -51847,6 +51898,7 @@ static void meta_build_data_source_inventory_content(SomMetaNode *n) {
 static void meta_build_data_source_inventory_data_source_map_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DataSourceInventory");
   meta_set(&n->member_name, "dataSourceMapDiagram");
+  meta_set(&n->section_id, "DASOIN-DATA");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -52623,6 +52675,7 @@ static void meta_build_data_volumes_and_growth_volume_summary(SomMetaNode *n) {
 static void meta_build_data_volumes_and_growth_growth_trend_chart(SomMetaNode *n) {
   meta_set(&n->class_name, "DataVolumesAndGrowth");
   meta_set(&n->member_name, "growthTrendChart");
+  meta_set(&n->section_id, "DVAG-GROW");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -54971,6 +55024,7 @@ static void meta_build_dependencies_and_integrations_content(SomMetaNode *n) {
 static void meta_build_dependencies_and_integrations_dependency_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DependenciesAndIntegrations");
   meta_set(&n->member_name, "dependencyDiagram");
+  meta_set(&n->section_id, "DEPNT-DEPE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -60902,6 +60956,7 @@ static void meta_build_documentation_deliverables_items_elem(SomMetaNode *n) {
 static void meta_build_documentation_quality_criteria_documentation_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentationQualityCriteria");
   meta_set(&n->member_name, "documentationOverviewContent");
+  meta_set(&n->section_id, "DOQUCR-DOCU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -61453,6 +61508,7 @@ static void meta_build_domain_boundaries_content(SomMetaNode *n) {
 static void meta_build_domain_boundaries_context_map(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainBoundaries");
   meta_set(&n->member_name, "contextMap");
+  meta_set(&n->section_id, "DB-CONT");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -61466,6 +61522,7 @@ static void meta_build_domain_boundaries_context_map(SomMetaNode *n) {
 static void meta_build_domain_boundaries_within_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainBoundaries");
   meta_set(&n->member_name, "withinScope");
+  meta_set(&n->section_id, "DB-WITH");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -61478,6 +61535,7 @@ static void meta_build_domain_boundaries_within_scope(SomMetaNode *n) {
 static void meta_build_domain_boundaries_outside_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainBoundaries");
   meta_set(&n->member_name, "outsideScope");
+  meta_set(&n->section_id, "DB-OUTS");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -62062,6 +62120,7 @@ static void meta_build_domain_processes_content(SomMetaNode *n) {
 static void meta_build_domain_processes_process_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainProcesses");
   meta_set(&n->member_name, "processOverviewDiagram");
+  meta_set(&n->section_id, "DP-PROC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63261,6 +63320,7 @@ static void meta_build_entity_index_entry_content(SomMetaNode *n) {
 static void meta_build_entity_relationship_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "ENRLE-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63325,6 +63385,7 @@ static void meta_build_entity_relationship_entry_participants_elem(SomMetaNode *
 static void meta_build_entity_relationship_entry_cardinality(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "cardinality");
+  meta_set(&n->section_id, "ENRLE-CARD");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63372,6 +63433,7 @@ static void meta_build_entity_relationship_entry_cardinality(SomMetaNode *n) {
 static void meta_build_entity_relationship_entry_referential_integrity(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "referentialIntegrity");
+  meta_set(&n->section_id, "ENRLE-REFE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63419,6 +63481,7 @@ static void meta_build_entity_relationship_entry_referential_integrity(SomMetaNo
 static void meta_build_entity_relationship_entry_navigation(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "navigation");
+  meta_set(&n->section_id, "ENRLE-NAVI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -65069,6 +65132,7 @@ static void meta_build_error_budget_tracking_monitoring_content(SomMetaNode *n) 
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
   meta_set(&n->member_name, "errorPhilosophyContent");
+  meta_set(&n->section_id, "ERHACO-ERRO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -65553,6 +65617,7 @@ static void meta_build_error_procedure_entry_content(SomMetaNode *n) {
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
   meta_set(&n->member_name, "recoveryMechanismsContent");
+  meta_set(&n->section_id, "ERRE-RECO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -68317,6 +68382,7 @@ static void meta_build_external_connectivity_section_resilience(SomMetaNode *n) 
 static void meta_build_external_interface_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaceEntry");
   meta_set(&n->member_name, "identificationContent");
+  meta_set(&n->section_id, "EIE-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -69339,6 +69405,7 @@ static void meta_build_external_system_context_entry_governance(SomMetaNode *n) 
 static void meta_build_external_system_context_entry_data_mapping(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalSystemContextEntry");
   meta_set(&n->member_name, "dataMapping");
+  meta_set(&n->section_id, "EXSYCOEN-DATA");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -71803,6 +71870,7 @@ static void meta_build_flexibility_narrative(SomMetaNode *n) {
 static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FlexibilityCharacteristic");
   meta_set(&n->member_name, "flexibilityContent");
+  meta_set(&n->section_id, "FLXC-FLEX");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -72513,6 +72581,7 @@ static void meta_build_function_entry_operations_content(SomMetaNode *n) {
 static void meta_build_function_model_decomposition_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
   meta_set(&n->member_name, "decompositionOverview");
+  meta_set(&n->section_id, "FUMO-DECO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -72548,6 +72617,7 @@ static void meta_build_function_model_decomposition_overview(SomMetaNode *n) {
 static void meta_build_function_model_matrix_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
   meta_set(&n->member_name, "matrixOverview");
+  meta_set(&n->section_id, "FUMO-MATR");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -73097,6 +73167,7 @@ static void meta_build_functional_requirements_content(SomMetaNode *n) {
 static void meta_build_functional_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalRequirements");
   meta_set(&n->member_name, "summaryForm");
+  meta_set(&n->section_id, "FR-SUMM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -73255,6 +73326,7 @@ static void meta_build_functional_responsibilities_items_elem(SomMetaNode *n) {
 static void meta_build_functional_suitability_characteristic_functional_suitability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalSuitabilityCharacteristic");
   meta_set(&n->member_name, "functionalSuitabilityContent");
+  meta_set(&n->section_id, "FNSU-FUNC");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -74178,6 +74250,7 @@ static void meta_build_goal_resources_content(SomMetaNode *n) {
 static void meta_build_goal_resources_resources_form(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalResources");
   meta_set(&n->member_name, "resourcesForm");
+  meta_set(&n->section_id, "GORE-RESO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -74423,6 +74496,7 @@ static void meta_build_goals_content(SomMetaNode *n) {
 static void meta_build_goals_goal_hierarchy_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "Goals");
   meta_set(&n->member_name, "goalHierarchyDiagram");
+  meta_set(&n->section_id, "GOALS-GOAL");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -79399,6 +79473,7 @@ static void meta_build_interaction_business_rules_content(SomMetaNode *n) {
 static void meta_build_interaction_capability_characteristic_interaction_capability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionCapabilityCharacteristic");
   meta_set(&n->member_name, "interactionCapabilityContent");
+  meta_set(&n->section_id, "INCP-INTE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -82725,6 +82800,7 @@ static void meta_build_introduction_and_scope_summary(SomMetaNode *n) {
 static void meta_build_introduction_and_scope_system_context_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "IntroductionAndScope");
   meta_set(&n->member_name, "systemContextDiagram");
+  meta_set(&n->section_id, "INSC-SYST");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -84132,6 +84208,7 @@ static void meta_build_key_concepts_content(SomMetaNode *n) {
 static void meta_build_key_concepts_conceptual_model_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyConcepts");
   meta_set(&n->member_name, "conceptualModelDiagram");
+  meta_set(&n->section_id, "KC-CONC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -84674,6 +84751,7 @@ static void meta_build_kpi_entry_content(SomMetaNode *n) {
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
   meta_set(&n->member_name, "languageSelectionContent");
+  meta_set(&n->section_id, "LACOSE-LANG");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -86287,6 +86365,7 @@ static void meta_build_localization_formatting_content(SomMetaNode *n) {
 static void meta_build_localization_process_localization_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
   meta_set(&n->member_name, "localizationProcessContent");
+  meta_set(&n->section_id, "LOPR-LOCA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -87479,6 +87558,7 @@ static void meta_build_maintainability_changeability_content(SomMetaNode *n) {
 static void meta_build_maintainability_characteristic_maintainability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintainabilityCharacteristic");
   meta_set(&n->member_name, "maintainabilityContent");
+  meta_set(&n->section_id, "MNTC-MAIN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -89034,6 +89114,7 @@ static void meta_build_methodology_deviation_summary_content(SomMetaNode *n) {
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
   meta_set(&n->member_name, "metricsOverview");
+  meta_set(&n->section_id, "MEANOB-METR");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -89817,6 +89898,7 @@ static void meta_build_migration_compliance_content(SomMetaNode *n) {
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationConsiderations");
   meta_set(&n->member_name, "strategyContent");
+  meta_set(&n->section_id, "MIGCON-STRA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -91870,6 +91952,7 @@ static void meta_build_migration_risk_tracking_content(SomMetaNode *n) {
 static void meta_build_migration_risks_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
   meta_set(&n->member_name, "governanceContent");
+  meta_set(&n->section_id, "MIRI-GOVE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -93467,6 +93550,7 @@ static void meta_build_module_versioning_strategy_release_management_content(Som
 static void meta_build_monitoring_monitoring_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Monitoring");
   meta_set(&n->member_name, "monitoringOverview");
+  meta_set(&n->section_id, "MONITO-MONI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -93852,6 +93936,7 @@ static void meta_build_monitoring_coverage_content(SomMetaNode *n) {
 static void meta_build_monitoring_dashboards_dashboard_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MonitoringDashboards");
   meta_set(&n->member_name, "dashboardOverview");
+  meta_set(&n->section_id, "MODA-DASH");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -94505,6 +94590,7 @@ static void meta_build_multi_channel_experience_content(SomMetaNode *n) {
 static void meta_build_multi_channel_experience_multi_channel_configuration(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiChannelExperience");
   meta_set(&n->member_name, "multiChannelConfiguration");
+  meta_set(&n->section_id, "MCE-MULT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -94571,6 +94657,7 @@ static void meta_build_multi_channel_experience_multi_channel_configuration(SomM
 static void meta_build_multi_language_support_multi_language_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiLanguageSupport");
   meta_set(&n->member_name, "multiLanguageOverview");
+  meta_set(&n->section_id, "MLAR-MULT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -94656,6 +94743,7 @@ static void meta_build_multi_language_support_supported_locales_elem(SomMetaNode
 static void meta_build_must_pass_criteria_must_pass_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MustPassCriteria");
   meta_set(&n->member_name, "mustPassOverviewContent");
+  meta_set(&n->section_id, "MUPACR-MUST");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -98763,6 +98851,7 @@ static void meta_build_on_call_schedule_config_operations_content(SomMetaNode *n
 static void meta_build_onboarding_help_onboarding_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OnboardingHelp");
   meta_set(&n->member_name, "onboardingContent");
+  meta_set(&n->section_id, "ONHE-ONBO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -99918,6 +100007,7 @@ static void meta_build_org_requirement_implementation_plan_content(SomMetaNode *
 static void meta_build_org_requirement_implementation_plan_plan_form(SomMetaNode *n) {
   meta_set(&n->class_name, "OrgRequirementImplementationPlan");
   meta_set(&n->member_name, "planForm");
+  meta_set(&n->section_id, "ORIP-PLAN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -100204,6 +100294,7 @@ static void meta_build_organizational_context_organizational_units_elem(SomMetaN
 static void meta_build_organizational_context_business_process_coverage(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalContext");
   meta_set(&n->member_name, "businessProcessCoverage");
+  meta_set(&n->section_id, "OC-BUSI");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -100216,6 +100307,7 @@ static void meta_build_organizational_context_business_process_coverage(SomMetaN
 static void meta_build_organizational_environment_organization_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalEnvironment");
   meta_set(&n->member_name, "organizationContent");
+  meta_set(&n->section_id, "OREN-ORGA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -100818,6 +100910,7 @@ static void meta_build_organizational_requirements_content(SomMetaNode *n) {
 static void meta_build_organizational_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalRequirements");
   meta_set(&n->member_name, "summaryForm");
+  meta_set(&n->section_id, "OR-SUMM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -101914,6 +102007,7 @@ static void meta_build_pain_point_gap_correlation_content(SomMetaNode *n) {
 static void meta_build_pain_point_gap_correlation_correlation_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointGapCorrelation");
   meta_set(&n->member_name, "correlationDiagram");
+  meta_set(&n->section_id, "PPGC-CORR");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -102198,6 +102292,7 @@ static void meta_build_pain_points_and_gaps_content(SomMetaNode *n) {
 static void meta_build_pain_points_and_gaps_pain_points_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointsAndGaps");
   meta_set(&n->member_name, "painPointsOverviewDiagram");
+  meta_set(&n->section_id, "PPAG-PAIN");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -102210,6 +102305,7 @@ static void meta_build_pain_points_and_gaps_pain_points_overview_diagram(SomMeta
 static void meta_build_pain_points_and_gaps_pain_points_priority_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointsAndGaps");
   meta_set(&n->member_name, "painPointsPriorityMatrix");
+  meta_set(&n->section_id, "PPAG-PAINP");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -102928,6 +103024,7 @@ static void meta_build_penetration_testing_requirements_scheduling_content(SomMe
 static void meta_build_performance_efficiency_characteristic_performance_efficiency_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PerformanceEfficiencyCharacteristic");
   meta_set(&n->member_name, "performanceEfficiencyContent");
+  meta_set(&n->section_id, "PEEF-PERF");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -106690,6 +106787,7 @@ static void meta_build_process_adjustments_adjustment_summary(SomMetaNode *n) {
 static void meta_build_process_adjustments_process_flow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessAdjustments");
   meta_set(&n->member_name, "processFlowDiagram");
+  meta_set(&n->section_id, "PCADJ-PROC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -108254,6 +108352,7 @@ static void meta_build_process_interdependency_matrix_content(SomMetaNode *n) {
 static void meta_build_process_interdependency_matrix_dependency_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessInterdependencyMatrix");
   meta_set(&n->member_name, "dependencyDiagram");
+  meta_set(&n->section_id, "PRINMA-DEPE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -110522,6 +110621,7 @@ static void meta_build_project_organization_and_process_content(SomMetaNode *n) 
 static void meta_build_project_organization_and_process_methodology_deviation_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "ProjectOrganizationAndProcess");
   meta_set(&n->member_name, "methodologyDeviationDiagram");
+  meta_set(&n->section_id, "PRPO-METH");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -110977,6 +111077,7 @@ static void meta_build_protocols_and_standards_section_compliance(SomMetaNode *n
 static void meta_build_prototype_prototype_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Prototype");
   meta_set(&n->member_name, "prototypeOverview");
+  meta_set(&n->section_id, "PROTOT-PROT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -111163,6 +111264,7 @@ static void meta_build_prototype_feature_entry_content(SomMetaNode *n) {
 static void meta_build_prototype_feature_subset_feature_subset_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeFeatureSubset");
   meta_set(&n->member_name, "featureSubsetContent");
+  meta_set(&n->section_id, "PRFESU-FEAT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -111379,6 +111481,7 @@ static void meta_build_prototype_goal_entry_content(SomMetaNode *n) {
 static void meta_build_prototype_goals_goals_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeGoals");
   meta_set(&n->member_name, "goalsContent");
+  meta_set(&n->section_id, "PG-GOAL");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -111617,6 +111720,7 @@ static void meta_build_prototype_timeline_content(SomMetaNode *n) {
 static void meta_build_prototype_type_prototype_type_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeType");
   meta_set(&n->member_name, "prototypeTypeOverview");
+  meta_set(&n->section_id, "PRTYSE-PROT");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -112158,6 +112262,7 @@ static void meta_build_quality_category_entry_relationships_content(SomMetaNode 
 static void meta_build_quality_framework_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityFramework");
   meta_set(&n->member_name, "frameworkContent");
+  meta_set(&n->section_id, "QLFWK-FRAM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -112725,6 +112830,7 @@ static void meta_build_quality_gate_adjustments_adjustment_summary(SomMetaNode *
 static void meta_build_quality_gate_adjustments_gate_flow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateAdjustments");
   meta_set(&n->member_name, "gateFlowDiagram");
+  meta_set(&n->section_id, "QGADJ-GATE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -113002,6 +113108,7 @@ static void meta_build_quality_gate_check_entry_verification_content(SomMetaNode
 static void meta_build_quality_gate_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateChecklist");
   meta_set(&n->member_name, "checklistOverviewContent");
+  meta_set(&n->section_id, "QUGACH-CHEC");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -113220,6 +113327,7 @@ static void meta_build_quality_goals_resources_content(SomMetaNode *n) {
 static void meta_build_quality_prioritization_prioritization_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityPrioritization");
   meta_set(&n->member_name, "prioritizationFrameworkContent");
+  meta_set(&n->section_id, "QUPR-PRIO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -115542,6 +115650,7 @@ static void meta_build_reliability_narrative(SomMetaNode *n) {
 static void meta_build_reliability_characteristic_reliability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReliabilityCharacteristic");
   meta_set(&n->member_name, "reliabilityContent");
+  meta_set(&n->section_id, "RELC-RELI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119167,6 +119276,7 @@ static void meta_build_requirement_traceability_content(SomMetaNode *n) {
 static void meta_build_requirement_traceability_traceability_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTraceability");
   meta_set(&n->member_name, "traceabilityForm");
+  meta_set(&n->section_id, "RT-TRAC");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119300,6 +119410,7 @@ static void meta_build_requirement_ui_specification_content(SomMetaNode *n) {
 static void meta_build_requirement_ui_specification_ui_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementUiSpecification");
   meta_set(&n->member_name, "uiForm");
+  meta_set(&n->section_id, "RUS-UIFO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119342,6 +119453,7 @@ static void meta_build_requirement_ui_specification_ui_form(SomMetaNode *n) {
 static void meta_build_requirement_ui_specification_layout_code(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementUiSpecification");
   meta_set(&n->member_name, "layoutCode");
+  meta_set(&n->section_id, "RUS-LAYO");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119355,6 +119467,7 @@ static void meta_build_requirement_ui_specification_layout_code(SomMetaNode *n) 
 static void meta_build_requirement_ui_specification_mockup_description(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementUiSpecification");
   meta_set(&n->member_name, "mockupDescription");
+  meta_set(&n->section_id, "RUS-MOCK");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119494,6 +119607,7 @@ static void meta_build_requirements_overview_content(SomMetaNode *n) {
 static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsOverview");
   meta_set(&n->member_name, "requirementsForm");
+  meta_set(&n->section_id, "RO-REQU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119554,6 +119668,7 @@ static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
 static void meta_build_requirements_overview_traceability_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsOverview");
   meta_set(&n->member_name, "traceabilityMatrix");
+  meta_set(&n->section_id, "RO-TRAC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -120583,6 +120698,7 @@ static void meta_build_responsibility_systems_content(SomMetaNode *n) {
 static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveBehavior");
   meta_set(&n->member_name, "layoutAdaptation");
+  meta_set(&n->section_id, "REBE-LAYO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -120815,6 +120931,7 @@ static void meta_build_responsive_behavior_visibility_content(SomMetaNode *n) {
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveDesign");
   meta_set(&n->member_name, "responsiveOverview");
+  meta_set(&n->section_id, "REDE-RESP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -121536,6 +121653,7 @@ static void meta_build_reusable_components_section_registry(SomMetaNode *n) {
 static void meta_build_reusable_prototype_reusable_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusablePrototype");
   meta_set(&n->member_name, "reusableContent");
+  meta_set(&n->section_id, "REUPRO-REUS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -123541,6 +123659,7 @@ static void meta_build_role_adjustments_adjustment_summary(SomMetaNode *n) {
 static void meta_build_role_adjustments_role_comparison_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleAdjustments");
   meta_set(&n->member_name, "roleComparisonDiagram");
+  meta_set(&n->section_id, "RLADJ-ROLE");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -129593,6 +129712,7 @@ static void meta_build_security_certification_requirements_soc2_content(SomMetaN
 static void meta_build_security_characteristic_security_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityCharacteristic");
   meta_set(&n->member_name, "securityContent");
+  meta_set(&n->section_id, "SECC-SECU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -130664,6 +130784,7 @@ static void meta_build_security_requirements_content(SomMetaNode *n) {
 static void meta_build_security_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirements");
   meta_set(&n->member_name, "summaryForm");
+  meta_set(&n->section_id, "SR1-SUMM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -133441,6 +133562,7 @@ static void meta_build_session_model_content(SomMetaNode *n) {
 static void meta_build_session_model_session_configuration(SomMetaNode *n) {
   meta_set(&n->class_name, "SessionModel");
   meta_set(&n->member_name, "sessionConfiguration");
+  meta_set(&n->section_id, "SM-SESS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -134705,6 +134827,7 @@ static void meta_build_single_sign_on_policy_session_content(SomMetaNode *n) {
 static void meta_build_sla_and_slo_monitoring_sla_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SlaAndSloMonitoring");
   meta_set(&n->member_name, "slaOverview");
+  meta_set(&n->section_id, "SASM-SLAO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141037,6 +141160,7 @@ static void meta_build_success_criteria_by_category(SomMetaNode *n) {
 static void meta_build_success_criteria_success_criteria_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteria");
   meta_set(&n->member_name, "successCriteriaMatrix");
+  meta_set(&n->section_id, "SC-SUCC");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141061,6 +141185,7 @@ static void meta_build_success_criteria_post_implementation_review(SomMetaNode *
 static void meta_build_success_criteria_by_category_business_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "businessCriteria");
+  meta_set(&n->section_id, "SCBC-BUSI");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141074,6 +141199,7 @@ static void meta_build_success_criteria_by_category_business_criteria(SomMetaNod
 static void meta_build_success_criteria_by_category_technical_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "technicalCriteria");
+  meta_set(&n->section_id, "SCBC-TECH");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141087,6 +141213,7 @@ static void meta_build_success_criteria_by_category_technical_criteria(SomMetaNo
 static void meta_build_success_criteria_by_category_user_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "userCriteria");
+  meta_set(&n->section_id, "SCBC-USER");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141100,6 +141227,7 @@ static void meta_build_success_criteria_by_category_user_criteria(SomMetaNode *n
 static void meta_build_success_criteria_by_category_compliance_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "complianceCriteria");
+  meta_set(&n->section_id, "SCBC-COMP");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141113,6 +141241,7 @@ static void meta_build_success_criteria_by_category_compliance_criteria(SomMetaN
 static void meta_build_success_criteria_by_category_project_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "projectCriteria");
+  meta_set(&n->section_id, "SCBC-PROJ");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -141480,6 +141609,7 @@ static void meta_build_success_criterion_verification_content(SomMetaNode *n) {
 static void meta_build_support_access_support_access_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SupportAccess");
   meta_set(&n->member_name, "supportAccessContent");
+  meta_set(&n->section_id, "SUAC-SUPP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -143672,6 +143802,7 @@ static void meta_build_system_error_code_entry_operations_content(SomMetaNode *n
 static void meta_build_system_error_display_system_error_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorDisplay");
   meta_set(&n->member_name, "systemErrorContent");
+  meta_set(&n->section_id, "SYERDI-SYST");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -144785,6 +144916,7 @@ static void meta_build_system_purpose_content(SomMetaNode *n) {
 static void meta_build_system_purpose_vision_statement(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemPurpose");
   meta_set(&n->member_name, "visionStatement");
+  meta_set(&n->section_id, "SYPUP-VISI");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -144864,6 +144996,7 @@ static void meta_build_system_purpose_scope_boundaries(SomMetaNode *n) {
 static void meta_build_system_quality_goals_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
   meta_set(&n->member_name, "governanceContent");
+  meta_set(&n->section_id, "SYQG-GOVE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -146203,6 +146336,7 @@ static void meta_build_system_technical_assessment_quality_content(SomMetaNode *
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemToReplaceEntry");
   meta_set(&n->member_name, "identificationContent");
+  meta_set(&n->section_id, "SYTORE-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -147911,6 +148045,7 @@ static void meta_build_technical_dependency_entry_content(SomMetaNode *n) {
 static void meta_build_technical_environment_technical_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironment");
   meta_set(&n->member_name, "technicalOverviewContent");
+  meta_set(&n->section_id, "TEEN-TECH");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148765,6 +148900,7 @@ static void meta_build_technical_goal_test_criteria_content(SomMetaNode *n) {
 static void meta_build_technical_goal_test_criteria_test_criteria_form(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalGoalTestCriteria");
   meta_set(&n->member_name, "testCriteriaForm");
+  meta_set(&n->section_id, "TGTC-TEST");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -149341,6 +149477,7 @@ static void meta_build_technical_requirements_content(SomMetaNode *n) {
 static void meta_build_technical_requirements_summary_form(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalRequirements");
   meta_set(&n->member_name, "summaryForm");
+  meta_set(&n->section_id, "TR1-SUMM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -151261,6 +151398,7 @@ static void meta_build_third_party_library_entry_usage_content(SomMetaNode *n) {
 static void meta_build_throwaway_prototype_throwaway_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ThrowawayPrototype");
   meta_set(&n->member_name, "throwawayContent");
+  meta_set(&n->section_id, "THPR-THRO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -153324,6 +153462,7 @@ static void meta_build_trade_off_decision_entry_rationale_content(SomMetaNode *n
 static void meta_build_trade_off_decisions_trade_off_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TradeOffDecisions");
   meta_set(&n->member_name, "tradeOffGovernanceContent");
+  meta_set(&n->section_id, "TROFDE-TRAD");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -153563,6 +153702,7 @@ static void meta_build_training_assessment_reporting_content(SomMetaNode *n) {
 static void meta_build_training_deliverable_requirements_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingDeliverableRequirements");
   meta_set(&n->member_name, "trainingContent");
+  meta_set(&n->section_id, "TRMAT-TRAI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -154046,6 +154186,7 @@ static void meta_build_training_overview_content(SomMetaNode *n) {
 static void meta_build_training_prototype_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingPrototype");
   meta_set(&n->member_name, "trainingContent");
+  meta_set(&n->section_id, "TP-TRAI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -155733,6 +155874,7 @@ static void meta_build_translation_ongoing_content(SomMetaNode *n) {
 static void meta_build_translation_process_translation_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationProcess");
   meta_set(&n->member_name, "translationProcessContent");
+  meta_set(&n->section_id, "TRPR-TRAN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -155877,6 +156019,7 @@ static void meta_build_translation_quality_content(SomMetaNode *n) {
 static void meta_build_translation_requirements_translation_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationRequirements");
   meta_set(&n->member_name, "translationRequirementsContent");
+  meta_set(&n->section_id, "TRAREQ-TRAN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157221,6 +157364,7 @@ static void meta_build_uat_training_content(SomMetaNode *n) {
 static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "identity");
+  meta_set(&n->section_id, "UICOMENT-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157278,6 +157422,7 @@ static void meta_build_ui_component_entry_classification(SomMetaNode *n) {
 static void meta_build_ui_component_entry_visual_design(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "visualDesign");
+  meta_set(&n->section_id, "UICOMENT-VISU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157359,6 +157504,7 @@ static void meta_build_ui_component_entry_visual_diagram(SomMetaNode *n) {
 static void meta_build_ui_component_entry_interactive_behavior(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "interactiveBehavior");
+  meta_set(&n->section_id, "UICOMENT-INTE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157439,6 +157585,7 @@ static void meta_build_ui_component_entry_scroll(SomMetaNode *n) {
 static void meta_build_ui_component_entry_responsiveness(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "responsiveness");
+  meta_set(&n->section_id, "UICOMENT-RESP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157492,6 +157639,7 @@ static void meta_build_ui_component_entry_responsiveness(SomMetaNode *n) {
 static void meta_build_ui_component_entry_accessibility(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "accessibility");
+  meta_set(&n->section_id, "UICOMENT-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157551,6 +157699,7 @@ static void meta_build_ui_component_entry_accessibility(SomMetaNode *n) {
 static void meta_build_ui_component_entry_authorization(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "authorization");
+  meta_set(&n->section_id, "UICOMENT-AUTH");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157604,6 +157753,7 @@ static void meta_build_ui_component_entry_authorization(SomMetaNode *n) {
 static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "resourceIntegration");
+  meta_set(&n->section_id, "UICOMENT-RESO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -157669,6 +157819,7 @@ static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
 static void meta_build_ui_component_entry_data_binding(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "dataBinding");
+  meta_set(&n->section_id, "UICOMENT-DATA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -158105,6 +158256,7 @@ static void meta_build_ui_component_entry_surface_content(SomMetaNode *n) {
 static void meta_build_ui_components_component_library_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponents");
   meta_set(&n->member_name, "componentLibraryOverview");
+  meta_set(&n->section_id, "UICO-COMP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -158825,6 +158977,7 @@ static void meta_build_user_access_permissions_content(SomMetaNode *n) {
 static void meta_build_user_access_permissions_permissions_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccessPermissions");
   meta_set(&n->member_name, "permissionsForm");
+  meta_set(&n->section_id, "UAP-PERM");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -158982,6 +159135,7 @@ static void meta_build_user_accessibility_needs_content(SomMetaNode *n) {
 static void meta_build_user_accessibility_needs_accessibility_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAccessibilityNeeds");
   meta_set(&n->member_name, "accessibilityForm");
+  meta_set(&n->section_id, "UAN-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -159065,6 +159219,7 @@ static void meta_build_user_account_states_definition_state_transition_diagram(S
 static void meta_build_user_assistance_help_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAssistance");
   meta_set(&n->member_name, "helpOverviewContent");
+  meta_set(&n->section_id, "USAS-HELP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -159780,6 +159935,7 @@ static void meta_build_user_category_role_entry_content(SomMetaNode *n) {
 static void meta_build_user_documentation_requirements_documentation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserDocumentationRequirements");
   meta_set(&n->member_name, "documentationContent");
+  meta_set(&n->section_id, "DOANTR-DOCU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -160156,6 +160312,7 @@ static void meta_build_user_journey_content(SomMetaNode *n) {
 static void meta_build_user_journey_journey_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "UserJourney");
   meta_set(&n->member_name, "journeyDiagram");
+  meta_set(&n->section_id, "UJ-JOUR");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -160241,6 +160398,7 @@ static void meta_build_user_journey_pain_points_elem(SomMetaNode *n) {
 static void meta_build_user_journey_opportunities_for_delight(SomMetaNode *n) {
   meta_set(&n->class_name, "UserJourney");
   meta_set(&n->member_name, "opportunitiesForDelight");
+  meta_set(&n->section_id, "UJ-OPPO");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -160700,6 +160858,7 @@ static void meta_build_user_persona_details_content(SomMetaNode *n) {
 static void meta_build_user_persona_details_persona_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserPersonaDetails");
   meta_set(&n->member_name, "personaForm");
+  meta_set(&n->section_id, "UPD-PERS");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -160769,6 +160928,7 @@ static void meta_build_user_persona_details_behavior(SomMetaNode *n) {
 static void meta_build_user_persona_details_visual_representation(SomMetaNode *n) {
   meta_set(&n->class_name, "UserPersonaDetails");
   meta_set(&n->member_name, "visualRepresentation");
+  meta_set(&n->section_id, "UPD-VISU");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -161173,6 +161333,7 @@ static void meta_build_user_training_requirements_content(SomMetaNode *n) {
 static void meta_build_user_training_requirements_training_form(SomMetaNode *n) {
   meta_set(&n->class_name, "UserTrainingRequirements");
   meta_set(&n->member_name, "trainingForm");
+  meta_set(&n->section_id, "USTRRE-TRAI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -161583,6 +161744,7 @@ static void meta_build_validation_constraints_content(SomMetaNode *n) {
 static void meta_build_validation_feedback_validation_display_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValidationFeedback");
   meta_set(&n->member_name, "validationDisplayContent");
+  meta_set(&n->section_id, "VAFE-VALI");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -163255,6 +163417,7 @@ static void meta_build_warranty_transition_content(SomMetaNode *n) {
 static void meta_build_wcag_compliance_wcag_compliance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WcagCompliance");
   meta_set(&n->member_name, "wcagComplianceContent");
+  meta_set(&n->section_id, "WCCO-WCAG");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -163505,6 +163668,7 @@ static void meta_build_wcag_success_criterion_entry_content(SomMetaNode *n) {
 static void meta_build_weighted_quality_matrix_matrix_config_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WeightedQualityMatrix");
   meta_set(&n->member_name, "matrixConfigContent");
+  meta_set(&n->section_id, "WEQUMA-MATR");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -163788,6 +163952,7 @@ static void meta_build_workflow_descriptions_content(SomMetaNode *n) {
 static void meta_build_workflow_descriptions_workflow_overview_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowDescriptions");
   meta_set(&n->member_name, "workflowOverviewDiagram");
+  meta_set(&n->section_id, "WODE-WORK");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -164229,6 +164394,7 @@ static void meta_build_workflow_step_issue_content(SomMetaNode *n) {
 static void meta_build_workflow_step_system_name(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowStepSystem");
   meta_set(&n->member_name, "name");
+  meta_set(&n->section_id, "WOSTSY-NAME");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -212744,7 +212910,7 @@ SomListMetaRef acceptance_criteria_list_nav_items(som_nav_acceptance_criteria_li
 }
 SomMetaRef acceptance_criteria_summary_nav_acceptance_framework_content(som_nav_acceptance_criteria_summary x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "acceptanceFrameworkContent");
+  char *path = spec_path_join(x.ref.path, "ACCRSU-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -212989,7 +213155,7 @@ SomMetaRef access_channels_nav_content(som_nav_access_channels x) {
 }
 SomMetaRef access_channels_nav_channel_diagram(som_nav_access_channels x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "channelDiagram");
+  char *path = spec_path_join(x.ref.path, "AC1-CHAN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213087,7 +213253,7 @@ SomMetaRef access_levels_nav_content(som_nav_access_levels x) {
 }
 SomMetaRef access_levels_nav_access_level_diagram(som_nav_access_levels x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessLevelDiagram");
+  char *path = spec_path_join(x.ref.path, "AL-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213101,7 +213267,7 @@ SomListMetaRef access_levels_nav_levels(som_nav_access_levels x) {
 }
 SomMetaRef access_levels_nav_permission_matrix(som_nav_access_levels x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "permissionMatrix");
+  char *path = spec_path_join(x.ref.path, "AL-PERM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213129,7 +213295,7 @@ SomListMetaRef access_user_categories_nav_items(som_nav_access_user_categories x
 }
 SomMetaRef accessibility_nav_accessibility_overview_content(som_nav_accessibility x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessibilityOverviewContent");
+  char *path = spec_path_join(x.ref.path, "ACCESS-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213248,7 +213414,7 @@ SomMetaRef accessibility_check_entry_remediation_nav_content(som_nav_accessibili
 }
 SomMetaRef accessibility_checklist_nav_checklist_overview_content(som_nav_accessibility_checklist x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "checklistOverviewContent");
+  char *path = spec_path_join(x.ref.path, "ACCHLS-CHEC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213983,7 +214149,7 @@ SomMetaRef alert_suppression_rules_nav_content(som_nav_alert_suppression_rules x
 }
 SomMetaRef alerting_configuration_nav_alerting_overview(som_nav_alerting_configuration x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "alertingOverview");
+  char *path = spec_path_join(x.ref.path, "ALCO-ALER");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -216314,7 +216480,7 @@ SomMetaRef breadcrumb_configuration_nav_content(som_nav_breadcrumb_configuration
 }
 SomMetaRef breakpoint_configuration_nav_breakpoint_overview(som_nav_breakpoint_configuration x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "breakpointOverview");
+  char *path = spec_path_join(x.ref.path, "BC-BREA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217000,21 +217166,21 @@ SomMetaRef business_object_attribute_entry_validation_nav_content(som_nav_busine
 }
 SomMetaRef business_object_entry_nav_identity(som_nav_business_object_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "BJOEN-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_object_entry_nav_domain_context(som_nav_business_object_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "domainContext");
+  char *path = spec_path_join(x.ref.path, "BJOEN-DOMA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_object_entry_nav_lifecycle_summary(som_nav_business_object_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "lifecycleSummary");
+  char *path = spec_path_join(x.ref.path, "BJOEN-LIFE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217028,7 +217194,7 @@ SomListMetaRef business_object_entry_nav_behavior_rules(som_nav_business_object_
 }
 SomMetaRef business_object_entry_nav_ownership(som_nav_business_object_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ownership");
+  char *path = spec_path_join(x.ref.path, "BJOEN-OWNE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217280,42 +217446,42 @@ SomMetaRef business_process_entry_nav_process_flow_preview(som_nav_business_proc
 }
 SomMetaRef business_rule_entry_nav_identity(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "BIRU-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_rule_entry_nav_classification(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "classification");
+  char *path = spec_path_join(x.ref.path, "BIRU-CLAS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_rule_entry_nav_rule_logic(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ruleLogic");
+  char *path = spec_path_join(x.ref.path, "BIRU-RULE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_rule_entry_nav_implementation(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "implementation");
+  char *path = spec_path_join(x.ref.path, "BIRU-IMPL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_rule_entry_nav_exception_handling(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "exceptionHandling");
+  char *path = spec_path_join(x.ref.path, "BIRU-EXCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef business_rule_entry_nav_governance(som_nav_business_rule_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "governance");
+  char *path = spec_path_join(x.ref.path, "BIRU-GOVE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -218288,7 +218454,7 @@ SomMetaRef changed_role_transition_training_nav_content(som_nav_changed_role_tra
 }
 SomMetaRef changes_from_current_structure_nav_overview_content(som_nav_changes_from_current_structure x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "overviewContent");
+  char *path = spec_path_join(x.ref.path, "OCCHG-OVER");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -219247,7 +219413,7 @@ SomMetaRef communication_matrix_nav_content(som_nav_communication_matrix x) {
 }
 SomMetaRef communication_matrix_nav_communication_flow_diagram(som_nav_communication_matrix x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "communicationFlowDiagram");
+  char *path = spec_path_join(x.ref.path, "COMA-COMM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -219380,7 +219546,7 @@ SomMetaRef communication_type_entry_nav_content(som_nav_communication_type_entry
 }
 SomMetaRef compatibility_characteristic_nav_compatibility_content(som_nav_compatibility_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "compatibilityContent");
+  char *path = spec_path_join(x.ref.path, "CMPT-COMP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221200,21 +221366,21 @@ SomMetaRef context_diagram_nav_content(som_nav_context_diagram x) {
 }
 SomMetaRef context_diagram_nav_diagram(som_nav_context_diagram x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "diagram");
+  char *path = spec_path_join(x.ref.path, "CD-DIAG");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef context_diagram_nav_legend(som_nav_context_diagram x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "legend");
+  char *path = spec_path_join(x.ref.path, "CD-LEGE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef contextual_help_nav_contextual_help_content(som_nav_contextual_help x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "contextualHelpContent");
+  char *path = spec_path_join(x.ref.path, "COHE-CONT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221627,14 +221793,14 @@ SomMetaRef current_architecture_nav_content(som_nav_current_architecture x) {
 }
 SomMetaRef current_architecture_nav_architecture_diagram(som_nav_current_architecture x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "architectureDiagram");
+  char *path = spec_path_join(x.ref.path, "CARCH-ARCH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef current_architecture_nav_deployment_topology(som_nav_current_architecture x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "deploymentTopology");
+  char *path = spec_path_join(x.ref.path, "CARCH-DEPL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221697,7 +221863,7 @@ SomMetaRef current_business_processes_nav_content(som_nav_current_business_proce
 }
 SomMetaRef current_business_processes_nav_process_landscape_diagram(som_nav_current_business_processes x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processLandscapeDiagram");
+  char *path = spec_path_join(x.ref.path, "CUBUPR-PROC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221767,14 +221933,14 @@ SomMetaRef current_data_landscape_nav_content(som_nav_current_data_landscape x) 
 }
 SomMetaRef current_data_landscape_nav_data_landscape_overview_diagram(som_nav_current_data_landscape x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataLandscapeOverviewDiagram");
+  char *path = spec_path_join(x.ref.path, "CUDALA-DATAL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef current_data_landscape_nav_data_architecture_diagram(som_nav_current_data_landscape x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataArchitectureDiagram");
+  char *path = spec_path_join(x.ref.path, "CUDALA-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -221935,7 +222101,7 @@ SomMetaRef current_workflow_entry_nav_content(som_nav_current_workflow_entry x) 
 }
 SomMetaRef current_workflow_entry_nav_workflow_diagram(som_nav_current_workflow_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "workflowDiagram");
+  char *path = spec_path_join(x.ref.path, "CUWF-WORK");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -222446,7 +222612,7 @@ som_nav_organizational_requirements d04_requirements_specification_nav_organizat
 }
 SomMetaRef d04_requirements_specification_nav_traceability_matrix(som_nav_d04_requirements_specification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "traceabilityMatrix");
+  char *path = spec_path_join(x.ref.path, "RSP-TRAC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223419,14 +223585,14 @@ SomMetaRef data_attribute_constraint_entry_nav_content(som_nav_data_attribute_co
 }
 SomMetaRef data_attribute_entry_nav_identity(som_nav_data_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "DAATT-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_attribute_entry_nav_data_type_spec(som_nav_data_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataTypeSpec");
+  char *path = spec_path_join(x.ref.path, "DAATT-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223440,21 +223606,21 @@ SomListMetaRef data_attribute_entry_nav_constraints(som_nav_data_attribute_entry
 }
 SomMetaRef data_attribute_entry_nav_derivation(som_nav_data_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "derivation");
+  char *path = spec_path_join(x.ref.path, "DAATT-DERI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_attribute_entry_nav_security_classification(som_nav_data_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "securityClassification");
+  char *path = spec_path_join(x.ref.path, "DAATT-SECU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_attribute_entry_nav_migration_lineage(som_nav_data_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "migrationLineage");
+  char *path = spec_path_join(x.ref.path, "DAATT-MIGR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223468,7 +223634,7 @@ SomListMetaRef data_attribute_entry_nav_display_properties(som_nav_data_attribut
 }
 SomMetaRef data_classification_nav_overview(som_nav_data_classification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "overview");
+  char *path = spec_path_join(x.ref.path, "DATCL-OVER");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223482,35 +223648,35 @@ SomListMetaRef data_classification_nav_items(som_nav_data_classification x) {
 }
 SomMetaRef data_classification_entry_nav_identity(som_nav_data_classification_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "DCLSE-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_classification_entry_nav_storage_transmission(som_nav_data_classification_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "storageTransmission");
+  char *path = spec_path_join(x.ref.path, "DCLSE-STOR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_classification_entry_nav_access_control(som_nav_data_classification_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessControl");
+  char *path = spec_path_join(x.ref.path, "DCLSE-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_classification_entry_nav_retention_disposal(som_nav_data_classification_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "retentionDisposal");
+  char *path = spec_path_join(x.ref.path, "DCLSE-RETE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_classification_entry_nav_compliance(som_nav_data_classification_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "compliance");
+  char *path = spec_path_join(x.ref.path, "DCLSE-COMP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223573,7 +223739,7 @@ som_nav_data_duplication_summary data_duplication_analysis_nav_duplication_summa
 }
 SomMetaRef data_duplication_analysis_nav_duplication_diagram(som_nav_data_duplication_analysis x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "duplicationDiagram");
+  char *path = spec_path_join(x.ref.path, "DADUAN-DUPL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223643,14 +223809,14 @@ SomMetaRef data_duplication_summary_nav_content(som_nav_data_duplication_summary
 }
 SomMetaRef data_entity_entry_nav_identity(som_nav_data_entity_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "DAENT-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef data_entity_entry_nav_classification(som_nav_data_entity_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "classification");
+  char *path = spec_path_join(x.ref.path, "DAENT-CLAS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223664,7 +223830,7 @@ SomListMetaRef data_entity_entry_nav_volume_metrics(som_nav_data_entity_entry x)
 }
 SomMetaRef data_entity_entry_nav_lifecycle_policy(som_nav_data_entity_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "lifecyclePolicy");
+  char *path = spec_path_join(x.ref.path, "DAENT-LIFE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223678,7 +223844,7 @@ SomListMetaRef data_entity_entry_nav_compliance_requirements(som_nav_data_entity
 }
 SomMetaRef data_entity_entry_nav_relationship_summary(som_nav_data_entity_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relationshipSummary");
+  char *path = spec_path_join(x.ref.path, "DAENT-RELA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223825,7 +223991,7 @@ som_nav_data_governance_maturity data_governance_nav_governance_maturity(som_nav
 }
 SomMetaRef data_governance_nav_governance_org_chart(som_nav_data_governance x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "governanceOrgChart");
+  char *path = spec_path_join(x.ref.path, "DAGO-GOVE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -224028,7 +224194,7 @@ som_nav_data_integration_summary data_integration_points_nav_integration_summary
 }
 SomMetaRef data_integration_points_nav_data_flow_diagram(som_nav_data_integration_points x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataFlowDiagram");
+  char *path = spec_path_join(x.ref.path, "DAINPO-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -224315,7 +224481,7 @@ som_nav_data_ownership_summary data_ownership_nav_ownership_summary(som_nav_data
 }
 SomMetaRef data_ownership_nav_ownership_matrix_diagram(som_nav_data_ownership x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ownershipMatrixDiagram");
+  char *path = spec_path_join(x.ref.path, "DAOW-OWNE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -224574,7 +224740,7 @@ som_nav_data_quality_dimensions_summary data_quality_assessment_nav_dimensions_s
 }
 SomMetaRef data_quality_assessment_nav_quality_issues_severity_chart(som_nav_data_quality_assessment x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "qualityIssuesSeverityChart");
+  char *path = spec_path_join(x.ref.path, "DAQUAS-QUAL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -224826,7 +224992,7 @@ SomMetaRef data_source_inventory_nav_content(som_nav_data_source_inventory x) {
 }
 SomMetaRef data_source_inventory_nav_data_source_map_diagram(som_nav_data_source_inventory x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataSourceMapDiagram");
+  char *path = spec_path_join(x.ref.path, "DASOIN-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -225043,7 +225209,7 @@ som_nav_data_volume_summary data_volumes_and_growth_nav_volume_summary(som_nav_d
 }
 SomMetaRef data_volumes_and_growth_nav_growth_trend_chart(som_nav_data_volumes_and_growth x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "growthTrendChart");
+  char *path = spec_path_join(x.ref.path, "DVAG-GROW");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -225806,7 +225972,7 @@ SomMetaRef dependencies_and_integrations_nav_content(som_nav_dependencies_and_in
 }
 SomMetaRef dependencies_and_integrations_nav_dependency_diagram(som_nav_dependencies_and_integrations x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dependencyDiagram");
+  char *path = spec_path_join(x.ref.path, "DEPNT-DEPE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -227787,7 +227953,7 @@ SomListMetaRef documentation_deliverables_nav_items(som_nav_documentation_delive
 }
 SomMetaRef documentation_quality_criteria_nav_documentation_overview_content(som_nav_documentation_quality_criteria x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "documentationOverviewContent");
+  char *path = spec_path_join(x.ref.path, "DOQUCR-DOCU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -227976,21 +228142,21 @@ SomMetaRef domain_boundaries_nav_content(som_nav_domain_boundaries x) {
 }
 SomMetaRef domain_boundaries_nav_context_map(som_nav_domain_boundaries x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "contextMap");
+  char *path = spec_path_join(x.ref.path, "DB-CONT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef domain_boundaries_nav_within_scope(som_nav_domain_boundaries x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "withinScope");
+  char *path = spec_path_join(x.ref.path, "DB-WITH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef domain_boundaries_nav_outside_scope(som_nav_domain_boundaries x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "outsideScope");
+  char *path = spec_path_join(x.ref.path, "DB-OUTS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -228144,7 +228310,7 @@ SomMetaRef domain_processes_nav_content(som_nav_domain_processes x) {
 }
 SomMetaRef domain_processes_nav_process_overview_diagram(som_nav_domain_processes x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processOverviewDiagram");
+  char *path = spec_path_join(x.ref.path, "DP-PROC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -228515,7 +228681,7 @@ SomMetaRef entity_index_entry_nav_content(som_nav_entity_index_entry x) {
 }
 SomMetaRef entity_relationship_entry_nav_identity(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "ENRLE-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -228529,21 +228695,21 @@ SomListMetaRef entity_relationship_entry_nav_participants(som_nav_entity_relatio
 }
 SomMetaRef entity_relationship_entry_nav_cardinality(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "cardinality");
+  char *path = spec_path_join(x.ref.path, "ENRLE-CARD");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef entity_relationship_entry_nav_referential_integrity(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "referentialIntegrity");
+  char *path = spec_path_join(x.ref.path, "ENRLE-REFE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef entity_relationship_entry_nav_navigation(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "navigation");
+  char *path = spec_path_join(x.ref.path, "ENRLE-NAVI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -229012,7 +229178,7 @@ SomMetaRef error_budget_tracking_monitoring_nav_content(som_nav_error_budget_tra
 }
 SomMetaRef error_handling_nav_error_philosophy_content(som_nav_error_handling x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "errorPhilosophyContent");
+  char *path = spec_path_join(x.ref.path, "ERHACO-ERRO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -229194,7 +229360,7 @@ SomMetaRef error_procedure_entry_nav_content(som_nav_error_procedure_entry x) {
 }
 SomMetaRef error_recovery_nav_recovery_mechanisms_content(som_nav_error_recovery x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "recoveryMechanismsContent");
+  char *path = spec_path_join(x.ref.path, "ERRE-RECO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -230034,7 +230200,7 @@ som_nav_connectivity_resilience external_connectivity_section_nav_resilience(som
 }
 SomMetaRef external_interface_entry_nav_identification_content(som_nav_external_interface_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identificationContent");
+  char *path = spec_path_join(x.ref.path, "EIE-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -230377,7 +230543,7 @@ som_nav_external_system_context_entry_governance external_system_context_entry_n
 }
 SomMetaRef external_system_context_entry_nav_data_mapping(som_nav_external_system_context_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataMapping");
+  char *path = spec_path_join(x.ref.path, "EXSYCOEN-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231133,7 +231299,7 @@ SomMetaRef flexibility_nav_narrative(som_nav_flexibility x) {
 }
 SomMetaRef flexibility_characteristic_nav_flexibility_content(som_nav_flexibility_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "flexibilityContent");
+  char *path = spec_path_join(x.ref.path, "FLXC-FLEX");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231364,14 +231530,14 @@ SomMetaRef function_entry_operations_nav_content(som_nav_function_entry_operatio
 }
 SomMetaRef function_model_nav_decomposition_overview(som_nav_function_model x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "decompositionOverview");
+  char *path = spec_path_join(x.ref.path, "FUMO-DECO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef function_model_nav_matrix_overview(som_nav_function_model x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "matrixOverview");
+  char *path = spec_path_join(x.ref.path, "FUMO-MATR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231560,7 +231726,7 @@ SomMetaRef functional_requirements_nav_content(som_nav_functional_requirements x
 }
 SomMetaRef functional_requirements_nav_summary_form(som_nav_functional_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "summaryForm");
+  char *path = spec_path_join(x.ref.path, "FR-SUMM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231595,7 +231761,7 @@ SomListMetaRef functional_responsibilities_nav_items(som_nav_functional_responsi
 }
 SomMetaRef functional_suitability_characteristic_nav_functional_suitability_content(som_nav_functional_suitability_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "functionalSuitabilityContent");
+  char *path = spec_path_join(x.ref.path, "FNSU-FUNC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231882,7 +232048,7 @@ SomMetaRef goal_resources_nav_content(som_nav_goal_resources x) {
 }
 SomMetaRef goal_resources_nav_resources_form(som_nav_goal_resources x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "resourcesForm");
+  char *path = spec_path_join(x.ref.path, "GORE-RESO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -231952,7 +232118,7 @@ SomMetaRef goals_nav_content(som_nav_goals x) {
 }
 SomMetaRef goals_nav_goal_hierarchy_diagram(som_nav_goals x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "goalHierarchyDiagram");
+  char *path = spec_path_join(x.ref.path, "GOALS-GOAL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -233513,7 +233679,7 @@ SomMetaRef interaction_business_rules_nav_content(som_nav_interaction_business_r
 }
 SomMetaRef interaction_capability_characteristic_nav_interaction_capability_content(som_nav_interaction_capability_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "interactionCapabilityContent");
+  char *path = spec_path_join(x.ref.path, "INCP-INTE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -234465,7 +234631,7 @@ som_nav_system_summary introduction_and_scope_nav_summary(som_nav_introduction_a
 }
 SomMetaRef introduction_and_scope_nav_system_context_diagram(som_nav_introduction_and_scope x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "systemContextDiagram");
+  char *path = spec_path_join(x.ref.path, "INSC-SYST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -234927,7 +235093,7 @@ SomMetaRef key_concepts_nav_content(som_nav_key_concepts x) {
 }
 SomMetaRef key_concepts_nav_conceptual_model_diagram(som_nav_key_concepts x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "conceptualModelDiagram");
+  char *path = spec_path_join(x.ref.path, "KC-CONC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -235109,7 +235275,7 @@ SomMetaRef kpi_entry_nav_content(som_nav_kpi_entry x) {
 }
 SomMetaRef language_country_selection_nav_language_selection_content(som_nav_language_country_selection x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "languageSelectionContent");
+  char *path = spec_path_join(x.ref.path, "LACOSE-LANG");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -235648,7 +235814,7 @@ SomMetaRef localization_formatting_nav_content(som_nav_localization_formatting x
 }
 SomMetaRef localization_process_nav_localization_process_content(som_nav_localization_process x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "localizationProcessContent");
+  char *path = spec_path_join(x.ref.path, "LOPR-LOCA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -236033,7 +236199,7 @@ SomMetaRef maintainability_changeability_nav_content(som_nav_maintainability_cha
 }
 SomMetaRef maintainability_characteristic_nav_maintainability_content(som_nav_maintainability_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "maintainabilityContent");
+  char *path = spec_path_join(x.ref.path, "MNTC-MAIN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -236523,7 +236689,7 @@ SomMetaRef methodology_deviation_summary_nav_content(som_nav_methodology_deviati
 }
 SomMetaRef metrics_and_observability_nav_metrics_overview(som_nav_metrics_and_observability x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "metricsOverview");
+  char *path = spec_path_join(x.ref.path, "MEANOB-METR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -236747,7 +236913,7 @@ SomMetaRef migration_compliance_nav_content(som_nav_migration_compliance x) {
 }
 SomMetaRef migration_considerations_nav_strategy_content(som_nav_migration_considerations x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "strategyContent");
+  char *path = spec_path_join(x.ref.path, "MIGCON-STRA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -237244,7 +237410,7 @@ SomMetaRef migration_risk_tracking_nav_content(som_nav_migration_risk_tracking x
 }
 SomMetaRef migration_risks_nav_governance_content(som_nav_migration_risks x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "governanceContent");
+  char *path = spec_path_join(x.ref.path, "MIRI-GOVE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -237720,7 +237886,7 @@ SomMetaRef module_versioning_strategy_release_management_nav_content(som_nav_mod
 }
 SomMetaRef monitoring_nav_monitoring_overview(som_nav_monitoring x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "monitoringOverview");
+  char *path = spec_path_join(x.ref.path, "MONITO-MONI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -237874,7 +238040,7 @@ SomMetaRef monitoring_coverage_nav_content(som_nav_monitoring_coverage x) {
 }
 SomMetaRef monitoring_dashboards_nav_dashboard_overview(som_nav_monitoring_dashboards x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dashboardOverview");
+  char *path = spec_path_join(x.ref.path, "MODA-DASH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -238056,14 +238222,14 @@ SomMetaRef multi_channel_experience_nav_content(som_nav_multi_channel_experience
 }
 SomMetaRef multi_channel_experience_nav_multi_channel_configuration(som_nav_multi_channel_experience x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "multiChannelConfiguration");
+  char *path = spec_path_join(x.ref.path, "MCE-MULT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef multi_language_support_nav_multi_language_overview(som_nav_multi_language_support x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "multiLanguageOverview");
+  char *path = spec_path_join(x.ref.path, "MLAR-MULT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -238091,7 +238257,7 @@ SomListMetaRef multi_language_support_nav_supported_locales(som_nav_multi_langua
 }
 SomMetaRef must_pass_criteria_nav_must_pass_overview_content(som_nav_must_pass_criteria x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "mustPassOverviewContent");
+  char *path = spec_path_join(x.ref.path, "MUPACR-MUST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -239358,7 +239524,7 @@ SomMetaRef on_call_schedule_config_operations_nav_content(som_nav_on_call_schedu
 }
 SomMetaRef onboarding_help_nav_onboarding_content(som_nav_onboarding_help x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "onboardingContent");
+  char *path = spec_path_join(x.ref.path, "ONHE-ONBO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -239715,7 +239881,7 @@ SomMetaRef org_requirement_implementation_plan_nav_content(som_nav_org_requireme
 }
 SomMetaRef org_requirement_implementation_plan_nav_plan_form(som_nav_org_requirement_implementation_plan x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "planForm");
+  char *path = spec_path_join(x.ref.path, "ORIP-PLAN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -239820,14 +239986,14 @@ SomListMetaRef organizational_context_nav_organizational_units(som_nav_organizat
 }
 SomMetaRef organizational_context_nav_business_process_coverage(som_nav_organizational_context x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "businessProcessCoverage");
+  char *path = spec_path_join(x.ref.path, "OC-BUSI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef organizational_environment_nav_organization_content(som_nav_organizational_environment x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "organizationContent");
+  char *path = spec_path_join(x.ref.path, "OREN-ORGA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -240023,7 +240189,7 @@ SomMetaRef organizational_requirements_nav_content(som_nav_organizational_requir
 }
 SomMetaRef organizational_requirements_nav_summary_form(som_nav_organizational_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "summaryForm");
+  char *path = spec_path_join(x.ref.path, "OR-SUMM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -240359,7 +240525,7 @@ SomMetaRef pain_point_gap_correlation_nav_content(som_nav_pain_point_gap_correla
 }
 SomMetaRef pain_point_gap_correlation_nav_correlation_diagram(som_nav_pain_point_gap_correlation x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "correlationDiagram");
+  char *path = spec_path_join(x.ref.path, "PPGC-CORR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -240422,14 +240588,14 @@ SomMetaRef pain_points_and_gaps_nav_content(som_nav_pain_points_and_gaps x) {
 }
 SomMetaRef pain_points_and_gaps_nav_pain_points_overview_diagram(som_nav_pain_points_and_gaps x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "painPointsOverviewDiagram");
+  char *path = spec_path_join(x.ref.path, "PPAG-PAIN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef pain_points_and_gaps_nav_pain_points_priority_matrix(som_nav_pain_points_and_gaps x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "painPointsPriorityMatrix");
+  char *path = spec_path_join(x.ref.path, "PPAG-PAINP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -240702,7 +240868,7 @@ SomMetaRef penetration_testing_requirements_scheduling_nav_content(som_nav_penet
 }
 SomMetaRef performance_efficiency_characteristic_nav_performance_efficiency_content(som_nav_performance_efficiency_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "performanceEfficiencyContent");
+  char *path = spec_path_join(x.ref.path, "PEEF-PERF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -241801,7 +241967,7 @@ som_nav_process_adjustment_summary process_adjustments_nav_adjustment_summary(so
 }
 SomMetaRef process_adjustments_nav_process_flow_diagram(som_nav_process_adjustments x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processFlowDiagram");
+  char *path = spec_path_join(x.ref.path, "PCADJ-PROC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -242193,7 +242359,7 @@ SomMetaRef process_interdependency_matrix_nav_content(som_nav_process_interdepen
 }
 SomMetaRef process_interdependency_matrix_nav_dependency_diagram(som_nav_process_interdependency_matrix x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dependencyDiagram");
+  char *path = spec_path_join(x.ref.path, "PRINMA-DEPE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -242844,7 +243010,7 @@ SomMetaRef project_organization_and_process_nav_content(som_nav_project_organiza
 }
 SomMetaRef project_organization_and_process_nav_methodology_deviation_diagram(som_nav_project_organization_and_process x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "methodologyDeviationDiagram");
+  char *path = spec_path_join(x.ref.path, "PRPO-METH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243033,7 +243199,7 @@ som_nav_protocol_compliance_requirements protocols_and_standards_section_nav_com
 }
 SomMetaRef prototype_nav_prototype_overview(som_nav_prototype x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "prototypeOverview");
+  char *path = spec_path_join(x.ref.path, "PROTOT-PROT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243103,7 +243269,7 @@ SomMetaRef prototype_feature_entry_nav_content(som_nav_prototype_feature_entry x
 }
 SomMetaRef prototype_feature_subset_nav_feature_subset_content(som_nav_prototype_feature_subset x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "featureSubsetContent");
+  char *path = spec_path_join(x.ref.path, "PRFESU-FEAT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243159,7 +243325,7 @@ SomMetaRef prototype_goal_entry_nav_content(som_nav_prototype_goal_entry x) {
 }
 SomMetaRef prototype_goals_nav_goals_content(som_nav_prototype_goals x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "goalsContent");
+  char *path = spec_path_join(x.ref.path, "PG-GOAL");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243229,7 +243395,7 @@ SomMetaRef prototype_timeline_nav_content(som_nav_prototype_timeline x) {
 }
 SomMetaRef prototype_type_nav_prototype_type_overview(som_nav_prototype_type x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "prototypeTypeOverview");
+  char *path = spec_path_join(x.ref.path, "PRTYSE-PROT");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243418,7 +243584,7 @@ SomMetaRef quality_category_entry_relationships_nav_content(som_nav_quality_cate
 }
 SomMetaRef quality_framework_nav_framework_content(som_nav_quality_framework x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "frameworkContent");
+  char *path = spec_path_join(x.ref.path, "QLFWK-FRAM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243579,7 +243745,7 @@ som_nav_quality_gate_adjustment_summary quality_gate_adjustments_nav_adjustment_
 }
 SomMetaRef quality_gate_adjustments_nav_gate_flow_diagram(som_nav_quality_gate_adjustments x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "gateFlowDiagram");
+  char *path = spec_path_join(x.ref.path, "QGADJ-GATE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243670,7 +243836,7 @@ SomMetaRef quality_gate_check_entry_verification_nav_content(som_nav_quality_gat
 }
 SomMetaRef quality_gate_checklist_nav_checklist_overview_content(som_nav_quality_gate_checklist x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "checklistOverviewContent");
+  char *path = spec_path_join(x.ref.path, "QUGACH-CHEC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -243719,7 +243885,7 @@ SomMetaRef quality_goals_resources_nav_content(som_nav_quality_goals_resources x
 }
 SomMetaRef quality_prioritization_nav_prioritization_framework_content(som_nav_quality_prioritization x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "prioritizationFrameworkContent");
+  char *path = spec_path_join(x.ref.path, "QUPR-PRIO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -244398,7 +244564,7 @@ SomMetaRef reliability_nav_narrative(som_nav_reliability x) {
 }
 SomMetaRef reliability_characteristic_nav_reliability_content(som_nav_reliability_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "reliabilityContent");
+  char *path = spec_path_join(x.ref.path, "RELC-RELI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245385,7 +245551,7 @@ SomMetaRef requirement_traceability_nav_content(som_nav_requirement_traceability
 }
 SomMetaRef requirement_traceability_nav_traceability_form(som_nav_requirement_traceability x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "traceabilityForm");
+  char *path = spec_path_join(x.ref.path, "RT-TRAC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245427,21 +245593,21 @@ SomMetaRef requirement_ui_specification_nav_content(som_nav_requirement_ui_speci
 }
 SomMetaRef requirement_ui_specification_nav_ui_form(som_nav_requirement_ui_specification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "uiForm");
+  char *path = spec_path_join(x.ref.path, "RUS-UIFO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef requirement_ui_specification_nav_layout_code(som_nav_requirement_ui_specification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "layoutCode");
+  char *path = spec_path_join(x.ref.path, "RUS-LAYO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef requirement_ui_specification_nav_mockup_description(som_nav_requirement_ui_specification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "mockupDescription");
+  char *path = spec_path_join(x.ref.path, "RUS-MOCK");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245504,14 +245670,14 @@ SomMetaRef requirements_overview_nav_content(som_nav_requirements_overview x) {
 }
 SomMetaRef requirements_overview_nav_requirements_form(som_nav_requirements_overview x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "requirementsForm");
+  char *path = spec_path_join(x.ref.path, "RO-REQU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef requirements_overview_nav_traceability_matrix(som_nav_requirements_overview x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "traceabilityMatrix");
+  char *path = spec_path_join(x.ref.path, "RO-TRAC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245791,7 +245957,7 @@ SomMetaRef responsibility_systems_nav_content(som_nav_responsibility_systems x) 
 }
 SomMetaRef responsive_behavior_nav_layout_adaptation(som_nav_responsive_behavior x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "layoutAdaptation");
+  char *path = spec_path_join(x.ref.path, "REBE-LAYO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245868,7 +246034,7 @@ SomMetaRef responsive_behavior_visibility_nav_content(som_nav_responsive_behavio
 }
 SomMetaRef responsive_design_nav_responsive_overview(som_nav_responsive_design x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "responsiveOverview");
+  char *path = spec_path_join(x.ref.path, "REDE-RESP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -246092,7 +246258,7 @@ som_nav_component_registry reusable_components_section_nav_registry(som_nav_reus
 }
 SomMetaRef reusable_prototype_nav_reusable_content(som_nav_reusable_prototype x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "reusableContent");
+  char *path = spec_path_join(x.ref.path, "REUPRO-REUS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -246673,7 +246839,7 @@ som_nav_role_adjustment_summary role_adjustments_nav_adjustment_summary(som_nav_
 }
 SomMetaRef role_adjustments_nav_role_comparison_diagram(som_nav_role_adjustments x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "roleComparisonDiagram");
+  char *path = spec_path_join(x.ref.path, "RLADJ-ROLE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -248591,7 +248757,7 @@ SomMetaRef security_certification_requirements_soc2_nav_content(som_nav_security
 }
 SomMetaRef security_characteristic_nav_security_content(som_nav_security_characteristic x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "securityContent");
+  char *path = spec_path_join(x.ref.path, "SECC-SECU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -248948,7 +249114,7 @@ SomMetaRef security_requirements_nav_content(som_nav_security_requirements x) {
 }
 SomMetaRef security_requirements_nav_summary_form(som_nav_security_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "summaryForm");
+  char *path = spec_path_join(x.ref.path, "SR1-SUMM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -249921,7 +250087,7 @@ SomMetaRef session_model_nav_content(som_nav_session_model x) {
 }
 SomMetaRef session_model_nav_session_configuration(som_nav_session_model x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "sessionConfiguration");
+  char *path = spec_path_join(x.ref.path, "SM-SESS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -250334,7 +250500,7 @@ SomMetaRef single_sign_on_policy_session_nav_content(som_nav_single_sign_on_poli
 }
 SomMetaRef sla_and_slo_monitoring_nav_sla_overview(som_nav_sla_and_slo_monitoring x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "slaOverview");
+  char *path = spec_path_join(x.ref.path, "SASM-SLAO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -252259,7 +252425,7 @@ som_nav_success_criteria_by_category success_criteria_nav_by_category(som_nav_su
 }
 SomMetaRef success_criteria_nav_success_criteria_matrix(som_nav_success_criteria x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "successCriteriaMatrix");
+  char *path = spec_path_join(x.ref.path, "SC-SUCC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -252273,35 +252439,35 @@ som_nav_post_implementation_review success_criteria_nav_post_implementation_revi
 }
 SomMetaRef success_criteria_by_category_nav_business_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "businessCriteria");
+  char *path = spec_path_join(x.ref.path, "SCBC-BUSI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef success_criteria_by_category_nav_technical_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalCriteria");
+  char *path = spec_path_join(x.ref.path, "SCBC-TECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef success_criteria_by_category_nav_user_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "userCriteria");
+  char *path = spec_path_join(x.ref.path, "SCBC-USER");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef success_criteria_by_category_nav_compliance_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "complianceCriteria");
+  char *path = spec_path_join(x.ref.path, "SCBC-COMP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef success_criteria_by_category_nav_project_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "projectCriteria");
+  char *path = spec_path_join(x.ref.path, "SCBC-PROJ");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -252413,7 +252579,7 @@ SomMetaRef success_criterion_verification_nav_content(som_nav_success_criterion_
 }
 SomMetaRef support_access_nav_support_access_content(som_nav_support_access x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "supportAccessContent");
+  char *path = spec_path_join(x.ref.path, "SUAC-SUPP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -253148,7 +253314,7 @@ SomMetaRef system_error_code_entry_operations_nav_content(som_nav_system_error_c
 }
 SomMetaRef system_error_display_nav_system_error_content(som_nav_system_error_display x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "systemErrorContent");
+  char *path = spec_path_join(x.ref.path, "SYERDI-SYST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -253498,7 +253664,7 @@ SomMetaRef system_purpose_nav_content(som_nav_system_purpose x) {
 }
 SomMetaRef system_purpose_nav_vision_statement(som_nav_system_purpose x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "visionStatement");
+  char *path = spec_path_join(x.ref.path, "SYPUP-VISI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -253547,7 +253713,7 @@ som_nav_scope_boundaries system_purpose_nav_scope_boundaries(som_nav_system_purp
 }
 SomMetaRef system_quality_goals_nav_governance_content(som_nav_system_quality_goals x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "governanceContent");
+  char *path = spec_path_join(x.ref.path, "SYQG-GOVE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254093,7 +254259,7 @@ SomMetaRef system_technical_assessment_quality_nav_content(som_nav_system_techni
 }
 SomMetaRef system_to_replace_entry_nav_identification_content(som_nav_system_to_replace_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identificationContent");
+  char *path = spec_path_join(x.ref.path, "SYTORE-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254611,7 +254777,7 @@ SomMetaRef technical_dependency_entry_nav_content(som_nav_technical_dependency_e
 }
 SomMetaRef technical_environment_nav_technical_overview_content(som_nav_technical_environment x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalOverviewContent");
+  char *path = spec_path_join(x.ref.path, "TEEN-TECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254919,7 +255085,7 @@ SomMetaRef technical_goal_test_criteria_nav_content(som_nav_technical_goal_test_
 }
 SomMetaRef technical_goal_test_criteria_nav_test_criteria_form(som_nav_technical_goal_test_criteria x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "testCriteriaForm");
+  char *path = spec_path_join(x.ref.path, "TGTC-TEST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -255108,7 +255274,7 @@ SomMetaRef technical_requirements_nav_content(som_nav_technical_requirements x) 
 }
 SomMetaRef technical_requirements_nav_summary_form(som_nav_technical_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "summaryForm");
+  char *path = spec_path_join(x.ref.path, "TR1-SUMM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -255745,7 +255911,7 @@ SomMetaRef third_party_library_entry_usage_nav_content(som_nav_third_party_libra
 }
 SomMetaRef throwaway_prototype_nav_throwaway_content(som_nav_throwaway_prototype x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "throwawayContent");
+  char *path = spec_path_join(x.ref.path, "THPR-THRO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -256277,7 +256443,7 @@ SomMetaRef trade_off_decision_entry_rationale_nav_content(som_nav_trade_off_deci
 }
 SomMetaRef trade_off_decisions_nav_trade_off_governance_content(som_nav_trade_off_decisions x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "tradeOffGovernanceContent");
+  char *path = spec_path_join(x.ref.path, "TROFDE-TRAD");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -256347,7 +256513,7 @@ SomMetaRef training_assessment_reporting_nav_content(som_nav_training_assessment
 }
 SomMetaRef training_deliverable_requirements_nav_training_content(som_nav_training_deliverable_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "trainingContent");
+  char *path = spec_path_join(x.ref.path, "TRMAT-TRAI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -256459,7 +256625,7 @@ SomMetaRef training_overview_nav_content(som_nav_training_overview x) {
 }
 SomMetaRef training_prototype_nav_training_content(som_nav_training_prototype x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "trainingContent");
+  char *path = spec_path_join(x.ref.path, "TP-TRAI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -256900,7 +257066,7 @@ SomMetaRef translation_ongoing_nav_content(som_nav_translation_ongoing x) {
 }
 SomMetaRef translation_process_nav_translation_process_content(som_nav_translation_process x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "translationProcessContent");
+  char *path = spec_path_join(x.ref.path, "TRPR-TRAN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -256956,7 +257122,7 @@ SomMetaRef translation_quality_nav_content(som_nav_translation_quality x) {
 }
 SomMetaRef translation_requirements_nav_translation_requirements_content(som_nav_translation_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "translationRequirementsContent");
+  char *path = spec_path_join(x.ref.path, "TRAREQ-TRAN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257278,7 +257444,7 @@ SomMetaRef uat_training_nav_content(som_nav_uat_training x) {
 }
 SomMetaRef ui_component_entry_nav_identity(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "identity");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257299,7 +257465,7 @@ som_nav_ui_component_entry_classification ui_component_entry_nav_classification(
 }
 SomMetaRef ui_component_entry_nav_visual_design(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "visualDesign");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-VISU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257334,7 +257500,7 @@ SomMetaRef ui_component_entry_nav_visual_diagram(som_nav_ui_component_entry x) {
 }
 SomMetaRef ui_component_entry_nav_interactive_behavior(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "interactiveBehavior");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-INTE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257362,35 +257528,35 @@ som_nav_ui_component_entry_scroll ui_component_entry_nav_scroll(som_nav_ui_compo
 }
 SomMetaRef ui_component_entry_nav_responsiveness(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "responsiveness");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-RESP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_accessibility(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessibility");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_authorization(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "authorization");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-AUTH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_resource_integration(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "resourceIntegration");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-RESO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_data_binding(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataBinding");
+  char *path = spec_path_join(x.ref.path, "UICOMENT-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257495,7 +257661,7 @@ SomMetaRef ui_component_entry_surface_nav_content(som_nav_ui_component_entry_sur
 }
 SomMetaRef ui_components_nav_component_library_overview(som_nav_ui_components x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "componentLibraryOverview");
+  char *path = spec_path_join(x.ref.path, "UICO-COMP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257775,7 +257941,7 @@ SomMetaRef user_access_permissions_nav_content(som_nav_user_access_permissions x
 }
 SomMetaRef user_access_permissions_nav_permissions_form(som_nav_user_access_permissions x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "permissionsForm");
+  char *path = spec_path_join(x.ref.path, "UAP-PERM");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257824,7 +257990,7 @@ SomMetaRef user_accessibility_needs_nav_content(som_nav_user_accessibility_needs
 }
 SomMetaRef user_accessibility_needs_nav_accessibility_form(som_nav_user_accessibility_needs x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessibilityForm");
+  char *path = spec_path_join(x.ref.path, "UAN-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -257845,7 +258011,7 @@ SomMetaRef user_account_states_definition_nav_state_transition_diagram(som_nav_u
 }
 SomMetaRef user_assistance_nav_help_overview_content(som_nav_user_assistance x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "helpOverviewContent");
+  char *path = spec_path_join(x.ref.path, "USAS-HELP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258090,7 +258256,7 @@ SomMetaRef user_category_role_entry_nav_content(som_nav_user_category_role_entry
 }
 SomMetaRef user_documentation_requirements_nav_documentation_content(som_nav_user_documentation_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "documentationContent");
+  char *path = spec_path_join(x.ref.path, "DOANTR-DOCU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258244,7 +258410,7 @@ SomMetaRef user_journey_nav_content(som_nav_user_journey x) {
 }
 SomMetaRef user_journey_nav_journey_diagram(som_nav_user_journey x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "journeyDiagram");
+  char *path = spec_path_join(x.ref.path, "UJ-JOUR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258272,7 +258438,7 @@ SomListMetaRef user_journey_nav_pain_points(som_nav_user_journey x) {
 }
 SomMetaRef user_journey_nav_opportunities_for_delight(som_nav_user_journey x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "opportunitiesForDelight");
+  char *path = spec_path_join(x.ref.path, "UJ-OPPO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258489,7 +258655,7 @@ SomMetaRef user_persona_details_nav_content(som_nav_user_persona_details x) {
 }
 SomMetaRef user_persona_details_nav_persona_form(som_nav_user_persona_details x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "personaForm");
+  char *path = spec_path_join(x.ref.path, "UPD-PERS");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258517,7 +258683,7 @@ som_nav_user_persona_details_behavior user_persona_details_nav_behavior(som_nav_
 }
 SomMetaRef user_persona_details_nav_visual_representation(som_nav_user_persona_details x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "visualRepresentation");
+  char *path = spec_path_join(x.ref.path, "UPD-VISU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258650,7 +258816,7 @@ SomMetaRef user_training_requirements_nav_content(som_nav_user_training_requirem
 }
 SomMetaRef user_training_requirements_nav_training_form(som_nav_user_training_requirements x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "trainingForm");
+  char *path = spec_path_join(x.ref.path, "USTRRE-TRAI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -258762,7 +258928,7 @@ SomMetaRef validation_constraints_nav_content(som_nav_validation_constraints x) 
 }
 SomMetaRef validation_feedback_nav_validation_display_content(som_nav_validation_feedback x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "validationDisplayContent");
+  char *path = spec_path_join(x.ref.path, "VAFE-VALI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259266,7 +259432,7 @@ SomMetaRef warranty_transition_nav_content(som_nav_warranty_transition x) {
 }
 SomMetaRef wcag_compliance_nav_wcag_compliance_content(som_nav_wcag_compliance x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "wcagComplianceContent");
+  char *path = spec_path_join(x.ref.path, "WCCO-WCAG");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259336,7 +259502,7 @@ SomMetaRef wcag_success_criterion_entry_nav_content(som_nav_wcag_success_criteri
 }
 SomMetaRef weighted_quality_matrix_nav_matrix_config_content(som_nav_weighted_quality_matrix x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "matrixConfigContent");
+  char *path = spec_path_join(x.ref.path, "WEQUMA-MATR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259406,7 +259572,7 @@ SomMetaRef workflow_descriptions_nav_content(som_nav_workflow_descriptions x) {
 }
 SomMetaRef workflow_descriptions_nav_workflow_overview_diagram(som_nav_workflow_descriptions x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "workflowOverviewDiagram");
+  char *path = spec_path_join(x.ref.path, "WODE-WORK");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259511,7 +259677,7 @@ SomMetaRef workflow_step_issue_nav_content(som_nav_workflow_step_issue x) {
 }
 SomMetaRef workflow_step_system_nav_name(som_nav_workflow_step_system x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "name");
+  char *path = spec_path_join(x.ref.path, "WOSTSY-NAME");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259818,6 +259984,13 @@ SomListMetaRef business_goal_entry_id_golrs_item_lst(som_id_business_goal_entry 
   free(path);
   return out;
 }
+SomMetaRef business_goal_entry_id_gore_reso(som_id_business_goal_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "resources/GORE-RESO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef business_goal_entry_id_rears_item_lst(som_id_business_goal_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "resources/REARS-ITEM-LST");
@@ -259825,10 +259998,38 @@ SomListMetaRef business_goal_entry_id_rears_item_lst(som_id_business_goal_entry 
   free(path);
   return out;
 }
+SomMetaRef business_object_entry_id_bjoen_iden(som_id_business_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BJOEN-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_object_entry_id_bjoen_doma(som_id_business_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BJOEN-DOMA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_object_entry_id_bjoen_life(som_id_business_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BJOEN-LIFE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef business_object_entry_id_behav_beha_lst(som_id_business_object_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "BEHAV-BEHA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_behavior_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef business_object_entry_id_bjoen_owne(som_id_business_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BJOEN-OWNE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -259944,6 +260145,48 @@ SomListMetaRef business_process_entry_id_pcexc_exce_lst(som_id_business_process_
   free(path);
   return out;
 }
+SomMetaRef business_rule_entry_id_biru_iden(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_id_biru_clas(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-CLAS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_id_biru_rule(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-RULE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_id_biru_impl(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-IMPL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_id_biru_exce(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-EXCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_id_biru_gove(som_id_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRU-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef business_rule_entry_id_afob_affe_lst(som_id_business_rule_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "AFOB-AFFE-LST");
@@ -260049,6 +260292,13 @@ SomListMetaRef component_family_entry_id_famref_comp_lst(som_id_component_family
   free(path);
   return out;
 }
+SomMetaRef current_business_process_id_wode_work(som_id_current_business_process x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "workflowDescriptions/WODE-WORK");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef current_business_process_id_wosuen_entr_lst(som_id_current_business_process x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "workflowDescriptions/summaryTable/WOSUEN-ENTR-LST");
@@ -260116,6 +260366,13 @@ SomListMetaRef current_business_process_id_cpie_impr_lst(som_id_current_business
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "processPainPoints/CPIE-IMPR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_current_process_improvement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef current_workflow_entry_id_cuwf_work(som_id_current_workflow_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "CUWF-WORK");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260217,6 +260474,20 @@ SomListMetaRef d00_solution_blueprint_id_rfdoc_docu_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_insc_syst(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/INSC-SYST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_sypup_visi(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_rppe_rela_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST");
@@ -260273,6 +260544,20 @@ SomListMetaRef d00_solution_blueprint_id_scope_scop_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_cd_diag(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/contextDiagram/CD-DIAG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_cd_lege(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/contextDiagram/CD-LEGE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_eae_acto_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST");
@@ -260301,6 +260586,13 @@ SomListMetaRef d00_solution_blueprint_id_ouce_orga_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_oc_busi(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/organizationalContext/OC-BUSI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_are_regu_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/regulatoryContext/ARE-REGU-LST");
@@ -260315,10 +260607,38 @@ SomListMetaRef d00_solution_blueprint_id_dte_term_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_kc_conc(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/keyConcepts/KC-CONC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_kecon_conc_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/keyConcepts/KECON-CONC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_key_concept_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_db_cont(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-CONT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_db_with(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-WITH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_db_outs(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-OUTS");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260333,6 +260653,13 @@ SomListMetaRef d00_solution_blueprint_id_dobiru_rule_lst(som_id_d00_solution_blu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_domain_business_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_dp_proc(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260357,6 +260684,13 @@ SomListMetaRef d00_solution_blueprint_id_usca_user_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_ac1_chan(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/accessChannels/AC1-CHAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_ice_chan_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/accessChannels/ICE-CHAN-LST");
@@ -260371,10 +260705,31 @@ SomListMetaRef d00_solution_blueprint_id_inptn_patt_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_al_acce(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_aclv_leve_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/accessLevels/ACLV-LEVE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_access_level_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_al_perm(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-PERM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_sm_sess(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/sessionModel/SM-SESS");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260399,6 +260754,20 @@ SomListMetaRef d00_solution_blueprint_id_unp_pref_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_mce_mult(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/userInteractionModel/multiChannelExperience/MCE-MULT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_goals_goal(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/GOALS-GOAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_bge_goal_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/businessGoals/BGE-GOAL-LST");
@@ -260420,10 +260789,80 @@ SomListMetaRef d00_solution_blueprint_id_sce_item_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_scbc_busi(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/byCategory/SCBC-BUSI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_scbc_tech(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/byCategory/SCBC-TECH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_scbc_user(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/byCategory/SCBC-USER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_scbc_comp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/byCategory/SCBC-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_scbc_proj(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/byCategory/SCBC-PROJ");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_sc_succ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/goals/successCriteria/SC-SUCC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_ro_requ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/RO-REQU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_ro_trac(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/RO-TRAC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_fr_summ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/functionalRequirements/FR-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_fre_requ_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_functional_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_tr1_summ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/technicalRequirements/TR1-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260434,10 +260873,24 @@ SomListMetaRef d00_solution_blueprint_id_terq_requ_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_sr1_summ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/securityRequirements/SR1-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_secrq_requ_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_or_summ(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/requirements/organizationalRequirements/OR-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260459,6 +260912,20 @@ SomListMetaRef d00_solution_blueprint_id_sytore_syst_lst(som_id_d00_solution_blu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/replacementInventory/SYTORE-SYST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_to_replace_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_migcon_stra(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-STRA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_miri_gove(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260553,6 +261020,13 @@ SomListMetaRef d00_solution_blueprint_id_cboc_oper_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_oren_orga(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-ORGA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_afdeen_affe_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST");
@@ -260592,6 +261066,13 @@ SomListMetaRef d00_solution_blueprint_id_reen1_item_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_responsibility_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_teen_tech(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-TECH");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260644,6 +261125,20 @@ SomListMetaRef d00_solution_blueprint_id_gloss_entr_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_prpo_meth(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/PRPO-METH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_rladj_role(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLADJ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_rlaje_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLAJE-ITEM-LST");
@@ -260651,10 +261146,24 @@ SomListMetaRef d00_solution_blueprint_id_rlaje_item_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_qgadj_gate(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGADJ-GATE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_qgaje_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGAJE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_quality_gate_adjustment_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_pcadj_proc(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectOrganizationProcess/processAdjustments/PCADJ-PROC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260704,6 +261213,13 @@ SomListMetaRef d00_solution_blueprint_id_rreqe_open_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/projectTeamStaffing/RREQE-OPEN-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_resource_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_coma_comm(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/distributionList/communicationMatrix/COMA-COMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260861,6 +261377,20 @@ SomListMetaRef d00_solution_blueprint_id_esent_syst_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_carch_arch(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-ARCH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_carch_depl(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_ipe_inte_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST");
@@ -260872,6 +261402,13 @@ SomListMetaRef d00_solution_blueprint_id_share_shar_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_shared_service_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_depnt_depe(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260910,6 +261447,13 @@ SomListMetaRef d00_solution_blueprint_id_fragi_frag_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_cubupr_proc(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentBusinessProcesses/CUBUPR-PROC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_prscen_insc_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST");
@@ -260921,6 +261465,13 @@ SomListMetaRef d00_solution_blueprint_id_prscen_outo_lst(som_id_d00_solution_blu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_scope_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_prinma_depe(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260942,6 +261493,20 @@ SomListMetaRef d00_solution_blueprint_id_cubipr_proc_lst(som_id_d00_solution_blu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentBusinessProcesses/CUBIPR-PROC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_current_business_process);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_ppag_pain(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/PPAG-PAIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_ppag_painp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/PPAG-PAINP");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260973,6 +261538,13 @@ SomListMetaRef d00_solution_blueprint_id_gape_item_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_ppgc_corr(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_ppgce_corr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST");
@@ -260980,10 +261552,38 @@ SomListMetaRef d00_solution_blueprint_id_ppgce_corr_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_cudala_datal(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/CUDALA-DATAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_cudala_data(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/CUDALA-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_dasoin_data(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataSourceInventory/DASOIN-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_dasr_data_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataSourceInventory/DASR-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_source_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_daquas_qual(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261001,6 +261601,13 @@ SomListMetaRef d00_solution_blueprint_id_dqie_impr_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_daduan_dupl(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_dadu_dupl_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST");
@@ -261008,10 +261615,24 @@ SomListMetaRef d00_solution_blueprint_id_dadu_dupl_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_daow_owne(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataOwnership/DAOW-OWNE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_daowen_owne_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_ownership_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_dvag_grow(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261026,6 +261647,13 @@ SomListMetaRef d00_solution_blueprint_id_repol_rete_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/retentionPolicies/REPOL-RETE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_retention_policy_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_dago_gove(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataGovernance/DAGO-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261047,6 +261675,13 @@ SomListMetaRef d00_solution_blueprint_id_dcse_clas_lst(som_id_d00_solution_bluep
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataClassification/DCSE-CLAS-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_classification_status_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_dainpo_data(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentLandscape/currentDataLandscape/dataIntegrationPoints/DAINPO-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261089,6 +261724,13 @@ SomListMetaRef d00_solution_blueprint_id_acrg_deps_lst(som_id_d00_solution_bluep
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "assumptionsConstraintsDependencies/register/ACRG-DEPS-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_dependency_register_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_occhg_over(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261309,6 +261951,13 @@ SomListMetaRef d00_solution_blueprint_id_enrle_item_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_datcl_over(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/dataModel/dataClassification/DATCL-OVER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_dclse_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST");
@@ -261320,6 +261969,20 @@ SomListMetaRef d00_solution_blueprint_id_bjoen_obje_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/businessObjectModel/BJOEN-OBJE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_object_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_fumo_deco(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/functionModel/FUMO-DECO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_fumo_matr(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/functionModel/FUMO-MATR");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261341,6 +262004,27 @@ SomListMetaRef d00_solution_blueprint_id_biru_busi_lst(som_id_d00_solution_bluep
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/functionModel/BIRU-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_trareq_tran(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_doantr_docu(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "requirements/informationForUse/userDocumentation/DOANTR-DOCU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_trmat_trai(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261722,6 +262406,20 @@ SomListMetaRef d00_solution_blueprint_id_maint_main_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_monito_moni(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/MONITO-MONI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_alco_aler(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_alruen_aler_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST");
@@ -261736,10 +262434,24 @@ SomListMetaRef d00_solution_blueprint_id_alsuru_supp_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_meanob_metr(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_cumeen_cust_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_custom_metric_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_moda_dash(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -261754,6 +262466,13 @@ SomListMetaRef d00_solution_blueprint_id_date_dash_lst(som_id_d00_solution_bluep
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_dashboard_templates);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_sasm_slao(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262079,6 +262798,20 @@ SomListMetaRef d00_solution_blueprint_id_exteen_expo_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_erhaco_erro(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_vafe_vali(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_vamete_mess_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST");
@@ -262090,6 +262823,13 @@ SomListMetaRef d00_solution_blueprint_id_field_fiel_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_validation_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_syerdi_syst(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262107,6 +262847,13 @@ SomListMetaRef d00_solution_blueprint_id_sece_erro_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_erre_reco(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_recov_reco_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST");
@@ -262121,10 +262868,31 @@ SomListMetaRef d00_solution_blueprint_id_rcvscn_reco_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_usas_help(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/userAssistance/USAS-HELP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_cohe_cont(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_fldhp_fiel_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_help_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_onhe_onbo(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262135,10 +262903,38 @@ SomListMetaRef d00_solution_blueprint_id_ftrtur_feat_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_suac_supp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_access_acce(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/accessibility/ACCESS-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_wcco_wcag(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_wsce_succ_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_wcag_success_criterion_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_acchls_chec(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262149,6 +262945,20 @@ SomListMetaRef d00_solution_blueprint_id_acch_item_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_rede_resp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/REDE-RESP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_bc_brea(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_bre_brea_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST");
@@ -262156,10 +262966,24 @@ SomListMetaRef d00_solution_blueprint_id_bre_brea_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_rebe_layo(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_respsr_scre_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_responsive_screen_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_uico_comp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/uiComponents/UICO-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262198,10 +263022,38 @@ SomListMetaRef d00_solution_blueprint_id_cmfa_comp_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_mlar_mult(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_lacose_lang(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_suloen_supp_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_supported_locale_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_protot_prot(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/PROTOT-PROT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_pg_goal(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262212,6 +263064,13 @@ SomListMetaRef d00_solution_blueprint_id_prgoen_goal_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_prfesu_feat(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_prfeen_feat_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST");
@@ -262219,10 +263078,52 @@ SomListMetaRef d00_solution_blueprint_id_prfeen_feat_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_prtyse_prot(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_reupro_reus(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_tp_trai(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_thpr_thro(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_syqg_gove(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/SYQG-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_attri_attr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_attribute_interdependency_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_qlfwk_fram(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-FRAM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262240,10 +263141,87 @@ SomListMetaRef d00_solution_blueprint_id_categ_cate_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_fnsu_func(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/FNSU-FUNC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_peef_perf(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/performanceEfficiency/PEEF-PERF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_cmpt_comp(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/compatibility/CMPT-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_incp_inte(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/interactionCapability/INCP-INTE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_relc_reli(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/reliability/RELC-RELI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_slae_slae_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/reliability/serviceLevelRequirements/SLAE-SLAE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_service_level_agreement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_secc_secu(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/security/SECC-SECU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_mntc_main(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/maintainability/MNTC-MAIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_flxc_flex(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/flexibility/FLXC-FLEX");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_doqucr_docu(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/documentationQuality/DOQUCR-DOCU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_qupr_prio(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/prioritization/QUPR-PRIO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_wequma_matr(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/prioritization/weightedQualityMatrix/WEQUMA-MATR");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262254,6 +263232,13 @@ SomListMetaRef d00_solution_blueprint_id_qlwgt_weig_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_trofde_trad(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TROFDE-TRAD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_tode_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TODE-ITEM-LST");
@@ -262261,10 +263246,31 @@ SomListMetaRef d00_solution_blueprint_id_tode_item_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_accrsu_acce(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/ACCRSU-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_mupacr_must(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MUPACR-MUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_mstpcr_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MSTPCR-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_must_pass_criterion_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_qugach_chec(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/qualityGateChecklist/QUGACH-CHEC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262478,6 +263484,20 @@ SomListMetaRef d00_solution_blueprint_id_depoen_item_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_lopr_loca(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPR-LOCA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_trpr_tran(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPR-TRAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_trveen_vend_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST");
@@ -262492,6 +263512,20 @@ SomListMetaRef d01_current_landscape_assessment_id_esent_syst_lst(som_id_d01_cur
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_carch_arch(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-ARCH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_carch_depl(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_ipe_inte_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/IPE-INTE-LST");
@@ -262503,6 +263537,13 @@ SomListMetaRef d01_current_landscape_assessment_id_share_shar_lst(som_id_d01_cur
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_shared_service_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_depnt_depe(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262541,6 +263582,13 @@ SomListMetaRef d01_current_landscape_assessment_id_fragi_frag_lst(som_id_d01_cur
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_cubupr_proc(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentBusinessProcesses/CUBUPR-PROC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_prscen_insc_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST");
@@ -262552,6 +263600,13 @@ SomListMetaRef d01_current_landscape_assessment_id_prscen_outo_lst(som_id_d01_cu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_scope_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_prinma_depe(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262573,6 +263628,20 @@ SomListMetaRef d01_current_landscape_assessment_id_cubipr_proc_lst(som_id_d01_cu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentBusinessProcesses/CUBIPR-PROC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_current_business_process);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_ppag_pain(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "painPointsAndGaps/PPAG-PAIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_ppag_painp(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "painPointsAndGaps/PPAG-PAINP");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262604,6 +263673,13 @@ SomListMetaRef d01_current_landscape_assessment_id_gape_item_lst(som_id_d01_curr
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_ppgc_corr(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "painPointsAndGaps/painPointGapCorrelation/PPGC-CORR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_ppgce_corr_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST");
@@ -262611,10 +263687,38 @@ SomListMetaRef d01_current_landscape_assessment_id_ppgce_corr_lst(som_id_d01_cur
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_cudala_datal(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/CUDALA-DATAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_cudala_data(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/CUDALA-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_dasoin_data(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataSourceInventory/DASOIN-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_dasr_data_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataSourceInventory/DASR-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_source_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_daquas_qual(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262632,6 +263736,13 @@ SomListMetaRef d01_current_landscape_assessment_id_dqie_impr_lst(som_id_d01_curr
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_daduan_dupl(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_dadu_dupl_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST");
@@ -262639,10 +263750,24 @@ SomListMetaRef d01_current_landscape_assessment_id_dadu_dupl_lst(som_id_d01_curr
   free(path);
   return out;
 }
+SomMetaRef d01_current_landscape_assessment_id_daow_owne(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataOwnership/DAOW-OWNE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_daowen_owne_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_ownership_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_dvag_grow(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262657,6 +263782,13 @@ SomListMetaRef d01_current_landscape_assessment_id_repol_rete_lst(som_id_d01_cur
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentDataLandscape/retentionPolicies/REPOL-RETE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_retention_policy_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_dago_gove(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataGovernance/DAGO-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262678,6 +263810,13 @@ SomListMetaRef d01_current_landscape_assessment_id_dcse_clas_lst(som_id_d01_curr
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataClassification/DCSE-CLAS-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_classification_status_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_dainpo_data(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "currentDataLandscape/dataIntegrationPoints/DAINPO-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262706,6 +263845,20 @@ SomListMetaRef d01_current_landscape_assessment_id_sytore_syst_lst(som_id_d01_cu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "replacementInventory/SYTORE-SYST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_to_replace_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_migcon_stra(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "migrationConsiderations/MIGCON-STRA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d01_current_landscape_assessment_id_miri_gove(som_id_d01_current_landscape_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "migrationConsiderations/migrationRisks/MIRI-GOVE");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262821,6 +263974,13 @@ SomListMetaRef d03_information_model_id_enrle_item_lst(som_id_d03_information_mo
   free(path);
   return out;
 }
+SomMetaRef d03_information_model_id_datcl_over(som_id_d03_information_model x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "dataClassification/DATCL-OVER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d03_information_model_id_dclse_item_lst(som_id_d03_information_model x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dataClassification/DCLSE-ITEM-LST");
@@ -262856,10 +264016,24 @@ SomListMetaRef d03_information_model_id_biru_busi_lst(som_id_d03_information_mod
   free(path);
   return out;
 }
+SomMetaRef d04_requirements_specification_id_fr_summ(som_id_d04_requirements_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "functionalRequirements/FR-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d04_requirements_specification_id_fre_requ_lst(som_id_d04_requirements_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "functionalRequirements/FRE-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_functional_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d04_requirements_specification_id_tr1_summ(som_id_d04_requirements_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalRequirements/TR1-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262870,6 +264044,13 @@ SomListMetaRef d04_requirements_specification_id_terq_requ_lst(som_id_d04_requir
   free(path);
   return out;
 }
+SomMetaRef d04_requirements_specification_id_sr1_summ(som_id_d04_requirements_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "securityRequirements/SR1-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d04_requirements_specification_id_secrq_requ_lst(som_id_d04_requirements_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityRequirements/SECRQ-REQU-LST");
@@ -262877,10 +264058,24 @@ SomListMetaRef d04_requirements_specification_id_secrq_requ_lst(som_id_d04_requi
   free(path);
   return out;
 }
+SomMetaRef d04_requirements_specification_id_or_summ(som_id_d04_requirements_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "organizationalRequirements/OR-SUMM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d04_requirements_specification_id_orrq_requ_lst(som_id_d04_requirements_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "organizationalRequirements/ORRQ-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_organizational_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d04_requirements_specification_id_rsp_trac(som_id_d04_requirements_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RSP-TRAC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263290,6 +264485,20 @@ SomListMetaRef d06_architecture_technology_specification_id_maint_main_lst(som_i
   free(path);
   return out;
 }
+SomMetaRef d06_architecture_technology_specification_id_monito_moni(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/MONITO-MONI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d06_architecture_technology_specification_id_alco_aler(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALCO-ALER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_alruen_aler_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST");
@@ -263304,10 +264513,24 @@ SomListMetaRef d06_architecture_technology_specification_id_alsuru_supp_lst(som_
   free(path);
   return out;
 }
+SomMetaRef d06_architecture_technology_specification_id_meanob_metr(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/MEANOB-METR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_cumeen_cust_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_custom_metric_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d06_architecture_technology_specification_id_moda_dash(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263322,6 +264545,13 @@ SomListMetaRef d06_architecture_technology_specification_id_date_dash_lst(som_id
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/dashboards/DATE-DASH-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_dashboard_templates);
+  free(path);
+  return out;
+}
+SomMetaRef d06_architecture_technology_specification_id_sasm_slao(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SASM-SLAO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263395,6 +264625,13 @@ SomListMetaRef d06_architecture_technology_specification_id_copl_item_lst(som_id
   free(path);
   return out;
 }
+SomMetaRef d06_architecture_technology_specification_id_teen_tech(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalEnvironment/TEEN-TECH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_devop_devo_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalEnvironment/network/DEVOP-DEVO-LST");
@@ -263427,6 +264664,13 @@ SomListMetaRef d06_architecture_technology_specification_id_incoe1_inte_lst(som_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalEnvironment/INCOE1-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_integration_constraint_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d06_architecture_technology_specification_id_trareq_tran(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "translationRequirements/TRAREQ-TRAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263724,6 +264968,20 @@ SomListMetaRef d09_experience_design_specification_id_exteen_expo_lst(som_id_d09
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_erhaco_erro(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "errorHandling/ERHACO-ERRO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_vafe_vali(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "errorHandling/validationFeedback/VAFE-VALI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_vamete_mess_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/validationFeedback/VAMETE-MESS-LST");
@@ -263735,6 +264993,13 @@ SomListMetaRef d09_experience_design_specification_id_field_fiel_lst(som_id_d09_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/validationFeedback/FIELD-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_validation_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_syerdi_syst(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "errorHandling/systemErrorDisplay/SYERDI-SYST");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263752,6 +265017,13 @@ SomListMetaRef d09_experience_design_specification_id_sece_erro_lst(som_id_d09_e
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_erre_reco(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "errorHandling/errorRecovery/ERRE-RECO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_recov_reco_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/errorRecovery/RECOV-RECO-LST");
@@ -263766,10 +265038,31 @@ SomListMetaRef d09_experience_design_specification_id_rcvscn_reco_lst(som_id_d09
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_usas_help(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userAssistance/USAS-HELP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_cohe_cont(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userAssistance/contextualHelp/COHE-CONT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_fldhp_fiel_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "userAssistance/contextualHelp/FLDHP-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_help_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_onhe_onbo(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userAssistance/onboarding/ONHE-ONBO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263780,10 +265073,38 @@ SomListMetaRef d09_experience_design_specification_id_ftrtur_feat_lst(som_id_d09
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_suac_supp(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userAssistance/supportAccess/SUAC-SUPP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_access_acce(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessibility/ACCESS-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_wcco_wcag(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessibility/wcagComplianceLevel/WCCO-WCAG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_wsce_succ_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "accessibility/wcagComplianceLevel/WSCE-SUCC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_wcag_success_criterion_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_acchls_chec(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessibility/accessibilityChecklist/ACCHLS-CHEC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263794,6 +265115,20 @@ SomListMetaRef d09_experience_design_specification_id_acch_item_lst(som_id_d09_e
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_rede_resp(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "responsiveDesign/REDE-RESP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_bc_brea(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "responsiveDesign/breakpointConfig/BC-BREA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_bre_brea_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "responsiveDesign/breakpointConfig/BRE-BREA-LST");
@@ -263801,10 +265136,24 @@ SomListMetaRef d09_experience_design_specification_id_bre_brea_lst(som_id_d09_ex
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_rebe_layo(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "responsiveDesign/responsiveBehavior/REBE-LAYO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_respsr_scre_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_responsive_screen_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_uico_comp(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "uiComponents/UICO-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263843,6 +265192,27 @@ SomListMetaRef d09_experience_design_specification_id_cmfa_comp_lst(som_id_d09_e
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_lacose_lang(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "languageCountrySelection/LACOSE-LANG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_protot_prot(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/PROTOT-PROT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_pg_goal(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/prototypeGoals/PG-GOAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_prgoen_goal_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "prototype/prototypeGoals/PRGOEN-GOAL-LST");
@@ -263850,10 +265220,52 @@ SomListMetaRef d09_experience_design_specification_id_prgoen_goal_lst(som_id_d09
   free(path);
   return out;
 }
+SomMetaRef d09_experience_design_specification_id_prfesu_feat(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/featureSubset/PRFESU-FEAT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d09_experience_design_specification_id_prfeen_feat_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "prototype/featureSubset/PRFEEN-FEAT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_prototype_feature_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_prtyse_prot(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/prototypeType/PRTYSE-PROT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_reupro_reus(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/prototypeType/reusablePrototype/REUPRO-REUS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_tp_trai(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/prototypeType/trainingPrototype/TP-TRAI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d09_experience_design_specification_id_thpr_thro(som_id_d09_experience_design_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "prototype/prototypeType/throwawayPrototype/THPR-THRO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_qlfwk_fram(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityFramework/QLFWK-FRAM");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263871,10 +265283,87 @@ SomListMetaRef d10_quality_acceptance_plan_id_categ_cate_lst(som_id_d10_quality_
   free(path);
   return out;
 }
+SomMetaRef d10_quality_acceptance_plan_id_fnsu_func(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "functionalSuitability/FNSU-FUNC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_peef_perf(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "performanceEfficiency/PEEF-PERF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_cmpt_comp(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "compatibility/CMPT-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_incp_inte(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "interactionCapability/INCP-INTE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_relc_reli(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reliability/RELC-RELI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d10_quality_acceptance_plan_id_slae_slae_lst(som_id_d10_quality_acceptance_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "reliability/serviceLevelRequirements/SLAE-SLAE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_service_level_agreement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_secc_secu(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "security/SECC-SECU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_mntc_main(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "maintainability/MNTC-MAIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_flxc_flex(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "flexibility/FLXC-FLEX");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_doqucr_docu(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "documentationQualityCriteria/DOQUCR-DOCU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_qupr_prio(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityPrioritization/QUPR-PRIO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_wequma_matr(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityPrioritization/weightedQualityMatrix/WEQUMA-MATR");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263885,6 +265374,13 @@ SomListMetaRef d10_quality_acceptance_plan_id_qlwgt_weig_lst(som_id_d10_quality_
   free(path);
   return out;
 }
+SomMetaRef d10_quality_acceptance_plan_id_trofde_trad(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityPrioritization/tradeOffDecisions/TROFDE-TRAD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d10_quality_acceptance_plan_id_tode_item_lst(som_id_d10_quality_acceptance_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityPrioritization/tradeOffDecisions/TODE-ITEM-LST");
@@ -263892,10 +265388,31 @@ SomListMetaRef d10_quality_acceptance_plan_id_tode_item_lst(som_id_d10_quality_a
   free(path);
   return out;
 }
+SomMetaRef d10_quality_acceptance_plan_id_accrsu_acce(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "acceptanceCriteriaSummary/ACCRSU-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_mupacr_must(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "acceptanceCriteriaSummary/mustPassCriteria/MUPACR-MUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d10_quality_acceptance_plan_id_mstpcr_item_lst(som_id_d10_quality_acceptance_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "acceptanceCriteriaSummary/mustPassCriteria/MSTPCR-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_must_pass_criterion_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d10_quality_acceptance_plan_id_qugach_chec(som_id_d10_quality_acceptance_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "acceptanceCriteriaSummary/qualityGateChecklist/QUGACH-CHEC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264074,10 +265591,38 @@ SomListMetaRef d11_delivery_roadmap_id_depoen_item_lst(som_id_d11_delivery_roadm
   free(path);
   return out;
 }
+SomMetaRef d12_transition_rollout_plan_id_lopr_loca(som_id_d12_transition_rollout_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "localizationProcess/LOPR-LOCA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d12_transition_rollout_plan_id_trpr_tran(som_id_d12_transition_rollout_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "translationProcess/TRPR-TRAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d12_transition_rollout_plan_id_trveen_vend_lst(som_id_d12_transition_rollout_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "translationProcess/TRVEEN-VEND-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_translation_vendor_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d12_transition_rollout_plan_id_doantr_docu(som_id_d12_transition_rollout_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userDocumentation/DOANTR-DOCU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d12_transition_rollout_plan_id_trmat_trai(som_id_d12_transition_rollout_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "trainingDeliverables/TRMAT-TRAI");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264088,6 +265633,20 @@ SomListMetaRef d12_transition_rollout_plan_id_trmoen_trai_lst(som_id_d12_transit
   free(path);
   return out;
 }
+SomMetaRef data_attribute_entry_id_daatt_iden(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_data(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_attribute_entry_id_dataa_cons_lst(som_id_data_attribute_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DATAA-CONS-LST");
@@ -264095,10 +265654,66 @@ SomListMetaRef data_attribute_entry_id_dataa_cons_lst(som_id_data_attribute_entr
   free(path);
   return out;
 }
+SomMetaRef data_attribute_entry_id_daatt_deri(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DERI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_secu(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-SECU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_migr(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-MIGR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_attribute_entry_id_displ_disp_lst(som_id_data_attribute_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DISPL-DISP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_display_property_entry);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_id_dclse_iden(som_id_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCLSE-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_id_dclse_stor(som_id_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCLSE-STOR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_id_dclse_acce(som_id_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCLSE-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_id_dclse_rete(som_id_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCLSE-RETE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_id_dclse_comp(som_id_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCLSE-COMP");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264116,6 +265731,20 @@ SomListMetaRef data_classification_entry_id_acrse_acce_lst(som_id_data_classific
   free(path);
   return out;
 }
+SomMetaRef data_entity_entry_id_daent_iden(som_id_data_entity_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAENT-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_entity_entry_id_daent_clas(som_id_data_entity_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAENT-CLAS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_entity_entry_id_volum_volu_lst(som_id_data_entity_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "VOLUM-VOLU-LST");
@@ -264123,10 +265752,24 @@ SomListMetaRef data_entity_entry_id_volum_volu_lst(som_id_data_entity_entry x) {
   free(path);
   return out;
 }
+SomMetaRef data_entity_entry_id_daent_life(som_id_data_entity_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAENT-LIFE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_entity_entry_id_cre_comp_lst(som_id_data_entity_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CRE-COMP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_compliance_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef data_entity_entry_id_daent_rela(som_id_data_entity_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAENT-RELA");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264214,10 +265857,38 @@ SomListMetaRef entitlement_entry_id_reskref_reso_lst(som_id_entitlement_entry x)
   free(path);
   return out;
 }
+SomMetaRef entity_relationship_entry_id_enrle_iden(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef entity_relationship_entry_id_parti_part_lst(som_id_entity_relationship_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "PARTI-PART-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_participant_entry);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_id_enrle_card(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-CARD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_id_enrle_refe(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-REFE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_id_enrle_navi(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-NAVI");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264274,6 +265945,13 @@ SomListMetaRef external_actor_entry_id_inter_inte_lst(som_id_external_actor_entr
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "INTER-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interaction_scenario_entry);
+  free(path);
+  return out;
+}
+SomMetaRef external_interface_entry_id_eie_iden(som_id_external_interface_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EIE-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264347,6 +266025,13 @@ som_id_existing_system_entry external_service_dependency_entry_id_exsde_prim_ref
   free(path);
   return out;
 }
+SomMetaRef external_system_context_entry_id_exsycoen_data(som_id_external_system_context_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EXSYCOEN-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef feature_priority_entry_id_fest_stak_lst(som_id_feature_priority_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "FEST-STAK-LST");
@@ -264389,6 +266074,27 @@ SomListMetaRef functional_requirement_entry_id_daenre_enti_lst(som_id_functional
   free(path);
   return out;
 }
+SomMetaRef functional_requirement_entry_id_rus_uifo(som_id_functional_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "uiSpecification/RUS-UIFO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef functional_requirement_entry_id_rus_layo(som_id_functional_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "uiSpecification/RUS-LAYO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef functional_requirement_entry_id_rus_mock(som_id_functional_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "uiSpecification/RUS-MOCK");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef functional_requirement_entry_id_scfld_fiel_lst(som_id_functional_requirement_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "uiSpecification/SCFLD-FIEL-LST");
@@ -264414,6 +266120,13 @@ SomListMetaRef functional_requirement_entry_id_rqdep_item_lst(som_id_functional_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dependencies/RQDEP-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_requirement_dependency_entry);
+  free(path);
+  return out;
+}
+SomMetaRef functional_requirement_entry_id_rt_trac(som_id_functional_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "traceability/RT-TRAC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264568,6 +266281,13 @@ SomListMetaRef organizational_requirement_entry_id_accr_crit_lst(som_id_organiza
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "acceptanceCriteria/ACCR-CRIT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_acceptance_criterion_entry);
+  free(path);
+  return out;
+}
+SomMetaRef organizational_requirement_entry_id_orip_plan(som_id_organizational_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "implementationPlan/ORIP-PLAN");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264865,6 +266585,13 @@ SomListMetaRef security_requirement_entry_id_rqdep_item_lst(som_id_security_requ
   free(path);
   return out;
 }
+SomMetaRef security_requirement_entry_id_rt_trac(som_id_security_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "traceability/RT-TRAC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef stage_entry_id_stde_depe_lst(som_id_stage_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "STDE-DEPE-LST");
@@ -264967,6 +266694,13 @@ SomListMetaRef system_task_entry_id_varia_vari_lst(som_id_system_task_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "VARIA-VARI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_variations_and_exception_entry);
+  free(path);
+  return out;
+}
+SomMetaRef system_to_replace_entry_id_sytore_iden(som_id_system_to_replace_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SYTORE-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -265089,6 +266823,13 @@ SomListMetaRef technical_goal_entry_id_qlscn_item_lst(som_id_technical_goal_entr
   free(path);
   return out;
 }
+SomMetaRef technical_goal_entry_id_tgtc_test(som_id_technical_goal_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "testCriteria/TGTC-TEST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef technical_goal_entry_id_tegots_item_lst(som_id_technical_goal_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "testCriteria/TEGOTS-ITEM-LST");
@@ -265124,6 +266865,13 @@ SomListMetaRef technical_requirement_entry_id_rqdep_item_lst(som_id_technical_re
   free(path);
   return out;
 }
+SomMetaRef technical_requirement_entry_id_rt_trac(som_id_technical_requirement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "traceability/RT-TRAC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef test_scenario_entry_id_tescno_note_lst(som_id_test_scenario_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "TESCNO-NOTE-LST");
@@ -265149,6 +266897,62 @@ SomListMetaRef transition_phase_entry_id_tpstk_stak_lst(som_id_transition_phase_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "TPSTK-STAK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_transition_phase_stakeholders);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_iden(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-IDEN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_visu(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-VISU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_inte(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-INTE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_resp(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-RESP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_acce(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_auth(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-AUTH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_reso(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-RESO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef ui_component_entry_id_uicoment_data(som_id_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "UICOMENT-DATA");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -265187,6 +266991,20 @@ SomListMetaRef ui_component_entry_id_cmpr_prop_lst(som_id_ui_component_entry x) 
   free(path);
   return out;
 }
+SomMetaRef user_category_entry_id_upd_pers(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "personaDetails/UPD-PERS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef user_category_entry_id_upd_visu(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "personaDetails/UPD-VISU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef user_category_entry_id_repre_repr_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "personaDetails/REPRE-REPR-LST");
@@ -265201,6 +267019,13 @@ SomListMetaRef user_category_entry_id_syts_syst_lst(som_id_user_category_entry x
   free(path);
   return out;
 }
+SomMetaRef user_category_entry_id_uap_perm(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessPermissions/UAP-PERM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef user_category_entry_id_prmtx_perm_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "accessPermissions/PRMTX-PERM-LST");
@@ -265208,10 +267033,31 @@ SomListMetaRef user_category_entry_id_prmtx_perm_lst(som_id_user_category_entry 
   free(path);
   return out;
 }
+SomMetaRef user_category_entry_id_ustrre_trai(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "trainingRequirements/USTRRE-TRAI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef user_category_entry_id_trtp_trai_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "trainingRequirements/TRTP-TRAI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_training_topic_entry);
+  free(path);
+  return out;
+}
+SomMetaRef user_category_entry_id_uan_acce(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessibilityNeeds/UAN-ACCE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef user_category_entry_id_uj_jour(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userJourney/UJ-JOUR");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -265233,6 +267079,13 @@ SomListMetaRef user_category_entry_id_userj_pain_lst(som_id_user_category_entry 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "userJourney/USERJ-PAIN-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_journey_pain_point_entry);
+  free(path);
+  return out;
+}
+SomMetaRef user_category_entry_id_uj_oppo(som_id_user_category_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userJourney/UJ-OPPO");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -265282,6 +267135,13 @@ SomListMetaRef workflow_step_entry_id_wostis_know_lst(som_id_workflow_step_entry
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "WOSTIS-KNOW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_step_issue);
+  free(path);
+  return out;
+}
+SomMetaRef workflow_step_system_id_wostsy_name(som_id_workflow_step_system x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "WOSTSY-NAME");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

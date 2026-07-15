@@ -32,7 +32,7 @@ class AcceptanceCriteriaList extends SomNode {
 class AcceptanceCriteriaSummary extends SomNode {
   AcceptanceCriteriaSummary(super.doc, super.path);
 
-  AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm get acceptanceFrameworkContent => AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, '$path/acceptanceFrameworkContent');
+  AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm get acceptanceFrameworkContent => AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, '$path/ACCRSU-ACCE');
 
   /// Acceptance criteria overview.
   // (skipped: acceptanceOverview has no target type)
@@ -213,8 +213,8 @@ class AccessChannels extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Channel architecture diagram.
-  String get channelDiagram => doc.content('$path/channelDiagram') ?? '';
-  set channelDiagram(String value) => doc.setContent('$path/channelDiagram', value);
+  String get channelDiagram => doc.content('$path/AC1-CHAN') ?? '';
+  set channelDiagram(String value) => doc.setContent('$path/AC1-CHAN', value);
 
   /// Channel entries — contains 1+× InteractionChannelEntry.
   SomList<InteractionChannelEntry> get channels => SomList<InteractionChannelEntry>(doc, '$path/ICE-CHAN-LST', (d, p) => InteractionChannelEntry(d, p), pattern: 'ICE-CHAN-xxx');
@@ -306,15 +306,15 @@ class AccessLevels extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Access level hierarchy diagram.
-  String get accessLevelDiagram => doc.content('$path/accessLevelDiagram') ?? '';
-  set accessLevelDiagram(String value) => doc.setContent('$path/accessLevelDiagram', value);
+  String get accessLevelDiagram => doc.content('$path/AL-ACCE') ?? '';
+  set accessLevelDiagram(String value) => doc.setContent('$path/AL-ACCE', value);
 
   /// Access level entries — contains 1+× AccessLevelEntry.
   SomList<AccessLevelEntry> get levels => SomList<AccessLevelEntry>(doc, '$path/ACLV-LEVE-LST', (d, p) => AccessLevelEntry(d, p), pattern: 'ACLV-LEVE-xxx');
 
   /// Permission matrix linking access levels to features.
-  String get permissionMatrix => doc.content('$path/permissionMatrix') ?? '';
-  set permissionMatrix(String value) => doc.setContent('$path/permissionMatrix', value);
+  String get permissionMatrix => doc.content('$path/AL-PERM') ?? '';
+  set permissionMatrix(String value) => doc.setContent('$path/AL-PERM', value);
 }
 
 /// An access restriction entry (form).
@@ -347,7 +347,7 @@ class AccessUserCategories extends SomNode {
 class Accessibility extends SomNode {
   Accessibility(super.doc, super.path);
 
-  AccessibilityAccessibilityOverviewContentForm get accessibilityOverviewContent => AccessibilityAccessibilityOverviewContentForm(doc, '$path/accessibilityOverviewContent');
+  AccessibilityAccessibilityOverviewContentForm get accessibilityOverviewContent => AccessibilityAccessibilityOverviewContentForm(doc, '$path/ACCESS-ACCE');
 
   /// Ownership and inclusive design philosophy.
   AccessibilityStrategy get strategy => AccessibilityStrategy(doc, '$path/strategy');
@@ -420,7 +420,7 @@ class AccessibilityCheckEntryRemediation extends SomNode {
 class AccessibilityChecklist extends SomNode {
   AccessibilityChecklist(super.doc, super.path);
 
-  AccessibilityChecklistChecklistOverviewContentForm get checklistOverviewContent => AccessibilityChecklistChecklistOverviewContentForm(doc, '$path/checklistOverviewContent');
+  AccessibilityChecklistChecklistOverviewContentForm get checklistOverviewContent => AccessibilityChecklistChecklistOverviewContentForm(doc, '$path/ACCHLS-CHEC');
 
   /// Accessibility checklist overview.
   // (skipped: checklistOverview has no target type)
@@ -1023,7 +1023,7 @@ class AlertSuppressionRules extends SomNode {
 class AlertingConfiguration extends SomNode {
   AlertingConfiguration(super.doc, super.path);
 
-  AlertingConfigurationAlertingOverviewForm get alertingOverview => AlertingConfigurationAlertingOverviewForm(doc, '$path/alertingOverview');
+  AlertingConfigurationAlertingOverviewForm get alertingOverview => AlertingConfigurationAlertingOverviewForm(doc, '$path/ALCO-ALER');
 
   /// Alerting overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -2826,7 +2826,7 @@ class BreadcrumbConfiguration extends SomNode {
 class BreakpointConfiguration extends SomNode {
   BreakpointConfiguration(super.doc, super.path);
 
-  BreakpointConfigurationBreakpointOverviewForm get breakpointOverview => BreakpointConfigurationBreakpointOverviewForm(doc, '$path/breakpointOverview');
+  BreakpointConfigurationBreakpointOverviewForm get breakpointOverview => BreakpointConfigurationBreakpointOverviewForm(doc, '$path/BC-BREA');
 
   /// Breakpoint entries.
   SomList<BreakpointEntry> get breakpoints => SomList<BreakpointEntry>(doc, '$path/BRE-BREA-LST', (d, p) => BreakpointEntry(d, p), pattern: 'BRE-BREA-xxx');
@@ -3338,15 +3338,15 @@ class BusinessObjectAttributeEntryValidation extends SomNode {
 class BusinessObjectEntry extends SomNode {
   BusinessObjectEntry(super.doc, super.path);
 
-  BusinessObjectEntryIdentityForm get identity => BusinessObjectEntryIdentityForm(doc, '$path/identity');
+  BusinessObjectEntryIdentityForm get identity => BusinessObjectEntryIdentityForm(doc, '$path/BJOEN-IDEN');
 
-  BusinessObjectEntryDomainContextForm get domainContext => BusinessObjectEntryDomainContextForm(doc, '$path/domainContext');
+  BusinessObjectEntryDomainContextForm get domainContext => BusinessObjectEntryDomainContextForm(doc, '$path/BJOEN-DOMA');
 
-  BusinessObjectEntryLifecycleSummaryForm get lifecycleSummary => BusinessObjectEntryLifecycleSummaryForm(doc, '$path/lifecycleSummary');
+  BusinessObjectEntryLifecycleSummaryForm get lifecycleSummary => BusinessObjectEntryLifecycleSummaryForm(doc, '$path/BJOEN-LIFE');
 
   SomList<BehaviorRuleEntry> get behaviorRules => SomList<BehaviorRuleEntry>(doc, '$path/BEHAV-BEHA-LST', (d, p) => BehaviorRuleEntry(d, p), pattern: 'BEHAV-BEHA-xxx');
 
-  BusinessObjectEntryOwnershipForm get ownership => BusinessObjectEntryOwnershipForm(doc, '$path/ownership');
+  BusinessObjectEntryOwnershipForm get ownership => BusinessObjectEntryOwnershipForm(doc, '$path/BJOEN-OWNE');
 
   SomList<IntegrationPointEntry> get integrationPoints => SomList<IntegrationPointEntry>(doc, '$path/INTEG-INTE-LST', (d, p) => IntegrationPointEntry(d, p), pattern: 'INTEG-INTE-xxx');
 
@@ -3501,17 +3501,17 @@ class BusinessProcessEntry extends SomNode {
 class BusinessRuleEntry extends SomNode {
   BusinessRuleEntry(super.doc, super.path);
 
-  BusinessRuleEntryIdentityForm get identity => BusinessRuleEntryIdentityForm(doc, '$path/identity');
+  BusinessRuleEntryIdentityForm get identity => BusinessRuleEntryIdentityForm(doc, '$path/BIRU-IDEN');
 
-  BusinessRuleEntryClassificationForm get classification => BusinessRuleEntryClassificationForm(doc, '$path/classification');
+  BusinessRuleEntryClassificationForm get classification => BusinessRuleEntryClassificationForm(doc, '$path/BIRU-CLAS');
 
-  BusinessRuleEntryRuleLogicForm get ruleLogic => BusinessRuleEntryRuleLogicForm(doc, '$path/ruleLogic');
+  BusinessRuleEntryRuleLogicForm get ruleLogic => BusinessRuleEntryRuleLogicForm(doc, '$path/BIRU-RULE');
 
-  BusinessRuleEntryImplementationForm get implementation => BusinessRuleEntryImplementationForm(doc, '$path/implementation');
+  BusinessRuleEntryImplementationForm get implementation => BusinessRuleEntryImplementationForm(doc, '$path/BIRU-IMPL');
 
-  BusinessRuleEntryExceptionHandlingForm get exceptionHandling => BusinessRuleEntryExceptionHandlingForm(doc, '$path/exceptionHandling');
+  BusinessRuleEntryExceptionHandlingForm get exceptionHandling => BusinessRuleEntryExceptionHandlingForm(doc, '$path/BIRU-EXCE');
 
-  BusinessRuleEntryGovernanceForm get governance => BusinessRuleEntryGovernanceForm(doc, '$path/governance');
+  BusinessRuleEntryGovernanceForm get governance => BusinessRuleEntryGovernanceForm(doc, '$path/BIRU-GOVE');
 
   /// Contains 0+× AffectedObject.
   SomList<AffectedObjectEntry> get affectedObjects => SomList<AffectedObjectEntry>(doc, '$path/AFOB-AFFE-LST', (d, p) => AffectedObjectEntry(d, p), pattern: 'AFOB-AFFE-xxx');
@@ -4258,7 +4258,7 @@ class ChangedRoleTransitionTraining extends SomNode {
 class ChangesFromCurrentStructure extends SomNode {
   ChangesFromCurrentStructure(super.doc, super.path);
 
-  ChangesFromCurrentStructureOverviewContentForm get overviewContent => ChangesFromCurrentStructureOverviewContentForm(doc, '$path/overviewContent');
+  ChangesFromCurrentStructureOverviewContentForm get overviewContent => ChangesFromCurrentStructureOverviewContentForm(doc, '$path/OCCHG-OVER');
 
   /// Detailed description of structural changes.
   // (skipped: changeNarrative has no target type)
@@ -4981,8 +4981,8 @@ class CommunicationMatrix extends SomNode {
   CommunicationMatrixContentForm get content => CommunicationMatrixContentForm(doc, '$path/content');
 
   /// Communication matrix diagram.
-  String get communicationFlowDiagram => doc.content('$path/communicationFlowDiagram') ?? '';
-  set communicationFlowDiagram(String value) => doc.setContent('$path/communicationFlowDiagram', value);
+  String get communicationFlowDiagram => doc.content('$path/COMA-COMM') ?? '';
+  set communicationFlowDiagram(String value) => doc.setContent('$path/COMA-COMM', value);
 
   /// Communication types and their distribution rules.
   SomList<CommunicationTypeEntry> get communicationTypes => SomList<CommunicationTypeEntry>(doc, '$path/COTY-COMM-LST', (d, p) => CommunicationTypeEntry(d, p), pattern: 'COTY-COMM-xxx');
@@ -5096,7 +5096,7 @@ class CommunicationTypeEntry extends SomNode {
 class CompatibilityCharacteristic extends SomNode {
   CompatibilityCharacteristic(super.doc, super.path);
 
-  CompatibilityCharacteristicCompatibilityContentForm get compatibilityContent => CompatibilityCharacteristicCompatibilityContentForm(doc, '$path/compatibilityContent');
+  CompatibilityCharacteristicCompatibilityContentForm get compatibilityContent => CompatibilityCharacteristicCompatibilityContentForm(doc, '$path/CMPT-COMP');
 
   /// Compatibility overview.
   // (skipped: overview has no target type)
@@ -6508,19 +6508,19 @@ class ContextDiagram extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Context diagram in Mermaid format.
-  String get diagram => doc.content('$path/diagram') ?? '';
-  set diagram(String value) => doc.setContent('$path/diagram', value);
+  String get diagram => doc.content('$path/CD-DIAG') ?? '';
+  set diagram(String value) => doc.setContent('$path/CD-DIAG', value);
 
   /// Diagram legend and conventions.
-  String get legend => doc.content('$path/legend') ?? '';
-  set legend(String value) => doc.setContent('$path/legend', value);
+  String get legend => doc.content('$path/CD-LEGE') ?? '';
+  set legend(String value) => doc.setContent('$path/CD-LEGE', value);
 }
 
 /// 10.8.1. Contextual Help.
 class ContextualHelp extends SomNode {
   ContextualHelp(super.doc, super.path);
 
-  ContextualHelpContextualHelpContentForm get contextualHelpContent => ContextualHelpContextualHelpContentForm(doc, '$path/contextualHelpContent');
+  ContextualHelpContextualHelpContentForm get contextualHelpContent => ContextualHelpContextualHelpContentForm(doc, '$path/COHE-CONT');
 
   /// Inline help behavior.
   ContextualHelpInline get inline => ContextualHelpInline(doc, '$path/inline');
@@ -6896,12 +6896,12 @@ class CurrentArchitecture extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Architecture overview diagram.
-  String get architectureDiagram => doc.content('$path/architectureDiagram') ?? '';
-  set architectureDiagram(String value) => doc.setContent('$path/architectureDiagram', value);
+  String get architectureDiagram => doc.content('$path/CARCH-ARCH') ?? '';
+  set architectureDiagram(String value) => doc.setContent('$path/CARCH-ARCH', value);
 
   /// Deployment topology description.
-  String get deploymentTopology => doc.content('$path/deploymentTopology') ?? '';
-  set deploymentTopology(String value) => doc.setContent('$path/deploymentTopology', value);
+  String get deploymentTopology => doc.content('$path/CARCH-DEPL') ?? '';
+  set deploymentTopology(String value) => doc.setContent('$path/CARCH-DEPL', value);
 
   /// Integration patterns used.
   SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/IPE-INTE-LST', (d, p) => IntegrationPatternEntry(d, p), pattern: 'IPE-INTE-xxx');
@@ -6948,8 +6948,8 @@ class CurrentBusinessProcesses extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Process landscape diagram.
-  String get processLandscapeDiagram => doc.content('$path/processLandscapeDiagram') ?? '';
-  set processLandscapeDiagram(String value) => doc.setContent('$path/processLandscapeDiagram', value);
+  String get processLandscapeDiagram => doc.content('$path/CUBUPR-PROC') ?? '';
+  set processLandscapeDiagram(String value) => doc.setContent('$path/CUBUPR-PROC', value);
 
   /// Process scope summary.
   ProcessScopeSummary get scopeSummary => ProcessScopeSummary(doc, '$path/scopeSummary');
@@ -7002,12 +7002,12 @@ class CurrentDataLandscape extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Visual representation of the data landscape.
-  String get dataLandscapeOverviewDiagram => doc.content('$path/dataLandscapeOverviewDiagram') ?? '';
-  set dataLandscapeOverviewDiagram(String value) => doc.setContent('$path/dataLandscapeOverviewDiagram', value);
+  String get dataLandscapeOverviewDiagram => doc.content('$path/CUDALA-DATAL') ?? '';
+  set dataLandscapeOverviewDiagram(String value) => doc.setContent('$path/CUDALA-DATAL', value);
 
   /// Data architecture summary diagram.
-  String get dataArchitectureDiagram => doc.content('$path/dataArchitectureDiagram') ?? '';
-  set dataArchitectureDiagram(String value) => doc.setContent('$path/dataArchitectureDiagram', value);
+  String get dataArchitectureDiagram => doc.content('$path/CUDALA-DATA') ?? '';
+  set dataArchitectureDiagram(String value) => doc.setContent('$path/CUDALA-DATA', value);
 
   /// Summary statistics and health indicators.
   DataLandscapeSummary get dataLandscapeSummary => DataLandscapeSummary(doc, '$path/dataLandscapeSummary');
@@ -7121,8 +7121,8 @@ class CurrentWorkflowEntry extends SomNode {
   CurrentWorkflowEntryContentForm get content => CurrentWorkflowEntryContentForm(doc, '$path/content');
 
   /// Workflow diagram.
-  String get workflowDiagram => doc.content('$path/workflowDiagram') ?? '';
-  set workflowDiagram(String value) => doc.setContent('$path/workflowDiagram', value);
+  String get workflowDiagram => doc.content('$path/CUWF-WORK') ?? '';
+  set workflowDiagram(String value) => doc.setContent('$path/CUWF-WORK', value);
 
   /// Workflow triggers and initiation.
   WorkflowTriggers get triggers => WorkflowTriggers(doc, '$path/triggers');
@@ -7596,8 +7596,8 @@ class D04RequirementsSpecification extends SomNode {
   /// Mirrors the flat field on RequirementsOverview so the RC outline
   /// reaches it directly. The authoritative content lives on the Solution
   /// Blueprint side.
-  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
-  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
+  String get traceabilityMatrix => doc.content('$path/RSP-TRAC') ?? '';
+  set traceabilityMatrix(String value) => doc.setContent('$path/RSP-TRAC', value);
 
   /// Requirement relationships.
   SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p), pattern: 'RERE-REQU-xxx');
@@ -8478,17 +8478,17 @@ class DataAttributeConstraintEntry extends SomNode {
 class DataAttributeEntry extends SomNode {
   DataAttributeEntry(super.doc, super.path);
 
-  DataAttributeEntryIdentityForm get identity => DataAttributeEntryIdentityForm(doc, '$path/identity');
+  DataAttributeEntryIdentityForm get identity => DataAttributeEntryIdentityForm(doc, '$path/DAATT-IDEN');
 
-  DataAttributeEntryDataTypeSpecForm get dataTypeSpec => DataAttributeEntryDataTypeSpecForm(doc, '$path/dataTypeSpec');
+  DataAttributeEntryDataTypeSpecForm get dataTypeSpec => DataAttributeEntryDataTypeSpecForm(doc, '$path/DAATT-DATA');
 
   SomList<DataAttributeConstraintEntry> get constraints => SomList<DataAttributeConstraintEntry>(doc, '$path/DATAA-CONS-LST', (d, p) => DataAttributeConstraintEntry(d, p), pattern: 'DATAA-CONS-xxx');
 
-  DataAttributeEntryDerivationForm get derivation => DataAttributeEntryDerivationForm(doc, '$path/derivation');
+  DataAttributeEntryDerivationForm get derivation => DataAttributeEntryDerivationForm(doc, '$path/DAATT-DERI');
 
-  DataAttributeEntrySecurityClassificationForm get securityClassification => DataAttributeEntrySecurityClassificationForm(doc, '$path/securityClassification');
+  DataAttributeEntrySecurityClassificationForm get securityClassification => DataAttributeEntrySecurityClassificationForm(doc, '$path/DAATT-SECU');
 
-  DataAttributeEntryMigrationLineageForm get migrationLineage => DataAttributeEntryMigrationLineageForm(doc, '$path/migrationLineage');
+  DataAttributeEntryMigrationLineageForm get migrationLineage => DataAttributeEntryMigrationLineageForm(doc, '$path/DAATT-MIGR');
 
   SomList<DisplayPropertyEntry> get displayProperties => SomList<DisplayPropertyEntry>(doc, '$path/DISPL-DISP-LST', (d, p) => DisplayPropertyEntry(d, p), pattern: 'DISPL-DISP-xxx');
 }
@@ -8497,7 +8497,7 @@ class DataAttributeEntry extends SomNode {
 class DataClassification extends SomNode {
   DataClassification(super.doc, super.path);
 
-  DataClassificationOverviewForm get overview => DataClassificationOverviewForm(doc, '$path/overview');
+  DataClassificationOverviewForm get overview => DataClassificationOverviewForm(doc, '$path/DATCL-OVER');
 
   /// Contains 0+× DataClassificationEntry.
   SomList<DataClassificationEntry> get items => SomList<DataClassificationEntry>(doc, '$path/DCLSE-ITEM-LST', (d, p) => DataClassificationEntry(d, p), pattern: 'DCLSE-ITEM-xxx');
@@ -8509,15 +8509,15 @@ class DataClassification extends SomNode {
 class DataClassificationEntry extends SomNode {
   DataClassificationEntry(super.doc, super.path);
 
-  DataClassificationEntryIdentityForm get identity => DataClassificationEntryIdentityForm(doc, '$path/identity');
+  DataClassificationEntryIdentityForm get identity => DataClassificationEntryIdentityForm(doc, '$path/DCLSE-IDEN');
 
-  DataClassificationEntryStorageTransmissionForm get storageTransmission => DataClassificationEntryStorageTransmissionForm(doc, '$path/storageTransmission');
+  DataClassificationEntryStorageTransmissionForm get storageTransmission => DataClassificationEntryStorageTransmissionForm(doc, '$path/DCLSE-STOR');
 
-  DataClassificationEntryAccessControlForm get accessControl => DataClassificationEntryAccessControlForm(doc, '$path/accessControl');
+  DataClassificationEntryAccessControlForm get accessControl => DataClassificationEntryAccessControlForm(doc, '$path/DCLSE-ACCE');
 
-  DataClassificationEntryRetentionDisposalForm get retentionDisposal => DataClassificationEntryRetentionDisposalForm(doc, '$path/retentionDisposal');
+  DataClassificationEntryRetentionDisposalForm get retentionDisposal => DataClassificationEntryRetentionDisposalForm(doc, '$path/DCLSE-RETE');
 
-  DataClassificationEntryComplianceForm get compliance => DataClassificationEntryComplianceForm(doc, '$path/compliance');
+  DataClassificationEntryComplianceForm get compliance => DataClassificationEntryComplianceForm(doc, '$path/DCLSE-COMP');
 
   /// Contains 0+× HandlingRequirement.
   SomList<HandlingRequirementEntry> get handlingRequirements => SomList<HandlingRequirementEntry>(doc, '$path/HNDRE-HAND-LST', (d, p) => HandlingRequirementEntry(d, p), pattern: 'HNDRE-HAND-xxx');
@@ -8578,8 +8578,8 @@ class DataDuplicationAnalysis extends SomNode {
   DataDuplicationSummary get duplicationSummary => DataDuplicationSummary(doc, '$path/duplicationSummary');
 
   /// Visual representation of data redundancy.
-  String get duplicationDiagram => doc.content('$path/duplicationDiagram') ?? '';
-  set duplicationDiagram(String value) => doc.setContent('$path/duplicationDiagram', value);
+  String get duplicationDiagram => doc.content('$path/DADUAN-DUPL') ?? '';
+  set duplicationDiagram(String value) => doc.setContent('$path/DADUAN-DUPL', value);
 
   /// Individual duplication instances.
   SomList<DataDuplicationEntry> get duplicationInstances => SomList<DataDuplicationEntry>(doc, '$path/DADU-DUPL-LST', (d, p) => DataDuplicationEntry(d, p), pattern: 'DADU-DUPL-xxx');
@@ -8636,17 +8636,17 @@ class DataDuplicationSummary extends SomNode {
 class DataEntityEntry extends SomNode {
   DataEntityEntry(super.doc, super.path);
 
-  DataEntityEntryIdentityForm get identity => DataEntityEntryIdentityForm(doc, '$path/identity');
+  DataEntityEntryIdentityForm get identity => DataEntityEntryIdentityForm(doc, '$path/DAENT-IDEN');
 
-  DataEntityEntryClassificationForm get classification => DataEntityEntryClassificationForm(doc, '$path/classification');
+  DataEntityEntryClassificationForm get classification => DataEntityEntryClassificationForm(doc, '$path/DAENT-CLAS');
 
   SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p), pattern: 'VOLUM-VOLU-xxx');
 
-  DataEntityEntryLifecyclePolicyForm get lifecyclePolicy => DataEntityEntryLifecyclePolicyForm(doc, '$path/lifecyclePolicy');
+  DataEntityEntryLifecyclePolicyForm get lifecyclePolicy => DataEntityEntryLifecyclePolicyForm(doc, '$path/DAENT-LIFE');
 
   SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p), pattern: 'CRE-COMP-xxx');
 
-  DataEntityEntryRelationshipSummaryForm get relationshipSummary => DataEntityEntryRelationshipSummaryForm(doc, '$path/relationshipSummary');
+  DataEntityEntryRelationshipSummaryForm get relationshipSummary => DataEntityEntryRelationshipSummaryForm(doc, '$path/DAENT-RELA');
 
   SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p), pattern: 'TECHN-TECH-xxx');
 
@@ -8746,8 +8746,8 @@ class DataGovernance extends SomNode {
   DataGovernanceMaturity get governanceMaturity => DataGovernanceMaturity(doc, '$path/governanceMaturity');
 
   /// Governance organization structure.
-  String get governanceOrgChart => doc.content('$path/governanceOrgChart') ?? '';
-  set governanceOrgChart(String value) => doc.setContent('$path/governanceOrgChart', value);
+  String get governanceOrgChart => doc.content('$path/DAGO-GOVE') ?? '';
+  set governanceOrgChart(String value) => doc.setContent('$path/DAGO-GOVE', value);
 
   /// Data governance policies.
   SomList<DataGovernancePolicyEntry> get governancePolicies => SomList<DataGovernancePolicyEntry>(doc, '$path/DGPE-GOVE-LST', (d, p) => DataGovernancePolicyEntry(d, p), pattern: 'DGPE-GOVE-xxx');
@@ -8905,8 +8905,8 @@ class DataIntegrationPoints extends SomNode {
   DataIntegrationSummary get integrationSummary => DataIntegrationSummary(doc, '$path/integrationSummary');
 
   /// Data flow diagram.
-  String get dataFlowDiagram => doc.content('$path/dataFlowDiagram') ?? '';
-  set dataFlowDiagram(String value) => doc.setContent('$path/dataFlowDiagram', value);
+  String get dataFlowDiagram => doc.content('$path/DAINPO-DATA') ?? '';
+  set dataFlowDiagram(String value) => doc.setContent('$path/DAINPO-DATA', value);
 
   /// Data integration points inventory.
   SomList<DataIntegrationEntry> get integrationPoints => SomList<DataIntegrationEntry>(doc, '$path/DAIN-INTE-LST', (d, p) => DataIntegrationEntry(d, p), pattern: 'DAIN-INTE-xxx');
@@ -9097,8 +9097,8 @@ class DataOwnership extends SomNode {
   DataOwnershipSummary get ownershipSummary => DataOwnershipSummary(doc, '$path/ownershipSummary');
 
   /// Data ownership matrix visualization.
-  String get ownershipMatrixDiagram => doc.content('$path/ownershipMatrixDiagram') ?? '';
-  set ownershipMatrixDiagram(String value) => doc.setContent('$path/ownershipMatrixDiagram', value);
+  String get ownershipMatrixDiagram => doc.content('$path/DAOW-OWNE') ?? '';
+  set ownershipMatrixDiagram(String value) => doc.setContent('$path/DAOW-OWNE', value);
 
   /// Data ownership assignments by domain.
   SomList<DataOwnershipEntry> get ownershipAssignments => SomList<DataOwnershipEntry>(doc, '$path/DAOWEN-OWNE-LST', (d, p) => DataOwnershipEntry(d, p), pattern: 'DAOWEN-OWNE-xxx');
@@ -9292,8 +9292,8 @@ class DataQualityAssessment extends SomNode {
   DataQualityDimensionsSummary get dimensionsSummary => DataQualityDimensionsSummary(doc, '$path/dimensionsSummary');
 
   /// Quality issues by severity.
-  String get qualityIssuesSeverityChart => doc.content('$path/qualityIssuesSeverityChart') ?? '';
-  set qualityIssuesSeverityChart(String value) => doc.setContent('$path/qualityIssuesSeverityChart', value);
+  String get qualityIssuesSeverityChart => doc.content('$path/DAQUAS-QUAL') ?? '';
+  set qualityIssuesSeverityChart(String value) => doc.setContent('$path/DAQUAS-QUAL', value);
 
   /// Data quality issues inventory.
   SomList<DataQualityIssueEntry> get qualityIssues => SomList<DataQualityIssueEntry>(doc, '$path/DAQLIS-QUAL-LST', (d, p) => DataQualityIssueEntry(d, p), pattern: 'DAQLIS-QUAL-xxx');
@@ -9482,8 +9482,8 @@ class DataSourceInventory extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Visual map of data sources by domain/category.
-  String get dataSourceMapDiagram => doc.content('$path/dataSourceMapDiagram') ?? '';
-  set dataSourceMapDiagram(String value) => doc.setContent('$path/dataSourceMapDiagram', value);
+  String get dataSourceMapDiagram => doc.content('$path/DASOIN-DATA') ?? '';
+  set dataSourceMapDiagram(String value) => doc.setContent('$path/DASOIN-DATA', value);
 
   /// Contains 0+× DataSource.
   SomList<DataSourceEntry> get dataSources => SomList<DataSourceEntry>(doc, '$path/DASR-DATA-LST', (d, p) => DataSourceEntry(d, p), pattern: 'DASR-DATA-xxx');
@@ -9662,8 +9662,8 @@ class DataVolumesAndGrowth extends SomNode {
   DataVolumeSummary get volumeSummary => DataVolumeSummary(doc, '$path/volumeSummary');
 
   /// Growth trend visualization.
-  String get growthTrendChart => doc.content('$path/growthTrendChart') ?? '';
-  set growthTrendChart(String value) => doc.setContent('$path/growthTrendChart', value);
+  String get growthTrendChart => doc.content('$path/DVAG-GROW') ?? '';
+  set growthTrendChart(String value) => doc.setContent('$path/DVAG-GROW', value);
 
   /// Volume details by data source.
   SomList<DataVolumeEntry> get volumeBySource => SomList<DataVolumeEntry>(doc, '$path/DAVOEN-VOLU-LST', (d, p) => DataVolumeEntry(d, p), pattern: 'DAVOEN-VOLU-xxx');
@@ -10278,8 +10278,8 @@ class DependenciesAndIntegrations extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Dependency matrix diagram.
-  String get dependencyDiagram => doc.content('$path/dependencyDiagram') ?? '';
-  set dependencyDiagram(String value) => doc.setContent('$path/dependencyDiagram', value);
+  String get dependencyDiagram => doc.content('$path/DEPNT-DEPE') ?? '';
+  set dependencyDiagram(String value) => doc.setContent('$path/DEPNT-DEPE', value);
 
   /// 1.1.3.1. Internal Dependencies.
   InternalDependencies get internalDependencies => InternalDependencies(doc, '$path/internalDependencies');
@@ -11797,7 +11797,7 @@ class DocumentationDeliverables extends SomNode {
 class DocumentationQualityCriteria extends SomNode {
   DocumentationQualityCriteria(super.doc, super.path);
 
-  DocumentationQualityCriteriaDocumentationOverviewContentForm get documentationOverviewContent => DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, '$path/documentationOverviewContent');
+  DocumentationQualityCriteriaDocumentationOverviewContentForm get documentationOverviewContent => DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, '$path/DOQUCR-DOCU');
 
   /// Documentation quality overview narrative.
   // (skipped: overview has no target type)
@@ -11933,16 +11933,16 @@ class DomainBoundaries extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Context map showing domain boundaries.
-  String get contextMap => doc.content('$path/contextMap') ?? '';
-  set contextMap(String value) => doc.setContent('$path/contextMap', value);
+  String get contextMap => doc.content('$path/DB-CONT') ?? '';
+  set contextMap(String value) => doc.setContent('$path/DB-CONT', value);
 
   /// Within-scope items.
-  String get withinScope => doc.content('$path/withinScope') ?? '';
-  set withinScope(String value) => doc.setContent('$path/withinScope', value);
+  String get withinScope => doc.content('$path/DB-WITH') ?? '';
+  set withinScope(String value) => doc.setContent('$path/DB-WITH', value);
 
   /// Outside-scope items.
-  String get outsideScope => doc.content('$path/outsideScope') ?? '';
-  set outsideScope(String value) => doc.setContent('$path/outsideScope', value);
+  String get outsideScope => doc.content('$path/DB-OUTS') ?? '';
+  set outsideScope(String value) => doc.setContent('$path/DB-OUTS', value);
 
   /// Domain interfaces — contains 0+× DomainInterfaceEntry.
   SomList<DomainInterfaceEntry> get interfaces => SomList<DomainInterfaceEntry>(doc, '$path/DIE-INTE-LST', (d, p) => DomainInterfaceEntry(d, p), pattern: 'DIE-INTE-xxx');
@@ -12084,8 +12084,8 @@ class DomainProcesses extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Process overview diagram.
-  String get processOverviewDiagram => doc.content('$path/processOverviewDiagram') ?? '';
-  set processOverviewDiagram(String value) => doc.setContent('$path/processOverviewDiagram', value);
+  String get processOverviewDiagram => doc.content('$path/DP-PROC') ?? '';
+  set processOverviewDiagram(String value) => doc.setContent('$path/DP-PROC', value);
 
   /// Domain process entries — contains 0+× DomainProcessEntry.
   SomList<DomainProcessEntry> get processes => SomList<DomainProcessEntry>(doc, '$path/DOPR-PROC-LST', (d, p) => DomainProcessEntry(d, p), pattern: 'DOPR-PROC-xxx');
@@ -12400,15 +12400,15 @@ class EntityIndexEntry extends SomNode {
 class EntityRelationshipEntry extends SomNode {
   EntityRelationshipEntry(super.doc, super.path);
 
-  EntityRelationshipEntryIdentityForm get identity => EntityRelationshipEntryIdentityForm(doc, '$path/identity');
+  EntityRelationshipEntryIdentityForm get identity => EntityRelationshipEntryIdentityForm(doc, '$path/ENRLE-IDEN');
 
   SomList<ParticipantEntry> get participants => SomList<ParticipantEntry>(doc, '$path/PARTI-PART-LST', (d, p) => ParticipantEntry(d, p), pattern: 'PARTI-PART-xxx');
 
-  EntityRelationshipEntryCardinalityForm get cardinality => EntityRelationshipEntryCardinalityForm(doc, '$path/cardinality');
+  EntityRelationshipEntryCardinalityForm get cardinality => EntityRelationshipEntryCardinalityForm(doc, '$path/ENRLE-CARD');
 
-  EntityRelationshipEntryReferentialIntegrityForm get referentialIntegrity => EntityRelationshipEntryReferentialIntegrityForm(doc, '$path/referentialIntegrity');
+  EntityRelationshipEntryReferentialIntegrityForm get referentialIntegrity => EntityRelationshipEntryReferentialIntegrityForm(doc, '$path/ENRLE-REFE');
 
-  EntityRelationshipEntryNavigationForm get navigation => EntityRelationshipEntryNavigationForm(doc, '$path/navigation');
+  EntityRelationshipEntryNavigationForm get navigation => EntityRelationshipEntryNavigationForm(doc, '$path/ENRLE-NAVI');
 
   SomList<RelationshipAttributeEntry> get relationshipAttributes => SomList<RelationshipAttributeEntry>(doc, '$path/RELAT-RELA-LST', (d, p) => RelationshipAttributeEntry(d, p), pattern: 'RELAT-RELA-xxx');
 
@@ -12762,7 +12762,7 @@ class ErrorBudgetTrackingMonitoring extends SomNode {
 class ErrorHandling extends SomNode {
   ErrorHandling(super.doc, super.path);
 
-  ErrorHandlingErrorPhilosophyContentForm get errorPhilosophyContent => ErrorHandlingErrorPhilosophyContentForm(doc, '$path/errorPhilosophyContent');
+  ErrorHandlingErrorPhilosophyContentForm get errorPhilosophyContent => ErrorHandlingErrorPhilosophyContentForm(doc, '$path/ERHACO-ERRO');
 
   /// Error categorization and display priority.
   ErrorHandlingClassification get classification => ErrorHandlingClassification(doc, '$path/classification');
@@ -12905,7 +12905,7 @@ class ErrorProcedureEntry extends SomNode {
 class ErrorRecovery extends SomNode {
   ErrorRecovery(super.doc, super.path);
 
-  ErrorRecoveryRecoveryMechanismsContentForm get recoveryMechanismsContent => ErrorRecoveryRecoveryMechanismsContentForm(doc, '$path/recoveryMechanismsContent');
+  ErrorRecoveryRecoveryMechanismsContentForm get recoveryMechanismsContent => ErrorRecoveryRecoveryMechanismsContentForm(doc, '$path/ERRE-RECO');
 
   /// Data preservation: draft auto-save settings.
   ErrorRecoveryDataPreservation get dataPreservation => ErrorRecoveryDataPreservation(doc, '$path/dataPreservation');
@@ -13526,7 +13526,7 @@ class ExternalConnectivitySection extends SomNode {
 class ExternalInterfaceEntry extends SomNode {
   ExternalInterfaceEntry(super.doc, super.path);
 
-  ExternalInterfaceEntryIdentificationContentForm get identificationContent => ExternalInterfaceEntryIdentificationContentForm(doc, '$path/identificationContent');
+  ExternalInterfaceEntryIdentificationContentForm get identificationContent => ExternalInterfaceEntryIdentificationContentForm(doc, '$path/EIE-IDEN');
 
   /// Business purpose and value of this interface.
   InterfaceBusinessContext get businessContext => InterfaceBusinessContext(doc, '$path/businessContext');
@@ -13765,8 +13765,8 @@ class ExternalSystemContextEntry extends SomNode {
   ExternalSystemContextEntryGovernance get governance => ExternalSystemContextEntryGovernance(doc, '$path/governance');
 
   /// Data mapping details.
-  String get dataMapping => doc.content('$path/dataMapping') ?? '';
-  set dataMapping(String value) => doc.setContent('$path/dataMapping', value);
+  String get dataMapping => doc.content('$path/EXSYCOEN-DATA') ?? '';
+  set dataMapping(String value) => doc.setContent('$path/EXSYCOEN-DATA', value);
 }
 
 /// Security and support contacts for an external system context.
@@ -14385,7 +14385,7 @@ class Flexibility extends SomNode {
 class FlexibilityCharacteristic extends SomNode {
   FlexibilityCharacteristic(super.doc, super.path);
 
-  FlexibilityCharacteristicFlexibilityContentForm get flexibilityContent => FlexibilityCharacteristicFlexibilityContentForm(doc, '$path/flexibilityContent');
+  FlexibilityCharacteristicFlexibilityContentForm get flexibilityContent => FlexibilityCharacteristicFlexibilityContentForm(doc, '$path/FLXC-FLEX');
 
   /// Flexibility overview.
   // (skipped: overview has no target type)
@@ -14572,9 +14572,9 @@ class FunctionEntryOperations extends SomNode {
 class FunctionModel extends SomNode {
   FunctionModel(super.doc, super.path);
 
-  FunctionModelDecompositionOverviewForm get decompositionOverview => FunctionModelDecompositionOverviewForm(doc, '$path/decompositionOverview');
+  FunctionModelDecompositionOverviewForm get decompositionOverview => FunctionModelDecompositionOverviewForm(doc, '$path/FUMO-DECO');
 
-  FunctionModelMatrixOverviewForm get matrixOverview => FunctionModelMatrixOverviewForm(doc, '$path/matrixOverview');
+  FunctionModelMatrixOverviewForm get matrixOverview => FunctionModelMatrixOverviewForm(doc, '$path/FUMO-MATR');
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
   SomList<FunctionEntry> get functions => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p), pattern: 'FUNCT-FUNC-xxx');
@@ -14704,7 +14704,7 @@ class FunctionalRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Functional requirements summary form.
-  FunctionalRequirementsSummaryFormForm get summaryForm => FunctionalRequirementsSummaryFormForm(doc, '$path/summaryForm');
+  FunctionalRequirementsSummaryFormForm get summaryForm => FunctionalRequirementsSummaryFormForm(doc, '$path/FR-SUMM');
 
   /// Functional requirements list — contains 1+× Functional Requirement.
   SomList<FunctionalRequirementEntry> get requirements => SomList<FunctionalRequirementEntry>(doc, '$path/FRE-REQU-LST', (d, p) => FunctionalRequirementEntry(d, p), pattern: 'FRE-REQU-xxx');
@@ -14736,7 +14736,7 @@ class FunctionalResponsibilities extends SomNode {
 class FunctionalSuitabilityCharacteristic extends SomNode {
   FunctionalSuitabilityCharacteristic(super.doc, super.path);
 
-  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm get functionalSuitabilityContent => FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, '$path/functionalSuitabilityContent');
+  FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm get functionalSuitabilityContent => FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, '$path/FNSU-FUNC');
 
   /// Functional suitability overview.
   // (skipped: overview has no target type)
@@ -14996,7 +14996,7 @@ class GoalResources extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Resource requirement form.
-  GoalResourcesResourcesFormForm get resourcesForm => GoalResourcesResourcesFormForm(doc, '$path/resourcesForm');
+  GoalResourcesResourcesFormForm get resourcesForm => GoalResourcesResourcesFormForm(doc, '$path/GORE-RESO');
 
   /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
   SomList<ResourceAllocationEntry> get items => SomList<ResourceAllocationEntry>(doc, '$path/REARS-ITEM-LST', (d, p) => ResourceAllocationEntry(d, p), pattern: 'REARS-ITEM-xxx');
@@ -15061,8 +15061,8 @@ class Goals extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Goal hierarchy diagram.
-  String get goalHierarchyDiagram => doc.content('$path/goalHierarchyDiagram') ?? '';
-  set goalHierarchyDiagram(String value) => doc.setContent('$path/goalHierarchyDiagram', value);
+  String get goalHierarchyDiagram => doc.content('$path/GOALS-GOAL') ?? '';
+  set goalHierarchyDiagram(String value) => doc.setContent('$path/GOALS-GOAL', value);
 
   /// 4.2.1. Business Goals.
   BusinessGoals get businessGoals => BusinessGoals(doc, '$path/businessGoals');
@@ -16288,7 +16288,7 @@ class InteractionBusinessRules extends SomNode {
 class InteractionCapabilityCharacteristic extends SomNode {
   InteractionCapabilityCharacteristic(super.doc, super.path);
 
-  InteractionCapabilityCharacteristicInteractionCapabilityContentForm get interactionCapabilityContent => InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, '$path/interactionCapabilityContent');
+  InteractionCapabilityCharacteristicInteractionCapabilityContentForm get interactionCapabilityContent => InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, '$path/INCP-INTE');
 
   /// Interaction capability overview.
   // (skipped: overview has no target type)
@@ -17020,8 +17020,8 @@ class IntroductionAndScope extends SomNode {
   SystemSummary get summary => SystemSummary(doc, '$path/summary');
 
   /// System context diagram showing major system boundaries.
-  String get systemContextDiagram => doc.content('$path/systemContextDiagram') ?? '';
-  set systemContextDiagram(String value) => doc.setContent('$path/systemContextDiagram', value);
+  String get systemContextDiagram => doc.content('$path/INSC-SYST') ?? '';
+  set systemContextDiagram(String value) => doc.setContent('$path/INSC-SYST', value);
 
   /// 4.1. System Description.
   SystemDescription get systemDescription => SystemDescription(doc, '$path/systemDescription');
@@ -17372,8 +17372,8 @@ class KeyConcepts extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Conceptual domain model diagram.
-  String get conceptualModelDiagram => doc.content('$path/conceptualModelDiagram') ?? '';
-  set conceptualModelDiagram(String value) => doc.setContent('$path/conceptualModelDiagram', value);
+  String get conceptualModelDiagram => doc.content('$path/KC-CONC') ?? '';
+  set conceptualModelDiagram(String value) => doc.setContent('$path/KC-CONC', value);
 
   /// Key concept entries — contains 1+× KeyConceptEntry.
   SomList<KeyConceptEntry> get concepts => SomList<KeyConceptEntry>(doc, '$path/KECON-CONC-LST', (d, p) => KeyConceptEntry(d, p), pattern: 'KECON-CONC-xxx');
@@ -17560,7 +17560,7 @@ class KpiEntry extends SomNode {
 class LanguageCountrySelection extends SomNode {
   LanguageCountrySelection(super.doc, super.path);
 
-  LanguageCountrySelectionLanguageSelectionContentForm get languageSelectionContent => LanguageCountrySelectionLanguageSelectionContentForm(doc, '$path/languageSelectionContent');
+  LanguageCountrySelectionLanguageSelectionContentForm get languageSelectionContent => LanguageCountrySelectionLanguageSelectionContentForm(doc, '$path/LACOSE-LANG');
 
   /// Default locale behavior.
   LanguageCountrySelectionDefaults get defaults => LanguageCountrySelectionDefaults(doc, '$path/defaults');
@@ -17954,7 +17954,7 @@ class LocalizationFormatting extends SomNode {
 class LocalizationProcess extends SomNode {
   LocalizationProcess(super.doc, super.path);
 
-  LocalizationProcessLocalizationProcessContentForm get localizationProcessContent => LocalizationProcessLocalizationProcessContentForm(doc, '$path/localizationProcessContent');
+  LocalizationProcessLocalizationProcessContentForm get localizationProcessContent => LocalizationProcessLocalizationProcessContentForm(doc, '$path/LOPR-LOCA');
 
   /// Review process.
   LocalizationReview get review => LocalizationReview(doc, '$path/review');
@@ -18259,7 +18259,7 @@ class MaintainabilityChangeability extends SomNode {
 class MaintainabilityCharacteristic extends SomNode {
   MaintainabilityCharacteristic(super.doc, super.path);
 
-  MaintainabilityCharacteristicMaintainabilityContentForm get maintainabilityContent => MaintainabilityCharacteristicMaintainabilityContentForm(doc, '$path/maintainabilityContent');
+  MaintainabilityCharacteristicMaintainabilityContentForm get maintainabilityContent => MaintainabilityCharacteristicMaintainabilityContentForm(doc, '$path/MNTC-MAIN');
 
   /// Maintainability overview.
   // (skipped: overview has no target type)
@@ -18652,7 +18652,7 @@ class MethodologyDeviationSummary extends SomNode {
 class MetricsAndObservability extends SomNode {
   MetricsAndObservability(super.doc, super.path);
 
-  MetricsAndObservabilityMetricsOverviewForm get metricsOverview => MetricsAndObservabilityMetricsOverviewForm(doc, '$path/metricsOverview');
+  MetricsAndObservabilityMetricsOverviewForm get metricsOverview => MetricsAndObservabilityMetricsOverviewForm(doc, '$path/MEANOB-METR');
 
   /// Observability overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -18838,7 +18838,7 @@ class MigrationCompliance extends SomNode {
 class MigrationConsiderations extends SomNode {
   MigrationConsiderations(super.doc, super.path);
 
-  MigrationConsiderationsStrategyContentForm get strategyContent => MigrationConsiderationsStrategyContentForm(doc, '$path/strategyContent');
+  MigrationConsiderationsStrategyContentForm get strategyContent => MigrationConsiderationsStrategyContentForm(doc, '$path/MIGCON-STRA');
 
   /// Detailed strategy narrative.
   // (skipped: strategyNarrative has no target type)
@@ -19230,7 +19230,7 @@ class MigrationRiskTracking extends SomNode {
 class MigrationRisks extends SomNode {
   MigrationRisks(super.doc, super.path);
 
-  MigrationRisksGovernanceContentForm get governanceContent => MigrationRisksGovernanceContentForm(doc, '$path/governanceContent');
+  MigrationRisksGovernanceContentForm get governanceContent => MigrationRisksGovernanceContentForm(doc, '$path/MIRI-GOVE');
 
   /// Governance and decision authority.
   MigrationRisksGovernance get governance => MigrationRisksGovernance(doc, '$path/governance');
@@ -19577,7 +19577,7 @@ class ModuleVersioningStrategyReleaseManagement extends SomNode {
 class Monitoring extends SomNode {
   Monitoring(super.doc, super.path);
 
-  MonitoringMonitoringOverviewForm get monitoringOverview => MonitoringMonitoringOverviewForm(doc, '$path/monitoringOverview');
+  MonitoringMonitoringOverviewForm get monitoringOverview => MonitoringMonitoringOverviewForm(doc, '$path/MONITO-MONI');
 
   /// Monitoring strategy narrative.
   // (skipped: overviewNarrative has no target type)
@@ -19672,7 +19672,7 @@ class MonitoringCoverage extends SomNode {
 class MonitoringDashboards extends SomNode {
   MonitoringDashboards(super.doc, super.path);
 
-  MonitoringDashboardsDashboardOverviewForm get dashboardOverview => MonitoringDashboardsDashboardOverviewForm(doc, '$path/dashboardOverview');
+  MonitoringDashboardsDashboardOverviewForm get dashboardOverview => MonitoringDashboardsDashboardOverviewForm(doc, '$path/MODA-DASH');
 
   /// Dashboard overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -19819,7 +19819,7 @@ class MultiChannelExperience extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Multi-channel configuration.
-  MultiChannelExperienceMultiChannelConfigurationForm get multiChannelConfiguration => MultiChannelExperienceMultiChannelConfigurationForm(doc, '$path/multiChannelConfiguration');
+  MultiChannelExperienceMultiChannelConfigurationForm get multiChannelConfiguration => MultiChannelExperienceMultiChannelConfigurationForm(doc, '$path/MCE-MULT');
 }
 
 /// 10.12. Multi-language Support.
@@ -19832,7 +19832,7 @@ class MultiChannelExperience extends SomNode {
 class MultiLanguageSupport extends SomNode {
   MultiLanguageSupport(super.doc, super.path);
 
-  MultiLanguageSupportMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageSupportMultiLanguageOverviewForm(doc, '$path/multiLanguageOverview');
+  MultiLanguageSupportMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageSupportMultiLanguageOverviewForm(doc, '$path/MLAR-MULT');
 
   /// Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -19850,7 +19850,7 @@ class MultiLanguageSupport extends SomNode {
 class MustPassCriteria extends SomNode {
   MustPassCriteria(super.doc, super.path);
 
-  MustPassCriteriaMustPassOverviewContentForm get mustPassOverviewContent => MustPassCriteriaMustPassOverviewContentForm(doc, '$path/mustPassOverviewContent');
+  MustPassCriteriaMustPassOverviewContentForm get mustPassOverviewContent => MustPassCriteriaMustPassOverviewContentForm(doc, '$path/MUPACR-MUST');
 
   /// Must-pass criteria overview.
   // (skipped: overview has no target type)
@@ -20813,7 +20813,7 @@ class OnCallScheduleConfigOperations extends SomNode {
 class OnboardingHelp extends SomNode {
   OnboardingHelp(super.doc, super.path);
 
-  OnboardingHelpOnboardingContentForm get onboardingContent => OnboardingHelpOnboardingContentForm(doc, '$path/onboardingContent');
+  OnboardingHelpOnboardingContentForm get onboardingContent => OnboardingHelpOnboardingContentForm(doc, '$path/ONHE-ONBO');
 
   /// Feature tour settings.
   OnboardingHelpTours get tours => OnboardingHelpTours(doc, '$path/tours');
@@ -21092,7 +21092,7 @@ class OrgRequirementImplementationPlan extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Implementation plan form.
-  OrgRequirementImplementationPlanPlanFormForm get planForm => OrgRequirementImplementationPlanPlanFormForm(doc, '$path/planForm');
+  OrgRequirementImplementationPlanPlanFormForm get planForm => OrgRequirementImplementationPlanPlanFormForm(doc, '$path/ORIP-PLAN');
 
   /// Implementation activities — contains 0+× OrgImplementationActivity.
   SomList<OrgImplementationActivity> get activities => SomList<OrgImplementationActivity>(doc, '$path/ORGIM-ACTI-LST', (d, p) => OrgImplementationActivity(d, p), pattern: 'ORGIM-ACTI-xxx');
@@ -21163,8 +21163,8 @@ class OrganizationalContext extends SomNode {
   SomList<OrganizationalUnitContextEntry> get organizationalUnits => SomList<OrganizationalUnitContextEntry>(doc, '$path/OUCE-ORGA-LST', (d, p) => OrganizationalUnitContextEntry(d, p), pattern: 'OUCE-ORGA-xxx');
 
   /// Business process coverage.
-  String get businessProcessCoverage => doc.content('$path/businessProcessCoverage') ?? '';
-  set businessProcessCoverage(String value) => doc.setContent('$path/businessProcessCoverage', value);
+  String get businessProcessCoverage => doc.content('$path/OC-BUSI') ?? '';
+  set businessProcessCoverage(String value) => doc.setContent('$path/OC-BUSI', value);
 }
 
 /// 4.6.1. Organizational Environment.
@@ -21176,7 +21176,7 @@ class OrganizationalContext extends SomNode {
 class OrganizationalEnvironment extends SomNode {
   OrganizationalEnvironment(super.doc, super.path);
 
-  OrganizationalEnvironmentOrganizationContentForm get organizationContent => OrganizationalEnvironmentOrganizationContentForm(doc, '$path/organizationContent');
+  OrganizationalEnvironmentOrganizationContentForm get organizationContent => OrganizationalEnvironmentOrganizationContentForm(doc, '$path/OREN-ORGA');
 
   /// Organizational maturity indicators.
   OrganizationalEnvironmentMaturity get maturity => OrganizationalEnvironmentMaturity(doc, '$path/maturity');
@@ -21315,7 +21315,7 @@ class OrganizationalRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Organizational requirements summary form.
-  OrganizationalRequirementsSummaryFormForm get summaryForm => OrganizationalRequirementsSummaryFormForm(doc, '$path/summaryForm');
+  OrganizationalRequirementsSummaryFormForm get summaryForm => OrganizationalRequirementsSummaryFormForm(doc, '$path/OR-SUMM');
 
   /// Organizational requirements list — contains 0+× Organizational Requirement.
   SomList<OrganizationalRequirementEntry> get requirements => SomList<OrganizationalRequirementEntry>(doc, '$path/ORRQ-REQU-LST', (d, p) => OrganizationalRequirementEntry(d, p), pattern: 'ORRQ-REQU-xxx');
@@ -21561,8 +21561,8 @@ class PainPointGapCorrelation extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Visual correlation between pain points and gaps.
-  String get correlationDiagram => doc.content('$path/correlationDiagram') ?? '';
-  set correlationDiagram(String value) => doc.setContent('$path/correlationDiagram', value);
+  String get correlationDiagram => doc.content('$path/PPGC-CORR') ?? '';
+  set correlationDiagram(String value) => doc.setContent('$path/PPGC-CORR', value);
 
   /// Tabular correlation data.
   SomList<PainPointGapCorrelationEntry> get correlationEntries => SomList<PainPointGapCorrelationEntry>(doc, '$path/PPGCE-CORR-LST', (d, p) => PainPointGapCorrelationEntry(d, p), pattern: 'PPGCE-CORR-xxx');
@@ -21625,12 +21625,12 @@ class PainPointsAndGaps extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Visual mapping of pain points and their relationships.
-  String get painPointsOverviewDiagram => doc.content('$path/painPointsOverviewDiagram') ?? '';
-  set painPointsOverviewDiagram(String value) => doc.setContent('$path/painPointsOverviewDiagram', value);
+  String get painPointsOverviewDiagram => doc.content('$path/PPAG-PAIN') ?? '';
+  set painPointsOverviewDiagram(String value) => doc.setContent('$path/PPAG-PAIN', value);
 
   /// Pain points priority matrix (urgency vs impact).
-  String get painPointsPriorityMatrix => doc.content('$path/painPointsPriorityMatrix') ?? '';
-  set painPointsPriorityMatrix(String value) => doc.setContent('$path/painPointsPriorityMatrix', value);
+  String get painPointsPriorityMatrix => doc.content('$path/PPAG-PAINP') ?? '';
+  set painPointsPriorityMatrix(String value) => doc.setContent('$path/PPAG-PAINP', value);
 
   /// Summary statistics for all pain points.
   PainPointsSummary get painPointsSummary => PainPointsSummary(doc, '$path/painPointsSummary');
@@ -21844,7 +21844,7 @@ class PenetrationTestingRequirementsScheduling extends SomNode {
 class PerformanceEfficiencyCharacteristic extends SomNode {
   PerformanceEfficiencyCharacteristic(super.doc, super.path);
 
-  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm get performanceEfficiencyContent => PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, '$path/performanceEfficiencyContent');
+  PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm get performanceEfficiencyContent => PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, '$path/PEEF-PERF');
 
   /// Performance efficiency overview.
   // (skipped: overview has no target type)
@@ -22723,8 +22723,8 @@ class ProcessAdjustments extends SomNode {
   ProcessAdjustmentSummary get adjustmentSummary => ProcessAdjustmentSummary(doc, '$path/adjustmentSummary');
 
   /// Visual representation of process adjustments.
-  String get processFlowDiagram => doc.content('$path/processFlowDiagram') ?? '';
-  set processFlowDiagram(String value) => doc.setContent('$path/processFlowDiagram', value);
+  String get processFlowDiagram => doc.content('$path/PCADJ-PROC') ?? '';
+  set processFlowDiagram(String value) => doc.setContent('$path/PCADJ-PROC', value);
 
   /// Contains 0+× ProcessAdjustment.
   SomList<ProcessAdjustmentEntry> get items => SomList<ProcessAdjustmentEntry>(doc, '$path/PCAJE-ITEM-LST', (d, p) => ProcessAdjustmentEntry(d, p), pattern: 'PCAJE-ITEM-xxx');
@@ -23050,8 +23050,8 @@ class ProcessInterdependencyMatrix extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Interdependency diagram.
-  String get dependencyDiagram => doc.content('$path/dependencyDiagram') ?? '';
-  set dependencyDiagram(String value) => doc.setContent('$path/dependencyDiagram', value);
+  String get dependencyDiagram => doc.content('$path/PRINMA-DEPE') ?? '';
+  set dependencyDiagram(String value) => doc.setContent('$path/PRINMA-DEPE', value);
 
   /// Individual process dependencies.
   SomList<ProcessDependencyEntry> get dependencies => SomList<ProcessDependencyEntry>(doc, '$path/PRDEEN-DEPE-LST', (d, p) => ProcessDependencyEntry(d, p), pattern: 'PRDEEN-DEPE-xxx');
@@ -23557,8 +23557,8 @@ class ProjectOrganizationAndProcess extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Visual overview of methodology deviations.
-  String get methodologyDeviationDiagram => doc.content('$path/methodologyDeviationDiagram') ?? '';
-  set methodologyDeviationDiagram(String value) => doc.setContent('$path/methodologyDeviationDiagram', value);
+  String get methodologyDeviationDiagram => doc.content('$path/PRPO-METH') ?? '';
+  set methodologyDeviationDiagram(String value) => doc.setContent('$path/PRPO-METH', value);
 
   /// Summary of all methodology deviations.
   MethodologyDeviationSummary get deviationSummary => MethodologyDeviationSummary(doc, '$path/deviationSummary');
@@ -23685,7 +23685,7 @@ class ProtocolsAndStandardsSection extends SomNode {
 class Prototype extends SomNode {
   Prototype(super.doc, super.path);
 
-  PrototypePrototypeOverviewForm get prototypeOverview => PrototypePrototypeOverviewForm(doc, '$path/prototypeOverview');
+  PrototypePrototypeOverviewForm get prototypeOverview => PrototypePrototypeOverviewForm(doc, '$path/PROTOT-PROT');
 
   /// Prototype timing commitments.
   PrototypeTimeline get timeline => PrototypeTimeline(doc, '$path/timeline');
@@ -23725,7 +23725,7 @@ class PrototypeFeatureEntry extends SomNode {
 class PrototypeFeatureSubset extends SomNode {
   PrototypeFeatureSubset(super.doc, super.path);
 
-  PrototypeFeatureSubsetFeatureSubsetContentForm get featureSubsetContent => PrototypeFeatureSubsetFeatureSubsetContentForm(doc, '$path/featureSubsetContent');
+  PrototypeFeatureSubsetFeatureSubsetContentForm get featureSubsetContent => PrototypeFeatureSubsetFeatureSubsetContentForm(doc, '$path/PRFESU-FEAT');
 
   /// Included and excluded feature scope.
   PrototypeFeatureSubsetScope get scope => PrototypeFeatureSubsetScope(doc, '$path/scope');
@@ -23767,7 +23767,7 @@ class PrototypeGoalEntry extends SomNode {
 class PrototypeGoals extends SomNode {
   PrototypeGoals(super.doc, super.path);
 
-  PrototypeGoalsGoalsContentForm get goalsContent => PrototypeGoalsGoalsContentForm(doc, '$path/goalsContent');
+  PrototypeGoalsGoalsContentForm get goalsContent => PrototypeGoalsGoalsContentForm(doc, '$path/PG-GOAL');
 
   /// Risk reduction and assumption testing.
   PrototypeGoalsRisk get riskProfile => PrototypeGoalsRisk(doc, '$path/riskProfile');
@@ -23823,7 +23823,7 @@ class PrototypeTimeline extends SomNode {
 class PrototypeType extends SomNode {
   PrototypeType(super.doc, super.path);
 
-  PrototypeTypePrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypePrototypeTypeOverviewForm(doc, '$path/prototypeTypeOverview');
+  PrototypeTypePrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypePrototypeTypeOverviewForm(doc, '$path/PRTYSE-PROT');
 
   /// 10.13.3.1. Reusable Prototype.
   ReusablePrototype get reusablePrototype => ReusablePrototype(doc, '$path/reusablePrototype');
@@ -23962,7 +23962,7 @@ class QualityCategoryEntryRelationships extends SomNode {
 class QualityFramework extends SomNode {
   QualityFramework(super.doc, super.path);
 
-  QualityFrameworkFrameworkContentForm get frameworkContent => QualityFrameworkFrameworkContentForm(doc, '$path/frameworkContent');
+  QualityFrameworkFrameworkContentForm get frameworkContent => QualityFrameworkFrameworkContentForm(doc, '$path/QLFWK-FRAM');
 
   /// Quality objective structure and alignment.
   QualityFrameworkObjectives get objectives => QualityFrameworkObjectives(doc, '$path/objectives');
@@ -24083,8 +24083,8 @@ class QualityGateAdjustments extends SomNode {
   QualityGateAdjustmentSummary get adjustmentSummary => QualityGateAdjustmentSummary(doc, '$path/adjustmentSummary');
 
   /// Visual representation of gate adjustments.
-  String get gateFlowDiagram => doc.content('$path/gateFlowDiagram') ?? '';
-  set gateFlowDiagram(String value) => doc.setContent('$path/gateFlowDiagram', value);
+  String get gateFlowDiagram => doc.content('$path/QGADJ-GATE') ?? '';
+  set gateFlowDiagram(String value) => doc.setContent('$path/QGADJ-GATE', value);
 
   /// Contains 0+× QualityGateAdjustment.
   SomList<QualityGateAdjustmentEntry> get items => SomList<QualityGateAdjustmentEntry>(doc, '$path/QGAJE-ITEM-LST', (d, p) => QualityGateAdjustmentEntry(d, p), pattern: 'QGAJE-ITEM-xxx');
@@ -24153,7 +24153,7 @@ class QualityGateCheckEntryVerification extends SomNode {
 class QualityGateChecklist extends SomNode {
   QualityGateChecklist(super.doc, super.path);
 
-  QualityGateChecklistChecklistOverviewContentForm get checklistOverviewContent => QualityGateChecklistChecklistOverviewContentForm(doc, '$path/checklistOverviewContent');
+  QualityGateChecklistChecklistOverviewContentForm get checklistOverviewContent => QualityGateChecklistChecklistOverviewContentForm(doc, '$path/QUGACH-CHEC');
 
   /// Quality gate checklist overview.
   // (skipped: overview has no target type)
@@ -24197,7 +24197,7 @@ class QualityGoalsResources extends SomNode {
 class QualityPrioritization extends SomNode {
   QualityPrioritization(super.doc, super.path);
 
-  QualityPrioritizationPrioritizationFrameworkContentForm get prioritizationFrameworkContent => QualityPrioritizationPrioritizationFrameworkContentForm(doc, '$path/prioritizationFrameworkContent');
+  QualityPrioritizationPrioritizationFrameworkContentForm get prioritizationFrameworkContent => QualityPrioritizationPrioritizationFrameworkContentForm(doc, '$path/QUPR-PRIO');
 
   /// Prioritization approach overview.
   // (skipped: prioritizationOverview has no target type)
@@ -24751,7 +24751,7 @@ class Reliability extends SomNode {
 class ReliabilityCharacteristic extends SomNode {
   ReliabilityCharacteristic(super.doc, super.path);
 
-  ReliabilityCharacteristicReliabilityContentForm get reliabilityContent => ReliabilityCharacteristicReliabilityContentForm(doc, '$path/reliabilityContent');
+  ReliabilityCharacteristicReliabilityContentForm get reliabilityContent => ReliabilityCharacteristicReliabilityContentForm(doc, '$path/RELC-RELI');
 
   /// Reliability overview narrative.
   // (skipped: overview has no target type)
@@ -25544,7 +25544,7 @@ class RequirementTraceability extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Traceability links form.
-  RequirementTraceabilityTraceabilityFormForm get traceabilityForm => RequirementTraceabilityTraceabilityFormForm(doc, '$path/traceabilityForm');
+  RequirementTraceabilityTraceabilityFormForm get traceabilityForm => RequirementTraceabilityTraceabilityFormForm(doc, '$path/RT-TRAC');
 
   /// Linked artifacts and test coverage references.
   RequirementTraceabilityArtifacts get artifacts => RequirementTraceabilityArtifacts(doc, '$path/artifacts');
@@ -25582,15 +25582,15 @@ class RequirementUiSpecification extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// UI specification form.
-  RequirementUiSpecificationUiFormForm get uiForm => RequirementUiSpecificationUiFormForm(doc, '$path/uiForm');
+  RequirementUiSpecificationUiFormForm get uiForm => RequirementUiSpecificationUiFormForm(doc, '$path/RUS-UIFO');
 
   /// UI layout specification (D4rt Flutter code).
-  String get layoutCode => doc.content('$path/layoutCode') ?? '';
-  set layoutCode(String value) => doc.setContent('$path/layoutCode', value);
+  String get layoutCode => doc.content('$path/RUS-LAYO') ?? '';
+  set layoutCode(String value) => doc.setContent('$path/RUS-LAYO', value);
 
   /// UI mockup diagram (fallback if code not available).
-  String get mockupDescription => doc.content('$path/mockupDescription') ?? '';
-  set mockupDescription(String value) => doc.setContent('$path/mockupDescription', value);
+  String get mockupDescription => doc.content('$path/RUS-MOCK') ?? '';
+  set mockupDescription(String value) => doc.setContent('$path/RUS-MOCK', value);
 
   /// Screen field entries — contains 0+× ScreenFieldEntry.
   SomList<ScreenFieldEntry> get fields => SomList<ScreenFieldEntry>(doc, '$path/SCFLD-FIEL-LST', (d, p) => ScreenFieldEntry(d, p), pattern: 'SCFLD-FIEL-xxx');
@@ -25643,11 +25643,11 @@ class RequirementsOverview extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Requirements overview form.
-  RequirementsOverviewRequirementsFormForm get requirementsForm => RequirementsOverviewRequirementsFormForm(doc, '$path/requirementsForm');
+  RequirementsOverviewRequirementsFormForm get requirementsForm => RequirementsOverviewRequirementsFormForm(doc, '$path/RO-REQU');
 
   /// Traceability matrix overview.
-  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
-  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
+  String get traceabilityMatrix => doc.content('$path/RO-TRAC') ?? '';
+  set traceabilityMatrix(String value) => doc.setContent('$path/RO-TRAC', value);
 
   /// 4.3.1. Functional Requirements.
   FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
@@ -25869,7 +25869,7 @@ class ResponsibilitySystems extends SomNode {
 class ResponsiveBehavior extends SomNode {
   ResponsiveBehavior(super.doc, super.path);
 
-  ResponsiveBehaviorLayoutAdaptationForm get layoutAdaptation => ResponsiveBehaviorLayoutAdaptationForm(doc, '$path/layoutAdaptation');
+  ResponsiveBehaviorLayoutAdaptationForm get layoutAdaptation => ResponsiveBehaviorLayoutAdaptationForm(doc, '$path/REBE-LAYO');
 
   /// Navigation patterns per device class.
   ResponsiveBehaviorNavigation get navigation => ResponsiveBehaviorNavigation(doc, '$path/navigation');
@@ -25925,7 +25925,7 @@ class ResponsiveBehaviorVisibility extends SomNode {
 class ResponsiveDesign extends SomNode {
   ResponsiveDesign(super.doc, super.path);
 
-  ResponsiveDesignResponsiveOverviewForm get responsiveOverview => ResponsiveDesignResponsiveOverviewForm(doc, '$path/responsiveOverview');
+  ResponsiveDesignResponsiveOverviewForm get responsiveOverview => ResponsiveDesignResponsiveOverviewForm(doc, '$path/REDE-RESP');
 
   /// Responsive design narrative.
   // (skipped: responsiveNarrative has no target type)
@@ -26082,7 +26082,7 @@ class ReusableComponentsSection extends SomNode {
 class ReusablePrototype extends SomNode {
   ReusablePrototype(super.doc, super.path);
 
-  ReusablePrototypeReusableContentForm get reusableContent => ReusablePrototypeReusableContentForm(doc, '$path/reusableContent');
+  ReusablePrototypeReusableContentForm get reusableContent => ReusablePrototypeReusableContentForm(doc, '$path/REUPRO-REUS');
 
   /// Architecture alignment and refactoring expectations.
   ReusablePrototypeArchitecture get architecture => ReusablePrototypeArchitecture(doc, '$path/architecture');
@@ -26562,8 +26562,8 @@ class RoleAdjustments extends SomNode {
   RoleAdjustmentSummary get adjustmentSummary => RoleAdjustmentSummary(doc, '$path/adjustmentSummary');
 
   /// Visual comparison of standard vs adjusted roles.
-  String get roleComparisonDiagram => doc.content('$path/roleComparisonDiagram') ?? '';
-  set roleComparisonDiagram(String value) => doc.setContent('$path/roleComparisonDiagram', value);
+  String get roleComparisonDiagram => doc.content('$path/RLADJ-ROLE') ?? '';
+  set roleComparisonDiagram(String value) => doc.setContent('$path/RLADJ-ROLE', value);
 
   /// Contains 0+× RoleAdjustment.
   SomList<RoleAdjustmentEntry> get items => SomList<RoleAdjustmentEntry>(doc, '$path/RLAJE-ITEM-LST', (d, p) => RoleAdjustmentEntry(d, p), pattern: 'RLAJE-ITEM-xxx');
@@ -28105,7 +28105,7 @@ class SecurityCertificationRequirementsSoc2 extends SomNode {
 class SecurityCharacteristic extends SomNode {
   SecurityCharacteristic(super.doc, super.path);
 
-  SecurityCharacteristicSecurityContentForm get securityContent => SecurityCharacteristicSecurityContentForm(doc, '$path/securityContent');
+  SecurityCharacteristicSecurityContentForm get securityContent => SecurityCharacteristicSecurityContentForm(doc, '$path/SECC-SECU');
 
   /// Security overview.
   // (skipped: overview has no target type)
@@ -28390,7 +28390,7 @@ class SecurityRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Security requirements summary form.
-  SecurityRequirementsSummaryFormForm get summaryForm => SecurityRequirementsSummaryFormForm(doc, '$path/summaryForm');
+  SecurityRequirementsSummaryFormForm get summaryForm => SecurityRequirementsSummaryFormForm(doc, '$path/SR1-SUMM');
 
   /// Security requirements list — contains 0+× Security Requirement.
   SomList<SecurityRequirementEntry> get requirements => SomList<SecurityRequirementEntry>(doc, '$path/SECRQ-REQU-LST', (d, p) => SecurityRequirementEntry(d, p), pattern: 'SECRQ-REQU-xxx');
@@ -29137,7 +29137,7 @@ class SessionModel extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Session configuration.
-  SessionModelSessionConfigurationForm get sessionConfiguration => SessionModelSessionConfigurationForm(doc, '$path/sessionConfiguration');
+  SessionModelSessionConfigurationForm get sessionConfiguration => SessionModelSessionConfigurationForm(doc, '$path/SM-SESS');
 
   /// Refresh, concurrency, and termination behavior.
   SessionModelLifecycle get lifecycle => SessionModelLifecycle(doc, '$path/lifecycle');
@@ -29488,7 +29488,7 @@ class SingleSignOnPolicySession extends SomNode {
 class SlaAndSloMonitoring extends SomNode {
   SlaAndSloMonitoring(super.doc, super.path);
 
-  SlaAndSloMonitoringSlaOverviewForm get slaOverview => SlaAndSloMonitoringSlaOverviewForm(doc, '$path/slaOverview');
+  SlaAndSloMonitoringSlaOverviewForm get slaOverview => SlaAndSloMonitoringSlaOverviewForm(doc, '$path/SASM-SLAO');
 
   /// SLA/SLO overview narrative.
   // (skipped: overviewNarrative has no target type)
@@ -30984,8 +30984,8 @@ class SuccessCriteria extends SomNode {
   SuccessCriteriaByCategory get byCategory => SuccessCriteriaByCategory(doc, '$path/byCategory');
 
   /// Success criteria matrix — overall view.
-  String get successCriteriaMatrix => doc.content('$path/successCriteriaMatrix') ?? '';
-  set successCriteriaMatrix(String value) => doc.setContent('$path/successCriteriaMatrix', value);
+  String get successCriteriaMatrix => doc.content('$path/SC-SUCC') ?? '';
+  set successCriteriaMatrix(String value) => doc.setContent('$path/SC-SUCC', value);
 
   /// Post-implementation review plan.
   PostImplementationReview get postImplementationReview => PostImplementationReview(doc, '$path/postImplementationReview');
@@ -30996,24 +30996,24 @@ class SuccessCriteriaByCategory extends SomNode {
   SuccessCriteriaByCategory(super.doc, super.path);
 
   /// Business outcome criteria overview.
-  String get businessCriteria => doc.content('$path/businessCriteria') ?? '';
-  set businessCriteria(String value) => doc.setContent('$path/businessCriteria', value);
+  String get businessCriteria => doc.content('$path/SCBC-BUSI') ?? '';
+  set businessCriteria(String value) => doc.setContent('$path/SCBC-BUSI', value);
 
   /// Technical quality criteria overview.
-  String get technicalCriteria => doc.content('$path/technicalCriteria') ?? '';
-  set technicalCriteria(String value) => doc.setContent('$path/technicalCriteria', value);
+  String get technicalCriteria => doc.content('$path/SCBC-TECH') ?? '';
+  set technicalCriteria(String value) => doc.setContent('$path/SCBC-TECH', value);
 
   /// User satisfaction criteria overview.
-  String get userCriteria => doc.content('$path/userCriteria') ?? '';
-  set userCriteria(String value) => doc.setContent('$path/userCriteria', value);
+  String get userCriteria => doc.content('$path/SCBC-USER') ?? '';
+  set userCriteria(String value) => doc.setContent('$path/SCBC-USER', value);
 
   /// Compliance criteria overview.
-  String get complianceCriteria => doc.content('$path/complianceCriteria') ?? '';
-  set complianceCriteria(String value) => doc.setContent('$path/complianceCriteria', value);
+  String get complianceCriteria => doc.content('$path/SCBC-COMP') ?? '';
+  set complianceCriteria(String value) => doc.setContent('$path/SCBC-COMP', value);
 
   /// Timeline and budget criteria overview.
-  String get projectCriteria => doc.content('$path/projectCriteria') ?? '';
-  set projectCriteria(String value) => doc.setContent('$path/projectCriteria', value);
+  String get projectCriteria => doc.content('$path/SCBC-PROJ') ?? '';
+  set projectCriteria(String value) => doc.setContent('$path/SCBC-PROJ', value);
 }
 
 /// Framework for evaluating and accepting success criteria.
@@ -31114,7 +31114,7 @@ class SuccessCriterionVerification extends SomNode {
 class SupportAccess extends SomNode {
   SupportAccess(super.doc, super.path);
 
-  SupportAccessSupportAccessContentForm get supportAccessContent => SupportAccessSupportAccessContentForm(doc, '$path/supportAccessContent');
+  SupportAccessSupportAccessContentForm get supportAccessContent => SupportAccessSupportAccessContentForm(doc, '$path/SUAC-SUPP');
 
   /// Help center configuration.
   SupportAccessHelpCenter get helpCenter => SupportAccessHelpCenter(doc, '$path/helpCenter');
@@ -31658,7 +31658,7 @@ class SystemErrorCodeEntryOperations extends SomNode {
 class SystemErrorDisplay extends SomNode {
   SystemErrorDisplay(super.doc, super.path);
 
-  SystemErrorDisplaySystemErrorContentForm get systemErrorContent => SystemErrorDisplaySystemErrorContentForm(doc, '$path/systemErrorContent');
+  SystemErrorDisplaySystemErrorContentForm get systemErrorContent => SystemErrorDisplaySystemErrorContentForm(doc, '$path/SYERDI-SYST');
 
   /// Error type handling configuration.
   SystemErrorDisplayErrorTypes get errorTypes => SystemErrorDisplayErrorTypes(doc, '$path/errorTypes');
@@ -31923,8 +31923,8 @@ class SystemPurpose extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Vision Statement.
-  String get visionStatement => doc.content('$path/visionStatement') ?? '';
-  set visionStatement(String value) => doc.setContent('$path/visionStatement', value);
+  String get visionStatement => doc.content('$path/SYPUP-VISI') ?? '';
+  set visionStatement(String value) => doc.setContent('$path/SYPUP-VISI', value);
 
   /// 4.1.1.1. Problem Statement.
   ProblemStatement get problemStatement => ProblemStatement(doc, '$path/problemStatement');
@@ -31955,7 +31955,7 @@ class SystemPurpose extends SomNode {
 class SystemQualityGoals extends SomNode {
   SystemQualityGoals(super.doc, super.path);
 
-  SystemQualityGoalsGovernanceContentForm get governanceContent => SystemQualityGoalsGovernanceContentForm(doc, '$path/governanceContent');
+  SystemQualityGoalsGovernanceContentForm get governanceContent => SystemQualityGoalsGovernanceContentForm(doc, '$path/SYQG-GOVE');
 
   /// Governance board and escalation details.
   QualityGoalsGovernance get governance => QualityGoalsGovernance(doc, '$path/governance');
@@ -32292,7 +32292,7 @@ class SystemTechnicalAssessmentQuality extends SomNode {
 class SystemToReplaceEntry extends SomNode {
   SystemToReplaceEntry(super.doc, super.path);
 
-  SystemToReplaceEntryIdentificationContentForm get identificationContent => SystemToReplaceEntryIdentificationContentForm(doc, '$path/identificationContent');
+  SystemToReplaceEntryIdentificationContentForm get identificationContent => SystemToReplaceEntryIdentificationContentForm(doc, '$path/SYTORE-IDEN');
 
   /// Classification and ownership details.
   SystemToReplaceEntryProfile get profile => SystemToReplaceEntryProfile(doc, '$path/profile');
@@ -32679,7 +32679,7 @@ class TechnicalDependencyEntry extends SomNode {
 class TechnicalEnvironment extends SomNode {
   TechnicalEnvironment(super.doc, super.path);
 
-  TechnicalEnvironmentTechnicalOverviewContentForm get technicalOverviewContent => TechnicalEnvironmentTechnicalOverviewContentForm(doc, '$path/technicalOverviewContent');
+  TechnicalEnvironmentTechnicalOverviewContentForm get technicalOverviewContent => TechnicalEnvironmentTechnicalOverviewContentForm(doc, '$path/TEEN-TECH');
 
   /// Architecture governance context.
   TechnicalEnvironmentGovernance get governance => TechnicalEnvironmentGovernance(doc, '$path/governance');
@@ -32884,7 +32884,7 @@ class TechnicalGoalTestCriteria extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Test criteria form.
-  TechnicalGoalTestCriteriaTestCriteriaFormForm get testCriteriaForm => TechnicalGoalTestCriteriaTestCriteriaFormForm(doc, '$path/testCriteriaForm');
+  TechnicalGoalTestCriteriaTestCriteriaFormForm get testCriteriaForm => TechnicalGoalTestCriteriaTestCriteriaFormForm(doc, '$path/TGTC-TEST');
 
   /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
   SomList<TechnicalGoalTestCaseEntry> get items => SomList<TechnicalGoalTestCaseEntry>(doc, '$path/TEGOTS-ITEM-LST', (d, p) => TechnicalGoalTestCaseEntry(d, p), pattern: 'TEGOTS-ITEM-xxx');
@@ -33038,7 +33038,7 @@ class TechnicalRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Technical requirements summary form.
-  TechnicalRequirementsSummaryFormForm get summaryForm => TechnicalRequirementsSummaryFormForm(doc, '$path/summaryForm');
+  TechnicalRequirementsSummaryFormForm get summaryForm => TechnicalRequirementsSummaryFormForm(doc, '$path/TR1-SUMM');
 
   /// Technical requirements list — contains 0+× Technical Requirement.
   SomList<TechnicalRequirementEntry> get requirements => SomList<TechnicalRequirementEntry>(doc, '$path/TERQ-REQU-LST', (d, p) => TechnicalRequirementEntry(d, p), pattern: 'TERQ-REQU-xxx');
@@ -33566,7 +33566,7 @@ class ThirdPartyLibraryEntryUsage extends SomNode {
 class ThrowawayPrototype extends SomNode {
   ThrowawayPrototype(super.doc, super.path);
 
-  ThrowawayPrototypeThrowawayContentForm get throwawayContent => ThrowawayPrototypeThrowawayContentForm(doc, '$path/throwawayContent');
+  ThrowawayPrototypeThrowawayContentForm get throwawayContent => ThrowawayPrototypeThrowawayContentForm(doc, '$path/THPR-THRO');
 
   /// Findings and decisions captured from evaluation.
   ThrowawayPrototypeFindings get findings => ThrowawayPrototypeFindings(doc, '$path/findings');
@@ -33978,7 +33978,7 @@ class TradeOffDecisionEntryRationale extends SomNode {
 class TradeOffDecisions extends SomNode {
   TradeOffDecisions(super.doc, super.path);
 
-  TradeOffDecisionsTradeOffGovernanceContentForm get tradeOffGovernanceContent => TradeOffDecisionsTradeOffGovernanceContentForm(doc, '$path/tradeOffGovernanceContent');
+  TradeOffDecisionsTradeOffGovernanceContentForm get tradeOffGovernanceContent => TradeOffDecisionsTradeOffGovernanceContentForm(doc, '$path/TROFDE-TRAD');
 
   /// Trade-off decisions overview.
   // (skipped: tradeOffOverview has no target type)
@@ -34036,7 +34036,7 @@ class TrainingAssessmentReporting extends SomNode {
 class TrainingDeliverableRequirements extends SomNode {
   TrainingDeliverableRequirements(super.doc, super.path);
 
-  TrainingDeliverableRequirementsTrainingContentForm get trainingContent => TrainingDeliverableRequirementsTrainingContentForm(doc, '$path/trainingContent');
+  TrainingDeliverableRequirementsTrainingContentForm get trainingContent => TrainingDeliverableRequirementsTrainingContentForm(doc, '$path/TRMAT-TRAI');
 
   /// Training narrative.
   // (skipped: trainingNarrative has no target type)
@@ -34132,7 +34132,7 @@ class TrainingOverview extends SomNode {
 class TrainingPrototype extends SomNode {
   TrainingPrototype(super.doc, super.path);
 
-  TrainingPrototypeTrainingContentForm get trainingContent => TrainingPrototypeTrainingContentForm(doc, '$path/trainingContent');
+  TrainingPrototypeTrainingContentForm get trainingContent => TrainingPrototypeTrainingContentForm(doc, '$path/TP-TRAI');
 
   /// Code disposition and reimplementation planning.
   TrainingPrototypeDisposition get disposition => TrainingPrototypeDisposition(doc, '$path/disposition');
@@ -34473,7 +34473,7 @@ class TranslationOngoing extends SomNode {
 class TranslationProcess extends SomNode {
   TranslationProcess(super.doc, super.path);
 
-  TranslationProcessTranslationProcessContentForm get translationProcessContent => TranslationProcessTranslationProcessContentForm(doc, '$path/translationProcessContent');
+  TranslationProcessTranslationProcessContentForm get translationProcessContent => TranslationProcessTranslationProcessContentForm(doc, '$path/TRPR-TRAN');
 
   /// Translation workflow.
   TranslationWorkflow get workflow => TranslationWorkflow(doc, '$path/workflow');
@@ -34507,7 +34507,7 @@ class TranslationQuality extends SomNode {
 class TranslationRequirements extends SomNode {
   TranslationRequirements(super.doc, super.path);
 
-  TranslationRequirementsTranslationRequirementsContentForm get translationRequirementsContent => TranslationRequirementsTranslationRequirementsContentForm(doc, '$path/translationRequirementsContent');
+  TranslationRequirementsTranslationRequirementsContentForm get translationRequirementsContent => TranslationRequirementsTranslationRequirementsContentForm(doc, '$path/TRAREQ-TRAN');
 
   /// RTL and bidirectional support.
   TranslationRequirementsRtl get rtl => TranslationRequirementsRtl(doc, '$path/rtl');
@@ -34804,7 +34804,7 @@ class UatTraining extends SomNode {
 class UiComponentEntry extends SomNode {
   UiComponentEntry(super.doc, super.path);
 
-  UiComponentEntryIdentityForm get identity => UiComponentEntryIdentityForm(doc, '$path/identity');
+  UiComponentEntryIdentityForm get identity => UiComponentEntryIdentityForm(doc, '$path/UICOMENT-IDEN');
 
   /// Wrapper mapping and business purpose.
   UiComponentEntryPurpose get purposeProfile => UiComponentEntryPurpose(doc, '$path/purposeProfile');
@@ -34812,7 +34812,7 @@ class UiComponentEntry extends SomNode {
   /// Classification details.
   UiComponentEntryClassification get classification => UiComponentEntryClassification(doc, '$path/classification');
 
-  UiComponentEntryVisualDesignForm get visualDesign => UiComponentEntryVisualDesignForm(doc, '$path/visualDesign');
+  UiComponentEntryVisualDesignForm get visualDesign => UiComponentEntryVisualDesignForm(doc, '$path/UICOMENT-VISU');
 
   /// Visual dimensions.
   UiComponentEntryDimensions get dimensions => UiComponentEntryDimensions(doc, '$path/dimensions');
@@ -34826,7 +34826,7 @@ class UiComponentEntry extends SomNode {
   /// Visual design diagram.
   // (skipped: visualDiagram has no target type)
 
-  UiComponentEntryInteractiveBehaviorForm get interactiveBehavior => UiComponentEntryInteractiveBehaviorForm(doc, '$path/interactiveBehavior');
+  UiComponentEntryInteractiveBehaviorForm get interactiveBehavior => UiComponentEntryInteractiveBehaviorForm(doc, '$path/UICOMENT-INTE');
 
   /// Focus and keyboard behavior.
   UiComponentEntryInputBehavior get inputBehavior => UiComponentEntryInputBehavior(doc, '$path/inputBehavior');
@@ -34837,15 +34837,15 @@ class UiComponentEntry extends SomNode {
   /// Scrolling behavior.
   UiComponentEntryScroll get scroll => UiComponentEntryScroll(doc, '$path/scroll');
 
-  UiComponentEntryResponsivenessForm get responsiveness => UiComponentEntryResponsivenessForm(doc, '$path/responsiveness');
+  UiComponentEntryResponsivenessForm get responsiveness => UiComponentEntryResponsivenessForm(doc, '$path/UICOMENT-RESP');
 
-  UiComponentEntryAccessibilityForm get accessibility => UiComponentEntryAccessibilityForm(doc, '$path/accessibility');
+  UiComponentEntryAccessibilityForm get accessibility => UiComponentEntryAccessibilityForm(doc, '$path/UICOMENT-ACCE');
 
-  UiComponentEntryAuthorizationForm get authorization => UiComponentEntryAuthorizationForm(doc, '$path/authorization');
+  UiComponentEntryAuthorizationForm get authorization => UiComponentEntryAuthorizationForm(doc, '$path/UICOMENT-AUTH');
 
-  UiComponentEntryResourceIntegrationForm get resourceIntegration => UiComponentEntryResourceIntegrationForm(doc, '$path/resourceIntegration');
+  UiComponentEntryResourceIntegrationForm get resourceIntegration => UiComponentEntryResourceIntegrationForm(doc, '$path/UICOMENT-RESO');
 
-  UiComponentEntryDataBindingForm get dataBinding => UiComponentEntryDataBindingForm(doc, '$path/dataBinding');
+  UiComponentEntryDataBindingForm get dataBinding => UiComponentEntryDataBindingForm(doc, '$path/UICOMENT-DATA');
 
   /// Component behavior narrative.
   // (skipped: behaviorNarrative has no target type)
@@ -34930,7 +34930,7 @@ class UiComponentEntrySurface extends SomNode {
 class UiComponents extends SomNode {
   UiComponents(super.doc, super.path);
 
-  UiComponentsComponentLibraryOverviewForm get componentLibraryOverview => UiComponentsComponentLibraryOverviewForm(doc, '$path/componentLibraryOverview');
+  UiComponentsComponentLibraryOverviewForm get componentLibraryOverview => UiComponentsComponentLibraryOverviewForm(doc, '$path/UICO-COMP');
 
   /// Visual language and brand alignment.
   ComponentVisualLanguage get visualLanguage => ComponentVisualLanguage(doc, '$path/visualLanguage');
@@ -35122,7 +35122,7 @@ class UserAccessPermissions extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Access Permissions Form.
-  UserAccessPermissionsPermissionsFormForm get permissionsForm => UserAccessPermissionsPermissionsFormForm(doc, '$path/permissionsForm');
+  UserAccessPermissionsPermissionsFormForm get permissionsForm => UserAccessPermissionsPermissionsFormForm(doc, '$path/UAP-PERM');
 
   /// Functional and environmental restrictions.
   UserAccessPermissionsRestrictions get restrictionsProfile => UserAccessPermissionsRestrictions(doc, '$path/restrictionsProfile');
@@ -35161,7 +35161,7 @@ class UserAccessibilityNeeds extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Accessibility Needs Form.
-  UserAccessibilityNeedsAccessibilityFormForm get accessibilityForm => UserAccessibilityNeedsAccessibilityFormForm(doc, '$path/accessibilityForm');
+  UserAccessibilityNeedsAccessibilityFormForm get accessibilityForm => UserAccessibilityNeedsAccessibilityFormForm(doc, '$path/UAN-ACCE');
 }
 
 /// 9.1.2.1. Account States (form).
@@ -35188,7 +35188,7 @@ class UserAccountStatesDefinition extends SomNode {
 class UserAssistance extends SomNode {
   UserAssistance(super.doc, super.path);
 
-  UserAssistanceHelpOverviewContentForm get helpOverviewContent => UserAssistanceHelpOverviewContentForm(doc, '$path/helpOverviewContent');
+  UserAssistanceHelpOverviewContentForm get helpOverviewContent => UserAssistanceHelpOverviewContentForm(doc, '$path/USAS-HELP');
 
   /// Content stewardship and help affordances.
   UserAssistanceDelivery get delivery => UserAssistanceDelivery(doc, '$path/delivery');
@@ -35359,7 +35359,7 @@ class UserCategoryRoleEntry extends SomNode {
 class UserDocumentationRequirements extends SomNode {
   UserDocumentationRequirements(super.doc, super.path);
 
-  UserDocumentationRequirementsDocumentationContentForm get documentationContent => UserDocumentationRequirementsDocumentationContentForm(doc, '$path/documentationContent');
+  UserDocumentationRequirementsDocumentationContentForm get documentationContent => UserDocumentationRequirementsDocumentationContentForm(doc, '$path/DOANTR-DOCU');
 
   /// Documentation deliverables provided to users.
   DocumentationAndTrainingDeliverables get deliverables => DocumentationAndTrainingDeliverables(doc, '$path/deliverables');
@@ -35476,8 +35476,8 @@ class UserJourney extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// User journey diagram.
-  String get journeyDiagram => doc.content('$path/journeyDiagram') ?? '';
-  set journeyDiagram(String value) => doc.setContent('$path/journeyDiagram', value);
+  String get journeyDiagram => doc.content('$path/UJ-JOUR') ?? '';
+  set journeyDiagram(String value) => doc.setContent('$path/UJ-JOUR', value);
 
   /// Journey stage entries — contains 0+× JourneyStageEntry.
   SomList<JourneyStageEntry> get stages => SomList<JourneyStageEntry>(doc, '$path/JRNST-STAG-LST', (d, p) => JourneyStageEntry(d, p), pattern: 'JRNST-STAG-xxx');
@@ -35489,8 +35489,8 @@ class UserJourney extends SomNode {
   SomList<UserJourneyPainPointEntry> get painPoints => SomList<UserJourneyPainPointEntry>(doc, '$path/USERJ-PAIN-LST', (d, p) => UserJourneyPainPointEntry(d, p), pattern: 'USERJ-PAIN-xxx');
 
   /// Opportunities for delight.
-  String get opportunitiesForDelight => doc.content('$path/opportunitiesForDelight') ?? '';
-  set opportunitiesForDelight(String value) => doc.setContent('$path/opportunitiesForDelight', value);
+  String get opportunitiesForDelight => doc.content('$path/UJ-OPPO') ?? '';
+  set opportunitiesForDelight(String value) => doc.setContent('$path/UJ-OPPO', value);
 }
 
 /// A single pain point entry.
@@ -35677,7 +35677,7 @@ class UserPersonaDetails extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Persona Details Form.
-  UserPersonaDetailsPersonaFormForm get personaForm => UserPersonaDetailsPersonaFormForm(doc, '$path/personaForm');
+  UserPersonaDetailsPersonaFormForm get personaForm => UserPersonaDetailsPersonaFormForm(doc, '$path/UPD-PERS');
 
   /// Experience and work context.
   UserPersonaDetailsContext get contextDetails => UserPersonaDetailsContext(doc, '$path/contextDetails');
@@ -35689,8 +35689,8 @@ class UserPersonaDetails extends SomNode {
   UserPersonaDetailsBehavior get behavior => UserPersonaDetailsBehavior(doc, '$path/behavior');
 
   /// Representative photo or avatar description.
-  String get visualRepresentation => doc.content('$path/visualRepresentation') ?? '';
-  set visualRepresentation(String value) => doc.setContent('$path/visualRepresentation', value);
+  String get visualRepresentation => doc.content('$path/UPD-VISU') ?? '';
+  set visualRepresentation(String value) => doc.setContent('$path/UPD-VISU', value);
 
   /// Key quotes that represent this persona's mindset.
   SomList<RepresentativeQuoteEntry> get representativeQuotes => SomList<RepresentativeQuoteEntry>(doc, '$path/REPRE-REPR-LST', (d, p) => RepresentativeQuoteEntry(d, p), pattern: 'REPRE-REPR-xxx');
@@ -35807,7 +35807,7 @@ class UserTrainingRequirements extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Training Requirements Form.
-  UserTrainingRequirementsTrainingFormForm get trainingForm => UserTrainingRequirementsTrainingFormForm(doc, '$path/trainingForm');
+  UserTrainingRequirementsTrainingFormForm get trainingForm => UserTrainingRequirementsTrainingFormForm(doc, '$path/USTRRE-TRAI');
 
   /// Training topics — contains 0+× TrainingTopicEntry.
   SomList<TrainingTopicEntry> get trainingTopics => SomList<TrainingTopicEntry>(doc, '$path/TRTP-TRAI-LST', (d, p) => TrainingTopicEntry(d, p), pattern: 'TRTP-TRAI-xxx');
@@ -35912,7 +35912,7 @@ class ValidationConstraints extends SomNode {
 class ValidationFeedback extends SomNode {
   ValidationFeedback(super.doc, super.path);
 
-  ValidationFeedbackValidationDisplayContentForm get validationDisplayContent => ValidationFeedbackValidationDisplayContentForm(doc, '$path/validationDisplayContent');
+  ValidationFeedbackValidationDisplayContentForm get validationDisplayContent => ValidationFeedbackValidationDisplayContentForm(doc, '$path/VAFE-VALI');
 
   /// Display placement details.
   ValidationFeedbackPlacement get placement => ValidationFeedbackPlacement(doc, '$path/placement');
@@ -36309,7 +36309,7 @@ class WarrantyTransition extends SomNode {
 class WcagCompliance extends SomNode {
   WcagCompliance(super.doc, super.path);
 
-  WcagComplianceWcagComplianceContentForm get wcagComplianceContent => WcagComplianceWcagComplianceContentForm(doc, '$path/wcagComplianceContent');
+  WcagComplianceWcagComplianceContentForm get wcagComplianceContent => WcagComplianceWcagComplianceContentForm(doc, '$path/WCCO-WCAG');
 
   /// Operable principles.
   WcagComplianceOperable get operable => WcagComplianceOperable(doc, '$path/operable');
@@ -36359,7 +36359,7 @@ class WcagSuccessCriterionEntry extends SomNode {
 class WeightedQualityMatrix extends SomNode {
   WeightedQualityMatrix(super.doc, super.path);
 
-  WeightedQualityMatrixMatrixConfigContentForm get matrixConfigContent => WeightedQualityMatrixMatrixConfigContentForm(doc, '$path/matrixConfigContent');
+  WeightedQualityMatrixMatrixConfigContentForm get matrixConfigContent => WeightedQualityMatrixMatrixConfigContentForm(doc, '$path/WEQUMA-MATR');
 
   /// Weighted quality matrix narrative.
   // (skipped: matrixNarrative has no target type)
@@ -36428,8 +36428,8 @@ class WorkflowDescriptions extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Workflow overview diagram.
-  String get workflowOverviewDiagram => doc.content('$path/workflowOverviewDiagram') ?? '';
-  set workflowOverviewDiagram(String value) => doc.setContent('$path/workflowOverviewDiagram', value);
+  String get workflowOverviewDiagram => doc.content('$path/WODE-WORK') ?? '';
+  set workflowOverviewDiagram(String value) => doc.setContent('$path/WODE-WORK', value);
 
   /// Workflow summary table.
   WorkflowSummaryTable get summaryTable => WorkflowSummaryTable(doc, '$path/summaryTable');
@@ -36508,8 +36508,8 @@ class WorkflowStepIssue extends SomNode {
 class WorkflowStepSystem extends SomNode {
   WorkflowStepSystem(super.doc, super.path);
 
-  String get name => doc.content('$path/name') ?? '';
-  set name(String value) => doc.setContent('$path/name', value);
+  String get name => doc.content('$path/WOSTSY-NAME') ?? '';
+  set name(String value) => doc.setContent('$path/WOSTSY-NAME', value);
 }
 
 /// Summary entry for a single workflow.

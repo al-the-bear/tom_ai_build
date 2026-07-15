@@ -53,7 +53,7 @@ public final class TomSomV0 {
     }
 
     public AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptanceFrameworkContent() {
-      return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, path + "/acceptanceFrameworkContent");
+      return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, path + "/ACCRSU-ACCE");
     }
 
     // Acceptance criteria overview.
@@ -336,12 +336,12 @@ public final class TomSomV0 {
 
     // Channel architecture diagram.
     public String channelDiagram() {
-      String v = doc.content(path + "/channelDiagram");
+      String v = doc.content(path + "/AC1-CHAN");
       return v == null ? "" : v;
     }
 
     public void channelDiagram(String value) {
-      doc.setContent(path + "/channelDiagram", value);
+      doc.setContent(path + "/AC1-CHAN", value);
     }
 
     // Channel entries — contains 1+× InteractionChannelEntry.
@@ -489,12 +489,12 @@ public final class TomSomV0 {
 
     // Access level hierarchy diagram.
     public String accessLevelDiagram() {
-      String v = doc.content(path + "/accessLevelDiagram");
+      String v = doc.content(path + "/AL-ACCE");
       return v == null ? "" : v;
     }
 
     public void accessLevelDiagram(String value) {
-      doc.setContent(path + "/accessLevelDiagram", value);
+      doc.setContent(path + "/AL-ACCE", value);
     }
 
     // Access level entries — contains 1+× AccessLevelEntry.
@@ -504,12 +504,12 @@ public final class TomSomV0 {
 
     // Permission matrix linking access levels to features.
     public String permissionMatrix() {
-      String v = doc.content(path + "/permissionMatrix");
+      String v = doc.content(path + "/AL-PERM");
       return v == null ? "" : v;
     }
 
     public void permissionMatrix(String value) {
-      doc.setContent(path + "/permissionMatrix", value);
+      doc.setContent(path + "/AL-PERM", value);
     }
   }
 
@@ -562,7 +562,7 @@ public final class TomSomV0 {
     }
 
     public AccessibilityAccessibilityOverviewContentForm accessibilityOverviewContent() {
-      return new AccessibilityAccessibilityOverviewContentForm(doc, path + "/accessibilityOverviewContent");
+      return new AccessibilityAccessibilityOverviewContentForm(doc, path + "/ACCESS-ACCE");
     }
 
     // Ownership and inclusive design philosophy.
@@ -671,7 +671,7 @@ public final class TomSomV0 {
     }
 
     public AccessibilityChecklistChecklistOverviewContentForm checklistOverviewContent() {
-      return new AccessibilityChecklistChecklistOverviewContentForm(doc, path + "/checklistOverviewContent");
+      return new AccessibilityChecklistChecklistOverviewContentForm(doc, path + "/ACCHLS-CHEC");
     }
 
     // Accessibility checklist overview.
@@ -1628,7 +1628,7 @@ public final class TomSomV0 {
     }
 
     public AlertingConfigurationAlertingOverviewForm alertingOverview() {
-      return new AlertingConfigurationAlertingOverviewForm(doc, path + "/alertingOverview");
+      return new AlertingConfigurationAlertingOverviewForm(doc, path + "/ALCO-ALER");
     }
 
     // Alerting overview narrative.
@@ -4499,7 +4499,7 @@ public final class TomSomV0 {
     }
 
     public BreakpointConfigurationBreakpointOverviewForm breakpointOverview() {
-      return new BreakpointConfigurationBreakpointOverviewForm(doc, path + "/breakpointOverview");
+      return new BreakpointConfigurationBreakpointOverviewForm(doc, path + "/BC-BREA");
     }
 
     // Breakpoint entries.
@@ -5315,15 +5315,15 @@ public final class TomSomV0 {
     }
 
     public BusinessObjectEntryIdentityForm identity() {
-      return new BusinessObjectEntryIdentityForm(doc, path + "/identity");
+      return new BusinessObjectEntryIdentityForm(doc, path + "/BJOEN-IDEN");
     }
 
     public BusinessObjectEntryDomainContextForm domainContext() {
-      return new BusinessObjectEntryDomainContextForm(doc, path + "/domainContext");
+      return new BusinessObjectEntryDomainContextForm(doc, path + "/BJOEN-DOMA");
     }
 
     public BusinessObjectEntryLifecycleSummaryForm lifecycleSummary() {
-      return new BusinessObjectEntryLifecycleSummaryForm(doc, path + "/lifecycleSummary");
+      return new BusinessObjectEntryLifecycleSummaryForm(doc, path + "/BJOEN-LIFE");
     }
 
     public SomList<BehaviorRuleEntry> behaviorRules() {
@@ -5331,7 +5331,7 @@ public final class TomSomV0 {
     }
 
     public BusinessObjectEntryOwnershipForm ownership() {
-      return new BusinessObjectEntryOwnershipForm(doc, path + "/ownership");
+      return new BusinessObjectEntryOwnershipForm(doc, path + "/BJOEN-OWNE");
     }
 
     public SomList<IntegrationPointEntry> integrationPoints() {
@@ -5584,27 +5584,27 @@ public final class TomSomV0 {
     }
 
     public BusinessRuleEntryIdentityForm identity() {
-      return new BusinessRuleEntryIdentityForm(doc, path + "/identity");
+      return new BusinessRuleEntryIdentityForm(doc, path + "/BIRU-IDEN");
     }
 
     public BusinessRuleEntryClassificationForm classification() {
-      return new BusinessRuleEntryClassificationForm(doc, path + "/classification");
+      return new BusinessRuleEntryClassificationForm(doc, path + "/BIRU-CLAS");
     }
 
     public BusinessRuleEntryRuleLogicForm ruleLogic() {
-      return new BusinessRuleEntryRuleLogicForm(doc, path + "/ruleLogic");
+      return new BusinessRuleEntryRuleLogicForm(doc, path + "/BIRU-RULE");
     }
 
     public BusinessRuleEntryImplementationForm implementation() {
-      return new BusinessRuleEntryImplementationForm(doc, path + "/implementation");
+      return new BusinessRuleEntryImplementationForm(doc, path + "/BIRU-IMPL");
     }
 
     public BusinessRuleEntryExceptionHandlingForm exceptionHandling() {
-      return new BusinessRuleEntryExceptionHandlingForm(doc, path + "/exceptionHandling");
+      return new BusinessRuleEntryExceptionHandlingForm(doc, path + "/BIRU-EXCE");
     }
 
     public BusinessRuleEntryGovernanceForm governance() {
-      return new BusinessRuleEntryGovernanceForm(doc, path + "/governance");
+      return new BusinessRuleEntryGovernanceForm(doc, path + "/BIRU-GOVE");
     }
 
     // Contains 0+× AffectedObject.
@@ -6797,7 +6797,7 @@ public final class TomSomV0 {
     }
 
     public ChangesFromCurrentStructureOverviewContentForm overviewContent() {
-      return new ChangesFromCurrentStructureOverviewContentForm(doc, path + "/overviewContent");
+      return new ChangesFromCurrentStructureOverviewContentForm(doc, path + "/OCCHG-OVER");
     }
 
     // Detailed description of structural changes.
@@ -7950,12 +7950,12 @@ public final class TomSomV0 {
 
     // Communication matrix diagram.
     public String communicationFlowDiagram() {
-      String v = doc.content(path + "/communicationFlowDiagram");
+      String v = doc.content(path + "/COMA-COMM");
       return v == null ? "" : v;
     }
 
     public void communicationFlowDiagram(String value) {
-      doc.setContent(path + "/communicationFlowDiagram", value);
+      doc.setContent(path + "/COMA-COMM", value);
     }
 
     // Communication types and their distribution rules.
@@ -8141,7 +8141,7 @@ public final class TomSomV0 {
     }
 
     public CompatibilityCharacteristicCompatibilityContentForm compatibilityContent() {
-      return new CompatibilityCharacteristicCompatibilityContentForm(doc, path + "/compatibilityContent");
+      return new CompatibilityCharacteristicCompatibilityContentForm(doc, path + "/CMPT-COMP");
     }
 
     // Compatibility overview.
@@ -10367,22 +10367,22 @@ public final class TomSomV0 {
 
     // Context diagram in Mermaid format.
     public String diagram() {
-      String v = doc.content(path + "/diagram");
+      String v = doc.content(path + "/CD-DIAG");
       return v == null ? "" : v;
     }
 
     public void diagram(String value) {
-      doc.setContent(path + "/diagram", value);
+      doc.setContent(path + "/CD-DIAG", value);
     }
 
     // Diagram legend and conventions.
     public String legend() {
-      String v = doc.content(path + "/legend");
+      String v = doc.content(path + "/CD-LEGE");
       return v == null ? "" : v;
     }
 
     public void legend(String value) {
-      doc.setContent(path + "/legend", value);
+      doc.setContent(path + "/CD-LEGE", value);
     }
   }
 
@@ -10393,7 +10393,7 @@ public final class TomSomV0 {
     }
 
     public ContextualHelpContextualHelpContentForm contextualHelpContent() {
-      return new ContextualHelpContextualHelpContentForm(doc, path + "/contextualHelpContent");
+      return new ContextualHelpContextualHelpContentForm(doc, path + "/COHE-CONT");
     }
 
     // Inline help behavior.
@@ -11001,22 +11001,22 @@ public final class TomSomV0 {
 
     // Architecture overview diagram.
     public String architectureDiagram() {
-      String v = doc.content(path + "/architectureDiagram");
+      String v = doc.content(path + "/CARCH-ARCH");
       return v == null ? "" : v;
     }
 
     public void architectureDiagram(String value) {
-      doc.setContent(path + "/architectureDiagram", value);
+      doc.setContent(path + "/CARCH-ARCH", value);
     }
 
     // Deployment topology description.
     public String deploymentTopology() {
-      String v = doc.content(path + "/deploymentTopology");
+      String v = doc.content(path + "/CARCH-DEPL");
       return v == null ? "" : v;
     }
 
     public void deploymentTopology(String value) {
-      doc.setContent(path + "/deploymentTopology", value);
+      doc.setContent(path + "/CARCH-DEPL", value);
     }
 
     // Integration patterns used.
@@ -11091,12 +11091,12 @@ public final class TomSomV0 {
 
     // Process landscape diagram.
     public String processLandscapeDiagram() {
-      String v = doc.content(path + "/processLandscapeDiagram");
+      String v = doc.content(path + "/CUBUPR-PROC");
       return v == null ? "" : v;
     }
 
     public void processLandscapeDiagram(String value) {
-      doc.setContent(path + "/processLandscapeDiagram", value);
+      doc.setContent(path + "/CUBUPR-PROC", value);
     }
 
     // Process scope summary.
@@ -11185,22 +11185,22 @@ public final class TomSomV0 {
 
     // Visual representation of the data landscape.
     public String dataLandscapeOverviewDiagram() {
-      String v = doc.content(path + "/dataLandscapeOverviewDiagram");
+      String v = doc.content(path + "/CUDALA-DATAL");
       return v == null ? "" : v;
     }
 
     public void dataLandscapeOverviewDiagram(String value) {
-      doc.setContent(path + "/dataLandscapeOverviewDiagram", value);
+      doc.setContent(path + "/CUDALA-DATAL", value);
     }
 
     // Data architecture summary diagram.
     public String dataArchitectureDiagram() {
-      String v = doc.content(path + "/dataArchitectureDiagram");
+      String v = doc.content(path + "/CUDALA-DATA");
       return v == null ? "" : v;
     }
 
     public void dataArchitectureDiagram(String value) {
-      doc.setContent(path + "/dataArchitectureDiagram", value);
+      doc.setContent(path + "/CUDALA-DATA", value);
     }
 
     // Summary statistics and health indicators.
@@ -11388,12 +11388,12 @@ public final class TomSomV0 {
 
     // Workflow diagram.
     public String workflowDiagram() {
-      String v = doc.content(path + "/workflowDiagram");
+      String v = doc.content(path + "/CUWF-WORK");
       return v == null ? "" : v;
     }
 
     public void workflowDiagram(String value) {
-      doc.setContent(path + "/workflowDiagram", value);
+      doc.setContent(path + "/CUWF-WORK", value);
     }
 
     // Workflow triggers and initiation.
@@ -12096,12 +12096,12 @@ public final class TomSomV0 {
     // reaches it directly. The authoritative content lives on the Solution
     // Blueprint side.
     public String traceabilityMatrix() {
-      String v = doc.content(path + "/traceabilityMatrix");
+      String v = doc.content(path + "/RSP-TRAC");
       return v == null ? "" : v;
     }
 
     public void traceabilityMatrix(String value) {
-      doc.setContent(path + "/traceabilityMatrix", value);
+      doc.setContent(path + "/RSP-TRAC", value);
     }
 
     // Requirement relationships.
@@ -13420,11 +13420,11 @@ public final class TomSomV0 {
     }
 
     public DataAttributeEntryIdentityForm identity() {
-      return new DataAttributeEntryIdentityForm(doc, path + "/identity");
+      return new DataAttributeEntryIdentityForm(doc, path + "/DAATT-IDEN");
     }
 
     public DataAttributeEntryDataTypeSpecForm dataTypeSpec() {
-      return new DataAttributeEntryDataTypeSpecForm(doc, path + "/dataTypeSpec");
+      return new DataAttributeEntryDataTypeSpecForm(doc, path + "/DAATT-DATA");
     }
 
     public SomList<DataAttributeConstraintEntry> constraints() {
@@ -13432,15 +13432,15 @@ public final class TomSomV0 {
     }
 
     public DataAttributeEntryDerivationForm derivation() {
-      return new DataAttributeEntryDerivationForm(doc, path + "/derivation");
+      return new DataAttributeEntryDerivationForm(doc, path + "/DAATT-DERI");
     }
 
     public DataAttributeEntrySecurityClassificationForm securityClassification() {
-      return new DataAttributeEntrySecurityClassificationForm(doc, path + "/securityClassification");
+      return new DataAttributeEntrySecurityClassificationForm(doc, path + "/DAATT-SECU");
     }
 
     public DataAttributeEntryMigrationLineageForm migrationLineage() {
-      return new DataAttributeEntryMigrationLineageForm(doc, path + "/migrationLineage");
+      return new DataAttributeEntryMigrationLineageForm(doc, path + "/DAATT-MIGR");
     }
 
     public SomList<DisplayPropertyEntry> displayProperties() {
@@ -13455,7 +13455,7 @@ public final class TomSomV0 {
     }
 
     public DataClassificationOverviewForm overview() {
-      return new DataClassificationOverviewForm(doc, path + "/overview");
+      return new DataClassificationOverviewForm(doc, path + "/DATCL-OVER");
     }
 
     // Contains 0+× DataClassificationEntry.
@@ -13473,23 +13473,23 @@ public final class TomSomV0 {
     }
 
     public DataClassificationEntryIdentityForm identity() {
-      return new DataClassificationEntryIdentityForm(doc, path + "/identity");
+      return new DataClassificationEntryIdentityForm(doc, path + "/DCLSE-IDEN");
     }
 
     public DataClassificationEntryStorageTransmissionForm storageTransmission() {
-      return new DataClassificationEntryStorageTransmissionForm(doc, path + "/storageTransmission");
+      return new DataClassificationEntryStorageTransmissionForm(doc, path + "/DCLSE-STOR");
     }
 
     public DataClassificationEntryAccessControlForm accessControl() {
-      return new DataClassificationEntryAccessControlForm(doc, path + "/accessControl");
+      return new DataClassificationEntryAccessControlForm(doc, path + "/DCLSE-ACCE");
     }
 
     public DataClassificationEntryRetentionDisposalForm retentionDisposal() {
-      return new DataClassificationEntryRetentionDisposalForm(doc, path + "/retentionDisposal");
+      return new DataClassificationEntryRetentionDisposalForm(doc, path + "/DCLSE-RETE");
     }
 
     public DataClassificationEntryComplianceForm compliance() {
-      return new DataClassificationEntryComplianceForm(doc, path + "/compliance");
+      return new DataClassificationEntryComplianceForm(doc, path + "/DCLSE-COMP");
     }
 
     // Contains 0+× HandlingRequirement.
@@ -13590,12 +13590,12 @@ public final class TomSomV0 {
 
     // Visual representation of data redundancy.
     public String duplicationDiagram() {
-      String v = doc.content(path + "/duplicationDiagram");
+      String v = doc.content(path + "/DADUAN-DUPL");
       return v == null ? "" : v;
     }
 
     public void duplicationDiagram(String value) {
-      doc.setContent(path + "/duplicationDiagram", value);
+      doc.setContent(path + "/DADUAN-DUPL", value);
     }
 
     // Individual duplication instances.
@@ -13684,11 +13684,11 @@ public final class TomSomV0 {
     }
 
     public DataEntityEntryIdentityForm identity() {
-      return new DataEntityEntryIdentityForm(doc, path + "/identity");
+      return new DataEntityEntryIdentityForm(doc, path + "/DAENT-IDEN");
     }
 
     public DataEntityEntryClassificationForm classification() {
-      return new DataEntityEntryClassificationForm(doc, path + "/classification");
+      return new DataEntityEntryClassificationForm(doc, path + "/DAENT-CLAS");
     }
 
     public SomList<VolumeMetricEntry> volumeMetrics() {
@@ -13696,7 +13696,7 @@ public final class TomSomV0 {
     }
 
     public DataEntityEntryLifecyclePolicyForm lifecyclePolicy() {
-      return new DataEntityEntryLifecyclePolicyForm(doc, path + "/lifecyclePolicy");
+      return new DataEntityEntryLifecyclePolicyForm(doc, path + "/DAENT-LIFE");
     }
 
     public SomList<ComplianceRequirementEntry> complianceRequirements() {
@@ -13704,7 +13704,7 @@ public final class TomSomV0 {
     }
 
     public DataEntityEntryRelationshipSummaryForm relationshipSummary() {
-      return new DataEntityEntryRelationshipSummaryForm(doc, path + "/relationshipSummary");
+      return new DataEntityEntryRelationshipSummaryForm(doc, path + "/DAENT-RELA");
     }
 
     public SomList<TechnicalCharacteristicEntry> technicalCharacteristics() {
@@ -13872,12 +13872,12 @@ public final class TomSomV0 {
 
     // Governance organization structure.
     public String governanceOrgChart() {
-      String v = doc.content(path + "/governanceOrgChart");
+      String v = doc.content(path + "/DAGO-GOVE");
       return v == null ? "" : v;
     }
 
     public void governanceOrgChart(String value) {
-      doc.setContent(path + "/governanceOrgChart", value);
+      doc.setContent(path + "/DAGO-GOVE", value);
     }
 
     // Data governance policies.
@@ -14131,12 +14131,12 @@ public final class TomSomV0 {
 
     // Data flow diagram.
     public String dataFlowDiagram() {
-      String v = doc.content(path + "/dataFlowDiagram");
+      String v = doc.content(path + "/DAINPO-DATA");
       return v == null ? "" : v;
     }
 
     public void dataFlowDiagram(String value) {
-      doc.setContent(path + "/dataFlowDiagram", value);
+      doc.setContent(path + "/DAINPO-DATA", value);
     }
 
     // Data integration points inventory.
@@ -14439,12 +14439,12 @@ public final class TomSomV0 {
 
     // Data ownership matrix visualization.
     public String ownershipMatrixDiagram() {
-      String v = doc.content(path + "/ownershipMatrixDiagram");
+      String v = doc.content(path + "/DAOW-OWNE");
       return v == null ? "" : v;
     }
 
     public void ownershipMatrixDiagram(String value) {
-      doc.setContent(path + "/ownershipMatrixDiagram", value);
+      doc.setContent(path + "/DAOW-OWNE", value);
     }
 
     // Data ownership assignments by domain.
@@ -14754,12 +14754,12 @@ public final class TomSomV0 {
 
     // Quality issues by severity.
     public String qualityIssuesSeverityChart() {
-      String v = doc.content(path + "/qualityIssuesSeverityChart");
+      String v = doc.content(path + "/DAQUAS-QUAL");
       return v == null ? "" : v;
     }
 
     public void qualityIssuesSeverityChart(String value) {
-      doc.setContent(path + "/qualityIssuesSeverityChart", value);
+      doc.setContent(path + "/DAQUAS-QUAL", value);
     }
 
     // Data quality issues inventory.
@@ -15064,12 +15064,12 @@ public final class TomSomV0 {
 
     // Visual map of data sources by domain/category.
     public String dataSourceMapDiagram() {
-      String v = doc.content(path + "/dataSourceMapDiagram");
+      String v = doc.content(path + "/DASOIN-DATA");
       return v == null ? "" : v;
     }
 
     public void dataSourceMapDiagram(String value) {
-      doc.setContent(path + "/dataSourceMapDiagram", value);
+      doc.setContent(path + "/DASOIN-DATA", value);
     }
 
     // Contains 0+× DataSource.
@@ -15354,12 +15354,12 @@ public final class TomSomV0 {
 
     // Growth trend visualization.
     public String growthTrendChart() {
-      String v = doc.content(path + "/growthTrendChart");
+      String v = doc.content(path + "/DVAG-GROW");
       return v == null ? "" : v;
     }
 
     public void growthTrendChart(String value) {
-      doc.setContent(path + "/growthTrendChart", value);
+      doc.setContent(path + "/DVAG-GROW", value);
     }
 
     // Volume details by data source.
@@ -16336,12 +16336,12 @@ public final class TomSomV0 {
 
     // Dependency matrix diagram.
     public String dependencyDiagram() {
-      String v = doc.content(path + "/dependencyDiagram");
+      String v = doc.content(path + "/DEPNT-DEPE");
       return v == null ? "" : v;
     }
 
     public void dependencyDiagram(String value) {
-      doc.setContent(path + "/dependencyDiagram", value);
+      doc.setContent(path + "/DEPNT-DEPE", value);
     }
 
     // 1.1.3.1. Internal Dependencies.
@@ -18769,7 +18769,7 @@ public final class TomSomV0 {
     }
 
     public DocumentationQualityCriteriaDocumentationOverviewContentForm documentationOverviewContent() {
-      return new DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, path + "/documentationOverviewContent");
+      return new DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, path + "/DOQUCR-DOCU");
     }
 
     // Documentation quality overview narrative.
@@ -18987,32 +18987,32 @@ public final class TomSomV0 {
 
     // Context map showing domain boundaries.
     public String contextMap() {
-      String v = doc.content(path + "/contextMap");
+      String v = doc.content(path + "/DB-CONT");
       return v == null ? "" : v;
     }
 
     public void contextMap(String value) {
-      doc.setContent(path + "/contextMap", value);
+      doc.setContent(path + "/DB-CONT", value);
     }
 
     // Within-scope items.
     public String withinScope() {
-      String v = doc.content(path + "/withinScope");
+      String v = doc.content(path + "/DB-WITH");
       return v == null ? "" : v;
     }
 
     public void withinScope(String value) {
-      doc.setContent(path + "/withinScope", value);
+      doc.setContent(path + "/DB-WITH", value);
     }
 
     // Outside-scope items.
     public String outsideScope() {
-      String v = doc.content(path + "/outsideScope");
+      String v = doc.content(path + "/DB-OUTS");
       return v == null ? "" : v;
     }
 
     public void outsideScope(String value) {
-      doc.setContent(path + "/outsideScope", value);
+      doc.setContent(path + "/DB-OUTS", value);
     }
 
     // Domain interfaces — contains 0+× DomainInterfaceEntry.
@@ -19244,12 +19244,12 @@ public final class TomSomV0 {
 
     // Process overview diagram.
     public String processOverviewDiagram() {
-      String v = doc.content(path + "/processOverviewDiagram");
+      String v = doc.content(path + "/DP-PROC");
       return v == null ? "" : v;
     }
 
     public void processOverviewDiagram(String value) {
-      doc.setContent(path + "/processOverviewDiagram", value);
+      doc.setContent(path + "/DP-PROC", value);
     }
 
     // Domain process entries — contains 0+× DomainProcessEntry.
@@ -19744,7 +19744,7 @@ public final class TomSomV0 {
     }
 
     public EntityRelationshipEntryIdentityForm identity() {
-      return new EntityRelationshipEntryIdentityForm(doc, path + "/identity");
+      return new EntityRelationshipEntryIdentityForm(doc, path + "/ENRLE-IDEN");
     }
 
     public SomList<ParticipantEntry> participants() {
@@ -19752,15 +19752,15 @@ public final class TomSomV0 {
     }
 
     public EntityRelationshipEntryCardinalityForm cardinality() {
-      return new EntityRelationshipEntryCardinalityForm(doc, path + "/cardinality");
+      return new EntityRelationshipEntryCardinalityForm(doc, path + "/ENRLE-CARD");
     }
 
     public EntityRelationshipEntryReferentialIntegrityForm referentialIntegrity() {
-      return new EntityRelationshipEntryReferentialIntegrityForm(doc, path + "/referentialIntegrity");
+      return new EntityRelationshipEntryReferentialIntegrityForm(doc, path + "/ENRLE-REFE");
     }
 
     public EntityRelationshipEntryNavigationForm navigation() {
-      return new EntityRelationshipEntryNavigationForm(doc, path + "/navigation");
+      return new EntityRelationshipEntryNavigationForm(doc, path + "/ENRLE-NAVI");
     }
 
     public SomList<RelationshipAttributeEntry> relationshipAttributes() {
@@ -20328,7 +20328,7 @@ public final class TomSomV0 {
     }
 
     public ErrorHandlingErrorPhilosophyContentForm errorPhilosophyContent() {
-      return new ErrorHandlingErrorPhilosophyContentForm(doc, path + "/errorPhilosophyContent");
+      return new ErrorHandlingErrorPhilosophyContentForm(doc, path + "/ERHACO-ERRO");
     }
 
     // Error categorization and display priority.
@@ -20553,7 +20553,7 @@ public final class TomSomV0 {
     }
 
     public ErrorRecoveryRecoveryMechanismsContentForm recoveryMechanismsContent() {
-      return new ErrorRecoveryRecoveryMechanismsContentForm(doc, path + "/recoveryMechanismsContent");
+      return new ErrorRecoveryRecoveryMechanismsContentForm(doc, path + "/ERRE-RECO");
     }
 
     // Data preservation: draft auto-save settings.
@@ -21548,7 +21548,7 @@ public final class TomSomV0 {
     }
 
     public ExternalInterfaceEntryIdentificationContentForm identificationContent() {
-      return new ExternalInterfaceEntryIdentificationContentForm(doc, path + "/identificationContent");
+      return new ExternalInterfaceEntryIdentificationContentForm(doc, path + "/EIE-IDEN");
     }
 
     // Business purpose and value of this interface.
@@ -21923,12 +21923,12 @@ public final class TomSomV0 {
 
     // Data mapping details.
     public String dataMapping() {
-      String v = doc.content(path + "/dataMapping");
+      String v = doc.content(path + "/EXSYCOEN-DATA");
       return v == null ? "" : v;
     }
 
     public void dataMapping(String value) {
-      doc.setContent(path + "/dataMapping", value);
+      doc.setContent(path + "/EXSYCOEN-DATA", value);
     }
   }
 
@@ -22893,7 +22893,7 @@ public final class TomSomV0 {
     }
 
     public FlexibilityCharacteristicFlexibilityContentForm flexibilityContent() {
-      return new FlexibilityCharacteristicFlexibilityContentForm(doc, path + "/flexibilityContent");
+      return new FlexibilityCharacteristicFlexibilityContentForm(doc, path + "/FLXC-FLEX");
     }
 
     // Flexibility overview.
@@ -23192,11 +23192,11 @@ public final class TomSomV0 {
     }
 
     public FunctionModelDecompositionOverviewForm decompositionOverview() {
-      return new FunctionModelDecompositionOverviewForm(doc, path + "/decompositionOverview");
+      return new FunctionModelDecompositionOverviewForm(doc, path + "/FUMO-DECO");
     }
 
     public FunctionModelMatrixOverviewForm matrixOverview() {
-      return new FunctionModelMatrixOverviewForm(doc, path + "/matrixOverview");
+      return new FunctionModelMatrixOverviewForm(doc, path + "/FUMO-MATR");
     }
 
     // 7.3.1. Function Decomposition — contains 0+× Function.
@@ -23402,7 +23402,7 @@ public final class TomSomV0 {
 
     // Functional requirements summary form.
     public FunctionalRequirementsSummaryFormForm summaryForm() {
-      return new FunctionalRequirementsSummaryFormForm(doc, path + "/summaryForm");
+      return new FunctionalRequirementsSummaryFormForm(doc, path + "/FR-SUMM");
     }
 
     // Functional requirements list — contains 1+× Functional Requirement.
@@ -23446,7 +23446,7 @@ public final class TomSomV0 {
     }
 
     public FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functionalSuitabilityContent() {
-      return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, path + "/functionalSuitabilityContent");
+      return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, path + "/FNSU-FUNC");
     }
 
     // Functional suitability overview.
@@ -23882,7 +23882,7 @@ public final class TomSomV0 {
 
     // Resource requirement form.
     public GoalResourcesResourcesFormForm resourcesForm() {
-      return new GoalResourcesResourcesFormForm(doc, path + "/resourcesForm");
+      return new GoalResourcesResourcesFormForm(doc, path + "/GORE-RESO");
     }
 
     // Resource allocation entries — contains 0+× ResourceAllocationEntry.
@@ -23989,12 +23989,12 @@ public final class TomSomV0 {
 
     // Goal hierarchy diagram.
     public String goalHierarchyDiagram() {
-      String v = doc.content(path + "/goalHierarchyDiagram");
+      String v = doc.content(path + "/GOALS-GOAL");
       return v == null ? "" : v;
     }
 
     public void goalHierarchyDiagram(String value) {
-      doc.setContent(path + "/goalHierarchyDiagram", value);
+      doc.setContent(path + "/GOALS-GOAL", value);
     }
 
     // 4.2.1. Business Goals.
@@ -25950,7 +25950,7 @@ public final class TomSomV0 {
     }
 
     public InteractionCapabilityCharacteristicInteractionCapabilityContentForm interactionCapabilityContent() {
-      return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, path + "/interactionCapabilityContent");
+      return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, path + "/INCP-INTE");
     }
 
     // Interaction capability overview.
@@ -27124,12 +27124,12 @@ public final class TomSomV0 {
 
     // System context diagram showing major system boundaries.
     public String systemContextDiagram() {
-      String v = doc.content(path + "/systemContextDiagram");
+      String v = doc.content(path + "/INSC-SYST");
       return v == null ? "" : v;
     }
 
     public void systemContextDiagram(String value) {
-      doc.setContent(path + "/systemContextDiagram", value);
+      doc.setContent(path + "/INSC-SYST", value);
     }
 
     // 4.1. System Description.
@@ -27690,12 +27690,12 @@ public final class TomSomV0 {
 
     // Conceptual domain model diagram.
     public String conceptualModelDiagram() {
-      String v = doc.content(path + "/conceptualModelDiagram");
+      String v = doc.content(path + "/KC-CONC");
       return v == null ? "" : v;
     }
 
     public void conceptualModelDiagram(String value) {
-      doc.setContent(path + "/conceptualModelDiagram", value);
+      doc.setContent(path + "/KC-CONC", value);
     }
 
     // Key concept entries — contains 1+× KeyConceptEntry.
@@ -27992,7 +27992,7 @@ public final class TomSomV0 {
     }
 
     public LanguageCountrySelectionLanguageSelectionContentForm languageSelectionContent() {
-      return new LanguageCountrySelectionLanguageSelectionContentForm(doc, path + "/languageSelectionContent");
+      return new LanguageCountrySelectionLanguageSelectionContentForm(doc, path + "/LACOSE-LANG");
     }
 
     // Default locale behavior.
@@ -28618,7 +28618,7 @@ public final class TomSomV0 {
     }
 
     public LocalizationProcessLocalizationProcessContentForm localizationProcessContent() {
-      return new LocalizationProcessLocalizationProcessContentForm(doc, path + "/localizationProcessContent");
+      return new LocalizationProcessLocalizationProcessContentForm(doc, path + "/LOPR-LOCA");
     }
 
     // Review process.
@@ -29089,7 +29089,7 @@ public final class TomSomV0 {
     }
 
     public MaintainabilityCharacteristicMaintainabilityContentForm maintainabilityContent() {
-      return new MaintainabilityCharacteristicMaintainabilityContentForm(doc, path + "/maintainabilityContent");
+      return new MaintainabilityCharacteristicMaintainabilityContentForm(doc, path + "/MNTC-MAIN");
     }
 
     // Maintainability overview.
@@ -29722,7 +29722,7 @@ public final class TomSomV0 {
     }
 
     public MetricsAndObservabilityMetricsOverviewForm metricsOverview() {
-      return new MetricsAndObservabilityMetricsOverviewForm(doc, path + "/metricsOverview");
+      return new MetricsAndObservabilityMetricsOverviewForm(doc, path + "/MEANOB-METR");
     }
 
     // Observability overview narrative.
@@ -30022,7 +30022,7 @@ public final class TomSomV0 {
     }
 
     public MigrationConsiderationsStrategyContentForm strategyContent() {
-      return new MigrationConsiderationsStrategyContentForm(doc, path + "/strategyContent");
+      return new MigrationConsiderationsStrategyContentForm(doc, path + "/MIGCON-STRA");
     }
 
     // Detailed strategy narrative.
@@ -30614,7 +30614,7 @@ public final class TomSomV0 {
     }
 
     public MigrationRisksGovernanceContentForm governanceContent() {
-      return new MigrationRisksGovernanceContentForm(doc, path + "/governanceContent");
+      return new MigrationRisksGovernanceContentForm(doc, path + "/MIRI-GOVE");
     }
 
     // Governance and decision authority.
@@ -31157,7 +31157,7 @@ public final class TomSomV0 {
     }
 
     public MonitoringMonitoringOverviewForm monitoringOverview() {
-      return new MonitoringMonitoringOverviewForm(doc, path + "/monitoringOverview");
+      return new MonitoringMonitoringOverviewForm(doc, path + "/MONITO-MONI");
     }
 
     // Monitoring strategy narrative.
@@ -31308,7 +31308,7 @@ public final class TomSomV0 {
     }
 
     public MonitoringDashboardsDashboardOverviewForm dashboardOverview() {
-      return new MonitoringDashboardsDashboardOverviewForm(doc, path + "/dashboardOverview");
+      return new MonitoringDashboardsDashboardOverviewForm(doc, path + "/MODA-DASH");
     }
 
     // Dashboard overview narrative.
@@ -31541,7 +31541,7 @@ public final class TomSomV0 {
 
     // Multi-channel configuration.
     public MultiChannelExperienceMultiChannelConfigurationForm multiChannelConfiguration() {
-      return new MultiChannelExperienceMultiChannelConfigurationForm(doc, path + "/multiChannelConfiguration");
+      return new MultiChannelExperienceMultiChannelConfigurationForm(doc, path + "/MCE-MULT");
     }
   }
 
@@ -31558,7 +31558,7 @@ public final class TomSomV0 {
     }
 
     public MultiLanguageSupportMultiLanguageOverviewForm multiLanguageOverview() {
-      return new MultiLanguageSupportMultiLanguageOverviewForm(doc, path + "/multiLanguageOverview");
+      return new MultiLanguageSupportMultiLanguageOverviewForm(doc, path + "/MLAR-MULT");
     }
 
     // Multi-language overview narrative.
@@ -31584,7 +31584,7 @@ public final class TomSomV0 {
     }
 
     public MustPassCriteriaMustPassOverviewContentForm mustPassOverviewContent() {
-      return new MustPassCriteriaMustPassOverviewContentForm(doc, path + "/mustPassOverviewContent");
+      return new MustPassCriteriaMustPassOverviewContentForm(doc, path + "/MUPACR-MUST");
     }
 
     // Must-pass criteria overview.
@@ -33115,7 +33115,7 @@ public final class TomSomV0 {
     }
 
     public OnboardingHelpOnboardingContentForm onboardingContent() {
-      return new OnboardingHelpOnboardingContentForm(doc, path + "/onboardingContent");
+      return new OnboardingHelpOnboardingContentForm(doc, path + "/ONHE-ONBO");
     }
 
     // Feature tour settings.
@@ -33562,7 +33562,7 @@ public final class TomSomV0 {
 
     // Implementation plan form.
     public OrgRequirementImplementationPlanPlanFormForm planForm() {
-      return new OrgRequirementImplementationPlanPlanFormForm(doc, path + "/planForm");
+      return new OrgRequirementImplementationPlanPlanFormForm(doc, path + "/ORIP-PLAN");
     }
 
     // Implementation activities — contains 0+× OrgImplementationActivity.
@@ -33679,12 +33679,12 @@ public final class TomSomV0 {
 
     // Business process coverage.
     public String businessProcessCoverage() {
-      String v = doc.content(path + "/businessProcessCoverage");
+      String v = doc.content(path + "/OC-BUSI");
       return v == null ? "" : v;
     }
 
     public void businessProcessCoverage(String value) {
-      doc.setContent(path + "/businessProcessCoverage", value);
+      doc.setContent(path + "/OC-BUSI", value);
     }
   }
 
@@ -33700,7 +33700,7 @@ public final class TomSomV0 {
     }
 
     public OrganizationalEnvironmentOrganizationContentForm organizationContent() {
-      return new OrganizationalEnvironmentOrganizationContentForm(doc, path + "/organizationContent");
+      return new OrganizationalEnvironmentOrganizationContentForm(doc, path + "/OREN-ORGA");
     }
 
     // Organizational maturity indicators.
@@ -33909,7 +33909,7 @@ public final class TomSomV0 {
 
     // Organizational requirements summary form.
     public OrganizationalRequirementsSummaryFormForm summaryForm() {
-      return new OrganizationalRequirementsSummaryFormForm(doc, path + "/summaryForm");
+      return new OrganizationalRequirementsSummaryFormForm(doc, path + "/OR-SUMM");
     }
 
     // Organizational requirements list — contains 0+× Organizational Requirement.
@@ -34297,12 +34297,12 @@ public final class TomSomV0 {
 
     // Visual correlation between pain points and gaps.
     public String correlationDiagram() {
-      String v = doc.content(path + "/correlationDiagram");
+      String v = doc.content(path + "/PPGC-CORR");
       return v == null ? "" : v;
     }
 
     public void correlationDiagram(String value) {
-      doc.setContent(path + "/correlationDiagram", value);
+      doc.setContent(path + "/PPGC-CORR", value);
     }
 
     // Tabular correlation data.
@@ -34403,22 +34403,22 @@ public final class TomSomV0 {
 
     // Visual mapping of pain points and their relationships.
     public String painPointsOverviewDiagram() {
-      String v = doc.content(path + "/painPointsOverviewDiagram");
+      String v = doc.content(path + "/PPAG-PAIN");
       return v == null ? "" : v;
     }
 
     public void painPointsOverviewDiagram(String value) {
-      doc.setContent(path + "/painPointsOverviewDiagram", value);
+      doc.setContent(path + "/PPAG-PAIN", value);
     }
 
     // Pain points priority matrix (urgency vs impact).
     public String painPointsPriorityMatrix() {
-      String v = doc.content(path + "/painPointsPriorityMatrix");
+      String v = doc.content(path + "/PPAG-PAINP");
       return v == null ? "" : v;
     }
 
     public void painPointsPriorityMatrix(String value) {
-      doc.setContent(path + "/painPointsPriorityMatrix", value);
+      doc.setContent(path + "/PPAG-PAINP", value);
     }
 
     // Summary statistics for all pain points.
@@ -34756,7 +34756,7 @@ public final class TomSomV0 {
     }
 
     public PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performanceEfficiencyContent() {
-      return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, path + "/performanceEfficiencyContent");
+      return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, path + "/PEEF-PERF");
     }
 
     // Performance efficiency overview.
@@ -36157,12 +36157,12 @@ public final class TomSomV0 {
 
     // Visual representation of process adjustments.
     public String processFlowDiagram() {
-      String v = doc.content(path + "/processFlowDiagram");
+      String v = doc.content(path + "/PCADJ-PROC");
       return v == null ? "" : v;
     }
 
     public void processFlowDiagram(String value) {
-      doc.setContent(path + "/processFlowDiagram", value);
+      doc.setContent(path + "/PCADJ-PROC", value);
     }
 
     // Contains 0+× ProcessAdjustment.
@@ -36680,12 +36680,12 @@ public final class TomSomV0 {
 
     // Interdependency diagram.
     public String dependencyDiagram() {
-      String v = doc.content(path + "/dependencyDiagram");
+      String v = doc.content(path + "/PRINMA-DEPE");
       return v == null ? "" : v;
     }
 
     public void dependencyDiagram(String value) {
-      doc.setContent(path + "/dependencyDiagram", value);
+      doc.setContent(path + "/PRINMA-DEPE", value);
     }
 
     // Individual process dependencies.
@@ -37503,12 +37503,12 @@ public final class TomSomV0 {
 
     // Visual overview of methodology deviations.
     public String methodologyDeviationDiagram() {
-      String v = doc.content(path + "/methodologyDeviationDiagram");
+      String v = doc.content(path + "/PRPO-METH");
       return v == null ? "" : v;
     }
 
     public void methodologyDeviationDiagram(String value) {
-      doc.setContent(path + "/methodologyDeviationDiagram", value);
+      doc.setContent(path + "/PRPO-METH", value);
     }
 
     // Summary of all methodology deviations.
@@ -37715,7 +37715,7 @@ public final class TomSomV0 {
     }
 
     public PrototypePrototypeOverviewForm prototypeOverview() {
-      return new PrototypePrototypeOverviewForm(doc, path + "/prototypeOverview");
+      return new PrototypePrototypeOverviewForm(doc, path + "/PROTOT-PROT");
     }
 
     // Prototype timing commitments.
@@ -37775,7 +37775,7 @@ public final class TomSomV0 {
     }
 
     public PrototypeFeatureSubsetFeatureSubsetContentForm featureSubsetContent() {
-      return new PrototypeFeatureSubsetFeatureSubsetContentForm(doc, path + "/featureSubsetContent");
+      return new PrototypeFeatureSubsetFeatureSubsetContentForm(doc, path + "/PRFESU-FEAT");
     }
 
     // Included and excluded feature scope.
@@ -37839,7 +37839,7 @@ public final class TomSomV0 {
     }
 
     public PrototypeGoalsGoalsContentForm goalsContent() {
-      return new PrototypeGoalsGoalsContentForm(doc, path + "/goalsContent");
+      return new PrototypeGoalsGoalsContentForm(doc, path + "/PG-GOAL");
     }
 
     // Risk reduction and assumption testing.
@@ -37925,7 +37925,7 @@ public final class TomSomV0 {
     }
 
     public PrototypeTypePrototypeTypeOverviewForm prototypeTypeOverview() {
-      return new PrototypeTypePrototypeTypeOverviewForm(doc, path + "/prototypeTypeOverview");
+      return new PrototypeTypePrototypeTypeOverviewForm(doc, path + "/PRTYSE-PROT");
     }
 
     // 10.13.3.1. Reusable Prototype.
@@ -38146,7 +38146,7 @@ public final class TomSomV0 {
     }
 
     public QualityFrameworkFrameworkContentForm frameworkContent() {
-      return new QualityFrameworkFrameworkContentForm(doc, path + "/frameworkContent");
+      return new QualityFrameworkFrameworkContentForm(doc, path + "/QLFWK-FRAM");
     }
 
     // Quality objective structure and alignment.
@@ -38335,12 +38335,12 @@ public final class TomSomV0 {
 
     // Visual representation of gate adjustments.
     public String gateFlowDiagram() {
-      String v = doc.content(path + "/gateFlowDiagram");
+      String v = doc.content(path + "/QGADJ-GATE");
       return v == null ? "" : v;
     }
 
     public void gateFlowDiagram(String value) {
-      doc.setContent(path + "/gateFlowDiagram", value);
+      doc.setContent(path + "/QGADJ-GATE", value);
     }
 
     // Contains 0+× QualityGateAdjustment.
@@ -38449,7 +38449,7 @@ public final class TomSomV0 {
     }
 
     public QualityGateChecklistChecklistOverviewContentForm checklistOverviewContent() {
-      return new QualityGateChecklistChecklistOverviewContentForm(doc, path + "/checklistOverviewContent");
+      return new QualityGateChecklistChecklistOverviewContentForm(doc, path + "/QUGACH-CHEC");
     }
 
     // Quality gate checklist overview.
@@ -38515,7 +38515,7 @@ public final class TomSomV0 {
     }
 
     public QualityPrioritizationPrioritizationFrameworkContentForm prioritizationFrameworkContent() {
-      return new QualityPrioritizationPrioritizationFrameworkContentForm(doc, path + "/prioritizationFrameworkContent");
+      return new QualityPrioritizationPrioritizationFrameworkContentForm(doc, path + "/QUPR-PRIO");
     }
 
     // Prioritization approach overview.
@@ -39397,7 +39397,7 @@ public final class TomSomV0 {
     }
 
     public ReliabilityCharacteristicReliabilityContentForm reliabilityContent() {
-      return new ReliabilityCharacteristicReliabilityContentForm(doc, path + "/reliabilityContent");
+      return new ReliabilityCharacteristicReliabilityContentForm(doc, path + "/RELC-RELI");
     }
 
     // Reliability overview narrative.
@@ -40680,7 +40680,7 @@ public final class TomSomV0 {
 
     // Traceability links form.
     public RequirementTraceabilityTraceabilityFormForm traceabilityForm() {
-      return new RequirementTraceabilityTraceabilityFormForm(doc, path + "/traceabilityForm");
+      return new RequirementTraceabilityTraceabilityFormForm(doc, path + "/RT-TRAC");
     }
 
     // Linked artifacts and test coverage references.
@@ -40742,27 +40742,27 @@ public final class TomSomV0 {
 
     // UI specification form.
     public RequirementUiSpecificationUiFormForm uiForm() {
-      return new RequirementUiSpecificationUiFormForm(doc, path + "/uiForm");
+      return new RequirementUiSpecificationUiFormForm(doc, path + "/RUS-UIFO");
     }
 
     // UI layout specification (D4rt Flutter code).
     public String layoutCode() {
-      String v = doc.content(path + "/layoutCode");
+      String v = doc.content(path + "/RUS-LAYO");
       return v == null ? "" : v;
     }
 
     public void layoutCode(String value) {
-      doc.setContent(path + "/layoutCode", value);
+      doc.setContent(path + "/RUS-LAYO", value);
     }
 
     // UI mockup diagram (fallback if code not available).
     public String mockupDescription() {
-      String v = doc.content(path + "/mockupDescription");
+      String v = doc.content(path + "/RUS-MOCK");
       return v == null ? "" : v;
     }
 
     public void mockupDescription(String value) {
-      doc.setContent(path + "/mockupDescription", value);
+      doc.setContent(path + "/RUS-MOCK", value);
     }
 
     // Screen field entries — contains 0+× ScreenFieldEntry.
@@ -40849,17 +40849,17 @@ public final class TomSomV0 {
 
     // Requirements overview form.
     public RequirementsOverviewRequirementsFormForm requirementsForm() {
-      return new RequirementsOverviewRequirementsFormForm(doc, path + "/requirementsForm");
+      return new RequirementsOverviewRequirementsFormForm(doc, path + "/RO-REQU");
     }
 
     // Traceability matrix overview.
     public String traceabilityMatrix() {
-      String v = doc.content(path + "/traceabilityMatrix");
+      String v = doc.content(path + "/RO-TRAC");
       return v == null ? "" : v;
     }
 
     public void traceabilityMatrix(String value) {
-      doc.setContent(path + "/traceabilityMatrix", value);
+      doc.setContent(path + "/RO-TRAC", value);
     }
 
     // 4.3.1. Functional Requirements.
@@ -41217,7 +41217,7 @@ public final class TomSomV0 {
     }
 
     public ResponsiveBehaviorLayoutAdaptationForm layoutAdaptation() {
-      return new ResponsiveBehaviorLayoutAdaptationForm(doc, path + "/layoutAdaptation");
+      return new ResponsiveBehaviorLayoutAdaptationForm(doc, path + "/REBE-LAYO");
     }
 
     // Navigation patterns per device class.
@@ -41303,7 +41303,7 @@ public final class TomSomV0 {
     }
 
     public ResponsiveDesignResponsiveOverviewForm responsiveOverview() {
-      return new ResponsiveDesignResponsiveOverviewForm(doc, path + "/responsiveOverview");
+      return new ResponsiveDesignResponsiveOverviewForm(doc, path + "/REDE-RESP");
     }
 
     // Responsive design narrative.
@@ -41552,7 +41552,7 @@ public final class TomSomV0 {
     }
 
     public ReusablePrototypeReusableContentForm reusableContent() {
-      return new ReusablePrototypeReusableContentForm(doc, path + "/reusableContent");
+      return new ReusablePrototypeReusableContentForm(doc, path + "/REUPRO-REUS");
     }
 
     // Architecture alignment and refactoring expectations.
@@ -42312,12 +42312,12 @@ public final class TomSomV0 {
 
     // Visual comparison of standard vs adjusted roles.
     public String roleComparisonDiagram() {
-      String v = doc.content(path + "/roleComparisonDiagram");
+      String v = doc.content(path + "/RLADJ-ROLE");
       return v == null ? "" : v;
     }
 
     public void roleComparisonDiagram(String value) {
-      doc.setContent(path + "/roleComparisonDiagram", value);
+      doc.setContent(path + "/RLADJ-ROLE", value);
     }
 
     // Contains 0+× RoleAdjustment.
@@ -44773,7 +44773,7 @@ public final class TomSomV0 {
     }
 
     public SecurityCharacteristicSecurityContentForm securityContent() {
-      return new SecurityCharacteristicSecurityContentForm(doc, path + "/securityContent");
+      return new SecurityCharacteristicSecurityContentForm(doc, path + "/SECC-SECU");
     }
 
     // Security overview.
@@ -45226,7 +45226,7 @@ public final class TomSomV0 {
 
     // Security requirements summary form.
     public SecurityRequirementsSummaryFormForm summaryForm() {
-      return new SecurityRequirementsSummaryFormForm(doc, path + "/summaryForm");
+      return new SecurityRequirementsSummaryFormForm(doc, path + "/SR1-SUMM");
     }
 
     // Security requirements list — contains 0+× Security Requirement.
@@ -46417,7 +46417,7 @@ public final class TomSomV0 {
 
     // Session configuration.
     public SessionModelSessionConfigurationForm sessionConfiguration() {
-      return new SessionModelSessionConfigurationForm(doc, path + "/sessionConfiguration");
+      return new SessionModelSessionConfigurationForm(doc, path + "/SM-SESS");
     }
 
     // Refresh, concurrency, and termination behavior.
@@ -46970,7 +46970,7 @@ public final class TomSomV0 {
     }
 
     public SlaAndSloMonitoringSlaOverviewForm slaOverview() {
-      return new SlaAndSloMonitoringSlaOverviewForm(doc, path + "/slaOverview");
+      return new SlaAndSloMonitoringSlaOverviewForm(doc, path + "/SASM-SLAO");
     }
 
     // SLA/SLO overview narrative.
@@ -49332,12 +49332,12 @@ public final class TomSomV0 {
 
     // Success criteria matrix — overall view.
     public String successCriteriaMatrix() {
-      String v = doc.content(path + "/successCriteriaMatrix");
+      String v = doc.content(path + "/SC-SUCC");
       return v == null ? "" : v;
     }
 
     public void successCriteriaMatrix(String value) {
-      doc.setContent(path + "/successCriteriaMatrix", value);
+      doc.setContent(path + "/SC-SUCC", value);
     }
 
     // Post-implementation review plan.
@@ -49354,52 +49354,52 @@ public final class TomSomV0 {
 
     // Business outcome criteria overview.
     public String businessCriteria() {
-      String v = doc.content(path + "/businessCriteria");
+      String v = doc.content(path + "/SCBC-BUSI");
       return v == null ? "" : v;
     }
 
     public void businessCriteria(String value) {
-      doc.setContent(path + "/businessCriteria", value);
+      doc.setContent(path + "/SCBC-BUSI", value);
     }
 
     // Technical quality criteria overview.
     public String technicalCriteria() {
-      String v = doc.content(path + "/technicalCriteria");
+      String v = doc.content(path + "/SCBC-TECH");
       return v == null ? "" : v;
     }
 
     public void technicalCriteria(String value) {
-      doc.setContent(path + "/technicalCriteria", value);
+      doc.setContent(path + "/SCBC-TECH", value);
     }
 
     // User satisfaction criteria overview.
     public String userCriteria() {
-      String v = doc.content(path + "/userCriteria");
+      String v = doc.content(path + "/SCBC-USER");
       return v == null ? "" : v;
     }
 
     public void userCriteria(String value) {
-      doc.setContent(path + "/userCriteria", value);
+      doc.setContent(path + "/SCBC-USER", value);
     }
 
     // Compliance criteria overview.
     public String complianceCriteria() {
-      String v = doc.content(path + "/complianceCriteria");
+      String v = doc.content(path + "/SCBC-COMP");
       return v == null ? "" : v;
     }
 
     public void complianceCriteria(String value) {
-      doc.setContent(path + "/complianceCriteria", value);
+      doc.setContent(path + "/SCBC-COMP", value);
     }
 
     // Timeline and budget criteria overview.
     public String projectCriteria() {
-      String v = doc.content(path + "/projectCriteria");
+      String v = doc.content(path + "/SCBC-PROJ");
       return v == null ? "" : v;
     }
 
     public void projectCriteria(String value) {
-      doc.setContent(path + "/projectCriteria", value);
+      doc.setContent(path + "/SCBC-PROJ", value);
     }
   }
 
@@ -49564,7 +49564,7 @@ public final class TomSomV0 {
     }
 
     public SupportAccessSupportAccessContentForm supportAccessContent() {
-      return new SupportAccessSupportAccessContentForm(doc, path + "/supportAccessContent");
+      return new SupportAccessSupportAccessContentForm(doc, path + "/SUAC-SUPP");
     }
 
     // Help center configuration.
@@ -50432,7 +50432,7 @@ public final class TomSomV0 {
     }
 
     public SystemErrorDisplaySystemErrorContentForm systemErrorContent() {
-      return new SystemErrorDisplaySystemErrorContentForm(doc, path + "/systemErrorContent");
+      return new SystemErrorDisplaySystemErrorContentForm(doc, path + "/SYERDI-SYST");
     }
 
     // Error type handling configuration.
@@ -50861,12 +50861,12 @@ public final class TomSomV0 {
 
     // Vision Statement.
     public String visionStatement() {
-      String v = doc.content(path + "/visionStatement");
+      String v = doc.content(path + "/SYPUP-VISI");
       return v == null ? "" : v;
     }
 
     public void visionStatement(String value) {
-      doc.setContent(path + "/visionStatement", value);
+      doc.setContent(path + "/SYPUP-VISI", value);
     }
 
     // 4.1.1.1. Problem Statement.
@@ -50913,7 +50913,7 @@ public final class TomSomV0 {
     }
 
     public SystemQualityGoalsGovernanceContentForm governanceContent() {
-      return new SystemQualityGoalsGovernanceContentForm(doc, path + "/governanceContent");
+      return new SystemQualityGoalsGovernanceContentForm(doc, path + "/SYQG-GOVE");
     }
 
     // Governance board and escalation details.
@@ -51446,7 +51446,7 @@ public final class TomSomV0 {
     }
 
     public SystemToReplaceEntryIdentificationContentForm identificationContent() {
-      return new SystemToReplaceEntryIdentificationContentForm(doc, path + "/identificationContent");
+      return new SystemToReplaceEntryIdentificationContentForm(doc, path + "/SYTORE-IDEN");
     }
 
     // Classification and ownership details.
@@ -52059,7 +52059,7 @@ public final class TomSomV0 {
     }
 
     public TechnicalEnvironmentTechnicalOverviewContentForm technicalOverviewContent() {
-      return new TechnicalEnvironmentTechnicalOverviewContentForm(doc, path + "/technicalOverviewContent");
+      return new TechnicalEnvironmentTechnicalOverviewContentForm(doc, path + "/TEEN-TECH");
     }
 
     // Architecture governance context.
@@ -52390,7 +52390,7 @@ public final class TomSomV0 {
 
     // Test criteria form.
     public TechnicalGoalTestCriteriaTestCriteriaFormForm testCriteriaForm() {
-      return new TechnicalGoalTestCriteriaTestCriteriaFormForm(doc, path + "/testCriteriaForm");
+      return new TechnicalGoalTestCriteriaTestCriteriaFormForm(doc, path + "/TGTC-TEST");
     }
 
     // Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
@@ -52638,7 +52638,7 @@ public final class TomSomV0 {
 
     // Technical requirements summary form.
     public TechnicalRequirementsSummaryFormForm summaryForm() {
-      return new TechnicalRequirementsSummaryFormForm(doc, path + "/summaryForm");
+      return new TechnicalRequirementsSummaryFormForm(doc, path + "/TR1-SUMM");
     }
 
     // Technical requirements list — contains 0+× Technical Requirement.
@@ -53472,7 +53472,7 @@ public final class TomSomV0 {
     }
 
     public ThrowawayPrototypeThrowawayContentForm throwawayContent() {
-      return new ThrowawayPrototypeThrowawayContentForm(doc, path + "/throwawayContent");
+      return new ThrowawayPrototypeThrowawayContentForm(doc, path + "/THPR-THRO");
     }
 
     // Findings and decisions captured from evaluation.
@@ -54118,7 +54118,7 @@ public final class TomSomV0 {
     }
 
     public TradeOffDecisionsTradeOffGovernanceContentForm tradeOffGovernanceContent() {
-      return new TradeOffDecisionsTradeOffGovernanceContentForm(doc, path + "/tradeOffGovernanceContent");
+      return new TradeOffDecisionsTradeOffGovernanceContentForm(doc, path + "/TROFDE-TRAD");
     }
 
     // Trade-off decisions overview.
@@ -54204,7 +54204,7 @@ public final class TomSomV0 {
     }
 
     public TrainingDeliverableRequirementsTrainingContentForm trainingContent() {
-      return new TrainingDeliverableRequirementsTrainingContentForm(doc, path + "/trainingContent");
+      return new TrainingDeliverableRequirementsTrainingContentForm(doc, path + "/TRMAT-TRAI");
     }
 
     // Training narrative.
@@ -54354,7 +54354,7 @@ public final class TomSomV0 {
     }
 
     public TrainingPrototypeTrainingContentForm trainingContent() {
-      return new TrainingPrototypeTrainingContentForm(doc, path + "/trainingContent");
+      return new TrainingPrototypeTrainingContentForm(doc, path + "/TP-TRAI");
     }
 
     // Code disposition and reimplementation planning.
@@ -54889,7 +54889,7 @@ public final class TomSomV0 {
     }
 
     public TranslationProcessTranslationProcessContentForm translationProcessContent() {
-      return new TranslationProcessTranslationProcessContentForm(doc, path + "/translationProcessContent");
+      return new TranslationProcessTranslationProcessContentForm(doc, path + "/TRPR-TRAN");
     }
 
     // Translation workflow.
@@ -54941,7 +54941,7 @@ public final class TomSomV0 {
     }
 
     public TranslationRequirementsTranslationRequirementsContentForm translationRequirementsContent() {
-      return new TranslationRequirementsTranslationRequirementsContentForm(doc, path + "/translationRequirementsContent");
+      return new TranslationRequirementsTranslationRequirementsContentForm(doc, path + "/TRAREQ-TRAN");
     }
 
     // RTL and bidirectional support.
@@ -55402,7 +55402,7 @@ public final class TomSomV0 {
     }
 
     public UiComponentEntryIdentityForm identity() {
-      return new UiComponentEntryIdentityForm(doc, path + "/identity");
+      return new UiComponentEntryIdentityForm(doc, path + "/UICOMENT-IDEN");
     }
 
     // Wrapper mapping and business purpose.
@@ -55416,7 +55416,7 @@ public final class TomSomV0 {
     }
 
     public UiComponentEntryVisualDesignForm visualDesign() {
-      return new UiComponentEntryVisualDesignForm(doc, path + "/visualDesign");
+      return new UiComponentEntryVisualDesignForm(doc, path + "/UICOMENT-VISU");
     }
 
     // Visual dimensions.
@@ -55438,7 +55438,7 @@ public final class TomSomV0 {
     // (skipped: visualDiagram has no target type)
 
     public UiComponentEntryInteractiveBehaviorForm interactiveBehavior() {
-      return new UiComponentEntryInteractiveBehaviorForm(doc, path + "/interactiveBehavior");
+      return new UiComponentEntryInteractiveBehaviorForm(doc, path + "/UICOMENT-INTE");
     }
 
     // Focus and keyboard behavior.
@@ -55457,23 +55457,23 @@ public final class TomSomV0 {
     }
 
     public UiComponentEntryResponsivenessForm responsiveness() {
-      return new UiComponentEntryResponsivenessForm(doc, path + "/responsiveness");
+      return new UiComponentEntryResponsivenessForm(doc, path + "/UICOMENT-RESP");
     }
 
     public UiComponentEntryAccessibilityForm accessibility() {
-      return new UiComponentEntryAccessibilityForm(doc, path + "/accessibility");
+      return new UiComponentEntryAccessibilityForm(doc, path + "/UICOMENT-ACCE");
     }
 
     public UiComponentEntryAuthorizationForm authorization() {
-      return new UiComponentEntryAuthorizationForm(doc, path + "/authorization");
+      return new UiComponentEntryAuthorizationForm(doc, path + "/UICOMENT-AUTH");
     }
 
     public UiComponentEntryResourceIntegrationForm resourceIntegration() {
-      return new UiComponentEntryResourceIntegrationForm(doc, path + "/resourceIntegration");
+      return new UiComponentEntryResourceIntegrationForm(doc, path + "/UICOMENT-RESO");
     }
 
     public UiComponentEntryDataBindingForm dataBinding() {
-      return new UiComponentEntryDataBindingForm(doc, path + "/dataBinding");
+      return new UiComponentEntryDataBindingForm(doc, path + "/UICOMENT-DATA");
     }
 
     // Component behavior narrative.
@@ -55604,7 +55604,7 @@ public final class TomSomV0 {
     }
 
     public UiComponentsComponentLibraryOverviewForm componentLibraryOverview() {
-      return new UiComponentsComponentLibraryOverviewForm(doc, path + "/componentLibraryOverview");
+      return new UiComponentsComponentLibraryOverviewForm(doc, path + "/UICO-COMP");
     }
 
     // Visual language and brand alignment.
@@ -55914,7 +55914,7 @@ public final class TomSomV0 {
 
     // Access Permissions Form.
     public UserAccessPermissionsPermissionsFormForm permissionsForm() {
-      return new UserAccessPermissionsPermissionsFormForm(doc, path + "/permissionsForm");
+      return new UserAccessPermissionsPermissionsFormForm(doc, path + "/UAP-PERM");
     }
 
     // Functional and environmental restrictions.
@@ -55979,7 +55979,7 @@ public final class TomSomV0 {
 
     // Accessibility Needs Form.
     public UserAccessibilityNeedsAccessibilityFormForm accessibilityForm() {
-      return new UserAccessibilityNeedsAccessibilityFormForm(doc, path + "/accessibilityForm");
+      return new UserAccessibilityNeedsAccessibilityFormForm(doc, path + "/UAN-ACCE");
     }
   }
 
@@ -56020,7 +56020,7 @@ public final class TomSomV0 {
     }
 
     public UserAssistanceHelpOverviewContentForm helpOverviewContent() {
-      return new UserAssistanceHelpOverviewContentForm(doc, path + "/helpOverviewContent");
+      return new UserAssistanceHelpOverviewContentForm(doc, path + "/USAS-HELP");
     }
 
     // Content stewardship and help affordances.
@@ -56291,7 +56291,7 @@ public final class TomSomV0 {
     }
 
     public UserDocumentationRequirementsDocumentationContentForm documentationContent() {
-      return new UserDocumentationRequirementsDocumentationContentForm(doc, path + "/documentationContent");
+      return new UserDocumentationRequirementsDocumentationContentForm(doc, path + "/DOANTR-DOCU");
     }
 
     // Documentation deliverables provided to users.
@@ -56484,12 +56484,12 @@ public final class TomSomV0 {
 
     // User journey diagram.
     public String journeyDiagram() {
-      String v = doc.content(path + "/journeyDiagram");
+      String v = doc.content(path + "/UJ-JOUR");
       return v == null ? "" : v;
     }
 
     public void journeyDiagram(String value) {
-      doc.setContent(path + "/journeyDiagram", value);
+      doc.setContent(path + "/UJ-JOUR", value);
     }
 
     // Journey stage entries — contains 0+× JourneyStageEntry.
@@ -56509,12 +56509,12 @@ public final class TomSomV0 {
 
     // Opportunities for delight.
     public String opportunitiesForDelight() {
-      String v = doc.content(path + "/opportunitiesForDelight");
+      String v = doc.content(path + "/UJ-OPPO");
       return v == null ? "" : v;
     }
 
     public void opportunitiesForDelight(String value) {
-      doc.setContent(path + "/opportunitiesForDelight", value);
+      doc.setContent(path + "/UJ-OPPO", value);
     }
   }
 
@@ -56821,7 +56821,7 @@ public final class TomSomV0 {
 
     // Persona Details Form.
     public UserPersonaDetailsPersonaFormForm personaForm() {
-      return new UserPersonaDetailsPersonaFormForm(doc, path + "/personaForm");
+      return new UserPersonaDetailsPersonaFormForm(doc, path + "/UPD-PERS");
     }
 
     // Experience and work context.
@@ -56841,12 +56841,12 @@ public final class TomSomV0 {
 
     // Representative photo or avatar description.
     public String visualRepresentation() {
-      String v = doc.content(path + "/visualRepresentation");
+      String v = doc.content(path + "/UPD-VISU");
       return v == null ? "" : v;
     }
 
     public void visualRepresentation(String value) {
-      doc.setContent(path + "/visualRepresentation", value);
+      doc.setContent(path + "/UPD-VISU", value);
     }
 
     // Key quotes that represent this persona's mindset.
@@ -57033,7 +57033,7 @@ public final class TomSomV0 {
 
     // Training Requirements Form.
     public UserTrainingRequirementsTrainingFormForm trainingForm() {
-      return new UserTrainingRequirementsTrainingFormForm(doc, path + "/trainingForm");
+      return new UserTrainingRequirementsTrainingFormForm(doc, path + "/USTRRE-TRAI");
     }
 
     // Training topics — contains 0+× TrainingTopicEntry.
@@ -57200,7 +57200,7 @@ public final class TomSomV0 {
     }
 
     public ValidationFeedbackValidationDisplayContentForm validationDisplayContent() {
-      return new ValidationFeedbackValidationDisplayContentForm(doc, path + "/validationDisplayContent");
+      return new ValidationFeedbackValidationDisplayContentForm(doc, path + "/VAFE-VALI");
     }
 
     // Display placement details.
@@ -57839,7 +57839,7 @@ public final class TomSomV0 {
     }
 
     public WcagComplianceWcagComplianceContentForm wcagComplianceContent() {
-      return new WcagComplianceWcagComplianceContentForm(doc, path + "/wcagComplianceContent");
+      return new WcagComplianceWcagComplianceContentForm(doc, path + "/WCCO-WCAG");
     }
 
     // Operable principles.
@@ -57917,7 +57917,7 @@ public final class TomSomV0 {
     }
 
     public WeightedQualityMatrixMatrixConfigContentForm matrixConfigContent() {
-      return new WeightedQualityMatrixMatrixConfigContentForm(doc, path + "/matrixConfigContent");
+      return new WeightedQualityMatrixMatrixConfigContentForm(doc, path + "/WEQUMA-MATR");
     }
 
     // Weighted quality matrix narrative.
@@ -58024,12 +58024,12 @@ public final class TomSomV0 {
 
     // Workflow overview diagram.
     public String workflowOverviewDiagram() {
-      String v = doc.content(path + "/workflowOverviewDiagram");
+      String v = doc.content(path + "/WODE-WORK");
       return v == null ? "" : v;
     }
 
     public void workflowOverviewDiagram(String value) {
-      doc.setContent(path + "/workflowOverviewDiagram", value);
+      doc.setContent(path + "/WODE-WORK", value);
     }
 
     // Workflow summary table.
@@ -58158,12 +58158,12 @@ public final class TomSomV0 {
     }
 
     public String name() {
-      String v = doc.content(path + "/name");
+      String v = doc.content(path + "/WOSTSY-NAME");
       return v == null ? "" : v;
     }
 
     public void name(String value) {
-      doc.setContent(path + "/name", value);
+      doc.setContent(path + "/WOSTSY-NAME", value);
     }
   }
 

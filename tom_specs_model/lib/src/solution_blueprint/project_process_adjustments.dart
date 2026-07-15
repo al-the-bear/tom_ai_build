@@ -32,6 +32,7 @@ the overall impact on governance, and how deviations are tracked and approved.
   String? content;
 
   /// Visual overview of methodology deviations.
+  @SectionId('PRPO-METH')
   @ContentType('mermaid-flowchart', 'Diagram showing how project-specific '
       'methodology relates to standard TomSpecs, highlighting key deviations')
   @SerializationOrder(1)
@@ -125,6 +126,7 @@ the changes, and how role clarity is maintained despite deviations.
   RoleAdjustmentSummary adjustmentSummary = RoleAdjustmentSummary();
 
   /// Visual comparison of standard vs adjusted roles.
+  @SectionId('RLADJ-ROLE')
   @ContentType('mermaid', 'Diagram comparing standard TomSpecs roles '
       'with project-specific role assignments')
   @SerializationOrder(2)
@@ -361,6 +363,7 @@ how quality assurance is maintained despite deviations.
       QualityGateAdjustmentSummary();
 
   /// Visual representation of gate adjustments.
+  @SectionId('QGADJ-GATE')
   @ContentType('mermaid', 'Diagram showing quality gate flow with '
       'adjustments highlighted')
   @SerializationOrder(2)
@@ -595,6 +598,7 @@ and how process integrity is maintained despite deviations.
   ProcessAdjustmentSummary adjustmentSummary = ProcessAdjustmentSummary();
 
   /// Visual representation of process adjustments.
+  @SectionId('PCADJ-PROC')
   @ContentType('mermaid-flowchart', 'Diagram showing process flow with '
       'adjustments highlighted — skipped steps crossed out, '
       'reordered steps with arrows, added steps in different color')

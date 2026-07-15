@@ -56,7 +56,7 @@ func metaChildrenAcceptanceCriteriaList(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAcceptanceCriteriaSummary(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AcceptanceCriteriaSummary", MemberName: "acceptanceFrameworkContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "acceptanceProcess", TypeName: "String", Description: "Acceptance Process", Hint: "Formal UAT, continuous acceptance", Order: 0}, {Name: "acceptanceAuthority", TypeName: "String", Description: "Acceptance Authority", Hint: "Who signs off on acceptance", Order: 1}, {Name: "acceptanceScope", TypeName: "String", Description: "Acceptance Scope", Hint: "Full system, incremental, phase-based", Order: 2}, {Name: "acceptanceEnvironment", TypeName: "String", Description: "Acceptance Environment", Hint: "Where acceptance testing occurs", Order: 3}, {Name: "acceptanceTimeline", TypeName: "String", Description: "Acceptance Timeline", Hint: "Duration of acceptance period", Order: 4}, {Name: "partialAcceptance", TypeName: "String", Description: "Partial Acceptance", Hint: "Policy on accepting with defects", Order: 5}, {Name: "acceptanceRejectionCriteria", TypeName: "String", Description: "Rejection Criteria", Hint: "What triggers rejection", Order: 6}}}},
+		{ClassName: "AcceptanceCriteriaSummary", MemberName: "acceptanceFrameworkContent", SectionID: "ACCRSU-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "acceptanceProcess", TypeName: "String", Description: "Acceptance Process", Hint: "Formal UAT, continuous acceptance", Order: 0}, {Name: "acceptanceAuthority", TypeName: "String", Description: "Acceptance Authority", Hint: "Who signs off on acceptance", Order: 1}, {Name: "acceptanceScope", TypeName: "String", Description: "Acceptance Scope", Hint: "Full system, incremental, phase-based", Order: 2}, {Name: "acceptanceEnvironment", TypeName: "String", Description: "Acceptance Environment", Hint: "Where acceptance testing occurs", Order: 3}, {Name: "acceptanceTimeline", TypeName: "String", Description: "Acceptance Timeline", Hint: "Duration of acceptance period", Order: 4}, {Name: "partialAcceptance", TypeName: "String", Description: "Partial Acceptance", Hint: "Policy on accepting with defects", Order: 5}, {Name: "acceptanceRejectionCriteria", TypeName: "String", Description: "Rejection Criteria", Hint: "What triggers rejection", Order: 6}}}},
 		{ClassName: "AcceptanceCriteriaSummary", MemberName: "acceptanceOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of acceptance process, key acceptance criteria, and acceptance governance.", DocComment: "Acceptance criteria overview."},
 		metaCx("MustPassCriteria", s, metaChildrenMustPassCriteria, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MustPassCriteria", MemberName: "mustPassCriteria", ClassSectionID: "MUPACR", Kind: som.SomMetaKindComplex, TypeName: "MustPassCriteria", SerializationOrder: metaIntPtr(2), DocComment: "11.7.1. Must-Pass Criteria.", ClassDocComment: "11.7.1. Must-Pass Criteria.\n\nCriteria that must be met for the system to be accepted.", Recursive: r, Children: c}
@@ -196,7 +196,7 @@ func metaChildrenAcceptanceStepEntryOutcome(s map[string]bool) []*som.SomMetaNod
 func metaChildrenAccessChannels(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AccessChannels", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of the access channel landscape and how channels collectively serve the user base."},
-		{ClassName: "AccessChannels", MemberName: "channelDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing access channels, their relationships, and user flows"}, ContentHelp: "Create a diagram showing how different channels connect to the system and serve different user categories.", DocComment: "Channel architecture diagram."},
+		{ClassName: "AccessChannels", MemberName: "channelDiagram", SectionID: "AC1-CHAN", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing access channels, their relationships, and user flows"}, ContentHelp: "Create a diagram showing how different channels connect to the system and serve different user categories.", DocComment: "Channel architecture diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "AccessChannels", MemberName: "channels", SectionID: "ICE-CHAN-LST", SectionIDPattern: "ICE-CHAN-xxx", Kind: som.SomMetaKindList, TypeName: "InteractionChannelEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per access channel. Include both primary and secondary channels.", DocComment: "Channel entries — contains 1+× InteractionChannelEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — interaction design", "ISO/IEC 25010 — usability/operability"}, "connotation": "The set of individual access-channel entries defined for the system."}}}}
 			n.ElementNode = metaCx("InteractionChannelEntry", s, metaChildrenInteractionChannelEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -257,7 +257,7 @@ func metaChildrenAccessLevelEntryScope(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenAccessLevels(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AccessLevels", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of the access-level model and how levels structure authorization across the system."},
-		{ClassName: "AccessLevels", MemberName: "accessLevelDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Access level hierarchy showing inheritance and relationships"}, ContentHelp: "Create a diagram showing the access level hierarchy.", DocComment: "Access level hierarchy diagram."},
+		{ClassName: "AccessLevels", MemberName: "accessLevelDiagram", SectionID: "AL-ACCE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Access level hierarchy showing inheritance and relationships"}, ContentHelp: "Create a diagram showing the access level hierarchy.", DocComment: "Access level hierarchy diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "AccessLevels", MemberName: "levels", SectionID: "ACLV-LEVE-LST", SectionIDPattern: "ACLV-LEVE-xxx", Kind: som.SomMetaKindList, TypeName: "AccessLevelEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Define each access level in the system.", DocComment: "Access level entries — contains 1+× AccessLevelEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 Annex A.9 — access control", "NIST RBAC — role-based access"}, "connotation": "The set of individual access-level entries defined for the system."}}}}
 			n.ElementNode = metaCx("AccessLevelEntry", s, metaChildrenAccessLevelEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -265,7 +265,7 @@ func metaChildrenAccessLevels(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "AccessLevels", MemberName: "permissionMatrix", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Matrix showing which access levels have which permissions. Can be a table or detailed description."}, ContentHelp: "Create a permission matrix showing the relationship between access levels, features, and permissions.", DocComment: "Permission matrix linking access levels to features."},
+		{ClassName: "AccessLevels", MemberName: "permissionMatrix", SectionID: "AL-PERM", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Matrix showing which access levels have which permissions. Can be a table or detailed description."}, ContentHelp: "Create a permission matrix showing the relationship between access levels, features, and permissions.", DocComment: "Permission matrix linking access levels to features."},
 	}
 }
 
@@ -290,7 +290,7 @@ func metaChildrenAccessUserCategories(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAccessibility(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Accessibility", MemberName: "accessibilityOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "wcagComplianceTarget", TypeName: "String", Description: "WCAG Compliance Target", Hint: "A, AA, AAA", Order: 0}, {Name: "wcagVersion", TypeName: "String", Description: "WCAG Version", Hint: "2.0, 2.1, 2.2", Order: 1}, {Name: "additionalStandards", TypeName: "String", Description: "Additional Standards", Hint: "Section 508, EN 301 549, ADA", Order: 2}, {Name: "accessibilityStatement", TypeName: "bool", Description: "Accessibility Statement", Hint: "Publish accessibility statement", Order: 3}}}},
+		{ClassName: "Accessibility", MemberName: "accessibilityOverviewContent", SectionID: "ACCESS-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "wcagComplianceTarget", TypeName: "String", Description: "WCAG Compliance Target", Hint: "A, AA, AAA", Order: 0}, {Name: "wcagVersion", TypeName: "String", Description: "WCAG Version", Hint: "2.0, 2.1, 2.2", Order: 1}, {Name: "additionalStandards", TypeName: "String", Description: "Additional Standards", Hint: "Section 508, EN 301 549, ADA", Order: 2}, {Name: "accessibilityStatement", TypeName: "bool", Description: "Accessibility Statement", Hint: "Publish accessibility statement", Order: 3}}}},
 		metaCx("AccessibilityStrategy", s, metaChildrenAccessibilityStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AccessibilityStrategy", MemberName: "strategy", ClassSectionID: "ACSTGY", Kind: som.SomMetaKindComplex, TypeName: "AccessibilityStrategy", SerializationOrder: metaIntPtr(1), DocComment: "Ownership and inclusive design philosophy.", ClassDocComment: "Ownership and inclusive design philosophy.", Recursive: r, Children: c}
 		}),
@@ -348,7 +348,7 @@ func metaChildrenAccessibilityCheckEntryRemediation(s map[string]bool) []*som.So
 
 func metaChildrenAccessibilityChecklist(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccessibilityChecklist", MemberName: "checklistOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "checklistStandard", TypeName: "String", Description: "Checklist Standard", Hint: "Based on WCAG, custom additions", Order: 0}, {Name: "checklistOwner", TypeName: "String", Description: "Checklist Owner", Hint: "Who maintains the checklist", Order: 1}, {Name: "checkFrequency", TypeName: "String", Description: "Check Frequency", Hint: "Per feature, per release, continuous", Order: 2}, {Name: "automatedChecks", TypeName: "String", Description: "Automated Checks", Hint: "Automated accessibility testing coverage", Order: 3}, {Name: "manualChecks", TypeName: "String", Description: "Manual Checks", Hint: "Manual testing procedures", Order: 4}, {Name: "userTesting", TypeName: "String", Description: "User Testing", Hint: "Testing with users with disabilities", Order: 5}, {Name: "reportingFormat", TypeName: "String", Description: "Reporting Format", Hint: "How accessibility status is reported", Order: 6}, {Name: "remediationProcess", TypeName: "String", Description: "Remediation Process", Hint: "How issues are fixed", Order: 7}}}},
+		{ClassName: "AccessibilityChecklist", MemberName: "checklistOverviewContent", SectionID: "ACCHLS-CHEC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "checklistStandard", TypeName: "String", Description: "Checklist Standard", Hint: "Based on WCAG, custom additions", Order: 0}, {Name: "checklistOwner", TypeName: "String", Description: "Checklist Owner", Hint: "Who maintains the checklist", Order: 1}, {Name: "checkFrequency", TypeName: "String", Description: "Check Frequency", Hint: "Per feature, per release, continuous", Order: 2}, {Name: "automatedChecks", TypeName: "String", Description: "Automated Checks", Hint: "Automated accessibility testing coverage", Order: 3}, {Name: "manualChecks", TypeName: "String", Description: "Manual Checks", Hint: "Manual testing procedures", Order: 4}, {Name: "userTesting", TypeName: "String", Description: "User Testing", Hint: "Testing with users with disabilities", Order: 5}, {Name: "reportingFormat", TypeName: "String", Description: "Reporting Format", Hint: "How accessibility status is reported", Order: 6}, {Name: "remediationProcess", TypeName: "String", Description: "Remediation Process", Hint: "How issues are fixed", Order: 7}}}},
 		{ClassName: "AccessibilityChecklist", MemberName: "checklistOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Accessibility checklist overview."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "AccessibilityChecklist", MemberName: "items", SectionID: "ACCH-ITEM-LST", SectionIDPattern: "ACCH-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "AccessibilityCheckEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per accessibility check.", DocComment: "Contains 0+× AccessibilityCheck.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WCAG 2.2 — the checklist enumerates testable success criteria for the interactive product", "EN 301 549 — accessibility requirements are enumerated as verifiable checklist items"}, "connotation": "The collection of accessibility checklist entries."}}}}
@@ -830,7 +830,7 @@ func metaChildrenAlertSuppressionRules(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAlertingConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AlertingConfiguration", MemberName: "alertingOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "alertingPhilosophy", TypeName: "String", Description: "Alerting Philosophy", Hint: "Page on symptoms, not causes; reduce noise", Order: 0}, {Name: "alertSeverityLevels", TypeName: "String", Description: "Alert Severity Levels", Hint: "Critical, Warning, Info", Order: 1}, {Name: "onCallModel", TypeName: "String", Description: "On-Call Model", Hint: "Follow-the-sun, regional, single team", Order: 2}, {Name: "criticalResponseTime", TypeName: "String", Description: "Critical Response Time", Hint: "Max time to acknowledge critical alerts", Order: 3}, {Name: "warningResponseTime", TypeName: "String", Description: "Warning Response Time", Hint: "Max time to acknowledge warnings", Order: 4}, {Name: "infoResponseTime", TypeName: "String", Description: "Info Response Time", Hint: "Expected review time for info alerts", Order: 5}, {Name: "alertReviewCadence", TypeName: "String", Description: "Alert Review Cadence", Hint: "How often alert rules are reviewed", Order: 6}, {Name: "noisyAlertPolicy", TypeName: "String", Description: "Noisy Alert Policy", Hint: "Process for tuning noisy alerts", Order: 7}, {Name: "staleAlertCleanup", TypeName: "String", Description: "Stale Alert Cleanup", Hint: "Removing outdated alert rules", Order: 8}}}},
+		{ClassName: "AlertingConfiguration", MemberName: "alertingOverview", SectionID: "ALCO-ALER", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "alertingPhilosophy", TypeName: "String", Description: "Alerting Philosophy", Hint: "Page on symptoms, not causes; reduce noise", Order: 0}, {Name: "alertSeverityLevels", TypeName: "String", Description: "Alert Severity Levels", Hint: "Critical, Warning, Info", Order: 1}, {Name: "onCallModel", TypeName: "String", Description: "On-Call Model", Hint: "Follow-the-sun, regional, single team", Order: 2}, {Name: "criticalResponseTime", TypeName: "String", Description: "Critical Response Time", Hint: "Max time to acknowledge critical alerts", Order: 3}, {Name: "warningResponseTime", TypeName: "String", Description: "Warning Response Time", Hint: "Max time to acknowledge warnings", Order: 4}, {Name: "infoResponseTime", TypeName: "String", Description: "Info Response Time", Hint: "Expected review time for info alerts", Order: 5}, {Name: "alertReviewCadence", TypeName: "String", Description: "Alert Review Cadence", Hint: "How often alert rules are reviewed", Order: 6}, {Name: "noisyAlertPolicy", TypeName: "String", Description: "Noisy Alert Policy", Hint: "Process for tuning noisy alerts", Order: 7}, {Name: "staleAlertCleanup", TypeName: "String", Description: "Stale Alert Cleanup", Hint: "Removing outdated alert rules", Order: 8}}}},
 		{ClassName: "AlertingConfiguration", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Alerting overview narrative."},
 		metaCx("AlertNotificationChannels", s, metaChildrenAlertNotificationChannels, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AlertNotificationChannels", MemberName: "notificationChannels", ClassSectionID: "ALNOCH", Kind: som.SomMetaKindComplex, TypeName: "AlertNotificationChannels", SerializationOrder: metaIntPtr(2), DocComment: "Notification channels.", ClassDocComment: "Alert notification channels.", Recursive: r, Children: c}
@@ -2324,7 +2324,7 @@ func metaChildrenBreadcrumbConfiguration(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenBreakpointConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BreakpointConfiguration", MemberName: "breakpointOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileMax", TypeName: "String", Description: "Mobile Max Width", Hint: "Maximum width for mobile (e.g., 599)", Order: 0}, {Name: "tabletMin", TypeName: "String", Description: "Tablet Min Width", Hint: "Minimum width for tablet (e.g., 600)", Order: 1}, {Name: "tabletMax", TypeName: "String", Description: "Tablet Max Width", Hint: "Maximum width for tablet (e.g., 1023)", Order: 2}, {Name: "desktopMin", TypeName: "String", Description: "Desktop Min Width", Hint: "Minimum width for desktop (e.g., 1024)", Order: 3}, {Name: "largeDesktopMin", TypeName: "String", Description: "Large Desktop Min Width", Hint: "Minimum width for large screens (e.g., 1440)", Order: 4}, {Name: "watchMax", TypeName: "String", Description: "Watch Max Width", Hint: "Maximum width for wearables", Order: 5}, {Name: "foldableBreakpoint", TypeName: "String", Description: "Foldable Breakpoint", Hint: "Breakpoint for foldable devices", Order: 6}, {Name: "customBreakpoints", TypeName: "String", Description: "Custom Breakpoints", Hint: "Additional app-specific breakpoints", Order: 7}, {Name: "breakpointUnit", TypeName: "String", Description: "Breakpoint Unit", Hint: "Logical pixels, device pixels", Order: 8}, {Name: "densityHandling", TypeName: "String", Description: "Density Handling", Hint: "How pixel density is handled", Order: 9}}}},
+		{ClassName: "BreakpointConfiguration", MemberName: "breakpointOverview", SectionID: "BC-BREA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileMax", TypeName: "String", Description: "Mobile Max Width", Hint: "Maximum width for mobile (e.g., 599)", Order: 0}, {Name: "tabletMin", TypeName: "String", Description: "Tablet Min Width", Hint: "Minimum width for tablet (e.g., 600)", Order: 1}, {Name: "tabletMax", TypeName: "String", Description: "Tablet Max Width", Hint: "Maximum width for tablet (e.g., 1023)", Order: 2}, {Name: "desktopMin", TypeName: "String", Description: "Desktop Min Width", Hint: "Minimum width for desktop (e.g., 1024)", Order: 3}, {Name: "largeDesktopMin", TypeName: "String", Description: "Large Desktop Min Width", Hint: "Minimum width for large screens (e.g., 1440)", Order: 4}, {Name: "watchMax", TypeName: "String", Description: "Watch Max Width", Hint: "Maximum width for wearables", Order: 5}, {Name: "foldableBreakpoint", TypeName: "String", Description: "Foldable Breakpoint", Hint: "Breakpoint for foldable devices", Order: 6}, {Name: "customBreakpoints", TypeName: "String", Description: "Custom Breakpoints", Hint: "Additional app-specific breakpoints", Order: 7}, {Name: "breakpointUnit", TypeName: "String", Description: "Breakpoint Unit", Hint: "Logical pixels, device pixels", Order: 8}, {Name: "densityHandling", TypeName: "String", Description: "Density Handling", Hint: "How pixel density is handled", Order: 9}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "BreakpointConfiguration", MemberName: "breakpoints", SectionID: "BRE-BREA-LST", SectionIDPattern: "BRE-BREA-xxx", Kind: som.SomMetaKindList, TypeName: "BreakpointEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per layout breakpoint.", DocComment: "Breakpoint entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"}, "connotation": "The collection of layout breakpoint entries."}}}}
 			n.ElementNode = metaCx("BreakpointEntry", s, metaChildrenBreakpointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -2770,9 +2770,9 @@ func metaChildrenBusinessObjectAttributeEntryValidation(s map[string]bool) []*so
 
 func metaChildrenBusinessObjectEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BusinessObjectEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "objectName", TypeName: "String", Description: "Object Name", Required: true, Hint: "Business name in PascalCase (e.g., Order, Customer)", Order: 0}, {Name: "objectAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias for diagrams (e.g., ORD, CUST)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear business definition of what this object represents", Order: 2}, {Name: "businessGlossaryTerm", TypeName: "String", Description: "Business Glossary Term", Hint: "Official business glossary term if different", Order: 3}, {Name: "category", TypeName: "String", Description: "Category", Hint: "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", Order: 4}, {Name: "stereotypePattern", TypeName: "String", Description: "Stereotype/Pattern", Hint: "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", Order: 5}}}},
-		{ClassName: "BusinessObjectEntry", MemberName: "domainContext", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "boundedContext", TypeName: "String", Description: "Bounded Context", Hint: "DDD bounded context this object belongs to", Order: 0}, {Name: "owningDomain", TypeName: "String", Description: "Owning Domain", Hint: "Business domain responsible for this object", Order: 1}, {Name: "domainExpert", TypeName: "String", Description: "Domain Expert", Hint: "Business expert who defines this object", Order: 2}, {Name: "ubiquitousLanguageTerm", TypeName: "String", Description: "Ubiquitous Language Term", Hint: "How this is referred to in the ubiquitous language", Order: 3}, {Name: "relatedObjects", TypeName: "String", Description: "Related Objects", Hint: "Key related business objects", Order: 4}}}},
-		{ClassName: "BusinessObjectEntry", MemberName: "lifecycleSummary", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "keyStates", TypeName: "String", Description: "Key States", Hint: "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)", Order: 0}, {Name: "initialState", TypeName: "String", Description: "Initial State", Hint: "State when object is created", Order: 1}, {Name: "terminalStates", TypeName: "String", Description: "Terminal States", Hint: "States where lifecycle ends (e.g., Closed, Cancelled, Deleted)", Order: 2}, {Name: "stateTransitionRules", TypeName: "String", Description: "State Transition Rules", Hint: "Summary of allowed state transitions", Order: 3}, {Name: "lifecycleOwner", TypeName: "String", Description: "Lifecycle Owner", Hint: "System or process responsible for lifecycle management", Order: 4}}}},
+		{ClassName: "BusinessObjectEntry", MemberName: "identity", SectionID: "BJOEN-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "objectName", TypeName: "String", Description: "Object Name", Required: true, Hint: "Business name in PascalCase (e.g., Order, Customer)", Order: 0}, {Name: "objectAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias for diagrams (e.g., ORD, CUST)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear business definition of what this object represents", Order: 2}, {Name: "businessGlossaryTerm", TypeName: "String", Description: "Business Glossary Term", Hint: "Official business glossary term if different", Order: 3}, {Name: "category", TypeName: "String", Description: "Category", Hint: "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", Order: 4}, {Name: "stereotypePattern", TypeName: "String", Description: "Stereotype/Pattern", Hint: "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", Order: 5}}}},
+		{ClassName: "BusinessObjectEntry", MemberName: "domainContext", SectionID: "BJOEN-DOMA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "boundedContext", TypeName: "String", Description: "Bounded Context", Hint: "DDD bounded context this object belongs to", Order: 0}, {Name: "owningDomain", TypeName: "String", Description: "Owning Domain", Hint: "Business domain responsible for this object", Order: 1}, {Name: "domainExpert", TypeName: "String", Description: "Domain Expert", Hint: "Business expert who defines this object", Order: 2}, {Name: "ubiquitousLanguageTerm", TypeName: "String", Description: "Ubiquitous Language Term", Hint: "How this is referred to in the ubiquitous language", Order: 3}, {Name: "relatedObjects", TypeName: "String", Description: "Related Objects", Hint: "Key related business objects", Order: 4}}}},
+		{ClassName: "BusinessObjectEntry", MemberName: "lifecycleSummary", SectionID: "BJOEN-LIFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "keyStates", TypeName: "String", Description: "Key States", Hint: "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)", Order: 0}, {Name: "initialState", TypeName: "String", Description: "Initial State", Hint: "State when object is created", Order: 1}, {Name: "terminalStates", TypeName: "String", Description: "Terminal States", Hint: "States where lifecycle ends (e.g., Closed, Cancelled, Deleted)", Order: 2}, {Name: "stateTransitionRules", TypeName: "String", Description: "State Transition Rules", Hint: "Summary of allowed state transitions", Order: 3}, {Name: "lifecycleOwner", TypeName: "String", Description: "Lifecycle Owner", Hint: "System or process responsible for lifecycle management", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "BusinessObjectEntry", MemberName: "behaviorRules", SectionID: "BEHAV-BEHA-LST", SectionIDPattern: "BEHAV-BEHA-xxx", Kind: som.SomMetaKindList, TypeName: "BehaviorRuleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per behavior rule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SBVR — business rule statements", "Domain-Driven Design — aggregates/entities/value objects"}, "connotation": "The behavior rules that govern how this object acts."}}}}
 			n.ElementNode = metaCx("BehaviorRuleEntry", s, metaChildrenBehaviorRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -2780,7 +2780,7 @@ func metaChildrenBusinessObjectEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "BusinessObjectEntry", MemberName: "ownership", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Business role accountable for this object", Order: 0}, {Name: "dataSteward", TypeName: "String", Description: "Data Steward", Hint: "Role responsible for data quality", Order: 1}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "None | Sequential | Timestamp | Optimistic | EventSourced", Order: 2}, {Name: "concurrencyControl", TypeName: "String", Description: "Concurrency Control", Hint: "Optimistic | Pessimistic | None", Order: 3}, {Name: "auditTrail", TypeName: "String", Description: "Audit Trail", Hint: "What changes are tracked: None | StateChanges | AllChanges | FullHistory", Order: 4}}}},
+		{ClassName: "BusinessObjectEntry", MemberName: "ownership", SectionID: "BJOEN-OWNE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Business role accountable for this object", Order: 0}, {Name: "dataSteward", TypeName: "String", Description: "Data Steward", Hint: "Role responsible for data quality", Order: 1}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "None | Sequential | Timestamp | Optimistic | EventSourced", Order: 2}, {Name: "concurrencyControl", TypeName: "String", Description: "Concurrency Control", Hint: "Optimistic | Pessimistic | None", Order: 3}, {Name: "auditTrail", TypeName: "String", Description: "Audit Trail", Hint: "What changes are tracked: None | StateChanges | AllChanges | FullHistory", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "BusinessObjectEntry", MemberName: "integrationPoints", SectionID: "INTEG-INTE-LST", SectionIDPattern: "INTEG-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "IntegrationPointEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per integration point.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — aggregates/entities/value objects", "BPMN 2.0 — business process model & notation"}, "connotation": "The integration points where this object exposes APIs or publishes and subscribes to events."}}}}
 			n.ElementNode = metaCx("IntegrationPointEntry", s, metaChildrenIntegrationPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -2948,12 +2948,12 @@ func metaChildrenBusinessProcessEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenBusinessRuleEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BusinessRuleEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleId", TypeName: "String", Description: "Rule ID", Required: true, Hint: "Unique rule identifier (e.g., BR-001)", Order: 0}, {Name: "ruleName", TypeName: "String", Description: "Rule Name", Required: true, Hint: "Descriptive name", Order: 1}, {Name: "ruleVersion", TypeName: "String", Description: "Rule Version", Hint: "Version number for change tracking", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Full statement of the business rule", Order: 3}, {Name: "businessStatement", TypeName: "String", Description: "Business Statement", Hint: "Natural language statement from business perspective", Order: 4}}}},
-		{ClassName: "BusinessRuleEntry", MemberName: "classification", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type", Hint: "Structural | Derivation | Constraint | Authorization | Workflow | Calculation", Order: 0}, {Name: "ruleCategory", TypeName: "String", Description: "Rule Category", Hint: "Validation | Computation | Inference | Action-Enabling", Order: 1}, {Name: "enforcementLevel", TypeName: "String", Description: "Enforcement Level", Hint: "Mandatory | Guideline | Advisory", Order: 2}, {Name: "priority", TypeName: "String", Description: "Priority", Hint: "When rules conflict: 1 (highest) to 5 (lowest)", Order: 3}, {Name: "source", TypeName: "String", Description: "Source", Hint: "Where rule originates: Regulation | Policy | Contract | BestPractice", Order: 4}}}},
-		{ClassName: "BusinessRuleEntry", MemberName: "ruleLogic", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "condition", TypeName: "String", Description: "Condition (IF)", Hint: "Trigger condition in natural language or pseudo-code", Order: 0}, {Name: "action", TypeName: "String", Description: "Action (THEN)", Hint: "What happens when condition is true", Order: 1}, {Name: "elseAction", TypeName: "String", Description: "Else Action (ELSE)", Hint: "What happens when condition is false", Order: 2}, {Name: "expression", TypeName: "String", Description: "Formal Expression", Hint: "Formalized rule logic", Order: 3}, {Name: "parameters", TypeName: "String", Description: "Parameters", Hint: "Configurable values in the rule", Order: 4}}}},
-		{ClassName: "BusinessRuleEntry", MemberName: "implementation", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "enforcement", TypeName: "String", Description: "Enforcement", Hint: "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual", Order: 0}, {Name: "implementationPoint", TypeName: "String", Description: "Implementation Point", Hint: "Where implemented: UI | API | Service | Database | Integration", Order: 1}, {Name: "validationTiming", TypeName: "String", Description: "Validation Timing", Hint: "When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime", Order: 2}, {Name: "systemsInvolved", TypeName: "String", Description: "Systems Involved", Hint: "Which systems enforce this rule", Order: 3}, {Name: "testability", TypeName: "String", Description: "Testability", Hint: "How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly", Order: 4}}}},
-		{ClassName: "BusinessRuleEntry", MemberName: "exceptionHandling", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "exceptionHandling", TypeName: "String", Description: "Exception Handling", Hint: "How violations are handled", Order: 0}, {Name: "overridePolicy", TypeName: "String", Description: "Override Policy", Hint: "Whether and how rule can be overridden", Order: 1}, {Name: "overrideApproval", TypeName: "String", Description: "Override Approval", Hint: "Who can approve overrides", Order: 2}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path", Hint: "How exceptions are escalated", Order: 3}}}},
-		{ClassName: "BusinessRuleEntry", MemberName: "governance", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleOwner", TypeName: "String", Description: "Rule Owner", Hint: "Business owner responsible for this rule", Order: 0}, {Name: "effectiveDate", TypeName: "String", Description: "Effective Date", Hint: "When rule becomes/became effective", Order: 1}, {Name: "expirationDate", TypeName: "String", Description: "Expiration Date", Hint: "When rule expires (if applicable)", Order: 2}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Hint: "How often rule is reviewed: Annually | OnChange | Never", Order: 3}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "identity", SectionID: "BIRU-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleId", TypeName: "String", Description: "Rule ID", Required: true, Hint: "Unique rule identifier (e.g., BR-001)", Order: 0}, {Name: "ruleName", TypeName: "String", Description: "Rule Name", Required: true, Hint: "Descriptive name", Order: 1}, {Name: "ruleVersion", TypeName: "String", Description: "Rule Version", Hint: "Version number for change tracking", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Full statement of the business rule", Order: 3}, {Name: "businessStatement", TypeName: "String", Description: "Business Statement", Hint: "Natural language statement from business perspective", Order: 4}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "classification", SectionID: "BIRU-CLAS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleType", TypeName: "String", Description: "Rule Type", Hint: "Structural | Derivation | Constraint | Authorization | Workflow | Calculation", Order: 0}, {Name: "ruleCategory", TypeName: "String", Description: "Rule Category", Hint: "Validation | Computation | Inference | Action-Enabling", Order: 1}, {Name: "enforcementLevel", TypeName: "String", Description: "Enforcement Level", Hint: "Mandatory | Guideline | Advisory", Order: 2}, {Name: "priority", TypeName: "String", Description: "Priority", Hint: "When rules conflict: 1 (highest) to 5 (lowest)", Order: 3}, {Name: "source", TypeName: "String", Description: "Source", Hint: "Where rule originates: Regulation | Policy | Contract | BestPractice", Order: 4}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "ruleLogic", SectionID: "BIRU-RULE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "condition", TypeName: "String", Description: "Condition (IF)", Hint: "Trigger condition in natural language or pseudo-code", Order: 0}, {Name: "action", TypeName: "String", Description: "Action (THEN)", Hint: "What happens when condition is true", Order: 1}, {Name: "elseAction", TypeName: "String", Description: "Else Action (ELSE)", Hint: "What happens when condition is false", Order: 2}, {Name: "expression", TypeName: "String", Description: "Formal Expression", Hint: "Formalized rule logic", Order: 3}, {Name: "parameters", TypeName: "String", Description: "Parameters", Hint: "Configurable values in the rule", Order: 4}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "implementation", SectionID: "BIRU-IMPL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "enforcement", TypeName: "String", Description: "Enforcement", Hint: "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual", Order: 0}, {Name: "implementationPoint", TypeName: "String", Description: "Implementation Point", Hint: "Where implemented: UI | API | Service | Database | Integration", Order: 1}, {Name: "validationTiming", TypeName: "String", Description: "Validation Timing", Hint: "When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime", Order: 2}, {Name: "systemsInvolved", TypeName: "String", Description: "Systems Involved", Hint: "Which systems enforce this rule", Order: 3}, {Name: "testability", TypeName: "String", Description: "Testability", Hint: "How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly", Order: 4}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "exceptionHandling", SectionID: "BIRU-EXCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "exceptionHandling", TypeName: "String", Description: "Exception Handling", Hint: "How violations are handled", Order: 0}, {Name: "overridePolicy", TypeName: "String", Description: "Override Policy", Hint: "Whether and how rule can be overridden", Order: 1}, {Name: "overrideApproval", TypeName: "String", Description: "Override Approval", Hint: "Who can approve overrides", Order: 2}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path", Hint: "How exceptions are escalated", Order: 3}}}},
+		{ClassName: "BusinessRuleEntry", MemberName: "governance", SectionID: "BIRU-GOVE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleOwner", TypeName: "String", Description: "Rule Owner", Hint: "Business owner responsible for this rule", Order: 0}, {Name: "effectiveDate", TypeName: "String", Description: "Effective Date", Hint: "When rule becomes/became effective", Order: 1}, {Name: "expirationDate", TypeName: "String", Description: "Expiration Date", Hint: "When rule expires (if applicable)", Order: 2}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Hint: "How often rule is reviewed: Annually | OnChange | Never", Order: 3}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "BusinessRuleEntry", MemberName: "affectedObjects", SectionID: "AFOB-AFFE-LST", SectionIDPattern: "AFOB-AFFE-xxx", Kind: som.SomMetaKindList, TypeName: "AffectedObjectEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per affected object.", DocComment: "Contains 0+× AffectedObject.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SBVR — business rule statements"}, "connotation": "The business objects this rule validates, constrains, or modifies."}}}}
 			n.ElementNode = metaCx("AffectedObjectEntry", s, metaChildrenAffectedObjectEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -3632,7 +3632,7 @@ func metaChildrenChangedRoleTransitionTraining(s map[string]bool) []*som.SomMeta
 
 func metaChildrenChangesFromCurrentStructure(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ChangesFromCurrentStructure", MemberName: "overviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "changeScope", TypeName: "String", Description: "Change Scope", Hint: "Departments and functions affected by restructuring", Order: 0}, {Name: "changeDriver", TypeName: "String", Description: "Change Driver", Hint: "System implementation, process optimization, strategy shift", Order: 1}, {Name: "impactSummary", TypeName: "String", Description: "Impact Summary", Hint: "Total affected headcount, key structural shifts", Order: 2}, {Name: "designPrinciples", TypeName: "String", Description: "Design Principles", Hint: "Guiding principles for organizational design changes", Order: 3}, {Name: "governanceChanges", TypeName: "String", Description: "Governance Changes", Hint: "Changes to decision-making authority and oversight", Order: 4}, {Name: "reportingLineChanges", TypeName: "String", Description: "Reporting Line Changes", Hint: "Summary of reporting relationship modifications", Order: 5}, {Name: "communicationChannelChanges", TypeName: "String", Description: "Communication Channel Changes", Hint: "New or modified formal communication flows", Order: 6}, {Name: "collaborationModelChanges", TypeName: "String", Description: "Collaboration Model Changes", Hint: "How teams will work together differently", Order: 7}}}},
+		{ClassName: "ChangesFromCurrentStructure", MemberName: "overviewContent", SectionID: "OCCHG-OVER", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "changeScope", TypeName: "String", Description: "Change Scope", Hint: "Departments and functions affected by restructuring", Order: 0}, {Name: "changeDriver", TypeName: "String", Description: "Change Driver", Hint: "System implementation, process optimization, strategy shift", Order: 1}, {Name: "impactSummary", TypeName: "String", Description: "Impact Summary", Hint: "Total affected headcount, key structural shifts", Order: 2}, {Name: "designPrinciples", TypeName: "String", Description: "Design Principles", Hint: "Guiding principles for organizational design changes", Order: 3}, {Name: "governanceChanges", TypeName: "String", Description: "Governance Changes", Hint: "Changes to decision-making authority and oversight", Order: 4}, {Name: "reportingLineChanges", TypeName: "String", Description: "Reporting Line Changes", Hint: "Summary of reporting relationship modifications", Order: 5}, {Name: "communicationChannelChanges", TypeName: "String", Description: "Communication Channel Changes", Hint: "New or modified formal communication flows", Order: 6}, {Name: "collaborationModelChanges", TypeName: "String", Description: "Collaboration Model Changes", Hint: "How teams will work together differently", Order: 7}}}},
 		{ClassName: "ChangesFromCurrentStructure", MemberName: "changeNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide narrative description of the organizational transformation: what the current structure looks like, what the target structure will be, and how the transition will be managed.", DocComment: "Detailed description of structural changes."},
 		{ClassName: "ChangesFromCurrentStructure", MemberName: "orgChartComparison", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, ContentHelp: "Visual representation comparing current and target organization structures - attach or embed org chart diagrams.", DocComment: "Organization chart comparison (current vs future)."},
 		func() *som.SomMetaNode {
@@ -4275,7 +4275,7 @@ func metaChildrenCommunicationEventEntryOutcome(s map[string]bool) []*som.SomMet
 func metaChildrenCommunicationMatrix(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CommunicationMatrix", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "defaultCommunicationChannel", TypeName: "String", Description: "Default Communication Channel", Hint: "Primary channel for project communications — Email / Portal / Teams", Order: 0}, {Name: "documentRepository", TypeName: "String", Description: "Document Repository", Hint: "Location where project documents are stored", Order: 1}, {Name: "notificationTool", TypeName: "String", Description: "Notification Tool", Hint: "Tool used for notifications — Email / Slack / Teams", Order: 2}, {Name: "meetingPlatform", TypeName: "String", Description: "Meeting Platform", Hint: "Platform for virtual meetings", Order: 3}, {Name: "escalationChannel", TypeName: "String", Description: "Escalation Channel", Hint: "Channel for urgent escalations", Order: 4}, {Name: "languageOfCommunication", TypeName: "String", Description: "Language of Communication", Hint: "Primary language for project documents and communications", Order: 5}, {Name: "translationProcess", TypeName: "String", Description: "Translation Process", Hint: "How documents are translated for non-primary speakers", Order: 6}}}},
-		{ClassName: "CommunicationMatrix", MemberName: "communicationFlowDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing communication flows between stakeholder groups and information types"}, DocComment: "Communication matrix diagram."},
+		{ClassName: "CommunicationMatrix", MemberName: "communicationFlowDiagram", SectionID: "COMA-COMM", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing communication flows between stakeholder groups and information types"}, DocComment: "Communication matrix diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "CommunicationMatrix", MemberName: "communicationTypes", SectionID: "COTY-COMM-LST", SectionIDPattern: "COTY-COMM-xxx", Kind: som.SomMetaKindList, TypeName: "CommunicationTypeEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per communication type, capturing its frequency, format, distribution scope, responsible role, and approval requirements.", DocComment: "Communication types and their distribution rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — plan communications management (communication methods)"}, "connotation": "The set of communication types defined for the project, each with its own distribution rules."}}}}
 			n.ElementNode = metaCx("CommunicationTypeEntry", s, metaChildrenCommunicationTypeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -4369,7 +4369,7 @@ func metaChildrenCommunicationTypeEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCompatibilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CompatibilityCharacteristic", MemberName: "compatibilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "coExistenceRequirements", TypeName: "String", Description: "Co-existence Requirements", Hint: "Other products sharing the environment without adverse impact", Order: 0}, {Name: "interoperabilityStandards", TypeName: "String", Description: "Interoperability Standards", Hint: "Protocols/formats for exchanging and using information", Order: 1}}}},
+		{ClassName: "CompatibilityCharacteristic", MemberName: "compatibilityContent", SectionID: "CMPT-COMP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "coExistenceRequirements", TypeName: "String", Description: "Co-existence Requirements", Hint: "Other products sharing the environment without adverse impact", Order: 0}, {Name: "interoperabilityStandards", TypeName: "String", Description: "Interoperability Standards", Hint: "Protocols/formats for exchanging and using information", Order: 1}}}},
 		{ClassName: "CompatibilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of co-existence and interoperability goals.", DocComment: "Compatibility overview."},
 	}
 }
@@ -5602,14 +5602,14 @@ func metaChildrenContentScanningPolicy(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenContextDiagram(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ContextDiagram", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide a narrative overview of the context diagram and what the depicted black-box view represents."},
-		{ClassName: "ContextDiagram", MemberName: "diagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Context diagram showing the system as a central node with external actors and systems connected by labeled data flows"}, ContentHelp: "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\").", DocComment: "Context diagram in Mermaid format."},
-		{ClassName: "ContextDiagram", MemberName: "legend", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Legend explaining shapes, colors, and line styles used in the diagram."}, DocComment: "Diagram legend and conventions."},
+		{ClassName: "ContextDiagram", MemberName: "diagram", SectionID: "CD-DIAG", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Context diagram showing the system as a central node with external actors and systems connected by labeled data flows"}, ContentHelp: "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\").", DocComment: "Context diagram in Mermaid format."},
+		{ClassName: "ContextDiagram", MemberName: "legend", SectionID: "CD-LEGE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Legend explaining shapes, colors, and line styles used in the diagram."}, DocComment: "Diagram legend and conventions."},
 	}
 }
 
 func metaChildrenContextualHelp(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ContextualHelp", MemberName: "contextualHelpContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tooltipTrigger", TypeName: "String", Description: "Tooltip Trigger", Hint: "Hover, click, focus, icon click", Order: 0}, {Name: "tooltipDelay", TypeName: "String", Description: "Tooltip Delay", Hint: "Milliseconds before showing", Order: 1}, {Name: "tooltipDuration", TypeName: "String", Description: "Tooltip Duration", Hint: "How long tooltip stays visible", Order: 2}, {Name: "tooltipMaxWidth", TypeName: "String", Description: "Tooltip Max Width", Hint: "Maximum width in pixels", Order: 3}, {Name: "tooltipPosition", TypeName: "String", Description: "Tooltip Position", Hint: "Above, below, auto-position", Order: 4}}}},
+		{ClassName: "ContextualHelp", MemberName: "contextualHelpContent", SectionID: "COHE-CONT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tooltipTrigger", TypeName: "String", Description: "Tooltip Trigger", Hint: "Hover, click, focus, icon click", Order: 0}, {Name: "tooltipDelay", TypeName: "String", Description: "Tooltip Delay", Hint: "Milliseconds before showing", Order: 1}, {Name: "tooltipDuration", TypeName: "String", Description: "Tooltip Duration", Hint: "How long tooltip stays visible", Order: 2}, {Name: "tooltipMaxWidth", TypeName: "String", Description: "Tooltip Max Width", Hint: "Maximum width in pixels", Order: 3}, {Name: "tooltipPosition", TypeName: "String", Description: "Tooltip Position", Hint: "Above, below, auto-position", Order: 4}}}},
 		metaCx("ContextualHelpInline", s, metaChildrenContextualHelpInline, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ContextualHelpInline", MemberName: "inline", ClassSectionID: "COHEIN", Kind: som.SomMetaKindComplex, TypeName: "ContextualHelpInline", SerializationOrder: metaIntPtr(1), DocComment: "Inline help behavior.", ClassDocComment: "Inline help behavior.", Recursive: r, Children: c}
 		}),
@@ -5871,8 +5871,8 @@ func metaChildrenCulturalConsiderationEntry(s map[string]bool) []*som.SomMetaNod
 func metaChildrenCurrentArchitecture(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CurrentArchitecture", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "CurrentArchitecture", MemberName: "architectureDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Architecture overview diagram showing systems, their connections, and data flows"}, ContentHelp: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.", DocComment: "Architecture overview diagram."},
-		{ClassName: "CurrentArchitecture", MemberName: "deploymentTopology", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of how systems are deployed across infrastructure"}, DocComment: "Deployment topology description."},
+		{ClassName: "CurrentArchitecture", MemberName: "architectureDiagram", SectionID: "CARCH-ARCH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Architecture overview diagram showing systems, their connections, and data flows"}, ContentHelp: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.", DocComment: "Architecture overview diagram."},
+		{ClassName: "CurrentArchitecture", MemberName: "deploymentTopology", SectionID: "CARCH-DEPL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of how systems are deployed across infrastructure"}, DocComment: "Deployment topology description."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "CurrentArchitecture", MemberName: "integrationPatterns", SectionID: "IPE-INTE-LST", SectionIDPattern: "IPE-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "IntegrationPatternEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.", DocComment: "Integration patterns used.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (integration patterns)"}, "connotation": "The set of integration patterns the current architecture relies on to connect its systems."}}}}
 			n.ElementNode = metaCx("IntegrationPatternEntry", s, metaChildrenIntegrationPatternEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -5911,7 +5911,7 @@ func metaChildrenCurrentBusinessProcess(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenCurrentBusinessProcesses(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CurrentBusinessProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "CurrentBusinessProcesses", MemberName: "processLandscapeDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual map of business processes showing hierarchy, relationships, and data flows between processes"}, ContentHelp: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes.", DocComment: "Process landscape diagram."},
+		{ClassName: "CurrentBusinessProcesses", MemberName: "processLandscapeDiagram", SectionID: "CUBUPR-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual map of business processes showing hierarchy, relationships, and data flows between processes"}, ContentHelp: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes.", DocComment: "Process landscape diagram."},
 		metaCx("ProcessScopeSummary", s, metaChildrenProcessScopeSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProcessScopeSummary", MemberName: "scopeSummary", ClassSectionID: "PRSCSU", Kind: som.SomMetaKindComplex, TypeName: "ProcessScopeSummary", SerializationOrder: metaIntPtr(2), Comment: "Defines which processes are in/out of scope", DocComment: "Process scope summary.", ClassDocComment: "Process scope summary defining in-scope and out-of-scope processes.", Recursive: r, Children: c}
 		}),
@@ -5957,8 +5957,8 @@ func metaChildrenCurrentDataClassification(s map[string]bool) []*som.SomMetaNode
 func metaChildrenCurrentDataLandscape(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CurrentDataLandscape", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive overview of the current data landscape. Summarize the overall data\nsituation, key data assets, major challenges, and strategic importance of data\nto the organization. Highlight critical data dependencies and risks.\n"},
-		{ClassName: "CurrentDataLandscape", MemberName: "dataLandscapeOverviewDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level diagram showing data domains, major data stores, data flows, and integration points"}, DocComment: "Visual representation of the data landscape."},
-		{ClassName: "CurrentDataLandscape", MemberName: "dataArchitectureDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "ER-style or architectural diagram showing relationships between major data entities and systems"}, DocComment: "Data architecture summary diagram."},
+		{ClassName: "CurrentDataLandscape", MemberName: "dataLandscapeOverviewDiagram", SectionID: "CUDALA-DATAL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level diagram showing data domains, major data stores, data flows, and integration points"}, DocComment: "Visual representation of the data landscape."},
+		{ClassName: "CurrentDataLandscape", MemberName: "dataArchitectureDiagram", SectionID: "CUDALA-DATA", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "ER-style or architectural diagram showing relationships between major data entities and systems"}, DocComment: "Data architecture summary diagram."},
 		metaCx("DataLandscapeSummary", s, metaChildrenDataLandscapeSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataLandscapeSummary", MemberName: "dataLandscapeSummary", ClassSectionID: "DALASU", Kind: som.SomMetaKindComplex, TypeName: "DataLandscapeSummary", SerializationOrder: metaIntPtr(3), DocComment: "Summary statistics and health indicators.", ClassDocComment: "Summary statistics and health indicators for data landscape.", Recursive: r, Children: c}
 		}),
@@ -6044,7 +6044,7 @@ func metaChildrenCurrentStateRiskAssessment(s map[string]bool) []*som.SomMetaNod
 func metaChildrenCurrentWorkflowEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CurrentWorkflowEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "workflowName", TypeName: "String", Description: "Workflow Name", Required: true, Order: 0}, {Name: "workflowId", TypeName: "String", Description: "Workflow ID (internal identifier)", Order: 1}, {Name: "workflowType", TypeName: "String", Description: "Type (e.g., Operational, Approval, Exception)", Order: 2}, {Name: "frequency", TypeName: "String", Description: "Execution Frequency", Order: 3}, {Name: "averageVolume", TypeName: "String", Description: "Average Volume per period", Order: 4}, {Name: "criticality", TypeName: "String", Description: "Business Criticality", Order: 5}}}},
-		{ClassName: "CurrentWorkflowEntry", MemberName: "workflowDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of this workflow showing steps, decisions, and actors in a BPMN-style diagram"}, ContentHelp: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.", DocComment: "Workflow diagram."},
+		{ClassName: "CurrentWorkflowEntry", MemberName: "workflowDiagram", SectionID: "CUWF-WORK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of this workflow showing steps, decisions, and actors in a BPMN-style diagram"}, ContentHelp: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.", DocComment: "Workflow diagram."},
 		metaCx("WorkflowTriggers", s, metaChildrenWorkflowTriggers, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WorkflowTriggers", MemberName: "triggers", ClassSectionID: "WOTR", Kind: som.SomMetaKindComplex, TypeName: "WorkflowTriggers", SerializationOrder: metaIntPtr(2), DocComment: "Workflow triggers and initiation.", ClassDocComment: "Workflow triggers and initiation conditions.", Recursive: r, Children: c}
 		}),
@@ -6349,7 +6349,7 @@ func metaChildrenD04RequirementsSpecification(s map[string]bool) []*som.SomMetaN
 		metaCx("OrganizationalRequirements", s, metaChildrenOrganizationalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "OrganizationalRequirements", MemberName: "organizationalRequirements", ClassSectionID: "OR", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Organizational requirements.", ClassDocComment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
-		{ClassName: "D04RequirementsSpecification", MemberName: "traceabilityMatrix", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, DocComment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."},
+		{ClassName: "D04RequirementsSpecification", MemberName: "traceabilityMatrix", SectionID: "RSP-TRAC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, DocComment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "D04RequirementsSpecification", MemberName: "requirementRelationships", SectionID: "RERE-REQU-LST", SectionIDPattern: "RERE-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "RequirementRelationships", SerializationOrder: metaIntPtr(7), DocComment: "Requirement relationships."}
 			n.ElementNode = metaCx("RequirementRelationships", s, metaChildrenRequirementRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6867,8 +6867,8 @@ func metaChildrenDataAttributeConstraintEntry(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenDataAttributeEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataAttributeEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "attributeName", TypeName: "String", Description: "Attribute Name", Required: true, Hint: "Logical attribute name in camelCase", Order: 0}, {Name: "columnName", TypeName: "String", Description: "Physical Column Name", Hint: "Database column name if different (e.g., snake_case)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear definition of what this attribute represents", Order: 2}, {Name: "businessTerm", TypeName: "String", Description: "Business Term", Hint: "Business glossary term this maps to", Order: 3}, {Name: "exampleValues", TypeName: "String", Description: "Example Values", Hint: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", Order: 4}}}},
-		{ClassName: "DataAttributeEntry", MemberName: "dataTypeSpec", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary", Order: 0}, {Name: "physicalType", TypeName: "String", Description: "Physical Type", Hint: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", Order: 1}, {Name: "length", TypeName: "String", Description: "Length/Size", Hint: "Maximum length for strings or size for binary", Order: 2}, {Name: "precision", TypeName: "String", Description: "Precision", Hint: "Total digits for numeric types", Order: 3}, {Name: "scale", TypeName: "String", Description: "Scale", Hint: "Decimal places for numeric types", Order: 4}, {Name: "collation", TypeName: "String", Description: "Collation", Hint: "Character collation for text (e.g., utf8_general_ci)", Order: 5}, {Name: "timezone", TypeName: "String", Description: "Timezone", Hint: "For datetime: UTC | Local | WithOffset", Order: 6}, {Name: "format", TypeName: "String", Description: "Format", Hint: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", Order: 7}}}},
+		{ClassName: "DataAttributeEntry", MemberName: "identity", SectionID: "DAATT-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "attributeName", TypeName: "String", Description: "Attribute Name", Required: true, Hint: "Logical attribute name in camelCase", Order: 0}, {Name: "columnName", TypeName: "String", Description: "Physical Column Name", Hint: "Database column name if different (e.g., snake_case)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear definition of what this attribute represents", Order: 2}, {Name: "businessTerm", TypeName: "String", Description: "Business Term", Hint: "Business glossary term this maps to", Order: 3}, {Name: "exampleValues", TypeName: "String", Description: "Example Values", Hint: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", Order: 4}}}},
+		{ClassName: "DataAttributeEntry", MemberName: "dataTypeSpec", SectionID: "DAATT-DATA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary", Order: 0}, {Name: "physicalType", TypeName: "String", Description: "Physical Type", Hint: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", Order: 1}, {Name: "length", TypeName: "String", Description: "Length/Size", Hint: "Maximum length for strings or size for binary", Order: 2}, {Name: "precision", TypeName: "String", Description: "Precision", Hint: "Total digits for numeric types", Order: 3}, {Name: "scale", TypeName: "String", Description: "Scale", Hint: "Decimal places for numeric types", Order: 4}, {Name: "collation", TypeName: "String", Description: "Collation", Hint: "Character collation for text (e.g., utf8_general_ci)", Order: 5}, {Name: "timezone", TypeName: "String", Description: "Timezone", Hint: "For datetime: UTC | Local | WithOffset", Order: 6}, {Name: "format", TypeName: "String", Description: "Format", Hint: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", Order: 7}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataAttributeEntry", MemberName: "constraints", SectionID: "DATAA-CONS-LST", SectionIDPattern: "DATAA-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "DataAttributeConstraintEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per attribute constraint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SBVR — business rule statements", "ISO/IEC 25012 — data quality"}, "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."}}}}
 			n.ElementNode = metaCx("DataAttributeConstraintEntry", s, metaChildrenDataAttributeConstraintEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6876,9 +6876,9 @@ func metaChildrenDataAttributeEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "DataAttributeEntry", MemberName: "derivation", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "isComputed", TypeName: "String", Description: "Is Computed", Hint: "Whether value is computed: Yes | No", Order: 0}, {Name: "computeFormula", TypeName: "String", Description: "Compute Formula", Hint: "Formula or expression for computed fields", Order: 1}, {Name: "isDerived", TypeName: "String", Description: "Is Derived", Hint: "Whether derived from other attributes: Yes | No", Order: 2}, {Name: "derivationLogic", TypeName: "String", Description: "Derivation Logic", Hint: "How derived value is calculated", Order: 3}}}},
-		{ClassName: "DataAttributeEntry", MemberName: "securityClassification", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sensitivityLevel", TypeName: "String", Description: "Sensitivity Level", Hint: "Public | Internal | Confidential | Restricted | PII | PHI", Order: 0}, {Name: "isPii", TypeName: "String", Description: "Is PII", Hint: "Personally identifiable information: Yes | No", Order: 1}, {Name: "maskingRule", TypeName: "String", Description: "Masking Rule", Hint: "How to mask in logs/displays: None | Partial | Full | Hash", Order: 2}, {Name: "encryptionLevel", TypeName: "String", Description: "Encryption Level", Hint: "Field-level encryption: None | Encrypted | Tokenized", Order: 3}, {Name: "auditLevel", TypeName: "String", Description: "Audit Level", Hint: "Change tracking: None | ValueChanges | FullHistory", Order: 4}}}},
-		{ClassName: "DataAttributeEntry", MemberName: "migrationLineage", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sourceSystem", TypeName: "String", Description: "Source System", Hint: "Originating system for data lineage", Order: 0}, {Name: "sourceAttribute", TypeName: "String", Description: "Source Attribute", Hint: "Source field name for migration mapping", Order: 1}, {Name: "transformationRule", TypeName: "String", Description: "Transformation Rule", Hint: "Transformation applied during migration/ETL", Order: 2}, {Name: "dataLineage", TypeName: "String", Description: "Data Lineage", Hint: "Upstream sources that feed this attribute", Order: 3}, {Name: "qualityRules", TypeName: "String", Description: "Quality Rules", Hint: "Data quality checks (e.g., completeness, accuracy)", Order: 4}}}},
+		{ClassName: "DataAttributeEntry", MemberName: "derivation", SectionID: "DAATT-DERI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "isComputed", TypeName: "String", Description: "Is Computed", Hint: "Whether value is computed: Yes | No", Order: 0}, {Name: "computeFormula", TypeName: "String", Description: "Compute Formula", Hint: "Formula or expression for computed fields", Order: 1}, {Name: "isDerived", TypeName: "String", Description: "Is Derived", Hint: "Whether derived from other attributes: Yes | No", Order: 2}, {Name: "derivationLogic", TypeName: "String", Description: "Derivation Logic", Hint: "How derived value is calculated", Order: 3}}}},
+		{ClassName: "DataAttributeEntry", MemberName: "securityClassification", SectionID: "DAATT-SECU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sensitivityLevel", TypeName: "String", Description: "Sensitivity Level", Hint: "Public | Internal | Confidential | Restricted | PII | PHI", Order: 0}, {Name: "isPii", TypeName: "String", Description: "Is PII", Hint: "Personally identifiable information: Yes | No", Order: 1}, {Name: "maskingRule", TypeName: "String", Description: "Masking Rule", Hint: "How to mask in logs/displays: None | Partial | Full | Hash", Order: 2}, {Name: "encryptionLevel", TypeName: "String", Description: "Encryption Level", Hint: "Field-level encryption: None | Encrypted | Tokenized", Order: 3}, {Name: "auditLevel", TypeName: "String", Description: "Audit Level", Hint: "Change tracking: None | ValueChanges | FullHistory", Order: 4}}}},
+		{ClassName: "DataAttributeEntry", MemberName: "migrationLineage", SectionID: "DAATT-MIGR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sourceSystem", TypeName: "String", Description: "Source System", Hint: "Originating system for data lineage", Order: 0}, {Name: "sourceAttribute", TypeName: "String", Description: "Source Attribute", Hint: "Source field name for migration mapping", Order: 1}, {Name: "transformationRule", TypeName: "String", Description: "Transformation Rule", Hint: "Transformation applied during migration/ETL", Order: 2}, {Name: "dataLineage", TypeName: "String", Description: "Data Lineage", Hint: "Upstream sources that feed this attribute", Order: 3}, {Name: "qualityRules", TypeName: "String", Description: "Quality Rules", Hint: "Data quality checks (e.g., completeness, accuracy)", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataAttributeEntry", MemberName: "displayProperties", SectionID: "DISPL-DISP-LST", SectionIDPattern: "DISPL-DISP-xxx", Kind: som.SomMetaKindList, TypeName: "DisplayPropertyEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per display property.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."}}}}
 			n.ElementNode = metaCx("DisplayPropertyEntry", s, metaChildrenDisplayPropertyEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6891,7 +6891,7 @@ func metaChildrenDataAttributeEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataClassification(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataClassification", MemberName: "overview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "classificationFramework", TypeName: "String", Description: "Classification Framework", Hint: "Standard used: Custom | ISO27001 | NIST | IndustrySpecific", Order: 0}, {Name: "defaultClassification", TypeName: "String", Description: "Default Classification", Hint: "Default sensitivity for unclassified data", Order: 1}, {Name: "classificationOwner", TypeName: "String", Description: "Classification Owner", Hint: "Role responsible for data classification decisions", Order: 2}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Hint: "How often classifications are reviewed: Annually | Quarterly | OnChange", Order: 3}}}},
+		{ClassName: "DataClassification", MemberName: "overview", SectionID: "DATCL-OVER", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "classificationFramework", TypeName: "String", Description: "Classification Framework", Hint: "Standard used: Custom | ISO27001 | NIST | IndustrySpecific", Order: 0}, {Name: "defaultClassification", TypeName: "String", Description: "Default Classification", Hint: "Default sensitivity for unclassified data", Order: 1}, {Name: "classificationOwner", TypeName: "String", Description: "Classification Owner", Hint: "Role responsible for data classification decisions", Order: 2}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Hint: "How often classifications are reviewed: Annually | Quarterly | OnChange", Order: 3}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataClassification", MemberName: "items", SectionID: "DCLSE-ITEM-LST", SectionIDPattern: "DCLSE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DataClassificationEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per data classification level.", DocComment: "Contains 0+× DataClassificationEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 / NIST — data classification", "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"}, "connotation": "The individual data-classification entries (sensitivity levels) that make up the classification scheme."}}}}
 			n.ElementNode = metaCx("DataClassificationEntry", s, metaChildrenDataClassificationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6904,11 +6904,11 @@ func metaChildrenDataClassification(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataClassificationEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataClassificationEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "classificationName", TypeName: "String", Description: "Classification Name", Required: true, Hint: "Name of this classification level", Order: 0}, {Name: "classificationLevel", TypeName: "String", Description: "Classification Level", Hint: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this classification means", Order: 2}, {Name: "dataCategories", TypeName: "String", Description: "Data Categories", Hint: "Types of data in this class: PII | PHI | Financial | Legal | Technical", Order: 3}, {Name: "examples", TypeName: "String", Description: "Examples", Hint: "Examples of data at this classification", Order: 4}}}},
-		{ClassName: "DataClassificationEntry", MemberName: "storageTransmission", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "encryptionAtRest", TypeName: "String", Description: "Encryption At Rest", Hint: "Encryption requirement for storage: None | Standard | Strong | FieldLevel", Order: 0}, {Name: "encryptionInTransit", TypeName: "String", Description: "Encryption In Transit", Hint: "Encryption for transmission: TLS | mTLS | EndToEnd", Order: 1}, {Name: "storageLocations", TypeName: "String", Description: "Allowed Storage Locations", Hint: "Where data can be stored: OnPremise | Cloud | Either | Restricted", Order: 2}, {Name: "geographicRestrictions", TypeName: "String", Description: "Geographic Restrictions", Hint: "Data residency requirements (e.g., EU only)", Order: 3}, {Name: "backupRequirements", TypeName: "String", Description: "Backup Requirements", Hint: "Special backup considerations", Order: 4}}}},
-		{ClassName: "DataClassificationEntry", MemberName: "accessControl", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevels", TypeName: "String", Description: "Access Levels", Hint: "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly", Order: 0}, {Name: "authenticationRequirements", TypeName: "String", Description: "Authentication Requirements", Hint: "Required auth: Basic | MFA | CertificateBased | Biometric", Order: 1}, {Name: "authorizationModel", TypeName: "String", Description: "Authorization Model", Hint: "RBAC | ABAC | MAC | DAC", Order: 2}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "Access audit: None | ReadAudit | WriteAudit | FullAudit", Order: 3}, {Name: "accessRequestProcess", TypeName: "String", Description: "Access Request Process", Hint: "How access is granted: SelfService | ManagerApproval | SecurityApproval", Order: 4}}}},
-		{ClassName: "DataClassificationEntry", MemberName: "retentionDisposal", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "retentionPeriod", TypeName: "String", Description: "Retention Period", Hint: "How long data is retained (e.g., 7 years)", Order: 0}, {Name: "retentionBasis", TypeName: "String", Description: "Retention Basis", Hint: "Legal | Regulatory | Business | CustomerContract", Order: 1}, {Name: "archivalPolicy", TypeName: "String", Description: "Archival Policy", Hint: "When and how to archive: AfterPeriod | OnInactivity | Never", Order: 2}, {Name: "disposalMethod", TypeName: "String", Description: "Disposal Method", Hint: "How data is disposed: Delete | Anonymize | Shred | CryptoErase", Order: 3}, {Name: "disposalApproval", TypeName: "String", Description: "Disposal Approval", Hint: "Who approves disposal: Automatic | DataOwner | Legal", Order: 4}}}},
-		{ClassName: "DataClassificationEntry", MemberName: "compliance", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "applicableRegulations", TypeName: "String", Description: "Applicable Regulations", Hint: "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA", Order: 0}, {Name: "complianceRequirements", TypeName: "String", Description: "Compliance Requirements", Hint: "Specific compliance requirements", Order: 1}, {Name: "breachNotificationSla", TypeName: "String", Description: "Breach Notification SLA", Hint: "Time to notify on breach (e.g., 72 hours for GDPR)", Order: 2}, {Name: "dataSubjectRights", TypeName: "String", Description: "Data Subject Rights", Hint: "Applicable rights: Access | Rectification | Erasure | Portability", Order: 3}}}},
+		{ClassName: "DataClassificationEntry", MemberName: "identity", SectionID: "DCLSE-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "classificationName", TypeName: "String", Description: "Classification Name", Required: true, Hint: "Name of this classification level", Order: 0}, {Name: "classificationLevel", TypeName: "String", Description: "Classification Level", Hint: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this classification means", Order: 2}, {Name: "dataCategories", TypeName: "String", Description: "Data Categories", Hint: "Types of data in this class: PII | PHI | Financial | Legal | Technical", Order: 3}, {Name: "examples", TypeName: "String", Description: "Examples", Hint: "Examples of data at this classification", Order: 4}}}},
+		{ClassName: "DataClassificationEntry", MemberName: "storageTransmission", SectionID: "DCLSE-STOR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "encryptionAtRest", TypeName: "String", Description: "Encryption At Rest", Hint: "Encryption requirement for storage: None | Standard | Strong | FieldLevel", Order: 0}, {Name: "encryptionInTransit", TypeName: "String", Description: "Encryption In Transit", Hint: "Encryption for transmission: TLS | mTLS | EndToEnd", Order: 1}, {Name: "storageLocations", TypeName: "String", Description: "Allowed Storage Locations", Hint: "Where data can be stored: OnPremise | Cloud | Either | Restricted", Order: 2}, {Name: "geographicRestrictions", TypeName: "String", Description: "Geographic Restrictions", Hint: "Data residency requirements (e.g., EU only)", Order: 3}, {Name: "backupRequirements", TypeName: "String", Description: "Backup Requirements", Hint: "Special backup considerations", Order: 4}}}},
+		{ClassName: "DataClassificationEntry", MemberName: "accessControl", SectionID: "DCLSE-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevels", TypeName: "String", Description: "Access Levels", Hint: "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly", Order: 0}, {Name: "authenticationRequirements", TypeName: "String", Description: "Authentication Requirements", Hint: "Required auth: Basic | MFA | CertificateBased | Biometric", Order: 1}, {Name: "authorizationModel", TypeName: "String", Description: "Authorization Model", Hint: "RBAC | ABAC | MAC | DAC", Order: 2}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "Access audit: None | ReadAudit | WriteAudit | FullAudit", Order: 3}, {Name: "accessRequestProcess", TypeName: "String", Description: "Access Request Process", Hint: "How access is granted: SelfService | ManagerApproval | SecurityApproval", Order: 4}}}},
+		{ClassName: "DataClassificationEntry", MemberName: "retentionDisposal", SectionID: "DCLSE-RETE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "retentionPeriod", TypeName: "String", Description: "Retention Period", Hint: "How long data is retained (e.g., 7 years)", Order: 0}, {Name: "retentionBasis", TypeName: "String", Description: "Retention Basis", Hint: "Legal | Regulatory | Business | CustomerContract", Order: 1}, {Name: "archivalPolicy", TypeName: "String", Description: "Archival Policy", Hint: "When and how to archive: AfterPeriod | OnInactivity | Never", Order: 2}, {Name: "disposalMethod", TypeName: "String", Description: "Disposal Method", Hint: "How data is disposed: Delete | Anonymize | Shred | CryptoErase", Order: 3}, {Name: "disposalApproval", TypeName: "String", Description: "Disposal Approval", Hint: "Who approves disposal: Automatic | DataOwner | Legal", Order: 4}}}},
+		{ClassName: "DataClassificationEntry", MemberName: "compliance", SectionID: "DCLSE-COMP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "applicableRegulations", TypeName: "String", Description: "Applicable Regulations", Hint: "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA", Order: 0}, {Name: "complianceRequirements", TypeName: "String", Description: "Compliance Requirements", Hint: "Specific compliance requirements", Order: 1}, {Name: "breachNotificationSla", TypeName: "String", Description: "Breach Notification SLA", Hint: "Time to notify on breach (e.g., 72 hours for GDPR)", Order: 2}, {Name: "dataSubjectRights", TypeName: "String", Description: "Data Subject Rights", Hint: "Applicable rights: Access | Rectification | Erasure | Portability", Order: 3}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataClassificationEntry", MemberName: "handlingRequirements", SectionID: "HNDRE-HAND-LST", SectionIDPattern: "HNDRE-HAND-xxx", Kind: som.SomMetaKindList, TypeName: "HandlingRequirementEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per handling requirement.", DocComment: "Contains 0+× HandlingRequirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 / NIST — data classification", "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"}, "connotation": "The handling procedures required for data at this classification level."}}}}
 			n.ElementNode = metaCx("HandlingRequirementEntry", s, metaChildrenHandlingRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6956,7 +6956,7 @@ func metaChildrenDataDuplicationAnalysis(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataDuplicationSummary", s, metaChildrenDataDuplicationSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataDuplicationSummary", MemberName: "duplicationSummary", ClassSectionID: "DADUSU", Kind: som.SomMetaKindComplex, TypeName: "DataDuplicationSummary", SerializationOrder: metaIntPtr(1), DocComment: "Duplication analysis summary.", ClassDocComment: "Summary of data duplication findings.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataDuplicationAnalysis", MemberName: "duplicationDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing overlapping data stores and duplicate data flows"}, DocComment: "Visual representation of data redundancy."},
+		{ClassName: "DataDuplicationAnalysis", MemberName: "duplicationDiagram", SectionID: "DADUAN-DUPL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing overlapping data stores and duplicate data flows"}, DocComment: "Visual representation of data redundancy."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataDuplicationAnalysis", MemberName: "duplicationInstances", SectionID: "DADU-DUPL-LST", SectionIDPattern: "DADU-DUPL-xxx", Kind: som.SomMetaKindList, TypeName: "DataDuplicationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action.", DocComment: "Individual duplication instances.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data redundancy)"}, "connotation": "The list of documented duplication cases, one entry per instance."}}}}
 			n.ElementNode = metaCx("DataDuplicationEntry", s, metaChildrenDataDuplicationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7008,8 +7008,8 @@ func metaChildrenDataDuplicationSummary(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataEntityEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataEntityEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "entityName", TypeName: "String", Description: "Entity Name", Required: true, Hint: "Singular noun or noun phrase (e.g., Customer, OrderItem)", Order: 0}, {Name: "tableName", TypeName: "String", Description: "Physical Table Name", Hint: "Database table name if different from logical name", Order: 1}, {Name: "entityAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias for diagrams and references (e.g., CUST, ORD)", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear definition of what this entity represents", Order: 3}, {Name: "entityStereoType", TypeName: "String", Description: "Stereotype", Hint: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge", Order: 4}}}},
-		{ClassName: "DataEntityEntry", MemberName: "classification", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "category", TypeName: "String", Description: "Category", Hint: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", Order: 0}, {Name: "boundedContext", TypeName: "String", Description: "Bounded Context", Hint: "Domain-driven design bounded context this entity belongs to", Order: 1}, {Name: "owningDomain", TypeName: "String", Description: "Owning Domain", Hint: "Business domain responsible for this entity", Order: 2}, {Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Role or team accountable for data quality", Order: 3}, {Name: "dataSteward", TypeName: "String", Description: "Data Steward", Hint: "Person or role responsible for data governance", Order: 4}, {Name: "sourceSystem", TypeName: "String", Description: "Source System", Hint: "System of record or originating system for migration", Order: 5}}}},
+		{ClassName: "DataEntityEntry", MemberName: "identity", SectionID: "DAENT-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "entityName", TypeName: "String", Description: "Entity Name", Required: true, Hint: "Singular noun or noun phrase (e.g., Customer, OrderItem)", Order: 0}, {Name: "tableName", TypeName: "String", Description: "Physical Table Name", Hint: "Database table name if different from logical name", Order: 1}, {Name: "entityAlias", TypeName: "String", Description: "Alias/Abbreviation", Hint: "Short alias for diagrams and references (e.g., CUST, ORD)", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Clear definition of what this entity represents", Order: 3}, {Name: "entityStereoType", TypeName: "String", Description: "Stereotype", Hint: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge", Order: 4}}}},
+		{ClassName: "DataEntityEntry", MemberName: "classification", SectionID: "DAENT-CLAS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "category", TypeName: "String", Description: "Category", Hint: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", Order: 0}, {Name: "boundedContext", TypeName: "String", Description: "Bounded Context", Hint: "Domain-driven design bounded context this entity belongs to", Order: 1}, {Name: "owningDomain", TypeName: "String", Description: "Owning Domain", Hint: "Business domain responsible for this entity", Order: 2}, {Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Role or team accountable for data quality", Order: 3}, {Name: "dataSteward", TypeName: "String", Description: "Data Steward", Hint: "Person or role responsible for data governance", Order: 4}, {Name: "sourceSystem", TypeName: "String", Description: "Source System", Hint: "System of record or originating system for migration", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "volumeMetrics", SectionID: "VOLUM-VOLU-LST", SectionIDPattern: "VOLUM-VOLU-xxx", Kind: som.SomMetaKindList, TypeName: "VolumeMetricEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per volume metric.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."}}}}
 			n.ElementNode = metaCx("VolumeMetricEntry", s, metaChildrenVolumeMetricEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7017,7 +7017,7 @@ func metaChildrenDataEntityEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "DataEntityEntry", MemberName: "lifecyclePolicy", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "lifecyclePhases", TypeName: "String", Description: "Lifecycle Phases", Hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", Order: 0}, {Name: "retentionPolicy", TypeName: "String", Description: "Retention Policy", Hint: "How long data is retained and why (e.g., 7 years per tax regulations)", Order: 1}, {Name: "archivalTrigger", TypeName: "String", Description: "Archival Trigger", Hint: "Condition for moving to archive (e.g., 2 years after last activity)", Order: 2}, {Name: "archivalDestination", TypeName: "String", Description: "Archival Destination", Hint: "Where archived data goes: ColdStorage | Archive | DataLake", Order: 3}, {Name: "purgePolicy", TypeName: "String", Description: "Purge Policy", Hint: "When and how data is permanently deleted", Order: 4}, {Name: "anonymizationPolicy", TypeName: "String", Description: "Anonymization Policy", Hint: "PII anonymization rules (e.g., hash email after deletion)", Order: 5}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory", Order: 6}, {Name: "auditRetention", TypeName: "String", Description: "Audit Retention", Hint: "How long audit records are kept", Order: 7}}}},
+		{ClassName: "DataEntityEntry", MemberName: "lifecyclePolicy", SectionID: "DAENT-LIFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "lifecyclePhases", TypeName: "String", Description: "Lifecycle Phases", Hint: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", Order: 0}, {Name: "retentionPolicy", TypeName: "String", Description: "Retention Policy", Hint: "How long data is retained and why (e.g., 7 years per tax regulations)", Order: 1}, {Name: "archivalTrigger", TypeName: "String", Description: "Archival Trigger", Hint: "Condition for moving to archive (e.g., 2 years after last activity)", Order: 2}, {Name: "archivalDestination", TypeName: "String", Description: "Archival Destination", Hint: "Where archived data goes: ColdStorage | Archive | DataLake", Order: 3}, {Name: "purgePolicy", TypeName: "String", Description: "Purge Policy", Hint: "When and how data is permanently deleted", Order: 4}, {Name: "anonymizationPolicy", TypeName: "String", Description: "Anonymization Policy", Hint: "PII anonymization rules (e.g., hash email after deletion)", Order: 5}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements", Hint: "What changes must be tracked: None | KeyFields | AllFields | FullHistory", Order: 6}, {Name: "auditRetention", TypeName: "String", Description: "Audit Retention", Hint: "How long audit records are kept", Order: 7}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "complianceRequirements", SectionID: "CRE-COMP-LST", SectionIDPattern: "CRE-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "ComplianceRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per compliance requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"}, "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."}}}}
 			n.ElementNode = metaCx("ComplianceRequirementEntry", s, metaChildrenComplianceRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7025,7 +7025,7 @@ func metaChildrenDataEntityEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "DataEntityEntry", MemberName: "relationshipSummary", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "parentEntities", TypeName: "String", Description: "Parent Entities", Hint: "Entities this depends on (e.g., Order depends on Customer)", Order: 0}, {Name: "childEntities", TypeName: "String", Description: "Child Entities", Hint: "Entities that depend on this (e.g., OrderItem depends on Order)", Order: 1}, {Name: "referencedEntities", TypeName: "String", Description: "Referenced Entities", Hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", Order: 2}, {Name: "crossDomainRelationships", TypeName: "String", Description: "Cross-Domain Relationships", Hint: "Relationships that cross bounded context boundaries", Order: 3}}}},
+		{ClassName: "DataEntityEntry", MemberName: "relationshipSummary", SectionID: "DAENT-RELA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "parentEntities", TypeName: "String", Description: "Parent Entities", Hint: "Entities this depends on (e.g., Order depends on Customer)", Order: 0}, {Name: "childEntities", TypeName: "String", Description: "Child Entities", Hint: "Entities that depend on this (e.g., OrderItem depends on Order)", Order: 1}, {Name: "referencedEntities", TypeName: "String", Description: "Referenced Entities", Hint: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", Order: 2}, {Name: "crossDomainRelationships", TypeName: "String", Description: "Cross-Domain Relationships", Hint: "Relationships that cross bounded context boundaries", Order: 3}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataEntityEntry", MemberName: "technicalCharacteristics", SectionID: "TECHN-TECH-LST", SectionIDPattern: "TECHN-TECH-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalCharacteristicEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per technical characteristic.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."}}}}
 			n.ElementNode = metaCx("TechnicalCharacteristicEntry", s, metaChildrenTechnicalCharacteristicEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7132,7 +7132,7 @@ func metaChildrenDataGovernance(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataGovernanceMaturity", s, metaChildrenDataGovernanceMaturity, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataGovernanceMaturity", MemberName: "governanceMaturity", ClassSectionID: "DAGOMA", Kind: som.SomMetaKindComplex, TypeName: "DataGovernanceMaturity", SerializationOrder: metaIntPtr(1), DocComment: "Governance maturity assessment.", ClassDocComment: "Data governance maturity assessment.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataGovernance", MemberName: "governanceOrgChart", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Organizational chart showing data governance roles and reporting structure"}, DocComment: "Governance organization structure."},
+		{ClassName: "DataGovernance", MemberName: "governanceOrgChart", SectionID: "DAGO-GOVE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Organizational chart showing data governance roles and reporting structure"}, DocComment: "Governance organization structure."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataGovernance", MemberName: "governancePolicies", SectionID: "DGPE-GOVE-LST", SectionIDPattern: "DGPE-GOVE-xxx", Kind: som.SomMetaKindList, TypeName: "DataGovernancePolicyEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level.", DocComment: "Data governance policies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data governance)", "DAMA-DMBOK2 — data governance"}, "connotation": "The governance policies in force, one entry per policy."}}}}
 			n.ElementNode = metaCx("DataGovernancePolicyEntry", s, metaChildrenDataGovernancePolicyEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7269,7 +7269,7 @@ func metaChildrenDataIntegrationPoints(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataIntegrationSummary", s, metaChildrenDataIntegrationSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataIntegrationSummary", MemberName: "integrationSummary", ClassSectionID: "DAINSU", Kind: som.SomMetaKindComplex, TypeName: "DataIntegrationSummary", SerializationOrder: metaIntPtr(1), DocComment: "Integration summary.", ClassDocComment: "Summary of data integration landscape.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataIntegrationPoints", MemberName: "dataFlowDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing major data flows and integration points between systems"}, DocComment: "Data flow diagram."},
+		{ClassName: "DataIntegrationPoints", MemberName: "dataFlowDiagram", SectionID: "DAINPO-DATA", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing major data flows and integration points between systems"}, DocComment: "Data flow diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataIntegrationPoints", MemberName: "integrationPoints", SectionID: "DAIN-INTE-LST", SectionIDPattern: "DAIN-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "DataIntegrationEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners.", DocComment: "Data integration points inventory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data flows & integration)"}, "connotation": "The catalogued integration points, one entry per data exchange."}}}}
 			n.ElementNode = metaCx("DataIntegrationEntry", s, metaChildrenDataIntegrationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7427,7 +7427,7 @@ func metaChildrenDataOwnership(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataOwnershipSummary", s, metaChildrenDataOwnershipSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataOwnershipSummary", MemberName: "ownershipSummary", ClassSectionID: "DAOWSU", Kind: som.SomMetaKindComplex, TypeName: "DataOwnershipSummary", SerializationOrder: metaIntPtr(1), DocComment: "Ownership model summary.", ClassDocComment: "Summary of data ownership model.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataOwnership", MemberName: "ownershipMatrixDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Matrix or diagram showing data domains and their owners/stewards"}, DocComment: "Data ownership matrix visualization."},
+		{ClassName: "DataOwnership", MemberName: "ownershipMatrixDiagram", SectionID: "DAOW-OWNE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Matrix or diagram showing data domains and their owners/stewards"}, DocComment: "Data ownership matrix visualization."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataOwnership", MemberName: "ownershipAssignments", SectionID: "DAOWEN-OWNE-LST", SectionIDPattern: "DAOWEN-OWNE-xxx", Kind: som.SomMetaKindList, TypeName: "DataOwnershipEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status.", DocComment: "Data ownership assignments by domain.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data ownership & stewardship)"}, "connotation": "The ownership assignments, one entry per data domain or asset."}}}}
 			n.ElementNode = metaCx("DataOwnershipEntry", s, metaChildrenDataOwnershipEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7586,7 +7586,7 @@ func metaChildrenDataQualityAssessment(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataQualityDimensionsSummary", s, metaChildrenDataQualityDimensionsSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataQualityDimensionsSummary", MemberName: "dimensionsSummary", ClassSectionID: "DQDS", Kind: som.SomMetaKindComplex, TypeName: "DataQualityDimensionsSummary", SerializationOrder: metaIntPtr(1), DocComment: "Data quality dimensions summary.", ClassDocComment: "Summary of data quality across standard dimensions.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataQualityAssessment", MemberName: "qualityIssuesSeverityChart", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Chart showing distribution of quality issues by severity level"}, DocComment: "Quality issues by severity."},
+		{ClassName: "DataQualityAssessment", MemberName: "qualityIssuesSeverityChart", SectionID: "DAQUAS-QUAL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Chart showing distribution of quality issues by severity level"}, DocComment: "Quality issues by severity."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataQualityAssessment", MemberName: "qualityIssues", SectionID: "DAQLIS-QUAL-LST", SectionIDPattern: "DAQLIS-QUAL-xxx", Kind: som.SomMetaKindList, TypeName: "DataQualityIssueEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution.", DocComment: "Data quality issues inventory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data quality assessment)", "ISO/IEC 25012 — data quality model"}, "connotation": "The inventory of identified data quality issues, one entry per issue."}}}}
 			n.ElementNode = metaCx("DataQualityIssueEntry", s, metaChildrenDataQualityIssueEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7756,7 +7756,7 @@ func metaChildrenDataSourceIntegration(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenDataSourceInventory(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DataSourceInventory", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of the data source inventory. Describe the methodology used to\ncatalog data sources, coverage of the inventory, and any known gaps.\n"},
-		{ClassName: "DataSourceInventory", MemberName: "dataSourceMapDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing data sources grouped by business domain or technical category"}, DocComment: "Visual map of data sources by domain/category."},
+		{ClassName: "DataSourceInventory", MemberName: "dataSourceMapDiagram", SectionID: "DASOIN-DATA", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing data sources grouped by business domain or technical category"}, DocComment: "Visual map of data sources by domain/category."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataSourceInventory", MemberName: "dataSources", SectionID: "DASR-DATA-LST", SectionIDPattern: "DASR-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "DataSourceEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities.", DocComment: "Contains 0+× DataSource.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data source inventory)"}, "connotation": "The list of catalogued data sources, one entry per store or repository."}}}}
 			n.ElementNode = metaCx("DataSourceEntry", s, metaChildrenDataSourceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -7908,7 +7908,7 @@ func metaChildrenDataVolumesAndGrowth(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DataVolumeSummary", s, metaChildrenDataVolumeSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataVolumeSummary", MemberName: "volumeSummary", ClassSectionID: "DAVOSU", Kind: som.SomMetaKindComplex, TypeName: "DataVolumeSummary", SerializationOrder: metaIntPtr(1), DocComment: "Volume and growth summary.", ClassDocComment: "Summary of data volumes and growth trends.", Recursive: r, Children: c}
 		}),
-		{ClassName: "DataVolumesAndGrowth", MemberName: "growthTrendChart", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Chart showing historical data growth and projected future volumes"}, DocComment: "Growth trend visualization."},
+		{ClassName: "DataVolumesAndGrowth", MemberName: "growthTrendChart", SectionID: "DVAG-GROW", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Chart showing historical data growth and projected future volumes"}, DocComment: "Growth trend visualization."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DataVolumesAndGrowth", MemberName: "volumeBySource", SectionID: "DAVOEN-VOLU-LST", SectionIDPattern: "DAVOEN-VOLU-xxx", Kind: som.SomMetaKindList, TypeName: "DataVolumeEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates.", DocComment: "Volume details by data source.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (data volume baseline)"}, "connotation": "Per-source volume figures, one entry per data source."}}}}
 			n.ElementNode = metaCx("DataVolumeEntry", s, metaChildrenDataVolumeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -8403,7 +8403,7 @@ func metaChildrenDeliveryTransitionAndRollout(s map[string]bool) []*som.SomMetaN
 func metaChildrenDependenciesAndIntegrations(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DependenciesAndIntegrations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "DependenciesAndIntegrations", MemberName: "dependencyDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of system dependencies showing data flows and coupling strength"}, ContentHelp: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types.", DocComment: "Dependency matrix diagram."},
+		{ClassName: "DependenciesAndIntegrations", MemberName: "dependencyDiagram", SectionID: "DEPNT-DEPE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of system dependencies showing data flows and coupling strength"}, ContentHelp: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types.", DocComment: "Dependency matrix diagram."},
 		metaCx("InternalDependencies", s, metaChildrenInternalDependencies, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "InternalDependencies", MemberName: "internalDependencies", ClassSectionID: "INTDP", Kind: som.SomMetaKindComplex, TypeName: "InternalDependencies", SerializationOrder: metaIntPtr(2), Comment: "Dependencies between internal systems", DocComment: "1.1.3.1. Internal Dependencies.", ClassDocComment: "1.1.3.1. Internal Dependencies.\n\nDependencies between systems owned and operated internally.", Recursive: r, Children: c}
 		}),
@@ -9744,7 +9744,7 @@ func metaChildrenDocumentationDeliverables(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenDocumentationQualityCriteria(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DocumentationQualityCriteria", MemberName: "documentationOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "documentationStrategy", TypeName: "String", Description: "Documentation Strategy", Hint: "Comprehensive, minimal, just-in-time", Order: 0}, {Name: "documentationOwnership", TypeName: "String", Description: "Documentation Ownership", Hint: "Technical writers, developers, shared", Order: 1}, {Name: "documentationPlatform", TypeName: "String", Description: "Documentation Platform", Hint: "Confluence, GitBook, custom", Order: 2}, {Name: "documentationReviewProcess", TypeName: "String", Description: "Review Process", Hint: "Peer review, editorial review", Order: 3}, {Name: "documentationVersionControl", TypeName: "String", Description: "Version Control", Hint: "Git, CMS versioning, manual", Order: 4}, {Name: "documentationUpdateCadence", TypeName: "String", Description: "Update Cadence", Hint: "Continuous, per-release, scheduled", Order: 5}}}},
+		{ClassName: "DocumentationQualityCriteria", MemberName: "documentationOverviewContent", SectionID: "DOQUCR-DOCU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "documentationStrategy", TypeName: "String", Description: "Documentation Strategy", Hint: "Comprehensive, minimal, just-in-time", Order: 0}, {Name: "documentationOwnership", TypeName: "String", Description: "Documentation Ownership", Hint: "Technical writers, developers, shared", Order: 1}, {Name: "documentationPlatform", TypeName: "String", Description: "Documentation Platform", Hint: "Confluence, GitBook, custom", Order: 2}, {Name: "documentationReviewProcess", TypeName: "String", Description: "Review Process", Hint: "Peer review, editorial review", Order: 3}, {Name: "documentationVersionControl", TypeName: "String", Description: "Version Control", Hint: "Git, CMS versioning, manual", Order: 4}, {Name: "documentationUpdateCadence", TypeName: "String", Description: "Update Cadence", Hint: "Continuous, per-release, scheduled", Order: 5}}}},
 		{ClassName: "DocumentationQualityCriteria", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of documentation goals, target audiences, and key documentation metrics.", DocComment: "Documentation quality overview narrative."},
 		metaCx("Readability", s, metaChildrenReadability, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Readability", MemberName: "readability", ClassSectionID: "REQU1", Kind: som.SomMetaKindComplex, TypeName: "Readability", SerializationOrder: metaIntPtr(2), DocComment: "11.5.1. Readability.", ClassDocComment: "11.5.1. Readability quality.", Recursive: r, Children: c}
@@ -9857,9 +9857,9 @@ func metaChildrenDocumentationStandardsVersioning(s map[string]bool) []*som.SomM
 func metaChildrenDomainBoundaries(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DomainBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "DomainBoundaries", MemberName: "contextMap", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Context map showing this domain and its relationships to adjacent domains"}, ContentHelp: "Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.", DocComment: "Context map showing domain boundaries."},
-		{ClassName: "DomainBoundaries", MemberName: "withinScope", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts, processes, and responsibilities that are within this domain's scope."}, DocComment: "Within-scope items."},
-		{ClassName: "DomainBoundaries", MemberName: "outsideScope", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts and responsibilities that belong to other domains and are outside this domain's scope."}, DocComment: "Outside-scope items."},
+		{ClassName: "DomainBoundaries", MemberName: "contextMap", SectionID: "DB-CONT", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Context map showing this domain and its relationships to adjacent domains"}, ContentHelp: "Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.", DocComment: "Context map showing domain boundaries."},
+		{ClassName: "DomainBoundaries", MemberName: "withinScope", SectionID: "DB-WITH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts, processes, and responsibilities that are within this domain's scope."}, DocComment: "Within-scope items."},
+		{ClassName: "DomainBoundaries", MemberName: "outsideScope", SectionID: "DB-OUTS", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts and responsibilities that belong to other domains and are outside this domain's scope."}, DocComment: "Outside-scope items."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DomainBoundaries", MemberName: "interfaces", SectionID: "DIE-INTE-LST", SectionIDPattern: "DIE-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "DomainInterfaceEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Define interfaces to adjacent domains - how this domain communicates with and shares data with other domains.", DocComment: "Domain interfaces — contains 0+× DomainInterfaceEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts", "ISO/IEC/IEEE 42010 — context boundaries"}, "connotation": "The set of interface entries describing how this domain connects to adjacent domains."}}}}
 			n.ElementNode = metaCx("DomainInterfaceEntry", s, metaChildrenDomainInterfaceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -9967,7 +9967,7 @@ func metaChildrenDomainProcessEntryOperations(s map[string]bool) []*som.SomMetaN
 func metaChildrenDomainProcesses(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DomainProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "DomainProcesses", MemberName: "processOverviewDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level process map showing main processes and their relationships"}, ContentHelp: "Create a process map showing the main business processes and how they interact.", DocComment: "Process overview diagram."},
+		{ClassName: "DomainProcesses", MemberName: "processOverviewDiagram", SectionID: "DP-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level process map showing main processes and their relationships"}, ContentHelp: "Create a process map showing the main business processes and how they interact.", DocComment: "Process overview diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DomainProcesses", MemberName: "processes", SectionID: "DOPR-PROC-LST", SectionIDPattern: "DOPR-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "DomainProcessEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per major business process in this domain.", DocComment: "Domain process entries — contains 0+× DomainProcessEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.35 — process modelling", "ISO/IEC/IEEE 29148 §6 — business process context"}, "connotation": "The set of individual domain-process entries."}}}}
 			n.ElementNode = metaCx("DomainProcessEntry", s, metaChildrenDomainProcessEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -10216,7 +10216,7 @@ func metaChildrenEntityIndexEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenEntityRelationshipEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "EntityRelationshipEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relationshipName", TypeName: "String", Description: "Relationship Name", Required: true, Hint: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")", Order: 0}, {Name: "relationshipType", TypeName: "String", Description: "Relationship Type", Hint: "Association | Aggregation | Composition | Generalization | Dependency", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Business meaning of this relationship", Order: 2}, {Name: "businessJustification", TypeName: "String", Description: "Business Justification", Hint: "Why this relationship exists from business perspective", Order: 3}, {Name: "implementationType", TypeName: "String", Description: "Implementation Type", Hint: "ForeignKey | JunctionTable | Embedded | Reference", Order: 4}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "identity", SectionID: "ENRLE-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relationshipName", TypeName: "String", Description: "Relationship Name", Required: true, Hint: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")", Order: 0}, {Name: "relationshipType", TypeName: "String", Description: "Relationship Type", Hint: "Association | Aggregation | Composition | Generalization | Dependency", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Business meaning of this relationship", Order: 2}, {Name: "businessJustification", TypeName: "String", Description: "Business Justification", Hint: "Why this relationship exists from business perspective", Order: 3}, {Name: "implementationType", TypeName: "String", Description: "Implementation Type", Hint: "ForeignKey | JunctionTable | Embedded | Reference", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "EntityRelationshipEntry", MemberName: "participants", SectionID: "PARTI-PART-LST", SectionIDPattern: "PARTI-PART-xxx", Kind: som.SomMetaKindList, TypeName: "ParticipantEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per participating entity.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ER modeling (Chen / Barker notation)", "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"}, "connotation": "The entities participating in this relationship, with their role names."}}}}
 			n.ElementNode = metaCx("ParticipantEntry", s, metaChildrenParticipantEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -10224,9 +10224,9 @@ func metaChildrenEntityRelationshipEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "EntityRelationshipEntry", MemberName: "cardinality", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sourceCardinality", TypeName: "String", Description: "Source Cardinality", Hint: "Source side: 1 | 0..1 | 0..* | 1..* | n..m", Order: 0}, {Name: "targetCardinality", TypeName: "String", Description: "Target Cardinality", Hint: "Target side: 1 | 0..1 | 0..* | 1..* | n..m", Order: 1}, {Name: "sourceParticipation", TypeName: "String", Description: "Source Participation", Hint: "Mandatory | Optional (whether source must participate)", Order: 2}, {Name: "targetParticipation", TypeName: "String", Description: "Target Participation", Hint: "Mandatory | Optional (whether target must participate)", Order: 3}, {Name: "minSourceInstances", TypeName: "String", Description: "Min Source Instances", Hint: "Minimum number of source entity instances", Order: 4}, {Name: "maxTargetInstances", TypeName: "String", Description: "Max Target Instances", Hint: "Maximum number of related target instances", Order: 5}}}},
-		{ClassName: "EntityRelationshipEntry", MemberName: "referentialIntegrity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "onDeleteAction", TypeName: "String", Description: "On Delete Action", Hint: "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive", Order: 0}, {Name: "onUpdateAction", TypeName: "String", Description: "On Update Action", Hint: "Cascade | SetNull | Restrict | NoAction", Order: 1}, {Name: "enforcementLevel", TypeName: "String", Description: "Enforcement Level", Hint: "Database | Application | Both | None", Order: 2}, {Name: "isDeferrable", TypeName: "String", Description: "Is Deferrable", Hint: "Whether constraint check can be deferred: Yes | No", Order: 3}, {Name: "cascadeScope", TypeName: "String", Description: "Cascade Scope", Hint: "For cascading: DirectOnly | AllDescendants | Custom", Order: 4}, {Name: "orphanHandling", TypeName: "String", Description: "Orphan Handling", Hint: "How orphaned records are handled: Prevent | Allow | AssignDefault", Order: 5}}}},
-		{ClassName: "EntityRelationshipEntry", MemberName: "navigation", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "navigability", TypeName: "String", Description: "Navigability", Hint: "Bidirectional | SourceToTarget | TargetToSource", Order: 0}, {Name: "loadingStrategy", TypeName: "String", Description: "Loading Strategy", Hint: "Eager | Lazy | Explicit | None", Order: 1}, {Name: "foreignKeyLocation", TypeName: "String", Description: "Foreign Key Location", Hint: "Where FK resides: Source | Target | JunctionTable", Order: 2}, {Name: "junctionTableName", TypeName: "String", Description: "Junction Table Name", Hint: "For many-to-many: name of the junction/bridge table", Order: 3}, {Name: "inverseRelationship", TypeName: "String", Description: "Inverse Relationship", Hint: "Name of the relationship from the other side", Order: 4}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "cardinality", SectionID: "ENRLE-CARD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sourceCardinality", TypeName: "String", Description: "Source Cardinality", Hint: "Source side: 1 | 0..1 | 0..* | 1..* | n..m", Order: 0}, {Name: "targetCardinality", TypeName: "String", Description: "Target Cardinality", Hint: "Target side: 1 | 0..1 | 0..* | 1..* | n..m", Order: 1}, {Name: "sourceParticipation", TypeName: "String", Description: "Source Participation", Hint: "Mandatory | Optional (whether source must participate)", Order: 2}, {Name: "targetParticipation", TypeName: "String", Description: "Target Participation", Hint: "Mandatory | Optional (whether target must participate)", Order: 3}, {Name: "minSourceInstances", TypeName: "String", Description: "Min Source Instances", Hint: "Minimum number of source entity instances", Order: 4}, {Name: "maxTargetInstances", TypeName: "String", Description: "Max Target Instances", Hint: "Maximum number of related target instances", Order: 5}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "referentialIntegrity", SectionID: "ENRLE-REFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "onDeleteAction", TypeName: "String", Description: "On Delete Action", Hint: "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive", Order: 0}, {Name: "onUpdateAction", TypeName: "String", Description: "On Update Action", Hint: "Cascade | SetNull | Restrict | NoAction", Order: 1}, {Name: "enforcementLevel", TypeName: "String", Description: "Enforcement Level", Hint: "Database | Application | Both | None", Order: 2}, {Name: "isDeferrable", TypeName: "String", Description: "Is Deferrable", Hint: "Whether constraint check can be deferred: Yes | No", Order: 3}, {Name: "cascadeScope", TypeName: "String", Description: "Cascade Scope", Hint: "For cascading: DirectOnly | AllDescendants | Custom", Order: 4}, {Name: "orphanHandling", TypeName: "String", Description: "Orphan Handling", Hint: "How orphaned records are handled: Prevent | Allow | AssignDefault", Order: 5}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "navigation", SectionID: "ENRLE-NAVI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "navigability", TypeName: "String", Description: "Navigability", Hint: "Bidirectional | SourceToTarget | TargetToSource", Order: 0}, {Name: "loadingStrategy", TypeName: "String", Description: "Loading Strategy", Hint: "Eager | Lazy | Explicit | None", Order: 1}, {Name: "foreignKeyLocation", TypeName: "String", Description: "Foreign Key Location", Hint: "Where FK resides: Source | Target | JunctionTable", Order: 2}, {Name: "junctionTableName", TypeName: "String", Description: "Junction Table Name", Hint: "For many-to-many: name of the junction/bridge table", Order: 3}, {Name: "inverseRelationship", TypeName: "String", Description: "Inverse Relationship", Hint: "Name of the relationship from the other side", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "EntityRelationshipEntry", MemberName: "relationshipAttributes", SectionID: "RELAT-RELA-LST", SectionIDPattern: "RELAT-RELA-xxx", Kind: som.SomMetaKindList, TypeName: "RelationshipAttributeEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per relationship attribute.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "Attributes that belong to the relationship itself, for relationships that carry their own properties."}}}}
 			n.ElementNode = metaCx("RelationshipAttributeEntry", s, metaChildrenRelationshipAttributeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -10560,7 +10560,7 @@ func metaChildrenErrorBudgetTrackingMonitoring(s map[string]bool) []*som.SomMeta
 
 func metaChildrenErrorHandling(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ErrorHandling", MemberName: "errorPhilosophyContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "errorPhilosophy", TypeName: "String", Description: "Error Handling Philosophy", Hint: "Prevention-first, graceful degradation, user empowerment", Order: 0}, {Name: "errorToneOfVoice", TypeName: "String", Description: "Error Tone of Voice", Hint: "Friendly, professional, apologetic, neutral", Order: 1}, {Name: "errorLanguageStyle", TypeName: "String", Description: "Error Language Style", Hint: "Plain language, technical, user-focused", Order: 2}, {Name: "blameAvoidance", TypeName: "String", Description: "Blame Avoidance Approach", Hint: "Never blame user, focus on solutions", Order: 3}}}},
+		{ClassName: "ErrorHandling", MemberName: "errorPhilosophyContent", SectionID: "ERHACO-ERRO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "errorPhilosophy", TypeName: "String", Description: "Error Handling Philosophy", Hint: "Prevention-first, graceful degradation, user empowerment", Order: 0}, {Name: "errorToneOfVoice", TypeName: "String", Description: "Error Tone of Voice", Hint: "Friendly, professional, apologetic, neutral", Order: 1}, {Name: "errorLanguageStyle", TypeName: "String", Description: "Error Language Style", Hint: "Plain language, technical, user-focused", Order: 2}, {Name: "blameAvoidance", TypeName: "String", Description: "Blame Avoidance Approach", Hint: "Never blame user, focus on solutions", Order: 3}}}},
 		metaCx("ErrorHandlingClassification", s, metaChildrenErrorHandlingClassification, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ErrorHandlingClassification", MemberName: "classification", ClassSectionID: "EHCC", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandlingClassification", SerializationOrder: metaIntPtr(1), DocComment: "Error categorization and display priority.", ClassDocComment: "Error categorization and display priority.", Recursive: r, Children: c}
 		}),
@@ -10668,7 +10668,7 @@ func metaChildrenErrorProcedureEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenErrorRecovery(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ErrorRecovery", MemberName: "recoveryMechanismsContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "formDataPreservation", TypeName: "String", Description: "Form Data Preservation", Hint: "How unsaved form data is preserved on error", Order: 0}, {Name: "sessionRecovery", TypeName: "String", Description: "Session Recovery", Hint: "How expired sessions are handled", Order: 1}, {Name: "supportContactMethod", TypeName: "String", Description: "Support Contact Method", Hint: "Chat, email, phone, ticket", Order: 2}}}},
+		{ClassName: "ErrorRecovery", MemberName: "recoveryMechanismsContent", SectionID: "ERRE-RECO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "formDataPreservation", TypeName: "String", Description: "Form Data Preservation", Hint: "How unsaved form data is preserved on error", Order: 0}, {Name: "sessionRecovery", TypeName: "String", Description: "Session Recovery", Hint: "How expired sessions are handled", Order: 1}, {Name: "supportContactMethod", TypeName: "String", Description: "Support Contact Method", Hint: "Chat, email, phone, ticket", Order: 2}}}},
 		metaCx("ErrorRecoveryDataPreservation", s, metaChildrenErrorRecoveryDataPreservation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ErrorRecoveryDataPreservation", MemberName: "dataPreservation", ClassSectionID: "ERDP", Kind: som.SomMetaKindComplex, TypeName: "ErrorRecoveryDataPreservation", SerializationOrder: metaIntPtr(1), DocComment: "Data preservation: draft auto-save settings.", ClassDocComment: "Data preservation: draft auto-save settings.", Recursive: r, Children: c}
 		}),
@@ -11215,7 +11215,7 @@ func metaChildrenExternalConnectivitySection(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenExternalInterfaceEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ExternalInterfaceEntry", MemberName: "identificationContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "interfaceId", TypeName: "String", Description: "Interface ID (e.g., IF-PAY-001)", Required: true, Hint: "Unique stable identifier for this interface", Order: 0}, {Name: "interfaceName", TypeName: "String", Description: "Interface Name", Required: true, Hint: "Human-readable name of the interface", Order: 1}, {Name: "externalSystem", TypeName: "String", Description: "External System Name", Required: true, Hint: "Name of the external system being integrated", Order: 2}, {Name: "externalSystemVendor", TypeName: "String", Description: "Vendor/Provider", Hint: "Vendor or provider that owns the external system", Order: 3}, {Name: "interfaceCategory", TypeName: "String", Description: "Category (Payment, Identity, Data, Messaging, etc.)", Hint: "Functional category of the interface", Order: 4}, {Name: "integrationPattern", TypeName: "String", Description: "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", Hint: "Primary integration pattern used", Order: 5}, {Name: "priority", TypeName: "String", Description: "Priority (Critical, High, Medium, Low)", Hint: "Relative importance of this interface", Order: 6}, {Name: "status", TypeName: "String", Description: "Status (Existing, New, To be replaced)", Hint: "Lifecycle status of the interface", Order: 7}}}},
+		{ClassName: "ExternalInterfaceEntry", MemberName: "identificationContent", SectionID: "EIE-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "interfaceId", TypeName: "String", Description: "Interface ID (e.g., IF-PAY-001)", Required: true, Hint: "Unique stable identifier for this interface", Order: 0}, {Name: "interfaceName", TypeName: "String", Description: "Interface Name", Required: true, Hint: "Human-readable name of the interface", Order: 1}, {Name: "externalSystem", TypeName: "String", Description: "External System Name", Required: true, Hint: "Name of the external system being integrated", Order: 2}, {Name: "externalSystemVendor", TypeName: "String", Description: "Vendor/Provider", Hint: "Vendor or provider that owns the external system", Order: 3}, {Name: "interfaceCategory", TypeName: "String", Description: "Category (Payment, Identity, Data, Messaging, etc.)", Hint: "Functional category of the interface", Order: 4}, {Name: "integrationPattern", TypeName: "String", Description: "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", Hint: "Primary integration pattern used", Order: 5}, {Name: "priority", TypeName: "String", Description: "Priority (Critical, High, Medium, Low)", Hint: "Relative importance of this interface", Order: 6}, {Name: "status", TypeName: "String", Description: "Status (Existing, New, To be replaced)", Hint: "Lifecycle status of the interface", Order: 7}}}},
 		metaCx("InterfaceBusinessContext", s, metaChildrenInterfaceBusinessContext, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "InterfaceBusinessContext", MemberName: "businessContext", ClassSectionID: "INBUCO", Kind: som.SomMetaKindComplex, TypeName: "InterfaceBusinessContext", SerializationOrder: metaIntPtr(1), DocComment: "Business purpose and value of this interface.", ClassDocComment: "Business context for an interface.", Recursive: r, Children: c}
 		}),
@@ -11425,7 +11425,7 @@ func metaChildrenExternalSystemContextEntry(s map[string]bool) []*som.SomMetaNod
 		metaCx("ExternalSystemContextEntryGovernance", s, metaChildrenExternalSystemContextEntryGovernance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ExternalSystemContextEntryGovernance", MemberName: "governance", ClassSectionID: "ESCEG", Kind: som.SomMetaKindComplex, TypeName: "ExternalSystemContextEntryGovernance", SerializationOrder: metaIntPtr(3), DocComment: "Security and support contacts.", ClassDocComment: "Security and support contacts for an external system context.", Recursive: r, Children: c}
 		}),
-		{ClassName: "ExternalSystemContextEntry", MemberName: "dataMapping", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Details of data transformation and mapping between systems."}, DocComment: "Data mapping details."},
+		{ClassName: "ExternalSystemContextEntry", MemberName: "dataMapping", SectionID: "EXSYCOEN-DATA", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Details of data transformation and mapping between systems."}, DocComment: "Data mapping details."},
 	}
 }
 
@@ -11914,7 +11914,7 @@ func metaChildrenFlexibility(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenFlexibilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FlexibilityCharacteristic", MemberName: "flexibilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "flexibilityApproach", TypeName: "String", Description: "Flexibility Approach", Hint: "How adaptability, scalability and portability are achieved", Order: 0}, {Name: "portabilityTarget", TypeName: "String", Description: "Portability Target", Hint: "Target environments/platforms the product must run on", Order: 1}}}},
+		{ClassName: "FlexibilityCharacteristic", MemberName: "flexibilityContent", SectionID: "FLXC-FLEX", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "flexibilityApproach", TypeName: "String", Description: "Flexibility Approach", Hint: "How adaptability, scalability and portability are achieved", Order: 0}, {Name: "portabilityTarget", TypeName: "String", Description: "Portability Target", Hint: "Target environments/platforms the product must run on", Order: 1}}}},
 		{ClassName: "FlexibilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of flexibility, adaptability and portability goals.", DocComment: "Flexibility overview."},
 		metaCx("Flexibility", s, metaChildrenFlexibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Flexibility", MemberName: "flexibility", ClassSectionID: "FLQU", Kind: som.SomMetaKindComplex, TypeName: "Flexibility", SerializationOrder: metaIntPtr(2), DocComment: "11.9.1. Flexibility (adaptability/scalability/extensibility).", ClassDocComment: "11.3.3. Flexibility quality.", Recursive: r, Children: c}
@@ -12073,8 +12073,8 @@ func metaChildrenFunctionEntryOperations(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenFunctionModel(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FunctionModel", MemberName: "decompositionOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "decompositionApproach", TypeName: "String", Description: "Decomposition Approach", Hint: "How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased", Order: 0}, {Name: "decompositionDepth", TypeName: "String", Description: "Decomposition Depth", Hint: "Number of levels in the hierarchy", Order: 1}, {Name: "topLevelFunctions", TypeName: "String", Description: "Top-Level Functions", Hint: "Summary of major function areas", Order: 2}, {Name: "decompositionBasis", TypeName: "String", Description: "Decomposition Basis", Hint: "Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit", Order: 3}}}},
-		{ClassName: "FunctionModel", MemberName: "matrixOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "crudNotation", TypeName: "String", Description: "CRUD Notation", Hint: "Notation used: CRUD | CRUDx | Custom", Order: 0}, {Name: "matrixScope", TypeName: "String", Description: "Matrix Scope", Hint: "What's covered: CoreFunctions | AllFunctions | UserFacing", Order: 1}, {Name: "primaryAccessPatterns", TypeName: "String", Description: "Primary Access Patterns", Hint: "Summary of major access patterns", Order: 2}, {Name: "dataOwnership", TypeName: "String", Description: "Data Ownership", Hint: "Which functions own which data", Order: 3}}}},
+		{ClassName: "FunctionModel", MemberName: "decompositionOverview", SectionID: "FUMO-DECO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "decompositionApproach", TypeName: "String", Description: "Decomposition Approach", Hint: "How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased", Order: 0}, {Name: "decompositionDepth", TypeName: "String", Description: "Decomposition Depth", Hint: "Number of levels in the hierarchy", Order: 1}, {Name: "topLevelFunctions", TypeName: "String", Description: "Top-Level Functions", Hint: "Summary of major function areas", Order: 2}, {Name: "decompositionBasis", TypeName: "String", Description: "Decomposition Basis", Hint: "Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit", Order: 3}}}},
+		{ClassName: "FunctionModel", MemberName: "matrixOverview", SectionID: "FUMO-MATR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "crudNotation", TypeName: "String", Description: "CRUD Notation", Hint: "Notation used: CRUD | CRUDx | Custom", Order: 0}, {Name: "matrixScope", TypeName: "String", Description: "Matrix Scope", Hint: "What's covered: CoreFunctions | AllFunctions | UserFacing", Order: 1}, {Name: "primaryAccessPatterns", TypeName: "String", Description: "Primary Access Patterns", Hint: "Summary of major access patterns", Order: 2}, {Name: "dataOwnership", TypeName: "String", Description: "Data Ownership", Hint: "Which functions own which data", Order: 3}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "FunctionModel", MemberName: "functions", SectionID: "FUNCT-FUNC-LST", SectionIDPattern: "FUNCT-FUNC-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per function.", DocComment: "7.3.1. Function Decomposition — contains 0+× Function.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Structured Analysis (DeMarco/Yourdon) — functional decomposition", "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"}, "connotation": "The business functions the system provides, decomposed hierarchically."}}}}
 			n.ElementNode = metaCx("FunctionEntry", s, metaChildrenFunctionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12190,7 +12190,7 @@ func metaChildrenFunctionalRequirementEntryVerification(s map[string]bool) []*so
 func metaChildrenFunctionalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "FunctionalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "FunctionalRequirements", MemberName: "summaryForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Functional requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalFunctionalRequirements", TypeName: "String", Description: "Total Functional Requirements", Hint: "Total count of functional requirements", Order: 0}, {Name: "mustHaveFunctional", TypeName: "String", Description: "Must-Have (count)", Hint: "Count of Must-Have functional requirements", Order: 1}, {Name: "shouldHaveFunctional", TypeName: "String", Description: "Should-Have (count)", Hint: "Count of Should-Have functional requirements", Order: 2}, {Name: "couldHaveFunctional", TypeName: "String", Description: "Could-Have (count)", Hint: "Count of Could-Have functional requirements", Order: 3}, {Name: "wontHaveThisTimeFunctional", TypeName: "String", Description: "Won't-Have-This-Time (count)", Hint: "Count of Won't-Have-This-Time functional requirements", Order: 4}, {Name: "coverageNote", TypeName: "String", Description: "Coverage Notes", Hint: "Notes on coverage and any gaps in the requirement set", Order: 5}}}},
+		{ClassName: "FunctionalRequirements", MemberName: "summaryForm", SectionID: "FR-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Functional requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalFunctionalRequirements", TypeName: "String", Description: "Total Functional Requirements", Hint: "Total count of functional requirements", Order: 0}, {Name: "mustHaveFunctional", TypeName: "String", Description: "Must-Have (count)", Hint: "Count of Must-Have functional requirements", Order: 1}, {Name: "shouldHaveFunctional", TypeName: "String", Description: "Should-Have (count)", Hint: "Count of Should-Have functional requirements", Order: 2}, {Name: "couldHaveFunctional", TypeName: "String", Description: "Could-Have (count)", Hint: "Count of Could-Have functional requirements", Order: 3}, {Name: "wontHaveThisTimeFunctional", TypeName: "String", Description: "Won't-Have-This-Time (count)", Hint: "Count of Won't-Have-This-Time functional requirements", Order: 4}, {Name: "coverageNote", TypeName: "String", Description: "Coverage Notes", Hint: "Notes on coverage and any gaps in the requirement set", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "FunctionalRequirements", MemberName: "requirements", SectionID: "FRE-REQU-LST", SectionIDPattern: "FRE-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionalRequirementEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria.", DocComment: "Functional requirements list — contains 1+× Functional Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9.5 — functional requirements", "BABOK v3 §10 — functional requirements"}, "connotation": "The list of individual functional requirement entries, each atomic, testable, and accompanied by clear acceptance criteria."}}}}
 			n.ElementNode = metaCx("FunctionalRequirementEntry", s, metaChildrenFunctionalRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12217,7 +12217,7 @@ func metaChildrenFunctionalResponsibilities(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenFunctionalSuitabilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FunctionalSuitabilityCharacteristic", MemberName: "functionalSuitabilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "functionalSuitabilityApproach", TypeName: "String", Description: "Functional Suitability Approach", Hint: "How functional completeness and correctness are assured", Order: 0}, {Name: "functionalCoverageTarget", TypeName: "String", Description: "Functional Coverage Target", Hint: "Required vs. optional feature coverage", Order: 1}, {Name: "correctnessStandard", TypeName: "String", Description: "Correctness Standard", Hint: "Acceptable defect density, accuracy thresholds", Order: 2}}}},
+		{ClassName: "FunctionalSuitabilityCharacteristic", MemberName: "functionalSuitabilityContent", SectionID: "FNSU-FUNC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "functionalSuitabilityApproach", TypeName: "String", Description: "Functional Suitability Approach", Hint: "How functional completeness and correctness are assured", Order: 0}, {Name: "functionalCoverageTarget", TypeName: "String", Description: "Functional Coverage Target", Hint: "Required vs. optional feature coverage", Order: 1}, {Name: "correctnessStandard", TypeName: "String", Description: "Correctness Standard", Hint: "Acceptable defect density, accuracy thresholds", Order: 2}}}},
 		{ClassName: "FunctionalSuitabilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of functional-suitability goals, coverage targets, and correctness metrics.", DocComment: "Functional suitability overview."},
 		metaCx("FunctionalCompleteness", s, metaChildrenFunctionalCompleteness, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "FunctionalCompleteness", MemberName: "functionalCompleteness", ClassSectionID: "FNCOQ", Kind: som.SomMetaKindComplex, TypeName: "FunctionalCompleteness", SerializationOrder: metaIntPtr(2), DocComment: "11.2.1. Functional Completeness.", ClassDocComment: "11.2.2. Functional completeness quality.", Recursive: r, Children: c}
@@ -12420,7 +12420,7 @@ func metaChildrenGoalMilestones(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenGoalResources(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "GoalResources", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "GoalResources", MemberName: "resourcesForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Resource requirement form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalBudget", TypeName: "String", Description: "Total Budget (estimated or allocated)", Hint: "Estimated or allocated total budget", Order: 0}, {Name: "fteRequired", TypeName: "String", Description: "FTE Required (full-time equivalent staff)", Hint: "Number of full-time-equivalent staff needed", Order: 1}, {Name: "keySkills", TypeName: "String", Description: "Key Skills Required", Hint: "Critical skills needed to achieve the goal", Order: 2}, {Name: "toolsRequired", TypeName: "String", Description: "Tools or Systems Required", Hint: "Tools or systems needed", Order: 3}, {Name: "externalSupport", TypeName: "String", Description: "External Support (consultants, vendors)", Hint: "Consultants or vendors required", Order: 4}, {Name: "trainingNeeds", TypeName: "String", Description: "Training Needs", Hint: "Training the team needs to acquire", Order: 5}}}},
+		{ClassName: "GoalResources", MemberName: "resourcesForm", SectionID: "GORE-RESO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Resource requirement form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalBudget", TypeName: "String", Description: "Total Budget (estimated or allocated)", Hint: "Estimated or allocated total budget", Order: 0}, {Name: "fteRequired", TypeName: "String", Description: "FTE Required (full-time equivalent staff)", Hint: "Number of full-time-equivalent staff needed", Order: 1}, {Name: "keySkills", TypeName: "String", Description: "Key Skills Required", Hint: "Critical skills needed to achieve the goal", Order: 2}, {Name: "toolsRequired", TypeName: "String", Description: "Tools or Systems Required", Hint: "Tools or systems needed", Order: 3}, {Name: "externalSupport", TypeName: "String", Description: "External Support (consultants, vendors)", Hint: "Consultants or vendors required", Order: 4}, {Name: "trainingNeeds", TypeName: "String", Description: "Training Needs", Hint: "Training the team needs to acquire", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "GoalResources", MemberName: "items", SectionID: "REARS-ITEM-LST", SectionIDPattern: "REARS-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "ResourceAllocationEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per allocated resource (personnel, budget, tool).", DocComment: "Resource allocation entries — contains 0+× ResourceAllocationEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — resource management", "ISO 21500 — resources"}, "connotation": "The set of individual resource allocation entries for a business goal."}}}}
 			n.ElementNode = metaCx("ResourceAllocationEntry", s, metaChildrenResourceAllocationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12471,7 +12471,7 @@ func metaChildrenGoalRisks(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenGoals(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "Goals", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "Goals", MemberName: "goalHierarchyDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Goal hierarchy and dependency diagram showing relationships between business and technical goals"}, ContentHelp: "Create a diagram showing goal categories, dependencies, and alignment to strategic objectives.", DocComment: "Goal hierarchy diagram."},
+		{ClassName: "Goals", MemberName: "goalHierarchyDiagram", SectionID: "GOALS-GOAL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Goal hierarchy and dependency diagram showing relationships between business and technical goals"}, ContentHelp: "Create a diagram showing goal categories, dependencies, and alignment to strategic objectives.", DocComment: "Goal hierarchy diagram."},
 		metaCx("BusinessGoals", s, metaChildrenBusinessGoals, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "BusinessGoals", MemberName: "businessGoals", ClassSectionID: "BG", Kind: som.SomMetaKindComplex, TypeName: "BusinessGoals", SerializationOrder: metaIntPtr(2), DocComment: "4.2.1. Business Goals.", ClassDocComment: "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.", Recursive: r, Children: c}
 		}),
@@ -13521,7 +13521,7 @@ func metaChildrenInteractionBusinessRules(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenInteractionCapabilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "InteractionCapabilityCharacteristic", MemberName: "interactionCapabilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "userQualityPhilosophy", TypeName: "String", Description: "User Quality Philosophy", Hint: "User-first, balanced, efficiency-focused", Order: 0}, {Name: "targetUserExperience", TypeName: "String", Description: "Target User Experience", Hint: "Delightful, efficient, adequate, minimal", Order: 1}, {Name: "userResearchBasis", TypeName: "String", Description: "User Research Basis", Hint: "Personas, surveys, interviews, analytics", Order: 2}, {Name: "userFeedbackChannel", TypeName: "String", Description: "User Feedback Channel", Hint: "How user quality feedback is collected", Order: 3}, {Name: "userSatisfactionTarget", TypeName: "String", Description: "User Satisfaction Target", Hint: "NPS > 50, CSAT > 80%, etc.", Order: 4}, {Name: "accessibilityLevel", TypeName: "String", Description: "Accessibility Level", Hint: "WCAG 2.1 AA, AAA, Section 508", Order: 5}}}},
+		{ClassName: "InteractionCapabilityCharacteristic", MemberName: "interactionCapabilityContent", SectionID: "INCP-INTE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "userQualityPhilosophy", TypeName: "String", Description: "User Quality Philosophy", Hint: "User-first, balanced, efficiency-focused", Order: 0}, {Name: "targetUserExperience", TypeName: "String", Description: "Target User Experience", Hint: "Delightful, efficient, adequate, minimal", Order: 1}, {Name: "userResearchBasis", TypeName: "String", Description: "User Research Basis", Hint: "Personas, surveys, interviews, analytics", Order: 2}, {Name: "userFeedbackChannel", TypeName: "String", Description: "User Feedback Channel", Hint: "How user quality feedback is collected", Order: 3}, {Name: "userSatisfactionTarget", TypeName: "String", Description: "User Satisfaction Target", Hint: "NPS > 50, CSAT > 80%, etc.", Order: 4}, {Name: "accessibilityLevel", TypeName: "String", Description: "Accessibility Level", Hint: "WCAG 2.1 AA, AAA, Section 508", Order: 5}}}},
 		{ClassName: "InteractionCapabilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of interaction-capability goals, target user experience, and key user-quality metrics.", DocComment: "Interaction capability overview."},
 		metaCx("Usability", s, metaChildrenUsability, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Usability", MemberName: "usability", ClassSectionID: "USAQL", Kind: som.SomMetaKindComplex, TypeName: "Usability", SerializationOrder: metaIntPtr(2), DocComment: "11.5.1. Usability.", ClassDocComment: "11.2.1. Usability quality.", Recursive: r, Children: c}
@@ -14192,7 +14192,7 @@ func metaChildrenIntroductionAndScope(s map[string]bool) []*som.SomMetaNode {
 		metaCx("SystemSummary", s, metaChildrenSystemSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemSummary", MemberName: "summary", ClassSectionID: "SYSUM", Kind: som.SomMetaKindComplex, TypeName: "SystemSummary", SerializationOrder: metaIntPtr(1), DocComment: "System overview summary statistics.", ClassDocComment: "System overview summary for quick reference.", Recursive: r, Children: c}
 		}),
-		{ClassName: "IntroductionAndScope", MemberName: "systemContextDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "High-level context diagram showing the system, its users, and external system interfaces"}, DocComment: "System context diagram showing major system boundaries."},
+		{ClassName: "IntroductionAndScope", MemberName: "systemContextDiagram", SectionID: "INSC-SYST", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "High-level context diagram showing the system, its users, and external system interfaces"}, DocComment: "System context diagram showing major system boundaries."},
 		metaCx("SystemDescription", s, metaChildrenSystemDescription, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemDescription", MemberName: "systemDescription", ClassSectionID: "SYDSC", Kind: som.SomMetaKindComplex, TypeName: "SystemDescription", SerializationOrder: metaIntPtr(3), DocComment: "4.1. System Description.", ClassDocComment: "4.1. System Description.\n\nConcise description of the system to be created, its primary purpose,\nand the business domain it addresses. This section provides the\nfoundation for understanding what the system does and who uses it.", Recursive: r, Children: c}
 		}),
@@ -14477,7 +14477,7 @@ func metaChildrenKeyConceptEntry(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenKeyConcepts(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "KeyConcepts", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "KeyConcepts", MemberName: "conceptualModelDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-classDiagram", Description: "Conceptual domain model showing key entities and their relationships"}, ContentHelp: "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation.", DocComment: "Conceptual domain model diagram."},
+		{ClassName: "KeyConcepts", MemberName: "conceptualModelDiagram", SectionID: "KC-CONC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-classDiagram", Description: "Conceptual domain model showing key entities and their relationships"}, ContentHelp: "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation.", DocComment: "Conceptual domain model diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "KeyConcepts", MemberName: "concepts", SectionID: "KECON-CONC-LST", SectionIDPattern: "KECON-CONC-xxx", Kind: som.SomMetaKindList, TypeName: "KeyConceptEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per key business concept or entity.", DocComment: "Key concept entries — contains 1+× KeyConceptEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — domain model concepts", "BABOK v3 §10 — concept modelling"}, "connotation": "The set of individual key-concept entries for the domain."}}}}
 			n.ElementNode = metaCx("KeyConceptEntry", s, metaChildrenKeyConceptEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -14592,7 +14592,7 @@ func metaChildrenKpiEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenLanguageCountrySelection(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "LanguageCountrySelection", MemberName: "languageSelectionContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "pickerLocation", TypeName: "String", Description: "Picker Location", Hint: "Header, footer, settings, onboarding", Order: 0}, {Name: "pickerStyle", TypeName: "String", Description: "Picker Style", Hint: "Dropdown, modal, full page", Order: 1}, {Name: "languageDisplay", TypeName: "String", Description: "Language Display", Hint: "Native names, English names, flags", Order: 2}, {Name: "countryDisplay", TypeName: "String", Description: "Country Display", Hint: "How countries are displayed", Order: 3}, {Name: "searchable", TypeName: "bool", Description: "Searchable", Hint: "Can user search languages/countries", Order: 4}}}},
+		{ClassName: "LanguageCountrySelection", MemberName: "languageSelectionContent", SectionID: "LACOSE-LANG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "pickerLocation", TypeName: "String", Description: "Picker Location", Hint: "Header, footer, settings, onboarding", Order: 0}, {Name: "pickerStyle", TypeName: "String", Description: "Picker Style", Hint: "Dropdown, modal, full page", Order: 1}, {Name: "languageDisplay", TypeName: "String", Description: "Language Display", Hint: "Native names, English names, flags", Order: 2}, {Name: "countryDisplay", TypeName: "String", Description: "Country Display", Hint: "How countries are displayed", Order: 3}, {Name: "searchable", TypeName: "bool", Description: "Searchable", Hint: "Can user search languages/countries", Order: 4}}}},
 		metaCx("LanguageCountrySelectionDefaults", s, metaChildrenLanguageCountrySelectionDefaults, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LanguageCountrySelectionDefaults", MemberName: "defaults", ClassSectionID: "LCSD", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelectionDefaults", SerializationOrder: metaIntPtr(1), DocComment: "Default locale behavior.", ClassDocComment: "Default locale behavior.", Recursive: r, Children: c}
 		}),
@@ -14949,7 +14949,7 @@ func metaChildrenLocalizationFormatting(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenLocalizationProcess(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "LocalizationProcess", MemberName: "localizationProcessContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "contentIdentification", TypeName: "String", Description: "Content Identification", Hint: "How localizable content is identified", Order: 0}, {Name: "stringExternalization", TypeName: "String", Description: "String Externalization", Hint: "Approach to externalizing strings", Order: 1}, {Name: "contentTagging", TypeName: "String", Description: "Content Tagging", Hint: "How content is tagged for translation", Order: 2}, {Name: "localizationScope", TypeName: "String", Description: "Localization Scope", Hint: "UI text, images, audio, video, documents", Order: 3}}}},
+		{ClassName: "LocalizationProcess", MemberName: "localizationProcessContent", SectionID: "LOPR-LOCA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "contentIdentification", TypeName: "String", Description: "Content Identification", Hint: "How localizable content is identified", Order: 0}, {Name: "stringExternalization", TypeName: "String", Description: "String Externalization", Hint: "Approach to externalizing strings", Order: 1}, {Name: "contentTagging", TypeName: "String", Description: "Content Tagging", Hint: "How content is tagged for translation", Order: 2}, {Name: "localizationScope", TypeName: "String", Description: "Localization Scope", Hint: "UI text, images, audio, video, documents", Order: 3}}}},
 		metaCx("LocalizationReview", s, metaChildrenLocalizationReview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LocalizationReview", MemberName: "review", ClassSectionID: "LOPRR1", Kind: som.SomMetaKindComplex, TypeName: "LocalizationReview", SerializationOrder: metaIntPtr(1), DocComment: "Review process.", ClassDocComment: "Review process.", Recursive: r, Children: c}
 		}),
@@ -15182,7 +15182,7 @@ func metaChildrenMaintainabilityChangeability(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenMaintainabilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MaintainabilityCharacteristic", MemberName: "maintainabilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maintainabilityApproach", TypeName: "String", Description: "Maintainability Approach", Hint: "Modularity, analyzability, testability priorities", Order: 0}, {Name: "maintainabilityStandard", TypeName: "String", Description: "Maintainability Standard", Hint: "Complexity thresholds, test-coverage targets", Order: 1}}}},
+		{ClassName: "MaintainabilityCharacteristic", MemberName: "maintainabilityContent", SectionID: "MNTC-MAIN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maintainabilityApproach", TypeName: "String", Description: "Maintainability Approach", Hint: "Modularity, analyzability, testability priorities", Order: 0}, {Name: "maintainabilityStandard", TypeName: "String", Description: "Maintainability Standard", Hint: "Complexity thresholds, test-coverage targets", Order: 1}}}},
 		{ClassName: "MaintainabilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of maintainability goals and standards.", DocComment: "Maintainability overview."},
 		metaCx("Maintainability", s, metaChildrenMaintainability, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Maintainability", MemberName: "maintainability", ClassSectionID: "MAQU", Kind: som.SomMetaKindComplex, TypeName: "Maintainability", SerializationOrder: metaIntPtr(2), DocComment: "11.8.1. Maintainability (product maintainability attributes).", ClassDocComment: "11.3.5. Maintainability quality.", Recursive: r, Children: c}
@@ -15511,7 +15511,7 @@ func metaChildrenMethodologyDeviationSummary(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenMetricsAndObservability(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MetricsAndObservability", MemberName: "metricsOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "metricsEnabled", TypeName: "bool", Description: "Metrics Enabled", Hint: "Whether metrics collection is enabled", Order: 0}, {Name: "logsEnabled", TypeName: "bool", Description: "Logs Enabled", Hint: "Whether log collection is enabled", Order: 1}, {Name: "tracesEnabled", TypeName: "bool", Description: "Traces Enabled", Hint: "Whether distributed tracing is enabled", Order: 2}, {Name: "profilesEnabled", TypeName: "bool", Description: "Profiles Enabled", Hint: "Continuous profiling", Order: 3}, {Name: "metricsFormat", TypeName: "String", Description: "Metrics Format", Hint: "Prometheus, OpenMetrics, StatsD", Order: 4}, {Name: "logsFormat", TypeName: "String", Description: "Logs Format", Hint: "Structured JSON, syslog", Order: 5}, {Name: "tracingStandard", TypeName: "String", Description: "Tracing Standard", Hint: "OpenTelemetry, OpenTracing, W3C Trace Context", Order: 6}, {Name: "collectionMethod", TypeName: "String", Description: "Collection Method", Hint: "Pull (Prometheus), push (agent), sidecar", Order: 7}, {Name: "scrapeInterval", TypeName: "String", Description: "Scrape Interval", Hint: "Metrics collection frequency", Order: 8}, {Name: "samplingRate", TypeName: "String", Description: "Sampling Rate", Hint: "Trace sampling percentage", Order: 9}}}},
+		{ClassName: "MetricsAndObservability", MemberName: "metricsOverview", SectionID: "MEANOB-METR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "metricsEnabled", TypeName: "bool", Description: "Metrics Enabled", Hint: "Whether metrics collection is enabled", Order: 0}, {Name: "logsEnabled", TypeName: "bool", Description: "Logs Enabled", Hint: "Whether log collection is enabled", Order: 1}, {Name: "tracesEnabled", TypeName: "bool", Description: "Traces Enabled", Hint: "Whether distributed tracing is enabled", Order: 2}, {Name: "profilesEnabled", TypeName: "bool", Description: "Profiles Enabled", Hint: "Continuous profiling", Order: 3}, {Name: "metricsFormat", TypeName: "String", Description: "Metrics Format", Hint: "Prometheus, OpenMetrics, StatsD", Order: 4}, {Name: "logsFormat", TypeName: "String", Description: "Logs Format", Hint: "Structured JSON, syslog", Order: 5}, {Name: "tracingStandard", TypeName: "String", Description: "Tracing Standard", Hint: "OpenTelemetry, OpenTracing, W3C Trace Context", Order: 6}, {Name: "collectionMethod", TypeName: "String", Description: "Collection Method", Hint: "Pull (Prometheus), push (agent), sidecar", Order: 7}, {Name: "scrapeInterval", TypeName: "String", Description: "Scrape Interval", Hint: "Metrics collection frequency", Order: 8}, {Name: "samplingRate", TypeName: "String", Description: "Sampling Rate", Hint: "Trace sampling percentage", Order: 9}}}},
 		{ClassName: "MetricsAndObservability", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Observability overview narrative."},
 		metaCx("ApplicationMetricsSpec", s, metaChildrenApplicationMetricsSpec, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ApplicationMetricsSpec", MemberName: "applicationMetrics", ClassSectionID: "APMESP", Kind: som.SomMetaKindComplex, TypeName: "ApplicationMetricsSpec", SerializationOrder: metaIntPtr(2), DocComment: "Application metrics specification.", ClassDocComment: "Application metrics specification.", Recursive: r, Children: c}
@@ -15668,7 +15668,7 @@ func metaChildrenMigrationCompliance(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenMigrationConsiderations(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MigrationConsiderations", MemberName: "strategyContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "overallStrategy", TypeName: "String", Description: "Overall Strategy (Big Bang, Phased, Parallel, Strangler)", Hint: "Chosen cutover pattern for the migration program", Order: 0}, {Name: "sequencingApproach", TypeName: "String", Description: "Sequencing Approach", Hint: "Order in which systems are migrated and why", Order: 1}, {Name: "interdependencyHandling", TypeName: "String", Description: "Interdependency Handling", Hint: "How cross-system dependencies are coordinated", Order: 2}, {Name: "migrationWindowStrategy", TypeName: "String", Description: "Migration Window Strategy", Hint: "When migrations run, e.g. weekends, off-hours", Order: 3}, {Name: "blackoutPeriods", TypeName: "String", Description: "Blackout Periods", Hint: "Times when no migration activity is permitted", Order: 4}, {Name: "parallelRunDuration", TypeName: "String", Description: "Parallel Run Duration", Hint: "How long old and new run side by side", Order: 5}}}},
+		{ClassName: "MigrationConsiderations", MemberName: "strategyContent", SectionID: "MIGCON-STRA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "overallStrategy", TypeName: "String", Description: "Overall Strategy (Big Bang, Phased, Parallel, Strangler)", Hint: "Chosen cutover pattern for the migration program", Order: 0}, {Name: "sequencingApproach", TypeName: "String", Description: "Sequencing Approach", Hint: "Order in which systems are migrated and why", Order: 1}, {Name: "interdependencyHandling", TypeName: "String", Description: "Interdependency Handling", Hint: "How cross-system dependencies are coordinated", Order: 2}, {Name: "migrationWindowStrategy", TypeName: "String", Description: "Migration Window Strategy", Hint: "When migrations run, e.g. weekends, off-hours", Order: 3}, {Name: "blackoutPeriods", TypeName: "String", Description: "Blackout Periods", Hint: "Times when no migration activity is permitted", Order: 4}, {Name: "parallelRunDuration", TypeName: "String", Description: "Parallel Run Duration", Hint: "How long old and new run side by side", Order: 5}}}},
 		{ClassName: "MigrationConsiderations", MemberName: "strategyNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Detailed strategy narrative."},
 		metaCx("MigrationResources", s, metaChildrenMigrationResources, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MigrationResources", MemberName: "resources", ClassSectionID: "MIRE", Kind: som.SomMetaKindComplex, TypeName: "MigrationResources", SerializationOrder: metaIntPtr(2), DocComment: "Resource requirements for migration program.", ClassDocComment: "Migration resource requirements.", Recursive: r, Children: c}
@@ -15985,7 +15985,7 @@ func metaChildrenMigrationRiskTracking(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenMigrationRisks(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MigrationRisks", MemberName: "governanceContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskGovernanceModel", TypeName: "String", Description: "Risk Governance Model", Hint: "Centralized, federated, hybrid approach", Order: 0}, {Name: "riskCommitteeCharter", TypeName: "String", Description: "Risk Committee Charter", Hint: "Mandate and remit of the risk committee", Order: 1}, {Name: "riskReviewFrequency", TypeName: "String", Description: "Risk Review Frequency", Hint: "Weekly, bi-weekly, monthly cycles", Order: 2}}}},
+		{ClassName: "MigrationRisks", MemberName: "governanceContent", SectionID: "MIRI-GOVE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskGovernanceModel", TypeName: "String", Description: "Risk Governance Model", Hint: "Centralized, federated, hybrid approach", Order: 0}, {Name: "riskCommitteeCharter", TypeName: "String", Description: "Risk Committee Charter", Hint: "Mandate and remit of the risk committee", Order: 1}, {Name: "riskReviewFrequency", TypeName: "String", Description: "Risk Review Frequency", Hint: "Weekly, bi-weekly, monthly cycles", Order: 2}}}},
 		metaCx("MigrationRisksGovernance", s, metaChildrenMigrationRisksGovernance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MigrationRisksGovernance", MemberName: "governance", ClassSectionID: "MIRIGO", Kind: som.SomMetaKindComplex, TypeName: "MigrationRisksGovernance", SerializationOrder: metaIntPtr(1), DocComment: "Governance and decision authority.", ClassDocComment: "Governance and decision authority.", Recursive: r, Children: c}
 		}),
@@ -16304,7 +16304,7 @@ func metaChildrenModuleVersioningStrategyReleaseManagement(s map[string]bool) []
 
 func metaChildrenMonitoring(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Monitoring", MemberName: "monitoringOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "monitoringStrategy", TypeName: "String", Description: "Monitoring Strategy", Hint: "Proactive, reactive, hybrid approach", Order: 0}, {Name: "observabilityMaturity", TypeName: "String", Description: "Observability Maturity", Hint: "Current maturity level (L1-L4)", Order: 1}, {Name: "monitoringScope", TypeName: "String", Description: "Monitoring Scope", Hint: "Infrastructure, application, business metrics", Order: 2}, {Name: "primaryMonitoringPlatform", TypeName: "String", Description: "Primary Monitoring Platform", Hint: "Datadog, New Relic, Prometheus, CloudWatch", Order: 3}, {Name: "metricsStore", TypeName: "String", Description: "Metrics Store", Hint: "InfluxDB, Prometheus, CloudWatch Metrics", Order: 4}, {Name: "tracingPlatform", TypeName: "String", Description: "Tracing Platform", Hint: "Jaeger, Zipkin, AWS X-Ray, Datadog APM", Order: 5}, {Name: "loggingPlatform", TypeName: "String", Description: "Logging Platform", Hint: "ELK Stack, Loki, CloudWatch Logs", Order: 6}, {Name: "coverageRequirement", TypeName: "String", Description: "Coverage Requirement", Hint: "Which services must be monitored", Order: 7}, {Name: "dataRetention", TypeName: "String", Description: "Data Retention", Hint: "Metrics: 15d, traces: 7d, logs: 30d", Order: 8}, {Name: "costBudget", TypeName: "String", Description: "Cost Budget", Hint: "Monthly monitoring cost budget", Order: 9}}}},
+		{ClassName: "Monitoring", MemberName: "monitoringOverview", SectionID: "MONITO-MONI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "monitoringStrategy", TypeName: "String", Description: "Monitoring Strategy", Hint: "Proactive, reactive, hybrid approach", Order: 0}, {Name: "observabilityMaturity", TypeName: "String", Description: "Observability Maturity", Hint: "Current maturity level (L1-L4)", Order: 1}, {Name: "monitoringScope", TypeName: "String", Description: "Monitoring Scope", Hint: "Infrastructure, application, business metrics", Order: 2}, {Name: "primaryMonitoringPlatform", TypeName: "String", Description: "Primary Monitoring Platform", Hint: "Datadog, New Relic, Prometheus, CloudWatch", Order: 3}, {Name: "metricsStore", TypeName: "String", Description: "Metrics Store", Hint: "InfluxDB, Prometheus, CloudWatch Metrics", Order: 4}, {Name: "tracingPlatform", TypeName: "String", Description: "Tracing Platform", Hint: "Jaeger, Zipkin, AWS X-Ray, Datadog APM", Order: 5}, {Name: "loggingPlatform", TypeName: "String", Description: "Logging Platform", Hint: "ELK Stack, Loki, CloudWatch Logs", Order: 6}, {Name: "coverageRequirement", TypeName: "String", Description: "Coverage Requirement", Hint: "Which services must be monitored", Order: 7}, {Name: "dataRetention", TypeName: "String", Description: "Data Retention", Hint: "Metrics: 15d, traces: 7d, logs: 30d", Order: 8}, {Name: "costBudget", TypeName: "String", Description: "Cost Budget", Hint: "Monthly monitoring cost budget", Order: 9}}}},
 		{ClassName: "Monitoring", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of monitoring philosophy, tool selection rationale, and observability goals.", DocComment: "Monitoring strategy narrative."},
 		metaCx("HealthChecksAndDiagnosticsSection", s, metaChildrenHealthChecksAndDiagnosticsSection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "HealthChecksAndDiagnosticsSection", MemberName: "healthChecksAndDiagnostics", ClassSectionID: "HCADS", Kind: som.SomMetaKindComplex, TypeName: "HealthChecksAndDiagnosticsSection", SerializationOrder: metaIntPtr(2), DocComment: "8.7.2.1. Health Checks and Diagnostics.", ClassDocComment: "8.7.2.1. Health Checks and Diagnostics.", Recursive: r, Children: c}
@@ -16385,7 +16385,7 @@ func metaChildrenMonitoringCoverage(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenMonitoringDashboards(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MonitoringDashboards", MemberName: "dashboardOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dashboardPlatform", TypeName: "String", Description: "Dashboard Platform", Hint: "Grafana, Datadog, CloudWatch, custom", Order: 0}, {Name: "dashboardAccessControl", TypeName: "String", Description: "Dashboard Access Control", Hint: "Who can view, edit dashboards", Order: 1}, {Name: "dashboardVersioning", TypeName: "bool", Description: "Dashboard Versioning", Hint: "Version control for dashboards", Order: 2}, {Name: "dashboardNamingConvention", TypeName: "String", Description: "Dashboard Naming Convention", Hint: "Naming standards for dashboards", Order: 3}, {Name: "standardLayout", TypeName: "String", Description: "Standard Layout", Hint: "Common layout patterns", Order: 4}, {Name: "colorCodingStandards", TypeName: "String", Description: "Color Coding Standards", Hint: "Red=bad, green=good conventions", Order: 5}, {Name: "executiveDashboards", TypeName: "bool", Description: "Executive Dashboards", Hint: "High-level business KPIs", Order: 6}, {Name: "operationalDashboards", TypeName: "bool", Description: "Operational Dashboards", Hint: "Real-time ops dashboards", Order: 7}, {Name: "serviceDashboards", TypeName: "bool", Description: "Service Dashboards", Hint: "Per-service detail dashboards", Order: 8}, {Name: "infrastructureDashboards", TypeName: "bool", Description: "Infrastructure Dashboards", Hint: "Infra-level dashboards", Order: 9}}}},
+		{ClassName: "MonitoringDashboards", MemberName: "dashboardOverview", SectionID: "MODA-DASH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dashboardPlatform", TypeName: "String", Description: "Dashboard Platform", Hint: "Grafana, Datadog, CloudWatch, custom", Order: 0}, {Name: "dashboardAccessControl", TypeName: "String", Description: "Dashboard Access Control", Hint: "Who can view, edit dashboards", Order: 1}, {Name: "dashboardVersioning", TypeName: "bool", Description: "Dashboard Versioning", Hint: "Version control for dashboards", Order: 2}, {Name: "dashboardNamingConvention", TypeName: "String", Description: "Dashboard Naming Convention", Hint: "Naming standards for dashboards", Order: 3}, {Name: "standardLayout", TypeName: "String", Description: "Standard Layout", Hint: "Common layout patterns", Order: 4}, {Name: "colorCodingStandards", TypeName: "String", Description: "Color Coding Standards", Hint: "Red=bad, green=good conventions", Order: 5}, {Name: "executiveDashboards", TypeName: "bool", Description: "Executive Dashboards", Hint: "High-level business KPIs", Order: 6}, {Name: "operationalDashboards", TypeName: "bool", Description: "Operational Dashboards", Hint: "Real-time ops dashboards", Order: 7}, {Name: "serviceDashboards", TypeName: "bool", Description: "Service Dashboards", Hint: "Per-service detail dashboards", Order: 8}, {Name: "infrastructureDashboards", TypeName: "bool", Description: "Infrastructure Dashboards", Hint: "Infra-level dashboards", Order: 9}}}},
 		{ClassName: "MonitoringDashboards", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Dashboard overview narrative."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "MonitoringDashboards", MemberName: "dashboards", SectionID: "DAEN-DASH-LST", SectionIDPattern: "DAEN-DASH-xxx", Kind: som.SomMetaKindList, TypeName: "DashboardEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per dashboard.", DocComment: "Dashboard catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Grafana — dashboard and panel design"}, "connotation": "The catalog of monitoring dashboards the system provides."}}}}
@@ -16508,13 +16508,13 @@ func metaChildrenMoscowEntryValue(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenMultiChannelExperience(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "MultiChannelExperience", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of how a consistent experience is maintained across channels and during channel switching."},
-		{ClassName: "MultiChannelExperience", MemberName: "multiChannelConfiguration", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Multi-channel configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "channelHandoff", TypeName: "String", Description: "Channel Handoff", Hint: "How users switch between channels seamlessly", Order: 0}, {Name: "contextPreservation", TypeName: "String", Description: "Context Preservation", Hint: "What context is preserved when switching channels", Order: 1}, {Name: "dataSynchronization", TypeName: "String", Description: "Data Synchronization", Hint: "Real-time, Near-real-time, Eventual", Order: 2}, {Name: "conflictResolution", TypeName: "String", Description: "Conflict Resolution", Hint: "How conflicts from multi-channel edits are resolved", Order: 3}, {Name: "consistentBranding", TypeName: "String", Description: "Consistent Branding", Hint: "Brand consistency requirements across channels", Order: 4}, {Name: "featureParity", TypeName: "String", Description: "Feature Parity", Hint: "Degree of feature consistency across channels", Order: 5}, {Name: "responsiveDesign", TypeName: "String", Description: "Responsive Design", Hint: "Approach to responsive/adaptive design", Order: 6}, {Name: "progressiveEnhancement", TypeName: "String", Description: "Progressive Enhancement", Hint: "How features degrade on limited channels", Order: 7}, {Name: "offlineFirst", TypeName: "String", Description: "Offline-First Strategy", Hint: "Offline-first approach for applicable channels", Order: 8}}}},
+		{ClassName: "MultiChannelExperience", MemberName: "multiChannelConfiguration", SectionID: "MCE-MULT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Multi-channel configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "channelHandoff", TypeName: "String", Description: "Channel Handoff", Hint: "How users switch between channels seamlessly", Order: 0}, {Name: "contextPreservation", TypeName: "String", Description: "Context Preservation", Hint: "What context is preserved when switching channels", Order: 1}, {Name: "dataSynchronization", TypeName: "String", Description: "Data Synchronization", Hint: "Real-time, Near-real-time, Eventual", Order: 2}, {Name: "conflictResolution", TypeName: "String", Description: "Conflict Resolution", Hint: "How conflicts from multi-channel edits are resolved", Order: 3}, {Name: "consistentBranding", TypeName: "String", Description: "Consistent Branding", Hint: "Brand consistency requirements across channels", Order: 4}, {Name: "featureParity", TypeName: "String", Description: "Feature Parity", Hint: "Degree of feature consistency across channels", Order: 5}, {Name: "responsiveDesign", TypeName: "String", Description: "Responsive Design", Hint: "Approach to responsive/adaptive design", Order: 6}, {Name: "progressiveEnhancement", TypeName: "String", Description: "Progressive Enhancement", Hint: "How features degrade on limited channels", Order: 7}, {Name: "offlineFirst", TypeName: "String", Description: "Offline-First Strategy", Hint: "Offline-first approach for applicable channels", Order: 8}}}},
 	}
 }
 
 func metaChildrenMultiLanguageSupport(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "supportedLanguages", TypeName: "String", Description: "Supported Languages", Hint: "List of supported languages (e.g., en, de, fr, es)", Order: 0}, {Name: "primaryLanguage", TypeName: "String", Description: "Primary Language", Hint: "Default/fallback language", Order: 1}, {Name: "futureLanguages", TypeName: "String", Description: "Future Languages", Hint: "Languages planned for future support", Order: 2}, {Name: "rtlLanguages", TypeName: "String", Description: "RTL Languages", Hint: "Right-to-left languages supported", Order: 3}}}},
+		{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageOverview", SectionID: "MLAR-MULT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "supportedLanguages", TypeName: "String", Description: "Supported Languages", Hint: "List of supported languages (e.g., en, de, fr, es)", Order: 0}, {Name: "primaryLanguage", TypeName: "String", Description: "Primary Language", Hint: "Default/fallback language", Order: 1}, {Name: "futureLanguages", TypeName: "String", Description: "Future Languages", Hint: "Languages planned for future support", Order: 2}, {Name: "rtlLanguages", TypeName: "String", Description: "RTL Languages", Hint: "Right-to-left languages supported", Order: 3}}}},
 		{ClassName: "MultiLanguageSupport", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of internationalization and localization approach for the system.", DocComment: "Multi-language overview narrative."},
 		metaCx("LanguageCountrySelection", s, metaChildrenLanguageCountrySelection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(2), DocComment: "10.12.4. Language and Country Selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
@@ -16531,7 +16531,7 @@ func metaChildrenMultiLanguageSupport(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenMustPassCriteria(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MustPassCriteria", MemberName: "mustPassOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mustPassPhilosophy", TypeName: "String", Description: "Must-Pass Philosophy", Hint: "All must pass, weighted approach", Order: 0}, {Name: "mustPassCount", TypeName: "int", Description: "Number of Must-Pass Criteria", Hint: "Total count of must-pass criteria", Order: 1}, {Name: "criticalityDefinition", TypeName: "String", Description: "Criticality Definition", Hint: "What makes a criterion must-pass", Order: 2}, {Name: "waiverProcess", TypeName: "String", Description: "Waiver Process", Hint: "Can must-pass criteria be waived", Order: 3}, {Name: "waiverAuthority", TypeName: "String", Description: "Waiver Authority", Hint: "Who can grant waivers", Order: 4}}}},
+		{ClassName: "MustPassCriteria", MemberName: "mustPassOverviewContent", SectionID: "MUPACR-MUST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mustPassPhilosophy", TypeName: "String", Description: "Must-Pass Philosophy", Hint: "All must pass, weighted approach", Order: 0}, {Name: "mustPassCount", TypeName: "int", Description: "Number of Must-Pass Criteria", Hint: "Total count of must-pass criteria", Order: 1}, {Name: "criticalityDefinition", TypeName: "String", Description: "Criticality Definition", Hint: "What makes a criterion must-pass", Order: 2}, {Name: "waiverProcess", TypeName: "String", Description: "Waiver Process", Hint: "Can must-pass criteria be waived", Order: 3}, {Name: "waiverAuthority", TypeName: "String", Description: "Waiver Authority", Hint: "Who can grant waivers", Order: 4}}}},
 		{ClassName: "MustPassCriteria", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of must-pass criteria approach and rationale for selection.", DocComment: "Must-pass criteria overview."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "MustPassCriteria", MemberName: "items", SectionID: "MSTPCR-ITEM-LST", SectionIDPattern: "MSTPCR-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "MustPassCriterionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per must-pass criterion.", DocComment: "Contains 0+× MustPassCriterion.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — each acceptance criterion is enumerated as a discrete item with a defined verification method"}, "connotation": "Enumerates the must-pass criteria as discrete items, each with a defined verification method."}}}}
@@ -17369,7 +17369,7 @@ func metaChildrenOnCallScheduleConfigOperations(s map[string]bool) []*som.SomMet
 
 func metaChildrenOnboardingHelp(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "OnboardingHelp", MemberName: "onboardingContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "welcomeFlowEnabled", TypeName: "bool", Description: "Welcome Flow Enabled", Hint: "Whether the welcome flow is enabled", Order: 0}, {Name: "welcomeFlowStyle", TypeName: "String", Description: "Welcome Flow Style", Hint: "Modal wizard, full-page, inline", Order: 1}, {Name: "welcomeFlowSkippable", TypeName: "bool", Description: "Welcome Flow Skippable", Hint: "Whether users can skip the welcome flow", Order: 2}, {Name: "welcomeFlowDuration", TypeName: "String", Description: "Welcome Flow Duration", Hint: "Expected completion time", Order: 3}}}},
+		{ClassName: "OnboardingHelp", MemberName: "onboardingContent", SectionID: "ONHE-ONBO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "welcomeFlowEnabled", TypeName: "bool", Description: "Welcome Flow Enabled", Hint: "Whether the welcome flow is enabled", Order: 0}, {Name: "welcomeFlowStyle", TypeName: "String", Description: "Welcome Flow Style", Hint: "Modal wizard, full-page, inline", Order: 1}, {Name: "welcomeFlowSkippable", TypeName: "bool", Description: "Welcome Flow Skippable", Hint: "Whether users can skip the welcome flow", Order: 2}, {Name: "welcomeFlowDuration", TypeName: "String", Description: "Welcome Flow Duration", Hint: "Expected completion time", Order: 3}}}},
 		metaCx("OnboardingHelpTours", s, metaChildrenOnboardingHelpTours, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "OnboardingHelpTours", MemberName: "tours", ClassSectionID: "ONHETO", Kind: som.SomMetaKindComplex, TypeName: "OnboardingHelpTours", SerializationOrder: metaIntPtr(1), DocComment: "Feature tour settings.", ClassDocComment: "Feature tour settings.", Recursive: r, Children: c}
 		}),
@@ -17594,7 +17594,7 @@ func metaChildrenOrgImplementationActivity(s map[string]bool) []*som.SomMetaNode
 func metaChildrenOrgRequirementImplementationPlan(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "OrgRequirementImplementationPlan", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "OrgRequirementImplementationPlan", MemberName: "planForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Implementation plan form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "approach", TypeName: "String", Description: "Approach (Big Bang, Phased, Pilot, Parallel)", Hint: "Big Bang, Phased, Pilot, or Parallel rollout", Order: 0}, {Name: "phases", TypeName: "String", Description: "Phases (if phased rollout)", Hint: "Sequence of phases, if phased", Order: 1}, {Name: "pilotGroup", TypeName: "String", Description: "Pilot Group (if pilot approach)", Hint: "Group used for the pilot, if piloting", Order: 2}, {Name: "trainingApproach", TypeName: "String", Description: "Training Approach", Hint: "How affected people are trained", Order: 3}, {Name: "communicationPlan", TypeName: "String", Description: "Communication Plan", Hint: "How the change is communicated to stakeholders", Order: 4}, {Name: "supportPlan", TypeName: "String", Description: "Support Plan", Hint: "Support provided during and after the change", Order: 5}, {Name: "rollbackPlan", TypeName: "String", Description: "Rollback Plan", Hint: "How to revert if the change fails", Order: 6}, {Name: "resourcesNeeded", TypeName: "String", Description: "Resources Needed", Hint: "People, tools, or budget required", Order: 7}, {Name: "budget", TypeName: "String", Description: "Budget", Hint: "Estimated cost of the implementation", Order: 8}, {Name: "timeline", TypeName: "String", Description: "Timeline", Hint: "Schedule for the implementation", Order: 9}}}},
+		{ClassName: "OrgRequirementImplementationPlan", MemberName: "planForm", SectionID: "ORIP-PLAN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Implementation plan form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "approach", TypeName: "String", Description: "Approach (Big Bang, Phased, Pilot, Parallel)", Hint: "Big Bang, Phased, Pilot, or Parallel rollout", Order: 0}, {Name: "phases", TypeName: "String", Description: "Phases (if phased rollout)", Hint: "Sequence of phases, if phased", Order: 1}, {Name: "pilotGroup", TypeName: "String", Description: "Pilot Group (if pilot approach)", Hint: "Group used for the pilot, if piloting", Order: 2}, {Name: "trainingApproach", TypeName: "String", Description: "Training Approach", Hint: "How affected people are trained", Order: 3}, {Name: "communicationPlan", TypeName: "String", Description: "Communication Plan", Hint: "How the change is communicated to stakeholders", Order: 4}, {Name: "supportPlan", TypeName: "String", Description: "Support Plan", Hint: "Support provided during and after the change", Order: 5}, {Name: "rollbackPlan", TypeName: "String", Description: "Rollback Plan", Hint: "How to revert if the change fails", Order: 6}, {Name: "resourcesNeeded", TypeName: "String", Description: "Resources Needed", Hint: "People, tools, or budget required", Order: 7}, {Name: "budget", TypeName: "String", Description: "Budget", Hint: "Estimated cost of the implementation", Order: 8}, {Name: "timeline", TypeName: "String", Description: "Timeline", Hint: "Schedule for the implementation", Order: 9}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "OrgRequirementImplementationPlan", MemberName: "activities", SectionID: "ORGIM-ACTI-LST", SectionIDPattern: "ORGIM-ACTI-xxx", Kind: som.SomMetaKindList, TypeName: "OrgImplementationActivity", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per implementation activity for this organizational change.", DocComment: "Implementation activities — contains 0+× OrgImplementationActivity.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — implementation activities", "PMBOK — change/implementation management"}, "connotation": "The set of individual implementation activities that carry out the organizational change."}}}}
 			n.ElementNode = metaCx("OrgImplementationActivity", s, metaChildrenOrgImplementationActivity, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -17656,13 +17656,13 @@ func metaChildrenOrganizationalContext(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "OrganizationalContext", MemberName: "businessProcessCoverage", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Which business processes does this system support or automate?"}, DocComment: "Business process coverage."},
+		{ClassName: "OrganizationalContext", MemberName: "businessProcessCoverage", SectionID: "OC-BUSI", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Which business processes does this system support or automate?"}, DocComment: "Business process coverage."},
 	}
 }
 
 func metaChildrenOrganizationalEnvironment(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "OrganizationalEnvironment", MemberName: "organizationContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "organizationName", TypeName: "String", Description: "Organization Name", Hint: "Legal or common name of the organization", Order: 0}, {Name: "organizationType", TypeName: "String", Description: "Organization Type (Enterprise, SMB, Startup, Government, Non-profit)", Hint: "Category that best describes the organization", Order: 1}, {Name: "industryVertical", TypeName: "String", Description: "Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)", Hint: "Primary industry the organization operates in", Order: 2}, {Name: "geographicFootprint", TypeName: "String", Description: "Geographic Footprint (Local, National, Regional, Global)", Hint: "Geographic reach of the organization", Order: 3}, {Name: "employeeCount", TypeName: "String", Description: "Employee Count", Hint: "Approximate number of employees", Order: 4}, {Name: "revenueRange", TypeName: "String", Description: "Revenue Range", Hint: "Approximate annual revenue band", Order: 5}}}},
+		{ClassName: "OrganizationalEnvironment", MemberName: "organizationContent", SectionID: "OREN-ORGA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "organizationName", TypeName: "String", Description: "Organization Name", Hint: "Legal or common name of the organization", Order: 0}, {Name: "organizationType", TypeName: "String", Description: "Organization Type (Enterprise, SMB, Startup, Government, Non-profit)", Hint: "Category that best describes the organization", Order: 1}, {Name: "industryVertical", TypeName: "String", Description: "Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)", Hint: "Primary industry the organization operates in", Order: 2}, {Name: "geographicFootprint", TypeName: "String", Description: "Geographic Footprint (Local, National, Regional, Global)", Hint: "Geographic reach of the organization", Order: 3}, {Name: "employeeCount", TypeName: "String", Description: "Employee Count", Hint: "Approximate number of employees", Order: 4}, {Name: "revenueRange", TypeName: "String", Description: "Revenue Range", Hint: "Approximate annual revenue band", Order: 5}}}},
 		metaCx("OrganizationalEnvironmentMaturity", s, metaChildrenOrganizationalEnvironmentMaturity, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "OrganizationalEnvironmentMaturity", MemberName: "maturity", ClassSectionID: "ORENMA", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalEnvironmentMaturity", SerializationOrder: metaIntPtr(1), DocComment: "Organizational maturity indicators.", ClassDocComment: "Organizational maturity indicators.", Recursive: r, Children: c}
 		}),
@@ -17786,7 +17786,7 @@ func metaChildrenOrganizationalRequirementEntryPlanning(s map[string]bool) []*so
 func metaChildrenOrganizationalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "OrganizationalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "OrganizationalRequirements", MemberName: "summaryForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Organizational requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalOrgRequirements", TypeName: "String", Description: "Total Organizational Requirements", Hint: "Total count of organizational requirements captured", Order: 0}, {Name: "trainingRequirements", TypeName: "String", Description: "Training Requirements (count)", Hint: "Number of training-related requirements", Order: 1}, {Name: "processChangeRequirements", TypeName: "String", Description: "Process Change (count)", Hint: "Number of process-change requirements", Order: 2}, {Name: "roleChangeRequirements", TypeName: "String", Description: "Role Change (count)", Hint: "Number of role-change requirements", Order: 3}, {Name: "supportRequirements", TypeName: "String", Description: "Support Requirements (count)", Hint: "Number of support-structure requirements", Order: 4}, {Name: "communicationRequirements", TypeName: "String", Description: "Communication (count)", Hint: "Number of communication requirements", Order: 5}, {Name: "changeReadinessScore", TypeName: "String", Description: "Organizational Change Readiness Score", Hint: "Assessed readiness of the organization to adopt the change", Order: 6}}}},
+		{ClassName: "OrganizationalRequirements", MemberName: "summaryForm", SectionID: "OR-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Organizational requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalOrgRequirements", TypeName: "String", Description: "Total Organizational Requirements", Hint: "Total count of organizational requirements captured", Order: 0}, {Name: "trainingRequirements", TypeName: "String", Description: "Training Requirements (count)", Hint: "Number of training-related requirements", Order: 1}, {Name: "processChangeRequirements", TypeName: "String", Description: "Process Change (count)", Hint: "Number of process-change requirements", Order: 2}, {Name: "roleChangeRequirements", TypeName: "String", Description: "Role Change (count)", Hint: "Number of role-change requirements", Order: 3}, {Name: "supportRequirements", TypeName: "String", Description: "Support Requirements (count)", Hint: "Number of support-structure requirements", Order: 4}, {Name: "communicationRequirements", TypeName: "String", Description: "Communication (count)", Hint: "Number of communication requirements", Order: 5}, {Name: "changeReadinessScore", TypeName: "String", Description: "Organizational Change Readiness Score", Hint: "Assessed readiness of the organization to adopt the change", Order: 6}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "OrganizationalRequirements", MemberName: "requirements", SectionID: "ORRQ-REQU-LST", SectionIDPattern: "ORRQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "OrganizationalRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per organizational requirement.", DocComment: "Organizational requirements list — contains 0+× Organizational Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"}, "connotation": "The set of individual organizational requirement entries — the non-technical changes needed for the system to succeed."}}}}
 			n.ElementNode = metaCx("OrganizationalRequirementEntry", s, metaChildrenOrganizationalRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -18017,7 +18017,7 @@ func metaChildrenPainPointEvidence(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenPainPointGapCorrelation(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "PainPointGapCorrelation", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Analysis of relationships between documented pain points and capability gaps.\nShows which gaps cause which pain points, and which pain points indicate\nunderlying gaps that may not be explicitly documented.\n"},
-		{ClassName: "PainPointGapCorrelation", MemberName: "correlationDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing cause-effect relationships between capability gaps and resulting pain points"}, DocComment: "Visual correlation between pain points and gaps."},
+		{ClassName: "PainPointGapCorrelation", MemberName: "correlationDiagram", SectionID: "PPGC-CORR", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing cause-effect relationships between capability gaps and resulting pain points"}, DocComment: "Visual correlation between pain points and gaps."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "PainPointGapCorrelation", MemberName: "correlationEntries", SectionID: "PPGCE-CORR-LST", SectionIDPattern: "PPGCE-CORR-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointGapCorrelationEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is.", DocComment: "Tabular correlation data.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §6 — gap analysis (pain-point to gap traceability)"}, "connotation": "The list of individual pain-point-to-gap correlation entries."}}}}
 			n.ElementNode = metaCx("PainPointGapCorrelationEntry", s, metaChildrenPainPointGapCorrelationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -18067,8 +18067,8 @@ func metaChildrenPainPointWorkaround(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenPainPointsAndGaps(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "PainPointsAndGaps", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive overview of pain points and gaps in the current state.\nSummarize the most critical issues affecting operations, business outcomes,\nand technical capabilities. Highlight interdependencies between pain points.\n"},
-		{ClassName: "PainPointsAndGaps", MemberName: "painPointsOverviewDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing pain point categories, relationships, and impact flow between operational, business, and technical pain points"}, DocComment: "Visual mapping of pain points and their relationships."},
-		{ClassName: "PainPointsAndGaps", MemberName: "painPointsPriorityMatrix", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Quadrant chart mapping pain points by urgency and impact dimensions to guide prioritization decisions"}, DocComment: "Pain points priority matrix (urgency vs impact)."},
+		{ClassName: "PainPointsAndGaps", MemberName: "painPointsOverviewDiagram", SectionID: "PPAG-PAIN", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing pain point categories, relationships, and impact flow between operational, business, and technical pain points"}, DocComment: "Visual mapping of pain points and their relationships."},
+		{ClassName: "PainPointsAndGaps", MemberName: "painPointsPriorityMatrix", SectionID: "PPAG-PAINP", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Quadrant chart mapping pain points by urgency and impact dimensions to guide prioritization decisions"}, DocComment: "Pain points priority matrix (urgency vs impact)."},
 		metaCx("PainPointsSummary", s, metaChildrenPainPointsSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PainPointsSummary", MemberName: "painPointsSummary", ClassSectionID: "PAPOSU", Kind: som.SomMetaKindComplex, TypeName: "PainPointsSummary", SerializationOrder: metaIntPtr(3), DocComment: "Summary statistics for all pain points.", ClassDocComment: "Summary statistics and metrics for all pain points.", Recursive: r, Children: c}
 		}),
@@ -18226,7 +18226,7 @@ func metaChildrenPenetrationTestingRequirementsScheduling(s map[string]bool) []*
 
 func metaChildrenPerformanceEfficiencyCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PerformanceEfficiencyCharacteristic", MemberName: "performanceEfficiencyContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "technicalQualityPhilosophy", TypeName: "String", Description: "Technical Quality Philosophy", Hint: "Performance-first, maintainability-first, balanced", Order: 0}, {Name: "architecturalQualityGoals", TypeName: "String", Description: "Architectural Quality Goals", Hint: "Key architectural quality attributes", Order: 1}, {Name: "technicalDebtTolerance", TypeName: "String", Description: "Technical Debt Tolerance", Hint: "Zero, controlled, pragmatic", Order: 2}, {Name: "codeQualityStandard", TypeName: "String", Description: "Code Quality Standard", Hint: "Style guide, linting rules", Order: 3}, {Name: "designPrinciplesAdherence", TypeName: "String", Description: "Design Principles Adherence", Hint: "SOLID, DRY, KISS, YAGNI", Order: 4}}}},
+		{ClassName: "PerformanceEfficiencyCharacteristic", MemberName: "performanceEfficiencyContent", SectionID: "PEEF-PERF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "technicalQualityPhilosophy", TypeName: "String", Description: "Technical Quality Philosophy", Hint: "Performance-first, maintainability-first, balanced", Order: 0}, {Name: "architecturalQualityGoals", TypeName: "String", Description: "Architectural Quality Goals", Hint: "Key architectural quality attributes", Order: 1}, {Name: "technicalDebtTolerance", TypeName: "String", Description: "Technical Debt Tolerance", Hint: "Zero, controlled, pragmatic", Order: 2}, {Name: "codeQualityStandard", TypeName: "String", Description: "Code Quality Standard", Hint: "Style guide, linting rules", Order: 3}, {Name: "designPrinciplesAdherence", TypeName: "String", Description: "Design Principles Adherence", Hint: "SOLID, DRY, KISS, YAGNI", Order: 4}}}},
 		{ClassName: "PerformanceEfficiencyCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of performance-efficiency goals, architectural decisions, and key technical metrics.", DocComment: "Performance efficiency overview."},
 		metaCx("Efficiency", s, metaChildrenEfficiency, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Efficiency", MemberName: "efficiency", ClassSectionID: "EFQU", Kind: som.SomMetaKindComplex, TypeName: "Efficiency", SerializationOrder: metaIntPtr(2), DocComment: "11.3.1. Efficiency.", ClassDocComment: "11.3.1. Efficiency quality.", Recursive: r, Children: c}
@@ -18968,7 +18968,7 @@ func metaChildrenProcessAdjustments(s map[string]bool) []*som.SomMetaNode {
 		metaCx("ProcessAdjustmentSummary", s, metaChildrenProcessAdjustmentSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProcessAdjustmentSummary", MemberName: "adjustmentSummary", ClassSectionID: "PCASM", Kind: som.SomMetaKindComplex, TypeName: "ProcessAdjustmentSummary", SerializationOrder: metaIntPtr(1), DocComment: "Process adjustment summary.", ClassDocComment: "Summary of process adjustments.", Recursive: r, Children: c}
 		}),
-		{ClassName: "ProcessAdjustments", MemberName: "processFlowDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing process flow with adjustments highlighted — skipped steps crossed out, reordered steps with arrows, added steps in different color"}, DocComment: "Visual representation of process adjustments."},
+		{ClassName: "ProcessAdjustments", MemberName: "processFlowDiagram", SectionID: "PCADJ-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing process flow with adjustments highlighted — skipped steps crossed out, reordered steps with arrows, added steps in different color"}, DocComment: "Visual representation of process adjustments."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ProcessAdjustments", MemberName: "items", SectionID: "PCAJE-ITEM-LST", SectionIDPattern: "PCAJE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "ProcessAdjustmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per process step that deviates from the standard, capturing the adjustment type, rationale, implementation, risk, and approval.", DocComment: "Contains 0+× ProcessAdjustment.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — project management (process tailoring)"}, "connotation": "The set of individual process-step-deviation entries for this project."}}}}
 			n.ElementNode = metaCx("ProcessAdjustmentEntry", s, metaChildrenProcessAdjustmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -19280,7 +19280,7 @@ func metaChildrenProcessInputsOutputs(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenProcessInterdependencyMatrix(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ProcessInterdependencyMatrix", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "ProcessInterdependencyMatrix", MemberName: "dependencyDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual matrix of process dependencies"}, ContentHelp: "Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.", DocComment: "Interdependency diagram."},
+		{ClassName: "ProcessInterdependencyMatrix", MemberName: "dependencyDiagram", SectionID: "PRINMA-DEPE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual matrix of process dependencies"}, ContentHelp: "Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.", DocComment: "Interdependency diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ProcessInterdependencyMatrix", MemberName: "dependencies", SectionID: "PRDEEN-DEPE-LST", SectionIDPattern: "PRDEEN-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "ProcessDependencyEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact.", DocComment: "Individual process dependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (process dependency)"}, "connotation": "The set of individual dependencies between processes."}}}}
 			n.ElementNode = metaCx("ProcessDependencyEntry", s, metaChildrenProcessDependencyEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -19768,7 +19768,7 @@ func metaChildrenProjectOrganization(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenProjectOrganizationAndProcess(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ProjectOrganizationAndProcess", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of project-specific methodology deviations.\nExplain why this project requires deviations from standard TomSpecs practices,\nthe overall impact on governance, and how deviations are tracked and approved.\n"},
-		{ClassName: "ProjectOrganizationAndProcess", MemberName: "methodologyDeviationDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing how project-specific methodology relates to standard TomSpecs, highlighting key deviations"}, DocComment: "Visual overview of methodology deviations."},
+		{ClassName: "ProjectOrganizationAndProcess", MemberName: "methodologyDeviationDiagram", SectionID: "PRPO-METH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Diagram showing how project-specific methodology relates to standard TomSpecs, highlighting key deviations"}, DocComment: "Visual overview of methodology deviations."},
 		metaCx("MethodologyDeviationSummary", s, metaChildrenMethodologyDeviationSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MethodologyDeviationSummary", MemberName: "deviationSummary", ClassSectionID: "MEDSM", Kind: som.SomMetaKindComplex, TypeName: "MethodologyDeviationSummary", SerializationOrder: metaIntPtr(2), DocComment: "Summary of all methodology deviations.", ClassDocComment: "Summary of all methodology deviations for quick reference.", Recursive: r, Children: c}
 		}),
@@ -19907,7 +19907,7 @@ func metaChildrenProtocolsAndStandardsSection(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenPrototype(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Prototype", MemberName: "prototypeOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prototypePurpose", TypeName: "String", Description: "Prototype Purpose", Hint: "Primary goal: validation, alignment, feasibility", Order: 0}, {Name: "prototypeScope", TypeName: "String", Description: "Prototype Scope", Hint: "What is included in prototype", Order: 1}, {Name: "targetAudience", TypeName: "String", Description: "Target Audience", Hint: "Who will evaluate the prototype", Order: 2}, {Name: "successCriteria", TypeName: "String", Description: "Success Criteria", Hint: "How success is measured", Order: 3}}}},
+		{ClassName: "Prototype", MemberName: "prototypeOverview", SectionID: "PROTOT-PROT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prototypePurpose", TypeName: "String", Description: "Prototype Purpose", Hint: "Primary goal: validation, alignment, feasibility", Order: 0}, {Name: "prototypeScope", TypeName: "String", Description: "Prototype Scope", Hint: "What is included in prototype", Order: 1}, {Name: "targetAudience", TypeName: "String", Description: "Target Audience", Hint: "Who will evaluate the prototype", Order: 2}, {Name: "successCriteria", TypeName: "String", Description: "Success Criteria", Hint: "How success is measured", Order: 3}}}},
 		metaCx("PrototypeTimeline", s, metaChildrenPrototypeTimeline, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PrototypeTimeline", MemberName: "timeline", ClassSectionID: "PRTI", Kind: som.SomMetaKindComplex, TypeName: "PrototypeTimeline", SerializationOrder: metaIntPtr(1), DocComment: "Prototype timing commitments.", ClassDocComment: "Prototype timing commitments.", Recursive: r, Children: c}
 		}),
@@ -19939,7 +19939,7 @@ func metaChildrenPrototypeFeatureEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenPrototypeFeatureSubset(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PrototypeFeatureSubset", MemberName: "featureSubsetContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "selectionCriteria", TypeName: "String", Description: "Selection Criteria", Hint: "How features were selected", Order: 0}, {Name: "riskBasedSelection", TypeName: "String", Description: "Risk-Based Selection", Hint: "High-risk features included", Order: 1}, {Name: "valueBasedSelection", TypeName: "String", Description: "Value-Based Selection", Hint: "High-value features included", Order: 2}, {Name: "uncertaintyBasedSelection", TypeName: "String", Description: "Uncertainty-Based Selection", Hint: "Most uncertain features included", Order: 3}}}},
+		{ClassName: "PrototypeFeatureSubset", MemberName: "featureSubsetContent", SectionID: "PRFESU-FEAT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "selectionCriteria", TypeName: "String", Description: "Selection Criteria", Hint: "How features were selected", Order: 0}, {Name: "riskBasedSelection", TypeName: "String", Description: "Risk-Based Selection", Hint: "High-risk features included", Order: 1}, {Name: "valueBasedSelection", TypeName: "String", Description: "Value-Based Selection", Hint: "High-value features included", Order: 2}, {Name: "uncertaintyBasedSelection", TypeName: "String", Description: "Uncertainty-Based Selection", Hint: "Most uncertain features included", Order: 3}}}},
 		metaCx("PrototypeFeatureSubsetScope", s, metaChildrenPrototypeFeatureSubsetScope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PrototypeFeatureSubsetScope", MemberName: "scope", ClassSectionID: "PFSS", Kind: som.SomMetaKindComplex, TypeName: "PrototypeFeatureSubsetScope", SerializationOrder: metaIntPtr(1), DocComment: "Included and excluded feature scope.", ClassDocComment: "Included and excluded feature scope.", Recursive: r, Children: c}
 		}),
@@ -19977,7 +19977,7 @@ func metaChildrenPrototypeGoalEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenPrototypeGoals(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PrototypeGoals", MemberName: "goalsContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "usabilityValidation", TypeName: "bool", Description: "Usability Validation", Hint: "Validate usability of key workflows", Order: 0}, {Name: "stakeholderAlignment", TypeName: "bool", Description: "Stakeholder Alignment", Hint: "Align stakeholders on UI/UX", Order: 1}, {Name: "technicalFeasibility", TypeName: "bool", Description: "Technical Feasibility", Hint: "Prove technical approach works", Order: 2}, {Name: "performanceValidation", TypeName: "bool", Description: "Performance Validation", Hint: "Validate performance targets", Order: 3}, {Name: "integrationValidation", TypeName: "bool", Description: "Integration Validation", Hint: "Validate third-party integrations", Order: 4}}}},
+		{ClassName: "PrototypeGoals", MemberName: "goalsContent", SectionID: "PG-GOAL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "usabilityValidation", TypeName: "bool", Description: "Usability Validation", Hint: "Validate usability of key workflows", Order: 0}, {Name: "stakeholderAlignment", TypeName: "bool", Description: "Stakeholder Alignment", Hint: "Align stakeholders on UI/UX", Order: 1}, {Name: "technicalFeasibility", TypeName: "bool", Description: "Technical Feasibility", Hint: "Prove technical approach works", Order: 2}, {Name: "performanceValidation", TypeName: "bool", Description: "Performance Validation", Hint: "Validate performance targets", Order: 3}, {Name: "integrationValidation", TypeName: "bool", Description: "Integration Validation", Hint: "Validate third-party integrations", Order: 4}}}},
 		metaCx("PrototypeGoalsRisk", s, metaChildrenPrototypeGoalsRisk, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PrototypeGoalsRisk", MemberName: "riskProfile", ClassSectionID: "PRGORI", Kind: som.SomMetaKindComplex, TypeName: "PrototypeGoalsRisk", SerializationOrder: metaIntPtr(1), DocComment: "Risk reduction and assumption testing.", ClassDocComment: "Risk reduction and assumption testing.", Recursive: r, Children: c}
 		}),
@@ -20027,7 +20027,7 @@ func metaChildrenPrototypeTimeline(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenPrototypeType(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PrototypeType", MemberName: "prototypeTypeOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prototypeType", TypeName: "String", Description: "Prototype Type", Required: true, Hint: "Reusable, Training, Throwaway", Order: 0}, {Name: "typeRationale", TypeName: "String", Description: "Type Rationale", Hint: "Why this type was chosen", Order: 1}, {Name: "typeImplications", TypeName: "String", Description: "Type Implications", Hint: "Implications for development", Order: 2}, {Name: "codeQualityExpectation", TypeName: "String", Description: "Code Quality Expectation", Hint: "Production, demo, quick-and-dirty", Order: 3}, {Name: "documentationRequirement", TypeName: "String", Description: "Documentation Requirement", Hint: "Documentation needed", Order: 4}, {Name: "transitionPlan", TypeName: "String", Description: "Transition Plan", Hint: "How prototype transitions", Order: 5}}}},
+		{ClassName: "PrototypeType", MemberName: "prototypeTypeOverview", SectionID: "PRTYSE-PROT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prototypeType", TypeName: "String", Description: "Prototype Type", Required: true, Hint: "Reusable, Training, Throwaway", Order: 0}, {Name: "typeRationale", TypeName: "String", Description: "Type Rationale", Hint: "Why this type was chosen", Order: 1}, {Name: "typeImplications", TypeName: "String", Description: "Type Implications", Hint: "Implications for development", Order: 2}, {Name: "codeQualityExpectation", TypeName: "String", Description: "Code Quality Expectation", Hint: "Production, demo, quick-and-dirty", Order: 3}, {Name: "documentationRequirement", TypeName: "String", Description: "Documentation Requirement", Hint: "Documentation needed", Order: 4}, {Name: "transitionPlan", TypeName: "String", Description: "Transition Plan", Hint: "How prototype transitions", Order: 5}}}},
 		metaCx("ReusablePrototype", s, metaChildrenReusablePrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ReusablePrototype", MemberName: "reusablePrototype", ClassSectionID: "REUPRO", Kind: som.SomMetaKindComplex, TypeName: "ReusablePrototype", SerializationOrder: metaIntPtr(1), DocComment: "10.13.3.1. Reusable Prototype.", ClassDocComment: "10.13.3.1. Reusable Prototype.\n\nPrototype that becomes part of the final product.", Recursive: r, Children: c}
 		}),
@@ -20142,7 +20142,7 @@ func metaChildrenQualityCategoryEntryRelationships(s map[string]bool) []*som.Som
 
 func metaChildrenQualityFramework(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "QualityFramework", MemberName: "frameworkContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "qualityModel", TypeName: "String", Description: "Quality Model", Hint: "ISO 25010, McCall, Boehm, custom", Order: 0}, {Name: "qualityModelVersion", TypeName: "String", Description: "Model Version", Hint: "Specific version of quality model", Order: 1}, {Name: "qualityModelAdaptations", TypeName: "String", Description: "Model Adaptations", Hint: "How standard model is adapted for this project", Order: 2}}}},
+		{ClassName: "QualityFramework", MemberName: "frameworkContent", SectionID: "QLFWK-FRAM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "qualityModel", TypeName: "String", Description: "Quality Model", Hint: "ISO 25010, McCall, Boehm, custom", Order: 0}, {Name: "qualityModelVersion", TypeName: "String", Description: "Model Version", Hint: "Specific version of quality model", Order: 1}, {Name: "qualityModelAdaptations", TypeName: "String", Description: "Model Adaptations", Hint: "How standard model is adapted for this project", Order: 2}}}},
 		metaCx("QualityFrameworkObjectives", s, metaChildrenQualityFrameworkObjectives, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "QualityFrameworkObjectives", MemberName: "objectives", ClassSectionID: "QFOBJ", Kind: som.SomMetaKindComplex, TypeName: "QualityFrameworkObjectives", SerializationOrder: metaIntPtr(1), DocComment: "Quality objective structure and alignment.", ClassDocComment: "Quality objective structure and alignment.", Recursive: r, Children: c}
 		}),
@@ -20247,7 +20247,7 @@ func metaChildrenQualityGateAdjustments(s map[string]bool) []*som.SomMetaNode {
 		metaCx("QualityGateAdjustmentSummary", s, metaChildrenQualityGateAdjustmentSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "QualityGateAdjustmentSummary", MemberName: "adjustmentSummary", ClassSectionID: "QGASM", Kind: som.SomMetaKindComplex, TypeName: "QualityGateAdjustmentSummary", SerializationOrder: metaIntPtr(1), DocComment: "Quality gate adjustment summary.", ClassDocComment: "Summary of quality gate adjustments.", Recursive: r, Children: c}
 		}),
-		{ClassName: "QualityGateAdjustments", MemberName: "gateFlowDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing quality gate flow with adjustments highlighted"}, DocComment: "Visual representation of gate adjustments."},
+		{ClassName: "QualityGateAdjustments", MemberName: "gateFlowDiagram", SectionID: "QGADJ-GATE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram showing quality gate flow with adjustments highlighted"}, DocComment: "Visual representation of gate adjustments."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "QualityGateAdjustments", MemberName: "items", SectionID: "QGAJE-ITEM-LST", SectionIDPattern: "QGAJE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "QualityGateAdjustmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per quality gate that deviates from the standard, capturing the adjustment type, rationale, impact, and approval.", DocComment: "Contains 0+× QualityGateAdjustment.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — project management (quality & control processes)"}, "connotation": "The set of individual quality-gate-deviation entries for this project."}}}}
 			n.ElementNode = metaCx("QualityGateAdjustmentEntry", s, metaChildrenQualityGateAdjustmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -20311,7 +20311,7 @@ func metaChildrenQualityGateCheckEntryVerification(s map[string]bool) []*som.Som
 
 func metaChildrenQualityGateChecklist(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "QualityGateChecklist", MemberName: "checklistOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "checklistPurpose", TypeName: "String", Description: "Checklist Purpose", Hint: "Gate review, final acceptance, milestone", Order: 0}, {Name: "checklistCompleteness", TypeName: "String", Description: "Completeness Requirement", Hint: "All checks required, critical only", Order: 1}, {Name: "checklistReviewProcess", TypeName: "String", Description: "Review Process", Hint: "Individual, committee, automated", Order: 2}, {Name: "checklistSignoff", TypeName: "String", Description: "Signoff Requirement", Hint: "Single, multiple signoffs", Order: 3}, {Name: "checklistFrequency", TypeName: "String", Description: "Checklist Frequency", Hint: "When checklist is used", Order: 4}}}},
+		{ClassName: "QualityGateChecklist", MemberName: "checklistOverviewContent", SectionID: "QUGACH-CHEC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "checklistPurpose", TypeName: "String", Description: "Checklist Purpose", Hint: "Gate review, final acceptance, milestone", Order: 0}, {Name: "checklistCompleteness", TypeName: "String", Description: "Completeness Requirement", Hint: "All checks required, critical only", Order: 1}, {Name: "checklistReviewProcess", TypeName: "String", Description: "Review Process", Hint: "Individual, committee, automated", Order: 2}, {Name: "checklistSignoff", TypeName: "String", Description: "Signoff Requirement", Hint: "Single, multiple signoffs", Order: 3}, {Name: "checklistFrequency", TypeName: "String", Description: "Checklist Frequency", Hint: "When checklist is used", Order: 4}}}},
 		{ClassName: "QualityGateChecklist", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of quality gate process and checklist usage.", DocComment: "Quality gate checklist overview."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "QualityGateChecklist", MemberName: "items", SectionID: "QGCHK-ITEM-LST", SectionIDPattern: "QGCHK-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "QualityGateCheckEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per quality gate check.", DocComment: "Contains 0+× QualityGateCheck.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — each gate check is enumerated as a discrete item with a defined verification method"}, "connotation": "Enumerates each gate check as a discrete item with its verification method."}}}}
@@ -20349,7 +20349,7 @@ func metaChildrenQualityGoalsResources(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenQualityPrioritization(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "QualityPrioritization", MemberName: "prioritizationFrameworkContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prioritizationMethod", TypeName: "String", Description: "Prioritization Method", Hint: "Weighted scoring, AHP, forced ranking", Order: 0}, {Name: "prioritizationStakeholders", TypeName: "String", Description: "Prioritization Stakeholders", Hint: "Who participates in prioritization", Order: 1}, {Name: "prioritizationFrequency", TypeName: "String", Description: "Prioritization Frequency", Hint: "Once, per-phase, continuous", Order: 2}, {Name: "prioritizationDocumentation", TypeName: "String", Description: "Prioritization Documentation", Hint: "How decisions are documented", Order: 3}, {Name: "prioritizationReview", TypeName: "String", Description: "Prioritization Review", Hint: "When priorities are reviewed", Order: 4}, {Name: "conflictResolutionAuthority", TypeName: "String", Description: "Conflict Resolution Authority", Hint: "Who resolves priority conflicts", Order: 5}}}},
+		{ClassName: "QualityPrioritization", MemberName: "prioritizationFrameworkContent", SectionID: "QUPR-PRIO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prioritizationMethod", TypeName: "String", Description: "Prioritization Method", Hint: "Weighted scoring, AHP, forced ranking", Order: 0}, {Name: "prioritizationStakeholders", TypeName: "String", Description: "Prioritization Stakeholders", Hint: "Who participates in prioritization", Order: 1}, {Name: "prioritizationFrequency", TypeName: "String", Description: "Prioritization Frequency", Hint: "Once, per-phase, continuous", Order: 2}, {Name: "prioritizationDocumentation", TypeName: "String", Description: "Prioritization Documentation", Hint: "How decisions are documented", Order: 3}, {Name: "prioritizationReview", TypeName: "String", Description: "Prioritization Review", Hint: "When priorities are reviewed", Order: 4}, {Name: "conflictResolutionAuthority", TypeName: "String", Description: "Conflict Resolution Authority", Hint: "Who resolves priority conflicts", Order: 5}}}},
 		{ClassName: "QualityPrioritization", MemberName: "prioritizationOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of how quality attributes are prioritized, including stakeholder involvement and decision process.", DocComment: "Prioritization approach overview."},
 		metaCx("WeightedQualityMatrix", s, metaChildrenWeightedQualityMatrix, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WeightedQualityMatrix", MemberName: "weightedQualityMatrix", ClassSectionID: "WEQUMA", Kind: som.SomMetaKindComplex, TypeName: "WeightedQualityMatrix", SerializationOrder: metaIntPtr(2), DocComment: "11.6.1. Weighted Quality Matrix.", ClassDocComment: "11.6.1. Weighted Quality Matrix.", Recursive: r, Children: c}
@@ -20804,7 +20804,7 @@ func metaChildrenReliability(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenReliabilityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ReliabilityCharacteristic", MemberName: "reliabilityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "operationsMaturityModel", TypeName: "String", Description: "Operations Maturity Model", Hint: "ITIL, DevOps, SRE", Order: 0}, {Name: "operationsPhilosophy", TypeName: "String", Description: "Operations Philosophy", Hint: "Ops-driven, DevOps, NoOps", Order: 1}, {Name: "operationsResponsibility", TypeName: "String", Description: "Operations Responsibility", Hint: "Dedicated team, shared, outsourced", Order: 2}, {Name: "incidentManagementProcess", TypeName: "String", Description: "Incident Management Process", Hint: "PagerDuty, custom, ITIL-based", Order: 3}, {Name: "changeManagementProcess", TypeName: "String", Description: "Change Management Process", Hint: "ITIL change management, lightweight", Order: 4}, {Name: "operationsToolchain", TypeName: "String", Description: "Operations Toolchain", Hint: "Key ops tools and platforms", Order: 5}}}},
+		{ClassName: "ReliabilityCharacteristic", MemberName: "reliabilityContent", SectionID: "RELC-RELI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "operationsMaturityModel", TypeName: "String", Description: "Operations Maturity Model", Hint: "ITIL, DevOps, SRE", Order: 0}, {Name: "operationsPhilosophy", TypeName: "String", Description: "Operations Philosophy", Hint: "Ops-driven, DevOps, NoOps", Order: 1}, {Name: "operationsResponsibility", TypeName: "String", Description: "Operations Responsibility", Hint: "Dedicated team, shared, outsourced", Order: 2}, {Name: "incidentManagementProcess", TypeName: "String", Description: "Incident Management Process", Hint: "PagerDuty, custom, ITIL-based", Order: 3}, {Name: "changeManagementProcess", TypeName: "String", Description: "Change Management Process", Hint: "ITIL change management, lightweight", Order: 4}, {Name: "operationsToolchain", TypeName: "String", Description: "Operations Toolchain", Hint: "Key ops tools and platforms", Order: 5}}}},
 		{ClassName: "ReliabilityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of reliability and operational requirements, support model, and key operational metrics.", DocComment: "Reliability overview narrative."},
 		metaCx("Reliability", s, metaChildrenReliability, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Reliability", MemberName: "reliability", ClassSectionID: "REQU", Kind: som.SomMetaKindComplex, TypeName: "Reliability", SerializationOrder: metaIntPtr(2), DocComment: "11.6.1. Reliability (product reliability attributes).", ClassDocComment: "11.3.6. Reliability quality.", Recursive: r, Children: c}
@@ -21503,7 +21503,7 @@ func metaChildrenRequirementTestCases(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenRequirementTraceability(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementTraceability", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "RequirementTraceability", MemberName: "traceabilityForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Traceability links form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relatedGoals", TypeName: "String", Description: "Related Business Goals (IDs)", Hint: "IDs of related business goals", Order: 0}, {Name: "relatedUseCases", TypeName: "String", Description: "Related Use Cases (IDs)", Hint: "IDs of related use cases", Order: 1}, {Name: "relatedProcesses", TypeName: "String", Description: "Related Business Processes (IDs)", Hint: "IDs of related business processes", Order: 2}, {Name: "relatedUserStories", TypeName: "String", Description: "Related User Stories (if Agile)", Hint: "Related user stories, if using Agile", Order: 3}}}},
+		{ClassName: "RequirementTraceability", MemberName: "traceabilityForm", SectionID: "RT-TRAC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Traceability links form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relatedGoals", TypeName: "String", Description: "Related Business Goals (IDs)", Hint: "IDs of related business goals", Order: 0}, {Name: "relatedUseCases", TypeName: "String", Description: "Related Use Cases (IDs)", Hint: "IDs of related use cases", Order: 1}, {Name: "relatedProcesses", TypeName: "String", Description: "Related Business Processes (IDs)", Hint: "IDs of related business processes", Order: 2}, {Name: "relatedUserStories", TypeName: "String", Description: "Related User Stories (if Agile)", Hint: "Related user stories, if using Agile", Order: 3}}}},
 		metaCx("RequirementTraceabilityArtifacts", s, metaChildrenRequirementTraceabilityArtifacts, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "RequirementTraceabilityArtifacts", MemberName: "artifacts", ClassSectionID: "RETRAR", Kind: som.SomMetaKindComplex, TypeName: "RequirementTraceabilityArtifacts", SerializationOrder: metaIntPtr(2), DocComment: "Linked artifacts and test coverage references.", ClassDocComment: "Linked artifacts and test coverage references.", Recursive: r, Children: c}
 		}),
@@ -21528,9 +21528,9 @@ func metaChildrenRequirementTraceabilityImplementation(s map[string]bool) []*som
 func metaChildrenRequirementUiSpecification(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementUiSpecification", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "RequirementUiSpecification", MemberName: "uiForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "UI specification form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenName", TypeName: "String", Description: "Screen/View Name", Hint: "Name of the screen or view", Order: 0}, {Name: "screenType", TypeName: "String", Description: "Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)", Hint: "List, Detail, Form, Dashboard, Dialog, or Wizard", Order: 1}, {Name: "navigationPath", TypeName: "String", Description: "Navigation Path (how user reaches this)", Hint: "How the user navigates to reach this screen", Order: 2}, {Name: "userRoles", TypeName: "String", Description: "Allowed User Roles", Hint: "Roles allowed to access this screen", Order: 3}, {Name: "responsiveBreakpoints", TypeName: "String", Description: "Responsive Breakpoints (mobile, tablet, desktop)", Hint: "Responsive breakpoints: mobile, tablet, desktop", Order: 4}}}},
-		{ClassName: "RequirementUiSpecification", MemberName: "layoutCode", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "code-dart", Description: "Flutter/D4rt code specifying the UI layout using tom_flutter_ui components."}, ContentHelp: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.", DocComment: "UI layout specification (D4rt Flutter code)."},
-		{ClassName: "RequirementUiSpecification", MemberName: "mockupDescription", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "ASCII or text description of UI mockup if D4rt code is not available."}, DocComment: "UI mockup diagram (fallback if code not available)."},
+		{ClassName: "RequirementUiSpecification", MemberName: "uiForm", SectionID: "RUS-UIFO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "UI specification form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenName", TypeName: "String", Description: "Screen/View Name", Hint: "Name of the screen or view", Order: 0}, {Name: "screenType", TypeName: "String", Description: "Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)", Hint: "List, Detail, Form, Dashboard, Dialog, or Wizard", Order: 1}, {Name: "navigationPath", TypeName: "String", Description: "Navigation Path (how user reaches this)", Hint: "How the user navigates to reach this screen", Order: 2}, {Name: "userRoles", TypeName: "String", Description: "Allowed User Roles", Hint: "Roles allowed to access this screen", Order: 3}, {Name: "responsiveBreakpoints", TypeName: "String", Description: "Responsive Breakpoints (mobile, tablet, desktop)", Hint: "Responsive breakpoints: mobile, tablet, desktop", Order: 4}}}},
+		{ClassName: "RequirementUiSpecification", MemberName: "layoutCode", SectionID: "RUS-LAYO", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "code-dart", Description: "Flutter/D4rt code specifying the UI layout using tom_flutter_ui components."}, ContentHelp: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.", DocComment: "UI layout specification (D4rt Flutter code)."},
+		{ClassName: "RequirementUiSpecification", MemberName: "mockupDescription", SectionID: "RUS-MOCK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "ASCII or text description of UI mockup if D4rt code is not available."}, DocComment: "UI mockup diagram (fallback if code not available)."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "RequirementUiSpecification", MemberName: "fields", SectionID: "SCFLD-FIEL-LST", SectionIDPattern: "SCFLD-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenFieldEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Define each field in the UI.", DocComment: "Screen field entries — contains 0+× ScreenFieldEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "The list of individual screen-field entries that make up this UI."}}}}
 			n.ElementNode = metaCx("ScreenFieldEntry", s, metaChildrenScreenFieldEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -21573,8 +21573,8 @@ func metaChildrenRequirements(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenRequirementsOverview(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementsOverview", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "RequirementsOverview", MemberName: "requirementsForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Requirements overview form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "requirementsProcess", TypeName: "String", Description: "Requirements Process (how requirements are elicited and managed)", Hint: "How requirements are elicited, analysed, and managed", Order: 0}, {Name: "traceabilityApproach", TypeName: "String", Description: "Traceability Approach (how requirements are linked to goals, tests, code)", Hint: "How requirements are linked to goals, tests, and code", Order: 1}, {Name: "changeControlProcess", TypeName: "String", Description: "Change Control Process (how requirement changes are handled)", Hint: "How requirement changes are proposed, reviewed, and approved", Order: 2}, {Name: "prioritizationMethod", TypeName: "String", Description: "Prioritization Method (MoSCoW, Weighted, etc.)", Hint: "MoSCoW, weighted scoring, or other prioritisation scheme", Order: 3}, {Name: "totalRequirements", TypeName: "String", Description: "Total Requirements Expected (estimated count)", Hint: "Estimated total number of requirements", Order: 4}, {Name: "mustHaveCount", TypeName: "String", Description: "Must-Have Requirements (estimated)", Hint: "Estimated count of Must-Have requirements", Order: 5}, {Name: "shouldHaveCount", TypeName: "String", Description: "Should-Have Requirements (estimated)", Hint: "Estimated count of Should-Have requirements", Order: 6}, {Name: "couldHaveCount", TypeName: "String", Description: "Could-Have Requirements (estimated)", Hint: "Estimated count of Could-Have requirements", Order: 7}}}},
-		{ClassName: "RequirementsOverview", MemberName: "traceabilityMatrix", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, ContentHelp: "Provide a high-level view of requirement traceability.", DocComment: "Traceability matrix overview."},
+		{ClassName: "RequirementsOverview", MemberName: "requirementsForm", SectionID: "RO-REQU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Requirements overview form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "requirementsProcess", TypeName: "String", Description: "Requirements Process (how requirements are elicited and managed)", Hint: "How requirements are elicited, analysed, and managed", Order: 0}, {Name: "traceabilityApproach", TypeName: "String", Description: "Traceability Approach (how requirements are linked to goals, tests, code)", Hint: "How requirements are linked to goals, tests, and code", Order: 1}, {Name: "changeControlProcess", TypeName: "String", Description: "Change Control Process (how requirement changes are handled)", Hint: "How requirement changes are proposed, reviewed, and approved", Order: 2}, {Name: "prioritizationMethod", TypeName: "String", Description: "Prioritization Method (MoSCoW, Weighted, etc.)", Hint: "MoSCoW, weighted scoring, or other prioritisation scheme", Order: 3}, {Name: "totalRequirements", TypeName: "String", Description: "Total Requirements Expected (estimated count)", Hint: "Estimated total number of requirements", Order: 4}, {Name: "mustHaveCount", TypeName: "String", Description: "Must-Have Requirements (estimated)", Hint: "Estimated count of Must-Have requirements", Order: 5}, {Name: "shouldHaveCount", TypeName: "String", Description: "Should-Have Requirements (estimated)", Hint: "Estimated count of Should-Have requirements", Order: 6}, {Name: "couldHaveCount", TypeName: "String", Description: "Could-Have Requirements (estimated)", Hint: "Estimated count of Could-Have requirements", Order: 7}}}},
+		{ClassName: "RequirementsOverview", MemberName: "traceabilityMatrix", SectionID: "RO-TRAC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, ContentHelp: "Provide a high-level view of requirement traceability.", DocComment: "Traceability matrix overview."},
 		metaCx("FunctionalRequirements", s, metaChildrenFunctionalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "FunctionalRequirements", MemberName: "functionalRequirements", ClassSectionID: "FR", Kind: som.SomMetaKindComplex, TypeName: "FunctionalRequirements", SerializationOrder: metaIntPtr(3), DocComment: "4.3.1. Functional Requirements.", ClassDocComment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
@@ -21776,7 +21776,7 @@ func metaChildrenResponsibilitySystems(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenResponsiveBehavior(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ResponsiveBehavior", MemberName: "layoutAdaptation", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileColumnLayout", TypeName: "String", Description: "Mobile Column Layout", Hint: "Single column, stacked", Order: 0}, {Name: "tabletColumnLayout", TypeName: "String", Description: "Tablet Column Layout", Hint: "2-column, master-detail", Order: 1}, {Name: "desktopColumnLayout", TypeName: "String", Description: "Desktop Column Layout", Hint: "3-column, sidebar + main", Order: 2}}}},
+		{ClassName: "ResponsiveBehavior", MemberName: "layoutAdaptation", SectionID: "REBE-LAYO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileColumnLayout", TypeName: "String", Description: "Mobile Column Layout", Hint: "Single column, stacked", Order: 0}, {Name: "tabletColumnLayout", TypeName: "String", Description: "Tablet Column Layout", Hint: "2-column, master-detail", Order: 1}, {Name: "desktopColumnLayout", TypeName: "String", Description: "Desktop Column Layout", Hint: "3-column, sidebar + main", Order: 2}}}},
 		metaCx("ResponsiveBehaviorNavigation", s, metaChildrenResponsiveBehaviorNavigation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ResponsiveBehaviorNavigation", MemberName: "navigation", ClassSectionID: "REBENA", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveBehaviorNavigation", SerializationOrder: metaIntPtr(1), DocComment: "Navigation patterns per device class.", ClassDocComment: "Navigation patterns per device class.", Recursive: r, Children: c}
 		}),
@@ -21826,7 +21826,7 @@ func metaChildrenResponsiveBehaviorVisibility(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenResponsiveDesign(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ResponsiveDesign", MemberName: "responsiveOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "responsivePhilosophy", TypeName: "String", Description: "Responsive Philosophy", Hint: "Mobile-first, desktop-first, adaptive", Order: 0}, {Name: "primaryTargetDevice", TypeName: "String", Description: "Primary Target Device", Hint: "Mobile phone, tablet, desktop", Order: 1}, {Name: "deviceAssumptions", TypeName: "String", Description: "Device Assumptions", Hint: "Assumptions about target devices", Order: 2}, {Name: "responsiveFramework", TypeName: "String", Description: "Responsive Framework", Hint: "LayoutBuilder, MediaQuery, responsive_framework", Order: 3}, {Name: "breakpointPackage", TypeName: "String", Description: "Breakpoint Package", Hint: "Custom, responsive_framework, flutter_screenutil", Order: 4}, {Name: "orientationSupport", TypeName: "String", Description: "Orientation Support", Hint: "Portrait only, landscape only, both", Order: 5}, {Name: "responsiveTestingApproach", TypeName: "String", Description: "Responsive Testing Approach", Hint: "Device lab, emulator matrix, golden tests", Order: 6}, {Name: "targetDeviceMatrix", TypeName: "String", Description: "Target Device Matrix", Hint: "List of target devices for testing", Order: 7}}}},
+		{ClassName: "ResponsiveDesign", MemberName: "responsiveOverview", SectionID: "REDE-RESP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "responsivePhilosophy", TypeName: "String", Description: "Responsive Philosophy", Hint: "Mobile-first, desktop-first, adaptive", Order: 0}, {Name: "primaryTargetDevice", TypeName: "String", Description: "Primary Target Device", Hint: "Mobile phone, tablet, desktop", Order: 1}, {Name: "deviceAssumptions", TypeName: "String", Description: "Device Assumptions", Hint: "Assumptions about target devices", Order: 2}, {Name: "responsiveFramework", TypeName: "String", Description: "Responsive Framework", Hint: "LayoutBuilder, MediaQuery, responsive_framework", Order: 3}, {Name: "breakpointPackage", TypeName: "String", Description: "Breakpoint Package", Hint: "Custom, responsive_framework, flutter_screenutil", Order: 4}, {Name: "orientationSupport", TypeName: "String", Description: "Orientation Support", Hint: "Portrait only, landscape only, both", Order: 5}, {Name: "responsiveTestingApproach", TypeName: "String", Description: "Responsive Testing Approach", Hint: "Device lab, emulator matrix, golden tests", Order: 6}, {Name: "targetDeviceMatrix", TypeName: "String", Description: "Target Device Matrix", Hint: "List of target devices for testing", Order: 7}}}},
 		{ClassName: "ResponsiveDesign", MemberName: "responsiveNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of responsive design approach, key decisions, and implementation strategy.", DocComment: "Responsive design narrative."},
 		metaCx("BreakpointConfiguration", s, metaChildrenBreakpointConfiguration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "BreakpointConfiguration", MemberName: "breakpointConfig", ClassSectionID: "BC", Kind: som.SomMetaKindComplex, TypeName: "BreakpointConfiguration", SerializationOrder: metaIntPtr(2), DocComment: "10.10.1. Breakpoints.", ClassDocComment: "10.10.1. Breakpoints.\n\nBreakpoint definitions for responsive layouts.", Recursive: r, Children: c}
@@ -21977,7 +21977,7 @@ func metaChildrenReusableComponentsSection(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenReusablePrototype(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ReusablePrototype", MemberName: "reusableContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "codeQualityRequirements", TypeName: "String", Description: "Code Quality Requirements", Hint: "Standards prototype code must meet", Order: 0}, {Name: "testCoverageRequirement", TypeName: "String", Description: "Test Coverage Requirement", Hint: "Required test coverage", Order: 1}, {Name: "codeReviewRequired", TypeName: "bool", Description: "Code Review Required", Hint: "Whether code review is required", Order: 2}, {Name: "documentationRequired", TypeName: "bool", Description: "Documentation Required", Hint: "Whether documentation is required", Order: 3}}}},
+		{ClassName: "ReusablePrototype", MemberName: "reusableContent", SectionID: "REUPRO-REUS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "codeQualityRequirements", TypeName: "String", Description: "Code Quality Requirements", Hint: "Standards prototype code must meet", Order: 0}, {Name: "testCoverageRequirement", TypeName: "String", Description: "Test Coverage Requirement", Hint: "Required test coverage", Order: 1}, {Name: "codeReviewRequired", TypeName: "bool", Description: "Code Review Required", Hint: "Whether code review is required", Order: 2}, {Name: "documentationRequired", TypeName: "bool", Description: "Documentation Required", Hint: "Whether documentation is required", Order: 3}}}},
 		metaCx("ReusablePrototypeArchitecture", s, metaChildrenReusablePrototypeArchitecture, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ReusablePrototypeArchitecture", MemberName: "architecture", ClassSectionID: "REPRAR", Kind: som.SomMetaKindComplex, TypeName: "ReusablePrototypeArchitecture", SerializationOrder: metaIntPtr(1), DocComment: "Architecture alignment and refactoring expectations.", ClassDocComment: "Architecture alignment and refactoring expectations.", Recursive: r, Children: c}
 		}),
@@ -22382,7 +22382,7 @@ func metaChildrenRoleAdjustments(s map[string]bool) []*som.SomMetaNode {
 		metaCx("RoleAdjustmentSummary", s, metaChildrenRoleAdjustmentSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "RoleAdjustmentSummary", MemberName: "adjustmentSummary", ClassSectionID: "RLASM", Kind: som.SomMetaKindComplex, TypeName: "RoleAdjustmentSummary", SerializationOrder: metaIntPtr(1), DocComment: "Role adjustment summary statistics.", ClassDocComment: "Summary of role adjustments.", Recursive: r, Children: c}
 		}),
-		{ClassName: "RoleAdjustments", MemberName: "roleComparisonDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram comparing standard TomSpecs roles with project-specific role assignments"}, DocComment: "Visual comparison of standard vs adjusted roles."},
+		{ClassName: "RoleAdjustments", MemberName: "roleComparisonDiagram", SectionID: "RLADJ-ROLE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: "Diagram comparing standard TomSpecs roles with project-specific role assignments"}, DocComment: "Visual comparison of standard vs adjusted roles."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "RoleAdjustments", MemberName: "items", SectionID: "RLAJE-ITEM-LST", SectionIDPattern: "RLAJE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "RoleAdjustmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per role that deviates from the standard, capturing the adjustment type, rationale, coverage, risk, and approval.", DocComment: "Contains 0+× RoleAdjustment.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — project management (organizational roles & responsibilities)"}, "connotation": "The set of individual role-deviation entries for this project."}}}}
 			n.ElementNode = metaCx("RoleAdjustmentEntry", s, metaChildrenRoleAdjustmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -23698,7 +23698,7 @@ func metaChildrenSecurityCertificationRequirementsSoc2(s map[string]bool) []*som
 
 func metaChildrenSecurityCharacteristic(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SecurityCharacteristic", MemberName: "securityContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "securityApproach", TypeName: "String", Description: "Security Approach", Hint: "Zero-trust, defence-in-depth, least-privilege", Order: 0}, {Name: "securityComplianceTarget", TypeName: "String", Description: "Security Compliance Target", Hint: "ISO 27001, SOC 2, GDPR, sector-specific", Order: 1}}}},
+		{ClassName: "SecurityCharacteristic", MemberName: "securityContent", SectionID: "SECC-SECU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "securityApproach", TypeName: "String", Description: "Security Approach", Hint: "Zero-trust, defence-in-depth, least-privilege", Order: 0}, {Name: "securityComplianceTarget", TypeName: "String", Description: "Security Compliance Target", Hint: "ISO 27001, SOC 2, GDPR, sector-specific", Order: 1}}}},
 		{ClassName: "SecurityCharacteristic", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of security goals, threat model, and compliance targets.", DocComment: "Security overview."},
 		metaCx("Security", s, metaChildrenSecurity, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Security", MemberName: "security", ClassSectionID: "SEQU", Kind: som.SomMetaKindComplex, TypeName: "Security", SerializationOrder: metaIntPtr(2), DocComment: "11.7.1. Security (product security attributes).", ClassDocComment: "11.3.4. Security quality.", Recursive: r, Children: c}
@@ -23922,7 +23922,7 @@ func metaChildrenSecurityRequirementEntryVerification(s map[string]bool) []*som.
 func metaChildrenSecurityRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SecurityRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "SecurityRequirements", MemberName: "summaryForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Security requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalSecurityRequirements", TypeName: "String", Description: "Total Security Requirements", Hint: "Total count of security requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "securityFramework", TypeName: "String", Description: "Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)", Hint: "Primary framework guiding the requirements", Order: 4}, {Name: "complianceRequirements", TypeName: "String", Description: "Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)", Hint: "Regulations the system must comply with", Order: 5}, {Name: "threatCategories", TypeName: "String", Description: "Threat Categories Addressed (Injection, XSS, CSRF, etc.)", Hint: "Classes of attack the requirements mitigate", Order: 6}}}},
+		{ClassName: "SecurityRequirements", MemberName: "summaryForm", SectionID: "SR1-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Security requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalSecurityRequirements", TypeName: "String", Description: "Total Security Requirements", Hint: "Total count of security requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "securityFramework", TypeName: "String", Description: "Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)", Hint: "Primary framework guiding the requirements", Order: 4}, {Name: "complianceRequirements", TypeName: "String", Description: "Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)", Hint: "Regulations the system must comply with", Order: 5}, {Name: "threatCategories", TypeName: "String", Description: "Threat Categories Addressed (Injection, XSS, CSRF, etc.)", Hint: "Classes of attack the requirements mitigate", Order: 6}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "SecurityRequirements", MemberName: "requirements", SectionID: "SECRQ-REQU-LST", SectionIDPattern: "SECRQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per security requirement.", DocComment: "Security requirements list — contains 0+× Security Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 Annex A — security controls", "ISO/IEC/IEEE 29148 §9 — security requirements"}, "connotation": "The set of individual security requirement entries protecting the confidentiality, integrity, and availability of information."}}}}
 			n.ElementNode = metaCx("SecurityRequirementEntry", s, metaChildrenSecurityRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -24530,7 +24530,7 @@ func metaChildrenSessionManagement(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenSessionModel(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SessionModel", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of the session management approach for the system."},
-		{ClassName: "SessionModel", MemberName: "sessionConfiguration", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Session configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sessionType", TypeName: "String", Description: "Session Type", Hint: "Server-side, Client-side (JWT), Hybrid", Order: 0}, {Name: "sessionStorage", TypeName: "String", Description: "Session Storage", Hint: "Cookie, LocalStorage, Secure Storage", Order: 1}, {Name: "sessionTimeout", TypeName: "String", Description: "Session Timeout", Hint: "Idle timeout duration", Order: 2}, {Name: "absoluteTimeout", TypeName: "String", Description: "Absolute Timeout", Hint: "Maximum session duration", Order: 3}}}},
+		{ClassName: "SessionModel", MemberName: "sessionConfiguration", SectionID: "SM-SESS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Session configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sessionType", TypeName: "String", Description: "Session Type", Hint: "Server-side, Client-side (JWT), Hybrid", Order: 0}, {Name: "sessionStorage", TypeName: "String", Description: "Session Storage", Hint: "Cookie, LocalStorage, Secure Storage", Order: 1}, {Name: "sessionTimeout", TypeName: "String", Description: "Session Timeout", Hint: "Idle timeout duration", Order: 2}, {Name: "absoluteTimeout", TypeName: "String", Description: "Absolute Timeout", Hint: "Maximum session duration", Order: 3}}}},
 		metaCx("SessionModelLifecycle", s, metaChildrenSessionModelLifecycle, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SessionModelLifecycle", MemberName: "lifecycle", ClassSectionID: "SEMOLI", Kind: som.SomMetaKindComplex, TypeName: "SessionModelLifecycle", SerializationOrder: metaIntPtr(2), DocComment: "Refresh, concurrency, and termination behavior.", ClassDocComment: "Refresh, concurrency, and termination behavior.", Recursive: r, Children: c}
 		}),
@@ -24803,7 +24803,7 @@ func metaChildrenSkillEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSlaAndSloMonitoring(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SlaAndSloMonitoring", MemberName: "slaOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sloFramework", TypeName: "String", Description: "SLO Framework", Hint: "Google SRE, custom", Order: 0}, {Name: "errorBudgetPolicy", TypeName: "String", Description: "Error Budget Policy", Hint: "How error budget is managed", Order: 1}, {Name: "errorBudgetExhaustionPolicy", TypeName: "String", Description: "Error Budget Exhaustion Policy", Hint: "Actions when budget exhausted", Order: 2}, {Name: "slaReportingCadence", TypeName: "String", Description: "SLA Reporting Cadence", Hint: "Weekly, monthly SLA reports", Order: 3}, {Name: "slaReportingAudience", TypeName: "String", Description: "SLA Reporting Audience", Hint: "Who receives SLA reports", Order: 4}, {Name: "slaBreachProcess", TypeName: "String", Description: "SLA Breach Process", Hint: "Process when SLA is breached", Order: 5}, {Name: "customerFacingSLAs", TypeName: "bool", Description: "Customer-Facing SLAs", Hint: "SLAs published to customers", Order: 6}, {Name: "slaCredits", TypeName: "String", Description: "SLA Credits", Hint: "Credit/refund policy for breaches", Order: 7}, {Name: "slaExclusions", TypeName: "String", Description: "SLA Exclusions", Hint: "Maintenance windows, force majeure", Order: 8}}}},
+		{ClassName: "SlaAndSloMonitoring", MemberName: "slaOverview", SectionID: "SASM-SLAO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sloFramework", TypeName: "String", Description: "SLO Framework", Hint: "Google SRE, custom", Order: 0}, {Name: "errorBudgetPolicy", TypeName: "String", Description: "Error Budget Policy", Hint: "How error budget is managed", Order: 1}, {Name: "errorBudgetExhaustionPolicy", TypeName: "String", Description: "Error Budget Exhaustion Policy", Hint: "Actions when budget exhausted", Order: 2}, {Name: "slaReportingCadence", TypeName: "String", Description: "SLA Reporting Cadence", Hint: "Weekly, monthly SLA reports", Order: 3}, {Name: "slaReportingAudience", TypeName: "String", Description: "SLA Reporting Audience", Hint: "Who receives SLA reports", Order: 4}, {Name: "slaBreachProcess", TypeName: "String", Description: "SLA Breach Process", Hint: "Process when SLA is breached", Order: 5}, {Name: "customerFacingSLAs", TypeName: "bool", Description: "Customer-Facing SLAs", Hint: "SLAs published to customers", Order: 6}, {Name: "slaCredits", TypeName: "String", Description: "SLA Credits", Hint: "Credit/refund policy for breaches", Order: 7}, {Name: "slaExclusions", TypeName: "String", Description: "SLA Exclusions", Hint: "Maintenance windows, force majeure", Order: 8}}}},
 		{ClassName: "SlaAndSloMonitoring", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "SLA/SLO overview narrative."},
 		metaCx("ServiceLevelIndicators", s, metaChildrenServiceLevelIndicators, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ServiceLevelIndicators", MemberName: "slis", ClassSectionID: "SELEIN", Kind: som.SomMetaKindComplex, TypeName: "ServiceLevelIndicators", SerializationOrder: metaIntPtr(2), DocComment: "Service Level Indicators.", ClassDocComment: "Service Level Indicators.", Recursive: r, Children: c}
@@ -26080,7 +26080,7 @@ func metaChildrenSuccessCriteria(s map[string]bool) []*som.SomMetaNode {
 		metaCx("SuccessCriteriaByCategory", s, metaChildrenSuccessCriteriaByCategory, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SuccessCriteriaByCategory", MemberName: "byCategory", ClassSectionID: "SCBC", Kind: som.SomMetaKindComplex, TypeName: "SuccessCriteriaByCategory", SerializationOrder: metaIntPtr(4), DocComment: "Success criteria by category.", ClassDocComment: "Success criteria organized by category.", Recursive: r, Children: c}
 		}),
-		{ClassName: "SuccessCriteria", MemberName: "successCriteriaMatrix", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Success criteria matrix showing all criteria, their weights, and evaluation status."}, ContentHelp: "Create a summary matrix of all success criteria.", DocComment: "Success criteria matrix — overall view."},
+		{ClassName: "SuccessCriteria", MemberName: "successCriteriaMatrix", SectionID: "SC-SUCC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Success criteria matrix showing all criteria, their weights, and evaluation status."}, ContentHelp: "Create a summary matrix of all success criteria.", DocComment: "Success criteria matrix — overall view."},
 		metaCx("PostImplementationReview", s, metaChildrenPostImplementationReview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PostImplementationReview", MemberName: "postImplementationReview", ClassSectionID: "PIR", Kind: som.SomMetaKindComplex, TypeName: "PostImplementationReview", SerializationOrder: metaIntPtr(6), DocComment: "Post-implementation review plan.", ClassDocComment: "Post-implementation review plan for success criteria.", Recursive: r, Children: c}
 		}),
@@ -26089,11 +26089,11 @@ func metaChildrenSuccessCriteria(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSuccessCriteriaByCategory(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SuccessCriteriaByCategory", MemberName: "businessCriteria", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of business-focused success criteria including ROI, market impact, and strategic alignment."}, ContentHelp: "Describe how business outcomes will be measured.", DocComment: "Business outcome criteria overview."},
-		{ClassName: "SuccessCriteriaByCategory", MemberName: "technicalCriteria", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of technical quality criteria including performance, reliability, and maintainability."}, ContentHelp: "Describe how technical quality will be measured.", DocComment: "Technical quality criteria overview."},
-		{ClassName: "SuccessCriteriaByCategory", MemberName: "userCriteria", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of user-focused success criteria including adoption, satisfaction, and productivity."}, ContentHelp: "Describe how user satisfaction will be measured.", DocComment: "User satisfaction criteria overview."},
-		{ClassName: "SuccessCriteriaByCategory", MemberName: "complianceCriteria", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of compliance-related success criteria including regulatory, security, and audit requirements."}, ContentHelp: "Describe how compliance will be verified.", DocComment: "Compliance criteria overview."},
-		{ClassName: "SuccessCriteriaByCategory", MemberName: "projectCriteria", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of project management criteria including timeline adherence, budget compliance, and scope management."}, ContentHelp: "Describe how project execution will be measured.", DocComment: "Timeline and budget criteria overview."},
+		{ClassName: "SuccessCriteriaByCategory", MemberName: "businessCriteria", SectionID: "SCBC-BUSI", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of business-focused success criteria including ROI, market impact, and strategic alignment."}, ContentHelp: "Describe how business outcomes will be measured.", DocComment: "Business outcome criteria overview."},
+		{ClassName: "SuccessCriteriaByCategory", MemberName: "technicalCriteria", SectionID: "SCBC-TECH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of technical quality criteria including performance, reliability, and maintainability."}, ContentHelp: "Describe how technical quality will be measured.", DocComment: "Technical quality criteria overview."},
+		{ClassName: "SuccessCriteriaByCategory", MemberName: "userCriteria", SectionID: "SCBC-USER", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of user-focused success criteria including adoption, satisfaction, and productivity."}, ContentHelp: "Describe how user satisfaction will be measured.", DocComment: "User satisfaction criteria overview."},
+		{ClassName: "SuccessCriteriaByCategory", MemberName: "complianceCriteria", SectionID: "SCBC-COMP", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of compliance-related success criteria including regulatory, security, and audit requirements."}, ContentHelp: "Describe how compliance will be verified.", DocComment: "Compliance criteria overview."},
+		{ClassName: "SuccessCriteriaByCategory", MemberName: "projectCriteria", SectionID: "SCBC-PROJ", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of project management criteria including timeline adherence, budget compliance, and scope management."}, ContentHelp: "Describe how project execution will be measured.", DocComment: "Timeline and budget criteria overview."},
 	}
 }
 
@@ -26175,7 +26175,7 @@ func metaChildrenSuccessCriterionVerification(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenSupportAccess(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SupportAccess", MemberName: "supportAccessContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "helpCenterAvailable", TypeName: "bool", Description: "Help Center Available", Hint: "Whether a help centre is provided", Order: 0}, {Name: "liveChatAvailable", TypeName: "bool", Description: "Live Chat Available", Hint: "Whether live chat support is provided", Order: 1}, {Name: "ticketSubmission", TypeName: "bool", Description: "Ticket Submission", Hint: "Whether users can submit support tickets", Order: 2}}}},
+		{ClassName: "SupportAccess", MemberName: "supportAccessContent", SectionID: "SUAC-SUPP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "helpCenterAvailable", TypeName: "bool", Description: "Help Center Available", Hint: "Whether a help centre is provided", Order: 0}, {Name: "liveChatAvailable", TypeName: "bool", Description: "Live Chat Available", Hint: "Whether live chat support is provided", Order: 1}, {Name: "ticketSubmission", TypeName: "bool", Description: "Ticket Submission", Hint: "Whether users can submit support tickets", Order: 2}}}},
 		metaCx("SupportAccessHelpCenter", s, metaChildrenSupportAccessHelpCenter, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SupportAccessHelpCenter", MemberName: "helpCenter", ClassSectionID: "SAHC", Kind: som.SomMetaKindComplex, TypeName: "SupportAccessHelpCenter", SerializationOrder: metaIntPtr(1), DocComment: "Help center configuration.", ClassDocComment: "Help center configuration.", Recursive: r, Children: c}
 		}),
@@ -26661,7 +26661,7 @@ func metaChildrenSystemErrorCodeEntryOperations(s map[string]bool) []*som.SomMet
 
 func metaChildrenSystemErrorDisplay(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SystemErrorDisplay", MemberName: "systemErrorContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "networkErrorHandling", TypeName: "String", Description: "Network Error Handling", Hint: "How connectivity issues are displayed", Order: 0}, {Name: "systemErrorDisplayMethod", TypeName: "String", Description: "Display Method", Hint: "Modal, snackbar, banner, full-page", Order: 1}, {Name: "gracefulDegradation", TypeName: "String", Description: "Graceful Degradation", Hint: "How features degrade on partial failure", Order: 2}}}},
+		{ClassName: "SystemErrorDisplay", MemberName: "systemErrorContent", SectionID: "SYERDI-SYST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "networkErrorHandling", TypeName: "String", Description: "Network Error Handling", Hint: "How connectivity issues are displayed", Order: 0}, {Name: "systemErrorDisplayMethod", TypeName: "String", Description: "Display Method", Hint: "Modal, snackbar, banner, full-page", Order: 1}, {Name: "gracefulDegradation", TypeName: "String", Description: "Graceful Degradation", Hint: "How features degrade on partial failure", Order: 2}}}},
 		metaCx("SystemErrorDisplayErrorTypes", s, metaChildrenSystemErrorDisplayErrorTypes, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemErrorDisplayErrorTypes", MemberName: "errorTypes", ClassSectionID: "SEDET", Kind: som.SomMetaKindComplex, TypeName: "SystemErrorDisplayErrorTypes", SerializationOrder: metaIntPtr(1), DocComment: "Error type handling configuration.", ClassDocComment: "Error type handling configuration.", Recursive: r, Children: c}
 		}),
@@ -26888,7 +26888,7 @@ func metaChildrenSystemOperationAndMonitoring(s map[string]bool) []*som.SomMetaN
 func metaChildrenSystemPurpose(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SystemPurpose", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "SystemPurpose", MemberName: "visionStatement", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "A concise, memorable statement (1-3 sentences) that captures the essence of what the system will achieve."}, ContentHelp: "Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.", DocComment: "Vision Statement."},
+		{ClassName: "SystemPurpose", MemberName: "visionStatement", SectionID: "SYPUP-VISI", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "A concise, memorable statement (1-3 sentences) that captures the essence of what the system will achieve."}, ContentHelp: "Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.", DocComment: "Vision Statement."},
 		metaCx("ProblemStatement", s, metaChildrenProblemStatement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProblemStatement", MemberName: "problemStatement", ClassSectionID: "PS", Kind: som.SomMetaKindComplex, TypeName: "ProblemStatement", SerializationOrder: metaIntPtr(2), DocComment: "4.1.1.1. Problem Statement.", ClassDocComment: "4.1.1.1. Problem Statement.\n\nDetailed description of the problem or pain point that this system will\naddress. Includes impact analysis and urgency assessment.", Recursive: r, Children: c}
 		}),
@@ -26912,7 +26912,7 @@ func metaChildrenSystemPurpose(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSystemQualityGoals(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SystemQualityGoals", MemberName: "governanceContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "qualityApproach", TypeName: "String", Description: "Quality Approach", Hint: "Overall quality philosophy: proactive, reactive, hybrid", Order: 0}, {Name: "qualityStandards", TypeName: "String", Description: "Applicable Quality Standards", Hint: "ISO 25010, ISO 9001, CMMI, industry-specific", Order: 1}, {Name: "qualityOwner", TypeName: "String", Description: "Quality Owner", Hint: "Role accountable for quality outcomes", Order: 2}}}},
+		{ClassName: "SystemQualityGoals", MemberName: "governanceContent", SectionID: "SYQG-GOVE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "qualityApproach", TypeName: "String", Description: "Quality Approach", Hint: "Overall quality philosophy: proactive, reactive, hybrid", Order: 0}, {Name: "qualityStandards", TypeName: "String", Description: "Applicable Quality Standards", Hint: "ISO 25010, ISO 9001, CMMI, industry-specific", Order: 1}, {Name: "qualityOwner", TypeName: "String", Description: "Quality Owner", Hint: "Role accountable for quality outcomes", Order: 2}}}},
 		metaCx("QualityGoalsGovernance", s, metaChildrenQualityGoalsGovernance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "QualityGoalsGovernance", MemberName: "governance", ClassSectionID: "SQGGV", Kind: som.SomMetaKindComplex, TypeName: "QualityGoalsGovernance", SerializationOrder: metaIntPtr(1), DocComment: "Governance board and escalation details.", ClassDocComment: "Governance board and escalation details.", Recursive: r, Children: c}
 		}),
@@ -27217,7 +27217,7 @@ func metaChildrenSystemTechnicalAssessmentQuality(s map[string]bool) []*som.SomM
 
 func metaChildrenSystemToReplaceEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SystemToReplaceEntry", MemberName: "identificationContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "systemId", TypeName: "String", Description: "System ID (e.g., SYS-CRM-001)", Required: true, Hint: "Stable identifier for the legacy system being replaced", Order: 0}, {Name: "systemName", TypeName: "String", Description: "System Name", Required: true, Hint: "Common name the organization uses for this system", Order: 1}, {Name: "officialName", TypeName: "String", Description: "Official/Vendor Name", Hint: "Vendor/product name and edition, if a commercial system", Order: 2}, {Name: "systemDescription", TypeName: "String", Description: "Description", Hint: "Brief description of what the system does and who uses it", Order: 3}}}},
+		{ClassName: "SystemToReplaceEntry", MemberName: "identificationContent", SectionID: "SYTORE-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "systemId", TypeName: "String", Description: "System ID (e.g., SYS-CRM-001)", Required: true, Hint: "Stable identifier for the legacy system being replaced", Order: 0}, {Name: "systemName", TypeName: "String", Description: "System Name", Required: true, Hint: "Common name the organization uses for this system", Order: 1}, {Name: "officialName", TypeName: "String", Description: "Official/Vendor Name", Hint: "Vendor/product name and edition, if a commercial system", Order: 2}, {Name: "systemDescription", TypeName: "String", Description: "Description", Hint: "Brief description of what the system does and who uses it", Order: 3}}}},
 		metaCx("SystemToReplaceEntryProfile", s, metaChildrenSystemToReplaceEntryProfile, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemToReplaceEntryProfile", MemberName: "profile", ClassSectionID: "STREP", Kind: som.SomMetaKindComplex, TypeName: "SystemToReplaceEntryProfile", SerializationOrder: metaIntPtr(1), DocComment: "Classification and ownership details.", ClassDocComment: "Classification and ownership details.", Recursive: r, Children: c}
 		}),
@@ -27562,7 +27562,7 @@ func metaChildrenTechnicalDependencyEntry(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenTechnicalEnvironment(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TechnicalEnvironment", MemberName: "technicalOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "architectureMaturity", TypeName: "String", Description: "Architecture Maturity", Hint: "TOGAF maturity level or equivalent", Order: 0}, {Name: "cloudStrategy", TypeName: "String", Description: "Cloud Strategy", Hint: "Cloud-first, hybrid, on-premises, multi-cloud", Order: 1}, {Name: "primaryCloudProvider", TypeName: "String", Description: "Primary Cloud Provider", Hint: "AWS, Azure, GCP, private cloud, none", Order: 2}}}},
+		{ClassName: "TechnicalEnvironment", MemberName: "technicalOverviewContent", SectionID: "TEEN-TECH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "architectureMaturity", TypeName: "String", Description: "Architecture Maturity", Hint: "TOGAF maturity level or equivalent", Order: 0}, {Name: "cloudStrategy", TypeName: "String", Description: "Cloud Strategy", Hint: "Cloud-first, hybrid, on-premises, multi-cloud", Order: 1}, {Name: "primaryCloudProvider", TypeName: "String", Description: "Primary Cloud Provider", Hint: "AWS, Azure, GCP, private cloud, none", Order: 2}}}},
 		metaCx("TechnicalEnvironmentGovernance", s, metaChildrenTechnicalEnvironmentGovernance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TechnicalEnvironmentGovernance", MemberName: "governance", ClassSectionID: "TEENGO", Kind: som.SomMetaKindComplex, TypeName: "TechnicalEnvironmentGovernance", SerializationOrder: metaIntPtr(1), DocComment: "Architecture governance context.", ClassDocComment: "Architecture governance context.", Recursive: r, Children: c}
 		}),
@@ -27746,7 +27746,7 @@ func metaChildrenTechnicalGoalTestCaseEntry(s map[string]bool) []*som.SomMetaNod
 func metaChildrenTechnicalGoalTestCriteria(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TechnicalGoalTestCriteria", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Summarize the overall testing approach for verifying this technical goal."},
-		{ClassName: "TechnicalGoalTestCriteria", MemberName: "testCriteriaForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Test criteria form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "testType", TypeName: "String", Description: "Test Type (Performance, Load, Stress, Security, Penetration, Accessibility, Usability)", Hint: "Performance, Load, Stress, Security, Penetration, etc.", Order: 0}, {Name: "testEnvironment", TypeName: "String", Description: "Test Environment", Hint: "Environment in which tests run", Order: 1}, {Name: "testData", TypeName: "String", Description: "Test Data Requirements", Hint: "Data needed to execute the tests", Order: 2}, {Name: "testTools", TypeName: "String", Description: "Test Tools", Hint: "Tools used to run the tests", Order: 3}, {Name: "passThreshold", TypeName: "String", Description: "Pass Threshold", Hint: "Value at or above which the goal passes", Order: 4}, {Name: "failThreshold", TypeName: "String", Description: "Fail Threshold", Hint: "Value at which the goal is considered failed", Order: 5}, {Name: "testSchedule", TypeName: "String", Description: "Test Schedule (when tests will run)", Hint: "When the tests will run", Order: 6}, {Name: "retestPolicy", TypeName: "String", Description: "Retest Policy (when retesting is required)", Hint: "When retesting is required", Order: 7}}}},
+		{ClassName: "TechnicalGoalTestCriteria", MemberName: "testCriteriaForm", SectionID: "TGTC-TEST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Test criteria form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "testType", TypeName: "String", Description: "Test Type (Performance, Load, Stress, Security, Penetration, Accessibility, Usability)", Hint: "Performance, Load, Stress, Security, Penetration, etc.", Order: 0}, {Name: "testEnvironment", TypeName: "String", Description: "Test Environment", Hint: "Environment in which tests run", Order: 1}, {Name: "testData", TypeName: "String", Description: "Test Data Requirements", Hint: "Data needed to execute the tests", Order: 2}, {Name: "testTools", TypeName: "String", Description: "Test Tools", Hint: "Tools used to run the tests", Order: 3}, {Name: "passThreshold", TypeName: "String", Description: "Pass Threshold", Hint: "Value at or above which the goal passes", Order: 4}, {Name: "failThreshold", TypeName: "String", Description: "Fail Threshold", Hint: "Value at which the goal is considered failed", Order: 5}, {Name: "testSchedule", TypeName: "String", Description: "Test Schedule (when tests will run)", Hint: "When the tests will run", Order: 6}, {Name: "retestPolicy", TypeName: "String", Description: "Retest Policy (when retesting is required)", Hint: "When retesting is required", Order: 7}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "TechnicalGoalTestCriteria", MemberName: "items", SectionID: "TEGOTS-ITEM-LST", SectionIDPattern: "TEGOTS-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalGoalTestCaseEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per test case covering procedure, expected result, and status for this goal.", DocComment: "Test case entries — contains 0+× TechnicalGoalTestCaseEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — software testing", "ISO/IEC 25010 — quality verification"}, "connotation": "The list of individual test-case entries for verifying the technical goal."}}}}
 			n.ElementNode = metaCx("TechnicalGoalTestCaseEntry", s, metaChildrenTechnicalGoalTestCaseEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -27876,7 +27876,7 @@ func metaChildrenTechnicalRequirementEntryVerification(s map[string]bool) []*som
 func metaChildrenTechnicalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TechnicalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "TechnicalRequirements", MemberName: "summaryForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Technical requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalTechnicalRequirements", TypeName: "String", Description: "Total Technical Requirements", Hint: "Total count of technical requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "lowCount", TypeName: "String", Description: "Low (count)", Hint: "Number of requirements at Low priority", Order: 4}, {Name: "architectureDrivers", TypeName: "String", Description: "Architecture Drivers (top constraints shaping design)", Hint: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users", Order: 5}}}},
+		{ClassName: "TechnicalRequirements", MemberName: "summaryForm", SectionID: "TR1-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Technical requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalTechnicalRequirements", TypeName: "String", Description: "Total Technical Requirements", Hint: "Total count of technical requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "lowCount", TypeName: "String", Description: "Low (count)", Hint: "Number of requirements at Low priority", Order: 4}, {Name: "architectureDrivers", TypeName: "String", Description: "Architecture Drivers (top constraints shaping design)", Hint: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "TechnicalRequirements", MemberName: "requirements", SectionID: "TERQ-REQU-LST", SectionIDPattern: "TERQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per technical requirement.", DocComment: "Technical requirements list — contains 0+× Technical Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements", "ISO/IEC 25010 — product quality"}, "connotation": "The set of individual technical requirement entries that constrain how the system is built."}}}}
 			n.ElementNode = metaCx("TechnicalRequirementEntry", s, metaChildrenTechnicalRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -28293,7 +28293,7 @@ func metaChildrenThirdPartyLibraryEntryUsage(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenThrowawayPrototype(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ThrowawayPrototype", MemberName: "throwawayContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "evaluationCriteria", TypeName: "String", Description: "Evaluation Criteria", Hint: "Criteria for evaluation", Order: 0}, {Name: "evaluationMethod", TypeName: "String", Description: "Evaluation Method", Hint: "How prototype is evaluated", Order: 1}, {Name: "evaluationParticipants", TypeName: "String", Description: "Evaluation Participants", Hint: "Who participates in evaluation", Order: 2}, {Name: "evaluationTimeline", TypeName: "String", Description: "Evaluation Timeline", Hint: "When evaluation takes place", Order: 3}}}},
+		{ClassName: "ThrowawayPrototype", MemberName: "throwawayContent", SectionID: "THPR-THRO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "evaluationCriteria", TypeName: "String", Description: "Evaluation Criteria", Hint: "Criteria for evaluation", Order: 0}, {Name: "evaluationMethod", TypeName: "String", Description: "Evaluation Method", Hint: "How prototype is evaluated", Order: 1}, {Name: "evaluationParticipants", TypeName: "String", Description: "Evaluation Participants", Hint: "Who participates in evaluation", Order: 2}, {Name: "evaluationTimeline", TypeName: "String", Description: "Evaluation Timeline", Hint: "When evaluation takes place", Order: 3}}}},
 		metaCx("ThrowawayPrototypeFindings", s, metaChildrenThrowawayPrototypeFindings, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ThrowawayPrototypeFindings", MemberName: "findings", ClassSectionID: "THPRFI", Kind: som.SomMetaKindComplex, TypeName: "ThrowawayPrototypeFindings", SerializationOrder: metaIntPtr(1), DocComment: "Findings and decisions captured from evaluation.", ClassDocComment: "Findings and decisions captured from evaluation.", Recursive: r, Children: c}
 		}),
@@ -28627,7 +28627,7 @@ func metaChildrenTradeOffDecisionEntryRationale(s map[string]bool) []*som.SomMet
 
 func metaChildrenTradeOffDecisions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TradeOffDecisions", MemberName: "tradeOffGovernanceContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tradeOffGovernance", TypeName: "String", Description: "Trade-off Governance", Hint: "Who can make trade-off decisions", Order: 0}, {Name: "tradeOffDocumentation", TypeName: "String", Description: "Trade-off Documentation", Hint: "How decisions are documented", Order: 1}, {Name: "tradeOffReview", TypeName: "String", Description: "Trade-off Review", Hint: "When trade-offs are reviewed", Order: 2}, {Name: "tradeOffReversal", TypeName: "String", Description: "Trade-off Reversal", Hint: "Process to reverse a trade-off decision", Order: 3}}}},
+		{ClassName: "TradeOffDecisions", MemberName: "tradeOffGovernanceContent", SectionID: "TROFDE-TRAD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tradeOffGovernance", TypeName: "String", Description: "Trade-off Governance", Hint: "Who can make trade-off decisions", Order: 0}, {Name: "tradeOffDocumentation", TypeName: "String", Description: "Trade-off Documentation", Hint: "How decisions are documented", Order: 1}, {Name: "tradeOffReview", TypeName: "String", Description: "Trade-off Review", Hint: "When trade-offs are reviewed", Order: 2}, {Name: "tradeOffReversal", TypeName: "String", Description: "Trade-off Reversal", Hint: "Process to reverse a trade-off decision", Order: 3}}}},
 		{ClassName: "TradeOffDecisions", MemberName: "tradeOffOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of major trade-off decisions and their impact on system quality and design choices.", DocComment: "Trade-off decisions overview."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "TradeOffDecisions", MemberName: "items", SectionID: "TODE-ITEM-LST", SectionIDPattern: "TODE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "TradeOffDecisionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per trade-off decision.", DocComment: "Contains 0+× TradeOffDecision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — each trade-off between competing quality characteristics is enumerated as a discrete decision"}, "connotation": "Enumerates each trade-off between competing quality characteristics as a discrete decision."}}}}
@@ -28674,7 +28674,7 @@ func metaChildrenTrainingAssessmentReporting(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenTrainingDeliverableRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "trainingMaterials", TypeName: "String", Description: "Training Materials", Hint: "Slides, workbooks, exercises", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format", Hint: "In-person, virtual, self-paced", Order: 1}, {Name: "trainingDuration", TypeName: "String", Description: "Training Duration", Hint: "Duration per role/module", Order: 2}, {Name: "trainingSchedule", TypeName: "String", Description: "Training Schedule", Hint: "When training occurs", Order: 3}, {Name: "trainTheTrainer", TypeName: "bool", Description: "Train-the-Trainer", Hint: "Train internal trainers", Order: 4}, {Name: "refresherTraining", TypeName: "String", Description: "Refresher Training", Hint: "Ongoing training approach", Order: 5}, {Name: "knowledgeTransferPlan", TypeName: "String", Description: "Knowledge Transfer Plan", Hint: "How knowledge is transferred", Order: 6}, {Name: "supportHandoff", TypeName: "String", Description: "Support Handoff", Hint: "Transition to support team", Order: 7}, {Name: "certificationProgram", TypeName: "String", Description: "Certification Program", Hint: "User certification if applicable", Order: 8}}}},
+		{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingContent", SectionID: "TRMAT-TRAI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "trainingMaterials", TypeName: "String", Description: "Training Materials", Hint: "Slides, workbooks, exercises", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format", Hint: "In-person, virtual, self-paced", Order: 1}, {Name: "trainingDuration", TypeName: "String", Description: "Training Duration", Hint: "Duration per role/module", Order: 2}, {Name: "trainingSchedule", TypeName: "String", Description: "Training Schedule", Hint: "When training occurs", Order: 3}, {Name: "trainTheTrainer", TypeName: "bool", Description: "Train-the-Trainer", Hint: "Train internal trainers", Order: 4}, {Name: "refresherTraining", TypeName: "String", Description: "Refresher Training", Hint: "Ongoing training approach", Order: 5}, {Name: "knowledgeTransferPlan", TypeName: "String", Description: "Knowledge Transfer Plan", Hint: "How knowledge is transferred", Order: 6}, {Name: "supportHandoff", TypeName: "String", Description: "Support Handoff", Hint: "Transition to support team", Order: 7}, {Name: "certificationProgram", TypeName: "String", Description: "Certification Program", Hint: "User certification if applicable", Order: 8}}}},
 		{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Training narrative."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingModules", SectionID: "TRMOEN-TRAI-LST", SectionIDPattern: "TRMOEN-TRAI-xxx", Kind: som.SomMetaKindList, TypeName: "TrainingModuleEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per training module.", DocComment: "Training module entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set", "ISO 17100:2015 — each training module can be localized through the translation process"}, "connotation": "The collection of training-module entries offered to end users."}}}}
@@ -28755,7 +28755,7 @@ func metaChildrenTrainingOverview(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTrainingPrototype(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TrainingPrototype", MemberName: "trainingContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "designDecisionsCarriedForward", TypeName: "String", Description: "Design Decisions Carried Forward", Hint: "What design decisions are preserved", Order: 0}, {Name: "patternsDocumented", TypeName: "String", Description: "Patterns Documented", Hint: "Patterns documented from prototype", Order: 1}, {Name: "lessonsLearned", TypeName: "String", Description: "Lessons Learned", Hint: "What was learned", Order: 2}}}},
+		{ClassName: "TrainingPrototype", MemberName: "trainingContent", SectionID: "TP-TRAI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "designDecisionsCarriedForward", TypeName: "String", Description: "Design Decisions Carried Forward", Hint: "What design decisions are preserved", Order: 0}, {Name: "patternsDocumented", TypeName: "String", Description: "Patterns Documented", Hint: "Patterns documented from prototype", Order: 1}, {Name: "lessonsLearned", TypeName: "String", Description: "Lessons Learned", Hint: "What was learned", Order: 2}}}},
 		metaCx("TrainingPrototypeDisposition", s, metaChildrenTrainingPrototypeDisposition, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TrainingPrototypeDisposition", MemberName: "disposition", ClassSectionID: "TRPRDI", Kind: som.SomMetaKindComplex, TypeName: "TrainingPrototypeDisposition", SerializationOrder: metaIntPtr(1), DocComment: "Code disposition and reimplementation planning.", ClassDocComment: "Code disposition and reimplementation planning.", Recursive: r, Children: c}
 		}),
@@ -29101,7 +29101,7 @@ func metaChildrenTranslationOngoing(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTranslationProcess(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TranslationProcess", MemberName: "translationProcessContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "translationManagementSystem", TypeName: "String", Description: "Translation Management System", Hint: "TMS tool (Phrase, Lokalise, Crowdin)", Order: 0}, {Name: "translationMemory", TypeName: "String", Description: "Translation Memory", Hint: "TM usage and maintenance", Order: 1}, {Name: "machineTranslation", TypeName: "String", Description: "Machine Translation", Hint: "MT usage (Google, DeepL, none)", Order: 2}, {Name: "catTools", TypeName: "String", Description: "CAT Tools", Hint: "Computer-assisted translation tools", Order: 3}}}},
+		{ClassName: "TranslationProcess", MemberName: "translationProcessContent", SectionID: "TRPR-TRAN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "translationManagementSystem", TypeName: "String", Description: "Translation Management System", Hint: "TMS tool (Phrase, Lokalise, Crowdin)", Order: 0}, {Name: "translationMemory", TypeName: "String", Description: "Translation Memory", Hint: "TM usage and maintenance", Order: 1}, {Name: "machineTranslation", TypeName: "String", Description: "Machine Translation", Hint: "MT usage (Google, DeepL, none)", Order: 2}, {Name: "catTools", TypeName: "String", Description: "CAT Tools", Hint: "Computer-assisted translation tools", Order: 3}}}},
 		metaCx("TranslationWorkflow", s, metaChildrenTranslationWorkflow, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TranslationWorkflow", MemberName: "workflow", ClassSectionID: "TRPRWO", Kind: som.SomMetaKindComplex, TypeName: "TranslationWorkflow", SerializationOrder: metaIntPtr(1), DocComment: "Translation workflow.", ClassDocComment: "Translation workflow.", Recursive: r, Children: c}
 		}),
@@ -29133,7 +29133,7 @@ func metaChildrenTranslationQuality(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTranslationRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TranslationRequirements", MemberName: "translationRequirementsContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "i18nFramework", TypeName: "String", Description: "I18N Framework", Hint: "flutter_localizations, intl, easy_localization", Order: 0}, {Name: "stringExternalizationFormat", TypeName: "String", Description: "String Externalization Format", Hint: "ARB, JSON, YAML, Gettext", Order: 1}, {Name: "localeHandling", TypeName: "String", Description: "Locale Handling", Hint: "How locales are loaded and switched", Order: 2}}}},
+		{ClassName: "TranslationRequirements", MemberName: "translationRequirementsContent", SectionID: "TRAREQ-TRAN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "i18nFramework", TypeName: "String", Description: "I18N Framework", Hint: "flutter_localizations, intl, easy_localization", Order: 0}, {Name: "stringExternalizationFormat", TypeName: "String", Description: "String Externalization Format", Hint: "ARB, JSON, YAML, Gettext", Order: 1}, {Name: "localeHandling", TypeName: "String", Description: "Locale Handling", Hint: "How locales are loaded and switched", Order: 2}}}},
 		metaCx("TranslationRequirementsRtl", s, metaChildrenTranslationRequirementsRtl, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TranslationRequirementsRtl", MemberName: "rtl", ClassSectionID: "TRRERT", Kind: som.SomMetaKindComplex, TypeName: "TranslationRequirementsRtl", SerializationOrder: metaIntPtr(1), DocComment: "RTL and bidirectional support.", ClassDocComment: "RTL and bidirectional support.", Recursive: r, Children: c}
 		}),
@@ -29368,14 +29368,14 @@ func metaChildrenUatTraining(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUiComponentEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UiComponentEntry", MemberName: "identity", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "componentId", TypeName: "String", Description: "Component ID", Required: true, Hint: "Unique identifier (e.g., CMP-DTT-001)", Order: 0}, {Name: "componentName", TypeName: "String", Description: "Component Name", Required: true, Hint: "Human-readable name", Order: 1}, {Name: "componentFamily", TypeName: "String", Description: "Component Family", Hint: "Button, Input, Table, Navigation, etc.", Order: 2}, {Name: "flutterWidgetBase", TypeName: "String", Description: "Flutter Widget Base", Hint: "Base Flutter widget (DataTable, TextField)", Order: 3}}}},
+		{ClassName: "UiComponentEntry", MemberName: "identity", SectionID: "UICOMENT-IDEN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "componentId", TypeName: "String", Description: "Component ID", Required: true, Hint: "Unique identifier (e.g., CMP-DTT-001)", Order: 0}, {Name: "componentName", TypeName: "String", Description: "Component Name", Required: true, Hint: "Human-readable name", Order: 1}, {Name: "componentFamily", TypeName: "String", Description: "Component Family", Hint: "Button, Input, Table, Navigation, etc.", Order: 2}, {Name: "flutterWidgetBase", TypeName: "String", Description: "Flutter Widget Base", Hint: "Base Flutter widget (DataTable, TextField)", Order: 3}}}},
 		metaCx("UiComponentEntryPurpose", s, metaChildrenUiComponentEntryPurpose, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntryPurpose", MemberName: "purposeProfile", ClassSectionID: "UCEP", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntryPurpose", SerializationOrder: metaIntPtr(1), DocComment: "Wrapper mapping and business purpose.", ClassDocComment: "Wrapper mapping and business purpose.", Recursive: r, Children: c}
 		}),
 		metaCx("UiComponentEntryClassification", s, metaChildrenUiComponentEntryClassification, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntryClassification", MemberName: "classification", ClassSectionID: "UCEC", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntryClassification", SerializationOrder: metaIntPtr(2), DocComment: "Classification details.", ClassDocComment: "Classification details.", Recursive: r, Children: c}
 		}),
-		{ClassName: "UiComponentEntry", MemberName: "visualDesign", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "defaultAppearance", TypeName: "String", Description: "Default Appearance", Hint: "Visual description of default state", Order: 0}, {Name: "colorScheme", TypeName: "String", Description: "Color Scheme", Hint: "Primary, secondary, surface colors used", Order: 1}, {Name: "typography", TypeName: "String", Description: "Typography", Hint: "Text styles used", Order: 2}, {Name: "iconography", TypeName: "String", Description: "Iconography", Hint: "Icons used and their placement", Order: 3}}}},
+		{ClassName: "UiComponentEntry", MemberName: "visualDesign", SectionID: "UICOMENT-VISU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "defaultAppearance", TypeName: "String", Description: "Default Appearance", Hint: "Visual description of default state", Order: 0}, {Name: "colorScheme", TypeName: "String", Description: "Color Scheme", Hint: "Primary, secondary, surface colors used", Order: 1}, {Name: "typography", TypeName: "String", Description: "Typography", Hint: "Text styles used", Order: 2}, {Name: "iconography", TypeName: "String", Description: "Iconography", Hint: "Icons used and their placement", Order: 3}}}},
 		metaCx("UiComponentEntryDimensions", s, metaChildrenUiComponentEntryDimensions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntryDimensions", MemberName: "dimensions", ClassSectionID: "UCED", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntryDimensions", SerializationOrder: metaIntPtr(4), DocComment: "Visual dimensions.", ClassDocComment: "Visual dimensions.", Recursive: r, Children: c}
 		}),
@@ -29386,7 +29386,7 @@ func metaChildrenUiComponentEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntrySurface", MemberName: "surface", ClassSectionID: "UICOENSU", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntrySurface", SerializationOrder: metaIntPtr(6), DocComment: "Surface treatment.", ClassDocComment: "Surface treatment.", Recursive: r, Children: c}
 		}),
 		{ClassName: "UiComponentEntry", MemberName: "visualDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, ContentHelp: "Visual diagram or mockup of the component.", DocComment: "Visual design diagram."},
-		{ClassName: "UiComponentEntry", MemberName: "interactiveBehavior", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(8), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tapBehavior", TypeName: "String", Description: "Tap Behavior", Hint: "What happens on tap/click", Order: 0}, {Name: "longPressBehavior", TypeName: "String", Description: "Long Press Behavior", Hint: "What happens on long press", Order: 1}, {Name: "doubleTapBehavior", TypeName: "String", Description: "Double Tap Behavior", Hint: "What happens on double tap", Order: 2}, {Name: "swipeBehavior", TypeName: "String", Description: "Swipe Behavior", Hint: "What happens on swipe gestures", Order: 3}, {Name: "dragBehavior", TypeName: "String", Description: "Drag Behavior", Hint: "What happens on drag gestures", Order: 4}, {Name: "hoverBehavior", TypeName: "String", Description: "Hover Behavior", Order: 5}}}},
+		{ClassName: "UiComponentEntry", MemberName: "interactiveBehavior", SectionID: "UICOMENT-INTE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(8), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tapBehavior", TypeName: "String", Description: "Tap Behavior", Hint: "What happens on tap/click", Order: 0}, {Name: "longPressBehavior", TypeName: "String", Description: "Long Press Behavior", Hint: "What happens on long press", Order: 1}, {Name: "doubleTapBehavior", TypeName: "String", Description: "Double Tap Behavior", Hint: "What happens on double tap", Order: 2}, {Name: "swipeBehavior", TypeName: "String", Description: "Swipe Behavior", Hint: "What happens on swipe gestures", Order: 3}, {Name: "dragBehavior", TypeName: "String", Description: "Drag Behavior", Hint: "What happens on drag gestures", Order: 4}, {Name: "hoverBehavior", TypeName: "String", Description: "Hover Behavior", Order: 5}}}},
 		metaCx("UiComponentEntryInputBehavior", s, metaChildrenUiComponentEntryInputBehavior, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntryInputBehavior", MemberName: "inputBehavior", ClassSectionID: "UCEIB", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntryInputBehavior", SerializationOrder: metaIntPtr(9), DocComment: "Focus and keyboard behavior.", ClassDocComment: "Focus and keyboard behavior.", Recursive: r, Children: c}
 		}),
@@ -29396,11 +29396,11 @@ func metaChildrenUiComponentEntry(s map[string]bool) []*som.SomMetaNode {
 		metaCx("UiComponentEntryScroll", s, metaChildrenUiComponentEntryScroll, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UiComponentEntryScroll", MemberName: "scroll", ClassSectionID: "UICOENSC", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntryScroll", SerializationOrder: metaIntPtr(11), DocComment: "Scrolling behavior.", ClassDocComment: "Scrolling behavior.", Recursive: r, Children: c}
 		}),
-		{ClassName: "UiComponentEntry", MemberName: "responsiveness", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(12), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileLayout", TypeName: "String", Description: "Mobile Layout", Hint: "Layout on mobile (< 600dp)", Order: 0}, {Name: "tabletLayout", TypeName: "String", Description: "Tablet Layout", Hint: "Layout on tablet (600-1024dp)", Order: 1}, {Name: "desktopLayout", TypeName: "String", Description: "Desktop Layout", Hint: "Layout on desktop (> 1024dp)", Order: 2}, {Name: "breakpointBehavior", TypeName: "String", Description: "Breakpoint Behavior", Hint: "What changes at breakpoints", Order: 3}, {Name: "adaptiveContent", TypeName: "String", Description: "Adaptive Content", Hint: "Content that appears/hides", Order: 4}, {Name: "touchTargets", TypeName: "String", Description: "Touch Targets", Hint: "Minimum touch target sizes", Order: 5}, {Name: "orientationBehavior", TypeName: "String", Description: "Orientation Behavior", Hint: "Portrait vs. landscape", Order: 6}}}},
-		{ClassName: "UiComponentEntry", MemberName: "accessibility", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(13), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "semanticRole", TypeName: "String", Description: "Semantic Role", Hint: "ARIA role or semantic meaning", Order: 0}, {Name: "screenReaderLabel", TypeName: "String", Description: "Screen Reader Label", Hint: "How screen readers announce", Order: 1}, {Name: "screenReaderHint", TypeName: "String", Description: "Screen Reader Hint", Hint: "Additional context for screen readers", Order: 2}, {Name: "focusOrder", TypeName: "String", Description: "Focus Order", Hint: "Tab order in context", Order: 3}, {Name: "ariaAttributes", TypeName: "String", Description: "ARIA Attributes", Hint: "Required ARIA attributes", Order: 4}, {Name: "colorContrastNotes", TypeName: "String", Description: "Color Contrast Notes", Hint: "Contrast ratios and compliance notes", Order: 5}, {Name: "motionSensitivity", TypeName: "String", Description: "Motion Sensitivity", Hint: "Reduced motion behavior", Order: 6}, {Name: "textScalingBehavior", TypeName: "String", Description: "Text Scaling Behavior", Hint: "How component responds to text scaling", Order: 7}}}},
-		{ClassName: "UiComponentEntry", MemberName: "authorization", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(14), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "authBasePath", TypeName: "String", Description: "Auth Base Path", Hint: "Base path for authorization lookup", Order: 0}, {Name: "authVisibilityBehavior", TypeName: "String", Description: "Visibility Behavior", Hint: "Hidden, visible, conditionally visible", Order: 1}, {Name: "authEnabledBehavior", TypeName: "String", Description: "Enabled Behavior", Hint: "Disabled, enabled, conditionally enabled", Order: 2}, {Name: "authReadonlyBehavior", TypeName: "String", Description: "Readonly Behavior", Hint: "Readonly state behavior", Order: 3}, {Name: "authActionControl", TypeName: "String", Description: "Action Control", Hint: "Which actions are auth-controlled", Order: 4}, {Name: "authFallbackBehavior", TypeName: "String", Description: "Fallback Behavior", Hint: "Behavior when auth unavailable", Order: 5}, {Name: "fourStateMapping", TypeName: "String", Description: "Four-State Mapping", Hint: "Mapping to TomAuthState four states", Order: 6}}}},
-		{ClassName: "UiComponentEntry", MemberName: "resourceIntegration", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(15), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "resourceBasePath", TypeName: "String", Description: "Resource Base Path", Hint: "Base path for resource lookup", Order: 0}, {Name: "labelResource", TypeName: "String", Description: "Label Resource", Hint: "Resource key for label text", Order: 1}, {Name: "hintResource", TypeName: "String", Description: "Hint Resource", Hint: "Resource key for hint text", Order: 2}, {Name: "errorResource", TypeName: "String", Description: "Error Resource", Hint: "Resource key for error messages", Order: 3}, {Name: "tooltipResource", TypeName: "String", Description: "Tooltip Resource", Hint: "Resource key for tooltip text", Order: 4}, {Name: "placeholderResource", TypeName: "String", Description: "Placeholder Resource", Hint: "Resource key for placeholder text", Order: 5}, {Name: "ariaLabelResource", TypeName: "String", Description: "ARIA Label Resource", Hint: "Resource key for the ARIA label", Order: 6}, {Name: "iconResource", TypeName: "String", Description: "Icon Resource", Hint: "Resource key for icon selection", Order: 7}, {Name: "resourceFallbacks", TypeName: "String", Description: "Resource Fallbacks", Hint: "Fallback behavior when resource missing", Order: 8}}}},
-		{ClassName: "UiComponentEntry", MemberName: "dataBinding", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(16), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Type of data component displays/edits", Order: 0}, {Name: "bindingPattern", TypeName: "String", Description: "Binding Pattern", Hint: "Observable, form field, direct", Order: 1}, {Name: "valueAccessor", TypeName: "String", Description: "Value Accessor", Hint: "How value is read/written", Order: 2}, {Name: "changeNotification", TypeName: "String", Description: "Change Notification", Hint: "How changes are communicated", Order: 3}, {Name: "validationIntegration", TypeName: "String", Description: "Validation Integration", Hint: "How validation errors are displayed", Order: 4}, {Name: "dirtyTracking", TypeName: "String", Description: "Dirty Tracking", Hint: "How dirty state is tracked", Order: 5}, {Name: "undoRedoSupport", TypeName: "String", Description: "Undo/Redo Support", Hint: "Whether edits can be undone and redone", Order: 6}}}},
+		{ClassName: "UiComponentEntry", MemberName: "responsiveness", SectionID: "UICOMENT-RESP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(12), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileLayout", TypeName: "String", Description: "Mobile Layout", Hint: "Layout on mobile (< 600dp)", Order: 0}, {Name: "tabletLayout", TypeName: "String", Description: "Tablet Layout", Hint: "Layout on tablet (600-1024dp)", Order: 1}, {Name: "desktopLayout", TypeName: "String", Description: "Desktop Layout", Hint: "Layout on desktop (> 1024dp)", Order: 2}, {Name: "breakpointBehavior", TypeName: "String", Description: "Breakpoint Behavior", Hint: "What changes at breakpoints", Order: 3}, {Name: "adaptiveContent", TypeName: "String", Description: "Adaptive Content", Hint: "Content that appears/hides", Order: 4}, {Name: "touchTargets", TypeName: "String", Description: "Touch Targets", Hint: "Minimum touch target sizes", Order: 5}, {Name: "orientationBehavior", TypeName: "String", Description: "Orientation Behavior", Hint: "Portrait vs. landscape", Order: 6}}}},
+		{ClassName: "UiComponentEntry", MemberName: "accessibility", SectionID: "UICOMENT-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(13), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "semanticRole", TypeName: "String", Description: "Semantic Role", Hint: "ARIA role or semantic meaning", Order: 0}, {Name: "screenReaderLabel", TypeName: "String", Description: "Screen Reader Label", Hint: "How screen readers announce", Order: 1}, {Name: "screenReaderHint", TypeName: "String", Description: "Screen Reader Hint", Hint: "Additional context for screen readers", Order: 2}, {Name: "focusOrder", TypeName: "String", Description: "Focus Order", Hint: "Tab order in context", Order: 3}, {Name: "ariaAttributes", TypeName: "String", Description: "ARIA Attributes", Hint: "Required ARIA attributes", Order: 4}, {Name: "colorContrastNotes", TypeName: "String", Description: "Color Contrast Notes", Hint: "Contrast ratios and compliance notes", Order: 5}, {Name: "motionSensitivity", TypeName: "String", Description: "Motion Sensitivity", Hint: "Reduced motion behavior", Order: 6}, {Name: "textScalingBehavior", TypeName: "String", Description: "Text Scaling Behavior", Hint: "How component responds to text scaling", Order: 7}}}},
+		{ClassName: "UiComponentEntry", MemberName: "authorization", SectionID: "UICOMENT-AUTH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(14), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "authBasePath", TypeName: "String", Description: "Auth Base Path", Hint: "Base path for authorization lookup", Order: 0}, {Name: "authVisibilityBehavior", TypeName: "String", Description: "Visibility Behavior", Hint: "Hidden, visible, conditionally visible", Order: 1}, {Name: "authEnabledBehavior", TypeName: "String", Description: "Enabled Behavior", Hint: "Disabled, enabled, conditionally enabled", Order: 2}, {Name: "authReadonlyBehavior", TypeName: "String", Description: "Readonly Behavior", Hint: "Readonly state behavior", Order: 3}, {Name: "authActionControl", TypeName: "String", Description: "Action Control", Hint: "Which actions are auth-controlled", Order: 4}, {Name: "authFallbackBehavior", TypeName: "String", Description: "Fallback Behavior", Hint: "Behavior when auth unavailable", Order: 5}, {Name: "fourStateMapping", TypeName: "String", Description: "Four-State Mapping", Hint: "Mapping to TomAuthState four states", Order: 6}}}},
+		{ClassName: "UiComponentEntry", MemberName: "resourceIntegration", SectionID: "UICOMENT-RESO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(15), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "resourceBasePath", TypeName: "String", Description: "Resource Base Path", Hint: "Base path for resource lookup", Order: 0}, {Name: "labelResource", TypeName: "String", Description: "Label Resource", Hint: "Resource key for label text", Order: 1}, {Name: "hintResource", TypeName: "String", Description: "Hint Resource", Hint: "Resource key for hint text", Order: 2}, {Name: "errorResource", TypeName: "String", Description: "Error Resource", Hint: "Resource key for error messages", Order: 3}, {Name: "tooltipResource", TypeName: "String", Description: "Tooltip Resource", Hint: "Resource key for tooltip text", Order: 4}, {Name: "placeholderResource", TypeName: "String", Description: "Placeholder Resource", Hint: "Resource key for placeholder text", Order: 5}, {Name: "ariaLabelResource", TypeName: "String", Description: "ARIA Label Resource", Hint: "Resource key for the ARIA label", Order: 6}, {Name: "iconResource", TypeName: "String", Description: "Icon Resource", Hint: "Resource key for icon selection", Order: 7}, {Name: "resourceFallbacks", TypeName: "String", Description: "Resource Fallbacks", Hint: "Fallback behavior when resource missing", Order: 8}}}},
+		{ClassName: "UiComponentEntry", MemberName: "dataBinding", SectionID: "UICOMENT-DATA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(16), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Type of data component displays/edits", Order: 0}, {Name: "bindingPattern", TypeName: "String", Description: "Binding Pattern", Hint: "Observable, form field, direct", Order: 1}, {Name: "valueAccessor", TypeName: "String", Description: "Value Accessor", Hint: "How value is read/written", Order: 2}, {Name: "changeNotification", TypeName: "String", Description: "Change Notification", Hint: "How changes are communicated", Order: 3}, {Name: "validationIntegration", TypeName: "String", Description: "Validation Integration", Hint: "How validation errors are displayed", Order: 4}, {Name: "dirtyTracking", TypeName: "String", Description: "Dirty Tracking", Hint: "How dirty state is tracked", Order: 5}, {Name: "undoRedoSupport", TypeName: "String", Description: "Undo/Redo Support", Hint: "Whether edits can be undone and redone", Order: 6}}}},
 		{ClassName: "UiComponentEntry", MemberName: "behaviorNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(17), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed description of component behavior, user interactions, and edge cases.", DocComment: "Component behavior narrative."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UiComponentEntry", MemberName: "states", SectionID: "CMST-STAT-LST", SectionIDPattern: "CMST-STAT-xxx", Kind: som.SomMetaKindList, TypeName: "ComponentStateEntry", SerializationOrder: metaIntPtr(18), ContentHelp: "Add one entry per component state.", DocComment: "Contains 0+× ComponentState.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology", "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"}, "connotation": "The collection of component-state entries defining the visual and functional states of the component."}}}}
@@ -29490,7 +29490,7 @@ func metaChildrenUiComponentEntrySurface(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUiComponents(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UiComponents", MemberName: "componentLibraryOverview", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "designSystemName", TypeName: "String", Description: "Design System Name", Hint: "Name of the design system (e.g., \"Acme Design System\")", Order: 0}, {Name: "designSystemVersion", TypeName: "String", Description: "Design System Version", Hint: "Semantic version of the design system (e.g., \"2.1.0\")", Order: 1}, {Name: "basedOnFramework", TypeName: "String", Description: "Based On Framework", Hint: "Material Design 3, Cupertino, Custom", Order: 2}, {Name: "tomFlutterUiIntegration", TypeName: "bool", Description: "Tom Flutter UI Integration", Hint: "Uses tom_flutter_ui component library", Order: 3}}}},
+		{ClassName: "UiComponents", MemberName: "componentLibraryOverview", SectionID: "UICO-COMP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "designSystemName", TypeName: "String", Description: "Design System Name", Hint: "Name of the design system (e.g., \"Acme Design System\")", Order: 0}, {Name: "designSystemVersion", TypeName: "String", Description: "Design System Version", Hint: "Semantic version of the design system (e.g., \"2.1.0\")", Order: 1}, {Name: "basedOnFramework", TypeName: "String", Description: "Based On Framework", Hint: "Material Design 3, Cupertino, Custom", Order: 2}, {Name: "tomFlutterUiIntegration", TypeName: "bool", Description: "Tom Flutter UI Integration", Hint: "Uses tom_flutter_ui component library", Order: 3}}}},
 		metaCx("ComponentVisualLanguage", s, metaChildrenComponentVisualLanguage, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ComponentVisualLanguage", MemberName: "visualLanguage", ClassSectionID: "UCVL", Kind: som.SomMetaKindComplex, TypeName: "ComponentVisualLanguage", SerializationOrder: metaIntPtr(1), DocComment: "Visual language and brand alignment.", ClassDocComment: "Visual language and brand alignment.", Recursive: r, Children: c}
 		}),
@@ -29660,7 +29660,7 @@ func metaChildrenUserAcceptanceTesting(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenUserAccessPermissions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserAccessPermissions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "UserAccessPermissions", MemberName: "permissionsForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Access Permissions Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevel", TypeName: "String", Description: "Access Level (Guest, User, Power User, Administrator, Super Admin)", Required: true, Hint: "Guest / User / Power User / Administrator / Super Admin", Order: 0}, {Name: "authenticationMethod", TypeName: "String", Description: "Authentication Method (Password, SSO, MFA, Certificate, etc.)", Required: true, Hint: "Password / SSO / MFA / Certificate", Order: 1}, {Name: "authorizationRoles", TypeName: "String", Description: "Authorization Roles (system roles assigned to this category)", Hint: "System roles assigned to this user category", Order: 2}, {Name: "dataAccessScope", TypeName: "String", Description: "Data Access Scope (all, department, team, own records)", Hint: "all / department / team / own records", Order: 3}}}},
+		{ClassName: "UserAccessPermissions", MemberName: "permissionsForm", SectionID: "UAP-PERM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Access Permissions Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevel", TypeName: "String", Description: "Access Level (Guest, User, Power User, Administrator, Super Admin)", Required: true, Hint: "Guest / User / Power User / Administrator / Super Admin", Order: 0}, {Name: "authenticationMethod", TypeName: "String", Description: "Authentication Method (Password, SSO, MFA, Certificate, etc.)", Required: true, Hint: "Password / SSO / MFA / Certificate", Order: 1}, {Name: "authorizationRoles", TypeName: "String", Description: "Authorization Roles (system roles assigned to this category)", Hint: "System roles assigned to this user category", Order: 2}, {Name: "dataAccessScope", TypeName: "String", Description: "Data Access Scope (all, department, team, own records)", Hint: "all / department / team / own records", Order: 3}}}},
 		metaCx("UserAccessPermissionsRestrictions", s, metaChildrenUserAccessPermissionsRestrictions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UserAccessPermissionsRestrictions", MemberName: "restrictionsProfile", ClassSectionID: "UAPR", Kind: som.SomMetaKindComplex, TypeName: "UserAccessPermissionsRestrictions", SerializationOrder: metaIntPtr(2), DocComment: "Functional and environmental restrictions.", ClassDocComment: "Functional and environmental restrictions.", Recursive: r, Children: c}
 		}),
@@ -29692,7 +29692,7 @@ func metaChildrenUserAccessPermissionsRestrictions(s map[string]bool) []*som.Som
 func metaChildrenUserAccessibilityNeeds(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserAccessibilityNeeds", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "UserAccessibilityNeeds", MemberName: "accessibilityForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Accessibility Needs Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "visualRequirements", TypeName: "String", Description: "Visual Requirements (screen reader, high contrast, magnification)", Hint: "Screen reader / high contrast / magnification needs", Order: 0}, {Name: "auditoryRequirements", TypeName: "String", Description: "Auditory Requirements (captions, visual alerts)", Hint: "Captions / visual alerts for auditory content", Order: 1}, {Name: "motorRequirements", TypeName: "String", Description: "Motor Requirements (keyboard navigation, voice control)", Hint: "Keyboard navigation / voice control needs", Order: 2}, {Name: "cognitiveRequirements", TypeName: "String", Description: "Cognitive Requirements (simple language, clear navigation)", Hint: "Simple language / clear navigation needs", Order: 3}, {Name: "languageRequirements", TypeName: "String", Description: "Language Requirements (multiple languages, reading level)", Hint: "Multiple languages / reading level needs", Order: 4}, {Name: "deviceAccommodations", TypeName: "String", Description: "Device Accommodations (large buttons, touch targets)", Hint: "Large buttons / touch target sizing needs", Order: 5}, {Name: "wcagLevel", TypeName: "String", Description: "WCAG Conformance Level Required (A, AA, AAA)", Hint: "A / AA / AAA", Order: 6}, {Name: "additionalStandards", TypeName: "String", Description: "Additional Standards (Section 508, EN 301 549, etc.)", Hint: "Section 508 / EN 301 549 / other accessibility standards", Order: 7}}}},
+		{ClassName: "UserAccessibilityNeeds", MemberName: "accessibilityForm", SectionID: "UAN-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Accessibility Needs Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "visualRequirements", TypeName: "String", Description: "Visual Requirements (screen reader, high contrast, magnification)", Hint: "Screen reader / high contrast / magnification needs", Order: 0}, {Name: "auditoryRequirements", TypeName: "String", Description: "Auditory Requirements (captions, visual alerts)", Hint: "Captions / visual alerts for auditory content", Order: 1}, {Name: "motorRequirements", TypeName: "String", Description: "Motor Requirements (keyboard navigation, voice control)", Hint: "Keyboard navigation / voice control needs", Order: 2}, {Name: "cognitiveRequirements", TypeName: "String", Description: "Cognitive Requirements (simple language, clear navigation)", Hint: "Simple language / clear navigation needs", Order: 3}, {Name: "languageRequirements", TypeName: "String", Description: "Language Requirements (multiple languages, reading level)", Hint: "Multiple languages / reading level needs", Order: 4}, {Name: "deviceAccommodations", TypeName: "String", Description: "Device Accommodations (large buttons, touch targets)", Hint: "Large buttons / touch target sizing needs", Order: 5}, {Name: "wcagLevel", TypeName: "String", Description: "WCAG Conformance Level Required (A, AA, AAA)", Hint: "A / AA / AAA", Order: 6}, {Name: "additionalStandards", TypeName: "String", Description: "Additional Standards (Section 508, EN 301 549, etc.)", Hint: "Section 508 / EN 301 549 / other accessibility standards", Order: 7}}}},
 	}
 }
 
@@ -29705,7 +29705,7 @@ func metaChildrenUserAccountStatesDefinition(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenUserAssistance(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserAssistance", MemberName: "helpOverviewContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "helpPhilosophy", TypeName: "String", Description: "Help Philosophy", Hint: "Self-service first, guided, on-demand", Order: 0}, {Name: "helpAccessibility", TypeName: "String", Description: "Help Accessibility", Hint: "Always visible, contextual, searchable", Order: 1}, {Name: "helpPersonalization", TypeName: "String", Description: "Help Personalization", Hint: "Role-based, skill-based, contextual", Order: 2}, {Name: "helpContentStrategy", TypeName: "String", Description: "Help Content Strategy", Hint: "Video, text, interactive, mixed", Order: 3}}}},
+		{ClassName: "UserAssistance", MemberName: "helpOverviewContent", SectionID: "USAS-HELP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "helpPhilosophy", TypeName: "String", Description: "Help Philosophy", Hint: "Self-service first, guided, on-demand", Order: 0}, {Name: "helpAccessibility", TypeName: "String", Description: "Help Accessibility", Hint: "Always visible, contextual, searchable", Order: 1}, {Name: "helpPersonalization", TypeName: "String", Description: "Help Personalization", Hint: "Role-based, skill-based, contextual", Order: 2}, {Name: "helpContentStrategy", TypeName: "String", Description: "Help Content Strategy", Hint: "Video, text, interactive, mixed", Order: 3}}}},
 		metaCx("UserAssistanceDelivery", s, metaChildrenUserAssistanceDelivery, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UserAssistanceDelivery", MemberName: "delivery", ClassSectionID: "USASDE", Kind: som.SomMetaKindComplex, TypeName: "UserAssistanceDelivery", SerializationOrder: metaIntPtr(1), DocComment: "Content stewardship and help affordances.", ClassDocComment: "Content stewardship and help affordances.", Recursive: r, Children: c}
 		}),
@@ -29877,7 +29877,7 @@ func metaChildrenUserCategoryRoleEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserDocumentationRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserDocumentationRequirements", MemberName: "documentationContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "documentationFormat", TypeName: "String", Description: "Documentation Format", Hint: "HTML, PDF, in-app, wiki", Order: 0}, {Name: "documentationPlatform", TypeName: "String", Description: "Documentation Platform", Hint: "GitBook, Notion, custom, Confluence", Order: 1}, {Name: "documentationVersioning", TypeName: "String", Description: "Documentation Versioning", Hint: "How docs are versioned with releases", Order: 2}}}},
+		{ClassName: "UserDocumentationRequirements", MemberName: "documentationContent", SectionID: "DOANTR-DOCU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "documentationFormat", TypeName: "String", Description: "Documentation Format", Hint: "HTML, PDF, in-app, wiki", Order: 0}, {Name: "documentationPlatform", TypeName: "String", Description: "Documentation Platform", Hint: "GitBook, Notion, custom, Confluence", Order: 1}, {Name: "documentationVersioning", TypeName: "String", Description: "Documentation Versioning", Hint: "How docs are versioned with releases", Order: 2}}}},
 		metaCx("DocumentationAndTrainingDeliverables", s, metaChildrenDocumentationAndTrainingDeliverables, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentationAndTrainingDeliverables", MemberName: "deliverables", ClassSectionID: "DATD", Kind: som.SomMetaKindComplex, TypeName: "DocumentationAndTrainingDeliverables", SerializationOrder: metaIntPtr(1), DocComment: "Documentation deliverables provided to users.", ClassDocComment: "Documentation deliverables provided to users.", Recursive: r, Children: c}
 		}),
@@ -29963,7 +29963,7 @@ func metaChildrenUserInteractionModelSummary(s map[string]bool) []*som.SomMetaNo
 func metaChildrenUserJourney(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserJourney", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "UserJourney", MemberName: "journeyDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "User journey map showing stages, touchpoints, and emotional peaks/valleys"}, ContentHelp: "Create a journey map showing the user's experience from first contact through regular use.", DocComment: "User journey diagram."},
+		{ClassName: "UserJourney", MemberName: "journeyDiagram", SectionID: "UJ-JOUR", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "User journey map showing stages, touchpoints, and emotional peaks/valleys"}, ContentHelp: "Create a journey map showing the user's experience from first contact through regular use.", DocComment: "User journey diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UserJourney", MemberName: "stages", SectionID: "JRNST-STAG-LST", SectionIDPattern: "JRNST-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "JourneyStageEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Define each stage of the user journey.", DocComment: "Journey stage entries — contains 0+× JourneyStageEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The ordered set of stages that make up this user journey."}}}}
 			n.ElementNode = metaCx("JourneyStageEntry", s, metaChildrenJourneyStageEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -29985,7 +29985,7 @@ func metaChildrenUserJourney(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "UserJourney", MemberName: "opportunitiesForDelight", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Opportunities to exceed user expectations and create positive experiences."}, DocComment: "Opportunities for delight."},
+		{ClassName: "UserJourney", MemberName: "opportunitiesForDelight", SectionID: "UJ-OPPO", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Opportunities to exceed user expectations and create positive experiences."}, DocComment: "Opportunities for delight."},
 	}
 }
 
@@ -30111,7 +30111,7 @@ func metaChildrenUserNotificationPreferences(s map[string]bool) []*som.SomMetaNo
 func metaChildrenUserPersonaDetails(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserPersonaDetails", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "UserPersonaDetails", MemberName: "personaForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Persona Details Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "representativeName", TypeName: "String", Description: "Representative Name (fictional name for this persona)", Hint: "A memorable fictional name to humanize the persona", Order: 0}, {Name: "ageRange", TypeName: "String", Description: "Age Range", Hint: "Typical age range for this persona", Order: 1}, {Name: "educationLevel", TypeName: "String", Description: "Education Level", Hint: "Highest education level typical for this persona", Order: 2}, {Name: "jobTitle", TypeName: "String", Description: "Job Title / Position", Hint: "Typical job title or position", Order: 3}}}},
+		{ClassName: "UserPersonaDetails", MemberName: "personaForm", SectionID: "UPD-PERS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Persona Details Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "representativeName", TypeName: "String", Description: "Representative Name (fictional name for this persona)", Hint: "A memorable fictional name to humanize the persona", Order: 0}, {Name: "ageRange", TypeName: "String", Description: "Age Range", Hint: "Typical age range for this persona", Order: 1}, {Name: "educationLevel", TypeName: "String", Description: "Education Level", Hint: "Highest education level typical for this persona", Order: 2}, {Name: "jobTitle", TypeName: "String", Description: "Job Title / Position", Hint: "Typical job title or position", Order: 3}}}},
 		metaCx("UserPersonaDetailsContext", s, metaChildrenUserPersonaDetailsContext, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UserPersonaDetailsContext", MemberName: "contextDetails", ClassSectionID: "UPDC", Kind: som.SomMetaKindComplex, TypeName: "UserPersonaDetailsContext", SerializationOrder: metaIntPtr(2), DocComment: "Experience and work context.", ClassDocComment: "Experience and work context.", Recursive: r, Children: c}
 		}),
@@ -30121,7 +30121,7 @@ func metaChildrenUserPersonaDetails(s map[string]bool) []*som.SomMetaNode {
 		metaCx("UserPersonaDetailsBehavior", s, metaChildrenUserPersonaDetailsBehavior, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "UserPersonaDetailsBehavior", MemberName: "behavior", ClassSectionID: "UPDB", Kind: som.SomMetaKindComplex, TypeName: "UserPersonaDetailsBehavior", SerializationOrder: metaIntPtr(4), DocComment: "Preferences and behavior.", ClassDocComment: "Preferences and behavior.", Recursive: r, Children: c}
 		}),
-		{ClassName: "UserPersonaDetails", MemberName: "visualRepresentation", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of a representative photo or avatar that embodies this persona (for design reference)."}, DocComment: "Representative photo or avatar description."},
+		{ClassName: "UserPersonaDetails", MemberName: "visualRepresentation", SectionID: "UPD-VISU", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of a representative photo or avatar that embodies this persona (for design reference)."}, DocComment: "Representative photo or avatar description."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UserPersonaDetails", MemberName: "representativeQuotes", SectionID: "REPRE-REPR-LST", SectionIDPattern: "REPRE-REPR-xxx", Kind: som.SomMetaKindList, TypeName: "RepresentativeQuoteEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.", DocComment: "Key quotes that represent this persona's mindset.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "The set of representative quotes capturing this persona's mindset."}}}}
 			n.ElementNode = metaCx("RepresentativeQuoteEntry", s, metaChildrenRepresentativeQuoteEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -30208,7 +30208,7 @@ func metaChildrenUserRegistrationProcess(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenUserTrainingRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserTrainingRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "UserTrainingRequirements", MemberName: "trainingForm", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Training Requirements Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "initialTrainingRequired", TypeName: "bool", Description: "Initial Training Required (is formal training needed)", Hint: "Whether formal up-front training is needed", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format (In-person, Online, Self-paced, On-the-job)", Hint: "In-person / Online / Self-paced / On-the-job", Order: 1}, {Name: "estimatedTrainingDuration", TypeName: "String", Description: "Estimated Training Duration", Hint: "Estimated time required to complete training", Order: 2}, {Name: "certificationRequired", TypeName: "bool", Description: "Certification Required (must pass assessment)", Hint: "Whether users must pass an assessment to be certified", Order: 3}, {Name: "refresherFrequency", TypeName: "String", Description: "Refresher Frequency (how often retraining is needed)", Hint: "How often retraining or refresher courses are needed", Order: 4}, {Name: "supportLevel", TypeName: "String", Description: "Support Level Expected (Self-service, Help desk, Dedicated)", Hint: "Self-service / Help desk / Dedicated", Order: 5}, {Name: "documentationNeeds", TypeName: "String", Description: "Documentation Needs (User guide, Quick reference, Video tutorials)", Hint: "User guide / Quick reference / Video tutorials", Order: 6}, {Name: "onboardingProcess", TypeName: "String", Description: "Onboarding Process (steps to get started)", Hint: "Steps needed to get a new user started", Order: 7}, {Name: "mentoringRequired", TypeName: "bool", Description: "Mentoring Required (paired with experienced user)", Hint: "Whether new users are paired with an experienced mentor", Order: 8}}}},
+		{ClassName: "UserTrainingRequirements", MemberName: "trainingForm", SectionID: "USTRRE-TRAI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Training Requirements Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "initialTrainingRequired", TypeName: "bool", Description: "Initial Training Required (is formal training needed)", Hint: "Whether formal up-front training is needed", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format (In-person, Online, Self-paced, On-the-job)", Hint: "In-person / Online / Self-paced / On-the-job", Order: 1}, {Name: "estimatedTrainingDuration", TypeName: "String", Description: "Estimated Training Duration", Hint: "Estimated time required to complete training", Order: 2}, {Name: "certificationRequired", TypeName: "bool", Description: "Certification Required (must pass assessment)", Hint: "Whether users must pass an assessment to be certified", Order: 3}, {Name: "refresherFrequency", TypeName: "String", Description: "Refresher Frequency (how often retraining is needed)", Hint: "How often retraining or refresher courses are needed", Order: 4}, {Name: "supportLevel", TypeName: "String", Description: "Support Level Expected (Self-service, Help desk, Dedicated)", Hint: "Self-service / Help desk / Dedicated", Order: 5}, {Name: "documentationNeeds", TypeName: "String", Description: "Documentation Needs (User guide, Quick reference, Video tutorials)", Hint: "User guide / Quick reference / Video tutorials", Order: 6}, {Name: "onboardingProcess", TypeName: "String", Description: "Onboarding Process (steps to get started)", Hint: "Steps needed to get a new user started", Order: 7}, {Name: "mentoringRequired", TypeName: "bool", Description: "Mentoring Required (paired with experienced user)", Hint: "Whether new users are paired with an experienced mentor", Order: 8}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UserTrainingRequirements", MemberName: "trainingTopics", SectionID: "TRTP-TRAI-LST", SectionIDPattern: "TRTP-TRAI-xxx", Kind: som.SomMetaKindList, TypeName: "TrainingTopicEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Define specific training topics for this user category.", DocComment: "Training topics — contains 0+× TrainingTopicEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 12207 — training/support processes", "ISO 9241-210 — user support"}, "connotation": "The set of specific training topics for this user category."}}}}
 			n.ElementNode = metaCx("TrainingTopicEntry", s, metaChildrenTrainingTopicEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -30295,7 +30295,7 @@ func metaChildrenValidationConstraints(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenValidationFeedback(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ValidationFeedback", MemberName: "validationDisplayContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "validationTiming", TypeName: "String", Description: "Validation Timing", Hint: "Real-time, on-blur, on-submit, debounced", Order: 0}, {Name: "debounceDelay", TypeName: "String", Description: "Debounce Delay", Hint: "Milliseconds before validation triggers", Order: 1}, {Name: "validationSequence", TypeName: "String", Description: "Validation Sequence", Hint: "Field-by-field, all-at-once, progressive", Order: 2}}}},
+		{ClassName: "ValidationFeedback", MemberName: "validationDisplayContent", SectionID: "VAFE-VALI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "validationTiming", TypeName: "String", Description: "Validation Timing", Hint: "Real-time, on-blur, on-submit, debounced", Order: 0}, {Name: "debounceDelay", TypeName: "String", Description: "Debounce Delay", Hint: "Milliseconds before validation triggers", Order: 1}, {Name: "validationSequence", TypeName: "String", Description: "Validation Sequence", Hint: "Field-by-field, all-at-once, progressive", Order: 2}}}},
 		metaCx("ValidationFeedbackPlacement", s, metaChildrenValidationFeedbackPlacement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ValidationFeedbackPlacement", MemberName: "placement", ClassSectionID: "VAFEPL", Kind: som.SomMetaKindComplex, TypeName: "ValidationFeedbackPlacement", SerializationOrder: metaIntPtr(1), DocComment: "Display placement details.", ClassDocComment: "Display placement details.", Recursive: r, Children: c}
 		}),
@@ -30638,7 +30638,7 @@ func metaChildrenWarrantyTransition(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenWcagCompliance(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "WcagCompliance", MemberName: "wcagComplianceContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "textAlternatives", TypeName: "String", Description: "Text Alternatives (1.1)", Hint: "Alt text for non-text content", Order: 0}, {Name: "timeBasedMedia", TypeName: "String", Description: "Time-Based Media (1.2)", Hint: "Captions, audio descriptions", Order: 1}, {Name: "adaptableContent", TypeName: "String", Description: "Adaptable Content (1.3)", Hint: "Structure, sequence, sensory", Order: 2}, {Name: "distinguishableContent", TypeName: "String", Description: "Distinguishable (1.4)", Hint: "Color, contrast, resize, audio", Order: 3}}}},
+		{ClassName: "WcagCompliance", MemberName: "wcagComplianceContent", SectionID: "WCCO-WCAG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "textAlternatives", TypeName: "String", Description: "Text Alternatives (1.1)", Hint: "Alt text for non-text content", Order: 0}, {Name: "timeBasedMedia", TypeName: "String", Description: "Time-Based Media (1.2)", Hint: "Captions, audio descriptions", Order: 1}, {Name: "adaptableContent", TypeName: "String", Description: "Adaptable Content (1.3)", Hint: "Structure, sequence, sensory", Order: 2}, {Name: "distinguishableContent", TypeName: "String", Description: "Distinguishable (1.4)", Hint: "Color, contrast, resize, audio", Order: 3}}}},
 		metaCx("WcagComplianceOperable", s, metaChildrenWcagComplianceOperable, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WcagComplianceOperable", MemberName: "operable", ClassSectionID: "WCCOOP", Kind: som.SomMetaKindComplex, TypeName: "WcagComplianceOperable", SerializationOrder: metaIntPtr(1), DocComment: "Operable principles.", ClassDocComment: "Operable principles.", Recursive: r, Children: c}
 		}),
@@ -30685,7 +30685,7 @@ func metaChildrenWcagSuccessCriterionEntry(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenWeightedQualityMatrix(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "WeightedQualityMatrix", MemberName: "matrixConfigContent", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "matrixFormat", TypeName: "String", Description: "Matrix Format", Hint: "Spreadsheet, radar chart, heatmap", Order: 0}, {Name: "weightingScale", TypeName: "String", Description: "Weighting Scale", Hint: "1-5, 1-10, percentage", Order: 1}, {Name: "totalWeightRequirement", TypeName: "String", Description: "Total Weight Requirement", Hint: "Sum to 100%, relative weights", Order: 2}, {Name: "weightJustificationRequired", TypeName: "bool", Description: "Weight Justification Required", Hint: "Whether each weight needs a documented justification", Order: 3}, {Name: "matrixUpdateProcess", TypeName: "String", Description: "Matrix Update Process", Hint: "How weights are updated", Order: 4}}}},
+		{ClassName: "WeightedQualityMatrix", MemberName: "matrixConfigContent", SectionID: "WEQUMA-MATR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "matrixFormat", TypeName: "String", Description: "Matrix Format", Hint: "Spreadsheet, radar chart, heatmap", Order: 0}, {Name: "weightingScale", TypeName: "String", Description: "Weighting Scale", Hint: "1-5, 1-10, percentage", Order: 1}, {Name: "totalWeightRequirement", TypeName: "String", Description: "Total Weight Requirement", Hint: "Sum to 100%, relative weights", Order: 2}, {Name: "weightJustificationRequired", TypeName: "bool", Description: "Weight Justification Required", Hint: "Whether each weight needs a documented justification", Order: 3}, {Name: "matrixUpdateProcess", TypeName: "String", Description: "Matrix Update Process", Hint: "How weights are updated", Order: 4}}}},
 		{ClassName: "WeightedQualityMatrix", MemberName: "matrixNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Description of weighted quality matrix including weights assigned to each attribute and rationale.", DocComment: "Weighted quality matrix narrative."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "WeightedQualityMatrix", MemberName: "weights", SectionID: "QLWGT-WEIG-LST", SectionIDPattern: "QLWGT-WEIG-xxx", Kind: som.SomMetaKindList, TypeName: "QualityWeightEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per quality attribute weight.", DocComment: "Quality attribute weight entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25030:2019 — each weighted quality requirement is enumerated with its assigned relative weight"}, "connotation": "Enumerates each weighted quality requirement with its assigned relative weight."}}}}
@@ -30732,7 +30732,7 @@ func metaChildrenWorkflowDecisionPoint(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenWorkflowDescriptions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "WorkflowDescriptions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "WorkflowDescriptions", MemberName: "workflowOverviewDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual overview of all workflows in this process showing relationships and handoffs"}, ContentHelp: "Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.", DocComment: "Workflow overview diagram."},
+		{ClassName: "WorkflowDescriptions", MemberName: "workflowOverviewDiagram", SectionID: "WODE-WORK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual overview of all workflows in this process showing relationships and handoffs"}, ContentHelp: "Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.", DocComment: "Workflow overview diagram."},
 		metaCx("WorkflowSummaryTable", s, metaChildrenWorkflowSummaryTable, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WorkflowSummaryTable", MemberName: "summaryTable", ClassSectionID: "WOSUTA", Kind: som.SomMetaKindComplex, TypeName: "WorkflowSummaryTable", SerializationOrder: metaIntPtr(2), Comment: "Quick reference summary of all workflows", DocComment: "Workflow summary table.", ClassDocComment: "Summary table of all workflows for quick reference.", Recursive: r, Children: c}
 		}),
@@ -30826,7 +30826,7 @@ func metaChildrenWorkflowStepIssue(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenWorkflowStepSystem(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "WorkflowStepSystem", MemberName: "name", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Name of the system used in this workflow step."},
+		{ClassName: "WorkflowStepSystem", MemberName: "name", SectionID: "WOSTSY-NAME", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Name of the system used in this workflow step."},
 	}
 }
 
@@ -31001,7 +31001,7 @@ func newAcceptanceCriteriaSummaryNav(tree *som.SomMetaTree, path string) *Accept
 }
 
 func (x *AcceptanceCriteriaSummaryNav) AcceptanceFrameworkContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/acceptanceFrameworkContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ACCRSU-ACCE"}
 }
 
 func (x *AcceptanceCriteriaSummaryNav) AcceptanceOverview() *som.SomMetaRef {
@@ -31325,7 +31325,7 @@ func (x *AccessChannelsNav) Content() *som.SomMetaRef {
 }
 
 func (x *AccessChannelsNav) ChannelDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/channelDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AC1-CHAN"}
 }
 
 func (x *AccessChannelsNav) Channels() *som.SomListMetaRef[*InteractionChannelEntryNav] {
@@ -31481,7 +31481,7 @@ func (x *AccessLevelsNav) Content() *som.SomMetaRef {
 }
 
 func (x *AccessLevelsNav) AccessLevelDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessLevelDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AL-ACCE"}
 }
 
 func (x *AccessLevelsNav) Levels() *som.SomListMetaRef[*AccessLevelEntryNav] {
@@ -31491,7 +31491,7 @@ func (x *AccessLevelsNav) Levels() *som.SomListMetaRef[*AccessLevelEntryNav] {
 }
 
 func (x *AccessLevelsNav) PermissionMatrix() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/permissionMatrix"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AL-PERM"}
 }
 
 // AccessRestrictionEntryNav holds the dot-notation accessors of `AccessRestrictionEntry` (DR1 §4.1).
@@ -31551,7 +31551,7 @@ func newAccessibilityNav(tree *som.SomMetaTree, path string) *AccessibilityNav {
 }
 
 func (x *AccessibilityNav) AccessibilityOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibilityOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ACCESS-ACCE"}
 }
 
 func (x *AccessibilityNav) Strategy() *AccessibilityStrategyNav {
@@ -31689,7 +31689,7 @@ func newAccessibilityChecklistNav(tree *som.SomMetaTree, path string) *Accessibi
 }
 
 func (x *AccessibilityChecklistNav) ChecklistOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/checklistOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ACCHLS-CHEC"}
 }
 
 func (x *AccessibilityChecklistNav) ChecklistOverview() *som.SomMetaRef {
@@ -32915,7 +32915,7 @@ func newAlertingConfigurationNav(tree *som.SomMetaTree, path string) *AlertingCo
 }
 
 func (x *AlertingConfigurationNav) AlertingOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/alertingOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ALCO-ALER"}
 }
 
 func (x *AlertingConfigurationNav) OverviewNarrative() *som.SomMetaRef {
@@ -36379,7 +36379,7 @@ func newBreakpointConfigurationNav(tree *som.SomMetaTree, path string) *Breakpoi
 }
 
 func (x *BreakpointConfigurationNav) BreakpointOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/breakpointOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BC-BREA"}
 }
 
 func (x *BreakpointConfigurationNav) Breakpoints() *som.SomListMetaRef[*BreakpointEntryNav] {
@@ -37447,15 +37447,15 @@ func newBusinessObjectEntryNav(tree *som.SomMetaTree, path string) *BusinessObje
 }
 
 func (x *BusinessObjectEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-IDEN"}
 }
 
 func (x *BusinessObjectEntryNav) DomainContext() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/domainContext"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-DOMA"}
 }
 
 func (x *BusinessObjectEntryNav) LifecycleSummary() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/lifecycleSummary"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-LIFE"}
 }
 
 func (x *BusinessObjectEntryNav) BehaviorRules() *som.SomListMetaRef[*BehaviorRuleEntryNav] {
@@ -37465,7 +37465,7 @@ func (x *BusinessObjectEntryNav) BehaviorRules() *som.SomListMetaRef[*BehaviorRu
 }
 
 func (x *BusinessObjectEntryNav) Ownership() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ownership"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-OWNE"}
 }
 
 func (x *BusinessObjectEntryNav) IntegrationPoints() *som.SomListMetaRef[*IntegrationPointEntryNav] {
@@ -37715,27 +37715,27 @@ func newBusinessRuleEntryNav(tree *som.SomMetaTree, path string) *BusinessRuleEn
 }
 
 func (x *BusinessRuleEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-IDEN"}
 }
 
 func (x *BusinessRuleEntryNav) Classification() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/classification"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-CLAS"}
 }
 
 func (x *BusinessRuleEntryNav) RuleLogic() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ruleLogic"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-RULE"}
 }
 
 func (x *BusinessRuleEntryNav) Implementation() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/implementation"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-IMPL"}
 }
 
 func (x *BusinessRuleEntryNav) ExceptionHandling() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/exceptionHandling"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-EXCE"}
 }
 
 func (x *BusinessRuleEntryNav) Governance() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/governance"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-GOVE"}
 }
 
 func (x *BusinessRuleEntryNav) AffectedObjects() *som.SomListMetaRef[*AffectedObjectEntryNav] {
@@ -39249,7 +39249,7 @@ func newChangesFromCurrentStructureNav(tree *som.SomMetaTree, path string) *Chan
 }
 
 func (x *ChangesFromCurrentStructureNav) OverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/overviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/OCCHG-OVER"}
 }
 
 func (x *ChangesFromCurrentStructureNav) ChangeNarrative() *som.SomMetaRef {
@@ -40793,7 +40793,7 @@ func (x *CommunicationMatrixNav) Content() *som.SomMetaRef {
 }
 
 func (x *CommunicationMatrixNav) CommunicationFlowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/communicationFlowDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/COMA-COMM"}
 }
 
 func (x *CommunicationMatrixNav) CommunicationTypes() *som.SomListMetaRef[*CommunicationTypeEntryNav] {
@@ -41025,7 +41025,7 @@ func newCompatibilityCharacteristicNav(tree *som.SomMetaTree, path string) *Comp
 }
 
 func (x *CompatibilityCharacteristicNav) CompatibilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/compatibilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CMPT-COMP"}
 }
 
 func (x *CompatibilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -43915,11 +43915,11 @@ func (x *ContextDiagramNav) Content() *som.SomMetaRef {
 }
 
 func (x *ContextDiagramNav) Diagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/diagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CD-DIAG"}
 }
 
 func (x *ContextDiagramNav) Legend() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/legend"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CD-LEGE"}
 }
 
 // ContextualHelpNav holds the dot-notation accessors of `ContextualHelp` (DR1 §4.1).
@@ -43937,7 +43937,7 @@ func newContextualHelpNav(tree *som.SomMetaTree, path string) *ContextualHelpNav
 }
 
 func (x *ContextualHelpNav) ContextualHelpContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/contextualHelpContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/COHE-CONT"}
 }
 
 func (x *ContextualHelpNav) Inline() *ContextualHelpInlineNav {
@@ -44611,11 +44611,11 @@ func (x *CurrentArchitectureNav) Content() *som.SomMetaRef {
 }
 
 func (x *CurrentArchitectureNav) ArchitectureDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/architectureDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CARCH-ARCH"}
 }
 
 func (x *CurrentArchitectureNav) DeploymentTopology() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deploymentTopology"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CARCH-DEPL"}
 }
 
 func (x *CurrentArchitectureNav) IntegrationPatterns() *som.SomListMetaRef[*IntegrationPatternEntryNav] {
@@ -44683,7 +44683,7 @@ func (x *CurrentBusinessProcessesNav) Content() *som.SomMetaRef {
 }
 
 func (x *CurrentBusinessProcessesNav) ProcessLandscapeDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processLandscapeDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUBUPR-PROC"}
 }
 
 func (x *CurrentBusinessProcessesNav) ScopeSummary() *ProcessScopeSummaryNav {
@@ -44757,11 +44757,11 @@ func (x *CurrentDataLandscapeNav) Content() *som.SomMetaRef {
 }
 
 func (x *CurrentDataLandscapeNav) DataLandscapeOverviewDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataLandscapeOverviewDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUDALA-DATAL"}
 }
 
 func (x *CurrentDataLandscapeNav) DataArchitectureDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataArchitectureDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUDALA-DATA"}
 }
 
 func (x *CurrentDataLandscapeNav) DataLandscapeSummary() *DataLandscapeSummaryNav {
@@ -44925,7 +44925,7 @@ func (x *CurrentWorkflowEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *CurrentWorkflowEntryNav) WorkflowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/workflowDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-WORK"}
 }
 
 func (x *CurrentWorkflowEntryNav) Triggers() *WorkflowTriggersNav {
@@ -45363,7 +45363,7 @@ func (x *D04RequirementsSpecificationNav) OrganizationalRequirements() *Organiza
 }
 
 func (x *D04RequirementsSpecificationNav) TraceabilityMatrix() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceabilityMatrix"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RSP-TRAC"}
 }
 
 func (x *D04RequirementsSpecificationNav) RequirementRelationships() *som.SomListMetaRef[*RequirementRelationshipsNav] {
@@ -46309,11 +46309,11 @@ func newDataAttributeEntryNav(tree *som.SomMetaTree, path string) *DataAttribute
 }
 
 func (x *DataAttributeEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-IDEN"}
 }
 
 func (x *DataAttributeEntryNav) DataTypeSpec() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataTypeSpec"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-DATA"}
 }
 
 func (x *DataAttributeEntryNav) Constraints() *som.SomListMetaRef[*DataAttributeConstraintEntryNav] {
@@ -46323,15 +46323,15 @@ func (x *DataAttributeEntryNav) Constraints() *som.SomListMetaRef[*DataAttribute
 }
 
 func (x *DataAttributeEntryNav) Derivation() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/derivation"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-DERI"}
 }
 
 func (x *DataAttributeEntryNav) SecurityClassification() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityClassification"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-SECU"}
 }
 
 func (x *DataAttributeEntryNav) MigrationLineage() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/migrationLineage"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-MIGR"}
 }
 
 func (x *DataAttributeEntryNav) DisplayProperties() *som.SomListMetaRef[*DisplayPropertyEntryNav] {
@@ -46355,7 +46355,7 @@ func newDataClassificationNav(tree *som.SomMetaTree, path string) *DataClassific
 }
 
 func (x *DataClassificationNav) Overview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/overview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DATCL-OVER"}
 }
 
 func (x *DataClassificationNav) Items() *som.SomListMetaRef[*DataClassificationEntryNav] {
@@ -46379,23 +46379,23 @@ func newDataClassificationEntryNav(tree *som.SomMetaTree, path string) *DataClas
 }
 
 func (x *DataClassificationEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-IDEN"}
 }
 
 func (x *DataClassificationEntryNav) StorageTransmission() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/storageTransmission"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-STOR"}
 }
 
 func (x *DataClassificationEntryNav) AccessControl() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControl"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-ACCE"}
 }
 
 func (x *DataClassificationEntryNav) RetentionDisposal() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/retentionDisposal"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-RETE"}
 }
 
 func (x *DataClassificationEntryNav) Compliance() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/compliance"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-COMP"}
 }
 
 func (x *DataClassificationEntryNav) HandlingRequirements() *som.SomListMetaRef[*HandlingRequirementEntryNav] {
@@ -46505,7 +46505,7 @@ func (x *DataDuplicationAnalysisNav) DuplicationSummary() *DataDuplicationSummar
 }
 
 func (x *DataDuplicationAnalysisNav) DuplicationDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/duplicationDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DADUAN-DUPL"}
 }
 
 func (x *DataDuplicationAnalysisNav) DuplicationInstances() *som.SomListMetaRef[*DataDuplicationEntryNav] {
@@ -46631,11 +46631,11 @@ func newDataEntityEntryNav(tree *som.SomMetaTree, path string) *DataEntityEntryN
 }
 
 func (x *DataEntityEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-IDEN"}
 }
 
 func (x *DataEntityEntryNav) Classification() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/classification"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-CLAS"}
 }
 
 func (x *DataEntityEntryNav) VolumeMetrics() *som.SomListMetaRef[*VolumeMetricEntryNav] {
@@ -46645,7 +46645,7 @@ func (x *DataEntityEntryNav) VolumeMetrics() *som.SomListMetaRef[*VolumeMetricEn
 }
 
 func (x *DataEntityEntryNav) LifecyclePolicy() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/lifecyclePolicy"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-LIFE"}
 }
 
 func (x *DataEntityEntryNav) ComplianceRequirements() *som.SomListMetaRef[*ComplianceRequirementEntryNav] {
@@ -46655,7 +46655,7 @@ func (x *DataEntityEntryNav) ComplianceRequirements() *som.SomListMetaRef[*Compl
 }
 
 func (x *DataEntityEntryNav) RelationshipSummary() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relationshipSummary"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-RELA"}
 }
 
 func (x *DataEntityEntryNav) TechnicalCharacteristics() *som.SomListMetaRef[*TechnicalCharacteristicEntryNav] {
@@ -46863,7 +46863,7 @@ func (x *DataGovernanceNav) GovernanceMaturity() *DataGovernanceMaturityNav {
 }
 
 func (x *DataGovernanceNav) GovernanceOrgChart() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/governanceOrgChart"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAGO-GOVE"}
 }
 
 func (x *DataGovernanceNav) GovernancePolicies() *som.SomListMetaRef[*DataGovernancePolicyEntryNav] {
@@ -47205,7 +47205,7 @@ func (x *DataIntegrationPointsNav) IntegrationSummary() *DataIntegrationSummaryN
 }
 
 func (x *DataIntegrationPointsNav) DataFlowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataFlowDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAINPO-DATA"}
 }
 
 func (x *DataIntegrationPointsNav) IntegrationPoints() *som.SomListMetaRef[*DataIntegrationEntryNav] {
@@ -47479,7 +47479,7 @@ func (x *DataOwnershipNav) OwnershipSummary() *DataOwnershipSummaryNav {
 }
 
 func (x *DataOwnershipNav) OwnershipMatrixDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ownershipMatrixDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAOW-OWNE"}
 }
 
 func (x *DataOwnershipNav) OwnershipAssignments() *som.SomListMetaRef[*DataOwnershipEntryNav] {
@@ -47853,7 +47853,7 @@ func (x *DataQualityAssessmentNav) DimensionsSummary() *DataQualityDimensionsSum
 }
 
 func (x *DataQualityAssessmentNav) QualityIssuesSeverityChart() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityIssuesSeverityChart"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAQUAS-QUAL"}
 }
 
 func (x *DataQualityAssessmentNav) QualityIssues() *som.SomListMetaRef[*DataQualityIssueEntryNav] {
@@ -48229,7 +48229,7 @@ func (x *DataSourceInventoryNav) Content() *som.SomMetaRef {
 }
 
 func (x *DataSourceInventoryNav) DataSourceMapDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataSourceMapDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DASOIN-DATA"}
 }
 
 func (x *DataSourceInventoryNav) DataSources() *som.SomListMetaRef[*DataSourceEntryNav] {
@@ -48621,7 +48621,7 @@ func (x *DataVolumesAndGrowthNav) VolumeSummary() *DataVolumeSummaryNav {
 }
 
 func (x *DataVolumesAndGrowthNav) GrowthTrendChart() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/growthTrendChart"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DVAG-GROW"}
 }
 
 func (x *DataVolumesAndGrowthNav) VolumeBySource() *som.SomListMetaRef[*DataVolumeEntryNav] {
@@ -49823,7 +49823,7 @@ func (x *DependenciesAndIntegrationsNav) Content() *som.SomMetaRef {
 }
 
 func (x *DependenciesAndIntegrationsNav) DependencyDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dependencyDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DEPNT-DEPE"}
 }
 
 func (x *DependenciesAndIntegrationsNav) InternalDependencies() *InternalDependenciesNav {
@@ -52979,7 +52979,7 @@ func newDocumentationQualityCriteriaNav(tree *som.SomMetaTree, path string) *Doc
 }
 
 func (x *DocumentationQualityCriteriaNav) DocumentationOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/documentationOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DOQUCR-DOCU"}
 }
 
 func (x *DocumentationQualityCriteriaNav) Overview() *som.SomMetaRef {
@@ -53255,15 +53255,15 @@ func (x *DomainBoundariesNav) Content() *som.SomMetaRef {
 }
 
 func (x *DomainBoundariesNav) ContextMap() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/contextMap"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DB-CONT"}
 }
 
 func (x *DomainBoundariesNav) WithinScope() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/withinScope"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DB-WITH"}
 }
 
 func (x *DomainBoundariesNav) OutsideScope() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/outsideScope"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DB-OUTS"}
 }
 
 func (x *DomainBoundariesNav) Interfaces() *som.SomListMetaRef[*DomainInterfaceEntryNav] {
@@ -53525,7 +53525,7 @@ func (x *DomainProcessesNav) Content() *som.SomMetaRef {
 }
 
 func (x *DomainProcessesNav) ProcessOverviewDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processOverviewDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DP-PROC"}
 }
 
 func (x *DomainProcessesNav) Processes() *som.SomListMetaRef[*DomainProcessEntryNav] {
@@ -54111,7 +54111,7 @@ func newEntityRelationshipEntryNav(tree *som.SomMetaTree, path string) *EntityRe
 }
 
 func (x *EntityRelationshipEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-IDEN"}
 }
 
 func (x *EntityRelationshipEntryNav) Participants() *som.SomListMetaRef[*ParticipantEntryNav] {
@@ -54121,15 +54121,15 @@ func (x *EntityRelationshipEntryNav) Participants() *som.SomListMetaRef[*Partici
 }
 
 func (x *EntityRelationshipEntryNav) Cardinality() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/cardinality"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-CARD"}
 }
 
 func (x *EntityRelationshipEntryNav) ReferentialIntegrity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/referentialIntegrity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-REFE"}
 }
 
 func (x *EntityRelationshipEntryNav) Navigation() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/navigation"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-NAVI"}
 }
 
 func (x *EntityRelationshipEntryNav) RelationshipAttributes() *som.SomListMetaRef[*RelationshipAttributeEntryNav] {
@@ -54877,7 +54877,7 @@ func newErrorHandlingNav(tree *som.SomMetaTree, path string) *ErrorHandlingNav {
 }
 
 func (x *ErrorHandlingNav) ErrorPhilosophyContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorPhilosophyContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ERHACO-ERRO"}
 }
 
 func (x *ErrorHandlingNav) Classification() *ErrorHandlingClassificationNav {
@@ -55149,7 +55149,7 @@ func newErrorRecoveryNav(tree *som.SomMetaTree, path string) *ErrorRecoveryNav {
 }
 
 func (x *ErrorRecoveryNav) RecoveryMechanismsContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/recoveryMechanismsContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ERRE-RECO"}
 }
 
 func (x *ErrorRecoveryNav) DataPreservation() *ErrorRecoveryDataPreservationNav {
@@ -56365,7 +56365,7 @@ func newExternalInterfaceEntryNav(tree *som.SomMetaTree, path string) *ExternalI
 }
 
 func (x *ExternalInterfaceEntryNav) IdentificationContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identificationContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EIE-IDEN"}
 }
 
 func (x *ExternalInterfaceEntryNav) BusinessContext() *InterfaceBusinessContextNav {
@@ -56833,7 +56833,7 @@ func (x *ExternalSystemContextEntryNav) Governance() *ExternalSystemContextEntry
 }
 
 func (x *ExternalSystemContextEntryNav) DataMapping() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataMapping"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EXSYCOEN-DATA"}
 }
 
 // ExternalSystemContextEntryGovernanceNav holds the dot-notation accessors of `ExternalSystemContextEntryGovernance` (DR1 §4.1).
@@ -58019,7 +58019,7 @@ func newFlexibilityCharacteristicNav(tree *som.SomMetaTree, path string) *Flexib
 }
 
 func (x *FlexibilityCharacteristicNav) FlexibilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/flexibilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FLXC-FLEX"}
 }
 
 func (x *FlexibilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -58407,11 +58407,11 @@ func newFunctionModelNav(tree *som.SomMetaTree, path string) *FunctionModelNav {
 }
 
 func (x *FunctionModelNav) DecompositionOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/decompositionOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FUMO-DECO"}
 }
 
 func (x *FunctionModelNav) MatrixOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/matrixOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FUMO-MATR"}
 }
 
 func (x *FunctionModelNav) Functions() *som.SomListMetaRef[*FunctionEntryNav] {
@@ -58651,7 +58651,7 @@ func (x *FunctionalRequirementsNav) Content() *som.SomMetaRef {
 }
 
 func (x *FunctionalRequirementsNav) SummaryForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/summaryForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FR-SUMM"}
 }
 
 func (x *FunctionalRequirementsNav) Requirements() *som.SomListMetaRef[*FunctionalRequirementEntryNav] {
@@ -58703,7 +58703,7 @@ func newFunctionalSuitabilityCharacteristicNav(tree *som.SomMetaTree, path strin
 }
 
 func (x *FunctionalSuitabilityCharacteristicNav) FunctionalSuitabilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/functionalSuitabilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FNSU-FUNC"}
 }
 
 func (x *FunctionalSuitabilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -59185,7 +59185,7 @@ func (x *GoalResourcesNav) Content() *som.SomMetaRef {
 }
 
 func (x *GoalResourcesNav) ResourcesForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/resourcesForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GORE-RESO"}
 }
 
 func (x *GoalResourcesNav) Items() *som.SomListMetaRef[*ResourceAllocationEntryNav] {
@@ -59299,7 +59299,7 @@ func (x *GoalsNav) Content() *som.SomMetaRef {
 }
 
 func (x *GoalsNav) GoalHierarchyDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/goalHierarchyDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GOALS-GOAL"}
 }
 
 func (x *GoalsNav) BusinessGoals() *BusinessGoalsNav {
@@ -61825,7 +61825,7 @@ func newInteractionCapabilityCharacteristicNav(tree *som.SomMetaTree, path strin
 }
 
 func (x *InteractionCapabilityCharacteristicNav) InteractionCapabilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/interactionCapabilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/INCP-INTE"}
 }
 
 func (x *InteractionCapabilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -63341,7 +63341,7 @@ func (x *IntroductionAndScopeNav) Summary() *SystemSummaryNav {
 }
 
 func (x *IntroductionAndScopeNav) SystemContextDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemContextDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/INSC-SYST"}
 }
 
 func (x *IntroductionAndScopeNav) SystemDescription() *SystemDescriptionNav {
@@ -63993,7 +63993,7 @@ func (x *KeyConceptsNav) Content() *som.SomMetaRef {
 }
 
 func (x *KeyConceptsNav) ConceptualModelDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/conceptualModelDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/KC-CONC"}
 }
 
 func (x *KeyConceptsNav) Concepts() *som.SomListMetaRef[*KeyConceptEntryNav] {
@@ -64283,7 +64283,7 @@ func newLanguageCountrySelectionNav(tree *som.SomMetaTree, path string) *Languag
 }
 
 func (x *LanguageCountrySelectionNav) LanguageSelectionContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/languageSelectionContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/LACOSE-LANG"}
 }
 
 func (x *LanguageCountrySelectionNav) Defaults() *LanguageCountrySelectionDefaultsNav {
@@ -65107,7 +65107,7 @@ func newLocalizationProcessNav(tree *som.SomMetaTree, path string) *Localization
 }
 
 func (x *LocalizationProcessNav) LocalizationProcessContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/localizationProcessContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/LOPR-LOCA"}
 }
 
 func (x *LocalizationProcessNav) Review() *LocalizationReviewNav {
@@ -65693,7 +65693,7 @@ func newMaintainabilityCharacteristicNav(tree *som.SomMetaTree, path string) *Ma
 }
 
 func (x *MaintainabilityCharacteristicNav) MaintainabilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/maintainabilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MNTC-MAIN"}
 }
 
 func (x *MaintainabilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -66497,7 +66497,7 @@ func newMetricsAndObservabilityNav(tree *som.SomMetaTree, path string) *MetricsA
 }
 
 func (x *MetricsAndObservabilityNav) MetricsOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/metricsOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MEANOB-METR"}
 }
 
 func (x *MetricsAndObservabilityNav) OverviewNarrative() *som.SomMetaRef {
@@ -66869,7 +66869,7 @@ func newMigrationConsiderationsNav(tree *som.SomMetaTree, path string) *Migratio
 }
 
 func (x *MigrationConsiderationsNav) StrategyContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/strategyContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MIGCON-STRA"}
 }
 
 func (x *MigrationConsiderationsNav) StrategyNarrative() *som.SomMetaRef {
@@ -67641,7 +67641,7 @@ func newMigrationRisksNav(tree *som.SomMetaTree, path string) *MigrationRisksNav
 }
 
 func (x *MigrationRisksNav) GovernanceContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/governanceContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MIRI-GOVE"}
 }
 
 func (x *MigrationRisksNav) Governance() *MigrationRisksGovernanceNav {
@@ -68413,7 +68413,7 @@ func newMonitoringNav(tree *som.SomMetaTree, path string) *MonitoringNav {
 }
 
 func (x *MonitoringNav) MonitoringOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/monitoringOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MONITO-MONI"}
 }
 
 func (x *MonitoringNav) OverviewNarrative() *som.SomMetaRef {
@@ -68573,7 +68573,7 @@ func newMonitoringDashboardsNav(tree *som.SomMetaTree, path string) *MonitoringD
 }
 
 func (x *MonitoringDashboardsNav) DashboardOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dashboardOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MODA-DASH"}
 }
 
 func (x *MonitoringDashboardsNav) OverviewNarrative() *som.SomMetaRef {
@@ -68865,7 +68865,7 @@ func (x *MultiChannelExperienceNav) Content() *som.SomMetaRef {
 }
 
 func (x *MultiChannelExperienceNav) MultiChannelConfiguration() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/multiChannelConfiguration"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MCE-MULT"}
 }
 
 // MultiLanguageSupportNav holds the dot-notation accessors of `MultiLanguageSupport` (DR1 §4.1).
@@ -68883,7 +68883,7 @@ func newMultiLanguageSupportNav(tree *som.SomMetaTree, path string) *MultiLangua
 }
 
 func (x *MultiLanguageSupportNav) MultiLanguageOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/multiLanguageOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MLAR-MULT"}
 }
 
 func (x *MultiLanguageSupportNav) OverviewNarrative() *som.SomMetaRef {
@@ -68915,7 +68915,7 @@ func newMustPassCriteriaNav(tree *som.SomMetaTree, path string) *MustPassCriteri
 }
 
 func (x *MustPassCriteriaNav) MustPassOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/mustPassOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/MUPACR-MUST"}
 }
 
 func (x *MustPassCriteriaNav) Overview() *som.SomMetaRef {
@@ -70879,7 +70879,7 @@ func newOnboardingHelpNav(tree *som.SomMetaTree, path string) *OnboardingHelpNav
 }
 
 func (x *OnboardingHelpNav) OnboardingContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/onboardingContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ONHE-ONBO"}
 }
 
 func (x *OnboardingHelpNav) Tours() *OnboardingHelpToursNav {
@@ -71423,7 +71423,7 @@ func (x *OrgRequirementImplementationPlanNav) Content() *som.SomMetaRef {
 }
 
 func (x *OrgRequirementImplementationPlanNav) PlanForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/planForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ORIP-PLAN"}
 }
 
 func (x *OrgRequirementImplementationPlanNav) Activities() *som.SomListMetaRef[*OrgImplementationActivityNav] {
@@ -71531,7 +71531,7 @@ func (x *OrganizationalContextNav) OrganizationalUnits() *som.SomListMetaRef[*Or
 }
 
 func (x *OrganizationalContextNav) BusinessProcessCoverage() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/businessProcessCoverage"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/OC-BUSI"}
 }
 
 // OrganizationalEnvironmentNav holds the dot-notation accessors of `OrganizationalEnvironment` (DR1 §4.1).
@@ -71549,7 +71549,7 @@ func newOrganizationalEnvironmentNav(tree *som.SomMetaTree, path string) *Organi
 }
 
 func (x *OrganizationalEnvironmentNav) OrganizationContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/organizationContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/OREN-ORGA"}
 }
 
 func (x *OrganizationalEnvironmentNav) Maturity() *OrganizationalEnvironmentMaturityNav {
@@ -71785,7 +71785,7 @@ func (x *OrganizationalRequirementsNav) Content() *som.SomMetaRef {
 }
 
 func (x *OrganizationalRequirementsNav) SummaryForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/summaryForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/OR-SUMM"}
 }
 
 func (x *OrganizationalRequirementsNav) Requirements() *som.SomListMetaRef[*OrganizationalRequirementEntryNav] {
@@ -72283,7 +72283,7 @@ func (x *PainPointGapCorrelationNav) Content() *som.SomMetaRef {
 }
 
 func (x *PainPointGapCorrelationNav) CorrelationDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/correlationDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PPGC-CORR"}
 }
 
 func (x *PainPointGapCorrelationNav) CorrelationEntries() *som.SomListMetaRef[*PainPointGapCorrelationEntryNav] {
@@ -72419,11 +72419,11 @@ func (x *PainPointsAndGapsNav) Content() *som.SomMetaRef {
 }
 
 func (x *PainPointsAndGapsNav) PainPointsOverviewDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsOverviewDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PPAG-PAIN"}
 }
 
 func (x *PainPointsAndGapsNav) PainPointsPriorityMatrix() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsPriorityMatrix"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PPAG-PAINP"}
 }
 
 func (x *PainPointsAndGapsNav) PainPointsSummary() *PainPointsSummaryNav {
@@ -72791,7 +72791,7 @@ func newPerformanceEfficiencyCharacteristicNav(tree *som.SomMetaTree, path strin
 }
 
 func (x *PerformanceEfficiencyCharacteristicNav) PerformanceEfficiencyContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/performanceEfficiencyContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PEEF-PERF"}
 }
 
 func (x *PerformanceEfficiencyCharacteristicNav) Overview() *som.SomMetaRef {
@@ -74555,7 +74555,7 @@ func (x *ProcessAdjustmentsNav) AdjustmentSummary() *ProcessAdjustmentSummaryNav
 }
 
 func (x *ProcessAdjustmentsNav) ProcessFlowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processFlowDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PCADJ-PROC"}
 }
 
 func (x *ProcessAdjustmentsNav) Items() *som.SomListMetaRef[*ProcessAdjustmentEntryNav] {
@@ -75271,7 +75271,7 @@ func (x *ProcessInterdependencyMatrixNav) Content() *som.SomMetaRef {
 }
 
 func (x *ProcessInterdependencyMatrixNav) DependencyDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dependencyDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PRINMA-DEPE"}
 }
 
 func (x *ProcessInterdependencyMatrixNav) Dependencies() *som.SomListMetaRef[*ProcessDependencyEntryNav] {
@@ -76285,7 +76285,7 @@ func (x *ProjectOrganizationAndProcessNav) Content() *som.SomMetaRef {
 }
 
 func (x *ProjectOrganizationAndProcessNav) MethodologyDeviationDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/methodologyDeviationDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PRPO-METH"}
 }
 
 func (x *ProjectOrganizationAndProcessNav) DeviationSummary() *MethodologyDeviationSummaryNav {
@@ -76583,7 +76583,7 @@ func newPrototypeNav(tree *som.SomMetaTree, path string) *PrototypeNav {
 }
 
 func (x *PrototypeNav) PrototypeOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototypeOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PROTOT-PROT"}
 }
 
 func (x *PrototypeNav) Timeline() *PrototypeTimelineNav {
@@ -76651,7 +76651,7 @@ func newPrototypeFeatureSubsetNav(tree *som.SomMetaTree, path string) *Prototype
 }
 
 func (x *PrototypeFeatureSubsetNav) FeatureSubsetContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/featureSubsetContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PRFESU-FEAT"}
 }
 
 func (x *PrototypeFeatureSubsetNav) Scope() *PrototypeFeatureSubsetScopeNav {
@@ -76741,7 +76741,7 @@ func newPrototypeGoalsNav(tree *som.SomMetaTree, path string) *PrototypeGoalsNav
 }
 
 func (x *PrototypeGoalsNav) GoalsContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/goalsContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PG-GOAL"}
 }
 
 func (x *PrototypeGoalsNav) RiskProfile() *PrototypeGoalsRiskNav {
@@ -76867,7 +76867,7 @@ func newPrototypeTypeNav(tree *som.SomMetaTree, path string) *PrototypeTypeNav {
 }
 
 func (x *PrototypeTypeNav) PrototypeTypeOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototypeTypeOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PRTYSE-PROT"}
 }
 
 func (x *PrototypeTypeNav) ReusablePrototype() *ReusablePrototypeNav {
@@ -77143,7 +77143,7 @@ func newQualityFrameworkNav(tree *som.SomMetaTree, path string) *QualityFramewor
 }
 
 func (x *QualityFrameworkNav) FrameworkContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/frameworkContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/QLFWK-FRAM"}
 }
 
 func (x *QualityFrameworkNav) Objectives() *QualityFrameworkObjectivesNav {
@@ -77381,7 +77381,7 @@ func (x *QualityGateAdjustmentsNav) AdjustmentSummary() *QualityGateAdjustmentSu
 }
 
 func (x *QualityGateAdjustmentsNav) GateFlowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/gateFlowDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/QGADJ-GATE"}
 }
 
 func (x *QualityGateAdjustmentsNav) Items() *som.SomListMetaRef[*QualityGateAdjustmentEntryNav] {
@@ -77533,7 +77533,7 @@ func newQualityGateChecklistNav(tree *som.SomMetaTree, path string) *QualityGate
 }
 
 func (x *QualityGateChecklistNav) ChecklistOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/checklistOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/QUGACH-CHEC"}
 }
 
 func (x *QualityGateChecklistNav) Overview() *som.SomMetaRef {
@@ -77633,7 +77633,7 @@ func newQualityPrioritizationNav(tree *som.SomMetaTree, path string) *QualityPri
 }
 
 func (x *QualityPrioritizationNav) PrioritizationFrameworkContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prioritizationFrameworkContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/QUPR-PRIO"}
 }
 
 func (x *QualityPrioritizationNav) PrioritizationOverview() *som.SomMetaRef {
@@ -78759,7 +78759,7 @@ func newReliabilityCharacteristicNav(tree *som.SomMetaTree, path string) *Reliab
 }
 
 func (x *ReliabilityCharacteristicNav) ReliabilityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/reliabilityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RELC-RELI"}
 }
 
 func (x *ReliabilityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -80407,7 +80407,7 @@ func (x *RequirementTraceabilityNav) Content() *som.SomMetaRef {
 }
 
 func (x *RequirementTraceabilityNav) TraceabilityForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceabilityForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RT-TRAC"}
 }
 
 func (x *RequirementTraceabilityNav) Artifacts() *RequirementTraceabilityArtifactsNav {
@@ -80473,15 +80473,15 @@ func (x *RequirementUiSpecificationNav) Content() *som.SomMetaRef {
 }
 
 func (x *RequirementUiSpecificationNav) UiForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RUS-UIFO"}
 }
 
 func (x *RequirementUiSpecificationNav) LayoutCode() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/layoutCode"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RUS-LAYO"}
 }
 
 func (x *RequirementUiSpecificationNav) MockupDescription() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/mockupDescription"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RUS-MOCK"}
 }
 
 func (x *RequirementUiSpecificationNav) Fields() *som.SomListMetaRef[*ScreenFieldEntryNav] {
@@ -80551,11 +80551,11 @@ func (x *RequirementsOverviewNav) Content() *som.SomMetaRef {
 }
 
 func (x *RequirementsOverviewNav) RequirementsForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirementsForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RO-REQU"}
 }
 
 func (x *RequirementsOverviewNav) TraceabilityMatrix() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceabilityMatrix"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RO-TRAC"}
 }
 
 func (x *RequirementsOverviewNav) FunctionalRequirements() *FunctionalRequirementsNav {
@@ -81031,7 +81031,7 @@ func newResponsiveBehaviorNav(tree *som.SomMetaTree, path string) *ResponsiveBeh
 }
 
 func (x *ResponsiveBehaviorNav) LayoutAdaptation() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/layoutAdaptation"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/REBE-LAYO"}
 }
 
 func (x *ResponsiveBehaviorNav) Navigation() *ResponsiveBehaviorNavigationNav {
@@ -81147,7 +81147,7 @@ func newResponsiveDesignNav(tree *som.SomMetaTree, path string) *ResponsiveDesig
 }
 
 func (x *ResponsiveDesignNav) ResponsiveOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/REDE-RESP"}
 }
 
 func (x *ResponsiveDesignNav) ResponsiveNarrative() *som.SomMetaRef {
@@ -81467,7 +81467,7 @@ func newReusablePrototypeNav(tree *som.SomMetaTree, path string) *ReusableProtot
 }
 
 func (x *ReusablePrototypeNav) ReusableContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/reusableContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/REUPRO-REUS"}
 }
 
 func (x *ReusablePrototypeNav) Architecture() *ReusablePrototypeArchitectureNav {
@@ -82467,7 +82467,7 @@ func (x *RoleAdjustmentsNav) AdjustmentSummary() *RoleAdjustmentSummaryNav {
 }
 
 func (x *RoleAdjustmentsNav) RoleComparisonDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/roleComparisonDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RLADJ-ROLE"}
 }
 
 func (x *RoleAdjustmentsNav) Items() *som.SomListMetaRef[*RoleAdjustmentEntryNav] {
@@ -85549,7 +85549,7 @@ func newSecurityCharacteristicNav(tree *som.SomMetaTree, path string) *SecurityC
 }
 
 func (x *SecurityCharacteristicNav) SecurityContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SECC-SECU"}
 }
 
 func (x *SecurityCharacteristicNav) Overview() *som.SomMetaRef {
@@ -86079,7 +86079,7 @@ func (x *SecurityRequirementsNav) Content() *som.SomMetaRef {
 }
 
 func (x *SecurityRequirementsNav) SummaryForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/summaryForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SR1-SUMM"}
 }
 
 func (x *SecurityRequirementsNav) Requirements() *som.SomListMetaRef[*SecurityRequirementEntryNav] {
@@ -87553,7 +87553,7 @@ func (x *SessionModelNav) Content() *som.SomMetaRef {
 }
 
 func (x *SessionModelNav) SessionConfiguration() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/sessionConfiguration"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SM-SESS"}
 }
 
 func (x *SessionModelNav) Lifecycle() *SessionModelLifecycleNav {
@@ -88257,7 +88257,7 @@ func newSlaAndSloMonitoringNav(tree *som.SomMetaTree, path string) *SlaAndSloMon
 }
 
 func (x *SlaAndSloMonitoringNav) SlaOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/slaOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SASM-SLAO"}
 }
 
 func (x *SlaAndSloMonitoringNav) OverviewNarrative() *som.SomMetaRef {
@@ -91151,7 +91151,7 @@ func (x *SuccessCriteriaNav) ByCategory() *SuccessCriteriaByCategoryNav {
 }
 
 func (x *SuccessCriteriaNav) SuccessCriteriaMatrix() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/successCriteriaMatrix"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SC-SUCC"}
 }
 
 func (x *SuccessCriteriaNav) PostImplementationReview() *PostImplementationReviewNav {
@@ -91173,23 +91173,23 @@ func newSuccessCriteriaByCategoryNav(tree *som.SomMetaTree, path string) *Succes
 }
 
 func (x *SuccessCriteriaByCategoryNav) BusinessCriteria() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/businessCriteria"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCBC-BUSI"}
 }
 
 func (x *SuccessCriteriaByCategoryNav) TechnicalCriteria() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalCriteria"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCBC-TECH"}
 }
 
 func (x *SuccessCriteriaByCategoryNav) UserCriteria() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userCriteria"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCBC-USER"}
 }
 
 func (x *SuccessCriteriaByCategoryNav) ComplianceCriteria() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/complianceCriteria"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCBC-COMP"}
 }
 
 func (x *SuccessCriteriaByCategoryNav) ProjectCriteria() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/projectCriteria"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCBC-PROJ"}
 }
 
 // SuccessCriteriaFrameworkNav holds the dot-notation accessors of `SuccessCriteriaFramework` (DR1 §4.1).
@@ -91395,7 +91395,7 @@ func newSupportAccessNav(tree *som.SomMetaTree, path string) *SupportAccessNav {
 }
 
 func (x *SupportAccessNav) SupportAccessContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/supportAccessContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SUAC-SUPP"}
 }
 
 func (x *SupportAccessNav) HelpCenter() *SupportAccessHelpCenterNav {
@@ -92465,7 +92465,7 @@ func newSystemErrorDisplayNav(tree *som.SomMetaTree, path string) *SystemErrorDi
 }
 
 func (x *SystemErrorDisplayNav) SystemErrorContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemErrorContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYERDI-SYST"}
 }
 
 func (x *SystemErrorDisplayNav) ErrorTypes() *SystemErrorDisplayErrorTypesNav {
@@ -92971,7 +92971,7 @@ func (x *SystemPurposeNav) Content() *som.SomMetaRef {
 }
 
 func (x *SystemPurposeNav) VisionStatement() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/visionStatement"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYPUP-VISI"}
 }
 
 func (x *SystemPurposeNav) ProblemStatement() *ProblemStatementNav {
@@ -93013,7 +93013,7 @@ func newSystemQualityGoalsNav(tree *som.SomMetaTree, path string) *SystemQuality
 }
 
 func (x *SystemQualityGoalsNav) GovernanceContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/governanceContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYQG-GOVE"}
 }
 
 func (x *SystemQualityGoalsNav) Governance() *QualityGoalsGovernanceNav {
@@ -93579,7 +93579,7 @@ func newSystemToReplaceEntryNav(tree *som.SomMetaTree, path string) *SystemToRep
 }
 
 func (x *SystemToReplaceEntryNav) IdentificationContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identificationContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYTORE-IDEN"}
 }
 
 func (x *SystemToReplaceEntryNav) Profile() *SystemToReplaceEntryProfileNav {
@@ -94375,7 +94375,7 @@ func newTechnicalEnvironmentNav(tree *som.SomMetaTree, path string) *TechnicalEn
 }
 
 func (x *TechnicalEnvironmentNav) TechnicalOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TEEN-TECH"}
 }
 
 func (x *TechnicalEnvironmentNav) Governance() *TechnicalEnvironmentGovernanceNav {
@@ -94733,7 +94733,7 @@ func (x *TechnicalGoalTestCriteriaNav) Content() *som.SomMetaRef {
 }
 
 func (x *TechnicalGoalTestCriteriaNav) TestCriteriaForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/testCriteriaForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TGTC-TEST"}
 }
 
 func (x *TechnicalGoalTestCriteriaNav) Items() *som.SomListMetaRef[*TechnicalGoalTestCaseEntryNav] {
@@ -95003,7 +95003,7 @@ func (x *TechnicalRequirementsNav) Content() *som.SomMetaRef {
 }
 
 func (x *TechnicalRequirementsNav) SummaryForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/summaryForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TR1-SUMM"}
 }
 
 func (x *TechnicalRequirementsNav) Requirements() *som.SomListMetaRef[*TechnicalRequirementEntryNav] {
@@ -96019,7 +96019,7 @@ func newThrowawayPrototypeNav(tree *som.SomMetaTree, path string) *ThrowawayProt
 }
 
 func (x *ThrowawayPrototypeNav) ThrowawayContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/throwawayContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/THPR-THRO"}
 }
 
 func (x *ThrowawayPrototypeNav) Findings() *ThrowawayPrototypeFindingsNav {
@@ -96857,7 +96857,7 @@ func newTradeOffDecisionsNav(tree *som.SomMetaTree, path string) *TradeOffDecisi
 }
 
 func (x *TradeOffDecisionsNav) TradeOffGovernanceContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/tradeOffGovernanceContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TROFDE-TRAD"}
 }
 
 func (x *TradeOffDecisionsNav) TradeOffOverview() *som.SomMetaRef {
@@ -96969,7 +96969,7 @@ func newTrainingDeliverableRequirementsNav(tree *som.SomMetaTree, path string) *
 }
 
 func (x *TrainingDeliverableRequirementsNav) TrainingContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TRMAT-TRAI"}
 }
 
 func (x *TrainingDeliverableRequirementsNav) TrainingNarrative() *som.SomMetaRef {
@@ -97163,7 +97163,7 @@ func newTrainingPrototypeNav(tree *som.SomMetaTree, path string) *TrainingProtot
 }
 
 func (x *TrainingPrototypeNav) TrainingContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TP-TRAI"}
 }
 
 func (x *TrainingPrototypeNav) Disposition() *TrainingPrototypeDispositionNav {
@@ -97927,7 +97927,7 @@ func newTranslationProcessNav(tree *som.SomMetaTree, path string) *TranslationPr
 }
 
 func (x *TranslationProcessNav) TranslationProcessContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/translationProcessContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TRPR-TRAN"}
 }
 
 func (x *TranslationProcessNav) Workflow() *TranslationWorkflowNav {
@@ -97989,7 +97989,7 @@ func newTranslationRequirementsNav(tree *som.SomMetaTree, path string) *Translat
 }
 
 func (x *TranslationRequirementsNav) TranslationRequirementsContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/translationRequirementsContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TRAREQ-TRAN"}
 }
 
 func (x *TranslationRequirementsNav) Rtl() *TranslationRequirementsRtlNav {
@@ -98637,7 +98637,7 @@ func newUiComponentEntryNav(tree *som.SomMetaTree, path string) *UiComponentEntr
 }
 
 func (x *UiComponentEntryNav) Identity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/identity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-IDEN"}
 }
 
 func (x *UiComponentEntryNav) PurposeProfile() *UiComponentEntryPurposeNav {
@@ -98649,7 +98649,7 @@ func (x *UiComponentEntryNav) Classification() *UiComponentEntryClassificationNa
 }
 
 func (x *UiComponentEntryNav) VisualDesign() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/visualDesign"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-VISU"}
 }
 
 func (x *UiComponentEntryNav) Dimensions() *UiComponentEntryDimensionsNav {
@@ -98669,7 +98669,7 @@ func (x *UiComponentEntryNav) VisualDiagram() *som.SomMetaRef {
 }
 
 func (x *UiComponentEntryNav) InteractiveBehavior() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/interactiveBehavior"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-INTE"}
 }
 
 func (x *UiComponentEntryNav) InputBehavior() *UiComponentEntryInputBehaviorNav {
@@ -98685,23 +98685,23 @@ func (x *UiComponentEntryNav) Scroll() *UiComponentEntryScrollNav {
 }
 
 func (x *UiComponentEntryNav) Responsiveness() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveness"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-RESP"}
 }
 
 func (x *UiComponentEntryNav) Accessibility() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibility"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-ACCE"}
 }
 
 func (x *UiComponentEntryNav) Authorization() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/authorization"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-AUTH"}
 }
 
 func (x *UiComponentEntryNav) ResourceIntegration() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/resourceIntegration"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-RESO"}
 }
 
 func (x *UiComponentEntryNav) DataBinding() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataBinding"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-DATA"}
 }
 
 func (x *UiComponentEntryNav) BehaviorNarrative() *som.SomMetaRef {
@@ -98897,7 +98897,7 @@ func newUiComponentsNav(tree *som.SomMetaTree, path string) *UiComponentsNav {
 }
 
 func (x *UiComponentsNav) ComponentLibraryOverview() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/componentLibraryOverview"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICO-COMP"}
 }
 
 func (x *UiComponentsNav) VisualLanguage() *ComponentVisualLanguageNav {
@@ -99235,7 +99235,7 @@ func (x *UserAccessPermissionsNav) Content() *som.SomMetaRef {
 }
 
 func (x *UserAccessPermissionsNav) PermissionsForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/permissionsForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UAP-PERM"}
 }
 
 func (x *UserAccessPermissionsNav) RestrictionsProfile() *UserAccessPermissionsRestrictionsNav {
@@ -99307,7 +99307,7 @@ func (x *UserAccessibilityNeedsNav) Content() *som.SomMetaRef {
 }
 
 func (x *UserAccessibilityNeedsNav) AccessibilityForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibilityForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UAN-ACCE"}
 }
 
 // UserAccountStatesDefinitionNav holds the dot-notation accessors of `UserAccountStatesDefinition` (DR1 §4.1).
@@ -99347,7 +99347,7 @@ func newUserAssistanceNav(tree *som.SomMetaTree, path string) *UserAssistanceNav
 }
 
 func (x *UserAssistanceNav) HelpOverviewContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/helpOverviewContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/USAS-HELP"}
 }
 
 func (x *UserAssistanceNav) Delivery() *UserAssistanceDeliveryNav {
@@ -99681,7 +99681,7 @@ func newUserDocumentationRequirementsNav(tree *som.SomMetaTree, path string) *Us
 }
 
 func (x *UserDocumentationRequirementsNav) DocumentationContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/documentationContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DOANTR-DOCU"}
 }
 
 func (x *UserDocumentationRequirementsNav) Deliverables() *DocumentationAndTrainingDeliverablesNav {
@@ -99881,7 +99881,7 @@ func (x *UserJourneyNav) Content() *som.SomMetaRef {
 }
 
 func (x *UserJourneyNav) JourneyDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/journeyDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UJ-JOUR"}
 }
 
 func (x *UserJourneyNav) Stages() *som.SomListMetaRef[*JourneyStageEntryNav] {
@@ -99903,7 +99903,7 @@ func (x *UserJourneyNav) PainPoints() *som.SomListMetaRef[*UserJourneyPainPointE
 }
 
 func (x *UserJourneyNav) OpportunitiesForDelight() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/opportunitiesForDelight"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UJ-OPPO"}
 }
 
 // UserJourneyPainPointEntryNav holds the dot-notation accessors of `UserJourneyPainPointEntry` (DR1 §4.1).
@@ -100185,7 +100185,7 @@ func (x *UserPersonaDetailsNav) Content() *som.SomMetaRef {
 }
 
 func (x *UserPersonaDetailsNav) PersonaForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/personaForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UPD-PERS"}
 }
 
 func (x *UserPersonaDetailsNav) ContextDetails() *UserPersonaDetailsContextNav {
@@ -100201,7 +100201,7 @@ func (x *UserPersonaDetailsNav) Behavior() *UserPersonaDetailsBehaviorNav {
 }
 
 func (x *UserPersonaDetailsNav) VisualRepresentation() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/visualRepresentation"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UPD-VISU"}
 }
 
 func (x *UserPersonaDetailsNav) RepresentativeQuotes() *som.SomListMetaRef[*RepresentativeQuoteEntryNav] {
@@ -100421,7 +100421,7 @@ func (x *UserTrainingRequirementsNav) Content() *som.SomMetaRef {
 }
 
 func (x *UserTrainingRequirementsNav) TrainingForm() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingForm"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/USTRRE-TRAI"}
 }
 
 func (x *UserTrainingRequirementsNav) TrainingTopics() *som.SomListMetaRef[*TrainingTopicEntryNav] {
@@ -100617,7 +100617,7 @@ func newValidationFeedbackNav(tree *som.SomMetaTree, path string) *ValidationFee
 }
 
 func (x *ValidationFeedbackNav) ValidationDisplayContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/validationDisplayContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/VAFE-VALI"}
 }
 
 func (x *ValidationFeedbackNav) Placement() *ValidationFeedbackPlacementNav {
@@ -101459,7 +101459,7 @@ func newWcagComplianceNav(tree *som.SomMetaTree, path string) *WcagComplianceNav
 }
 
 func (x *WcagComplianceNav) WcagComplianceContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/wcagComplianceContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WCCO-WCAG"}
 }
 
 func (x *WcagComplianceNav) Operable() *WcagComplianceOperableNav {
@@ -101571,7 +101571,7 @@ func newWeightedQualityMatrixNav(tree *som.SomMetaTree, path string) *WeightedQu
 }
 
 func (x *WeightedQualityMatrixNav) MatrixConfigContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/matrixConfigContent"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WEQUMA-MATR"}
 }
 
 func (x *WeightedQualityMatrixNav) MatrixNarrative() *som.SomMetaRef {
@@ -101685,7 +101685,7 @@ func (x *WorkflowDescriptionsNav) Content() *som.SomMetaRef {
 }
 
 func (x *WorkflowDescriptionsNav) WorkflowOverviewDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/workflowOverviewDiagram"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WODE-WORK"}
 }
 
 func (x *WorkflowDescriptionsNav) SummaryTable() *WorkflowSummaryTableNav {
@@ -101857,7 +101857,7 @@ func newWorkflowStepSystemNav(tree *som.SomMetaTree, path string) *WorkflowStepS
 }
 
 func (x *WorkflowStepSystemNav) Name() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/name"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WOSTSY-NAME"}
 }
 
 // WorkflowSummaryEntryNav holds the dot-notation accessors of `WorkflowSummaryEntry` (DR1 §4.1).
@@ -102810,6 +102810,10 @@ func (x *BusinessGoalEntryID) GOLRS_ITEM_LST() *som.SomListMetaRef[*GoalRiskEntr
 	})
 }
 
+func (x *BusinessGoalEntryID) GORE_RESO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/resources/GORE-RESO"}
+}
+
 func (x *BusinessGoalEntryID) REARS_ITEM_LST() *som.SomListMetaRef[*ResourceAllocationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/resources/REARS-ITEM-LST", func(t *som.SomMetaTree, p string) *ResourceAllocationEntryID {
 		return newResourceAllocationEntryID(t, p)
@@ -102842,10 +102846,26 @@ func newBusinessObjectEntryID(tree *som.SomMetaTree, path string) *BusinessObjec
 	return &BusinessObjectEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *BusinessObjectEntryID) BJOEN_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-IDEN"}
+}
+
+func (x *BusinessObjectEntryID) BJOEN_DOMA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-DOMA"}
+}
+
+func (x *BusinessObjectEntryID) BJOEN_LIFE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-LIFE"}
+}
+
 func (x *BusinessObjectEntryID) BEHAV_BEHA_LST() *som.SomListMetaRef[*BehaviorRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/BEHAV-BEHA-LST", func(t *som.SomMetaTree, p string) *BehaviorRuleEntryID {
 		return newBehaviorRuleEntryID(t, p)
 	})
+}
+
+func (x *BusinessObjectEntryID) BJOEN_OWNE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJOEN-OWNE"}
 }
 
 func (x *BusinessObjectEntryID) INTEG_INTE_LST() *som.SomListMetaRef[*IntegrationPointEntryID] {
@@ -102968,6 +102988,30 @@ type BusinessRuleEntryID struct {
 // newBusinessRuleEntryID binds a BusinessRuleEntryID accessor to a tree and a path.
 func newBusinessRuleEntryID(tree *som.SomMetaTree, path string) *BusinessRuleEntryID {
 	return &BusinessRuleEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *BusinessRuleEntryID) BIRU_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-IDEN"}
+}
+
+func (x *BusinessRuleEntryID) BIRU_CLAS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-CLAS"}
+}
+
+func (x *BusinessRuleEntryID) BIRU_RULE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-RULE"}
+}
+
+func (x *BusinessRuleEntryID) BIRU_IMPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-IMPL"}
+}
+
+func (x *BusinessRuleEntryID) BIRU_EXCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-EXCE"}
+}
+
+func (x *BusinessRuleEntryID) BIRU_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRU-GOVE"}
 }
 
 func (x *BusinessRuleEntryID) AFOB_AFFE_LST() *som.SomListMetaRef[*AffectedObjectEntryID] {
@@ -103643,6 +103687,10 @@ func newCurrentBusinessProcessID(tree *som.SomMetaTree, path string) *CurrentBus
 	return &CurrentBusinessProcessID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *CurrentBusinessProcessID) WODE_WORK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/workflowDescriptions/WODE-WORK"}
+}
+
 func (x *CurrentBusinessProcessID) WOSUEN_ENTR_LST() *som.SomListMetaRef[*WorkflowSummaryEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", func(t *som.SomMetaTree, p string) *WorkflowSummaryEntryID {
 		return newWorkflowSummaryEntryID(t, p)
@@ -103740,6 +103788,10 @@ type CurrentWorkflowEntryID struct {
 // newCurrentWorkflowEntryID binds a CurrentWorkflowEntryID accessor to a tree and a path.
 func newCurrentWorkflowEntryID(tree *som.SomMetaTree, path string) *CurrentWorkflowEntryID {
 	return &CurrentWorkflowEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *CurrentWorkflowEntryID) CUWF_WORK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-WORK"}
 }
 
 func (x *CurrentWorkflowEntryID) WOTREN_TRIG_LST() *som.SomListMetaRef[*WorkflowTriggerEntryID] {
@@ -103865,6 +103917,14 @@ func (x *D00SolutionBlueprintID) RFDOC_DOCU_LST() *som.SomListMetaRef[*Reference
 	})
 }
 
+func (x *D00SolutionBlueprintID) INSC_SYST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/INSC-SYST"}
+}
+
+func (x *D00SolutionBlueprintID) SYPUP_VISI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI"}
+}
+
 func (x *D00SolutionBlueprintID) RPPE_RELA_LST() *som.SomListMetaRef[*RelatedPainPointEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", func(t *som.SomMetaTree, p string) *RelatedPainPointEntryID {
 		return newRelatedPainPointEntryID(t, p)
@@ -103913,6 +103973,14 @@ func (x *D00SolutionBlueprintID) SCOPE_SCOP_LST() *som.SomListMetaRef[*ScopeAssu
 	})
 }
 
+func (x *D00SolutionBlueprintID) CD_DIAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-DIAG"}
+}
+
+func (x *D00SolutionBlueprintID) CD_LEGE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-LEGE"}
+}
+
 func (x *D00SolutionBlueprintID) EAE_ACTO_LST() *som.SomListMetaRef[*ExternalActorEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST", func(t *som.SomMetaTree, p string) *ExternalActorEntryID {
 		return newExternalActorEntryID(t, p)
@@ -103937,6 +104005,10 @@ func (x *D00SolutionBlueprintID) OUCE_ORGA_LST() *som.SomListMetaRef[*Organizati
 	})
 }
 
+func (x *D00SolutionBlueprintID) OC_BUSI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemContext/organizationalContext/OC-BUSI"}
+}
+
 func (x *D00SolutionBlueprintID) ARE_REGU_LST() *som.SomListMetaRef[*ApplicableRegulationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemContext/regulatoryContext/ARE-REGU-LST", func(t *som.SomMetaTree, p string) *ApplicableRegulationEntryID {
 		return newApplicableRegulationEntryID(t, p)
@@ -103949,10 +104021,26 @@ func (x *D00SolutionBlueprintID) DTE_TERM_LST() *som.SomListMetaRef[*DomainTermE
 	})
 }
 
+func (x *D00SolutionBlueprintID) KC_CONC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/keyConcepts/KC-CONC"}
+}
+
 func (x *D00SolutionBlueprintID) KECON_CONC_LST() *som.SomListMetaRef[*KeyConceptEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/keyConcepts/KECON-CONC-LST", func(t *som.SomMetaTree, p string) *KeyConceptEntryID {
 		return newKeyConceptEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DB_CONT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-CONT"}
+}
+
+func (x *D00SolutionBlueprintID) DB_WITH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-WITH"}
+}
+
+func (x *D00SolutionBlueprintID) DB_OUTS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-OUTS"}
 }
 
 func (x *D00SolutionBlueprintID) DIE_INTE_LST() *som.SomListMetaRef[*DomainInterfaceEntryID] {
@@ -103965,6 +104053,10 @@ func (x *D00SolutionBlueprintID) DOBIRU_RULE_LST() *som.SomListMetaRef[*DomainBu
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST", func(t *som.SomMetaTree, p string) *DomainBusinessRuleEntryID {
 		return newDomainBusinessRuleEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DP_PROC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC"}
 }
 
 func (x *D00SolutionBlueprintID) DOPR_PROC_LST() *som.SomListMetaRef[*DomainProcessEntryID] {
@@ -103985,6 +104077,10 @@ func (x *D00SolutionBlueprintID) USCA_USER_LST() *som.SomListMetaRef[*UserCatego
 	})
 }
 
+func (x *D00SolutionBlueprintID) AC1_CHAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/userInteractionModel/accessChannels/AC1-CHAN"}
+}
+
 func (x *D00SolutionBlueprintID) ICE_CHAN_LST() *som.SomListMetaRef[*InteractionChannelEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/userInteractionModel/accessChannels/ICE-CHAN-LST", func(t *som.SomMetaTree, p string) *InteractionChannelEntryID {
 		return newInteractionChannelEntryID(t, p)
@@ -103997,10 +104093,22 @@ func (x *D00SolutionBlueprintID) INPTN_PATT_LST() *som.SomListMetaRef[*Interacti
 	})
 }
 
+func (x *D00SolutionBlueprintID) AL_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-ACCE"}
+}
+
 func (x *D00SolutionBlueprintID) ACLV_LEVE_LST() *som.SomListMetaRef[*AccessLevelEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/userInteractionModel/accessLevels/ACLV-LEVE-LST", func(t *som.SomMetaTree, p string) *AccessLevelEntryID {
 		return newAccessLevelEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) AL_PERM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-PERM"}
+}
+
+func (x *D00SolutionBlueprintID) SM_SESS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/userInteractionModel/sessionModel/SM-SESS"}
 }
 
 func (x *D00SolutionBlueprintID) NTFCH_CHAN_LST() *som.SomListMetaRef[*NotificationChannelEntryID] {
@@ -104021,6 +104129,14 @@ func (x *D00SolutionBlueprintID) UNP_PREF_LST() *som.SomListMetaRef[*UserNotific
 	})
 }
 
+func (x *D00SolutionBlueprintID) MCE_MULT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/userInteractionModel/multiChannelExperience/MCE-MULT"}
+}
+
+func (x *D00SolutionBlueprintID) GOALS_GOAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/GOALS-GOAL"}
+}
+
 func (x *D00SolutionBlueprintID) BGE_GOAL_LST() *som.SomListMetaRef[*BusinessGoalEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/goals/businessGoals/BGE-GOAL-LST", func(t *som.SomMetaTree, p string) *BusinessGoalEntryID {
 		return newBusinessGoalEntryID(t, p)
@@ -104039,10 +104155,50 @@ func (x *D00SolutionBlueprintID) SCE_ITEM_LST() *som.SomListMetaRef[*SuccessCrit
 	})
 }
 
+func (x *D00SolutionBlueprintID) SCBC_BUSI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-BUSI"}
+}
+
+func (x *D00SolutionBlueprintID) SCBC_TECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-TECH"}
+}
+
+func (x *D00SolutionBlueprintID) SCBC_USER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-USER"}
+}
+
+func (x *D00SolutionBlueprintID) SCBC_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-COMP"}
+}
+
+func (x *D00SolutionBlueprintID) SCBC_PROJ() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-PROJ"}
+}
+
+func (x *D00SolutionBlueprintID) SC_SUCC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/goals/successCriteria/SC-SUCC"}
+}
+
+func (x *D00SolutionBlueprintID) RO_REQU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/RO-REQU"}
+}
+
+func (x *D00SolutionBlueprintID) RO_TRAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/RO-TRAC"}
+}
+
+func (x *D00SolutionBlueprintID) FR_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/functionalRequirements/FR-SUMM"}
+}
+
 func (x *D00SolutionBlueprintID) FRE_REQU_LST() *som.SomListMetaRef[*FunctionalRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST", func(t *som.SomMetaTree, p string) *FunctionalRequirementEntryID {
 		return newFunctionalRequirementEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) TR1_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/technicalRequirements/TR1-SUMM"}
 }
 
 func (x *D00SolutionBlueprintID) TERQ_REQU_LST() *som.SomListMetaRef[*TechnicalRequirementEntryID] {
@@ -104051,10 +104207,18 @@ func (x *D00SolutionBlueprintID) TERQ_REQU_LST() *som.SomListMetaRef[*TechnicalR
 	})
 }
 
+func (x *D00SolutionBlueprintID) SR1_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/securityRequirements/SR1-SUMM"}
+}
+
 func (x *D00SolutionBlueprintID) SECRQ_REQU_LST() *som.SomListMetaRef[*SecurityRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST", func(t *som.SomMetaTree, p string) *SecurityRequirementEntryID {
 		return newSecurityRequirementEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) OR_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/requirements/organizationalRequirements/OR-SUMM"}
 }
 
 func (x *D00SolutionBlueprintID) ORRQ_REQU_LST() *som.SomListMetaRef[*OrganizationalRequirementEntryID] {
@@ -104073,6 +104237,14 @@ func (x *D00SolutionBlueprintID) SYTORE_SYST_LST() *som.SomListMetaRef[*SystemTo
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/replacementInventory/SYTORE-SYST-LST", func(t *som.SomMetaTree, p string) *SystemToReplaceEntryID {
 		return newSystemToReplaceEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) MIGCON_STRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-STRA"}
+}
+
+func (x *D00SolutionBlueprintID) MIRI_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-GOVE"}
 }
 
 func (x *D00SolutionBlueprintID) RISKC_RISK_LST() *som.SomListMetaRef[*RiskCategoryEntryID] {
@@ -104153,6 +104325,10 @@ func (x *D00SolutionBlueprintID) CBOC_OPER_LST() *som.SomListMetaRef[*CrossBound
 	})
 }
 
+func (x *D00SolutionBlueprintID) OREN_ORGA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-ORGA"}
+}
+
 func (x *D00SolutionBlueprintID) AFDEEN_AFFE_LST() *som.SomListMetaRef[*AffectedDepartmentEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST", func(t *som.SomMetaTree, p string) *AffectedDepartmentEntryID {
 		return newAffectedDepartmentEntryID(t, p)
@@ -104187,6 +104363,10 @@ func (x *D00SolutionBlueprintID) REEN1_ITEM_LST() *som.SomListMetaRef[*Responsib
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST", func(t *som.SomMetaTree, p string) *ResponsibilityEntryID {
 		return newResponsibilityEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) TEEN_TECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-TECH"}
 }
 
 func (x *D00SolutionBlueprintID) DEVOP_DEVO_LST() *som.SomListMetaRef[*DevopsStandardEntryID] {
@@ -104231,16 +104411,32 @@ func (x *D00SolutionBlueprintID) GLOSS_ENTR_LST() *som.SomListMetaRef[*GlossaryE
 	})
 }
 
+func (x *D00SolutionBlueprintID) PRPO_METH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stakeholdersAndGovernance/projectOrganizationProcess/PRPO-METH"}
+}
+
+func (x *D00SolutionBlueprintID) RLADJ_ROLE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLADJ-ROLE"}
+}
+
 func (x *D00SolutionBlueprintID) RLAJE_ITEM_LST() *som.SomListMetaRef[*RoleAdjustmentEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLAJE-ITEM-LST", func(t *som.SomMetaTree, p string) *RoleAdjustmentEntryID {
 		return newRoleAdjustmentEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) QGADJ_GATE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGADJ-GATE"}
+}
+
 func (x *D00SolutionBlueprintID) QGAJE_ITEM_LST() *som.SomListMetaRef[*QualityGateAdjustmentEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGAJE-ITEM-LST", func(t *som.SomMetaTree, p string) *QualityGateAdjustmentEntryID {
 		return newQualityGateAdjustmentEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) PCADJ_PROC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stakeholdersAndGovernance/projectOrganizationProcess/processAdjustments/PCADJ-PROC"}
 }
 
 func (x *D00SolutionBlueprintID) PCAJE_ITEM_LST() *som.SomListMetaRef[*ProcessAdjustmentEntryID] {
@@ -104283,6 +104479,10 @@ func (x *D00SolutionBlueprintID) RREQE_OPEN_LST() *som.SomListMetaRef[*ResourceR
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/projectTeamStaffing/RREQE-OPEN-LST", func(t *som.SomMetaTree, p string) *ResourceRequirementEntryID {
 		return newResourceRequirementEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) COMA_COMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stakeholdersAndGovernance/distributionList/communicationMatrix/COMA-COMM"}
 }
 
 func (x *D00SolutionBlueprintID) COTY_COMM_LST() *som.SomListMetaRef[*CommunicationTypeEntryID] {
@@ -104417,6 +104617,14 @@ func (x *D00SolutionBlueprintID) ESENT_SYST_LST() *som.SomListMetaRef[*ExistingS
 	})
 }
 
+func (x *D00SolutionBlueprintID) CARCH_ARCH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-ARCH"}
+}
+
+func (x *D00SolutionBlueprintID) CARCH_DEPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"}
+}
+
 func (x *D00SolutionBlueprintID) IPE_INTE_LST() *som.SomListMetaRef[*IntegrationPatternEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationPatternEntryID {
 		return newIntegrationPatternEntryID(t, p)
@@ -104427,6 +104635,10 @@ func (x *D00SolutionBlueprintID) SHARE_SHAR_LST() *som.SomListMetaRef[*SharedSer
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedServiceEntryID {
 		return newSharedServiceEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DEPNT_DEPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE"}
 }
 
 func (x *D00SolutionBlueprintID) SYDE_ITEM_LST() *som.SomListMetaRef[*SystemDependencyEntryID] {
@@ -104459,6 +104671,10 @@ func (x *D00SolutionBlueprintID) FRAGI_FRAG_LST() *som.SomListMetaRef[*FragilePo
 	})
 }
 
+func (x *D00SolutionBlueprintID) CUBUPR_PROC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentBusinessProcesses/CUBUPR-PROC"}
+}
+
 func (x *D00SolutionBlueprintID) PRSCEN_INSC_LST() *som.SomListMetaRef[*ProcessScopeEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST", func(t *som.SomMetaTree, p string) *ProcessScopeEntryID {
 		return newProcessScopeEntryID(t, p)
@@ -104469,6 +104685,10 @@ func (x *D00SolutionBlueprintID) PRSCEN_OUTO_LST() *som.SomListMetaRef[*ProcessS
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST", func(t *som.SomMetaTree, p string) *ProcessScopeEntryID {
 		return newProcessScopeEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) PRINMA_DEPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE"}
 }
 
 func (x *D00SolutionBlueprintID) PRDEEN_DEPE_LST() *som.SomListMetaRef[*ProcessDependencyEntryID] {
@@ -104487,6 +104707,14 @@ func (x *D00SolutionBlueprintID) CUBIPR_PROC_LST() *som.SomListMetaRef[*CurrentB
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentBusinessProcesses/CUBIPR-PROC-LST", func(t *som.SomMetaTree, p string) *CurrentBusinessProcessID {
 		return newCurrentBusinessProcessID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) PPAG_PAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/PPAG-PAIN"}
+}
+
+func (x *D00SolutionBlueprintID) PPAG_PAINP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/PPAG-PAINP"}
 }
 
 func (x *D00SolutionBlueprintID) OPPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
@@ -104513,16 +104741,36 @@ func (x *D00SolutionBlueprintID) GAPE_ITEM_LST() *som.SomListMetaRef[*GapEntryID
 	})
 }
 
+func (x *D00SolutionBlueprintID) PPGC_CORR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR"}
+}
+
 func (x *D00SolutionBlueprintID) PPGCE_CORR_LST() *som.SomListMetaRef[*PainPointGapCorrelationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST", func(t *som.SomMetaTree, p string) *PainPointGapCorrelationEntryID {
 		return newPainPointGapCorrelationEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) CUDALA_DATAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/CUDALA-DATAL"}
+}
+
+func (x *D00SolutionBlueprintID) CUDALA_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/CUDALA-DATA"}
+}
+
+func (x *D00SolutionBlueprintID) DASOIN_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataSourceInventory/DASOIN-DATA"}
+}
+
 func (x *D00SolutionBlueprintID) DASR_DATA_LST() *som.SomListMetaRef[*DataSourceEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentDataLandscape/dataSourceInventory/DASR-DATA-LST", func(t *som.SomMetaTree, p string) *DataSourceEntryID {
 		return newDataSourceEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DAQUAS_QUAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL"}
 }
 
 func (x *D00SolutionBlueprintID) DAQLIS_QUAL_LST() *som.SomListMetaRef[*DataQualityIssueEntryID] {
@@ -104537,16 +104785,28 @@ func (x *D00SolutionBlueprintID) DQIE_IMPR_LST() *som.SomListMetaRef[*DataQualit
 	})
 }
 
+func (x *D00SolutionBlueprintID) DADUAN_DUPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL"}
+}
+
 func (x *D00SolutionBlueprintID) DADU_DUPL_LST() *som.SomListMetaRef[*DataDuplicationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST", func(t *som.SomMetaTree, p string) *DataDuplicationEntryID {
 		return newDataDuplicationEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) DAOW_OWNE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataOwnership/DAOW-OWNE"}
+}
+
 func (x *D00SolutionBlueprintID) DAOWEN_OWNE_LST() *som.SomListMetaRef[*DataOwnershipEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST", func(t *som.SomMetaTree, p string) *DataOwnershipEntryID {
 		return newDataOwnershipEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DVAG_GROW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW"}
 }
 
 func (x *D00SolutionBlueprintID) DAVOEN_VOLU_LST() *som.SomListMetaRef[*DataVolumeEntryID] {
@@ -104559,6 +104819,10 @@ func (x *D00SolutionBlueprintID) REPOL_RETE_LST() *som.SomListMetaRef[*Retention
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentDataLandscape/retentionPolicies/REPOL-RETE-LST", func(t *som.SomMetaTree, p string) *RetentionPolicyEntryID {
 		return newRetentionPolicyEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DAGO_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataGovernance/DAGO-GOVE"}
 }
 
 func (x *D00SolutionBlueprintID) DGPE_GOVE_LST() *som.SomListMetaRef[*DataGovernancePolicyEntryID] {
@@ -104577,6 +104841,10 @@ func (x *D00SolutionBlueprintID) DCSE_CLAS_LST() *som.SomListMetaRef[*DataClassi
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/currentDataLandscape/dataClassification/DCSE-CLAS-LST", func(t *som.SomMetaTree, p string) *DataClassificationStatusEntryID {
 		return newDataClassificationStatusEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) DAINPO_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/currentDataLandscape/dataIntegrationPoints/DAINPO-DATA"}
 }
 
 func (x *D00SolutionBlueprintID) DAIN_INTE_LST() *som.SomListMetaRef[*DataIntegrationEntryID] {
@@ -104613,6 +104881,10 @@ func (x *D00SolutionBlueprintID) ACRG_DEPS_LST() *som.SomListMetaRef[*Dependency
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST", func(t *som.SomMetaTree, p string) *DependencyRegisterEntryID {
 		return newDependencyRegisterEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) OCCHG_OVER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER"}
 }
 
 func (x *D00SolutionBlueprintID) ORGCE_ITEM_LST() *som.SomListMetaRef[*OrganizationalChangeEntryID] {
@@ -104801,6 +105073,10 @@ func (x *D00SolutionBlueprintID) ENRLE_ITEM_LST() *som.SomListMetaRef[*EntityRel
 	})
 }
 
+func (x *D00SolutionBlueprintID) DATCL_OVER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/informationAndDataModel/dataModel/dataClassification/DATCL-OVER"}
+}
+
 func (x *D00SolutionBlueprintID) DCLSE_ITEM_LST() *som.SomListMetaRef[*DataClassificationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST", func(t *som.SomMetaTree, p string) *DataClassificationEntryID {
 		return newDataClassificationEntryID(t, p)
@@ -104811,6 +105087,14 @@ func (x *D00SolutionBlueprintID) BJOEN_OBJE_LST() *som.SomListMetaRef[*BusinessO
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/businessObjectModel/BJOEN-OBJE-LST", func(t *som.SomMetaTree, p string) *BusinessObjectEntryID {
 		return newBusinessObjectEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) FUMO_DECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/informationAndDataModel/functionModel/FUMO-DECO"}
+}
+
+func (x *D00SolutionBlueprintID) FUMO_MATR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/informationAndDataModel/functionModel/FUMO-MATR"}
 }
 
 func (x *D00SolutionBlueprintID) FUNCT_FUNC_LST() *som.SomListMetaRef[*FunctionEntryID] {
@@ -104829,6 +105113,18 @@ func (x *D00SolutionBlueprintID) BIRU_BUSI_LST() *som.SomListMetaRef[*BusinessRu
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/functionModel/BIRU-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessRuleEntryID {
 		return newBusinessRuleEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) TRAREQ_TRAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN"}
+}
+
+func (x *D00SolutionBlueprintID) DOANTR_DOCU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/informationForUse/userDocumentation/DOANTR-DOCU"}
+}
+
+func (x *D00SolutionBlueprintID) TRMAT_TRAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI"}
 }
 
 func (x *D00SolutionBlueprintID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
@@ -105155,6 +105451,14 @@ func (x *D00SolutionBlueprintID) MAINT_MAIN_LST() *som.SomListMetaRef[*Maintenan
 	})
 }
 
+func (x *D00SolutionBlueprintID) MONITO_MONI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/MONITO-MONI"}
+}
+
+func (x *D00SolutionBlueprintID) ALCO_ALER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER"}
+}
+
 func (x *D00SolutionBlueprintID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
 		return newAlertRuleEntryID(t, p)
@@ -105167,10 +105471,18 @@ func (x *D00SolutionBlueprintID) ALSURU_SUPP_LST() *som.SomListMetaRef[*AlertSup
 	})
 }
 
+func (x *D00SolutionBlueprintID) MEANOB_METR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR"}
+}
+
 func (x *D00SolutionBlueprintID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
 		return newCustomMetricEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) MODA_DASH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"}
 }
 
 func (x *D00SolutionBlueprintID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
@@ -105183,6 +105495,10 @@ func (x *D00SolutionBlueprintID) DATE_DASH_LST() *som.SomListMetaRef[*DashboardT
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardTemplatesID {
 		return newDashboardTemplatesID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) SASM_SLAO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO"}
 }
 
 func (x *D00SolutionBlueprintID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
@@ -105461,6 +105777,14 @@ func (x *D00SolutionBlueprintID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTe
 	})
 }
 
+func (x *D00SolutionBlueprintID) ERHACO_ERRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO"}
+}
+
+func (x *D00SolutionBlueprintID) VAFE_VALI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI"}
+}
+
 func (x *D00SolutionBlueprintID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
@@ -105471,6 +105795,10 @@ func (x *D00SolutionBlueprintID) FIELD_FIEL_LST() *som.SomListMetaRef[*FieldVali
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldValidationRuleEntryID {
 		return newFieldValidationRuleEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) SYERDI_SYST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST"}
 }
 
 func (x *D00SolutionBlueprintID) EPDE_ERRO_LST() *som.SomListMetaRef[*ErrorPageDesignEntryID] {
@@ -105485,6 +105813,10 @@ func (x *D00SolutionBlueprintID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErro
 	})
 }
 
+func (x *D00SolutionBlueprintID) ERRE_RECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO"}
+}
+
 func (x *D00SolutionBlueprintID) RECOV_RECO_LST() *som.SomListMetaRef[*RecoveryFlowEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *RecoveryFlowEntryID {
 		return newRecoveryFlowEntryID(t, p)
@@ -105497,10 +105829,22 @@ func (x *D00SolutionBlueprintID) RCVSCN_RECO_LST() *som.SomListMetaRef[*Recovery
 	})
 }
 
+func (x *D00SolutionBlueprintID) USAS_HELP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/USAS-HELP"}
+}
+
+func (x *D00SolutionBlueprintID) COHE_CONT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT"}
+}
+
 func (x *D00SolutionBlueprintID) FLDHP_FIEL_LST() *som.SomListMetaRef[*FieldHelpEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldHelpEntryID {
 		return newFieldHelpEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) ONHE_ONBO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO"}
 }
 
 func (x *D00SolutionBlueprintID) FTRTUR_FEAT_LST() *som.SomListMetaRef[*FeatureTourEntryID] {
@@ -105509,10 +105853,26 @@ func (x *D00SolutionBlueprintID) FTRTUR_FEAT_LST() *som.SomListMetaRef[*FeatureT
 	})
 }
 
+func (x *D00SolutionBlueprintID) SUAC_SUPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP"}
+}
+
+func (x *D00SolutionBlueprintID) ACCESS_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/ACCESS-ACCE"}
+}
+
+func (x *D00SolutionBlueprintID) WCCO_WCAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG"}
+}
+
 func (x *D00SolutionBlueprintID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
 		return newWcagSuccessCriterionEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) ACCHLS_CHEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC"}
 }
 
 func (x *D00SolutionBlueprintID) ACCH_ITEM_LST() *som.SomListMetaRef[*AccessibilityCheckEntryID] {
@@ -105521,16 +105881,32 @@ func (x *D00SolutionBlueprintID) ACCH_ITEM_LST() *som.SomListMetaRef[*Accessibil
 	})
 }
 
+func (x *D00SolutionBlueprintID) REDE_RESP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/REDE-RESP"}
+}
+
+func (x *D00SolutionBlueprintID) BC_BREA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA"}
+}
+
 func (x *D00SolutionBlueprintID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) REBE_LAYO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO"}
+}
+
 func (x *D00SolutionBlueprintID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
 		return newResponsiveScreenRuleEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) UICO_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/uiComponents/UICO-COMP"}
 }
 
 func (x *D00SolutionBlueprintID) DESIG_DESI_LST() *som.SomListMetaRef[*DesignFoundationEntryID] {
@@ -105563,10 +105939,26 @@ func (x *D00SolutionBlueprintID) CMFA_COMP_LST() *som.SomListMetaRef[*ComponentF
 	})
 }
 
+func (x *D00SolutionBlueprintID) MLAR_MULT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT"}
+}
+
+func (x *D00SolutionBlueprintID) LACOSE_LANG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG"}
+}
+
 func (x *D00SolutionBlueprintID) SULOEN_SUPP_LST() *som.SomListMetaRef[*SupportedLocaleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryID {
 		return newSupportedLocaleEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) PROTOT_PROT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/PROTOT-PROT"}
+}
+
+func (x *D00SolutionBlueprintID) PG_GOAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL"}
 }
 
 func (x *D00SolutionBlueprintID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
@@ -105575,16 +105967,44 @@ func (x *D00SolutionBlueprintID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*Prototyp
 	})
 }
 
+func (x *D00SolutionBlueprintID) PRFESU_FEAT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT"}
+}
+
 func (x *D00SolutionBlueprintID) PRFEEN_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
 		return newPrototypeFeatureEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) PRTYSE_PROT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT"}
+}
+
+func (x *D00SolutionBlueprintID) REUPRO_REUS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS"}
+}
+
+func (x *D00SolutionBlueprintID) TP_TRAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI"}
+}
+
+func (x *D00SolutionBlueprintID) THPR_THRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO"}
+}
+
+func (x *D00SolutionBlueprintID) SYQG_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/SYQG-GOVE"}
+}
+
 func (x *D00SolutionBlueprintID) ATTRI_ATTR_LST() *som.SomListMetaRef[*AttributeInterdependencyEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", func(t *som.SomMetaTree, p string) *AttributeInterdependencyEntryID {
 		return newAttributeInterdependencyEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) QLFWK_FRAM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-FRAM"}
 }
 
 func (x *D00SolutionBlueprintID) QCATE_QUAL_LST() *som.SomListMetaRef[*QualityCategoryEntryID] {
@@ -105599,10 +106019,54 @@ func (x *D00SolutionBlueprintID) CATEG_CATE_LST() *som.SomListMetaRef[*CategoryD
 	})
 }
 
+func (x *D00SolutionBlueprintID) FNSU_FUNC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/FNSU-FUNC"}
+}
+
+func (x *D00SolutionBlueprintID) PEEF_PERF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/performanceEfficiency/PEEF-PERF"}
+}
+
+func (x *D00SolutionBlueprintID) CMPT_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/compatibility/CMPT-COMP"}
+}
+
+func (x *D00SolutionBlueprintID) INCP_INTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/interactionCapability/INCP-INTE"}
+}
+
+func (x *D00SolutionBlueprintID) RELC_RELI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/reliability/RELC-RELI"}
+}
+
 func (x *D00SolutionBlueprintID) SLAE_SLAE_LST() *som.SomListMetaRef[*ServiceLevelAgreementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/reliability/serviceLevelRequirements/SLAE-SLAE-LST", func(t *som.SomMetaTree, p string) *ServiceLevelAgreementEntryID {
 		return newServiceLevelAgreementEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) SECC_SECU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/security/SECC-SECU"}
+}
+
+func (x *D00SolutionBlueprintID) MNTC_MAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/maintainability/MNTC-MAIN"}
+}
+
+func (x *D00SolutionBlueprintID) FLXC_FLEX() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/flexibility/FLXC-FLEX"}
+}
+
+func (x *D00SolutionBlueprintID) DOQUCR_DOCU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/documentationQuality/DOQUCR-DOCU"}
+}
+
+func (x *D00SolutionBlueprintID) QUPR_PRIO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/QUPR-PRIO"}
+}
+
+func (x *D00SolutionBlueprintID) WEQUMA_MATR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/weightedQualityMatrix/WEQUMA-MATR"}
 }
 
 func (x *D00SolutionBlueprintID) QLWGT_WEIG_LST() *som.SomListMetaRef[*QualityWeightEntryID] {
@@ -105611,16 +106075,32 @@ func (x *D00SolutionBlueprintID) QLWGT_WEIG_LST() *som.SomListMetaRef[*QualityWe
 	})
 }
 
+func (x *D00SolutionBlueprintID) TROFDE_TRAD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TROFDE-TRAD"}
+}
+
 func (x *D00SolutionBlueprintID) TODE_ITEM_LST() *som.SomListMetaRef[*TradeOffDecisionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TODE-ITEM-LST", func(t *som.SomMetaTree, p string) *TradeOffDecisionEntryID {
 		return newTradeOffDecisionEntryID(t, p)
 	})
 }
 
+func (x *D00SolutionBlueprintID) ACCRSU_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/ACCRSU-ACCE"}
+}
+
+func (x *D00SolutionBlueprintID) MUPACR_MUST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MUPACR-MUST"}
+}
+
 func (x *D00SolutionBlueprintID) MSTPCR_ITEM_LST() *som.SomListMetaRef[*MustPassCriterionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MSTPCR-ITEM-LST", func(t *som.SomMetaTree, p string) *MustPassCriterionEntryID {
 		return newMustPassCriterionEntryID(t, p)
 	})
+}
+
+func (x *D00SolutionBlueprintID) QUGACH_CHEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/qualityGateChecklist/QUGACH-CHEC"}
 }
 
 func (x *D00SolutionBlueprintID) QGCHK_ITEM_LST() *som.SomListMetaRef[*QualityGateCheckEntryID] {
@@ -105803,6 +106283,14 @@ func (x *D00SolutionBlueprintID) DEPOEN_ITEM_LST() *som.SomListMetaRef[*Decision
 	})
 }
 
+func (x *D00SolutionBlueprintID) LOPR_LOCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPR-LOCA"}
+}
+
+func (x *D00SolutionBlueprintID) TRPR_TRAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPR-TRAN"}
+}
+
 func (x *D00SolutionBlueprintID) TRVEEN_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
 		return newTranslationVendorEntryID(t, p)
@@ -105828,6 +106316,14 @@ func (x *D01CurrentLandscapeAssessmentID) ESENT_SYST_LST() *som.SomListMetaRef[*
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) CARCH_ARCH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/existingSystemsLandscape/currentArchitecture/CARCH-ARCH"}
+}
+
+func (x *D01CurrentLandscapeAssessmentID) CARCH_DEPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) IPE_INTE_LST() *som.SomListMetaRef[*IntegrationPatternEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationPatternEntryID {
 		return newIntegrationPatternEntryID(t, p)
@@ -105838,6 +106334,10 @@ func (x *D01CurrentLandscapeAssessmentID) SHARE_SHAR_LST() *som.SomListMetaRef[*
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedServiceEntryID {
 		return newSharedServiceEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DEPNT_DEPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) SYDE_ITEM_LST() *som.SomListMetaRef[*SystemDependencyEntryID] {
@@ -105870,6 +106370,10 @@ func (x *D01CurrentLandscapeAssessmentID) FRAGI_FRAG_LST() *som.SomListMetaRef[*
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) CUBUPR_PROC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentBusinessProcesses/CUBUPR-PROC"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) PRSCEN_INSC_LST() *som.SomListMetaRef[*ProcessScopeEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST", func(t *som.SomMetaTree, p string) *ProcessScopeEntryID {
 		return newProcessScopeEntryID(t, p)
@@ -105880,6 +106384,10 @@ func (x *D01CurrentLandscapeAssessmentID) PRSCEN_OUTO_LST() *som.SomListMetaRef[
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST", func(t *som.SomMetaTree, p string) *ProcessScopeEntryID {
 		return newProcessScopeEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) PRINMA_DEPE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) PRDEEN_DEPE_LST() *som.SomListMetaRef[*ProcessDependencyEntryID] {
@@ -105898,6 +106406,14 @@ func (x *D01CurrentLandscapeAssessmentID) CUBIPR_PROC_LST() *som.SomListMetaRef[
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentBusinessProcesses/CUBIPR-PROC-LST", func(t *som.SomMetaTree, p string) *CurrentBusinessProcessID {
 		return newCurrentBusinessProcessID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) PPAG_PAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/PPAG-PAIN"}
+}
+
+func (x *D01CurrentLandscapeAssessmentID) PPAG_PAINP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/PPAG-PAINP"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) OPPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
@@ -105924,16 +106440,36 @@ func (x *D01CurrentLandscapeAssessmentID) GAPE_ITEM_LST() *som.SomListMetaRef[*G
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) PPGC_CORR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) PPGCE_CORR_LST() *som.SomListMetaRef[*PainPointGapCorrelationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST", func(t *som.SomMetaTree, p string) *PainPointGapCorrelationEntryID {
 		return newPainPointGapCorrelationEntryID(t, p)
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) CUDALA_DATAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/CUDALA-DATAL"}
+}
+
+func (x *D01CurrentLandscapeAssessmentID) CUDALA_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/CUDALA-DATA"}
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DASOIN_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataSourceInventory/DASOIN-DATA"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) DASR_DATA_LST() *som.SomListMetaRef[*DataSourceEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentDataLandscape/dataSourceInventory/DASR-DATA-LST", func(t *som.SomMetaTree, p string) *DataSourceEntryID {
 		return newDataSourceEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DAQUAS_QUAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) DAQLIS_QUAL_LST() *som.SomListMetaRef[*DataQualityIssueEntryID] {
@@ -105948,16 +106484,28 @@ func (x *D01CurrentLandscapeAssessmentID) DQIE_IMPR_LST() *som.SomListMetaRef[*D
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) DADUAN_DUPL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) DADU_DUPL_LST() *som.SomListMetaRef[*DataDuplicationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST", func(t *som.SomMetaTree, p string) *DataDuplicationEntryID {
 		return newDataDuplicationEntryID(t, p)
 	})
 }
 
+func (x *D01CurrentLandscapeAssessmentID) DAOW_OWNE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataOwnership/DAOW-OWNE"}
+}
+
 func (x *D01CurrentLandscapeAssessmentID) DAOWEN_OWNE_LST() *som.SomListMetaRef[*DataOwnershipEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST", func(t *som.SomMetaTree, p string) *DataOwnershipEntryID {
 		return newDataOwnershipEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DVAG_GROW() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) DAVOEN_VOLU_LST() *som.SomListMetaRef[*DataVolumeEntryID] {
@@ -105970,6 +106518,10 @@ func (x *D01CurrentLandscapeAssessmentID) REPOL_RETE_LST() *som.SomListMetaRef[*
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentDataLandscape/retentionPolicies/REPOL-RETE-LST", func(t *som.SomMetaTree, p string) *RetentionPolicyEntryID {
 		return newRetentionPolicyEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DAGO_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataGovernance/DAGO-GOVE"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) DGPE_GOVE_LST() *som.SomListMetaRef[*DataGovernancePolicyEntryID] {
@@ -105988,6 +106540,10 @@ func (x *D01CurrentLandscapeAssessmentID) DCSE_CLAS_LST() *som.SomListMetaRef[*D
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentDataLandscape/dataClassification/DCSE-CLAS-LST", func(t *som.SomMetaTree, p string) *DataClassificationStatusEntryID {
 		return newDataClassificationStatusEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) DAINPO_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentDataLandscape/dataIntegrationPoints/DAINPO-DATA"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) DAIN_INTE_LST() *som.SomListMetaRef[*DataIntegrationEntryID] {
@@ -106012,6 +106568,14 @@ func (x *D01CurrentLandscapeAssessmentID) SYTORE_SYST_LST() *som.SomListMetaRef[
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/replacementInventory/SYTORE-SYST-LST", func(t *som.SomMetaTree, p string) *SystemToReplaceEntryID {
 		return newSystemToReplaceEntryID(t, p)
 	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) MIGCON_STRA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/migrationConsiderations/MIGCON-STRA"}
+}
+
+func (x *D01CurrentLandscapeAssessmentID) MIRI_GOVE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/migrationConsiderations/migrationRisks/MIRI-GOVE"}
 }
 
 func (x *D01CurrentLandscapeAssessmentID) RISKC_RISK_LST() *som.SomListMetaRef[*RiskCategoryEntryID] {
@@ -106136,6 +106700,10 @@ func (x *D03InformationModelID) ENRLE_ITEM_LST() *som.SomListMetaRef[*EntityRela
 	})
 }
 
+func (x *D03InformationModelID) DATCL_OVER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataClassification/DATCL-OVER"}
+}
+
 func (x *D03InformationModelID) DCLSE_ITEM_LST() *som.SomListMetaRef[*DataClassificationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataClassification/DCLSE-ITEM-LST", func(t *som.SomMetaTree, p string) *DataClassificationEntryID {
 		return newDataClassificationEntryID(t, p)
@@ -106179,10 +106747,18 @@ func newD04RequirementsSpecificationID(tree *som.SomMetaTree, path string) *D04R
 	return &D04RequirementsSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D04RequirementsSpecificationID) FR_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/functionalRequirements/FR-SUMM"}
+}
+
 func (x *D04RequirementsSpecificationID) FRE_REQU_LST() *som.SomListMetaRef[*FunctionalRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/functionalRequirements/FRE-REQU-LST", func(t *som.SomMetaTree, p string) *FunctionalRequirementEntryID {
 		return newFunctionalRequirementEntryID(t, p)
 	})
+}
+
+func (x *D04RequirementsSpecificationID) TR1_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalRequirements/TR1-SUMM"}
 }
 
 func (x *D04RequirementsSpecificationID) TERQ_REQU_LST() *som.SomListMetaRef[*TechnicalRequirementEntryID] {
@@ -106191,16 +106767,28 @@ func (x *D04RequirementsSpecificationID) TERQ_REQU_LST() *som.SomListMetaRef[*Te
 	})
 }
 
+func (x *D04RequirementsSpecificationID) SR1_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/securityRequirements/SR1-SUMM"}
+}
+
 func (x *D04RequirementsSpecificationID) SECRQ_REQU_LST() *som.SomListMetaRef[*SecurityRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityRequirements/SECRQ-REQU-LST", func(t *som.SomMetaTree, p string) *SecurityRequirementEntryID {
 		return newSecurityRequirementEntryID(t, p)
 	})
 }
 
+func (x *D04RequirementsSpecificationID) OR_SUMM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/organizationalRequirements/OR-SUMM"}
+}
+
 func (x *D04RequirementsSpecificationID) ORRQ_REQU_LST() *som.SomListMetaRef[*OrganizationalRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/organizationalRequirements/ORRQ-REQU-LST", func(t *som.SomMetaTree, p string) *OrganizationalRequirementEntryID {
 		return newOrganizationalRequirementEntryID(t, p)
 	})
+}
+
+func (x *D04RequirementsSpecificationID) RSP_TRAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RSP-TRAC"}
 }
 
 func (x *D04RequirementsSpecificationID) RERE_REQU_LST() *som.SomListMetaRef[*RequirementRelationshipsID] {
@@ -106577,6 +107165,14 @@ func (x *D06ArchitectureTechnologySpecificationID) MAINT_MAIN_LST() *som.SomList
 	})
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) MONITO_MONI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/MONITO-MONI"}
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) ALCO_ALER() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALCO-ALER"}
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
 		return newAlertRuleEntryID(t, p)
@@ -106589,10 +107185,18 @@ func (x *D06ArchitectureTechnologySpecificationID) ALSURU_SUPP_LST() *som.SomLis
 	})
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) MEANOB_METR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/MEANOB-METR"}
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
 		return newCustomMetricEntryID(t, p)
 	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) MODA_DASH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH"}
 }
 
 func (x *D06ArchitectureTechnologySpecificationID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
@@ -106605,6 +107209,10 @@ func (x *D06ArchitectureTechnologySpecificationID) DATE_DASH_LST() *som.SomListM
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/dashboards/DATE-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardTemplatesID {
 		return newDashboardTemplatesID(t, p)
 	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) SASM_SLAO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SASM-SLAO"}
 }
 
 func (x *D06ArchitectureTechnologySpecificationID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
@@ -106667,6 +107275,10 @@ func (x *D06ArchitectureTechnologySpecificationID) COPL_ITEM_LST() *som.SomListM
 	})
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) TEEN_TECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalEnvironment/TEEN-TECH"}
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) DEVOP_DEVO_LST() *som.SomListMetaRef[*DevopsStandardEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/network/DEVOP-DEVO-LST", func(t *som.SomMetaTree, p string) *DevopsStandardEntryID {
 		return newDevopsStandardEntryID(t, p)
@@ -106695,6 +107307,10 @@ func (x *D06ArchitectureTechnologySpecificationID) INCOE1_INTE_LST() *som.SomLis
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/INCOE1-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryID {
 		return newIntegrationConstraintEntryID(t, p)
 	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) TRAREQ_TRAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/translationRequirements/TRAREQ-TRAN"}
 }
 
 // D07IntegrationInterfaceSpecificationID holds the ID-tree accessors of `D07IntegrationInterfaceSpecification` (DR1 §4.2): methods
@@ -106988,6 +107604,14 @@ func (x *D09ExperienceDesignSpecificationID) EXTEEN_EXPO_LST() *som.SomListMetaR
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) ERHACO_ERRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/ERHACO-ERRO"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) VAFE_VALI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/validationFeedback/VAFE-VALI"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
@@ -106998,6 +107622,10 @@ func (x *D09ExperienceDesignSpecificationID) FIELD_FIEL_LST() *som.SomListMetaRe
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldValidationRuleEntryID {
 		return newFieldValidationRuleEntryID(t, p)
 	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) SYERDI_SYST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/systemErrorDisplay/SYERDI-SYST"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) EPDE_ERRO_LST() *som.SomListMetaRef[*ErrorPageDesignEntryID] {
@@ -107012,6 +107640,10 @@ func (x *D09ExperienceDesignSpecificationID) SECE_ERRO_LST() *som.SomListMetaRef
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) ERRE_RECO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/errorRecovery/ERRE-RECO"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) RECOV_RECO_LST() *som.SomListMetaRef[*RecoveryFlowEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *RecoveryFlowEntryID {
 		return newRecoveryFlowEntryID(t, p)
@@ -107024,10 +107656,22 @@ func (x *D09ExperienceDesignSpecificationID) RCVSCN_RECO_LST() *som.SomListMetaR
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) USAS_HELP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userAssistance/USAS-HELP"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) COHE_CONT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userAssistance/contextualHelp/COHE-CONT"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) FLDHP_FIEL_LST() *som.SomListMetaRef[*FieldHelpEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/userAssistance/contextualHelp/FLDHP-FIEL-LST", func(t *som.SomMetaTree, p string) *FieldHelpEntryID {
 		return newFieldHelpEntryID(t, p)
 	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) ONHE_ONBO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userAssistance/onboarding/ONHE-ONBO"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) FTRTUR_FEAT_LST() *som.SomListMetaRef[*FeatureTourEntryID] {
@@ -107036,10 +107680,26 @@ func (x *D09ExperienceDesignSpecificationID) FTRTUR_FEAT_LST() *som.SomListMetaR
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) SUAC_SUPP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userAssistance/supportAccess/SUAC-SUPP"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) ACCESS_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibility/ACCESS-ACCE"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) WCCO_WCAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibility/wcagComplianceLevel/WCCO-WCAG"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
 		return newWcagSuccessCriterionEntryID(t, p)
 	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) ACCHLS_CHEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibility/accessibilityChecklist/ACCHLS-CHEC"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) ACCH_ITEM_LST() *som.SomListMetaRef[*AccessibilityCheckEntryID] {
@@ -107048,16 +107708,32 @@ func (x *D09ExperienceDesignSpecificationID) ACCH_ITEM_LST() *som.SomListMetaRef
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) REDE_RESP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/REDE-RESP"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) BC_BREA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/breakpointConfig/BC-BREA"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) REBE_LAYO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/responsiveBehavior/REBE-LAYO"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) RESPSR_SCRE_LST() *som.SomListMetaRef[*ResponsiveScreenRuleEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", func(t *som.SomMetaTree, p string) *ResponsiveScreenRuleEntryID {
 		return newResponsiveScreenRuleEntryID(t, p)
 	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) UICO_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiComponents/UICO-COMP"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) DESIG_DESI_LST() *som.SomListMetaRef[*DesignFoundationEntryID] {
@@ -107090,16 +107766,48 @@ func (x *D09ExperienceDesignSpecificationID) CMFA_COMP_LST() *som.SomListMetaRef
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) LACOSE_LANG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/languageCountrySelection/LACOSE-LANG"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) PROTOT_PROT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/PROTOT-PROT"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) PG_GOAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeGoals/PG-GOAL"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/prototypeGoals/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
 		return newPrototypeGoalEntryID(t, p)
 	})
 }
 
+func (x *D09ExperienceDesignSpecificationID) PRFESU_FEAT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/featureSubset/PRFESU-FEAT"}
+}
+
 func (x *D09ExperienceDesignSpecificationID) PRFEEN_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
 		return newPrototypeFeatureEntryID(t, p)
 	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) PRTYSE_PROT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeType/PRTYSE-PROT"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) REUPRO_REUS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeType/reusablePrototype/REUPRO-REUS"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) TP_TRAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeType/trainingPrototype/TP-TRAI"}
+}
+
+func (x *D09ExperienceDesignSpecificationID) THPR_THRO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeType/throwawayPrototype/THPR-THRO"}
 }
 
 // D10QualityAcceptancePlanID holds the ID-tree accessors of `D10QualityAcceptancePlan` (DR1 §4.2): methods
@@ -107115,6 +107823,10 @@ func newD10QualityAcceptancePlanID(tree *som.SomMetaTree, path string) *D10Quali
 	return &D10QualityAcceptancePlanID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D10QualityAcceptancePlanID) QLFWK_FRAM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityFramework/QLFWK-FRAM"}
+}
+
 func (x *D10QualityAcceptancePlanID) QCATE_QUAL_LST() *som.SomListMetaRef[*QualityCategoryEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityFramework/QCATE-QUAL-LST", func(t *som.SomMetaTree, p string) *QualityCategoryEntryID {
 		return newQualityCategoryEntryID(t, p)
@@ -107127,10 +107839,54 @@ func (x *D10QualityAcceptancePlanID) CATEG_CATE_LST() *som.SomListMetaRef[*Categ
 	})
 }
 
+func (x *D10QualityAcceptancePlanID) FNSU_FUNC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/functionalSuitability/FNSU-FUNC"}
+}
+
+func (x *D10QualityAcceptancePlanID) PEEF_PERF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/performanceEfficiency/PEEF-PERF"}
+}
+
+func (x *D10QualityAcceptancePlanID) CMPT_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/compatibility/CMPT-COMP"}
+}
+
+func (x *D10QualityAcceptancePlanID) INCP_INTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/interactionCapability/INCP-INTE"}
+}
+
+func (x *D10QualityAcceptancePlanID) RELC_RELI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/reliability/RELC-RELI"}
+}
+
 func (x *D10QualityAcceptancePlanID) SLAE_SLAE_LST() *som.SomListMetaRef[*ServiceLevelAgreementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/reliability/serviceLevelRequirements/SLAE-SLAE-LST", func(t *som.SomMetaTree, p string) *ServiceLevelAgreementEntryID {
 		return newServiceLevelAgreementEntryID(t, p)
 	})
+}
+
+func (x *D10QualityAcceptancePlanID) SECC_SECU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/security/SECC-SECU"}
+}
+
+func (x *D10QualityAcceptancePlanID) MNTC_MAIN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/maintainability/MNTC-MAIN"}
+}
+
+func (x *D10QualityAcceptancePlanID) FLXC_FLEX() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/flexibility/FLXC-FLEX"}
+}
+
+func (x *D10QualityAcceptancePlanID) DOQUCR_DOCU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/documentationQualityCriteria/DOQUCR-DOCU"}
+}
+
+func (x *D10QualityAcceptancePlanID) QUPR_PRIO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityPrioritization/QUPR-PRIO"}
+}
+
+func (x *D10QualityAcceptancePlanID) WEQUMA_MATR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityPrioritization/weightedQualityMatrix/WEQUMA-MATR"}
 }
 
 func (x *D10QualityAcceptancePlanID) QLWGT_WEIG_LST() *som.SomListMetaRef[*QualityWeightEntryID] {
@@ -107139,16 +107895,32 @@ func (x *D10QualityAcceptancePlanID) QLWGT_WEIG_LST() *som.SomListMetaRef[*Quali
 	})
 }
 
+func (x *D10QualityAcceptancePlanID) TROFDE_TRAD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityPrioritization/tradeOffDecisions/TROFDE-TRAD"}
+}
+
 func (x *D10QualityAcceptancePlanID) TODE_ITEM_LST() *som.SomListMetaRef[*TradeOffDecisionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityPrioritization/tradeOffDecisions/TODE-ITEM-LST", func(t *som.SomMetaTree, p string) *TradeOffDecisionEntryID {
 		return newTradeOffDecisionEntryID(t, p)
 	})
 }
 
+func (x *D10QualityAcceptancePlanID) ACCRSU_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/acceptanceCriteriaSummary/ACCRSU-ACCE"}
+}
+
+func (x *D10QualityAcceptancePlanID) MUPACR_MUST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/acceptanceCriteriaSummary/mustPassCriteria/MUPACR-MUST"}
+}
+
 func (x *D10QualityAcceptancePlanID) MSTPCR_ITEM_LST() *som.SomListMetaRef[*MustPassCriterionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteriaSummary/mustPassCriteria/MSTPCR-ITEM-LST", func(t *som.SomMetaTree, p string) *MustPassCriterionEntryID {
 		return newMustPassCriterionEntryID(t, p)
 	})
+}
+
+func (x *D10QualityAcceptancePlanID) QUGACH_CHEC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/acceptanceCriteriaSummary/qualityGateChecklist/QUGACH-CHEC"}
 }
 
 func (x *D10QualityAcceptancePlanID) QGCHK_ITEM_LST() *som.SomListMetaRef[*QualityGateCheckEntryID] {
@@ -107327,10 +108099,26 @@ func newD12TransitionRolloutPlanID(tree *som.SomMetaTree, path string) *D12Trans
 	return &D12TransitionRolloutPlanID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D12TransitionRolloutPlanID) LOPR_LOCA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/localizationProcess/LOPR-LOCA"}
+}
+
+func (x *D12TransitionRolloutPlanID) TRPR_TRAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/translationProcess/TRPR-TRAN"}
+}
+
 func (x *D12TransitionRolloutPlanID) TRVEEN_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/translationProcess/TRVEEN-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
 		return newTranslationVendorEntryID(t, p)
 	})
+}
+
+func (x *D12TransitionRolloutPlanID) DOANTR_DOCU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userDocumentation/DOANTR-DOCU"}
+}
+
+func (x *D12TransitionRolloutPlanID) TRMAT_TRAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingDeliverables/TRMAT-TRAI"}
 }
 
 func (x *D12TransitionRolloutPlanID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
@@ -107391,10 +108179,30 @@ func newDataAttributeEntryID(tree *som.SomMetaTree, path string) *DataAttributeE
 	return &DataAttributeEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *DataAttributeEntryID) DAATT_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-IDEN"}
+}
+
+func (x *DataAttributeEntryID) DAATT_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-DATA"}
+}
+
 func (x *DataAttributeEntryID) DATAA_CONS_LST() *som.SomListMetaRef[*DataAttributeConstraintEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/DATAA-CONS-LST", func(t *som.SomMetaTree, p string) *DataAttributeConstraintEntryID {
 		return newDataAttributeConstraintEntryID(t, p)
 	})
+}
+
+func (x *DataAttributeEntryID) DAATT_DERI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-DERI"}
+}
+
+func (x *DataAttributeEntryID) DAATT_SECU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-SECU"}
+}
+
+func (x *DataAttributeEntryID) DAATT_MIGR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAATT-MIGR"}
 }
 
 func (x *DataAttributeEntryID) DISPL_DISP_LST() *som.SomListMetaRef[*DisplayPropertyEntryID] {
@@ -107414,6 +108222,26 @@ type DataClassificationEntryID struct {
 // newDataClassificationEntryID binds a DataClassificationEntryID accessor to a tree and a path.
 func newDataClassificationEntryID(tree *som.SomMetaTree, path string) *DataClassificationEntryID {
 	return &DataClassificationEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DataClassificationEntryID) DCLSE_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-IDEN"}
+}
+
+func (x *DataClassificationEntryID) DCLSE_STOR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-STOR"}
+}
+
+func (x *DataClassificationEntryID) DCLSE_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-ACCE"}
+}
+
+func (x *DataClassificationEntryID) DCLSE_RETE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-RETE"}
+}
+
+func (x *DataClassificationEntryID) DCLSE_COMP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCLSE-COMP"}
 }
 
 func (x *DataClassificationEntryID) HNDRE_HAND_LST() *som.SomListMetaRef[*HandlingRequirementEntryID] {
@@ -107480,16 +108308,32 @@ func newDataEntityEntryID(tree *som.SomMetaTree, path string) *DataEntityEntryID
 	return &DataEntityEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *DataEntityEntryID) DAENT_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-IDEN"}
+}
+
+func (x *DataEntityEntryID) DAENT_CLAS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-CLAS"}
+}
+
 func (x *DataEntityEntryID) VOLUM_VOLU_LST() *som.SomListMetaRef[*VolumeMetricEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/VOLUM-VOLU-LST", func(t *som.SomMetaTree, p string) *VolumeMetricEntryID {
 		return newVolumeMetricEntryID(t, p)
 	})
 }
 
+func (x *DataEntityEntryID) DAENT_LIFE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-LIFE"}
+}
+
 func (x *DataEntityEntryID) CRE_COMP_LST() *som.SomListMetaRef[*ComplianceRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRE-COMP-LST", func(t *som.SomMetaTree, p string) *ComplianceRequirementEntryID {
 		return newComplianceRequirementEntryID(t, p)
 	})
+}
+
+func (x *DataEntityEntryID) DAENT_RELA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENT-RELA"}
 }
 
 func (x *DataEntityEntryID) TECHN_TECH_LST() *som.SomListMetaRef[*TechnicalCharacteristicEntryID] {
@@ -108225,10 +109069,26 @@ func newEntityRelationshipEntryID(tree *som.SomMetaTree, path string) *EntityRel
 	return &EntityRelationshipEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *EntityRelationshipEntryID) ENRLE_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-IDEN"}
+}
+
 func (x *EntityRelationshipEntryID) PARTI_PART_LST() *som.SomListMetaRef[*ParticipantEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/PARTI-PART-LST", func(t *som.SomMetaTree, p string) *ParticipantEntryID {
 		return newParticipantEntryID(t, p)
 	})
+}
+
+func (x *EntityRelationshipEntryID) ENRLE_CARD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-CARD"}
+}
+
+func (x *EntityRelationshipEntryID) ENRLE_REFE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-REFE"}
+}
+
+func (x *EntityRelationshipEntryID) ENRLE_NAVI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-NAVI"}
 }
 
 func (x *EntityRelationshipEntryID) RELAT_RELA_LST() *som.SomListMetaRef[*RelationshipAttributeEntryID] {
@@ -108483,6 +109343,10 @@ func newExternalInterfaceEntryID(tree *som.SomMetaTree, path string) *ExternalIn
 	return &ExternalInterfaceEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *ExternalInterfaceEntryID) EIE_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EIE-IDEN"}
+}
+
 func (x *ExternalInterfaceEntryID) IBPE_DEPE_LST() *som.SomListMetaRef[*InterfaceBusinessProcessEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessContext/IBPE-DEPE-LST", func(t *som.SomMetaTree, p string) *InterfaceBusinessProcessEntryID {
 		return newInterfaceBusinessProcessEntryID(t, p)
@@ -108591,6 +109455,10 @@ type ExternalSystemContextEntryID struct {
 // newExternalSystemContextEntryID binds a ExternalSystemContextEntryID accessor to a tree and a path.
 func newExternalSystemContextEntryID(tree *som.SomMetaTree, path string) *ExternalSystemContextEntryID {
 	return &ExternalSystemContextEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ExternalSystemContextEntryID) EXSYCOEN_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EXSYCOEN-DATA"}
 }
 
 // FamilyComponentRefID holds the ID-tree accessors of `FamilyComponentRef` (DR1 §4.2): methods
@@ -108824,6 +109692,18 @@ func (x *FunctionalRequirementEntryID) DAENRE_ENTI_LST() *som.SomListMetaRef[*Da
 	})
 }
 
+func (x *FunctionalRequirementEntryID) RUS_UIFO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiSpecification/RUS-UIFO"}
+}
+
+func (x *FunctionalRequirementEntryID) RUS_LAYO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiSpecification/RUS-LAYO"}
+}
+
+func (x *FunctionalRequirementEntryID) RUS_MOCK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiSpecification/RUS-MOCK"}
+}
+
 func (x *FunctionalRequirementEntryID) SCFLD_FIEL_LST() *som.SomListMetaRef[*ScreenFieldEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/uiSpecification/SCFLD-FIEL-LST", func(t *som.SomMetaTree, p string) *ScreenFieldEntryID {
 		return newScreenFieldEntryID(t, p)
@@ -108846,6 +109726,10 @@ func (x *FunctionalRequirementEntryID) RQDEP_ITEM_LST() *som.SomListMetaRef[*Req
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/dependencies/RQDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *RequirementDependencyEntryID {
 		return newRequirementDependencyEntryID(t, p)
 	})
+}
+
+func (x *FunctionalRequirementEntryID) RT_TRAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceability/RT-TRAC"}
 }
 
 func (x *FunctionalRequirementEntryID) RQTSC_TEST_LST() *som.SomListMetaRef[*RequirementTestCaseEntryID] {
@@ -110196,6 +111080,10 @@ func (x *OrganizationalRequirementEntryID) ACCR_CRIT_LST() *som.SomListMetaRef[*
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
 		return newAcceptanceCriterionEntryID(t, p)
 	})
+}
+
+func (x *OrganizationalRequirementEntryID) ORIP_PLAN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/implementationPlan/ORIP-PLAN"}
 }
 
 func (x *OrganizationalRequirementEntryID) ORGIM_ACTI_LST() *som.SomListMetaRef[*OrgImplementationActivityID] {
@@ -112121,6 +113009,10 @@ func (x *SecurityRequirementEntryID) RQDEP_ITEM_LST() *som.SomListMetaRef[*Requi
 	})
 }
 
+func (x *SecurityRequirementEntryID) RT_TRAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceability/RT-TRAC"}
+}
+
 // SecurityStandardComplianceEntryID holds the ID-tree accessors of `SecurityStandardComplianceEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -112786,6 +113678,10 @@ func newSystemToReplaceEntryID(tree *som.SomMetaTree, path string) *SystemToRepl
 	return &SystemToReplaceEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *SystemToReplaceEntryID) SYTORE_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYTORE-IDEN"}
+}
+
 func (x *SystemToReplaceEntryID) KIE_KNOW_LST() *som.SomListMetaRef[*KnownIssueEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalAssessment/KIE-KNOW-LST", func(t *som.SomMetaTree, p string) *KnownIssueEntryID {
 		return newKnownIssueEntryID(t, p)
@@ -113031,6 +113927,10 @@ func (x *TechnicalGoalEntryID) QLSCN_ITEM_LST() *som.SomListMetaRef[*QualityScen
 	})
 }
 
+func (x *TechnicalGoalEntryID) TGTC_TEST() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/testCriteria/TGTC-TEST"}
+}
+
 func (x *TechnicalGoalEntryID) TEGOTS_ITEM_LST() *som.SomListMetaRef[*TechnicalGoalTestCaseEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/testCriteria/TEGOTS-ITEM-LST", func(t *som.SomMetaTree, p string) *TechnicalGoalTestCaseEntryID {
 		return newTechnicalGoalTestCaseEntryID(t, p)
@@ -113085,6 +113985,10 @@ func (x *TechnicalRequirementEntryID) RQDEP_ITEM_LST() *som.SomListMetaRef[*Requ
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/dependencies/RQDEP-ITEM-LST", func(t *som.SomMetaTree, p string) *RequirementDependencyEntryID {
 		return newRequirementDependencyEntryID(t, p)
 	})
+}
+
+func (x *TechnicalRequirementEntryID) RT_TRAC() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/traceability/RT-TRAC"}
 }
 
 // TechnologyDataVariationsID holds the ID-tree accessors of `TechnologyDataVariations` (DR1 §4.2): methods
@@ -113462,6 +114366,38 @@ func newUiComponentEntryID(tree *som.SomMetaTree, path string) *UiComponentEntry
 	return &UiComponentEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *UiComponentEntryID) UICOMENT_IDEN() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-IDEN"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_VISU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-VISU"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_INTE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-INTE"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_RESP() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-RESP"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-ACCE"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_AUTH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-AUTH"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_RESO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-RESO"}
+}
+
+func (x *UiComponentEntryID) UICOMENT_DATA() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-DATA"}
+}
+
 func (x *UiComponentEntryID) CMST_STAT_LST() *som.SomListMetaRef[*ComponentStateEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/CMST-STAT-LST", func(t *som.SomMetaTree, p string) *ComponentStateEntryID {
 		return newComponentStateEntryID(t, p)
@@ -113531,6 +114467,14 @@ func newUserCategoryEntryID(tree *som.SomMetaTree, path string) *UserCategoryEnt
 	return &UserCategoryEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *UserCategoryEntryID) UPD_PERS() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/personaDetails/UPD-PERS"}
+}
+
+func (x *UserCategoryEntryID) UPD_VISU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/personaDetails/UPD-VISU"}
+}
+
 func (x *UserCategoryEntryID) REPRE_REPR_LST() *som.SomListMetaRef[*RepresentativeQuoteEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/personaDetails/REPRE-REPR-LST", func(t *som.SomMetaTree, p string) *RepresentativeQuoteEntryID {
 		return newRepresentativeQuoteEntryID(t, p)
@@ -113543,16 +114487,32 @@ func (x *UserCategoryEntryID) SYTS_SYST_LST() *som.SomListMetaRef[*SystemTaskEnt
 	})
 }
 
+func (x *UserCategoryEntryID) UAP_PERM() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessPermissions/UAP-PERM"}
+}
+
 func (x *UserCategoryEntryID) PRMTX_PERM_LST() *som.SomListMetaRef[*PermissionMatrixEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessPermissions/PRMTX-PERM-LST", func(t *som.SomMetaTree, p string) *PermissionMatrixEntryID {
 		return newPermissionMatrixEntryID(t, p)
 	})
 }
 
+func (x *UserCategoryEntryID) USTRRE_TRAI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingRequirements/USTRRE-TRAI"}
+}
+
 func (x *UserCategoryEntryID) TRTP_TRAI_LST() *som.SomListMetaRef[*TrainingTopicEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/trainingRequirements/TRTP-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingTopicEntryID {
 		return newTrainingTopicEntryID(t, p)
 	})
+}
+
+func (x *UserCategoryEntryID) UAN_ACCE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibilityNeeds/UAN-ACCE"}
+}
+
+func (x *UserCategoryEntryID) UJ_JOUR() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userJourney/UJ-JOUR"}
 }
 
 func (x *UserCategoryEntryID) JRNST_STAG_LST() *som.SomListMetaRef[*JourneyStageEntryID] {
@@ -113571,6 +114531,10 @@ func (x *UserCategoryEntryID) USERJ_PAIN_LST() *som.SomListMetaRef[*UserJourneyP
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/userJourney/USERJ-PAIN-LST", func(t *som.SomMetaTree, p string) *UserJourneyPainPointEntryID {
 		return newUserJourneyPainPointEntryID(t, p)
 	})
+}
+
+func (x *UserCategoryEntryID) UJ_OPPO() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userJourney/UJ-OPPO"}
 }
 
 // UserGroupImpactEntryID holds the ID-tree accessors of `UserGroupImpactEntry` (DR1 §4.2): methods
@@ -113899,6 +114863,10 @@ type WorkflowStepSystemID struct {
 // newWorkflowStepSystemID binds a WorkflowStepSystemID accessor to a tree and a path.
 func newWorkflowStepSystemID(tree *som.SomMetaTree, path string) *WorkflowStepSystemID {
 	return &WorkflowStepSystemID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *WorkflowStepSystemID) WOSTSY_NAME() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WOSTSY-NAME"}
 }
 
 // WorkflowSummaryEntryID holds the ID-tree accessors of `WorkflowSummaryEntry` (DR1 §4.2): methods

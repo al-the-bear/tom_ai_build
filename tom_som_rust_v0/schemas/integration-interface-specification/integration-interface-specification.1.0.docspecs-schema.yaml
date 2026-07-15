@@ -135,6 +135,8 @@ section-types:
   exinen-inte:
     prefix: EXINEN_INTE_
     subsection-types:
+      eie-iden:
+        max-count: 1
       inbuco:
         max-count: 1
       intesp:
@@ -226,6 +228,9 @@ section-types:
       pattern: "^OOSE-ITEM-[0-9]+$"
       error-message: IDs of this section must match OOSE-ITEM-xxx
     description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
+  eie-iden:
+    prefix: EIE_IDEN
+    format: eie-iden-form
   inbuco:
     prefix: INBUCO
     subsection-types:
@@ -399,6 +404,28 @@ section-types:
       inseco:
         max-count: 1
     description: Security and authentication requirements.
+form-types:
+  eie-iden-form:
+    fields:
+      - fieldname: interfaceId
+        required: true
+        description: Unique stable identifier for this interface
+      - fieldname: interfaceName
+        required: true
+        description: Human-readable name of the interface
+      - fieldname: externalSystem
+        required: true
+        description: Name of the external system being integrated
+      - fieldname: externalSystemVendor
+        description: Vendor or provider that owns the external system
+      - fieldname: interfaceCategory
+        description: Functional category of the interface
+      - fieldname: integrationPattern
+        description: Primary integration pattern used
+      - fieldname: priority
+        description: Relative importance of this interface
+      - fieldname: status
+        description: Lifecycle status of the interface
 document:
   sections:
     dochd:

@@ -159,6 +159,7 @@ class CurrentArchitecture {
   String? content;
 
   /// Architecture overview diagram.
+  @SectionId('CARCH-ARCH')
   @ContentType('mermaid-flowchart', 'Architecture overview diagram showing '
       'systems, their connections, and data flows')
   @ContentHelp('Provide a Mermaid flowchart showing the current architecture. '
@@ -167,6 +168,7 @@ class CurrentArchitecture {
   String? architectureDiagram;
 
   /// Deployment topology description.
+  @SectionId('CARCH-DEPL')
   @ContentType('description', 'Description of how systems are deployed '
       'across infrastructure')
   @SerializationOrder(2)
@@ -563,6 +565,7 @@ class DependenciesAndIntegrations {
   String? content;
 
   /// Dependency matrix diagram.
+  @SectionId('DEPNT-DEPE')
   @ContentType('mermaid-flowchart', 'Visual representation of system '
       'dependencies showing data flows and coupling strength')
   @ContentHelp('Create a Mermaid flowchart showing dependencies between '
@@ -1348,6 +1351,7 @@ class CurrentBusinessProcesses {
   String? content;
 
   /// Process landscape diagram.
+  @SectionId('CUBUPR-PROC')
   @ContentType('mermaid-flowchart', 'Visual map of business processes showing '
       'hierarchy, relationships, and data flows between processes')
   @ContentHelp('Create a Mermaid flowchart showing the process landscape. '
@@ -1469,6 +1473,7 @@ class ProcessInterdependencyMatrix {
   String? content;
 
   /// Interdependency diagram.
+  @SectionId('PRINMA-DEPE')
   @ContentType('mermaid-flowchart', 'Visual matrix of process dependencies')
   @ContentHelp('Create a Mermaid flowchart showing process dependencies. '
       'Use edge labels to describe the data/artifact exchanged.')
@@ -1694,6 +1699,7 @@ class WorkflowDescriptions {
   String? content;
 
   /// Workflow overview diagram.
+  @SectionId('WODE-WORK')
   @ContentType('mermaid-flowchart', 'Visual overview of all workflows in this '
       'process showing relationships and handoffs')
   @ContentHelp('Create a Mermaid flowchart showing how workflows within this '
@@ -1807,6 +1813,7 @@ class CurrentWorkflowEntry {
   String? content;
 
   /// Workflow diagram.
+  @SectionId('CUWF-WORK')
   @ContentType('mermaid-flowchart', 'Visual representation of this workflow '
       'showing steps, decisions, and actors in a BPMN-style diagram')
   @ContentHelp('Create a Mermaid flowchart or sequence diagram showing the '
@@ -1978,6 +1985,7 @@ class WorkflowTriggerEntry {
 )
 @SectionId('WOSTSY')
 class WorkflowStepSystem {
+  @SectionId('WOSTSY-NAME')
   @ContentHelp('Name of the system used in this workflow step.')
   @SerializationOrder(0)
   String? name;
@@ -2591,6 +2599,7 @@ and technical capabilities. Highlight interdependencies between pain points.
   String? content;
 
   /// Visual mapping of pain points and their relationships.
+  @SectionId('PPAG-PAIN')
   @ContentType('mermaid-flowchart', 'Diagram showing pain point categories, '
       'relationships, and impact flow between operational, business, '
       'and technical pain points')
@@ -2598,6 +2607,7 @@ and technical capabilities. Highlight interdependencies between pain points.
   String? painPointsOverviewDiagram;
 
   /// Pain points priority matrix (urgency vs impact).
+  @SectionId('PPAG-PAINP')
   @ContentType('mermaid', 'Quadrant chart mapping pain points by urgency and '
       'impact dimensions to guide prioritization decisions')
   @SerializationOrder(2)
@@ -3107,6 +3117,7 @@ underlying gaps that may not be explicitly documented.
   String? content;
 
   /// Visual correlation between pain points and gaps.
+  @SectionId('PPGC-CORR')
   @ContentType('mermaid', 'Diagram showing cause-effect relationships '
       'between capability gaps and resulting pain points')
   @SerializationOrder(1)
@@ -3338,12 +3349,14 @@ to the organization. Highlight critical data dependencies and risks.
   String? content;
 
   /// Visual representation of the data landscape.
+  @SectionId('CUDALA-DATAL')
   @ContentType('mermaid-flowchart', 'High-level diagram showing data domains, '
       'major data stores, data flows, and integration points')
   @SerializationOrder(1)
   String? dataLandscapeOverviewDiagram;
 
   /// Data architecture summary diagram.
+  @SectionId('CUDALA-DATA')
   @ContentType('mermaid', 'ER-style or architectural diagram showing '
       'relationships between major data entities and systems')
   @SerializationOrder(2)
@@ -3448,6 +3461,7 @@ catalog data sources, coverage of the inventory, and any known gaps.
   String? content;
 
   /// Visual map of data sources by domain/category.
+  @SectionId('DASOIN-DATA')
   @ContentType('mermaid', 'Diagram showing data sources grouped by '
       'business domain or technical category')
   @SerializationOrder(1)
@@ -3772,6 +3786,7 @@ methodology, scope, key findings, and overall data quality posture.
       DataQualityDimensionsSummary();
 
   /// Quality issues by severity.
+  @SectionId('DAQUAS-QUAL')
   @ContentType('mermaid', 'Chart showing distribution of quality issues '
       'by severity level')
   @SerializationOrder(2)
@@ -3998,6 +4013,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
   DataDuplicationSummary duplicationSummary = DataDuplicationSummary();
 
   /// Visual representation of data redundancy.
+  @SectionId('DADUAN-DUPL')
   @ContentType('mermaid', 'Diagram showing overlapping data stores and '
       'duplicate data flows')
   @SerializationOrder(2)
@@ -4167,6 +4183,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
   DataOwnershipSummary ownershipSummary = DataOwnershipSummary();
 
   /// Data ownership matrix visualization.
+  @SectionId('DAOW-OWNE')
   @ContentType('mermaid', 'Matrix or diagram showing data domains and '
       'their owners/stewards')
   @SerializationOrder(2)
@@ -4316,6 +4333,7 @@ and forecasting methodology.
   DataVolumeSummary volumeSummary = DataVolumeSummary();
 
   /// Growth trend visualization.
+  @SectionId('DVAG-GROW')
   @ContentType('mermaid', 'Chart showing historical data growth and '
       'projected future volumes')
   @SerializationOrder(2)
@@ -4647,6 +4665,7 @@ framework, organizational structure, policies, and current maturity level.
   DataGovernanceMaturity governanceMaturity = DataGovernanceMaturity();
 
   /// Governance organization structure.
+  @SectionId('DAGO-GOVE')
   @ContentType('mermaid', 'Organizational chart showing data governance '
       'roles and reporting structure')
   @SerializationOrder(2)
@@ -4951,6 +4970,7 @@ architecture, major data flows, technologies used, and integration challenges.
   DataIntegrationSummary integrationSummary = DataIntegrationSummary();
 
   /// Data flow diagram.
+  @SectionId('DAINPO-DATA')
   @ContentType('mermaid-flowchart', 'Diagram showing major data flows '
       'and integration points between systems')
   @SerializationOrder(2)

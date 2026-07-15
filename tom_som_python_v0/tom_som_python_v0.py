@@ -52,7 +52,7 @@ class AcceptanceCriteriaSummary(SomNode):
 
     @property
     def acceptanceFrameworkContent(self):
-        return AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(self.doc, f"{self.path}/acceptanceFrameworkContent")
+        return AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(self.doc, f"{self.path}/ACCRSU-ACCE")
 
     # Acceptance criteria overview.
     @property
@@ -315,11 +315,11 @@ class AccessChannels(SomNode):
     # Channel architecture diagram.
     @property
     def channelDiagram(self):
-        return self.doc.content(f"{self.path}/channelDiagram") or ""
+        return self.doc.content(f"{self.path}/AC1-CHAN") or ""
 
     @channelDiagram.setter
     def channelDiagram(self, value):
-        self.doc.set_content(f"{self.path}/channelDiagram", value)
+        self.doc.set_content(f"{self.path}/AC1-CHAN", value)
 
     # Channel entries — contains 1+× InteractionChannelEntry.
     @property
@@ -454,11 +454,11 @@ class AccessLevels(SomNode):
     # Access level hierarchy diagram.
     @property
     def accessLevelDiagram(self):
-        return self.doc.content(f"{self.path}/accessLevelDiagram") or ""
+        return self.doc.content(f"{self.path}/AL-ACCE") or ""
 
     @accessLevelDiagram.setter
     def accessLevelDiagram(self, value):
-        self.doc.set_content(f"{self.path}/accessLevelDiagram", value)
+        self.doc.set_content(f"{self.path}/AL-ACCE", value)
 
     # Access level entries — contains 1+× AccessLevelEntry.
     @property
@@ -468,11 +468,11 @@ class AccessLevels(SomNode):
     # Permission matrix linking access levels to features.
     @property
     def permissionMatrix(self):
-        return self.doc.content(f"{self.path}/permissionMatrix") or ""
+        return self.doc.content(f"{self.path}/AL-PERM") or ""
 
     @permissionMatrix.setter
     def permissionMatrix(self, value):
-        self.doc.set_content(f"{self.path}/permissionMatrix", value)
+        self.doc.set_content(f"{self.path}/AL-PERM", value)
 
 class AccessRestrictionEntry(SomNode):
     """An access restriction entry (form).
@@ -519,7 +519,7 @@ class Accessibility(SomNode):
 
     @property
     def accessibilityOverviewContent(self):
-        return AccessibilityAccessibilityOverviewContentForm(self.doc, f"{self.path}/accessibilityOverviewContent")
+        return AccessibilityAccessibilityOverviewContentForm(self.doc, f"{self.path}/ACCESS-ACCE")
 
     # Ownership and inclusive design philosophy.
     @property
@@ -627,7 +627,7 @@ class AccessibilityChecklist(SomNode):
 
     @property
     def checklistOverviewContent(self):
-        return AccessibilityChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/checklistOverviewContent")
+        return AccessibilityChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/ACCHLS-CHEC")
 
     # Accessibility checklist overview.
     @property
@@ -1485,7 +1485,7 @@ class AlertingConfiguration(SomNode):
 
     @property
     def alertingOverview(self):
-        return AlertingConfigurationAlertingOverviewForm(self.doc, f"{self.path}/alertingOverview")
+        return AlertingConfigurationAlertingOverviewForm(self.doc, f"{self.path}/ALCO-ALER")
 
     # Alerting overview narrative.
     @property
@@ -4082,7 +4082,7 @@ class BreakpointConfiguration(SomNode):
 
     @property
     def breakpointOverview(self):
-        return BreakpointConfigurationBreakpointOverviewForm(self.doc, f"{self.path}/breakpointOverview")
+        return BreakpointConfigurationBreakpointOverviewForm(self.doc, f"{self.path}/BC-BREA")
 
     # Breakpoint entries.
     @property
@@ -4803,15 +4803,15 @@ class BusinessObjectEntry(SomNode):
 
     @property
     def identity(self):
-        return BusinessObjectEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return BusinessObjectEntryIdentityForm(self.doc, f"{self.path}/BJOEN-IDEN")
 
     @property
     def domainContext(self):
-        return BusinessObjectEntryDomainContextForm(self.doc, f"{self.path}/domainContext")
+        return BusinessObjectEntryDomainContextForm(self.doc, f"{self.path}/BJOEN-DOMA")
 
     @property
     def lifecycleSummary(self):
-        return BusinessObjectEntryLifecycleSummaryForm(self.doc, f"{self.path}/lifecycleSummary")
+        return BusinessObjectEntryLifecycleSummaryForm(self.doc, f"{self.path}/BJOEN-LIFE")
 
     @property
     def behaviorRules(self):
@@ -4819,7 +4819,7 @@ class BusinessObjectEntry(SomNode):
 
     @property
     def ownership(self):
-        return BusinessObjectEntryOwnershipForm(self.doc, f"{self.path}/ownership")
+        return BusinessObjectEntryOwnershipForm(self.doc, f"{self.path}/BJOEN-OWNE")
 
     @property
     def integrationPoints(self):
@@ -5062,27 +5062,27 @@ class BusinessRuleEntry(SomNode):
 
     @property
     def identity(self):
-        return BusinessRuleEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return BusinessRuleEntryIdentityForm(self.doc, f"{self.path}/BIRU-IDEN")
 
     @property
     def classification(self):
-        return BusinessRuleEntryClassificationForm(self.doc, f"{self.path}/classification")
+        return BusinessRuleEntryClassificationForm(self.doc, f"{self.path}/BIRU-CLAS")
 
     @property
     def ruleLogic(self):
-        return BusinessRuleEntryRuleLogicForm(self.doc, f"{self.path}/ruleLogic")
+        return BusinessRuleEntryRuleLogicForm(self.doc, f"{self.path}/BIRU-RULE")
 
     @property
     def implementation(self):
-        return BusinessRuleEntryImplementationForm(self.doc, f"{self.path}/implementation")
+        return BusinessRuleEntryImplementationForm(self.doc, f"{self.path}/BIRU-IMPL")
 
     @property
     def exceptionHandling(self):
-        return BusinessRuleEntryExceptionHandlingForm(self.doc, f"{self.path}/exceptionHandling")
+        return BusinessRuleEntryExceptionHandlingForm(self.doc, f"{self.path}/BIRU-EXCE")
 
     @property
     def governance(self):
-        return BusinessRuleEntryGovernanceForm(self.doc, f"{self.path}/governance")
+        return BusinessRuleEntryGovernanceForm(self.doc, f"{self.path}/BIRU-GOVE")
 
     # Contains 0+× AffectedObject.
     @property
@@ -6150,7 +6150,7 @@ class ChangesFromCurrentStructure(SomNode):
 
     @property
     def overviewContent(self):
-        return ChangesFromCurrentStructureOverviewContentForm(self.doc, f"{self.path}/overviewContent")
+        return ChangesFromCurrentStructureOverviewContentForm(self.doc, f"{self.path}/OCCHG-OVER")
 
     # Detailed description of structural changes.
     @property
@@ -7167,11 +7167,11 @@ class CommunicationMatrix(SomNode):
     # Communication matrix diagram.
     @property
     def communicationFlowDiagram(self):
-        return self.doc.content(f"{self.path}/communicationFlowDiagram") or ""
+        return self.doc.content(f"{self.path}/COMA-COMM") or ""
 
     @communicationFlowDiagram.setter
     def communicationFlowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/communicationFlowDiagram", value)
+        self.doc.set_content(f"{self.path}/COMA-COMM", value)
 
     # Communication types and their distribution rules.
     @property
@@ -7332,7 +7332,7 @@ class CompatibilityCharacteristic(SomNode):
 
     @property
     def compatibilityContent(self):
-        return CompatibilityCharacteristicCompatibilityContentForm(self.doc, f"{self.path}/compatibilityContent")
+        return CompatibilityCharacteristicCompatibilityContentForm(self.doc, f"{self.path}/CMPT-COMP")
 
     # Compatibility overview.
     @property
@@ -9328,20 +9328,20 @@ class ContextDiagram(SomNode):
     # Context diagram in Mermaid format.
     @property
     def diagram(self):
-        return self.doc.content(f"{self.path}/diagram") or ""
+        return self.doc.content(f"{self.path}/CD-DIAG") or ""
 
     @diagram.setter
     def diagram(self, value):
-        self.doc.set_content(f"{self.path}/diagram", value)
+        self.doc.set_content(f"{self.path}/CD-DIAG", value)
 
     # Diagram legend and conventions.
     @property
     def legend(self):
-        return self.doc.content(f"{self.path}/legend") or ""
+        return self.doc.content(f"{self.path}/CD-LEGE") or ""
 
     @legend.setter
     def legend(self, value):
-        self.doc.set_content(f"{self.path}/legend", value)
+        self.doc.set_content(f"{self.path}/CD-LEGE", value)
 
 class ContextualHelp(SomNode):
     """10.8.1. Contextual Help."""
@@ -9350,7 +9350,7 @@ class ContextualHelp(SomNode):
 
     @property
     def contextualHelpContent(self):
-        return ContextualHelpContextualHelpContentForm(self.doc, f"{self.path}/contextualHelpContent")
+        return ContextualHelpContextualHelpContentForm(self.doc, f"{self.path}/COHE-CONT")
 
     # Inline help behavior.
     @property
@@ -9898,20 +9898,20 @@ class CurrentArchitecture(SomNode):
     # Architecture overview diagram.
     @property
     def architectureDiagram(self):
-        return self.doc.content(f"{self.path}/architectureDiagram") or ""
+        return self.doc.content(f"{self.path}/CARCH-ARCH") or ""
 
     @architectureDiagram.setter
     def architectureDiagram(self, value):
-        self.doc.set_content(f"{self.path}/architectureDiagram", value)
+        self.doc.set_content(f"{self.path}/CARCH-ARCH", value)
 
     # Deployment topology description.
     @property
     def deploymentTopology(self):
-        return self.doc.content(f"{self.path}/deploymentTopology") or ""
+        return self.doc.content(f"{self.path}/CARCH-DEPL") or ""
 
     @deploymentTopology.setter
     def deploymentTopology(self, value):
-        self.doc.set_content(f"{self.path}/deploymentTopology", value)
+        self.doc.set_content(f"{self.path}/CARCH-DEPL", value)
 
     # Integration patterns used.
     @property
@@ -9982,11 +9982,11 @@ class CurrentBusinessProcesses(SomNode):
     # Process landscape diagram.
     @property
     def processLandscapeDiagram(self):
-        return self.doc.content(f"{self.path}/processLandscapeDiagram") or ""
+        return self.doc.content(f"{self.path}/CUBUPR-PROC") or ""
 
     @processLandscapeDiagram.setter
     def processLandscapeDiagram(self, value):
-        self.doc.set_content(f"{self.path}/processLandscapeDiagram", value)
+        self.doc.set_content(f"{self.path}/CUBUPR-PROC", value)
 
     # Process scope summary.
     @property
@@ -10069,20 +10069,20 @@ class CurrentDataLandscape(SomNode):
     # Visual representation of the data landscape.
     @property
     def dataLandscapeOverviewDiagram(self):
-        return self.doc.content(f"{self.path}/dataLandscapeOverviewDiagram") or ""
+        return self.doc.content(f"{self.path}/CUDALA-DATAL") or ""
 
     @dataLandscapeOverviewDiagram.setter
     def dataLandscapeOverviewDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dataLandscapeOverviewDiagram", value)
+        self.doc.set_content(f"{self.path}/CUDALA-DATAL", value)
 
     # Data architecture summary diagram.
     @property
     def dataArchitectureDiagram(self):
-        return self.doc.content(f"{self.path}/dataArchitectureDiagram") or ""
+        return self.doc.content(f"{self.path}/CUDALA-DATA") or ""
 
     @dataArchitectureDiagram.setter
     def dataArchitectureDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dataArchitectureDiagram", value)
+        self.doc.set_content(f"{self.path}/CUDALA-DATA", value)
 
     # Summary statistics and health indicators.
     @property
@@ -10258,11 +10258,11 @@ class CurrentWorkflowEntry(SomNode):
     # Workflow diagram.
     @property
     def workflowDiagram(self):
-        return self.doc.content(f"{self.path}/workflowDiagram") or ""
+        return self.doc.content(f"{self.path}/CUWF-WORK") or ""
 
     @workflowDiagram.setter
     def workflowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/workflowDiagram", value)
+        self.doc.set_content(f"{self.path}/CUWF-WORK", value)
 
     # Workflow triggers and initiation.
     @property
@@ -10907,11 +10907,11 @@ class D04RequirementsSpecification(SomNode):
     # Blueprint side.
     @property
     def traceabilityMatrix(self):
-        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
+        return self.doc.content(f"{self.path}/RSP-TRAC") or ""
 
     @traceabilityMatrix.setter
     def traceabilityMatrix(self, value):
-        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
+        self.doc.set_content(f"{self.path}/RSP-TRAC", value)
 
     # Requirement relationships.
     @property
@@ -12109,11 +12109,11 @@ class DataAttributeEntry(SomNode):
 
     @property
     def identity(self):
-        return DataAttributeEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return DataAttributeEntryIdentityForm(self.doc, f"{self.path}/DAATT-IDEN")
 
     @property
     def dataTypeSpec(self):
-        return DataAttributeEntryDataTypeSpecForm(self.doc, f"{self.path}/dataTypeSpec")
+        return DataAttributeEntryDataTypeSpecForm(self.doc, f"{self.path}/DAATT-DATA")
 
     @property
     def constraints(self):
@@ -12121,15 +12121,15 @@ class DataAttributeEntry(SomNode):
 
     @property
     def derivation(self):
-        return DataAttributeEntryDerivationForm(self.doc, f"{self.path}/derivation")
+        return DataAttributeEntryDerivationForm(self.doc, f"{self.path}/DAATT-DERI")
 
     @property
     def securityClassification(self):
-        return DataAttributeEntrySecurityClassificationForm(self.doc, f"{self.path}/securityClassification")
+        return DataAttributeEntrySecurityClassificationForm(self.doc, f"{self.path}/DAATT-SECU")
 
     @property
     def migrationLineage(self):
-        return DataAttributeEntryMigrationLineageForm(self.doc, f"{self.path}/migrationLineage")
+        return DataAttributeEntryMigrationLineageForm(self.doc, f"{self.path}/DAATT-MIGR")
 
     @property
     def displayProperties(self):
@@ -12142,7 +12142,7 @@ class DataClassification(SomNode):
 
     @property
     def overview(self):
-        return DataClassificationOverviewForm(self.doc, f"{self.path}/overview")
+        return DataClassificationOverviewForm(self.doc, f"{self.path}/DATCL-OVER")
 
     # Contains 0+× DataClassificationEntry.
     @property
@@ -12159,23 +12159,23 @@ class DataClassificationEntry(SomNode):
 
     @property
     def identity(self):
-        return DataClassificationEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return DataClassificationEntryIdentityForm(self.doc, f"{self.path}/DCLSE-IDEN")
 
     @property
     def storageTransmission(self):
-        return DataClassificationEntryStorageTransmissionForm(self.doc, f"{self.path}/storageTransmission")
+        return DataClassificationEntryStorageTransmissionForm(self.doc, f"{self.path}/DCLSE-STOR")
 
     @property
     def accessControl(self):
-        return DataClassificationEntryAccessControlForm(self.doc, f"{self.path}/accessControl")
+        return DataClassificationEntryAccessControlForm(self.doc, f"{self.path}/DCLSE-ACCE")
 
     @property
     def retentionDisposal(self):
-        return DataClassificationEntryRetentionDisposalForm(self.doc, f"{self.path}/retentionDisposal")
+        return DataClassificationEntryRetentionDisposalForm(self.doc, f"{self.path}/DCLSE-RETE")
 
     @property
     def compliance(self):
-        return DataClassificationEntryComplianceForm(self.doc, f"{self.path}/compliance")
+        return DataClassificationEntryComplianceForm(self.doc, f"{self.path}/DCLSE-COMP")
 
     # Contains 0+× HandlingRequirement.
     @property
@@ -12264,11 +12264,11 @@ class DataDuplicationAnalysis(SomNode):
     # Visual representation of data redundancy.
     @property
     def duplicationDiagram(self):
-        return self.doc.content(f"{self.path}/duplicationDiagram") or ""
+        return self.doc.content(f"{self.path}/DADUAN-DUPL") or ""
 
     @duplicationDiagram.setter
     def duplicationDiagram(self, value):
-        self.doc.set_content(f"{self.path}/duplicationDiagram", value)
+        self.doc.set_content(f"{self.path}/DADUAN-DUPL", value)
 
     # Individual duplication instances.
     @property
@@ -12346,11 +12346,11 @@ class DataEntityEntry(SomNode):
 
     @property
     def identity(self):
-        return DataEntityEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return DataEntityEntryIdentityForm(self.doc, f"{self.path}/DAENT-IDEN")
 
     @property
     def classification(self):
-        return DataEntityEntryClassificationForm(self.doc, f"{self.path}/classification")
+        return DataEntityEntryClassificationForm(self.doc, f"{self.path}/DAENT-CLAS")
 
     @property
     def volumeMetrics(self):
@@ -12358,7 +12358,7 @@ class DataEntityEntry(SomNode):
 
     @property
     def lifecyclePolicy(self):
-        return DataEntityEntryLifecyclePolicyForm(self.doc, f"{self.path}/lifecyclePolicy")
+        return DataEntityEntryLifecyclePolicyForm(self.doc, f"{self.path}/DAENT-LIFE")
 
     @property
     def complianceRequirements(self):
@@ -12366,7 +12366,7 @@ class DataEntityEntry(SomNode):
 
     @property
     def relationshipSummary(self):
-        return DataEntityEntryRelationshipSummaryForm(self.doc, f"{self.path}/relationshipSummary")
+        return DataEntityEntryRelationshipSummaryForm(self.doc, f"{self.path}/DAENT-RELA")
 
     @property
     def technicalCharacteristics(self):
@@ -12516,11 +12516,11 @@ class DataGovernance(SomNode):
     # Governance organization structure.
     @property
     def governanceOrgChart(self):
-        return self.doc.content(f"{self.path}/governanceOrgChart") or ""
+        return self.doc.content(f"{self.path}/DAGO-GOVE") or ""
 
     @governanceOrgChart.setter
     def governanceOrgChart(self, value):
-        self.doc.set_content(f"{self.path}/governanceOrgChart", value)
+        self.doc.set_content(f"{self.path}/DAGO-GOVE", value)
 
     # Data governance policies.
     @property
@@ -12741,11 +12741,11 @@ class DataIntegrationPoints(SomNode):
     # Data flow diagram.
     @property
     def dataFlowDiagram(self):
-        return self.doc.content(f"{self.path}/dataFlowDiagram") or ""
+        return self.doc.content(f"{self.path}/DAINPO-DATA") or ""
 
     @dataFlowDiagram.setter
     def dataFlowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dataFlowDiagram", value)
+        self.doc.set_content(f"{self.path}/DAINPO-DATA", value)
 
     # Data integration points inventory.
     @property
@@ -13038,11 +13038,11 @@ class DataOwnership(SomNode):
     # Data ownership matrix visualization.
     @property
     def ownershipMatrixDiagram(self):
-        return self.doc.content(f"{self.path}/ownershipMatrixDiagram") or ""
+        return self.doc.content(f"{self.path}/DAOW-OWNE") or ""
 
     @ownershipMatrixDiagram.setter
     def ownershipMatrixDiagram(self, value):
-        self.doc.set_content(f"{self.path}/ownershipMatrixDiagram", value)
+        self.doc.set_content(f"{self.path}/DAOW-OWNE", value)
 
     # Data ownership assignments by domain.
     @property
@@ -13321,11 +13321,11 @@ class DataQualityAssessment(SomNode):
     # Quality issues by severity.
     @property
     def qualityIssuesSeverityChart(self):
-        return self.doc.content(f"{self.path}/qualityIssuesSeverityChart") or ""
+        return self.doc.content(f"{self.path}/DAQUAS-QUAL") or ""
 
     @qualityIssuesSeverityChart.setter
     def qualityIssuesSeverityChart(self, value):
-        self.doc.set_content(f"{self.path}/qualityIssuesSeverityChart", value)
+        self.doc.set_content(f"{self.path}/DAQUAS-QUAL", value)
 
     # Data quality issues inventory.
     @property
@@ -13597,11 +13597,11 @@ class DataSourceInventory(SomNode):
     # Visual map of data sources by domain/category.
     @property
     def dataSourceMapDiagram(self):
-        return self.doc.content(f"{self.path}/dataSourceMapDiagram") or ""
+        return self.doc.content(f"{self.path}/DASOIN-DATA") or ""
 
     @dataSourceMapDiagram.setter
     def dataSourceMapDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dataSourceMapDiagram", value)
+        self.doc.set_content(f"{self.path}/DASOIN-DATA", value)
 
     # Contains 0+× DataSource.
     @property
@@ -13848,11 +13848,11 @@ class DataVolumesAndGrowth(SomNode):
     # Growth trend visualization.
     @property
     def growthTrendChart(self):
-        return self.doc.content(f"{self.path}/growthTrendChart") or ""
+        return self.doc.content(f"{self.path}/DVAG-GROW") or ""
 
     @growthTrendChart.setter
     def growthTrendChart(self, value):
-        self.doc.set_content(f"{self.path}/growthTrendChart", value)
+        self.doc.set_content(f"{self.path}/DVAG-GROW", value)
 
     # Volume details by data source.
     @property
@@ -14727,11 +14727,11 @@ class DependenciesAndIntegrations(SomNode):
     # Dependency matrix diagram.
     @property
     def dependencyDiagram(self):
-        return self.doc.content(f"{self.path}/dependencyDiagram") or ""
+        return self.doc.content(f"{self.path}/DEPNT-DEPE") or ""
 
     @dependencyDiagram.setter
     def dependencyDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dependencyDiagram", value)
+        self.doc.set_content(f"{self.path}/DEPNT-DEPE", value)
 
     # 1.1.3.1. Internal Dependencies.
     @property
@@ -16887,7 +16887,7 @@ class DocumentationQualityCriteria(SomNode):
 
     @property
     def documentationOverviewContent(self):
-        return DocumentationQualityCriteriaDocumentationOverviewContentForm(self.doc, f"{self.path}/documentationOverviewContent")
+        return DocumentationQualityCriteriaDocumentationOverviewContentForm(self.doc, f"{self.path}/DOQUCR-DOCU")
 
     # Documentation quality overview narrative.
     @property
@@ -17082,29 +17082,29 @@ class DomainBoundaries(SomNode):
     # Context map showing domain boundaries.
     @property
     def contextMap(self):
-        return self.doc.content(f"{self.path}/contextMap") or ""
+        return self.doc.content(f"{self.path}/DB-CONT") or ""
 
     @contextMap.setter
     def contextMap(self, value):
-        self.doc.set_content(f"{self.path}/contextMap", value)
+        self.doc.set_content(f"{self.path}/DB-CONT", value)
 
     # Within-scope items.
     @property
     def withinScope(self):
-        return self.doc.content(f"{self.path}/withinScope") or ""
+        return self.doc.content(f"{self.path}/DB-WITH") or ""
 
     @withinScope.setter
     def withinScope(self, value):
-        self.doc.set_content(f"{self.path}/withinScope", value)
+        self.doc.set_content(f"{self.path}/DB-WITH", value)
 
     # Outside-scope items.
     @property
     def outsideScope(self):
-        return self.doc.content(f"{self.path}/outsideScope") or ""
+        return self.doc.content(f"{self.path}/DB-OUTS") or ""
 
     @outsideScope.setter
     def outsideScope(self, value):
-        self.doc.set_content(f"{self.path}/outsideScope", value)
+        self.doc.set_content(f"{self.path}/DB-OUTS", value)
 
     # Domain interfaces — contains 0+× DomainInterfaceEntry.
     @property
@@ -17310,11 +17310,11 @@ class DomainProcesses(SomNode):
     # Process overview diagram.
     @property
     def processOverviewDiagram(self):
-        return self.doc.content(f"{self.path}/processOverviewDiagram") or ""
+        return self.doc.content(f"{self.path}/DP-PROC") or ""
 
     @processOverviewDiagram.setter
     def processOverviewDiagram(self, value):
-        self.doc.set_content(f"{self.path}/processOverviewDiagram", value)
+        self.doc.set_content(f"{self.path}/DP-PROC", value)
 
     # Domain process entries — contains 0+× DomainProcessEntry.
     @property
@@ -17764,7 +17764,7 @@ class EntityRelationshipEntry(SomNode):
 
     @property
     def identity(self):
-        return EntityRelationshipEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return EntityRelationshipEntryIdentityForm(self.doc, f"{self.path}/ENRLE-IDEN")
 
     @property
     def participants(self):
@@ -17772,15 +17772,15 @@ class EntityRelationshipEntry(SomNode):
 
     @property
     def cardinality(self):
-        return EntityRelationshipEntryCardinalityForm(self.doc, f"{self.path}/cardinality")
+        return EntityRelationshipEntryCardinalityForm(self.doc, f"{self.path}/ENRLE-CARD")
 
     @property
     def referentialIntegrity(self):
-        return EntityRelationshipEntryReferentialIntegrityForm(self.doc, f"{self.path}/referentialIntegrity")
+        return EntityRelationshipEntryReferentialIntegrityForm(self.doc, f"{self.path}/ENRLE-REFE")
 
     @property
     def navigation(self):
-        return EntityRelationshipEntryNavigationForm(self.doc, f"{self.path}/navigation")
+        return EntityRelationshipEntryNavigationForm(self.doc, f"{self.path}/ENRLE-NAVI")
 
     @property
     def relationshipAttributes(self):
@@ -18282,7 +18282,7 @@ class ErrorHandling(SomNode):
 
     @property
     def errorPhilosophyContent(self):
-        return ErrorHandlingErrorPhilosophyContentForm(self.doc, f"{self.path}/errorPhilosophyContent")
+        return ErrorHandlingErrorPhilosophyContentForm(self.doc, f"{self.path}/ERHACO-ERRO")
 
     # Error categorization and display priority.
     @property
@@ -18487,7 +18487,7 @@ class ErrorRecovery(SomNode):
 
     @property
     def recoveryMechanismsContent(self):
-        return ErrorRecoveryRecoveryMechanismsContentForm(self.doc, f"{self.path}/recoveryMechanismsContent")
+        return ErrorRecoveryRecoveryMechanismsContentForm(self.doc, f"{self.path}/ERRE-RECO")
 
     # Data preservation: draft auto-save settings.
     @property
@@ -19384,7 +19384,7 @@ class ExternalInterfaceEntry(SomNode):
 
     @property
     def identificationContent(self):
-        return ExternalInterfaceEntryIdentificationContentForm(self.doc, f"{self.path}/identificationContent")
+        return ExternalInterfaceEntryIdentificationContentForm(self.doc, f"{self.path}/EIE-IDEN")
 
     # Business purpose and value of this interface.
     @property
@@ -19728,11 +19728,11 @@ class ExternalSystemContextEntry(SomNode):
     # Data mapping details.
     @property
     def dataMapping(self):
-        return self.doc.content(f"{self.path}/dataMapping") or ""
+        return self.doc.content(f"{self.path}/EXSYCOEN-DATA") or ""
 
     @dataMapping.setter
     def dataMapping(self, value):
-        self.doc.set_content(f"{self.path}/dataMapping", value)
+        self.doc.set_content(f"{self.path}/EXSYCOEN-DATA", value)
 
 class ExternalSystemContextEntryGovernance(SomNode):
     """Security and support contacts for an external system context."""
@@ -20609,7 +20609,7 @@ class FlexibilityCharacteristic(SomNode):
 
     @property
     def flexibilityContent(self):
-        return FlexibilityCharacteristicFlexibilityContentForm(self.doc, f"{self.path}/flexibilityContent")
+        return FlexibilityCharacteristicFlexibilityContentForm(self.doc, f"{self.path}/FLXC-FLEX")
 
     # Flexibility overview.
     @property
@@ -20874,11 +20874,11 @@ class FunctionModel(SomNode):
 
     @property
     def decompositionOverview(self):
-        return FunctionModelDecompositionOverviewForm(self.doc, f"{self.path}/decompositionOverview")
+        return FunctionModelDecompositionOverviewForm(self.doc, f"{self.path}/FUMO-DECO")
 
     @property
     def matrixOverview(self):
-        return FunctionModelMatrixOverviewForm(self.doc, f"{self.path}/matrixOverview")
+        return FunctionModelMatrixOverviewForm(self.doc, f"{self.path}/FUMO-MATR")
 
     # 7.3.1. Function Decomposition — contains 0+× Function.
     @property
@@ -21068,7 +21068,7 @@ class FunctionalRequirements(SomNode):
     # Functional requirements summary form.
     @property
     def summaryForm(self):
-        return FunctionalRequirementsSummaryFormForm(self.doc, f"{self.path}/summaryForm")
+        return FunctionalRequirementsSummaryFormForm(self.doc, f"{self.path}/FR-SUMM")
 
     # Functional requirements list — contains 1+× Functional Requirement.
     @property
@@ -21112,7 +21112,7 @@ class FunctionalSuitabilityCharacteristic(SomNode):
 
     @property
     def functionalSuitabilityContent(self):
-        return FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(self.doc, f"{self.path}/functionalSuitabilityContent")
+        return FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(self.doc, f"{self.path}/FNSU-FUNC")
 
     # Functional suitability overview.
     @property
@@ -21495,7 +21495,7 @@ class GoalResources(SomNode):
     # Resource requirement form.
     @property
     def resourcesForm(self):
-        return GoalResourcesResourcesFormForm(self.doc, f"{self.path}/resourcesForm")
+        return GoalResourcesResourcesFormForm(self.doc, f"{self.path}/GORE-RESO")
 
     # Resource allocation entries — contains 0+× ResourceAllocationEntry.
     @property
@@ -21590,11 +21590,11 @@ class Goals(SomNode):
     # Goal hierarchy diagram.
     @property
     def goalHierarchyDiagram(self):
-        return self.doc.content(f"{self.path}/goalHierarchyDiagram") or ""
+        return self.doc.content(f"{self.path}/GOALS-GOAL") or ""
 
     @goalHierarchyDiagram.setter
     def goalHierarchyDiagram(self, value):
-        self.doc.set_content(f"{self.path}/goalHierarchyDiagram", value)
+        self.doc.set_content(f"{self.path}/GOALS-GOAL", value)
 
     # 4.2.1. Business Goals.
     @property
@@ -23326,7 +23326,7 @@ class InteractionCapabilityCharacteristic(SomNode):
 
     @property
     def interactionCapabilityContent(self):
-        return InteractionCapabilityCharacteristicInteractionCapabilityContentForm(self.doc, f"{self.path}/interactionCapabilityContent")
+        return InteractionCapabilityCharacteristicInteractionCapabilityContentForm(self.doc, f"{self.path}/INCP-INTE")
 
     # Interaction capability overview.
     @property
@@ -24367,11 +24367,11 @@ class IntroductionAndScope(SomNode):
     # System context diagram showing major system boundaries.
     @property
     def systemContextDiagram(self):
-        return self.doc.content(f"{self.path}/systemContextDiagram") or ""
+        return self.doc.content(f"{self.path}/INSC-SYST") or ""
 
     @systemContextDiagram.setter
     def systemContextDiagram(self, value):
-        self.doc.set_content(f"{self.path}/systemContextDiagram", value)
+        self.doc.set_content(f"{self.path}/INSC-SYST", value)
 
     # 4.1. System Description.
     @property
@@ -24883,11 +24883,11 @@ class KeyConcepts(SomNode):
     # Conceptual domain model diagram.
     @property
     def conceptualModelDiagram(self):
-        return self.doc.content(f"{self.path}/conceptualModelDiagram") or ""
+        return self.doc.content(f"{self.path}/KC-CONC") or ""
 
     @conceptualModelDiagram.setter
     def conceptualModelDiagram(self, value):
-        self.doc.set_content(f"{self.path}/conceptualModelDiagram", value)
+        self.doc.set_content(f"{self.path}/KC-CONC", value)
 
     # Key concept entries — contains 1+× KeyConceptEntry.
     @property
@@ -25162,7 +25162,7 @@ class LanguageCountrySelection(SomNode):
 
     @property
     def languageSelectionContent(self):
-        return LanguageCountrySelectionLanguageSelectionContentForm(self.doc, f"{self.path}/languageSelectionContent")
+        return LanguageCountrySelectionLanguageSelectionContentForm(self.doc, f"{self.path}/LACOSE-LANG")
 
     # Default locale behavior.
     @property
@@ -25722,7 +25722,7 @@ class LocalizationProcess(SomNode):
 
     @property
     def localizationProcessContent(self):
-        return LocalizationProcessLocalizationProcessContentForm(self.doc, f"{self.path}/localizationProcessContent")
+        return LocalizationProcessLocalizationProcessContentForm(self.doc, f"{self.path}/LOPR-LOCA")
 
     # Review process.
     @property
@@ -26157,7 +26157,7 @@ class MaintainabilityCharacteristic(SomNode):
 
     @property
     def maintainabilityContent(self):
-        return MaintainabilityCharacteristicMaintainabilityContentForm(self.doc, f"{self.path}/maintainabilityContent")
+        return MaintainabilityCharacteristicMaintainabilityContentForm(self.doc, f"{self.path}/MNTC-MAIN")
 
     # Maintainability overview.
     @property
@@ -26715,7 +26715,7 @@ class MetricsAndObservability(SomNode):
 
     @property
     def metricsOverview(self):
-        return MetricsAndObservabilityMetricsOverviewForm(self.doc, f"{self.path}/metricsOverview")
+        return MetricsAndObservabilityMetricsOverviewForm(self.doc, f"{self.path}/MEANOB-METR")
 
     # Observability overview narrative.
     @property
@@ -26980,7 +26980,7 @@ class MigrationConsiderations(SomNode):
 
     @property
     def strategyContent(self):
-        return MigrationConsiderationsStrategyContentForm(self.doc, f"{self.path}/strategyContent")
+        return MigrationConsiderationsStrategyContentForm(self.doc, f"{self.path}/MIGCON-STRA")
 
     # Detailed strategy narrative.
     @property
@@ -27529,7 +27529,7 @@ class MigrationRisks(SomNode):
 
     @property
     def governanceContent(self):
-        return MigrationRisksGovernanceContentForm(self.doc, f"{self.path}/governanceContent")
+        return MigrationRisksGovernanceContentForm(self.doc, f"{self.path}/MIRI-GOVE")
 
     # Governance and decision authority.
     @property
@@ -28013,7 +28013,7 @@ class Monitoring(SomNode):
 
     @property
     def monitoringOverview(self):
-        return MonitoringMonitoringOverviewForm(self.doc, f"{self.path}/monitoringOverview")
+        return MonitoringMonitoringOverviewForm(self.doc, f"{self.path}/MONITO-MONI")
 
     # Monitoring strategy narrative.
     @property
@@ -28158,7 +28158,7 @@ class MonitoringDashboards(SomNode):
 
     @property
     def dashboardOverview(self):
-        return MonitoringDashboardsDashboardOverviewForm(self.doc, f"{self.path}/dashboardOverview")
+        return MonitoringDashboardsDashboardOverviewForm(self.doc, f"{self.path}/MODA-DASH")
 
     # Dashboard overview narrative.
     @property
@@ -28368,7 +28368,7 @@ class MultiChannelExperience(SomNode):
     # Multi-channel configuration.
     @property
     def multiChannelConfiguration(self):
-        return MultiChannelExperienceMultiChannelConfigurationForm(self.doc, f"{self.path}/multiChannelConfiguration")
+        return MultiChannelExperienceMultiChannelConfigurationForm(self.doc, f"{self.path}/MCE-MULT")
 
 class MultiLanguageSupport(SomNode):
     """10.12. Multi-language Support.
@@ -28384,7 +28384,7 @@ class MultiLanguageSupport(SomNode):
 
     @property
     def multiLanguageOverview(self):
-        return MultiLanguageSupportMultiLanguageOverviewForm(self.doc, f"{self.path}/multiLanguageOverview")
+        return MultiLanguageSupportMultiLanguageOverviewForm(self.doc, f"{self.path}/MLAR-MULT")
 
     # Multi-language overview narrative.
     @property
@@ -28411,7 +28411,7 @@ class MustPassCriteria(SomNode):
 
     @property
     def mustPassOverviewContent(self):
-        return MustPassCriteriaMustPassOverviewContentForm(self.doc, f"{self.path}/mustPassOverviewContent")
+        return MustPassCriteriaMustPassOverviewContentForm(self.doc, f"{self.path}/MUPACR-MUST")
 
     # Must-pass criteria overview.
     @property
@@ -29782,7 +29782,7 @@ class OnboardingHelp(SomNode):
 
     @property
     def onboardingContent(self):
-        return OnboardingHelpOnboardingContentForm(self.doc, f"{self.path}/onboardingContent")
+        return OnboardingHelpOnboardingContentForm(self.doc, f"{self.path}/ONHE-ONBO")
 
     # Feature tour settings.
     @property
@@ -30183,7 +30183,7 @@ class OrgRequirementImplementationPlan(SomNode):
     # Implementation plan form.
     @property
     def planForm(self):
-        return OrgRequirementImplementationPlanPlanFormForm(self.doc, f"{self.path}/planForm")
+        return OrgRequirementImplementationPlanPlanFormForm(self.doc, f"{self.path}/ORIP-PLAN")
 
     # Implementation activities — contains 0+× OrgImplementationActivity.
     @property
@@ -30294,11 +30294,11 @@ class OrganizationalContext(SomNode):
     # Business process coverage.
     @property
     def businessProcessCoverage(self):
-        return self.doc.content(f"{self.path}/businessProcessCoverage") or ""
+        return self.doc.content(f"{self.path}/OC-BUSI") or ""
 
     @businessProcessCoverage.setter
     def businessProcessCoverage(self, value):
-        self.doc.set_content(f"{self.path}/businessProcessCoverage", value)
+        self.doc.set_content(f"{self.path}/OC-BUSI", value)
 
 class OrganizationalEnvironment(SomNode):
     """4.6.1. Organizational Environment.
@@ -30313,7 +30313,7 @@ class OrganizationalEnvironment(SomNode):
 
     @property
     def organizationContent(self):
-        return OrganizationalEnvironmentOrganizationContentForm(self.doc, f"{self.path}/organizationContent")
+        return OrganizationalEnvironmentOrganizationContentForm(self.doc, f"{self.path}/OREN-ORGA")
 
     # Organizational maturity indicators.
     @property
@@ -30515,7 +30515,7 @@ class OrganizationalRequirements(SomNode):
     # Organizational requirements summary form.
     @property
     def summaryForm(self):
-        return OrganizationalRequirementsSummaryFormForm(self.doc, f"{self.path}/summaryForm")
+        return OrganizationalRequirementsSummaryFormForm(self.doc, f"{self.path}/OR-SUMM")
 
     # Organizational requirements list — contains 0+× Organizational Requirement.
     @property
@@ -30864,11 +30864,11 @@ class PainPointGapCorrelation(SomNode):
     # Visual correlation between pain points and gaps.
     @property
     def correlationDiagram(self):
-        return self.doc.content(f"{self.path}/correlationDiagram") or ""
+        return self.doc.content(f"{self.path}/PPGC-CORR") or ""
 
     @correlationDiagram.setter
     def correlationDiagram(self, value):
-        self.doc.set_content(f"{self.path}/correlationDiagram", value)
+        self.doc.set_content(f"{self.path}/PPGC-CORR", value)
 
     # Tabular correlation data.
     @property
@@ -30954,20 +30954,20 @@ class PainPointsAndGaps(SomNode):
     # Visual mapping of pain points and their relationships.
     @property
     def painPointsOverviewDiagram(self):
-        return self.doc.content(f"{self.path}/painPointsOverviewDiagram") or ""
+        return self.doc.content(f"{self.path}/PPAG-PAIN") or ""
 
     @painPointsOverviewDiagram.setter
     def painPointsOverviewDiagram(self, value):
-        self.doc.set_content(f"{self.path}/painPointsOverviewDiagram", value)
+        self.doc.set_content(f"{self.path}/PPAG-PAIN", value)
 
     # Pain points priority matrix (urgency vs impact).
     @property
     def painPointsPriorityMatrix(self):
-        return self.doc.content(f"{self.path}/painPointsPriorityMatrix") or ""
+        return self.doc.content(f"{self.path}/PPAG-PAINP") or ""
 
     @painPointsPriorityMatrix.setter
     def painPointsPriorityMatrix(self, value):
-        self.doc.set_content(f"{self.path}/painPointsPriorityMatrix", value)
+        self.doc.set_content(f"{self.path}/PPAG-PAINP", value)
 
     # Summary statistics for all pain points.
     @property
@@ -31280,7 +31280,7 @@ class PerformanceEfficiencyCharacteristic(SomNode):
 
     @property
     def performanceEfficiencyContent(self):
-        return PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(self.doc, f"{self.path}/performanceEfficiencyContent")
+        return PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(self.doc, f"{self.path}/PEEF-PERF")
 
     # Performance efficiency overview.
     @property
@@ -32536,11 +32536,11 @@ class ProcessAdjustments(SomNode):
     # Visual representation of process adjustments.
     @property
     def processFlowDiagram(self):
-        return self.doc.content(f"{self.path}/processFlowDiagram") or ""
+        return self.doc.content(f"{self.path}/PCADJ-PROC") or ""
 
     @processFlowDiagram.setter
     def processFlowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/processFlowDiagram", value)
+        self.doc.set_content(f"{self.path}/PCADJ-PROC", value)
 
     # Contains 0+× ProcessAdjustment.
     @property
@@ -32990,11 +32990,11 @@ class ProcessInterdependencyMatrix(SomNode):
     # Interdependency diagram.
     @property
     def dependencyDiagram(self):
-        return self.doc.content(f"{self.path}/dependencyDiagram") or ""
+        return self.doc.content(f"{self.path}/PRINMA-DEPE") or ""
 
     @dependencyDiagram.setter
     def dependencyDiagram(self, value):
-        self.doc.set_content(f"{self.path}/dependencyDiagram", value)
+        self.doc.set_content(f"{self.path}/PRINMA-DEPE", value)
 
     # Individual process dependencies.
     @property
@@ -33725,11 +33725,11 @@ class ProjectOrganizationAndProcess(SomNode):
     # Visual overview of methodology deviations.
     @property
     def methodologyDeviationDiagram(self):
-        return self.doc.content(f"{self.path}/methodologyDeviationDiagram") or ""
+        return self.doc.content(f"{self.path}/PRPO-METH") or ""
 
     @methodologyDeviationDiagram.setter
     def methodologyDeviationDiagram(self, value):
-        self.doc.set_content(f"{self.path}/methodologyDeviationDiagram", value)
+        self.doc.set_content(f"{self.path}/PRPO-METH", value)
 
     # Summary of all methodology deviations.
     @property
@@ -33920,7 +33920,7 @@ class Prototype(SomNode):
 
     @property
     def prototypeOverview(self):
-        return PrototypePrototypeOverviewForm(self.doc, f"{self.path}/prototypeOverview")
+        return PrototypePrototypeOverviewForm(self.doc, f"{self.path}/PROTOT-PROT")
 
     # Prototype timing commitments.
     @property
@@ -33981,7 +33981,7 @@ class PrototypeFeatureSubset(SomNode):
 
     @property
     def featureSubsetContent(self):
-        return PrototypeFeatureSubsetFeatureSubsetContentForm(self.doc, f"{self.path}/featureSubsetContent")
+        return PrototypeFeatureSubsetFeatureSubsetContentForm(self.doc, f"{self.path}/PRFESU-FEAT")
 
     # Included and excluded feature scope.
     @property
@@ -34040,7 +34040,7 @@ class PrototypeGoals(SomNode):
 
     @property
     def goalsContent(self):
-        return PrototypeGoalsGoalsContentForm(self.doc, f"{self.path}/goalsContent")
+        return PrototypeGoalsGoalsContentForm(self.doc, f"{self.path}/PG-GOAL")
 
     # Risk reduction and assumption testing.
     @property
@@ -34117,7 +34117,7 @@ class PrototypeType(SomNode):
 
     @property
     def prototypeTypeOverview(self):
-        return PrototypeTypePrototypeTypeOverviewForm(self.doc, f"{self.path}/prototypeTypeOverview")
+        return PrototypeTypePrototypeTypeOverviewForm(self.doc, f"{self.path}/PRTYSE-PROT")
 
     # 10.13.3.1. Reusable Prototype.
     @property
@@ -34316,7 +34316,7 @@ class QualityFramework(SomNode):
 
     @property
     def frameworkContent(self):
-        return QualityFrameworkFrameworkContentForm(self.doc, f"{self.path}/frameworkContent")
+        return QualityFrameworkFrameworkContentForm(self.doc, f"{self.path}/QLFWK-FRAM")
 
     # Quality objective structure and alignment.
     @property
@@ -34489,11 +34489,11 @@ class QualityGateAdjustments(SomNode):
     # Visual representation of gate adjustments.
     @property
     def gateFlowDiagram(self):
-        return self.doc.content(f"{self.path}/gateFlowDiagram") or ""
+        return self.doc.content(f"{self.path}/QGADJ-GATE") or ""
 
     @gateFlowDiagram.setter
     def gateFlowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/gateFlowDiagram", value)
+        self.doc.set_content(f"{self.path}/QGADJ-GATE", value)
 
     # Contains 0+× QualityGateAdjustment.
     @property
@@ -34589,7 +34589,7 @@ class QualityGateChecklist(SomNode):
 
     @property
     def checklistOverviewContent(self):
-        return QualityGateChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/checklistOverviewContent")
+        return QualityGateChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/QUGACH-CHEC")
 
     # Quality gate checklist overview.
     @property
@@ -34648,7 +34648,7 @@ class QualityPrioritization(SomNode):
 
     @property
     def prioritizationFrameworkContent(self):
-        return QualityPrioritizationPrioritizationFrameworkContentForm(self.doc, f"{self.path}/prioritizationFrameworkContent")
+        return QualityPrioritizationPrioritizationFrameworkContentForm(self.doc, f"{self.path}/QUPR-PRIO")
 
     # Prioritization approach overview.
     @property
@@ -35432,7 +35432,7 @@ class ReliabilityCharacteristic(SomNode):
 
     @property
     def reliabilityContent(self):
-        return ReliabilityCharacteristicReliabilityContentForm(self.doc, f"{self.path}/reliabilityContent")
+        return ReliabilityCharacteristicReliabilityContentForm(self.doc, f"{self.path}/RELC-RELI")
 
     # Reliability overview narrative.
     @property
@@ -36569,7 +36569,7 @@ class RequirementTraceability(SomNode):
     # Traceability links form.
     @property
     def traceabilityForm(self):
-        return RequirementTraceabilityTraceabilityFormForm(self.doc, f"{self.path}/traceabilityForm")
+        return RequirementTraceabilityTraceabilityFormForm(self.doc, f"{self.path}/RT-TRAC")
 
     # Linked artifacts and test coverage references.
     @property
@@ -36624,25 +36624,25 @@ class RequirementUiSpecification(SomNode):
     # UI specification form.
     @property
     def uiForm(self):
-        return RequirementUiSpecificationUiFormForm(self.doc, f"{self.path}/uiForm")
+        return RequirementUiSpecificationUiFormForm(self.doc, f"{self.path}/RUS-UIFO")
 
     # UI layout specification (D4rt Flutter code).
     @property
     def layoutCode(self):
-        return self.doc.content(f"{self.path}/layoutCode") or ""
+        return self.doc.content(f"{self.path}/RUS-LAYO") or ""
 
     @layoutCode.setter
     def layoutCode(self, value):
-        self.doc.set_content(f"{self.path}/layoutCode", value)
+        self.doc.set_content(f"{self.path}/RUS-LAYO", value)
 
     # UI mockup diagram (fallback if code not available).
     @property
     def mockupDescription(self):
-        return self.doc.content(f"{self.path}/mockupDescription") or ""
+        return self.doc.content(f"{self.path}/RUS-MOCK") or ""
 
     @mockupDescription.setter
     def mockupDescription(self, value):
-        self.doc.set_content(f"{self.path}/mockupDescription", value)
+        self.doc.set_content(f"{self.path}/RUS-MOCK", value)
 
     # Screen field entries — contains 0+× ScreenFieldEntry.
     @property
@@ -36723,16 +36723,16 @@ class RequirementsOverview(SomNode):
     # Requirements overview form.
     @property
     def requirementsForm(self):
-        return RequirementsOverviewRequirementsFormForm(self.doc, f"{self.path}/requirementsForm")
+        return RequirementsOverviewRequirementsFormForm(self.doc, f"{self.path}/RO-REQU")
 
     # Traceability matrix overview.
     @property
     def traceabilityMatrix(self):
-        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
+        return self.doc.content(f"{self.path}/RO-TRAC") or ""
 
     @traceabilityMatrix.setter
     def traceabilityMatrix(self, value):
-        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
+        self.doc.set_content(f"{self.path}/RO-TRAC", value)
 
     # 4.3.1. Functional Requirements.
     @property
@@ -37044,7 +37044,7 @@ class ResponsiveBehavior(SomNode):
 
     @property
     def layoutAdaptation(self):
-        return ResponsiveBehaviorLayoutAdaptationForm(self.doc, f"{self.path}/layoutAdaptation")
+        return ResponsiveBehaviorLayoutAdaptationForm(self.doc, f"{self.path}/REBE-LAYO")
 
     # Navigation patterns per device class.
     @property
@@ -37123,7 +37123,7 @@ class ResponsiveDesign(SomNode):
 
     @property
     def responsiveOverview(self):
-        return ResponsiveDesignResponsiveOverviewForm(self.doc, f"{self.path}/responsiveOverview")
+        return ResponsiveDesignResponsiveOverviewForm(self.doc, f"{self.path}/REDE-RESP")
 
     # Responsive design narrative.
     @property
@@ -37350,7 +37350,7 @@ class ReusablePrototype(SomNode):
 
     @property
     def reusableContent(self):
-        return ReusablePrototypeReusableContentForm(self.doc, f"{self.path}/reusableContent")
+        return ReusablePrototypeReusableContentForm(self.doc, f"{self.path}/REUPRO-REUS")
 
     # Architecture alignment and refactoring expectations.
     @property
@@ -38018,11 +38018,11 @@ class RoleAdjustments(SomNode):
     # Visual comparison of standard vs adjusted roles.
     @property
     def roleComparisonDiagram(self):
-        return self.doc.content(f"{self.path}/roleComparisonDiagram") or ""
+        return self.doc.content(f"{self.path}/RLADJ-ROLE") or ""
 
     @roleComparisonDiagram.setter
     def roleComparisonDiagram(self, value):
-        self.doc.set_content(f"{self.path}/roleComparisonDiagram", value)
+        self.doc.set_content(f"{self.path}/RLADJ-ROLE", value)
 
     # Contains 0+× RoleAdjustment.
     @property
@@ -40222,7 +40222,7 @@ class SecurityCharacteristic(SomNode):
 
     @property
     def securityContent(self):
-        return SecurityCharacteristicSecurityContentForm(self.doc, f"{self.path}/securityContent")
+        return SecurityCharacteristicSecurityContentForm(self.doc, f"{self.path}/SECC-SECU")
 
     # Security overview.
     @property
@@ -40632,7 +40632,7 @@ class SecurityRequirements(SomNode):
     # Security requirements summary form.
     @property
     def summaryForm(self):
-        return SecurityRequirementsSummaryFormForm(self.doc, f"{self.path}/summaryForm")
+        return SecurityRequirementsSummaryFormForm(self.doc, f"{self.path}/SR1-SUMM")
 
     # Security requirements list — contains 0+× Security Requirement.
     @property
@@ -41703,7 +41703,7 @@ class SessionModel(SomNode):
     # Session configuration.
     @property
     def sessionConfiguration(self):
-        return SessionModelSessionConfigurationForm(self.doc, f"{self.path}/sessionConfiguration")
+        return SessionModelSessionConfigurationForm(self.doc, f"{self.path}/SM-SESS")
 
     # Refresh, concurrency, and termination behavior.
     @property
@@ -42200,7 +42200,7 @@ class SlaAndSloMonitoring(SomNode):
 
     @property
     def slaOverview(self):
-        return SlaAndSloMonitoringSlaOverviewForm(self.doc, f"{self.path}/slaOverview")
+        return SlaAndSloMonitoringSlaOverviewForm(self.doc, f"{self.path}/SASM-SLAO")
 
     # SLA/SLO overview narrative.
     @property
@@ -44337,11 +44337,11 @@ class SuccessCriteria(SomNode):
     # Success criteria matrix — overall view.
     @property
     def successCriteriaMatrix(self):
-        return self.doc.content(f"{self.path}/successCriteriaMatrix") or ""
+        return self.doc.content(f"{self.path}/SC-SUCC") or ""
 
     @successCriteriaMatrix.setter
     def successCriteriaMatrix(self, value):
-        self.doc.set_content(f"{self.path}/successCriteriaMatrix", value)
+        self.doc.set_content(f"{self.path}/SC-SUCC", value)
 
     # Post-implementation review plan.
     @property
@@ -44356,47 +44356,47 @@ class SuccessCriteriaByCategory(SomNode):
     # Business outcome criteria overview.
     @property
     def businessCriteria(self):
-        return self.doc.content(f"{self.path}/businessCriteria") or ""
+        return self.doc.content(f"{self.path}/SCBC-BUSI") or ""
 
     @businessCriteria.setter
     def businessCriteria(self, value):
-        self.doc.set_content(f"{self.path}/businessCriteria", value)
+        self.doc.set_content(f"{self.path}/SCBC-BUSI", value)
 
     # Technical quality criteria overview.
     @property
     def technicalCriteria(self):
-        return self.doc.content(f"{self.path}/technicalCriteria") or ""
+        return self.doc.content(f"{self.path}/SCBC-TECH") or ""
 
     @technicalCriteria.setter
     def technicalCriteria(self, value):
-        self.doc.set_content(f"{self.path}/technicalCriteria", value)
+        self.doc.set_content(f"{self.path}/SCBC-TECH", value)
 
     # User satisfaction criteria overview.
     @property
     def userCriteria(self):
-        return self.doc.content(f"{self.path}/userCriteria") or ""
+        return self.doc.content(f"{self.path}/SCBC-USER") or ""
 
     @userCriteria.setter
     def userCriteria(self, value):
-        self.doc.set_content(f"{self.path}/userCriteria", value)
+        self.doc.set_content(f"{self.path}/SCBC-USER", value)
 
     # Compliance criteria overview.
     @property
     def complianceCriteria(self):
-        return self.doc.content(f"{self.path}/complianceCriteria") or ""
+        return self.doc.content(f"{self.path}/SCBC-COMP") or ""
 
     @complianceCriteria.setter
     def complianceCriteria(self, value):
-        self.doc.set_content(f"{self.path}/complianceCriteria", value)
+        self.doc.set_content(f"{self.path}/SCBC-COMP", value)
 
     # Timeline and budget criteria overview.
     @property
     def projectCriteria(self):
-        return self.doc.content(f"{self.path}/projectCriteria") or ""
+        return self.doc.content(f"{self.path}/SCBC-PROJ") or ""
 
     @projectCriteria.setter
     def projectCriteria(self, value):
-        self.doc.set_content(f"{self.path}/projectCriteria", value)
+        self.doc.set_content(f"{self.path}/SCBC-PROJ", value)
 
 class SuccessCriteriaFramework(SomNode):
     """Framework for evaluating and accepting success criteria."""
@@ -44538,7 +44538,7 @@ class SupportAccess(SomNode):
 
     @property
     def supportAccessContent(self):
-        return SupportAccessSupportAccessContentForm(self.doc, f"{self.path}/supportAccessContent")
+        return SupportAccessSupportAccessContentForm(self.doc, f"{self.path}/SUAC-SUPP")
 
     # Help center configuration.
     @property
@@ -45319,7 +45319,7 @@ class SystemErrorDisplay(SomNode):
 
     @property
     def systemErrorContent(self):
-        return SystemErrorDisplaySystemErrorContentForm(self.doc, f"{self.path}/systemErrorContent")
+        return SystemErrorDisplaySystemErrorContentForm(self.doc, f"{self.path}/SYERDI-SYST")
 
     # Error type handling configuration.
     @property
@@ -45708,11 +45708,11 @@ class SystemPurpose(SomNode):
     # Vision Statement.
     @property
     def visionStatement(self):
-        return self.doc.content(f"{self.path}/visionStatement") or ""
+        return self.doc.content(f"{self.path}/SYPUP-VISI") or ""
 
     @visionStatement.setter
     def visionStatement(self, value):
-        self.doc.set_content(f"{self.path}/visionStatement", value)
+        self.doc.set_content(f"{self.path}/SYPUP-VISI", value)
 
     # 4.1.1.1. Problem Statement.
     @property
@@ -45758,7 +45758,7 @@ class SystemQualityGoals(SomNode):
 
     @property
     def governanceContent(self):
-        return SystemQualityGoalsGovernanceContentForm(self.doc, f"{self.path}/governanceContent")
+        return SystemQualityGoalsGovernanceContentForm(self.doc, f"{self.path}/SYQG-GOVE")
 
     # Governance board and escalation details.
     @property
@@ -46265,7 +46265,7 @@ class SystemToReplaceEntry(SomNode):
 
     @property
     def identificationContent(self):
-        return SystemToReplaceEntryIdentificationContentForm(self.doc, f"{self.path}/identificationContent")
+        return SystemToReplaceEntryIdentificationContentForm(self.doc, f"{self.path}/SYTORE-IDEN")
 
     # Classification and ownership details.
     @property
@@ -46812,7 +46812,7 @@ class TechnicalEnvironment(SomNode):
 
     @property
     def technicalOverviewContent(self):
-        return TechnicalEnvironmentTechnicalOverviewContentForm(self.doc, f"{self.path}/technicalOverviewContent")
+        return TechnicalEnvironmentTechnicalOverviewContentForm(self.doc, f"{self.path}/TEEN-TECH")
 
     # Architecture governance context.
     @property
@@ -47125,7 +47125,7 @@ class TechnicalGoalTestCriteria(SomNode):
     # Test criteria form.
     @property
     def testCriteriaForm(self):
-        return TechnicalGoalTestCriteriaTestCriteriaFormForm(self.doc, f"{self.path}/testCriteriaForm")
+        return TechnicalGoalTestCriteriaTestCriteriaFormForm(self.doc, f"{self.path}/TGTC-TEST")
 
     # Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
     @property
@@ -47349,7 +47349,7 @@ class TechnicalRequirements(SomNode):
     # Technical requirements summary form.
     @property
     def summaryForm(self):
-        return TechnicalRequirementsSummaryFormForm(self.doc, f"{self.path}/summaryForm")
+        return TechnicalRequirementsSummaryFormForm(self.doc, f"{self.path}/TR1-SUMM")
 
     # Technical requirements list — contains 0+× Technical Requirement.
     @property
@@ -48097,7 +48097,7 @@ class ThrowawayPrototype(SomNode):
 
     @property
     def throwawayContent(self):
-        return ThrowawayPrototypeThrowawayContentForm(self.doc, f"{self.path}/throwawayContent")
+        return ThrowawayPrototypeThrowawayContentForm(self.doc, f"{self.path}/THPR-THRO")
 
     # Findings and decisions captured from evaluation.
     @property
@@ -48678,7 +48678,7 @@ class TradeOffDecisions(SomNode):
 
     @property
     def tradeOffGovernanceContent(self):
-        return TradeOffDecisionsTradeOffGovernanceContentForm(self.doc, f"{self.path}/tradeOffGovernanceContent")
+        return TradeOffDecisionsTradeOffGovernanceContentForm(self.doc, f"{self.path}/TROFDE-TRAD")
 
     # Trade-off decisions overview.
     @property
@@ -48757,7 +48757,7 @@ class TrainingDeliverableRequirements(SomNode):
 
     @property
     def trainingContent(self):
-        return TrainingDeliverableRequirementsTrainingContentForm(self.doc, f"{self.path}/trainingContent")
+        return TrainingDeliverableRequirementsTrainingContentForm(self.doc, f"{self.path}/TRMAT-TRAI")
 
     # Training narrative.
     @property
@@ -48891,7 +48891,7 @@ class TrainingPrototype(SomNode):
 
     @property
     def trainingContent(self):
-        return TrainingPrototypeTrainingContentForm(self.doc, f"{self.path}/trainingContent")
+        return TrainingPrototypeTrainingContentForm(self.doc, f"{self.path}/TP-TRAI")
 
     # Code disposition and reimplementation planning.
     @property
@@ -49361,7 +49361,7 @@ class TranslationProcess(SomNode):
 
     @property
     def translationProcessContent(self):
-        return TranslationProcessTranslationProcessContentForm(self.doc, f"{self.path}/translationProcessContent")
+        return TranslationProcessTranslationProcessContentForm(self.doc, f"{self.path}/TRPR-TRAN")
 
     # Translation workflow.
     @property
@@ -49412,7 +49412,7 @@ class TranslationRequirements(SomNode):
 
     @property
     def translationRequirementsContent(self):
-        return TranslationRequirementsTranslationRequirementsContentForm(self.doc, f"{self.path}/translationRequirementsContent")
+        return TranslationRequirementsTranslationRequirementsContentForm(self.doc, f"{self.path}/TRAREQ-TRAN")
 
     # RTL and bidirectional support.
     @property
@@ -49814,7 +49814,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def identity(self):
-        return UiComponentEntryIdentityForm(self.doc, f"{self.path}/identity")
+        return UiComponentEntryIdentityForm(self.doc, f"{self.path}/UICOMENT-IDEN")
 
     # Wrapper mapping and business purpose.
     @property
@@ -49828,7 +49828,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def visualDesign(self):
-        return UiComponentEntryVisualDesignForm(self.doc, f"{self.path}/visualDesign")
+        return UiComponentEntryVisualDesignForm(self.doc, f"{self.path}/UICOMENT-VISU")
 
     # Visual dimensions.
     @property
@@ -49852,7 +49852,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def interactiveBehavior(self):
-        return UiComponentEntryInteractiveBehaviorForm(self.doc, f"{self.path}/interactiveBehavior")
+        return UiComponentEntryInteractiveBehaviorForm(self.doc, f"{self.path}/UICOMENT-INTE")
 
     # Focus and keyboard behavior.
     @property
@@ -49871,23 +49871,23 @@ class UiComponentEntry(SomNode):
 
     @property
     def responsiveness(self):
-        return UiComponentEntryResponsivenessForm(self.doc, f"{self.path}/responsiveness")
+        return UiComponentEntryResponsivenessForm(self.doc, f"{self.path}/UICOMENT-RESP")
 
     @property
     def accessibility(self):
-        return UiComponentEntryAccessibilityForm(self.doc, f"{self.path}/accessibility")
+        return UiComponentEntryAccessibilityForm(self.doc, f"{self.path}/UICOMENT-ACCE")
 
     @property
     def authorization(self):
-        return UiComponentEntryAuthorizationForm(self.doc, f"{self.path}/authorization")
+        return UiComponentEntryAuthorizationForm(self.doc, f"{self.path}/UICOMENT-AUTH")
 
     @property
     def resourceIntegration(self):
-        return UiComponentEntryResourceIntegrationForm(self.doc, f"{self.path}/resourceIntegration")
+        return UiComponentEntryResourceIntegrationForm(self.doc, f"{self.path}/UICOMENT-RESO")
 
     @property
     def dataBinding(self):
-        return UiComponentEntryDataBindingForm(self.doc, f"{self.path}/dataBinding")
+        return UiComponentEntryDataBindingForm(self.doc, f"{self.path}/UICOMENT-DATA")
 
     # Component behavior narrative.
     @property
@@ -50003,7 +50003,7 @@ class UiComponents(SomNode):
 
     @property
     def componentLibraryOverview(self):
-        return UiComponentsComponentLibraryOverviewForm(self.doc, f"{self.path}/componentLibraryOverview")
+        return UiComponentsComponentLibraryOverviewForm(self.doc, f"{self.path}/UICO-COMP")
 
     # Visual language and brand alignment.
     @property
@@ -50291,7 +50291,7 @@ class UserAccessPermissions(SomNode):
     # Access Permissions Form.
     @property
     def permissionsForm(self):
-        return UserAccessPermissionsPermissionsFormForm(self.doc, f"{self.path}/permissionsForm")
+        return UserAccessPermissionsPermissionsFormForm(self.doc, f"{self.path}/UAP-PERM")
 
     # Functional and environmental restrictions.
     @property
@@ -50349,7 +50349,7 @@ class UserAccessibilityNeeds(SomNode):
     # Accessibility Needs Form.
     @property
     def accessibilityForm(self):
-        return UserAccessibilityNeedsAccessibilityFormForm(self.doc, f"{self.path}/accessibilityForm")
+        return UserAccessibilityNeedsAccessibilityFormForm(self.doc, f"{self.path}/UAN-ACCE")
 
 class UserAccountStatesDefinition(SomNode):
     """9.1.2.1. Account States (form).
@@ -50388,7 +50388,7 @@ class UserAssistance(SomNode):
 
     @property
     def helpOverviewContent(self):
-        return UserAssistanceHelpOverviewContentForm(self.doc, f"{self.path}/helpOverviewContent")
+        return UserAssistanceHelpOverviewContentForm(self.doc, f"{self.path}/USAS-HELP")
 
     # Content stewardship and help affordances.
     @property
@@ -50641,7 +50641,7 @@ class UserDocumentationRequirements(SomNode):
 
     @property
     def documentationContent(self):
-        return UserDocumentationRequirementsDocumentationContentForm(self.doc, f"{self.path}/documentationContent")
+        return UserDocumentationRequirementsDocumentationContentForm(self.doc, f"{self.path}/DOANTR-DOCU")
 
     # Documentation deliverables provided to users.
     @property
@@ -50816,11 +50816,11 @@ class UserJourney(SomNode):
     # User journey diagram.
     @property
     def journeyDiagram(self):
-        return self.doc.content(f"{self.path}/journeyDiagram") or ""
+        return self.doc.content(f"{self.path}/UJ-JOUR") or ""
 
     @journeyDiagram.setter
     def journeyDiagram(self, value):
-        self.doc.set_content(f"{self.path}/journeyDiagram", value)
+        self.doc.set_content(f"{self.path}/UJ-JOUR", value)
 
     # Journey stage entries — contains 0+× JourneyStageEntry.
     @property
@@ -50840,11 +50840,11 @@ class UserJourney(SomNode):
     # Opportunities for delight.
     @property
     def opportunitiesForDelight(self):
-        return self.doc.content(f"{self.path}/opportunitiesForDelight") or ""
+        return self.doc.content(f"{self.path}/UJ-OPPO") or ""
 
     @opportunitiesForDelight.setter
     def opportunitiesForDelight(self, value):
-        self.doc.set_content(f"{self.path}/opportunitiesForDelight", value)
+        self.doc.set_content(f"{self.path}/UJ-OPPO", value)
 
 class UserJourneyPainPointEntry(SomNode):
     """A single pain point entry."""
@@ -51126,7 +51126,7 @@ class UserPersonaDetails(SomNode):
     # Persona Details Form.
     @property
     def personaForm(self):
-        return UserPersonaDetailsPersonaFormForm(self.doc, f"{self.path}/personaForm")
+        return UserPersonaDetailsPersonaFormForm(self.doc, f"{self.path}/UPD-PERS")
 
     # Experience and work context.
     @property
@@ -51146,11 +51146,11 @@ class UserPersonaDetails(SomNode):
     # Representative photo or avatar description.
     @property
     def visualRepresentation(self):
-        return self.doc.content(f"{self.path}/visualRepresentation") or ""
+        return self.doc.content(f"{self.path}/UPD-VISU") or ""
 
     @visualRepresentation.setter
     def visualRepresentation(self, value):
-        self.doc.set_content(f"{self.path}/visualRepresentation", value)
+        self.doc.set_content(f"{self.path}/UPD-VISU", value)
 
     # Key quotes that represent this persona's mindset.
     @property
@@ -51320,7 +51320,7 @@ class UserTrainingRequirements(SomNode):
     # Training Requirements Form.
     @property
     def trainingForm(self):
-        return UserTrainingRequirementsTrainingFormForm(self.doc, f"{self.path}/trainingForm")
+        return UserTrainingRequirementsTrainingFormForm(self.doc, f"{self.path}/USTRRE-TRAI")
 
     # Training topics — contains 0+× TrainingTopicEntry.
     @property
@@ -51470,7 +51470,7 @@ class ValidationFeedback(SomNode):
 
     @property
     def validationDisplayContent(self):
-        return ValidationFeedbackValidationDisplayContentForm(self.doc, f"{self.path}/validationDisplayContent")
+        return ValidationFeedbackValidationDisplayContentForm(self.doc, f"{self.path}/VAFE-VALI")
 
     # Display placement details.
     @property
@@ -52030,7 +52030,7 @@ class WcagCompliance(SomNode):
 
     @property
     def wcagComplianceContent(self):
-        return WcagComplianceWcagComplianceContentForm(self.doc, f"{self.path}/wcagComplianceContent")
+        return WcagComplianceWcagComplianceContentForm(self.doc, f"{self.path}/WCCO-WCAG")
 
     # Operable principles.
     @property
@@ -52100,7 +52100,7 @@ class WeightedQualityMatrix(SomNode):
 
     @property
     def matrixConfigContent(self):
-        return WeightedQualityMatrixMatrixConfigContentForm(self.doc, f"{self.path}/matrixConfigContent")
+        return WeightedQualityMatrixMatrixConfigContentForm(self.doc, f"{self.path}/WEQUMA-MATR")
 
     # Weighted quality matrix narrative.
     @property
@@ -52200,11 +52200,11 @@ class WorkflowDescriptions(SomNode):
     # Workflow overview diagram.
     @property
     def workflowOverviewDiagram(self):
-        return self.doc.content(f"{self.path}/workflowOverviewDiagram") or ""
+        return self.doc.content(f"{self.path}/WODE-WORK") or ""
 
     @workflowOverviewDiagram.setter
     def workflowOverviewDiagram(self, value):
-        self.doc.set_content(f"{self.path}/workflowOverviewDiagram", value)
+        self.doc.set_content(f"{self.path}/WODE-WORK", value)
 
     # Workflow summary table.
     @property
@@ -52318,11 +52318,11 @@ class WorkflowStepSystem(SomNode):
 
     @property
     def name(self):
-        return self.doc.content(f"{self.path}/name") or ""
+        return self.doc.content(f"{self.path}/WOSTSY-NAME") or ""
 
     @name.setter
     def name(self, value):
-        self.doc.set_content(f"{self.path}/name", value)
+        self.doc.set_content(f"{self.path}/WOSTSY-NAME", value)
 
 class WorkflowSummaryEntry(SomNode):
     """Summary entry for a single workflow."""

@@ -792,6 +792,7 @@ class CommunicationMatrix {
   String? content;
 
   /// Communication matrix diagram.
+  @SectionId('COMA-COMM')
   @ContentType('mermaid', 'Diagram showing communication flows between '
       'stakeholder groups and information types')
   @SerializationOrder(1)

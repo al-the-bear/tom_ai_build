@@ -50,7 +50,7 @@ int acceptance_criteria_summary_can_have_content(const AcceptanceCriteriaSummary
   return 0;
 }
 AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptance_criteria_summary_acceptance_framework_content(const AcceptanceCriteriaSummary *self) {
-  char *path = spec_path_join(self->node.path, "acceptanceFrameworkContent");
+  char *path = spec_path_join(self->node.path, "ACCRSU-ACCE");
   AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm out;
   acceptance_criteria_summary_acceptance_framework_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -427,14 +427,14 @@ void access_channels_set_content(AccessChannels *self, const char *value) {
   free(path);
 }
 char *access_channels_channel_diagram(const AccessChannels *self) {
-  char *path = spec_path_join(self->node.path, "channelDiagram");
+  char *path = spec_path_join(self->node.path, "AC1-CHAN");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void access_channels_set_channel_diagram(AccessChannels *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "channelDiagram");
+  char *path = spec_path_join(self->node.path, "AC1-CHAN");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -608,14 +608,14 @@ void access_levels_set_content(AccessLevels *self, const char *value) {
   free(path);
 }
 char *access_levels_access_level_diagram(const AccessLevels *self) {
-  char *path = spec_path_join(self->node.path, "accessLevelDiagram");
+  char *path = spec_path_join(self->node.path, "AL-ACCE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void access_levels_set_access_level_diagram(AccessLevels *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "accessLevelDiagram");
+  char *path = spec_path_join(self->node.path, "AL-ACCE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -627,14 +627,14 @@ SomList access_levels_levels(const AccessLevels *self) {
   return out;
 }
 char *access_levels_permission_matrix(const AccessLevels *self) {
-  char *path = spec_path_join(self->node.path, "permissionMatrix");
+  char *path = spec_path_join(self->node.path, "AL-PERM");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void access_levels_set_permission_matrix(AccessLevels *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "permissionMatrix");
+  char *path = spec_path_join(self->node.path, "AL-PERM");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -698,7 +698,7 @@ int accessibility_can_have_content(const Accessibility *self) {
   return 0;
 }
 AccessibilityAccessibilityOverviewContentForm accessibility_accessibility_overview_content(const Accessibility *self) {
-  char *path = spec_path_join(self->node.path, "accessibilityOverviewContent");
+  char *path = spec_path_join(self->node.path, "ACCESS-ACCE");
   AccessibilityAccessibilityOverviewContentForm out;
   accessibility_accessibility_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -844,7 +844,7 @@ int accessibility_checklist_can_have_content(const AccessibilityChecklist *self)
   return 0;
 }
 AccessibilityChecklistChecklistOverviewContentForm accessibility_checklist_checklist_overview_content(const AccessibilityChecklist *self) {
-  char *path = spec_path_join(self->node.path, "checklistOverviewContent");
+  char *path = spec_path_join(self->node.path, "ACCHLS-CHEC");
   AccessibilityChecklistChecklistOverviewContentForm out;
   accessibility_checklist_checklist_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -2181,7 +2181,7 @@ int alerting_configuration_can_have_content(const AlertingConfiguration *self) {
   return 0;
 }
 AlertingConfigurationAlertingOverviewForm alerting_configuration_alerting_overview(const AlertingConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "alertingOverview");
+  char *path = spec_path_join(self->node.path, "ALCO-ALER");
   AlertingConfigurationAlertingOverviewForm out;
   alerting_configuration_alerting_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -6115,7 +6115,7 @@ int breakpoint_configuration_can_have_content(const BreakpointConfiguration *sel
   return 0;
 }
 BreakpointConfigurationBreakpointOverviewForm breakpoint_configuration_breakpoint_overview(const BreakpointConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "breakpointOverview");
+  char *path = spec_path_join(self->node.path, "BC-BREA");
   BreakpointConfigurationBreakpointOverviewForm out;
   breakpoint_configuration_breakpoint_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -7339,21 +7339,21 @@ int business_object_entry_can_have_content(const BusinessObjectEntry *self) {
   return 0;
 }
 BusinessObjectEntryIdentityForm business_object_entry_identity(const BusinessObjectEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "BJOEN-IDEN");
   BusinessObjectEntryIdentityForm out;
   business_object_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessObjectEntryDomainContextForm business_object_entry_domain_context(const BusinessObjectEntry *self) {
-  char *path = spec_path_join(self->node.path, "domainContext");
+  char *path = spec_path_join(self->node.path, "BJOEN-DOMA");
   BusinessObjectEntryDomainContextForm out;
   business_object_entry_domain_context_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessObjectEntryLifecycleSummaryForm business_object_entry_lifecycle_summary(const BusinessObjectEntry *self) {
-  char *path = spec_path_join(self->node.path, "lifecycleSummary");
+  char *path = spec_path_join(self->node.path, "BJOEN-LIFE");
   BusinessObjectEntryLifecycleSummaryForm out;
   business_object_entry_lifecycle_summary_form_init(&out, self->node.doc, path);
   free(path);
@@ -7367,7 +7367,7 @@ SomList business_object_entry_behavior_rules(const BusinessObjectEntry *self) {
   return out;
 }
 BusinessObjectEntryOwnershipForm business_object_entry_ownership(const BusinessObjectEntry *self) {
-  char *path = spec_path_join(self->node.path, "ownership");
+  char *path = spec_path_join(self->node.path, "BJOEN-OWNE");
   BusinessObjectEntryOwnershipForm out;
   business_object_entry_ownership_form_init(&out, self->node.doc, path);
   free(path);
@@ -7686,42 +7686,42 @@ int business_rule_entry_can_have_content(const BusinessRuleEntry *self) {
   return 0;
 }
 BusinessRuleEntryIdentityForm business_rule_entry_identity(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "BIRU-IDEN");
   BusinessRuleEntryIdentityForm out;
   business_rule_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessRuleEntryClassificationForm business_rule_entry_classification(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "classification");
+  char *path = spec_path_join(self->node.path, "BIRU-CLAS");
   BusinessRuleEntryClassificationForm out;
   business_rule_entry_classification_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessRuleEntryRuleLogicForm business_rule_entry_rule_logic(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "ruleLogic");
+  char *path = spec_path_join(self->node.path, "BIRU-RULE");
   BusinessRuleEntryRuleLogicForm out;
   business_rule_entry_rule_logic_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessRuleEntryImplementationForm business_rule_entry_implementation(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "implementation");
+  char *path = spec_path_join(self->node.path, "BIRU-IMPL");
   BusinessRuleEntryImplementationForm out;
   business_rule_entry_implementation_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessRuleEntryExceptionHandlingForm business_rule_entry_exception_handling(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "exceptionHandling");
+  char *path = spec_path_join(self->node.path, "BIRU-EXCE");
   BusinessRuleEntryExceptionHandlingForm out;
   business_rule_entry_exception_handling_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 BusinessRuleEntryGovernanceForm business_rule_entry_governance(const BusinessRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "governance");
+  char *path = spec_path_join(self->node.path, "BIRU-GOVE");
   BusinessRuleEntryGovernanceForm out;
   business_rule_entry_governance_form_init(&out, self->node.doc, path);
   free(path);
@@ -9425,7 +9425,7 @@ int changes_from_current_structure_can_have_content(const ChangesFromCurrentStru
   return 0;
 }
 ChangesFromCurrentStructureOverviewContentForm changes_from_current_structure_overview_content(const ChangesFromCurrentStructure *self) {
-  char *path = spec_path_join(self->node.path, "overviewContent");
+  char *path = spec_path_join(self->node.path, "OCCHG-OVER");
   ChangesFromCurrentStructureOverviewContentForm out;
   changes_from_current_structure_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -11146,14 +11146,14 @@ CommunicationMatrixContentForm communication_matrix_content(const CommunicationM
   return out;
 }
 char *communication_matrix_communication_flow_diagram(const CommunicationMatrix *self) {
-  char *path = spec_path_join(self->node.path, "communicationFlowDiagram");
+  char *path = spec_path_join(self->node.path, "COMA-COMM");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void communication_matrix_set_communication_flow_diagram(CommunicationMatrix *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "communicationFlowDiagram");
+  char *path = spec_path_join(self->node.path, "COMA-COMM");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -11415,7 +11415,7 @@ int compatibility_characteristic_can_have_content(const CompatibilityCharacteris
   return 0;
 }
 CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic_compatibility_content(const CompatibilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "compatibilityContent");
+  char *path = spec_path_join(self->node.path, "CMPT-COMP");
   CompatibilityCharacteristicCompatibilityContentForm out;
   compatibility_characteristic_compatibility_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -14620,26 +14620,26 @@ void context_diagram_set_content(ContextDiagram *self, const char *value) {
   free(path);
 }
 char *context_diagram_diagram(const ContextDiagram *self) {
-  char *path = spec_path_join(self->node.path, "diagram");
+  char *path = spec_path_join(self->node.path, "CD-DIAG");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void context_diagram_set_diagram(ContextDiagram *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "diagram");
+  char *path = spec_path_join(self->node.path, "CD-DIAG");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *context_diagram_legend(const ContextDiagram *self) {
-  char *path = spec_path_join(self->node.path, "legend");
+  char *path = spec_path_join(self->node.path, "CD-LEGE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void context_diagram_set_legend(ContextDiagram *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "legend");
+  char *path = spec_path_join(self->node.path, "CD-LEGE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -14655,7 +14655,7 @@ int contextual_help_can_have_content(const ContextualHelp *self) {
   return 0;
 }
 ContextualHelpContextualHelpContentForm contextual_help_contextual_help_content(const ContextualHelp *self) {
-  char *path = spec_path_join(self->node.path, "contextualHelpContent");
+  char *path = spec_path_join(self->node.path, "COHE-CONT");
   ContextualHelpContextualHelpContentForm out;
   contextual_help_contextual_help_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -15415,26 +15415,26 @@ void current_architecture_set_content(CurrentArchitecture *self, const char *val
   free(path);
 }
 char *current_architecture_architecture_diagram(const CurrentArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "architectureDiagram");
+  char *path = spec_path_join(self->node.path, "CARCH-ARCH");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_architecture_set_architecture_diagram(CurrentArchitecture *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "architectureDiagram");
+  char *path = spec_path_join(self->node.path, "CARCH-ARCH");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *current_architecture_deployment_topology(const CurrentArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "deploymentTopology");
+  char *path = spec_path_join(self->node.path, "CARCH-DEPL");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_architecture_set_deployment_topology(CurrentArchitecture *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "deploymentTopology");
+  char *path = spec_path_join(self->node.path, "CARCH-DEPL");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -15522,14 +15522,14 @@ void current_business_processes_set_content(CurrentBusinessProcesses *self, cons
   free(path);
 }
 char *current_business_processes_process_landscape_diagram(const CurrentBusinessProcesses *self) {
-  char *path = spec_path_join(self->node.path, "processLandscapeDiagram");
+  char *path = spec_path_join(self->node.path, "CUBUPR-PROC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_business_processes_set_process_landscape_diagram(CurrentBusinessProcesses *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "processLandscapeDiagram");
+  char *path = spec_path_join(self->node.path, "CUBUPR-PROC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -15629,26 +15629,26 @@ void current_data_landscape_set_content(CurrentDataLandscape *self, const char *
   free(path);
 }
 char *current_data_landscape_data_landscape_overview_diagram(const CurrentDataLandscape *self) {
-  char *path = spec_path_join(self->node.path, "dataLandscapeOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "CUDALA-DATAL");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_data_landscape_set_data_landscape_overview_diagram(CurrentDataLandscape *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dataLandscapeOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "CUDALA-DATAL");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *current_data_landscape_data_architecture_diagram(const CurrentDataLandscape *self) {
-  char *path = spec_path_join(self->node.path, "dataArchitectureDiagram");
+  char *path = spec_path_join(self->node.path, "CUDALA-DATA");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_data_landscape_set_data_architecture_diagram(CurrentDataLandscape *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dataArchitectureDiagram");
+  char *path = spec_path_join(self->node.path, "CUDALA-DATA");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -15877,14 +15877,14 @@ CurrentWorkflowEntryContentForm current_workflow_entry_content(const CurrentWork
   return out;
 }
 char *current_workflow_entry_workflow_diagram(const CurrentWorkflowEntry *self) {
-  char *path = spec_path_join(self->node.path, "workflowDiagram");
+  char *path = spec_path_join(self->node.path, "CUWF-WORK");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_workflow_entry_set_workflow_diagram(CurrentWorkflowEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "workflowDiagram");
+  char *path = spec_path_join(self->node.path, "CUWF-WORK");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -16682,14 +16682,14 @@ OrganizationalRequirements d04_requirements_specification_organizational_require
   return out;
 }
 char *d04_requirements_specification_traceability_matrix(const D04RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  char *path = spec_path_join(self->node.path, "RSP-TRAC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void d04_requirements_specification_set_traceability_matrix(D04RequirementsSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  char *path = spec_path_join(self->node.path, "RSP-TRAC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -18284,14 +18284,14 @@ int data_attribute_entry_can_have_content(const DataAttributeEntry *self) {
   return 0;
 }
 DataAttributeEntryIdentityForm data_attribute_entry_identity(const DataAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "DAATT-IDEN");
   DataAttributeEntryIdentityForm out;
   data_attribute_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataAttributeEntryDataTypeSpecForm data_attribute_entry_data_type_spec(const DataAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "dataTypeSpec");
+  char *path = spec_path_join(self->node.path, "DAATT-DATA");
   DataAttributeEntryDataTypeSpecForm out;
   data_attribute_entry_data_type_spec_form_init(&out, self->node.doc, path);
   free(path);
@@ -18305,21 +18305,21 @@ SomList data_attribute_entry_constraints(const DataAttributeEntry *self) {
   return out;
 }
 DataAttributeEntryDerivationForm data_attribute_entry_derivation(const DataAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "derivation");
+  char *path = spec_path_join(self->node.path, "DAATT-DERI");
   DataAttributeEntryDerivationForm out;
   data_attribute_entry_derivation_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataAttributeEntrySecurityClassificationForm data_attribute_entry_security_classification(const DataAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "securityClassification");
+  char *path = spec_path_join(self->node.path, "DAATT-SECU");
   DataAttributeEntrySecurityClassificationForm out;
   data_attribute_entry_security_classification_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataAttributeEntryMigrationLineageForm data_attribute_entry_migration_lineage(const DataAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "migrationLineage");
+  char *path = spec_path_join(self->node.path, "DAATT-MIGR");
   DataAttributeEntryMigrationLineageForm out;
   data_attribute_entry_migration_lineage_form_init(&out, self->node.doc, path);
   free(path);
@@ -18344,7 +18344,7 @@ int data_classification_can_have_content(const DataClassification *self) {
   return 0;
 }
 DataClassificationOverviewForm data_classification_overview(const DataClassification *self) {
-  char *path = spec_path_join(self->node.path, "overview");
+  char *path = spec_path_join(self->node.path, "DATCL-OVER");
   DataClassificationOverviewForm out;
   data_classification_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -18369,35 +18369,35 @@ int data_classification_entry_can_have_content(const DataClassificationEntry *se
   return 0;
 }
 DataClassificationEntryIdentityForm data_classification_entry_identity(const DataClassificationEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "DCLSE-IDEN");
   DataClassificationEntryIdentityForm out;
   data_classification_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataClassificationEntryStorageTransmissionForm data_classification_entry_storage_transmission(const DataClassificationEntry *self) {
-  char *path = spec_path_join(self->node.path, "storageTransmission");
+  char *path = spec_path_join(self->node.path, "DCLSE-STOR");
   DataClassificationEntryStorageTransmissionForm out;
   data_classification_entry_storage_transmission_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataClassificationEntryAccessControlForm data_classification_entry_access_control(const DataClassificationEntry *self) {
-  char *path = spec_path_join(self->node.path, "accessControl");
+  char *path = spec_path_join(self->node.path, "DCLSE-ACCE");
   DataClassificationEntryAccessControlForm out;
   data_classification_entry_access_control_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataClassificationEntryRetentionDisposalForm data_classification_entry_retention_disposal(const DataClassificationEntry *self) {
-  char *path = spec_path_join(self->node.path, "retentionDisposal");
+  char *path = spec_path_join(self->node.path, "DCLSE-RETE");
   DataClassificationEntryRetentionDisposalForm out;
   data_classification_entry_retention_disposal_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataClassificationEntryComplianceForm data_classification_entry_compliance(const DataClassificationEntry *self) {
-  char *path = spec_path_join(self->node.path, "compliance");
+  char *path = spec_path_join(self->node.path, "DCLSE-COMP");
   DataClassificationEntryComplianceForm out;
   data_classification_entry_compliance_form_init(&out, self->node.doc, path);
   free(path);
@@ -18525,14 +18525,14 @@ DataDuplicationSummary data_duplication_analysis_duplication_summary(const DataD
   return out;
 }
 char *data_duplication_analysis_duplication_diagram(const DataDuplicationAnalysis *self) {
-  char *path = spec_path_join(self->node.path, "duplicationDiagram");
+  char *path = spec_path_join(self->node.path, "DADUAN-DUPL");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_duplication_analysis_set_duplication_diagram(DataDuplicationAnalysis *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "duplicationDiagram");
+  char *path = spec_path_join(self->node.path, "DADUAN-DUPL");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -18666,14 +18666,14 @@ int data_entity_entry_can_have_content(const DataEntityEntry *self) {
   return 0;
 }
 DataEntityEntryIdentityForm data_entity_entry_identity(const DataEntityEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "DAENT-IDEN");
   DataEntityEntryIdentityForm out;
   data_entity_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 DataEntityEntryClassificationForm data_entity_entry_classification(const DataEntityEntry *self) {
-  char *path = spec_path_join(self->node.path, "classification");
+  char *path = spec_path_join(self->node.path, "DAENT-CLAS");
   DataEntityEntryClassificationForm out;
   data_entity_entry_classification_form_init(&out, self->node.doc, path);
   free(path);
@@ -18687,7 +18687,7 @@ SomList data_entity_entry_volume_metrics(const DataEntityEntry *self) {
   return out;
 }
 DataEntityEntryLifecyclePolicyForm data_entity_entry_lifecycle_policy(const DataEntityEntry *self) {
-  char *path = spec_path_join(self->node.path, "lifecyclePolicy");
+  char *path = spec_path_join(self->node.path, "DAENT-LIFE");
   DataEntityEntryLifecyclePolicyForm out;
   data_entity_entry_lifecycle_policy_form_init(&out, self->node.doc, path);
   free(path);
@@ -18701,7 +18701,7 @@ SomList data_entity_entry_compliance_requirements(const DataEntityEntry *self) {
   return out;
 }
 DataEntityEntryRelationshipSummaryForm data_entity_entry_relationship_summary(const DataEntityEntry *self) {
-  char *path = spec_path_join(self->node.path, "relationshipSummary");
+  char *path = spec_path_join(self->node.path, "DAENT-RELA");
   DataEntityEntryRelationshipSummaryForm out;
   data_entity_entry_relationship_summary_form_init(&out, self->node.doc, path);
   free(path);
@@ -18946,14 +18946,14 @@ DataGovernanceMaturity data_governance_governance_maturity(const DataGovernance 
   return out;
 }
 char *data_governance_governance_org_chart(const DataGovernance *self) {
-  char *path = spec_path_join(self->node.path, "governanceOrgChart");
+  char *path = spec_path_join(self->node.path, "DAGO-GOVE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_governance_set_governance_org_chart(DataGovernance *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "governanceOrgChart");
+  char *path = spec_path_join(self->node.path, "DAGO-GOVE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -19335,14 +19335,14 @@ DataIntegrationSummary data_integration_points_integration_summary(const DataInt
   return out;
 }
 char *data_integration_points_data_flow_diagram(const DataIntegrationPoints *self) {
-  char *path = spec_path_join(self->node.path, "dataFlowDiagram");
+  char *path = spec_path_join(self->node.path, "DAINPO-DATA");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_integration_points_set_data_flow_diagram(DataIntegrationPoints *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dataFlowDiagram");
+  char *path = spec_path_join(self->node.path, "DAINPO-DATA");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -19696,14 +19696,14 @@ DataOwnershipSummary data_ownership_ownership_summary(const DataOwnership *self)
   return out;
 }
 char *data_ownership_ownership_matrix_diagram(const DataOwnership *self) {
-  char *path = spec_path_join(self->node.path, "ownershipMatrixDiagram");
+  char *path = spec_path_join(self->node.path, "DAOW-OWNE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_ownership_set_ownership_matrix_diagram(DataOwnership *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "ownershipMatrixDiagram");
+  char *path = spec_path_join(self->node.path, "DAOW-OWNE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -20139,14 +20139,14 @@ DataQualityDimensionsSummary data_quality_assessment_dimensions_summary(const Da
   return out;
 }
 char *data_quality_assessment_quality_issues_severity_chart(const DataQualityAssessment *self) {
-  char *path = spec_path_join(self->node.path, "qualityIssuesSeverityChart");
+  char *path = spec_path_join(self->node.path, "DAQUAS-QUAL");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_quality_assessment_set_quality_issues_severity_chart(DataQualityAssessment *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "qualityIssuesSeverityChart");
+  char *path = spec_path_join(self->node.path, "DAQUAS-QUAL");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -20582,14 +20582,14 @@ void data_source_inventory_set_content(DataSourceInventory *self, const char *va
   free(path);
 }
 char *data_source_inventory_data_source_map_diagram(const DataSourceInventory *self) {
-  char *path = spec_path_join(self->node.path, "dataSourceMapDiagram");
+  char *path = spec_path_join(self->node.path, "DASOIN-DATA");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_source_inventory_set_data_source_map_diagram(DataSourceInventory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dataSourceMapDiagram");
+  char *path = spec_path_join(self->node.path, "DASOIN-DATA");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -21018,14 +21018,14 @@ DataVolumeSummary data_volumes_and_growth_volume_summary(const DataVolumesAndGro
   return out;
 }
 char *data_volumes_and_growth_growth_trend_chart(const DataVolumesAndGrowth *self) {
-  char *path = spec_path_join(self->node.path, "growthTrendChart");
+  char *path = spec_path_join(self->node.path, "DVAG-GROW");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_volumes_and_growth_set_growth_trend_chart(DataVolumesAndGrowth *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "growthTrendChart");
+  char *path = spec_path_join(self->node.path, "DVAG-GROW");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -22378,14 +22378,14 @@ void dependencies_and_integrations_set_content(DependenciesAndIntegrations *self
   free(path);
 }
 char *dependencies_and_integrations_dependency_diagram(const DependenciesAndIntegrations *self) {
-  char *path = spec_path_join(self->node.path, "dependencyDiagram");
+  char *path = spec_path_join(self->node.path, "DEPNT-DEPE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void dependencies_and_integrations_set_dependency_diagram(DependenciesAndIntegrations *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dependencyDiagram");
+  char *path = spec_path_join(self->node.path, "DEPNT-DEPE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -25896,7 +25896,7 @@ int documentation_quality_criteria_can_have_content(const DocumentationQualityCr
   return 0;
 }
 DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quality_criteria_documentation_overview_content(const DocumentationQualityCriteria *self) {
-  char *path = spec_path_join(self->node.path, "documentationOverviewContent");
+  char *path = spec_path_join(self->node.path, "DOQUCR-DOCU");
   DocumentationQualityCriteriaDocumentationOverviewContentForm out;
   documentation_quality_criteria_documentation_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -26215,38 +26215,38 @@ void domain_boundaries_set_content(DomainBoundaries *self, const char *value) {
   free(path);
 }
 char *domain_boundaries_context_map(const DomainBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "contextMap");
+  char *path = spec_path_join(self->node.path, "DB-CONT");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void domain_boundaries_set_context_map(DomainBoundaries *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "contextMap");
+  char *path = spec_path_join(self->node.path, "DB-CONT");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *domain_boundaries_within_scope(const DomainBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "withinScope");
+  char *path = spec_path_join(self->node.path, "DB-WITH");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void domain_boundaries_set_within_scope(DomainBoundaries *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "withinScope");
+  char *path = spec_path_join(self->node.path, "DB-WITH");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *domain_boundaries_outside_scope(const DomainBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "outsideScope");
+  char *path = spec_path_join(self->node.path, "DB-OUTS");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void domain_boundaries_set_outside_scope(DomainBoundaries *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "outsideScope");
+  char *path = spec_path_join(self->node.path, "DB-OUTS");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -26543,14 +26543,14 @@ void domain_processes_set_content(DomainProcesses *self, const char *value) {
   free(path);
 }
 char *domain_processes_process_overview_diagram(const DomainProcesses *self) {
-  char *path = spec_path_join(self->node.path, "processOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "DP-PROC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void domain_processes_set_process_overview_diagram(DomainProcesses *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "processOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "DP-PROC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -27202,7 +27202,7 @@ int entity_relationship_entry_can_have_content(const EntityRelationshipEntry *se
   return 0;
 }
 EntityRelationshipEntryIdentityForm entity_relationship_entry_identity(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "ENRLE-IDEN");
   EntityRelationshipEntryIdentityForm out;
   entity_relationship_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
@@ -27216,21 +27216,21 @@ SomList entity_relationship_entry_participants(const EntityRelationshipEntry *se
   return out;
 }
 EntityRelationshipEntryCardinalityForm entity_relationship_entry_cardinality(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "cardinality");
+  char *path = spec_path_join(self->node.path, "ENRLE-CARD");
   EntityRelationshipEntryCardinalityForm out;
   entity_relationship_entry_cardinality_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 EntityRelationshipEntryReferentialIntegrityForm entity_relationship_entry_referential_integrity(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "referentialIntegrity");
+  char *path = spec_path_join(self->node.path, "ENRLE-REFE");
   EntityRelationshipEntryReferentialIntegrityForm out;
   entity_relationship_entry_referential_integrity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 EntityRelationshipEntryNavigationForm entity_relationship_entry_navigation(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "navigation");
+  char *path = spec_path_join(self->node.path, "ENRLE-NAVI");
   EntityRelationshipEntryNavigationForm out;
   entity_relationship_entry_navigation_form_init(&out, self->node.doc, path);
   free(path);
@@ -28077,7 +28077,7 @@ int error_handling_can_have_content(const ErrorHandling *self) {
   return 0;
 }
 ErrorHandlingErrorPhilosophyContentForm error_handling_error_philosophy_content(const ErrorHandling *self) {
-  char *path = spec_path_join(self->node.path, "errorPhilosophyContent");
+  char *path = spec_path_join(self->node.path, "ERHACO-ERRO");
   ErrorHandlingErrorPhilosophyContentForm out;
   error_handling_error_philosophy_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -28380,7 +28380,7 @@ int error_recovery_can_have_content(const ErrorRecovery *self) {
   return 0;
 }
 ErrorRecoveryRecoveryMechanismsContentForm error_recovery_recovery_mechanisms_content(const ErrorRecovery *self) {
-  char *path = spec_path_join(self->node.path, "recoveryMechanismsContent");
+  char *path = spec_path_join(self->node.path, "ERRE-RECO");
   ErrorRecoveryRecoveryMechanismsContentForm out;
   error_recovery_recovery_mechanisms_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -29781,7 +29781,7 @@ int external_interface_entry_can_have_content(const ExternalInterfaceEntry *self
   return 0;
 }
 ExternalInterfaceEntryIdentificationContentForm external_interface_entry_identification_content(const ExternalInterfaceEntry *self) {
-  char *path = spec_path_join(self->node.path, "identificationContent");
+  char *path = spec_path_join(self->node.path, "EIE-IDEN");
   ExternalInterfaceEntryIdentificationContentForm out;
   external_interface_entry_identification_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -30317,14 +30317,14 @@ ExternalSystemContextEntryGovernance external_system_context_entry_governance(co
   return out;
 }
 char *external_system_context_entry_data_mapping(const ExternalSystemContextEntry *self) {
-  char *path = spec_path_join(self->node.path, "dataMapping");
+  char *path = spec_path_join(self->node.path, "EXSYCOEN-DATA");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void external_system_context_entry_set_data_mapping(ExternalSystemContextEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dataMapping");
+  char *path = spec_path_join(self->node.path, "EXSYCOEN-DATA");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -31633,7 +31633,7 @@ int flexibility_characteristic_can_have_content(const FlexibilityCharacteristic 
   return 0;
 }
 FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexibility_content(const FlexibilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "flexibilityContent");
+  char *path = spec_path_join(self->node.path, "FLXC-FLEX");
   FlexibilityCharacteristicFlexibilityContentForm out;
   flexibility_characteristic_flexibility_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -32065,14 +32065,14 @@ int function_model_can_have_content(const FunctionModel *self) {
   return 0;
 }
 FunctionModelDecompositionOverviewForm function_model_decomposition_overview(const FunctionModel *self) {
-  char *path = spec_path_join(self->node.path, "decompositionOverview");
+  char *path = spec_path_join(self->node.path, "FUMO-DECO");
   FunctionModelDecompositionOverviewForm out;
   function_model_decomposition_overview_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 FunctionModelMatrixOverviewForm function_model_matrix_overview(const FunctionModel *self) {
-  char *path = spec_path_join(self->node.path, "matrixOverview");
+  char *path = spec_path_join(self->node.path, "FUMO-MATR");
   FunctionModelMatrixOverviewForm out;
   function_model_matrix_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -32358,7 +32358,7 @@ void functional_requirements_set_content(FunctionalRequirements *self, const cha
   free(path);
 }
 FunctionalRequirementsSummaryFormForm functional_requirements_summary_form(const FunctionalRequirements *self) {
-  char *path = spec_path_join(self->node.path, "summaryForm");
+  char *path = spec_path_join(self->node.path, "FR-SUMM");
   FunctionalRequirementsSummaryFormForm out;
   functional_requirements_summary_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -32408,7 +32408,7 @@ int functional_suitability_characteristic_can_have_content(const FunctionalSuita
   return 0;
 }
 FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functional_suitability_characteristic_functional_suitability_content(const FunctionalSuitabilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "functionalSuitabilityContent");
+  char *path = spec_path_join(self->node.path, "FNSU-FUNC");
   FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm out;
   functional_suitability_characteristic_functional_suitability_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -32975,7 +32975,7 @@ void goal_resources_set_content(GoalResources *self, const char *value) {
   free(path);
 }
 GoalResourcesResourcesFormForm goal_resources_resources_form(const GoalResources *self) {
-  char *path = spec_path_join(self->node.path, "resourcesForm");
+  char *path = spec_path_join(self->node.path, "GORE-RESO");
   GoalResourcesResourcesFormForm out;
   goal_resources_resources_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -33110,14 +33110,14 @@ void goals_set_content(Goals *self, const char *value) {
   free(path);
 }
 char *goals_goal_hierarchy_diagram(const Goals *self) {
-  char *path = spec_path_join(self->node.path, "goalHierarchyDiagram");
+  char *path = spec_path_join(self->node.path, "GOALS-GOAL");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void goals_set_goal_hierarchy_diagram(Goals *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "goalHierarchyDiagram");
+  char *path = spec_path_join(self->node.path, "GOALS-GOAL");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -35954,7 +35954,7 @@ int interaction_capability_characteristic_can_have_content(const InteractionCapa
   return 0;
 }
 InteractionCapabilityCharacteristicInteractionCapabilityContentForm interaction_capability_characteristic_interaction_capability_content(const InteractionCapabilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "interactionCapabilityContent");
+  char *path = spec_path_join(self->node.path, "INCP-INTE");
   InteractionCapabilityCharacteristicInteractionCapabilityContentForm out;
   interaction_capability_characteristic_interaction_capability_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -37657,14 +37657,14 @@ SystemSummary introduction_and_scope_summary(const IntroductionAndScope *self) {
   return out;
 }
 char *introduction_and_scope_system_context_diagram(const IntroductionAndScope *self) {
-  char *path = spec_path_join(self->node.path, "systemContextDiagram");
+  char *path = spec_path_join(self->node.path, "INSC-SYST");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void introduction_and_scope_set_system_context_diagram(IntroductionAndScope *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "systemContextDiagram");
+  char *path = spec_path_join(self->node.path, "INSC-SYST");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -38416,14 +38416,14 @@ void key_concepts_set_content(KeyConcepts *self, const char *value) {
   free(path);
 }
 char *key_concepts_conceptual_model_diagram(const KeyConcepts *self) {
-  char *path = spec_path_join(self->node.path, "conceptualModelDiagram");
+  char *path = spec_path_join(self->node.path, "KC-CONC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void key_concepts_set_conceptual_model_diagram(KeyConcepts *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "conceptualModelDiagram");
+  char *path = spec_path_join(self->node.path, "KC-CONC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -38746,7 +38746,7 @@ int language_country_selection_can_have_content(const LanguageCountrySelection *
   return 0;
 }
 LanguageCountrySelectionLanguageSelectionContentForm language_country_selection_language_selection_content(const LanguageCountrySelection *self) {
-  char *path = spec_path_join(self->node.path, "languageSelectionContent");
+  char *path = spec_path_join(self->node.path, "LACOSE-LANG");
   LanguageCountrySelectionLanguageSelectionContentForm out;
   language_country_selection_language_selection_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -39670,7 +39670,7 @@ int localization_process_can_have_content(const LocalizationProcess *self) {
   return 0;
 }
 LocalizationProcessLocalizationProcessContentForm localization_process_localization_process_content(const LocalizationProcess *self) {
-  char *path = spec_path_join(self->node.path, "localizationProcessContent");
+  char *path = spec_path_join(self->node.path, "LOPR-LOCA");
   LocalizationProcessLocalizationProcessContentForm out;
   localization_process_localization_process_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -40307,7 +40307,7 @@ int maintainability_characteristic_can_have_content(const MaintainabilityCharact
   return 0;
 }
 MaintainabilityCharacteristicMaintainabilityContentForm maintainability_characteristic_maintainability_content(const MaintainabilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "maintainabilityContent");
+  char *path = spec_path_join(self->node.path, "MNTC-MAIN");
   MaintainabilityCharacteristicMaintainabilityContentForm out;
   maintainability_characteristic_maintainability_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -41215,7 +41215,7 @@ int metrics_and_observability_can_have_content(const MetricsAndObservability *se
   return 0;
 }
 MetricsAndObservabilityMetricsOverviewForm metrics_and_observability_metrics_overview(const MetricsAndObservability *self) {
-  char *path = spec_path_join(self->node.path, "metricsOverview");
+  char *path = spec_path_join(self->node.path, "MEANOB-METR");
   MetricsAndObservabilityMetricsOverviewForm out;
   metrics_and_observability_metrics_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -41634,7 +41634,7 @@ int migration_considerations_can_have_content(const MigrationConsiderations *sel
   return 0;
 }
 MigrationConsiderationsStrategyContentForm migration_considerations_strategy_content(const MigrationConsiderations *self) {
-  char *path = spec_path_join(self->node.path, "strategyContent");
+  char *path = spec_path_join(self->node.path, "MIGCON-STRA");
   MigrationConsiderationsStrategyContentForm out;
   migration_considerations_strategy_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -42438,7 +42438,7 @@ int migration_risks_can_have_content(const MigrationRisks *self) {
   return 0;
 }
 MigrationRisksGovernanceContentForm migration_risks_governance_content(const MigrationRisks *self) {
-  char *path = spec_path_join(self->node.path, "governanceContent");
+  char *path = spec_path_join(self->node.path, "MIRI-GOVE");
   MigrationRisksGovernanceContentForm out;
   migration_risks_governance_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -43264,7 +43264,7 @@ int monitoring_can_have_content(const Monitoring *self) {
   return 0;
 }
 MonitoringMonitoringOverviewForm monitoring_monitoring_overview(const Monitoring *self) {
-  char *path = spec_path_join(self->node.path, "monitoringOverview");
+  char *path = spec_path_join(self->node.path, "MONITO-MONI");
   MonitoringMonitoringOverviewForm out;
   monitoring_monitoring_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -43464,7 +43464,7 @@ int monitoring_dashboards_can_have_content(const MonitoringDashboards *self) {
   return 0;
 }
 MonitoringDashboardsDashboardOverviewForm monitoring_dashboards_dashboard_overview(const MonitoringDashboards *self) {
-  char *path = spec_path_join(self->node.path, "dashboardOverview");
+  char *path = spec_path_join(self->node.path, "MODA-DASH");
   MonitoringDashboardsDashboardOverviewForm out;
   monitoring_dashboards_dashboard_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -43785,7 +43785,7 @@ void multi_channel_experience_set_content(MultiChannelExperience *self, const ch
   free(path);
 }
 MultiChannelExperienceMultiChannelConfigurationForm multi_channel_experience_multi_channel_configuration(const MultiChannelExperience *self) {
-  char *path = spec_path_join(self->node.path, "multiChannelConfiguration");
+  char *path = spec_path_join(self->node.path, "MCE-MULT");
   MultiChannelExperienceMultiChannelConfigurationForm out;
   multi_channel_experience_multi_channel_configuration_form_init(&out, self->node.doc, path);
   free(path);
@@ -43803,7 +43803,7 @@ int multi_language_support_can_have_content(const MultiLanguageSupport *self) {
   return 0;
 }
 MultiLanguageSupportMultiLanguageOverviewForm multi_language_support_multi_language_overview(const MultiLanguageSupport *self) {
-  char *path = spec_path_join(self->node.path, "multiLanguageOverview");
+  char *path = spec_path_join(self->node.path, "MLAR-MULT");
   MultiLanguageSupportMultiLanguageOverviewForm out;
   multi_language_support_multi_language_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -43835,7 +43835,7 @@ int must_pass_criteria_can_have_content(const MustPassCriteria *self) {
   return 0;
 }
 MustPassCriteriaMustPassOverviewContentForm must_pass_criteria_must_pass_overview_content(const MustPassCriteria *self) {
-  char *path = spec_path_join(self->node.path, "mustPassOverviewContent");
+  char *path = spec_path_join(self->node.path, "MUPACR-MUST");
   MustPassCriteriaMustPassOverviewContentForm out;
   must_pass_criteria_must_pass_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -46043,7 +46043,7 @@ int onboarding_help_can_have_content(const OnboardingHelp *self) {
   return 0;
 }
 OnboardingHelpOnboardingContentForm onboarding_help_onboarding_content(const OnboardingHelp *self) {
-  char *path = spec_path_join(self->node.path, "onboardingContent");
+  char *path = spec_path_join(self->node.path, "ONHE-ONBO");
   OnboardingHelpOnboardingContentForm out;
   onboarding_help_onboarding_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -46663,7 +46663,7 @@ void org_requirement_implementation_plan_set_content(OrgRequirementImplementatio
   free(path);
 }
 OrgRequirementImplementationPlanPlanFormForm org_requirement_implementation_plan_plan_form(const OrgRequirementImplementationPlan *self) {
-  char *path = spec_path_join(self->node.path, "planForm");
+  char *path = spec_path_join(self->node.path, "ORIP-PLAN");
   OrgRequirementImplementationPlanPlanFormForm out;
   org_requirement_implementation_plan_plan_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -46804,14 +46804,14 @@ SomList organizational_context_organizational_units(const OrganizationalContext 
   return out;
 }
 char *organizational_context_business_process_coverage(const OrganizationalContext *self) {
-  char *path = spec_path_join(self->node.path, "businessProcessCoverage");
+  char *path = spec_path_join(self->node.path, "OC-BUSI");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void organizational_context_set_business_process_coverage(OrganizationalContext *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "businessProcessCoverage");
+  char *path = spec_path_join(self->node.path, "OC-BUSI");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -46827,7 +46827,7 @@ int organizational_environment_can_have_content(const OrganizationalEnvironment 
   return 0;
 }
 OrganizationalEnvironmentOrganizationContentForm organizational_environment_organization_content(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "organizationContent");
+  char *path = spec_path_join(self->node.path, "OREN-ORGA");
   OrganizationalEnvironmentOrganizationContentForm out;
   organizational_environment_organization_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -47088,7 +47088,7 @@ void organizational_requirements_set_content(OrganizationalRequirements *self, c
   free(path);
 }
 OrganizationalRequirementsSummaryFormForm organizational_requirements_summary_form(const OrganizationalRequirements *self) {
-  char *path = spec_path_join(self->node.path, "summaryForm");
+  char *path = spec_path_join(self->node.path, "OR-SUMM");
   OrganizationalRequirementsSummaryFormForm out;
   organizational_requirements_summary_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -47653,14 +47653,14 @@ void pain_point_gap_correlation_set_content(PainPointGapCorrelation *self, const
   free(path);
 }
 char *pain_point_gap_correlation_correlation_diagram(const PainPointGapCorrelation *self) {
-  char *path = spec_path_join(self->node.path, "correlationDiagram");
+  char *path = spec_path_join(self->node.path, "PPGC-CORR");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void pain_point_gap_correlation_set_correlation_diagram(PainPointGapCorrelation *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "correlationDiagram");
+  char *path = spec_path_join(self->node.path, "PPGC-CORR");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -47803,26 +47803,26 @@ void pain_points_and_gaps_set_content(PainPointsAndGaps *self, const char *value
   free(path);
 }
 char *pain_points_and_gaps_pain_points_overview_diagram(const PainPointsAndGaps *self) {
-  char *path = spec_path_join(self->node.path, "painPointsOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "PPAG-PAIN");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void pain_points_and_gaps_set_pain_points_overview_diagram(PainPointsAndGaps *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "painPointsOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "PPAG-PAIN");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *pain_points_and_gaps_pain_points_priority_matrix(const PainPointsAndGaps *self) {
-  char *path = spec_path_join(self->node.path, "painPointsPriorityMatrix");
+  char *path = spec_path_join(self->node.path, "PPAG-PAINP");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void pain_points_and_gaps_set_pain_points_priority_matrix(PainPointsAndGaps *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "painPointsPriorityMatrix");
+  char *path = spec_path_join(self->node.path, "PPAG-PAINP");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -48250,7 +48250,7 @@ int performance_efficiency_characteristic_can_have_content(const PerformanceEffi
   return 0;
 }
 PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performance_efficiency_characteristic_performance_efficiency_content(const PerformanceEfficiencyCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "performanceEfficiencyContent");
+  char *path = spec_path_join(self->node.path, "PEEF-PERF");
   PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm out;
   performance_efficiency_characteristic_performance_efficiency_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -50201,14 +50201,14 @@ ProcessAdjustmentSummary process_adjustments_adjustment_summary(const ProcessAdj
   return out;
 }
 char *process_adjustments_process_flow_diagram(const ProcessAdjustments *self) {
-  char *path = spec_path_join(self->node.path, "processFlowDiagram");
+  char *path = spec_path_join(self->node.path, "PCADJ-PROC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void process_adjustments_set_process_flow_diagram(ProcessAdjustments *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "processFlowDiagram");
+  char *path = spec_path_join(self->node.path, "PCADJ-PROC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -50982,14 +50982,14 @@ void process_interdependency_matrix_set_content(ProcessInterdependencyMatrix *se
   free(path);
 }
 char *process_interdependency_matrix_dependency_diagram(const ProcessInterdependencyMatrix *self) {
-  char *path = spec_path_join(self->node.path, "dependencyDiagram");
+  char *path = spec_path_join(self->node.path, "PRINMA-DEPE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void process_interdependency_matrix_set_dependency_diagram(ProcessInterdependencyMatrix *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "dependencyDiagram");
+  char *path = spec_path_join(self->node.path, "PRINMA-DEPE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -52123,14 +52123,14 @@ void project_organization_and_process_set_content(ProjectOrganizationAndProcess 
   free(path);
 }
 char *project_organization_and_process_methodology_deviation_diagram(const ProjectOrganizationAndProcess *self) {
-  char *path = spec_path_join(self->node.path, "methodologyDeviationDiagram");
+  char *path = spec_path_join(self->node.path, "PRPO-METH");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void project_organization_and_process_set_methodology_deviation_diagram(ProjectOrganizationAndProcess *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "methodologyDeviationDiagram");
+  char *path = spec_path_join(self->node.path, "PRPO-METH");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -52408,7 +52408,7 @@ int prototype_can_have_content(const Prototype *self) {
   return 0;
 }
 PrototypePrototypeOverviewForm prototype_prototype_overview(const Prototype *self) {
-  char *path = spec_path_join(self->node.path, "prototypeOverview");
+  char *path = spec_path_join(self->node.path, "PROTOT-PROT");
   PrototypePrototypeOverviewForm out;
   prototype_prototype_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -52486,7 +52486,7 @@ int prototype_feature_subset_can_have_content(const PrototypeFeatureSubset *self
   return 0;
 }
 PrototypeFeatureSubsetFeatureSubsetContentForm prototype_feature_subset_feature_subset_content(const PrototypeFeatureSubset *self) {
-  char *path = spec_path_join(self->node.path, "featureSubsetContent");
+  char *path = spec_path_join(self->node.path, "PRFESU-FEAT");
   PrototypeFeatureSubsetFeatureSubsetContentForm out;
   prototype_feature_subset_feature_subset_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -52579,7 +52579,7 @@ int prototype_goals_can_have_content(const PrototypeGoals *self) {
   return 0;
 }
 PrototypeGoalsGoalsContentForm prototype_goals_goals_content(const PrototypeGoals *self) {
-  char *path = spec_path_join(self->node.path, "goalsContent");
+  char *path = spec_path_join(self->node.path, "PG-GOAL");
   PrototypeGoalsGoalsContentForm out;
   prototype_goals_goals_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -52708,7 +52708,7 @@ int prototype_type_can_have_content(const PrototypeType *self) {
   return 0;
 }
 PrototypeTypePrototypeTypeOverviewForm prototype_type_prototype_type_overview(const PrototypeType *self) {
-  char *path = spec_path_join(self->node.path, "prototypeTypeOverview");
+  char *path = spec_path_join(self->node.path, "PRTYSE-PROT");
   PrototypeTypePrototypeTypeOverviewForm out;
   prototype_type_prototype_type_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -53027,7 +53027,7 @@ int quality_framework_can_have_content(const QualityFramework *self) {
   return 0;
 }
 QualityFrameworkFrameworkContentForm quality_framework_framework_content(const QualityFramework *self) {
-  char *path = spec_path_join(self->node.path, "frameworkContent");
+  char *path = spec_path_join(self->node.path, "QLFWK-FRAM");
   QualityFrameworkFrameworkContentForm out;
   quality_framework_framework_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -53289,14 +53289,14 @@ QualityGateAdjustmentSummary quality_gate_adjustments_adjustment_summary(const Q
   return out;
 }
 char *quality_gate_adjustments_gate_flow_diagram(const QualityGateAdjustments *self) {
-  char *path = spec_path_join(self->node.path, "gateFlowDiagram");
+  char *path = spec_path_join(self->node.path, "QGADJ-GATE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void quality_gate_adjustments_set_gate_flow_diagram(QualityGateAdjustments *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "gateFlowDiagram");
+  char *path = spec_path_join(self->node.path, "QGADJ-GATE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -53462,7 +53462,7 @@ int quality_gate_checklist_can_have_content(const QualityGateChecklist *self) {
   return 0;
 }
 QualityGateChecklistChecklistOverviewContentForm quality_gate_checklist_checklist_overview_content(const QualityGateChecklist *self) {
-  char *path = spec_path_join(self->node.path, "checklistOverviewContent");
+  char *path = spec_path_join(self->node.path, "QUGACH-CHEC");
   QualityGateChecklistChecklistOverviewContentForm out;
   quality_gate_checklist_checklist_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -53559,7 +53559,7 @@ int quality_prioritization_can_have_content(const QualityPrioritization *self) {
   return 0;
 }
 QualityPrioritizationPrioritizationFrameworkContentForm quality_prioritization_prioritization_framework_content(const QualityPrioritization *self) {
-  char *path = spec_path_join(self->node.path, "prioritizationFrameworkContent");
+  char *path = spec_path_join(self->node.path, "QUPR-PRIO");
   QualityPrioritizationPrioritizationFrameworkContentForm out;
   quality_prioritization_prioritization_framework_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -54803,7 +54803,7 @@ int reliability_characteristic_can_have_content(const ReliabilityCharacteristic 
   return 0;
 }
 ReliabilityCharacteristicReliabilityContentForm reliability_characteristic_reliability_content(const ReliabilityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "reliabilityContent");
+  char *path = spec_path_join(self->node.path, "RELC-RELI");
   ReliabilityCharacteristicReliabilityContentForm out;
   reliability_characteristic_reliability_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -56636,7 +56636,7 @@ void requirement_traceability_set_content(RequirementTraceability *self, const c
   free(path);
 }
 RequirementTraceabilityTraceabilityFormForm requirement_traceability_traceability_form(const RequirementTraceability *self) {
-  char *path = spec_path_join(self->node.path, "traceabilityForm");
+  char *path = spec_path_join(self->node.path, "RT-TRAC");
   RequirementTraceabilityTraceabilityFormForm out;
   requirement_traceability_traceability_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -56716,33 +56716,33 @@ void requirement_ui_specification_set_content(RequirementUiSpecification *self, 
   free(path);
 }
 RequirementUiSpecificationUiFormForm requirement_ui_specification_ui_form(const RequirementUiSpecification *self) {
-  char *path = spec_path_join(self->node.path, "uiForm");
+  char *path = spec_path_join(self->node.path, "RUS-UIFO");
   RequirementUiSpecificationUiFormForm out;
   requirement_ui_specification_ui_form_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 char *requirement_ui_specification_layout_code(const RequirementUiSpecification *self) {
-  char *path = spec_path_join(self->node.path, "layoutCode");
+  char *path = spec_path_join(self->node.path, "RUS-LAYO");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void requirement_ui_specification_set_layout_code(RequirementUiSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "layoutCode");
+  char *path = spec_path_join(self->node.path, "RUS-LAYO");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *requirement_ui_specification_mockup_description(const RequirementUiSpecification *self) {
-  char *path = spec_path_join(self->node.path, "mockupDescription");
+  char *path = spec_path_join(self->node.path, "RUS-MOCK");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void requirement_ui_specification_set_mockup_description(RequirementUiSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "mockupDescription");
+  char *path = spec_path_join(self->node.path, "RUS-MOCK");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -56835,21 +56835,21 @@ void requirements_overview_set_content(RequirementsOverview *self, const char *v
   free(path);
 }
 RequirementsOverviewRequirementsFormForm requirements_overview_requirements_form(const RequirementsOverview *self) {
-  char *path = spec_path_join(self->node.path, "requirementsForm");
+  char *path = spec_path_join(self->node.path, "RO-REQU");
   RequirementsOverviewRequirementsFormForm out;
   requirements_overview_requirements_form_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 char *requirements_overview_traceability_matrix(const RequirementsOverview *self) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  char *path = spec_path_join(self->node.path, "RO-TRAC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void requirements_overview_set_traceability_matrix(RequirementsOverview *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  char *path = spec_path_join(self->node.path, "RO-TRAC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -57379,7 +57379,7 @@ int responsive_behavior_can_have_content(const ResponsiveBehavior *self) {
   return 0;
 }
 ResponsiveBehaviorLayoutAdaptationForm responsive_behavior_layout_adaptation(const ResponsiveBehavior *self) {
-  char *path = spec_path_join(self->node.path, "layoutAdaptation");
+  char *path = spec_path_join(self->node.path, "REBE-LAYO");
   ResponsiveBehaviorLayoutAdaptationForm out;
   responsive_behavior_layout_adaptation_form_init(&out, self->node.doc, path);
   free(path);
@@ -57504,7 +57504,7 @@ int responsive_design_can_have_content(const ResponsiveDesign *self) {
   return 0;
 }
 ResponsiveDesignResponsiveOverviewForm responsive_design_responsive_overview(const ResponsiveDesign *self) {
-  char *path = spec_path_join(self->node.path, "responsiveOverview");
+  char *path = spec_path_join(self->node.path, "REDE-RESP");
   ResponsiveDesignResponsiveOverviewForm out;
   responsive_design_responsive_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -57862,7 +57862,7 @@ int reusable_prototype_can_have_content(const ReusablePrototype *self) {
   return 0;
 }
 ReusablePrototypeReusableContentForm reusable_prototype_reusable_content(const ReusablePrototype *self) {
-  char *path = spec_path_join(self->node.path, "reusableContent");
+  char *path = spec_path_join(self->node.path, "REUPRO-REUS");
   ReusablePrototypeReusableContentForm out;
   reusable_prototype_reusable_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -58962,14 +58962,14 @@ RoleAdjustmentSummary role_adjustments_adjustment_summary(const RoleAdjustments 
   return out;
 }
 char *role_adjustments_role_comparison_diagram(const RoleAdjustments *self) {
-  char *path = spec_path_join(self->node.path, "roleComparisonDiagram");
+  char *path = spec_path_join(self->node.path, "RLADJ-ROLE");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void role_adjustments_set_role_comparison_diagram(RoleAdjustments *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "roleComparisonDiagram");
+  char *path = spec_path_join(self->node.path, "RLADJ-ROLE");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -62406,7 +62406,7 @@ int security_characteristic_can_have_content(const SecurityCharacteristic *self)
   return 0;
 }
 SecurityCharacteristicSecurityContentForm security_characteristic_security_content(const SecurityCharacteristic *self) {
-  char *path = spec_path_join(self->node.path, "securityContent");
+  char *path = spec_path_join(self->node.path, "SECC-SECU");
   SecurityCharacteristicSecurityContentForm out;
   security_characteristic_security_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -63022,7 +63022,7 @@ void security_requirements_set_content(SecurityRequirements *self, const char *v
   free(path);
 }
 SecurityRequirementsSummaryFormForm security_requirements_summary_form(const SecurityRequirements *self) {
-  char *path = spec_path_join(self->node.path, "summaryForm");
+  char *path = spec_path_join(self->node.path, "SR1-SUMM");
   SecurityRequirementsSummaryFormForm out;
   security_requirements_summary_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -64692,7 +64692,7 @@ void session_model_set_content(SessionModel *self, const char *value) {
   free(path);
 }
 SessionModelSessionConfigurationForm session_model_session_configuration(const SessionModel *self) {
-  char *path = spec_path_join(self->node.path, "sessionConfiguration");
+  char *path = spec_path_join(self->node.path, "SM-SESS");
   SessionModelSessionConfigurationForm out;
   session_model_session_configuration_form_init(&out, self->node.doc, path);
   free(path);
@@ -65447,7 +65447,7 @@ int sla_and_slo_monitoring_can_have_content(const SlaAndSloMonitoring *self) {
   return 0;
 }
 SlaAndSloMonitoringSlaOverviewForm sla_and_slo_monitoring_sla_overview(const SlaAndSloMonitoring *self) {
-  char *path = spec_path_join(self->node.path, "slaOverview");
+  char *path = spec_path_join(self->node.path, "SASM-SLAO");
   SlaAndSloMonitoringSlaOverviewForm out;
   sla_and_slo_monitoring_sla_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -68702,14 +68702,14 @@ SuccessCriteriaByCategory success_criteria_by_category(const SuccessCriteria *se
   return out;
 }
 char *success_criteria_success_criteria_matrix(const SuccessCriteria *self) {
-  char *path = spec_path_join(self->node.path, "successCriteriaMatrix");
+  char *path = spec_path_join(self->node.path, "SC-SUCC");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_set_success_criteria_matrix(SuccessCriteria *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "successCriteriaMatrix");
+  char *path = spec_path_join(self->node.path, "SC-SUCC");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -68732,62 +68732,62 @@ int success_criteria_by_category_can_have_content(const SuccessCriteriaByCategor
   return 0;
 }
 char *success_criteria_by_category_business_criteria(const SuccessCriteriaByCategory *self) {
-  char *path = spec_path_join(self->node.path, "businessCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-BUSI");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_by_category_set_business_criteria(SuccessCriteriaByCategory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "businessCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-BUSI");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *success_criteria_by_category_technical_criteria(const SuccessCriteriaByCategory *self) {
-  char *path = spec_path_join(self->node.path, "technicalCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-TECH");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_by_category_set_technical_criteria(SuccessCriteriaByCategory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "technicalCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-TECH");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *success_criteria_by_category_user_criteria(const SuccessCriteriaByCategory *self) {
-  char *path = spec_path_join(self->node.path, "userCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-USER");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_by_category_set_user_criteria(SuccessCriteriaByCategory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "userCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-USER");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *success_criteria_by_category_compliance_criteria(const SuccessCriteriaByCategory *self) {
-  char *path = spec_path_join(self->node.path, "complianceCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-COMP");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_by_category_set_compliance_criteria(SuccessCriteriaByCategory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "complianceCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-COMP");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *success_criteria_by_category_project_criteria(const SuccessCriteriaByCategory *self) {
-  char *path = spec_path_join(self->node.path, "projectCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-PROJ");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void success_criteria_by_category_set_project_criteria(SuccessCriteriaByCategory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "projectCriteria");
+  char *path = spec_path_join(self->node.path, "SCBC-PROJ");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -69017,7 +69017,7 @@ int support_access_can_have_content(const SupportAccess *self) {
   return 0;
 }
 SupportAccessSupportAccessContentForm support_access_support_access_content(const SupportAccess *self) {
-  char *path = spec_path_join(self->node.path, "supportAccessContent");
+  char *path = spec_path_join(self->node.path, "SUAC-SUPP");
   SupportAccessSupportAccessContentForm out;
   support_access_support_access_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -70251,7 +70251,7 @@ int system_error_display_can_have_content(const SystemErrorDisplay *self) {
   return 0;
 }
 SystemErrorDisplaySystemErrorContentForm system_error_display_system_error_content(const SystemErrorDisplay *self) {
-  char *path = spec_path_join(self->node.path, "systemErrorContent");
+  char *path = spec_path_join(self->node.path, "SYERDI-SYST");
   SystemErrorDisplaySystemErrorContentForm out;
   system_error_display_system_error_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -70829,14 +70829,14 @@ void system_purpose_set_content(SystemPurpose *self, const char *value) {
   free(path);
 }
 char *system_purpose_vision_statement(const SystemPurpose *self) {
-  char *path = spec_path_join(self->node.path, "visionStatement");
+  char *path = spec_path_join(self->node.path, "SYPUP-VISI");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void system_purpose_set_vision_statement(SystemPurpose *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "visionStatement");
+  char *path = spec_path_join(self->node.path, "SYPUP-VISI");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -70894,7 +70894,7 @@ int system_quality_goals_can_have_content(const SystemQualityGoals *self) {
   return 0;
 }
 SystemQualityGoalsGovernanceContentForm system_quality_goals_governance_content(const SystemQualityGoals *self) {
-  char *path = spec_path_join(self->node.path, "governanceContent");
+  char *path = spec_path_join(self->node.path, "SYQG-GOVE");
   SystemQualityGoalsGovernanceContentForm out;
   system_quality_goals_governance_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -71607,7 +71607,7 @@ int system_to_replace_entry_can_have_content(const SystemToReplaceEntry *self) {
   return 0;
 }
 SystemToReplaceEntryIdentificationContentForm system_to_replace_entry_identification_content(const SystemToReplaceEntry *self) {
-  char *path = spec_path_join(self->node.path, "identificationContent");
+  char *path = spec_path_join(self->node.path, "SYTORE-IDEN");
   SystemToReplaceEntryIdentificationContentForm out;
   system_to_replace_entry_identification_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -72506,7 +72506,7 @@ int technical_environment_can_have_content(const TechnicalEnvironment *self) {
   return 0;
 }
 TechnicalEnvironmentTechnicalOverviewContentForm technical_environment_technical_overview_content(const TechnicalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "technicalOverviewContent");
+  char *path = spec_path_join(self->node.path, "TEEN-TECH");
   TechnicalEnvironmentTechnicalOverviewContentForm out;
   technical_environment_technical_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -72931,7 +72931,7 @@ void technical_goal_test_criteria_set_content(TechnicalGoalTestCriteria *self, c
   free(path);
 }
 TechnicalGoalTestCriteriaTestCriteriaFormForm technical_goal_test_criteria_test_criteria_form(const TechnicalGoalTestCriteria *self) {
-  char *path = spec_path_join(self->node.path, "testCriteriaForm");
+  char *path = spec_path_join(self->node.path, "TGTC-TEST");
   TechnicalGoalTestCriteriaTestCriteriaFormForm out;
   technical_goal_test_criteria_test_criteria_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -73256,7 +73256,7 @@ void technical_requirements_set_content(TechnicalRequirements *self, const char 
   free(path);
 }
 TechnicalRequirementsSummaryFormForm technical_requirements_summary_form(const TechnicalRequirements *self) {
-  char *path = spec_path_join(self->node.path, "summaryForm");
+  char *path = spec_path_join(self->node.path, "TR1-SUMM");
   TechnicalRequirementsSummaryFormForm out;
   technical_requirements_summary_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -74399,7 +74399,7 @@ int throwaway_prototype_can_have_content(const ThrowawayPrototype *self) {
   return 0;
 }
 ThrowawayPrototypeThrowawayContentForm throwaway_prototype_throwaway_content(const ThrowawayPrototype *self) {
-  char *path = spec_path_join(self->node.path, "throwawayContent");
+  char *path = spec_path_join(self->node.path, "THPR-THRO");
   ThrowawayPrototypeThrowawayContentForm out;
   throwaway_prototype_throwaway_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -75322,7 +75322,7 @@ int trade_off_decisions_can_have_content(const TradeOffDecisions *self) {
   return 0;
 }
 TradeOffDecisionsTradeOffGovernanceContentForm trade_off_decisions_trade_off_governance_content(const TradeOffDecisions *self) {
-  char *path = spec_path_join(self->node.path, "tradeOffGovernanceContent");
+  char *path = spec_path_join(self->node.path, "TROFDE-TRAD");
   TradeOffDecisionsTradeOffGovernanceContentForm out;
   trade_off_decisions_trade_off_governance_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -75440,7 +75440,7 @@ int training_deliverable_requirements_can_have_content(const TrainingDeliverable
   return 0;
 }
 TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirements_training_content(const TrainingDeliverableRequirements *self) {
-  char *path = spec_path_join(self->node.path, "trainingContent");
+  char *path = spec_path_join(self->node.path, "TRMAT-TRAI");
   TrainingDeliverableRequirementsTrainingContentForm out;
   training_deliverable_requirements_training_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -75649,7 +75649,7 @@ int training_prototype_can_have_content(const TrainingPrototype *self) {
   return 0;
 }
 TrainingPrototypeTrainingContentForm training_prototype_training_content(const TrainingPrototype *self) {
-  char *path = spec_path_join(self->node.path, "trainingContent");
+  char *path = spec_path_join(self->node.path, "TP-TRAI");
   TrainingPrototypeTrainingContentForm out;
   training_prototype_training_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -76468,7 +76468,7 @@ int translation_process_can_have_content(const TranslationProcess *self) {
   return 0;
 }
 TranslationProcessTranslationProcessContentForm translation_process_translation_process_content(const TranslationProcess *self) {
-  char *path = spec_path_join(self->node.path, "translationProcessContent");
+  char *path = spec_path_join(self->node.path, "TRPR-TRAN");
   TranslationProcessTranslationProcessContentForm out;
   translation_process_translation_process_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -76539,7 +76539,7 @@ int translation_requirements_can_have_content(const TranslationRequirements *sel
   return 0;
 }
 TranslationRequirementsTranslationRequirementsContentForm translation_requirements_translation_requirements_content(const TranslationRequirements *self) {
-  char *path = spec_path_join(self->node.path, "translationRequirementsContent");
+  char *path = spec_path_join(self->node.path, "TRAREQ-TRAN");
   TranslationRequirementsTranslationRequirementsContentForm out;
   translation_requirements_translation_requirements_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -77213,7 +77213,7 @@ int ui_component_entry_can_have_content(const UiComponentEntry *self) {
   return 0;
 }
 UiComponentEntryIdentityForm ui_component_entry_identity(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
+  char *path = spec_path_join(self->node.path, "UICOMENT-IDEN");
   UiComponentEntryIdentityForm out;
   ui_component_entry_identity_form_init(&out, self->node.doc, path);
   free(path);
@@ -77234,7 +77234,7 @@ UiComponentEntryClassification ui_component_entry_classification(const UiCompone
   return out;
 }
 UiComponentEntryVisualDesignForm ui_component_entry_visual_design(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "visualDesign");
+  char *path = spec_path_join(self->node.path, "UICOMENT-VISU");
   UiComponentEntryVisualDesignForm out;
   ui_component_entry_visual_design_form_init(&out, self->node.doc, path);
   free(path);
@@ -77262,7 +77262,7 @@ UiComponentEntrySurface ui_component_entry_surface(const UiComponentEntry *self)
   return out;
 }
 UiComponentEntryInteractiveBehaviorForm ui_component_entry_interactive_behavior(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "interactiveBehavior");
+  char *path = spec_path_join(self->node.path, "UICOMENT-INTE");
   UiComponentEntryInteractiveBehaviorForm out;
   ui_component_entry_interactive_behavior_form_init(&out, self->node.doc, path);
   free(path);
@@ -77290,35 +77290,35 @@ UiComponentEntryScroll ui_component_entry_scroll(const UiComponentEntry *self) {
   return out;
 }
 UiComponentEntryResponsivenessForm ui_component_entry_responsiveness(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "responsiveness");
+  char *path = spec_path_join(self->node.path, "UICOMENT-RESP");
   UiComponentEntryResponsivenessForm out;
   ui_component_entry_responsiveness_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 UiComponentEntryAccessibilityForm ui_component_entry_accessibility(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "accessibility");
+  char *path = spec_path_join(self->node.path, "UICOMENT-ACCE");
   UiComponentEntryAccessibilityForm out;
   ui_component_entry_accessibility_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 UiComponentEntryAuthorizationForm ui_component_entry_authorization(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "authorization");
+  char *path = spec_path_join(self->node.path, "UICOMENT-AUTH");
   UiComponentEntryAuthorizationForm out;
   ui_component_entry_authorization_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 UiComponentEntryResourceIntegrationForm ui_component_entry_resource_integration(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "resourceIntegration");
+  char *path = spec_path_join(self->node.path, "UICOMENT-RESO");
   UiComponentEntryResourceIntegrationForm out;
   ui_component_entry_resource_integration_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 UiComponentEntryDataBindingForm ui_component_entry_data_binding(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "dataBinding");
+  char *path = spec_path_join(self->node.path, "UICOMENT-DATA");
   UiComponentEntryDataBindingForm out;
   ui_component_entry_data_binding_form_init(&out, self->node.doc, path);
   free(path);
@@ -77515,7 +77515,7 @@ int ui_components_can_have_content(const UiComponents *self) {
   return 0;
 }
 UiComponentsComponentLibraryOverviewForm ui_components_component_library_overview(const UiComponents *self) {
-  char *path = spec_path_join(self->node.path, "componentLibraryOverview");
+  char *path = spec_path_join(self->node.path, "UICO-COMP");
   UiComponentsComponentLibraryOverviewForm out;
   ui_components_component_library_overview_form_init(&out, self->node.doc, path);
   free(path);
@@ -77928,7 +77928,7 @@ void user_access_permissions_set_content(UserAccessPermissions *self, const char
   free(path);
 }
 UserAccessPermissionsPermissionsFormForm user_access_permissions_permissions_form(const UserAccessPermissions *self) {
-  char *path = spec_path_join(self->node.path, "permissionsForm");
+  char *path = spec_path_join(self->node.path, "UAP-PERM");
   UserAccessPermissionsPermissionsFormForm out;
   user_access_permissions_permissions_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -78015,7 +78015,7 @@ void user_accessibility_needs_set_content(UserAccessibilityNeeds *self, const ch
   free(path);
 }
 UserAccessibilityNeedsAccessibilityFormForm user_accessibility_needs_accessibility_form(const UserAccessibilityNeeds *self) {
-  char *path = spec_path_join(self->node.path, "accessibilityForm");
+  char *path = spec_path_join(self->node.path, "UAN-ACCE");
   UserAccessibilityNeedsAccessibilityFormForm out;
   user_accessibility_needs_accessibility_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -78056,7 +78056,7 @@ int user_assistance_can_have_content(const UserAssistance *self) {
   return 0;
 }
 UserAssistanceHelpOverviewContentForm user_assistance_help_overview_content(const UserAssistance *self) {
-  char *path = spec_path_join(self->node.path, "helpOverviewContent");
+  char *path = spec_path_join(self->node.path, "USAS-HELP");
   UserAssistanceHelpOverviewContentForm out;
   user_assistance_help_overview_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -78418,7 +78418,7 @@ int user_documentation_requirements_can_have_content(const UserDocumentationRequ
   return 0;
 }
 UserDocumentationRequirementsDocumentationContentForm user_documentation_requirements_documentation_content(const UserDocumentationRequirements *self) {
-  char *path = spec_path_join(self->node.path, "documentationContent");
+  char *path = spec_path_join(self->node.path, "DOANTR-DOCU");
   UserDocumentationRequirementsDocumentationContentForm out;
   user_documentation_requirements_documentation_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -78668,14 +78668,14 @@ void user_journey_set_content(UserJourney *self, const char *value) {
   free(path);
 }
 char *user_journey_journey_diagram(const UserJourney *self) {
-  char *path = spec_path_join(self->node.path, "journeyDiagram");
+  char *path = spec_path_join(self->node.path, "UJ-JOUR");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void user_journey_set_journey_diagram(UserJourney *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "journeyDiagram");
+  char *path = spec_path_join(self->node.path, "UJ-JOUR");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -78701,14 +78701,14 @@ SomList user_journey_pain_points(const UserJourney *self) {
   return out;
 }
 char *user_journey_opportunities_for_delight(const UserJourney *self) {
-  char *path = spec_path_join(self->node.path, "opportunitiesForDelight");
+  char *path = spec_path_join(self->node.path, "UJ-OPPO");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void user_journey_set_opportunities_for_delight(UserJourney *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "opportunitiesForDelight");
+  char *path = spec_path_join(self->node.path, "UJ-OPPO");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -79058,7 +79058,7 @@ void user_persona_details_set_content(UserPersonaDetails *self, const char *valu
   free(path);
 }
 UserPersonaDetailsPersonaFormForm user_persona_details_persona_form(const UserPersonaDetails *self) {
-  char *path = spec_path_join(self->node.path, "personaForm");
+  char *path = spec_path_join(self->node.path, "UPD-PERS");
   UserPersonaDetailsPersonaFormForm out;
   user_persona_details_persona_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -79086,14 +79086,14 @@ UserPersonaDetailsBehavior user_persona_details_behavior(const UserPersonaDetail
   return out;
 }
 char *user_persona_details_visual_representation(const UserPersonaDetails *self) {
-  char *path = spec_path_join(self->node.path, "visualRepresentation");
+  char *path = spec_path_join(self->node.path, "UPD-VISU");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void user_persona_details_set_visual_representation(UserPersonaDetails *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "visualRepresentation");
+  char *path = spec_path_join(self->node.path, "UPD-VISU");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -79328,7 +79328,7 @@ void user_training_requirements_set_content(UserTrainingRequirements *self, cons
   free(path);
 }
 UserTrainingRequirementsTrainingFormForm user_training_requirements_training_form(const UserTrainingRequirements *self) {
-  char *path = spec_path_join(self->node.path, "trainingForm");
+  char *path = spec_path_join(self->node.path, "USTRRE-TRAI");
   UserTrainingRequirementsTrainingFormForm out;
   user_training_requirements_training_form_form_init(&out, self->node.doc, path);
   free(path);
@@ -79549,7 +79549,7 @@ int validation_feedback_can_have_content(const ValidationFeedback *self) {
   return 0;
 }
 ValidationFeedbackValidationDisplayContentForm validation_feedback_validation_display_content(const ValidationFeedback *self) {
-  char *path = spec_path_join(self->node.path, "validationDisplayContent");
+  char *path = spec_path_join(self->node.path, "VAFE-VALI");
   ValidationFeedbackValidationDisplayContentForm out;
   validation_feedback_validation_display_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -80488,7 +80488,7 @@ int wcag_compliance_can_have_content(const WcagCompliance *self) {
   return 0;
 }
 WcagComplianceWcagComplianceContentForm wcag_compliance_wcag_compliance_content(const WcagCompliance *self) {
-  char *path = spec_path_join(self->node.path, "wcagComplianceContent");
+  char *path = spec_path_join(self->node.path, "WCCO-WCAG");
   WcagComplianceWcagComplianceContentForm out;
   wcag_compliance_wcag_compliance_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -80606,7 +80606,7 @@ int weighted_quality_matrix_can_have_content(const WeightedQualityMatrix *self) 
   return 0;
 }
 WeightedQualityMatrixMatrixConfigContentForm weighted_quality_matrix_matrix_config_content(const WeightedQualityMatrix *self) {
-  char *path = spec_path_join(self->node.path, "matrixConfigContent");
+  char *path = spec_path_join(self->node.path, "WEQUMA-MATR");
   WeightedQualityMatrixMatrixConfigContentForm out;
   weighted_quality_matrix_matrix_config_content_form_init(&out, self->node.doc, path);
   free(path);
@@ -80727,14 +80727,14 @@ void workflow_descriptions_set_content(WorkflowDescriptions *self, const char *v
   free(path);
 }
 char *workflow_descriptions_workflow_overview_diagram(const WorkflowDescriptions *self) {
-  char *path = spec_path_join(self->node.path, "workflowOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "WODE-WORK");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void workflow_descriptions_set_workflow_overview_diagram(WorkflowDescriptions *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "workflowOverviewDiagram");
+  char *path = spec_path_join(self->node.path, "WODE-WORK");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -80919,14 +80919,14 @@ int workflow_step_system_can_have_content(const WorkflowStepSystem *self) {
   return 0;
 }
 char *workflow_step_system_name(const WorkflowStepSystem *self) {
-  char *path = spec_path_join(self->node.path, "name");
+  char *path = spec_path_join(self->node.path, "WOSTSY-NAME");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void workflow_step_system_set_name(WorkflowStepSystem *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "name");
+  char *path = spec_path_join(self->node.path, "WOSTSY-NAME");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }

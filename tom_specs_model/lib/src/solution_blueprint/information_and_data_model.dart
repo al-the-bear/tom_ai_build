@@ -155,6 +155,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAENT-IDEN')
   @Form([
     Field('entityName', String, 'Entity Name',
         required: true,
@@ -175,6 +176,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Classification (6 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAENT-CLAS')
   @Form([
     Field('category', String, 'Category',
         hint:
@@ -212,6 +214,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Lifecycle and Retention (8 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAENT-LIFE')
   @Form([
     Field('lifecyclePhases', String, 'Lifecycle Phases',
         hint: 'Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted'),
@@ -252,6 +255,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Relationships Summary (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAENT-RELA')
   @Form([
     Field('parentEntities', String, 'Parent Entities',
         hint: 'Entities this depends on (e.g., Order depends on Customer)'),
@@ -368,6 +372,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAATT-IDEN')
   @Form([
     Field('attributeName', String, 'Attribute Name',
         required: true, hint: 'Logical attribute name in camelCase'),
@@ -386,6 +391,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Data Type Specification (8 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAATT-DATA')
   @Form([
     Field('dataType', String, 'Data Type',
         hint: 'Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary'),
@@ -426,6 +432,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Computed and Derived (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAATT-DERI')
   @Form([
     Field('isComputed', String, 'Is Computed',
         hint: 'Whether value is computed: Yes | No'),
@@ -442,6 +449,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Classification and Security (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAATT-SECU')
   @Form([
     Field('sensitivityLevel', String, 'Sensitivity Level',
         hint: 'Public | Internal | Confidential | Restricted | PII | PHI'),
@@ -460,6 +468,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Migration and Lineage (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DAATT-MIGR')
   @Form([
     Field('sourceSystem', String, 'Source System',
         hint: 'Originating system for data lineage'),
@@ -768,6 +777,7 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Relationship Identity (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('ENRLE-IDEN')
   @Form([
     Field('relationshipName', String, 'Relationship Name',
         required: true, hint: 'Verb phrase describing the relationship (e.g., "places", "contains")'),
@@ -802,6 +812,7 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Cardinality and Participation (6 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('ENRLE-CARD')
   @Form([
     Field('sourceCardinality', String, 'Source Cardinality',
         hint: 'Source side: 1 | 0..1 | 0..* | 1..* | n..m'),
@@ -822,6 +833,7 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Referential Integrity (6 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('ENRLE-REFE')
   @Form([
     Field('onDeleteAction', String, 'On Delete Action',
         hint: 'Cascade | SetNull | Restrict | NoAction | SetDefault | Archive'),
@@ -842,6 +854,7 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Navigation and Implementation (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('ENRLE-NAVI')
   @Form([
     Field('navigability', String, 'Navigability',
         hint: 'Bidirectional | SourceToTarget | TargetToSource'),
@@ -899,6 +912,7 @@ class DataClassification {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DATCL-OVER')
   @Form([
     Field('classificationFramework', String, 'Classification Framework',
         hint: 'Standard used: Custom | ISO27001 | NIST | IndustrySpecific'),
@@ -942,6 +956,7 @@ class DataClassificationEntry {
   // ---------------------------------------------------------------------------
   // Classification Identity (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DCLSE-IDEN')
   @Form([
     Field('classificationName', String, 'Classification Name',
         required: true, hint: 'Name of this classification level'),
@@ -960,6 +975,7 @@ class DataClassificationEntry {
   // ---------------------------------------------------------------------------
   // Storage and Transmission (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DCLSE-STOR')
   @Form([
     Field('encryptionAtRest', String, 'Encryption At Rest',
         hint: 'Encryption requirement for storage: None | Standard | Strong | FieldLevel'),
@@ -978,6 +994,7 @@ class DataClassificationEntry {
   // ---------------------------------------------------------------------------
   // Access Control (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DCLSE-ACCE')
   @Form([
     Field('accessLevels', String, 'Access Levels',
         hint: 'Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly'),
@@ -996,6 +1013,7 @@ class DataClassificationEntry {
   // ---------------------------------------------------------------------------
   // Retention and Disposal (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DCLSE-RETE')
   @Form([
     Field('retentionPeriod', String, 'Retention Period',
         hint: 'How long data is retained (e.g., 7 years)'),
@@ -1014,6 +1032,7 @@ class DataClassificationEntry {
   // ---------------------------------------------------------------------------
   // Compliance (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('DCLSE-COMP')
   @Form([
     Field('applicableRegulations', String, 'Applicable Regulations',
         hint: 'Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA'),
@@ -1195,6 +1214,7 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Core Identity (6 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BJOEN-IDEN')
   @Form([
     Field('objectName', String, 'Object Name',
         required: true, hint: 'Business name in PascalCase (e.g., Order, Customer)'),
@@ -1215,6 +1235,7 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Domain Context (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BJOEN-DOMA')
   @Form([
     Field('boundedContext', String, 'Bounded Context',
         hint: 'DDD bounded context this object belongs to'),
@@ -1233,6 +1254,7 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Lifecycle Summary (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BJOEN-LIFE')
   @Form([
     Field('keyStates', String, 'Key States',
         hint: 'Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)'),
@@ -1267,6 +1289,7 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Ownership and Versioning (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BJOEN-OWNE')
   @Form([
     Field('dataOwner', String, 'Data Owner',
         hint: 'Business role accountable for this object'),
@@ -1821,6 +1844,7 @@ class FunctionModel {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('FUMO-DECO')
   @Form([
     Field('decompositionApproach', String, 'Decomposition Approach',
         hint: 'How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased'),
@@ -1837,6 +1861,7 @@ class FunctionModel {
   // ---------------------------------------------------------------------------
   // Function-to-Data Matrix Overview (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('FUMO-MATR')
   @Form([
     Field('crudNotation', String, 'CRUD Notation',
         hint: 'Notation used: CRUD | CRUDx | Custom'),
@@ -2075,6 +2100,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Rule Identity (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-IDEN')
   @Form([
     Field('ruleId', String, 'Rule ID',
         required: true, hint: 'Unique rule identifier (e.g., BR-001)'),
@@ -2093,6 +2119,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Classification (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-CLAS')
   @Form([
     Field('ruleType', String, 'Rule Type',
         hint: 'Structural | Derivation | Constraint | Authorization | Workflow | Calculation'),
@@ -2111,6 +2138,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Rule Logic (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-RULE')
   @Form([
     Field('condition', String, 'Condition (IF)',
         hint: 'Trigger condition in natural language or pseudo-code'),
@@ -2129,6 +2157,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Implementation (5 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-IMPL')
   @Form([
     Field('enforcement', String, 'Enforcement',
         hint: 'How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual'),
@@ -2147,6 +2176,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Exception Handling (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-EXCE')
   @Form([
     Field('exceptionHandling', String, 'Exception Handling',
         hint: 'How violations are handled'),
@@ -2163,6 +2193,7 @@ class BusinessRuleEntry {
   // ---------------------------------------------------------------------------
   // Governance (4 fields)
   // ---------------------------------------------------------------------------
+  @SectionId('BIRU-GOVE')
   @Form([
     Field('ruleOwner', String, 'Rule Owner',
         hint: 'Business owner responsible for this rule'),

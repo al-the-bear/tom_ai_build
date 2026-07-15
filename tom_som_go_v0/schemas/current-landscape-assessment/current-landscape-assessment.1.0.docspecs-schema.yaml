@@ -726,6 +726,10 @@ section-types:
       pattern: "^CUBIPR-PROC-[0-9]+$"
       error-message: IDs of this section must match CUBIPR-PROC-xxx
     description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+  cudala-datal:
+    prefix: CUDALA_DATAL
+    format: mermaid-flowchart
+    description: Visual representation of the data landscape.
   cuopme-oper:
     prefix: CUOPME_OPER_
     pattern-check-id:
@@ -925,6 +929,8 @@ section-types:
   sytore-syst:
     prefix: SYTORE_SYST_
     subsection-types:
+      sytore-iden:
+        max-count: 1
       strep:
         max-count: 1
       strev:
@@ -1018,6 +1024,9 @@ section-types:
     description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
   wostsy-syst:
     prefix: WOSTSY_SYST_
+    subsection-types:
+      wostsy-name:
+        max-count: 1
     pattern-check-id:
       pattern: "^WOSTSY-SYST-[0-9]+$"
       error-message: IDs of this section must match WOSTSY-SYST-xxx
@@ -1064,6 +1073,30 @@ section-types:
       pattern: "^CRITI-CRIT-[0-9]+$"
       error-message: IDs of this section must match CRITI-CRIT-xxx
     description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  cubupr-proc:
+    prefix: CUBUPR_PROC
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes."
+  cudala-data:
+    prefix: CUDALA_DATA
+    format: mermaid
+    description: Data architecture summary diagram.
+  daduan-dupl:
+    prefix: DADUAN_DUPL
+    format: mermaid
+    description: Visual representation of data redundancy.
+  dainpo-data:
+    prefix: DAINPO_DATA
+    format: mermaid-flowchart
+    description: Data flow diagram.
+  daquas-qual:
+    prefix: DAQUAS_QUAL
+    format: mermaid
+    description: Quality issues by severity.
+  dasoin-data:
+    prefix: DASOIN_DATA
+    format: mermaid
+    description: Visual map of data sources by domain/category.
   escal-esca:
     prefix: ESCAL_ESCA_
     pattern-check-id:
@@ -1159,6 +1192,9 @@ section-types:
       pattern: "^MGRSK-ITEM-[0-9]+$"
       error-message: IDs of this section must match MGRSK-ITEM-xxx
     description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
+  migcon-stra:
+    prefix: MIGCON_STRA
+    format: migcon-stra-form
   monit-moni:
     prefix: MONIT_MONI_
     pattern-check-id:
@@ -1196,6 +1232,10 @@ section-types:
       pattern: "^PREDE-PRED-[0-9]+$"
       error-message: IDs of this section must match PREDE-PRED-xxx
     description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  prinma-depe:
+    prefix: PRINMA_DEPE
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.
   repol-rete:
     prefix: REPOL_RETE_
     subsection-types:
@@ -1252,41 +1292,26 @@ section-types:
       pattern: "^SHIEN-ITEM-[0-9]+$"
       error-message: IDs of this section must match SHIEN-ITEM-xxx
     description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
+  sytore-iden:
+    prefix: SYTORE_IDEN
+    format: sytore-iden-form
+  wostsy-name:
+    prefix: WOSTSY_NAME
+    description: Name of the system used in this workflow step.
+  carch-arch:
+    prefix: CARCH_ARCH
+    format: mermaid-flowchart
+    description: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions."
+  carch-depl:
+    prefix: CARCH_DEPL
+    format: description
+    description: Deployment topology description.
   cpie-impr:
     prefix: CPIE_IMPR_
     pattern-check-id:
       pattern: "^CPIE-IMPR-[0-9]+$"
       error-message: IDs of this section must match CPIE-IMPR-xxx
     description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
-  cuwf-work:
-    prefix: CUWF_WORK_
-    subsection-types:
-      wotr:
-        max-count: 1
-      wse-step-lst:
-        max-count: 1
-      wfac-acto-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      wodepo-deci-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wse-manu-lst:
-        max-count: 1
-      wse-erro-lst:
-        max-count: 1
-      woti:
-        max-count: 1
-      woex:
-        max-count: 1
-    pattern-check-id:
-      pattern: "^CUWF-WORK-[0-9]+$"
-      error-message: IDs of this section must match CUWF-WORK-xxx
-    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
   dadu-dupl:
     prefix: DADU_DUPL_
     subsection-types:
@@ -1359,6 +1384,10 @@ section-types:
       pattern: "^DEME-ENTI-[0-9]+$"
       error-message: IDs of this section must match DEME-ENTI-xxx
     description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
+  depnt-depe:
+    prefix: DEPNT_DEPE
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types."
   dgpe-gove:
     prefix: DGPE_GOVE_
     subsection-types:
@@ -1397,6 +1426,10 @@ section-types:
       pattern: "^GAPE-ITEM-[0-9]+$"
       error-message: IDs of this section must match GAPE-ITEM-xxx
     description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  ppag-painp:
+    prefix: PPAG_PAINP
+    format: mermaid
+    description: Pain points priority matrix (urgency vs impact).
   sbpe-supp:
     prefix: SBPE_SUPP_
     pattern-check-id:
@@ -1472,6 +1505,50 @@ section-types:
       pattern: "^WFAC-ACTO-[0-9]+$"
       error-message: IDs of this section must match WFAC-ACTO-xxx
     description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
+  cuwf-work:
+    prefix: CUWF_WORK
+    subsection-types:
+      cuwf-work:
+        max-count: 1
+      wotr:
+        max-count: 1
+      wse-step-lst:
+        max-count: 1
+      wfac-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wse-manu-lst:
+        max-count: 1
+      wse-erro-lst:
+        max-count: 1
+      woti:
+        max-count: 1
+      woex:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^CUWF-WORK-[0-9]+$"
+      error-message: IDs of this section must match CUWF-WORK-xxx
+    format: mermaid-flowchart
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+  dago-gove:
+    prefix: DAGO_GOVE
+    format: mermaid
+    description: Governance organization structure.
+  daow-owne:
+    prefix: DAOW_OWNE
+    format: mermaid
+    description: Data ownership matrix visualization.
+  dvag-grow:
+    prefix: DVAG_GROW
+    format: mermaid
+    description: Growth trend visualization.
   ipe-inte:
     prefix: IPE_INTE_
     pattern-check-id:
@@ -1484,6 +1561,9 @@ section-types:
       pattern: "^KIE-KNOW-[0-9]+$"
       error-message: IDs of this section must match KIE-KNOW-xxx
     description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  miri-gove:
+    prefix: MIRI_GOVE
+    format: miri-gove-form
   pme-item:
     prefix: PME_ITEM_
     subsection-types:
@@ -1523,6 +1603,18 @@ section-types:
       pattern: "^PME-METR-[0-9]+$"
       error-message: IDs of this section must match PME-METR-xxx
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  ppag-pain:
+    prefix: PPAG_PAIN
+    format: mermaid-flowchart
+    description: Visual mapping of pain points and their relationships.
+  ppgc-corr:
+    prefix: PPGC_CORR
+    format: mermaid
+    description: Visual correlation between pain points and gaps.
+  wode-work:
+    prefix: WODE_WORK
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.
   wse-erro:
     prefix: WSE_ERRO_
     subsection-types:
@@ -1597,6 +1689,8 @@ section-types:
   cubupr:
     prefix: CUBUPR
     subsection-types:
+      cubupr-proc:
+        max-count: 1
       prscsu:
         max-count: 1
       prinma:
@@ -1621,6 +1715,10 @@ section-types:
   cudala:
     prefix: CUDALA
     subsection-types:
+      cudala-datal:
+        max-count: 1
+      cudala-data:
+        max-count: 1
       dalasu:
         max-count: 1
       dasoin:
@@ -1652,6 +1750,8 @@ section-types:
     subsection-types:
       dadusu:
         max-count: 1
+      daduan-dupl:
+        max-count: 1
       dadu-dupl-lst:
         max-count: 1
     description: 1.4.3. Data Duplication Analysis.
@@ -1665,6 +1765,8 @@ section-types:
     prefix: DAINPO
     subsection-types:
       dainsu:
+        max-count: 1
+      dainpo-data:
         max-count: 1
       dain-inte-lst:
         max-count: 1
@@ -1683,6 +1785,8 @@ section-types:
     prefix: DAQUAS
     subsection-types:
       dqds:
+        max-count: 1
+      daquas-qual:
         max-count: 1
       daqlis-qual-lst:
         max-count: 1
@@ -1708,6 +1812,8 @@ section-types:
   dasoin:
     prefix: DASOIN
     subsection-types:
+      dasoin-data:
+        max-count: 1
       dasr-data-lst:
         max-count: 1
     description: 1.4.1. Data Source Inventory.
@@ -1781,6 +1887,8 @@ section-types:
   migcon:
     prefix: MIGCON
     subsection-types:
+      migcon-stra:
+        max-count: 1
       mire:
         max-count: 1
       miri:
@@ -1858,6 +1966,8 @@ section-types:
   prinma:
     prefix: PRINMA
     subsection-types:
+      prinma-depe:
+        max-count: 1
       prdeen-depe-lst:
         max-count: 1
     description: "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
@@ -2003,6 +2113,10 @@ section-types:
   carch:
     prefix: CARCH
     subsection-types:
+      carch-arch:
+        max-count: 1
+      carch-depl:
+        max-count: 1
       ipe-inte-lst:
         max-count: 1
       share-shar-lst:
@@ -2011,6 +2125,8 @@ section-types:
   depnt:
     prefix: DEPNT
     subsection-types:
+      depnt-depe:
+        max-count: 1
       intdp:
         max-count: 1
       extdp:
@@ -2137,6 +2253,8 @@ section-types:
     subsection-types:
       dagoma:
         max-count: 1
+      dago-gove:
+        max-count: 1
       dgpe-gove-lst:
         max-count: 1
         min-count: 1
@@ -2145,6 +2263,8 @@ section-types:
     prefix: DAOW
     subsection-types:
       daowsu:
+        max-count: 1
+      daow-owne:
         max-count: 1
       daowen-owne-lst:
         max-count: 1
@@ -2182,6 +2302,8 @@ section-types:
     subsection-types:
       davosu:
         max-count: 1
+      dvag-grow:
+        max-count: 1
       davoen-volu-lst:
         max-count: 1
         min-count: 1
@@ -2210,6 +2332,8 @@ section-types:
   miri:
     prefix: MIRI
     subsection-types:
+      miri-gove:
+        max-count: 1
       mirigo:
         max-count: 1
       mirias:
@@ -2241,6 +2365,10 @@ section-types:
   ppag:
     prefix: PPAG
     subsection-types:
+      ppag-pain:
+        max-count: 1
+      ppag-painp:
+        max-count: 1
       paposu:
         max-count: 1
       oppapo:
@@ -2257,6 +2385,8 @@ section-types:
   ppgc:
     prefix: PPGC
     subsection-types:
+      ppgc-corr:
+        max-count: 1
       ppgce-corr-lst:
         max-count: 1
         min-count: 1
@@ -2345,6 +2475,8 @@ section-types:
   wode:
     prefix: WODE
     subsection-types:
+      wode-work:
+        max-count: 1
       wosuta:
         max-count: 1
       cuwf-work-lst:
@@ -2409,6 +2541,41 @@ section-types:
       sytore-syst-lst:
         max-count: 1
     description: Replacement inventory.
+form-types:
+  sytore-iden-form:
+    fields:
+      - fieldname: systemId
+        required: true
+        description: Stable identifier for the legacy system being replaced
+      - fieldname: systemName
+        required: true
+        description: Common name the organization uses for this system
+      - fieldname: officialName
+        description: "Vendor/product name and edition, if a commercial system"
+      - fieldname: systemDescription
+        description: Brief description of what the system does and who uses it
+  migcon-stra-form:
+    fields:
+      - fieldname: overallStrategy
+        description: Chosen cutover pattern for the migration program
+      - fieldname: sequencingApproach
+        description: Order in which systems are migrated and why
+      - fieldname: interdependencyHandling
+        description: How cross-system dependencies are coordinated
+      - fieldname: migrationWindowStrategy
+        description: "When migrations run, e.g. weekends, off-hours"
+      - fieldname: blackoutPeriods
+        description: Times when no migration activity is permitted
+      - fieldname: parallelRunDuration
+        description: How long old and new run side by side
+  miri-gove-form:
+    fields:
+      - fieldname: riskGovernanceModel
+        description: "Centralized, federated, hybrid approach"
+      - fieldname: riskCommitteeCharter
+        description: Mandate and remit of the risk committee
+      - fieldname: riskReviewFrequency
+        description: "Weekly, bi-weekly, monthly cycles"
 document:
   sections:
     dochd:

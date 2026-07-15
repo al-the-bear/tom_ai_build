@@ -98,7 +98,7 @@ impl AcceptanceCriteriaSummary {
     }
 
     pub fn acceptance_framework_content(&self) -> AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
-        AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceFrameworkContent"))
+        AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ACCRSU-ACCE"))
     }
 
     // Acceptance criteria overview.
@@ -532,11 +532,11 @@ impl AccessChannels {
 
     /// Channel architecture diagram.
     pub fn channel_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "channelDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AC1-CHAN"))
     }
 
     pub fn set_channel_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "channelDiagram");
+        let path = format!("{}/{}", self.node.path(), "AC1-CHAN");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -759,11 +759,11 @@ impl AccessLevels {
 
     /// Access level hierarchy diagram.
     pub fn access_level_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "accessLevelDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AL-ACCE"))
     }
 
     pub fn set_access_level_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "accessLevelDiagram");
+        let path = format!("{}/{}", self.node.path(), "AL-ACCE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -779,11 +779,11 @@ impl AccessLevels {
 
     /// Permission matrix linking access levels to features.
     pub fn permission_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "permissionMatrix"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AL-PERM"))
     }
 
     pub fn set_permission_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "permissionMatrix");
+        let path = format!("{}/{}", self.node.path(), "AL-PERM");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -873,7 +873,7 @@ impl Accessibility {
     }
 
     pub fn accessibility_overview_content(&self) -> AccessibilityAccessibilityOverviewContentForm {
-        AccessibilityAccessibilityOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibilityOverviewContent"))
+        AccessibilityAccessibilityOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ACCESS-ACCE"))
     }
 
     /// Ownership and inclusive design philosophy.
@@ -1042,7 +1042,7 @@ impl AccessibilityChecklist {
     }
 
     pub fn checklist_overview_content(&self) -> AccessibilityChecklistChecklistOverviewContentForm {
-        AccessibilityChecklistChecklistOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "checklistOverviewContent"))
+        AccessibilityChecklistChecklistOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ACCHLS-CHEC"))
     }
 
     // Accessibility checklist overview.
@@ -2668,7 +2668,7 @@ impl AlertingConfiguration {
     }
 
     pub fn alerting_overview(&self) -> AlertingConfigurationAlertingOverviewForm {
-        AlertingConfigurationAlertingOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "alertingOverview"))
+        AlertingConfigurationAlertingOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ALCO-ALER"))
     }
 
     // Alerting overview narrative.
@@ -7317,7 +7317,7 @@ impl BreakpointConfiguration {
     }
 
     pub fn breakpoint_overview(&self) -> BreakpointConfigurationBreakpointOverviewForm {
-        BreakpointConfigurationBreakpointOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "breakpointOverview"))
+        BreakpointConfigurationBreakpointOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BC-BREA"))
     }
 
     /// Breakpoint entries.
@@ -8709,15 +8709,15 @@ impl BusinessObjectEntry {
     }
 
     pub fn identity(&self) -> BusinessObjectEntryIdentityForm {
-        BusinessObjectEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        BusinessObjectEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJOEN-IDEN"))
     }
 
     pub fn domain_context(&self) -> BusinessObjectEntryDomainContextForm {
-        BusinessObjectEntryDomainContextForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainContext"))
+        BusinessObjectEntryDomainContextForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJOEN-DOMA"))
     }
 
     pub fn lifecycle_summary(&self) -> BusinessObjectEntryLifecycleSummaryForm {
-        BusinessObjectEntryLifecycleSummaryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "lifecycleSummary"))
+        BusinessObjectEntryLifecycleSummaryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJOEN-LIFE"))
     }
 
     pub fn behavior_rules(&self) -> som::SomList<BehaviorRuleEntry> {
@@ -8730,7 +8730,7 @@ impl BusinessObjectEntry {
     }
 
     pub fn ownership(&self) -> BusinessObjectEntryOwnershipForm {
-        BusinessObjectEntryOwnershipForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ownership"))
+        BusinessObjectEntryOwnershipForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJOEN-OWNE"))
     }
 
     pub fn integration_points(&self) -> som::SomList<IntegrationPointEntry> {
@@ -9095,27 +9095,27 @@ impl BusinessRuleEntry {
     }
 
     pub fn identity(&self) -> BusinessRuleEntryIdentityForm {
-        BusinessRuleEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        BusinessRuleEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-IDEN"))
     }
 
     pub fn classification(&self) -> BusinessRuleEntryClassificationForm {
-        BusinessRuleEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
+        BusinessRuleEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-CLAS"))
     }
 
     pub fn rule_logic(&self) -> BusinessRuleEntryRuleLogicForm {
-        BusinessRuleEntryRuleLogicForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ruleLogic"))
+        BusinessRuleEntryRuleLogicForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-RULE"))
     }
 
     pub fn implementation(&self) -> BusinessRuleEntryImplementationForm {
-        BusinessRuleEntryImplementationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "implementation"))
+        BusinessRuleEntryImplementationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-IMPL"))
     }
 
     pub fn exception_handling(&self) -> BusinessRuleEntryExceptionHandlingForm {
-        BusinessRuleEntryExceptionHandlingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
+        BusinessRuleEntryExceptionHandlingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-EXCE"))
     }
 
     pub fn governance(&self) -> BusinessRuleEntryGovernanceForm {
-        BusinessRuleEntryGovernanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
+        BusinessRuleEntryGovernanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRU-GOVE"))
     }
 
     /// Contains 0+× AffectedObject.
@@ -11150,7 +11150,7 @@ impl ChangesFromCurrentStructure {
     }
 
     pub fn overview_content(&self) -> ChangesFromCurrentStructureOverviewContentForm {
-        ChangesFromCurrentStructureOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "overviewContent"))
+        ChangesFromCurrentStructureOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "OCCHG-OVER"))
     }
 
     // Detailed description of structural changes.
@@ -13163,11 +13163,11 @@ impl CommunicationMatrix {
 
     /// Communication matrix diagram.
     pub fn communication_flow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "communicationFlowDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "COMA-COMM"))
     }
 
     pub fn set_communication_flow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "communicationFlowDiagram");
+        let path = format!("{}/{}", self.node.path(), "COMA-COMM");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -13481,7 +13481,7 @@ impl CompatibilityCharacteristic {
     }
 
     pub fn compatibility_content(&self) -> CompatibilityCharacteristicCompatibilityContentForm {
-        CompatibilityCharacteristicCompatibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "compatibilityContent"))
+        CompatibilityCharacteristicCompatibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "CMPT-COMP"))
     }
 
     // Compatibility overview.
@@ -17315,21 +17315,21 @@ impl ContextDiagram {
 
     /// Context diagram in Mermaid format.
     pub fn diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "diagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CD-DIAG"))
     }
 
     pub fn set_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "diagram");
+        let path = format!("{}/{}", self.node.path(), "CD-DIAG");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Diagram legend and conventions.
     pub fn legend(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "legend"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CD-LEGE"))
     }
 
     pub fn set_legend(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "legend");
+        let path = format!("{}/{}", self.node.path(), "CD-LEGE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -17353,7 +17353,7 @@ impl ContextualHelp {
     }
 
     pub fn contextual_help_content(&self) -> ContextualHelpContextualHelpContentForm {
-        ContextualHelpContextualHelpContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextualHelpContent"))
+        ContextualHelpContextualHelpContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "COHE-CONT"))
     }
 
     /// Inline help behavior.
@@ -18288,21 +18288,21 @@ impl CurrentArchitecture {
 
     /// Architecture overview diagram.
     pub fn architecture_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "architectureDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CARCH-ARCH"))
     }
 
     pub fn set_architecture_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "architectureDiagram");
+        let path = format!("{}/{}", self.node.path(), "CARCH-ARCH");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Deployment topology description.
     pub fn deployment_topology(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "deploymentTopology"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CARCH-DEPL"))
     }
 
     pub fn set_deployment_topology(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "deploymentTopology");
+        let path = format!("{}/{}", self.node.path(), "CARCH-DEPL");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -18407,11 +18407,11 @@ impl CurrentBusinessProcesses {
 
     /// Process landscape diagram.
     pub fn process_landscape_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "processLandscapeDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUBUPR-PROC"))
     }
 
     pub fn set_process_landscape_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "processLandscapeDiagram");
+        let path = format!("{}/{}", self.node.path(), "CUBUPR-PROC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -18530,21 +18530,21 @@ impl CurrentDataLandscape {
 
     /// Visual representation of the data landscape.
     pub fn data_landscape_overview_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dataLandscapeOverviewDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUDALA-DATAL"))
     }
 
     pub fn set_data_landscape_overview_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dataLandscapeOverviewDiagram");
+        let path = format!("{}/{}", self.node.path(), "CUDALA-DATAL");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Data architecture summary diagram.
     pub fn data_architecture_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dataArchitectureDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUDALA-DATA"))
     }
 
     pub fn set_data_architecture_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dataArchitectureDiagram");
+        let path = format!("{}/{}", self.node.path(), "CUDALA-DATA");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -18783,11 +18783,11 @@ impl CurrentWorkflowEntry {
 
     /// Workflow diagram.
     pub fn workflow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "workflowDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUWF-WORK"))
     }
 
     pub fn set_workflow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "workflowDiagram");
+        let path = format!("{}/{}", self.node.path(), "CUWF-WORK");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -19642,11 +19642,11 @@ impl D04RequirementsSpecification {
     /// reaches it directly. The authoritative content lives on the Solution
     /// Blueprint side.
     pub fn traceability_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RSP-TRAC"))
     }
 
     pub fn set_traceability_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
+        let path = format!("{}/{}", self.node.path(), "RSP-TRAC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -21275,11 +21275,11 @@ impl DataAttributeEntry {
     }
 
     pub fn identity(&self) -> DataAttributeEntryIdentityForm {
-        DataAttributeEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        DataAttributeEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-IDEN"))
     }
 
     pub fn data_type_spec(&self) -> DataAttributeEntryDataTypeSpecForm {
-        DataAttributeEntryDataTypeSpecForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataTypeSpec"))
+        DataAttributeEntryDataTypeSpecForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DATA"))
     }
 
     pub fn constraints(&self) -> som::SomList<DataAttributeConstraintEntry> {
@@ -21292,15 +21292,15 @@ impl DataAttributeEntry {
     }
 
     pub fn derivation(&self) -> DataAttributeEntryDerivationForm {
-        DataAttributeEntryDerivationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "derivation"))
+        DataAttributeEntryDerivationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DERI"))
     }
 
     pub fn security_classification(&self) -> DataAttributeEntrySecurityClassificationForm {
-        DataAttributeEntrySecurityClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityClassification"))
+        DataAttributeEntrySecurityClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-SECU"))
     }
 
     pub fn migration_lineage(&self) -> DataAttributeEntryMigrationLineageForm {
-        DataAttributeEntryMigrationLineageForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationLineage"))
+        DataAttributeEntryMigrationLineageForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-MIGR"))
     }
 
     pub fn display_properties(&self) -> som::SomList<DisplayPropertyEntry> {
@@ -21332,7 +21332,7 @@ impl DataClassification {
     }
 
     pub fn overview(&self) -> DataClassificationOverviewForm {
-        DataClassificationOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
+        DataClassificationOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DATCL-OVER"))
     }
 
     /// Contains 0+× DataClassificationEntry.
@@ -21367,23 +21367,23 @@ impl DataClassificationEntry {
     }
 
     pub fn identity(&self) -> DataClassificationEntryIdentityForm {
-        DataClassificationEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        DataClassificationEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DCLSE-IDEN"))
     }
 
     pub fn storage_transmission(&self) -> DataClassificationEntryStorageTransmissionForm {
-        DataClassificationEntryStorageTransmissionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "storageTransmission"))
+        DataClassificationEntryStorageTransmissionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DCLSE-STOR"))
     }
 
     pub fn access_control(&self) -> DataClassificationEntryAccessControlForm {
-        DataClassificationEntryAccessControlForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessControl"))
+        DataClassificationEntryAccessControlForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DCLSE-ACCE"))
     }
 
     pub fn retention_disposal(&self) -> DataClassificationEntryRetentionDisposalForm {
-        DataClassificationEntryRetentionDisposalForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "retentionDisposal"))
+        DataClassificationEntryRetentionDisposalForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DCLSE-RETE"))
     }
 
     pub fn compliance(&self) -> DataClassificationEntryComplianceForm {
-        DataClassificationEntryComplianceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
+        DataClassificationEntryComplianceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DCLSE-COMP"))
     }
 
     /// Contains 0+× HandlingRequirement.
@@ -21544,11 +21544,11 @@ impl DataDuplicationAnalysis {
 
     /// Visual representation of data redundancy.
     pub fn duplication_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "duplicationDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DADUAN-DUPL"))
     }
 
     pub fn set_duplication_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "duplicationDiagram");
+        let path = format!("{}/{}", self.node.path(), "DADUAN-DUPL");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -21715,11 +21715,11 @@ impl DataEntityEntry {
     }
 
     pub fn identity(&self) -> DataEntityEntryIdentityForm {
-        DataEntityEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        DataEntityEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-IDEN"))
     }
 
     pub fn classification(&self) -> DataEntityEntryClassificationForm {
-        DataEntityEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "classification"))
+        DataEntityEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-CLAS"))
     }
 
     pub fn volume_metrics(&self) -> som::SomList<VolumeMetricEntry> {
@@ -21732,7 +21732,7 @@ impl DataEntityEntry {
     }
 
     pub fn lifecycle_policy(&self) -> DataEntityEntryLifecyclePolicyForm {
-        DataEntityEntryLifecyclePolicyForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "lifecyclePolicy"))
+        DataEntityEntryLifecyclePolicyForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-LIFE"))
     }
 
     pub fn compliance_requirements(&self) -> som::SomList<ComplianceRequirementEntry> {
@@ -21745,7 +21745,7 @@ impl DataEntityEntry {
     }
 
     pub fn relationship_summary(&self) -> DataEntityEntryRelationshipSummaryForm {
-        DataEntityEntryRelationshipSummaryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "relationshipSummary"))
+        DataEntityEntryRelationshipSummaryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENT-RELA"))
     }
 
     pub fn technical_characteristics(&self) -> som::SomList<TechnicalCharacteristicEntry> {
@@ -22034,11 +22034,11 @@ impl DataGovernance {
 
     /// Governance organization structure.
     pub fn governance_org_chart(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "governanceOrgChart"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAGO-GOVE"))
     }
 
     pub fn set_governance_org_chart(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "governanceOrgChart");
+        let path = format!("{}/{}", self.node.path(), "DAGO-GOVE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -22485,11 +22485,11 @@ impl DataIntegrationPoints {
 
     /// Data flow diagram.
     pub fn data_flow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dataFlowDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAINPO-DATA"))
     }
 
     pub fn set_data_flow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dataFlowDiagram");
+        let path = format!("{}/{}", self.node.path(), "DAINPO-DATA");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -22887,11 +22887,11 @@ impl DataOwnership {
 
     /// Data ownership matrix visualization.
     pub fn ownership_matrix_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ownershipMatrixDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAOW-OWNE"))
     }
 
     pub fn set_ownership_matrix_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "ownershipMatrixDiagram");
+        let path = format!("{}/{}", self.node.path(), "DAOW-OWNE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -23389,11 +23389,11 @@ impl DataQualityAssessment {
 
     /// Quality issues by severity.
     pub fn quality_issues_severity_chart(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "qualityIssuesSeverityChart"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAQUAS-QUAL"))
     }
 
     pub fn set_quality_issues_severity_chart(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "qualityIssuesSeverityChart");
+        let path = format!("{}/{}", self.node.path(), "DAQUAS-QUAL");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -23901,11 +23901,11 @@ impl DataSourceInventory {
 
     /// Visual map of data sources by domain/category.
     pub fn data_source_map_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dataSourceMapDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DASOIN-DATA"))
     }
 
     pub fn set_data_source_map_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dataSourceMapDiagram");
+        let path = format!("{}/{}", self.node.path(), "DASOIN-DATA");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -24419,11 +24419,11 @@ impl DataVolumesAndGrowth {
 
     /// Growth trend visualization.
     pub fn growth_trend_chart(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "growthTrendChart"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DVAG-GROW"))
     }
 
     pub fn set_growth_trend_chart(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "growthTrendChart");
+        let path = format!("{}/{}", self.node.path(), "DVAG-GROW");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -26034,11 +26034,11 @@ impl DependenciesAndIntegrations {
 
     /// Dependency matrix diagram.
     pub fn dependency_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dependencyDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DEPNT-DEPE"))
     }
 
     pub fn set_dependency_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dependencyDiagram");
+        let path = format!("{}/{}", self.node.path(), "DEPNT-DEPE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -30118,7 +30118,7 @@ impl DocumentationQualityCriteria {
     }
 
     pub fn documentation_overview_content(&self) -> DocumentationQualityCriteriaDocumentationOverviewContentForm {
-        DocumentationQualityCriteriaDocumentationOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationOverviewContent"))
+        DocumentationQualityCriteriaDocumentationOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DOQUCR-DOCU"))
     }
 
     // Documentation quality overview narrative.
@@ -30475,31 +30475,31 @@ impl DomainBoundaries {
 
     /// Context map showing domain boundaries.
     pub fn context_map(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "contextMap"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DB-CONT"))
     }
 
     pub fn set_context_map(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "contextMap");
+        let path = format!("{}/{}", self.node.path(), "DB-CONT");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Within-scope items.
     pub fn within_scope(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "withinScope"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DB-WITH"))
     }
 
     pub fn set_within_scope(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "withinScope");
+        let path = format!("{}/{}", self.node.path(), "DB-WITH");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Outside-scope items.
     pub fn outside_scope(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "outsideScope"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DB-OUTS"))
     }
 
     pub fn set_outside_scope(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "outsideScope");
+        let path = format!("{}/{}", self.node.path(), "DB-OUTS");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -30871,11 +30871,11 @@ impl DomainProcesses {
 
     /// Process overview diagram.
     pub fn process_overview_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "processOverviewDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DP-PROC"))
     }
 
     pub fn set_process_overview_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "processOverviewDiagram");
+        let path = format!("{}/{}", self.node.path(), "DP-PROC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -31683,7 +31683,7 @@ impl EntityRelationshipEntry {
     }
 
     pub fn identity(&self) -> EntityRelationshipEntryIdentityForm {
-        EntityRelationshipEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        EntityRelationshipEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-IDEN"))
     }
 
     pub fn participants(&self) -> som::SomList<ParticipantEntry> {
@@ -31696,15 +31696,15 @@ impl EntityRelationshipEntry {
     }
 
     pub fn cardinality(&self) -> EntityRelationshipEntryCardinalityForm {
-        EntityRelationshipEntryCardinalityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "cardinality"))
+        EntityRelationshipEntryCardinalityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-CARD"))
     }
 
     pub fn referential_integrity(&self) -> EntityRelationshipEntryReferentialIntegrityForm {
-        EntityRelationshipEntryReferentialIntegrityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "referentialIntegrity"))
+        EntityRelationshipEntryReferentialIntegrityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-REFE"))
     }
 
     pub fn navigation(&self) -> EntityRelationshipEntryNavigationForm {
-        EntityRelationshipEntryNavigationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "navigation"))
+        EntityRelationshipEntryNavigationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-NAVI"))
     }
 
     pub fn relationship_attributes(&self) -> som::SomList<RelationshipAttributeEntry> {
@@ -32708,7 +32708,7 @@ impl ErrorHandling {
     }
 
     pub fn error_philosophy_content(&self) -> ErrorHandlingErrorPhilosophyContentForm {
-        ErrorHandlingErrorPhilosophyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorPhilosophyContent"))
+        ErrorHandlingErrorPhilosophyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ERHACO-ERRO"))
     }
 
     /// Error categorization and display priority.
@@ -33067,7 +33067,7 @@ impl ErrorRecovery {
     }
 
     pub fn recovery_mechanisms_content(&self) -> ErrorRecoveryRecoveryMechanismsContentForm {
-        ErrorRecoveryRecoveryMechanismsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "recoveryMechanismsContent"))
+        ErrorRecoveryRecoveryMechanismsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ERRE-RECO"))
     }
 
     /// Data preservation: draft auto-save settings.
@@ -34694,7 +34694,7 @@ impl ExternalInterfaceEntry {
     }
 
     pub fn identification_content(&self) -> ExternalInterfaceEntryIdentificationContentForm {
-        ExternalInterfaceEntryIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationContent"))
+        ExternalInterfaceEntryIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EIE-IDEN"))
     }
 
     /// Business purpose and value of this interface.
@@ -35307,11 +35307,11 @@ impl ExternalSystemContextEntry {
 
     /// Data mapping details.
     pub fn data_mapping(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dataMapping"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "EXSYCOEN-DATA"))
     }
 
     pub fn set_data_mapping(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dataMapping");
+        let path = format!("{}/{}", self.node.path(), "EXSYCOEN-DATA");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -36908,7 +36908,7 @@ impl FlexibilityCharacteristic {
     }
 
     pub fn flexibility_content(&self) -> FlexibilityCharacteristicFlexibilityContentForm {
-        FlexibilityCharacteristicFlexibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibilityContent"))
+        FlexibilityCharacteristicFlexibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FLXC-FLEX"))
     }
 
     // Flexibility overview.
@@ -37423,11 +37423,11 @@ impl FunctionModel {
     }
 
     pub fn decomposition_overview(&self) -> FunctionModelDecompositionOverviewForm {
-        FunctionModelDecompositionOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "decompositionOverview"))
+        FunctionModelDecompositionOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FUMO-DECO"))
     }
 
     pub fn matrix_overview(&self) -> FunctionModelMatrixOverviewForm {
-        FunctionModelMatrixOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "matrixOverview"))
+        FunctionModelMatrixOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FUMO-MATR"))
     }
 
     /// 7.3.1. Function Decomposition — contains 0+× Function.
@@ -37751,7 +37751,7 @@ impl FunctionalRequirements {
 
     /// Functional requirements summary form.
     pub fn summary_form(&self) -> FunctionalRequirementsSummaryFormForm {
-        FunctionalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "summaryForm"))
+        FunctionalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FR-SUMM"))
     }
 
     /// Functional requirements list — contains 1+× Functional Requirement.
@@ -37829,7 +37829,7 @@ impl FunctionalSuitabilityCharacteristic {
     }
 
     pub fn functional_suitability_content(&self) -> FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
-        FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalSuitabilityContent"))
+        FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "FNSU-FUNC"))
     }
 
     // Functional suitability overview.
@@ -38514,7 +38514,7 @@ impl GoalResources {
 
     /// Resource requirement form.
     pub fn resources_form(&self) -> GoalResourcesResourcesFormForm {
-        GoalResourcesResourcesFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourcesForm"))
+        GoalResourcesResourcesFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "GORE-RESO"))
     }
 
     /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
@@ -38681,11 +38681,11 @@ impl Goals {
 
     /// Goal hierarchy diagram.
     pub fn goal_hierarchy_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "goalHierarchyDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "GOALS-GOAL"))
     }
 
     pub fn set_goal_hierarchy_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "goalHierarchyDiagram");
+        let path = format!("{}/{}", self.node.path(), "GOALS-GOAL");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -42027,7 +42027,7 @@ impl InteractionCapabilityCharacteristic {
     }
 
     pub fn interaction_capability_content(&self) -> InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
-        InteractionCapabilityCharacteristicInteractionCapabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCapabilityContent"))
+        InteractionCapabilityCharacteristicInteractionCapabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "INCP-INTE"))
     }
 
     // Interaction capability overview.
@@ -44055,11 +44055,11 @@ impl IntroductionAndScope {
 
     /// System context diagram showing major system boundaries.
     pub fn system_context_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "systemContextDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "INSC-SYST"))
     }
 
     pub fn set_system_context_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "systemContextDiagram");
+        let path = format!("{}/{}", self.node.path(), "INSC-SYST");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -44945,11 +44945,11 @@ impl KeyConcepts {
 
     /// Conceptual domain model diagram.
     pub fn conceptual_model_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "conceptualModelDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "KC-CONC"))
     }
 
     pub fn set_conceptual_model_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "conceptualModelDiagram");
+        let path = format!("{}/{}", self.node.path(), "KC-CONC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -45378,7 +45378,7 @@ impl LanguageCountrySelection {
     }
 
     pub fn language_selection_content(&self) -> LanguageCountrySelectionLanguageSelectionContentForm {
-        LanguageCountrySelectionLanguageSelectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageSelectionContent"))
+        LanguageCountrySelectionLanguageSelectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "LACOSE-LANG"))
     }
 
     /// Default locale behavior.
@@ -46456,7 +46456,7 @@ impl LocalizationProcess {
     }
 
     pub fn localization_process_content(&self) -> LocalizationProcessLocalizationProcessContentForm {
-        LocalizationProcessLocalizationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcessContent"))
+        LocalizationProcessLocalizationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "LOPR-LOCA"))
     }
 
     /// Review process.
@@ -47229,7 +47229,7 @@ impl MaintainabilityCharacteristic {
     }
 
     pub fn maintainability_content(&self) -> MaintainabilityCharacteristicMaintainabilityContentForm {
-        MaintainabilityCharacteristicMaintainabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainabilityContent"))
+        MaintainabilityCharacteristicMaintainabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MNTC-MAIN"))
     }
 
     // Maintainability overview.
@@ -48296,7 +48296,7 @@ impl MetricsAndObservability {
     }
 
     pub fn metrics_overview(&self) -> MetricsAndObservabilityMetricsOverviewForm {
-        MetricsAndObservabilityMetricsOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "metricsOverview"))
+        MetricsAndObservabilityMetricsOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MEANOB-METR"))
     }
 
     // Observability overview narrative.
@@ -48800,7 +48800,7 @@ impl MigrationConsiderations {
     }
 
     pub fn strategy_content(&self) -> MigrationConsiderationsStrategyContentForm {
-        MigrationConsiderationsStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "strategyContent"))
+        MigrationConsiderationsStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MIGCON-STRA"))
     }
 
     // Detailed strategy narrative.
@@ -49820,7 +49820,7 @@ impl MigrationRisks {
     }
 
     pub fn governance_content(&self) -> MigrationRisksGovernanceContentForm {
-        MigrationRisksGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "governanceContent"))
+        MigrationRisksGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MIRI-GOVE"))
     }
 
     /// Governance and decision authority.
@@ -50808,7 +50808,7 @@ impl Monitoring {
     }
 
     pub fn monitoring_overview(&self) -> MonitoringMonitoringOverviewForm {
-        MonitoringMonitoringOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoringOverview"))
+        MonitoringMonitoringOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MONITO-MONI"))
     }
 
     // Monitoring strategy narrative.
@@ -51019,7 +51019,7 @@ impl MonitoringDashboards {
     }
 
     pub fn dashboard_overview(&self) -> MonitoringDashboardsDashboardOverviewForm {
-        MonitoringDashboardsDashboardOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "dashboardOverview"))
+        MonitoringDashboardsDashboardOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MODA-DASH"))
     }
 
     // Dashboard overview narrative.
@@ -51413,7 +51413,7 @@ impl MultiChannelExperience {
 
     /// Multi-channel configuration.
     pub fn multi_channel_configuration(&self) -> MultiChannelExperienceMultiChannelConfigurationForm {
-        MultiChannelExperienceMultiChannelConfigurationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiChannelConfiguration"))
+        MultiChannelExperienceMultiChannelConfigurationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MCE-MULT"))
     }
 }
 
@@ -51442,7 +51442,7 @@ impl MultiLanguageSupport {
     }
 
     pub fn multi_language_overview(&self) -> MultiLanguageSupportMultiLanguageOverviewForm {
-        MultiLanguageSupportMultiLanguageOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageOverview"))
+        MultiLanguageSupportMultiLanguageOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MLAR-MULT"))
     }
 
     // Multi-language overview narrative.
@@ -51485,7 +51485,7 @@ impl MustPassCriteria {
     }
 
     pub fn must_pass_overview_content(&self) -> MustPassCriteriaMustPassOverviewContentForm {
-        MustPassCriteriaMustPassOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "mustPassOverviewContent"))
+        MustPassCriteriaMustPassOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MUPACR-MUST"))
     }
 
     // Must-pass criteria overview.
@@ -54075,7 +54075,7 @@ impl OnboardingHelp {
     }
 
     pub fn onboarding_content(&self) -> OnboardingHelpOnboardingContentForm {
-        OnboardingHelpOnboardingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "onboardingContent"))
+        OnboardingHelpOnboardingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ONHE-ONBO"))
     }
 
     /// Feature tour settings.
@@ -54800,7 +54800,7 @@ impl OrgRequirementImplementationPlan {
 
     /// Implementation plan form.
     pub fn plan_form(&self) -> OrgRequirementImplementationPlanPlanFormForm {
-        OrgRequirementImplementationPlanPlanFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "planForm"))
+        OrgRequirementImplementationPlanPlanFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ORIP-PLAN"))
     }
 
     /// Implementation activities — contains 0+× OrgImplementationActivity.
@@ -54958,11 +54958,11 @@ impl OrganizationalContext {
 
     /// Business process coverage.
     pub fn business_process_coverage(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "businessProcessCoverage"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "OC-BUSI"))
     }
 
     pub fn set_business_process_coverage(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "businessProcessCoverage");
+        let path = format!("{}/{}", self.node.path(), "OC-BUSI");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -54991,7 +54991,7 @@ impl OrganizationalEnvironment {
     }
 
     pub fn organization_content(&self) -> OrganizationalEnvironmentOrganizationContentForm {
-        OrganizationalEnvironmentOrganizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationContent"))
+        OrganizationalEnvironmentOrganizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "OREN-ORGA"))
     }
 
     /// Organizational maturity indicators.
@@ -55321,7 +55321,7 @@ impl OrganizationalRequirements {
 
     /// Organizational requirements summary form.
     pub fn summary_form(&self) -> OrganizationalRequirementsSummaryFormForm {
-        OrganizationalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "summaryForm"))
+        OrganizationalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "OR-SUMM"))
     }
 
     /// Organizational requirements list — contains 0+× Organizational Requirement.
@@ -55986,11 +55986,11 @@ impl PainPointGapCorrelation {
 
     /// Visual correlation between pain points and gaps.
     pub fn correlation_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "correlationDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PPGC-CORR"))
     }
 
     pub fn set_correlation_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "correlationDiagram");
+        let path = format!("{}/{}", self.node.path(), "PPGC-CORR");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -56176,21 +56176,21 @@ impl PainPointsAndGaps {
 
     /// Visual mapping of pain points and their relationships.
     pub fn pain_points_overview_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "painPointsOverviewDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PPAG-PAIN"))
     }
 
     pub fn set_pain_points_overview_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "painPointsOverviewDiagram");
+        let path = format!("{}/{}", self.node.path(), "PPAG-PAIN");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Pain points priority matrix (urgency vs impact).
     pub fn pain_points_priority_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "painPointsPriorityMatrix"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PPAG-PAINP"))
     }
 
     pub fn set_pain_points_priority_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "painPointsPriorityMatrix");
+        let path = format!("{}/{}", self.node.path(), "PPAG-PAINP");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -56694,7 +56694,7 @@ impl PerformanceEfficiencyCharacteristic {
     }
 
     pub fn performance_efficiency_content(&self) -> PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
-        PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "performanceEfficiencyContent"))
+        PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PEEF-PERF"))
     }
 
     // Performance efficiency overview.
@@ -59058,11 +59058,11 @@ impl ProcessAdjustments {
 
     /// Visual representation of process adjustments.
     pub fn process_flow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "processFlowDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PCADJ-PROC"))
     }
 
     pub fn set_process_flow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "processFlowDiagram");
+        let path = format!("{}/{}", self.node.path(), "PCADJ-PROC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -60019,11 +60019,11 @@ impl ProcessInterdependencyMatrix {
 
     /// Interdependency diagram.
     pub fn dependency_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dependencyDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PRINMA-DEPE"))
     }
 
     pub fn set_dependency_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "dependencyDiagram");
+        let path = format!("{}/{}", self.node.path(), "PRINMA-DEPE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -61418,11 +61418,11 @@ impl ProjectOrganizationAndProcess {
 
     /// Visual overview of methodology deviations.
     pub fn methodology_deviation_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "methodologyDeviationDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "PRPO-METH"))
     }
 
     pub fn set_methodology_deviation_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "methodologyDeviationDiagram");
+        let path = format!("{}/{}", self.node.path(), "PRPO-METH");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -61731,7 +61731,7 @@ impl Prototype {
     }
 
     pub fn prototype_overview(&self) -> PrototypePrototypeOverviewForm {
-        PrototypePrototypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeOverview"))
+        PrototypePrototypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PROTOT-PROT"))
     }
 
     /// Prototype timing commitments.
@@ -61815,7 +61815,7 @@ impl PrototypeFeatureSubset {
     }
 
     pub fn feature_subset_content(&self) -> PrototypeFeatureSubsetFeatureSubsetContentForm {
-        PrototypeFeatureSubsetFeatureSubsetContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "featureSubsetContent"))
+        PrototypeFeatureSubsetFeatureSubsetContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PRFESU-FEAT"))
     }
 
     /// Included and excluded feature scope.
@@ -61932,7 +61932,7 @@ impl PrototypeGoals {
     }
 
     pub fn goals_content(&self) -> PrototypeGoalsGoalsContentForm {
-        PrototypeGoalsGoalsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "goalsContent"))
+        PrototypeGoalsGoalsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PG-GOAL"))
     }
 
     /// Risk reduction and assumption testing.
@@ -62095,7 +62095,7 @@ impl PrototypeType {
     }
 
     pub fn prototype_type_overview(&self) -> PrototypeTypePrototypeTypeOverviewForm {
-        PrototypeTypePrototypeTypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeTypeOverview"))
+        PrototypeTypePrototypeTypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PRTYSE-PROT"))
     }
 
     /// 10.13.3.1. Reusable Prototype.
@@ -62455,7 +62455,7 @@ impl QualityFramework {
     }
 
     pub fn framework_content(&self) -> QualityFrameworkFrameworkContentForm {
-        QualityFrameworkFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "frameworkContent"))
+        QualityFrameworkFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "QLFWK-FRAM"))
     }
 
     /// Quality objective structure and alignment.
@@ -62774,11 +62774,11 @@ impl QualityGateAdjustments {
 
     /// Visual representation of gate adjustments.
     pub fn gate_flow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "gateFlowDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "QGADJ-GATE"))
     }
 
     pub fn set_gate_flow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "gateFlowDiagram");
+        let path = format!("{}/{}", self.node.path(), "QGADJ-GATE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -62977,7 +62977,7 @@ impl QualityGateChecklist {
     }
 
     pub fn checklist_overview_content(&self) -> QualityGateChecklistChecklistOverviewContentForm {
-        QualityGateChecklistChecklistOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "checklistOverviewContent"))
+        QualityGateChecklistChecklistOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "QUGACH-CHEC"))
     }
 
     // Quality gate checklist overview.
@@ -63108,7 +63108,7 @@ impl QualityPrioritization {
     }
 
     pub fn prioritization_framework_content(&self) -> QualityPrioritizationPrioritizationFrameworkContentForm {
-        QualityPrioritizationPrioritizationFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prioritizationFrameworkContent"))
+        QualityPrioritizationPrioritizationFrameworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "QUPR-PRIO"))
     }
 
     // Prioritization approach overview.
@@ -64604,7 +64604,7 @@ impl ReliabilityCharacteristic {
     }
 
     pub fn reliability_content(&self) -> ReliabilityCharacteristicReliabilityContentForm {
-        ReliabilityCharacteristicReliabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliabilityContent"))
+        ReliabilityCharacteristicReliabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RELC-RELI"))
     }
 
     // Reliability overview narrative.
@@ -66800,7 +66800,7 @@ impl RequirementTraceability {
 
     /// Traceability links form.
     pub fn traceability_form(&self) -> RequirementTraceabilityTraceabilityFormForm {
-        RequirementTraceabilityTraceabilityFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "traceabilityForm"))
+        RequirementTraceabilityTraceabilityFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RT-TRAC"))
     }
 
     /// Linked artifacts and test coverage references.
@@ -66893,26 +66893,26 @@ impl RequirementUiSpecification {
 
     /// UI specification form.
     pub fn ui_form(&self) -> RequirementUiSpecificationUiFormForm {
-        RequirementUiSpecificationUiFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiForm"))
+        RequirementUiSpecificationUiFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RUS-UIFO"))
     }
 
     /// UI layout specification (D4rt Flutter code).
     pub fn layout_code(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "layoutCode"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RUS-LAYO"))
     }
 
     pub fn set_layout_code(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "layoutCode");
+        let path = format!("{}/{}", self.node.path(), "RUS-LAYO");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// UI mockup diagram (fallback if code not available).
     pub fn mockup_description(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "mockupDescription"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RUS-MOCK"))
     }
 
     pub fn set_mockup_description(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "mockupDescription");
+        let path = format!("{}/{}", self.node.path(), "RUS-MOCK");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -67029,16 +67029,16 @@ impl RequirementsOverview {
 
     /// Requirements overview form.
     pub fn requirements_form(&self) -> RequirementsOverviewRequirementsFormForm {
-        RequirementsOverviewRequirementsFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementsForm"))
+        RequirementsOverviewRequirementsFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RO-REQU"))
     }
 
     /// Traceability matrix overview.
     pub fn traceability_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RO-TRAC"))
     }
 
     pub fn set_traceability_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
+        let path = format!("{}/{}", self.node.path(), "RO-TRAC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -67671,7 +67671,7 @@ impl ResponsiveBehavior {
     }
 
     pub fn layout_adaptation(&self) -> ResponsiveBehaviorLayoutAdaptationForm {
-        ResponsiveBehaviorLayoutAdaptationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "layoutAdaptation"))
+        ResponsiveBehaviorLayoutAdaptationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "REBE-LAYO"))
     }
 
     /// Navigation patterns per device class.
@@ -67822,7 +67822,7 @@ impl ResponsiveDesign {
     }
 
     pub fn responsive_overview(&self) -> ResponsiveDesignResponsiveOverviewForm {
-        ResponsiveDesignResponsiveOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveOverview"))
+        ResponsiveDesignResponsiveOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "REDE-RESP"))
     }
 
     // Responsive design narrative.
@@ -68247,7 +68247,7 @@ impl ReusablePrototype {
     }
 
     pub fn reusable_content(&self) -> ReusablePrototypeReusableContentForm {
-        ReusablePrototypeReusableContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "reusableContent"))
+        ReusablePrototypeReusableContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "REUPRO-REUS"))
     }
 
     /// Architecture alignment and refactoring expectations.
@@ -69554,11 +69554,11 @@ impl RoleAdjustments {
 
     /// Visual comparison of standard vs adjusted roles.
     pub fn role_comparison_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "roleComparisonDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RLADJ-ROLE"))
     }
 
     pub fn set_role_comparison_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "roleComparisonDiagram");
+        let path = format!("{}/{}", self.node.path(), "RLADJ-ROLE");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -73667,7 +73667,7 @@ impl SecurityCharacteristic {
     }
 
     pub fn security_content(&self) -> SecurityCharacteristicSecurityContentForm {
-        SecurityCharacteristicSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityContent"))
+        SecurityCharacteristicSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SECC-SECU"))
     }
 
     // Security overview.
@@ -74386,7 +74386,7 @@ impl SecurityRequirements {
 
     /// Security requirements summary form.
     pub fn summary_form(&self) -> SecurityRequirementsSummaryFormForm {
-        SecurityRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "summaryForm"))
+        SecurityRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SR1-SUMM"))
     }
 
     /// Security requirements list — contains 0+× Security Requirement.
@@ -76332,7 +76332,7 @@ impl SessionModel {
 
     /// Session configuration.
     pub fn session_configuration(&self) -> SessionModelSessionConfigurationForm {
-        SessionModelSessionConfigurationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "sessionConfiguration"))
+        SessionModelSessionConfigurationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SM-SESS"))
     }
 
     /// Refresh, concurrency, and termination behavior.
@@ -77249,7 +77249,7 @@ impl SlaAndSloMonitoring {
     }
 
     pub fn sla_overview(&self) -> SlaAndSloMonitoringSlaOverviewForm {
-        SlaAndSloMonitoringSlaOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "slaOverview"))
+        SlaAndSloMonitoringSlaOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SASM-SLAO"))
     }
 
     // SLA/SLO overview narrative.
@@ -81159,11 +81159,11 @@ impl SuccessCriteria {
 
     /// Success criteria matrix — overall view.
     pub fn success_criteria_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "successCriteriaMatrix"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SC-SUCC"))
     }
 
     pub fn set_success_criteria_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "successCriteriaMatrix");
+        let path = format!("{}/{}", self.node.path(), "SC-SUCC");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -81193,51 +81193,51 @@ impl SuccessCriteriaByCategory {
 
     /// Business outcome criteria overview.
     pub fn business_criteria(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "businessCriteria"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SCBC-BUSI"))
     }
 
     pub fn set_business_criteria(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "businessCriteria");
+        let path = format!("{}/{}", self.node.path(), "SCBC-BUSI");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Technical quality criteria overview.
     pub fn technical_criteria(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "technicalCriteria"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SCBC-TECH"))
     }
 
     pub fn set_technical_criteria(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "technicalCriteria");
+        let path = format!("{}/{}", self.node.path(), "SCBC-TECH");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// User satisfaction criteria overview.
     pub fn user_criteria(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "userCriteria"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SCBC-USER"))
     }
 
     pub fn set_user_criteria(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "userCriteria");
+        let path = format!("{}/{}", self.node.path(), "SCBC-USER");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Compliance criteria overview.
     pub fn compliance_criteria(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "complianceCriteria"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SCBC-COMP"))
     }
 
     pub fn set_compliance_criteria(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "complianceCriteria");
+        let path = format!("{}/{}", self.node.path(), "SCBC-COMP");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Timeline and budget criteria overview.
     pub fn project_criteria(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "projectCriteria"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SCBC-PROJ"))
     }
 
     pub fn set_project_criteria(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "projectCriteria");
+        let path = format!("{}/{}", self.node.path(), "SCBC-PROJ");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -81518,7 +81518,7 @@ impl SupportAccess {
     }
 
     pub fn support_access_content(&self) -> SupportAccessSupportAccessContentForm {
-        SupportAccessSupportAccessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "supportAccessContent"))
+        SupportAccessSupportAccessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SUAC-SUPP"))
     }
 
     /// Help center configuration.
@@ -82951,7 +82951,7 @@ impl SystemErrorDisplay {
     }
 
     pub fn system_error_content(&self) -> SystemErrorDisplaySystemErrorContentForm {
-        SystemErrorDisplaySystemErrorContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemErrorContent"))
+        SystemErrorDisplaySystemErrorContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYERDI-SYST"))
     }
 
     /// Error type handling configuration.
@@ -83637,11 +83637,11 @@ impl SystemPurpose {
 
     /// Vision Statement.
     pub fn vision_statement(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "visionStatement"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SYPUP-VISI"))
     }
 
     pub fn set_vision_statement(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "visionStatement");
+        let path = format!("{}/{}", self.node.path(), "SYPUP-VISI");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -83701,7 +83701,7 @@ impl SystemQualityGoals {
     }
 
     pub fn governance_content(&self) -> SystemQualityGoalsGovernanceContentForm {
-        SystemQualityGoalsGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "governanceContent"))
+        SystemQualityGoalsGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYQG-GOVE"))
     }
 
     /// Governance board and escalation details.
@@ -84468,7 +84468,7 @@ impl SystemToReplaceEntry {
     }
 
     pub fn identification_content(&self) -> SystemToReplaceEntryIdentificationContentForm {
-        SystemToReplaceEntryIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationContent"))
+        SystemToReplaceEntryIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYTORE-IDEN"))
     }
 
     /// Classification and ownership details.
@@ -85516,7 +85516,7 @@ impl TechnicalEnvironment {
     }
 
     pub fn technical_overview_content(&self) -> TechnicalEnvironmentTechnicalOverviewContentForm {
-        TechnicalEnvironmentTechnicalOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalOverviewContent"))
+        TechnicalEnvironmentTechnicalOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TEEN-TECH"))
     }
 
     /// Architecture governance context.
@@ -86006,7 +86006,7 @@ impl TechnicalGoalTestCriteria {
 
     /// Test criteria form.
     pub fn test_criteria_form(&self) -> TechnicalGoalTestCriteriaTestCriteriaFormForm {
-        TechnicalGoalTestCriteriaTestCriteriaFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "testCriteriaForm"))
+        TechnicalGoalTestCriteriaTestCriteriaFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TGTC-TEST"))
     }
 
     /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
@@ -86391,7 +86391,7 @@ impl TechnicalRequirements {
 
     /// Technical requirements summary form.
     pub fn summary_form(&self) -> TechnicalRequirementsSummaryFormForm {
-        TechnicalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "summaryForm"))
+        TechnicalRequirementsSummaryFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TR1-SUMM"))
     }
 
     /// Technical requirements list — contains 0+× Technical Requirement.
@@ -87762,7 +87762,7 @@ impl ThrowawayPrototype {
     }
 
     pub fn throwaway_content(&self) -> ThrowawayPrototypeThrowawayContentForm {
-        ThrowawayPrototypeThrowawayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "throwawayContent"))
+        ThrowawayPrototypeThrowawayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "THPR-THRO"))
     }
 
     /// Findings and decisions captured from evaluation.
@@ -88854,7 +88854,7 @@ impl TradeOffDecisions {
     }
 
     pub fn trade_off_governance_content(&self) -> TradeOffDecisionsTradeOffGovernanceContentForm {
-        TradeOffDecisionsTradeOffGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "tradeOffGovernanceContent"))
+        TradeOffDecisionsTradeOffGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TROFDE-TRAD"))
     }
 
     // Trade-off decisions overview.
@@ -89005,7 +89005,7 @@ impl TrainingDeliverableRequirements {
     }
 
     pub fn training_content(&self) -> TrainingDeliverableRequirementsTrainingContentForm {
-        TrainingDeliverableRequirementsTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingContent"))
+        TrainingDeliverableRequirementsTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TRMAT-TRAI"))
     }
 
     // Training narrative.
@@ -89268,7 +89268,7 @@ impl TrainingPrototype {
     }
 
     pub fn training_content(&self) -> TrainingPrototypeTrainingContentForm {
-        TrainingPrototypeTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingContent"))
+        TrainingPrototypeTrainingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TP-TRAI"))
     }
 
     /// Code disposition and reimplementation planning.
@@ -90278,7 +90278,7 @@ impl TranslationProcess {
     }
 
     pub fn translation_process_content(&self) -> TranslationProcessTranslationProcessContentForm {
-        TranslationProcessTranslationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcessContent"))
+        TranslationProcessTranslationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TRPR-TRAN"))
     }
 
     /// Translation workflow.
@@ -90359,7 +90359,7 @@ impl TranslationRequirements {
     }
 
     pub fn translation_requirements_content(&self) -> TranslationRequirementsTranslationRequirementsContentForm {
-        TranslationRequirementsTranslationRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirementsContent"))
+        TranslationRequirementsTranslationRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "TRAREQ-TRAN"))
     }
 
     /// RTL and bidirectional support.
@@ -91211,7 +91211,7 @@ impl UiComponentEntry {
     }
 
     pub fn identity(&self) -> UiComponentEntryIdentityForm {
-        UiComponentEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "identity"))
+        UiComponentEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-IDEN"))
     }
 
     /// Wrapper mapping and business purpose.
@@ -91225,7 +91225,7 @@ impl UiComponentEntry {
     }
 
     pub fn visual_design(&self) -> UiComponentEntryVisualDesignForm {
-        UiComponentEntryVisualDesignForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "visualDesign"))
+        UiComponentEntryVisualDesignForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-VISU"))
     }
 
     /// Visual dimensions.
@@ -91247,7 +91247,7 @@ impl UiComponentEntry {
     // (skipped: visualDiagram has no target type)
 
     pub fn interactive_behavior(&self) -> UiComponentEntryInteractiveBehaviorForm {
-        UiComponentEntryInteractiveBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactiveBehavior"))
+        UiComponentEntryInteractiveBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-INTE"))
     }
 
     /// Focus and keyboard behavior.
@@ -91266,23 +91266,23 @@ impl UiComponentEntry {
     }
 
     pub fn responsiveness(&self) -> UiComponentEntryResponsivenessForm {
-        UiComponentEntryResponsivenessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveness"))
+        UiComponentEntryResponsivenessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-RESP"))
     }
 
     pub fn accessibility(&self) -> UiComponentEntryAccessibilityForm {
-        UiComponentEntryAccessibilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+        UiComponentEntryAccessibilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-ACCE"))
     }
 
     pub fn authorization(&self) -> UiComponentEntryAuthorizationForm {
-        UiComponentEntryAuthorizationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
+        UiComponentEntryAuthorizationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-AUTH"))
     }
 
     pub fn resource_integration(&self) -> UiComponentEntryResourceIntegrationForm {
-        UiComponentEntryResourceIntegrationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceIntegration"))
+        UiComponentEntryResourceIntegrationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-RESO"))
     }
 
     pub fn data_binding(&self) -> UiComponentEntryDataBindingForm {
-        UiComponentEntryDataBindingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataBinding"))
+        UiComponentEntryDataBindingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-DATA"))
     }
 
     // Component behavior narrative.
@@ -91546,7 +91546,7 @@ impl UiComponents {
     }
 
     pub fn component_library_overview(&self) -> UiComponentsComponentLibraryOverviewForm {
-        UiComponentsComponentLibraryOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentLibraryOverview"))
+        UiComponentsComponentLibraryOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICO-COMP"))
     }
 
     /// Visual language and brand alignment.
@@ -92010,7 +92010,7 @@ impl UserAccessPermissions {
 
     /// Access Permissions Form.
     pub fn permissions_form(&self) -> UserAccessPermissionsPermissionsFormForm {
-        UserAccessPermissionsPermissionsFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "permissionsForm"))
+        UserAccessPermissionsPermissionsFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UAP-PERM"))
     }
 
     /// Functional and environmental restrictions.
@@ -92111,7 +92111,7 @@ impl UserAccessibilityNeeds {
 
     /// Accessibility Needs Form.
     pub fn accessibility_form(&self) -> UserAccessibilityNeedsAccessibilityFormForm {
-        UserAccessibilityNeedsAccessibilityFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibilityForm"))
+        UserAccessibilityNeedsAccessibilityFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UAN-ACCE"))
     }
 }
 
@@ -92171,7 +92171,7 @@ impl UserAssistance {
     }
 
     pub fn help_overview_content(&self) -> UserAssistanceHelpOverviewContentForm {
-        UserAssistanceHelpOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpOverviewContent"))
+        UserAssistanceHelpOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "USAS-HELP"))
     }
 
     /// Content stewardship and help affordances.
@@ -92594,7 +92594,7 @@ impl UserDocumentationRequirements {
     }
 
     pub fn documentation_content(&self) -> UserDocumentationRequirementsDocumentationContentForm {
-        UserDocumentationRequirementsDocumentationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationContent"))
+        UserDocumentationRequirementsDocumentationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DOANTR-DOCU"))
     }
 
     /// Documentation deliverables provided to users.
@@ -92868,11 +92868,11 @@ impl UserJourney {
 
     /// User journey diagram.
     pub fn journey_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "journeyDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "UJ-JOUR"))
     }
 
     pub fn set_journey_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "journeyDiagram");
+        let path = format!("{}/{}", self.node.path(), "UJ-JOUR");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -92908,11 +92908,11 @@ impl UserJourney {
 
     /// Opportunities for delight.
     pub fn opportunities_for_delight(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "opportunitiesForDelight"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "UJ-OPPO"))
     }
 
     pub fn set_opportunities_for_delight(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "opportunitiesForDelight");
+        let path = format!("{}/{}", self.node.path(), "UJ-OPPO");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -93327,7 +93327,7 @@ impl UserPersonaDetails {
 
     /// Persona Details Form.
     pub fn persona_form(&self) -> UserPersonaDetailsPersonaFormForm {
-        UserPersonaDetailsPersonaFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "personaForm"))
+        UserPersonaDetailsPersonaFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UPD-PERS"))
     }
 
     /// Experience and work context.
@@ -93347,11 +93347,11 @@ impl UserPersonaDetails {
 
     /// Representative photo or avatar description.
     pub fn visual_representation(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "visualRepresentation"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "UPD-VISU"))
     }
 
     pub fn set_visual_representation(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "visualRepresentation");
+        let path = format!("{}/{}", self.node.path(), "UPD-VISU");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -93654,7 +93654,7 @@ impl UserTrainingRequirements {
 
     /// Training Requirements Form.
     pub fn training_form(&self) -> UserTrainingRequirementsTrainingFormForm {
-        UserTrainingRequirementsTrainingFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingForm"))
+        UserTrainingRequirementsTrainingFormForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "USTRRE-TRAI"))
     }
 
     /// Training topics — contains 0+× TrainingTopicEntry.
@@ -93934,7 +93934,7 @@ impl ValidationFeedback {
     }
 
     pub fn validation_display_content(&self) -> ValidationFeedbackValidationDisplayContentForm {
-        ValidationFeedbackValidationDisplayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "validationDisplayContent"))
+        ValidationFeedbackValidationDisplayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "VAFE-VALI"))
     }
 
     /// Display placement details.
@@ -95041,7 +95041,7 @@ impl WcagCompliance {
     }
 
     pub fn wcag_compliance_content(&self) -> WcagComplianceWcagComplianceContentForm {
-        WcagComplianceWcagComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "wcagComplianceContent"))
+        WcagComplianceWcagComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "WCCO-WCAG"))
     }
 
     /// Operable principles.
@@ -95184,7 +95184,7 @@ impl WeightedQualityMatrix {
     }
 
     pub fn matrix_config_content(&self) -> WeightedQualityMatrixMatrixConfigContentForm {
-        WeightedQualityMatrixMatrixConfigContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "matrixConfigContent"))
+        WeightedQualityMatrixMatrixConfigContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "WEQUMA-MATR"))
     }
 
     // Weighted quality matrix narrative.
@@ -95351,11 +95351,11 @@ impl WorkflowDescriptions {
 
     /// Workflow overview diagram.
     pub fn workflow_overview_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "workflowOverviewDiagram"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "WODE-WORK"))
     }
 
     pub fn set_workflow_overview_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "workflowOverviewDiagram");
+        let path = format!("{}/{}", self.node.path(), "WODE-WORK");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -95599,11 +95599,11 @@ impl WorkflowStepSystem {
     }
 
     pub fn name(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "name"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "WOSTSY-NAME"))
     }
 
     pub fn set_name(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "name");
+        let path = format!("{}/{}", self.node.path(), "WOSTSY-NAME");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }

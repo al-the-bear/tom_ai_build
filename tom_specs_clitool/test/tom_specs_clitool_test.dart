@@ -159,41 +159,32 @@ void main() {
     });
 
     test(
-      '§6.1 field-shape (YRB1): every reachable non-"content" String '
-      'sub-section field without a field-level @SectionId is flagged '
-      '(the YRB5 id-sweep backlog)',
+      '§6.1 field-shape (YRB1/YRB5): the inline sub-section id sweep is '
+      'complete — zero reachable non-"content" String fields lack a '
+      'field-level @SectionId',
       () {
         // Walk the whole model from the canonical container so every reachable
         // class is checked, then count the rule-1 offenders: descriptively
         // named String / `@Form`-on-String fields (shape (3)) that lack a
-        // field-level @SectionId. YRB1 only ENFORCES the rule (adds the errors
-        // + this guard); it does not fix the model — that is YRB5.
+        // field-level @SectionId. YRB1 ENFORCED the rule (added the error + this
+        // guard); YRB5 then FIXED the model — every offender now carries a
+        // globally-unique `<PARENT_CLASS_SECTIONID>-<FIELD_MNEMONIC>` id.
         //
-        // Count = 166. A by-kind census of the exported spec_model.json reports
-        // 185 (65 content-kind + 120 form-kind), but that over-counts the
-        // canonical String rule by 8:
-        //   • 7 of the 120 "form-kind" fields are `TextSection?` sub-sections
-        //     carrying `@Form` (shape (4) — the class owns the id, so no
-        //     field-level id is required). The exporter labels them `form`
-        //     because they have form members; the validator excludes them
-        //     because they are not `String` (isString == false).
-        //   • 1 content-kind offender (UserCategories.userCategoryDiagram) lives
-        //     in an orphan class unreachable from the container, so no document
-        //     tree ever reaches it. (Orphan-class hygiene is out of YRB1 scope.)
-        // That leaves 177; YRB3 then folded the 11 String-typed `@Reference`
-        // inline-reference fields (shape (3)) into the id sweep — each now
-        // carries a `<PARENT>-<FIELD4>-REF` field-level @SectionId — so the
-        // remaining un-ided backlog is 177 − 11 = 166. (The other 7 of the 18
-        // `@Reference` fields are complex/list-typed and were never counted by
-        // this String-only rule.)
+        // History: the backlog started at 177 reachable String offenders (a
+        // by-kind census of spec_model.json reported 185, over-counting by 8 —
+        // 7 `TextSection?` @Form sub-sections whose class owns the id, and 1
+        // orphan-class field unreachable from the container). YRB3 folded the 11
+        // String-typed `@Reference` fields into the sweep (→ 166 remaining), and
+        // YRB5 stamped the last 166. The sweep is now complete → 0.
         final result = validateModel(classes, 'DocSpecsProject');
         final missingId = result.errors
             .where((e) => e.contains('§6.1 field-shape') &&
                 e.contains('must carry a field-level @SectionId'))
             .toList();
-        expect(missingId.length, 166,
-            reason: 'expected exactly 166 un-ided inline sub-section String '
-                'fields; got ${missingId.length}');
+        expect(missingId, isEmpty,
+            reason: 'YRB5 cleared the inline sub-section id backlog; expected '
+                '0 un-ided String fields, got ${missingId.length}:\n'
+                '${missingId.join('\n')}');
       },
     );
 

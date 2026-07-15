@@ -58,6 +58,7 @@ class D04RequirementsSpecification {
   /// Mirrors the flat field on RequirementsOverview so the RC outline
   /// reaches it directly. The authoritative content lives on the Solution
   /// Blueprint side.
+  @SectionId('RSP-TRAC')
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
   @SerializationOrder(6)

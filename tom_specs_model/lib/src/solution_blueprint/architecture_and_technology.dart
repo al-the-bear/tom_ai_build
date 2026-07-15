@@ -23922,6 +23922,7 @@ class Monitoring {
   // ─────────────────────────────────────────────────────────────────────────
   // Monitoring Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('MONITO-MONI')
   @Form([
     // Strategy
     Field('monitoringStrategy', String, 'Monitoring Strategy',
@@ -23999,6 +24000,7 @@ class AlertingConfiguration {
   // ─────────────────────────────────────────────────────────────────────────
   // Alerting Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('ALCO-ALER')
   @Form([
     // Philosophy
     Field('alertingPhilosophy', String, 'Alerting Philosophy',
@@ -24523,6 +24525,7 @@ class MetricsAndObservability {
   // ─────────────────────────────────────────────────────────────────────────
   // Metrics Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('MEANOB-METR')
   @Form([
     // Pillars
     Field('metricsEnabled', bool, 'Metrics Enabled',
@@ -25081,6 +25084,7 @@ class CustomMetricEntry {
 )
 @SectionId('MODA')
 class MonitoringDashboards {
+  @SectionId('MODA-DASH')
   @Form([
     // Platform
     Field('dashboardPlatform', String, 'Dashboard Platform',
@@ -25262,6 +25266,7 @@ class DashboardTemplates {
 )
 @SectionId('SASM')
 class SlaAndSloMonitoring {
+  @SectionId('SASM-SLAO')
   @Form([
     // SLI/SLO framework
     Field('sloFramework', String, 'SLO Framework',

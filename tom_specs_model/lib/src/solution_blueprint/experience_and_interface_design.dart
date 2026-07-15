@@ -5752,6 +5752,7 @@ class ErrorHandling {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('ERHACO-ERRO')
   @Form([
     // Philosophy and approach
     Field('errorPhilosophy', String, 'Error Handling Philosophy',
@@ -5898,6 +5899,7 @@ class ErrorHandlingOperations {
 )
 @SectionId('VAFE')
 class ValidationFeedback {
+  @SectionId('VAFE-VALI')
   @Form([
     Field('validationTiming', String, 'Validation Timing',
         hint: 'Real-time, on-blur, on-submit, debounced'),
@@ -6108,6 +6110,7 @@ class SystemErrorDisplay {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('SYERDI-SYST')
   @Form([
     Field('networkErrorHandling', String, 'Network Error Handling',
         hint: 'How connectivity issues are displayed'),
@@ -6367,6 +6370,7 @@ class ErrorRecovery {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('ERRE-RECO')
   @Form([
     Field('formDataPreservation', String, 'Form Data Preservation',
         hint: 'How unsaved form data is preserved on error'),
@@ -6619,6 +6623,7 @@ class UserAssistance {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('USAS-HELP')
   @Form([
     // Help philosophy
     Field('helpPhilosophy', String, 'Help Philosophy',
@@ -6723,6 +6728,7 @@ class UserAssistanceInsights {
 )
 @SectionId('COHE')
 class ContextualHelp {
+  @SectionId('COHE-CONT')
   @Form([
     Field('tooltipTrigger', String, 'Tooltip Trigger',
         hint: 'Hover, click, focus, icon click'),
@@ -6901,6 +6907,7 @@ class FieldHelpEntry {
 )
 @SectionId('ONHE')
 class OnboardingHelp {
+  @SectionId('ONHE-ONBO')
   @Form([
     Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled',
         hint: 'Whether the welcome flow is enabled'),
@@ -7149,6 +7156,7 @@ class TourStepEntry {
 )
 @SectionId('SUAC')
 class SupportAccess {
+  @SectionId('SUAC-SUPP')
   @Form([
     Field('helpCenterAvailable', bool, 'Help Center Available',
         hint: 'Whether a help centre is provided'),
@@ -7327,6 +7335,7 @@ class Accessibility {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('ACCESS-ACCE')
   @Form([
     Field('wcagComplianceTarget', String, 'WCAG Compliance Target',
         hint: 'A, AA, AAA'),
@@ -7461,6 +7470,7 @@ class AccessibilitySupport {
 )
 @SectionId('WCCO')
 class WcagCompliance {
+  @SectionId('WCCO-WCAG')
   @Form([
     Field('textAlternatives', String, 'Text Alternatives (1.1)',
         hint: 'Alt text for non-text content'),
@@ -7616,6 +7626,7 @@ class WcagSuccessCriterionEntry {
 )
 @SectionId('ACCHLS')
 class AccessibilityChecklist {
+  @SectionId('ACCHLS-CHEC')
   @Form([
     Field('checklistStandard', String, 'Checklist Standard',
         hint: 'Based on WCAG, custom additions'),
@@ -7787,6 +7798,7 @@ class ResponsiveDesign {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('REDE-RESP')
   @Form([
     // Philosophy
     Field('responsivePhilosophy', String, 'Responsive Philosophy',
@@ -7838,6 +7850,7 @@ class ResponsiveDesign {
 )
 @SectionId('BC')
 class BreakpointConfiguration {
+  @SectionId('BC-BREA')
   @Form([
     // Standard breakpoints
     Field('mobileMax', String, 'Mobile Max Width',
@@ -7976,6 +7989,7 @@ class ResponsiveBehavior {
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('REBE-LAYO')
   @Form([
     Field('mobileColumnLayout', String, 'Mobile Column Layout',
         hint: 'Single column, stacked'),
@@ -8166,6 +8180,7 @@ class UiComponents {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICO-COMP')
   @Form([
     Field('designSystemName', String, 'Design System Name',
         hint: 'Name of the design system (e.g., "Acme Design System")'),
@@ -8667,6 +8682,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-IDEN')
   @Form([
     // Identity
     Field('componentId', String, 'Component ID', required: true,
@@ -8693,6 +8709,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Visual Design
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-VISU')
   @Form([
     Field('defaultAppearance', String, 'Default Appearance',
         hint: 'Visual description of default state'),
@@ -8726,6 +8743,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Interactive Behavior
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-INTE')
   @Form([
     Field('tapBehavior', String, 'Tap Behavior',
         hint: 'What happens on tap/click'),
@@ -8757,6 +8775,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsiveness
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-RESP')
   @Form([
     Field('mobileLayout', String, 'Mobile Layout',
         hint: 'Layout on mobile (< 600dp)'),
@@ -8779,6 +8798,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-ACCE')
   @Form([
     Field('semanticRole', String, 'Semantic Role',
         hint: 'ARIA role or semantic meaning'),
@@ -8803,6 +8823,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Authorization Integration
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-AUTH')
   @Form([
     Field('authBasePath', String, 'Auth Base Path',
         hint: 'Base path for authorization lookup'),
@@ -8825,6 +8846,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Resource Integration
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-RESO')
   @Form([
     Field('resourceBasePath', String, 'Resource Base Path',
         hint: 'Base path for resource lookup'),
@@ -8851,6 +8873,7 @@ class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Data Binding
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('UICOMENT-DATA')
   @Form([
     Field('dataType', String, 'Data Type',
         hint: 'Type of data component displays/edits'),
@@ -9518,6 +9541,7 @@ class MultiLanguageSupport {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('MLAR-MULT')
   @Form([
     // Scope
     Field('supportedLanguages', String, 'Supported Languages',
@@ -9625,6 +9649,7 @@ class LocaleRolloutPlan {
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-LOC')
 class LocalizationProcess {
+  @SectionId('LOPR-LOCA')
   @Form([
     Field('contentIdentification', String, 'Content Identification',
         hint: 'How localizable content is identified'),
@@ -9745,6 +9770,7 @@ class LocalizationDeployment {
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRA')
 class TranslationProcess {
+  @SectionId('TRPR-TRAN')
   @Form([
     Field('translationManagementSystem', String, 'Translation Management System',
         hint: 'TMS tool (Phrase, Lokalise, Crowdin)'),
@@ -9931,6 +9957,7 @@ class TranslationVendorEntry {
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
 class UserDocumentationRequirements {
+  @SectionId('DOANTR-DOCU')
   @Form([
     Field('documentationFormat', String, 'Documentation Format',
         hint: 'HTML, PDF, in-app, wiki'),
@@ -9978,6 +10005,7 @@ class UserDocumentationRequirements {
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
 class TrainingDeliverableRequirements {
+  @SectionId('TRMAT-TRAI')
   @Form([
     // Training materials
     Field('trainingMaterials', String, 'Training Materials',
@@ -10122,6 +10150,7 @@ class TrainingModuleEntry {
 @DetailedIn(D09ExperienceDesignSpecification)
 @SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-LCS')
 class LanguageCountrySelection {
+  @SectionId('LACOSE-LANG')
   @Form([
     Field('pickerLocation', String, 'Picker Location',
         hint: 'Header, footer, settings, onboarding'),
@@ -10269,6 +10298,7 @@ class LanguageCountrySelectionUx {
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-REQ')
 class TranslationRequirements {
+  @SectionId('TRAREQ-TRAN')
   @Form([
     Field('i18nFramework', String, 'I18N Framework',
         hint: 'flutter_localizations, intl, easy_localization'),
@@ -10501,6 +10531,7 @@ class Prototype {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('PROTOT-PROT')
   @Form([
     Field('prototypePurpose', String, 'Prototype Purpose',
         hint: 'Primary goal: validation, alignment, feasibility'),
@@ -10623,6 +10654,7 @@ class PrototypeGovernance {
 )
 @SectionId('PG')
 class PrototypeGoals {
+  @SectionId('PG-GOAL')
   @Form([
     // Validation goals
     Field('usabilityValidation', bool, 'Usability Validation',
@@ -10749,6 +10781,7 @@ class PrototypeGoalEntry {
 )
 @SectionId('PRFESU')
 class PrototypeFeatureSubset {
+  @SectionId('PRFESU-FEAT')
   @Form([
     // Selection criteria
     Field('selectionCriteria', String, 'Selection Criteria',
@@ -10876,6 +10909,7 @@ class PrototypeFeatureEntry {
 )
 @SectionId('PRTYSE')
 class PrototypeType {
+  @SectionId('PRTYSE-PROT')
   @Form([
     Field('prototypeType', String, 'Prototype Type', required: true,
         hint: 'Reusable, Training, Throwaway'),
@@ -10918,6 +10952,7 @@ class PrototypeType {
 )
 @SectionId('REUPRO')
 class ReusablePrototype {
+  @SectionId('REUPRO-REUS')
   @Form([
     Field('codeQualityRequirements', String, 'Code Quality Requirements',
         hint: 'Standards prototype code must meet'),
@@ -11022,6 +11057,7 @@ class ReusablePrototypeTransition {
 )
 @SectionId('TP')
 class TrainingPrototype {
+  @SectionId('TP-TRAI')
   @Form([
     // Knowledge transfer
     Field('designDecisionsCarriedForward', String, 'Design Decisions Carried Forward',
@@ -11104,6 +11140,7 @@ class TrainingPrototypeOutputs {
 )
 @SectionId('THPR')
 class ThrowawayPrototype {
+  @SectionId('THPR-THRO')
   @Form([
     Field('evaluationCriteria', String, 'Evaluation Criteria',
         hint: 'Criteria for evaluation'),

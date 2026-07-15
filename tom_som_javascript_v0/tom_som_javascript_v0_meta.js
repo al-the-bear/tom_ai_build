@@ -71,6 +71,7 @@ function _mc_AcceptanceCriteriaSummary(s) {
      new SomMetaNode({
       className: "AcceptanceCriteriaSummary",
       memberName: "acceptanceFrameworkContent",
+      sectionId: "ACCRSU-ACCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -486,6 +487,7 @@ function _mc_AccessChannels(s) {
      new SomMetaNode({
       className: "AccessChannels",
       memberName: "channelDiagram",
+      sectionId: "AC1-CHAN",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -645,6 +647,7 @@ function _mc_AccessLevels(s) {
      new SomMetaNode({
       className: "AccessLevels",
       memberName: "accessLevelDiagram",
+      sectionId: "AL-ACCE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -667,6 +670,7 @@ function _mc_AccessLevels(s) {
      new SomMetaNode({
       className: "AccessLevels",
       memberName: "permissionMatrix",
+      sectionId: "AL-PERM",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 3,
@@ -718,6 +722,7 @@ function _mc_Accessibility(s) {
      new SomMetaNode({
       className: "Accessibility",
       memberName: "accessibilityOverviewContent",
+      sectionId: "ACCESS-ACCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -910,6 +915,7 @@ function _mc_AccessibilityChecklist(s) {
      new SomMetaNode({
       className: "AccessibilityChecklist",
       memberName: "checklistOverviewContent",
+      sectionId: "ACCHLS-CHEC",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -2137,6 +2143,7 @@ function _mc_AlertingConfiguration(s) {
      new SomMetaNode({
       className: "AlertingConfiguration",
       memberName: "alertingOverview",
+      sectionId: "ALCO-ALER",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -6056,6 +6063,7 @@ function _mc_BreakpointConfiguration(s) {
      new SomMetaNode({
       className: "BreakpointConfiguration",
       memberName: "breakpointOverview",
+      sectionId: "BC-BREA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -7233,6 +7241,7 @@ function _mc_BusinessObjectEntry(s) {
      new SomMetaNode({
       className: "BusinessObjectEntry",
       memberName: "identity",
+      sectionId: "BJOEN-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -7240,6 +7249,7 @@ function _mc_BusinessObjectEntry(s) {
      new SomMetaNode({
       className: "BusinessObjectEntry",
       memberName: "domainContext",
+      sectionId: "BJOEN-DOMA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -7247,6 +7257,7 @@ function _mc_BusinessObjectEntry(s) {
      new SomMetaNode({
       className: "BusinessObjectEntry",
       memberName: "lifecycleSummary",
+      sectionId: "BJOEN-LIFE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
@@ -7265,6 +7276,7 @@ function _mc_BusinessObjectEntry(s) {
      new SomMetaNode({
       className: "BusinessObjectEntry",
       memberName: "ownership",
+      sectionId: "BJOEN-OWNE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
@@ -7705,6 +7717,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "identity",
+      sectionId: "BIRU-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -7712,6 +7725,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "classification",
+      sectionId: "BIRU-CLAS",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -7719,6 +7733,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "ruleLogic",
+      sectionId: "BIRU-RULE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
@@ -7726,6 +7741,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "implementation",
+      sectionId: "BIRU-IMPL",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -7733,6 +7749,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "exceptionHandling",
+      sectionId: "BIRU-EXCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
@@ -7740,6 +7757,7 @@ function _mc_BusinessRuleEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleEntry",
       memberName: "governance",
+      sectionId: "BIRU-GOVE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 5,
@@ -9411,6 +9429,7 @@ function _mc_ChangesFromCurrentStructure(s) {
      new SomMetaNode({
       className: "ChangesFromCurrentStructure",
       memberName: "overviewContent",
+      sectionId: "OCCHG-OVER",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -11039,6 +11058,7 @@ function _mc_CommunicationMatrix(s) {
      new SomMetaNode({
       className: "CommunicationMatrix",
       memberName: "communicationFlowDiagram",
+      sectionId: "COMA-COMM",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -11269,6 +11289,7 @@ function _mc_CompatibilityCharacteristic(s) {
      new SomMetaNode({
       className: "CompatibilityCharacteristic",
       memberName: "compatibilityContent",
+      sectionId: "CMPT-COMP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -14354,6 +14375,7 @@ function _mc_ContextDiagram(s) {
      new SomMetaNode({
       className: "ContextDiagram",
       memberName: "diagram",
+      sectionId: "CD-DIAG",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -14363,6 +14385,7 @@ function _mc_ContextDiagram(s) {
      new SomMetaNode({
       className: "ContextDiagram",
       memberName: "legend",
+      sectionId: "CD-LEGE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -14376,6 +14399,7 @@ function _mc_ContextualHelp(s) {
      new SomMetaNode({
       className: "ContextualHelp",
       memberName: "contextualHelpContent",
+      sectionId: "COHE-CONT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -15056,6 +15080,7 @@ function _mc_CurrentArchitecture(s) {
      new SomMetaNode({
       className: "CurrentArchitecture",
       memberName: "architectureDiagram",
+      sectionId: "CARCH-ARCH",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -15065,6 +15090,7 @@ function _mc_CurrentArchitecture(s) {
      new SomMetaNode({
       className: "CurrentArchitecture",
       memberName: "deploymentTopology",
+      sectionId: "CARCH-DEPL",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -15169,6 +15195,7 @@ function _mc_CurrentBusinessProcesses(s) {
      new SomMetaNode({
       className: "CurrentBusinessProcesses",
       memberName: "processLandscapeDiagram",
+      sectionId: "CUBUPR-PROC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -15293,6 +15320,7 @@ function _mc_CurrentDataLandscape(s) {
      new SomMetaNode({
       className: "CurrentDataLandscape",
       memberName: "dataLandscapeOverviewDiagram",
+      sectionId: "CUDALA-DATAL",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -15301,6 +15329,7 @@ function _mc_CurrentDataLandscape(s) {
      new SomMetaNode({
       className: "CurrentDataLandscape",
       memberName: "dataArchitectureDiagram",
+      sectionId: "CUDALA-DATA",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -15581,6 +15610,7 @@ function _mc_CurrentWorkflowEntry(s) {
      new SomMetaNode({
       className: "CurrentWorkflowEntry",
       memberName: "workflowDiagram",
+      sectionId: "CUWF-WORK",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -16466,6 +16496,7 @@ function _mc_D04RequirementsSpecification(s) {
      new SomMetaNode({
       className: "D04RequirementsSpecification",
       memberName: "traceabilityMatrix",
+      sectionId: "RSP-TRAC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 6,
@@ -18228,6 +18259,7 @@ function _mc_DataAttributeEntry(s) {
      new SomMetaNode({
       className: "DataAttributeEntry",
       memberName: "identity",
+      sectionId: "DAATT-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -18235,6 +18267,7 @@ function _mc_DataAttributeEntry(s) {
      new SomMetaNode({
       className: "DataAttributeEntry",
       memberName: "dataTypeSpec",
+      sectionId: "DAATT-DATA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -18253,6 +18286,7 @@ function _mc_DataAttributeEntry(s) {
      new SomMetaNode({
       className: "DataAttributeEntry",
       memberName: "derivation",
+      sectionId: "DAATT-DERI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -18260,6 +18294,7 @@ function _mc_DataAttributeEntry(s) {
      new SomMetaNode({
       className: "DataAttributeEntry",
       memberName: "securityClassification",
+      sectionId: "DAATT-SECU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
@@ -18267,6 +18302,7 @@ function _mc_DataAttributeEntry(s) {
      new SomMetaNode({
       className: "DataAttributeEntry",
       memberName: "migrationLineage",
+      sectionId: "DAATT-MIGR",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 5,
@@ -18290,6 +18326,7 @@ function _mc_DataClassification(s) {
      new SomMetaNode({
       className: "DataClassification",
       memberName: "overview",
+      sectionId: "DATCL-OVER",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -18314,6 +18351,7 @@ function _mc_DataClassificationEntry(s) {
      new SomMetaNode({
       className: "DataClassificationEntry",
       memberName: "identity",
+      sectionId: "DCLSE-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -18321,6 +18359,7 @@ function _mc_DataClassificationEntry(s) {
      new SomMetaNode({
       className: "DataClassificationEntry",
       memberName: "storageTransmission",
+      sectionId: "DCLSE-STOR",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -18328,6 +18367,7 @@ function _mc_DataClassificationEntry(s) {
      new SomMetaNode({
       className: "DataClassificationEntry",
       memberName: "accessControl",
+      sectionId: "DCLSE-ACCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
@@ -18335,6 +18375,7 @@ function _mc_DataClassificationEntry(s) {
      new SomMetaNode({
       className: "DataClassificationEntry",
       memberName: "retentionDisposal",
+      sectionId: "DCLSE-RETE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -18342,6 +18383,7 @@ function _mc_DataClassificationEntry(s) {
      new SomMetaNode({
       className: "DataClassificationEntry",
       memberName: "compliance",
+      sectionId: "DCLSE-COMP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
@@ -18447,6 +18489,7 @@ function _mc_DataDuplicationAnalysis(s) {
      new SomMetaNode({
       className: "DataDuplicationAnalysis",
       memberName: "duplicationDiagram",
+      sectionId: "DADUAN-DUPL",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -18568,6 +18611,7 @@ function _mc_DataEntityEntry(s) {
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "identity",
+      sectionId: "DAENT-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -18575,6 +18619,7 @@ function _mc_DataEntityEntry(s) {
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "classification",
+      sectionId: "DAENT-CLAS",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -18593,6 +18638,7 @@ function _mc_DataEntityEntry(s) {
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "lifecyclePolicy",
+      sectionId: "DAENT-LIFE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -18611,6 +18657,7 @@ function _mc_DataEntityEntry(s) {
      new SomMetaNode({
       className: "DataEntityEntry",
       memberName: "relationshipSummary",
+      sectionId: "DAENT-RELA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 5,
@@ -18855,6 +18902,7 @@ function _mc_DataGovernance(s) {
      new SomMetaNode({
       className: "DataGovernance",
       memberName: "governanceOrgChart",
+      sectionId: "DAGO-GOVE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -19201,6 +19249,7 @@ function _mc_DataIntegrationPoints(s) {
      new SomMetaNode({
       className: "DataIntegrationPoints",
       memberName: "dataFlowDiagram",
+      sectionId: "DAINPO-DATA",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -19684,6 +19733,7 @@ function _mc_DataOwnership(s) {
      new SomMetaNode({
       className: "DataOwnership",
       memberName: "ownershipMatrixDiagram",
+      sectionId: "DAOW-OWNE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -20123,6 +20173,7 @@ function _mc_DataQualityAssessment(s) {
      new SomMetaNode({
       className: "DataQualityAssessment",
       memberName: "qualityIssuesSeverityChart",
+      sectionId: "DAQUAS-QUAL",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -20556,6 +20607,7 @@ function _mc_DataSourceInventory(s) {
      new SomMetaNode({
       className: "DataSourceInventory",
       memberName: "dataSourceMapDiagram",
+      sectionId: "DASOIN-DATA",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -20925,6 +20977,7 @@ function _mc_DataVolumesAndGrowth(s) {
      new SomMetaNode({
       className: "DataVolumesAndGrowth",
       memberName: "growthTrendChart",
+      sectionId: "DVAG-GROW",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -22219,6 +22272,7 @@ function _mc_DependenciesAndIntegrations(s) {
      new SomMetaNode({
       className: "DependenciesAndIntegrations",
       memberName: "dependencyDiagram",
+      sectionId: "DEPNT-DEPE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -25758,6 +25812,7 @@ function _mc_DocumentationQualityCriteria(s) {
      new SomMetaNode({
       className: "DocumentationQualityCriteria",
       memberName: "documentationOverviewContent",
+      sectionId: "DOQUCR-DOCU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -26074,6 +26129,7 @@ function _mc_DomainBoundaries(s) {
      new SomMetaNode({
       className: "DomainBoundaries",
       memberName: "contextMap",
+      sectionId: "DB-CONT",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -26083,6 +26139,7 @@ function _mc_DomainBoundaries(s) {
      new SomMetaNode({
       className: "DomainBoundaries",
       memberName: "withinScope",
+      sectionId: "DB-WITH",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -26091,6 +26148,7 @@ function _mc_DomainBoundaries(s) {
      new SomMetaNode({
       className: "DomainBoundaries",
       memberName: "outsideScope",
+      sectionId: "DB-OUTS",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 3,
@@ -26343,6 +26401,7 @@ function _mc_DomainProcesses(s) {
      new SomMetaNode({
       className: "DomainProcesses",
       memberName: "processOverviewDiagram",
+      sectionId: "DP-PROC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -26969,6 +27028,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "identity",
+      sectionId: "ENRLE-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -26987,6 +27047,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "cardinality",
+      sectionId: "ENRLE-CARD",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
@@ -26994,6 +27055,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "referentialIntegrity",
+      sectionId: "ENRLE-REFE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -27001,6 +27063,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "navigation",
+      sectionId: "ENRLE-NAVI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
@@ -27792,6 +27855,7 @@ function _mc_ErrorHandling(s) {
      new SomMetaNode({
       className: "ErrorHandling",
       memberName: "errorPhilosophyContent",
+      sectionId: "ERHACO-ERRO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -28095,6 +28159,7 @@ function _mc_ErrorRecovery(s) {
      new SomMetaNode({
       className: "ErrorRecovery",
       memberName: "recoveryMechanismsContent",
+      sectionId: "ERRE-RECO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -29550,6 +29615,7 @@ function _mc_ExternalInterfaceEntry(s) {
      new SomMetaNode({
       className: "ExternalInterfaceEntry",
       memberName: "identificationContent",
+      sectionId: "EIE-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -30132,6 +30198,7 @@ function _mc_ExternalSystemContextEntry(s) {
      new SomMetaNode({
       className: "ExternalSystemContextEntry",
       memberName: "dataMapping",
+      sectionId: "EXSYCOEN-DATA",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 4,
@@ -31398,6 +31465,7 @@ function _mc_FlexibilityCharacteristic(s) {
      new SomMetaNode({
       className: "FlexibilityCharacteristic",
       memberName: "flexibilityContent",
+      sectionId: "FLXC-FLEX",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -31792,6 +31860,7 @@ function _mc_FunctionModel(s) {
      new SomMetaNode({
       className: "FunctionModel",
       memberName: "decompositionOverview",
+      sectionId: "FUMO-DECO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -31799,6 +31868,7 @@ function _mc_FunctionModel(s) {
      new SomMetaNode({
       className: "FunctionModel",
       memberName: "matrixOverview",
+      sectionId: "FUMO-MATR",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -32115,6 +32185,7 @@ function _mc_FunctionalRequirements(s) {
      new SomMetaNode({
       className: "FunctionalRequirements",
       memberName: "summaryForm",
+      sectionId: "FR-SUMM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -32174,6 +32245,7 @@ function _mc_FunctionalSuitabilityCharacteristic(s) {
      new SomMetaNode({
       className: "FunctionalSuitabilityCharacteristic",
       memberName: "functionalSuitabilityContent",
+      sectionId: "FNSU-FUNC",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -32656,6 +32728,7 @@ function _mc_GoalResources(s) {
      new SomMetaNode({
       className: "GoalResources",
       memberName: "resourcesForm",
+      sectionId: "GORE-RESO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -32772,6 +32845,7 @@ function _mc_Goals(s) {
      new SomMetaNode({
       className: "Goals",
       memberName: "goalHierarchyDiagram",
+      sectionId: "GOALS-GOAL",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -35439,6 +35513,7 @@ function _mc_InteractionCapabilityCharacteristic(s) {
      new SomMetaNode({
       className: "InteractionCapabilityCharacteristic",
       memberName: "interactionCapabilityContent",
+      sectionId: "INCP-INTE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -37067,6 +37142,7 @@ function _mc_IntroductionAndScope(s) {
      new SomMetaNode({
       className: "IntroductionAndScope",
       memberName: "systemContextDiagram",
+      sectionId: "INSC-SYST",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -37840,6 +37916,7 @@ function _mc_KeyConcepts(s) {
      new SomMetaNode({
       className: "KeyConcepts",
       memberName: "conceptualModelDiagram",
+      sectionId: "KC-CONC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -38139,6 +38216,7 @@ function _mc_LanguageCountrySelection(s) {
      new SomMetaNode({
       className: "LanguageCountrySelection",
       memberName: "languageSelectionContent",
+      sectionId: "LACOSE-LANG",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -39052,6 +39130,7 @@ function _mc_LocalizationProcess(s) {
      new SomMetaNode({
       className: "LocalizationProcess",
       memberName: "localizationProcessContent",
+      sectionId: "LOPR-LOCA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -39692,6 +39771,7 @@ function _mc_MaintainabilityCharacteristic(s) {
      new SomMetaNode({
       className: "MaintainabilityCharacteristic",
       memberName: "maintainabilityContent",
+      sectionId: "MNTC-MAIN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -40529,6 +40609,7 @@ function _mc_MetricsAndObservability(s) {
      new SomMetaNode({
       className: "MetricsAndObservability",
       memberName: "metricsOverview",
+      sectionId: "MEANOB-METR",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -40910,6 +40991,7 @@ function _mc_MigrationConsiderations(s) {
      new SomMetaNode({
       className: "MigrationConsiderations",
       memberName: "strategyContent",
+      sectionId: "MIGCON-STRA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -41724,6 +41806,7 @@ function _mc_MigrationRisks(s) {
      new SomMetaNode({
       className: "MigrationRisks",
       memberName: "governanceContent",
+      sectionId: "MIRI-GOVE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -42525,6 +42608,7 @@ function _mc_Monitoring(s) {
      new SomMetaNode({
       className: "Monitoring",
       memberName: "monitoringOverview",
+      sectionId: "MONITO-MONI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -42783,6 +42867,7 @@ function _mc_MonitoringDashboards(s) {
      new SomMetaNode({
       className: "MonitoringDashboards",
       memberName: "dashboardOverview",
+      sectionId: "MODA-DASH",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -43084,6 +43169,7 @@ function _mc_MultiChannelExperience(s) {
      new SomMetaNode({
       className: "MultiChannelExperience",
       memberName: "multiChannelConfiguration",
+      sectionId: "MCE-MULT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -43097,6 +43183,7 @@ function _mc_MultiLanguageSupport(s) {
      new SomMetaNode({
       className: "MultiLanguageSupport",
       memberName: "multiLanguageOverview",
+      sectionId: "MLAR-MULT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -43144,6 +43231,7 @@ function _mc_MustPassCriteria(s) {
      new SomMetaNode({
       className: "MustPassCriteria",
       memberName: "mustPassOverviewContent",
+      sectionId: "MUPACR-MUST",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -45307,6 +45395,7 @@ function _mc_OnboardingHelp(s) {
      new SomMetaNode({
       className: "OnboardingHelp",
       memberName: "onboardingContent",
+      sectionId: "ONHE-ONBO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -45909,6 +45998,7 @@ function _mc_OrgRequirementImplementationPlan(s) {
      new SomMetaNode({
       className: "OrgRequirementImplementationPlan",
       memberName: "planForm",
+      sectionId: "ORIP-PLAN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -46083,6 +46173,7 @@ function _mc_OrganizationalContext(s) {
      new SomMetaNode({
       className: "OrganizationalContext",
       memberName: "businessProcessCoverage",
+      sectionId: "OC-BUSI",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -46096,6 +46187,7 @@ function _mc_OrganizationalEnvironment(s) {
      new SomMetaNode({
       className: "OrganizationalEnvironment",
       memberName: "organizationContent",
+      sectionId: "OREN-ORGA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -46420,6 +46512,7 @@ function _mc_OrganizationalRequirements(s) {
      new SomMetaNode({
       className: "OrganizationalRequirements",
       memberName: "summaryForm",
+      sectionId: "OR-SUMM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -47000,6 +47093,7 @@ function _mc_PainPointGapCorrelation(s) {
      new SomMetaNode({
       className: "PainPointGapCorrelation",
       memberName: "correlationDiagram",
+      sectionId: "PPGC-CORR",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -47106,6 +47200,7 @@ function _mc_PainPointsAndGaps(s) {
      new SomMetaNode({
       className: "PainPointsAndGaps",
       memberName: "painPointsOverviewDiagram",
+      sectionId: "PPAG-PAIN",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -47114,6 +47209,7 @@ function _mc_PainPointsAndGaps(s) {
      new SomMetaNode({
       className: "PainPointsAndGaps",
       memberName: "painPointsPriorityMatrix",
+      sectionId: "PPAG-PAINP",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -47568,6 +47664,7 @@ function _mc_PerformanceEfficiencyCharacteristic(s) {
      new SomMetaNode({
       className: "PerformanceEfficiencyCharacteristic",
       memberName: "performanceEfficiencyContent",
+      sectionId: "PEEF-PERF",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -49409,6 +49506,7 @@ function _mc_ProcessAdjustments(s) {
      new SomMetaNode({
       className: "ProcessAdjustments",
       memberName: "processFlowDiagram",
+      sectionId: "PCADJ-PROC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -50109,6 +50207,7 @@ function _mc_ProcessInterdependencyMatrix(s) {
      new SomMetaNode({
       className: "ProcessInterdependencyMatrix",
       memberName: "dependencyDiagram",
+      sectionId: "PRINMA-DEPE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -51252,6 +51351,7 @@ function _mc_ProjectOrganizationAndProcess(s) {
      new SomMetaNode({
       className: "ProjectOrganizationAndProcess",
       memberName: "methodologyDeviationDiagram",
+      sectionId: "PRPO-METH",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -51623,6 +51723,7 @@ function _mc_Prototype(s) {
      new SomMetaNode({
       className: "Prototype",
       memberName: "prototypeOverview",
+      sectionId: "PROTOT-PROT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -51737,6 +51838,7 @@ function _mc_PrototypeFeatureSubset(s) {
      new SomMetaNode({
       className: "PrototypeFeatureSubset",
       memberName: "featureSubsetContent",
+      sectionId: "PRFESU-FEAT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -51829,6 +51931,7 @@ function _mc_PrototypeGoals(s) {
      new SomMetaNode({
       className: "PrototypeGoals",
       memberName: "goalsContent",
+      sectionId: "PG-GOAL",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -51945,6 +52048,7 @@ function _mc_PrototypeType(s) {
      new SomMetaNode({
       className: "PrototypeType",
       memberName: "prototypeTypeOverview",
+      sectionId: "PRTYSE-PROT",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -52268,6 +52372,7 @@ function _mc_QualityFramework(s) {
      new SomMetaNode({
       className: "QualityFramework",
       memberName: "frameworkContent",
+      sectionId: "QLFWK-FRAM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -52534,6 +52639,7 @@ function _mc_QualityGateAdjustments(s) {
      new SomMetaNode({
       className: "QualityGateAdjustments",
       memberName: "gateFlowDiagram",
+      sectionId: "QGADJ-GATE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -52691,6 +52797,7 @@ function _mc_QualityGateChecklist(s) {
      new SomMetaNode({
       className: "QualityGateChecklist",
       memberName: "checklistOverviewContent",
+      sectionId: "QUGACH-CHEC",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -52772,6 +52879,7 @@ function _mc_QualityPrioritization(s) {
      new SomMetaNode({
       className: "QualityPrioritization",
       memberName: "prioritizationFrameworkContent",
+      sectionId: "QUPR-PRIO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -53914,6 +54022,7 @@ function _mc_ReliabilityCharacteristic(s) {
      new SomMetaNode({
       className: "ReliabilityCharacteristic",
       memberName: "reliabilityContent",
+      sectionId: "RELC-RELI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -55601,6 +55710,7 @@ function _mc_RequirementTraceability(s) {
      new SomMetaNode({
       className: "RequirementTraceability",
       memberName: "traceabilityForm",
+      sectionId: "RT-TRAC",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -55669,6 +55779,7 @@ function _mc_RequirementUiSpecification(s) {
      new SomMetaNode({
       className: "RequirementUiSpecification",
       memberName: "uiForm",
+      sectionId: "RUS-UIFO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -55677,6 +55788,7 @@ function _mc_RequirementUiSpecification(s) {
      new SomMetaNode({
       className: "RequirementUiSpecification",
       memberName: "layoutCode",
+      sectionId: "RUS-LAYO",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -55686,6 +55798,7 @@ function _mc_RequirementUiSpecification(s) {
      new SomMetaNode({
       className: "RequirementUiSpecification",
       memberName: "mockupDescription",
+      sectionId: "RUS-MOCK",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 3,
@@ -55790,6 +55903,7 @@ function _mc_RequirementsOverview(s) {
      new SomMetaNode({
       className: "RequirementsOverview",
       memberName: "requirementsForm",
+      sectionId: "RO-REQU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -55798,6 +55912,7 @@ function _mc_RequirementsOverview(s) {
      new SomMetaNode({
       className: "RequirementsOverview",
       memberName: "traceabilityMatrix",
+      sectionId: "RO-TRAC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -56286,6 +56401,7 @@ function _mc_ResponsiveBehavior(s) {
      new SomMetaNode({
       className: "ResponsiveBehavior",
       memberName: "layoutAdaptation",
+      sectionId: "REBE-LAYO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -56415,6 +56531,7 @@ function _mc_ResponsiveDesign(s) {
      new SomMetaNode({
       className: "ResponsiveDesign",
       memberName: "responsiveOverview",
+      sectionId: "REDE-RESP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -56793,6 +56910,7 @@ function _mc_ReusablePrototype(s) {
      new SomMetaNode({
       className: "ReusablePrototype",
       memberName: "reusableContent",
+      sectionId: "REUPRO-REUS",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -57804,6 +57922,7 @@ function _mc_RoleAdjustments(s) {
      new SomMetaNode({
       className: "RoleAdjustments",
       memberName: "roleComparisonDiagram",
+      sectionId: "RLADJ-ROLE",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -61107,6 +61226,7 @@ function _mc_SecurityCharacteristic(s) {
      new SomMetaNode({
       className: "SecurityCharacteristic",
       memberName: "securityContent",
+      sectionId: "SECC-SECU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -61708,6 +61828,7 @@ function _mc_SecurityRequirements(s) {
      new SomMetaNode({
       className: "SecurityRequirements",
       memberName: "summaryForm",
+      sectionId: "SR1-SUMM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -63340,6 +63461,7 @@ function _mc_SessionModel(s) {
      new SomMetaNode({
       className: "SessionModel",
       memberName: "sessionConfiguration",
+      sectionId: "SM-SESS",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -64043,6 +64165,7 @@ function _mc_SlaAndSloMonitoring(s) {
      new SomMetaNode({
       className: "SlaAndSloMonitoring",
       memberName: "slaOverview",
+      sectionId: "SASM-SLAO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -67286,6 +67409,7 @@ function _mc_SuccessCriteria(s) {
      new SomMetaNode({
       className: "SuccessCriteria",
       memberName: "successCriteriaMatrix",
+      sectionId: "SC-SUCC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 5,
@@ -67312,6 +67436,7 @@ function _mc_SuccessCriteriaByCategory(s) {
      new SomMetaNode({
       className: "SuccessCriteriaByCategory",
       memberName: "businessCriteria",
+      sectionId: "SCBC-BUSI",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 0,
@@ -67321,6 +67446,7 @@ function _mc_SuccessCriteriaByCategory(s) {
      new SomMetaNode({
       className: "SuccessCriteriaByCategory",
       memberName: "technicalCriteria",
+      sectionId: "SCBC-TECH",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -67330,6 +67456,7 @@ function _mc_SuccessCriteriaByCategory(s) {
      new SomMetaNode({
       className: "SuccessCriteriaByCategory",
       memberName: "userCriteria",
+      sectionId: "SCBC-USER",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 2,
@@ -67339,6 +67466,7 @@ function _mc_SuccessCriteriaByCategory(s) {
      new SomMetaNode({
       className: "SuccessCriteriaByCategory",
       memberName: "complianceCriteria",
+      sectionId: "SCBC-COMP",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 3,
@@ -67348,6 +67476,7 @@ function _mc_SuccessCriteriaByCategory(s) {
      new SomMetaNode({
       className: "SuccessCriteriaByCategory",
       memberName: "projectCriteria",
+      sectionId: "SCBC-PROJ",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 4,
@@ -67544,6 +67673,7 @@ function _mc_SupportAccess(s) {
      new SomMetaNode({
       className: "SupportAccess",
       memberName: "supportAccessContent",
+      sectionId: "SUAC-SUPP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -68815,6 +68945,7 @@ function _mc_SystemErrorDisplay(s) {
      new SomMetaNode({
       className: "SystemErrorDisplay",
       memberName: "systemErrorContent",
+      sectionId: "SYERDI-SYST",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -69406,6 +69537,7 @@ function _mc_SystemPurpose(s) {
      new SomMetaNode({
       className: "SystemPurpose",
       memberName: "visionStatement",
+      sectionId: "SYPUP-VISI",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -69492,6 +69624,7 @@ function _mc_SystemQualityGoals(s) {
      new SomMetaNode({
       className: "SystemQualityGoals",
       memberName: "governanceContent",
+      sectionId: "SYQG-GOVE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -70438,6 +70571,7 @@ function _mc_SystemToReplaceEntry(s) {
      new SomMetaNode({
       className: "SystemToReplaceEntry",
       memberName: "identificationContent",
+      sectionId: "SYTORE-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -71333,6 +71467,7 @@ function _mc_TechnicalEnvironment(s) {
      new SomMetaNode({
       className: "TechnicalEnvironment",
       memberName: "technicalOverviewContent",
+      sectionId: "TEEN-TECH",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -71852,6 +71987,7 @@ function _mc_TechnicalGoalTestCriteria(s) {
      new SomMetaNode({
       className: "TechnicalGoalTestCriteria",
       memberName: "testCriteriaForm",
+      sectionId: "TGTC-TEST",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -72177,6 +72313,7 @@ function _mc_TechnicalRequirements(s) {
      new SomMetaNode({
       className: "TechnicalRequirements",
       memberName: "summaryForm",
+      sectionId: "TR1-SUMM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -73253,6 +73390,7 @@ function _mc_ThrowawayPrototype(s) {
      new SomMetaNode({
       className: "ThrowawayPrototype",
       memberName: "throwawayContent",
+      sectionId: "THPR-THRO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -74143,6 +74281,7 @@ function _mc_TradeOffDecisions(s) {
      new SomMetaNode({
       className: "TradeOffDecisions",
       memberName: "tradeOffGovernanceContent",
+      sectionId: "TROFDE-TRAD",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -74260,6 +74399,7 @@ function _mc_TrainingDeliverableRequirements(s) {
      new SomMetaNode({
       className: "TrainingDeliverableRequirements",
       memberName: "trainingContent",
+      sectionId: "TRMAT-TRAI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -74452,6 +74592,7 @@ function _mc_TrainingPrototype(s) {
      new SomMetaNode({
       className: "TrainingPrototype",
       memberName: "trainingContent",
+      sectionId: "TP-TRAI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -75221,6 +75362,7 @@ function _mc_TranslationProcess(s) {
      new SomMetaNode({
       className: "TranslationProcess",
       memberName: "translationProcessContent",
+      sectionId: "TRPR-TRAN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -75313,6 +75455,7 @@ function _mc_TranslationRequirements(s) {
      new SomMetaNode({
       className: "TranslationRequirements",
       memberName: "translationRequirementsContent",
+      sectionId: "TRAREQ-TRAN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -75853,6 +75996,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "identity",
+      sectionId: "UICOMENT-IDEN",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -75884,6 +76028,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "visualDesign",
+      sectionId: "UICOMENT-VISU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 3,
@@ -75936,6 +76081,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "interactiveBehavior",
+      sectionId: "UICOMENT-INTE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 8,
@@ -75979,6 +76125,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "responsiveness",
+      sectionId: "UICOMENT-RESP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 12,
@@ -75986,6 +76133,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "accessibility",
+      sectionId: "UICOMENT-ACCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 13,
@@ -75993,6 +76141,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "authorization",
+      sectionId: "UICOMENT-AUTH",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 14,
@@ -76000,6 +76149,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "resourceIntegration",
+      sectionId: "UICOMENT-RESO",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 15,
@@ -76007,6 +76157,7 @@ function _mc_UiComponentEntry(s) {
      new SomMetaNode({
       className: "UiComponentEntry",
       memberName: "dataBinding",
+      sectionId: "UICOMENT-DATA",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 16,
@@ -76184,6 +76335,7 @@ function _mc_UiComponents(s) {
      new SomMetaNode({
       className: "UiComponents",
       memberName: "componentLibraryOverview",
+      sectionId: "UICO-COMP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -76654,6 +76806,7 @@ function _mc_UserAccessPermissions(s) {
      new SomMetaNode({
       className: "UserAccessPermissions",
       memberName: "permissionsForm",
+      sectionId: "UAP-PERM",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -76734,6 +76887,7 @@ function _mc_UserAccessibilityNeeds(s) {
      new SomMetaNode({
       className: "UserAccessibilityNeeds",
       memberName: "accessibilityForm",
+      sectionId: "UAN-ACCE",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -76767,6 +76921,7 @@ function _mc_UserAssistance(s) {
      new SomMetaNode({
       className: "UserAssistance",
       memberName: "helpOverviewContent",
+      sectionId: "USAS-HELP",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -77220,6 +77375,7 @@ function _mc_UserDocumentationRequirements(s) {
      new SomMetaNode({
       className: "UserDocumentationRequirements",
       memberName: "documentationContent",
+      sectionId: "DOANTR-DOCU",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -77476,6 +77632,7 @@ function _mc_UserJourney(s) {
      new SomMetaNode({
       className: "UserJourney",
       memberName: "journeyDiagram",
+      sectionId: "UJ-JOUR",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -77521,6 +77678,7 @@ function _mc_UserJourney(s) {
      new SomMetaNode({
       className: "UserJourney",
       memberName: "opportunitiesForDelight",
+      sectionId: "UJ-OPPO",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 5,
@@ -77881,6 +78039,7 @@ function _mc_UserPersonaDetails(s) {
      new SomMetaNode({
       className: "UserPersonaDetails",
       memberName: "personaForm",
+      sectionId: "UPD-PERS",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -77925,6 +78084,7 @@ function _mc_UserPersonaDetails(s) {
      new SomMetaNode({
       className: "UserPersonaDetails",
       memberName: "visualRepresentation",
+      sectionId: "UPD-VISU",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 5,
@@ -78139,6 +78299,7 @@ function _mc_UserTrainingRequirements(s) {
      new SomMetaNode({
       className: "UserTrainingRequirements",
       memberName: "trainingForm",
+      sectionId: "USTRRE-TRAI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -78334,6 +78495,7 @@ function _mc_ValidationFeedback(s) {
      new SomMetaNode({
       className: "ValidationFeedback",
       memberName: "validationDisplayContent",
+      sectionId: "VAFE-VALI",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -79189,6 +79351,7 @@ function _mc_WcagCompliance(s) {
      new SomMetaNode({
       className: "WcagCompliance",
       memberName: "wcagComplianceContent",
+      sectionId: "WCCO-WCAG",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -79305,6 +79468,7 @@ function _mc_WeightedQualityMatrix(s) {
      new SomMetaNode({
       className: "WeightedQualityMatrix",
       memberName: "matrixConfigContent",
+      sectionId: "WEQUMA-MATR",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
@@ -79413,6 +79577,7 @@ function _mc_WorkflowDescriptions(s) {
      new SomMetaNode({
       className: "WorkflowDescriptions",
       memberName: "workflowOverviewDiagram",
+      sectionId: "WODE-WORK",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -79597,6 +79762,7 @@ function _mc_WorkflowStepSystem(s) {
      new SomMetaNode({
       className: "WorkflowStepSystem",
       memberName: "name",
+      sectionId: "WOSTSY-NAME",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 0,
@@ -79944,7 +80110,7 @@ class AcceptanceCriteriaList$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class AcceptanceCriteriaSummary$Nav extends SomMetaRef {
   get acceptanceFrameworkContent() {
-    return new SomMetaRef(this.tree, this.path + "/acceptanceFrameworkContent");
+    return new SomMetaRef(this.tree, this.path + "/ACCRSU-ACCE");
   }
 
   get acceptanceOverview() {
@@ -80162,7 +80328,7 @@ class AccessChannels$Nav extends SomMetaRef {
   }
 
   get channelDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/channelDiagram");
+    return new SomMetaRef(this.tree, this.path + "/AC1-CHAN");
   }
 
   get channels() {
@@ -80260,7 +80426,7 @@ class AccessLevels$Nav extends SomMetaRef {
   }
 
   get accessLevelDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/accessLevelDiagram");
+    return new SomMetaRef(this.tree, this.path + "/AL-ACCE");
   }
 
   get levels() {
@@ -80268,7 +80434,7 @@ class AccessLevels$Nav extends SomMetaRef {
   }
 
   get permissionMatrix() {
-    return new SomMetaRef(this.tree, this.path + "/permissionMatrix");
+    return new SomMetaRef(this.tree, this.path + "/AL-PERM");
   }
 }
 
@@ -80302,7 +80468,7 @@ class AccessUserCategories$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class Accessibility$Nav extends SomMetaRef {
   get accessibilityOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/accessibilityOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/ACCESS-ACCE");
   }
 
   get strategy() {
@@ -80400,7 +80566,7 @@ class AccessibilityCheckEntryRemediation$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class AccessibilityChecklist$Nav extends SomMetaRef {
   get checklistOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/checklistOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/ACCHLS-CHEC");
   }
 
   get checklistOverview() {
@@ -81162,7 +81328,7 @@ class AlertSuppressionRules$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class AlertingConfiguration$Nav extends SomMetaRef {
   get alertingOverview() {
-    return new SomMetaRef(this.tree, this.path + "/alertingOverview");
+    return new SomMetaRef(this.tree, this.path + "/ALCO-ALER");
   }
 
   get overviewNarrative() {
@@ -83388,7 +83554,7 @@ class BreadcrumbConfiguration$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class BreakpointConfiguration$Nav extends SomMetaRef {
   get breakpointOverview() {
-    return new SomMetaRef(this.tree, this.path + "/breakpointOverview");
+    return new SomMetaRef(this.tree, this.path + "/BC-BREA");
   }
 
   get breakpoints() {
@@ -84068,15 +84234,15 @@ class BusinessObjectAttributeEntryValidation$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class BusinessObjectEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-IDEN");
   }
 
   get domainContext() {
-    return new SomMetaRef(this.tree, this.path + "/domainContext");
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-DOMA");
   }
 
   get lifecycleSummary() {
-    return new SomMetaRef(this.tree, this.path + "/lifecycleSummary");
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-LIFE");
   }
 
   get behaviorRules() {
@@ -84084,7 +84250,7 @@ class BusinessObjectEntry$Nav extends SomMetaRef {
   }
 
   get ownership() {
-    return new SomMetaRef(this.tree, this.path + "/ownership");
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-OWNE");
   }
 
   get integrationPoints() {
@@ -84264,27 +84430,27 @@ class BusinessProcessEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class BusinessRuleEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-IDEN");
   }
 
   get classification() {
-    return new SomMetaRef(this.tree, this.path + "/classification");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-CLAS");
   }
 
   get ruleLogic() {
-    return new SomMetaRef(this.tree, this.path + "/ruleLogic");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-RULE");
   }
 
   get implementation() {
-    return new SomMetaRef(this.tree, this.path + "/implementation");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-IMPL");
   }
 
   get exceptionHandling() {
-    return new SomMetaRef(this.tree, this.path + "/exceptionHandling");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-EXCE");
   }
 
   get governance() {
-    return new SomMetaRef(this.tree, this.path + "/governance");
+    return new SomMetaRef(this.tree, this.path + "/BIRU-GOVE");
   }
 
   get affectedObjects() {
@@ -85236,7 +85402,7 @@ class ChangedRoleTransitionTraining$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ChangesFromCurrentStructure$Nav extends SomMetaRef {
   get overviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/overviewContent");
+    return new SomMetaRef(this.tree, this.path + "/OCCHG-OVER");
   }
 
   get changeNarrative() {
@@ -86204,7 +86370,7 @@ class CommunicationMatrix$Nav extends SomMetaRef {
   }
 
   get communicationFlowDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/communicationFlowDiagram");
+    return new SomMetaRef(this.tree, this.path + "/COMA-COMM");
   }
 
   get communicationTypes() {
@@ -86346,7 +86512,7 @@ class CommunicationTypeEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class CompatibilityCharacteristic$Nav extends SomMetaRef {
   get compatibilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/compatibilityContent");
+    return new SomMetaRef(this.tree, this.path + "/CMPT-COMP");
   }
 
   get overview() {
@@ -88160,11 +88326,11 @@ class ContextDiagram$Nav extends SomMetaRef {
   }
 
   get diagram() {
-    return new SomMetaRef(this.tree, this.path + "/diagram");
+    return new SomMetaRef(this.tree, this.path + "/CD-DIAG");
   }
 
   get legend() {
-    return new SomMetaRef(this.tree, this.path + "/legend");
+    return new SomMetaRef(this.tree, this.path + "/CD-LEGE");
   }
 }
 
@@ -88174,7 +88340,7 @@ class ContextDiagram$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ContextualHelp$Nav extends SomMetaRef {
   get contextualHelpContent() {
-    return new SomMetaRef(this.tree, this.path + "/contextualHelpContent");
+    return new SomMetaRef(this.tree, this.path + "/COHE-CONT");
   }
 
   get inline() {
@@ -88596,11 +88762,11 @@ class CurrentArchitecture$Nav extends SomMetaRef {
   }
 
   get architectureDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/architectureDiagram");
+    return new SomMetaRef(this.tree, this.path + "/CARCH-ARCH");
   }
 
   get deploymentTopology() {
-    return new SomMetaRef(this.tree, this.path + "/deploymentTopology");
+    return new SomMetaRef(this.tree, this.path + "/CARCH-DEPL");
   }
 
   get integrationPatterns() {
@@ -88648,7 +88814,7 @@ class CurrentBusinessProcesses$Nav extends SomMetaRef {
   }
 
   get processLandscapeDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/processLandscapeDiagram");
+    return new SomMetaRef(this.tree, this.path + "/CUBUPR-PROC");
   }
 
   get scopeSummary() {
@@ -88700,11 +88866,11 @@ class CurrentDataLandscape$Nav extends SomMetaRef {
   }
 
   get dataLandscapeOverviewDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dataLandscapeOverviewDiagram");
+    return new SomMetaRef(this.tree, this.path + "/CUDALA-DATAL");
   }
 
   get dataArchitectureDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dataArchitectureDiagram");
+    return new SomMetaRef(this.tree, this.path + "/CUDALA-DATA");
   }
 
   get dataLandscapeSummary() {
@@ -88826,7 +88992,7 @@ class CurrentWorkflowEntry$Nav extends SomMetaRef {
   }
 
   get workflowDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/workflowDiagram");
+    return new SomMetaRef(this.tree, this.path + "/CUWF-WORK");
   }
 
   get triggers() {
@@ -89166,7 +89332,7 @@ class D04RequirementsSpecification$Nav extends SomMetaRef {
   }
 
   get traceabilityMatrix() {
-    return new SomMetaRef(this.tree, this.path + "/traceabilityMatrix");
+    return new SomMetaRef(this.tree, this.path + "/RSP-TRAC");
   }
 
   get requirementRelationships() {
@@ -89884,11 +90050,11 @@ class DataAttributeConstraintEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class DataAttributeEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/DAATT-IDEN");
   }
 
   get dataTypeSpec() {
-    return new SomMetaRef(this.tree, this.path + "/dataTypeSpec");
+    return new SomMetaRef(this.tree, this.path + "/DAATT-DATA");
   }
 
   get constraints() {
@@ -89896,15 +90062,15 @@ class DataAttributeEntry$Nav extends SomMetaRef {
   }
 
   get derivation() {
-    return new SomMetaRef(this.tree, this.path + "/derivation");
+    return new SomMetaRef(this.tree, this.path + "/DAATT-DERI");
   }
 
   get securityClassification() {
-    return new SomMetaRef(this.tree, this.path + "/securityClassification");
+    return new SomMetaRef(this.tree, this.path + "/DAATT-SECU");
   }
 
   get migrationLineage() {
-    return new SomMetaRef(this.tree, this.path + "/migrationLineage");
+    return new SomMetaRef(this.tree, this.path + "/DAATT-MIGR");
   }
 
   get displayProperties() {
@@ -89918,7 +90084,7 @@ class DataAttributeEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class DataClassification$Nav extends SomMetaRef {
   get overview() {
-    return new SomMetaRef(this.tree, this.path + "/overview");
+    return new SomMetaRef(this.tree, this.path + "/DATCL-OVER");
   }
 
   get items() {
@@ -89932,23 +90098,23 @@ class DataClassification$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class DataClassificationEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-IDEN");
   }
 
   get storageTransmission() {
-    return new SomMetaRef(this.tree, this.path + "/storageTransmission");
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-STOR");
   }
 
   get accessControl() {
-    return new SomMetaRef(this.tree, this.path + "/accessControl");
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-ACCE");
   }
 
   get retentionDisposal() {
-    return new SomMetaRef(this.tree, this.path + "/retentionDisposal");
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-RETE");
   }
 
   get compliance() {
-    return new SomMetaRef(this.tree, this.path + "/compliance");
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-COMP");
   }
 
   get handlingRequirements() {
@@ -90014,7 +90180,7 @@ class DataDuplicationAnalysis$Nav extends SomMetaRef {
   }
 
   get duplicationDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/duplicationDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DADUAN-DUPL");
   }
 
   get duplicationInstances() {
@@ -90090,11 +90256,11 @@ class DataDuplicationSummary$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class DataEntityEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/DAENT-IDEN");
   }
 
   get classification() {
-    return new SomMetaRef(this.tree, this.path + "/classification");
+    return new SomMetaRef(this.tree, this.path + "/DAENT-CLAS");
   }
 
   get volumeMetrics() {
@@ -90102,7 +90268,7 @@ class DataEntityEntry$Nav extends SomMetaRef {
   }
 
   get lifecyclePolicy() {
-    return new SomMetaRef(this.tree, this.path + "/lifecyclePolicy");
+    return new SomMetaRef(this.tree, this.path + "/DAENT-LIFE");
   }
 
   get complianceRequirements() {
@@ -90110,7 +90276,7 @@ class DataEntityEntry$Nav extends SomMetaRef {
   }
 
   get relationshipSummary() {
-    return new SomMetaRef(this.tree, this.path + "/relationshipSummary");
+    return new SomMetaRef(this.tree, this.path + "/DAENT-RELA");
   }
 
   get technicalCharacteristics() {
@@ -90242,7 +90408,7 @@ class DataGovernance$Nav extends SomMetaRef {
   }
 
   get governanceOrgChart() {
-    return new SomMetaRef(this.tree, this.path + "/governanceOrgChart");
+    return new SomMetaRef(this.tree, this.path + "/DAGO-GOVE");
   }
 
   get governancePolicies() {
@@ -90454,7 +90620,7 @@ class DataIntegrationPoints$Nav extends SomMetaRef {
   }
 
   get dataFlowDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dataFlowDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DAINPO-DATA");
   }
 
   get integrationPoints() {
@@ -90660,7 +90826,7 @@ class DataOwnership$Nav extends SomMetaRef {
   }
 
   get ownershipMatrixDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/ownershipMatrixDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DAOW-OWNE");
   }
 
   get ownershipAssignments() {
@@ -90904,7 +91070,7 @@ class DataQualityAssessment$Nav extends SomMetaRef {
   }
 
   get qualityIssuesSeverityChart() {
-    return new SomMetaRef(this.tree, this.path + "/qualityIssuesSeverityChart");
+    return new SomMetaRef(this.tree, this.path + "/DAQUAS-QUAL");
   }
 
   get qualityIssues() {
@@ -91144,7 +91310,7 @@ class DataSourceInventory$Nav extends SomMetaRef {
   }
 
   get dataSourceMapDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dataSourceMapDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DASOIN-DATA");
   }
 
   get dataSources() {
@@ -91382,7 +91548,7 @@ class DataVolumesAndGrowth$Nav extends SomMetaRef {
   }
 
   get growthTrendChart() {
-    return new SomMetaRef(this.tree, this.path + "/growthTrendChart");
+    return new SomMetaRef(this.tree, this.path + "/DVAG-GROW");
   }
 
   get volumeBySource() {
@@ -92142,7 +92308,7 @@ class DependenciesAndIntegrations$Nav extends SomMetaRef {
   }
 
   get dependencyDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dependencyDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DEPNT-DEPE");
   }
 
   get internalDependencies() {
@@ -94160,7 +94326,7 @@ class DocumentationDeliverables$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class DocumentationQualityCriteria$Nav extends SomMetaRef {
   get documentationOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/documentationOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/DOQUCR-DOCU");
   }
 
   get overview() {
@@ -94340,15 +94506,15 @@ class DomainBoundaries$Nav extends SomMetaRef {
   }
 
   get contextMap() {
-    return new SomMetaRef(this.tree, this.path + "/contextMap");
+    return new SomMetaRef(this.tree, this.path + "/DB-CONT");
   }
 
   get withinScope() {
-    return new SomMetaRef(this.tree, this.path + "/withinScope");
+    return new SomMetaRef(this.tree, this.path + "/DB-WITH");
   }
 
   get outsideScope() {
-    return new SomMetaRef(this.tree, this.path + "/outsideScope");
+    return new SomMetaRef(this.tree, this.path + "/DB-OUTS");
   }
 
   get interfaces() {
@@ -94508,7 +94674,7 @@ class DomainProcesses$Nav extends SomMetaRef {
   }
 
   get processOverviewDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/processOverviewDiagram");
+    return new SomMetaRef(this.tree, this.path + "/DP-PROC");
   }
 
   get processes() {
@@ -94876,7 +95042,7 @@ class EntityIndexEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class EntityRelationshipEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-IDEN");
   }
 
   get participants() {
@@ -94884,15 +95050,15 @@ class EntityRelationshipEntry$Nav extends SomMetaRef {
   }
 
   get cardinality() {
-    return new SomMetaRef(this.tree, this.path + "/cardinality");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-CARD");
   }
 
   get referentialIntegrity() {
-    return new SomMetaRef(this.tree, this.path + "/referentialIntegrity");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-REFE");
   }
 
   get navigation() {
-    return new SomMetaRef(this.tree, this.path + "/navigation");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-NAVI");
   }
 
   get relationshipAttributes() {
@@ -95358,7 +95524,7 @@ class ErrorBudgetTrackingMonitoring$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ErrorHandling$Nav extends SomMetaRef {
   get errorPhilosophyContent() {
-    return new SomMetaRef(this.tree, this.path + "/errorPhilosophyContent");
+    return new SomMetaRef(this.tree, this.path + "/ERHACO-ERRO");
   }
 
   get classification() {
@@ -95534,7 +95700,7 @@ class ErrorProcedureEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ErrorRecovery$Nav extends SomMetaRef {
   get recoveryMechanismsContent() {
-    return new SomMetaRef(this.tree, this.path + "/recoveryMechanismsContent");
+    return new SomMetaRef(this.tree, this.path + "/ERRE-RECO");
   }
 
   get dataPreservation() {
@@ -96320,7 +96486,7 @@ class ExternalConnectivitySection$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ExternalInterfaceEntry$Nav extends SomMetaRef {
   get identificationContent() {
-    return new SomMetaRef(this.tree, this.path + "/identificationContent");
+    return new SomMetaRef(this.tree, this.path + "/EIE-IDEN");
   }
 
   get businessContext() {
@@ -96630,7 +96796,7 @@ class ExternalSystemContextEntry$Nav extends SomMetaRef {
   }
 
   get dataMapping() {
-    return new SomMetaRef(this.tree, this.path + "/dataMapping");
+    return new SomMetaRef(this.tree, this.path + "/EXSYCOEN-DATA");
   }
 }
 
@@ -97380,7 +97546,7 @@ class Flexibility$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class FlexibilityCharacteristic$Nav extends SomMetaRef {
   get flexibilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/flexibilityContent");
+    return new SomMetaRef(this.tree, this.path + "/FLXC-FLEX");
   }
 
   get overview() {
@@ -97620,11 +97786,11 @@ class FunctionEntryOperations$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class FunctionModel$Nav extends SomMetaRef {
   get decompositionOverview() {
-    return new SomMetaRef(this.tree, this.path + "/decompositionOverview");
+    return new SomMetaRef(this.tree, this.path + "/FUMO-DECO");
   }
 
   get matrixOverview() {
-    return new SomMetaRef(this.tree, this.path + "/matrixOverview");
+    return new SomMetaRef(this.tree, this.path + "/FUMO-MATR");
   }
 
   get functions() {
@@ -97786,7 +97952,7 @@ class FunctionalRequirements$Nav extends SomMetaRef {
   }
 
   get summaryForm() {
-    return new SomMetaRef(this.tree, this.path + "/summaryForm");
+    return new SomMetaRef(this.tree, this.path + "/FR-SUMM");
   }
 
   get requirements() {
@@ -97818,7 +97984,7 @@ class FunctionalResponsibilities$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class FunctionalSuitabilityCharacteristic$Nav extends SomMetaRef {
   get functionalSuitabilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/functionalSuitabilityContent");
+    return new SomMetaRef(this.tree, this.path + "/FNSU-FUNC");
   }
 
   get overview() {
@@ -98114,7 +98280,7 @@ class GoalResources$Nav extends SomMetaRef {
   }
 
   get resourcesForm() {
-    return new SomMetaRef(this.tree, this.path + "/resourcesForm");
+    return new SomMetaRef(this.tree, this.path + "/GORE-RESO");
   }
 
   get items() {
@@ -98184,7 +98350,7 @@ class Goals$Nav extends SomMetaRef {
   }
 
   get goalHierarchyDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/goalHierarchyDiagram");
+    return new SomMetaRef(this.tree, this.path + "/GOALS-GOAL");
   }
 
   get businessGoals() {
@@ -99766,7 +99932,7 @@ class InteractionBusinessRules$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class InteractionCapabilityCharacteristic$Nav extends SomMetaRef {
   get interactionCapabilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/interactionCapabilityContent");
+    return new SomMetaRef(this.tree, this.path + "/INCP-INTE");
   }
 
   get overview() {
@@ -100712,7 +100878,7 @@ class IntroductionAndScope$Nav extends SomMetaRef {
   }
 
   get systemContextDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/systemContextDiagram");
+    return new SomMetaRef(this.tree, this.path + "/INSC-SYST");
   }
 
   get systemDescription() {
@@ -101138,7 +101304,7 @@ class KeyConcepts$Nav extends SomMetaRef {
   }
 
   get conceptualModelDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/conceptualModelDiagram");
+    return new SomMetaRef(this.tree, this.path + "/KC-CONC");
   }
 
   get concepts() {
@@ -101320,7 +101486,7 @@ class KpiEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class LanguageCountrySelection$Nav extends SomMetaRef {
   get languageSelectionContent() {
-    return new SomMetaRef(this.tree, this.path + "/languageSelectionContent");
+    return new SomMetaRef(this.tree, this.path + "/LACOSE-LANG");
   }
 
   get defaults() {
@@ -101844,7 +102010,7 @@ class LocalizationFormatting$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class LocalizationProcess$Nav extends SomMetaRef {
   get localizationProcessContent() {
-    return new SomMetaRef(this.tree, this.path + "/localizationProcessContent");
+    return new SomMetaRef(this.tree, this.path + "/LOPR-LOCA");
   }
 
   get review() {
@@ -102220,7 +102386,7 @@ class MaintainabilityChangeability$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MaintainabilityCharacteristic$Nav extends SomMetaRef {
   get maintainabilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/maintainabilityContent");
+    return new SomMetaRef(this.tree, this.path + "/MNTC-MAIN");
   }
 
   get overview() {
@@ -102722,7 +102888,7 @@ class MethodologyDeviationSummary$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MetricsAndObservability$Nav extends SomMetaRef {
   get metricsOverview() {
-    return new SomMetaRef(this.tree, this.path + "/metricsOverview");
+    return new SomMetaRef(this.tree, this.path + "/MEANOB-METR");
   }
 
   get overviewNarrative() {
@@ -102952,7 +103118,7 @@ class MigrationCompliance$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MigrationConsiderations$Nav extends SomMetaRef {
   get strategyContent() {
-    return new SomMetaRef(this.tree, this.path + "/strategyContent");
+    return new SomMetaRef(this.tree, this.path + "/MIGCON-STRA");
   }
 
   get strategyNarrative() {
@@ -103440,7 +103606,7 @@ class MigrationRiskTracking$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MigrationRisks$Nav extends SomMetaRef {
   get governanceContent() {
-    return new SomMetaRef(this.tree, this.path + "/governanceContent");
+    return new SomMetaRef(this.tree, this.path + "/MIRI-GOVE");
   }
 
   get governance() {
@@ -103922,7 +104088,7 @@ class ModuleVersioningStrategyReleaseManagement$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class Monitoring$Nav extends SomMetaRef {
   get monitoringOverview() {
-    return new SomMetaRef(this.tree, this.path + "/monitoringOverview");
+    return new SomMetaRef(this.tree, this.path + "/MONITO-MONI");
   }
 
   get overviewNarrative() {
@@ -104040,7 +104206,7 @@ class MonitoringCoverage$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MonitoringDashboards$Nav extends SomMetaRef {
   get dashboardOverview() {
-    return new SomMetaRef(this.tree, this.path + "/dashboardOverview");
+    return new SomMetaRef(this.tree, this.path + "/MODA-DASH");
   }
 
   get overviewNarrative() {
@@ -104222,7 +104388,7 @@ class MultiChannelExperience$Nav extends SomMetaRef {
   }
 
   get multiChannelConfiguration() {
-    return new SomMetaRef(this.tree, this.path + "/multiChannelConfiguration");
+    return new SomMetaRef(this.tree, this.path + "/MCE-MULT");
   }
 }
 
@@ -104232,7 +104398,7 @@ class MultiChannelExperience$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MultiLanguageSupport$Nav extends SomMetaRef {
   get multiLanguageOverview() {
-    return new SomMetaRef(this.tree, this.path + "/multiLanguageOverview");
+    return new SomMetaRef(this.tree, this.path + "/MLAR-MULT");
   }
 
   get overviewNarrative() {
@@ -104254,7 +104420,7 @@ class MultiLanguageSupport$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class MustPassCriteria$Nav extends SomMetaRef {
   get mustPassOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/mustPassOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/MUPACR-MUST");
   }
 
   get overview() {
@@ -105500,7 +105666,7 @@ class OnCallScheduleConfigOperations$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class OnboardingHelp$Nav extends SomMetaRef {
   get onboardingContent() {
-    return new SomMetaRef(this.tree, this.path + "/onboardingContent");
+    return new SomMetaRef(this.tree, this.path + "/ONHE-ONBO");
   }
 
   get tours() {
@@ -105848,7 +106014,7 @@ class OrgRequirementImplementationPlan$Nav extends SomMetaRef {
   }
 
   get planForm() {
-    return new SomMetaRef(this.tree, this.path + "/planForm");
+    return new SomMetaRef(this.tree, this.path + "/ORIP-PLAN");
   }
 
   get activities() {
@@ -105926,7 +106092,7 @@ class OrganizationalContext$Nav extends SomMetaRef {
   }
 
   get businessProcessCoverage() {
-    return new SomMetaRef(this.tree, this.path + "/businessProcessCoverage");
+    return new SomMetaRef(this.tree, this.path + "/OC-BUSI");
   }
 }
 
@@ -105936,7 +106102,7 @@ class OrganizationalContext$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class OrganizationalEnvironment$Nav extends SomMetaRef {
   get organizationContent() {
-    return new SomMetaRef(this.tree, this.path + "/organizationContent");
+    return new SomMetaRef(this.tree, this.path + "/OREN-ORGA");
   }
 
   get maturity() {
@@ -106096,7 +106262,7 @@ class OrganizationalRequirements$Nav extends SomMetaRef {
   }
 
   get summaryForm() {
-    return new SomMetaRef(this.tree, this.path + "/summaryForm");
+    return new SomMetaRef(this.tree, this.path + "/OR-SUMM");
   }
 
   get requirements() {
@@ -106414,7 +106580,7 @@ class PainPointGapCorrelation$Nav extends SomMetaRef {
   }
 
   get correlationDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/correlationDiagram");
+    return new SomMetaRef(this.tree, this.path + "/PPGC-CORR");
   }
 
   get correlationEntries() {
@@ -106492,11 +106658,11 @@ class PainPointsAndGaps$Nav extends SomMetaRef {
   }
 
   get painPointsOverviewDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/painPointsOverviewDiagram");
+    return new SomMetaRef(this.tree, this.path + "/PPAG-PAIN");
   }
 
   get painPointsPriorityMatrix() {
-    return new SomMetaRef(this.tree, this.path + "/painPointsPriorityMatrix");
+    return new SomMetaRef(this.tree, this.path + "/PPAG-PAINP");
   }
 
   get painPointsSummary() {
@@ -106742,7 +106908,7 @@ class PenetrationTestingRequirementsScheduling$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class PerformanceEfficiencyCharacteristic$Nav extends SomMetaRef {
   get performanceEfficiencyContent() {
-    return new SomMetaRef(this.tree, this.path + "/performanceEfficiencyContent");
+    return new SomMetaRef(this.tree, this.path + "/PEEF-PERF");
   }
 
   get overview() {
@@ -107844,7 +108010,7 @@ class ProcessAdjustments$Nav extends SomMetaRef {
   }
 
   get processFlowDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/processFlowDiagram");
+    return new SomMetaRef(this.tree, this.path + "/PCADJ-PROC");
   }
 
   get items() {
@@ -108272,7 +108438,7 @@ class ProcessInterdependencyMatrix$Nav extends SomMetaRef {
   }
 
   get dependencyDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/dependencyDiagram");
+    return new SomMetaRef(this.tree, this.path + "/PRINMA-DEPE");
   }
 
   get dependencies() {
@@ -108902,7 +109068,7 @@ class ProjectOrganizationAndProcess$Nav extends SomMetaRef {
   }
 
   get methodologyDeviationDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/methodologyDeviationDiagram");
+    return new SomMetaRef(this.tree, this.path + "/PRPO-METH");
   }
 
   get deviationSummary() {
@@ -109098,7 +109264,7 @@ class ProtocolsAndStandardsSection$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class Prototype$Nav extends SomMetaRef {
   get prototypeOverview() {
-    return new SomMetaRef(this.tree, this.path + "/prototypeOverview");
+    return new SomMetaRef(this.tree, this.path + "/PROTOT-PROT");
   }
 
   get timeline() {
@@ -109150,7 +109316,7 @@ class PrototypeFeatureEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class PrototypeFeatureSubset$Nav extends SomMetaRef {
   get featureSubsetContent() {
-    return new SomMetaRef(this.tree, this.path + "/featureSubsetContent");
+    return new SomMetaRef(this.tree, this.path + "/PRFESU-FEAT");
   }
 
   get scope() {
@@ -109206,7 +109372,7 @@ class PrototypeGoalEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class PrototypeGoals$Nav extends SomMetaRef {
   get goalsContent() {
-    return new SomMetaRef(this.tree, this.path + "/goalsContent");
+    return new SomMetaRef(this.tree, this.path + "/PG-GOAL");
   }
 
   get riskProfile() {
@@ -109282,7 +109448,7 @@ class PrototypeTimeline$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class PrototypeType$Nav extends SomMetaRef {
   get prototypeTypeOverview() {
-    return new SomMetaRef(this.tree, this.path + "/prototypeTypeOverview");
+    return new SomMetaRef(this.tree, this.path + "/PRTYSE-PROT");
   }
 
   get reusablePrototype() {
@@ -109462,7 +109628,7 @@ class QualityCategoryEntryRelationships$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class QualityFramework$Nav extends SomMetaRef {
   get frameworkContent() {
-    return new SomMetaRef(this.tree, this.path + "/frameworkContent");
+    return new SomMetaRef(this.tree, this.path + "/QLFWK-FRAM");
   }
 
   get objectives() {
@@ -109614,7 +109780,7 @@ class QualityGateAdjustments$Nav extends SomMetaRef {
   }
 
   get gateFlowDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/gateFlowDiagram");
+    return new SomMetaRef(this.tree, this.path + "/QGADJ-GATE");
   }
 
   get items() {
@@ -109708,7 +109874,7 @@ class QualityGateCheckEntryVerification$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class QualityGateChecklist$Nav extends SomMetaRef {
   get checklistOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/checklistOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/QUGACH-CHEC");
   }
 
   get overview() {
@@ -109766,7 +109932,7 @@ class QualityGoalsResources$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class QualityPrioritization$Nav extends SomMetaRef {
   get prioritizationFrameworkContent() {
-    return new SomMetaRef(this.tree, this.path + "/prioritizationFrameworkContent");
+    return new SomMetaRef(this.tree, this.path + "/QUPR-PRIO");
   }
 
   get prioritizationOverview() {
@@ -110466,7 +110632,7 @@ class Reliability$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ReliabilityCharacteristic$Nav extends SomMetaRef {
   get reliabilityContent() {
-    return new SomMetaRef(this.tree, this.path + "/reliabilityContent");
+    return new SomMetaRef(this.tree, this.path + "/RELC-RELI");
   }
 
   get overview() {
@@ -111484,7 +111650,7 @@ class RequirementTraceability$Nav extends SomMetaRef {
   }
 
   get traceabilityForm() {
-    return new SomMetaRef(this.tree, this.path + "/traceabilityForm");
+    return new SomMetaRef(this.tree, this.path + "/RT-TRAC");
   }
 
   get artifacts() {
@@ -111526,15 +111692,15 @@ class RequirementUiSpecification$Nav extends SomMetaRef {
   }
 
   get uiForm() {
-    return new SomMetaRef(this.tree, this.path + "/uiForm");
+    return new SomMetaRef(this.tree, this.path + "/RUS-UIFO");
   }
 
   get layoutCode() {
-    return new SomMetaRef(this.tree, this.path + "/layoutCode");
+    return new SomMetaRef(this.tree, this.path + "/RUS-LAYO");
   }
 
   get mockupDescription() {
-    return new SomMetaRef(this.tree, this.path + "/mockupDescription");
+    return new SomMetaRef(this.tree, this.path + "/RUS-MOCK");
   }
 
   get fields() {
@@ -111582,11 +111748,11 @@ class RequirementsOverview$Nav extends SomMetaRef {
   }
 
   get requirementsForm() {
-    return new SomMetaRef(this.tree, this.path + "/requirementsForm");
+    return new SomMetaRef(this.tree, this.path + "/RO-REQU");
   }
 
   get traceabilityMatrix() {
-    return new SomMetaRef(this.tree, this.path + "/traceabilityMatrix");
+    return new SomMetaRef(this.tree, this.path + "/RO-TRAC");
   }
 
   get functionalRequirements() {
@@ -111878,7 +112044,7 @@ class ResponsibilitySystems$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ResponsiveBehavior$Nav extends SomMetaRef {
   get layoutAdaptation() {
-    return new SomMetaRef(this.tree, this.path + "/layoutAdaptation");
+    return new SomMetaRef(this.tree, this.path + "/REBE-LAYO");
   }
 
   get navigation() {
@@ -111952,7 +112118,7 @@ class ResponsiveBehaviorVisibility$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ResponsiveDesign$Nav extends SomMetaRef {
   get responsiveOverview() {
-    return new SomMetaRef(this.tree, this.path + "/responsiveOverview");
+    return new SomMetaRef(this.tree, this.path + "/REDE-RESP");
   }
 
   get responsiveNarrative() {
@@ -112158,7 +112324,7 @@ class ReusableComponentsSection$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ReusablePrototype$Nav extends SomMetaRef {
   get reusableContent() {
-    return new SomMetaRef(this.tree, this.path + "/reusableContent");
+    return new SomMetaRef(this.tree, this.path + "/REUPRO-REUS");
   }
 
   get architecture() {
@@ -112776,7 +112942,7 @@ class RoleAdjustments$Nav extends SomMetaRef {
   }
 
   get roleComparisonDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/roleComparisonDiagram");
+    return new SomMetaRef(this.tree, this.path + "/RLADJ-ROLE");
   }
 
   get items() {
@@ -114708,7 +114874,7 @@ class SecurityCertificationRequirementsSoc2$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SecurityCharacteristic$Nav extends SomMetaRef {
   get securityContent() {
-    return new SomMetaRef(this.tree, this.path + "/securityContent");
+    return new SomMetaRef(this.tree, this.path + "/SECC-SECU");
   }
 
   get overview() {
@@ -115050,7 +115216,7 @@ class SecurityRequirements$Nav extends SomMetaRef {
   }
 
   get summaryForm() {
-    return new SomMetaRef(this.tree, this.path + "/summaryForm");
+    return new SomMetaRef(this.tree, this.path + "/SR1-SUMM");
   }
 
   get requirements() {
@@ -115996,7 +116162,7 @@ class SessionModel$Nav extends SomMetaRef {
   }
 
   get sessionConfiguration() {
-    return new SomMetaRef(this.tree, this.path + "/sessionConfiguration");
+    return new SomMetaRef(this.tree, this.path + "/SM-SESS");
   }
 
   get lifecycle() {
@@ -116434,7 +116600,7 @@ class SkillEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SlaAndSloMonitoring$Nav extends SomMetaRef {
   get slaOverview() {
-    return new SomMetaRef(this.tree, this.path + "/slaOverview");
+    return new SomMetaRef(this.tree, this.path + "/SASM-SLAO");
   }
 
   get overviewNarrative() {
@@ -118278,7 +118444,7 @@ class SuccessCriteria$Nav extends SomMetaRef {
   }
 
   get successCriteriaMatrix() {
-    return new SomMetaRef(this.tree, this.path + "/successCriteriaMatrix");
+    return new SomMetaRef(this.tree, this.path + "/SC-SUCC");
   }
 
   get postImplementationReview() {
@@ -118292,23 +118458,23 @@ class SuccessCriteria$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SuccessCriteriaByCategory$Nav extends SomMetaRef {
   get businessCriteria() {
-    return new SomMetaRef(this.tree, this.path + "/businessCriteria");
+    return new SomMetaRef(this.tree, this.path + "/SCBC-BUSI");
   }
 
   get technicalCriteria() {
-    return new SomMetaRef(this.tree, this.path + "/technicalCriteria");
+    return new SomMetaRef(this.tree, this.path + "/SCBC-TECH");
   }
 
   get userCriteria() {
-    return new SomMetaRef(this.tree, this.path + "/userCriteria");
+    return new SomMetaRef(this.tree, this.path + "/SCBC-USER");
   }
 
   get complianceCriteria() {
-    return new SomMetaRef(this.tree, this.path + "/complianceCriteria");
+    return new SomMetaRef(this.tree, this.path + "/SCBC-COMP");
   }
 
   get projectCriteria() {
-    return new SomMetaRef(this.tree, this.path + "/projectCriteria");
+    return new SomMetaRef(this.tree, this.path + "/SCBC-PROJ");
   }
 }
 
@@ -118432,7 +118598,7 @@ class SuccessCriterionVerification$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SupportAccess$Nav extends SomMetaRef {
   get supportAccessContent() {
-    return new SomMetaRef(this.tree, this.path + "/supportAccessContent");
+    return new SomMetaRef(this.tree, this.path + "/SUAC-SUPP");
   }
 
   get helpCenter() {
@@ -119122,7 +119288,7 @@ class SystemErrorCodeEntryOperations$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SystemErrorDisplay$Nav extends SomMetaRef {
   get systemErrorContent() {
-    return new SomMetaRef(this.tree, this.path + "/systemErrorContent");
+    return new SomMetaRef(this.tree, this.path + "/SYERDI-SYST");
   }
 
   get errorTypes() {
@@ -119448,7 +119614,7 @@ class SystemPurpose$Nav extends SomMetaRef {
   }
 
   get visionStatement() {
-    return new SomMetaRef(this.tree, this.path + "/visionStatement");
+    return new SomMetaRef(this.tree, this.path + "/SYPUP-VISI");
   }
 
   get problemStatement() {
@@ -119482,7 +119648,7 @@ class SystemPurpose$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SystemQualityGoals$Nav extends SomMetaRef {
   get governanceContent() {
-    return new SomMetaRef(this.tree, this.path + "/governanceContent");
+    return new SomMetaRef(this.tree, this.path + "/SYQG-GOVE");
   }
 
   get governance() {
@@ -119896,7 +120062,7 @@ class SystemTechnicalAssessmentQuality$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class SystemToReplaceEntry$Nav extends SomMetaRef {
   get identificationContent() {
-    return new SomMetaRef(this.tree, this.path + "/identificationContent");
+    return new SomMetaRef(this.tree, this.path + "/SYTORE-IDEN");
   }
 
   get profile() {
@@ -120402,7 +120568,7 @@ class TechnicalDependencyEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TechnicalEnvironment$Nav extends SomMetaRef {
   get technicalOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/technicalOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/TEEN-TECH");
   }
 
   get governance() {
@@ -120650,7 +120816,7 @@ class TechnicalGoalTestCriteria$Nav extends SomMetaRef {
   }
 
   get testCriteriaForm() {
-    return new SomMetaRef(this.tree, this.path + "/testCriteriaForm");
+    return new SomMetaRef(this.tree, this.path + "/TGTC-TEST");
   }
 
   get items() {
@@ -120824,7 +120990,7 @@ class TechnicalRequirements$Nav extends SomMetaRef {
   }
 
   get summaryForm() {
-    return new SomMetaRef(this.tree, this.path + "/summaryForm");
+    return new SomMetaRef(this.tree, this.path + "/TR1-SUMM");
   }
 
   get requirements() {
@@ -121464,7 +121630,7 @@ class ThirdPartyLibraryEntryUsage$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ThrowawayPrototype$Nav extends SomMetaRef {
   get throwawayContent() {
-    return new SomMetaRef(this.tree, this.path + "/throwawayContent");
+    return new SomMetaRef(this.tree, this.path + "/THPR-THRO");
   }
 
   get findings() {
@@ -121996,7 +122162,7 @@ class TradeOffDecisionEntryRationale$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TradeOffDecisions$Nav extends SomMetaRef {
   get tradeOffGovernanceContent() {
-    return new SomMetaRef(this.tree, this.path + "/tradeOffGovernanceContent");
+    return new SomMetaRef(this.tree, this.path + "/TROFDE-TRAD");
   }
 
   get tradeOffOverview() {
@@ -122066,7 +122232,7 @@ class TrainingAssessmentReporting$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TrainingDeliverableRequirements$Nav extends SomMetaRef {
   get trainingContent() {
-    return new SomMetaRef(this.tree, this.path + "/trainingContent");
+    return new SomMetaRef(this.tree, this.path + "/TRMAT-TRAI");
   }
 
   get trainingNarrative() {
@@ -122184,7 +122350,7 @@ class TrainingOverview$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TrainingPrototype$Nav extends SomMetaRef {
   get trainingContent() {
-    return new SomMetaRef(this.tree, this.path + "/trainingContent");
+    return new SomMetaRef(this.tree, this.path + "/TP-TRAI");
   }
 
   get disposition() {
@@ -122646,7 +122812,7 @@ class TranslationOngoing$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TranslationProcess$Nav extends SomMetaRef {
   get translationProcessContent() {
-    return new SomMetaRef(this.tree, this.path + "/translationProcessContent");
+    return new SomMetaRef(this.tree, this.path + "/TRPR-TRAN");
   }
 
   get workflow() {
@@ -122690,7 +122856,7 @@ class TranslationQuality$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class TranslationRequirements$Nav extends SomMetaRef {
   get translationRequirementsContent() {
-    return new SomMetaRef(this.tree, this.path + "/translationRequirementsContent");
+    return new SomMetaRef(this.tree, this.path + "/TRAREQ-TRAN");
   }
 
   get rtl() {
@@ -123072,7 +123238,7 @@ class UatTraining$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class UiComponentEntry$Nav extends SomMetaRef {
   get identity() {
-    return new SomMetaRef(this.tree, this.path + "/identity");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-IDEN");
   }
 
   get purposeProfile() {
@@ -123084,7 +123250,7 @@ class UiComponentEntry$Nav extends SomMetaRef {
   }
 
   get visualDesign() {
-    return new SomMetaRef(this.tree, this.path + "/visualDesign");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-VISU");
   }
 
   get dimensions() {
@@ -123104,7 +123270,7 @@ class UiComponentEntry$Nav extends SomMetaRef {
   }
 
   get interactiveBehavior() {
-    return new SomMetaRef(this.tree, this.path + "/interactiveBehavior");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-INTE");
   }
 
   get inputBehavior() {
@@ -123120,23 +123286,23 @@ class UiComponentEntry$Nav extends SomMetaRef {
   }
 
   get responsiveness() {
-    return new SomMetaRef(this.tree, this.path + "/responsiveness");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-RESP");
   }
 
   get accessibility() {
-    return new SomMetaRef(this.tree, this.path + "/accessibility");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-ACCE");
   }
 
   get authorization() {
-    return new SomMetaRef(this.tree, this.path + "/authorization");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-AUTH");
   }
 
   get resourceIntegration() {
-    return new SomMetaRef(this.tree, this.path + "/resourceIntegration");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-RESO");
   }
 
   get dataBinding() {
-    return new SomMetaRef(this.tree, this.path + "/dataBinding");
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-DATA");
   }
 
   get behaviorNarrative() {
@@ -123250,7 +123416,7 @@ class UiComponentEntrySurface$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class UiComponents$Nav extends SomMetaRef {
   get componentLibraryOverview() {
-    return new SomMetaRef(this.tree, this.path + "/componentLibraryOverview");
+    return new SomMetaRef(this.tree, this.path + "/UICO-COMP");
   }
 
   get visualLanguage() {
@@ -123482,7 +123648,7 @@ class UserAccessPermissions$Nav extends SomMetaRef {
   }
 
   get permissionsForm() {
-    return new SomMetaRef(this.tree, this.path + "/permissionsForm");
+    return new SomMetaRef(this.tree, this.path + "/UAP-PERM");
   }
 
   get restrictionsProfile() {
@@ -123528,7 +123694,7 @@ class UserAccessibilityNeeds$Nav extends SomMetaRef {
   }
 
   get accessibilityForm() {
-    return new SomMetaRef(this.tree, this.path + "/accessibilityForm");
+    return new SomMetaRef(this.tree, this.path + "/UAN-ACCE");
   }
 }
 
@@ -123552,7 +123718,7 @@ class UserAccountStatesDefinition$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class UserAssistance$Nav extends SomMetaRef {
   get helpOverviewContent() {
-    return new SomMetaRef(this.tree, this.path + "/helpOverviewContent");
+    return new SomMetaRef(this.tree, this.path + "/USAS-HELP");
   }
 
   get delivery() {
@@ -123776,7 +123942,7 @@ class UserCategoryRoleEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class UserDocumentationRequirements$Nav extends SomMetaRef {
   get documentationContent() {
-    return new SomMetaRef(this.tree, this.path + "/documentationContent");
+    return new SomMetaRef(this.tree, this.path + "/DOANTR-DOCU");
   }
 
   get deliverables() {
@@ -123912,7 +124078,7 @@ class UserJourney$Nav extends SomMetaRef {
   }
 
   get journeyDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/journeyDiagram");
+    return new SomMetaRef(this.tree, this.path + "/UJ-JOUR");
   }
 
   get stages() {
@@ -123928,7 +124094,7 @@ class UserJourney$Nav extends SomMetaRef {
   }
 
   get opportunitiesForDelight() {
-    return new SomMetaRef(this.tree, this.path + "/opportunitiesForDelight");
+    return new SomMetaRef(this.tree, this.path + "/UJ-OPPO");
   }
 }
 
@@ -124118,7 +124284,7 @@ class UserPersonaDetails$Nav extends SomMetaRef {
   }
 
   get personaForm() {
-    return new SomMetaRef(this.tree, this.path + "/personaForm");
+    return new SomMetaRef(this.tree, this.path + "/UPD-PERS");
   }
 
   get contextDetails() {
@@ -124134,7 +124300,7 @@ class UserPersonaDetails$Nav extends SomMetaRef {
   }
 
   get visualRepresentation() {
-    return new SomMetaRef(this.tree, this.path + "/visualRepresentation");
+    return new SomMetaRef(this.tree, this.path + "/UPD-VISU");
   }
 
   get representativeQuotes() {
@@ -124270,7 +124436,7 @@ class UserTrainingRequirements$Nav extends SomMetaRef {
   }
 
   get trainingForm() {
-    return new SomMetaRef(this.tree, this.path + "/trainingForm");
+    return new SomMetaRef(this.tree, this.path + "/USTRRE-TRAI");
   }
 
   get trainingTopics() {
@@ -124388,7 +124554,7 @@ class ValidationConstraints$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class ValidationFeedback$Nav extends SomMetaRef {
   get validationDisplayContent() {
-    return new SomMetaRef(this.tree, this.path + "/validationDisplayContent");
+    return new SomMetaRef(this.tree, this.path + "/VAFE-VALI");
   }
 
   get placement() {
@@ -124910,7 +125076,7 @@ class WarrantyTransition$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class WcagCompliance$Nav extends SomMetaRef {
   get wcagComplianceContent() {
-    return new SomMetaRef(this.tree, this.path + "/wcagComplianceContent");
+    return new SomMetaRef(this.tree, this.path + "/WCCO-WCAG");
   }
 
   get operable() {
@@ -124980,7 +125146,7 @@ class WcagSuccessCriterionEntry$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class WeightedQualityMatrix$Nav extends SomMetaRef {
   get matrixConfigContent() {
-    return new SomMetaRef(this.tree, this.path + "/matrixConfigContent");
+    return new SomMetaRef(this.tree, this.path + "/WEQUMA-MATR");
   }
 
   get matrixNarrative() {
@@ -125050,7 +125216,7 @@ class WorkflowDescriptions$Nav extends SomMetaRef {
   }
 
   get workflowOverviewDiagram() {
-    return new SomMetaRef(this.tree, this.path + "/workflowOverviewDiagram");
+    return new SomMetaRef(this.tree, this.path + "/WODE-WORK");
   }
 
   get summaryTable() {
@@ -125152,7 +125318,7 @@ class WorkflowStepIssue$Nav extends SomMetaRef {
 // document positions while `.meta` throws (the metadata tree ends there).
 class WorkflowStepSystem$Nav extends SomMetaRef {
   get name() {
-    return new SomMetaRef(this.tree, this.path + "/name");
+    return new SomMetaRef(this.tree, this.path + "/WOSTSY-NAME");
   }
 }
 
@@ -125657,6 +125823,10 @@ class BusinessGoalEntry$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/risks/GOLRS-ITEM-LST", (t, p) => new GoalRiskEntry$Id(t, p));
   }
 
+  get GORE_RESO() {
+    return new SomMetaRef(this.tree, this.path + "/resources/GORE-RESO");
+  }
+
   get REARS_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/resources/REARS-ITEM-LST", (t, p) => new ResourceAllocationEntry$Id(t, p));
   }
@@ -125672,8 +125842,24 @@ class BusinessObjectAttributeEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class BusinessObjectEntry$Id extends SomMetaRef {
+  get BJOEN_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-IDEN");
+  }
+
+  get BJOEN_DOMA() {
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-DOMA");
+  }
+
+  get BJOEN_LIFE() {
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-LIFE");
+  }
+
   get BEHAV_BEHA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/BEHAV-BEHA-LST", (t, p) => new BehaviorRuleEntry$Id(t, p));
+  }
+
+  get BJOEN_OWNE() {
+    return new SomMetaRef(this.tree, this.path + "/BJOEN-OWNE");
   }
 
   get INTEG_INTE_LST() {
@@ -125750,6 +125936,30 @@ class BusinessProcessEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class BusinessRuleEntry$Id extends SomMetaRef {
+  get BIRU_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-IDEN");
+  }
+
+  get BIRU_CLAS() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-CLAS");
+  }
+
+  get BIRU_RULE() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-RULE");
+  }
+
+  get BIRU_IMPL() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-IMPL");
+  }
+
+  get BIRU_EXCE() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-EXCE");
+  }
+
+  get BIRU_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/BIRU-GOVE");
+  }
+
   get AFOB_AFFE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/AFOB-AFFE-LST", (t, p) => new AffectedObjectEntry$Id(t, p));
   }
@@ -126074,6 +126284,10 @@ class CulturalConsiderationEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class CurrentBusinessProcess$Id extends SomMetaRef {
+  get WODE_WORK() {
+    return new SomMetaRef(this.tree, this.path + "/workflowDescriptions/WODE-WORK");
+  }
+
   get WOSUEN_ENTR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", (t, p) => new WorkflowSummaryEntry$Id(t, p));
   }
@@ -126131,6 +126345,10 @@ class CurrentProcessImprovementEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class CurrentWorkflowEntry$Id extends SomMetaRef {
+  get CUWF_WORK() {
+    return new SomMetaRef(this.tree, this.path + "/CUWF-WORK");
+  }
+
   get WOTREN_TRIG_LST() {
     return new SomListMetaRef(this.tree, this.path + "/triggers/WOTREN-TRIG-LST", (t, p) => new WorkflowTriggerEntry$Id(t, p));
   }
@@ -126203,6 +126421,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/documentControl/referenceDocuments/RFDOC-DOCU-LST", (t, p) => new ReferenceDocumentEntry$Id(t, p));
   }
 
+  get INSC_SYST() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/INSC-SYST");
+  }
+
+  get SYPUP_VISI() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI");
+  }
+
   get RPPE_RELA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", (t, p) => new RelatedPainPointEntry$Id(t, p));
   }
@@ -126235,6 +126461,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", (t, p) => new ScopeAssumptionEntry$Id(t, p));
   }
 
+  get CD_DIAG() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-DIAG");
+  }
+
+  get CD_LEGE() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-LEGE");
+  }
+
   get EAE_ACTO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST", (t, p) => new ExternalActorEntry$Id(t, p));
   }
@@ -126251,6 +126485,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/organizationalContext/OUCE-ORGA-LST", (t, p) => new OrganizationalUnitContextEntry$Id(t, p));
   }
 
+  get OC_BUSI() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/organizationalContext/OC-BUSI");
+  }
+
   get ARE_REGU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemContext/regulatoryContext/ARE-REGU-LST", (t, p) => new ApplicableRegulationEntry$Id(t, p));
   }
@@ -126259,8 +126497,24 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/domainVocabulary/DTE-TERM-LST", (t, p) => new DomainTermEntry$Id(t, p));
   }
 
+  get KC_CONC() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/keyConcepts/KC-CONC");
+  }
+
   get KECON_CONC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/keyConcepts/KECON-CONC-LST", (t, p) => new KeyConceptEntry$Id(t, p));
+  }
+
+  get DB_CONT() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-CONT");
+  }
+
+  get DB_WITH() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-WITH");
+  }
+
+  get DB_OUTS() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-OUTS");
   }
 
   get DIE_INTE_LST() {
@@ -126269,6 +126523,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get DOBIRU_RULE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST", (t, p) => new DomainBusinessRuleEntry$Id(t, p));
+  }
+
+  get DP_PROC() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC");
   }
 
   get DOPR_PROC_LST() {
@@ -126283,6 +126541,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/USCA-USER-LST", (t, p) => new UserCategoryEntry$Id(t, p));
   }
 
+  get AC1_CHAN() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/accessChannels/AC1-CHAN");
+  }
+
   get ICE_CHAN_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/accessChannels/ICE-CHAN-LST", (t, p) => new InteractionChannelEntry$Id(t, p));
   }
@@ -126291,8 +126553,20 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/interactionPatterns/INPTN-PATT-LST", (t, p) => new InteractionPatternEntry$Id(t, p));
   }
 
+  get AL_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-ACCE");
+  }
+
   get ACLV_LEVE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/accessLevels/ACLV-LEVE-LST", (t, p) => new AccessLevelEntry$Id(t, p));
+  }
+
+  get AL_PERM() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/accessLevels/AL-PERM");
+  }
+
+  get SM_SESS() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/sessionModel/SM-SESS");
   }
 
   get NTFCH_CHAN_LST() {
@@ -126307,6 +126581,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/notificationModel/UNP-PREF-LST", (t, p) => new UserNotificationPreferences$Id(t, p));
   }
 
+  get MCE_MULT() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/userInteractionModel/multiChannelExperience/MCE-MULT");
+  }
+
+  get GOALS_GOAL() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/GOALS-GOAL");
+  }
+
   get BGE_GOAL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/goals/businessGoals/BGE-GOAL-LST", (t, p) => new BusinessGoalEntry$Id(t, p));
   }
@@ -126319,16 +126601,64 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/SCE-ITEM-LST", (t, p) => new SuccessCriterionEntry$Id(t, p));
   }
 
+  get SCBC_BUSI() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-BUSI");
+  }
+
+  get SCBC_TECH() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-TECH");
+  }
+
+  get SCBC_USER() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-USER");
+  }
+
+  get SCBC_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-COMP");
+  }
+
+  get SCBC_PROJ() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/byCategory/SCBC-PROJ");
+  }
+
+  get SC_SUCC() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/goals/successCriteria/SC-SUCC");
+  }
+
+  get RO_REQU() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/RO-REQU");
+  }
+
+  get RO_TRAC() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/RO-TRAC");
+  }
+
+  get FR_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/functionalRequirements/FR-SUMM");
+  }
+
   get FRE_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST", (t, p) => new FunctionalRequirementEntry$Id(t, p));
+  }
+
+  get TR1_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/technicalRequirements/TR1-SUMM");
   }
 
   get TERQ_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/requirements/technicalRequirements/TERQ-REQU-LST", (t, p) => new TechnicalRequirementEntry$Id(t, p));
   }
 
+  get SR1_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/securityRequirements/SR1-SUMM");
+  }
+
   get SECRQ_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/requirements/securityRequirements/SECRQ-REQU-LST", (t, p) => new SecurityRequirementEntry$Id(t, p));
+  }
+
+  get OR_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/requirements/organizationalRequirements/OR-SUMM");
   }
 
   get ORRQ_REQU_LST() {
@@ -126341,6 +126671,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get SYTORE_SYST_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/replacementInventory/SYTORE-SYST-LST", (t, p) => new SystemToReplaceEntry$Id(t, p));
+  }
+
+  get MIGCON_STRA() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-STRA");
+  }
+
+  get MIRI_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-GOVE");
   }
 
   get RISKC_RISK_LST() {
@@ -126395,6 +126733,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemBoundaries/CBOC-OPER-LST", (t, p) => new CrossBoundaryOperationalConsiderations$Id(t, p));
   }
 
+  get OREN_ORGA() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-ORGA");
+  }
+
   get AFDEEN_AFFE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST", (t, p) => new AffectedDepartmentEntry$Id(t, p));
   }
@@ -126417,6 +126759,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get REEN1_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST", (t, p) => new ResponsibilityEntry$Id(t, p));
+  }
+
+  get TEEN_TECH() {
+    return new SomMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-TECH");
   }
 
   get DEVOP_DEVO_LST() {
@@ -126447,12 +126793,28 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST", (t, p) => new GlossaryEntry$Id(t, p));
   }
 
+  get PRPO_METH() {
+    return new SomMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/PRPO-METH");
+  }
+
+  get RLADJ_ROLE() {
+    return new SomMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLADJ-ROLE");
+  }
+
   get RLAJE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/roleAdjustments/RLAJE-ITEM-LST", (t, p) => new RoleAdjustmentEntry$Id(t, p));
   }
 
+  get QGADJ_GATE() {
+    return new SomMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGADJ-GATE");
+  }
+
   get QGAJE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/qualityGateAdjustments/QGAJE-ITEM-LST", (t, p) => new QualityGateAdjustmentEntry$Id(t, p));
+  }
+
+  get PCADJ_PROC() {
+    return new SomMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectOrganizationProcess/processAdjustments/PCADJ-PROC");
   }
 
   get PCAJE_ITEM_LST() {
@@ -126481,6 +126843,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get RREQE_OPEN_LST() {
     return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/projectTeamStaffing/RREQE-OPEN-LST", (t, p) => new ResourceRequirementEntry$Id(t, p));
+  }
+
+  get COMA_COMM() {
+    return new SomMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/distributionList/communicationMatrix/COMA-COMM");
   }
 
   get COTY_COMM_LST() {
@@ -126571,12 +126937,24 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t, p) => new ExistingSystemEntry$Id(t, p));
   }
 
+  get CARCH_ARCH() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-ARCH");
+  }
+
+  get CARCH_DEPL() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
+  }
+
   get IPE_INTE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new IntegrationPatternEntry$Id(t, p));
   }
 
   get SHARE_SHAR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SharedServiceEntry$Id(t, p));
+  }
+
+  get DEPNT_DEPE() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE");
   }
 
   get SYDE_ITEM_LST() {
@@ -126599,12 +126977,20 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new FragilePointEntry$Id(t, p));
   }
 
+  get CUBUPR_PROC() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentBusinessProcesses/CUBUPR-PROC");
+  }
+
   get PRSCEN_INSC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST", (t, p) => new ProcessScopeEntry$Id(t, p));
   }
 
   get PRSCEN_OUTO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST", (t, p) => new ProcessScopeEntry$Id(t, p));
+  }
+
+  get PRINMA_DEPE() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE");
   }
 
   get PRDEEN_DEPE_LST() {
@@ -126617,6 +127003,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get CUBIPR_PROC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentBusinessProcesses/CUBIPR-PROC-LST", (t, p) => new CurrentBusinessProcess$Id(t, p));
+  }
+
+  get PPAG_PAIN() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/PPAG-PAIN");
+  }
+
+  get PPAG_PAINP() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/PPAG-PAINP");
   }
 
   get OPPAPO_ITEM_LST() {
@@ -126635,12 +127029,32 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t, p) => new GapEntry$Id(t, p));
   }
 
+  get PPGC_CORR() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR");
+  }
+
   get PPGCE_CORR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST", (t, p) => new PainPointGapCorrelationEntry$Id(t, p));
   }
 
+  get CUDALA_DATAL() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/CUDALA-DATAL");
+  }
+
+  get CUDALA_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/CUDALA-DATA");
+  }
+
+  get DASOIN_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataSourceInventory/DASOIN-DATA");
+  }
+
   get DASR_DATA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataSourceInventory/DASR-DATA-LST", (t, p) => new DataSourceEntry$Id(t, p));
+  }
+
+  get DAQUAS_QUAL() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL");
   }
 
   get DAQLIS_QUAL_LST() {
@@ -126651,12 +127065,24 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataQualityAssessment/DQIE-IMPR-LST", (t, p) => new DataQualityInitiativeEntry$Id(t, p));
   }
 
+  get DADUAN_DUPL() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL");
+  }
+
   get DADU_DUPL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST", (t, p) => new DataDuplicationEntry$Id(t, p));
   }
 
+  get DAOW_OWNE() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataOwnership/DAOW-OWNE");
+  }
+
   get DAOWEN_OWNE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST", (t, p) => new DataOwnershipEntry$Id(t, p));
+  }
+
+  get DVAG_GROW() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW");
   }
 
   get DAVOEN_VOLU_LST() {
@@ -126665,6 +127091,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get REPOL_RETE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/retentionPolicies/REPOL-RETE-LST", (t, p) => new RetentionPolicyEntry$Id(t, p));
+  }
+
+  get DAGO_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataGovernance/DAGO-GOVE");
   }
 
   get DGPE_GOVE_LST() {
@@ -126677,6 +127107,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get DCSE_CLAS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataClassification/DCSE-CLAS-LST", (t, p) => new DataClassificationStatusEntry$Id(t, p));
+  }
+
+  get DAINPO_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentLandscape/currentDataLandscape/dataIntegrationPoints/DAINPO-DATA");
   }
 
   get DAIN_INTE_LST() {
@@ -126701,6 +127135,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get ACRG_DEPS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST", (t, p) => new DependencyRegisterEntry$Id(t, p));
+  }
+
+  get OCCHG_OVER() {
+    return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER");
   }
 
   get ORGCE_ITEM_LST() {
@@ -126827,12 +127265,24 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST", (t, p) => new EntityRelationshipEntry$Id(t, p));
   }
 
+  get DATCL_OVER() {
+    return new SomMetaRef(this.tree, this.path + "/informationAndDataModel/dataModel/dataClassification/DATCL-OVER");
+  }
+
   get DCLSE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST", (t, p) => new DataClassificationEntry$Id(t, p));
   }
 
   get BJOEN_OBJE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/businessObjectModel/BJOEN-OBJE-LST", (t, p) => new BusinessObjectEntry$Id(t, p));
+  }
+
+  get FUMO_DECO() {
+    return new SomMetaRef(this.tree, this.path + "/informationAndDataModel/functionModel/FUMO-DECO");
+  }
+
+  get FUMO_MATR() {
+    return new SomMetaRef(this.tree, this.path + "/informationAndDataModel/functionModel/FUMO-MATR");
   }
 
   get FUNCT_FUNC_LST() {
@@ -126845,6 +127295,18 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get BIRU_BUSI_LST() {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/functionModel/BIRU-BUSI-LST", (t, p) => new BusinessRuleEntry$Id(t, p));
+  }
+
+  get TRAREQ_TRAN() {
+    return new SomMetaRef(this.tree, this.path + "/requirements/localizationTranslation/translationRequirements/TRAREQ-TRAN");
+  }
+
+  get DOANTR_DOCU() {
+    return new SomMetaRef(this.tree, this.path + "/requirements/informationForUse/userDocumentation/DOANTR-DOCU");
+  }
+
+  get TRMAT_TRAI() {
+    return new SomMetaRef(this.tree, this.path + "/requirements/trainingEnablement/trainingDeliverables/TRMAT-TRAI");
   }
 
   get TRMOEN_TRAI_LST() {
@@ -127063,6 +127525,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) => new MaintenanceProcedureEntry$Id(t, p));
   }
 
+  get MONITO_MONI() {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/MONITO-MONI");
+  }
+
+  get ALCO_ALER() {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALCO-ALER");
+  }
+
   get ALRUEN_ALER_LST() {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) => new AlertRuleEntry$Id(t, p));
   }
@@ -127071,8 +127541,16 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALSURU-SUPP-LST", (t, p) => new AlertSuppressionRules$Id(t, p));
   }
 
+  get MEANOB_METR() {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/MEANOB-METR");
+  }
+
   get CUMEEN_CUST_LST() {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) => new CustomMetricEntry$Id(t, p));
+  }
+
+  get MODA_DASH() {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH");
   }
 
   get DAEN_DASH_LST() {
@@ -127081,6 +127559,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get DATE_DASH_LST() {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST", (t, p) => new DashboardTemplates$Id(t, p));
+  }
+
+  get SASM_SLAO() {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO");
   }
 
   get SLEN_SLOS_LST() {
@@ -127267,12 +127749,24 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/printLayout/EXTEEN-EXPO-LST", (t, p) => new ExportTemplateEntry$Id(t, p));
   }
 
+  get ERHACO_ERRO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/ERHACO-ERRO");
+  }
+
+  get VAFE_VALI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAFE-VALI");
+  }
+
   get VAMETE_MESS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) => new ValidationMessageTemplate$Id(t, p));
   }
 
   get FIELD_FIEL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new FieldValidationRuleEntry$Id(t, p));
+  }
+
+  get SYERDI_SYST() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST");
   }
 
   get EPDE_ERRO_LST() {
@@ -127283,6 +127777,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) => new SystemErrorCodeEntry$Id(t, p));
   }
 
+  get ERRE_RECO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/ERRE-RECO");
+  }
+
   get RECOV_RECO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new RecoveryFlowEntry$Id(t, p));
   }
@@ -127291,28 +127789,72 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Id(t, p));
   }
 
+  get USAS_HELP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/USAS-HELP");
+  }
+
+  get COHE_CONT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/COHE-CONT");
+  }
+
   get FLDHP_FIEL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/contextualHelp/FLDHP-FIEL-LST", (t, p) => new FieldHelpEntry$Id(t, p));
+  }
+
+  get ONHE_ONBO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/ONHE-ONBO");
   }
 
   get FTRTUR_FEAT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/onboarding/FTRTUR-FEAT-LST", (t, p) => new FeatureTourEntry$Id(t, p));
   }
 
+  get SUAC_SUPP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/userAssistance/supportAccess/SUAC-SUPP");
+  }
+
+  get ACCESS_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/ACCESS-ACCE");
+  }
+
+  get WCCO_WCAG() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WCCO-WCAG");
+  }
+
   get WSCE_SUCC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) => new WcagSuccessCriterionEntry$Id(t, p));
+  }
+
+  get ACCHLS_CHEC() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCHLS-CHEC");
   }
 
   get ACCH_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/accessibility/accessibilityChecklist/ACCH-ITEM-LST", (t, p) => new AccessibilityCheckEntry$Id(t, p));
   }
 
+  get REDE_RESP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/REDE-RESP");
+  }
+
+  get BC_BREA() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BC-BREA");
+  }
+
   get BRE_BREA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) => new BreakpointEntry$Id(t, p));
   }
 
+  get REBE_LAYO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/REBE-LAYO");
+  }
+
   get RESPSR_SCRE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) => new ResponsiveScreenRuleEntry$Id(t, p));
+  }
+
+  get UICO_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/UICO-COMP");
   }
 
   get DESIG_DESI_LST() {
@@ -127335,20 +127877,64 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/uiComponents/CMFA-COMP-LST", (t, p) => new ComponentFamilyEntry$Id(t, p));
   }
 
+  get MLAR_MULT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/MLAR-MULT");
+  }
+
+  get LACOSE_LANG() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/languageCountrySelection/LACOSE-LANG");
+  }
+
   get SULOEN_SUPP_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/multiLanguageSupport/SULOEN-SUPP-LST", (t, p) => new SupportedLocaleEntry$Id(t, p));
+  }
+
+  get PROTOT_PROT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/PROTOT-PROT");
+  }
+
+  get PG_GOAL() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PG-GOAL");
   }
 
   get PRGOEN_GOAL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) => new PrototypeGoalEntry$Id(t, p));
   }
 
+  get PRFESU_FEAT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFESU-FEAT");
+  }
+
   get PRFEEN_FEAT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) => new PrototypeFeatureEntry$Id(t, p));
   }
 
+  get PRTYSE_PROT() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/PRTYSE-PROT");
+  }
+
+  get REUPRO_REUS() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/reusablePrototype/REUPRO-REUS");
+  }
+
+  get TP_TRAI() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/trainingPrototype/TP-TRAI");
+  }
+
+  get THPR_THRO() {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/prototype/prototypeType/throwawayPrototype/THPR-THRO");
+  }
+
+  get SYQG_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/SYQG-GOVE");
+  }
+
   get ATTRI_ATTR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", (t, p) => new AttributeInterdependencyEntry$Id(t, p));
+  }
+
+  get QLFWK_FRAM() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-FRAM");
   }
 
   get QCATE_QUAL_LST() {
@@ -127359,20 +127945,80 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", (t, p) => new CategoryDependencyEntry$Id(t, p));
   }
 
+  get FNSU_FUNC() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/FNSU-FUNC");
+  }
+
+  get PEEF_PERF() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/performanceEfficiency/PEEF-PERF");
+  }
+
+  get CMPT_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/compatibility/CMPT-COMP");
+  }
+
+  get INCP_INTE() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/interactionCapability/INCP-INTE");
+  }
+
+  get RELC_RELI() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/reliability/RELC-RELI");
+  }
+
   get SLAE_SLAE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/reliability/serviceLevelRequirements/SLAE-SLAE-LST", (t, p) => new ServiceLevelAgreementEntry$Id(t, p));
+  }
+
+  get SECC_SECU() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/security/SECC-SECU");
+  }
+
+  get MNTC_MAIN() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/maintainability/MNTC-MAIN");
+  }
+
+  get FLXC_FLEX() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/flexibility/FLXC-FLEX");
+  }
+
+  get DOQUCR_DOCU() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/documentationQuality/DOQUCR-DOCU");
+  }
+
+  get QUPR_PRIO() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/QUPR-PRIO");
+  }
+
+  get WEQUMA_MATR() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/weightedQualityMatrix/WEQUMA-MATR");
   }
 
   get QLWGT_WEIG_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/weightedQualityMatrix/QLWGT-WEIG-LST", (t, p) => new QualityWeightEntry$Id(t, p));
   }
 
+  get TROFDE_TRAD() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TROFDE-TRAD");
+  }
+
   get TODE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/prioritization/tradeOffDecisions/TODE-ITEM-LST", (t, p) => new TradeOffDecisionEntry$Id(t, p));
   }
 
+  get ACCRSU_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/ACCRSU-ACCE");
+  }
+
+  get MUPACR_MUST() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MUPACR-MUST");
+  }
+
   get MSTPCR_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/mustPassCriteria/MSTPCR-ITEM-LST", (t, p) => new MustPassCriterionEntry$Id(t, p));
+  }
+
+  get QUGACH_CHEC() {
+    return new SomMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/qualityGateChecklist/QUGACH-CHEC");
   }
 
   get QGCHK_ITEM_LST() {
@@ -127495,6 +128141,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST", (t, p) => new DecisionPointEntry$Id(t, p));
   }
 
+  get LOPR_LOCA() {
+    return new SomMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPR-LOCA");
+  }
+
+  get TRPR_TRAN() {
+    return new SomMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPR-TRAN");
+  }
+
   get TRVEEN_VEND_LST() {
     return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST", (t, p) => new TranslationVendorEntry$Id(t, p));
   }
@@ -127508,12 +128162,24 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t, p) => new ExistingSystemEntry$Id(t, p));
   }
 
+  get CARCH_ARCH() {
+    return new SomMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/CARCH-ARCH");
+  }
+
+  get CARCH_DEPL() {
+    return new SomMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
+  }
+
   get IPE_INTE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new IntegrationPatternEntry$Id(t, p));
   }
 
   get SHARE_SHAR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SharedServiceEntry$Id(t, p));
+  }
+
+  get DEPNT_DEPE() {
+    return new SomMetaRef(this.tree, this.path + "/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE");
   }
 
   get SYDE_ITEM_LST() {
@@ -127536,12 +128202,20 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new FragilePointEntry$Id(t, p));
   }
 
+  get CUBUPR_PROC() {
+    return new SomMetaRef(this.tree, this.path + "/currentBusinessProcesses/CUBUPR-PROC");
+  }
+
   get PRSCEN_INSC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST", (t, p) => new ProcessScopeEntry$Id(t, p));
   }
 
   get PRSCEN_OUTO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST", (t, p) => new ProcessScopeEntry$Id(t, p));
+  }
+
+  get PRINMA_DEPE() {
+    return new SomMetaRef(this.tree, this.path + "/currentBusinessProcesses/interdependencyMatrix/PRINMA-DEPE");
   }
 
   get PRDEEN_DEPE_LST() {
@@ -127554,6 +128228,14 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 
   get CUBIPR_PROC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentBusinessProcesses/CUBIPR-PROC-LST", (t, p) => new CurrentBusinessProcess$Id(t, p));
+  }
+
+  get PPAG_PAIN() {
+    return new SomMetaRef(this.tree, this.path + "/painPointsAndGaps/PPAG-PAIN");
+  }
+
+  get PPAG_PAINP() {
+    return new SomMetaRef(this.tree, this.path + "/painPointsAndGaps/PPAG-PAINP");
   }
 
   get OPPAPO_ITEM_LST() {
@@ -127572,12 +128254,32 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t, p) => new GapEntry$Id(t, p));
   }
 
+  get PPGC_CORR() {
+    return new SomMetaRef(this.tree, this.path + "/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR");
+  }
+
   get PPGCE_CORR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST", (t, p) => new PainPointGapCorrelationEntry$Id(t, p));
   }
 
+  get CUDALA_DATAL() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/CUDALA-DATAL");
+  }
+
+  get CUDALA_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/CUDALA-DATA");
+  }
+
+  get DASOIN_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataSourceInventory/DASOIN-DATA");
+  }
+
   get DASR_DATA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/dataSourceInventory/DASR-DATA-LST", (t, p) => new DataSourceEntry$Id(t, p));
+  }
+
+  get DAQUAS_QUAL() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataQualityAssessment/DAQUAS-QUAL");
   }
 
   get DAQLIS_QUAL_LST() {
@@ -127588,12 +128290,24 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/dataQualityAssessment/DQIE-IMPR-LST", (t, p) => new DataQualityInitiativeEntry$Id(t, p));
   }
 
+  get DADUAN_DUPL() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataDuplicationAnalysis/DADUAN-DUPL");
+  }
+
   get DADU_DUPL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/dataDuplicationAnalysis/DADU-DUPL-LST", (t, p) => new DataDuplicationEntry$Id(t, p));
   }
 
+  get DAOW_OWNE() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataOwnership/DAOW-OWNE");
+  }
+
   get DAOWEN_OWNE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/dataOwnership/DAOWEN-OWNE-LST", (t, p) => new DataOwnershipEntry$Id(t, p));
+  }
+
+  get DVAG_GROW() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataVolumesAndGrowth/DVAG-GROW");
   }
 
   get DAVOEN_VOLU_LST() {
@@ -127602,6 +128316,10 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 
   get REPOL_RETE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/retentionPolicies/REPOL-RETE-LST", (t, p) => new RetentionPolicyEntry$Id(t, p));
+  }
+
+  get DAGO_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataGovernance/DAGO-GOVE");
   }
 
   get DGPE_GOVE_LST() {
@@ -127614,6 +128332,10 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 
   get DCSE_CLAS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/currentDataLandscape/dataClassification/DCSE-CLAS-LST", (t, p) => new DataClassificationStatusEntry$Id(t, p));
+  }
+
+  get DAINPO_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/currentDataLandscape/dataIntegrationPoints/DAINPO-DATA");
   }
 
   get DAIN_INTE_LST() {
@@ -127630,6 +128352,14 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 
   get SYTORE_SYST_LST() {
     return new SomListMetaRef(this.tree, this.path + "/replacementInventory/SYTORE-SYST-LST", (t, p) => new SystemToReplaceEntry$Id(t, p));
+  }
+
+  get MIGCON_STRA() {
+    return new SomMetaRef(this.tree, this.path + "/migrationConsiderations/MIGCON-STRA");
+  }
+
+  get MIRI_GOVE() {
+    return new SomMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/MIRI-GOVE");
   }
 
   get RISKC_RISK_LST() {
@@ -127706,6 +128436,10 @@ class D03InformationModel$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/entityRelationships/ENRLE-ITEM-LST", (t, p) => new EntityRelationshipEntry$Id(t, p));
   }
 
+  get DATCL_OVER() {
+    return new SomMetaRef(this.tree, this.path + "/dataClassification/DATCL-OVER");
+  }
+
   get DCLSE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/dataClassification/DCLSE-ITEM-LST", (t, p) => new DataClassificationEntry$Id(t, p));
   }
@@ -127731,20 +128465,40 @@ class D03InformationModel$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class D04RequirementsSpecification$Id extends SomMetaRef {
+  get FR_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/functionalRequirements/FR-SUMM");
+  }
+
   get FRE_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/functionalRequirements/FRE-REQU-LST", (t, p) => new FunctionalRequirementEntry$Id(t, p));
+  }
+
+  get TR1_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/technicalRequirements/TR1-SUMM");
   }
 
   get TERQ_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/technicalRequirements/TERQ-REQU-LST", (t, p) => new TechnicalRequirementEntry$Id(t, p));
   }
 
+  get SR1_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/securityRequirements/SR1-SUMM");
+  }
+
   get SECRQ_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/securityRequirements/SECRQ-REQU-LST", (t, p) => new SecurityRequirementEntry$Id(t, p));
   }
 
+  get OR_SUMM() {
+    return new SomMetaRef(this.tree, this.path + "/organizationalRequirements/OR-SUMM");
+  }
+
   get ORRQ_REQU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/organizationalRequirements/ORRQ-REQU-LST", (t, p) => new OrganizationalRequirementEntry$Id(t, p));
+  }
+
+  get RSP_TRAC() {
+    return new SomMetaRef(this.tree, this.path + "/RSP-TRAC");
   }
 
   get RERE_REQU_LST() {
@@ -127989,6 +128743,14 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", (t, p) => new MaintenanceProcedureEntry$Id(t, p));
   }
 
+  get MONITO_MONI() {
+    return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/MONITO-MONI");
+  }
+
+  get ALCO_ALER() {
+    return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALCO-ALER");
+  }
+
   get ALRUEN_ALER_LST() {
     return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) => new AlertRuleEntry$Id(t, p));
   }
@@ -127997,8 +128759,16 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALSURU-SUPP-LST", (t, p) => new AlertSuppressionRules$Id(t, p));
   }
 
+  get MEANOB_METR() {
+    return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/MEANOB-METR");
+  }
+
   get CUMEEN_CUST_LST() {
     return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) => new CustomMetricEntry$Id(t, p));
+  }
+
+  get MODA_DASH() {
+    return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH");
   }
 
   get DAEN_DASH_LST() {
@@ -128007,6 +128777,10 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
 
   get DATE_DASH_LST() {
     return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/dashboards/DATE-DASH-LST", (t, p) => new DashboardTemplates$Id(t, p));
+  }
+
+  get SASM_SLAO() {
+    return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SASM-SLAO");
   }
 
   get SLEN_SLOS_LST() {
@@ -128049,6 +128823,10 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/componentsToUse/riskAssessment/contingencyPlans/COPL-ITEM-LST", (t, p) => new ContingencyPlanEntry$Id(t, p));
   }
 
+  get TEEN_TECH() {
+    return new SomMetaRef(this.tree, this.path + "/technicalEnvironment/TEEN-TECH");
+  }
+
   get DEVOP_DEVO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) => new DevopsStandardEntry$Id(t, p));
   }
@@ -128067,6 +128845,10 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
 
   get INCOE1_INTE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/INCOE1-INTE-LST", (t, p) => new IntegrationConstraintEntry$Id(t, p));
+  }
+
+  get TRAREQ_TRAN() {
+    return new SomMetaRef(this.tree, this.path + "/translationRequirements/TRAREQ-TRAN");
   }
 }
 
@@ -128252,12 +129034,24 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/printLayout/EXTEEN-EXPO-LST", (t, p) => new ExportTemplateEntry$Id(t, p));
   }
 
+  get ERHACO_ERRO() {
+    return new SomMetaRef(this.tree, this.path + "/errorHandling/ERHACO-ERRO");
+  }
+
+  get VAFE_VALI() {
+    return new SomMetaRef(this.tree, this.path + "/errorHandling/validationFeedback/VAFE-VALI");
+  }
+
   get VAMETE_MESS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) => new ValidationMessageTemplate$Id(t, p));
   }
 
   get FIELD_FIEL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new FieldValidationRuleEntry$Id(t, p));
+  }
+
+  get SYERDI_SYST() {
+    return new SomMetaRef(this.tree, this.path + "/errorHandling/systemErrorDisplay/SYERDI-SYST");
   }
 
   get EPDE_ERRO_LST() {
@@ -128268,6 +129062,10 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) => new SystemErrorCodeEntry$Id(t, p));
   }
 
+  get ERRE_RECO() {
+    return new SomMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/ERRE-RECO");
+  }
+
   get RECOV_RECO_LST() {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new RecoveryFlowEntry$Id(t, p));
   }
@@ -128276,28 +129074,72 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Id(t, p));
   }
 
+  get USAS_HELP() {
+    return new SomMetaRef(this.tree, this.path + "/userAssistance/USAS-HELP");
+  }
+
+  get COHE_CONT() {
+    return new SomMetaRef(this.tree, this.path + "/userAssistance/contextualHelp/COHE-CONT");
+  }
+
   get FLDHP_FIEL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/userAssistance/contextualHelp/FLDHP-FIEL-LST", (t, p) => new FieldHelpEntry$Id(t, p));
+  }
+
+  get ONHE_ONBO() {
+    return new SomMetaRef(this.tree, this.path + "/userAssistance/onboarding/ONHE-ONBO");
   }
 
   get FTRTUR_FEAT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/userAssistance/onboarding/FTRTUR-FEAT-LST", (t, p) => new FeatureTourEntry$Id(t, p));
   }
 
+  get SUAC_SUPP() {
+    return new SomMetaRef(this.tree, this.path + "/userAssistance/supportAccess/SUAC-SUPP");
+  }
+
+  get ACCESS_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/accessibility/ACCESS-ACCE");
+  }
+
+  get WCCO_WCAG() {
+    return new SomMetaRef(this.tree, this.path + "/accessibility/wcagComplianceLevel/WCCO-WCAG");
+  }
+
   get WSCE_SUCC_LST() {
     return new SomListMetaRef(this.tree, this.path + "/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) => new WcagSuccessCriterionEntry$Id(t, p));
+  }
+
+  get ACCHLS_CHEC() {
+    return new SomMetaRef(this.tree, this.path + "/accessibility/accessibilityChecklist/ACCHLS-CHEC");
   }
 
   get ACCH_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/accessibility/accessibilityChecklist/ACCH-ITEM-LST", (t, p) => new AccessibilityCheckEntry$Id(t, p));
   }
 
+  get REDE_RESP() {
+    return new SomMetaRef(this.tree, this.path + "/responsiveDesign/REDE-RESP");
+  }
+
+  get BC_BREA() {
+    return new SomMetaRef(this.tree, this.path + "/responsiveDesign/breakpointConfig/BC-BREA");
+  }
+
   get BRE_BREA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) => new BreakpointEntry$Id(t, p));
   }
 
+  get REBE_LAYO() {
+    return new SomMetaRef(this.tree, this.path + "/responsiveDesign/responsiveBehavior/REBE-LAYO");
+  }
+
   get RESPSR_SCRE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/responsiveDesign/responsiveBehavior/RESPSR-SCRE-LST", (t, p) => new ResponsiveScreenRuleEntry$Id(t, p));
+  }
+
+  get UICO_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/uiComponents/UICO-COMP");
   }
 
   get DESIG_DESI_LST() {
@@ -128320,12 +129162,44 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/uiComponents/CMFA-COMP-LST", (t, p) => new ComponentFamilyEntry$Id(t, p));
   }
 
+  get LACOSE_LANG() {
+    return new SomMetaRef(this.tree, this.path + "/languageCountrySelection/LACOSE-LANG");
+  }
+
+  get PROTOT_PROT() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/PROTOT-PROT");
+  }
+
+  get PG_GOAL() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/prototypeGoals/PG-GOAL");
+  }
+
   get PRGOEN_GOAL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) => new PrototypeGoalEntry$Id(t, p));
   }
 
+  get PRFESU_FEAT() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/featureSubset/PRFESU-FEAT");
+  }
+
   get PRFEEN_FEAT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) => new PrototypeFeatureEntry$Id(t, p));
+  }
+
+  get PRTYSE_PROT() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/prototypeType/PRTYSE-PROT");
+  }
+
+  get REUPRO_REUS() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/prototypeType/reusablePrototype/REUPRO-REUS");
+  }
+
+  get TP_TRAI() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/prototypeType/trainingPrototype/TP-TRAI");
+  }
+
+  get THPR_THRO() {
+    return new SomMetaRef(this.tree, this.path + "/prototype/prototypeType/throwawayPrototype/THPR-THRO");
   }
 }
 
@@ -128333,6 +129207,10 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class D10QualityAcceptancePlan$Id extends SomMetaRef {
+  get QLFWK_FRAM() {
+    return new SomMetaRef(this.tree, this.path + "/qualityFramework/QLFWK-FRAM");
+  }
+
   get QCATE_QUAL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityFramework/QCATE-QUAL-LST", (t, p) => new QualityCategoryEntry$Id(t, p));
   }
@@ -128341,20 +129219,80 @@ class D10QualityAcceptancePlan$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/qualityFramework/CATEG-CATE-LST", (t, p) => new CategoryDependencyEntry$Id(t, p));
   }
 
+  get FNSU_FUNC() {
+    return new SomMetaRef(this.tree, this.path + "/functionalSuitability/FNSU-FUNC");
+  }
+
+  get PEEF_PERF() {
+    return new SomMetaRef(this.tree, this.path + "/performanceEfficiency/PEEF-PERF");
+  }
+
+  get CMPT_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/compatibility/CMPT-COMP");
+  }
+
+  get INCP_INTE() {
+    return new SomMetaRef(this.tree, this.path + "/interactionCapability/INCP-INTE");
+  }
+
+  get RELC_RELI() {
+    return new SomMetaRef(this.tree, this.path + "/reliability/RELC-RELI");
+  }
+
   get SLAE_SLAE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/reliability/serviceLevelRequirements/SLAE-SLAE-LST", (t, p) => new ServiceLevelAgreementEntry$Id(t, p));
+  }
+
+  get SECC_SECU() {
+    return new SomMetaRef(this.tree, this.path + "/security/SECC-SECU");
+  }
+
+  get MNTC_MAIN() {
+    return new SomMetaRef(this.tree, this.path + "/maintainability/MNTC-MAIN");
+  }
+
+  get FLXC_FLEX() {
+    return new SomMetaRef(this.tree, this.path + "/flexibility/FLXC-FLEX");
+  }
+
+  get DOQUCR_DOCU() {
+    return new SomMetaRef(this.tree, this.path + "/documentationQualityCriteria/DOQUCR-DOCU");
+  }
+
+  get QUPR_PRIO() {
+    return new SomMetaRef(this.tree, this.path + "/qualityPrioritization/QUPR-PRIO");
+  }
+
+  get WEQUMA_MATR() {
+    return new SomMetaRef(this.tree, this.path + "/qualityPrioritization/weightedQualityMatrix/WEQUMA-MATR");
   }
 
   get QLWGT_WEIG_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityPrioritization/weightedQualityMatrix/QLWGT-WEIG-LST", (t, p) => new QualityWeightEntry$Id(t, p));
   }
 
+  get TROFDE_TRAD() {
+    return new SomMetaRef(this.tree, this.path + "/qualityPrioritization/tradeOffDecisions/TROFDE-TRAD");
+  }
+
   get TODE_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/qualityPrioritization/tradeOffDecisions/TODE-ITEM-LST", (t, p) => new TradeOffDecisionEntry$Id(t, p));
   }
 
+  get ACCRSU_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/acceptanceCriteriaSummary/ACCRSU-ACCE");
+  }
+
+  get MUPACR_MUST() {
+    return new SomMetaRef(this.tree, this.path + "/acceptanceCriteriaSummary/mustPassCriteria/MUPACR-MUST");
+  }
+
   get MSTPCR_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/acceptanceCriteriaSummary/mustPassCriteria/MSTPCR-ITEM-LST", (t, p) => new MustPassCriterionEntry$Id(t, p));
+  }
+
+  get QUGACH_CHEC() {
+    return new SomMetaRef(this.tree, this.path + "/acceptanceCriteriaSummary/qualityGateChecklist/QUGACH-CHEC");
   }
 
   get QGCHK_ITEM_LST() {
@@ -128467,8 +129405,24 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class D12TransitionRolloutPlan$Id extends SomMetaRef {
+  get LOPR_LOCA() {
+    return new SomMetaRef(this.tree, this.path + "/localizationProcess/LOPR-LOCA");
+  }
+
+  get TRPR_TRAN() {
+    return new SomMetaRef(this.tree, this.path + "/translationProcess/TRPR-TRAN");
+  }
+
   get TRVEEN_VEND_LST() {
     return new SomListMetaRef(this.tree, this.path + "/translationProcess/TRVEEN-VEND-LST", (t, p) => new TranslationVendorEntry$Id(t, p));
+  }
+
+  get DOANTR_DOCU() {
+    return new SomMetaRef(this.tree, this.path + "/userDocumentation/DOANTR-DOCU");
+  }
+
+  get TRMAT_TRAI() {
+    return new SomMetaRef(this.tree, this.path + "/trainingDeliverables/TRMAT-TRAI");
   }
 
   get TRMOEN_TRAI_LST() {
@@ -128498,8 +129452,28 @@ class DataAttributeConstraintEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class DataAttributeEntry$Id extends SomMetaRef {
+  get DAATT_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/DAATT-IDEN");
+  }
+
+  get DAATT_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/DAATT-DATA");
+  }
+
   get DATAA_CONS_LST() {
     return new SomListMetaRef(this.tree, this.path + "/DATAA-CONS-LST", (t, p) => new DataAttributeConstraintEntry$Id(t, p));
+  }
+
+  get DAATT_DERI() {
+    return new SomMetaRef(this.tree, this.path + "/DAATT-DERI");
+  }
+
+  get DAATT_SECU() {
+    return new SomMetaRef(this.tree, this.path + "/DAATT-SECU");
+  }
+
+  get DAATT_MIGR() {
+    return new SomMetaRef(this.tree, this.path + "/DAATT-MIGR");
   }
 
   get DISPL_DISP_LST() {
@@ -128511,6 +129485,26 @@ class DataAttributeEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class DataClassificationEntry$Id extends SomMetaRef {
+  get DCLSE_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-IDEN");
+  }
+
+  get DCLSE_STOR() {
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-STOR");
+  }
+
+  get DCLSE_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-ACCE");
+  }
+
+  get DCLSE_RETE() {
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-RETE");
+  }
+
+  get DCLSE_COMP() {
+    return new SomMetaRef(this.tree, this.path + "/DCLSE-COMP");
+  }
+
   get HNDRE_HAND_LST() {
     return new SomListMetaRef(this.tree, this.path + "/HNDRE-HAND-LST", (t, p) => new HandlingRequirementEntry$Id(t, p));
   }
@@ -128542,12 +129536,28 @@ class DataDuplicationEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class DataEntityEntry$Id extends SomMetaRef {
+  get DAENT_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/DAENT-IDEN");
+  }
+
+  get DAENT_CLAS() {
+    return new SomMetaRef(this.tree, this.path + "/DAENT-CLAS");
+  }
+
   get VOLUM_VOLU_LST() {
     return new SomListMetaRef(this.tree, this.path + "/VOLUM-VOLU-LST", (t, p) => new VolumeMetricEntry$Id(t, p));
   }
 
+  get DAENT_LIFE() {
+    return new SomMetaRef(this.tree, this.path + "/DAENT-LIFE");
+  }
+
   get CRE_COMP_LST() {
     return new SomListMetaRef(this.tree, this.path + "/CRE-COMP-LST", (t, p) => new ComplianceRequirementEntry$Id(t, p));
+  }
+
+  get DAENT_RELA() {
+    return new SomMetaRef(this.tree, this.path + "/DAENT-RELA");
   }
 
   get TECHN_TECH_LST() {
@@ -128897,8 +129907,24 @@ class EntityIndexEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class EntityRelationshipEntry$Id extends SomMetaRef {
+  get ENRLE_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-IDEN");
+  }
+
   get PARTI_PART_LST() {
     return new SomListMetaRef(this.tree, this.path + "/PARTI-PART-LST", (t, p) => new ParticipantEntry$Id(t, p));
+  }
+
+  get ENRLE_CARD() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-CARD");
+  }
+
+  get ENRLE_REFE() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-REFE");
+  }
+
+  get ENRLE_NAVI() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-NAVI");
   }
 
   get RELAT_RELA_LST() {
@@ -129024,6 +130050,10 @@ class ExternalActorEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ExternalInterfaceEntry$Id extends SomMetaRef {
+  get EIE_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/EIE-IDEN");
+  }
+
   get IBPE_DEPE_LST() {
     return new SomListMetaRef(this.tree, this.path + "/businessContext/IBPE-DEPE-LST", (t, p) => new InterfaceBusinessProcessEntry$Id(t, p));
   }
@@ -129085,6 +130115,9 @@ class ExternalServiceDependencyEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ExternalSystemContextEntry$Id extends SomMetaRef {
+  get EXSYCOEN_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/EXSYCOEN-DATA");
+  }
 }
 
 // ID-tree accessors of `FamilyComponentRef` (DR1 §4.2): getters named by section id
@@ -129196,6 +130229,18 @@ class FunctionalRequirementEntry$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/dataRequirements/DAENRE-ENTI-LST", (t, p) => new DataEntityReferenceEntry$Id(t, p));
   }
 
+  get RUS_UIFO() {
+    return new SomMetaRef(this.tree, this.path + "/uiSpecification/RUS-UIFO");
+  }
+
+  get RUS_LAYO() {
+    return new SomMetaRef(this.tree, this.path + "/uiSpecification/RUS-LAYO");
+  }
+
+  get RUS_MOCK() {
+    return new SomMetaRef(this.tree, this.path + "/uiSpecification/RUS-MOCK");
+  }
+
   get SCFLD_FIEL_LST() {
     return new SomListMetaRef(this.tree, this.path + "/uiSpecification/SCFLD-FIEL-LST", (t, p) => new ScreenFieldEntry$Id(t, p));
   }
@@ -129210,6 +130255,10 @@ class FunctionalRequirementEntry$Id extends SomMetaRef {
 
   get RQDEP_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/dependencies/RQDEP-ITEM-LST", (t, p) => new RequirementDependencyEntry$Id(t, p));
+  }
+
+  get RT_TRAC() {
+    return new SomMetaRef(this.tree, this.path + "/traceability/RT-TRAC");
   }
 
   get RQTSC_TEST_LST() {
@@ -129851,6 +130900,10 @@ class OrganizationalChangeEntry$Id extends SomMetaRef {
 class OrganizationalRequirementEntry$Id extends SomMetaRef {
   get ACCR_CRIT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/acceptanceCriteria/ACCR-CRIT-LST", (t, p) => new AcceptanceCriterionEntry$Id(t, p));
+  }
+
+  get ORIP_PLAN() {
+    return new SomMetaRef(this.tree, this.path + "/implementationPlan/ORIP-PLAN");
   }
 
   get ORGIM_ACTI_LST() {
@@ -130772,6 +131825,10 @@ class SecurityRequirementEntry$Id extends SomMetaRef {
   get RQDEP_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/dependencies/RQDEP-ITEM-LST", (t, p) => new RequirementDependencyEntry$Id(t, p));
   }
+
+  get RT_TRAC() {
+    return new SomMetaRef(this.tree, this.path + "/traceability/RT-TRAC");
+  }
 }
 
 // ID-tree accessors of `SecurityStandardComplianceEntry` (DR1 §4.2): getters named by section id
@@ -131096,6 +132153,10 @@ class SystemTaskWorkflowStepEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class SystemToReplaceEntry$Id extends SomMetaRef {
+  get SYTORE_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/SYTORE-IDEN");
+  }
+
   get KIE_KNOW_LST() {
     return new SomListMetaRef(this.tree, this.path + "/technicalAssessment/KIE-KNOW-LST", (t, p) => new KnownIssueEntry$Id(t, p));
   }
@@ -131227,6 +132288,10 @@ class TechnicalGoalEntry$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/qualityScenarios/QLSCN-ITEM-LST", (t, p) => new QualityScenarioEntry$Id(t, p));
   }
 
+  get TGTC_TEST() {
+    return new SomMetaRef(this.tree, this.path + "/testCriteria/TGTC-TEST");
+  }
+
   get TEGOTS_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/testCriteria/TEGOTS-ITEM-LST", (t, p) => new TechnicalGoalTestCaseEntry$Id(t, p));
   }
@@ -131256,6 +132321,10 @@ class TechnicalRequirementEntry$Id extends SomMetaRef {
 
   get RQDEP_ITEM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/dependencies/RQDEP-ITEM-LST", (t, p) => new RequirementDependencyEntry$Id(t, p));
+  }
+
+  get RT_TRAC() {
+    return new SomMetaRef(this.tree, this.path + "/traceability/RT-TRAC");
   }
 }
 
@@ -131433,6 +132502,38 @@ class UatTestStepEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class UiComponentEntry$Id extends SomMetaRef {
+  get UICOMENT_IDEN() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-IDEN");
+  }
+
+  get UICOMENT_VISU() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-VISU");
+  }
+
+  get UICOMENT_INTE() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-INTE");
+  }
+
+  get UICOMENT_RESP() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-RESP");
+  }
+
+  get UICOMENT_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-ACCE");
+  }
+
+  get UICOMENT_AUTH() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-AUTH");
+  }
+
+  get UICOMENT_RESO() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-RESO");
+  }
+
+  get UICOMENT_DATA() {
+    return new SomMetaRef(this.tree, this.path + "/UICOMENT-DATA");
+  }
+
   get CMST_STAT_LST() {
     return new SomListMetaRef(this.tree, this.path + "/CMST-STAT-LST", (t, p) => new ComponentStateEntry$Id(t, p));
   }
@@ -131470,6 +132571,14 @@ class UserCategoryDefinition$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class UserCategoryEntry$Id extends SomMetaRef {
+  get UPD_PERS() {
+    return new SomMetaRef(this.tree, this.path + "/personaDetails/UPD-PERS");
+  }
+
+  get UPD_VISU() {
+    return new SomMetaRef(this.tree, this.path + "/personaDetails/UPD-VISU");
+  }
+
   get REPRE_REPR_LST() {
     return new SomListMetaRef(this.tree, this.path + "/personaDetails/REPRE-REPR-LST", (t, p) => new RepresentativeQuoteEntry$Id(t, p));
   }
@@ -131478,12 +132587,28 @@ class UserCategoryEntry$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/SYTS-SYST-LST", (t, p) => new SystemTaskEntry$Id(t, p));
   }
 
+  get UAP_PERM() {
+    return new SomMetaRef(this.tree, this.path + "/accessPermissions/UAP-PERM");
+  }
+
   get PRMTX_PERM_LST() {
     return new SomListMetaRef(this.tree, this.path + "/accessPermissions/PRMTX-PERM-LST", (t, p) => new PermissionMatrixEntry$Id(t, p));
   }
 
+  get USTRRE_TRAI() {
+    return new SomMetaRef(this.tree, this.path + "/trainingRequirements/USTRRE-TRAI");
+  }
+
   get TRTP_TRAI_LST() {
     return new SomListMetaRef(this.tree, this.path + "/trainingRequirements/TRTP-TRAI-LST", (t, p) => new TrainingTopicEntry$Id(t, p));
+  }
+
+  get UAN_ACCE() {
+    return new SomMetaRef(this.tree, this.path + "/accessibilityNeeds/UAN-ACCE");
+  }
+
+  get UJ_JOUR() {
+    return new SomMetaRef(this.tree, this.path + "/userJourney/UJ-JOUR");
   }
 
   get JRNST_STAG_LST() {
@@ -131496,6 +132621,10 @@ class UserCategoryEntry$Id extends SomMetaRef {
 
   get USERJ_PAIN_LST() {
     return new SomListMetaRef(this.tree, this.path + "/userJourney/USERJ-PAIN-LST", (t, p) => new UserJourneyPainPointEntry$Id(t, p));
+  }
+
+  get UJ_OPPO() {
+    return new SomMetaRef(this.tree, this.path + "/userJourney/UJ-OPPO");
   }
 }
 
@@ -131654,6 +132783,9 @@ class WorkflowStepIssue$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class WorkflowStepSystem$Id extends SomMetaRef {
+  get WOSTSY_NAME() {
+    return new SomMetaRef(this.tree, this.path + "/WOSTSY-NAME");
+  }
 }
 
 // ID-tree accessors of `WorkflowSummaryEntry` (DR1 §4.2): getters named by section id

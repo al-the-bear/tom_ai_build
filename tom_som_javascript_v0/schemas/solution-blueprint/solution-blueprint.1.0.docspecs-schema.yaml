@@ -1781,6 +1781,8 @@ section-types:
         max-count: 1
       esceg:
         max-count: 1
+      exsycoen-data:
+        max-count: 1
     pattern-check-id:
       pattern: "^EXSYCOEN-SYST-[0-9]+$"
       error-message: IDs of this section must match EXSYCOEN-SYST-xxx
@@ -3751,6 +3753,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per validation rule.
+  exsycoen-data:
+    prefix: EXSYCOEN_DATA
+    format: description
+    description: Data mapping details.
   fest-stak-lst:
     prefix: FEST_STAK_LST
     subsection-types:
@@ -4355,6 +4361,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per user group needing special handling; note impact level and special considerations.
+  uicoment-acce:
+    prefix: UICOMENT_ACCE
+    format: uicoment-acce-form
+  uicoment-auth:
+    prefix: UICOMENT_AUTH
+    format: uicoment-auth-form
+  uicoment-data:
+    prefix: UICOMENT_DATA
+    format: uicoment-data-form
+  uicoment-iden:
+    prefix: UICOMENT_IDEN
+    format: uicoment-iden-form
+  uicoment-inte:
+    prefix: UICOMENT_INTE
+    format: uicoment-inte-form
+  uicoment-reso:
+    prefix: UICOMENT_RESO
+    format: uicoment-reso-form
+  uicoment-resp:
+    prefix: UICOMENT_RESP
+    format: uicoment-resp-form
+  uicoment-visu:
+    prefix: UICOMENT_VISU
+    format: uicoment-visu-form
   umie-menu-lst:
     prefix: UMIE_MENU_LST
     subsection-types:
@@ -4771,6 +4801,10 @@ section-types:
       pattern: "^CUBIPR-PROC-[0-9]+$"
       error-message: IDs of this section must match CUBIPR-PROC-xxx
     description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+  cudala-datal:
+    prefix: CUDALA_DATAL
+    format: mermaid-flowchart
+    description: Visual representation of the data landscape.
   cumeen-cust:
     prefix: CUMEEN_CUST_
     pattern-check-id:
@@ -5026,6 +5060,8 @@ section-types:
   exinen-inte:
     prefix: EXINEN_INTE_
     subsection-types:
+      eie-iden:
+        max-count: 1
       inbuco:
         max-count: 1
       intesp:
@@ -6079,6 +6115,8 @@ section-types:
   sytore-syst:
     prefix: SYTORE_SYST_
     subsection-types:
+      sytore-iden:
+        max-count: 1
       strep:
         max-count: 1
       strev:
@@ -6230,9 +6268,13 @@ section-types:
   uicoen-comp:
     prefix: UICOEN_COMP_
     subsection-types:
+      uicoment-iden:
+        max-count: 1
       ucep:
         max-count: 1
       ucec:
+        max-count: 1
+      uicoment-visu:
         max-count: 1
       uced:
         max-count: 1
@@ -6240,11 +6282,23 @@ section-types:
         max-count: 1
       uicoensu:
         max-count: 1
+      uicoment-inte:
+        max-count: 1
       uceib:
         max-count: 1
       ucea:
         max-count: 1
       uicoensc:
+        max-count: 1
+      uicoment-resp:
+        max-count: 1
+      uicoment-acce:
+        max-count: 1
+      uicoment-auth:
+        max-count: 1
+      uicoment-reso:
+        max-count: 1
+      uicoment-data:
         max-count: 1
       cmst-stat-lst:
         max-count: 1
@@ -6341,6 +6395,9 @@ section-types:
     description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
   wostsy-syst:
     prefix: WOSTSY_SYST_
+    subsection-types:
+      wostsy-name:
+        max-count: 1
     pattern-check-id:
       pattern: "^WOSTSY-SYST-[0-9]+$"
       error-message: IDs of this section must match WOSTSY-SYST-xxx
@@ -6381,6 +6438,15 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
+  access-acce:
+    prefix: ACCESS_ACCE
+    format: access-acce-form
+  acchls-chec:
+    prefix: ACCHLS_CHEC
+    format: acchls-chec-form
+  accrsu-acce:
+    prefix: ACCRSU_ACCE
+    format: accrsu-acce-form
   acrse-acce:
     prefix: ACRSE_ACCE_
     pattern-check-id:
@@ -6402,7 +6468,15 @@ section-types:
   bjoen-obje:
     prefix: BJOEN_OBJE_
     subsection-types:
+      bjoen-iden:
+        max-count: 1
+      bjoen-doma:
+        max-count: 1
+      bjoen-life:
+        max-count: 1
       behav-beha-lst:
+        max-count: 1
+      bjoen-owne:
         max-count: 1
       integ-inte-lst:
         max-count: 1
@@ -6568,6 +6642,14 @@ section-types:
       pattern: "^CRITI-CRIT-[0-9]+$"
       error-message: IDs of this section must match CRITI-CRIT-xxx
     description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  cubupr-proc:
+    prefix: CUBUPR_PROC
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes."
+  cudala-data:
+    prefix: CUDALA_DATA
+    format: mermaid
+    description: Data architecture summary diagram.
   cultu-cult:
     prefix: CULTU_CULT_
     pattern-check-id:
@@ -6577,7 +6659,17 @@ section-types:
   daatt-attr:
     prefix: DAATT_ATTR_
     subsection-types:
+      daatt-iden:
+        max-count: 1
+      daatt-data:
+        max-count: 1
       dataa-cons-lst:
+        max-count: 1
+      daatt-deri:
+        max-count: 1
+      daatt-secu:
+        max-count: 1
+      daatt-migr:
         max-count: 1
       displ-disp-lst:
         max-count: 1
@@ -6602,12 +6694,24 @@ section-types:
       pattern: "^DACEN-ITEM-[0-9]+$"
       error-message: IDs of this section must match DACEN-ITEM-xxx
     description: Add one entry per acceptance criterion.
+  daduan-dupl:
+    prefix: DADUAN_DUPL
+    format: mermaid
+    description: Visual representation of data redundancy.
   daent-enti:
     prefix: DAENT_ENTI_
     subsection-types:
+      daent-iden:
+        max-count: 1
+      daent-clas:
+        max-count: 1
       volum-volu-lst:
         max-count: 1
+      daent-life:
+        max-count: 1
       cre-comp-lst:
+        max-count: 1
+      daent-rela:
         max-count: 1
       techn-tech-lst:
         max-count: 1
@@ -6625,6 +6729,18 @@ section-types:
       pattern: "^DAENT-ENTI-[0-9]+$"
       error-message: IDs of this section must match DAENT-ENTI-xxx
     description: Add one entry per data entity.
+  dainpo-data:
+    prefix: DAINPO_DATA
+    format: mermaid-flowchart
+    description: Data flow diagram.
+  daquas-qual:
+    prefix: DAQUAS_QUAL
+    format: mermaid
+    description: Quality issues by severity.
+  dasoin-data:
+    prefix: DASOIN_DATA
+    format: mermaid
+    description: Visual map of data sources by domain/category.
   dataa-cons:
     prefix: DATAA_CONS_
     pattern-check-id:
@@ -6669,6 +6785,16 @@ section-types:
   dclse-item:
     prefix: DCLSE_ITEM_
     subsection-types:
+      dclse-iden:
+        max-count: 1
+      dclse-stor:
+        max-count: 1
+      dclse-acce:
+        max-count: 1
+      dclse-rete:
+        max-count: 1
+      dclse-comp:
+        max-count: 1
       hndre-hand-lst:
         max-count: 1
       acrse-acce-lst:
@@ -6719,12 +6845,18 @@ section-types:
       pattern: "^DLVDP-DEPE-[0-9]+$"
       error-message: IDs of this section must match DLVDP-DEPE-xxx
     description: Add one entry per delivery dependency.
+  doantr-docu:
+    prefix: DOANTR_DOCU
+    format: doantr-docu-form
   doctl-aprv:
     prefix: DOCTL_APRV_
     pattern-check-id:
       pattern: "^DOCTL-APRV-[0-9]+$"
       error-message: IDs of this section must match DOCTL-APRV-xxx
     description: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded."
+  doqucr-docu:
+    prefix: DOQUCR_DOCU
+    format: doqucr-docu-form
   dore1-desk:
     prefix: DORE1_DESK_
     subsection-types:
@@ -6755,7 +6887,15 @@ section-types:
   enrle-item:
     prefix: ENRLE_ITEM_
     subsection-types:
+      enrle-iden:
+        max-count: 1
       parti-part-lst:
+        max-count: 1
+      enrle-card:
+        max-count: 1
+      enrle-refe:
+        max-count: 1
+      enrle-navi:
         max-count: 1
       relat-rela-lst:
         max-count: 1
@@ -6798,6 +6938,9 @@ section-types:
       pattern: "^ENVEN-ITEM-[0-9]+$"
       error-message: IDs of this section must match ENVEN-ITEM-xxx
     description: "Add one entry per environment (e.g. Dev, QA, Staging, Prod, DR), capturing its identity, infrastructure, access, data, availability, monitoring, lifecycle, cost, and compliance."
+  erhaco-erro:
+    prefix: ERHACO_ERRO
+    format: erhaco-erro-form
   error-erro:
     prefix: ERROR_ERRO_
     pattern-check-id:
@@ -7166,6 +7309,9 @@ section-types:
       pattern: "^KPIEN-KPIS-[0-9]+$"
       error-message: IDs of this section must match KPIEN-KPIS-xxx
     description: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target."
+  lacose-lang:
+    prefix: LACOSE_LANG
+    format: lacose-lang-form
   lftrs-life:
     prefix: LFTRS_LIFE_
     subsection-types:
@@ -7210,6 +7356,9 @@ section-types:
       pattern: "^MAPPI-MAPP-[0-9]+$"
       error-message: IDs of this section must match MAPPI-MAPP-xxx
     description: List data mapping and transformation rules between external and internal representations.
+  meanob-metr:
+    prefix: MEANOB_METR
+    format: meanob-metr-form
   mfade-mfad:
     prefix: MFADE_MFAD_
     pattern-check-id:
@@ -7278,6 +7427,9 @@ section-types:
       pattern: "^MGRSK-ITEM-[0-9]+$"
       error-message: IDs of this section must match MGRSK-ITEM-xxx
     description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
+  migcon-stra:
+    prefix: MIGCON_STRA
+    format: migcon-stra-form
   migme-migr:
     prefix: MIGME_MIGR_
     pattern-check-id:
@@ -7337,6 +7489,9 @@ section-types:
       pattern: "^MONIT-MONI-[0-9]+$"
       error-message: IDs of this section must match MONIT-MONI-xxx
     description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  monito-moni:
+    prefix: MONITO_MONI
+    format: monito-moni-form
   msddo-mast:
     prefix: MSDDO_MAST_
     subsection-types:
@@ -7350,6 +7505,9 @@ section-types:
       pattern: "^MSDDO-MAST-[0-9]+$"
       error-message: IDs of this section must match MSDDO-MAST-xxx
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
+  mupacr-must:
+    prefix: MUPACR_MUST
+    format: mupacr-must-form
   nonfi-nonf:
     prefix: NONFI_NONF_
     pattern-check-id:
@@ -7641,12 +7799,25 @@ section-types:
       pattern: "^PREDE-PRED-[0-9]+$"
       error-message: IDs of this section must match PREDE-PRED-xxx
     description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  prfesu-feat:
+    prefix: PRFESU_FEAT
+    format: prfesu-feat-form
+  prinma-depe:
+    prefix: PRINMA_DEPE
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.
   prmtx-perm:
     prefix: PRMTX_PERM_
     pattern-check-id:
       pattern: "^PRMTX-PERM-[0-9]+$"
       error-message: IDs of this section must match PRMTX-PERM-xxx
     description: Define specific permission entries for fine-grained access.
+  protot-prot:
+    prefix: PROTOT_PROT
+    format: protot-prot-form
+  prtyse-prot:
+    prefix: PRTYSE_PROT
+    format: prtyse-prot-form
   pscen-item:
     prefix: PSCEN_ITEM_
     pattern-check-id:
@@ -7739,6 +7910,9 @@ section-types:
       pattern: "^QLWGT-WEIG-[0-9]+$"
       error-message: IDs of this section must match QLWGT-WEIG-xxx
     description: Add one entry per quality attribute weight.
+  qugach-chec:
+    prefix: QUGACH_CHEC
+    format: qugach-chec-form
   rdrce-read:
     prefix: RDRCE_READ_
     pattern-check-id:
@@ -7811,6 +7985,9 @@ section-types:
       pattern: "^RESPO-RESP-[0-9]+$"
       error-message: IDs of this section must match RESPO-RESP-xxx
     description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  reupro-reus:
+    prefix: REUPRO_REUS
+    format: reupro-reus-form
   rfdoc-docu:
     prefix: RFDOC_DOCU_
     subsection-types:
@@ -8374,12 +8551,18 @@ section-types:
       pattern: "^SWDLV-ITEM-[0-9]+$"
       error-message: IDs of this section must match SWDLV-ITEM-xxx
     description: Add one entry per software deliverable.
+  syerdi-syst:
+    prefix: SYERDI_SYST
+    format: syerdi-syst-form
   syste-work:
     prefix: SYSTE_WORK_
     pattern-check-id:
       pattern: "^SYSTE-WORK-[0-9]+$"
       error-message: IDs of this section must match SYSTE-WORK-xxx
     description: "Add one entry per step in the task workflow, in the order the user performs them."
+  sytore-iden:
+    prefix: SYTORE_IDEN
+    format: sytore-iden-form
   techn-tech:
     prefix: TECHN_TECH_
     pattern-check-id:
@@ -8479,6 +8662,9 @@ section-types:
       pattern: "^TPSTK-STAK-[0-9]+$"
       error-message: IDs of this section must match TPSTK-STAK-xxx
     description: "Add one entry per stakeholder group engaged in this phase, with the engagement and feedback approach for each."
+  trareq-tran:
+    prefix: TRAREQ_TRAN
+    format: trareq-tran-form
   trdlv-item:
     prefix: TRDLV_ITEM_
     subsection-types:
@@ -8515,6 +8701,9 @@ section-types:
       pattern: "^TRMIL-MILE-[0-9]+$"
       error-message: IDs of this section must match TRMIL-MILE-xxx
     description: "Add one entry per transition milestone or decision gate — e.g. checkpoints, go-live, closure."
+  trofde-trad:
+    prefix: TROFDE_TRAD
+    format: trofde-trad-form
   trphe-phas:
     prefix: TRPHE_PHAS_
     subsection-types:
@@ -8578,6 +8767,10 @@ section-types:
       pattern: "^USERJ-PAIN-[0-9]+$"
       error-message: IDs of this section must match USERJ-PAIN-xxx
     description: Add one entry per pain point or friction in the user journey.
+  ustrre-trai:
+    prefix: USTRRE_TRAI
+    format: ustrre-trai-form
+    description: Training Requirements Form.
   valid-vali:
     prefix: VALID_VALI_
     pattern-check-id:
@@ -8596,6 +8789,12 @@ section-types:
       pattern: "^VOLUM-VOLU-[0-9]+$"
       error-message: IDs of this section must match VOLUM-VOLU-xxx
     description: Add one entry per volume metric.
+  wequma-matr:
+    prefix: WEQUMA_MATR
+    format: wequma-matr-form
+  wostsy-name:
+    prefix: WOSTSY_NAME
+    description: Name of the system used in this workflow step.
   acch-item:
     prefix: ACCH_ITEM_
     subsection-types:
@@ -8839,6 +9038,18 @@ section-types:
   biru-busi:
     prefix: BIRU_BUSI_
     subsection-types:
+      biru-iden:
+        max-count: 1
+      biru-clas:
+        max-count: 1
+      biru-rule:
+        max-count: 1
+      biru-impl:
+        max-count: 1
+      biru-exce:
+        max-count: 1
+      biru-gove:
+        max-count: 1
       afob-affe-lst:
         max-count: 1
       affn-affe-lst:
@@ -8849,6 +9060,26 @@ section-types:
       pattern: "^BIRU-BUSI-[0-9]+$"
       error-message: IDs of this section must match BIRU-BUSI-xxx
     description: Add one entry per business rule.
+  bjoen-doma:
+    prefix: BJOEN_DOMA
+    format: bjoen-doma-form
+  bjoen-iden:
+    prefix: BJOEN_IDEN
+    format: bjoen-iden-form
+  bjoen-life:
+    prefix: BJOEN_LIFE
+    format: bjoen-life-form
+  bjoen-owne:
+    prefix: BJOEN_OWNE
+    format: bjoen-owne-form
+  carch-arch:
+    prefix: CARCH_ARCH
+    format: mermaid-flowchart
+    description: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions."
+  carch-depl:
+    prefix: CARCH_DEPL
+    format: description
+    description: Deployment topology description.
   cboc-oper:
     prefix: CBOC_OPER_
     pattern-check-id:
@@ -9056,35 +9287,21 @@ section-types:
       pattern: "^CPML-MILE-[0-9]+$"
       error-message: IDs of this section must match CPML-MILE-xxx
     description: "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status."
-  cuwf-work:
-    prefix: CUWF_WORK_
-    subsection-types:
-      wotr:
-        max-count: 1
-      wse-step-lst:
-        max-count: 1
-      wfac-acto-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      wodepo-deci-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wse-manu-lst:
-        max-count: 1
-      wse-erro-lst:
-        max-count: 1
-      woti:
-        max-count: 1
-      woex:
-        max-count: 1
-    pattern-check-id:
-      pattern: "^CUWF-WORK-[0-9]+$"
-      error-message: IDs of this section must match CUWF-WORK-xxx
-    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+  daatt-data:
+    prefix: DAATT_DATA
+    format: daatt-data-form
+  daatt-deri:
+    prefix: DAATT_DERI
+    format: daatt-deri-form
+  daatt-iden:
+    prefix: DAATT_IDEN
+    format: daatt-iden-form
+  daatt-migr:
+    prefix: DAATT_MIGR
+    format: daatt-migr-form
+  daatt-secu:
+    prefix: DAATT_SECU
+    format: daatt-secu-form
   dadu-dupl:
     prefix: DADU_DUPL_
     subsection-types:
@@ -9109,6 +9326,18 @@ section-types:
       pattern: "^DAEN-DASH-[0-9]+$"
       error-message: IDs of this section must match DAEN-DASH-xxx
     description: Add one entry per dashboard.
+  daent-clas:
+    prefix: DAENT_CLAS
+    format: daent-clas-form
+  daent-iden:
+    prefix: DAENT_IDEN
+    format: daent-iden-form
+  daent-life:
+    prefix: DAENT_LIFE
+    format: daent-life-form
+  daent-rela:
+    prefix: DAENT_RELA
+    format: daent-rela-form
   dain-inte:
     prefix: DAIN_INTE_
     subsection-types:
@@ -9153,6 +9382,9 @@ section-types:
   dasurimaau:
     prefix: DASURIMAAU
     description: Automated decision safeguards.
+  datcl-over:
+    prefix: DATCL_OVER
+    format: datcl-over-form
   date-dash:
     prefix: DATE_DASH_
     pattern-check-id:
@@ -9165,6 +9397,21 @@ section-types:
       pattern: "^DCLE-CLAS-[0-9]+$"
       error-message: IDs of this section must match DCLE-CLAS-xxx
     description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
+  dclse-acce:
+    prefix: DCLSE_ACCE
+    format: dclse-acce-form
+  dclse-comp:
+    prefix: DCLSE_COMP
+    format: dclse-comp-form
+  dclse-iden:
+    prefix: DCLSE_IDEN
+    format: dclse-iden-form
+  dclse-rete:
+    prefix: DCLSE_RETE
+    format: dclse-rete-form
+  dclse-stor:
+    prefix: DCLSE_STOR
+    format: dclse-stor-form
   dcse-clas:
     prefix: DCSE_CLAS_
     pattern-check-id:
@@ -9180,6 +9427,10 @@ section-types:
   deosreenso:
     prefix: DEOSREENSO
     description: Software prerequisites.
+  depnt-depe:
+    prefix: DEPNT_DEPE
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types."
   dgpe-gove:
     prefix: DGPE_GOVE_
     subsection-types:
@@ -9305,6 +9556,18 @@ section-types:
       pattern: "^EFME-FIEL-[0-9]+$"
       error-message: IDs of this section must match EFME-FIEL-xxx
     description: Add one entry per export field mapping.
+  enrle-card:
+    prefix: ENRLE_CARD
+    format: enrle-card-form
+  enrle-iden:
+    prefix: ENRLE_IDEN
+    format: enrle-iden-form
+  enrle-navi:
+    prefix: ENRLE_NAVI
+    format: enrle-navi-form
+  enrle-refe:
+    prefix: ENRLE_REFE
+    format: enrle-refe-form
   epce-part:
     prefix: EPCE_PART_
     subsection-types:
@@ -9381,6 +9644,10 @@ section-types:
       pattern: "^GAPE-ITEM-[0-9]+$"
       error-message: IDs of this section must match GAPE-ITEM-xxx
     description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  goals-goal:
+    prefix: GOALS_GOAL
+    format: mermaid-flowchart
+    description: "Create a diagram showing goal categories, dependencies, and alignment to strategic objectives."
   ibpe-depe:
     prefix: IBPE_DEPE_
     pattern-check-id:
@@ -9546,6 +9813,9 @@ section-types:
       pattern: "^OBST-KEYS-[0-9]+$"
       error-message: IDs of this section must match OBST-KEYS-xxx
     description: Add one entry per object state.
+  occhg-over:
+    prefix: OCCHG_OVER
+    format: occhg-over-form
   oose-item:
     prefix: OOSE_ITEM_
     subsection-types:
@@ -9582,6 +9852,10 @@ section-types:
       pattern: "^OUCE-ORGA-[0-9]+$"
       error-message: IDs of this section must match OUCE-ORGA-xxx
     description: Add one entry per organizational unit that uses or is affected by the system.
+  pcadj-proc:
+    prefix: PCADJ_PROC
+    format: mermaid-flowchart
+    description: Visual representation of process adjustments.
   pgre-item:
     prefix: PGRE_ITEM_
     subsection-types:
@@ -9609,12 +9883,23 @@ section-types:
       pattern: "^PMAK-PROC-[0-9]+$"
       error-message: IDs of this section must match PMAK-PROC-xxx
     description: Add one entry per process metric or KPI.
+  ppag-painp:
+    prefix: PPAG_PAINP
+    format: mermaid
+    description: Pain points priority matrix (urgency vs impact).
   pren-prot:
     prefix: PREN_PROT_
     pattern-check-id:
       pattern: "^PREN-PROT-[0-9]+$"
       error-message: IDs of this section must match PREN-PROT-xxx
     description: Add one entry per protocol.
+  qgadj-gate:
+    prefix: QGADJ_GATE
+    format: mermaid
+    description: Visual representation of gate adjustments.
+  qlfwk-fram:
+    prefix: QLFWK_FRAM
+    format: qlfwk-fram-form
   reco-cont:
     prefix: RECO_CONT_
     pattern-check-id:
@@ -9699,6 +9984,10 @@ section-types:
       pattern: "^RIEN-KEYR-[0-9]+$"
       error-message: IDs of this section must match RIEN-KEYR-xxx
     description: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail."
+  rladj-role:
+    prefix: RLADJ_ROLE
+    format: mermaid
+    description: Visual comparison of standard vs adjusted roles.
   rppe-rela:
     prefix: RPPE_RELA_
     pattern-check-id:
@@ -9876,6 +10165,10 @@ section-types:
       pattern: "^SYIN-ITEM-[0-9]+$"
       error-message: IDs of this section must match SYIN-ITEM-xxx
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
+  sypup-visi:
+    prefix: SYPUP_VISI
+    format: description
+    description: Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.
   sytr-syst:
     prefix: SYTR_SYST_
     subsection-types:
@@ -10004,6 +10297,9 @@ section-types:
       pattern: "^TRBN-BOUN-[0-9]+$"
       error-message: IDs of this section must match TRBN-BOUN-xxx
     description: Add one entry per trust boundary or security zone.
+  trmat-trai:
+    prefix: TRMAT_TRAI
+    format: trmat-trai-form
   trme-metr:
     prefix: TRME_METR_
     subsection-types:
@@ -10151,6 +10447,9 @@ section-types:
       pattern: "^WSCE-SUCC-[0-9]+$"
       error-message: IDs of this section must match WSCE-SUCC-xxx
     description: Add one entry per WCAG success criterion.
+  alco-aler:
+    prefix: ALCO_ALER
+    format: alco-aler-form
   are-regu:
     prefix: ARE_REGU_
     subsection-types:
@@ -10191,6 +10490,24 @@ section-types:
       pattern: "^BGE-GOAL-[0-9]+$"
       error-message: IDs of this section must match BGE-GOAL-xxx
     description: Add one entry per business goal. Goals should be mutually exclusive and collectively exhaustive for the project scope.
+  biru-clas:
+    prefix: BIRU_CLAS
+    format: biru-clas-form
+  biru-exce:
+    prefix: BIRU_EXCE
+    format: biru-exce-form
+  biru-gove:
+    prefix: BIRU_GOVE
+    format: biru-gove-form
+  biru-iden:
+    prefix: BIRU_IDEN
+    format: biru-iden-form
+  biru-impl:
+    prefix: BIRU_IMPL
+    format: biru-impl-form
+  biru-rule:
+    prefix: BIRU_RULE
+    format: biru-rule-form
   bre-brea:
     prefix: BRE_BREA_
     subsection-types:
@@ -10202,6 +10519,16 @@ section-types:
       pattern: "^BRE-BREA-[0-9]+$"
       error-message: IDs of this section must match BRE-BREA-xxx
     description: Add one entry per layout breakpoint.
+  cmpt-comp:
+    prefix: CMPT_COMP
+    format: cmpt-comp-form
+  cohe-cont:
+    prefix: COHE_CONT
+    format: cohe-cont-form
+  coma-comm:
+    prefix: COMA_COMM
+    format: mermaid
+    description: Communication matrix diagram.
   cre-comp:
     prefix: CRE_COMP_
     pattern-check-id:
@@ -10225,6 +10552,46 @@ section-types:
       pattern: "^CRT-CERT-[0-9]+$"
       error-message: IDs of this section must match CRT-CERT-xxx
     description: Certification entry (form).
+  cuwf-work:
+    prefix: CUWF_WORK
+    subsection-types:
+      cuwf-work:
+        max-count: 1
+      wotr:
+        max-count: 1
+      wse-step-lst:
+        max-count: 1
+      wfac-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      wse-manu-lst:
+        max-count: 1
+      wse-erro-lst:
+        max-count: 1
+      woti:
+        max-count: 1
+      woex:
+        max-count: 1
+    pattern-check-id:
+      pattern: "^CUWF-WORK-[0-9]+$"
+      error-message: IDs of this section must match CUWF-WORK-xxx
+    format: mermaid-flowchart
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+  dago-gove:
+    prefix: DAGO_GOVE
+    format: mermaid
+    description: Governance organization structure.
+  daow-owne:
+    prefix: DAOW_OWNE
+    format: mermaid
+    description: Data ownership matrix visualization.
   die-inte:
     prefix: DIE_INTE_
     pattern-check-id:
@@ -10237,6 +10604,10 @@ section-types:
       pattern: "^DTE-TERM-[0-9]+$"
       error-message: IDs of this section must match DTE-TERM-xxx
     description: Add one entry per domain term. Include all business-specific terms that may be unfamiliar or have domain-specific meanings.
+  dvag-grow:
+    prefix: DVAG_GROW
+    format: mermaid
+    description: Growth trend visualization.
   eae-acto:
     prefix: EAE_ACTO_
     subsection-types:
@@ -10259,6 +10630,15 @@ section-types:
       pattern: "^ENT-ENTI-[0-9]+$"
       error-message: IDs of this section must match ENT-ENTI-xxx
     description: Add one entry per entitlement.
+  erre-reco:
+    prefix: ERRE_RECO
+    format: erre-reco-form
+  flxc-flex:
+    prefix: FLXC_FLEX
+    format: flxc-flex-form
+  fnsu-func:
+    prefix: FNSU_FUNC
+    format: fnsu-func-form
   fre-requ:
     prefix: FRE_REQU_
     subsection-types:
@@ -10292,6 +10672,16 @@ section-types:
       pattern: "^FRE-REQU-[0-9]+$"
       error-message: IDs of this section must match FRE-REQU-xxx
     description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
+  fumo-deco:
+    prefix: FUMO_DECO
+    format: fumo-deco-form
+  fumo-matr:
+    prefix: FUMO_MATR
+    format: fumo-matr-form
+  gore-reso:
+    prefix: GORE_RESO
+    format: gore-reso-form
+    description: Resource requirement form.
   ice-chan:
     prefix: ICE_CHAN_
     subsection-types:
@@ -10311,6 +10701,13 @@ section-types:
       pattern: "^ICE-CHAN-[0-9]+$"
       error-message: IDs of this section must match ICE-CHAN-xxx
     description: Add one entry per access channel. Include both primary and secondary channels.
+  incp-inte:
+    prefix: INCP_INTE
+    format: incp-inte-form
+  insc-syst:
+    prefix: INSC_SYST
+    format: mermaid
+    description: System context diagram showing major system boundaries.
   ipe-inte:
     prefix: IPE_INTE_
     pattern-check-id:
@@ -10329,6 +10726,34 @@ section-types:
       pattern: "^KRE-ITEM-[0-9]+$"
       error-message: IDs of this section must match KRE-ITEM-xxx
     description: Add 3-5 key results per goal. Each should be specific and measurable.
+  lopr-loca:
+    prefix: LOPR_LOCA
+    format: lopr-loca-form
+  miri-gove:
+    prefix: MIRI_GOVE
+    format: miri-gove-form
+  mlar-mult:
+    prefix: MLAR_MULT
+    format: mlar-mult-form
+  mntc-main:
+    prefix: MNTC_MAIN
+    format: mntc-main-form
+  moda-dash:
+    prefix: MODA_DASH
+    format: moda-dash-form
+  onhe-onbo:
+    prefix: ONHE_ONBO
+    format: onhe-onbo-form
+  oren-orga:
+    prefix: OREN_ORGA
+    format: oren-orga-form
+  orip-plan:
+    prefix: ORIP_PLAN
+    format: orip-plan-form
+    description: Implementation plan form.
+  peef-perf:
+    prefix: PEEF_PERF
+    format: peef-perf-form
   pme-item:
     prefix: PME_ITEM_
     subsection-types:
@@ -10368,6 +10793,53 @@ section-types:
       pattern: "^PME-METR-[0-9]+$"
       error-message: IDs of this section must match PME-METR-xxx
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  ppag-pain:
+    prefix: PPAG_PAIN
+    format: mermaid-flowchart
+    description: Visual mapping of pain points and their relationships.
+  ppgc-corr:
+    prefix: PPGC_CORR
+    format: mermaid
+    description: Visual correlation between pain points and gaps.
+  prpo-meth:
+    prefix: PRPO_METH
+    format: mermaid-flowchart
+    description: Visual overview of methodology deviations.
+  qupr-prio:
+    prefix: QUPR_PRIO
+    format: qupr-prio-form
+  rebe-layo:
+    prefix: REBE_LAYO
+    format: rebe-layo-form
+  rede-resp:
+    prefix: REDE_RESP
+    format: rede-resp-form
+  relc-reli:
+    prefix: RELC_RELI
+    format: relc-reli-form
+  sasm-slao:
+    prefix: SASM_SLAO
+    format: sasm-slao-form
+  scbc-busi:
+    prefix: SCBC_BUSI
+    format: description
+    description: Describe how business outcomes will be measured.
+  scbc-comp:
+    prefix: SCBC_COMP
+    format: description
+    description: Describe how compliance will be verified.
+  scbc-proj:
+    prefix: SCBC_PROJ
+    format: description
+    description: Describe how project execution will be measured.
+  scbc-tech:
+    prefix: SCBC_TECH
+    format: description
+    description: Describe how technical quality will be measured.
+  scbc-user:
+    prefix: SCBC_USER
+    format: description
+    description: Describe how user satisfaction will be measured.
   sce-item:
     prefix: SCE_ITEM_
     subsection-types:
@@ -10387,6 +10859,18 @@ section-types:
       pattern: "^SCE-ITEM-[0-9]+$"
       error-message: IDs of this section must match SCE-ITEM-xxx
     description: "Define individual success criteria. Include criteria for business outcomes, user satisfaction, technical quality, and compliance requirements."
+  secc-secu:
+    prefix: SECC_SECU
+    format: secc-secu-form
+  suac-supp:
+    prefix: SUAC_SUPP
+    format: suac-supp-form
+  syqg-gove:
+    prefix: SYQG_GOVE
+    format: syqg-gove-form
+  teen-tech:
+    prefix: TEEN_TECH
+    format: teen-tech-form
   tge-goal:
     prefix: TGE_GOAL_
     subsection-types:
@@ -10406,6 +10890,19 @@ section-types:
       pattern: "^TGE-GOAL-[0-9]+$"
       error-message: IDs of this section must match TGE-GOAL-xxx
     description: "Add one entry per technical goal. Cover key quality attributes: performance, scalability, reliability, security, usability, maintainability."
+  tgtc-test:
+    prefix: TGTC_TEST
+    format: tgtc-test-form
+    description: Test criteria form.
+  thpr-thro:
+    prefix: THPR_THRO
+    format: thpr-thro-form
+  trpr-tran:
+    prefix: TRPR_TRAN
+    format: trpr-tran-form
+  uico-comp:
+    prefix: UICO_COMP
+    format: uico-comp-form
   unp-pref:
     prefix: UNP_PREF_
     pattern-check-id:
@@ -10413,6 +10910,19 @@ section-types:
       error-message: IDs of this section must match UNP-PREF-xxx
     format: unp-pref-form
     description: Add one entry per user notification-preference profile.
+  usas-help:
+    prefix: USAS_HELP
+    format: usas-help-form
+  vafe-vali:
+    prefix: VAFE_VALI
+    format: vafe-vali-form
+  wcco-wcag:
+    prefix: WCCO_WCAG
+    format: wcco-wcag-form
+  wode-work:
+    prefix: WODE_WORK
+    format: mermaid-flowchart
+    description: Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.
   wse-erro:
     prefix: WSE_ERRO_
     subsection-types:
@@ -10464,6 +10974,10 @@ section-types:
       pattern: "^WSE-STEP-[0-9]+$"
       error-message: IDs of this section must match WSE-STEP-xxx
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  ac1-chan:
+    prefix: AC1_CHAN
+    format: mermaid-flowchart
+    description: Create a diagram showing how different channels connect to the system and serve different user categories.
   adinreda:
     prefix: ADINREDA
     description: Data management tooling.
@@ -10594,6 +11108,9 @@ section-types:
   ditrspsp:
     prefix: DITRSPSP
     description: Span metadata.
+  eie-iden:
+    prefix: EIE_IDEN
+    format: eie-iden-form
   erhastre:
     prefix: ERHASTRE
     description: Recovery guidance.
@@ -10648,6 +11165,10 @@ section-types:
   mawiensc:
     prefix: MAWIENSC
     description: Scope details.
+  mce-mult:
+    prefix: MCE_MULT
+    format: mce-mult-form
+    description: Multi-channel configuration.
   mecorecu:
     prefix: MECORECU
     description: Custom metrics settings.
@@ -10702,6 +11223,18 @@ section-types:
   rudeenri:
     prefix: RUDEENRI
     description: Compatibility and transitive risk notes.
+  rus-layo:
+    prefix: RUS_LAYO
+    format: code-dart
+    description: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation."
+  rus-mock:
+    prefix: RUS_MOCK
+    format: description
+    description: UI mockup diagram (fallback if code not available).
+  rus-uifo:
+    prefix: RUS_UIFO
+    format: rus-uifo-form
+    description: UI specification form.
   scelenla:
     prefix: SCELENLA
     description: Placement and layout settings.
@@ -10744,6 +11277,10 @@ section-types:
   slmorere:
     prefix: SLMORERE
     description: Reporting and review.
+  sr1-summ:
+    prefix: SR1_SUMM
+    format: sr1-summ-form
+    description: Security requirements summary form.
   stmirimo:
     prefix: STMIRIMO
     description: Monitoring and detection.
@@ -10756,21 +11293,128 @@ section-types:
   sydascmi:
     prefix: SYDASCMI
     description: Migration preparation and archive handling.
+  tr1-summ:
+    prefix: TR1_SUMM
+    format: tr1-summ-form
+    description: Technical requirements summary form.
+  uan-acce:
+    prefix: UAN_ACCE
+    format: uan-acce-form
+    description: Accessibility Needs Form.
+  uap-perm:
+    prefix: UAP_PERM
+    format: uap-perm-form
+    description: Access Permissions Form.
   uicoensc:
     prefix: UICOENSC
     description: Scrolling behavior.
   uicoensu:
     prefix: UICOENSU
     description: Surface treatment.
+  upd-pers:
+    prefix: UPD_PERS
+    format: upd-pers-form
+    description: Persona Details Form.
+  upd-visu:
+    prefix: UPD_VISU
+    format: description
+    description: Representative photo or avatar description.
   vpreenpe:
     prefix: VPREENPE
     description: Performance expectations.
+  al-acce:
+    prefix: AL_ACCE
+    format: mermaid-flowchart
+    description: Create a diagram showing the access level hierarchy.
+  al-perm:
+    prefix: AL_PERM
+    format: description
+    description: "Create a permission matrix showing the relationship between access levels, features, and permissions."
+  bc-brea:
+    prefix: BC_BREA
+    format: bc-brea-form
+  cd-diag:
+    prefix: CD_DIAG
+    format: mermaid-flowchart
+    description: "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\")."
+  cd-lege:
+    prefix: CD_LEGE
+    format: description
+    description: Diagram legend and conventions.
+  db-cont:
+    prefix: DB_CONT
+    format: mermaid-flowchart
+    description: Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.
+  db-outs:
+    prefix: DB_OUTS
+    format: description
+    description: Outside-scope items.
+  db-with:
+    prefix: DB_WITH
+    format: description
+    description: Within-scope items.
+  dp-proc:
+    prefix: DP_PROC
+    format: mermaid-flowchart
+    description: Create a process map showing the main business processes and how they interact.
+  fr-summ:
+    prefix: FR_SUMM
+    format: fr-summ-form
+    description: Functional requirements summary form.
+  kc-conc:
+    prefix: KC_CONC
+    format: mermaid-classDiagram
+    description: "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation."
+  oc-busi:
+    prefix: OC_BUSI
+    format: description
+    description: Business process coverage.
+  or-summ:
+    prefix: OR_SUMM
+    format: or-summ-form
+    description: Organizational requirements summary form.
+  pg-goal:
+    prefix: PG_GOAL
+    format: pg-goal-form
+  ro-requ:
+    prefix: RO_REQU
+    format: ro-requ-form
+    description: Requirements overview form.
+  ro-trac:
+    prefix: RO_TRAC
+    format: description
+    description: Provide a high-level view of requirement traceability.
+  rt-trac:
+    prefix: RT_TRAC
+    format: rt-trac-form
+    description: Traceability links form.
+  sc-succ:
+    prefix: SC_SUCC
+    format: description
+    description: Create a summary matrix of all success criteria.
+  sm-sess:
+    prefix: SM_SESS
+    format: sm-sess-form
+    description: Session configuration.
+  tp-trai:
+    prefix: TP_TRAI
+    format: tp-trai-form
+  uj-jour:
+    prefix: UJ_JOUR
+    format: mermaid-flowchart
+    description: Create a journey map showing the user's experience from first contact through regular use.
+  uj-oppo:
+    prefix: UJ_OPPO
+    format: description
+    description: Opportunities for delight.
   accasu:
     prefix: ACCASU
     description: Actor categorization summary.
   access:
     prefix: ACCESS
     subsection-types:
+      access-acce:
+        max-count: 1
       acstgy:
         max-count: 1
       acte:
@@ -10785,6 +11429,8 @@ section-types:
   acchls:
     prefix: ACCHLS
     subsection-types:
+      acchls-chec:
+        max-count: 1
       acch-item-lst:
         max-count: 1
     description: 10.9.2. Accessibility Checklist.
@@ -10801,6 +11447,8 @@ section-types:
   accrsu:
     prefix: ACCRSU
     subsection-types:
+      accrsu-acce:
+        max-count: 1
       mupacr:
         max-count: 1
       qugach:
@@ -11719,6 +12367,8 @@ section-types:
   cubupr:
     prefix: CUBUPR
     subsection-types:
+      cubupr-proc:
+        max-count: 1
       prscsu:
         max-count: 1
       prinma:
@@ -11743,6 +12393,10 @@ section-types:
   cudala:
     prefix: CUDALA
     subsection-types:
+      cudala-datal:
+        max-count: 1
+      cudala-data:
+        max-count: 1
       dalasu:
         max-count: 1
       dasoin:
@@ -11795,6 +12449,8 @@ section-types:
     subsection-types:
       dadusu:
         max-count: 1
+      daduan-dupl:
+        max-count: 1
       dadu-dupl-lst:
         max-count: 1
     description: 1.4.3. Data Duplication Analysis.
@@ -11845,6 +12501,8 @@ section-types:
     prefix: DAINPO
     subsection-types:
       dainsu:
+        max-count: 1
+      dainpo-data:
         max-count: 1
       dain-inte-lst:
         max-count: 1
@@ -11926,6 +12584,8 @@ section-types:
     subsection-types:
       dqds:
         max-count: 1
+      daquas-qual:
+        max-count: 1
       daqlis-qual-lst:
         max-count: 1
         min-count: 1
@@ -11972,6 +12632,8 @@ section-types:
   dasoin:
     prefix: DASOIN
     subsection-types:
+      dasoin-data:
+        max-count: 1
       dasr-data-lst:
         max-count: 1
     description: 1.4.1. Data Source Inventory.
@@ -12192,6 +12854,8 @@ section-types:
   doantr:
     prefix: DOANTR
     subsection-types:
+      doantr-docu:
+        max-count: 1
       datd:
         max-count: 1
       datl:
@@ -12221,6 +12885,8 @@ section-types:
   doqucr:
     prefix: DOQUCR
     subsection-types:
+      doqucr-docu:
+        max-count: 1
       requ1:
         max-count: 1
       docoqu:
@@ -12345,6 +13011,8 @@ section-types:
   erhaco:
     prefix: ERHACO
     subsection-types:
+      erhaco-erro:
+        max-count: 1
       ehcc:
         max-count: 1
       ehca:
@@ -12785,6 +13453,8 @@ section-types:
   lacose:
     prefix: LACOSE
     subsection-types:
+      lacose-lang:
+        max-count: 1
       lcsd:
         max-count: 1
       lcsp:
@@ -12911,6 +13581,8 @@ section-types:
   meanob:
     prefix: MEANOB
     subsection-types:
+      meanob-metr:
+        max-count: 1
       apmesp:
         max-count: 1
       inmesp:
@@ -12961,6 +13633,8 @@ section-types:
   migcon:
     prefix: MIGCON
     subsection-types:
+      migcon-stra:
+        max-count: 1
       mire:
         max-count: 1
       miri:
@@ -13075,6 +13749,8 @@ section-types:
   monito:
     prefix: MONITO
     subsection-types:
+      monito-moni:
+        max-count: 1
       hcads:
         max-count: 1
       alco:
@@ -13113,6 +13789,8 @@ section-types:
   mupacr:
     prefix: MUPACR
     subsection-types:
+      mupacr-must:
+        max-count: 1
       mstpcr-item-lst:
         max-count: 1
     description: 11.7.1. Must-Pass Criteria.
@@ -13395,6 +14073,8 @@ section-types:
   prfesu:
     prefix: PRFESU
     subsection-types:
+      prfesu-feat:
+        max-count: 1
       pfss:
         max-count: 1
       pfsf:
@@ -13421,6 +14101,8 @@ section-types:
   prinma:
     prefix: PRINMA
     subsection-types:
+      prinma-depe:
+        max-count: 1
       prdeen-depe-lst:
         max-count: 1
     description: "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
@@ -13455,6 +14137,8 @@ section-types:
   protot:
     prefix: PROTOT
     subsection-types:
+      protot-prot:
+        max-count: 1
       prti:
         max-count: 1
       prores:
@@ -13524,6 +14208,8 @@ section-types:
   prtyse:
     prefix: PRTYSE
     subsection-types:
+      prtyse-prot:
+        max-count: 1
       reupro:
         max-count: 1
       tp:
@@ -13549,6 +14235,8 @@ section-types:
   qugach:
     prefix: QUGACH
     subsection-types:
+      qugach-chec:
+        max-count: 1
       qgchk-item-lst:
         max-count: 1
     description: 11.7.2. Quality Gate Checklist.
@@ -13737,6 +14425,8 @@ section-types:
   reupro:
     prefix: REUPRO
     subsection-types:
+      reupro-reus:
+        max-count: 1
       reprar:
         max-count: 1
       reprin:
@@ -14410,6 +15100,8 @@ section-types:
   syerdi:
     prefix: SYERDI
     subsection-types:
+      syerdi-syst:
+        max-count: 1
       sedet:
         max-count: 1
       sedm:
@@ -14597,6 +15289,8 @@ section-types:
   trareq:
     prefix: TRAREQ
     subsection-types:
+      trareq-tran:
+        max-count: 1
       trrert:
         max-count: 1
       trrefo:
@@ -14652,6 +15346,8 @@ section-types:
   trofde:
     prefix: TROFDE
     subsection-types:
+      trofde-trad:
+        max-count: 1
       tode-item-lst:
         max-count: 1
     description: 11.6.2. Trade-off Decisions.
@@ -14799,6 +15495,8 @@ section-types:
   ustrre:
     prefix: USTRRE
     subsection-types:
+      ustrre-trai:
+        max-count: 1
       trtp-trai-lst:
         max-count: 1
     description: Define the training and support needs for this user category.
@@ -14860,6 +15558,8 @@ section-types:
   wequma:
     prefix: WEQUMA
     subsection-types:
+      wequma-matr:
+        max-count: 1
       qlwgt-weig-lst:
         max-count: 1
     description: 11.6.1. Weighted Quality Matrix.
@@ -15041,6 +15741,10 @@ section-types:
   carch:
     prefix: CARCH
     subsection-types:
+      carch-arch:
+        max-count: 1
+      carch-depl:
+        max-count: 1
       ipe-inte-lst:
         max-count: 1
       share-shar-lst:
@@ -15145,6 +15849,8 @@ section-types:
   datcl:
     prefix: DATCL
     subsection-types:
+      datcl-over:
+        max-count: 1
       dclse-item-lst:
         max-count: 1
     description: 7.1.4. Data Classification.
@@ -15189,6 +15895,8 @@ section-types:
   depnt:
     prefix: DEPNT
     subsection-types:
+      depnt-depe:
+        max-count: 1
       intdp:
         max-count: 1
       extdp:
@@ -15564,6 +16272,8 @@ section-types:
   goals:
     prefix: GOALS
     subsection-types:
+      goals-goal:
+        max-count: 1
       bg:
         max-count: 1
       tg:
@@ -15827,6 +16537,8 @@ section-types:
   occhg:
     prefix: OCCHG
     subsection-types:
+      occhg-over:
+        max-count: 1
       orgce-item-lst:
         max-count: 1
     description: 5.1.1. Changes from Current Structure.
@@ -15893,6 +16605,8 @@ section-types:
     prefix: PCADJ
     subsection-types:
       pcasm:
+        max-count: 1
+      pcadj-proc:
         max-count: 1
       pcaje-item-lst:
         max-count: 1
@@ -16153,6 +16867,8 @@ section-types:
     subsection-types:
       qgasm:
         max-count: 1
+      qgadj-gate:
+        max-count: 1
       qgaje-item-lst:
         max-count: 1
     description: 2.2. Quality Gate Adjustments.
@@ -16186,6 +16902,8 @@ section-types:
   qlfwk:
     prefix: QLFWK
     subsection-types:
+      qlfwk-fram:
+        max-count: 1
       qfobj:
         max-count: 1
       qftrd:
@@ -16222,6 +16940,8 @@ section-types:
     prefix: RLADJ
     subsection-types:
       rlasm:
+        max-count: 1
+      rladj-role:
         max-count: 1
       rlaje-item-lst:
         max-count: 1
@@ -16553,6 +17273,8 @@ section-types:
   sypup:
     prefix: SYPUP
     subsection-types:
+      sypup-visi:
+        max-count: 1
       ps:
         max-count: 1
       oppst:
@@ -16762,6 +17484,8 @@ section-types:
   trmat:
     prefix: TRMAT
     subsection-types:
+      trmat-trai:
+        max-count: 1
       trmoen-trai-lst:
         max-count: 1
     description: Training deliverable requirements (training half of the former DOANTR).
@@ -17042,6 +17766,8 @@ section-types:
   alco:
     prefix: ALCO
     subsection-types:
+      alco-aler:
+        max-count: 1
       alnoch:
         max-count: 1
       alruen-aler-lst:
@@ -17661,6 +18387,9 @@ section-types:
     description: Column-Level Security Policy.
   cmpt:
     prefix: CMPT
+    subsection-types:
+      cmpt-comp:
+        max-count: 1
     description: 11.4. Compatibility (ISO/IEC 25010:2023).
   cmrc:
     prefix: CMRC
@@ -17710,6 +18439,8 @@ section-types:
   cohe:
     prefix: COHE
     subsection-types:
+      cohe-cont:
+        max-count: 1
       cohein:
         max-count: 1
       cohepa:
@@ -17744,6 +18475,8 @@ section-types:
   coma:
     prefix: COMA
     subsection-types:
+      coma-comm:
+        max-count: 1
       coty-comm-lst:
         max-count: 1
     description: Communication matrix overview.
@@ -18045,6 +18778,8 @@ section-types:
     subsection-types:
       dagoma:
         max-count: 1
+      dago-gove:
+        max-count: 1
       dgpe-gove-lst:
         max-count: 1
         min-count: 1
@@ -18053,6 +18788,8 @@ section-types:
     prefix: DAOW
     subsection-types:
       daowsu:
+        max-count: 1
+      daow-owne:
         max-count: 1
       daowen-owne-lst:
         max-count: 1
@@ -18622,6 +19359,8 @@ section-types:
     subsection-types:
       davosu:
         max-count: 1
+      dvag-grow:
+        max-count: 1
       davoen-volu-lst:
         max-count: 1
         min-count: 1
@@ -18756,6 +19495,8 @@ section-types:
   erre:
     prefix: ERRE
     subsection-types:
+      erre-reco:
+        max-count: 1
       erdp:
         max-count: 1
       errm:
@@ -18898,6 +19639,8 @@ section-types:
   flxc:
     prefix: FLXC
     subsection-types:
+      flxc-flex:
+        max-count: 1
       flqu:
         max-count: 1
       poqu:
@@ -18918,6 +19661,8 @@ section-types:
   fnsu:
     prefix: FNSU
     subsection-types:
+      fnsu-func:
+        max-count: 1
       fncoq:
         max-count: 1
       coqu:
@@ -18965,6 +19710,10 @@ section-types:
   fumo:
     prefix: FUMO
     subsection-types:
+      fumo-deco:
+        max-count: 1
+      fumo-matr:
+        max-count: 1
       funct-func-lst:
         max-count: 1
       fndmx-matr-lst:
@@ -19022,6 +19771,8 @@ section-types:
   gore:
     prefix: GORE
     subsection-types:
+      gore-reso:
+        max-count: 1
       rears-item-lst:
         max-count: 1
     description: "Define resources (people, budget, tools) needed for this goal."
@@ -19149,6 +19900,8 @@ section-types:
   incp:
     prefix: INCP
     subsection-types:
+      incp-inte:
+        max-count: 1
       usaql:
         max-count: 1
     description: 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
@@ -19216,6 +19969,8 @@ section-types:
     prefix: INSC
     subsection-types:
       sysum:
+        max-count: 1
+      insc-syst:
         max-count: 1
       sydsc:
         max-count: 1
@@ -19569,6 +20324,8 @@ section-types:
   lopr:
     prefix: LOPR
     subsection-types:
+      lopr-loca:
+        max-count: 1
       loprr1:
         max-count: 1
       loprfo:
@@ -19746,6 +20503,8 @@ section-types:
   miri:
     prefix: MIRI
     subsection-types:
+      miri-gove:
+        max-count: 1
       mirigo:
         max-count: 1
       mirias:
@@ -19777,6 +20536,8 @@ section-types:
   mlar:
     prefix: MLAR
     subsection-types:
+      mlar-mult:
+        max-count: 1
       lacose:
         max-count: 1
       suloen-supp-lst:
@@ -19785,6 +20546,8 @@ section-types:
   mntc:
     prefix: MNTC
     subsection-types:
+      mntc-main:
+        max-count: 1
       maqu:
         max-count: 1
     description: 11.8. Maintainability (ISO/IEC 25010:2023).
@@ -19797,6 +20560,8 @@ section-types:
   moda:
     prefix: MODA
     subsection-types:
+      moda-dash:
+        max-count: 1
       daen-dash-lst:
         max-count: 1
       date-dash-lst:
@@ -20026,6 +20791,8 @@ section-types:
   onhe:
     prefix: ONHE
     subsection-types:
+      onhe-onbo:
+        max-count: 1
       onheto:
         max-count: 1
       ohsd:
@@ -20115,6 +20882,8 @@ section-types:
   oren:
     prefix: OREN
     subsection-types:
+      oren-orga:
+        max-count: 1
       orenma:
         max-count: 1
       oedm:
@@ -20147,6 +20916,8 @@ section-types:
   orip:
     prefix: ORIP
     subsection-types:
+      orip-plan:
+        max-count: 1
       orgim-acti-lst:
         max-count: 1
     description: Define the implementation approach for this organizational change requirement.
@@ -20253,6 +21024,8 @@ section-types:
   peef:
     prefix: PEEF
     subsection-types:
+      peef-perf:
+        max-count: 1
       efqu:
         max-count: 1
     description: 11.3. Performance Efficiency (ISO/IEC 25010:2023).
@@ -20341,6 +21114,10 @@ section-types:
   ppag:
     prefix: PPAG
     subsection-types:
+      ppag-pain:
+        max-count: 1
+      ppag-painp:
+        max-count: 1
       paposu:
         max-count: 1
       oppapo:
@@ -20357,6 +21134,8 @@ section-types:
   ppgc:
     prefix: PPGC
     subsection-types:
+      ppgc-corr:
+        max-count: 1
       ppgce-corr-lst:
         max-count: 1
         min-count: 1
@@ -20434,6 +21213,8 @@ section-types:
   prpo:
     prefix: PRPO
     subsection-types:
+      prpo-meth:
+        max-count: 1
       medsm:
         max-count: 1
       rladj:
@@ -20525,6 +21306,8 @@ section-types:
   qupr:
     prefix: QUPR
     subsection-types:
+      qupr-prio:
+        max-count: 1
       wequma:
         max-count: 1
       trofde:
@@ -20590,6 +21373,8 @@ section-types:
   rebe:
     prefix: REBE
     subsection-types:
+      rebe-layo:
+        max-count: 1
       rebena:
         max-count: 1
       rebevi:
@@ -20604,6 +21389,8 @@ section-types:
   rede:
     prefix: REDE
     subsection-types:
+      rede-resp:
+        max-count: 1
       bc:
         max-count: 1
       rebe:
@@ -20630,6 +21417,8 @@ section-types:
   relc:
     prefix: RELC
     subsection-types:
+      relc-reli:
+        max-count: 1
       requ:
         max-count: 1
       avqu:
@@ -20986,6 +21775,8 @@ section-types:
   sasm:
     prefix: SASM
     subsection-types:
+      sasm-slao:
+        max-count: 1
       selein:
         max-count: 1
       slen-slos-lst:
@@ -21030,6 +21821,17 @@ section-types:
     description: Scalability and performance architecture.
   scbc:
     prefix: SCBC
+    subsection-types:
+      scbc-busi:
+        max-count: 1
+      scbc-tech:
+        max-count: 1
+      scbc-user:
+        max-count: 1
+      scbc-comp:
+        max-count: 1
+      scbc-proj:
+        max-count: 1
     description: Success criteria by category.
   scco:
     prefix: SCCO
@@ -21147,6 +21949,8 @@ section-types:
   secc:
     prefix: SECC
     subsection-types:
+      secc-secu:
+        max-count: 1
       sequ:
         max-count: 1
       isoq:
@@ -21659,6 +22463,8 @@ section-types:
   suac:
     prefix: SUAC
     subsection-types:
+      suac-supp:
+        max-count: 1
       sahc:
         max-count: 1
       sals:
@@ -21710,6 +22516,8 @@ section-types:
   syqg:
     prefix: SYQG
     subsection-types:
+      syqg-gove:
+        max-count: 1
       sqggv:
         max-count: 1
       sqgbs:
@@ -21807,6 +22615,8 @@ section-types:
   teen:
     prefix: TEEN
     subsection-types:
+      teen-tech:
+        max-count: 1
       teengo:
         max-count: 1
       teenst:
@@ -21860,12 +22670,16 @@ section-types:
   tgtc:
     prefix: TGTC
     subsection-types:
+      tgtc-test:
+        max-count: 1
       tegots-item-lst:
         max-count: 1
     description: Define specific test criteria that will be used to verify the technical goal has been achieved.
   thpr:
     prefix: THPR
     subsection-types:
+      thpr-thro:
+        max-count: 1
       thprfi:
         max-count: 1
       thprdi:
@@ -21993,6 +22807,8 @@ section-types:
   trpr:
     prefix: TRPR
     subsection-types:
+      trpr-tran:
+        max-count: 1
       trprwo:
         max-count: 1
       trprqu:
@@ -22106,6 +22922,8 @@ section-types:
   uico:
     prefix: UICO
     subsection-types:
+      uico-comp:
+        max-count: 1
       ucvl:
         max-count: 1
       ucca:
@@ -22141,6 +22959,8 @@ section-types:
   usas:
     prefix: USAS
     subsection-types:
+      usas-help:
+        max-count: 1
       usasde:
         max-count: 1
       usasin:
@@ -22184,6 +23004,8 @@ section-types:
   vafe:
     prefix: VAFE
     subsection-types:
+      vafe-vali:
+        max-count: 1
       vafepl:
         max-count: 1
       vafeme:
@@ -22273,6 +23095,8 @@ section-types:
   wcco:
     prefix: WCCO
     subsection-types:
+      wcco-wcag:
+        max-count: 1
       wccoop:
         max-count: 1
       wccoun:
@@ -22285,6 +23109,8 @@ section-types:
   wode:
     prefix: WODE
     subsection-types:
+      wode-work:
+        max-count: 1
       wosuta:
         max-count: 1
       cuwf-work-lst:
@@ -22325,6 +23151,8 @@ section-types:
   ac1:
     prefix: AC1
     subsection-types:
+      ac1-chan:
+        max-count: 1
       ice-chan-lst:
         max-count: 1
         min-count: 1
@@ -22662,6 +23490,9 @@ section-types:
     description: Login Flow Configuration.
   mce:
     prefix: MCE
+    subsection-types:
+      mce-mult:
+        max-count: 1
     description: "Define multi-channel experience: context handoff between channels, data synchronization, and experience consistency."
   mws:
     prefix: MWS
@@ -22866,6 +23697,12 @@ section-types:
   rus:
     prefix: RUS
     subsection-types:
+      rus-uifo:
+        max-count: 1
+      rus-layo:
+        max-count: 1
+      rus-mock:
+        max-count: 1
       scfld-fiel-lst:
         max-count: 1
       rqscac-acti-lst:
@@ -22929,6 +23766,8 @@ section-types:
   sr1:
     prefix: SR1
     subsection-types:
+      sr1-summ:
+        max-count: 1
       secrq-requ-lst:
         max-count: 1
     description: "Security requirements protect confidentiality, integrity, and availability of information. Include authentication, authorization, data protection, and compliance requirements."
@@ -23046,6 +23885,8 @@ section-types:
   tr1:
     prefix: TR1
     subsection-types:
+      tr1-summ:
+        max-count: 1
       terq-requ-lst:
         max-count: 1
     description: "Technical requirements describe non-functional aspects and constraints. Each should be measurable and testable. Common categories: Performance, Scalability, Availability, Security, Maintainability."
@@ -23088,10 +23929,15 @@ section-types:
       CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
   uan:
     prefix: UAN
+    subsection-types:
+      uan-acce:
+        max-count: 1
     description: Document any accessibility requirements or accommodations that should be considered for this user category.
   uap:
     prefix: UAP
     subsection-types:
+      uap-perm:
+        max-count: 1
       uapr:
         max-count: 1
       uapg:
@@ -23120,11 +23966,15 @@ section-types:
   upd:
     prefix: UPD
     subsection-types:
+      upd-pers:
+        max-count: 1
       updc:
         max-count: 1
       updg:
         max-count: 1
       updb:
+        max-count: 1
+      upd-visu:
         max-count: 1
       repre-repr-lst:
         max-count: 1
@@ -23174,9 +24024,13 @@ section-types:
   al:
     prefix: AL
     subsection-types:
+      al-acce:
+        max-count: 1
       aclv-leve-lst:
         max-count: 1
         min-count: 1
+      al-perm:
+        max-count: 1
     description: "Define access levels and how they relate to user categories, features, and data. This establishes the authorization framework."
   ar:
     prefix: AR
@@ -23235,6 +24089,8 @@ section-types:
   bc:
     prefix: BC
     subsection-types:
+      bc-brea:
+        max-count: 1
       bre-brea-lst:
         max-count: 1
     description: 10.10.1. Breakpoints.
@@ -23268,6 +24124,11 @@ section-types:
     description: Compliance and training.
   cd:
     prefix: CD
+    subsection-types:
+      cd-diag:
+        max-count: 1
+      cd-lege:
+        max-count: 1
     description: "Provide a context diagram showing the system as a black box with all external entities (users, systems, organizations) and the data/control flows between them."
   cf:
     prefix: CF
@@ -23307,6 +24168,12 @@ section-types:
   db:
     prefix: DB
     subsection-types:
+      db-cont:
+        max-count: 1
+      db-with:
+        max-count: 1
+      db-outs:
+        max-count: 1
       die-inte-lst:
         max-count: 1
     description: "Define clear boundaries for this domain: what concepts, processes, and responsibilities are within scope, and what belongs to adjacent domains. This establishes the bounded context."
@@ -23325,6 +24192,8 @@ section-types:
   dp:
     prefix: DP
     subsection-types:
+      dp-proc:
+        max-count: 1
       dopr-proc-lst:
         max-count: 1
     description: "Describe the main business processes within this domain. Focus on business activities, not system implementation."
@@ -23345,6 +24214,8 @@ section-types:
   fr:
     prefix: FR
     subsection-types:
+      fr-summ:
+        max-count: 1
       fre-requ-lst:
         max-count: 1
         min-count: 1
@@ -23410,6 +24281,8 @@ section-types:
   kc:
     prefix: KC
     subsection-types:
+      kc-conc:
+        max-count: 1
       kecon-conc-lst:
         max-count: 1
         min-count: 1
@@ -23440,10 +24313,14 @@ section-types:
     subsection-types:
       ouce-orga-lst:
         max-count: 1
+      oc-busi:
+        max-count: 1
     description: "Describe the organizational context: which departments, business units, and organizational structures are involved."
   or:
     prefix: OR
     subsection-types:
+      or-summ:
+        max-count: 1
       orrq-requ-lst:
         max-count: 1
     description: "Organizational requirements describe non-technical changes needed for system success: training, process changes, role changes, support structures, and communication."
@@ -23453,6 +24330,8 @@ section-types:
   pg:
     prefix: PG
     subsection-types:
+      pg-goal:
+        max-count: 1
       prgori:
         max-count: 1
       prgofe:
@@ -23526,6 +24405,10 @@ section-types:
   ro:
     prefix: RO
     subsection-types:
+      ro-requ:
+        max-count: 1
+      ro-trac:
+        max-count: 1
       fr:
         max-count: 1
       tr1:
@@ -23554,6 +24437,8 @@ section-types:
   rt:
     prefix: RT
     subsection-types:
+      rt-trac:
+        max-count: 1
       retrar:
         max-count: 1
       retrim:
@@ -23571,6 +24456,8 @@ section-types:
         min-count: 1
       scbc:
         max-count: 1
+      sc-succ:
+        max-count: 1
       pir:
         max-count: 1
     description: "Define criteria that collectively determine project success. Each criterion should be objectively verifiable, measurable, and time-bound. Criteria should cover business, technical, user, and compliance dimensions."
@@ -23580,6 +24467,8 @@ section-types:
   sm:
     prefix: SM
     subsection-types:
+      sm-sess:
+        max-count: 1
       semoli:
         max-count: 1
       semose:
@@ -23640,6 +24529,8 @@ section-types:
   tp:
     prefix: TP
     subsection-types:
+      tp-trai:
+        max-count: 1
       trprdi:
         max-count: 1
       trprou:
@@ -23660,11 +24551,15 @@ section-types:
   uj:
     prefix: UJ
     subsection-types:
+      uj-jour:
+        max-count: 1
       jrnst-stag-lst:
         max-count: 1
       keyto-keyt-lst:
         max-count: 1
       userj-pain-lst:
+        max-count: 1
+      uj-oppo:
         max-count: 1
     description: Document the user journey - key touchpoints and stages in this user category's interaction with the system.
 form-types:
@@ -23698,6 +24593,66 @@ form-types:
         description: "e.g., AI-powered recommendations, real-time collaboration"
       - fieldname: criticalCapabilities
         description: "e.g., Multi-tenant data isolation, offline-first sync"
+  upd-pers-form:
+    fields:
+      - fieldname: representativeName
+        description: A memorable fictional name to humanize the persona
+      - fieldname: ageRange
+        description: Typical age range for this persona
+      - fieldname: educationLevel
+        description: Highest education level typical for this persona
+      - fieldname: jobTitle
+        description: Typical job title or position
+  uap-perm-form:
+    fields:
+      - fieldname: accessLevel
+        required: true
+        description: Guest / User / Power User / Administrator / Super Admin
+      - fieldname: authenticationMethod
+        required: true
+        description: Password / SSO / MFA / Certificate
+      - fieldname: authorizationRoles
+        description: System roles assigned to this user category
+      - fieldname: dataAccessScope
+        description: all / department / team / own records
+  ustrre-trai-form:
+    fields:
+      - fieldname: initialTrainingRequired
+        description: Whether formal up-front training is needed
+      - fieldname: trainingFormat
+        description: In-person / Online / Self-paced / On-the-job
+      - fieldname: estimatedTrainingDuration
+        description: Estimated time required to complete training
+      - fieldname: certificationRequired
+        description: Whether users must pass an assessment to be certified
+      - fieldname: refresherFrequency
+        description: How often retraining or refresher courses are needed
+      - fieldname: supportLevel
+        description: Self-service / Help desk / Dedicated
+      - fieldname: documentationNeeds
+        description: User guide / Quick reference / Video tutorials
+      - fieldname: onboardingProcess
+        description: Steps needed to get a new user started
+      - fieldname: mentoringRequired
+        description: Whether new users are paired with an experienced mentor
+  uan-acce-form:
+    fields:
+      - fieldname: visualRequirements
+        description: Screen reader / high contrast / magnification needs
+      - fieldname: auditoryRequirements
+        description: Captions / visual alerts for auditory content
+      - fieldname: motorRequirements
+        description: Keyboard navigation / voice control needs
+      - fieldname: cognitiveRequirements
+        description: Simple language / clear navigation needs
+      - fieldname: languageRequirements
+        description: Multiple languages / reading level needs
+      - fieldname: deviceAccommodations
+        description: Large buttons / touch target sizing needs
+      - fieldname: wcagLevel
+        description: A / AA / AAA
+      - fieldname: additionalStandards
+        description: Section 508 / EN 301 549 / other accessibility standards
   uims-form:
     fields:
       - fieldname: primaryAccessChannel
@@ -23750,6 +24705,16 @@ form-types:
         description: "Apple Pay, Google Pay, Stripe, etc."
       - fieldname: biometricIntegration
         description: "Face ID, Touch ID, Fingerprint"
+  sm-sess-form:
+    fields:
+      - fieldname: sessionType
+        description: "Server-side, Client-side (JWT), Hybrid"
+      - fieldname: sessionStorage
+        description: "Cookie, LocalStorage, Secure Storage"
+      - fieldname: sessionTimeout
+        description: Idle timeout duration
+      - fieldname: absoluteTimeout
+        description: Maximum session duration
   unp-pref-form:
     fields:
       - fieldname: globalOptOut
@@ -23764,6 +24729,58 @@ form-types:
         description: Can users set do-not-disturb hours
       - fieldname: digestOption
         description: Can users opt for daily/weekly digests
+  mce-mult-form:
+    fields:
+      - fieldname: channelHandoff
+        description: How users switch between channels seamlessly
+      - fieldname: contextPreservation
+        description: What context is preserved when switching channels
+      - fieldname: dataSynchronization
+        description: "Real-time, Near-real-time, Eventual"
+      - fieldname: conflictResolution
+        description: How conflicts from multi-channel edits are resolved
+      - fieldname: consistentBranding
+        description: Brand consistency requirements across channels
+      - fieldname: featureParity
+        description: Degree of feature consistency across channels
+      - fieldname: responsiveDesign
+        description: Approach to responsive/adaptive design
+      - fieldname: progressiveEnhancement
+        description: How features degrade on limited channels
+      - fieldname: offlineFirst
+        description: Offline-first approach for applicable channels
+  gore-reso-form:
+    fields:
+      - fieldname: totalBudget
+        description: Estimated or allocated total budget
+      - fieldname: fteRequired
+        description: Number of full-time-equivalent staff needed
+      - fieldname: keySkills
+        description: Critical skills needed to achieve the goal
+      - fieldname: toolsRequired
+        description: Tools or systems needed
+      - fieldname: externalSupport
+        description: Consultants or vendors required
+      - fieldname: trainingNeeds
+        description: Training the team needs to acquire
+  tgtc-test-form:
+    fields:
+      - fieldname: testType
+        description: "Performance, Load, Stress, Security, Penetration, etc."
+      - fieldname: testEnvironment
+        description: Environment in which tests run
+      - fieldname: testData
+        description: Data needed to execute the tests
+      - fieldname: testTools
+        description: Tools used to run the tests
+      - fieldname: passThreshold
+        description: Value at or above which the goal passes
+      - fieldname: failThreshold
+        description: Value at which the goal is considered failed
+      - fieldname: testSchedule
+        description: When the tests will run
+      - fieldname: retestPolicy
+        description: When retesting is required
   scs-form:
     fields:
       - fieldname: totalCriteria
@@ -23826,6 +24843,748 @@ form-types:
         description: How long benefits are tracked
       - fieldname: correctionActionProcess
         description: How shortfalls are addressed
+  ro-requ-form:
+    fields:
+      - fieldname: requirementsProcess
+        description: "How requirements are elicited, analysed, and managed"
+      - fieldname: traceabilityApproach
+        description: "How requirements are linked to goals, tests, and code"
+      - fieldname: changeControlProcess
+        description: "How requirement changes are proposed, reviewed, and approved"
+      - fieldname: prioritizationMethod
+        description: "MoSCoW, weighted scoring, or other prioritisation scheme"
+      - fieldname: totalRequirements
+        description: Estimated total number of requirements
+      - fieldname: mustHaveCount
+        description: Estimated count of Must-Have requirements
+      - fieldname: shouldHaveCount
+        description: Estimated count of Should-Have requirements
+      - fieldname: couldHaveCount
+        description: Estimated count of Could-Have requirements
+  fr-summ-form:
+    fields:
+      - fieldname: totalFunctionalRequirements
+        description: Total count of functional requirements
+      - fieldname: mustHaveFunctional
+        description: Count of Must-Have functional requirements
+      - fieldname: shouldHaveFunctional
+        description: Count of Should-Have functional requirements
+      - fieldname: couldHaveFunctional
+        description: Count of Could-Have functional requirements
+      - fieldname: wontHaveThisTimeFunctional
+        description: Count of Won't-Have-This-Time functional requirements
+      - fieldname: coverageNote
+        description: Notes on coverage and any gaps in the requirement set
+  rus-uifo-form:
+    fields:
+      - fieldname: screenName
+        description: Name of the screen or view
+      - fieldname: screenType
+        description: "List, Detail, Form, Dashboard, Dialog, or Wizard"
+      - fieldname: navigationPath
+        description: How the user navigates to reach this screen
+      - fieldname: userRoles
+        description: Roles allowed to access this screen
+      - fieldname: responsiveBreakpoints
+        description: "Responsive breakpoints: mobile, tablet, desktop"
+  rt-trac-form:
+    fields:
+      - fieldname: relatedGoals
+        description: IDs of related business goals
+      - fieldname: relatedUseCases
+        description: IDs of related use cases
+      - fieldname: relatedProcesses
+        description: IDs of related business processes
+      - fieldname: relatedUserStories
+        description: "Related user stories, if using Agile"
+  tr1-summ-form:
+    fields:
+      - fieldname: totalTechnicalRequirements
+        description: Total count of technical requirements captured
+      - fieldname: criticalCount
+        description: Number of requirements at Critical priority
+      - fieldname: highCount
+        description: Number of requirements at High priority
+      - fieldname: mediumCount
+        description: Number of requirements at Medium priority
+      - fieldname: lowCount
+        description: Number of requirements at Low priority
+      - fieldname: architectureDrivers
+        description: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users"
+  sr1-summ-form:
+    fields:
+      - fieldname: totalSecurityRequirements
+        description: Total count of security requirements captured
+      - fieldname: criticalCount
+        description: Number of requirements at Critical priority
+      - fieldname: highCount
+        description: Number of requirements at High priority
+      - fieldname: mediumCount
+        description: Number of requirements at Medium priority
+      - fieldname: securityFramework
+        description: Primary framework guiding the requirements
+      - fieldname: complianceRequirements
+        description: Regulations the system must comply with
+      - fieldname: threatCategories
+        description: Classes of attack the requirements mitigate
+  or-summ-form:
+    fields:
+      - fieldname: totalOrgRequirements
+        description: Total count of organizational requirements captured
+      - fieldname: trainingRequirements
+        description: Number of training-related requirements
+      - fieldname: processChangeRequirements
+        description: Number of process-change requirements
+      - fieldname: roleChangeRequirements
+        description: Number of role-change requirements
+      - fieldname: supportRequirements
+        description: Number of support-structure requirements
+      - fieldname: communicationRequirements
+        description: Number of communication requirements
+      - fieldname: changeReadinessScore
+        description: Assessed readiness of the organization to adopt the change
+  orip-plan-form:
+    fields:
+      - fieldname: approach
+        description: "Big Bang, Phased, Pilot, or Parallel rollout"
+      - fieldname: phases
+        description: "Sequence of phases, if phased"
+      - fieldname: pilotGroup
+        description: "Group used for the pilot, if piloting"
+      - fieldname: trainingApproach
+        description: How affected people are trained
+      - fieldname: communicationPlan
+        description: How the change is communicated to stakeholders
+      - fieldname: supportPlan
+        description: Support provided during and after the change
+      - fieldname: rollbackPlan
+        description: How to revert if the change fails
+      - fieldname: resourcesNeeded
+        description: "People, tools, or budget required"
+      - fieldname: budget
+        description: Estimated cost of the implementation
+      - fieldname: timeline
+        description: Schedule for the implementation
+  sytore-iden-form:
+    fields:
+      - fieldname: systemId
+        required: true
+        description: Stable identifier for the legacy system being replaced
+      - fieldname: systemName
+        required: true
+        description: Common name the organization uses for this system
+      - fieldname: officialName
+        description: "Vendor/product name and edition, if a commercial system"
+      - fieldname: systemDescription
+        description: Brief description of what the system does and who uses it
+  migcon-stra-form:
+    fields:
+      - fieldname: overallStrategy
+        description: Chosen cutover pattern for the migration program
+      - fieldname: sequencingApproach
+        description: Order in which systems are migrated and why
+      - fieldname: interdependencyHandling
+        description: How cross-system dependencies are coordinated
+      - fieldname: migrationWindowStrategy
+        description: "When migrations run, e.g. weekends, off-hours"
+      - fieldname: blackoutPeriods
+        description: Times when no migration activity is permitted
+      - fieldname: parallelRunDuration
+        description: How long old and new run side by side
+  miri-gove-form:
+    fields:
+      - fieldname: riskGovernanceModel
+        description: "Centralized, federated, hybrid approach"
+      - fieldname: riskCommitteeCharter
+        description: Mandate and remit of the risk committee
+      - fieldname: riskReviewFrequency
+        description: "Weekly, bi-weekly, monthly cycles"
+  eie-iden-form:
+    fields:
+      - fieldname: interfaceId
+        required: true
+        description: Unique stable identifier for this interface
+      - fieldname: interfaceName
+        required: true
+        description: Human-readable name of the interface
+      - fieldname: externalSystem
+        required: true
+        description: Name of the external system being integrated
+      - fieldname: externalSystemVendor
+        description: Vendor or provider that owns the external system
+      - fieldname: interfaceCategory
+        description: Functional category of the interface
+      - fieldname: integrationPattern
+        description: Primary integration pattern used
+      - fieldname: priority
+        description: Relative importance of this interface
+      - fieldname: status
+        description: Lifecycle status of the interface
+  oren-orga-form:
+    fields:
+      - fieldname: organizationName
+        description: Legal or common name of the organization
+      - fieldname: organizationType
+        description: Category that best describes the organization
+      - fieldname: industryVertical
+        description: Primary industry the organization operates in
+      - fieldname: geographicFootprint
+        description: Geographic reach of the organization
+      - fieldname: employeeCount
+        description: Approximate number of employees
+      - fieldname: revenueRange
+        description: Approximate annual revenue band
+  teen-tech-form:
+    fields:
+      - fieldname: architectureMaturity
+        description: TOGAF maturity level or equivalent
+      - fieldname: cloudStrategy
+        description: "Cloud-first, hybrid, on-premises, multi-cloud"
+      - fieldname: primaryCloudProvider
+        description: "AWS, Azure, GCP, private cloud, none"
+  occhg-over-form:
+    fields:
+      - fieldname: changeScope
+        description: Departments and functions affected by restructuring
+      - fieldname: changeDriver
+        description: "System implementation, process optimization, strategy shift"
+      - fieldname: impactSummary
+        description: "Total affected headcount, key structural shifts"
+      - fieldname: designPrinciples
+        description: Guiding principles for organizational design changes
+      - fieldname: governanceChanges
+        description: Changes to decision-making authority and oversight
+      - fieldname: reportingLineChanges
+        description: Summary of reporting relationship modifications
+      - fieldname: communicationChannelChanges
+        description: New or modified formal communication flows
+      - fieldname: collaborationModelChanges
+        description: How teams will work together differently
+  daent-iden-form:
+    fields:
+      - fieldname: entityName
+        required: true
+        description: "Singular noun or noun phrase (e.g., Customer, OrderItem)"
+      - fieldname: tableName
+        description: Database table name if different from logical name
+      - fieldname: entityAlias
+        description: "Short alias for diagrams and references (e.g., CUST, ORD)"
+      - fieldname: description
+        description: Clear definition of what this entity represents
+      - fieldname: entityStereoType
+        description: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge"
+  daent-clas-form:
+    fields:
+      - fieldname: category
+        description: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData"
+      - fieldname: boundedContext
+        description: Domain-driven design bounded context this entity belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this entity
+      - fieldname: dataOwner
+        description: Role or team accountable for data quality
+      - fieldname: dataSteward
+        description: Person or role responsible for data governance
+      - fieldname: sourceSystem
+        description: System of record or originating system for migration
+  daent-life-form:
+    fields:
+      - fieldname: lifecyclePhases
+        description: "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted"
+      - fieldname: retentionPolicy
+        description: "How long data is retained and why (e.g., 7 years per tax regulations)"
+      - fieldname: archivalTrigger
+        description: "Condition for moving to archive (e.g., 2 years after last activity)"
+      - fieldname: archivalDestination
+        description: "Where archived data goes: ColdStorage | Archive | DataLake"
+      - fieldname: purgePolicy
+        description: When and how data is permanently deleted
+      - fieldname: anonymizationPolicy
+        description: "PII anonymization rules (e.g., hash email after deletion)"
+      - fieldname: auditRequirements
+        description: "What changes must be tracked: None | KeyFields | AllFields | FullHistory"
+      - fieldname: auditRetention
+        description: How long audit records are kept
+  daent-rela-form:
+    fields:
+      - fieldname: parentEntities
+        description: "Entities this depends on (e.g., Order depends on Customer)"
+      - fieldname: childEntities
+        description: "Entities that depend on this (e.g., OrderItem depends on Order)"
+      - fieldname: referencedEntities
+        description: "Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)"
+      - fieldname: crossDomainRelationships
+        description: Relationships that cross bounded context boundaries
+  daatt-iden-form:
+    fields:
+      - fieldname: attributeName
+        required: true
+        description: Logical attribute name in camelCase
+      - fieldname: columnName
+        description: "Database column name if different (e.g., snake_case)"
+      - fieldname: description
+        description: Clear definition of what this attribute represents
+      - fieldname: businessTerm
+        description: Business glossary term this maps to
+      - fieldname: exampleValues
+        description: "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")"
+  daatt-data-form:
+    fields:
+      - fieldname: dataType
+        description: "Logical type: String | Integer | Decimal | Boolean | Date | DateTime | UUID | JSON | Binary"
+      - fieldname: physicalType
+        description: "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP"
+      - fieldname: length
+        description: Maximum length for strings or size for binary
+      - fieldname: precision
+        description: Total digits for numeric types
+      - fieldname: scale
+        description: Decimal places for numeric types
+      - fieldname: collation
+        description: "Character collation for text (e.g., utf8_general_ci)"
+      - fieldname: timezone
+        description: "For datetime: UTC | Local | WithOffset"
+      - fieldname: format
+        description: "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)"
+  daatt-deri-form:
+    fields:
+      - fieldname: isComputed
+        description: "Whether value is computed: Yes | No"
+      - fieldname: computeFormula
+        description: Formula or expression for computed fields
+      - fieldname: isDerived
+        description: "Whether derived from other attributes: Yes | No"
+      - fieldname: derivationLogic
+        description: How derived value is calculated
+  daatt-secu-form:
+    fields:
+      - fieldname: sensitivityLevel
+        description: "Public | Internal | Confidential | Restricted | PII | PHI"
+      - fieldname: isPii
+        description: "Personally identifiable information: Yes | No"
+      - fieldname: maskingRule
+        description: "How to mask in logs/displays: None | Partial | Full | Hash"
+      - fieldname: encryptionLevel
+        description: "Field-level encryption: None | Encrypted | Tokenized"
+      - fieldname: auditLevel
+        description: "Change tracking: None | ValueChanges | FullHistory"
+  daatt-migr-form:
+    fields:
+      - fieldname: sourceSystem
+        description: Originating system for data lineage
+      - fieldname: sourceAttribute
+        description: Source field name for migration mapping
+      - fieldname: transformationRule
+        description: Transformation applied during migration/ETL
+      - fieldname: dataLineage
+        description: Upstream sources that feed this attribute
+      - fieldname: qualityRules
+        description: "Data quality checks (e.g., completeness, accuracy)"
+  enrle-iden-form:
+    fields:
+      - fieldname: relationshipName
+        required: true
+        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
+      - fieldname: relationshipType
+        description: "Association | Aggregation | Composition | Generalization | Dependency"
+      - fieldname: description
+        description: Business meaning of this relationship
+      - fieldname: businessJustification
+        description: Why this relationship exists from business perspective
+      - fieldname: implementationType
+        description: "ForeignKey | JunctionTable | Embedded | Reference"
+  enrle-card-form:
+    fields:
+      - fieldname: sourceCardinality
+        description: "Source side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: targetCardinality
+        description: "Target side: 1 | 0..1 | 0..* | 1..* | n..m"
+      - fieldname: sourceParticipation
+        description: "Mandatory | Optional (whether source must participate)"
+      - fieldname: targetParticipation
+        description: "Mandatory | Optional (whether target must participate)"
+      - fieldname: minSourceInstances
+        description: Minimum number of source entity instances
+      - fieldname: maxTargetInstances
+        description: Maximum number of related target instances
+  enrle-refe-form:
+    fields:
+      - fieldname: onDeleteAction
+        description: "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive"
+      - fieldname: onUpdateAction
+        description: "Cascade | SetNull | Restrict | NoAction"
+      - fieldname: enforcementLevel
+        description: "Database | Application | Both | None"
+      - fieldname: isDeferrable
+        description: "Whether constraint check can be deferred: Yes | No"
+      - fieldname: cascadeScope
+        description: "For cascading: DirectOnly | AllDescendants | Custom"
+      - fieldname: orphanHandling
+        description: "How orphaned records are handled: Prevent | Allow | AssignDefault"
+  enrle-navi-form:
+    fields:
+      - fieldname: navigability
+        description: "Bidirectional | SourceToTarget | TargetToSource"
+      - fieldname: loadingStrategy
+        description: "Eager | Lazy | Explicit | None"
+      - fieldname: foreignKeyLocation
+        description: "Where FK resides: Source | Target | JunctionTable"
+      - fieldname: junctionTableName
+        description: "For many-to-many: name of the junction/bridge table"
+      - fieldname: inverseRelationship
+        description: Name of the relationship from the other side
+  datcl-over-form:
+    fields:
+      - fieldname: classificationFramework
+        description: "Standard used: Custom | ISO27001 | NIST | IndustrySpecific"
+      - fieldname: defaultClassification
+        description: Default sensitivity for unclassified data
+      - fieldname: classificationOwner
+        description: Role responsible for data classification decisions
+      - fieldname: reviewFrequency
+        description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
+  dclse-iden-form:
+    fields:
+      - fieldname: classificationName
+        required: true
+        description: Name of this classification level
+      - fieldname: classificationLevel
+        description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
+      - fieldname: description
+        description: What this classification means
+      - fieldname: dataCategories
+        description: "Types of data in this class: PII | PHI | Financial | Legal | Technical"
+      - fieldname: examples
+        description: Examples of data at this classification
+  dclse-stor-form:
+    fields:
+      - fieldname: encryptionAtRest
+        description: "Encryption requirement for storage: None | Standard | Strong | FieldLevel"
+      - fieldname: encryptionInTransit
+        description: "Encryption for transmission: TLS | mTLS | EndToEnd"
+      - fieldname: storageLocations
+        description: "Where data can be stored: OnPremise | Cloud | Either | Restricted"
+      - fieldname: geographicRestrictions
+        description: "Data residency requirements (e.g., EU only)"
+      - fieldname: backupRequirements
+        description: Special backup considerations
+  dclse-acce-form:
+    fields:
+      - fieldname: accessLevels
+        description: "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly"
+      - fieldname: authenticationRequirements
+        description: "Required auth: Basic | MFA | CertificateBased | Biometric"
+      - fieldname: authorizationModel
+        description: "RBAC | ABAC | MAC | DAC"
+      - fieldname: auditRequirements
+        description: "Access audit: None | ReadAudit | WriteAudit | FullAudit"
+      - fieldname: accessRequestProcess
+        description: "How access is granted: SelfService | ManagerApproval | SecurityApproval"
+  dclse-rete-form:
+    fields:
+      - fieldname: retentionPeriod
+        description: "How long data is retained (e.g., 7 years)"
+      - fieldname: retentionBasis
+        description: "Legal | Regulatory | Business | CustomerContract"
+      - fieldname: archivalPolicy
+        description: "When and how to archive: AfterPeriod | OnInactivity | Never"
+      - fieldname: disposalMethod
+        description: "How data is disposed: Delete | Anonymize | Shred | CryptoErase"
+      - fieldname: disposalApproval
+        description: "Who approves disposal: Automatic | DataOwner | Legal"
+  dclse-comp-form:
+    fields:
+      - fieldname: applicableRegulations
+        description: "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA"
+      - fieldname: complianceRequirements
+        description: Specific compliance requirements
+      - fieldname: breachNotificationSla
+        description: "Time to notify on breach (e.g., 72 hours for GDPR)"
+      - fieldname: dataSubjectRights
+        description: "Applicable rights: Access | Rectification | Erasure | Portability"
+  bjoen-iden-form:
+    fields:
+      - fieldname: objectName
+        required: true
+        description: "Business name in PascalCase (e.g., Order, Customer)"
+      - fieldname: objectAlias
+        description: "Short alias for diagrams (e.g., ORD, CUST)"
+      - fieldname: description
+        description: Clear business definition of what this object represents
+      - fieldname: businessGlossaryTerm
+        description: Official business glossary term if different
+      - fieldname: category
+        description: "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event"
+      - fieldname: stereotypePattern
+        description: "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga"
+  bjoen-doma-form:
+    fields:
+      - fieldname: boundedContext
+        description: DDD bounded context this object belongs to
+      - fieldname: owningDomain
+        description: Business domain responsible for this object
+      - fieldname: domainExpert
+        description: Business expert who defines this object
+      - fieldname: ubiquitousLanguageTerm
+        description: How this is referred to in the ubiquitous language
+      - fieldname: relatedObjects
+        description: Key related business objects
+  bjoen-life-form:
+    fields:
+      - fieldname: keyStates
+        description: "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)"
+      - fieldname: initialState
+        description: State when object is created
+      - fieldname: terminalStates
+        description: "States where lifecycle ends (e.g., Closed, Cancelled, Deleted)"
+      - fieldname: stateTransitionRules
+        description: Summary of allowed state transitions
+      - fieldname: lifecycleOwner
+        description: System or process responsible for lifecycle management
+  bjoen-owne-form:
+    fields:
+      - fieldname: dataOwner
+        description: Business role accountable for this object
+      - fieldname: dataSteward
+        description: Role responsible for data quality
+      - fieldname: versioningStrategy
+        description: "None | Sequential | Timestamp | Optimistic | EventSourced"
+      - fieldname: concurrencyControl
+        description: "Optimistic | Pessimistic | None"
+      - fieldname: auditTrail
+        description: "What changes are tracked: None | StateChanges | AllChanges | FullHistory"
+  fumo-deco-form:
+    fields:
+      - fieldname: decompositionApproach
+        description: "How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased"
+      - fieldname: decompositionDepth
+        description: Number of levels in the hierarchy
+      - fieldname: topLevelFunctions
+        description: Summary of major function areas
+      - fieldname: decompositionBasis
+        description: "Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit"
+  fumo-matr-form:
+    fields:
+      - fieldname: crudNotation
+        description: "Notation used: CRUD | CRUDx | Custom"
+      - fieldname: matrixScope
+        description: "What's covered: CoreFunctions | AllFunctions | UserFacing"
+      - fieldname: primaryAccessPatterns
+        description: Summary of major access patterns
+      - fieldname: dataOwnership
+        description: Which functions own which data
+  biru-iden-form:
+    fields:
+      - fieldname: ruleId
+        required: true
+        description: "Unique rule identifier (e.g., BR-001)"
+      - fieldname: ruleName
+        required: true
+        description: Descriptive name
+      - fieldname: ruleVersion
+        description: Version number for change tracking
+      - fieldname: description
+        description: Full statement of the business rule
+      - fieldname: businessStatement
+        description: Natural language statement from business perspective
+  biru-clas-form:
+    fields:
+      - fieldname: ruleType
+        description: "Structural | Derivation | Constraint | Authorization | Workflow | Calculation"
+      - fieldname: ruleCategory
+        description: "Validation | Computation | Inference | Action-Enabling"
+      - fieldname: enforcementLevel
+        description: "Mandatory | Guideline | Advisory"
+      - fieldname: priority
+        description: "When rules conflict: 1 (highest) to 5 (lowest)"
+      - fieldname: source
+        description: "Where rule originates: Regulation | Policy | Contract | BestPractice"
+  biru-rule-form:
+    fields:
+      - fieldname: condition
+        description: Trigger condition in natural language or pseudo-code
+      - fieldname: action
+        description: What happens when condition is true
+      - fieldname: elseAction
+        description: What happens when condition is false
+      - fieldname: expression
+        description: Formalized rule logic
+      - fieldname: parameters
+        description: Configurable values in the rule
+  biru-impl-form:
+    fields:
+      - fieldname: enforcement
+        description: "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual"
+      - fieldname: implementationPoint
+        description: "Where implemented: UI | API | Service | Database | Integration"
+      - fieldname: validationTiming
+        description: "When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime"
+      - fieldname: systemsInvolved
+        description: Which systems enforce this rule
+      - fieldname: testability
+        description: "How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly"
+  biru-exce-form:
+    fields:
+      - fieldname: exceptionHandling
+        description: How violations are handled
+      - fieldname: overridePolicy
+        description: Whether and how rule can be overridden
+      - fieldname: overrideApproval
+        description: Who can approve overrides
+      - fieldname: escalationPath
+        description: How exceptions are escalated
+  biru-gove-form:
+    fields:
+      - fieldname: ruleOwner
+        description: Business owner responsible for this rule
+      - fieldname: effectiveDate
+        description: When rule becomes/became effective
+      - fieldname: expirationDate
+        description: When rule expires (if applicable)
+      - fieldname: reviewFrequency
+        description: "How often rule is reviewed: Annually | OnChange | Never"
+  trareq-tran-form:
+    fields:
+      - fieldname: i18nFramework
+        description: "flutter_localizations, intl, easy_localization"
+      - fieldname: stringExternalizationFormat
+        description: "ARB, JSON, YAML, Gettext"
+      - fieldname: localeHandling
+        description: How locales are loaded and switched
+  doantr-docu-form:
+    fields:
+      - fieldname: documentationFormat
+        description: "HTML, PDF, in-app, wiki"
+      - fieldname: documentationPlatform
+        description: "GitBook, Notion, custom, Confluence"
+      - fieldname: documentationVersioning
+        description: How docs are versioned with releases
+  trmat-trai-form:
+    fields:
+      - fieldname: trainingMaterials
+        description: "Slides, workbooks, exercises"
+      - fieldname: trainingFormat
+        description: "In-person, virtual, self-paced"
+      - fieldname: trainingDuration
+        description: Duration per role/module
+      - fieldname: trainingSchedule
+        description: When training occurs
+      - fieldname: trainTheTrainer
+        description: Train internal trainers
+      - fieldname: refresherTraining
+        description: Ongoing training approach
+      - fieldname: knowledgeTransferPlan
+        description: How knowledge is transferred
+      - fieldname: supportHandoff
+        description: Transition to support team
+      - fieldname: certificationProgram
+        description: User certification if applicable
+  monito-moni-form:
+    fields:
+      - fieldname: monitoringStrategy
+        description: "Proactive, reactive, hybrid approach"
+      - fieldname: observabilityMaturity
+        description: Current maturity level (L1-L4)
+      - fieldname: monitoringScope
+        description: "Infrastructure, application, business metrics"
+      - fieldname: primaryMonitoringPlatform
+        description: "Datadog, New Relic, Prometheus, CloudWatch"
+      - fieldname: metricsStore
+        description: "InfluxDB, Prometheus, CloudWatch Metrics"
+      - fieldname: tracingPlatform
+        description: "Jaeger, Zipkin, AWS X-Ray, Datadog APM"
+      - fieldname: loggingPlatform
+        description: "ELK Stack, Loki, CloudWatch Logs"
+      - fieldname: coverageRequirement
+        description: Which services must be monitored
+      - fieldname: dataRetention
+        description: "Metrics: 15d, traces: 7d, logs: 30d"
+      - fieldname: costBudget
+        description: Monthly monitoring cost budget
+  alco-aler-form:
+    fields:
+      - fieldname: alertingPhilosophy
+        description: "Page on symptoms, not causes; reduce noise"
+      - fieldname: alertSeverityLevels
+        description: "Critical, Warning, Info"
+      - fieldname: onCallModel
+        description: "Follow-the-sun, regional, single team"
+      - fieldname: criticalResponseTime
+        description: Max time to acknowledge critical alerts
+      - fieldname: warningResponseTime
+        description: Max time to acknowledge warnings
+      - fieldname: infoResponseTime
+        description: Expected review time for info alerts
+      - fieldname: alertReviewCadence
+        description: How often alert rules are reviewed
+      - fieldname: noisyAlertPolicy
+        description: Process for tuning noisy alerts
+      - fieldname: staleAlertCleanup
+        description: Removing outdated alert rules
+  meanob-metr-form:
+    fields:
+      - fieldname: metricsEnabled
+        description: Whether metrics collection is enabled
+      - fieldname: logsEnabled
+        description: Whether log collection is enabled
+      - fieldname: tracesEnabled
+        description: Whether distributed tracing is enabled
+      - fieldname: profilesEnabled
+        description: Continuous profiling
+      - fieldname: metricsFormat
+        description: "Prometheus, OpenMetrics, StatsD"
+      - fieldname: logsFormat
+        description: "Structured JSON, syslog"
+      - fieldname: tracingStandard
+        description: "OpenTelemetry, OpenTracing, W3C Trace Context"
+      - fieldname: collectionMethod
+        description: "Pull (Prometheus), push (agent), sidecar"
+      - fieldname: scrapeInterval
+        description: Metrics collection frequency
+      - fieldname: samplingRate
+        description: Trace sampling percentage
+  moda-dash-form:
+    fields:
+      - fieldname: dashboardPlatform
+        description: "Grafana, Datadog, CloudWatch, custom"
+      - fieldname: dashboardAccessControl
+        description: "Who can view, edit dashboards"
+      - fieldname: dashboardVersioning
+        description: Version control for dashboards
+      - fieldname: dashboardNamingConvention
+        description: Naming standards for dashboards
+      - fieldname: standardLayout
+        description: Common layout patterns
+      - fieldname: colorCodingStandards
+        description: "Red=bad, green=good conventions"
+      - fieldname: executiveDashboards
+        description: High-level business KPIs
+      - fieldname: operationalDashboards
+        description: Real-time ops dashboards
+      - fieldname: serviceDashboards
+        description: Per-service detail dashboards
+      - fieldname: infrastructureDashboards
+        description: Infra-level dashboards
+  sasm-slao-form:
+    fields:
+      - fieldname: sloFramework
+        description: "Google SRE, custom"
+      - fieldname: errorBudgetPolicy
+        description: How error budget is managed
+      - fieldname: errorBudgetExhaustionPolicy
+        description: Actions when budget exhausted
+      - fieldname: slaReportingCadence
+        description: "Weekly, monthly SLA reports"
+      - fieldname: slaReportingAudience
+        description: Who receives SLA reports
+      - fieldname: slaBreachProcess
+        description: Process when SLA is breached
+      - fieldname: customerFacingSLAs
+        description: SLAs published to customers
+      - fieldname: slaCredits
+        description: Credit/refund policy for breaches
+      - fieldname: slaExclusions
+        description: "Maintenance windows, force majeure"
   uacst-form:
     fields:
       - fieldname: stateModel
@@ -25710,6 +27469,592 @@ form-types:
         description: "NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)"
       - fieldname: notes
         description: Additional transport security policy notes
+  erhaco-erro-form:
+    fields:
+      - fieldname: errorPhilosophy
+        description: "Prevention-first, graceful degradation, user empowerment"
+      - fieldname: errorToneOfVoice
+        description: "Friendly, professional, apologetic, neutral"
+      - fieldname: errorLanguageStyle
+        description: "Plain language, technical, user-focused"
+      - fieldname: blameAvoidance
+        description: "Never blame user, focus on solutions"
+  vafe-vali-form:
+    fields:
+      - fieldname: validationTiming
+        description: "Real-time, on-blur, on-submit, debounced"
+      - fieldname: debounceDelay
+        description: Milliseconds before validation triggers
+      - fieldname: validationSequence
+        description: "Field-by-field, all-at-once, progressive"
+  syerdi-syst-form:
+    fields:
+      - fieldname: networkErrorHandling
+        description: How connectivity issues are displayed
+      - fieldname: systemErrorDisplayMethod
+        description: "Modal, snackbar, banner, full-page"
+      - fieldname: gracefulDegradation
+        description: How features degrade on partial failure
+  erre-reco-form:
+    fields:
+      - fieldname: formDataPreservation
+        description: How unsaved form data is preserved on error
+      - fieldname: sessionRecovery
+        description: How expired sessions are handled
+      - fieldname: supportContactMethod
+        description: "Chat, email, phone, ticket"
+  usas-help-form:
+    fields:
+      - fieldname: helpPhilosophy
+        description: "Self-service first, guided, on-demand"
+      - fieldname: helpAccessibility
+        description: "Always visible, contextual, searchable"
+      - fieldname: helpPersonalization
+        description: "Role-based, skill-based, contextual"
+      - fieldname: helpContentStrategy
+        description: "Video, text, interactive, mixed"
+  cohe-cont-form:
+    fields:
+      - fieldname: tooltipTrigger
+        description: "Hover, click, focus, icon click"
+      - fieldname: tooltipDelay
+        description: Milliseconds before showing
+      - fieldname: tooltipDuration
+        description: How long tooltip stays visible
+      - fieldname: tooltipMaxWidth
+        description: Maximum width in pixels
+      - fieldname: tooltipPosition
+        description: "Above, below, auto-position"
+  onhe-onbo-form:
+    fields:
+      - fieldname: welcomeFlowEnabled
+        description: Whether the welcome flow is enabled
+      - fieldname: welcomeFlowStyle
+        description: "Modal wizard, full-page, inline"
+      - fieldname: welcomeFlowSkippable
+        description: Whether users can skip the welcome flow
+      - fieldname: welcomeFlowDuration
+        description: Expected completion time
+  suac-supp-form:
+    fields:
+      - fieldname: helpCenterAvailable
+        description: Whether a help centre is provided
+      - fieldname: liveChatAvailable
+        description: Whether live chat support is provided
+      - fieldname: ticketSubmission
+        description: Whether users can submit support tickets
+  access-acce-form:
+    fields:
+      - fieldname: wcagComplianceTarget
+        description: "A, AA, AAA"
+      - fieldname: wcagVersion
+        description: "2.0, 2.1, 2.2"
+      - fieldname: additionalStandards
+        description: "Section 508, EN 301 549, ADA"
+      - fieldname: accessibilityStatement
+        description: Publish accessibility statement
+  wcco-wcag-form:
+    fields:
+      - fieldname: textAlternatives
+        description: Alt text for non-text content
+      - fieldname: timeBasedMedia
+        description: "Captions, audio descriptions"
+      - fieldname: adaptableContent
+        description: "Structure, sequence, sensory"
+      - fieldname: distinguishableContent
+        description: "Color, contrast, resize, audio"
+  acchls-chec-form:
+    fields:
+      - fieldname: checklistStandard
+        description: "Based on WCAG, custom additions"
+      - fieldname: checklistOwner
+        description: Who maintains the checklist
+      - fieldname: checkFrequency
+        description: "Per feature, per release, continuous"
+      - fieldname: automatedChecks
+        description: Automated accessibility testing coverage
+      - fieldname: manualChecks
+        description: Manual testing procedures
+      - fieldname: userTesting
+        description: Testing with users with disabilities
+      - fieldname: reportingFormat
+        description: How accessibility status is reported
+      - fieldname: remediationProcess
+        description: How issues are fixed
+  rede-resp-form:
+    fields:
+      - fieldname: responsivePhilosophy
+        description: "Mobile-first, desktop-first, adaptive"
+      - fieldname: primaryTargetDevice
+        description: "Mobile phone, tablet, desktop"
+      - fieldname: deviceAssumptions
+        description: Assumptions about target devices
+      - fieldname: responsiveFramework
+        description: "LayoutBuilder, MediaQuery, responsive_framework"
+      - fieldname: breakpointPackage
+        description: "Custom, responsive_framework, flutter_screenutil"
+      - fieldname: orientationSupport
+        description: "Portrait only, landscape only, both"
+      - fieldname: responsiveTestingApproach
+        description: "Device lab, emulator matrix, golden tests"
+      - fieldname: targetDeviceMatrix
+        description: List of target devices for testing
+  bc-brea-form:
+    fields:
+      - fieldname: mobileMax
+        description: "Maximum width for mobile (e.g., 599)"
+      - fieldname: tabletMin
+        description: "Minimum width for tablet (e.g., 600)"
+      - fieldname: tabletMax
+        description: "Maximum width for tablet (e.g., 1023)"
+      - fieldname: desktopMin
+        description: "Minimum width for desktop (e.g., 1024)"
+      - fieldname: largeDesktopMin
+        description: "Minimum width for large screens (e.g., 1440)"
+      - fieldname: watchMax
+        description: Maximum width for wearables
+      - fieldname: foldableBreakpoint
+        description: Breakpoint for foldable devices
+      - fieldname: customBreakpoints
+        description: Additional app-specific breakpoints
+      - fieldname: breakpointUnit
+        description: "Logical pixels, device pixels"
+      - fieldname: densityHandling
+        description: How pixel density is handled
+  rebe-layo-form:
+    fields:
+      - fieldname: mobileColumnLayout
+        description: "Single column, stacked"
+      - fieldname: tabletColumnLayout
+        description: "2-column, master-detail"
+      - fieldname: desktopColumnLayout
+        description: "3-column, sidebar + main"
+  uico-comp-form:
+    fields:
+      - fieldname: designSystemName
+        description: "Name of the design system (e.g., \"Acme Design System\")"
+      - fieldname: designSystemVersion
+        description: "Semantic version of the design system (e.g., \"2.1.0\")"
+      - fieldname: basedOnFramework
+        description: "Material Design 3, Cupertino, Custom"
+      - fieldname: tomFlutterUiIntegration
+        description: Uses tom_flutter_ui component library
+  uicoment-iden-form:
+    fields:
+      - fieldname: componentId
+        required: true
+        description: "Unique identifier (e.g., CMP-DTT-001)"
+      - fieldname: componentName
+        required: true
+        description: Human-readable name
+      - fieldname: componentFamily
+        description: "Button, Input, Table, Navigation, etc."
+      - fieldname: flutterWidgetBase
+        description: "Base Flutter widget (DataTable, TextField)"
+  uicoment-visu-form:
+    fields:
+      - fieldname: defaultAppearance
+        description: Visual description of default state
+      - fieldname: colorScheme
+        description: "Primary, secondary, surface colors used"
+      - fieldname: typography
+        description: Text styles used
+      - fieldname: iconography
+        description: Icons used and their placement
+  uicoment-inte-form:
+    fields:
+      - fieldname: tapBehavior
+        description: What happens on tap/click
+      - fieldname: longPressBehavior
+        description: What happens on long press
+      - fieldname: doubleTapBehavior
+        description: What happens on double tap
+      - fieldname: swipeBehavior
+        description: What happens on swipe gestures
+      - fieldname: dragBehavior
+        description: What happens on drag gestures
+      - fieldname: hoverBehavior
+  uicoment-resp-form:
+    fields:
+      - fieldname: mobileLayout
+        description: Layout on mobile (< 600dp)
+      - fieldname: tabletLayout
+        description: Layout on tablet (600-1024dp)
+      - fieldname: desktopLayout
+        description: "Layout on desktop (> 1024dp)"
+      - fieldname: breakpointBehavior
+        description: What changes at breakpoints
+      - fieldname: adaptiveContent
+        description: Content that appears/hides
+      - fieldname: touchTargets
+        description: Minimum touch target sizes
+      - fieldname: orientationBehavior
+        description: Portrait vs. landscape
+  uicoment-acce-form:
+    fields:
+      - fieldname: semanticRole
+        description: ARIA role or semantic meaning
+      - fieldname: screenReaderLabel
+        description: How screen readers announce
+      - fieldname: screenReaderHint
+        description: Additional context for screen readers
+      - fieldname: focusOrder
+        description: Tab order in context
+      - fieldname: ariaAttributes
+        description: Required ARIA attributes
+      - fieldname: colorContrastNotes
+        description: Contrast ratios and compliance notes
+      - fieldname: motionSensitivity
+        description: Reduced motion behavior
+      - fieldname: textScalingBehavior
+        description: How component responds to text scaling
+  uicoment-auth-form:
+    fields:
+      - fieldname: authBasePath
+        description: Base path for authorization lookup
+      - fieldname: authVisibilityBehavior
+        description: "Hidden, visible, conditionally visible"
+      - fieldname: authEnabledBehavior
+        description: "Disabled, enabled, conditionally enabled"
+      - fieldname: authReadonlyBehavior
+        description: Readonly state behavior
+      - fieldname: authActionControl
+        description: Which actions are auth-controlled
+      - fieldname: authFallbackBehavior
+        description: Behavior when auth unavailable
+      - fieldname: fourStateMapping
+        description: Mapping to TomAuthState four states
+  uicoment-reso-form:
+    fields:
+      - fieldname: resourceBasePath
+        description: Base path for resource lookup
+      - fieldname: labelResource
+        description: Resource key for label text
+      - fieldname: hintResource
+        description: Resource key for hint text
+      - fieldname: errorResource
+        description: Resource key for error messages
+      - fieldname: tooltipResource
+        description: Resource key for tooltip text
+      - fieldname: placeholderResource
+        description: Resource key for placeholder text
+      - fieldname: ariaLabelResource
+        description: Resource key for the ARIA label
+      - fieldname: iconResource
+        description: Resource key for icon selection
+      - fieldname: resourceFallbacks
+        description: Fallback behavior when resource missing
+  uicoment-data-form:
+    fields:
+      - fieldname: dataType
+        description: Type of data component displays/edits
+      - fieldname: bindingPattern
+        description: "Observable, form field, direct"
+      - fieldname: valueAccessor
+        description: How value is read/written
+      - fieldname: changeNotification
+        description: How changes are communicated
+      - fieldname: validationIntegration
+        description: How validation errors are displayed
+      - fieldname: dirtyTracking
+        description: How dirty state is tracked
+      - fieldname: undoRedoSupport
+        description: Whether edits can be undone and redone
+  mlar-mult-form:
+    fields:
+      - fieldname: supportedLanguages
+        description: "List of supported languages (e.g., en, de, fr, es)"
+      - fieldname: primaryLanguage
+        description: Default/fallback language
+      - fieldname: futureLanguages
+        description: Languages planned for future support
+      - fieldname: rtlLanguages
+        description: Right-to-left languages supported
+  lacose-lang-form:
+    fields:
+      - fieldname: pickerLocation
+        description: "Header, footer, settings, onboarding"
+      - fieldname: pickerStyle
+        description: "Dropdown, modal, full page"
+      - fieldname: languageDisplay
+        description: "Native names, English names, flags"
+      - fieldname: countryDisplay
+        description: How countries are displayed
+      - fieldname: searchable
+        description: Can user search languages/countries
+  protot-prot-form:
+    fields:
+      - fieldname: prototypePurpose
+        description: "Primary goal: validation, alignment, feasibility"
+      - fieldname: prototypeScope
+        description: What is included in prototype
+      - fieldname: targetAudience
+        description: Who will evaluate the prototype
+      - fieldname: successCriteria
+        description: How success is measured
+  pg-goal-form:
+    fields:
+      - fieldname: usabilityValidation
+        description: Validate usability of key workflows
+      - fieldname: stakeholderAlignment
+        description: Align stakeholders on UI/UX
+      - fieldname: technicalFeasibility
+        description: Prove technical approach works
+      - fieldname: performanceValidation
+        description: Validate performance targets
+      - fieldname: integrationValidation
+        description: Validate third-party integrations
+  prfesu-feat-form:
+    fields:
+      - fieldname: selectionCriteria
+        description: How features were selected
+      - fieldname: riskBasedSelection
+        description: High-risk features included
+      - fieldname: valueBasedSelection
+        description: High-value features included
+      - fieldname: uncertaintyBasedSelection
+        description: Most uncertain features included
+  prtyse-prot-form:
+    fields:
+      - fieldname: prototypeType
+        required: true
+        description: "Reusable, Training, Throwaway"
+      - fieldname: typeRationale
+        description: Why this type was chosen
+      - fieldname: typeImplications
+        description: Implications for development
+      - fieldname: codeQualityExpectation
+        description: "Production, demo, quick-and-dirty"
+      - fieldname: documentationRequirement
+        description: Documentation needed
+      - fieldname: transitionPlan
+        description: How prototype transitions
+  reupro-reus-form:
+    fields:
+      - fieldname: codeQualityRequirements
+        description: Standards prototype code must meet
+      - fieldname: testCoverageRequirement
+        description: Required test coverage
+      - fieldname: codeReviewRequired
+        description: Whether code review is required
+      - fieldname: documentationRequired
+        description: Whether documentation is required
+  tp-trai-form:
+    fields:
+      - fieldname: designDecisionsCarriedForward
+        description: What design decisions are preserved
+      - fieldname: patternsDocumented
+        description: Patterns documented from prototype
+      - fieldname: lessonsLearned
+        description: What was learned
+  thpr-thro-form:
+    fields:
+      - fieldname: evaluationCriteria
+        description: Criteria for evaluation
+      - fieldname: evaluationMethod
+        description: How prototype is evaluated
+      - fieldname: evaluationParticipants
+        description: Who participates in evaluation
+      - fieldname: evaluationTimeline
+        description: When evaluation takes place
+  syqg-gove-form:
+    fields:
+      - fieldname: qualityApproach
+        description: "Overall quality philosophy: proactive, reactive, hybrid"
+      - fieldname: qualityStandards
+        description: "ISO 25010, ISO 9001, CMMI, industry-specific"
+      - fieldname: qualityOwner
+        description: Role accountable for quality outcomes
+  qlfwk-fram-form:
+    fields:
+      - fieldname: qualityModel
+        description: "ISO 25010, McCall, Boehm, custom"
+      - fieldname: qualityModelVersion
+        description: Specific version of quality model
+      - fieldname: qualityModelAdaptations
+        description: How standard model is adapted for this project
+  fnsu-func-form:
+    fields:
+      - fieldname: functionalSuitabilityApproach
+        description: How functional completeness and correctness are assured
+      - fieldname: functionalCoverageTarget
+        description: Required vs. optional feature coverage
+      - fieldname: correctnessStandard
+        description: "Acceptable defect density, accuracy thresholds"
+  peef-perf-form:
+    fields:
+      - fieldname: technicalQualityPhilosophy
+        description: "Performance-first, maintainability-first, balanced"
+      - fieldname: architecturalQualityGoals
+        description: Key architectural quality attributes
+      - fieldname: technicalDebtTolerance
+        description: "Zero, controlled, pragmatic"
+      - fieldname: codeQualityStandard
+        description: "Style guide, linting rules"
+      - fieldname: designPrinciplesAdherence
+        description: "SOLID, DRY, KISS, YAGNI"
+  cmpt-comp-form:
+    fields:
+      - fieldname: coExistenceRequirements
+        description: Other products sharing the environment without adverse impact
+      - fieldname: interoperabilityStandards
+        description: Protocols/formats for exchanging and using information
+  incp-inte-form:
+    fields:
+      - fieldname: userQualityPhilosophy
+        description: "User-first, balanced, efficiency-focused"
+      - fieldname: targetUserExperience
+        description: "Delightful, efficient, adequate, minimal"
+      - fieldname: userResearchBasis
+        description: "Personas, surveys, interviews, analytics"
+      - fieldname: userFeedbackChannel
+        description: How user quality feedback is collected
+      - fieldname: userSatisfactionTarget
+        description: "NPS > 50, CSAT > 80%, etc."
+      - fieldname: accessibilityLevel
+        description: "WCAG 2.1 AA, AAA, Section 508"
+  relc-reli-form:
+    fields:
+      - fieldname: operationsMaturityModel
+        description: "ITIL, DevOps, SRE"
+      - fieldname: operationsPhilosophy
+        description: "Ops-driven, DevOps, NoOps"
+      - fieldname: operationsResponsibility
+        description: "Dedicated team, shared, outsourced"
+      - fieldname: incidentManagementProcess
+        description: "PagerDuty, custom, ITIL-based"
+      - fieldname: changeManagementProcess
+        description: "ITIL change management, lightweight"
+      - fieldname: operationsToolchain
+        description: Key ops tools and platforms
+  secc-secu-form:
+    fields:
+      - fieldname: securityApproach
+        description: "Zero-trust, defence-in-depth, least-privilege"
+      - fieldname: securityComplianceTarget
+        description: "ISO 27001, SOC 2, GDPR, sector-specific"
+  mntc-main-form:
+    fields:
+      - fieldname: maintainabilityApproach
+        description: "Modularity, analyzability, testability priorities"
+      - fieldname: maintainabilityStandard
+        description: "Complexity thresholds, test-coverage targets"
+  flxc-flex-form:
+    fields:
+      - fieldname: flexibilityApproach
+        description: "How adaptability, scalability and portability are achieved"
+      - fieldname: portabilityTarget
+        description: Target environments/platforms the product must run on
+  doqucr-docu-form:
+    fields:
+      - fieldname: documentationStrategy
+        description: "Comprehensive, minimal, just-in-time"
+      - fieldname: documentationOwnership
+        description: "Technical writers, developers, shared"
+      - fieldname: documentationPlatform
+        description: "Confluence, GitBook, custom"
+      - fieldname: documentationReviewProcess
+        description: "Peer review, editorial review"
+      - fieldname: documentationVersionControl
+        description: "Git, CMS versioning, manual"
+      - fieldname: documentationUpdateCadence
+        description: "Continuous, per-release, scheduled"
+  qupr-prio-form:
+    fields:
+      - fieldname: prioritizationMethod
+        description: "Weighted scoring, AHP, forced ranking"
+      - fieldname: prioritizationStakeholders
+        description: Who participates in prioritization
+      - fieldname: prioritizationFrequency
+        description: "Once, per-phase, continuous"
+      - fieldname: prioritizationDocumentation
+        description: How decisions are documented
+      - fieldname: prioritizationReview
+        description: When priorities are reviewed
+      - fieldname: conflictResolutionAuthority
+        description: Who resolves priority conflicts
+  wequma-matr-form:
+    fields:
+      - fieldname: matrixFormat
+        description: "Spreadsheet, radar chart, heatmap"
+      - fieldname: weightingScale
+        description: "1-5, 1-10, percentage"
+      - fieldname: totalWeightRequirement
+        description: "Sum to 100%, relative weights"
+      - fieldname: weightJustificationRequired
+        description: Whether each weight needs a documented justification
+      - fieldname: matrixUpdateProcess
+        description: How weights are updated
+  trofde-trad-form:
+    fields:
+      - fieldname: tradeOffGovernance
+        description: Who can make trade-off decisions
+      - fieldname: tradeOffDocumentation
+        description: How decisions are documented
+      - fieldname: tradeOffReview
+        description: When trade-offs are reviewed
+      - fieldname: tradeOffReversal
+        description: Process to reverse a trade-off decision
+  accrsu-acce-form:
+    fields:
+      - fieldname: acceptanceProcess
+        description: "Formal UAT, continuous acceptance"
+      - fieldname: acceptanceAuthority
+        description: Who signs off on acceptance
+      - fieldname: acceptanceScope
+        description: "Full system, incremental, phase-based"
+      - fieldname: acceptanceEnvironment
+        description: Where acceptance testing occurs
+      - fieldname: acceptanceTimeline
+        description: Duration of acceptance period
+      - fieldname: partialAcceptance
+        description: Policy on accepting with defects
+      - fieldname: acceptanceRejectionCriteria
+        description: What triggers rejection
+  mupacr-must-form:
+    fields:
+      - fieldname: mustPassPhilosophy
+        description: "All must pass, weighted approach"
+      - fieldname: mustPassCount
+        description: Total count of must-pass criteria
+      - fieldname: criticalityDefinition
+        description: What makes a criterion must-pass
+      - fieldname: waiverProcess
+        description: Can must-pass criteria be waived
+      - fieldname: waiverAuthority
+        description: Who can grant waivers
+  qugach-chec-form:
+    fields:
+      - fieldname: checklistPurpose
+        description: "Gate review, final acceptance, milestone"
+      - fieldname: checklistCompleteness
+        description: "All checks required, critical only"
+      - fieldname: checklistReviewProcess
+        description: "Individual, committee, automated"
+      - fieldname: checklistSignoff
+        description: "Single, multiple signoffs"
+      - fieldname: checklistFrequency
+        description: When checklist is used
+  lopr-loca-form:
+    fields:
+      - fieldname: contentIdentification
+        description: How localizable content is identified
+      - fieldname: stringExternalization
+        description: Approach to externalizing strings
+      - fieldname: contentTagging
+        description: How content is tagged for translation
+      - fieldname: localizationScope
+        description: "UI text, images, audio, video, documents"
+  trpr-tran-form:
+    fields:
+      - fieldname: translationManagementSystem
+        description: "TMS tool (Phrase, Lokalise, Crowdin)"
+      - fieldname: translationMemory
+        description: TM usage and maintenance
+      - fieldname: machineTranslation
+        description: "MT usage (Google, DeepL, none)"
+      - fieldname: catTools
+        description: Computer-assisted translation tools
 document:
   sections:
     doctl:

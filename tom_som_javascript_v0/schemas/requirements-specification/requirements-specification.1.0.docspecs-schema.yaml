@@ -354,6 +354,26 @@ section-types:
       pattern: "^FRE-REQU-[0-9]+$"
       error-message: IDs of this section must match FRE-REQU-xxx
     description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
+  orip-plan:
+    prefix: ORIP_PLAN
+    format: orip-plan-form
+    description: Implementation plan form.
+  rsp-trac:
+    prefix: RSP_TRAC
+    format: description
+    description: Traceability matrix overview.
+  rus-layo:
+    prefix: RUS_LAYO
+    format: code-dart
+    description: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation."
+  rus-mock:
+    prefix: RUS_MOCK
+    format: description
+    description: UI mockup diagram (fallback if code not available).
+  rus-uifo:
+    prefix: RUS_UIFO
+    format: rus-uifo-form
+    description: UI specification form.
   sereencl:
     prefix: SEREENCL
     description: Category and classification.
@@ -363,6 +383,26 @@ section-types:
   sereenst:
     prefix: SEREENST
     description: Status and ownership.
+  sr1-summ:
+    prefix: SR1_SUMM
+    format: sr1-summ-form
+    description: Security requirements summary form.
+  tr1-summ:
+    prefix: TR1_SUMM
+    format: tr1-summ-form
+    description: Technical requirements summary form.
+  fr-summ:
+    prefix: FR_SUMM
+    format: fr-summ-form
+    description: Functional requirements summary form.
+  or-summ:
+    prefix: OR_SUMM
+    format: or-summ-form
+    description: Organizational requirements summary form.
+  rt-trac:
+    prefix: RT_TRAC
+    format: rt-trac-form
+    description: Traceability links form.
   reqcov:
     prefix: REQCOV
     description: Requirement coverage.
@@ -432,6 +472,8 @@ section-types:
   orip:
     prefix: ORIP
     subsection-types:
+      orip-plan:
+        max-count: 1
       orgim-acti-lst:
         max-count: 1
     description: Define the implementation approach for this organizational change requirement.
@@ -489,6 +531,12 @@ section-types:
   rus:
     prefix: RUS
     subsection-types:
+      rus-uifo:
+        max-count: 1
+      rus-layo:
+        max-count: 1
+      rus-mock:
+        max-count: 1
       scfld-fiel-lst:
         max-count: 1
       rqscac-acti-lst:
@@ -499,18 +547,24 @@ section-types:
   sr1:
     prefix: SR1
     subsection-types:
+      sr1-summ:
+        max-count: 1
       secrq-requ-lst:
         max-count: 1
     description: "Security requirements protect confidentiality, integrity, and availability of information. Include authentication, authorization, data protection, and compliance requirements."
   tr1:
     prefix: TR1
     subsection-types:
+      tr1-summ:
+        max-count: 1
       terq-requ-lst:
         max-count: 1
     description: "Technical requirements describe non-functional aspects and constraints. Each should be measurable and testable. Common categories: Performance, Scalability, Availability, Security, Maintainability."
   fr:
     prefix: FR
     subsection-types:
+      fr-summ:
+        max-count: 1
       fre-requ-lst:
         max-count: 1
         min-count: 1
@@ -518,17 +572,126 @@ section-types:
   or:
     prefix: OR
     subsection-types:
+      or-summ:
+        max-count: 1
       orrq-requ-lst:
         max-count: 1
     description: "Organizational requirements describe non-technical changes needed for system success: training, process changes, role changes, support structures, and communication."
   rt:
     prefix: RT
     subsection-types:
+      rt-trac:
+        max-count: 1
       retrar:
         max-count: 1
       retrim:
         max-count: 1
     description: Document traceability links to maintain visibility of requirements throughout the project lifecycle.
+form-types:
+  fr-summ-form:
+    fields:
+      - fieldname: totalFunctionalRequirements
+        description: Total count of functional requirements
+      - fieldname: mustHaveFunctional
+        description: Count of Must-Have functional requirements
+      - fieldname: shouldHaveFunctional
+        description: Count of Should-Have functional requirements
+      - fieldname: couldHaveFunctional
+        description: Count of Could-Have functional requirements
+      - fieldname: wontHaveThisTimeFunctional
+        description: Count of Won't-Have-This-Time functional requirements
+      - fieldname: coverageNote
+        description: Notes on coverage and any gaps in the requirement set
+  rus-uifo-form:
+    fields:
+      - fieldname: screenName
+        description: Name of the screen or view
+      - fieldname: screenType
+        description: "List, Detail, Form, Dashboard, Dialog, or Wizard"
+      - fieldname: navigationPath
+        description: How the user navigates to reach this screen
+      - fieldname: userRoles
+        description: Roles allowed to access this screen
+      - fieldname: responsiveBreakpoints
+        description: "Responsive breakpoints: mobile, tablet, desktop"
+  rt-trac-form:
+    fields:
+      - fieldname: relatedGoals
+        description: IDs of related business goals
+      - fieldname: relatedUseCases
+        description: IDs of related use cases
+      - fieldname: relatedProcesses
+        description: IDs of related business processes
+      - fieldname: relatedUserStories
+        description: "Related user stories, if using Agile"
+  tr1-summ-form:
+    fields:
+      - fieldname: totalTechnicalRequirements
+        description: Total count of technical requirements captured
+      - fieldname: criticalCount
+        description: Number of requirements at Critical priority
+      - fieldname: highCount
+        description: Number of requirements at High priority
+      - fieldname: mediumCount
+        description: Number of requirements at Medium priority
+      - fieldname: lowCount
+        description: Number of requirements at Low priority
+      - fieldname: architectureDrivers
+        description: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users"
+  sr1-summ-form:
+    fields:
+      - fieldname: totalSecurityRequirements
+        description: Total count of security requirements captured
+      - fieldname: criticalCount
+        description: Number of requirements at Critical priority
+      - fieldname: highCount
+        description: Number of requirements at High priority
+      - fieldname: mediumCount
+        description: Number of requirements at Medium priority
+      - fieldname: securityFramework
+        description: Primary framework guiding the requirements
+      - fieldname: complianceRequirements
+        description: Regulations the system must comply with
+      - fieldname: threatCategories
+        description: Classes of attack the requirements mitigate
+  or-summ-form:
+    fields:
+      - fieldname: totalOrgRequirements
+        description: Total count of organizational requirements captured
+      - fieldname: trainingRequirements
+        description: Number of training-related requirements
+      - fieldname: processChangeRequirements
+        description: Number of process-change requirements
+      - fieldname: roleChangeRequirements
+        description: Number of role-change requirements
+      - fieldname: supportRequirements
+        description: Number of support-structure requirements
+      - fieldname: communicationRequirements
+        description: Number of communication requirements
+      - fieldname: changeReadinessScore
+        description: Assessed readiness of the organization to adopt the change
+  orip-plan-form:
+    fields:
+      - fieldname: approach
+        description: "Big Bang, Phased, Pilot, or Parallel rollout"
+      - fieldname: phases
+        description: "Sequence of phases, if phased"
+      - fieldname: pilotGroup
+        description: "Group used for the pilot, if piloting"
+      - fieldname: trainingApproach
+        description: How affected people are trained
+      - fieldname: communicationPlan
+        description: How the change is communicated to stakeholders
+      - fieldname: supportPlan
+        description: Support provided during and after the change
+      - fieldname: rollbackPlan
+        description: How to revert if the change fails
+      - fieldname: resourcesNeeded
+        description: "People, tools, or budget required"
+      - fieldname: budget
+        description: Estimated cost of the implementation
+      - fieldname: timeline
+        description: Schedule for the implementation
 document:
   sections:
     dochd:
@@ -545,6 +708,9 @@ document:
       optional: true
     or:
       section-type: or
+      optional: true
+    rsp-trac:
+      section-type: rsp-trac
       optional: true
     rere-requ-lst:
       section-type: rere-requ-lst

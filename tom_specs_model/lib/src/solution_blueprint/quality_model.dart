@@ -29,6 +29,7 @@ import 'delivery_scope_and_acceptance.dart';
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
 class SystemQualityGoals {
+  @SectionId('SYQG-GOVE')
   @Form([
     Field('qualityApproach', String, 'Quality Approach',
         hint: 'Overall quality philosophy: proactive, reactive, hybrid'),
@@ -265,6 +266,7 @@ class QualityFramework {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('QLFWK-FRAM')
   @Form([
     // Framework selection
     Field('qualityModel', String, 'Quality Model',
@@ -551,6 +553,7 @@ class FunctionalSuitabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   // Functional Suitability Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('FNSU-FUNC')
   @Form([
     Field('functionalSuitabilityApproach', String,
         'Functional Suitability Approach',
@@ -598,6 +601,7 @@ class InteractionCapabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   // Interaction Capability Overview (migrated from the former user bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('INCP-INTE')
   @Form([
     Field('userQualityPhilosophy', String, 'User Quality Philosophy',
         hint: 'User-first, balanced, efficiency-focused'),
@@ -936,6 +940,7 @@ class PerformanceEfficiencyCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   // Performance Efficiency Overview (migrated from the former technical bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('PEEF-PERF')
   @Form([
     Field('technicalQualityPhilosophy', String, 'Technical Quality Philosophy',
         hint: 'Performance-first, maintainability-first, balanced'),
@@ -978,6 +983,7 @@ class PerformanceEfficiencyCharacteristic {
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CMP')
 class CompatibilityCharacteristic {
+  @SectionId('CMPT-COMP')
   @Form([
     Field('coExistenceRequirements', String, 'Co-existence Requirements',
         hint: 'Other products sharing the environment without adverse impact'),
@@ -1009,6 +1015,7 @@ class CompatibilityCharacteristic {
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FLX')
 class FlexibilityCharacteristic {
+  @SectionId('FLXC-FLEX')
   @Form([
     Field('flexibilityApproach', String, 'Flexibility Approach',
         hint: 'How adaptability, scalability and portability are achieved'),
@@ -1048,6 +1055,7 @@ class FlexibilityCharacteristic {
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SEC')
 class SecurityCharacteristic {
+  @SectionId('SECC-SECU')
   @Form([
     Field('securityApproach', String, 'Security Approach',
         hint: 'Zero-trust, defence-in-depth, least-privilege'),
@@ -1087,6 +1095,7 @@ class SecurityCharacteristic {
 @DetailedIn(D10QualityAcceptancePlan)
 @SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-MNT')
 class MaintainabilityCharacteristic {
+  @SectionId('MNTC-MAIN')
   @Form([
     Field('maintainabilityApproach', String, 'Maintainability Approach',
         hint: 'Modularity, analyzability, testability priorities'),
@@ -1770,6 +1779,7 @@ class ReliabilityCharacteristic {
   // ─────────────────────────────────────────────────────────────────────────
   // Reliability Overview (migrated from the former operations bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('RELC-RELI')
   @Form([
     Field('operationsMaturityModel', String, 'Operations Maturity Model',
         hint: 'ITIL, DevOps, SRE'),
@@ -2427,6 +2437,7 @@ class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('DOQUCR-DOCU')
   @Form([
     Field('documentationStrategy', String, 'Documentation Strategy',
         hint: 'Comprehensive, minimal, just-in-time'),
@@ -2839,6 +2850,7 @@ class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('QUPR-PRIO')
   @Form([
     Field('prioritizationMethod', String, 'Prioritization Method',
         hint: 'Weighted scoring, AHP, forced ranking'),
@@ -2880,6 +2892,7 @@ class QualityPrioritization {
 )
 @SectionId('WEQUMA')
 class WeightedQualityMatrix {
+  @SectionId('WEQUMA-MATR')
   @Form([
     Field('matrixFormat', String, 'Matrix Format',
         hint: 'Spreadsheet, radar chart, heatmap'),
@@ -2959,6 +2972,7 @@ class QualityWeightEntry {
 )
 @SectionId('TROFDE')
 class TradeOffDecisions {
+  @SectionId('TROFDE-TRAD')
   @Form([
     Field('tradeOffGovernance', String, 'Trade-off Governance',
         hint: 'Who can make trade-off decisions'),
@@ -3175,6 +3189,7 @@ class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
   // ─────────────────────────────────────────────────────────────────────────
+  @SectionId('ACCRSU-ACCE')
   @Form([
     Field('acceptanceProcess', String, 'Acceptance Process',
         hint: 'Formal UAT, continuous acceptance'),
@@ -3233,6 +3248,7 @@ class AcceptanceCriteriaSummary {
 )
 @SectionId('MUPACR')
 class MustPassCriteria {
+  @SectionId('MUPACR-MUST')
   @Form([
     Field('mustPassPhilosophy', String, 'Must-Pass Philosophy',
         hint: 'All must pass, weighted approach'),
@@ -3419,6 +3435,7 @@ class MustPassCriterionEntryStatus {
 )
 @SectionId('QUGACH')
 class QualityGateChecklist {
+  @SectionId('QUGACH-CHEC')
   @Form([
     Field('checklistPurpose', String, 'Checklist Purpose',
         hint: 'Gate review, final acceptance, milestone'),

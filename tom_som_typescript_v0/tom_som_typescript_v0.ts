@@ -60,7 +60,7 @@ export class AcceptanceCriteriaSummary extends SomNode {
   }
 
   get acceptanceFrameworkContent(): AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
-    return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(this.doc, this.path + "/acceptanceFrameworkContent");
+    return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(this.doc, this.path + "/ACCRSU-ACCE");
   }
 
   // Acceptance criteria overview.
@@ -339,11 +339,11 @@ export class AccessChannels extends SomNode {
 
   // Channel architecture diagram.
   get channelDiagram(): string {
-    return this.doc.content(this.path + "/channelDiagram") || '';
+    return this.doc.content(this.path + "/AC1-CHAN") || '';
   }
 
   set channelDiagram(value: string) {
-    this.doc.setContent(this.path + "/channelDiagram", value);
+    this.doc.setContent(this.path + "/AC1-CHAN", value);
   }
 
   // Channel entries — contains 1+× InteractionChannelEntry.
@@ -485,11 +485,11 @@ export class AccessLevels extends SomNode {
 
   // Access level hierarchy diagram.
   get accessLevelDiagram(): string {
-    return this.doc.content(this.path + "/accessLevelDiagram") || '';
+    return this.doc.content(this.path + "/AL-ACCE") || '';
   }
 
   set accessLevelDiagram(value: string) {
-    this.doc.setContent(this.path + "/accessLevelDiagram", value);
+    this.doc.setContent(this.path + "/AL-ACCE", value);
   }
 
   // Access level entries — contains 1+× AccessLevelEntry.
@@ -499,11 +499,11 @@ export class AccessLevels extends SomNode {
 
   // Permission matrix linking access levels to features.
   get permissionMatrix(): string {
-    return this.doc.content(this.path + "/permissionMatrix") || '';
+    return this.doc.content(this.path + "/AL-PERM") || '';
   }
 
   set permissionMatrix(value: string) {
-    this.doc.setContent(this.path + "/permissionMatrix", value);
+    this.doc.setContent(this.path + "/AL-PERM", value);
   }
 }
 
@@ -554,7 +554,7 @@ export class Accessibility extends SomNode {
   }
 
   get accessibilityOverviewContent(): AccessibilityAccessibilityOverviewContentForm {
-    return new AccessibilityAccessibilityOverviewContentForm(this.doc, this.path + "/accessibilityOverviewContent");
+    return new AccessibilityAccessibilityOverviewContentForm(this.doc, this.path + "/ACCESS-ACCE");
   }
 
   // Ownership and inclusive design philosophy.
@@ -663,7 +663,7 @@ export class AccessibilityChecklist extends SomNode {
   }
 
   get checklistOverviewContent(): AccessibilityChecklistChecklistOverviewContentForm {
-    return new AccessibilityChecklistChecklistOverviewContentForm(this.doc, this.path + "/checklistOverviewContent");
+    return new AccessibilityChecklistChecklistOverviewContentForm(this.doc, this.path + "/ACCHLS-CHEC");
   }
 
   // Accessibility checklist overview.
@@ -1604,7 +1604,7 @@ export class AlertingConfiguration extends SomNode {
   }
 
   get alertingOverview(): AlertingConfigurationAlertingOverviewForm {
-    return new AlertingConfigurationAlertingOverviewForm(this.doc, this.path + "/alertingOverview");
+    return new AlertingConfigurationAlertingOverviewForm(this.doc, this.path + "/ALCO-ALER");
   }
 
   // Alerting overview narrative.
@@ -4425,7 +4425,7 @@ export class BreakpointConfiguration extends SomNode {
   }
 
   get breakpointOverview(): BreakpointConfigurationBreakpointOverviewForm {
-    return new BreakpointConfigurationBreakpointOverviewForm(this.doc, this.path + "/breakpointOverview");
+    return new BreakpointConfigurationBreakpointOverviewForm(this.doc, this.path + "/BC-BREA");
   }
 
   // Breakpoint entries.
@@ -5237,15 +5237,15 @@ export class BusinessObjectEntry extends SomNode {
   }
 
   get identity(): BusinessObjectEntryIdentityForm {
-    return new BusinessObjectEntryIdentityForm(this.doc, this.path + "/identity");
+    return new BusinessObjectEntryIdentityForm(this.doc, this.path + "/BJOEN-IDEN");
   }
 
   get domainContext(): BusinessObjectEntryDomainContextForm {
-    return new BusinessObjectEntryDomainContextForm(this.doc, this.path + "/domainContext");
+    return new BusinessObjectEntryDomainContextForm(this.doc, this.path + "/BJOEN-DOMA");
   }
 
   get lifecycleSummary(): BusinessObjectEntryLifecycleSummaryForm {
-    return new BusinessObjectEntryLifecycleSummaryForm(this.doc, this.path + "/lifecycleSummary");
+    return new BusinessObjectEntryLifecycleSummaryForm(this.doc, this.path + "/BJOEN-LIFE");
   }
 
   get behaviorRules(): SomList<BehaviorRuleEntry> {
@@ -5253,7 +5253,7 @@ export class BusinessObjectEntry extends SomNode {
   }
 
   get ownership(): BusinessObjectEntryOwnershipForm {
-    return new BusinessObjectEntryOwnershipForm(this.doc, this.path + "/ownership");
+    return new BusinessObjectEntryOwnershipForm(this.doc, this.path + "/BJOEN-OWNE");
   }
 
   get integrationPoints(): SomList<IntegrationPointEntry> {
@@ -5500,27 +5500,27 @@ export class BusinessRuleEntry extends SomNode {
   }
 
   get identity(): BusinessRuleEntryIdentityForm {
-    return new BusinessRuleEntryIdentityForm(this.doc, this.path + "/identity");
+    return new BusinessRuleEntryIdentityForm(this.doc, this.path + "/BIRU-IDEN");
   }
 
   get classification(): BusinessRuleEntryClassificationForm {
-    return new BusinessRuleEntryClassificationForm(this.doc, this.path + "/classification");
+    return new BusinessRuleEntryClassificationForm(this.doc, this.path + "/BIRU-CLAS");
   }
 
   get ruleLogic(): BusinessRuleEntryRuleLogicForm {
-    return new BusinessRuleEntryRuleLogicForm(this.doc, this.path + "/ruleLogic");
+    return new BusinessRuleEntryRuleLogicForm(this.doc, this.path + "/BIRU-RULE");
   }
 
   get implementation(): BusinessRuleEntryImplementationForm {
-    return new BusinessRuleEntryImplementationForm(this.doc, this.path + "/implementation");
+    return new BusinessRuleEntryImplementationForm(this.doc, this.path + "/BIRU-IMPL");
   }
 
   get exceptionHandling(): BusinessRuleEntryExceptionHandlingForm {
-    return new BusinessRuleEntryExceptionHandlingForm(this.doc, this.path + "/exceptionHandling");
+    return new BusinessRuleEntryExceptionHandlingForm(this.doc, this.path + "/BIRU-EXCE");
   }
 
   get governance(): BusinessRuleEntryGovernanceForm {
-    return new BusinessRuleEntryGovernanceForm(this.doc, this.path + "/governance");
+    return new BusinessRuleEntryGovernanceForm(this.doc, this.path + "/BIRU-GOVE");
   }
 
   // Contains 0+× AffectedObject.
@@ -6698,7 +6698,7 @@ export class ChangesFromCurrentStructure extends SomNode {
   }
 
   get overviewContent(): ChangesFromCurrentStructureOverviewContentForm {
-    return new ChangesFromCurrentStructureOverviewContentForm(this.doc, this.path + "/overviewContent");
+    return new ChangesFromCurrentStructureOverviewContentForm(this.doc, this.path + "/OCCHG-OVER");
   }
 
   // Detailed description of structural changes.
@@ -7843,11 +7843,11 @@ export class CommunicationMatrix extends SomNode {
 
   // Communication matrix diagram.
   get communicationFlowDiagram(): string {
-    return this.doc.content(this.path + "/communicationFlowDiagram") || '';
+    return this.doc.content(this.path + "/COMA-COMM") || '';
   }
 
   set communicationFlowDiagram(value: string) {
-    this.doc.setContent(this.path + "/communicationFlowDiagram", value);
+    this.doc.setContent(this.path + "/COMA-COMM", value);
   }
 
   // Communication types and their distribution rules.
@@ -8029,7 +8029,7 @@ export class CompatibilityCharacteristic extends SomNode {
   }
 
   get compatibilityContent(): CompatibilityCharacteristicCompatibilityContentForm {
-    return new CompatibilityCharacteristicCompatibilityContentForm(this.doc, this.path + "/compatibilityContent");
+    return new CompatibilityCharacteristicCompatibilityContentForm(this.doc, this.path + "/CMPT-COMP");
   }
 
   // Compatibility overview.
@@ -10235,20 +10235,20 @@ export class ContextDiagram extends SomNode {
 
   // Context diagram in Mermaid format.
   get diagram(): string {
-    return this.doc.content(this.path + "/diagram") || '';
+    return this.doc.content(this.path + "/CD-DIAG") || '';
   }
 
   set diagram(value: string) {
-    this.doc.setContent(this.path + "/diagram", value);
+    this.doc.setContent(this.path + "/CD-DIAG", value);
   }
 
   // Diagram legend and conventions.
   get legend(): string {
-    return this.doc.content(this.path + "/legend") || '';
+    return this.doc.content(this.path + "/CD-LEGE") || '';
   }
 
   set legend(value: string) {
-    this.doc.setContent(this.path + "/legend", value);
+    this.doc.setContent(this.path + "/CD-LEGE", value);
   }
 }
 
@@ -10259,7 +10259,7 @@ export class ContextualHelp extends SomNode {
   }
 
   get contextualHelpContent(): ContextualHelpContextualHelpContentForm {
-    return new ContextualHelpContextualHelpContentForm(this.doc, this.path + "/contextualHelpContent");
+    return new ContextualHelpContextualHelpContentForm(this.doc, this.path + "/COHE-CONT");
   }
 
   // Inline help behavior.
@@ -10845,20 +10845,20 @@ export class CurrentArchitecture extends SomNode {
 
   // Architecture overview diagram.
   get architectureDiagram(): string {
-    return this.doc.content(this.path + "/architectureDiagram") || '';
+    return this.doc.content(this.path + "/CARCH-ARCH") || '';
   }
 
   set architectureDiagram(value: string) {
-    this.doc.setContent(this.path + "/architectureDiagram", value);
+    this.doc.setContent(this.path + "/CARCH-ARCH", value);
   }
 
   // Deployment topology description.
   get deploymentTopology(): string {
-    return this.doc.content(this.path + "/deploymentTopology") || '';
+    return this.doc.content(this.path + "/CARCH-DEPL") || '';
   }
 
   set deploymentTopology(value: string) {
-    this.doc.setContent(this.path + "/deploymentTopology", value);
+    this.doc.setContent(this.path + "/CARCH-DEPL", value);
   }
 
   // Integration patterns used.
@@ -10931,11 +10931,11 @@ export class CurrentBusinessProcesses extends SomNode {
 
   // Process landscape diagram.
   get processLandscapeDiagram(): string {
-    return this.doc.content(this.path + "/processLandscapeDiagram") || '';
+    return this.doc.content(this.path + "/CUBUPR-PROC") || '';
   }
 
   set processLandscapeDiagram(value: string) {
-    this.doc.setContent(this.path + "/processLandscapeDiagram", value);
+    this.doc.setContent(this.path + "/CUBUPR-PROC", value);
   }
 
   // Process scope summary.
@@ -11020,20 +11020,20 @@ export class CurrentDataLandscape extends SomNode {
 
   // Visual representation of the data landscape.
   get dataLandscapeOverviewDiagram(): string {
-    return this.doc.content(this.path + "/dataLandscapeOverviewDiagram") || '';
+    return this.doc.content(this.path + "/CUDALA-DATAL") || '';
   }
 
   set dataLandscapeOverviewDiagram(value: string) {
-    this.doc.setContent(this.path + "/dataLandscapeOverviewDiagram", value);
+    this.doc.setContent(this.path + "/CUDALA-DATAL", value);
   }
 
   // Data architecture summary diagram.
   get dataArchitectureDiagram(): string {
-    return this.doc.content(this.path + "/dataArchitectureDiagram") || '';
+    return this.doc.content(this.path + "/CUDALA-DATA") || '';
   }
 
   set dataArchitectureDiagram(value: string) {
-    this.doc.setContent(this.path + "/dataArchitectureDiagram", value);
+    this.doc.setContent(this.path + "/CUDALA-DATA", value);
   }
 
   // Summary statistics and health indicators.
@@ -11215,11 +11215,11 @@ export class CurrentWorkflowEntry extends SomNode {
 
   // Workflow diagram.
   get workflowDiagram(): string {
-    return this.doc.content(this.path + "/workflowDiagram") || '';
+    return this.doc.content(this.path + "/CUWF-WORK") || '';
   }
 
   set workflowDiagram(value: string) {
-    this.doc.setContent(this.path + "/workflowDiagram", value);
+    this.doc.setContent(this.path + "/CUWF-WORK", value);
   }
 
   // Workflow triggers and initiation.
@@ -11880,11 +11880,11 @@ export class D04RequirementsSpecification extends SomNode {
   // reaches it directly. The authoritative content lives on the Solution
   // Blueprint side.
   get traceabilityMatrix(): string {
-    return this.doc.content(this.path + "/traceabilityMatrix") || '';
+    return this.doc.content(this.path + "/RSP-TRAC") || '';
   }
 
   set traceabilityMatrix(value: string) {
-    this.doc.setContent(this.path + "/traceabilityMatrix", value);
+    this.doc.setContent(this.path + "/RSP-TRAC", value);
   }
 
   // Requirement relationships.
@@ -13137,11 +13137,11 @@ export class DataAttributeEntry extends SomNode {
   }
 
   get identity(): DataAttributeEntryIdentityForm {
-    return new DataAttributeEntryIdentityForm(this.doc, this.path + "/identity");
+    return new DataAttributeEntryIdentityForm(this.doc, this.path + "/DAATT-IDEN");
   }
 
   get dataTypeSpec(): DataAttributeEntryDataTypeSpecForm {
-    return new DataAttributeEntryDataTypeSpecForm(this.doc, this.path + "/dataTypeSpec");
+    return new DataAttributeEntryDataTypeSpecForm(this.doc, this.path + "/DAATT-DATA");
   }
 
   get constraints(): SomList<DataAttributeConstraintEntry> {
@@ -13149,15 +13149,15 @@ export class DataAttributeEntry extends SomNode {
   }
 
   get derivation(): DataAttributeEntryDerivationForm {
-    return new DataAttributeEntryDerivationForm(this.doc, this.path + "/derivation");
+    return new DataAttributeEntryDerivationForm(this.doc, this.path + "/DAATT-DERI");
   }
 
   get securityClassification(): DataAttributeEntrySecurityClassificationForm {
-    return new DataAttributeEntrySecurityClassificationForm(this.doc, this.path + "/securityClassification");
+    return new DataAttributeEntrySecurityClassificationForm(this.doc, this.path + "/DAATT-SECU");
   }
 
   get migrationLineage(): DataAttributeEntryMigrationLineageForm {
-    return new DataAttributeEntryMigrationLineageForm(this.doc, this.path + "/migrationLineage");
+    return new DataAttributeEntryMigrationLineageForm(this.doc, this.path + "/DAATT-MIGR");
   }
 
   get displayProperties(): SomList<DisplayPropertyEntry> {
@@ -13172,7 +13172,7 @@ export class DataClassification extends SomNode {
   }
 
   get overview(): DataClassificationOverviewForm {
-    return new DataClassificationOverviewForm(this.doc, this.path + "/overview");
+    return new DataClassificationOverviewForm(this.doc, this.path + "/DATCL-OVER");
   }
 
   // Contains 0+× DataClassificationEntry.
@@ -13190,23 +13190,23 @@ export class DataClassificationEntry extends SomNode {
   }
 
   get identity(): DataClassificationEntryIdentityForm {
-    return new DataClassificationEntryIdentityForm(this.doc, this.path + "/identity");
+    return new DataClassificationEntryIdentityForm(this.doc, this.path + "/DCLSE-IDEN");
   }
 
   get storageTransmission(): DataClassificationEntryStorageTransmissionForm {
-    return new DataClassificationEntryStorageTransmissionForm(this.doc, this.path + "/storageTransmission");
+    return new DataClassificationEntryStorageTransmissionForm(this.doc, this.path + "/DCLSE-STOR");
   }
 
   get accessControl(): DataClassificationEntryAccessControlForm {
-    return new DataClassificationEntryAccessControlForm(this.doc, this.path + "/accessControl");
+    return new DataClassificationEntryAccessControlForm(this.doc, this.path + "/DCLSE-ACCE");
   }
 
   get retentionDisposal(): DataClassificationEntryRetentionDisposalForm {
-    return new DataClassificationEntryRetentionDisposalForm(this.doc, this.path + "/retentionDisposal");
+    return new DataClassificationEntryRetentionDisposalForm(this.doc, this.path + "/DCLSE-RETE");
   }
 
   get compliance(): DataClassificationEntryComplianceForm {
-    return new DataClassificationEntryComplianceForm(this.doc, this.path + "/compliance");
+    return new DataClassificationEntryComplianceForm(this.doc, this.path + "/DCLSE-COMP");
   }
 
   // Contains 0+× HandlingRequirement.
@@ -13303,11 +13303,11 @@ export class DataDuplicationAnalysis extends SomNode {
 
   // Visual representation of data redundancy.
   get duplicationDiagram(): string {
-    return this.doc.content(this.path + "/duplicationDiagram") || '';
+    return this.doc.content(this.path + "/DADUAN-DUPL") || '';
   }
 
   set duplicationDiagram(value: string) {
-    this.doc.setContent(this.path + "/duplicationDiagram", value);
+    this.doc.setContent(this.path + "/DADUAN-DUPL", value);
   }
 
   // Individual duplication instances.
@@ -13396,11 +13396,11 @@ export class DataEntityEntry extends SomNode {
   }
 
   get identity(): DataEntityEntryIdentityForm {
-    return new DataEntityEntryIdentityForm(this.doc, this.path + "/identity");
+    return new DataEntityEntryIdentityForm(this.doc, this.path + "/DAENT-IDEN");
   }
 
   get classification(): DataEntityEntryClassificationForm {
-    return new DataEntityEntryClassificationForm(this.doc, this.path + "/classification");
+    return new DataEntityEntryClassificationForm(this.doc, this.path + "/DAENT-CLAS");
   }
 
   get volumeMetrics(): SomList<VolumeMetricEntry> {
@@ -13408,7 +13408,7 @@ export class DataEntityEntry extends SomNode {
   }
 
   get lifecyclePolicy(): DataEntityEntryLifecyclePolicyForm {
-    return new DataEntityEntryLifecyclePolicyForm(this.doc, this.path + "/lifecyclePolicy");
+    return new DataEntityEntryLifecyclePolicyForm(this.doc, this.path + "/DAENT-LIFE");
   }
 
   get complianceRequirements(): SomList<ComplianceRequirementEntry> {
@@ -13416,7 +13416,7 @@ export class DataEntityEntry extends SomNode {
   }
 
   get relationshipSummary(): DataEntityEntryRelationshipSummaryForm {
-    return new DataEntityEntryRelationshipSummaryForm(this.doc, this.path + "/relationshipSummary");
+    return new DataEntityEntryRelationshipSummaryForm(this.doc, this.path + "/DAENT-RELA");
   }
 
   get technicalCharacteristics(): SomList<TechnicalCharacteristicEntry> {
@@ -13581,11 +13581,11 @@ export class DataGovernance extends SomNode {
 
   // Governance organization structure.
   get governanceOrgChart(): string {
-    return this.doc.content(this.path + "/governanceOrgChart") || '';
+    return this.doc.content(this.path + "/DAGO-GOVE") || '';
   }
 
   set governanceOrgChart(value: string) {
-    this.doc.setContent(this.path + "/governanceOrgChart", value);
+    this.doc.setContent(this.path + "/DAGO-GOVE", value);
   }
 
   // Data governance policies.
@@ -13837,11 +13837,11 @@ export class DataIntegrationPoints extends SomNode {
 
   // Data flow diagram.
   get dataFlowDiagram(): string {
-    return this.doc.content(this.path + "/dataFlowDiagram") || '';
+    return this.doc.content(this.path + "/DAINPO-DATA") || '';
   }
 
   set dataFlowDiagram(value: string) {
-    this.doc.setContent(this.path + "/dataFlowDiagram", value);
+    this.doc.setContent(this.path + "/DAINPO-DATA", value);
   }
 
   // Data integration points inventory.
@@ -14136,11 +14136,11 @@ export class DataOwnership extends SomNode {
 
   // Data ownership matrix visualization.
   get ownershipMatrixDiagram(): string {
-    return this.doc.content(this.path + "/ownershipMatrixDiagram") || '';
+    return this.doc.content(this.path + "/DAOW-OWNE") || '';
   }
 
   set ownershipMatrixDiagram(value: string) {
-    this.doc.setContent(this.path + "/ownershipMatrixDiagram", value);
+    this.doc.setContent(this.path + "/DAOW-OWNE", value);
   }
 
   // Data ownership assignments by domain.
@@ -14446,11 +14446,11 @@ export class DataQualityAssessment extends SomNode {
 
   // Quality issues by severity.
   get qualityIssuesSeverityChart(): string {
-    return this.doc.content(this.path + "/qualityIssuesSeverityChart") || '';
+    return this.doc.content(this.path + "/DAQUAS-QUAL") || '';
   }
 
   set qualityIssuesSeverityChart(value: string) {
-    this.doc.setContent(this.path + "/qualityIssuesSeverityChart", value);
+    this.doc.setContent(this.path + "/DAQUAS-QUAL", value);
   }
 
   // Data quality issues inventory.
@@ -14751,11 +14751,11 @@ export class DataSourceInventory extends SomNode {
 
   // Visual map of data sources by domain/category.
   get dataSourceMapDiagram(): string {
-    return this.doc.content(this.path + "/dataSourceMapDiagram") || '';
+    return this.doc.content(this.path + "/DASOIN-DATA") || '';
   }
 
   set dataSourceMapDiagram(value: string) {
-    this.doc.setContent(this.path + "/dataSourceMapDiagram", value);
+    this.doc.setContent(this.path + "/DASOIN-DATA", value);
   }
 
   // Contains 0+× DataSource.
@@ -15038,11 +15038,11 @@ export class DataVolumesAndGrowth extends SomNode {
 
   // Growth trend visualization.
   get growthTrendChart(): string {
-    return this.doc.content(this.path + "/growthTrendChart") || '';
+    return this.doc.content(this.path + "/DVAG-GROW") || '';
   }
 
   set growthTrendChart(value: string) {
-    this.doc.setContent(this.path + "/growthTrendChart", value);
+    this.doc.setContent(this.path + "/DVAG-GROW", value);
   }
 
   // Volume details by data source.
@@ -16003,11 +16003,11 @@ export class DependenciesAndIntegrations extends SomNode {
 
   // Dependency matrix diagram.
   get dependencyDiagram(): string {
-    return this.doc.content(this.path + "/dependencyDiagram") || '';
+    return this.doc.content(this.path + "/DEPNT-DEPE") || '';
   }
 
   set dependencyDiagram(value: string) {
-    this.doc.setContent(this.path + "/dependencyDiagram", value);
+    this.doc.setContent(this.path + "/DEPNT-DEPE", value);
   }
 
   // 1.1.3.1. Internal Dependencies.
@@ -18407,7 +18407,7 @@ export class DocumentationQualityCriteria extends SomNode {
   }
 
   get documentationOverviewContent(): DocumentationQualityCriteriaDocumentationOverviewContentForm {
-    return new DocumentationQualityCriteriaDocumentationOverviewContentForm(this.doc, this.path + "/documentationOverviewContent");
+    return new DocumentationQualityCriteriaDocumentationOverviewContentForm(this.doc, this.path + "/DOQUCR-DOCU");
   }
 
   // Documentation quality overview narrative.
@@ -18623,29 +18623,29 @@ export class DomainBoundaries extends SomNode {
 
   // Context map showing domain boundaries.
   get contextMap(): string {
-    return this.doc.content(this.path + "/contextMap") || '';
+    return this.doc.content(this.path + "/DB-CONT") || '';
   }
 
   set contextMap(value: string) {
-    this.doc.setContent(this.path + "/contextMap", value);
+    this.doc.setContent(this.path + "/DB-CONT", value);
   }
 
   // Within-scope items.
   get withinScope(): string {
-    return this.doc.content(this.path + "/withinScope") || '';
+    return this.doc.content(this.path + "/DB-WITH") || '';
   }
 
   set withinScope(value: string) {
-    this.doc.setContent(this.path + "/withinScope", value);
+    this.doc.setContent(this.path + "/DB-WITH", value);
   }
 
   // Outside-scope items.
   get outsideScope(): string {
-    return this.doc.content(this.path + "/outsideScope") || '';
+    return this.doc.content(this.path + "/DB-OUTS") || '';
   }
 
   set outsideScope(value: string) {
-    this.doc.setContent(this.path + "/outsideScope", value);
+    this.doc.setContent(this.path + "/DB-OUTS", value);
   }
 
   // Domain interfaces — contains 0+× DomainInterfaceEntry.
@@ -18869,11 +18869,11 @@ export class DomainProcesses extends SomNode {
 
   // Process overview diagram.
   get processOverviewDiagram(): string {
-    return this.doc.content(this.path + "/processOverviewDiagram") || '';
+    return this.doc.content(this.path + "/DP-PROC") || '';
   }
 
   set processOverviewDiagram(value: string) {
-    this.doc.setContent(this.path + "/processOverviewDiagram", value);
+    this.doc.setContent(this.path + "/DP-PROC", value);
   }
 
   // Domain process entries — contains 0+× DomainProcessEntry.
@@ -19358,7 +19358,7 @@ export class EntityRelationshipEntry extends SomNode {
   }
 
   get identity(): EntityRelationshipEntryIdentityForm {
-    return new EntityRelationshipEntryIdentityForm(this.doc, this.path + "/identity");
+    return new EntityRelationshipEntryIdentityForm(this.doc, this.path + "/ENRLE-IDEN");
   }
 
   get participants(): SomList<ParticipantEntry> {
@@ -19366,15 +19366,15 @@ export class EntityRelationshipEntry extends SomNode {
   }
 
   get cardinality(): EntityRelationshipEntryCardinalityForm {
-    return new EntityRelationshipEntryCardinalityForm(this.doc, this.path + "/cardinality");
+    return new EntityRelationshipEntryCardinalityForm(this.doc, this.path + "/ENRLE-CARD");
   }
 
   get referentialIntegrity(): EntityRelationshipEntryReferentialIntegrityForm {
-    return new EntityRelationshipEntryReferentialIntegrityForm(this.doc, this.path + "/referentialIntegrity");
+    return new EntityRelationshipEntryReferentialIntegrityForm(this.doc, this.path + "/ENRLE-REFE");
   }
 
   get navigation(): EntityRelationshipEntryNavigationForm {
-    return new EntityRelationshipEntryNavigationForm(this.doc, this.path + "/navigation");
+    return new EntityRelationshipEntryNavigationForm(this.doc, this.path + "/ENRLE-NAVI");
   }
 
   get relationshipAttributes(): SomList<RelationshipAttributeEntry> {
@@ -19938,7 +19938,7 @@ export class ErrorHandling extends SomNode {
   }
 
   get errorPhilosophyContent(): ErrorHandlingErrorPhilosophyContentForm {
-    return new ErrorHandlingErrorPhilosophyContentForm(this.doc, this.path + "/errorPhilosophyContent");
+    return new ErrorHandlingErrorPhilosophyContentForm(this.doc, this.path + "/ERHACO-ERRO");
   }
 
   // Error categorization and display priority.
@@ -20159,7 +20159,7 @@ export class ErrorRecovery extends SomNode {
   }
 
   get recoveryMechanismsContent(): ErrorRecoveryRecoveryMechanismsContentForm {
-    return new ErrorRecoveryRecoveryMechanismsContentForm(this.doc, this.path + "/recoveryMechanismsContent");
+    return new ErrorRecoveryRecoveryMechanismsContentForm(this.doc, this.path + "/ERRE-RECO");
   }
 
   // Data preservation: draft auto-save settings.
@@ -21140,7 +21140,7 @@ export class ExternalInterfaceEntry extends SomNode {
   }
 
   get identificationContent(): ExternalInterfaceEntryIdentificationContentForm {
-    return new ExternalInterfaceEntryIdentificationContentForm(this.doc, this.path + "/identificationContent");
+    return new ExternalInterfaceEntryIdentificationContentForm(this.doc, this.path + "/EIE-IDEN");
   }
 
   // Business purpose and value of this interface.
@@ -21513,11 +21513,11 @@ export class ExternalSystemContextEntry extends SomNode {
 
   // Data mapping details.
   get dataMapping(): string {
-    return this.doc.content(this.path + "/dataMapping") || '';
+    return this.doc.content(this.path + "/EXSYCOEN-DATA") || '';
   }
 
   set dataMapping(value: string) {
-    this.doc.setContent(this.path + "/dataMapping", value);
+    this.doc.setContent(this.path + "/EXSYCOEN-DATA", value);
   }
 }
 
@@ -22468,7 +22468,7 @@ export class FlexibilityCharacteristic extends SomNode {
   }
 
   get flexibilityContent(): FlexibilityCharacteristicFlexibilityContentForm {
-    return new FlexibilityCharacteristicFlexibilityContentForm(this.doc, this.path + "/flexibilityContent");
+    return new FlexibilityCharacteristicFlexibilityContentForm(this.doc, this.path + "/FLXC-FLEX");
   }
 
   // Flexibility overview.
@@ -22763,11 +22763,11 @@ export class FunctionModel extends SomNode {
   }
 
   get decompositionOverview(): FunctionModelDecompositionOverviewForm {
-    return new FunctionModelDecompositionOverviewForm(this.doc, this.path + "/decompositionOverview");
+    return new FunctionModelDecompositionOverviewForm(this.doc, this.path + "/FUMO-DECO");
   }
 
   get matrixOverview(): FunctionModelMatrixOverviewForm {
-    return new FunctionModelMatrixOverviewForm(this.doc, this.path + "/matrixOverview");
+    return new FunctionModelMatrixOverviewForm(this.doc, this.path + "/FUMO-MATR");
   }
 
   // 7.3.1. Function Decomposition — contains 0+× Function.
@@ -22971,7 +22971,7 @@ export class FunctionalRequirements extends SomNode {
 
   // Functional requirements summary form.
   get summaryForm(): FunctionalRequirementsSummaryFormForm {
-    return new FunctionalRequirementsSummaryFormForm(this.doc, this.path + "/summaryForm");
+    return new FunctionalRequirementsSummaryFormForm(this.doc, this.path + "/FR-SUMM");
   }
 
   // Functional requirements list — contains 1+× Functional Requirement.
@@ -23015,7 +23015,7 @@ export class FunctionalSuitabilityCharacteristic extends SomNode {
   }
 
   get functionalSuitabilityContent(): FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
-    return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(this.doc, this.path + "/functionalSuitabilityContent");
+    return new FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(this.doc, this.path + "/FNSU-FUNC");
   }
 
   // Functional suitability overview.
@@ -23434,7 +23434,7 @@ export class GoalResources extends SomNode {
 
   // Resource requirement form.
   get resourcesForm(): GoalResourcesResourcesFormForm {
-    return new GoalResourcesResourcesFormForm(this.doc, this.path + "/resourcesForm");
+    return new GoalResourcesResourcesFormForm(this.doc, this.path + "/GORE-RESO");
   }
 
   // Resource allocation entries — contains 0+× ResourceAllocationEntry.
@@ -23537,11 +23537,11 @@ export class Goals extends SomNode {
 
   // Goal hierarchy diagram.
   get goalHierarchyDiagram(): string {
-    return this.doc.content(this.path + "/goalHierarchyDiagram") || '';
+    return this.doc.content(this.path + "/GOALS-GOAL") || '';
   }
 
   set goalHierarchyDiagram(value: string) {
-    this.doc.setContent(this.path + "/goalHierarchyDiagram", value);
+    this.doc.setContent(this.path + "/GOALS-GOAL", value);
   }
 
   // 4.2.1. Business Goals.
@@ -25475,7 +25475,7 @@ export class InteractionCapabilityCharacteristic extends SomNode {
   }
 
   get interactionCapabilityContent(): InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
-    return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(this.doc, this.path + "/interactionCapabilityContent");
+    return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(this.doc, this.path + "/INCP-INTE");
   }
 
   // Interaction capability overview.
@@ -26635,11 +26635,11 @@ export class IntroductionAndScope extends SomNode {
 
   // System context diagram showing major system boundaries.
   get systemContextDiagram(): string {
-    return this.doc.content(this.path + "/systemContextDiagram") || '';
+    return this.doc.content(this.path + "/INSC-SYST") || '';
   }
 
   set systemContextDiagram(value: string) {
-    this.doc.setContent(this.path + "/systemContextDiagram", value);
+    this.doc.setContent(this.path + "/INSC-SYST", value);
   }
 
   // 4.1. System Description.
@@ -27189,11 +27189,11 @@ export class KeyConcepts extends SomNode {
 
   // Conceptual domain model diagram.
   get conceptualModelDiagram(): string {
-    return this.doc.content(this.path + "/conceptualModelDiagram") || '';
+    return this.doc.content(this.path + "/KC-CONC") || '';
   }
 
   set conceptualModelDiagram(value: string) {
-    this.doc.setContent(this.path + "/conceptualModelDiagram", value);
+    this.doc.setContent(this.path + "/KC-CONC", value);
   }
 
   // Key concept entries — contains 1+× KeyConceptEntry.
@@ -27476,7 +27476,7 @@ export class LanguageCountrySelection extends SomNode {
   }
 
   get languageSelectionContent(): LanguageCountrySelectionLanguageSelectionContentForm {
-    return new LanguageCountrySelectionLanguageSelectionContentForm(this.doc, this.path + "/languageSelectionContent");
+    return new LanguageCountrySelectionLanguageSelectionContentForm(this.doc, this.path + "/LACOSE-LANG");
   }
 
   // Default locale behavior.
@@ -28098,7 +28098,7 @@ export class LocalizationProcess extends SomNode {
   }
 
   get localizationProcessContent(): LocalizationProcessLocalizationProcessContentForm {
-    return new LocalizationProcessLocalizationProcessContentForm(this.doc, this.path + "/localizationProcessContent");
+    return new LocalizationProcessLocalizationProcessContentForm(this.doc, this.path + "/LOPR-LOCA");
   }
 
   // Review process.
@@ -28563,7 +28563,7 @@ export class MaintainabilityCharacteristic extends SomNode {
   }
 
   get maintainabilityContent(): MaintainabilityCharacteristicMaintainabilityContentForm {
-    return new MaintainabilityCharacteristicMaintainabilityContentForm(this.doc, this.path + "/maintainabilityContent");
+    return new MaintainabilityCharacteristicMaintainabilityContentForm(this.doc, this.path + "/MNTC-MAIN");
   }
 
   // Maintainability overview.
@@ -29186,7 +29186,7 @@ export class MetricsAndObservability extends SomNode {
   }
 
   get metricsOverview(): MetricsAndObservabilityMetricsOverviewForm {
-    return new MetricsAndObservabilityMetricsOverviewForm(this.doc, this.path + "/metricsOverview");
+    return new MetricsAndObservabilityMetricsOverviewForm(this.doc, this.path + "/MEANOB-METR");
   }
 
   // Observability overview narrative.
@@ -29480,7 +29480,7 @@ export class MigrationConsiderations extends SomNode {
   }
 
   get strategyContent(): MigrationConsiderationsStrategyContentForm {
-    return new MigrationConsiderationsStrategyContentForm(this.doc, this.path + "/strategyContent");
+    return new MigrationConsiderationsStrategyContentForm(this.doc, this.path + "/MIGCON-STRA");
   }
 
   // Detailed strategy narrative.
@@ -30068,7 +30068,7 @@ export class MigrationRisks extends SomNode {
   }
 
   get governanceContent(): MigrationRisksGovernanceContentForm {
-    return new MigrationRisksGovernanceContentForm(this.doc, this.path + "/governanceContent");
+    return new MigrationRisksGovernanceContentForm(this.doc, this.path + "/MIRI-GOVE");
   }
 
   // Governance and decision authority.
@@ -30611,7 +30611,7 @@ export class Monitoring extends SomNode {
   }
 
   get monitoringOverview(): MonitoringMonitoringOverviewForm {
-    return new MonitoringMonitoringOverviewForm(this.doc, this.path + "/monitoringOverview");
+    return new MonitoringMonitoringOverviewForm(this.doc, this.path + "/MONITO-MONI");
   }
 
   // Monitoring strategy narrative.
@@ -30760,7 +30760,7 @@ export class MonitoringDashboards extends SomNode {
   }
 
   get dashboardOverview(): MonitoringDashboardsDashboardOverviewForm {
-    return new MonitoringDashboardsDashboardOverviewForm(this.doc, this.path + "/dashboardOverview");
+    return new MonitoringDashboardsDashboardOverviewForm(this.doc, this.path + "/MODA-DASH");
   }
 
   // Dashboard overview narrative.
@@ -30989,7 +30989,7 @@ export class MultiChannelExperience extends SomNode {
 
   // Multi-channel configuration.
   get multiChannelConfiguration(): MultiChannelExperienceMultiChannelConfigurationForm {
-    return new MultiChannelExperienceMultiChannelConfigurationForm(this.doc, this.path + "/multiChannelConfiguration");
+    return new MultiChannelExperienceMultiChannelConfigurationForm(this.doc, this.path + "/MCE-MULT");
   }
 }
 
@@ -31006,7 +31006,7 @@ export class MultiLanguageSupport extends SomNode {
   }
 
   get multiLanguageOverview(): MultiLanguageSupportMultiLanguageOverviewForm {
-    return new MultiLanguageSupportMultiLanguageOverviewForm(this.doc, this.path + "/multiLanguageOverview");
+    return new MultiLanguageSupportMultiLanguageOverviewForm(this.doc, this.path + "/MLAR-MULT");
   }
 
   // Multi-language overview narrative.
@@ -31032,7 +31032,7 @@ export class MustPassCriteria extends SomNode {
   }
 
   get mustPassOverviewContent(): MustPassCriteriaMustPassOverviewContentForm {
-    return new MustPassCriteriaMustPassOverviewContentForm(this.doc, this.path + "/mustPassOverviewContent");
+    return new MustPassCriteriaMustPassOverviewContentForm(this.doc, this.path + "/MUPACR-MUST");
   }
 
   // Must-pass criteria overview.
@@ -32547,7 +32547,7 @@ export class OnboardingHelp extends SomNode {
   }
 
   get onboardingContent(): OnboardingHelpOnboardingContentForm {
-    return new OnboardingHelpOnboardingContentForm(this.doc, this.path + "/onboardingContent");
+    return new OnboardingHelpOnboardingContentForm(this.doc, this.path + "/ONHE-ONBO");
   }
 
   // Feature tour settings.
@@ -32986,7 +32986,7 @@ export class OrgRequirementImplementationPlan extends SomNode {
 
   // Implementation plan form.
   get planForm(): OrgRequirementImplementationPlanPlanFormForm {
-    return new OrgRequirementImplementationPlanPlanFormForm(this.doc, this.path + "/planForm");
+    return new OrgRequirementImplementationPlanPlanFormForm(this.doc, this.path + "/ORIP-PLAN");
   }
 
   // Implementation activities — contains 0+× OrgImplementationActivity.
@@ -33099,11 +33099,11 @@ export class OrganizationalContext extends SomNode {
 
   // Business process coverage.
   get businessProcessCoverage(): string {
-    return this.doc.content(this.path + "/businessProcessCoverage") || '';
+    return this.doc.content(this.path + "/OC-BUSI") || '';
   }
 
   set businessProcessCoverage(value: string) {
-    this.doc.setContent(this.path + "/businessProcessCoverage", value);
+    this.doc.setContent(this.path + "/OC-BUSI", value);
   }
 }
 
@@ -33119,7 +33119,7 @@ export class OrganizationalEnvironment extends SomNode {
   }
 
   get organizationContent(): OrganizationalEnvironmentOrganizationContentForm {
-    return new OrganizationalEnvironmentOrganizationContentForm(this.doc, this.path + "/organizationContent");
+    return new OrganizationalEnvironmentOrganizationContentForm(this.doc, this.path + "/OREN-ORGA");
   }
 
   // Organizational maturity indicators.
@@ -33326,7 +33326,7 @@ export class OrganizationalRequirements extends SomNode {
 
   // Organizational requirements summary form.
   get summaryForm(): OrganizationalRequirementsSummaryFormForm {
-    return new OrganizationalRequirementsSummaryFormForm(this.doc, this.path + "/summaryForm");
+    return new OrganizationalRequirementsSummaryFormForm(this.doc, this.path + "/OR-SUMM");
   }
 
   // Organizational requirements list — contains 0+× Organizational Requirement.
@@ -33712,11 +33712,11 @@ export class PainPointGapCorrelation extends SomNode {
 
   // Visual correlation between pain points and gaps.
   get correlationDiagram(): string {
-    return this.doc.content(this.path + "/correlationDiagram") || '';
+    return this.doc.content(this.path + "/PPGC-CORR") || '';
   }
 
   set correlationDiagram(value: string) {
-    this.doc.setContent(this.path + "/correlationDiagram", value);
+    this.doc.setContent(this.path + "/PPGC-CORR", value);
   }
 
   // Tabular correlation data.
@@ -33815,20 +33815,20 @@ export class PainPointsAndGaps extends SomNode {
 
   // Visual mapping of pain points and their relationships.
   get painPointsOverviewDiagram(): string {
-    return this.doc.content(this.path + "/painPointsOverviewDiagram") || '';
+    return this.doc.content(this.path + "/PPAG-PAIN") || '';
   }
 
   set painPointsOverviewDiagram(value: string) {
-    this.doc.setContent(this.path + "/painPointsOverviewDiagram", value);
+    this.doc.setContent(this.path + "/PPAG-PAIN", value);
   }
 
   // Pain points priority matrix (urgency vs impact).
   get painPointsPriorityMatrix(): string {
-    return this.doc.content(this.path + "/painPointsPriorityMatrix") || '';
+    return this.doc.content(this.path + "/PPAG-PAINP") || '';
   }
 
   set painPointsPriorityMatrix(value: string) {
-    this.doc.setContent(this.path + "/painPointsPriorityMatrix", value);
+    this.doc.setContent(this.path + "/PPAG-PAINP", value);
   }
 
   // Summary statistics for all pain points.
@@ -34158,7 +34158,7 @@ export class PerformanceEfficiencyCharacteristic extends SomNode {
   }
 
   get performanceEfficiencyContent(): PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
-    return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(this.doc, this.path + "/performanceEfficiencyContent");
+    return new PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(this.doc, this.path + "/PEEF-PERF");
   }
 
   // Performance efficiency overview.
@@ -35535,11 +35535,11 @@ export class ProcessAdjustments extends SomNode {
 
   // Visual representation of process adjustments.
   get processFlowDiagram(): string {
-    return this.doc.content(this.path + "/processFlowDiagram") || '';
+    return this.doc.content(this.path + "/PCADJ-PROC") || '';
   }
 
   set processFlowDiagram(value: string) {
-    this.doc.setContent(this.path + "/processFlowDiagram", value);
+    this.doc.setContent(this.path + "/PCADJ-PROC", value);
   }
 
   // Contains 0+× ProcessAdjustment.
@@ -36053,11 +36053,11 @@ export class ProcessInterdependencyMatrix extends SomNode {
 
   // Interdependency diagram.
   get dependencyDiagram(): string {
-    return this.doc.content(this.path + "/dependencyDiagram") || '';
+    return this.doc.content(this.path + "/PRINMA-DEPE") || '';
   }
 
   set dependencyDiagram(value: string) {
-    this.doc.setContent(this.path + "/dependencyDiagram", value);
+    this.doc.setContent(this.path + "/PRINMA-DEPE", value);
   }
 
   // Individual process dependencies.
@@ -36859,11 +36859,11 @@ export class ProjectOrganizationAndProcess extends SomNode {
 
   // Visual overview of methodology deviations.
   get methodologyDeviationDiagram(): string {
-    return this.doc.content(this.path + "/methodologyDeviationDiagram") || '';
+    return this.doc.content(this.path + "/PRPO-METH") || '';
   }
 
   set methodologyDeviationDiagram(value: string) {
-    this.doc.setContent(this.path + "/methodologyDeviationDiagram", value);
+    this.doc.setContent(this.path + "/PRPO-METH", value);
   }
 
   // Summary of all methodology deviations.
@@ -37066,7 +37066,7 @@ export class Prototype extends SomNode {
   }
 
   get prototypeOverview(): PrototypePrototypeOverviewForm {
-    return new PrototypePrototypeOverviewForm(this.doc, this.path + "/prototypeOverview");
+    return new PrototypePrototypeOverviewForm(this.doc, this.path + "/PROTOT-PROT");
   }
 
   // Prototype timing commitments.
@@ -37126,7 +37126,7 @@ export class PrototypeFeatureSubset extends SomNode {
   }
 
   get featureSubsetContent(): PrototypeFeatureSubsetFeatureSubsetContentForm {
-    return new PrototypeFeatureSubsetFeatureSubsetContentForm(this.doc, this.path + "/featureSubsetContent");
+    return new PrototypeFeatureSubsetFeatureSubsetContentForm(this.doc, this.path + "/PRFESU-FEAT");
   }
 
   // Included and excluded feature scope.
@@ -37190,7 +37190,7 @@ export class PrototypeGoals extends SomNode {
   }
 
   get goalsContent(): PrototypeGoalsGoalsContentForm {
-    return new PrototypeGoalsGoalsContentForm(this.doc, this.path + "/goalsContent");
+    return new PrototypeGoalsGoalsContentForm(this.doc, this.path + "/PG-GOAL");
   }
 
   // Risk reduction and assumption testing.
@@ -37276,7 +37276,7 @@ export class PrototypeType extends SomNode {
   }
 
   get prototypeTypeOverview(): PrototypeTypePrototypeTypeOverviewForm {
-    return new PrototypeTypePrototypeTypeOverviewForm(this.doc, this.path + "/prototypeTypeOverview");
+    return new PrototypeTypePrototypeTypeOverviewForm(this.doc, this.path + "/PRTYSE-PROT");
   }
 
   // 10.13.3.1. Reusable Prototype.
@@ -37495,7 +37495,7 @@ export class QualityFramework extends SomNode {
   }
 
   get frameworkContent(): QualityFrameworkFrameworkContentForm {
-    return new QualityFrameworkFrameworkContentForm(this.doc, this.path + "/frameworkContent");
+    return new QualityFrameworkFrameworkContentForm(this.doc, this.path + "/QLFWK-FRAM");
   }
 
   // Quality objective structure and alignment.
@@ -37682,11 +37682,11 @@ export class QualityGateAdjustments extends SomNode {
 
   // Visual representation of gate adjustments.
   get gateFlowDiagram(): string {
-    return this.doc.content(this.path + "/gateFlowDiagram") || '';
+    return this.doc.content(this.path + "/QGADJ-GATE") || '';
   }
 
   set gateFlowDiagram(value: string) {
-    this.doc.setContent(this.path + "/gateFlowDiagram", value);
+    this.doc.setContent(this.path + "/QGADJ-GATE", value);
   }
 
   // Contains 0+× QualityGateAdjustment.
@@ -37795,7 +37795,7 @@ export class QualityGateChecklist extends SomNode {
   }
 
   get checklistOverviewContent(): QualityGateChecklistChecklistOverviewContentForm {
-    return new QualityGateChecklistChecklistOverviewContentForm(this.doc, this.path + "/checklistOverviewContent");
+    return new QualityGateChecklistChecklistOverviewContentForm(this.doc, this.path + "/QUGACH-CHEC");
   }
 
   // Quality gate checklist overview.
@@ -37861,7 +37861,7 @@ export class QualityPrioritization extends SomNode {
   }
 
   get prioritizationFrameworkContent(): QualityPrioritizationPrioritizationFrameworkContentForm {
-    return new QualityPrioritizationPrioritizationFrameworkContentForm(this.doc, this.path + "/prioritizationFrameworkContent");
+    return new QualityPrioritizationPrioritizationFrameworkContentForm(this.doc, this.path + "/QUPR-PRIO");
   }
 
   // Prioritization approach overview.
@@ -38729,7 +38729,7 @@ export class ReliabilityCharacteristic extends SomNode {
   }
 
   get reliabilityContent(): ReliabilityCharacteristicReliabilityContentForm {
-    return new ReliabilityCharacteristicReliabilityContentForm(this.doc, this.path + "/reliabilityContent");
+    return new ReliabilityCharacteristicReliabilityContentForm(this.doc, this.path + "/RELC-RELI");
   }
 
   // Reliability overview narrative.
@@ -39990,7 +39990,7 @@ export class RequirementTraceability extends SomNode {
 
   // Traceability links form.
   get traceabilityForm(): RequirementTraceabilityTraceabilityFormForm {
-    return new RequirementTraceabilityTraceabilityFormForm(this.doc, this.path + "/traceabilityForm");
+    return new RequirementTraceabilityTraceabilityFormForm(this.doc, this.path + "/RT-TRAC");
   }
 
   // Linked artifacts and test coverage references.
@@ -40050,25 +40050,25 @@ export class RequirementUiSpecification extends SomNode {
 
   // UI specification form.
   get uiForm(): RequirementUiSpecificationUiFormForm {
-    return new RequirementUiSpecificationUiFormForm(this.doc, this.path + "/uiForm");
+    return new RequirementUiSpecificationUiFormForm(this.doc, this.path + "/RUS-UIFO");
   }
 
   // UI layout specification (D4rt Flutter code).
   get layoutCode(): string {
-    return this.doc.content(this.path + "/layoutCode") || '';
+    return this.doc.content(this.path + "/RUS-LAYO") || '';
   }
 
   set layoutCode(value: string) {
-    this.doc.setContent(this.path + "/layoutCode", value);
+    this.doc.setContent(this.path + "/RUS-LAYO", value);
   }
 
   // UI mockup diagram (fallback if code not available).
   get mockupDescription(): string {
-    return this.doc.content(this.path + "/mockupDescription") || '';
+    return this.doc.content(this.path + "/RUS-MOCK") || '';
   }
 
   set mockupDescription(value: string) {
-    this.doc.setContent(this.path + "/mockupDescription", value);
+    this.doc.setContent(this.path + "/RUS-MOCK", value);
   }
 
   // Screen field entries — contains 0+× ScreenFieldEntry.
@@ -40151,16 +40151,16 @@ export class RequirementsOverview extends SomNode {
 
   // Requirements overview form.
   get requirementsForm(): RequirementsOverviewRequirementsFormForm {
-    return new RequirementsOverviewRequirementsFormForm(this.doc, this.path + "/requirementsForm");
+    return new RequirementsOverviewRequirementsFormForm(this.doc, this.path + "/RO-REQU");
   }
 
   // Traceability matrix overview.
   get traceabilityMatrix(): string {
-    return this.doc.content(this.path + "/traceabilityMatrix") || '';
+    return this.doc.content(this.path + "/RO-TRAC") || '';
   }
 
   set traceabilityMatrix(value: string) {
-    this.doc.setContent(this.path + "/traceabilityMatrix", value);
+    this.doc.setContent(this.path + "/RO-TRAC", value);
   }
 
   // 4.3.1. Functional Requirements.
@@ -40514,7 +40514,7 @@ export class ResponsiveBehavior extends SomNode {
   }
 
   get layoutAdaptation(): ResponsiveBehaviorLayoutAdaptationForm {
-    return new ResponsiveBehaviorLayoutAdaptationForm(this.doc, this.path + "/layoutAdaptation");
+    return new ResponsiveBehaviorLayoutAdaptationForm(this.doc, this.path + "/REBE-LAYO");
   }
 
   // Navigation patterns per device class.
@@ -40600,7 +40600,7 @@ export class ResponsiveDesign extends SomNode {
   }
 
   get responsiveOverview(): ResponsiveDesignResponsiveOverviewForm {
-    return new ResponsiveDesignResponsiveOverviewForm(this.doc, this.path + "/responsiveOverview");
+    return new ResponsiveDesignResponsiveOverviewForm(this.doc, this.path + "/REDE-RESP");
   }
 
   // Responsive design narrative.
@@ -40847,7 +40847,7 @@ export class ReusablePrototype extends SomNode {
   }
 
   get reusableContent(): ReusablePrototypeReusableContentForm {
-    return new ReusablePrototypeReusableContentForm(this.doc, this.path + "/reusableContent");
+    return new ReusablePrototypeReusableContentForm(this.doc, this.path + "/REUPRO-REUS");
   }
 
   // Architecture alignment and refactoring expectations.
@@ -41599,11 +41599,11 @@ export class RoleAdjustments extends SomNode {
 
   // Visual comparison of standard vs adjusted roles.
   get roleComparisonDiagram(): string {
-    return this.doc.content(this.path + "/roleComparisonDiagram") || '';
+    return this.doc.content(this.path + "/RLADJ-ROLE") || '';
   }
 
   set roleComparisonDiagram(value: string) {
-    this.doc.setContent(this.path + "/roleComparisonDiagram", value);
+    this.doc.setContent(this.path + "/RLADJ-ROLE", value);
   }
 
   // Contains 0+× RoleAdjustment.
@@ -44021,7 +44021,7 @@ export class SecurityCharacteristic extends SomNode {
   }
 
   get securityContent(): SecurityCharacteristicSecurityContentForm {
-    return new SecurityCharacteristicSecurityContentForm(this.doc, this.path + "/securityContent");
+    return new SecurityCharacteristicSecurityContentForm(this.doc, this.path + "/SECC-SECU");
   }
 
   // Security overview.
@@ -44466,7 +44466,7 @@ export class SecurityRequirements extends SomNode {
 
   // Security requirements summary form.
   get summaryForm(): SecurityRequirementsSummaryFormForm {
-    return new SecurityRequirementsSummaryFormForm(this.doc, this.path + "/summaryForm");
+    return new SecurityRequirementsSummaryFormForm(this.doc, this.path + "/SR1-SUMM");
   }
 
   // Security requirements list — contains 0+× Security Requirement.
@@ -45639,7 +45639,7 @@ export class SessionModel extends SomNode {
 
   // Session configuration.
   get sessionConfiguration(): SessionModelSessionConfigurationForm {
-    return new SessionModelSessionConfigurationForm(this.doc, this.path + "/sessionConfiguration");
+    return new SessionModelSessionConfigurationForm(this.doc, this.path + "/SM-SESS");
   }
 
   // Refresh, concurrency, and termination behavior.
@@ -46182,7 +46182,7 @@ export class SlaAndSloMonitoring extends SomNode {
   }
 
   get slaOverview(): SlaAndSloMonitoringSlaOverviewForm {
-    return new SlaAndSloMonitoringSlaOverviewForm(this.doc, this.path + "/slaOverview");
+    return new SlaAndSloMonitoringSlaOverviewForm(this.doc, this.path + "/SASM-SLAO");
   }
 
   // SLA/SLO overview narrative.
@@ -48510,11 +48510,11 @@ export class SuccessCriteria extends SomNode {
 
   // Success criteria matrix — overall view.
   get successCriteriaMatrix(): string {
-    return this.doc.content(this.path + "/successCriteriaMatrix") || '';
+    return this.doc.content(this.path + "/SC-SUCC") || '';
   }
 
   set successCriteriaMatrix(value: string) {
-    this.doc.setContent(this.path + "/successCriteriaMatrix", value);
+    this.doc.setContent(this.path + "/SC-SUCC", value);
   }
 
   // Post-implementation review plan.
@@ -48531,47 +48531,47 @@ export class SuccessCriteriaByCategory extends SomNode {
 
   // Business outcome criteria overview.
   get businessCriteria(): string {
-    return this.doc.content(this.path + "/businessCriteria") || '';
+    return this.doc.content(this.path + "/SCBC-BUSI") || '';
   }
 
   set businessCriteria(value: string) {
-    this.doc.setContent(this.path + "/businessCriteria", value);
+    this.doc.setContent(this.path + "/SCBC-BUSI", value);
   }
 
   // Technical quality criteria overview.
   get technicalCriteria(): string {
-    return this.doc.content(this.path + "/technicalCriteria") || '';
+    return this.doc.content(this.path + "/SCBC-TECH") || '';
   }
 
   set technicalCriteria(value: string) {
-    this.doc.setContent(this.path + "/technicalCriteria", value);
+    this.doc.setContent(this.path + "/SCBC-TECH", value);
   }
 
   // User satisfaction criteria overview.
   get userCriteria(): string {
-    return this.doc.content(this.path + "/userCriteria") || '';
+    return this.doc.content(this.path + "/SCBC-USER") || '';
   }
 
   set userCriteria(value: string) {
-    this.doc.setContent(this.path + "/userCriteria", value);
+    this.doc.setContent(this.path + "/SCBC-USER", value);
   }
 
   // Compliance criteria overview.
   get complianceCriteria(): string {
-    return this.doc.content(this.path + "/complianceCriteria") || '';
+    return this.doc.content(this.path + "/SCBC-COMP") || '';
   }
 
   set complianceCriteria(value: string) {
-    this.doc.setContent(this.path + "/complianceCriteria", value);
+    this.doc.setContent(this.path + "/SCBC-COMP", value);
   }
 
   // Timeline and budget criteria overview.
   get projectCriteria(): string {
-    return this.doc.content(this.path + "/projectCriteria") || '';
+    return this.doc.content(this.path + "/SCBC-PROJ") || '';
   }
 
   set projectCriteria(value: string) {
-    this.doc.setContent(this.path + "/projectCriteria", value);
+    this.doc.setContent(this.path + "/SCBC-PROJ", value);
   }
 }
 
@@ -48732,7 +48732,7 @@ export class SupportAccess extends SomNode {
   }
 
   get supportAccessContent(): SupportAccessSupportAccessContentForm {
-    return new SupportAccessSupportAccessContentForm(this.doc, this.path + "/supportAccessContent");
+    return new SupportAccessSupportAccessContentForm(this.doc, this.path + "/SUAC-SUPP");
   }
 
   // Help center configuration.
@@ -49590,7 +49590,7 @@ export class SystemErrorDisplay extends SomNode {
   }
 
   get systemErrorContent(): SystemErrorDisplaySystemErrorContentForm {
-    return new SystemErrorDisplaySystemErrorContentForm(this.doc, this.path + "/systemErrorContent");
+    return new SystemErrorDisplaySystemErrorContentForm(this.doc, this.path + "/SYERDI-SYST");
   }
 
   // Error type handling configuration.
@@ -50009,11 +50009,11 @@ export class SystemPurpose extends SomNode {
 
   // Vision Statement.
   get visionStatement(): string {
-    return this.doc.content(this.path + "/visionStatement") || '';
+    return this.doc.content(this.path + "/SYPUP-VISI") || '';
   }
 
   set visionStatement(value: string) {
-    this.doc.setContent(this.path + "/visionStatement", value);
+    this.doc.setContent(this.path + "/SYPUP-VISI", value);
   }
 
   // 4.1.1.1. Problem Statement.
@@ -50060,7 +50060,7 @@ export class SystemQualityGoals extends SomNode {
   }
 
   get governanceContent(): SystemQualityGoalsGovernanceContentForm {
-    return new SystemQualityGoalsGovernanceContentForm(this.doc, this.path + "/governanceContent");
+    return new SystemQualityGoalsGovernanceContentForm(this.doc, this.path + "/SYQG-GOVE");
   }
 
   // Governance board and escalation details.
@@ -50588,7 +50588,7 @@ export class SystemToReplaceEntry extends SomNode {
   }
 
   get identificationContent(): SystemToReplaceEntryIdentificationContentForm {
-    return new SystemToReplaceEntryIdentificationContentForm(this.doc, this.path + "/identificationContent");
+    return new SystemToReplaceEntryIdentificationContentForm(this.doc, this.path + "/SYTORE-IDEN");
   }
 
   // Classification and ownership details.
@@ -51197,7 +51197,7 @@ export class TechnicalEnvironment extends SomNode {
   }
 
   get technicalOverviewContent(): TechnicalEnvironmentTechnicalOverviewContentForm {
-    return new TechnicalEnvironmentTechnicalOverviewContentForm(this.doc, this.path + "/technicalOverviewContent");
+    return new TechnicalEnvironmentTechnicalOverviewContentForm(this.doc, this.path + "/TEEN-TECH");
   }
 
   // Architecture governance context.
@@ -51520,7 +51520,7 @@ export class TechnicalGoalTestCriteria extends SomNode {
 
   // Test criteria form.
   get testCriteriaForm(): TechnicalGoalTestCriteriaTestCriteriaFormForm {
-    return new TechnicalGoalTestCriteriaTestCriteriaFormForm(this.doc, this.path + "/testCriteriaForm");
+    return new TechnicalGoalTestCriteriaTestCriteriaFormForm(this.doc, this.path + "/TGTC-TEST");
   }
 
   // Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
@@ -51762,7 +51762,7 @@ export class TechnicalRequirements extends SomNode {
 
   // Technical requirements summary form.
   get summaryForm(): TechnicalRequirementsSummaryFormForm {
-    return new TechnicalRequirementsSummaryFormForm(this.doc, this.path + "/summaryForm");
+    return new TechnicalRequirementsSummaryFormForm(this.doc, this.path + "/TR1-SUMM");
   }
 
   // Technical requirements list — contains 0+× Technical Requirement.
@@ -52582,7 +52582,7 @@ export class ThrowawayPrototype extends SomNode {
   }
 
   get throwawayContent(): ThrowawayPrototypeThrowawayContentForm {
-    return new ThrowawayPrototypeThrowawayContentForm(this.doc, this.path + "/throwawayContent");
+    return new ThrowawayPrototypeThrowawayContentForm(this.doc, this.path + "/THPR-THRO");
   }
 
   // Findings and decisions captured from evaluation.
@@ -53222,7 +53222,7 @@ export class TradeOffDecisions extends SomNode {
   }
 
   get tradeOffGovernanceContent(): TradeOffDecisionsTradeOffGovernanceContentForm {
-    return new TradeOffDecisionsTradeOffGovernanceContentForm(this.doc, this.path + "/tradeOffGovernanceContent");
+    return new TradeOffDecisionsTradeOffGovernanceContentForm(this.doc, this.path + "/TROFDE-TRAD");
   }
 
   // Trade-off decisions overview.
@@ -53308,7 +53308,7 @@ export class TrainingDeliverableRequirements extends SomNode {
   }
 
   get trainingContent(): TrainingDeliverableRequirementsTrainingContentForm {
-    return new TrainingDeliverableRequirementsTrainingContentForm(this.doc, this.path + "/trainingContent");
+    return new TrainingDeliverableRequirementsTrainingContentForm(this.doc, this.path + "/TRMAT-TRAI");
   }
 
   // Training narrative.
@@ -53456,7 +53456,7 @@ export class TrainingPrototype extends SomNode {
   }
 
   get trainingContent(): TrainingPrototypeTrainingContentForm {
-    return new TrainingPrototypeTrainingContentForm(this.doc, this.path + "/trainingContent");
+    return new TrainingPrototypeTrainingContentForm(this.doc, this.path + "/TP-TRAI");
   }
 
   // Code disposition and reimplementation planning.
@@ -53991,7 +53991,7 @@ export class TranslationProcess extends SomNode {
   }
 
   get translationProcessContent(): TranslationProcessTranslationProcessContentForm {
-    return new TranslationProcessTranslationProcessContentForm(this.doc, this.path + "/translationProcessContent");
+    return new TranslationProcessTranslationProcessContentForm(this.doc, this.path + "/TRPR-TRAN");
   }
 
   // Translation workflow.
@@ -54043,7 +54043,7 @@ export class TranslationRequirements extends SomNode {
   }
 
   get translationRequirementsContent(): TranslationRequirementsTranslationRequirementsContentForm {
-    return new TranslationRequirementsTranslationRequirementsContentForm(this.doc, this.path + "/translationRequirementsContent");
+    return new TranslationRequirementsTranslationRequirementsContentForm(this.doc, this.path + "/TRAREQ-TRAN");
   }
 
   // RTL and bidirectional support.
@@ -54500,7 +54500,7 @@ export class UiComponentEntry extends SomNode {
   }
 
   get identity(): UiComponentEntryIdentityForm {
-    return new UiComponentEntryIdentityForm(this.doc, this.path + "/identity");
+    return new UiComponentEntryIdentityForm(this.doc, this.path + "/UICOMENT-IDEN");
   }
 
   // Wrapper mapping and business purpose.
@@ -54514,7 +54514,7 @@ export class UiComponentEntry extends SomNode {
   }
 
   get visualDesign(): UiComponentEntryVisualDesignForm {
-    return new UiComponentEntryVisualDesignForm(this.doc, this.path + "/visualDesign");
+    return new UiComponentEntryVisualDesignForm(this.doc, this.path + "/UICOMENT-VISU");
   }
 
   // Visual dimensions.
@@ -54536,7 +54536,7 @@ export class UiComponentEntry extends SomNode {
   // (skipped: visualDiagram has no target type)
 
   get interactiveBehavior(): UiComponentEntryInteractiveBehaviorForm {
-    return new UiComponentEntryInteractiveBehaviorForm(this.doc, this.path + "/interactiveBehavior");
+    return new UiComponentEntryInteractiveBehaviorForm(this.doc, this.path + "/UICOMENT-INTE");
   }
 
   // Focus and keyboard behavior.
@@ -54555,23 +54555,23 @@ export class UiComponentEntry extends SomNode {
   }
 
   get responsiveness(): UiComponentEntryResponsivenessForm {
-    return new UiComponentEntryResponsivenessForm(this.doc, this.path + "/responsiveness");
+    return new UiComponentEntryResponsivenessForm(this.doc, this.path + "/UICOMENT-RESP");
   }
 
   get accessibility(): UiComponentEntryAccessibilityForm {
-    return new UiComponentEntryAccessibilityForm(this.doc, this.path + "/accessibility");
+    return new UiComponentEntryAccessibilityForm(this.doc, this.path + "/UICOMENT-ACCE");
   }
 
   get authorization(): UiComponentEntryAuthorizationForm {
-    return new UiComponentEntryAuthorizationForm(this.doc, this.path + "/authorization");
+    return new UiComponentEntryAuthorizationForm(this.doc, this.path + "/UICOMENT-AUTH");
   }
 
   get resourceIntegration(): UiComponentEntryResourceIntegrationForm {
-    return new UiComponentEntryResourceIntegrationForm(this.doc, this.path + "/resourceIntegration");
+    return new UiComponentEntryResourceIntegrationForm(this.doc, this.path + "/UICOMENT-RESO");
   }
 
   get dataBinding(): UiComponentEntryDataBindingForm {
-    return new UiComponentEntryDataBindingForm(this.doc, this.path + "/dataBinding");
+    return new UiComponentEntryDataBindingForm(this.doc, this.path + "/UICOMENT-DATA");
   }
 
   // Component behavior narrative.
@@ -54702,7 +54702,7 @@ export class UiComponents extends SomNode {
   }
 
   get componentLibraryOverview(): UiComponentsComponentLibraryOverviewForm {
-    return new UiComponentsComponentLibraryOverviewForm(this.doc, this.path + "/componentLibraryOverview");
+    return new UiComponentsComponentLibraryOverviewForm(this.doc, this.path + "/UICO-COMP");
   }
 
   // Visual language and brand alignment.
@@ -55006,7 +55006,7 @@ export class UserAccessPermissions extends SomNode {
 
   // Access Permissions Form.
   get permissionsForm(): UserAccessPermissionsPermissionsFormForm {
-    return new UserAccessPermissionsPermissionsFormForm(this.doc, this.path + "/permissionsForm");
+    return new UserAccessPermissionsPermissionsFormForm(this.doc, this.path + "/UAP-PERM");
   }
 
   // Functional and environmental restrictions.
@@ -55069,7 +55069,7 @@ export class UserAccessibilityNeeds extends SomNode {
 
   // Accessibility Needs Form.
   get accessibilityForm(): UserAccessibilityNeedsAccessibilityFormForm {
-    return new UserAccessibilityNeedsAccessibilityFormForm(this.doc, this.path + "/accessibilityForm");
+    return new UserAccessibilityNeedsAccessibilityFormForm(this.doc, this.path + "/UAN-ACCE");
   }
 }
 
@@ -55108,7 +55108,7 @@ export class UserAssistance extends SomNode {
   }
 
   get helpOverviewContent(): UserAssistanceHelpOverviewContentForm {
-    return new UserAssistanceHelpOverviewContentForm(this.doc, this.path + "/helpOverviewContent");
+    return new UserAssistanceHelpOverviewContentForm(this.doc, this.path + "/USAS-HELP");
   }
 
   // Content stewardship and help affordances.
@@ -55375,7 +55375,7 @@ export class UserDocumentationRequirements extends SomNode {
   }
 
   get documentationContent(): UserDocumentationRequirementsDocumentationContentForm {
-    return new UserDocumentationRequirementsDocumentationContentForm(this.doc, this.path + "/documentationContent");
+    return new UserDocumentationRequirementsDocumentationContentForm(this.doc, this.path + "/DOANTR-DOCU");
   }
 
   // Documentation deliverables provided to users.
@@ -55562,11 +55562,11 @@ export class UserJourney extends SomNode {
 
   // User journey diagram.
   get journeyDiagram(): string {
-    return this.doc.content(this.path + "/journeyDiagram") || '';
+    return this.doc.content(this.path + "/UJ-JOUR") || '';
   }
 
   set journeyDiagram(value: string) {
-    this.doc.setContent(this.path + "/journeyDiagram", value);
+    this.doc.setContent(this.path + "/UJ-JOUR", value);
   }
 
   // Journey stage entries — contains 0+× JourneyStageEntry.
@@ -55586,11 +55586,11 @@ export class UserJourney extends SomNode {
 
   // Opportunities for delight.
   get opportunitiesForDelight(): string {
-    return this.doc.content(this.path + "/opportunitiesForDelight") || '';
+    return this.doc.content(this.path + "/UJ-OPPO") || '';
   }
 
   set opportunitiesForDelight(value: string) {
-    this.doc.setContent(this.path + "/opportunitiesForDelight", value);
+    this.doc.setContent(this.path + "/UJ-OPPO", value);
   }
 }
 
@@ -55883,7 +55883,7 @@ export class UserPersonaDetails extends SomNode {
 
   // Persona Details Form.
   get personaForm(): UserPersonaDetailsPersonaFormForm {
-    return new UserPersonaDetailsPersonaFormForm(this.doc, this.path + "/personaForm");
+    return new UserPersonaDetailsPersonaFormForm(this.doc, this.path + "/UPD-PERS");
   }
 
   // Experience and work context.
@@ -55903,11 +55903,11 @@ export class UserPersonaDetails extends SomNode {
 
   // Representative photo or avatar description.
   get visualRepresentation(): string {
-    return this.doc.content(this.path + "/visualRepresentation") || '';
+    return this.doc.content(this.path + "/UPD-VISU") || '';
   }
 
   set visualRepresentation(value: string) {
-    this.doc.setContent(this.path + "/visualRepresentation", value);
+    this.doc.setContent(this.path + "/UPD-VISU", value);
   }
 
   // Key quotes that represent this persona's mindset.
@@ -56088,7 +56088,7 @@ export class UserTrainingRequirements extends SomNode {
 
   // Training Requirements Form.
   get trainingForm(): UserTrainingRequirementsTrainingFormForm {
-    return new UserTrainingRequirementsTrainingFormForm(this.doc, this.path + "/trainingForm");
+    return new UserTrainingRequirementsTrainingFormForm(this.doc, this.path + "/USTRRE-TRAI");
   }
 
   // Training topics — contains 0+× TrainingTopicEntry.
@@ -56251,7 +56251,7 @@ export class ValidationFeedback extends SomNode {
   }
 
   get validationDisplayContent(): ValidationFeedbackValidationDisplayContentForm {
-    return new ValidationFeedbackValidationDisplayContentForm(this.doc, this.path + "/validationDisplayContent");
+    return new ValidationFeedbackValidationDisplayContentForm(this.doc, this.path + "/VAFE-VALI");
   }
 
   // Display placement details.
@@ -56882,7 +56882,7 @@ export class WcagCompliance extends SomNode {
   }
 
   get wcagComplianceContent(): WcagComplianceWcagComplianceContentForm {
-    return new WcagComplianceWcagComplianceContentForm(this.doc, this.path + "/wcagComplianceContent");
+    return new WcagComplianceWcagComplianceContentForm(this.doc, this.path + "/WCCO-WCAG");
   }
 
   // Operable principles.
@@ -56960,7 +56960,7 @@ export class WeightedQualityMatrix extends SomNode {
   }
 
   get matrixConfigContent(): WeightedQualityMatrixMatrixConfigContentForm {
-    return new WeightedQualityMatrixMatrixConfigContentForm(this.doc, this.path + "/matrixConfigContent");
+    return new WeightedQualityMatrixMatrixConfigContentForm(this.doc, this.path + "/WEQUMA-MATR");
   }
 
   // Weighted quality matrix narrative.
@@ -57063,11 +57063,11 @@ export class WorkflowDescriptions extends SomNode {
 
   // Workflow overview diagram.
   get workflowOverviewDiagram(): string {
-    return this.doc.content(this.path + "/workflowOverviewDiagram") || '';
+    return this.doc.content(this.path + "/WODE-WORK") || '';
   }
 
   set workflowOverviewDiagram(value: string) {
-    this.doc.setContent(this.path + "/workflowOverviewDiagram", value);
+    this.doc.setContent(this.path + "/WODE-WORK", value);
   }
 
   // Workflow summary table.
@@ -57194,11 +57194,11 @@ export class WorkflowStepSystem extends SomNode {
   }
 
   get name(): string {
-    return this.doc.content(this.path + "/name") || '';
+    return this.doc.content(this.path + "/WOSTSY-NAME") || '';
   }
 
   set name(value: string) {
-    this.doc.setContent(this.path + "/name", value);
+    this.doc.setContent(this.path + "/WOSTSY-NAME", value);
   }
 }
 

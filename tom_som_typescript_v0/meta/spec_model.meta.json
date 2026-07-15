@@ -268,8 +268,15 @@
         {
           "name": "acceptanceFrameworkContent",
           "kind": "form",
+          "sectionId": "ACCRSU-ACCE",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ACCRSU-ACCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -1749,8 +1756,15 @@
           "kind": "content",
           "doc": "Channel architecture diagram.",
           "help": "Create a diagram showing how different channels connect to the system and serve different user categories.",
+          "sectionId": "AC1-CHAN",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AC1-CHAN"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -2385,8 +2399,15 @@
           "kind": "content",
           "doc": "Access level hierarchy diagram.",
           "help": "Create a diagram showing the access level hierarchy.",
+          "sectionId": "AL-ACCE",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AL-ACCE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -2475,8 +2496,15 @@
           "kind": "content",
           "doc": "Permission matrix linking access levels to features.",
           "help": "Create a permission matrix showing the relationship between access levels, features, and permissions.",
+          "sectionId": "AL-PERM",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AL-PERM"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -2764,8 +2792,15 @@
         {
           "name": "accessibilityOverviewContent",
           "kind": "form",
+          "sectionId": "ACCESS-ACCE",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ACCESS-ACCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -3367,8 +3402,15 @@
         {
           "name": "checklistOverviewContent",
           "kind": "form",
+          "sectionId": "ACCHLS-CHEC",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ACCHLS-CHEC"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -8983,8 +9025,15 @@
         {
           "name": "alertingOverview",
           "kind": "form",
+          "sectionId": "ALCO-ALER",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ALCO-ALER"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -23944,8 +23993,15 @@
         {
           "name": "breakpointOverview",
           "kind": "form",
+          "sectionId": "BC-BREA",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BC-BREA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -28404,8 +28460,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "BJOEN-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BJOEN-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -28467,8 +28530,15 @@
         {
           "name": "domainContext",
           "kind": "form",
+          "sectionId": "BJOEN-DOMA",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BJOEN-DOMA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -28523,8 +28593,15 @@
         {
           "name": "lifecycleSummary",
           "kind": "form",
+          "sectionId": "BJOEN-LIFE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BJOEN-LIFE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -28632,8 +28709,15 @@
         {
           "name": "ownership",
           "kind": "form",
+          "sectionId": "BJOEN-OWNE",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BJOEN-OWNE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -29921,8 +30005,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "BIRU-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -29977,8 +30068,15 @@
         {
           "name": "classification",
           "kind": "form",
+          "sectionId": "BIRU-CLAS",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-CLAS"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -30033,8 +30131,15 @@
         {
           "name": "ruleLogic",
           "kind": "form",
+          "sectionId": "BIRU-RULE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-RULE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -30089,8 +30194,15 @@
         {
           "name": "implementation",
           "kind": "form",
+          "sectionId": "BIRU-IMPL",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-IMPL"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -30145,8 +30257,15 @@
         {
           "name": "exceptionHandling",
           "kind": "form",
+          "sectionId": "BIRU-EXCE",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-EXCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -30194,8 +30313,15 @@
         {
           "name": "governance",
           "kind": "form",
+          "sectionId": "BIRU-GOVE",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRU-GOVE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -36828,8 +36954,15 @@
         {
           "name": "overviewContent",
           "kind": "form",
+          "sectionId": "OCCHG-OVER",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "OCCHG-OVER"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -43655,8 +43788,15 @@
           "name": "communicationFlowDiagram",
           "kind": "content",
           "doc": "Communication matrix diagram.",
+          "sectionId": "COMA-COMM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "COMA-COMM"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -44650,8 +44790,15 @@
         {
           "name": "compatibilityContent",
           "kind": "form",
+          "sectionId": "CMPT-COMP",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CMPT-COMP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -57235,8 +57382,15 @@
           "kind": "content",
           "doc": "Context diagram in Mermaid format.",
           "help": "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\").",
+          "sectionId": "CD-DIAG",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CD-DIAG"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -57263,8 +57417,15 @@
           "name": "legend",
           "kind": "content",
           "doc": "Diagram legend and conventions.",
+          "sectionId": "CD-LEGE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CD-LEGE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -57318,8 +57479,15 @@
         {
           "name": "contextualHelpContent",
           "kind": "form",
+          "sectionId": "COHE-CONT",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "COHE-CONT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -59892,8 +60060,15 @@
           "kind": "content",
           "doc": "Architecture overview diagram.",
           "help": "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.",
+          "sectionId": "CARCH-ARCH",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CARCH-ARCH"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -59920,8 +60095,15 @@
           "name": "deploymentTopology",
           "kind": "content",
           "doc": "Deployment topology description.",
+          "sectionId": "CARCH-DEPL",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CARCH-DEPL"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -60255,8 +60437,15 @@
           "kind": "content",
           "doc": "Process landscape diagram.",
           "help": "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes.",
+          "sectionId": "CUBUPR-PROC",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CUBUPR-PROC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -60653,8 +60842,15 @@
           "name": "dataLandscapeOverviewDiagram",
           "kind": "content",
           "doc": "Visual representation of the data landscape.",
+          "sectionId": "CUDALA-DATAL",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CUDALA-DATAL"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -60675,8 +60871,15 @@
           "name": "dataArchitectureDiagram",
           "kind": "content",
           "doc": "Data architecture summary diagram.",
+          "sectionId": "CUDALA-DATA",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CUDALA-DATA"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -61363,8 +61566,15 @@
           "kind": "content",
           "doc": "Workflow diagram.",
           "help": "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.",
+          "sectionId": "CUWF-WORK",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CUWF-WORK"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -63404,8 +63614,15 @@
           "name": "traceabilityMatrix",
           "kind": "content",
           "doc": "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.",
+          "sectionId": "RSP-TRAC",
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RSP-TRAC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -67178,8 +67395,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "DAATT-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67234,8 +67458,15 @@
         {
           "name": "dataTypeSpec",
           "kind": "form",
+          "sectionId": "DAATT-DATA",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DATA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67364,8 +67595,15 @@
         {
           "name": "derivation",
           "kind": "form",
+          "sectionId": "DAATT-DERI",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DERI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67413,8 +67651,15 @@
         {
           "name": "securityClassification",
           "kind": "form",
+          "sectionId": "DAATT-SECU",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-SECU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67469,8 +67714,15 @@
         {
           "name": "migrationLineage",
           "kind": "form",
+          "sectionId": "DAATT-MIGR",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-MIGR"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67622,8 +67874,15 @@
         {
           "name": "overview",
           "kind": "form",
+          "sectionId": "DATCL-OVER",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DATCL-OVER"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67757,8 +68016,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "DCLSE-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCLSE-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67813,8 +68079,15 @@
         {
           "name": "storageTransmission",
           "kind": "form",
+          "sectionId": "DCLSE-STOR",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCLSE-STOR"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67869,8 +68142,15 @@
         {
           "name": "accessControl",
           "kind": "form",
+          "sectionId": "DCLSE-ACCE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCLSE-ACCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67925,8 +68205,15 @@
         {
           "name": "retentionDisposal",
           "kind": "form",
+          "sectionId": "DCLSE-RETE",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCLSE-RETE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -67981,8 +68268,15 @@
         {
           "name": "compliance",
           "kind": "form",
+          "sectionId": "DCLSE-COMP",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCLSE-COMP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -68606,8 +68900,15 @@
           "name": "duplicationDiagram",
           "kind": "content",
           "doc": "Visual representation of data redundancy.",
+          "sectionId": "DADUAN-DUPL",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DADUAN-DUPL"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -69160,8 +69461,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "DAENT-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAENT-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -69216,8 +69524,15 @@
         {
           "name": "classification",
           "kind": "form",
+          "sectionId": "DAENT-CLAS",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAENT-CLAS"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -69332,8 +69647,15 @@
         {
           "name": "lifecyclePolicy",
           "kind": "form",
+          "sectionId": "DAENT-LIFE",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAENT-LIFE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -69462,8 +69784,15 @@
         {
           "name": "relationshipSummary",
           "kind": "form",
+          "sectionId": "DAENT-RELA",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAENT-RELA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -70555,8 +70884,15 @@
           "name": "governanceOrgChart",
           "kind": "content",
           "doc": "Governance organization structure.",
+          "sectionId": "DAGO-GOVE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAGO-GOVE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -72066,8 +72402,15 @@
           "name": "dataFlowDiagram",
           "kind": "content",
           "doc": "Data flow diagram.",
+          "sectionId": "DAINPO-DATA",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAINPO-DATA"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -73392,8 +73735,15 @@
           "name": "ownershipMatrixDiagram",
           "kind": "content",
           "doc": "Data ownership matrix visualization.",
+          "sectionId": "DAOW-OWNE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAOW-OWNE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -74982,8 +75332,15 @@
           "name": "qualityIssuesSeverityChart",
           "kind": "content",
           "doc": "Quality issues by severity.",
+          "sectionId": "DAQUAS-QUAL",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAQUAS-QUAL"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -76725,8 +77082,15 @@
           "name": "dataSourceMapDiagram",
           "kind": "content",
           "doc": "Visual map of data sources by domain/category.",
+          "sectionId": "DASOIN-DATA",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DASOIN-DATA"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -78430,8 +78794,15 @@
           "name": "growthTrendChart",
           "kind": "content",
           "doc": "Growth trend visualization.",
+          "sectionId": "DVAG-GROW",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DVAG-GROW"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -83593,8 +83964,15 @@
           "kind": "content",
           "doc": "Dependency matrix diagram.",
           "help": "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types.",
+          "sectionId": "DEPNT-DEPE",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DEPNT-DEPE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -96782,8 +97160,15 @@
         {
           "name": "documentationOverviewContent",
           "kind": "form",
+          "sectionId": "DOQUCR-DOCU",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DOQUCR-DOCU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -97953,8 +98338,15 @@
           "kind": "content",
           "doc": "Context map showing domain boundaries.",
           "help": "Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.",
+          "sectionId": "DB-CONT",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DB-CONT"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -97981,8 +98373,15 @@
           "name": "withinScope",
           "kind": "content",
           "doc": "Within-scope items.",
+          "sectionId": "DB-WITH",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DB-WITH"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -98003,8 +98402,15 @@
           "name": "outsideScope",
           "kind": "content",
           "doc": "Outside-scope items.",
+          "sectionId": "DB-OUTS",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DB-OUTS"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -99286,8 +99692,15 @@
           "kind": "content",
           "doc": "Process overview diagram.",
           "help": "Create a process map showing the main business processes and how they interact.",
+          "sectionId": "DP-PROC",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DP-PROC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -101923,8 +102336,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "ENRLE-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -102032,8 +102452,15 @@
         {
           "name": "cardinality",
           "kind": "form",
+          "sectionId": "ENRLE-CARD",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-CARD"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -102095,8 +102522,15 @@
         {
           "name": "referentialIntegrity",
           "kind": "form",
+          "sectionId": "ENRLE-REFE",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-REFE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -102158,8 +102592,15 @@
         {
           "name": "navigation",
           "kind": "form",
+          "sectionId": "ENRLE-NAVI",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-NAVI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -105563,8 +106004,15 @@
         {
           "name": "errorPhilosophyContent",
           "kind": "form",
+          "sectionId": "ERHACO-ERRO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ERHACO-ERRO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -106638,8 +107086,15 @@
         {
           "name": "recoveryMechanismsContent",
           "kind": "form",
+          "sectionId": "ERRE-RECO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ERRE-RECO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -112326,8 +112781,15 @@
         {
           "name": "identificationContent",
           "kind": "form",
+          "sectionId": "EIE-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EIE-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -114446,8 +114908,15 @@
           "name": "dataMapping",
           "kind": "content",
           "doc": "Data mapping details.",
+          "sectionId": "EXSYCOEN-DATA",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EXSYCOEN-DATA"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -119753,8 +120222,15 @@
         {
           "name": "flexibilityContent",
           "kind": "form",
+          "sectionId": "FLXC-FLEX",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FLXC-FLEX"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -121370,8 +121846,15 @@
         {
           "name": "decompositionOverview",
           "kind": "form",
+          "sectionId": "FUMO-DECO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FUMO-DECO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -121419,8 +121902,15 @@
         {
           "name": "matrixOverview",
           "kind": "form",
+          "sectionId": "FUMO-MATR",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FUMO-MATR"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -122547,8 +123037,15 @@
           "name": "summaryForm",
           "kind": "form",
           "doc": "Functional requirements summary form.",
+          "sectionId": "FR-SUMM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FR-SUMM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -122889,8 +123386,15 @@
         {
           "name": "functionalSuitabilityContent",
           "kind": "form",
+          "sectionId": "FNSU-FUNC",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FNSU-FUNC"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -124995,8 +125499,15 @@
           "name": "resourcesForm",
           "kind": "form",
           "doc": "Resource requirement form.",
+          "sectionId": "GORE-RESO",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GORE-RESO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -125554,8 +126065,15 @@
           "kind": "content",
           "doc": "Goal hierarchy diagram.",
           "help": "Create a diagram showing goal categories, dependencies, and alignment to strategic objectives.",
+          "sectionId": "GOALS-GOAL",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GOALS-GOAL"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -136436,8 +136954,15 @@
         {
           "name": "interactionCapabilityContent",
           "kind": "form",
+          "sectionId": "INCP-INTE",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "INCP-INTE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -143498,8 +144023,15 @@
           "name": "systemContextDiagram",
           "kind": "content",
           "doc": "System context diagram showing major system boundaries.",
+          "sectionId": "INSC-SYST",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "INSC-SYST"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -146433,8 +146965,15 @@
           "kind": "content",
           "doc": "Conceptual domain model diagram.",
           "help": "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation.",
+          "sectionId": "KC-CONC",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "KC-CONC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -147655,8 +148194,15 @@
         {
           "name": "languageSelectionContent",
           "kind": "form",
+          "sectionId": "LACOSE-LANG",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "LACOSE-LANG"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -151259,8 +151805,15 @@
         {
           "name": "localizationProcessContent",
           "kind": "form",
+          "sectionId": "LOPR-LOCA",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "LOPR-LOCA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -153775,8 +154328,15 @@
         {
           "name": "maintainabilityContent",
           "kind": "form",
+          "sectionId": "MNTC-MAIN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MNTC-MAIN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -157197,8 +157757,15 @@
         {
           "name": "metricsOverview",
           "kind": "form",
+          "sectionId": "MEANOB-METR",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MEANOB-METR"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -158912,8 +159479,15 @@
         {
           "name": "strategyContent",
           "kind": "form",
+          "sectionId": "MIGCON-STRA",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MIGCON-STRA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -162923,8 +163497,15 @@
         {
           "name": "governanceContent",
           "kind": "form",
+          "sectionId": "MIRI-GOVE",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MIRI-GOVE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -166338,8 +166919,15 @@
         {
           "name": "monitoringOverview",
           "kind": "form",
+          "sectionId": "MONITO-MONI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MONITO-MONI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -167054,8 +167642,15 @@
         {
           "name": "dashboardOverview",
           "kind": "form",
+          "sectionId": "MODA-DASH",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MODA-DASH"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -168433,8 +169028,15 @@
           "name": "multiChannelConfiguration",
           "kind": "form",
           "doc": "Multi-channel configuration.",
+          "sectionId": "MCE-MULT",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MCE-MULT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -168551,8 +169153,15 @@
         {
           "name": "multiLanguageOverview",
           "kind": "form",
+          "sectionId": "MLAR-MULT",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MLAR-MULT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -168724,8 +169333,15 @@
         {
           "name": "mustPassOverviewContent",
           "kind": "form",
+          "sectionId": "MUPACR-MUST",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MUPACR-MUST"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -177367,8 +177983,15 @@
         {
           "name": "onboardingContent",
           "kind": "form",
+          "sectionId": "ONHE-ONBO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ONHE-ONBO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -179733,8 +180356,15 @@
           "name": "planForm",
           "kind": "form",
           "doc": "Implementation plan form.",
+          "sectionId": "ORIP-PLAN",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ORIP-PLAN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -180300,8 +180930,15 @@
           "name": "businessProcessCoverage",
           "kind": "content",
           "doc": "Business process coverage.",
+          "sectionId": "OC-BUSI",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "OC-BUSI"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -180355,8 +180992,15 @@
         {
           "name": "organizationContent",
           "kind": "form",
+          "sectionId": "OREN-ORGA",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "OREN-ORGA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -181587,8 +182231,15 @@
           "name": "summaryForm",
           "kind": "form",
           "doc": "Organizational requirements summary form.",
+          "sectionId": "OR-SUMM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "OR-SUMM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -183917,8 +184568,15 @@
           "name": "correlationDiagram",
           "kind": "content",
           "doc": "Visual correlation between pain points and gaps.",
+          "sectionId": "PPGC-CORR",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PPGC-CORR"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -184565,8 +185223,15 @@
           "name": "painPointsOverviewDiagram",
           "kind": "content",
           "doc": "Visual mapping of pain points and their relationships.",
+          "sectionId": "PPAG-PAIN",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PPAG-PAIN"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -184587,8 +185252,15 @@
           "name": "painPointsPriorityMatrix",
           "kind": "content",
           "doc": "Pain points priority matrix (urgency vs impact).",
+          "sectionId": "PPAG-PAINP",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PPAG-PAINP"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -186116,8 +186788,15 @@
         {
           "name": "performanceEfficiencyContent",
           "kind": "form",
+          "sectionId": "PEEF-PERF",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PEEF-PERF"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -194172,8 +194851,15 @@
           "name": "processFlowDiagram",
           "kind": "content",
           "doc": "Visual representation of process adjustments.",
+          "sectionId": "PCADJ-PROC",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PCADJ-PROC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -197571,8 +198257,15 @@
           "kind": "content",
           "doc": "Interdependency diagram.",
           "help": "Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.",
+          "sectionId": "PRINMA-DEPE",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PRINMA-DEPE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -202590,8 +203283,15 @@
           "name": "methodologyDeviationDiagram",
           "kind": "content",
           "doc": "Visual overview of methodology deviations.",
+          "sectionId": "PRPO-METH",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PRPO-METH"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -203910,8 +204610,15 @@
         {
           "name": "prototypeOverview",
           "kind": "form",
+          "sectionId": "PROTOT-PROT",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PROTOT-PROT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -204232,8 +204939,15 @@
         {
           "name": "featureSubsetContent",
           "kind": "form",
+          "sectionId": "PRFESU-FEAT",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PRFESU-FEAT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -204669,8 +205383,15 @@
         {
           "name": "goalsContent",
           "kind": "form",
+          "sectionId": "PG-GOAL",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PG-GOAL"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -205206,8 +205927,15 @@
         {
           "name": "prototypeTypeOverview",
           "kind": "form",
+          "sectionId": "PRTYSE-PROT",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PRTYSE-PROT"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -206343,8 +207071,15 @@
         {
           "name": "frameworkContent",
           "kind": "form",
+          "sectionId": "QLFWK-FRAM",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "QLFWK-FRAM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -207505,8 +208240,15 @@
           "name": "gateFlowDiagram",
           "kind": "content",
           "doc": "Visual representation of gate adjustments.",
+          "sectionId": "QGADJ-GATE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "QGADJ-GATE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -208131,8 +208873,15 @@
         {
           "name": "checklistOverviewContent",
           "kind": "form",
+          "sectionId": "QUGACH-CHEC",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "QUGACH-CHEC"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -208624,8 +209373,15 @@
         {
           "name": "prioritizationFrameworkContent",
           "kind": "form",
+          "sectionId": "QUPR-PRIO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "QUPR-PRIO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -213634,8 +214390,15 @@
         {
           "name": "reliabilityContent",
           "kind": "form",
+          "sectionId": "RELC-RELI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RELC-RELI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -221459,8 +222222,15 @@
           "name": "traceabilityForm",
           "kind": "form",
           "doc": "Traceability links form.",
+          "sectionId": "RT-TRAC",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RT-TRAC"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -221743,8 +222513,15 @@
           "name": "uiForm",
           "kind": "form",
           "doc": "UI specification form.",
+          "sectionId": "RUS-UIFO",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RUS-UIFO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -221801,8 +222578,15 @@
           "kind": "content",
           "doc": "UI layout specification (D4rt Flutter code).",
           "help": "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.",
+          "sectionId": "RUS-LAYO",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RUS-LAYO"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -221829,8 +222613,15 @@
           "name": "mockupDescription",
           "kind": "content",
           "doc": "UI mockup diagram (fallback if code not available).",
+          "sectionId": "RUS-MOCK",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RUS-MOCK"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -222179,8 +222970,15 @@
           "name": "requirementsForm",
           "kind": "form",
           "doc": "Requirements overview form.",
+          "sectionId": "RO-REQU",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RO-REQU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -222258,8 +223056,15 @@
           "kind": "content",
           "doc": "Traceability matrix overview.",
           "help": "Provide a high-level view of requirement traceability.",
+          "sectionId": "RO-TRAC",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RO-TRAC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -224471,8 +225276,15 @@
         {
           "name": "layoutAdaptation",
           "kind": "form",
+          "sectionId": "REBE-LAYO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "REBE-LAYO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -225006,8 +225818,15 @@
         {
           "name": "responsiveOverview",
           "kind": "form",
+          "sectionId": "REDE-RESP",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "REDE-RESP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -226531,8 +227350,15 @@
         {
           "name": "reusableContent",
           "kind": "form",
+          "sectionId": "REUPRO-REUS",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "REUPRO-REUS"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -230912,8 +231738,15 @@
           "name": "roleComparisonDiagram",
           "kind": "content",
           "doc": "Visual comparison of standard vs adjusted roles.",
+          "sectionId": "RLADJ-ROLE",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RLADJ-ROLE"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -244427,8 +245260,15 @@
         {
           "name": "securityContent",
           "kind": "form",
+          "sectionId": "SECC-SECU",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SECC-SECU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -246736,8 +247576,15 @@
           "name": "summaryForm",
           "kind": "form",
           "doc": "Security requirements summary form.",
+          "sectionId": "SR1-SUMM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SR1-SUMM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -252843,8 +253690,15 @@
           "name": "sessionConfiguration",
           "kind": "form",
           "doc": "Session configuration.",
+          "sectionId": "SM-SESS",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SM-SESS"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -255764,8 +256618,15 @@
         {
           "name": "slaOverview",
           "kind": "form",
+          "sectionId": "SASM-SLAO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SASM-SLAO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -268505,8 +269366,15 @@
           "kind": "content",
           "doc": "Success criteria matrix — overall view.",
           "help": "Create a summary matrix of all success criteria.",
+          "sectionId": "SC-SUCC",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SC-SUCC"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -268579,8 +269447,15 @@
           "kind": "content",
           "doc": "Business outcome criteria overview.",
           "help": "Describe how business outcomes will be measured.",
+          "sectionId": "SCBC-BUSI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCBC-BUSI"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -268608,8 +269483,15 @@
           "kind": "content",
           "doc": "Technical quality criteria overview.",
           "help": "Describe how technical quality will be measured.",
+          "sectionId": "SCBC-TECH",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCBC-TECH"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -268637,8 +269519,15 @@
           "kind": "content",
           "doc": "User satisfaction criteria overview.",
           "help": "Describe how user satisfaction will be measured.",
+          "sectionId": "SCBC-USER",
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCBC-USER"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -268666,8 +269555,15 @@
           "kind": "content",
           "doc": "Compliance criteria overview.",
           "help": "Describe how compliance will be verified.",
+          "sectionId": "SCBC-COMP",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCBC-COMP"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -268695,8 +269591,15 @@
           "kind": "content",
           "doc": "Timeline and budget criteria overview.",
           "help": "Describe how project execution will be measured.",
+          "sectionId": "SCBC-PROJ",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCBC-PROJ"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -269569,8 +270472,15 @@
         {
           "name": "supportAccessContent",
           "kind": "form",
+          "sectionId": "SUAC-SUPP",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SUAC-SUPP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -274287,8 +275197,15 @@
         {
           "name": "systemErrorContent",
           "kind": "form",
+          "sectionId": "SYERDI-SYST",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYERDI-SYST"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -276687,8 +277604,15 @@
           "kind": "content",
           "doc": "Vision Statement.",
           "help": "Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.",
+          "sectionId": "SYPUP-VISI",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYPUP-VISI"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -276849,8 +277773,15 @@
         {
           "name": "governanceContent",
           "kind": "form",
+          "sectionId": "SYQG-GOVE",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYQG-GOVE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -279346,8 +280277,15 @@
         {
           "name": "identificationContent",
           "kind": "form",
+          "sectionId": "SYTORE-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYTORE-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -282901,8 +283839,15 @@
         {
           "name": "technicalOverviewContent",
           "kind": "form",
+          "sectionId": "TEEN-TECH",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TEEN-TECH"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -284675,8 +285620,15 @@
           "name": "testCriteriaForm",
           "kind": "form",
           "doc": "Test criteria form.",
+          "sectionId": "TGTC-TEST",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TGTC-TEST"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -285909,8 +286861,15 @@
           "name": "summaryForm",
           "kind": "form",
           "doc": "Technical requirements summary form.",
+          "sectionId": "TR1-SUMM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TR1-SUMM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -290211,8 +291170,15 @@
         {
           "name": "throwawayContent",
           "kind": "form",
+          "sectionId": "THPR-THRO",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "THPR-THRO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -294203,8 +295169,15 @@
         {
           "name": "tradeOffGovernanceContent",
           "kind": "form",
+          "sectionId": "TROFDE-TRAD",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TROFDE-TRAD"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -294659,8 +295632,15 @@
         {
           "name": "trainingContent",
           "kind": "form",
+          "sectionId": "TRMAT-TRAI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TRMAT-TRAI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -295530,8 +296510,15 @@
         {
           "name": "trainingContent",
           "kind": "form",
+          "sectionId": "TP-TRAI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TP-TRAI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -299120,8 +300107,15 @@
         {
           "name": "translationProcessContent",
           "kind": "form",
+          "sectionId": "TRPR-TRAN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TRPR-TRAN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -299428,8 +300422,15 @@
         {
           "name": "translationRequirementsContent",
           "kind": "form",
+          "sectionId": "TRAREQ-TRAN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TRAREQ-TRAN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302379,8 +303380,15 @@
         {
           "name": "identity",
           "kind": "form",
+          "sectionId": "UICOMENT-IDEN",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-IDEN"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302458,8 +303466,15 @@
         {
           "name": "visualDesign",
           "kind": "form",
+          "sectionId": "UICOMENT-VISU",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-VISU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302575,8 +303590,15 @@
         {
           "name": "interactiveBehavior",
           "kind": "form",
+          "sectionId": "UICOMENT-INTE",
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-INTE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302682,8 +303704,15 @@
         {
           "name": "responsiveness",
           "kind": "form",
+          "sectionId": "UICOMENT-RESP",
           "serializationOrder": 12,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-RESP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302752,8 +303781,15 @@
         {
           "name": "accessibility",
           "kind": "form",
+          "sectionId": "UICOMENT-ACCE",
           "serializationOrder": 13,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-ACCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302829,8 +303865,15 @@
         {
           "name": "authorization",
           "kind": "form",
+          "sectionId": "UICOMENT-AUTH",
           "serializationOrder": 14,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-AUTH"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302899,8 +303942,15 @@
         {
           "name": "resourceIntegration",
           "kind": "form",
+          "sectionId": "UICOMENT-RESO",
           "serializationOrder": 15,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-RESO"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -302983,8 +304033,15 @@
         {
           "name": "dataBinding",
           "kind": "form",
+          "sectionId": "UICOMENT-DATA",
           "serializationOrder": 16,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICOMENT-DATA"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -304024,8 +305081,15 @@
         {
           "name": "componentLibraryOverview",
           "kind": "form",
+          "sectionId": "UICO-COMP",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UICO-COMP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -305560,8 +306624,15 @@
           "name": "permissionsForm",
           "kind": "form",
           "doc": "Access Permissions Form.",
+          "sectionId": "UAP-PERM",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UAP-PERM"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -305902,8 +306973,15 @@
           "name": "accessibilityForm",
           "kind": "form",
           "doc": "Accessibility Needs Form.",
+          "sectionId": "UAN-ACCE",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UAN-ACCE"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -306102,8 +307180,15 @@
         {
           "name": "helpOverviewContent",
           "kind": "form",
+          "sectionId": "USAS-HELP",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "USAS-HELP"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -307771,8 +308856,15 @@
         {
           "name": "documentationContent",
           "kind": "form",
+          "sectionId": "DOANTR-DOCU",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DOANTR-DOCU"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -308580,8 +309672,15 @@
           "kind": "content",
           "doc": "User journey diagram.",
           "help": "Create a journey map showing the user's experience from first contact through regular use.",
+          "sectionId": "UJ-JOUR",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UJ-JOUR"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -308770,8 +309869,15 @@
           "name": "opportunitiesForDelight",
           "kind": "content",
           "doc": "Opportunities for delight.",
+          "sectionId": "UJ-OPPO",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UJ-OPPO"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -309856,8 +310962,15 @@
           "name": "personaForm",
           "kind": "form",
           "doc": "Persona Details Form.",
+          "sectionId": "UPD-PERS",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UPD-PERS"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -309951,8 +311064,15 @@
           "name": "visualRepresentation",
           "kind": "content",
           "doc": "Representative photo or avatar description.",
+          "sectionId": "UPD-VISU",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "UPD-VISU"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -310901,8 +312021,15 @@
           "name": "trainingForm",
           "kind": "form",
           "doc": "Training Requirements Form.",
+          "sectionId": "USTRRE-TRAI",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "USTRRE-TRAI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -311836,8 +312963,15 @@
         {
           "name": "validationDisplayContent",
           "kind": "form",
+          "sectionId": "VAFE-VALI",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "VAFE-VALI"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -315512,8 +316646,15 @@
         {
           "name": "wcagComplianceContent",
           "kind": "form",
+          "sectionId": "WCCO-WCAG",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "WCCO-WCAG"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -316037,8 +317178,15 @@
         {
           "name": "matrixConfigContent",
           "kind": "form",
+          "sectionId": "WEQUMA-MATR",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "WEQUMA-MATR"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -316625,8 +317773,15 @@
           "kind": "content",
           "doc": "Workflow overview diagram.",
           "help": "Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.",
+          "sectionId": "WODE-WORK",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "WODE-WORK"
+              }
+            },
             {
               "name": "ContentType",
               "arguments": {
@@ -317577,8 +318732,15 @@
           "name": "name",
           "kind": "content",
           "help": "Name of the system used in this workflow step.",
+          "sectionId": "WOSTSY-NAME",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "WOSTSY-NAME"
+              }
+            },
             {
               "name": "ContentHelp",
               "arguments": {

@@ -232,6 +232,37 @@ void main() {
           'Check the notes are actionable.');
     });
 
+    test('toYamlString escapes embedded double quotes so a description with '
+        'inline quotes round-trips (json2yaml 3.0.1 does not escape)', () {
+      // Regression: json2yaml double-quotes a scalar containing a comma but
+      // leaves embedded `"` unescaped, producing invalid YAML. A free-text
+      // @ContentHelp such as `... (e.g., "orders", "payments").` must survive.
+      const guidance = 'Create a flowchart and label edges with data flow '
+          'descriptions (e.g., "orders", "payments", "notifications").';
+      final model = <String, ModelClass>{
+        'QuoteDoc': ModelClass(
+          name: 'QuoteDoc',
+          annotations: [
+            _a('Document', {'name': 'Quote Doc'}),
+            _a('SectionId', {'id': 'Q00'}),
+          ],
+          fields: [
+            ModelField(
+              name: 'diagram',
+              typeName: 'String',
+              annotations: [
+                _a('SectionId', {'id': 'Q00-DIAG'}),
+                _a('ContentHelp', {'guidance': guidance}),
+              ],
+            ),
+          ],
+        ),
+      };
+      final schema = DocSpecsSchemaGenerator(model).generateFor('QuoteDoc');
+      final reloaded = _writeAndReload(dir, schema);
+      expect(reloaded.sectionTypes['q00-diag']!.description, guidance);
+    });
+
     test('§5.3: @Form sections get format <type>-form; fields keep model '
         'field names with required/description/pattern-check', () {
       final schema = gen.generateFor('DemoDoc');

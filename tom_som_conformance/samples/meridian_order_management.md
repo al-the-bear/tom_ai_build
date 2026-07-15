@@ -908,11 +908,15 @@ historical orders remain reproducible.
 
 ##### <!--[DAENT-ENTI-1]--> Data Entity 1
 
+###### <!--[DAENT-IDEN]--> Identity
+
 EntityName: Order
 TableName: mom_order
 EntityAlias: ORD
 Description: A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 EntityStereoType: Aggregate Root
+
+###### <!--[DAENT-CLAS]--> Classification
 
 Category: Transactional
 BoundedContext: Ordering
@@ -924,60 +928,90 @@ SourceSystem: MOM
 
 ####### <!--[DAATT-ATTR-1]--> Data Attribute 1
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: orderId
 ColumnName: order_id
 Description: Stable order identifier.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-2]--> Data Attribute 2
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: customerId
 ColumnName: customer_id
 Description: Reference to the ordering customer.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-3]--> Data Attribute 3
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: channel
 ColumnName: channel
 Description: Capture channel: EDI or REST.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Enum
 PhysicalType: varchar(8)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-4]--> Data Attribute 4
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: status
 ColumnName: status
 Description: Lifecycle state (Captured..Closed, with Hold).
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Enum
 PhysicalType: varchar(16)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-5]--> Data Attribute 5
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: createdAt
 ColumnName: created_at
 Description: Capture timestamp (UTC).
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Timestamp
 PhysicalType: timestamptz
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
@@ -993,11 +1027,15 @@ Description: Primary key of the order.
 
 ##### <!--[DAENT-ENTI-2]--> Data Entity 2
 
+###### <!--[DAENT-IDEN]--> Identity
+
 EntityName: OrderLine
 TableName: mom_order_line
 EntityAlias: OLN
 Description: A single product/quantity within an order, with a snapshotted price. Realizes FR-02, FR-03, FR-05.
 EntityStereoType: Entity
+
+###### <!--[DAENT-CLAS]--> Classification
 
 Category: Transactional
 BoundedContext: Ordering
@@ -1009,60 +1047,90 @@ SourceSystem: MOM
 
 ####### <!--[DAATT-ATTR-1]--> Data Attribute 1
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: lineId
 ColumnName: line_id
 Description: Stable line identifier.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-2]--> Data Attribute 2
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: orderId
 ColumnName: order_id
 Description: Owning order reference.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-3]--> Data Attribute 3
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: productId
 ColumnName: product_id
 Description: Referenced product.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-4]--> Data Attribute 4
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: quantity
 ColumnName: quantity
 Description: Ordered quantity.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Integer
 PhysicalType: int
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-5]--> Data Attribute 5
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: unitPrice
 ColumnName: unit_price
 Description: Snapshotted unit price at pricing time.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Decimal
 PhysicalType: numeric(12,2)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
@@ -1089,11 +1157,15 @@ Order
 
 ##### <!--[DAENT-ENTI-3]--> Data Entity 3
 
+###### <!--[DAENT-IDEN]--> Identity
+
 EntityName: Customer
 TableName: mom_customer
 EntityAlias: CUS
 Description: A wholesale or e-commerce customer that places orders. Realizes FR-01.
 EntityStereoType: Aggregate Root
+
+###### <!--[DAENT-CLAS]--> Classification
 
 Category: Master
 BoundedContext: Customer
@@ -1105,36 +1177,54 @@ SourceSystem: MOM
 
 ####### <!--[DAATT-ATTR-1]--> Data Attribute 1
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: customerId
 ColumnName: customer_id
 Description: Stable customer identifier.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-2]--> Data Attribute 2
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: name
 ColumnName: name
 Description: Customer legal name (PII).
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: String
 PhysicalType: varchar(200)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Confidential
 IsPii: true
 
 ####### <!--[DAATT-ATTR-3]--> Data Attribute 3
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: creditLimit
 ColumnName: credit_limit
 Description: Approved credit limit used by validation.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: Decimal
 PhysicalType: numeric(14,2)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Confidential
 IsPii: false
@@ -1150,11 +1240,15 @@ Description: Primary key of the customer.
 
 ##### <!--[DAENT-ENTI-4]--> Data Entity 4
 
+###### <!--[DAENT-IDEN]--> Identity
+
 EntityName: Product
 TableName: mom_product
 EntityAlias: PRD
 Description: A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 EntityStereoType: Aggregate Root
+
+###### <!--[DAENT-CLAS]--> Classification
 
 Category: Master
 BoundedContext: Catalogue
@@ -1166,36 +1260,54 @@ SourceSystem: MOM
 
 ####### <!--[DAATT-ATTR-1]--> Data Attribute 1
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: productId
 ColumnName: product_id
 Description: Stable product identifier.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: UUID
 PhysicalType: uuid
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-2]--> Data Attribute 2
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: sku
 ColumnName: sku
 Description: Stock-keeping unit.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: String
 PhysicalType: varchar(40)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
 
 ####### <!--[DAATT-ATTR-3]--> Data Attribute 3
 
+######## <!--[DAATT-IDEN]--> Identity
+
 AttributeName: name
 ColumnName: name
 Description: Product display name.
 
+######## <!--[DAATT-DATA]--> Data Type Spec
+
 DataType: String
 PhysicalType: varchar(200)
+
+######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
 IsPii: false
@@ -1217,14 +1329,20 @@ The foreign-key relationships binding the ordering core together.
 
 ###### <!--[ENRLE-ITEM-1]--> Entity Relationship 1
 
+####### <!--[ENRLE-IDEN]--> Identity
+
 RelationshipName: Order-owns-Lines
 RelationshipType: Composition
 Description: An order owns one or more order lines.
 BusinessJustification: Maintains referential integrity across the ordering core.
 ImplementationType: Foreign Key
 
+####### <!--[ENRLE-CARD]--> Cardinality
+
 SourceCardinality: 1
 TargetCardinality: 1..*
+
+####### <!--[ENRLE-NAVI]--> Navigation
 
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order_line.order_id
@@ -1239,14 +1357,20 @@ OrderLine
 
 ###### <!--[ENRLE-ITEM-2]--> Entity Relationship 2
 
+####### <!--[ENRLE-IDEN]--> Identity
+
 RelationshipName: Order-placed-by-Customer
 RelationshipType: Association
 Description: Each order is placed by exactly one customer.
 BusinessJustification: Maintains referential integrity across the ordering core.
 ImplementationType: Foreign Key
 
+####### <!--[ENRLE-CARD]--> Cardinality
+
 SourceCardinality: *
 TargetCardinality: 1
+
+####### <!--[ENRLE-NAVI]--> Navigation
 
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order.customer_id
@@ -1261,14 +1385,20 @@ Customer
 
 ###### <!--[ENRLE-ITEM-3]--> Entity Relationship 3
 
+####### <!--[ENRLE-IDEN]--> Identity
+
 RelationshipName: Line-references-Product
 RelationshipType: Association
 Description: Each order line references exactly one product.
 BusinessJustification: Maintains referential integrity across the ordering core.
 ImplementationType: Foreign Key
 
+####### <!--[ENRLE-CARD]--> Cardinality
+
 SourceCardinality: *
 TargetCardinality: 1
+
+####### <!--[ENRLE-NAVI]--> Navigation
 
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order_line.product_id

@@ -72,7 +72,7 @@ func NewAcceptanceCriteriaSummary(doc *som.SpecDocument, path string) *Acceptanc
 }
 
 func (x *AcceptanceCriteriaSummary) AcceptanceFrameworkContent() *AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
-	return NewAcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(x.Doc(), x.Path()+"/acceptanceFrameworkContent")
+	return NewAcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(x.Doc(), x.Path()+"/ACCRSU-ACCE")
 }
 
 // Acceptance criteria overview.
@@ -396,11 +396,11 @@ func (x *AccessChannels) SetContent(value string) {
 
 // Channel architecture diagram.
 func (x *AccessChannels) ChannelDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/channelDiagram")
+	return x.Doc().ContentOr(x.Path() + "/AC1-CHAN")
 }
 
 func (x *AccessChannels) SetChannelDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/channelDiagram", value)
+	x.Doc().SetContent(x.Path()+"/AC1-CHAN", value)
 }
 
 // Channel entries — contains 1+× InteractionChannelEntry.
@@ -571,11 +571,11 @@ func (x *AccessLevels) SetContent(value string) {
 
 // Access level hierarchy diagram.
 func (x *AccessLevels) AccessLevelDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/accessLevelDiagram")
+	return x.Doc().ContentOr(x.Path() + "/AL-ACCE")
 }
 
 func (x *AccessLevels) SetAccessLevelDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/accessLevelDiagram", value)
+	x.Doc().SetContent(x.Path()+"/AL-ACCE", value)
 }
 
 // Access level entries — contains 1+× AccessLevelEntry.
@@ -587,11 +587,11 @@ func (x *AccessLevels) Levels() *som.SomList[*AccessLevelEntry] {
 
 // Permission matrix linking access levels to features.
 func (x *AccessLevels) PermissionMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/permissionMatrix")
+	return x.Doc().ContentOr(x.Path() + "/AL-PERM")
 }
 
 func (x *AccessLevels) SetPermissionMatrix(value string) {
-	x.Doc().SetContent(x.Path()+"/permissionMatrix", value)
+	x.Doc().SetContent(x.Path()+"/AL-PERM", value)
 }
 
 // An access restriction entry (form).
@@ -655,7 +655,7 @@ func NewAccessibility(doc *som.SpecDocument, path string) *Accessibility {
 }
 
 func (x *Accessibility) AccessibilityOverviewContent() *AccessibilityAccessibilityOverviewContentForm {
-	return NewAccessibilityAccessibilityOverviewContentForm(x.Doc(), x.Path()+"/accessibilityOverviewContent")
+	return NewAccessibilityAccessibilityOverviewContentForm(x.Doc(), x.Path()+"/ACCESS-ACCE")
 }
 
 // Ownership and inclusive design philosophy.
@@ -779,7 +779,7 @@ func NewAccessibilityChecklist(doc *som.SpecDocument, path string) *Accessibilit
 }
 
 func (x *AccessibilityChecklist) ChecklistOverviewContent() *AccessibilityChecklistChecklistOverviewContentForm {
-	return NewAccessibilityChecklistChecklistOverviewContentForm(x.Doc(), x.Path()+"/checklistOverviewContent")
+	return NewAccessibilityChecklistChecklistOverviewContentForm(x.Doc(), x.Path()+"/ACCHLS-CHEC")
 }
 
 // Accessibility checklist overview.
@@ -1913,7 +1913,7 @@ func NewAlertingConfiguration(doc *som.SpecDocument, path string) *AlertingConfi
 }
 
 func (x *AlertingConfiguration) AlertingOverview() *AlertingConfigurationAlertingOverviewForm {
-	return NewAlertingConfigurationAlertingOverviewForm(x.Doc(), x.Path()+"/alertingOverview")
+	return NewAlertingConfigurationAlertingOverviewForm(x.Doc(), x.Path()+"/ALCO-ALER")
 }
 
 // Alerting overview narrative.
@@ -5277,7 +5277,7 @@ func NewBreakpointConfiguration(doc *som.SpecDocument, path string) *BreakpointC
 }
 
 func (x *BreakpointConfiguration) BreakpointOverview() *BreakpointConfigurationBreakpointOverviewForm {
-	return NewBreakpointConfigurationBreakpointOverviewForm(x.Doc(), x.Path()+"/breakpointOverview")
+	return NewBreakpointConfigurationBreakpointOverviewForm(x.Doc(), x.Path()+"/BC-BREA")
 }
 
 // Breakpoint entries.
@@ -6241,15 +6241,15 @@ func NewBusinessObjectEntry(doc *som.SpecDocument, path string) *BusinessObjectE
 }
 
 func (x *BusinessObjectEntry) Identity() *BusinessObjectEntryIdentityForm {
-	return NewBusinessObjectEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewBusinessObjectEntryIdentityForm(x.Doc(), x.Path()+"/BJOEN-IDEN")
 }
 
 func (x *BusinessObjectEntry) DomainContext() *BusinessObjectEntryDomainContextForm {
-	return NewBusinessObjectEntryDomainContextForm(x.Doc(), x.Path()+"/domainContext")
+	return NewBusinessObjectEntryDomainContextForm(x.Doc(), x.Path()+"/BJOEN-DOMA")
 }
 
 func (x *BusinessObjectEntry) LifecycleSummary() *BusinessObjectEntryLifecycleSummaryForm {
-	return NewBusinessObjectEntryLifecycleSummaryForm(x.Doc(), x.Path()+"/lifecycleSummary")
+	return NewBusinessObjectEntryLifecycleSummaryForm(x.Doc(), x.Path()+"/BJOEN-LIFE")
 }
 
 func (x *BusinessObjectEntry) BehaviorRules() *som.SomList[*BehaviorRuleEntry] {
@@ -6259,7 +6259,7 @@ func (x *BusinessObjectEntry) BehaviorRules() *som.SomList[*BehaviorRuleEntry] {
 }
 
 func (x *BusinessObjectEntry) Ownership() *BusinessObjectEntryOwnershipForm {
-	return NewBusinessObjectEntryOwnershipForm(x.Doc(), x.Path()+"/ownership")
+	return NewBusinessObjectEntryOwnershipForm(x.Doc(), x.Path()+"/BJOEN-OWNE")
 }
 
 func (x *BusinessObjectEntry) IntegrationPoints() *som.SomList[*IntegrationPointEntry] {
@@ -6552,27 +6552,27 @@ func NewBusinessRuleEntry(doc *som.SpecDocument, path string) *BusinessRuleEntry
 }
 
 func (x *BusinessRuleEntry) Identity() *BusinessRuleEntryIdentityForm {
-	return NewBusinessRuleEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewBusinessRuleEntryIdentityForm(x.Doc(), x.Path()+"/BIRU-IDEN")
 }
 
 func (x *BusinessRuleEntry) Classification() *BusinessRuleEntryClassificationForm {
-	return NewBusinessRuleEntryClassificationForm(x.Doc(), x.Path()+"/classification")
+	return NewBusinessRuleEntryClassificationForm(x.Doc(), x.Path()+"/BIRU-CLAS")
 }
 
 func (x *BusinessRuleEntry) RuleLogic() *BusinessRuleEntryRuleLogicForm {
-	return NewBusinessRuleEntryRuleLogicForm(x.Doc(), x.Path()+"/ruleLogic")
+	return NewBusinessRuleEntryRuleLogicForm(x.Doc(), x.Path()+"/BIRU-RULE")
 }
 
 func (x *BusinessRuleEntry) Implementation() *BusinessRuleEntryImplementationForm {
-	return NewBusinessRuleEntryImplementationForm(x.Doc(), x.Path()+"/implementation")
+	return NewBusinessRuleEntryImplementationForm(x.Doc(), x.Path()+"/BIRU-IMPL")
 }
 
 func (x *BusinessRuleEntry) ExceptionHandling() *BusinessRuleEntryExceptionHandlingForm {
-	return NewBusinessRuleEntryExceptionHandlingForm(x.Doc(), x.Path()+"/exceptionHandling")
+	return NewBusinessRuleEntryExceptionHandlingForm(x.Doc(), x.Path()+"/BIRU-EXCE")
 }
 
 func (x *BusinessRuleEntry) Governance() *BusinessRuleEntryGovernanceForm {
-	return NewBusinessRuleEntryGovernanceForm(x.Doc(), x.Path()+"/governance")
+	return NewBusinessRuleEntryGovernanceForm(x.Doc(), x.Path()+"/BIRU-GOVE")
 }
 
 // Contains 0+× AffectedObject.
@@ -7996,7 +7996,7 @@ func NewChangesFromCurrentStructure(doc *som.SpecDocument, path string) *Changes
 }
 
 func (x *ChangesFromCurrentStructure) OverviewContent() *ChangesFromCurrentStructureOverviewContentForm {
-	return NewChangesFromCurrentStructureOverviewContentForm(x.Doc(), x.Path()+"/overviewContent")
+	return NewChangesFromCurrentStructureOverviewContentForm(x.Doc(), x.Path()+"/OCCHG-OVER")
 }
 
 // Detailed description of structural changes.
@@ -9375,11 +9375,11 @@ func (x *CommunicationMatrix) Content() *CommunicationMatrixContentForm {
 
 // Communication matrix diagram.
 func (x *CommunicationMatrix) CommunicationFlowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/communicationFlowDiagram")
+	return x.Doc().ContentOr(x.Path() + "/COMA-COMM")
 }
 
 func (x *CommunicationMatrix) SetCommunicationFlowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/communicationFlowDiagram", value)
+	x.Doc().SetContent(x.Path()+"/COMA-COMM", value)
 }
 
 // Communication types and their distribution rules.
@@ -9600,7 +9600,7 @@ func NewCompatibilityCharacteristic(doc *som.SpecDocument, path string) *Compati
 }
 
 func (x *CompatibilityCharacteristic) CompatibilityContent() *CompatibilityCharacteristicCompatibilityContentForm {
-	return NewCompatibilityCharacteristicCompatibilityContentForm(x.Doc(), x.Path()+"/compatibilityContent")
+	return NewCompatibilityCharacteristicCompatibilityContentForm(x.Doc(), x.Path()+"/CMPT-COMP")
 }
 
 // Compatibility overview.
@@ -12257,20 +12257,20 @@ func (x *ContextDiagram) SetContent(value string) {
 
 // Context diagram in Mermaid format.
 func (x *ContextDiagram) Diagram() string {
-	return x.Doc().ContentOr(x.Path() + "/diagram")
+	return x.Doc().ContentOr(x.Path() + "/CD-DIAG")
 }
 
 func (x *ContextDiagram) SetDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/diagram", value)
+	x.Doc().SetContent(x.Path()+"/CD-DIAG", value)
 }
 
 // Diagram legend and conventions.
 func (x *ContextDiagram) Legend() string {
-	return x.Doc().ContentOr(x.Path() + "/legend")
+	return x.Doc().ContentOr(x.Path() + "/CD-LEGE")
 }
 
 func (x *ContextDiagram) SetLegend(value string) {
-	x.Doc().SetContent(x.Path()+"/legend", value)
+	x.Doc().SetContent(x.Path()+"/CD-LEGE", value)
 }
 
 // 10.8.1. Contextual Help.
@@ -12284,7 +12284,7 @@ func NewContextualHelp(doc *som.SpecDocument, path string) *ContextualHelp {
 }
 
 func (x *ContextualHelp) ContextualHelpContent() *ContextualHelpContextualHelpContentForm {
-	return NewContextualHelpContextualHelpContentForm(x.Doc(), x.Path()+"/contextualHelpContent")
+	return NewContextualHelpContextualHelpContentForm(x.Doc(), x.Path()+"/COHE-CONT")
 }
 
 // Inline help behavior.
@@ -12989,20 +12989,20 @@ func (x *CurrentArchitecture) SetContent(value string) {
 
 // Architecture overview diagram.
 func (x *CurrentArchitecture) ArchitectureDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/architectureDiagram")
+	return x.Doc().ContentOr(x.Path() + "/CARCH-ARCH")
 }
 
 func (x *CurrentArchitecture) SetArchitectureDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/architectureDiagram", value)
+	x.Doc().SetContent(x.Path()+"/CARCH-ARCH", value)
 }
 
 // Deployment topology description.
 func (x *CurrentArchitecture) DeploymentTopology() string {
-	return x.Doc().ContentOr(x.Path() + "/deploymentTopology")
+	return x.Doc().ContentOr(x.Path() + "/CARCH-DEPL")
 }
 
 func (x *CurrentArchitecture) SetDeploymentTopology(value string) {
-	x.Doc().SetContent(x.Path()+"/deploymentTopology", value)
+	x.Doc().SetContent(x.Path()+"/CARCH-DEPL", value)
 }
 
 // Integration patterns used.
@@ -13087,11 +13087,11 @@ func (x *CurrentBusinessProcesses) SetContent(value string) {
 
 // Process landscape diagram.
 func (x *CurrentBusinessProcesses) ProcessLandscapeDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/processLandscapeDiagram")
+	return x.Doc().ContentOr(x.Path() + "/CUBUPR-PROC")
 }
 
 func (x *CurrentBusinessProcesses) SetProcessLandscapeDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/processLandscapeDiagram", value)
+	x.Doc().SetContent(x.Path()+"/CUBUPR-PROC", value)
 }
 
 // Process scope summary.
@@ -13192,20 +13192,20 @@ func (x *CurrentDataLandscape) SetContent(value string) {
 
 // Visual representation of the data landscape.
 func (x *CurrentDataLandscape) DataLandscapeOverviewDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dataLandscapeOverviewDiagram")
+	return x.Doc().ContentOr(x.Path() + "/CUDALA-DATAL")
 }
 
 func (x *CurrentDataLandscape) SetDataLandscapeOverviewDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dataLandscapeOverviewDiagram", value)
+	x.Doc().SetContent(x.Path()+"/CUDALA-DATAL", value)
 }
 
 // Data architecture summary diagram.
 func (x *CurrentDataLandscape) DataArchitectureDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dataArchitectureDiagram")
+	return x.Doc().ContentOr(x.Path() + "/CUDALA-DATA")
 }
 
 func (x *CurrentDataLandscape) SetDataArchitectureDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dataArchitectureDiagram", value)
+	x.Doc().SetContent(x.Path()+"/CUDALA-DATA", value)
 }
 
 // Summary statistics and health indicators.
@@ -13410,11 +13410,11 @@ func (x *CurrentWorkflowEntry) Content() *CurrentWorkflowEntryContentForm {
 
 // Workflow diagram.
 func (x *CurrentWorkflowEntry) WorkflowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/workflowDiagram")
+	return x.Doc().ContentOr(x.Path() + "/CUWF-WORK")
 }
 
 func (x *CurrentWorkflowEntry) SetWorkflowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/workflowDiagram", value)
+	x.Doc().SetContent(x.Path()+"/CUWF-WORK", value)
 }
 
 // Workflow triggers and initiation.
@@ -14220,11 +14220,11 @@ func (x *D04RequirementsSpecification) OrganizationalRequirements() *Organizatio
 // reaches it directly. The authoritative content lives on the Solution
 // Blueprint side.
 func (x *D04RequirementsSpecification) TraceabilityMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
+	return x.Doc().ContentOr(x.Path() + "/RSP-TRAC")
 }
 
 func (x *D04RequirementsSpecification) SetTraceabilityMatrix(value string) {
-	x.Doc().SetContent(x.Path()+"/traceabilityMatrix", value)
+	x.Doc().SetContent(x.Path()+"/RSP-TRAC", value)
 }
 
 // Requirement relationships.
@@ -15708,11 +15708,11 @@ func NewDataAttributeEntry(doc *som.SpecDocument, path string) *DataAttributeEnt
 }
 
 func (x *DataAttributeEntry) Identity() *DataAttributeEntryIdentityForm {
-	return NewDataAttributeEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewDataAttributeEntryIdentityForm(x.Doc(), x.Path()+"/DAATT-IDEN")
 }
 
 func (x *DataAttributeEntry) DataTypeSpec() *DataAttributeEntryDataTypeSpecForm {
-	return NewDataAttributeEntryDataTypeSpecForm(x.Doc(), x.Path()+"/dataTypeSpec")
+	return NewDataAttributeEntryDataTypeSpecForm(x.Doc(), x.Path()+"/DAATT-DATA")
 }
 
 func (x *DataAttributeEntry) Constraints() *som.SomList[*DataAttributeConstraintEntry] {
@@ -15722,15 +15722,15 @@ func (x *DataAttributeEntry) Constraints() *som.SomList[*DataAttributeConstraint
 }
 
 func (x *DataAttributeEntry) Derivation() *DataAttributeEntryDerivationForm {
-	return NewDataAttributeEntryDerivationForm(x.Doc(), x.Path()+"/derivation")
+	return NewDataAttributeEntryDerivationForm(x.Doc(), x.Path()+"/DAATT-DERI")
 }
 
 func (x *DataAttributeEntry) SecurityClassification() *DataAttributeEntrySecurityClassificationForm {
-	return NewDataAttributeEntrySecurityClassificationForm(x.Doc(), x.Path()+"/securityClassification")
+	return NewDataAttributeEntrySecurityClassificationForm(x.Doc(), x.Path()+"/DAATT-SECU")
 }
 
 func (x *DataAttributeEntry) MigrationLineage() *DataAttributeEntryMigrationLineageForm {
-	return NewDataAttributeEntryMigrationLineageForm(x.Doc(), x.Path()+"/migrationLineage")
+	return NewDataAttributeEntryMigrationLineageForm(x.Doc(), x.Path()+"/DAATT-MIGR")
 }
 
 func (x *DataAttributeEntry) DisplayProperties() *som.SomList[*DisplayPropertyEntry] {
@@ -15750,7 +15750,7 @@ func NewDataClassification(doc *som.SpecDocument, path string) *DataClassificati
 }
 
 func (x *DataClassification) Overview() *DataClassificationOverviewForm {
-	return NewDataClassificationOverviewForm(x.Doc(), x.Path()+"/overview")
+	return NewDataClassificationOverviewForm(x.Doc(), x.Path()+"/DATCL-OVER")
 }
 
 // Contains 0+× DataClassificationEntry.
@@ -15773,23 +15773,23 @@ func NewDataClassificationEntry(doc *som.SpecDocument, path string) *DataClassif
 }
 
 func (x *DataClassificationEntry) Identity() *DataClassificationEntryIdentityForm {
-	return NewDataClassificationEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewDataClassificationEntryIdentityForm(x.Doc(), x.Path()+"/DCLSE-IDEN")
 }
 
 func (x *DataClassificationEntry) StorageTransmission() *DataClassificationEntryStorageTransmissionForm {
-	return NewDataClassificationEntryStorageTransmissionForm(x.Doc(), x.Path()+"/storageTransmission")
+	return NewDataClassificationEntryStorageTransmissionForm(x.Doc(), x.Path()+"/DCLSE-STOR")
 }
 
 func (x *DataClassificationEntry) AccessControl() *DataClassificationEntryAccessControlForm {
-	return NewDataClassificationEntryAccessControlForm(x.Doc(), x.Path()+"/accessControl")
+	return NewDataClassificationEntryAccessControlForm(x.Doc(), x.Path()+"/DCLSE-ACCE")
 }
 
 func (x *DataClassificationEntry) RetentionDisposal() *DataClassificationEntryRetentionDisposalForm {
-	return NewDataClassificationEntryRetentionDisposalForm(x.Doc(), x.Path()+"/retentionDisposal")
+	return NewDataClassificationEntryRetentionDisposalForm(x.Doc(), x.Path()+"/DCLSE-RETE")
 }
 
 func (x *DataClassificationEntry) Compliance() *DataClassificationEntryComplianceForm {
-	return NewDataClassificationEntryComplianceForm(x.Doc(), x.Path()+"/compliance")
+	return NewDataClassificationEntryComplianceForm(x.Doc(), x.Path()+"/DCLSE-COMP")
 }
 
 // Contains 0+× HandlingRequirement.
@@ -15909,11 +15909,11 @@ func (x *DataDuplicationAnalysis) DuplicationSummary() *DataDuplicationSummary {
 
 // Visual representation of data redundancy.
 func (x *DataDuplicationAnalysis) DuplicationDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/duplicationDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DADUAN-DUPL")
 }
 
 func (x *DataDuplicationAnalysis) SetDuplicationDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/duplicationDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DADUAN-DUPL", value)
 }
 
 // Individual duplication instances.
@@ -16022,11 +16022,11 @@ func NewDataEntityEntry(doc *som.SpecDocument, path string) *DataEntityEntry {
 }
 
 func (x *DataEntityEntry) Identity() *DataEntityEntryIdentityForm {
-	return NewDataEntityEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewDataEntityEntryIdentityForm(x.Doc(), x.Path()+"/DAENT-IDEN")
 }
 
 func (x *DataEntityEntry) Classification() *DataEntityEntryClassificationForm {
-	return NewDataEntityEntryClassificationForm(x.Doc(), x.Path()+"/classification")
+	return NewDataEntityEntryClassificationForm(x.Doc(), x.Path()+"/DAENT-CLAS")
 }
 
 func (x *DataEntityEntry) VolumeMetrics() *som.SomList[*VolumeMetricEntry] {
@@ -16036,7 +16036,7 @@ func (x *DataEntityEntry) VolumeMetrics() *som.SomList[*VolumeMetricEntry] {
 }
 
 func (x *DataEntityEntry) LifecyclePolicy() *DataEntityEntryLifecyclePolicyForm {
-	return NewDataEntityEntryLifecyclePolicyForm(x.Doc(), x.Path()+"/lifecyclePolicy")
+	return NewDataEntityEntryLifecyclePolicyForm(x.Doc(), x.Path()+"/DAENT-LIFE")
 }
 
 func (x *DataEntityEntry) ComplianceRequirements() *som.SomList[*ComplianceRequirementEntry] {
@@ -16046,7 +16046,7 @@ func (x *DataEntityEntry) ComplianceRequirements() *som.SomList[*ComplianceRequi
 }
 
 func (x *DataEntityEntry) RelationshipSummary() *DataEntityEntryRelationshipSummaryForm {
-	return NewDataEntityEntryRelationshipSummaryForm(x.Doc(), x.Path()+"/relationshipSummary")
+	return NewDataEntityEntryRelationshipSummaryForm(x.Doc(), x.Path()+"/DAENT-RELA")
 }
 
 func (x *DataEntityEntry) TechnicalCharacteristics() *som.SomList[*TechnicalCharacteristicEntry] {
@@ -16249,11 +16249,11 @@ func (x *DataGovernance) GovernanceMaturity() *DataGovernanceMaturity {
 
 // Governance organization structure.
 func (x *DataGovernance) GovernanceOrgChart() string {
-	return x.Doc().ContentOr(x.Path() + "/governanceOrgChart")
+	return x.Doc().ContentOr(x.Path() + "/DAGO-GOVE")
 }
 
 func (x *DataGovernance) SetGovernanceOrgChart(value string) {
-	x.Doc().SetContent(x.Path()+"/governanceOrgChart", value)
+	x.Doc().SetContent(x.Path()+"/DAGO-GOVE", value)
 }
 
 // Data governance policies.
@@ -16557,11 +16557,11 @@ func (x *DataIntegrationPoints) IntegrationSummary() *DataIntegrationSummary {
 
 // Data flow diagram.
 func (x *DataIntegrationPoints) DataFlowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dataFlowDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DAINPO-DATA")
 }
 
 func (x *DataIntegrationPoints) SetDataFlowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dataFlowDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DAINPO-DATA", value)
 }
 
 // Data integration points inventory.
@@ -16897,11 +16897,11 @@ func (x *DataOwnership) OwnershipSummary() *DataOwnershipSummary {
 
 // Data ownership matrix visualization.
 func (x *DataOwnership) OwnershipMatrixDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/ownershipMatrixDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DAOW-OWNE")
 }
 
 func (x *DataOwnership) SetOwnershipMatrixDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/ownershipMatrixDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DAOW-OWNE", value)
 }
 
 // Data ownership assignments by domain.
@@ -17261,11 +17261,11 @@ func (x *DataQualityAssessment) DimensionsSummary() *DataQualityDimensionsSummar
 
 // Quality issues by severity.
 func (x *DataQualityAssessment) QualityIssuesSeverityChart() string {
-	return x.Doc().ContentOr(x.Path() + "/qualityIssuesSeverityChart")
+	return x.Doc().ContentOr(x.Path() + "/DAQUAS-QUAL")
 }
 
 func (x *DataQualityAssessment) SetQualityIssuesSeverityChart(value string) {
-	x.Doc().SetContent(x.Path()+"/qualityIssuesSeverityChart", value)
+	x.Doc().SetContent(x.Path()+"/DAQUAS-QUAL", value)
 }
 
 // Data quality issues inventory.
@@ -17626,11 +17626,11 @@ func (x *DataSourceInventory) SetContent(value string) {
 
 // Visual map of data sources by domain/category.
 func (x *DataSourceInventory) DataSourceMapDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dataSourceMapDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DASOIN-DATA")
 }
 
 func (x *DataSourceInventory) SetDataSourceMapDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dataSourceMapDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DASOIN-DATA", value)
 }
 
 // Contains 0+× DataSource.
@@ -17974,11 +17974,11 @@ func (x *DataVolumesAndGrowth) VolumeSummary() *DataVolumeSummary {
 
 // Growth trend visualization.
 func (x *DataVolumesAndGrowth) GrowthTrendChart() string {
-	return x.Doc().ContentOr(x.Path() + "/growthTrendChart")
+	return x.Doc().ContentOr(x.Path() + "/DVAG-GROW")
 }
 
 func (x *DataVolumesAndGrowth) SetGrowthTrendChart(value string) {
-	x.Doc().SetContent(x.Path()+"/growthTrendChart", value)
+	x.Doc().SetContent(x.Path()+"/DVAG-GROW", value)
 }
 
 // Volume details by data source.
@@ -19127,11 +19127,11 @@ func (x *DependenciesAndIntegrations) SetContent(value string) {
 
 // Dependency matrix diagram.
 func (x *DependenciesAndIntegrations) DependencyDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dependencyDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DEPNT-DEPE")
 }
 
 func (x *DependenciesAndIntegrations) SetDependencyDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dependencyDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DEPNT-DEPE", value)
 }
 
 // 1.1.3.1. Internal Dependencies.
@@ -21999,7 +21999,7 @@ func NewDocumentationQualityCriteria(doc *som.SpecDocument, path string) *Docume
 }
 
 func (x *DocumentationQualityCriteria) DocumentationOverviewContent() *DocumentationQualityCriteriaDocumentationOverviewContentForm {
-	return NewDocumentationQualityCriteriaDocumentationOverviewContentForm(x.Doc(), x.Path()+"/documentationOverviewContent")
+	return NewDocumentationQualityCriteriaDocumentationOverviewContentForm(x.Doc(), x.Path()+"/DOQUCR-DOCU")
 }
 
 // Documentation quality overview narrative.
@@ -22253,29 +22253,29 @@ func (x *DomainBoundaries) SetContent(value string) {
 
 // Context map showing domain boundaries.
 func (x *DomainBoundaries) ContextMap() string {
-	return x.Doc().ContentOr(x.Path() + "/contextMap")
+	return x.Doc().ContentOr(x.Path() + "/DB-CONT")
 }
 
 func (x *DomainBoundaries) SetContextMap(value string) {
-	x.Doc().SetContent(x.Path()+"/contextMap", value)
+	x.Doc().SetContent(x.Path()+"/DB-CONT", value)
 }
 
 // Within-scope items.
 func (x *DomainBoundaries) WithinScope() string {
-	return x.Doc().ContentOr(x.Path() + "/withinScope")
+	return x.Doc().ContentOr(x.Path() + "/DB-WITH")
 }
 
 func (x *DomainBoundaries) SetWithinScope(value string) {
-	x.Doc().SetContent(x.Path()+"/withinScope", value)
+	x.Doc().SetContent(x.Path()+"/DB-WITH", value)
 }
 
 // Outside-scope items.
 func (x *DomainBoundaries) OutsideScope() string {
-	return x.Doc().ContentOr(x.Path() + "/outsideScope")
+	return x.Doc().ContentOr(x.Path() + "/DB-OUTS")
 }
 
 func (x *DomainBoundaries) SetOutsideScope(value string) {
-	x.Doc().SetContent(x.Path()+"/outsideScope", value)
+	x.Doc().SetContent(x.Path()+"/DB-OUTS", value)
 }
 
 // Domain interfaces — contains 0+× DomainInterfaceEntry.
@@ -22549,11 +22549,11 @@ func (x *DomainProcesses) SetContent(value string) {
 
 // Process overview diagram.
 func (x *DomainProcesses) ProcessOverviewDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/processOverviewDiagram")
+	return x.Doc().ContentOr(x.Path() + "/DP-PROC")
 }
 
 func (x *DomainProcesses) SetProcessOverviewDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/processOverviewDiagram", value)
+	x.Doc().SetContent(x.Path()+"/DP-PROC", value)
 }
 
 // Domain process entries — contains 0+× DomainProcessEntry.
@@ -23136,7 +23136,7 @@ func NewEntityRelationshipEntry(doc *som.SpecDocument, path string) *EntityRelat
 }
 
 func (x *EntityRelationshipEntry) Identity() *EntityRelationshipEntryIdentityForm {
-	return NewEntityRelationshipEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewEntityRelationshipEntryIdentityForm(x.Doc(), x.Path()+"/ENRLE-IDEN")
 }
 
 func (x *EntityRelationshipEntry) Participants() *som.SomList[*ParticipantEntry] {
@@ -23146,15 +23146,15 @@ func (x *EntityRelationshipEntry) Participants() *som.SomList[*ParticipantEntry]
 }
 
 func (x *EntityRelationshipEntry) Cardinality() *EntityRelationshipEntryCardinalityForm {
-	return NewEntityRelationshipEntryCardinalityForm(x.Doc(), x.Path()+"/cardinality")
+	return NewEntityRelationshipEntryCardinalityForm(x.Doc(), x.Path()+"/ENRLE-CARD")
 }
 
 func (x *EntityRelationshipEntry) ReferentialIntegrity() *EntityRelationshipEntryReferentialIntegrityForm {
-	return NewEntityRelationshipEntryReferentialIntegrityForm(x.Doc(), x.Path()+"/referentialIntegrity")
+	return NewEntityRelationshipEntryReferentialIntegrityForm(x.Doc(), x.Path()+"/ENRLE-REFE")
 }
 
 func (x *EntityRelationshipEntry) Navigation() *EntityRelationshipEntryNavigationForm {
-	return NewEntityRelationshipEntryNavigationForm(x.Doc(), x.Path()+"/navigation")
+	return NewEntityRelationshipEntryNavigationForm(x.Doc(), x.Path()+"/ENRLE-NAVI")
 }
 
 func (x *EntityRelationshipEntry) RelationshipAttributes() *som.SomList[*RelationshipAttributeEntry] {
@@ -23837,7 +23837,7 @@ func NewErrorHandling(doc *som.SpecDocument, path string) *ErrorHandling {
 }
 
 func (x *ErrorHandling) ErrorPhilosophyContent() *ErrorHandlingErrorPhilosophyContentForm {
-	return NewErrorHandlingErrorPhilosophyContentForm(x.Doc(), x.Path()+"/errorPhilosophyContent")
+	return NewErrorHandlingErrorPhilosophyContentForm(x.Doc(), x.Path()+"/ERHACO-ERRO")
 }
 
 // Error categorization and display priority.
@@ -24098,7 +24098,7 @@ func NewErrorRecovery(doc *som.SpecDocument, path string) *ErrorRecovery {
 }
 
 func (x *ErrorRecovery) RecoveryMechanismsContent() *ErrorRecoveryRecoveryMechanismsContentForm {
-	return NewErrorRecoveryRecoveryMechanismsContentForm(x.Doc(), x.Path()+"/recoveryMechanismsContent")
+	return NewErrorRecoveryRecoveryMechanismsContentForm(x.Doc(), x.Path()+"/ERRE-RECO")
 }
 
 // Data preservation: draft auto-save settings.
@@ -25268,7 +25268,7 @@ func NewExternalInterfaceEntry(doc *som.SpecDocument, path string) *ExternalInte
 }
 
 func (x *ExternalInterfaceEntry) IdentificationContent() *ExternalInterfaceEntryIdentificationContentForm {
-	return NewExternalInterfaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/identificationContent")
+	return NewExternalInterfaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/EIE-IDEN")
 }
 
 // Business purpose and value of this interface.
@@ -25706,11 +25706,11 @@ func (x *ExternalSystemContextEntry) Governance() *ExternalSystemContextEntryGov
 
 // Data mapping details.
 func (x *ExternalSystemContextEntry) DataMapping() string {
-	return x.Doc().ContentOr(x.Path() + "/dataMapping")
+	return x.Doc().ContentOr(x.Path() + "/EXSYCOEN-DATA")
 }
 
 func (x *ExternalSystemContextEntry) SetDataMapping(value string) {
-	x.Doc().SetContent(x.Path()+"/dataMapping", value)
+	x.Doc().SetContent(x.Path()+"/EXSYCOEN-DATA", value)
 }
 
 // Security and support contacts for an external system context.
@@ -26846,7 +26846,7 @@ func NewFlexibilityCharacteristic(doc *som.SpecDocument, path string) *Flexibili
 }
 
 func (x *FlexibilityCharacteristic) FlexibilityContent() *FlexibilityCharacteristicFlexibilityContentForm {
-	return NewFlexibilityCharacteristicFlexibilityContentForm(x.Doc(), x.Path()+"/flexibilityContent")
+	return NewFlexibilityCharacteristicFlexibilityContentForm(x.Doc(), x.Path()+"/FLXC-FLEX")
 }
 
 // Flexibility overview.
@@ -27203,11 +27203,11 @@ func NewFunctionModel(doc *som.SpecDocument, path string) *FunctionModel {
 }
 
 func (x *FunctionModel) DecompositionOverview() *FunctionModelDecompositionOverviewForm {
-	return NewFunctionModelDecompositionOverviewForm(x.Doc(), x.Path()+"/decompositionOverview")
+	return NewFunctionModelDecompositionOverviewForm(x.Doc(), x.Path()+"/FUMO-DECO")
 }
 
 func (x *FunctionModel) MatrixOverview() *FunctionModelMatrixOverviewForm {
-	return NewFunctionModelMatrixOverviewForm(x.Doc(), x.Path()+"/matrixOverview")
+	return NewFunctionModelMatrixOverviewForm(x.Doc(), x.Path()+"/FUMO-MATR")
 }
 
 // 7.3.1. Function Decomposition — contains 0+× Function.
@@ -27446,7 +27446,7 @@ func (x *FunctionalRequirements) SetContent(value string) {
 
 // Functional requirements summary form.
 func (x *FunctionalRequirements) SummaryForm() *FunctionalRequirementsSummaryFormForm {
-	return NewFunctionalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/summaryForm")
+	return NewFunctionalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/FR-SUMM")
 }
 
 // Functional requirements list — contains 1+× Functional Requirement.
@@ -27500,7 +27500,7 @@ func NewFunctionalSuitabilityCharacteristic(doc *som.SpecDocument, path string) 
 }
 
 func (x *FunctionalSuitabilityCharacteristic) FunctionalSuitabilityContent() *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
-	return NewFunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(x.Doc(), x.Path()+"/functionalSuitabilityContent")
+	return NewFunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(x.Doc(), x.Path()+"/FNSU-FUNC")
 }
 
 // Functional suitability overview.
@@ -28011,7 +28011,7 @@ func (x *GoalResources) SetContent(value string) {
 
 // Resource requirement form.
 func (x *GoalResources) ResourcesForm() *GoalResourcesResourcesFormForm {
-	return NewGoalResourcesResourcesFormForm(x.Doc(), x.Path()+"/resourcesForm")
+	return NewGoalResourcesResourcesFormForm(x.Doc(), x.Path()+"/GORE-RESO")
 }
 
 // Resource allocation entries — contains 0+× ResourceAllocationEntry.
@@ -28137,11 +28137,11 @@ func (x *Goals) SetContent(value string) {
 
 // Goal hierarchy diagram.
 func (x *Goals) GoalHierarchyDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/goalHierarchyDiagram")
+	return x.Doc().ContentOr(x.Path() + "/GOALS-GOAL")
 }
 
 func (x *Goals) SetGoalHierarchyDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/goalHierarchyDiagram", value)
+	x.Doc().SetContent(x.Path()+"/GOALS-GOAL", value)
 }
 
 // 4.2.1. Business Goals.
@@ -30466,7 +30466,7 @@ func NewInteractionCapabilityCharacteristic(doc *som.SpecDocument, path string) 
 }
 
 func (x *InteractionCapabilityCharacteristic) InteractionCapabilityContent() *InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
-	return NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm(x.Doc(), x.Path()+"/interactionCapabilityContent")
+	return NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm(x.Doc(), x.Path()+"/INCP-INTE")
 }
 
 // Interaction capability overview.
@@ -31875,11 +31875,11 @@ func (x *IntroductionAndScope) Summary() *SystemSummary {
 
 // System context diagram showing major system boundaries.
 func (x *IntroductionAndScope) SystemContextDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/systemContextDiagram")
+	return x.Doc().ContentOr(x.Path() + "/INSC-SYST")
 }
 
 func (x *IntroductionAndScope) SetSystemContextDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/systemContextDiagram", value)
+	x.Doc().SetContent(x.Path()+"/INSC-SYST", value)
 }
 
 // 4.1. System Description.
@@ -32530,11 +32530,11 @@ func (x *KeyConcepts) SetContent(value string) {
 
 // Conceptual domain model diagram.
 func (x *KeyConcepts) ConceptualModelDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/conceptualModelDiagram")
+	return x.Doc().ContentOr(x.Path() + "/KC-CONC")
 }
 
 func (x *KeyConcepts) SetConceptualModelDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/conceptualModelDiagram", value)
+	x.Doc().SetContent(x.Path()+"/KC-CONC", value)
 }
 
 // Key concept entries — contains 1+× KeyConceptEntry.
@@ -32874,7 +32874,7 @@ func NewLanguageCountrySelection(doc *som.SpecDocument, path string) *LanguageCo
 }
 
 func (x *LanguageCountrySelection) LanguageSelectionContent() *LanguageCountrySelectionLanguageSelectionContentForm {
-	return NewLanguageCountrySelectionLanguageSelectionContentForm(x.Doc(), x.Path()+"/languageSelectionContent")
+	return NewLanguageCountrySelectionLanguageSelectionContentForm(x.Doc(), x.Path()+"/LACOSE-LANG")
 }
 
 // Default locale behavior.
@@ -33620,7 +33620,7 @@ func NewLocalizationProcess(doc *som.SpecDocument, path string) *LocalizationPro
 }
 
 func (x *LocalizationProcess) LocalizationProcessContent() *LocalizationProcessLocalizationProcessContentForm {
-	return NewLocalizationProcessLocalizationProcessContentForm(x.Doc(), x.Path()+"/localizationProcessContent")
+	return NewLocalizationProcessLocalizationProcessContentForm(x.Doc(), x.Path()+"/LOPR-LOCA")
 }
 
 // Review process.
@@ -34171,7 +34171,7 @@ func NewMaintainabilityCharacteristic(doc *som.SpecDocument, path string) *Maint
 }
 
 func (x *MaintainabilityCharacteristic) MaintainabilityContent() *MaintainabilityCharacteristicMaintainabilityContentForm {
-	return NewMaintainabilityCharacteristicMaintainabilityContentForm(x.Doc(), x.Path()+"/maintainabilityContent")
+	return NewMaintainabilityCharacteristicMaintainabilityContentForm(x.Doc(), x.Path()+"/MNTC-MAIN")
 }
 
 // Maintainability overview.
@@ -34921,7 +34921,7 @@ func NewMetricsAndObservability(doc *som.SpecDocument, path string) *MetricsAndO
 }
 
 func (x *MetricsAndObservability) MetricsOverview() *MetricsAndObservabilityMetricsOverviewForm {
-	return NewMetricsAndObservabilityMetricsOverviewForm(x.Doc(), x.Path()+"/metricsOverview")
+	return NewMetricsAndObservabilityMetricsOverviewForm(x.Doc(), x.Path()+"/MEANOB-METR")
 }
 
 // Observability overview narrative.
@@ -35278,7 +35278,7 @@ func NewMigrationConsiderations(doc *som.SpecDocument, path string) *MigrationCo
 }
 
 func (x *MigrationConsiderations) StrategyContent() *MigrationConsiderationsStrategyContentForm {
-	return NewMigrationConsiderationsStrategyContentForm(x.Doc(), x.Path()+"/strategyContent")
+	return NewMigrationConsiderationsStrategyContentForm(x.Doc(), x.Path()+"/MIGCON-STRA")
 }
 
 // Detailed strategy narrative.
@@ -35984,7 +35984,7 @@ func NewMigrationRisks(doc *som.SpecDocument, path string) *MigrationRisks {
 }
 
 func (x *MigrationRisks) GovernanceContent() *MigrationRisksGovernanceContentForm {
-	return NewMigrationRisksGovernanceContentForm(x.Doc(), x.Path()+"/governanceContent")
+	return NewMigrationRisksGovernanceContentForm(x.Doc(), x.Path()+"/MIRI-GOVE")
 }
 
 // Governance and decision authority.
@@ -36642,7 +36642,7 @@ func NewMonitoring(doc *som.SpecDocument, path string) *Monitoring {
 }
 
 func (x *Monitoring) MonitoringOverview() *MonitoringMonitoringOverviewForm {
-	return NewMonitoringMonitoringOverviewForm(x.Doc(), x.Path()+"/monitoringOverview")
+	return NewMonitoringMonitoringOverviewForm(x.Doc(), x.Path()+"/MONITO-MONI")
 }
 
 // Monitoring strategy narrative.
@@ -36810,7 +36810,7 @@ func NewMonitoringDashboards(doc *som.SpecDocument, path string) *MonitoringDash
 }
 
 func (x *MonitoringDashboards) DashboardOverview() *MonitoringDashboardsDashboardOverviewForm {
-	return NewMonitoringDashboardsDashboardOverviewForm(x.Doc(), x.Path()+"/dashboardOverview")
+	return NewMonitoringDashboardsDashboardOverviewForm(x.Doc(), x.Path()+"/MODA-DASH")
 }
 
 // Dashboard overview narrative.
@@ -37088,7 +37088,7 @@ func (x *MultiChannelExperience) SetContent(value string) {
 
 // Multi-channel configuration.
 func (x *MultiChannelExperience) MultiChannelConfiguration() *MultiChannelExperienceMultiChannelConfigurationForm {
-	return NewMultiChannelExperienceMultiChannelConfigurationForm(x.Doc(), x.Path()+"/multiChannelConfiguration")
+	return NewMultiChannelExperienceMultiChannelConfigurationForm(x.Doc(), x.Path()+"/MCE-MULT")
 }
 
 // 10.12. Multi-language Support.
@@ -37108,7 +37108,7 @@ func NewMultiLanguageSupport(doc *som.SpecDocument, path string) *MultiLanguageS
 }
 
 func (x *MultiLanguageSupport) MultiLanguageOverview() *MultiLanguageSupportMultiLanguageOverviewForm {
-	return NewMultiLanguageSupportMultiLanguageOverviewForm(x.Doc(), x.Path()+"/multiLanguageOverview")
+	return NewMultiLanguageSupportMultiLanguageOverviewForm(x.Doc(), x.Path()+"/MLAR-MULT")
 }
 
 // Multi-language overview narrative.
@@ -37139,7 +37139,7 @@ func NewMustPassCriteria(doc *som.SpecDocument, path string) *MustPassCriteria {
 }
 
 func (x *MustPassCriteria) MustPassOverviewContent() *MustPassCriteriaMustPassOverviewContentForm {
-	return NewMustPassCriteriaMustPassOverviewContentForm(x.Doc(), x.Path()+"/mustPassOverviewContent")
+	return NewMustPassCriteriaMustPassOverviewContentForm(x.Doc(), x.Path()+"/MUPACR-MUST")
 }
 
 // Must-pass criteria overview.
@@ -38953,7 +38953,7 @@ func NewOnboardingHelp(doc *som.SpecDocument, path string) *OnboardingHelp {
 }
 
 func (x *OnboardingHelp) OnboardingContent() *OnboardingHelpOnboardingContentForm {
-	return NewOnboardingHelpOnboardingContentForm(x.Doc(), x.Path()+"/onboardingContent")
+	return NewOnboardingHelpOnboardingContentForm(x.Doc(), x.Path()+"/ONHE-ONBO")
 }
 
 // Feature tour settings.
@@ -39476,7 +39476,7 @@ func (x *OrgRequirementImplementationPlan) SetContent(value string) {
 
 // Implementation plan form.
 func (x *OrgRequirementImplementationPlan) PlanForm() *OrgRequirementImplementationPlanPlanFormForm {
-	return NewOrgRequirementImplementationPlanPlanFormForm(x.Doc(), x.Path()+"/planForm")
+	return NewOrgRequirementImplementationPlanPlanFormForm(x.Doc(), x.Path()+"/ORIP-PLAN")
 }
 
 // Implementation activities — contains 0+× OrgImplementationActivity.
@@ -39608,11 +39608,11 @@ func (x *OrganizationalContext) OrganizationalUnits() *som.SomList[*Organization
 
 // Business process coverage.
 func (x *OrganizationalContext) BusinessProcessCoverage() string {
-	return x.Doc().ContentOr(x.Path() + "/businessProcessCoverage")
+	return x.Doc().ContentOr(x.Path() + "/OC-BUSI")
 }
 
 func (x *OrganizationalContext) SetBusinessProcessCoverage(value string) {
-	x.Doc().SetContent(x.Path()+"/businessProcessCoverage", value)
+	x.Doc().SetContent(x.Path()+"/OC-BUSI", value)
 }
 
 // 4.6.1. Organizational Environment.
@@ -39631,7 +39631,7 @@ func NewOrganizationalEnvironment(doc *som.SpecDocument, path string) *Organizat
 }
 
 func (x *OrganizationalEnvironment) OrganizationContent() *OrganizationalEnvironmentOrganizationContentForm {
-	return NewOrganizationalEnvironmentOrganizationContentForm(x.Doc(), x.Path()+"/organizationContent")
+	return NewOrganizationalEnvironmentOrganizationContentForm(x.Doc(), x.Path()+"/OREN-ORGA")
 }
 
 // Organizational maturity indicators.
@@ -39876,7 +39876,7 @@ func (x *OrganizationalRequirements) SetContent(value string) {
 
 // Organizational requirements summary form.
 func (x *OrganizationalRequirements) SummaryForm() *OrganizationalRequirementsSummaryFormForm {
-	return NewOrganizationalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/summaryForm")
+	return NewOrganizationalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/OR-SUMM")
 }
 
 // Organizational requirements list — contains 0+× Organizational Requirement.
@@ -40339,11 +40339,11 @@ func (x *PainPointGapCorrelation) SetContent(value string) {
 
 // Visual correlation between pain points and gaps.
 func (x *PainPointGapCorrelation) CorrelationDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/correlationDiagram")
+	return x.Doc().ContentOr(x.Path() + "/PPGC-CORR")
 }
 
 func (x *PainPointGapCorrelation) SetCorrelationDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/correlationDiagram", value)
+	x.Doc().SetContent(x.Path()+"/PPGC-CORR", value)
 }
 
 // Tabular correlation data.
@@ -40467,20 +40467,20 @@ func (x *PainPointsAndGaps) SetContent(value string) {
 
 // Visual mapping of pain points and their relationships.
 func (x *PainPointsAndGaps) PainPointsOverviewDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/painPointsOverviewDiagram")
+	return x.Doc().ContentOr(x.Path() + "/PPAG-PAIN")
 }
 
 func (x *PainPointsAndGaps) SetPainPointsOverviewDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/painPointsOverviewDiagram", value)
+	x.Doc().SetContent(x.Path()+"/PPAG-PAIN", value)
 }
 
 // Pain points priority matrix (urgency vs impact).
 func (x *PainPointsAndGaps) PainPointsPriorityMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/painPointsPriorityMatrix")
+	return x.Doc().ContentOr(x.Path() + "/PPAG-PAINP")
 }
 
 func (x *PainPointsAndGaps) SetPainPointsPriorityMatrix(value string) {
-	x.Doc().SetContent(x.Path()+"/painPointsPriorityMatrix", value)
+	x.Doc().SetContent(x.Path()+"/PPAG-PAINP", value)
 }
 
 // Summary statistics for all pain points.
@@ -40865,7 +40865,7 @@ func NewPerformanceEfficiencyCharacteristic(doc *som.SpecDocument, path string) 
 }
 
 func (x *PerformanceEfficiencyCharacteristic) PerformanceEfficiencyContent() *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
-	return NewPerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(x.Doc(), x.Path()+"/performanceEfficiencyContent")
+	return NewPerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(x.Doc(), x.Path()+"/PEEF-PERF")
 }
 
 // Performance efficiency overview.
@@ -42533,11 +42533,11 @@ func (x *ProcessAdjustments) AdjustmentSummary() *ProcessAdjustmentSummary {
 
 // Visual representation of process adjustments.
 func (x *ProcessAdjustments) ProcessFlowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/processFlowDiagram")
+	return x.Doc().ContentOr(x.Path() + "/PCADJ-PROC")
 }
 
 func (x *ProcessAdjustments) SetProcessFlowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/processFlowDiagram", value)
+	x.Doc().SetContent(x.Path()+"/PCADJ-PROC", value)
 }
 
 // Contains 0+× ProcessAdjustment.
@@ -43173,11 +43173,11 @@ func (x *ProcessInterdependencyMatrix) SetContent(value string) {
 
 // Interdependency diagram.
 func (x *ProcessInterdependencyMatrix) DependencyDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/dependencyDiagram")
+	return x.Doc().ContentOr(x.Path() + "/PRINMA-DEPE")
 }
 
 func (x *ProcessInterdependencyMatrix) SetDependencyDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/dependencyDiagram", value)
+	x.Doc().SetContent(x.Path()+"/PRINMA-DEPE", value)
 }
 
 // Individual process dependencies.
@@ -44164,11 +44164,11 @@ func (x *ProjectOrganizationAndProcess) SetContent(value string) {
 
 // Visual overview of methodology deviations.
 func (x *ProjectOrganizationAndProcess) MethodologyDeviationDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/methodologyDeviationDiagram")
+	return x.Doc().ContentOr(x.Path() + "/PRPO-METH")
 }
 
 func (x *ProjectOrganizationAndProcess) SetMethodologyDeviationDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/methodologyDeviationDiagram", value)
+	x.Doc().SetContent(x.Path()+"/PRPO-METH", value)
 }
 
 // Summary of all methodology deviations.
@@ -44405,7 +44405,7 @@ func NewPrototype(doc *som.SpecDocument, path string) *Prototype {
 }
 
 func (x *Prototype) PrototypeOverview() *PrototypePrototypeOverviewForm {
-	return NewPrototypePrototypeOverviewForm(x.Doc(), x.Path()+"/prototypeOverview")
+	return NewPrototypePrototypeOverviewForm(x.Doc(), x.Path()+"/PROTOT-PROT")
 }
 
 // Prototype timing commitments.
@@ -44471,7 +44471,7 @@ func NewPrototypeFeatureSubset(doc *som.SpecDocument, path string) *PrototypeFea
 }
 
 func (x *PrototypeFeatureSubset) FeatureSubsetContent() *PrototypeFeatureSubsetFeatureSubsetContentForm {
-	return NewPrototypeFeatureSubsetFeatureSubsetContentForm(x.Doc(), x.Path()+"/featureSubsetContent")
+	return NewPrototypeFeatureSubsetFeatureSubsetContentForm(x.Doc(), x.Path()+"/PRFESU-FEAT")
 }
 
 // Included and excluded feature scope.
@@ -44549,7 +44549,7 @@ func NewPrototypeGoals(doc *som.SpecDocument, path string) *PrototypeGoals {
 }
 
 func (x *PrototypeGoals) GoalsContent() *PrototypeGoalsGoalsContentForm {
-	return NewPrototypeGoalsGoalsContentForm(x.Doc(), x.Path()+"/goalsContent")
+	return NewPrototypeGoalsGoalsContentForm(x.Doc(), x.Path()+"/PG-GOAL")
 }
 
 // Risk reduction and assumption testing.
@@ -44655,7 +44655,7 @@ func NewPrototypeType(doc *som.SpecDocument, path string) *PrototypeType {
 }
 
 func (x *PrototypeType) PrototypeTypeOverview() *PrototypeTypePrototypeTypeOverviewForm {
-	return NewPrototypeTypePrototypeTypeOverviewForm(x.Doc(), x.Path()+"/prototypeTypeOverview")
+	return NewPrototypeTypePrototypeTypeOverviewForm(x.Doc(), x.Path()+"/PRTYSE-PROT")
 }
 
 // 10.13.3.1. Reusable Prototype.
@@ -44912,7 +44912,7 @@ func NewQualityFramework(doc *som.SpecDocument, path string) *QualityFramework {
 }
 
 func (x *QualityFramework) FrameworkContent() *QualityFrameworkFrameworkContentForm {
-	return NewQualityFrameworkFrameworkContentForm(x.Doc(), x.Path()+"/frameworkContent")
+	return NewQualityFrameworkFrameworkContentForm(x.Doc(), x.Path()+"/QLFWK-FRAM")
 }
 
 // Quality objective structure and alignment.
@@ -45137,11 +45137,11 @@ func (x *QualityGateAdjustments) AdjustmentSummary() *QualityGateAdjustmentSumma
 
 // Visual representation of gate adjustments.
 func (x *QualityGateAdjustments) GateFlowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/gateFlowDiagram")
+	return x.Doc().ContentOr(x.Path() + "/QGADJ-GATE")
 }
 
 func (x *QualityGateAdjustments) SetGateFlowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/gateFlowDiagram", value)
+	x.Doc().SetContent(x.Path()+"/QGADJ-GATE", value)
 }
 
 // Contains 0+× QualityGateAdjustment.
@@ -45273,7 +45273,7 @@ func NewQualityGateChecklist(doc *som.SpecDocument, path string) *QualityGateChe
 }
 
 func (x *QualityGateChecklist) ChecklistOverviewContent() *QualityGateChecklistChecklistOverviewContentForm {
-	return NewQualityGateChecklistChecklistOverviewContentForm(x.Doc(), x.Path()+"/checklistOverviewContent")
+	return NewQualityGateChecklistChecklistOverviewContentForm(x.Doc(), x.Path()+"/QUGACH-CHEC")
 }
 
 // Quality gate checklist overview.
@@ -45356,7 +45356,7 @@ func NewQualityPrioritization(doc *som.SpecDocument, path string) *QualityPriori
 }
 
 func (x *QualityPrioritization) PrioritizationFrameworkContent() *QualityPrioritizationPrioritizationFrameworkContentForm {
-	return NewQualityPrioritizationPrioritizationFrameworkContentForm(x.Doc(), x.Path()+"/prioritizationFrameworkContent")
+	return NewQualityPrioritizationPrioritizationFrameworkContentForm(x.Doc(), x.Path()+"/QUPR-PRIO")
 }
 
 // Prioritization approach overview.
@@ -46404,7 +46404,7 @@ func NewReliabilityCharacteristic(doc *som.SpecDocument, path string) *Reliabili
 }
 
 func (x *ReliabilityCharacteristic) ReliabilityContent() *ReliabilityCharacteristicReliabilityContentForm {
-	return NewReliabilityCharacteristicReliabilityContentForm(x.Doc(), x.Path()+"/reliabilityContent")
+	return NewReliabilityCharacteristicReliabilityContentForm(x.Doc(), x.Path()+"/RELC-RELI")
 }
 
 // Reliability overview narrative.
@@ -47937,7 +47937,7 @@ func (x *RequirementTraceability) SetContent(value string) {
 
 // Traceability links form.
 func (x *RequirementTraceability) TraceabilityForm() *RequirementTraceabilityTraceabilityFormForm {
-	return NewRequirementTraceabilityTraceabilityFormForm(x.Doc(), x.Path()+"/traceabilityForm")
+	return NewRequirementTraceabilityTraceabilityFormForm(x.Doc(), x.Path()+"/RT-TRAC")
 }
 
 // Linked artifacts and test coverage references.
@@ -48008,25 +48008,25 @@ func (x *RequirementUiSpecification) SetContent(value string) {
 
 // UI specification form.
 func (x *RequirementUiSpecification) UiForm() *RequirementUiSpecificationUiFormForm {
-	return NewRequirementUiSpecificationUiFormForm(x.Doc(), x.Path()+"/uiForm")
+	return NewRequirementUiSpecificationUiFormForm(x.Doc(), x.Path()+"/RUS-UIFO")
 }
 
 // UI layout specification (D4rt Flutter code).
 func (x *RequirementUiSpecification) LayoutCode() string {
-	return x.Doc().ContentOr(x.Path() + "/layoutCode")
+	return x.Doc().ContentOr(x.Path() + "/RUS-LAYO")
 }
 
 func (x *RequirementUiSpecification) SetLayoutCode(value string) {
-	x.Doc().SetContent(x.Path()+"/layoutCode", value)
+	x.Doc().SetContent(x.Path()+"/RUS-LAYO", value)
 }
 
 // UI mockup diagram (fallback if code not available).
 func (x *RequirementUiSpecification) MockupDescription() string {
-	return x.Doc().ContentOr(x.Path() + "/mockupDescription")
+	return x.Doc().ContentOr(x.Path() + "/RUS-MOCK")
 }
 
 func (x *RequirementUiSpecification) SetMockupDescription(value string) {
-	x.Doc().SetContent(x.Path()+"/mockupDescription", value)
+	x.Doc().SetContent(x.Path()+"/RUS-MOCK", value)
 }
 
 // Screen field entries — contains 0+× ScreenFieldEntry.
@@ -48125,16 +48125,16 @@ func (x *RequirementsOverview) SetContent(value string) {
 
 // Requirements overview form.
 func (x *RequirementsOverview) RequirementsForm() *RequirementsOverviewRequirementsFormForm {
-	return NewRequirementsOverviewRequirementsFormForm(x.Doc(), x.Path()+"/requirementsForm")
+	return NewRequirementsOverviewRequirementsFormForm(x.Doc(), x.Path()+"/RO-REQU")
 }
 
 // Traceability matrix overview.
 func (x *RequirementsOverview) TraceabilityMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
+	return x.Doc().ContentOr(x.Path() + "/RO-TRAC")
 }
 
 func (x *RequirementsOverview) SetTraceabilityMatrix(value string) {
-	x.Doc().SetContent(x.Path()+"/traceabilityMatrix", value)
+	x.Doc().SetContent(x.Path()+"/RO-TRAC", value)
 }
 
 // 4.3.1. Functional Requirements.
@@ -48566,7 +48566,7 @@ func NewResponsiveBehavior(doc *som.SpecDocument, path string) *ResponsiveBehavi
 }
 
 func (x *ResponsiveBehavior) LayoutAdaptation() *ResponsiveBehaviorLayoutAdaptationForm {
-	return NewResponsiveBehaviorLayoutAdaptationForm(x.Doc(), x.Path()+"/layoutAdaptation")
+	return NewResponsiveBehaviorLayoutAdaptationForm(x.Doc(), x.Path()+"/REBE-LAYO")
 }
 
 // Navigation patterns per device class.
@@ -48669,7 +48669,7 @@ func NewResponsiveDesign(doc *som.SpecDocument, path string) *ResponsiveDesign {
 }
 
 func (x *ResponsiveDesign) ResponsiveOverview() *ResponsiveDesignResponsiveOverviewForm {
-	return NewResponsiveDesignResponsiveOverviewForm(x.Doc(), x.Path()+"/responsiveOverview")
+	return NewResponsiveDesignResponsiveOverviewForm(x.Doc(), x.Path()+"/REDE-RESP")
 }
 
 // Responsive design narrative.
@@ -48967,7 +48967,7 @@ func NewReusablePrototype(doc *som.SpecDocument, path string) *ReusablePrototype
 }
 
 func (x *ReusablePrototype) ReusableContent() *ReusablePrototypeReusableContentForm {
-	return NewReusablePrototypeReusableContentForm(x.Doc(), x.Path()+"/reusableContent")
+	return NewReusablePrototypeReusableContentForm(x.Doc(), x.Path()+"/REUPRO-REUS")
 }
 
 // Architecture alignment and refactoring expectations.
@@ -49871,11 +49871,11 @@ func (x *RoleAdjustments) AdjustmentSummary() *RoleAdjustmentSummary {
 
 // Visual comparison of standard vs adjusted roles.
 func (x *RoleAdjustments) RoleComparisonDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/roleComparisonDiagram")
+	return x.Doc().ContentOr(x.Path() + "/RLADJ-ROLE")
 }
 
 func (x *RoleAdjustments) SetRoleComparisonDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/roleComparisonDiagram", value)
+	x.Doc().SetContent(x.Path()+"/RLADJ-ROLE", value)
 }
 
 // Contains 0+× RoleAdjustment.
@@ -52785,7 +52785,7 @@ func NewSecurityCharacteristic(doc *som.SpecDocument, path string) *SecurityChar
 }
 
 func (x *SecurityCharacteristic) SecurityContent() *SecurityCharacteristicSecurityContentForm {
-	return NewSecurityCharacteristicSecurityContentForm(x.Doc(), x.Path()+"/securityContent")
+	return NewSecurityCharacteristicSecurityContentForm(x.Doc(), x.Path()+"/SECC-SECU")
 }
 
 // Security overview.
@@ -53311,7 +53311,7 @@ func (x *SecurityRequirements) SetContent(value string) {
 
 // Security requirements summary form.
 func (x *SecurityRequirements) SummaryForm() *SecurityRequirementsSummaryFormForm {
-	return NewSecurityRequirementsSummaryFormForm(x.Doc(), x.Path()+"/summaryForm")
+	return NewSecurityRequirementsSummaryFormForm(x.Doc(), x.Path()+"/SR1-SUMM")
 }
 
 // Security requirements list — contains 0+× Security Requirement.
@@ -54705,7 +54705,7 @@ func (x *SessionModel) SetContent(value string) {
 
 // Session configuration.
 func (x *SessionModel) SessionConfiguration() *SessionModelSessionConfigurationForm {
-	return NewSessionModelSessionConfigurationForm(x.Doc(), x.Path()+"/sessionConfiguration")
+	return NewSessionModelSessionConfigurationForm(x.Doc(), x.Path()+"/SM-SESS")
 }
 
 // Refresh, concurrency, and termination behavior.
@@ -55356,7 +55356,7 @@ func NewSlaAndSloMonitoring(doc *som.SpecDocument, path string) *SlaAndSloMonito
 }
 
 func (x *SlaAndSloMonitoring) SlaOverview() *SlaAndSloMonitoringSlaOverviewForm {
-	return NewSlaAndSloMonitoringSlaOverviewForm(x.Doc(), x.Path()+"/slaOverview")
+	return NewSlaAndSloMonitoringSlaOverviewForm(x.Doc(), x.Path()+"/SASM-SLAO")
 }
 
 // SLA/SLO overview narrative.
@@ -58148,11 +58148,11 @@ func (x *SuccessCriteria) ByCategory() *SuccessCriteriaByCategory {
 
 // Success criteria matrix — overall view.
 func (x *SuccessCriteria) SuccessCriteriaMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/successCriteriaMatrix")
+	return x.Doc().ContentOr(x.Path() + "/SC-SUCC")
 }
 
 func (x *SuccessCriteria) SetSuccessCriteriaMatrix(value string) {
-	x.Doc().SetContent(x.Path()+"/successCriteriaMatrix", value)
+	x.Doc().SetContent(x.Path()+"/SC-SUCC", value)
 }
 
 // Post-implementation review plan.
@@ -58172,47 +58172,47 @@ func NewSuccessCriteriaByCategory(doc *som.SpecDocument, path string) *SuccessCr
 
 // Business outcome criteria overview.
 func (x *SuccessCriteriaByCategory) BusinessCriteria() string {
-	return x.Doc().ContentOr(x.Path() + "/businessCriteria")
+	return x.Doc().ContentOr(x.Path() + "/SCBC-BUSI")
 }
 
 func (x *SuccessCriteriaByCategory) SetBusinessCriteria(value string) {
-	x.Doc().SetContent(x.Path()+"/businessCriteria", value)
+	x.Doc().SetContent(x.Path()+"/SCBC-BUSI", value)
 }
 
 // Technical quality criteria overview.
 func (x *SuccessCriteriaByCategory) TechnicalCriteria() string {
-	return x.Doc().ContentOr(x.Path() + "/technicalCriteria")
+	return x.Doc().ContentOr(x.Path() + "/SCBC-TECH")
 }
 
 func (x *SuccessCriteriaByCategory) SetTechnicalCriteria(value string) {
-	x.Doc().SetContent(x.Path()+"/technicalCriteria", value)
+	x.Doc().SetContent(x.Path()+"/SCBC-TECH", value)
 }
 
 // User satisfaction criteria overview.
 func (x *SuccessCriteriaByCategory) UserCriteria() string {
-	return x.Doc().ContentOr(x.Path() + "/userCriteria")
+	return x.Doc().ContentOr(x.Path() + "/SCBC-USER")
 }
 
 func (x *SuccessCriteriaByCategory) SetUserCriteria(value string) {
-	x.Doc().SetContent(x.Path()+"/userCriteria", value)
+	x.Doc().SetContent(x.Path()+"/SCBC-USER", value)
 }
 
 // Compliance criteria overview.
 func (x *SuccessCriteriaByCategory) ComplianceCriteria() string {
-	return x.Doc().ContentOr(x.Path() + "/complianceCriteria")
+	return x.Doc().ContentOr(x.Path() + "/SCBC-COMP")
 }
 
 func (x *SuccessCriteriaByCategory) SetComplianceCriteria(value string) {
-	x.Doc().SetContent(x.Path()+"/complianceCriteria", value)
+	x.Doc().SetContent(x.Path()+"/SCBC-COMP", value)
 }
 
 // Timeline and budget criteria overview.
 func (x *SuccessCriteriaByCategory) ProjectCriteria() string {
-	return x.Doc().ContentOr(x.Path() + "/projectCriteria")
+	return x.Doc().ContentOr(x.Path() + "/SCBC-PROJ")
 }
 
 func (x *SuccessCriteriaByCategory) SetProjectCriteria(value string) {
-	x.Doc().SetContent(x.Path()+"/projectCriteria", value)
+	x.Doc().SetContent(x.Path()+"/SCBC-PROJ", value)
 }
 
 // Framework for evaluating and accepting success criteria.
@@ -58409,7 +58409,7 @@ func NewSupportAccess(doc *som.SpecDocument, path string) *SupportAccess {
 }
 
 func (x *SupportAccess) SupportAccessContent() *SupportAccessSupportAccessContentForm {
-	return NewSupportAccessSupportAccessContentForm(x.Doc(), x.Path()+"/supportAccessContent")
+	return NewSupportAccessSupportAccessContentForm(x.Doc(), x.Path()+"/SUAC-SUPP")
 }
 
 // Help center configuration.
@@ -59431,7 +59431,7 @@ func NewSystemErrorDisplay(doc *som.SpecDocument, path string) *SystemErrorDispl
 }
 
 func (x *SystemErrorDisplay) SystemErrorContent() *SystemErrorDisplaySystemErrorContentForm {
-	return NewSystemErrorDisplaySystemErrorContentForm(x.Doc(), x.Path()+"/systemErrorContent")
+	return NewSystemErrorDisplaySystemErrorContentForm(x.Doc(), x.Path()+"/SYERDI-SYST")
 }
 
 // Error type handling configuration.
@@ -59935,11 +59935,11 @@ func (x *SystemPurpose) SetContent(value string) {
 
 // Vision Statement.
 func (x *SystemPurpose) VisionStatement() string {
-	return x.Doc().ContentOr(x.Path() + "/visionStatement")
+	return x.Doc().ContentOr(x.Path() + "/SYPUP-VISI")
 }
 
 func (x *SystemPurpose) SetVisionStatement(value string) {
-	x.Doc().SetContent(x.Path()+"/visionStatement", value)
+	x.Doc().SetContent(x.Path()+"/SYPUP-VISI", value)
 }
 
 // 4.1.1.1. Problem Statement.
@@ -59989,7 +59989,7 @@ func NewSystemQualityGoals(doc *som.SpecDocument, path string) *SystemQualityGoa
 }
 
 func (x *SystemQualityGoals) GovernanceContent() *SystemQualityGoalsGovernanceContentForm {
-	return NewSystemQualityGoalsGovernanceContentForm(x.Doc(), x.Path()+"/governanceContent")
+	return NewSystemQualityGoalsGovernanceContentForm(x.Doc(), x.Path()+"/SYQG-GOVE")
 }
 
 // Governance board and escalation details.
@@ -60588,7 +60588,7 @@ func NewSystemToReplaceEntry(doc *som.SpecDocument, path string) *SystemToReplac
 }
 
 func (x *SystemToReplaceEntry) IdentificationContent() *SystemToReplaceEntryIdentificationContentForm {
-	return NewSystemToReplaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/identificationContent")
+	return NewSystemToReplaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/SYTORE-IDEN")
 }
 
 // Classification and ownership details.
@@ -61316,7 +61316,7 @@ func NewTechnicalEnvironment(doc *som.SpecDocument, path string) *TechnicalEnvir
 }
 
 func (x *TechnicalEnvironment) TechnicalOverviewContent() *TechnicalEnvironmentTechnicalOverviewContentForm {
-	return NewTechnicalEnvironmentTechnicalOverviewContentForm(x.Doc(), x.Path()+"/technicalOverviewContent")
+	return NewTechnicalEnvironmentTechnicalOverviewContentForm(x.Doc(), x.Path()+"/TEEN-TECH")
 }
 
 // Architecture governance context.
@@ -61697,7 +61697,7 @@ func (x *TechnicalGoalTestCriteria) SetContent(value string) {
 
 // Test criteria form.
 func (x *TechnicalGoalTestCriteria) TestCriteriaForm() *TechnicalGoalTestCriteriaTestCriteriaFormForm {
-	return NewTechnicalGoalTestCriteriaTestCriteriaFormForm(x.Doc(), x.Path()+"/testCriteriaForm")
+	return NewTechnicalGoalTestCriteriaTestCriteriaFormForm(x.Doc(), x.Path()+"/TGTC-TEST")
 }
 
 // Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
@@ -61986,7 +61986,7 @@ func (x *TechnicalRequirements) SetContent(value string) {
 
 // Technical requirements summary form.
 func (x *TechnicalRequirements) SummaryForm() *TechnicalRequirementsSummaryFormForm {
-	return NewTechnicalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/summaryForm")
+	return NewTechnicalRequirementsSummaryFormForm(x.Doc(), x.Path()+"/TR1-SUMM")
 }
 
 // Technical requirements list — contains 0+× Technical Requirement.
@@ -62966,7 +62966,7 @@ func NewThrowawayPrototype(doc *som.SpecDocument, path string) *ThrowawayPrototy
 }
 
 func (x *ThrowawayPrototype) ThrowawayContent() *ThrowawayPrototypeThrowawayContentForm {
-	return NewThrowawayPrototypeThrowawayContentForm(x.Doc(), x.Path()+"/throwawayContent")
+	return NewThrowawayPrototypeThrowawayContentForm(x.Doc(), x.Path()+"/THPR-THRO")
 }
 
 // Findings and decisions captured from evaluation.
@@ -63728,7 +63728,7 @@ func NewTradeOffDecisions(doc *som.SpecDocument, path string) *TradeOffDecisions
 }
 
 func (x *TradeOffDecisions) TradeOffGovernanceContent() *TradeOffDecisionsTradeOffGovernanceContentForm {
-	return NewTradeOffDecisionsTradeOffGovernanceContentForm(x.Doc(), x.Path()+"/tradeOffGovernanceContent")
+	return NewTradeOffDecisionsTradeOffGovernanceContentForm(x.Doc(), x.Path()+"/TROFDE-TRAD")
 }
 
 // Trade-off decisions overview.
@@ -63831,7 +63831,7 @@ func NewTrainingDeliverableRequirements(doc *som.SpecDocument, path string) *Tra
 }
 
 func (x *TrainingDeliverableRequirements) TrainingContent() *TrainingDeliverableRequirementsTrainingContentForm {
-	return NewTrainingDeliverableRequirementsTrainingContentForm(x.Doc(), x.Path()+"/trainingContent")
+	return NewTrainingDeliverableRequirementsTrainingContentForm(x.Doc(), x.Path()+"/TRMAT-TRAI")
 }
 
 // Training narrative.
@@ -64012,7 +64012,7 @@ func NewTrainingPrototype(doc *som.SpecDocument, path string) *TrainingPrototype
 }
 
 func (x *TrainingPrototype) TrainingContent() *TrainingPrototypeTrainingContentForm {
-	return NewTrainingPrototypeTrainingContentForm(x.Doc(), x.Path()+"/trainingContent")
+	return NewTrainingPrototypeTrainingContentForm(x.Doc(), x.Path()+"/TP-TRAI")
 }
 
 // Code disposition and reimplementation planning.
@@ -64674,7 +64674,7 @@ func NewTranslationProcess(doc *som.SpecDocument, path string) *TranslationProce
 }
 
 func (x *TranslationProcess) TranslationProcessContent() *TranslationProcessTranslationProcessContentForm {
-	return NewTranslationProcessTranslationProcessContentForm(x.Doc(), x.Path()+"/translationProcessContent")
+	return NewTranslationProcessTranslationProcessContentForm(x.Doc(), x.Path()+"/TRPR-TRAN")
 }
 
 // Translation workflow.
@@ -64734,7 +64734,7 @@ func NewTranslationRequirements(doc *som.SpecDocument, path string) *Translation
 }
 
 func (x *TranslationRequirements) TranslationRequirementsContent() *TranslationRequirementsTranslationRequirementsContentForm {
-	return NewTranslationRequirementsTranslationRequirementsContentForm(x.Doc(), x.Path()+"/translationRequirementsContent")
+	return NewTranslationRequirementsTranslationRequirementsContentForm(x.Doc(), x.Path()+"/TRAREQ-TRAN")
 }
 
 // RTL and bidirectional support.
@@ -65296,7 +65296,7 @@ func NewUiComponentEntry(doc *som.SpecDocument, path string) *UiComponentEntry {
 }
 
 func (x *UiComponentEntry) Identity() *UiComponentEntryIdentityForm {
-	return NewUiComponentEntryIdentityForm(x.Doc(), x.Path()+"/identity")
+	return NewUiComponentEntryIdentityForm(x.Doc(), x.Path()+"/UICOMENT-IDEN")
 }
 
 // Wrapper mapping and business purpose.
@@ -65310,7 +65310,7 @@ func (x *UiComponentEntry) Classification() *UiComponentEntryClassification {
 }
 
 func (x *UiComponentEntry) VisualDesign() *UiComponentEntryVisualDesignForm {
-	return NewUiComponentEntryVisualDesignForm(x.Doc(), x.Path()+"/visualDesign")
+	return NewUiComponentEntryVisualDesignForm(x.Doc(), x.Path()+"/UICOMENT-VISU")
 }
 
 // Visual dimensions.
@@ -65332,7 +65332,7 @@ func (x *UiComponentEntry) Surface() *UiComponentEntrySurface {
 // (skipped: visualDiagram has no target type)
 
 func (x *UiComponentEntry) InteractiveBehavior() *UiComponentEntryInteractiveBehaviorForm {
-	return NewUiComponentEntryInteractiveBehaviorForm(x.Doc(), x.Path()+"/interactiveBehavior")
+	return NewUiComponentEntryInteractiveBehaviorForm(x.Doc(), x.Path()+"/UICOMENT-INTE")
 }
 
 // Focus and keyboard behavior.
@@ -65351,23 +65351,23 @@ func (x *UiComponentEntry) Scroll() *UiComponentEntryScroll {
 }
 
 func (x *UiComponentEntry) Responsiveness() *UiComponentEntryResponsivenessForm {
-	return NewUiComponentEntryResponsivenessForm(x.Doc(), x.Path()+"/responsiveness")
+	return NewUiComponentEntryResponsivenessForm(x.Doc(), x.Path()+"/UICOMENT-RESP")
 }
 
 func (x *UiComponentEntry) Accessibility() *UiComponentEntryAccessibilityForm {
-	return NewUiComponentEntryAccessibilityForm(x.Doc(), x.Path()+"/accessibility")
+	return NewUiComponentEntryAccessibilityForm(x.Doc(), x.Path()+"/UICOMENT-ACCE")
 }
 
 func (x *UiComponentEntry) Authorization() *UiComponentEntryAuthorizationForm {
-	return NewUiComponentEntryAuthorizationForm(x.Doc(), x.Path()+"/authorization")
+	return NewUiComponentEntryAuthorizationForm(x.Doc(), x.Path()+"/UICOMENT-AUTH")
 }
 
 func (x *UiComponentEntry) ResourceIntegration() *UiComponentEntryResourceIntegrationForm {
-	return NewUiComponentEntryResourceIntegrationForm(x.Doc(), x.Path()+"/resourceIntegration")
+	return NewUiComponentEntryResourceIntegrationForm(x.Doc(), x.Path()+"/UICOMENT-RESO")
 }
 
 func (x *UiComponentEntry) DataBinding() *UiComponentEntryDataBindingForm {
-	return NewUiComponentEntryDataBindingForm(x.Doc(), x.Path()+"/dataBinding")
+	return NewUiComponentEntryDataBindingForm(x.Doc(), x.Path()+"/UICOMENT-DATA")
 }
 
 // Component behavior narrative.
@@ -65535,7 +65535,7 @@ func NewUiComponents(doc *som.SpecDocument, path string) *UiComponents {
 }
 
 func (x *UiComponents) ComponentLibraryOverview() *UiComponentsComponentLibraryOverviewForm {
-	return NewUiComponentsComponentLibraryOverviewForm(x.Doc(), x.Path()+"/componentLibraryOverview")
+	return NewUiComponentsComponentLibraryOverviewForm(x.Doc(), x.Path()+"/UICO-COMP")
 }
 
 // Visual language and brand alignment.
@@ -65891,7 +65891,7 @@ func (x *UserAccessPermissions) SetContent(value string) {
 
 // Access Permissions Form.
 func (x *UserAccessPermissions) PermissionsForm() *UserAccessPermissionsPermissionsFormForm {
-	return NewUserAccessPermissionsPermissionsFormForm(x.Doc(), x.Path()+"/permissionsForm")
+	return NewUserAccessPermissionsPermissionsFormForm(x.Doc(), x.Path()+"/UAP-PERM")
 }
 
 // Functional and environmental restrictions.
@@ -65967,7 +65967,7 @@ func (x *UserAccessibilityNeeds) SetContent(value string) {
 
 // Accessibility Needs Form.
 func (x *UserAccessibilityNeeds) AccessibilityForm() *UserAccessibilityNeedsAccessibilityFormForm {
-	return NewUserAccessibilityNeedsAccessibilityFormForm(x.Doc(), x.Path()+"/accessibilityForm")
+	return NewUserAccessibilityNeedsAccessibilityFormForm(x.Doc(), x.Path()+"/UAN-ACCE")
 }
 
 // 9.1.2.1. Account States (form).
@@ -66014,7 +66014,7 @@ func NewUserAssistance(doc *som.SpecDocument, path string) *UserAssistance {
 }
 
 func (x *UserAssistance) HelpOverviewContent() *UserAssistanceHelpOverviewContentForm {
-	return NewUserAssistanceHelpOverviewContentForm(x.Doc(), x.Path()+"/helpOverviewContent")
+	return NewUserAssistanceHelpOverviewContentForm(x.Doc(), x.Path()+"/USAS-HELP")
 }
 
 // Content stewardship and help affordances.
@@ -66330,7 +66330,7 @@ func NewUserDocumentationRequirements(doc *som.SpecDocument, path string) *UserD
 }
 
 func (x *UserDocumentationRequirements) DocumentationContent() *UserDocumentationRequirementsDocumentationContentForm {
-	return NewUserDocumentationRequirementsDocumentationContentForm(x.Doc(), x.Path()+"/documentationContent")
+	return NewUserDocumentationRequirementsDocumentationContentForm(x.Doc(), x.Path()+"/DOANTR-DOCU")
 }
 
 // Documentation deliverables provided to users.
@@ -66547,11 +66547,11 @@ func (x *UserJourney) SetContent(value string) {
 
 // User journey diagram.
 func (x *UserJourney) JourneyDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/journeyDiagram")
+	return x.Doc().ContentOr(x.Path() + "/UJ-JOUR")
 }
 
 func (x *UserJourney) SetJourneyDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/journeyDiagram", value)
+	x.Doc().SetContent(x.Path()+"/UJ-JOUR", value)
 }
 
 // Journey stage entries — contains 0+× JourneyStageEntry.
@@ -66577,11 +66577,11 @@ func (x *UserJourney) PainPoints() *som.SomList[*UserJourneyPainPointEntry] {
 
 // Opportunities for delight.
 func (x *UserJourney) OpportunitiesForDelight() string {
-	return x.Doc().ContentOr(x.Path() + "/opportunitiesForDelight")
+	return x.Doc().ContentOr(x.Path() + "/UJ-OPPO")
 }
 
 func (x *UserJourney) SetOpportunitiesForDelight(value string) {
-	x.Doc().SetContent(x.Path()+"/opportunitiesForDelight", value)
+	x.Doc().SetContent(x.Path()+"/UJ-OPPO", value)
 }
 
 // A single pain point entry.
@@ -66925,7 +66925,7 @@ func (x *UserPersonaDetails) SetContent(value string) {
 
 // Persona Details Form.
 func (x *UserPersonaDetails) PersonaForm() *UserPersonaDetailsPersonaFormForm {
-	return NewUserPersonaDetailsPersonaFormForm(x.Doc(), x.Path()+"/personaForm")
+	return NewUserPersonaDetailsPersonaFormForm(x.Doc(), x.Path()+"/UPD-PERS")
 }
 
 // Experience and work context.
@@ -66945,11 +66945,11 @@ func (x *UserPersonaDetails) Behavior() *UserPersonaDetailsBehavior {
 
 // Representative photo or avatar description.
 func (x *UserPersonaDetails) VisualRepresentation() string {
-	return x.Doc().ContentOr(x.Path() + "/visualRepresentation")
+	return x.Doc().ContentOr(x.Path() + "/UPD-VISU")
 }
 
 func (x *UserPersonaDetails) SetVisualRepresentation(value string) {
-	x.Doc().SetContent(x.Path()+"/visualRepresentation", value)
+	x.Doc().SetContent(x.Path()+"/UPD-VISU", value)
 }
 
 // Key quotes that represent this persona's mindset.
@@ -67170,7 +67170,7 @@ func (x *UserTrainingRequirements) SetContent(value string) {
 
 // Training Requirements Form.
 func (x *UserTrainingRequirements) TrainingForm() *UserTrainingRequirementsTrainingFormForm {
-	return NewUserTrainingRequirementsTrainingFormForm(x.Doc(), x.Path()+"/trainingForm")
+	return NewUserTrainingRequirementsTrainingFormForm(x.Doc(), x.Path()+"/USTRRE-TRAI")
 }
 
 // Training topics — contains 0+× TrainingTopicEntry.
@@ -67370,7 +67370,7 @@ func NewValidationFeedback(doc *som.SpecDocument, path string) *ValidationFeedba
 }
 
 func (x *ValidationFeedback) ValidationDisplayContent() *ValidationFeedbackValidationDisplayContentForm {
-	return NewValidationFeedbackValidationDisplayContentForm(x.Doc(), x.Path()+"/validationDisplayContent")
+	return NewValidationFeedbackValidationDisplayContentForm(x.Doc(), x.Path()+"/VAFE-VALI")
 }
 
 // Display placement details.
@@ -68134,7 +68134,7 @@ func NewWcagCompliance(doc *som.SpecDocument, path string) *WcagCompliance {
 }
 
 func (x *WcagCompliance) WcagComplianceContent() *WcagComplianceWcagComplianceContentForm {
-	return NewWcagComplianceWcagComplianceContentForm(x.Doc(), x.Path()+"/wcagComplianceContent")
+	return NewWcagComplianceWcagComplianceContentForm(x.Doc(), x.Path()+"/WCCO-WCAG")
 }
 
 // Operable principles.
@@ -68229,7 +68229,7 @@ func NewWeightedQualityMatrix(doc *som.SpecDocument, path string) *WeightedQuali
 }
 
 func (x *WeightedQualityMatrix) MatrixConfigContent() *WeightedQualityMatrixMatrixConfigContentForm {
-	return NewWeightedQualityMatrixMatrixConfigContentForm(x.Doc(), x.Path()+"/matrixConfigContent")
+	return NewWeightedQualityMatrixMatrixConfigContentForm(x.Doc(), x.Path()+"/WEQUMA-MATR")
 }
 
 // Weighted quality matrix narrative.
@@ -68355,11 +68355,11 @@ func (x *WorkflowDescriptions) SetContent(value string) {
 
 // Workflow overview diagram.
 func (x *WorkflowDescriptions) WorkflowOverviewDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/workflowOverviewDiagram")
+	return x.Doc().ContentOr(x.Path() + "/WODE-WORK")
 }
 
 func (x *WorkflowDescriptions) SetWorkflowOverviewDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/workflowOverviewDiagram", value)
+	x.Doc().SetContent(x.Path()+"/WODE-WORK", value)
 }
 
 // Workflow summary table.
@@ -68523,11 +68523,11 @@ func NewWorkflowStepSystem(doc *som.SpecDocument, path string) *WorkflowStepSyst
 }
 
 func (x *WorkflowStepSystem) Name() string {
-	return x.Doc().ContentOr(x.Path() + "/name")
+	return x.Doc().ContentOr(x.Path() + "/WOSTSY-NAME")
 }
 
 func (x *WorkflowStepSystem) SetName(value string) {
-	x.Doc().SetContent(x.Path()+"/name", value)
+	x.Doc().SetContent(x.Path()+"/WOSTSY-NAME", value)
 }
 
 // Summary entry for a single workflow.

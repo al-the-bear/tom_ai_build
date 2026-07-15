@@ -166,7 +166,49 @@ class DocSpecsSchemaGenerator {
   static String toYamlString(DocSpecSchema schema) {
     final header = '# Generated from the TomSpecs object model — do not edit.\n'
         '# Schema: ${schema.fullId}\n\n';
-    return header + json2yaml(schema.toYaml());
+    return header + json2yaml(_escapeForJson2Yaml(schema.toYaml()));
+  }
+
+  /// Pre-escapes string scalars that `json2yaml` (3.0.1) will render as a
+  /// double-quoted YAML scalar.
+  ///
+  /// json2yaml double-quotes a single-line scalar when it looks numeric or
+  /// boolean, or contains a YAML special character (`,`, `:`​ , `[`, …), but it
+  /// never escapes an embedded `"` or `\` inside that quoted scalar — so a
+  /// free-text description such as `... (e.g., "orders", "payments").` is
+  /// emitted as invalid YAML and fails to reload. We cannot patch the package,
+  /// so we mirror its quoting predicate here and escape `\` then `"` for
+  /// exactly the strings it will quote; json2yaml then wraps the already-escaped
+  /// text, yielding a valid double-quoted scalar. Multi-line strings take
+  /// json2yaml's block-scalar path and need no escaping, so they are left alone.
+  static dynamic _escapeForJson2Yaml(dynamic value) {
+    if (value is Map) {
+      return value.map<String, dynamic>(
+          (k, v) => MapEntry(k as String, _escapeForJson2Yaml(v)));
+    }
+    if (value is Iterable) {
+      return value.map(_escapeForJson2Yaml).toList();
+    }
+    if (value is String) {
+      final isMultiline = value.trim().contains('\n');
+      if (!isMultiline && _json2yamlWillQuote(value)) {
+        return value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+      }
+    }
+    return value;
+  }
+
+  /// Replicates json2yaml's generic-style `_requiresQuotes` predicate: a scalar
+  /// is double-quoted when it parses as a number, equals `true`/`false`, or
+  /// contains one of json2yaml's YAML special-character markers.
+  static bool _json2yamlWillQuote(String s) {
+    if (s.isNotEmpty && num.tryParse(s) != null) return true;
+    if (s == 'true' || s == 'false') return true;
+    const specials = [
+      ': ', '[', ']', '{', '}', '>', '!', '*', '&', '|', '%', ' #', '`', '@',
+      ',', '?',
+    ];
+    return specials.any(s.contains);
   }
 
   /// The on-disk filename for a schema (e.g. `project-definition.1.0`).
