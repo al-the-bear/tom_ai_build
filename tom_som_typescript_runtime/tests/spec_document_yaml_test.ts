@@ -117,6 +117,23 @@ function _model(): SpecModel {
             type: 'int',
             serializationOrder: 6,
           },
+          {
+            // Class-level-only @SectionId: the field carries no id, so its key
+            // resolves to the target class's id (`CTRL control:`) — the DR1
+            // §2.2 fallback.
+            name: 'control',
+            kind: 'complex',
+            type: 'Control',
+            serializationOrder: 7,
+          },
+        ],
+      },
+      Control: {
+        name: 'Control',
+        sectionId: 'CTRL',
+        fields: [
+          { name: 'summary', kind: 'content', sectionId: 'CTRL-SUM' },
+          { name: 'owner', kind: 'content' },
         ],
       },
       Scope: {
@@ -406,10 +423,32 @@ function testStrictDecode(): void {
   _check('decode.review', Object.keys(c.review).includes('D00/a'));
 }
 
+function testClassLevelOnlyKey(): void {
+  // A section whose @SectionId lives only on the target class keys by that
+  // class id (DR1 §2.2 field-id-else-class-id). The `control` field carries no
+  // id; its target class `Control` carries `CTRL`, so the key is `CTRL
+  // control:`. The leaves keep their own content keys: `CTRL-SUM summary:`
+  // (field id) and bare `owner:` (no id).
+  const doc = new SpecDocument();
+  doc.setContent('D00/control/CTRL-SUM', 'controlled summary');
+  doc.setContent('D00/control/owner', 'the owner');
+  const yaml = _enc(doc);
+  _check('clskey.section', yaml.includes('\n    CTRL control:\n'), yaml);
+  _check('clskey.leafId', yaml.includes('\n      CTRL-SUM summary:'), yaml);
+  _check('clskey.leafBare', yaml.includes('\n      owner:'), yaml);
+  const out = _roundTrip(doc);
+  _check(
+    'clskey.rt.summary',
+    out.content('D00/control/CTRL-SUM') === 'controlled summary',
+  );
+  _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
+}
+
 function main(): number {
   testEncode();
   testRoundTrip();
   testStrictDecode();
+  testClassLevelOnlyKey();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

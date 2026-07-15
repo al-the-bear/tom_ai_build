@@ -138,7 +138,7 @@ function testModelMeta(model: SpecModel): void {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 3, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 4, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
@@ -154,6 +154,7 @@ function testModelMeta(model: SpecModel): void {
         'items',
         'refs',
         'meta',
+        'control',
       ]),
       String(names),
     );

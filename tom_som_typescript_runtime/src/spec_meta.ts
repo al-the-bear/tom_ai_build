@@ -174,6 +174,7 @@ export interface SomMetaNodeInit {
   typeName: string;
   memberName?: string | null;
   sectionId?: string | null;
+  classSectionId?: string | null;
   sectionIdPattern?: string | null;
   serializationOrder?: number | null;
   min?: number | null;
@@ -217,6 +218,11 @@ export class SomMetaNode {
   memberName: string | null;
   /** The effective `@SectionId` (field-level wins over class-level). */
   sectionId: string | null;
+  /** The target class's own `@SectionId` (DR1 §2.2 fallback): the id its DR3
+   *  schema type is keyed by, used only to build the mapping key of a
+   *  section/complex node whose field carries no id. Never enters
+   *  {@link segment} — the path stays field-level. */
+  classSectionId: string | null;
   /** The `@SectionIdPattern` on a list field (item ids), when any. */
   sectionIdPattern: string | null;
   /** The structural kind of the node. */
@@ -276,6 +282,8 @@ export class SomMetaNode {
     this.className = init.className;
     this.memberName = init.memberName != null ? init.memberName : null;
     this.sectionId = init.sectionId != null ? init.sectionId : null;
+    this.classSectionId =
+      init.classSectionId != null ? init.classSectionId : null;
     this.sectionIdPattern =
       init.sectionIdPattern != null ? init.sectionIdPattern : null;
     this.kind = init.kind;

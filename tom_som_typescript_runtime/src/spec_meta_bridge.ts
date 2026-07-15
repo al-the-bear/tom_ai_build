@@ -94,6 +94,7 @@ export function buildSomMetaTree(
     className: root.type,
     sectionId:
       root.sectionId != null ? root.sectionId : cls !== null ? cls.sectionId : null,
+    classSectionId: cls !== null ? cls.sectionId : null,
     kind: SomMetaKind.SECTION,
     typeName: root.type,
     docComment: root.doc != null ? root.doc : cls !== null ? cls.doc : null,
@@ -176,6 +177,7 @@ function _fieldNode(
       }
       elementNode = new SomMetaNode({
         className: element.name,
+        classSectionId: element.sectionId,
         kind: SomMetaKind.COMPLEX,
         typeName: element.name,
         docComment: element.doc,
@@ -223,6 +225,7 @@ function _fieldNode(
     className: target !== null ? target.name : owner.name,
     memberName: field.name,
     sectionId: field.sectionId,
+    classSectionId: target !== null ? target.sectionId : null,
     sectionIdPattern: field.sectionIdPattern,
     kind,
     typeName: field.type || field.elementType || field.enumType || 'String',
