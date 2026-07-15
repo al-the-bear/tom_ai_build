@@ -338,6 +338,24 @@ class SomCppEmitter {
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always compiles.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
+  }
+
   void _declField(StringBuffer b, _ClassPlan plan, SpecField f) {
     final acc = _accessor(f.name);
     final setAcc = _setter(f.name);
@@ -385,17 +403,41 @@ class SomCppEmitter {
 
   void _declForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
+    final hasContentMember =
+        fp.field.formFields.any((ff) => ff.name == 'content');
     b
-      ..writeln('// Generated form facade for the `${fp.field.name}` '
-          '@Form section.')
+      ..writeln('// Generated section facade for the `${fp.field.name}` '
+          '@Form section: its own `content` text followed by one typed member '
+          'per form field.')
       ..writeln('class $t : public som::SomNode {')
       ..writeln(' public:')
-      ..writeln('  $t(som::SpecDocument& doc, std::string path);');
+      ..writeln('  $t(som::SpecDocument& doc, std::string path);')
+      ..writeln('  bool canHaveContent() const override { return true; }');
+    if (!hasContentMember) {
+      b
+        ..writeln('  // The section\'s own free-text content, before the form '
+            'fields.')
+        ..writeln('  std::string content() const;')
+        ..writeln('  void setContent(const std::string& value);');
+    }
     for (final ff in fp.field.formFields) {
       final acc = _accessor(ff.name);
       final setAcc = _setter(ff.name);
-      b.writeln('  std::string $acc() const;');
-      b.writeln('  void $setAcc(const std::string& value);');
+      switch (_scalarType(ff.type)) {
+        case 'int':
+          b.writeln('  std::optional<long> $acc() const;');
+          b.writeln('  void $setAcc(std::optional<long> value);');
+        case 'double':
+        case 'num':
+          b.writeln('  std::optional<double> $acc() const;');
+          b.writeln('  void $setAcc(std::optional<double> value);');
+        case 'bool':
+          b.writeln('  std::optional<bool> $acc() const;');
+          b.writeln('  void $setAcc(std::optional<bool> value);');
+        default:
+          b.writeln('  std::string $acc() const;');
+          b.writeln('  void $setAcc(const std::string& value);');
+      }
     }
     b.writeln('};');
   }
@@ -580,20 +622,73 @@ class SomCppEmitter {
 
   void _defineForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
+    final hasContentMember =
+        fp.field.formFields.any((ff) => ff.name == 'content');
     b
       ..writeln('$t::$t(som::SpecDocument& doc, std::string path)')
       ..writeln('    : som::SomNode(doc, std::move(path)) {}');
+    if (!hasContentMember) {
+      b
+        ..writeln('std::string $t::content() const {')
+        ..writeln('  return doc().content(path());')
+        ..writeln('}')
+        ..writeln('void $t::setContent(const std::string& value) {')
+        ..writeln('  doc().setContent(path(), value);')
+        ..writeln('}');
+    }
     for (final ff in fp.field.formFields) {
       final acc = _accessor(ff.name);
       final setAcc = _setter(ff.name);
       final field = _cppStr(ff.name);
-      b
-        ..writeln('std::string $t::$acc() const {')
-        ..writeln('  return doc().formField(path(), "$field");')
-        ..writeln('}')
-        ..writeln('void $t::$setAcc(const std::string& value) {')
-        ..writeln('  doc().setFormField(path(), "$field", value);')
-        ..writeln('}');
+      switch (_scalarType(ff.type)) {
+        case 'int':
+          b
+            ..writeln('std::optional<long> $t::$acc() const {')
+            ..writeln('  const std::string v = doc().formField(path(), '
+                '"$field");')
+            ..writeln('  if (v.empty()) return std::nullopt;')
+            ..writeln('  try { return std::stol(v); } '
+                'catch (...) { return std::nullopt; }')
+            ..writeln('}')
+            ..writeln('void $t::$setAcc(std::optional<long> value) {')
+            ..writeln('  doc().setFormField(path(), "$field", '
+                'value.has_value() ? std::to_string(*value) : "");')
+            ..writeln('}');
+        case 'double':
+        case 'num':
+          b
+            ..writeln('std::optional<double> $t::$acc() const {')
+            ..writeln('  const std::string v = doc().formField(path(), '
+                '"$field");')
+            ..writeln('  if (v.empty()) return std::nullopt;')
+            ..writeln('  try { return std::stod(v); } '
+                'catch (...) { return std::nullopt; }')
+            ..writeln('}')
+            ..writeln('void $t::$setAcc(std::optional<double> value) {')
+            ..writeln('  doc().setFormField(path(), "$field", '
+                'value.has_value() ? std::to_string(*value) : "");')
+            ..writeln('}');
+        case 'bool':
+          b
+            ..writeln('std::optional<bool> $t::$acc() const {')
+            ..writeln('  const std::string v = doc().formField(path(), '
+                '"$field");')
+            ..writeln('  if (v.empty()) return std::nullopt;')
+            ..writeln('  return v == "true";')
+            ..writeln('}')
+            ..writeln('void $t::$setAcc(std::optional<bool> value) {')
+            ..writeln('  doc().setFormField(path(), "$field", '
+                'value.has_value() ? (*value ? "true" : "false") : "");')
+            ..writeln('}');
+        default:
+          b
+            ..writeln('std::string $t::$acc() const {')
+            ..writeln('  return doc().formField(path(), "$field");')
+            ..writeln('}')
+            ..writeln('void $t::$setAcc(const std::string& value) {')
+            ..writeln('  doc().setFormField(path(), "$field", value);')
+            ..writeln('}');
+      }
     }
   }
 
