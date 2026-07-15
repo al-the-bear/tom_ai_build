@@ -192,6 +192,7 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
       elementNode->typeName = element->name;
       elementNode->docComment = element->doc;
       elementNode->classDocComment = element->doc;
+      elementNode->classSectionId = element->sectionId;
       elementNode->mapsTo = element->mapsTo;
       elementNode->detailedIn = element->detailedIn;
       if (std::find(stack->begin(), stack->end(), element->name) !=
@@ -245,6 +246,7 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
       node->docComment = target->doc;
     }
     node->classDocComment = target->doc;
+    node->classSectionId = target->sectionId;
     node->mapsTo = target->mapsTo;
     node->detailedIn = target->detailedIn;
   }
@@ -328,6 +330,7 @@ std::unique_ptr<SomMetaTree> somBuildMetaTree(const SpecModel& model,
       node->docComment = cls->doc;
     }
     node->classDocComment = cls->doc;
+    node->classSectionId = cls->sectionId;
     node->mapsTo = cls->mapsTo;
     node->detailedIn = cls->detailedIn;
     bridgeSecondLevelIds(cls->annotations, node.get());

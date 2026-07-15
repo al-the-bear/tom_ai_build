@@ -43,10 +43,19 @@ static std::string jsJsonString(const std::string& s) { return jsonEncodeStr(s);
 std::string specYamlNodeKey(const SomMetaNode& node) {
   const std::string& name =
       !node.memberName.empty() ? node.memberName : node.className;
-  if (node.sectionId.empty()) {
+  // Section/complex keys carry the full section id: the field-level @SectionId
+  // when present, else the target class's own @SectionId (DR1 §2.2), mirroring
+  // the markdown heading rule. Content/scalar/enum/form/list-item keys keep
+  // only the field-level id.
+  const std::string& id =
+      (node.sectionId.empty() &&
+       (node.kind == kSomMetaKindSection || node.kind == kSomMetaKindComplex))
+          ? node.classSectionId
+          : node.sectionId;
+  if (id.empty()) {
     return name;
   }
-  return node.sectionId + " " + name;
+  return id + " " + name;
 }
 
 /* plainKeyPattern: ^[A-Za-z0-9_][A-Za-z0-9_. -]*[A-Za-z0-9_.\-]$|^[A-Za-z0-9_]$ */

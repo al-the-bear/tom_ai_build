@@ -107,6 +107,7 @@ class SomMetaNode {
   std::string className;   // exact model class name
   std::string memberName;  // exact field name; "" on root and element subtrees
   std::string sectionId;   // effective @SectionId (field wins over class), "" none
+  std::string classSectionId;  // the instantiated class's own @SectionId, "" none
   std::string sectionIdPattern;  // @SectionIdPattern on a list field, "" none
   const char* kind = kSomMetaKindScalar;  // a kSomMetaKind* constant
   std::string typeName;    // Dart type name ("String", "GoalEntry", …)

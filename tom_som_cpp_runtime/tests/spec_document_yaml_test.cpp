@@ -78,7 +78,17 @@ const char* kModelJson = R"({
          "enumType": "Priority", "enumValues": ["low", "high"],
          "serializationOrder": 5},
         {"name": "count", "kind": "scalar", "type": "int",
-         "serializationOrder": 6}
+         "serializationOrder": 6},
+        {"name": "control", "kind": "complex", "type": "Control",
+         "serializationOrder": 7}
+      ]
+    },
+    "Control": {
+      "name": "Control",
+      "sectionId": "CTRL",
+      "fields": [
+        {"name": "summary", "kind": "content", "sectionId": "CTRL-SUM"},
+        {"name": "owner", "kind": "content"}
       ]
     },
     "Scope": {
@@ -261,6 +271,24 @@ void yamlTestEncode() {
   }
 }
 
+/* A complex field with no field-level @SectionId keys on its target class's
+ * own @SectionId (DR1 §2.2 class fallback); its id-less leaf keeps a bare key
+ * while its own document path segment stays field-level (`control`). */
+void yamlTestClassLevelOnlyKey() {
+  som::SpecDocument doc;
+  doc.setContent("D00/control/CTRL-SUM", "control summary");
+  doc.setContent("D00/control/owner", "team alpha");
+  std::string yaml = yamlEnc(doc, "");
+  check("classKey.complexKey", contains(yaml, "\n    CTRL control:\n"), yaml);
+  check("classKey.leafId", contains(yaml, "\n      CTRL-SUM summary: |2-\n"), yaml);
+  check("classKey.leafBare", contains(yaml, "\n      owner: |2-\n"), yaml);
+  som::SpecYamlContents rt = yamlRoundTrip(doc);
+  check("classKey.roundTripSummary",
+        contentOr(rt.document, "D00/control/CTRL-SUM") == "control summary");
+  check("classKey.roundTripOwner",
+        contentOr(rt.document, "D00/control/owner") == "team alpha");
+}
+
 void yamlTestRoundTrip() {
   som::SpecDocument populated = yamlPopulated();
 
@@ -425,6 +453,7 @@ int main() {
   }
 
   yamlTestEncode();
+  yamlTestClassLevelOnlyKey();
   yamlTestRoundTrip();
   yamlTestStrictDecode();
 
