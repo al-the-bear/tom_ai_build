@@ -458,6 +458,33 @@ Map<String, dynamic> _buildMeta() => {
               'sectionId': 'META',
               'type': 'Meta'
             },
+            {
+              // A class-level-only `@SectionId`: the `control` field itself has
+              // NO id, so its key resolves to the TARGET CLASS's id — the DR1
+              // §2.2 field-id-else-class-id fallback (YR01). Pins that a
+              // section/complex node heads under `CTRL control:` (yaml) /
+              // `<!--[CTRL]-->` (markdown) even without a field id, while its
+              // leaves keep field-level (or bare) content keys.
+              'name': 'control',
+              'kind': 'complex',
+              'type': 'Control'
+            },
+          ],
+        },
+        'Control': {
+          'name': 'Control',
+          'sectionId': 'CTRL',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'CTRL'}
+            },
+          ],
+          'fields': [
+            // `summary` keeps a field-level content key (`CTRL-SUM summary:`);
+            // `owner` is id-less and keeps a bare content key (`owner:`).
+            {'name': 'summary', 'kind': 'content', 'sectionId': 'CTRL-SUM'},
+            {'name': 'owner', 'kind': 'content'},
           ],
         },
         'Item': {
@@ -522,6 +549,11 @@ SpecDocument _buildDocument() {
     final t = d.addListItem('DEMO/META/tags');
     d.setContent(t, tag);
   }
+  // A class-level-only section (`Control`, id `CTRL`): its container heads under
+  // `CTRL control:` even though the `control` field has no id, while its leaves
+  // keep their own content keys (`CTRL-SUM summary:` / bare `owner:`).
+  d.setContent('DEMO/control/CTRL-SUM', 'Controlled summary');
+  d.setContent('DEMO/control/owner', 'ctrl-owner');
   return d;
 }
 
@@ -557,6 +589,10 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     'DEMO/META/OWNR',
     'DEMO/META/tags',
     'DEMO/META/tags-1',
+    // The class-level-only section and its two leaves (YR02).
+    'DEMO/control',
+    'DEMO/control/CTRL-SUM',
+    'DEMO/control/owner',
     'DEMO/ghost',
     'DEMO/items-1/ghost',
     'WRONG',

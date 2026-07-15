@@ -78,3 +78,11 @@ no
 
 plain
 
+## <!--[CTRL]--> Control
+
+ctrl-owner
+
+### <!--[CTRL-SUM]--> Summary
+
+Controlled summary
+

@@ -14,6 +14,8 @@
         "DEMO/REF-LST-2": "DR1",
         "DEMO/SUM": "Line one\nLine two\n\nLine four",
         "DEMO/TTL": "Hello",
+        "DEMO/control/CTRL-SUM": "Controlled summary",
+        "DEMO/control/owner": "ctrl-owner",
         "DEMO/items-1/STS": "open",
         "DEMO/items-1/label": "First",
         "DEMO/items-2/STS": "done",

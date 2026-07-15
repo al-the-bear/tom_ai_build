@@ -103,6 +103,34 @@
           "kind": "complex",
           "sectionId": "META",
           "type": "Meta"
+        },
+        {
+          "name": "control",
+          "kind": "complex",
+          "type": "Control"
+        }
+      ]
+    },
+    "Control": {
+      "name": "Control",
+      "sectionId": "CTRL",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CTRL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "summary",
+          "kind": "content",
+          "sectionId": "CTRL-SUM"
+        },
+        {
+          "name": "owner",
+          "kind": "content"
         }
       ]
     },

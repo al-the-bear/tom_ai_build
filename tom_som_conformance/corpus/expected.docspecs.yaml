@@ -41,3 +41,8 @@ document:
         tags-3: |2-
           1:30
         tags-4: plain
+    CTRL control:
+      CTRL-SUM summary: |2-
+        Controlled summary
+      owner: |2-
+        ctrl-owner

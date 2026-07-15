@@ -128,6 +128,30 @@
     "isValueLeaf": true
   },
   {
+    "path": "DEMO/control",
+    "resolves": true,
+    "kind": "complex",
+    "field": "control",
+    "targetClass": "Control",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/control/CTRL-SUM",
+    "resolves": true,
+    "kind": "content",
+    "field": "summary",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/control/owner",
+    "resolves": true,
+    "kind": "content",
+    "field": "owner",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
     "path": "DEMO/ghost",
     "resolves": false,
     "kind": null,
