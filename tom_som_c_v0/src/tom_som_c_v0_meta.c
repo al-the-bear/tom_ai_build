@@ -18988,6 +18988,7 @@ static void meta_build_affected_function_entry_content(SomMetaNode *n) {
 static void meta_build_affected_function_entry_function_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "AffectedFunctionEntry");
   meta_set(&n->member_name, "functionRef");
+  meta_set(&n->section_id, "AFFN-FUNC-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -19038,6 +19039,7 @@ static void meta_build_affected_object_entry_content(SomMetaNode *n) {
 static void meta_build_affected_object_entry_object_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "AffectedObjectEntry");
   meta_set(&n->member_name, "objectRef");
+  meta_set(&n->section_id, "AFOB-OBJE-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -29868,6 +29870,7 @@ static void meta_build_business_rule_reference_entry_content(SomMetaNode *n) {
 static void meta_build_business_rule_reference_entry_rule_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleReferenceEntry");
   meta_set(&n->member_name, "ruleRef");
+  meta_set(&n->section_id, "BIRURE-RULE-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -48662,6 +48665,7 @@ static void meta_build_data_entity_reference_entry_content(SomMetaNode *n) {
 static void meta_build_data_entity_reference_entry_related_entity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityReferenceEntry");
   meta_set(&n->member_name, "relatedEntity");
+  meta_set(&n->section_id, "DAENRE-RELA-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63479,6 +63483,7 @@ static void meta_build_entity_relationship_entry_relationship_attributes_elem(So
 static void meta_build_entity_relationship_entry_source_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "sourceEntityRef");
+  meta_set(&n->section_id, "ENRLE-SOUR-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -63494,6 +63499,7 @@ static void meta_build_entity_relationship_entry_source_entity_ref(SomMetaNode *
 static void meta_build_entity_relationship_entry_target_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "targetEntityRef");
+  meta_set(&n->section_id, "ENRLE-TARG-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -69132,6 +69138,7 @@ static void meta_build_external_service_dependency_entry_risk(SomMetaNode *n) {
 static void meta_build_external_service_dependency_entry_primary_dependent_system(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
   meta_set(&n->member_name, "primaryDependentSystem");
+  meta_set(&n->section_id, "EXSDE-PRIM-REF");
   meta_set(&n->class_section_id, "ESENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemEntry");
@@ -74009,6 +74016,7 @@ static void meta_build_goal_dependency_entry_content(SomMetaNode *n) {
 static void meta_build_goal_dependency_entry_related_goal(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalDependencyEntry");
   meta_set(&n->member_name, "relatedGoal");
+  meta_set(&n->section_id, "GOLDE-RELA-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -83850,6 +83858,7 @@ static void meta_build_key_attribute_entry_governance(SomMetaNode *n) {
 static void meta_build_key_attribute_entry_referenced_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyAttributeEntry");
   meta_set(&n->member_name, "referencedEntityRef");
+  meta_set(&n->section_id, "KEATT-REFE-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -108519,6 +108528,7 @@ static void meta_build_process_metric_entry_targets(SomMetaNode *n) {
 static void meta_build_process_metric_entry_process_reference(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentBusinessProcess");
   meta_set(&n->member_name, "processReference");
+  meta_set(&n->section_id, "PME-PROC-REF");
   meta_set(&n->class_section_id, "CUBIPR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentBusinessProcess");
@@ -118791,6 +118801,7 @@ static void meta_build_requirement_dependency_entry_content(SomMetaNode *n) {
 static void meta_build_requirement_dependency_entry_related_requirement(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementDependencyEntry");
   meta_set(&n->member_name, "relatedRequirement");
+  meta_set(&n->section_id, "RQDEP-RELA-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -119036,6 +119047,7 @@ static void meta_build_requirement_test_case_entry_automation(SomMetaNode *n) {
 static void meta_build_requirement_test_case_entry_related_criterion(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementTestCaseEntry");
   meta_set(&n->member_name, "relatedCriterion");
+  meta_set(&n->section_id, "RQTSC-RELA-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -143095,6 +143107,7 @@ static void meta_build_system_dependency_entry_operations(SomMetaNode *n) {
 static void meta_build_system_dependency_entry_source_system(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
   meta_set(&n->member_name, "sourceSystem");
+  meta_set(&n->section_id, "SYDE-SOUR-REF");
   meta_set(&n->class_section_id, "ESENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemEntry");
@@ -143110,6 +143123,7 @@ static void meta_build_system_dependency_entry_source_system(SomMetaNode *n) {
 static void meta_build_system_dependency_entry_target_system(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
   meta_set(&n->member_name, "targetSystem");
+  meta_set(&n->section_id, "SYDE-TARG-REF");
   meta_set(&n->class_section_id, "ESENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemEntry");
@@ -144086,6 +144100,7 @@ static void meta_build_system_integration_entry_ownership(SomMetaNode *n) {
 static void meta_build_system_integration_entry_source_system(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
   meta_set(&n->member_name, "sourceSystem");
+  meta_set(&n->section_id, "SYIN-SOUR-REF");
   meta_set(&n->class_section_id, "ESENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemEntry");
@@ -144101,6 +144116,7 @@ static void meta_build_system_integration_entry_source_system(SomMetaNode *n) {
 static void meta_build_system_integration_entry_target_system(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemEntry");
   meta_set(&n->member_name, "targetSystem");
+  meta_set(&n->section_id, "SYIN-TARG-REF");
   meta_set(&n->class_section_id, "ESENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemEntry");
@@ -145792,6 +145808,7 @@ static void meta_build_system_task_entry_context(SomMetaNode *n) {
 static void meta_build_system_task_entry_related_use_case(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTaskEntry");
   meta_set(&n->member_name, "relatedUseCase");
+  meta_set(&n->section_id, "SYTS-RELA-REF");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -163650,6 +163667,7 @@ static void meta_build_workflow_actor_entry_content(SomMetaNode *n) {
 static void meta_build_workflow_actor_entry_participating_steps(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowActorEntry");
   meta_set(&n->member_name, "participatingSteps");
+  meta_set(&n->section_id, "WAE-PART-REF");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "WorkflowStepEntry");
   n->has_serialization_order = 1;
@@ -213741,7 +213759,7 @@ SomMetaRef affected_function_entry_nav_content(som_nav_affected_function_entry x
 }
 SomMetaRef affected_function_entry_nav_function_ref(som_nav_affected_function_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "functionRef");
+  char *path = spec_path_join(x.ref.path, "AFFN-FUNC-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213755,7 +213773,7 @@ SomMetaRef affected_object_entry_nav_content(som_nav_affected_object_entry x) {
 }
 SomMetaRef affected_object_entry_nav_object_ref(som_nav_affected_object_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "objectRef");
+  char *path = spec_path_join(x.ref.path, "AFOB-OBJE-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217332,7 +217350,7 @@ SomMetaRef business_rule_reference_entry_nav_content(som_nav_business_rule_refer
 }
 SomMetaRef business_rule_reference_entry_nav_rule_ref(som_nav_business_rule_reference_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ruleRef");
+  char *path = spec_path_join(x.ref.path, "BIRURE-RULE-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223723,7 +223741,7 @@ SomMetaRef data_entity_reference_entry_nav_content(som_nav_data_entity_reference
 }
 SomMetaRef data_entity_reference_entry_nav_related_entity(som_nav_data_entity_reference_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relatedEntity");
+  char *path = spec_path_join(x.ref.path, "DAENRE-RELA-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -228539,14 +228557,14 @@ SomListMetaRef entity_relationship_entry_nav_relationship_attributes(som_nav_ent
 }
 SomMetaRef entity_relationship_entry_nav_source_entity_ref(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "sourceEntityRef");
+  char *path = spec_path_join(x.ref.path, "ENRLE-SOUR-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef entity_relationship_entry_nav_target_entity_ref(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "targetEntityRef");
+  char *path = spec_path_join(x.ref.path, "ENRLE-TARG-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -230303,7 +230321,7 @@ som_nav_external_service_dependency_entry_risk external_service_dependency_entry
 }
 som_nav_existing_system_entry external_service_dependency_entry_nav_primary_dependent_system(som_nav_external_service_dependency_entry x) {
   som_nav_existing_system_entry out;
-  char *path = spec_path_join(x.ref.path, "primaryDependentSystem");
+  char *path = spec_path_join(x.ref.path, "EXSDE-PRIM-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -231815,7 +231833,7 @@ SomMetaRef goal_dependency_entry_nav_content(som_nav_goal_dependency_entry x) {
 }
 SomMetaRef goal_dependency_entry_nav_related_goal(som_nav_goal_dependency_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relatedGoal");
+  char *path = spec_path_join(x.ref.path, "GOLDE-RELA-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -234839,7 +234857,7 @@ som_nav_key_attribute_entry_governance key_attribute_entry_nav_governance(som_na
 }
 SomMetaRef key_attribute_entry_nav_referenced_entity_ref(som_nav_key_attribute_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "referencedEntityRef");
+  char *path = spec_path_join(x.ref.path, "KEATT-REFE-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -242266,7 +242284,7 @@ som_nav_process_metric_entry_targets process_metric_entry_nav_targets(som_nav_pr
 }
 som_nav_current_business_process process_metric_entry_nav_process_reference(som_nav_process_metric_entry x) {
   som_nav_current_business_process out;
-  char *path = spec_path_join(x.ref.path, "processReference");
+  char *path = spec_path_join(x.ref.path, "PME-PROC-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -245276,7 +245294,7 @@ SomMetaRef requirement_dependency_entry_nav_content(som_nav_requirement_dependen
 }
 SomMetaRef requirement_dependency_entry_nav_related_requirement(som_nav_requirement_dependency_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relatedRequirement");
+  char *path = spec_path_join(x.ref.path, "RQDEP-RELA-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -245325,7 +245343,7 @@ som_nav_requirement_test_case_entry_automation requirement_test_case_entry_nav_a
 }
 SomMetaRef requirement_test_case_entry_nav_related_criterion(som_nav_requirement_test_case_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relatedCriterion");
+  char *path = spec_path_join(x.ref.path, "RQTSC-RELA-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -252948,14 +252966,14 @@ som_nav_system_dependency_entry_operations system_dependency_entry_nav_operation
 }
 som_nav_existing_system_entry system_dependency_entry_nav_source_system(som_nav_system_dependency_entry x) {
   som_nav_existing_system_entry out;
-  char *path = spec_path_join(x.ref.path, "sourceSystem");
+  char *path = spec_path_join(x.ref.path, "SYDE-SOUR-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
 som_nav_existing_system_entry system_dependency_entry_nav_target_system(som_nav_system_dependency_entry x) {
   som_nav_existing_system_entry out;
-  char *path = spec_path_join(x.ref.path, "targetSystem");
+  char *path = spec_path_join(x.ref.path, "SYDE-TARG-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -253270,14 +253288,14 @@ som_nav_system_integration_ownership system_integration_entry_nav_ownership(som_
 }
 som_nav_existing_system_entry system_integration_entry_nav_source_system(som_nav_system_integration_entry x) {
   som_nav_existing_system_entry out;
-  char *path = spec_path_join(x.ref.path, "sourceSystem");
+  char *path = spec_path_join(x.ref.path, "SYIN-SOUR-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
 som_nav_existing_system_entry system_integration_entry_nav_target_system(som_nav_system_integration_entry x) {
   som_nav_existing_system_entry out;
-  char *path = spec_path_join(x.ref.path, "targetSystem");
+  char *path = spec_path_join(x.ref.path, "SYIN-TARG-REF");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -253963,7 +253981,7 @@ som_nav_system_task_entry_context system_task_entry_nav_context(som_nav_system_t
 }
 SomMetaRef system_task_entry_nav_related_use_case(som_nav_system_task_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "relatedUseCase");
+  char *path = spec_path_join(x.ref.path, "SYTS-RELA-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -259360,7 +259378,7 @@ SomMetaRef workflow_actor_entry_nav_content(som_nav_workflow_actor_entry x) {
 }
 SomListMetaRef workflow_actor_entry_nav_participating_steps(som_nav_workflow_actor_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "participatingSteps");
+  char *path = spec_path_join(x.ref.path, "WAE-PART-REF");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_workflow_step_entry);
   free(path);
   return out;
@@ -259695,6 +259713,20 @@ SomListMetaRef actor_entry_id_acpe_perm_lst(som_id_actor_entry x) {
   free(path);
   return out;
 }
+SomMetaRef affected_function_entry_id_affn_func_ref(som_id_affected_function_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AFFN-FUNC-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef affected_object_entry_id_afob_obje_ref(som_id_affected_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AFOB-OBJE-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef alternative_flow_entry_id_alst_step_lst(som_id_alternative_flow_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ALST-STEP-LST");
@@ -259930,6 +259962,13 @@ SomListMetaRef business_rule_entry_id_rulexm_exam_lst(som_id_business_rule_entry
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RULEXM-EXAM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_rule_example_entry);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_reference_entry_id_birure_rule_ref(som_id_business_rule_reference_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "BIRURE-RULE-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264133,6 +264172,13 @@ SomListMetaRef data_entity_entry_id_migme_migr_lst(som_id_data_entity_entry x) {
   free(path);
   return out;
 }
+SomMetaRef data_entity_reference_entry_id_daenre_rela_ref(som_id_data_entity_reference_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAENRE-RELA-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef data_source_entry_id_dsee_keye_lst(som_id_data_source_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DSEE-KEYE-LST");
@@ -264179,6 +264225,20 @@ SomListMetaRef entity_relationship_entry_id_relat_rela_lst(som_id_entity_relatio
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RELAT-RELA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_relationship_attribute_entry);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_id_enrle_sour_ref(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-SOUR-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_id_enrle_targ_ref(som_id_entity_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ENRLE-TARG-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264280,10 +264340,10 @@ SomListMetaRef external_partner_connection_entry_id_expaop_oper_lst(som_id_exter
   free(path);
   return out;
 }
-SomListMetaRef external_service_dependency_entry_id_limet_know_lst(som_id_external_service_dependency_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "primaryDependentSystem/LIMET-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_limitation_entry);
+som_id_existing_system_entry external_service_dependency_entry_id_exsde_prim_ref(som_id_external_service_dependency_entry x) {
+  som_id_existing_system_entry out;
+  char *path = spec_path_join(x.ref.path, "EXSDE-PRIM-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264364,6 +264424,13 @@ SomListMetaRef functional_requirement_entry_id_rqtsc_test_lst(som_id_functional_
   free(path);
   return out;
 }
+SomMetaRef goal_dependency_entry_id_golde_rela_ref(som_id_goal_dependency_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GOLDE-RELA-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef identity_provider_entry_id_idprde_deta_lst(som_id_identity_provider_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "IDPRDE-DETA-LST");
@@ -264431,6 +264498,13 @@ SomListMetaRef interaction_entry_id_inburu_busi_lst(som_id_interaction_entry x) 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "INBURU-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interaction_business_rules);
+  free(path);
+  return out;
+}
+SomMetaRef key_attribute_entry_id_keatt_refe_ref(som_id_key_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "KEATT-REFE-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264560,73 +264634,10 @@ SomListMetaRef process_metric_category_id_pme_metr_lst(som_id_process_metric_cat
   free(path);
   return out;
 }
-SomListMetaRef process_metric_entry_id_wosuen_entr_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_summary_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_cuwf_work_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/workflowDescriptions/CUWF-WORK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_current_workflow_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_prmeca_effi_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PRMECA-EFFI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_category);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_prmeca_qual_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PRMECA-QUAL-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_category);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_prmeca_volu_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PRMECA-VOLU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_category);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_prmeca_cost_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PRMECA-COST-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_category);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_prmeca_manu_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PRMECA-MANU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_category);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_pme_item_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/PME-ITEM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_mebaen_entr_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_metrics_baseline_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef process_metric_entry_id_cpie_impr_lst(som_id_process_metric_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "processReference/processPainPoints/CPIE-IMPR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_current_process_improvement_entry);
+som_id_current_business_process process_metric_entry_id_pme_proc_ref(som_id_process_metric_entry x) {
+  som_id_current_business_process out;
+  char *path = spec_path_join(x.ref.path, "PME-PROC-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264707,10 +264718,24 @@ SomListMetaRef report_section_entry_id_rechen_char_lst(som_id_report_section_ent
   free(path);
   return out;
 }
+SomMetaRef requirement_dependency_entry_id_rqdep_rela_ref(som_id_requirement_dependency_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RQDEP-RELA-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef requirement_screen_action_entry_id_acpr_para_lst(som_id_requirement_screen_action_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ACPR-PARA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_action_parameter_entry);
+  free(path);
+  return out;
+}
+SomMetaRef requirement_test_case_entry_id_rqtsc_rela_ref(som_id_requirement_test_case_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RQTSC-RELA-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -264896,31 +264921,38 @@ SomListMetaRef success_criterion_entry_id_sucrre_rela_lst(som_id_success_criteri
   free(path);
   return out;
 }
-SomListMetaRef system_dependency_entry_id_limet_know_lst(som_id_system_dependency_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "sourceSystem/LIMET-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_limitation_entry);
+som_id_existing_system_entry system_dependency_entry_id_syde_sour_ref(som_id_system_dependency_entry x) {
+  som_id_existing_system_entry out;
+  char *path = spec_path_join(x.ref.path, "SYDE-SOUR-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
-SomListMetaRef system_dependency_entry_id_limet_know_lst_2(som_id_system_dependency_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "targetSystem/LIMET-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_limitation_entry);
+som_id_existing_system_entry system_dependency_entry_id_syde_targ_ref(som_id_system_dependency_entry x) {
+  som_id_existing_system_entry out;
+  char *path = spec_path_join(x.ref.path, "SYDE-TARG-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
-SomListMetaRef system_integration_entry_id_limet_know_lst(som_id_system_integration_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "sourceSystem/LIMET-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_limitation_entry);
+som_id_existing_system_entry system_integration_entry_id_syin_sour_ref(som_id_system_integration_entry x) {
+  som_id_existing_system_entry out;
+  char *path = spec_path_join(x.ref.path, "SYIN-SOUR-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
-SomListMetaRef system_integration_entry_id_limet_know_lst_2(som_id_system_integration_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "targetSystem/LIMET-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_limitation_entry);
+som_id_existing_system_entry system_integration_entry_id_syin_targ_ref(som_id_system_integration_entry x) {
+  som_id_existing_system_entry out;
+  char *path = spec_path_join(x.ref.path, "SYIN-TARG-REF");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef system_task_entry_id_syts_rela_ref(som_id_system_task_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SYTS-RELA-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -265208,6 +265240,13 @@ SomListMetaRef utility_navigation_item_entry_id_umie_menu_lst(som_id_utility_nav
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "UMIE-MENU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_utility_menu_item_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef workflow_actor_entry_id_wae_part_ref(som_id_workflow_actor_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "WAE-PART-REF");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_step_entry);
   free(path);
   return out;
 }

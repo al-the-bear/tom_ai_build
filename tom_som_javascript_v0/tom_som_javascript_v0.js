@@ -1357,11 +1357,11 @@ class AffectedFunctionEntry extends SomNode {
   }
 
   get functionRef() {
-    return this.doc.content(this.path + "/functionRef") || '';
+    return this.doc.content(this.path + "/AFFN-FUNC-REF") || '';
   }
 
   set functionRef(value) {
-    this.doc.setContent(this.path + "/functionRef", value);
+    this.doc.setContent(this.path + "/AFFN-FUNC-REF", value);
   }
 }
 
@@ -1378,11 +1378,11 @@ class AffectedObjectEntry extends SomNode {
   }
 
   get objectRef() {
-    return this.doc.content(this.path + "/objectRef") || '';
+    return this.doc.content(this.path + "/AFOB-OBJE-REF") || '';
   }
 
   set objectRef(value) {
-    this.doc.setContent(this.path + "/objectRef", value);
+    this.doc.setContent(this.path + "/AFOB-OBJE-REF", value);
   }
 }
 
@@ -5641,11 +5641,11 @@ class BusinessRuleReferenceEntry extends SomNode {
   }
 
   get ruleRef() {
-    return this.doc.content(this.path + "/ruleRef") || '';
+    return this.doc.content(this.path + "/BIRURE-RULE-REF") || '';
   }
 
   set ruleRef(value) {
-    this.doc.setContent(this.path + "/ruleRef", value);
+    this.doc.setContent(this.path + "/BIRURE-RULE-REF", value);
   }
 }
 
@@ -13624,11 +13624,11 @@ class DataEntityReferenceEntry extends SomNode {
   }
 
   get relatedEntity() {
-    return this.doc.content(this.path + "/relatedEntity") || '';
+    return this.doc.content(this.path + "/DAENRE-RELA-REF") || '';
   }
 
   set relatedEntity(value) {
-    this.doc.setContent(this.path + "/relatedEntity", value);
+    this.doc.setContent(this.path + "/DAENRE-RELA-REF", value);
   }
 }
 
@@ -19585,19 +19585,19 @@ class EntityRelationshipEntry extends SomNode {
   }
 
   get sourceEntityRef() {
-    return this.doc.content(this.path + "/sourceEntityRef") || '';
+    return this.doc.content(this.path + "/ENRLE-SOUR-REF") || '';
   }
 
   set sourceEntityRef(value) {
-    this.doc.setContent(this.path + "/sourceEntityRef", value);
+    this.doc.setContent(this.path + "/ENRLE-SOUR-REF", value);
   }
 
   get targetEntityRef() {
-    return this.doc.content(this.path + "/targetEntityRef") || '';
+    return this.doc.content(this.path + "/ENRLE-TARG-REF") || '';
   }
 
   set targetEntityRef(value) {
-    this.doc.setContent(this.path + "/targetEntityRef", value);
+    this.doc.setContent(this.path + "/ENRLE-TARG-REF", value);
   }
 }
 
@@ -21674,7 +21674,7 @@ class ExternalServiceDependencyEntry extends SomNode {
   }
 
   get primaryDependentSystem() {
-    return new ExistingSystemEntry(this.doc, this.path + "/primaryDependentSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -23590,11 +23590,11 @@ class GoalDependencyEntry extends SomNode {
   }
 
   get relatedGoal() {
-    return this.doc.content(this.path + "/relatedGoal") || '';
+    return this.doc.content(this.path + "/GOLDE-RELA-REF") || '';
   }
 
   set relatedGoal(value) {
-    this.doc.setContent(this.path + "/relatedGoal", value);
+    this.doc.setContent(this.path + "/GOLDE-RELA-REF", value);
   }
 }
 
@@ -27363,11 +27363,11 @@ class KeyAttributeEntry extends SomNode {
   }
 
   get referencedEntityRef() {
-    return this.doc.content(this.path + "/referencedEntityRef") || '';
+    return this.doc.content(this.path + "/KEATT-REFE-REF") || '';
   }
 
   set referencedEntityRef(value) {
-    this.doc.setContent(this.path + "/referencedEntityRef", value);
+    this.doc.setContent(this.path + "/KEATT-REFE-REF", value);
   }
 }
 
@@ -36598,7 +36598,7 @@ class ProcessMetricEntry extends SomNode {
   }
 
   get processReference() {
-    return new CurrentBusinessProcess(this.doc, this.path + "/processReference");
+    return new CurrentBusinessProcess(this.doc, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -40311,11 +40311,11 @@ class RequirementDependencyEntry extends SomNode {
   }
 
   get relatedRequirement() {
-    return this.doc.content(this.path + "/relatedRequirement") || '';
+    return this.doc.content(this.path + "/RQDEP-RELA-REF") || '';
   }
 
   set relatedRequirement(value) {
-    this.doc.setContent(this.path + "/relatedRequirement", value);
+    this.doc.setContent(this.path + "/RQDEP-RELA-REF", value);
   }
 }
 
@@ -40379,11 +40379,11 @@ class RequirementTestCaseEntry extends SomNode {
   }
 
   get relatedCriterion() {
-    return this.doc.content(this.path + "/relatedCriterion") || '';
+    return this.doc.content(this.path + "/RQTSC-RELA-REF") || '';
   }
 
   set relatedCriterion(value) {
-    this.doc.setContent(this.path + "/relatedCriterion", value);
+    this.doc.setContent(this.path + "/RQTSC-RELA-REF", value);
   }
 }
 
@@ -49917,11 +49917,11 @@ class SystemDependencyEntry extends SomNode {
   }
 
   get sourceSystem() {
-    return new ExistingSystemEntry(this.doc, this.path + "/sourceSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-SOUR-REF");
   }
 
   get targetSystem() {
-    return new ExistingSystemEntry(this.doc, this.path + "/targetSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -50296,11 +50296,11 @@ class SystemIntegrationEntry extends SomNode {
   }
 
   get sourceSystem() {
-    return new ExistingSystemEntry(this.doc, this.path + "/sourceSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-SOUR-REF");
   }
 
   get targetSystem() {
-    return new ExistingSystemEntry(this.doc, this.path + "/targetSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -51022,11 +51022,11 @@ class SystemTaskEntry extends SomNode {
   }
 
   get relatedUseCase() {
-    return this.doc.content(this.path + "/relatedUseCase") || '';
+    return this.doc.content(this.path + "/SYTS-RELA-REF") || '';
   }
 
   set relatedUseCase(value) {
-    this.doc.setContent(this.path + "/relatedUseCase", value);
+    this.doc.setContent(this.path + "/SYTS-RELA-REF", value);
   }
 
   // Task workflow steps.
@@ -57684,7 +57684,7 @@ class WorkflowActorEntry extends SomNode {
 
   // Steps this actor participates in.
   get participatingSteps() {
-    return new SomList(this.doc, this.path + "/participatingSteps", (d, p) => new WorkflowStepEntry(d, p));
+    return new SomList(this.doc, this.path + "/WAE-PART-REF", (d, p) => new WorkflowStepEntry(d, p));
   }
 }
 

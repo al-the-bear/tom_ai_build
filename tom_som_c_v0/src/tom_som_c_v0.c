@@ -1738,14 +1738,14 @@ AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedF
   return out;
 }
 char *affected_function_entry_function_ref(const AffectedFunctionEntry *self) {
-  char *path = spec_path_join(self->node.path, "functionRef");
+  char *path = spec_path_join(self->node.path, "AFFN-FUNC-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void affected_function_entry_set_function_ref(AffectedFunctionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "functionRef");
+  char *path = spec_path_join(self->node.path, "AFFN-FUNC-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -1768,14 +1768,14 @@ AffectedObjectEntryContentForm affected_object_entry_content(const AffectedObjec
   return out;
 }
 char *affected_object_entry_object_ref(const AffectedObjectEntry *self) {
-  char *path = spec_path_join(self->node.path, "objectRef");
+  char *path = spec_path_join(self->node.path, "AFOB-OBJE-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void affected_object_entry_set_object_ref(AffectedObjectEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "objectRef");
+  char *path = spec_path_join(self->node.path, "AFOB-OBJE-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -7767,14 +7767,14 @@ BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(cons
   return out;
 }
 char *business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self) {
-  char *path = spec_path_join(self->node.path, "ruleRef");
+  char *path = spec_path_join(self->node.path, "BIRURE-RULE-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void business_rule_reference_entry_set_rule_ref(BusinessRuleReferenceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "ruleRef");
+  char *path = spec_path_join(self->node.path, "BIRURE-RULE-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -18786,14 +18786,14 @@ DataEntityReferenceEntryContentForm data_entity_reference_entry_content(const Da
   return out;
 }
 char *data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self) {
-  char *path = spec_path_join(self->node.path, "relatedEntity");
+  char *path = spec_path_join(self->node.path, "DAENRE-RELA-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void data_entity_reference_entry_set_related_entity(DataEntityReferenceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "relatedEntity");
+  char *path = spec_path_join(self->node.path, "DAENRE-RELA-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -27244,26 +27244,26 @@ SomList entity_relationship_entry_relationship_attributes(const EntityRelationsh
   return out;
 }
 char *entity_relationship_entry_source_entity_ref(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "sourceEntityRef");
+  char *path = spec_path_join(self->node.path, "ENRLE-SOUR-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void entity_relationship_entry_set_source_entity_ref(EntityRelationshipEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "sourceEntityRef");
+  char *path = spec_path_join(self->node.path, "ENRLE-SOUR-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
 char *entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self) {
-  char *path = spec_path_join(self->node.path, "targetEntityRef");
+  char *path = spec_path_join(self->node.path, "ENRLE-TARG-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void entity_relationship_entry_set_target_entity_ref(EntityRelationshipEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "targetEntityRef");
+  char *path = spec_path_join(self->node.path, "ENRLE-TARG-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -30217,7 +30217,7 @@ ExternalServiceDependencyEntryRisk external_service_dependency_entry_risk(const 
   return out;
 }
 ExistingSystemEntry external_service_dependency_entry_primary_dependent_system(const ExternalServiceDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "primaryDependentSystem");
+  char *path = spec_path_join(self->node.path, "EXSDE-PRIM-REF");
   ExistingSystemEntry out;
   existing_system_entry_init(&out, self->node.doc, path);
   free(path);
@@ -32862,14 +32862,14 @@ GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependenc
   return out;
 }
 char *goal_dependency_entry_related_goal(const GoalDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "relatedGoal");
+  char *path = spec_path_join(self->node.path, "GOLDE-RELA-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void goal_dependency_entry_set_related_goal(GoalDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "relatedGoal");
+  char *path = spec_path_join(self->node.path, "GOLDE-RELA-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -38291,14 +38291,14 @@ KeyAttributeEntryGovernance key_attribute_entry_governance(const KeyAttributeEnt
   return out;
 }
 char *key_attribute_entry_referenced_entity_ref(const KeyAttributeEntry *self) {
-  char *path = spec_path_join(self->node.path, "referencedEntityRef");
+  char *path = spec_path_join(self->node.path, "KEATT-REFE-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void key_attribute_entry_set_referenced_entity_ref(KeyAttributeEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "referencedEntityRef");
+  char *path = spec_path_join(self->node.path, "KEATT-REFE-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -51154,7 +51154,7 @@ ProcessMetricEntryTargets process_metric_entry_targets(const ProcessMetricEntry 
   return out;
 }
 CurrentBusinessProcess process_metric_entry_process_reference(const ProcessMetricEntry *self) {
-  char *path = spec_path_join(self->node.path, "processReference");
+  char *path = spec_path_join(self->node.path, "PME-PROC-REF");
   CurrentBusinessProcess out;
   current_business_process_init(&out, self->node.doc, path);
   free(path);
@@ -56443,14 +56443,14 @@ RequirementDependencyEntryContentForm requirement_dependency_entry_content(const
   return out;
 }
 char *requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "relatedRequirement");
+  char *path = spec_path_join(self->node.path, "RQDEP-RELA-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void requirement_dependency_entry_set_related_requirement(RequirementDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "relatedRequirement");
+  char *path = spec_path_join(self->node.path, "RQDEP-RELA-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -56535,14 +56535,14 @@ RequirementTestCaseEntryAutomation requirement_test_case_entry_automation(const 
   return out;
 }
 char *requirement_test_case_entry_related_criterion(const RequirementTestCaseEntry *self) {
-  char *path = spec_path_join(self->node.path, "relatedCriterion");
+  char *path = spec_path_join(self->node.path, "RQTSC-RELA-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void requirement_test_case_entry_set_related_criterion(RequirementTestCaseEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "relatedCriterion");
+  char *path = spec_path_join(self->node.path, "RQTSC-RELA-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -69905,14 +69905,14 @@ SystemDependencyEntryOperations system_dependency_entry_operations(const SystemD
   return out;
 }
 ExistingSystemEntry system_dependency_entry_source_system(const SystemDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "sourceSystem");
+  char *path = spec_path_join(self->node.path, "SYDE-SOUR-REF");
   ExistingSystemEntry out;
   existing_system_entry_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 ExistingSystemEntry system_dependency_entry_target_system(const SystemDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "targetSystem");
+  char *path = spec_path_join(self->node.path, "SYDE-TARG-REF");
   ExistingSystemEntry out;
   existing_system_entry_init(&out, self->node.doc, path);
   free(path);
@@ -70450,14 +70450,14 @@ SystemIntegrationOwnership system_integration_entry_ownership(const SystemIntegr
   return out;
 }
 ExistingSystemEntry system_integration_entry_source_system(const SystemIntegrationEntry *self) {
-  char *path = spec_path_join(self->node.path, "sourceSystem");
+  char *path = spec_path_join(self->node.path, "SYIN-SOUR-REF");
   ExistingSystemEntry out;
   existing_system_entry_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
 ExistingSystemEntry system_integration_entry_target_system(const SystemIntegrationEntry *self) {
-  char *path = spec_path_join(self->node.path, "targetSystem");
+  char *path = spec_path_join(self->node.path, "SYIN-TARG-REF");
   ExistingSystemEntry out;
   existing_system_entry_init(&out, self->node.doc, path);
   free(path);
@@ -71386,14 +71386,14 @@ SystemTaskEntryContext system_task_entry_context(const SystemTaskEntry *self) {
   return out;
 }
 char *system_task_entry_related_use_case(const SystemTaskEntry *self) {
-  char *path = spec_path_join(self->node.path, "relatedUseCase");
+  char *path = spec_path_join(self->node.path, "SYTS-RELA-REF");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void system_task_entry_set_related_use_case(SystemTaskEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "relatedUseCase");
+  char *path = spec_path_join(self->node.path, "SYTS-RELA-REF");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -80661,7 +80661,7 @@ WorkflowActorEntryContentForm workflow_actor_entry_content(const WorkflowActorEn
   return out;
 }
 SomList workflow_actor_entry_participating_steps(const WorkflowActorEntry *self) {
-  char *path = spec_path_join(self->node.path, "participatingSteps");
+  char *path = spec_path_join(self->node.path, "WAE-PART-REF");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "");
   free(path);

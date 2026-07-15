@@ -2152,11 +2152,11 @@ impl AffectedFunctionEntry {
     }
 
     pub fn function_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "functionRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AFFN-FUNC-REF"))
     }
 
     pub fn set_function_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "functionRef");
+        let path = format!("{}/{}", self.node.path(), "AFFN-FUNC-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -2186,11 +2186,11 @@ impl AffectedObjectEntry {
     }
 
     pub fn object_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "objectRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AFOB-OBJE-REF"))
     }
 
     pub fn set_object_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "objectRef");
+        let path = format!("{}/{}", self.node.path(), "AFOB-OBJE-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -9174,11 +9174,11 @@ impl BusinessRuleReferenceEntry {
     }
 
     pub fn rule_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ruleRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "BIRURE-RULE-REF"))
     }
 
     pub fn set_rule_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "ruleRef");
+        let path = format!("{}/{}", self.node.path(), "BIRURE-RULE-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -21854,11 +21854,11 @@ impl DataEntityReferenceEntry {
     }
 
     pub fn related_entity(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "relatedEntity"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAENRE-RELA-REF"))
     }
 
     pub fn set_related_entity(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "relatedEntity");
+        let path = format!("{}/{}", self.node.path(), "DAENRE-RELA-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -31717,20 +31717,20 @@ impl EntityRelationshipEntry {
     }
 
     pub fn source_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "sourceEntityRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ENRLE-SOUR-REF"))
     }
 
     pub fn set_source_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "sourceEntityRef");
+        let path = format!("{}/{}", self.node.path(), "ENRLE-SOUR-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn target_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "targetEntityRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ENRLE-TARG-REF"))
     }
 
     pub fn set_target_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "targetEntityRef");
+        let path = format!("{}/{}", self.node.path(), "ENRLE-TARG-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -35195,7 +35195,7 @@ impl ExternalServiceDependencyEntry {
     }
 
     pub fn primary_dependent_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "primaryDependentSystem"))
+        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXSDE-PRIM-REF"))
     }
 }
 
@@ -38369,11 +38369,11 @@ impl GoalDependencyEntry {
     }
 
     pub fn related_goal(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "relatedGoal"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "GOLDE-RELA-REF"))
     }
 
     pub fn set_related_goal(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "relatedGoal");
+        let path = format!("{}/{}", self.node.path(), "GOLDE-RELA-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -44776,11 +44776,11 @@ impl KeyAttributeEntry {
     }
 
     pub fn referenced_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "referencedEntityRef"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "KEATT-REFE-REF"))
     }
 
     pub fn set_referenced_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "referencedEntityRef");
+        let path = format!("{}/{}", self.node.path(), "KEATT-REFE-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -60220,7 +60220,7 @@ impl ProcessMetricEntry {
     }
 
     pub fn process_reference(&self) -> CurrentBusinessProcess {
-        CurrentBusinessProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "processReference"))
+        CurrentBusinessProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "PME-PROC-REF"))
     }
 }
 
@@ -66567,11 +66567,11 @@ impl RequirementDependencyEntry {
     }
 
     pub fn related_requirement(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "relatedRequirement"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RQDEP-RELA-REF"))
     }
 
     pub fn set_related_requirement(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "relatedRequirement");
+        let path = format!("{}/{}", self.node.path(), "RQDEP-RELA-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -66674,11 +66674,11 @@ impl RequirementTestCaseEntry {
     }
 
     pub fn related_criterion(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "relatedCriterion"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RQTSC-RELA-REF"))
     }
 
     pub fn set_related_criterion(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "relatedCriterion");
+        let path = format!("{}/{}", self.node.path(), "RQTSC-RELA-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -82544,11 +82544,11 @@ impl SystemDependencyEntry {
     }
 
     pub fn source_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "sourceSystem"))
+        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-SOUR-REF"))
     }
 
     pub fn target_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetSystem"))
+        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-TARG-REF"))
     }
 }
 
@@ -83170,11 +83170,11 @@ impl SystemIntegrationEntry {
     }
 
     pub fn source_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "sourceSystem"))
+        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-SOUR-REF"))
     }
 
     pub fn target_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetSystem"))
+        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-TARG-REF"))
     }
 }
 
@@ -84191,11 +84191,11 @@ impl SystemTaskEntry {
     }
 
     pub fn related_use_case(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "relatedUseCase"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SYTS-RELA-REF"))
     }
 
     pub fn set_related_use_case(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "relatedUseCase");
+        let path = format!("{}/{}", self.node.path(), "SYTS-RELA-REF");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -95263,7 +95263,7 @@ impl WorkflowActorEntry {
     pub fn participating_steps(&self) -> som::SomList<WorkflowStepEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "participatingSteps"),
+            format!("{}/{}", self.node.path(), "WAE-PART-REF"),
             Box::new(WorkflowStepEntry::new),
             "".to_string(),
         )

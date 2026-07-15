@@ -7245,8 +7245,15 @@
         {
           "name": "functionRef",
           "kind": "content",
+          "sectionId": "AFFN-FUNC-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AFFN-FUNC-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -7344,8 +7351,15 @@
         {
           "name": "objectRef",
           "kind": "content",
+          "sectionId": "AFOB-OBJE-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AFOB-OBJE-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -30494,8 +30508,15 @@
         {
           "name": "ruleRef",
           "kind": "content",
+          "sectionId": "BIRURE-RULE-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "BIRURE-RULE-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -70001,8 +70022,15 @@
         {
           "name": "relatedEntity",
           "kind": "content",
+          "sectionId": "DAENRE-RELA-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAENRE-RELA-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -102239,8 +102267,15 @@
         {
           "name": "sourceEntityRef",
           "kind": "content",
+          "sectionId": "ENRLE-SOUR-REF",
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-SOUR-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -102259,8 +102294,15 @@
         {
           "name": "targetEntityRef",
           "kind": "content",
+          "sectionId": "ENRLE-TARG-REF",
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ENRLE-TARG-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -113999,8 +114041,15 @@
         {
           "name": "primaryDependentSystem",
           "kind": "complex",
+          "sectionId": "EXSDE-PRIM-REF",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EXSDE-PRIM-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -124521,8 +124570,15 @@
         {
           "name": "relatedGoal",
           "kind": "content",
+          "sectionId": "GOLDE-RELA-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GOLDE-RELA-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -145800,8 +145856,15 @@
         {
           "name": "referencedEntityRef",
           "kind": "content",
+          "sectionId": "KEATT-REFE-REF",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "KEATT-REFE-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -198153,8 +198216,15 @@
         {
           "name": "processReference",
           "kind": "complex",
+          "sectionId": "PME-PROC-REF",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PME-PROC-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -220589,8 +220659,15 @@
         {
           "name": "relatedRequirement",
           "kind": "content",
+          "sectionId": "RQDEP-RELA-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RQDEP-RELA-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -221041,8 +221118,15 @@
         {
           "name": "relatedCriterion",
           "kind": "content",
+          "sectionId": "RQTSC-RELA-REF",
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RQTSC-RELA-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -272924,8 +273008,15 @@
         {
           "name": "sourceSystem",
           "kind": "complex",
+          "sectionId": "SYDE-SOUR-REF",
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYDE-SOUR-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -272944,8 +273035,15 @@
         {
           "name": "targetSystem",
           "kind": "complex",
+          "sectionId": "SYDE-TARG-REF",
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYDE-TARG-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -275015,8 +275113,15 @@
         {
           "name": "sourceSystem",
           "kind": "complex",
+          "sectionId": "SYIN-SOUR-REF",
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYIN-SOUR-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -275035,8 +275140,15 @@
         {
           "name": "targetSystem",
           "kind": "complex",
+          "sectionId": "SYIN-TARG-REF",
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYIN-TARG-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -278326,8 +278438,15 @@
         {
           "name": "relatedUseCase",
           "kind": "content",
+          "sectionId": "SYTS-RELA-REF",
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SYTS-RELA-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {
@@ -316253,8 +316372,15 @@
           "name": "participatingSteps",
           "kind": "list",
           "doc": "Steps this actor participates in.",
+          "sectionId": "WAE-PART-REF",
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "WAE-PART-REF"
+              }
+            },
             {
               "name": "Reference",
               "arguments": {

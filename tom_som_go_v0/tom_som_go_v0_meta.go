@@ -679,14 +679,14 @@ func metaChildrenAffectedDepartmentEntry(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenAffectedFunctionEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AffectedFunctionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "functionName", TypeName: "String", Description: "Function Name", Required: true, Hint: "Name of the affected function", Order: 0}, {Name: "triggerPoint", TypeName: "String", Description: "Trigger Point", Hint: "When in the function rule is triggered", Order: 1}, {Name: "impact", TypeName: "String", Description: "Impact", Hint: "How the function is impacted", Order: 2}, {Name: "isMandatory", TypeName: "String", Description: "Is Mandatory", Hint: "Whether check is required in this function: Yes | No", Order: 3}}}},
-		{ClassName: "AffectedFunctionEntry", MemberName: "functionRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "functionName"}}}},
+		{ClassName: "AffectedFunctionEntry", MemberName: "functionRef", SectionID: "AFFN-FUNC-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "functionName"}}}},
 	}
 }
 
 func metaChildrenAffectedObjectEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AffectedObjectEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "objectName", TypeName: "String", Description: "Object Name", Required: true, Hint: "Name of the affected business object", Order: 0}, {Name: "affectedAttributes", TypeName: "String", Description: "Affected Attributes", Hint: "Specific attributes affected", Order: 1}, {Name: "impact", TypeName: "String", Description: "Impact", Hint: "How the object is impacted: Validated | Constrained | Modified | Created", Order: 2}, {Name: "accessType", TypeName: "String", Description: "Access Type", Hint: "Read | Write | Both", Order: 3}}}},
-		{ClassName: "AffectedObjectEntry", MemberName: "objectRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "objectName"}}}},
+		{ClassName: "AffectedObjectEntry", MemberName: "objectRef", SectionID: "AFOB-OBJE-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "objectName"}}}},
 	}
 }
 
@@ -2981,7 +2981,7 @@ func metaChildrenBusinessRuleEntry(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenBusinessRuleReferenceEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "BusinessRuleReferenceEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "ruleId", TypeName: "String", Description: "Rule ID", Hint: "Reference to the business rule definition", Order: 0}, {Name: "ruleName", TypeName: "String", Description: "Rule Name", Required: true, Hint: "Name of the business rule", Order: 1}, {Name: "ruleType", TypeName: "String", Description: "Rule Type", Hint: "Validation | Calculation | Constraint | Authorization | Workflow", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Brief description of the rule", Order: 3}, {Name: "enforcement", TypeName: "String", Description: "Enforcement", Hint: "Automated | Manual | Hybrid", Order: 4}, {Name: "triggerCondition", TypeName: "String", Description: "Trigger Condition", Hint: "When this rule is evaluated", Order: 5}, {Name: "affectedAttributes", TypeName: "String", Description: "Affected Attributes", Hint: "Attributes involved in this rule", Order: 6}, {Name: "consequenceOnViolation", TypeName: "String", Description: "Consequence On Violation", Hint: "What happens when rule is violated", Order: 7}}}},
-		{ClassName: "BusinessRuleReferenceEntry", MemberName: "ruleRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "ruleId"}}}},
+		{ClassName: "BusinessRuleReferenceEntry", MemberName: "ruleRef", SectionID: "BIRURE-RULE-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "ruleId"}}}},
 	}
 }
 
@@ -7080,7 +7080,7 @@ func metaChildrenDataEntityMigrationEntry(s map[string]bool) []*som.SomMetaNode 
 func metaChildrenDataEntityReferenceEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DataEntityReferenceEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "entityName", TypeName: "String", Description: "Entity Name", Required: true, Hint: "Name of the data entity referenced", Order: 0}, {Name: "crudOperations", TypeName: "String", Description: "CRUD Operations (Create, Read, Update, Delete)", Required: true, Hint: "Which of Create, Read, Update, Delete are performed", Order: 1}, {Name: "attributes", TypeName: "String", Description: "Attributes (specific fields involved)", Hint: "Specific fields/attributes involved", Order: 2}, {Name: "volumeEstimate", TypeName: "String", Description: "Volume Estimate (records created/accessed)", Hint: "Estimated number of records created or accessed", Order: 3}, {Name: "dataQualityRules", TypeName: "String", Description: "Data Quality Rules (validation, completeness)", Hint: "Validation and completeness rules for the data", Order: 4}, {Name: "dataOwner", TypeName: "String", Description: "Data Owner", Hint: "Owner accountable for this data entity", Order: 5}}}},
-		{ClassName: "DataEntityReferenceEntry", MemberName: "relatedEntity", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Data Model Entity"}}}},
+		{ClassName: "DataEntityReferenceEntry", MemberName: "relatedEntity", SectionID: "DAENRE-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Data Model Entity"}}}},
 	}
 }
 
@@ -10234,8 +10234,8 @@ func metaChildrenEntityRelationshipEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "EntityRelationshipEntry", MemberName: "sourceEntityRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "sourceEntityName"}}}},
-		{ClassName: "EntityRelationshipEntry", MemberName: "targetEntityRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "targetEntityName"}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "sourceEntityRef", SectionID: "ENRLE-SOUR-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "sourceEntityName"}}}},
+		{ClassName: "EntityRelationshipEntry", MemberName: "targetEntityRef", SectionID: "ENRLE-TARG-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "targetEntityName"}}}},
 	}
 }
 
@@ -11390,7 +11390,7 @@ func metaChildrenExternalServiceDependencyEntry(s map[string]bool) []*som.SomMet
 			return &som.SomMetaNode{ClassName: "ExternalServiceDependencyEntryRisk", MemberName: "risk", ClassSectionID: "EXSRK", Kind: som.SomMetaKindComplex, TypeName: "ExternalServiceDependencyEntryRisk", SerializationOrder: metaIntPtr(3), DocComment: "Risk and fallback considerations.", ClassDocComment: "Risk and fallback considerations.", Recursive: r, Children: c}
 		}),
 		metaCx("ExistingSystemEntry", s, metaChildrenExistingSystemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "primaryDependentSystem", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(4), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Primary Dependent System"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "primaryDependentSystem", SectionID: "EXSDE-PRIM-REF", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(4), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Primary Dependent System"}}}, Recursive: r, Children: c}
 		}),
 	}
 }
@@ -12381,7 +12381,7 @@ func metaChildrenGoalDependencies(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenGoalDependencyEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "GoalDependencyEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dependencyId", TypeName: "String", Description: "Dependency ID", Required: true, Hint: "Unique identifier for this dependency", Order: 0}, {Name: "dependencyType", TypeName: "String", Description: "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", Required: true, Hint: "e.g., Internal Goal, External Project, Resource, Regulatory", Order: 1}, {Name: "dependencyName", TypeName: "String", Description: "Dependency Name (what we depend on)", Required: true, Hint: "Name of the thing this goal depends on", Order: 2}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Details of the dependency", Order: 3}, {Name: "owner", TypeName: "String", Description: "Owner (who controls this dependency)", Hint: "Person or party who controls this dependency", Order: 4}, {Name: "expectedResolutionDate", TypeName: "String", Description: "Expected Resolution Date", Hint: "When the dependency is expected to be resolved", Order: 5}, {Name: "impact", TypeName: "String", Description: "Impact (how this affects our goal)", Hint: "How this dependency affects the goal", Order: 6}, {Name: "mitigationStrategy", TypeName: "String", Description: "Mitigation Strategy (what if dependency is not resolved)", Hint: "Plan if the dependency is not resolved", Order: 7}, {Name: "status", TypeName: "String", Description: "Status (Open, In Progress, Resolved, Blocked)", Hint: "Open, In Progress, Resolved, or Blocked", Order: 8}}}},
-		{ClassName: "GoalDependencyEntry", MemberName: "relatedGoal", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Goal"}}}},
+		{ClassName: "GoalDependencyEntry", MemberName: "relatedGoal", SectionID: "GOLDE-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Goal"}}}},
 	}
 }
 
@@ -14437,7 +14437,7 @@ func metaChildrenKeyAttributeEntry(s map[string]bool) []*som.SomMetaNode {
 		metaCx("KeyAttributeEntryGovernance", s, metaChildrenKeyAttributeEntryGovernance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "KeyAttributeEntryGovernance", MemberName: "governance", ClassSectionID: "KEAGV", Kind: som.SomMetaKindComplex, TypeName: "KeyAttributeEntryGovernance", SerializationOrder: metaIntPtr(3), DocComment: "Constraint semantics and business meaning.", ClassDocComment: "Constraint semantics and business meaning.", Recursive: r, Children: c}
 		}),
-		{ClassName: "KeyAttributeEntry", MemberName: "referencedEntityRef", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "referencedEntity"}}}},
+		{ClassName: "KeyAttributeEntry", MemberName: "referencedEntityRef", SectionID: "KEATT-REFE-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "referencedEntity"}}}},
 	}
 }
 
@@ -19344,7 +19344,7 @@ func metaChildrenProcessMetricEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProcessMetricEntryTargets", MemberName: "targets", ClassSectionID: "PMET", Kind: som.SomMetaKindComplex, TypeName: "ProcessMetricEntryTargets", SerializationOrder: metaIntPtr(2), DocComment: "Target setting and benchmarking context.", ClassDocComment: "Target setting and benchmarking context.", Recursive: r, Children: c}
 		}),
 		metaCx("CurrentBusinessProcess", s, metaChildrenCurrentBusinessProcess, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CurrentBusinessProcess", MemberName: "processReference", ClassSectionID: "CUBIPR", Kind: som.SomMetaKindComplex, TypeName: "CurrentBusinessProcess", SerializationOrder: metaIntPtr(3), DocComment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.", ClassDocComment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Process Reference"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CurrentBusinessProcess", MemberName: "processReference", SectionID: "PME-PROC-REF", ClassSectionID: "CUBIPR", Kind: som.SomMetaKindComplex, TypeName: "CurrentBusinessProcess", SerializationOrder: metaIntPtr(3), DocComment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.", ClassDocComment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Process Reference"}}}, Recursive: r, Children: c}
 		}),
 	}
 }
@@ -21439,7 +21439,7 @@ func metaChildrenRequirementDependencies(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenRequirementDependencyEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementDependencyEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dependencyType", TypeName: "String", Description: "Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement)", Required: true, Hint: "Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement", Order: 0}, {Name: "description", TypeName: "String", Description: "Description", Hint: "Description of the dependency", Order: 1}, {Name: "impact", TypeName: "String", Description: "Impact (what happens if dependency not met)", Hint: "What happens if the dependency is not met", Order: 2}}}},
-		{ClassName: "RequirementDependencyEntry", MemberName: "relatedRequirement", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Requirement"}}}},
+		{ClassName: "RequirementDependencyEntry", MemberName: "relatedRequirement", SectionID: "RQDEP-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Requirement"}}}},
 	}
 }
 
@@ -21471,7 +21471,7 @@ func metaChildrenRequirementTestCaseEntry(s map[string]bool) []*som.SomMetaNode 
 		metaCx("RequirementTestCaseEntryAutomation", s, metaChildrenRequirementTestCaseEntryAutomation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "RequirementTestCaseEntryAutomation", MemberName: "automation", ClassSectionID: "RTCEA", Kind: som.SomMetaKindComplex, TypeName: "RequirementTestCaseEntryAutomation", SerializationOrder: metaIntPtr(2), DocComment: "Automation and prioritization details.", ClassDocComment: "Automation and prioritization details.", Recursive: r, Children: c}
 		}),
-		{ClassName: "RequirementTestCaseEntry", MemberName: "relatedCriterion", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Acceptance Criterion"}}}},
+		{ClassName: "RequirementTestCaseEntry", MemberName: "relatedCriterion", SectionID: "RQTSC-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Acceptance Criterion"}}}},
 	}
 }
 
@@ -26536,10 +26536,10 @@ func metaChildrenSystemDependencyEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemDependencyEntryOperations", MemberName: "operations", ClassSectionID: "SDEO", Kind: som.SomMetaKindComplex, TypeName: "SystemDependencyEntryOperations", SerializationOrder: metaIntPtr(4), DocComment: "Operations and documentation.", ClassDocComment: "Operations and documentation for system dependency.", Recursive: r, Children: c}
 		}),
 		metaCx("ExistingSystemEntry", s, metaChildrenExistingSystemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "sourceSystem", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(5), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Source System"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "sourceSystem", SectionID: "SYDE-SOUR-REF", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(5), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Source System"}}}, Recursive: r, Children: c}
 		}),
 		metaCx("ExistingSystemEntry", s, metaChildrenExistingSystemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "targetSystem", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(6), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Target System"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "targetSystem", SectionID: "SYDE-TARG-REF", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(6), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Target System"}}}, Recursive: r, Children: c}
 		}),
 	}
 }
@@ -26744,10 +26744,10 @@ func metaChildrenSystemIntegrationEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemIntegrationOwnership", MemberName: "ownership", ClassSectionID: "SYINOW", Kind: som.SomMetaKindComplex, TypeName: "SystemIntegrationOwnership", SerializationOrder: metaIntPtr(6), DocComment: "Ownership and documentation.", ClassDocComment: "Ownership and documentation.", Recursive: r, Children: c}
 		}),
 		metaCx("ExistingSystemEntry", s, metaChildrenExistingSystemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "sourceSystem", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(7), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Source System"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "sourceSystem", SectionID: "SYIN-SOUR-REF", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(7), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Source System"}}}, Recursive: r, Children: c}
 		}),
 		metaCx("ExistingSystemEntry", s, metaChildrenExistingSystemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "targetSystem", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(8), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Target System"}}}, Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExistingSystemEntry", MemberName: "targetSystem", SectionID: "SYIN-TARG-REF", ClassSectionID: "ESENT", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemEntry", SerializationOrder: metaIntPtr(8), DocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", ClassDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Target System"}}}, Recursive: r, Children: c}
 		}),
 	}
 }
@@ -27126,7 +27126,7 @@ func metaChildrenSystemTaskEntry(s map[string]bool) []*som.SomMetaNode {
 		metaCx("SystemTaskEntryContext", s, metaChildrenSystemTaskEntryContext, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "SystemTaskEntryContext", MemberName: "context", ClassSectionID: "STEC", Kind: som.SomMetaKindComplex, TypeName: "SystemTaskEntryContext", SerializationOrder: metaIntPtr(3), DocComment: "Tooling and linked artifacts.", ClassDocComment: "Tooling and linked artifacts for a system task.", Recursive: r, Children: c}
 		}),
-		{ClassName: "SystemTaskEntry", MemberName: "relatedUseCase", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Use Case"}}}},
+		{ClassName: "SystemTaskEntry", MemberName: "relatedUseCase", SectionID: "SYTS-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Use Case"}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "SystemTaskEntry", MemberName: "workflowSteps", SectionID: "SYSTE-WORK-LST", SectionIDPattern: "SYSTE-WORK-xxx", Kind: som.SomMetaKindList, TypeName: "SystemTaskWorkflowStepEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per step in the task workflow, in the order the user performs them.", DocComment: "Task workflow steps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "The ordered set of workflow steps that make up this task."}}}}
 			n.ElementNode = metaCx("SystemTaskWorkflowStepEntry", s, metaChildrenSystemTaskWorkflowStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -30708,7 +30708,7 @@ func metaChildrenWorkflowActorEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "WorkflowActorEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "actorName", TypeName: "String", Description: "Actor Name", Required: true, Order: 0}, {Name: "actorType", TypeName: "String", Description: "Actor Type (e.g., Role, System, Department, External)", Order: 1}, {Name: "role", TypeName: "String", Description: "Role in this workflow", Order: 2}, {Name: "responsibilities", TypeName: "String", Description: "Responsibilities", Order: 3}, {Name: "authorizationLevel", TypeName: "String", Description: "Authorization Level", Order: 4}, {Name: "availabilityRequirements", TypeName: "String", Description: "Availability Requirements", Order: 5}, {Name: "skillRequirements", TypeName: "String", Description: "Skill Requirements", Order: 6}, {Name: "headcount", TypeName: "int", Description: "Headcount (number of people in this role)", Order: 7}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "WorkflowActorEntry", MemberName: "participatingSteps", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(1), DocComment: "Steps this actor participates in.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Participating Steps"}}}}
+			n := &som.SomMetaNode{ClassName: "WorkflowActorEntry", MemberName: "participatingSteps", SectionID: "WAE-PART-REF", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(1), DocComment: "Steps this actor participates in.", Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Participating Steps"}}}}
 			n.ElementNode = metaCx("WorkflowStepEntry", s, metaChildrenWorkflowStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "WorkflowStepEntry", ClassSectionID: "WSE", Kind: som.SomMetaKindComplex, TypeName: "WorkflowStepEntry", DocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", ClassDocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", Recursive: r, Children: c}
 			})
@@ -32521,7 +32521,7 @@ func (x *AffectedFunctionEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *AffectedFunctionEntryNav) FunctionRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/functionRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AFFN-FUNC-REF"}
 }
 
 // AffectedObjectEntryNav holds the dot-notation accessors of `AffectedObjectEntry` (DR1 §4.1).
@@ -32543,7 +32543,7 @@ func (x *AffectedObjectEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *AffectedObjectEntryNav) ObjectRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/objectRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AFOB-OBJE-REF"}
 }
 
 // AlertDefinitionEntryNav holds the dot-notation accessors of `AlertDefinitionEntry` (DR1 §4.1).
@@ -37775,7 +37775,7 @@ func (x *BusinessRuleReferenceEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *BusinessRuleReferenceEntryNav) RuleRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ruleRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRURE-RULE-REF"}
 }
 
 // CapacityPlanningSectionNav holds the dot-notation accessors of `CapacityPlanningSection` (DR1 §4.1).
@@ -46731,7 +46731,7 @@ func (x *DataEntityReferenceEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *DataEntityReferenceEntryNav) RelatedEntity() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relatedEntity"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENRE-RELA-REF"}
 }
 
 // DataFormatCompatibilityNav holds the dot-notation accessors of `DataFormatCompatibility` (DR1 §4.1).
@@ -54139,11 +54139,11 @@ func (x *EntityRelationshipEntryNav) RelationshipAttributes() *som.SomListMetaRe
 }
 
 func (x *EntityRelationshipEntryNav) SourceEntityRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/sourceEntityRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-SOUR-REF"}
 }
 
 func (x *EntityRelationshipEntryNav) TargetEntityRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetEntityRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-TARG-REF"}
 }
 
 // EntityRelationshipsNav holds the dot-notation accessors of `EntityRelationships` (DR1 §4.1).
@@ -56745,7 +56745,7 @@ func (x *ExternalServiceDependencyEntryNav) Risk() *ExternalServiceDependencyEnt
 }
 
 func (x *ExternalServiceDependencyEntryNav) PrimaryDependentSystem() *ExistingSystemEntryNav {
-	return newExistingSystemEntryNav(x.Tree, x.Path+"/primaryDependentSystem")
+	return newExistingSystemEntryNav(x.Tree, x.Path+"/EXSDE-PRIM-REF")
 }
 
 // ExternalServiceDependencyEntryOperationsNav holds the dot-notation accessors of `ExternalServiceDependencyEntryOperations` (DR1 §4.1).
@@ -59097,7 +59097,7 @@ func (x *GoalDependencyEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *GoalDependencyEntryNav) RelatedGoal() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relatedGoal"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GOLDE-RELA-REF"}
 }
 
 // GoalKeyResultsNav holds the dot-notation accessors of `GoalKeyResults` (DR1 §4.1).
@@ -63869,7 +63869,7 @@ func (x *KeyAttributeEntryNav) Governance() *KeyAttributeEntryGovernanceNav {
 }
 
 func (x *KeyAttributeEntryNav) ReferencedEntityRef() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/referencedEntityRef"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/KEATT-REFE-REF"}
 }
 
 // KeyAttributeEntryGenerationNav holds the dot-notation accessors of `KeyAttributeEntryGeneration` (DR1 §4.1).
@@ -75411,7 +75411,7 @@ func (x *ProcessMetricEntryNav) Targets() *ProcessMetricEntryTargetsNav {
 }
 
 func (x *ProcessMetricEntryNav) ProcessReference() *CurrentBusinessProcessNav {
-	return newCurrentBusinessProcessNav(x.Tree, x.Path+"/processReference")
+	return newCurrentBusinessProcessNav(x.Tree, x.Path+"/PME-PROC-REF")
 }
 
 // ProcessMetricEntryMeasurementNav holds the dot-notation accessors of `ProcessMetricEntryMeasurement` (DR1 §4.1).
@@ -80253,7 +80253,7 @@ func (x *RequirementDependencyEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *RequirementDependencyEntryNav) RelatedRequirement() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relatedRequirement"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RQDEP-RELA-REF"}
 }
 
 // RequirementRelationshipsNav holds the dot-notation accessors of `RequirementRelationships` (DR1 §4.1).
@@ -80325,7 +80325,7 @@ func (x *RequirementTestCaseEntryNav) Automation() *RequirementTestCaseEntryAuto
 }
 
 func (x *RequirementTestCaseEntryNav) RelatedCriterion() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relatedCriterion"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RQTSC-RELA-REF"}
 }
 
 // RequirementTestCaseEntryAutomationNav holds the dot-notation accessors of `RequirementTestCaseEntryAutomation` (DR1 §4.1).
@@ -92163,11 +92163,11 @@ func (x *SystemDependencyEntryNav) Operations() *SystemDependencyEntryOperations
 }
 
 func (x *SystemDependencyEntryNav) SourceSystem() *ExistingSystemEntryNav {
-	return newExistingSystemEntryNav(x.Tree, x.Path+"/sourceSystem")
+	return newExistingSystemEntryNav(x.Tree, x.Path+"/SYDE-SOUR-REF")
 }
 
 func (x *SystemDependencyEntryNav) TargetSystem() *ExistingSystemEntryNav {
-	return newExistingSystemEntryNav(x.Tree, x.Path+"/targetSystem")
+	return newExistingSystemEntryNav(x.Tree, x.Path+"/SYDE-TARG-REF")
 }
 
 // SystemDependencyEntryDataExchangeNav holds the dot-notation accessors of `SystemDependencyEntryDataExchange` (DR1 §4.1).
@@ -92633,11 +92633,11 @@ func (x *SystemIntegrationEntryNav) Ownership() *SystemIntegrationOwnershipNav {
 }
 
 func (x *SystemIntegrationEntryNav) SourceSystem() *ExistingSystemEntryNav {
-	return newExistingSystemEntryNav(x.Tree, x.Path+"/sourceSystem")
+	return newExistingSystemEntryNav(x.Tree, x.Path+"/SYIN-SOUR-REF")
 }
 
 func (x *SystemIntegrationEntryNav) TargetSystem() *ExistingSystemEntryNav {
-	return newExistingSystemEntryNav(x.Tree, x.Path+"/targetSystem")
+	return newExistingSystemEntryNav(x.Tree, x.Path+"/SYIN-TARG-REF")
 }
 
 // SystemIntegrationErrorHandlingNav holds the dot-notation accessors of `SystemIntegrationErrorHandling` (DR1 §4.1).
@@ -93381,7 +93381,7 @@ func (x *SystemTaskEntryNav) Context() *SystemTaskEntryContextNav {
 }
 
 func (x *SystemTaskEntryNav) RelatedUseCase() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/relatedUseCase"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYTS-RELA-REF"}
 }
 
 func (x *SystemTaskEntryNav) WorkflowSteps() *som.SomListMetaRef[*SystemTaskWorkflowStepEntryNav] {
@@ -101625,7 +101625,7 @@ func (x *WorkflowActorEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *WorkflowActorEntryNav) ParticipatingSteps() *som.SomListMetaRef[*WorkflowStepEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/participatingSteps", func(t *som.SomMetaTree, p string) *WorkflowStepEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/WAE-PART-REF", func(t *som.SomMetaTree, p string) *WorkflowStepEntryNav {
 		return newWorkflowStepEntryNav(t, p)
 	})
 }
@@ -102334,6 +102334,10 @@ func newAffectedFunctionEntryID(tree *som.SomMetaTree, path string) *AffectedFun
 	return &AffectedFunctionEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *AffectedFunctionEntryID) AFFN_FUNC_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AFFN-FUNC-REF"}
+}
+
 // AffectedObjectEntryID holds the ID-tree accessors of `AffectedObjectEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -102345,6 +102349,10 @@ type AffectedObjectEntryID struct {
 // newAffectedObjectEntryID binds a AffectedObjectEntryID accessor to a tree and a path.
 func newAffectedObjectEntryID(tree *som.SomMetaTree, path string) *AffectedObjectEntryID {
 	return &AffectedObjectEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *AffectedObjectEntryID) AFOB_OBJE_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/AFOB-OBJE-REF"}
 }
 
 // AlertDefinitionEntryID holds the ID-tree accessors of `AlertDefinitionEntry` (DR1 §4.2): methods
@@ -102991,6 +102999,10 @@ type BusinessRuleReferenceEntryID struct {
 // newBusinessRuleReferenceEntryID binds a BusinessRuleReferenceEntryID accessor to a tree and a path.
 func newBusinessRuleReferenceEntryID(tree *som.SomMetaTree, path string) *BusinessRuleReferenceEntryID {
 	return &BusinessRuleReferenceEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *BusinessRuleReferenceEntryID) BIRURE_RULE_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BIRURE-RULE-REF"}
 }
 
 // CategoryDependencyEntryID holds the ID-tree accessors of `CategoryDependencyEntry` (DR1 §4.2): methods
@@ -107542,6 +107554,10 @@ func newDataEntityReferenceEntryID(tree *som.SomMetaTree, path string) *DataEnti
 	return &DataEntityReferenceEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *DataEntityReferenceEntryID) DAENRE_RELA_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DAENRE-RELA-REF"}
+}
+
 // DataGovernancePolicyEntryID holds the ID-tree accessors of `DataGovernancePolicyEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -108221,6 +108237,14 @@ func (x *EntityRelationshipEntryID) RELAT_RELA_LST() *som.SomListMetaRef[*Relati
 	})
 }
 
+func (x *EntityRelationshipEntryID) ENRLE_SOUR_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-SOUR-REF"}
+}
+
+func (x *EntityRelationshipEntryID) ENRLE_TARG_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ENRLE-TARG-REF"}
+}
+
 // EntryPointEntryID holds the ID-tree accessors of `EntryPointEntry` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -108552,10 +108576,8 @@ func newExternalServiceDependencyEntryID(tree *som.SomMetaTree, path string) *Ex
 	return &ExternalServiceDependencyEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *ExternalServiceDependencyEntryID) LIMET_KNOW_LST() *som.SomListMetaRef[*LimitationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/primaryDependentSystem/LIMET-KNOW-LST", func(t *som.SomMetaTree, p string) *LimitationEntryID {
-		return newLimitationEntryID(t, p)
-	})
+func (x *ExternalServiceDependencyEntryID) EXSDE_PRIM_REF() *ExistingSystemEntryID {
+	return newExistingSystemEntryID(x.Tree, x.Path+"/EXSDE-PRIM-REF")
 }
 
 // ExternalSystemContextEntryID holds the ID-tree accessors of `ExternalSystemContextEntry` (DR1 §4.2): methods
@@ -108895,6 +108917,10 @@ type GoalDependencyEntryID struct {
 // newGoalDependencyEntryID binds a GoalDependencyEntryID accessor to a tree and a path.
 func newGoalDependencyEntryID(tree *som.SomMetaTree, path string) *GoalDependencyEntryID {
 	return &GoalDependencyEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *GoalDependencyEntryID) GOLDE_RELA_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GOLDE-RELA-REF"}
 }
 
 // GoalMilestoneEntryID holds the ID-tree accessors of `GoalMilestoneEntry` (DR1 §4.2): methods
@@ -109410,6 +109436,10 @@ type KeyAttributeEntryID struct {
 // newKeyAttributeEntryID binds a KeyAttributeEntryID accessor to a tree and a path.
 func newKeyAttributeEntryID(tree *som.SomMetaTree, path string) *KeyAttributeEntryID {
 	return &KeyAttributeEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *KeyAttributeEntryID) KEATT_REFE_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/KEATT-REFE-REF"}
 }
 
 // KeyConceptEntryID holds the ID-tree accessors of `KeyConceptEntry` (DR1 §4.2): methods
@@ -110651,64 +110681,8 @@ func newProcessMetricEntryID(tree *som.SomMetaTree, path string) *ProcessMetricE
 	return &ProcessMetricEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *ProcessMetricEntryID) WOSUEN_ENTR_LST() *som.SomListMetaRef[*WorkflowSummaryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", func(t *som.SomMetaTree, p string) *WorkflowSummaryEntryID {
-		return newWorkflowSummaryEntryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) CUWF_WORK_LST() *som.SomListMetaRef[*CurrentWorkflowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/workflowDescriptions/CUWF-WORK-LST", func(t *som.SomMetaTree, p string) *CurrentWorkflowEntryID {
-		return newCurrentWorkflowEntryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PRMECA_EFFI_LST() *som.SomListMetaRef[*ProcessMetricCategoryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PRMECA-EFFI-LST", func(t *som.SomMetaTree, p string) *ProcessMetricCategoryID {
-		return newProcessMetricCategoryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PRMECA_QUAL_LST() *som.SomListMetaRef[*ProcessMetricCategoryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PRMECA-QUAL-LST", func(t *som.SomMetaTree, p string) *ProcessMetricCategoryID {
-		return newProcessMetricCategoryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PRMECA_VOLU_LST() *som.SomListMetaRef[*ProcessMetricCategoryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PRMECA-VOLU-LST", func(t *som.SomMetaTree, p string) *ProcessMetricCategoryID {
-		return newProcessMetricCategoryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PRMECA_COST_LST() *som.SomListMetaRef[*ProcessMetricCategoryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PRMECA-COST-LST", func(t *som.SomMetaTree, p string) *ProcessMetricCategoryID {
-		return newProcessMetricCategoryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PRMECA_MANU_LST() *som.SomListMetaRef[*ProcessMetricCategoryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PRMECA-MANU-LST", func(t *som.SomMetaTree, p string) *ProcessMetricCategoryID {
-		return newProcessMetricCategoryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) PME_ITEM_LST() *som.SomListMetaRef[*ProcessMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/PME-ITEM-LST", func(t *som.SomMetaTree, p string) *ProcessMetricEntryID {
-		return newProcessMetricEntryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) MEBAEN_ENTR_LST() *som.SomListMetaRef[*MetricsBaselineEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST", func(t *som.SomMetaTree, p string) *MetricsBaselineEntryID {
-		return newMetricsBaselineEntryID(t, p)
-	})
-}
-
-func (x *ProcessMetricEntryID) CPIE_IMPR_LST() *som.SomListMetaRef[*CurrentProcessImprovementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/processReference/processPainPoints/CPIE-IMPR-LST", func(t *som.SomMetaTree, p string) *CurrentProcessImprovementEntryID {
-		return newCurrentProcessImprovementEntryID(t, p)
-	})
+func (x *ProcessMetricEntryID) PME_PROC_REF() *CurrentBusinessProcessID {
+	return newCurrentBusinessProcessID(x.Tree, x.Path+"/PME-PROC-REF")
 }
 
 // ProcessOutputEntryID holds the ID-tree accessors of `ProcessOutputEntry` (DR1 §4.2): methods
@@ -111323,6 +111297,10 @@ func newRequirementDependencyEntryID(tree *som.SomMetaTree, path string) *Requir
 	return &RequirementDependencyEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *RequirementDependencyEntryID) RQDEP_RELA_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RQDEP-RELA-REF"}
+}
+
 // RequirementRelationshipsID holds the ID-tree accessors of `RequirementRelationships` (DR1 §4.2): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -111366,6 +111344,10 @@ type RequirementTestCaseEntryID struct {
 // newRequirementTestCaseEntryID binds a RequirementTestCaseEntryID accessor to a tree and a path.
 func newRequirementTestCaseEntryID(tree *som.SomMetaTree, path string) *RequirementTestCaseEntryID {
 	return &RequirementTestCaseEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *RequirementTestCaseEntryID) RQTSC_RELA_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RQTSC-RELA-REF"}
 }
 
 // ResourceAllocationEntryID holds the ID-tree accessors of `ResourceAllocationEntry` (DR1 §4.2): methods
@@ -112694,16 +112676,12 @@ func newSystemDependencyEntryID(tree *som.SomMetaTree, path string) *SystemDepen
 	return &SystemDependencyEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *SystemDependencyEntryID) LIMET_KNOW_LST() *som.SomListMetaRef[*LimitationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/sourceSystem/LIMET-KNOW-LST", func(t *som.SomMetaTree, p string) *LimitationEntryID {
-		return newLimitationEntryID(t, p)
-	})
+func (x *SystemDependencyEntryID) SYDE_SOUR_REF() *ExistingSystemEntryID {
+	return newExistingSystemEntryID(x.Tree, x.Path+"/SYDE-SOUR-REF")
 }
 
-func (x *SystemDependencyEntryID) LIMET_KNOW_LST_2() *som.SomListMetaRef[*LimitationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetSystem/LIMET-KNOW-LST", func(t *som.SomMetaTree, p string) *LimitationEntryID {
-		return newLimitationEntryID(t, p)
-	})
+func (x *SystemDependencyEntryID) SYDE_TARG_REF() *ExistingSystemEntryID {
+	return newExistingSystemEntryID(x.Tree, x.Path+"/SYDE-TARG-REF")
 }
 
 // SystemErrorCodeEntryID holds the ID-tree accessors of `SystemErrorCodeEntry` (DR1 §4.2): methods
@@ -112732,16 +112710,12 @@ func newSystemIntegrationEntryID(tree *som.SomMetaTree, path string) *SystemInte
 	return &SystemIntegrationEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *SystemIntegrationEntryID) LIMET_KNOW_LST() *som.SomListMetaRef[*LimitationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/sourceSystem/LIMET-KNOW-LST", func(t *som.SomMetaTree, p string) *LimitationEntryID {
-		return newLimitationEntryID(t, p)
-	})
+func (x *SystemIntegrationEntryID) SYIN_SOUR_REF() *ExistingSystemEntryID {
+	return newExistingSystemEntryID(x.Tree, x.Path+"/SYIN-SOUR-REF")
 }
 
-func (x *SystemIntegrationEntryID) LIMET_KNOW_LST_2() *som.SomListMetaRef[*LimitationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetSystem/LIMET-KNOW-LST", func(t *som.SomMetaTree, p string) *LimitationEntryID {
-		return newLimitationEntryID(t, p)
-	})
+func (x *SystemIntegrationEntryID) SYIN_TARG_REF() *ExistingSystemEntryID {
+	return newExistingSystemEntryID(x.Tree, x.Path+"/SYIN-TARG-REF")
 }
 
 // SystemMigrationRiskEntryID holds the ID-tree accessors of `SystemMigrationRiskEntry` (DR1 §4.2): methods
@@ -112768,6 +112742,10 @@ type SystemTaskEntryID struct {
 // newSystemTaskEntryID binds a SystemTaskEntryID accessor to a tree and a path.
 func newSystemTaskEntryID(tree *som.SomMetaTree, path string) *SystemTaskEntryID {
 	return &SystemTaskEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SystemTaskEntryID) SYTS_RELA_REF() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYTS-RELA-REF"}
 }
 
 func (x *SystemTaskEntryID) SYSTE_WORK_LST() *som.SomListMetaRef[*SystemTaskWorkflowStepEntryID] {
@@ -113781,6 +113759,12 @@ type WorkflowActorEntryID struct {
 // newWorkflowActorEntryID binds a WorkflowActorEntryID accessor to a tree and a path.
 func newWorkflowActorEntryID(tree *som.SomMetaTree, path string) *WorkflowActorEntryID {
 	return &WorkflowActorEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *WorkflowActorEntryID) WAE_PART_REF() *som.SomListMetaRef[*WorkflowStepEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/WAE-PART-REF", func(t *som.SomMetaTree, p string) *WorkflowStepEntryID {
+		return newWorkflowStepEntryID(t, p)
+	})
 }
 
 // WorkflowBusinessRuleID holds the ID-tree accessors of `WorkflowBusinessRule` (DR1 §4.2): methods

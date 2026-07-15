@@ -1235,11 +1235,11 @@ class AffectedFunctionEntry(SomNode):
 
     @property
     def functionRef(self):
-        return self.doc.content(f"{self.path}/functionRef") or ""
+        return self.doc.content(f"{self.path}/AFFN-FUNC-REF") or ""
 
     @functionRef.setter
     def functionRef(self, value):
-        self.doc.set_content(f"{self.path}/functionRef", value)
+        self.doc.set_content(f"{self.path}/AFFN-FUNC-REF", value)
 
 class AffectedObjectEntry(SomNode):
     """An affected object reference entry (form).
@@ -1255,11 +1255,11 @@ class AffectedObjectEntry(SomNode):
 
     @property
     def objectRef(self):
-        return self.doc.content(f"{self.path}/objectRef") or ""
+        return self.doc.content(f"{self.path}/AFOB-OBJE-REF") or ""
 
     @objectRef.setter
     def objectRef(self, value):
-        self.doc.set_content(f"{self.path}/objectRef", value)
+        self.doc.set_content(f"{self.path}/AFOB-OBJE-REF", value)
 
 class AlertDefinitionEntry(SomNode):
     """Alert definition entry."""
@@ -5113,11 +5113,11 @@ class BusinessRuleReferenceEntry(SomNode):
 
     @property
     def ruleRef(self):
-        return self.doc.content(f"{self.path}/ruleRef") or ""
+        return self.doc.content(f"{self.path}/BIRURE-RULE-REF") or ""
 
     @ruleRef.setter
     def ruleRef(self, value):
-        self.doc.set_content(f"{self.path}/ruleRef", value)
+        self.doc.set_content(f"{self.path}/BIRURE-RULE-REF", value)
 
 class CapacityPlanningSection(SomNode):
     """8.7.3. Capacity Planning."""
@@ -12417,11 +12417,11 @@ class DataEntityReferenceEntry(SomNode):
 
     @property
     def relatedEntity(self):
-        return self.doc.content(f"{self.path}/relatedEntity") or ""
+        return self.doc.content(f"{self.path}/DAENRE-RELA-REF") or ""
 
     @relatedEntity.setter
     def relatedEntity(self, value):
-        self.doc.set_content(f"{self.path}/relatedEntity", value)
+        self.doc.set_content(f"{self.path}/DAENRE-RELA-REF", value)
 
 class DataFormatCompatibility(SomNode):
     """Data format and encoding compatibility."""
@@ -17788,19 +17788,19 @@ class EntityRelationshipEntry(SomNode):
 
     @property
     def sourceEntityRef(self):
-        return self.doc.content(f"{self.path}/sourceEntityRef") or ""
+        return self.doc.content(f"{self.path}/ENRLE-SOUR-REF") or ""
 
     @sourceEntityRef.setter
     def sourceEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/sourceEntityRef", value)
+        self.doc.set_content(f"{self.path}/ENRLE-SOUR-REF", value)
 
     @property
     def targetEntityRef(self):
-        return self.doc.content(f"{self.path}/targetEntityRef") or ""
+        return self.doc.content(f"{self.path}/ENRLE-TARG-REF") or ""
 
     @targetEntityRef.setter
     def targetEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/targetEntityRef", value)
+        self.doc.set_content(f"{self.path}/ENRLE-TARG-REF", value)
 
 class EntityRelationships(SomNode):
     """7.1.2. Entity Relationships."""
@@ -19672,7 +19672,7 @@ class ExternalServiceDependencyEntry(SomNode):
 
     @property
     def primaryDependentSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/primaryDependentSystem")
+        return ExistingSystemEntry(self.doc, f"{self.path}/EXSDE-PRIM-REF")
 
 class ExternalServiceDependencyEntryOperations(SomNode):
     """Availability and data handling details."""
@@ -21405,11 +21405,11 @@ class GoalDependencyEntry(SomNode):
 
     @property
     def relatedGoal(self):
-        return self.doc.content(f"{self.path}/relatedGoal") or ""
+        return self.doc.content(f"{self.path}/GOLDE-RELA-REF") or ""
 
     @relatedGoal.setter
     def relatedGoal(self, value):
-        self.doc.set_content(f"{self.path}/relatedGoal", value)
+        self.doc.set_content(f"{self.path}/GOLDE-RELA-REF", value)
 
 class GoalKeyResults(SomNode):
     """4.2.1.n.1. Key Results.
@@ -24788,11 +24788,11 @@ class KeyAttributeEntry(SomNode):
 
     @property
     def referencedEntityRef(self):
-        return self.doc.content(f"{self.path}/referencedEntityRef") or ""
+        return self.doc.content(f"{self.path}/KEATT-REFE-REF") or ""
 
     @referencedEntityRef.setter
     def referencedEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/referencedEntityRef", value)
+        self.doc.set_content(f"{self.path}/KEATT-REFE-REF", value)
 
 class KeyAttributeEntryGeneration(SomNode):
     """Key generation settings."""
@@ -33104,7 +33104,7 @@ class ProcessMetricEntry(SomNode):
 
     @property
     def processReference(self):
-        return CurrentBusinessProcess(self.doc, f"{self.path}/processReference")
+        return CurrentBusinessProcess(self.doc, f"{self.path}/PME-PROC-REF")
 
 class ProcessMetricEntryMeasurement(SomNode):
     """Measurement collection details."""
@@ -36433,11 +36433,11 @@ class RequirementDependencyEntry(SomNode):
 
     @property
     def relatedRequirement(self):
-        return self.doc.content(f"{self.path}/relatedRequirement") or ""
+        return self.doc.content(f"{self.path}/RQDEP-RELA-REF") or ""
 
     @relatedRequirement.setter
     def relatedRequirement(self, value):
-        self.doc.set_content(f"{self.path}/relatedRequirement", value)
+        self.doc.set_content(f"{self.path}/RQDEP-RELA-REF", value)
 
 class RequirementRelationships(SomNode):
     """4.3.5. Requirement Relationships.
@@ -36497,11 +36497,11 @@ class RequirementTestCaseEntry(SomNode):
 
     @property
     def relatedCriterion(self):
-        return self.doc.content(f"{self.path}/relatedCriterion") or ""
+        return self.doc.content(f"{self.path}/RQTSC-RELA-REF") or ""
 
     @relatedCriterion.setter
     def relatedCriterion(self, value):
-        self.doc.set_content(f"{self.path}/relatedCriterion", value)
+        self.doc.set_content(f"{self.path}/RQTSC-RELA-REF", value)
 
 class RequirementTestCaseEntryAutomation(SomNode):
     """Automation and prioritization details."""
@@ -45104,11 +45104,11 @@ class SystemDependencyEntry(SomNode):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/sourceSystem")
+        return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/targetSystem")
+        return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-TARG-REF")
 
 class SystemDependencyEntryDataExchange(SomNode):
     """Data exchange characteristics for system dependency."""
@@ -45447,11 +45447,11 @@ class SystemIntegrationEntry(SomNode):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/sourceSystem")
+        return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/targetSystem")
+        return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-TARG-REF")
 
 class SystemIntegrationErrorHandling(SomNode):
     """Error handling and retry."""
@@ -46131,11 +46131,11 @@ class SystemTaskEntry(SomNode):
 
     @property
     def relatedUseCase(self):
-        return self.doc.content(f"{self.path}/relatedUseCase") or ""
+        return self.doc.content(f"{self.path}/SYTS-RELA-REF") or ""
 
     @relatedUseCase.setter
     def relatedUseCase(self, value):
-        self.doc.set_content(f"{self.path}/relatedUseCase", value)
+        self.doc.set_content(f"{self.path}/SYTS-RELA-REF", value)
 
     # Task workflow steps.
     @property
@@ -52153,7 +52153,7 @@ class WorkflowActorEntry(SomNode):
     # Steps this actor participates in.
     @property
     def participatingSteps(self):
-        return SomList(self.doc, f"{self.path}/participatingSteps", lambda d, p: WorkflowStepEntry(d, p))
+        return SomList(self.doc, f"{self.path}/WAE-PART-REF", lambda d, p: WorkflowStepEntry(d, p))
 
 class WorkflowBusinessRule(SomNode):
     """A business rule governing workflow behavior."""

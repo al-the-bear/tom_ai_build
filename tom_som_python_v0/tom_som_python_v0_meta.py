@@ -1746,6 +1746,7 @@ def _mc_AffectedFunctionEntry(s):
          SomMetaNode(
             class_name="AffectedFunctionEntry",
             member_name="functionRef",
+            section_id="AFFN-FUNC-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -1766,6 +1767,7 @@ def _mc_AffectedObjectEntry(s):
          SomMetaNode(
             class_name="AffectedObjectEntry",
             member_name="objectRef",
+            section_id="AFOB-OBJE-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -7785,6 +7787,7 @@ def _mc_BusinessRuleReferenceEntry(s):
          SomMetaNode(
             class_name="BusinessRuleReferenceEntry",
             member_name="ruleRef",
+            section_id="BIRURE-RULE-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -18702,6 +18705,7 @@ def _mc_DataEntityReferenceEntry(s):
          SomMetaNode(
             class_name="DataEntityReferenceEntry",
             member_name="relatedEntity",
+            section_id="DAENRE-RELA-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -27007,6 +27011,7 @@ def _mc_EntityRelationshipEntry(s):
          SomMetaNode(
             class_name="EntityRelationshipEntry",
             member_name="sourceEntityRef",
+            section_id="ENRLE-SOUR-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=6,
@@ -27015,6 +27020,7 @@ def _mc_EntityRelationshipEntry(s):
          SomMetaNode(
             class_name="EntityRelationshipEntry",
             member_name="targetEntityRef",
+            section_id="ENRLE-TARG-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=7,
@@ -30021,6 +30027,7 @@ def _mc_ExternalServiceDependencyEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemEntry",
                 member_name="primaryDependentSystem",
+                section_id="EXSDE-PRIM-REF",
                 class_section_id="ESENT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemEntry",
@@ -32560,6 +32567,7 @@ def _mc_GoalDependencyEntry(s):
          SomMetaNode(
             class_name="GoalDependencyEntry",
             member_name="relatedGoal",
+            section_id="GOLDE-RELA-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -37719,6 +37727,7 @@ def _mc_KeyAttributeEntry(s):
          SomMetaNode(
             class_name="KeyAttributeEntry",
             member_name="referencedEntityRef",
+            section_id="KEATT-REFE-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=4,
@@ -50247,6 +50256,7 @@ def _mc_ProcessMetricEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="CurrentBusinessProcess",
                 member_name="processReference",
+                section_id="PME-PROC-REF",
                 class_section_id="CUBIPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentBusinessProcess",
@@ -55432,6 +55442,7 @@ def _mc_RequirementDependencyEntry(s):
          SomMetaNode(
             class_name="RequirementDependencyEntry",
             member_name="relatedRequirement",
+            section_id="RQDEP-RELA-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -55513,6 +55524,7 @@ def _mc_RequirementTestCaseEntry(s):
          SomMetaNode(
             class_name="RequirementTestCaseEntry",
             member_name="relatedCriterion",
+            section_id="RQTSC-RELA-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=3,
@@ -68472,6 +68484,7 @@ def _mc_SystemDependencyEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemEntry",
                 member_name="sourceSystem",
+                section_id="SYDE-SOUR-REF",
                 class_section_id="ESENT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemEntry",
@@ -68485,6 +68498,7 @@ def _mc_SystemDependencyEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemEntry",
                 member_name="targetSystem",
+                section_id="SYDE-TARG-REF",
                 class_section_id="ESENT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemEntry",
@@ -69026,6 +69040,7 @@ def _mc_SystemIntegrationEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemEntry",
                 member_name="sourceSystem",
+                section_id="SYIN-SOUR-REF",
                 class_section_id="ESENT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemEntry",
@@ -69039,6 +69054,7 @@ def _mc_SystemIntegrationEntry(s):
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemEntry",
                 member_name="targetSystem",
+                section_id="SYIN-TARG-REF",
                 class_section_id="ESENT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemEntry",
@@ -70220,6 +70236,7 @@ def _mc_SystemTaskEntry(s):
          SomMetaNode(
             class_name="SystemTaskEntry",
             member_name="relatedUseCase",
+            section_id="SYTS-RELA-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=4,
@@ -79342,6 +79359,7 @@ def _mc_WorkflowActorEntry(s):
          SomMetaNode(
             class_name="WorkflowActorEntry",
             member_name="participatingSteps",
+            section_id="WAE-PART-REF",
             kind=SomMetaKind.LIST,
             type_name="WorkflowStepEntry",
             serialization_order=1,
@@ -80963,7 +80981,7 @@ class AffectedFunctionEntryNav(SomMetaRef):
 
     @property
     def functionRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/functionRef")
+        return SomMetaRef(self.tree, f"{self.path}/AFFN-FUNC-REF")
 
 
 class AffectedObjectEntryNav(SomMetaRef):
@@ -80978,7 +80996,7 @@ class AffectedObjectEntryNav(SomMetaRef):
 
     @property
     def objectRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/objectRef")
+        return SomMetaRef(self.tree, f"{self.path}/AFOB-OBJE-REF")
 
 
 class AlertDefinitionEntryNav(SomMetaRef):
@@ -84576,7 +84594,7 @@ class BusinessRuleReferenceEntryNav(SomMetaRef):
 
     @property
     def ruleRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/ruleRef")
+        return SomMetaRef(self.tree, f"{self.path}/BIRURE-RULE-REF")
 
 
 class CapacityPlanningSectionNav(SomMetaRef):
@@ -90790,7 +90808,7 @@ class DataEntityReferenceEntryNav(SomMetaRef):
 
     @property
     def relatedEntity(self):
-        return SomMetaRef(self.tree, f"{self.path}/relatedEntity")
+        return SomMetaRef(self.tree, f"{self.path}/DAENRE-RELA-REF")
 
 
 class DataFormatCompatibilityNav(SomMetaRef):
@@ -95855,11 +95873,11 @@ class EntityRelationshipEntryNav(SomMetaRef):
 
     @property
     def sourceEntityRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/sourceEntityRef")
+        return SomMetaRef(self.tree, f"{self.path}/ENRLE-SOUR-REF")
 
     @property
     def targetEntityRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/targetEntityRef")
+        return SomMetaRef(self.tree, f"{self.path}/ENRLE-TARG-REF")
 
 
 class EntityRelationshipsNav(SomMetaRef):
@@ -97640,7 +97658,7 @@ class ExternalServiceDependencyEntryNav(SomMetaRef):
 
     @property
     def primaryDependentSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/primaryDependentSystem")
+        return ExistingSystemEntryNav(self.tree, f"{self.path}/EXSDE-PRIM-REF")
 
 
 class ExternalServiceDependencyEntryOperationsNav(SomMetaRef):
@@ -99232,7 +99250,7 @@ class GoalDependencyEntryNav(SomMetaRef):
 
     @property
     def relatedGoal(self):
-        return SomMetaRef(self.tree, f"{self.path}/relatedGoal")
+        return SomMetaRef(self.tree, f"{self.path}/GOLDE-RELA-REF")
 
 
 class GoalKeyResultsNav(SomMetaRef):
@@ -102444,7 +102462,7 @@ class KeyAttributeEntryNav(SomMetaRef):
 
     @property
     def referencedEntityRef(self):
-        return SomMetaRef(self.tree, f"{self.path}/referencedEntityRef")
+        return SomMetaRef(self.tree, f"{self.path}/KEATT-REFE-REF")
 
 
 class KeyAttributeEntryGenerationNav(SomMetaRef):
@@ -110251,7 +110269,7 @@ class ProcessMetricEntryNav(SomMetaRef):
 
     @property
     def processReference(self):
-        return CurrentBusinessProcessNav(self.tree, f"{self.path}/processReference")
+        return CurrentBusinessProcessNav(self.tree, f"{self.path}/PME-PROC-REF")
 
 
 class ProcessMetricEntryMeasurementNav(SomMetaRef):
@@ -113496,7 +113514,7 @@ class RequirementDependencyEntryNav(SomMetaRef):
 
     @property
     def relatedRequirement(self):
-        return SomMetaRef(self.tree, f"{self.path}/relatedRequirement")
+        return SomMetaRef(self.tree, f"{self.path}/RQDEP-RELA-REF")
 
 
 class RequirementRelationshipsNav(SomMetaRef):
@@ -113545,7 +113563,7 @@ class RequirementTestCaseEntryNav(SomMetaRef):
 
     @property
     def relatedCriterion(self):
-        return SomMetaRef(self.tree, f"{self.path}/relatedCriterion")
+        return SomMetaRef(self.tree, f"{self.path}/RQTSC-RELA-REF")
 
 
 class RequirementTestCaseEntryAutomationNav(SomMetaRef):
@@ -121564,11 +121582,11 @@ class SystemDependencyEntryNav(SomMetaRef):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/sourceSystem")
+        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYDE-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/targetSystem")
+        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYDE-TARG-REF")
 
 
 class SystemDependencyEntryDataExchangeNav(SomMetaRef):
@@ -121888,11 +121906,11 @@ class SystemIntegrationEntryNav(SomMetaRef):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/sourceSystem")
+        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYIN-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/targetSystem")
+        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYIN-TARG-REF")
 
 
 class SystemIntegrationErrorHandlingNav(SomMetaRef):
@@ -122452,7 +122470,7 @@ class SystemTaskEntryNav(SomMetaRef):
 
     @property
     def relatedUseCase(self):
-        return SomMetaRef(self.tree, f"{self.path}/relatedUseCase")
+        return SomMetaRef(self.tree, f"{self.path}/SYTS-RELA-REF")
 
     @property
     def workflowSteps(self):
@@ -128047,7 +128065,7 @@ class WorkflowActorEntryNav(SomMetaRef):
 
     @property
     def participatingSteps(self):
-        return SomListMetaRef(self.tree, f"{self.path}/participatingSteps", WorkflowStepEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/WAE-PART-REF", WorkflowStepEntryNav)
 
 
 class WorkflowBusinessRuleNav(SomMetaRef):
@@ -128491,12 +128509,20 @@ class AffectedFunctionEntryId(SomMetaRef):
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
 
+    @property
+    def AFFN_FUNC_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/AFFN-FUNC-REF")
+
 
 class AffectedObjectEntryId(SomMetaRef):
     """ID-tree accessors of ``AffectedObjectEntry`` (DR1 §4.2): getters named by
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def AFOB_OBJE_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/AFOB-OBJE-REF")
 
 
 class AlertDefinitionEntryId(SomMetaRef):
@@ -128871,6 +128897,10 @@ class BusinessRuleReferenceEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def BIRURE_RULE_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/BIRURE-RULE-REF")
 
 
 class CategoryDependencyEntryId(SomMetaRef):
@@ -131783,6 +131813,10 @@ class DataEntityReferenceEntryId(SomMetaRef):
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
 
+    @property
+    def DAENRE_RELA_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAENRE-RELA-REF")
+
 
 class DataGovernancePolicyEntryId(SomMetaRef):
     """ID-tree accessors of ``DataGovernancePolicyEntry`` (DR1 §4.2): getters named by
@@ -132154,6 +132188,14 @@ class EntityRelationshipEntryId(SomMetaRef):
     def RELAT_RELA_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/RELAT-RELA-LST", RelationshipAttributeEntryId)
 
+    @property
+    def ENRLE_SOUR_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/ENRLE-SOUR-REF")
+
+    @property
+    def ENRLE_TARG_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/ENRLE-TARG-REF")
+
 
 class EntryPointEntryId(SomMetaRef):
     """ID-tree accessors of ``EntryPointEntry`` (DR1 §4.2): getters named by
@@ -132344,8 +132386,8 @@ class ExternalServiceDependencyEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def LIMET_KNOW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/primaryDependentSystem/LIMET-KNOW-LST", LimitationEntryId)
+    def EXSDE_PRIM_REF(self):
+        return ExistingSystemEntryId(self.tree, f"{self.path}/EXSDE-PRIM-REF")
 
 
 class ExternalSystemContextEntryId(SomMetaRef):
@@ -132537,6 +132579,10 @@ class GoalDependencyEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def GOLDE_RELA_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/GOLDE-RELA-REF")
 
 
 class GoalMilestoneEntryId(SomMetaRef):
@@ -132822,6 +132868,10 @@ class KeyAttributeEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def KEATT_REFE_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/KEATT-REFE-REF")
 
 
 class KeyConceptEntryId(SomMetaRef):
@@ -133505,44 +133555,8 @@ class ProcessMetricEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def WOSUEN_ENTR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", WorkflowSummaryEntryId)
-
-    @property
-    def CUWF_WORK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/workflowDescriptions/CUWF-WORK-LST", CurrentWorkflowEntryId)
-
-    @property
-    def PRMECA_EFFI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PRMECA-EFFI-LST", ProcessMetricCategoryId)
-
-    @property
-    def PRMECA_QUAL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PRMECA-QUAL-LST", ProcessMetricCategoryId)
-
-    @property
-    def PRMECA_VOLU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PRMECA-VOLU-LST", ProcessMetricCategoryId)
-
-    @property
-    def PRMECA_COST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PRMECA-COST-LST", ProcessMetricCategoryId)
-
-    @property
-    def PRMECA_MANU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PRMECA-MANU-LST", ProcessMetricCategoryId)
-
-    @property
-    def PME_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/PME-ITEM-LST", ProcessMetricEntryId)
-
-    @property
-    def MEBAEN_ENTR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST", MetricsBaselineEntryId)
-
-    @property
-    def CPIE_IMPR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/processReference/processPainPoints/CPIE-IMPR-LST", CurrentProcessImprovementEntryId)
+    def PME_PROC_REF(self):
+        return CurrentBusinessProcessId(self.tree, f"{self.path}/PME-PROC-REF")
 
 
 class ProcessOutputEntryId(SomMetaRef):
@@ -133882,6 +133896,10 @@ class RequirementDependencyEntryId(SomMetaRef):
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
 
+    @property
+    def RQDEP_RELA_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/RQDEP-RELA-REF")
+
 
 class RequirementRelationshipsId(SomMetaRef):
     """ID-tree accessors of ``RequirementRelationships`` (DR1 §4.2): getters named by
@@ -133906,6 +133924,10 @@ class RequirementTestCaseEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RQTSC_RELA_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/RQTSC-RELA-REF")
 
 
 class ResourceAllocationEntryId(SomMetaRef):
@@ -134642,12 +134664,12 @@ class SystemDependencyEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def LIMET_KNOW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/sourceSystem/LIMET-KNOW-LST", LimitationEntryId)
+    def SYDE_SOUR_REF(self):
+        return ExistingSystemEntryId(self.tree, f"{self.path}/SYDE-SOUR-REF")
 
     @property
-    def LIMET_KNOW_LST_2(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetSystem/LIMET-KNOW-LST", LimitationEntryId)
+    def SYDE_TARG_REF(self):
+        return ExistingSystemEntryId(self.tree, f"{self.path}/SYDE-TARG-REF")
 
 
 class SystemErrorCodeEntryId(SomMetaRef):
@@ -134664,12 +134686,12 @@ class SystemIntegrationEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def LIMET_KNOW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/sourceSystem/LIMET-KNOW-LST", LimitationEntryId)
+    def SYIN_SOUR_REF(self):
+        return ExistingSystemEntryId(self.tree, f"{self.path}/SYIN-SOUR-REF")
 
     @property
-    def LIMET_KNOW_LST_2(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetSystem/LIMET-KNOW-LST", LimitationEntryId)
+    def SYIN_TARG_REF(self):
+        return ExistingSystemEntryId(self.tree, f"{self.path}/SYIN-TARG-REF")
 
 
 class SystemMigrationRiskEntryId(SomMetaRef):
@@ -134684,6 +134706,10 @@ class SystemTaskEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def SYTS_RELA_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/SYTS-RELA-REF")
 
     @property
     def SYSTE_WORK_LST(self):
@@ -135261,6 +135287,10 @@ class WorkflowActorEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def WAE_PART_REF(self):
+        return SomListMetaRef(self.tree, f"{self.path}/WAE-PART-REF", WorkflowStepEntryId)
 
 
 class WorkflowBusinessRuleId(SomMetaRef):

@@ -735,14 +735,14 @@ fn meta_children_affected_department_entry(_s: &mut HashSet<String>) -> Vec<Rc<s
 fn meta_children_affected_function_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AffectedFunctionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "functionName".to_string(), type_name: "String".to_string(), description: "Function Name".to_string(), required: true, hint: "Name of the affected function".to_string(), order: 0 }, som::SomFormFieldMeta { name: "triggerPoint".to_string(), type_name: "String".to_string(), description: "Trigger Point".to_string(), required: false, hint: "When in the function rule is triggered".to_string(), order: 1 }, som::SomFormFieldMeta { name: "impact".to_string(), type_name: "String".to_string(), description: "Impact".to_string(), required: false, hint: "How the function is impacted".to_string(), order: 2 }, som::SomFormFieldMeta { name: "isMandatory".to_string(), type_name: "String".to_string(), description: "Is Mandatory".to_string(), required: false, hint: "Whether check is required in this function: Yes | No".to_string(), order: 3 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "AffectedFunctionEntry".to_string(), member_name: "functionRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("functionName".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "AffectedFunctionEntry".to_string(), member_name: "functionRef".to_string(), section_id: "AFFN-FUNC-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("functionName".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
 fn meta_children_affected_object_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AffectedObjectEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "objectName".to_string(), type_name: "String".to_string(), description: "Object Name".to_string(), required: true, hint: "Name of the affected business object".to_string(), order: 0 }, som::SomFormFieldMeta { name: "affectedAttributes".to_string(), type_name: "String".to_string(), description: "Affected Attributes".to_string(), required: false, hint: "Specific attributes affected".to_string(), order: 1 }, som::SomFormFieldMeta { name: "impact".to_string(), type_name: "String".to_string(), description: "Impact".to_string(), required: false, hint: "How the object is impacted: Validated | Constrained | Modified | Created".to_string(), order: 2 }, som::SomFormFieldMeta { name: "accessType".to_string(), type_name: "String".to_string(), description: "Access Type".to_string(), required: false, hint: "Read | Write | Both".to_string(), order: 3 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "AffectedObjectEntry".to_string(), member_name: "objectRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("objectName".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "AffectedObjectEntry".to_string(), member_name: "objectRef".to_string(), section_id: "AFOB-OBJE-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("objectName".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -3294,7 +3294,7 @@ fn meta_children_business_rule_entry(s: &mut HashSet<String>) -> Vec<Rc<som::Som
 fn meta_children_business_rule_reference_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "BusinessRuleReferenceEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "ruleId".to_string(), type_name: "String".to_string(), description: "Rule ID".to_string(), required: false, hint: "Reference to the business rule definition".to_string(), order: 0 }, som::SomFormFieldMeta { name: "ruleName".to_string(), type_name: "String".to_string(), description: "Rule Name".to_string(), required: true, hint: "Name of the business rule".to_string(), order: 1 }, som::SomFormFieldMeta { name: "ruleType".to_string(), type_name: "String".to_string(), description: "Rule Type".to_string(), required: false, hint: "Validation | Calculation | Constraint | Authorization | Workflow".to_string(), order: 2 }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "Brief description of the rule".to_string(), order: 3 }, som::SomFormFieldMeta { name: "enforcement".to_string(), type_name: "String".to_string(), description: "Enforcement".to_string(), required: false, hint: "Automated | Manual | Hybrid".to_string(), order: 4 }, som::SomFormFieldMeta { name: "triggerCondition".to_string(), type_name: "String".to_string(), description: "Trigger Condition".to_string(), required: false, hint: "When this rule is evaluated".to_string(), order: 5 }, som::SomFormFieldMeta { name: "affectedAttributes".to_string(), type_name: "String".to_string(), description: "Affected Attributes".to_string(), required: false, hint: "Attributes involved in this rule".to_string(), order: 6 }, som::SomFormFieldMeta { name: "consequenceOnViolation".to_string(), type_name: "String".to_string(), description: "Consequence On Violation".to_string(), required: false, hint: "What happens when rule is violated".to_string(), order: 7 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "BusinessRuleReferenceEntry".to_string(), member_name: "ruleRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("ruleId".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BusinessRuleReferenceEntry".to_string(), member_name: "ruleRef".to_string(), section_id: "BIRURE-RULE-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("ruleId".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -7891,7 +7891,7 @@ fn meta_children_data_entity_migration_entry(_s: &mut HashSet<String>) -> Vec<Rc
 fn meta_children_data_entity_reference_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "DataEntityReferenceEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "entityName".to_string(), type_name: "String".to_string(), description: "Entity Name".to_string(), required: true, hint: "Name of the data entity referenced".to_string(), order: 0 }, som::SomFormFieldMeta { name: "crudOperations".to_string(), type_name: "String".to_string(), description: "CRUD Operations (Create, Read, Update, Delete)".to_string(), required: true, hint: "Which of Create, Read, Update, Delete are performed".to_string(), order: 1 }, som::SomFormFieldMeta { name: "attributes".to_string(), type_name: "String".to_string(), description: "Attributes (specific fields involved)".to_string(), required: false, hint: "Specific fields/attributes involved".to_string(), order: 2 }, som::SomFormFieldMeta { name: "volumeEstimate".to_string(), type_name: "String".to_string(), description: "Volume Estimate (records created/accessed)".to_string(), required: false, hint: "Estimated number of records created or accessed".to_string(), order: 3 }, som::SomFormFieldMeta { name: "dataQualityRules".to_string(), type_name: "String".to_string(), description: "Data Quality Rules (validation, completeness)".to_string(), required: false, hint: "Validation and completeness rules for the data".to_string(), order: 4 }, som::SomFormFieldMeta { name: "dataOwner".to_string(), type_name: "String".to_string(), description: "Data Owner".to_string(), required: false, hint: "Owner accountable for this data entity".to_string(), order: 5 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "DataEntityReferenceEntry".to_string(), member_name: "relatedEntity".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Data Model Entity".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataEntityReferenceEntry".to_string(), member_name: "relatedEntity".to_string(), section_id: "DAENRE-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Data Model Entity".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -11382,8 +11382,8 @@ fn meta_children_entity_relationship_entry(s: &mut HashSet<String>) -> Vec<Rc<so
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "EntityRelationshipEntry".to_string(), member_name: "sourceEntityRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("sourceEntityName".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "EntityRelationshipEntry".to_string(), member_name: "targetEntityRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("targetEntityName".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "EntityRelationshipEntry".to_string(), member_name: "sourceEntityRef".to_string(), section_id: "ENRLE-SOUR-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("sourceEntityName".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "EntityRelationshipEntry".to_string(), member_name: "targetEntityRef".to_string(), section_id: "ENRLE-TARG-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("targetEntityName".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -12668,7 +12668,7 @@ fn meta_children_external_service_dependency_entry(s: &mut HashSet<String>) -> V
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExistingSystemEntry", s, meta_children_existing_system_entry, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemEntry".to_string(), member_name: "primaryDependentSystem".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(4), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Primary Dependent System".to_string()))] }],
+            class_name: "ExistingSystemEntry".to_string(), member_name: "primaryDependentSystem".to_string(), section_id: "EXSDE-PRIM-REF".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(4), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Primary Dependent System".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -13755,7 +13755,7 @@ fn meta_children_goal_dependencies(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
 fn meta_children_goal_dependency_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "GoalDependencyEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dependencyId".to_string(), type_name: "String".to_string(), description: "Dependency ID".to_string(), required: true, hint: "Unique identifier for this dependency".to_string(), order: 0 }, som::SomFormFieldMeta { name: "dependencyType".to_string(), type_name: "String".to_string(), description: "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)".to_string(), required: true, hint: "e.g., Internal Goal, External Project, Resource, Regulatory".to_string(), order: 1 }, som::SomFormFieldMeta { name: "dependencyName".to_string(), type_name: "String".to_string(), description: "Dependency Name (what we depend on)".to_string(), required: true, hint: "Name of the thing this goal depends on".to_string(), order: 2 }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "Details of the dependency".to_string(), order: 3 }, som::SomFormFieldMeta { name: "owner".to_string(), type_name: "String".to_string(), description: "Owner (who controls this dependency)".to_string(), required: false, hint: "Person or party who controls this dependency".to_string(), order: 4 }, som::SomFormFieldMeta { name: "expectedResolutionDate".to_string(), type_name: "String".to_string(), description: "Expected Resolution Date".to_string(), required: false, hint: "When the dependency is expected to be resolved".to_string(), order: 5 }, som::SomFormFieldMeta { name: "impact".to_string(), type_name: "String".to_string(), description: "Impact (how this affects our goal)".to_string(), required: false, hint: "How this dependency affects the goal".to_string(), order: 6 }, som::SomFormFieldMeta { name: "mitigationStrategy".to_string(), type_name: "String".to_string(), description: "Mitigation Strategy (what if dependency is not resolved)".to_string(), required: false, hint: "Plan if the dependency is not resolved".to_string(), order: 7 }, som::SomFormFieldMeta { name: "status".to_string(), type_name: "String".to_string(), description: "Status (Open, In Progress, Resolved, Blocked)".to_string(), required: false, hint: "Open, In Progress, Resolved, or Blocked".to_string(), order: 8 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "GoalDependencyEntry".to_string(), member_name: "relatedGoal".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Goal".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "GoalDependencyEntry".to_string(), member_name: "relatedGoal".to_string(), section_id: "GOLDE-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Goal".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -16017,7 +16017,7 @@ fn meta_children_key_attribute_entry(s: &mut HashSet<String>) -> Vec<Rc<som::Som
             class_name: "KeyAttributeEntryGovernance".to_string(), member_name: "governance".to_string(), class_section_id: "KEAGV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyAttributeEntryGovernance".to_string(), serialization_order: Some(3), doc_comment: "Constraint semantics and business meaning.".to_string(), class_doc_comment: "Constraint semantics and business meaning.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "KeyAttributeEntry".to_string(), member_name: "referencedEntityRef".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("referencedEntity".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "KeyAttributeEntry".to_string(), member_name: "referencedEntityRef".to_string(), section_id: "KEATT-REFE-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("referencedEntity".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -21402,7 +21402,7 @@ fn meta_children_process_metric_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("CurrentBusinessProcess", s, meta_children_current_business_process, |r, c| som::SomMetaNode {
-            class_name: "CurrentBusinessProcess".to_string(), member_name: "processReference".to_string(), class_section_id: "CUBIPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentBusinessProcess".to_string(), serialization_order: Some(3), doc_comment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.".to_string(), class_doc_comment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Process Reference".to_string()))] }],
+            class_name: "CurrentBusinessProcess".to_string(), member_name: "processReference".to_string(), section_id: "PME-PROC-REF".to_string(), class_section_id: "CUBIPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentBusinessProcess".to_string(), serialization_order: Some(3), doc_comment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.".to_string(), class_doc_comment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Process Reference".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -23698,7 +23698,7 @@ fn meta_children_requirement_dependencies(s: &mut HashSet<String>) -> Vec<Rc<som
 fn meta_children_requirement_dependency_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "RequirementDependencyEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dependencyType".to_string(), type_name: "String".to_string(), description: "Dependency Type (Prerequisite, Bidirectional, Parent-Child, Conflict, Refinement)".to_string(), required: true, hint: "Prerequisite, Bidirectional, Parent-Child, Conflict, or Refinement".to_string(), order: 0 }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "Description of the dependency".to_string(), order: 1 }, som::SomFormFieldMeta { name: "impact".to_string(), type_name: "String".to_string(), description: "Impact (what happens if dependency not met)".to_string(), required: false, hint: "What happens if the dependency is not met".to_string(), order: 2 }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "RequirementDependencyEntry".to_string(), member_name: "relatedRequirement".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Requirement".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "RequirementDependencyEntry".to_string(), member_name: "relatedRequirement".to_string(), section_id: "RQDEP-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Requirement".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -23733,7 +23733,7 @@ fn meta_children_requirement_test_case_entry(s: &mut HashSet<String>) -> Vec<Rc<
             class_name: "RequirementTestCaseEntryAutomation".to_string(), member_name: "automation".to_string(), class_section_id: "RTCEA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RequirementTestCaseEntryAutomation".to_string(), serialization_order: Some(2), doc_comment: "Automation and prioritization details.".to_string(), class_doc_comment: "Automation and prioritization details.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "RequirementTestCaseEntry".to_string(), member_name: "relatedCriterion".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Acceptance Criterion".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "RequirementTestCaseEntry".to_string(), member_name: "relatedCriterion".to_string(), section_id: "RQTSC-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Acceptance Criterion".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -29309,11 +29309,11 @@ fn meta_children_system_dependency_entry(s: &mut HashSet<String>) -> Vec<Rc<som:
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExistingSystemEntry", s, meta_children_existing_system_entry, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemEntry".to_string(), member_name: "sourceSystem".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(5), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Source System".to_string()))] }],
+            class_name: "ExistingSystemEntry".to_string(), member_name: "sourceSystem".to_string(), section_id: "SYDE-SOUR-REF".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(5), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Source System".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExistingSystemEntry", s, meta_children_existing_system_entry, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemEntry".to_string(), member_name: "targetSystem".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(6), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Target System".to_string()))] }],
+            class_name: "ExistingSystemEntry".to_string(), member_name: "targetSystem".to_string(), section_id: "SYDE-TARG-REF".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(6), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Target System".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -29542,11 +29542,11 @@ fn meta_children_system_integration_entry(s: &mut HashSet<String>) -> Vec<Rc<som
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExistingSystemEntry", s, meta_children_existing_system_entry, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemEntry".to_string(), member_name: "sourceSystem".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(7), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Source System".to_string()))] }],
+            class_name: "ExistingSystemEntry".to_string(), member_name: "sourceSystem".to_string(), section_id: "SYIN-SOUR-REF".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(7), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Source System".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExistingSystemEntry", s, meta_children_existing_system_entry, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemEntry".to_string(), member_name: "targetSystem".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(8), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Target System".to_string()))] }],
+            class_name: "ExistingSystemEntry".to_string(), member_name: "targetSystem".to_string(), section_id: "SYIN-TARG-REF".to_string(), class_section_id: "ESENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemEntry".to_string(), serialization_order: Some(8), doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), class_doc_comment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Target System".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -29990,7 +29990,7 @@ fn meta_children_system_task_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
             class_name: "SystemTaskEntryContext".to_string(), member_name: "context".to_string(), class_section_id: "STEC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemTaskEntryContext".to_string(), serialization_order: Some(3), doc_comment: "Tooling and linked artifacts.".to_string(), class_doc_comment: "Tooling and linked artifacts for a system task.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "relatedUseCase".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Use Case".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "relatedUseCase".to_string(), section_id: "SYTS-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Use Case".to_string()))] }], ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "workflowSteps".to_string(), section_id: "SYSTE-WORK-LST".to_string(), section_id_pattern: "SYSTE-WORK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemTaskWorkflowStepEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per step in the task workflow, in the order the user performs them.".to_string(), doc_comment: "Task workflow steps.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of workflow steps that make up this task.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SystemTaskWorkflowStepEntry", s, meta_children_system_task_workflow_step_entry, |r, c| som::SomMetaNode {
@@ -33933,7 +33933,7 @@ fn meta_children_workflow_actor_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
     vec![
         Rc::new(som::SomMetaNode { class_name: "WorkflowActorEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "actorName".to_string(), type_name: "String".to_string(), description: "Actor Name".to_string(), required: true, hint: "".to_string(), order: 0 }, som::SomFormFieldMeta { name: "actorType".to_string(), type_name: "String".to_string(), description: "Actor Type (e.g., Role, System, Department, External)".to_string(), required: false, hint: "".to_string(), order: 1 }, som::SomFormFieldMeta { name: "role".to_string(), type_name: "String".to_string(), description: "Role in this workflow".to_string(), required: false, hint: "".to_string(), order: 2 }, som::SomFormFieldMeta { name: "responsibilities".to_string(), type_name: "String".to_string(), description: "Responsibilities".to_string(), required: false, hint: "".to_string(), order: 3 }, som::SomFormFieldMeta { name: "authorizationLevel".to_string(), type_name: "String".to_string(), description: "Authorization Level".to_string(), required: false, hint: "".to_string(), order: 4 }, som::SomFormFieldMeta { name: "availabilityRequirements".to_string(), type_name: "String".to_string(), description: "Availability Requirements".to_string(), required: false, hint: "".to_string(), order: 5 }, som::SomFormFieldMeta { name: "skillRequirements".to_string(), type_name: "String".to_string(), description: "Skill Requirements".to_string(), required: false, hint: "".to_string(), order: 6 }, som::SomFormFieldMeta { name: "headcount".to_string(), type_name: "int".to_string(), description: "Headcount (number of people in this role)".to_string(), required: false, hint: "".to_string(), order: 7 }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "WorkflowActorEntry".to_string(), member_name: "participatingSteps".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(1), doc_comment: "Steps this actor participates in.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Participating Steps".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "WorkflowActorEntry".to_string(), member_name: "participatingSteps".to_string(), section_id: "WAE-PART-REF".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(1), doc_comment: "Steps this actor participates in.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Participating Steps".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("WorkflowStepEntry", s, meta_children_workflow_step_entry, |r, c| som::SomMetaNode {
                 class_name: "WorkflowStepEntry".to_string(), class_section_id: "WSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowStepEntry".to_string(), doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), class_doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -36633,7 +36633,7 @@ impl<'a> AffectedFunctionEntryNav<'a> {
     }
 
     pub fn function_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "functionRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AFFN-FUNC-REF"))
     }
 }
 
@@ -36668,7 +36668,7 @@ impl<'a> AffectedObjectEntryNav<'a> {
     }
 
     pub fn object_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "objectRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AFOB-OBJE-REF"))
     }
 }
 
@@ -44706,7 +44706,7 @@ impl<'a> BusinessRuleReferenceEntryNav<'a> {
     }
 
     pub fn rule_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ruleRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BIRURE-RULE-REF"))
     }
 }
 
@@ -58240,7 +58240,7 @@ impl<'a> DataEntityReferenceEntryNav<'a> {
     }
 
     pub fn related_entity(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "relatedEntity"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENRE-RELA-REF"))
     }
 }
 
@@ -69765,11 +69765,11 @@ impl<'a> EntityRelationshipEntryNav<'a> {
     }
 
     pub fn source_entity_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sourceEntityRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENRLE-SOUR-REF"))
     }
 
     pub fn target_entity_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetEntityRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENRLE-TARG-REF"))
     }
 }
 
@@ -73770,7 +73770,7 @@ impl<'a> ExternalServiceDependencyEntryNav<'a> {
     }
 
     pub fn primary_dependent_system(&self) -> ExistingSystemEntryNav<'a> {
-        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "primaryDependentSystem"))
+        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXSDE-PRIM-REF"))
     }
 }
 
@@ -77442,7 +77442,7 @@ impl<'a> GoalDependencyEntryNav<'a> {
     }
 
     pub fn related_goal(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "relatedGoal"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GOLDE-RELA-REF"))
     }
 }
 
@@ -84894,7 +84894,7 @@ impl<'a> KeyAttributeEntryNav<'a> {
     }
 
     pub fn referenced_entity_ref(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "referencedEntityRef"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KEATT-REFE-REF"))
     }
 }
 
@@ -102881,7 +102881,7 @@ impl<'a> ProcessMetricEntryNav<'a> {
     }
 
     pub fn process_reference(&self) -> CurrentBusinessProcessNav<'a> {
-        CurrentBusinessProcessNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference"))
+        CurrentBusinessProcessNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PME-PROC-REF"))
     }
 }
 
@@ -110426,7 +110426,7 @@ impl<'a> RequirementDependencyEntryNav<'a> {
     }
 
     pub fn related_requirement(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "relatedRequirement"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RQDEP-RELA-REF"))
     }
 }
 
@@ -110535,7 +110535,7 @@ impl<'a> RequirementTestCaseEntryNav<'a> {
     }
 
     pub fn related_criterion(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "relatedCriterion"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RQTSC-RELA-REF"))
     }
 }
 
@@ -128974,11 +128974,11 @@ impl<'a> SystemDependencyEntryNav<'a> {
     }
 
     pub fn source_system(&self) -> ExistingSystemEntryNav<'a> {
-        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sourceSystem"))
+        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYDE-SOUR-REF"))
     }
 
     pub fn target_system(&self) -> ExistingSystemEntryNav<'a> {
-        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetSystem"))
+        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYDE-TARG-REF"))
     }
 }
 
@@ -129698,11 +129698,11 @@ impl<'a> SystemIntegrationEntryNav<'a> {
     }
 
     pub fn source_system(&self) -> ExistingSystemEntryNav<'a> {
-        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sourceSystem"))
+        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYIN-SOUR-REF"))
     }
 
     pub fn target_system(&self) -> ExistingSystemEntryNav<'a> {
-        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetSystem"))
+        ExistingSystemEntryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYIN-TARG-REF"))
     }
 }
 
@@ -130742,7 +130742,7 @@ impl<'a> SystemTaskEntryNav<'a> {
     }
 
     pub fn related_use_case(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "relatedUseCase"))
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-RELA-REF"))
     }
 
     pub fn workflow_steps(&self) -> som::SomListMetaRef<'a, SystemTaskWorkflowStepEntryNav<'a>> {
@@ -143477,7 +143477,7 @@ impl<'a> WorkflowActorEntryNav<'a> {
     }
 
     pub fn participating_steps(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "participatingSteps"), WorkflowStepEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WAE-PART-REF"), WorkflowStepEntryNav::new)
     }
 }
 
@@ -144629,6 +144629,10 @@ impl<'a> AffectedFunctionEntryId<'a> {
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
     }
+
+    pub fn AFFN_FUNC_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AFFN-FUNC-REF"))
+    }
 }
 
 /// AffectedObjectEntryId holds the ID-tree accessors of `AffectedObjectEntry` (DR1 §4.2):
@@ -144654,6 +144658,10 @@ impl<'a> AffectedObjectEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn AFOB_OBJE_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AFOB-OBJE-REF"))
     }
 }
 
@@ -145674,6 +145682,10 @@ impl<'a> BusinessRuleReferenceEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn BIRURE_RULE_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BIRURE-RULE-REF"))
     }
 }
 
@@ -149973,6 +149985,10 @@ impl<'a> DataEntityReferenceEntryId<'a> {
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
     }
+
+    pub fn DAENRE_RELA_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENRE-RELA-REF"))
+    }
 }
 
 /// DataGovernancePolicyEntryId holds the ID-tree accessors of `DataGovernancePolicyEntry` (DR1 §4.2):
@@ -151275,6 +151291,14 @@ impl<'a> EntityRelationshipEntryId<'a> {
     pub fn RELAT_RELA_LST(&self) -> som::SomListMetaRef<'a, RelationshipAttributeEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RELAT-RELA-LST"), RelationshipAttributeEntryId::new)
     }
+
+    pub fn ENRLE_SOUR_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENRLE-SOUR-REF"))
+    }
+
+    pub fn ENRLE_TARG_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENRLE-TARG-REF"))
+    }
 }
 
 /// EntryPointEntryId holds the ID-tree accessors of `EntryPointEntry` (DR1 §4.2):
@@ -151826,8 +151850,8 @@ impl<'a> ExternalServiceDependencyEntryId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn LIMET_KNOW_LST(&self) -> som::SomListMetaRef<'a, LimitationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "primaryDependentSystem/LIMET-KNOW-LST"), LimitationEntryId::new)
+    pub fn EXSDE_PRIM_REF(&self) -> ExistingSystemEntryId<'a> {
+        ExistingSystemEntryId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXSDE-PRIM-REF"))
     }
 }
 
@@ -152418,6 +152442,10 @@ impl<'a> GoalDependencyEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn GOLDE_RELA_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GOLDE-RELA-REF"))
     }
 }
 
@@ -153368,6 +153396,10 @@ impl<'a> KeyAttributeEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn KEATT_REFE_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KEATT-REFE-REF"))
     }
 }
 
@@ -155704,44 +155736,8 @@ impl<'a> ProcessMetricEntryId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn WOSUEN_ENTR_LST(&self) -> som::SomListMetaRef<'a, WorkflowSummaryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST"), WorkflowSummaryEntryId::new)
-    }
-
-    pub fn CUWF_WORK_LST(&self) -> som::SomListMetaRef<'a, CurrentWorkflowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/workflowDescriptions/CUWF-WORK-LST"), CurrentWorkflowEntryId::new)
-    }
-
-    pub fn PRMECA_EFFI_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricCategoryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PRMECA-EFFI-LST"), ProcessMetricCategoryId::new)
-    }
-
-    pub fn PRMECA_QUAL_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricCategoryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PRMECA-QUAL-LST"), ProcessMetricCategoryId::new)
-    }
-
-    pub fn PRMECA_VOLU_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricCategoryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PRMECA-VOLU-LST"), ProcessMetricCategoryId::new)
-    }
-
-    pub fn PRMECA_COST_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricCategoryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PRMECA-COST-LST"), ProcessMetricCategoryId::new)
-    }
-
-    pub fn PRMECA_MANU_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricCategoryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PRMECA-MANU-LST"), ProcessMetricCategoryId::new)
-    }
-
-    pub fn PME_ITEM_LST(&self) -> som::SomListMetaRef<'a, ProcessMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/PME-ITEM-LST"), ProcessMetricEntryId::new)
-    }
-
-    pub fn MEBAEN_ENTR_LST(&self) -> som::SomListMetaRef<'a, MetricsBaselineEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST"), MetricsBaselineEntryId::new)
-    }
-
-    pub fn CPIE_IMPR_LST(&self) -> som::SomListMetaRef<'a, CurrentProcessImprovementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processReference/processPainPoints/CPIE-IMPR-LST"), CurrentProcessImprovementEntryId::new)
+    pub fn PME_PROC_REF(&self) -> CurrentBusinessProcessId<'a> {
+        CurrentBusinessProcessId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PME-PROC-REF"))
     }
 }
 
@@ -156879,6 +156875,10 @@ impl<'a> RequirementDependencyEntryId<'a> {
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
     }
+
+    pub fn RQDEP_RELA_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RQDEP-RELA-REF"))
+    }
 }
 
 /// RequirementRelationshipsId holds the ID-tree accessors of `RequirementRelationships` (DR1 §4.2):
@@ -156960,6 +156960,10 @@ impl<'a> RequirementTestCaseEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RQTSC_RELA_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RQTSC-RELA-REF"))
     }
 }
 
@@ -159406,12 +159410,12 @@ impl<'a> SystemDependencyEntryId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn LIMET_KNOW_LST(&self) -> som::SomListMetaRef<'a, LimitationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sourceSystem/LIMET-KNOW-LST"), LimitationEntryId::new)
+    pub fn SYDE_SOUR_REF(&self) -> ExistingSystemEntryId<'a> {
+        ExistingSystemEntryId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYDE-SOUR-REF"))
     }
 
-    pub fn LIMET_KNOW_LST_2(&self) -> som::SomListMetaRef<'a, LimitationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetSystem/LIMET-KNOW-LST"), LimitationEntryId::new)
+    pub fn SYDE_TARG_REF(&self) -> ExistingSystemEntryId<'a> {
+        ExistingSystemEntryId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYDE-TARG-REF"))
     }
 }
 
@@ -159466,12 +159470,12 @@ impl<'a> SystemIntegrationEntryId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn LIMET_KNOW_LST(&self) -> som::SomListMetaRef<'a, LimitationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sourceSystem/LIMET-KNOW-LST"), LimitationEntryId::new)
+    pub fn SYIN_SOUR_REF(&self) -> ExistingSystemEntryId<'a> {
+        ExistingSystemEntryId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYIN-SOUR-REF"))
     }
 
-    pub fn LIMET_KNOW_LST_2(&self) -> som::SomListMetaRef<'a, LimitationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetSystem/LIMET-KNOW-LST"), LimitationEntryId::new)
+    pub fn SYIN_TARG_REF(&self) -> ExistingSystemEntryId<'a> {
+        ExistingSystemEntryId::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYIN-TARG-REF"))
     }
 }
 
@@ -159524,6 +159528,10 @@ impl<'a> SystemTaskEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn SYTS_RELA_REF(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-RELA-REF"))
     }
 
     pub fn SYSTE_WORK_LST(&self) -> som::SomListMetaRef<'a, SystemTaskWorkflowStepEntryId<'a>> {
@@ -161222,6 +161230,10 @@ impl<'a> WorkflowActorEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn WAE_PART_REF(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WAE-PART-REF"), WorkflowStepEntryId::new)
     }
 }
 

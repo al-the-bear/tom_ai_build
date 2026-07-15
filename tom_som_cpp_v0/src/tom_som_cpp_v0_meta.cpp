@@ -5660,6 +5660,7 @@ void buildAffectedFunctionEntryChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AffectedFunctionEntry";
     (*n).memberName = "functionRef";
+    (*n).sectionId = "AFFN-FUNC-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -5691,6 +5692,7 @@ void buildAffectedObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AffectedObjectEntry";
     (*n).memberName = "objectRef";
+    (*n).sectionId = "AFOB-OBJE-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -14605,6 +14607,7 @@ void buildBusinessRuleReferenceEntryChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "BusinessRuleReferenceEntry";
     (*n).memberName = "ruleRef";
+    (*n).sectionId = "BIRURE-RULE-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -30767,6 +30770,7 @@ void buildDataEntityReferenceEntryChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DataEntityReferenceEntry";
     (*n).memberName = "relatedEntity";
+    (*n).sectionId = "DAENRE-RELA-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -42733,6 +42737,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "EntityRelationshipEntry";
     (*n).memberName = "sourceEntityRef";
+    (*n).sectionId = "ENRLE-SOUR-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -42745,6 +42750,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "EntityRelationshipEntry";
     (*n).memberName = "targetEntityRef";
+    (*n).sectionId = "ENRLE-TARG-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -47241,6 +47247,7 @@ void buildExternalServiceDependencyEntryChildren(som::SomMetaNode& parent, std::
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemEntry";
         n.memberName = "primaryDependentSystem";
+        n.sectionId = "EXSDE-PRIM-REF";
         n.classSectionId = "ESENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemEntry";
@@ -51036,6 +51043,7 @@ void buildGoalDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "GoalDependencyEntry";
     (*n).memberName = "relatedGoal";
+    (*n).sectionId = "GOLDE-RELA-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -58752,6 +58760,7 @@ void buildKeyAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "KeyAttributeEntry";
     (*n).memberName = "referencedEntityRef";
+    (*n).sectionId = "KEATT-REFE-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -77616,6 +77625,7 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
       [](som::SomMetaNode& n) {
         n.className = "CurrentBusinessProcess";
         n.memberName = "processReference";
+        n.sectionId = "PME-PROC-REF";
         n.classSectionId = "CUBIPR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentBusinessProcess";
@@ -85421,6 +85431,7 @@ void buildRequirementDependencyEntryChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RequirementDependencyEntry";
     (*n).memberName = "relatedRequirement";
+    (*n).sectionId = "RQDEP-RELA-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -85559,6 +85570,7 @@ void buildRequirementTestCaseEntryChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RequirementTestCaseEntry";
     (*n).memberName = "relatedCriterion";
+    (*n).sectionId = "RQTSC-RELA-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -104772,6 +104784,7 @@ void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<st
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemEntry";
         n.memberName = "sourceSystem";
+        n.sectionId = "SYDE-SOUR-REF";
         n.classSectionId = "ESENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemEntry";
@@ -104789,6 +104802,7 @@ void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<st
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemEntry";
         n.memberName = "targetSystem";
+        n.sectionId = "SYDE-TARG-REF";
         n.classSectionId = "ESENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemEntry";
@@ -105585,6 +105599,7 @@ void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<s
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemEntry";
         n.memberName = "sourceSystem";
+        n.sectionId = "SYIN-SOUR-REF";
         n.classSectionId = "ESENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemEntry";
@@ -105602,6 +105617,7 @@ void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<s
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemEntry";
         n.memberName = "targetSystem";
+        n.sectionId = "SYIN-TARG-REF";
         n.classSectionId = "ESENT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemEntry";
@@ -107289,6 +107305,7 @@ void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemTaskEntry";
     (*n).memberName = "relatedUseCase";
+    (*n).sectionId = "SYTS-RELA-REF";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -121068,6 +121085,7 @@ void buildWorkflowActorEntryChildren(som::SomMetaNode& parent, std::vector<std::
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "WorkflowActorEntry";
     (*ln).memberName = "participatingSteps";
+    (*ln).sectionId = "WAE-PART-REF";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "WorkflowStepEntry";
     (*ln).hasSerializationOrder = true;
@@ -125952,13 +125970,13 @@ som::SomMetaRef navAffectedFunctionEntry_content(NavAffectedFunctionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navAffectedFunctionEntry_functionRef(NavAffectedFunctionEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AFFN-FUNC-REF"));
 }
 som::SomMetaRef navAffectedObjectEntry_content(NavAffectedObjectEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navAffectedObjectEntry_objectRef(NavAffectedObjectEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "objectRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AFOB-OBJE-REF"));
 }
 som::SomMetaRef navAlertDefinitionEntry_content(NavAlertDefinitionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -127491,7 +127509,7 @@ som::SomMetaRef navBusinessRuleReferenceEntry_content(NavBusinessRuleReferenceEn
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navBusinessRuleReferenceEntry_ruleRef(NavBusinessRuleReferenceEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ruleRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BIRURE-RULE-REF"));
 }
 som::SomMetaRef navCapacityPlanningSection_content(NavCapacityPlanningSection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -130230,7 +130248,7 @@ som::SomMetaRef navDataEntityReferenceEntry_content(NavDataEntityReferenceEntry 
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navDataEntityReferenceEntry_relatedEntity(NavDataEntityReferenceEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "relatedEntity"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENRE-RELA-REF"));
 }
 som::SomMetaRef navDataFormatCompatibility_content(NavDataFormatCompatibility x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -132294,10 +132312,10 @@ som::SomListMetaRef navEntityRelationshipEntry_relationshipAttributes(NavEntityR
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RELAT-RELA-LST"), metaNavFactoryRelationshipAttributeEntry);
 }
 som::SomMetaRef navEntityRelationshipEntry_sourceEntityRef(NavEntityRelationshipEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sourceEntityRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENRLE-SOUR-REF"));
 }
 som::SomMetaRef navEntityRelationshipEntry_targetEntityRef(NavEntityRelationshipEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targetEntityRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENRLE-TARG-REF"));
 }
 som::SomMetaRef navEntityRelationships_content(NavEntityRelationships x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -133050,7 +133068,7 @@ NavExternalServiceDependencyEntryRisk navExternalServiceDependencyEntry_risk(Nav
   return NavExternalServiceDependencyEntryRisk{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "risk"))};
 }
 NavExistingSystemEntry navExternalServiceDependencyEntry_primaryDependentSystem(NavExternalServiceDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "primaryDependentSystem"))};
+  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"))};
 }
 som::SomMetaRef navExternalServiceDependencyEntryOperations_content(NavExternalServiceDependencyEntryOperations x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -133698,7 +133716,7 @@ som::SomMetaRef navGoalDependencyEntry_content(NavGoalDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navGoalDependencyEntry_relatedGoal(NavGoalDependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "relatedGoal"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GOLDE-RELA-REF"));
 }
 som::SomMetaRef navGoalKeyResults_content(NavGoalKeyResults x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -134994,7 +135012,7 @@ NavKeyAttributeEntryGovernance navKeyAttributeEntry_governance(NavKeyAttributeEn
   return NavKeyAttributeEntryGovernance{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "governance"))};
 }
 som::SomMetaRef navKeyAttributeEntry_referencedEntityRef(NavKeyAttributeEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "referencedEntityRef"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEATT-REFE-REF"));
 }
 som::SomMetaRef navKeyAttributeEntryGeneration_content(NavKeyAttributeEntryGeneration x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -138177,7 +138195,7 @@ NavProcessMetricEntryTargets navProcessMetricEntry_targets(NavProcessMetricEntry
   return NavProcessMetricEntryTargets{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targets"))};
 }
 NavCurrentBusinessProcess navProcessMetricEntry_processReference(NavProcessMetricEntry x) {
-  return NavCurrentBusinessProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference"))};
+  return NavCurrentBusinessProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"))};
 }
 som::SomMetaRef navProcessMetricEntryMeasurement_content(NavProcessMetricEntryMeasurement x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -139467,7 +139485,7 @@ som::SomMetaRef navRequirementDependencyEntry_content(NavRequirementDependencyEn
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navRequirementDependencyEntry_relatedRequirement(NavRequirementDependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "relatedRequirement"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RQDEP-RELA-REF"));
 }
 som::SomMetaRef navRequirementRelationships_content(NavRequirementRelationships x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -139488,7 +139506,7 @@ NavRequirementTestCaseEntryAutomation navRequirementTestCaseEntry_automation(Nav
   return NavRequirementTestCaseEntryAutomation{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "automation"))};
 }
 som::SomMetaRef navRequirementTestCaseEntry_relatedCriterion(NavRequirementTestCaseEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "relatedCriterion"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RQTSC-RELA-REF"));
 }
 som::SomMetaRef navRequirementTestCaseEntryAutomation_content(NavRequirementTestCaseEntryAutomation x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -142755,10 +142773,10 @@ NavSystemDependencyEntryOperations navSystemDependencyEntry_operations(NavSystem
   return NavSystemDependencyEntryOperations{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operations"))};
 }
 NavExistingSystemEntry navSystemDependencyEntry_sourceSystem(NavSystemDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sourceSystem"))};
+  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"))};
 }
 NavExistingSystemEntry navSystemDependencyEntry_targetSystem(NavSystemDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targetSystem"))};
+  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"))};
 }
 som::SomMetaRef navSystemDependencyEntryDataExchange_content(NavSystemDependencyEntryDataExchange x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -142893,10 +142911,10 @@ NavSystemIntegrationOwnership navSystemIntegrationEntry_ownership(NavSystemInteg
   return NavSystemIntegrationOwnership{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ownership"))};
 }
 NavExistingSystemEntry navSystemIntegrationEntry_sourceSystem(NavSystemIntegrationEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sourceSystem"))};
+  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"))};
 }
 NavExistingSystemEntry navSystemIntegrationEntry_targetSystem(NavSystemIntegrationEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targetSystem"))};
+  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"))};
 }
 som::SomMetaRef navSystemIntegrationErrorHandling_content(NavSystemIntegrationErrorHandling x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -143190,7 +143208,7 @@ NavSystemTaskEntryContext navSystemTaskEntry_context(NavSystemTaskEntry x) {
   return NavSystemTaskEntryContext{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "context"))};
 }
 som::SomMetaRef navSystemTaskEntry_relatedUseCase(NavSystemTaskEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "relatedUseCase"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTS-RELA-REF"));
 }
 som::SomListMetaRef navSystemTaskEntry_workflowSteps(NavSystemTaskEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaNavFactorySystemTaskWorkflowStepEntry);
@@ -145503,7 +145521,7 @@ som::SomMetaRef navWorkflowActorEntry_content(NavWorkflowActorEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navWorkflowActorEntry_participatingSteps(NavWorkflowActorEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "participatingSteps"), metaNavFactoryWorkflowStepEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"), metaNavFactoryWorkflowStepEntry);
 }
 som::SomMetaRef navWorkflowBusinessRule_content(NavWorkflowBusinessRule x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -145647,6 +145665,12 @@ som::SomListMetaRef idActorEntry_ACGO_GOAL_LST(IdActorEntry x) {
 som::SomListMetaRef idActorEntry_ACPE_PERM_LST(IdActorEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ACPE-PERM-LST"), metaIdFactoryActorPermissions);
 }
+som::SomMetaRef idAffectedFunctionEntry_AFFN_FUNC_REF(IdAffectedFunctionEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AFFN-FUNC-REF"));
+}
+som::SomMetaRef idAffectedObjectEntry_AFOB_OBJE_REF(IdAffectedObjectEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AFOB-OBJE-REF"));
+}
 som::SomListMetaRef idAlternativeFlowEntry_ALST_STEP_LST(IdAlternativeFlowEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALST-STEP-LST"), metaIdFactoryAlternativeStepEntry);
 }
@@ -145748,6 +145772,9 @@ som::SomListMetaRef idBusinessRuleEntry_AFFN_AFFE_LST(IdBusinessRuleEntry x) {
 }
 som::SomListMetaRef idBusinessRuleEntry_RULEXM_EXAM_LST(IdBusinessRuleEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RULEXM-EXAM-LST"), metaIdFactoryRuleExampleEntry);
+}
+som::SomMetaRef idBusinessRuleReferenceEntry_BIRURE_RULE_REF(IdBusinessRuleReferenceEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BIRURE-RULE-REF"));
 }
 som::SomListMetaRef idChangedRoleEntry_RSPCH_ADDE_LST(IdChangedRoleEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "responsibilities/RSPCH-ADDE-LST"), metaIdFactoryResponsibilityChangeEntry);
@@ -147549,6 +147576,9 @@ som::SomListMetaRef idDataEntityEntry_ENCNS_CONS_LST(IdDataEntityEntry x) {
 som::SomListMetaRef idDataEntityEntry_MIGME_MIGR_LST(IdDataEntityEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MIGME-MIGR-LST"), metaIdFactoryMigrationMappingEntry);
 }
+som::SomMetaRef idDataEntityReferenceEntry_DAENRE_RELA_REF(IdDataEntityReferenceEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENRE-RELA-REF"));
+}
 som::SomListMetaRef idDataSourceEntry_DSEE_KEYE_LST(IdDataSourceEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DSEE-KEYE-LST"), metaIdFactoryDataSourceEntityEntry);
 }
@@ -147569,6 +147599,12 @@ som::SomListMetaRef idEntityRelationshipEntry_PARTI_PART_LST(IdEntityRelationshi
 }
 som::SomListMetaRef idEntityRelationshipEntry_RELAT_RELA_LST(IdEntityRelationshipEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RELAT-RELA-LST"), metaIdFactoryRelationshipAttributeEntry);
+}
+som::SomMetaRef idEntityRelationshipEntry_ENRLE_SOUR_REF(IdEntityRelationshipEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENRLE-SOUR-REF"));
+}
+som::SomMetaRef idEntityRelationshipEntry_ENRLE_TARG_REF(IdEntityRelationshipEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENRLE-TARG-REF"));
 }
 som::SomListMetaRef idExistingSystemEntry_LIMET_KNOW_LST(IdExistingSystemEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
@@ -147612,8 +147648,8 @@ som::SomListMetaRef idExternalInterfaceEntry_ITSE1_TEST_LST(IdExternalInterfaceE
 som::SomListMetaRef idExternalPartnerConnectionEntry_EXPAOP_OPER_LST(IdExternalPartnerConnectionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXPAOP-OPER-LST"), metaIdFactoryExternalPartnerOperations);
 }
-som::SomListMetaRef idExternalServiceDependencyEntry_LIMET_KNOW_LST(IdExternalServiceDependencyEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "primaryDependentSystem/LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
+IdExistingSystemEntry idExternalServiceDependencyEntry_EXSDE_PRIM_REF(IdExternalServiceDependencyEntry x) {
+  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"))};
 }
 som::SomListMetaRef idFeaturePriorityEntry_FEST_STAK_LST(IdFeaturePriorityEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FEST-STAK-LST"), metaIdFactoryFeatureStakeholders);
@@ -147648,6 +147684,9 @@ som::SomListMetaRef idFunctionalRequirementEntry_RQDEP_ITEM_LST(IdFunctionalRequ
 som::SomListMetaRef idFunctionalRequirementEntry_RQTSC_TEST_LST(IdFunctionalRequirementEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "testCases/RQTSC-TEST-LST"), metaIdFactoryRequirementTestCaseEntry);
 }
+som::SomMetaRef idGoalDependencyEntry_GOLDE_RELA_REF(IdGoalDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GOLDE-RELA-REF"));
+}
 som::SomListMetaRef idIdentityProviderEntry_IDPRDE_DETA_LST(IdIdentityProviderEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IDPRDE-DETA-LST"), metaIdFactoryIdentityProviderDetails);
 }
@@ -147677,6 +147716,9 @@ som::SomListMetaRef idInteractionEntry_TEDAVA_VARI_LST(IdInteractionEntry x) {
 }
 som::SomListMetaRef idInteractionEntry_INBURU_BUSI_LST(IdInteractionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INBURU-BUSI-LST"), metaIdFactoryInteractionBusinessRules);
+}
+som::SomMetaRef idKeyAttributeEntry_KEATT_REFE_REF(IdKeyAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEATT-REFE-REF"));
 }
 som::SomListMetaRef idMigrationPhaseEntry_MPDR_DRYR_LST(IdMigrationPhaseEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MPDR-DRYR-LST"), metaIdFactoryMigrationPhaseDryRuns);
@@ -147732,35 +147774,8 @@ som::SomListMetaRef idProcessAdjustmentEntry_PCAED_DETA_LST(IdProcessAdjustmentE
 som::SomListMetaRef idProcessMetricCategory_PME_METR_LST(IdProcessMetricCategory x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-METR-LST"), metaIdFactoryProcessMetricEntry);
 }
-som::SomListMetaRef idProcessMetricEntry_WOSUEN_ENTR_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST"), metaIdFactoryWorkflowSummaryEntry);
-}
-som::SomListMetaRef idProcessMetricEntry_CUWF_WORK_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/workflowDescriptions/CUWF-WORK-LST"), metaIdFactoryCurrentWorkflowEntry);
-}
-som::SomListMetaRef idProcessMetricEntry_PRMECA_EFFI_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PRMECA-EFFI-LST"), metaIdFactoryProcessMetricCategory);
-}
-som::SomListMetaRef idProcessMetricEntry_PRMECA_QUAL_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PRMECA-QUAL-LST"), metaIdFactoryProcessMetricCategory);
-}
-som::SomListMetaRef idProcessMetricEntry_PRMECA_VOLU_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PRMECA-VOLU-LST"), metaIdFactoryProcessMetricCategory);
-}
-som::SomListMetaRef idProcessMetricEntry_PRMECA_COST_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PRMECA-COST-LST"), metaIdFactoryProcessMetricCategory);
-}
-som::SomListMetaRef idProcessMetricEntry_PRMECA_MANU_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PRMECA-MANU-LST"), metaIdFactoryProcessMetricCategory);
-}
-som::SomListMetaRef idProcessMetricEntry_PME_ITEM_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/PME-ITEM-LST"), metaIdFactoryProcessMetricEntry);
-}
-som::SomListMetaRef idProcessMetricEntry_MEBAEN_ENTR_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST"), metaIdFactoryMetricsBaselineEntry);
-}
-som::SomListMetaRef idProcessMetricEntry_CPIE_IMPR_LST(IdProcessMetricEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processReference/processPainPoints/CPIE-IMPR-LST"), metaIdFactoryCurrentProcessImprovementEntry);
+IdCurrentBusinessProcess idProcessMetricEntry_PME_PROC_REF(IdProcessMetricEntry x) {
+  return IdCurrentBusinessProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"))};
 }
 som::SomListMetaRef idQualityGateAdjustmentEntry_QGAED_DETA_LST(IdQualityGateAdjustmentEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "QGAED-DETA-LST"), metaIdFactoryQualityGateAdjustmentDetails);
@@ -147795,8 +147810,14 @@ som::SomListMetaRef idReportSectionEntry_RECOE1_COLU_LST(IdReportSectionEntry x)
 som::SomListMetaRef idReportSectionEntry_RECHEN_CHAR_LST(IdReportSectionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECHEN-CHAR-LST"), metaIdFactoryReportChartEntry);
 }
+som::SomMetaRef idRequirementDependencyEntry_RQDEP_RELA_REF(IdRequirementDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RQDEP-RELA-REF"));
+}
 som::SomListMetaRef idRequirementScreenActionEntry_ACPR_PARA_LST(IdRequirementScreenActionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ACPR-PARA-LST"), metaIdFactoryActionParameterEntry);
+}
+som::SomMetaRef idRequirementTestCaseEntry_RQTSC_RELA_REF(IdRequirementTestCaseEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RQTSC-RELA-REF"));
 }
 som::SomListMetaRef idResponsibilityEntry_REFUDE_FUNC_LST(IdResponsibilityEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REFUDE-FUNC-LST"), metaIdFactoryResponsibilityFunctionDetails);
@@ -147876,17 +147897,20 @@ som::SomListMetaRef idStageSummaryEntry_STSUDE_DEPE_LST(IdStageSummaryEntry x) {
 som::SomListMetaRef idSuccessCriterionEntry_SUCRRE_RELA_LST(IdSuccessCriterionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SUCRRE-RELA-LST"), metaIdFactorySuccessCriterionRelationships);
 }
-som::SomListMetaRef idSystemDependencyEntry_LIMET_KNOW_LST(IdSystemDependencyEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sourceSystem/LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
+IdExistingSystemEntry idSystemDependencyEntry_SYDE_SOUR_REF(IdSystemDependencyEntry x) {
+  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"))};
 }
-som::SomListMetaRef idSystemDependencyEntry_LIMET_KNOW_LST_2(IdSystemDependencyEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targetSystem/LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
+IdExistingSystemEntry idSystemDependencyEntry_SYDE_TARG_REF(IdSystemDependencyEntry x) {
+  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"))};
 }
-som::SomListMetaRef idSystemIntegrationEntry_LIMET_KNOW_LST(IdSystemIntegrationEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sourceSystem/LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
+IdExistingSystemEntry idSystemIntegrationEntry_SYIN_SOUR_REF(IdSystemIntegrationEntry x) {
+  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"))};
 }
-som::SomListMetaRef idSystemIntegrationEntry_LIMET_KNOW_LST_2(IdSystemIntegrationEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "targetSystem/LIMET-KNOW-LST"), metaIdFactoryLimitationEntry);
+IdExistingSystemEntry idSystemIntegrationEntry_SYIN_TARG_REF(IdSystemIntegrationEntry x) {
+  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"))};
+}
+som::SomMetaRef idSystemTaskEntry_SYTS_RELA_REF(IdSystemTaskEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTS-RELA-REF"));
 }
 som::SomListMetaRef idSystemTaskEntry_SYSTE_WORK_LST(IdSystemTaskEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaIdFactorySystemTaskWorkflowStepEntry);
@@ -148010,6 +148034,9 @@ som::SomListMetaRef idUserCategoryEntry_USERJ_PAIN_LST(IdUserCategoryEntry x) {
 }
 som::SomListMetaRef idUtilityNavigationItemEntry_UMIE_MENU_LST(IdUtilityNavigationItemEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UMIE-MENU-LST"), metaIdFactoryUtilityMenuItemEntry);
+}
+som::SomListMetaRef idWorkflowActorEntry_WAE_PART_REF(IdWorkflowActorEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"), metaIdFactoryWorkflowStepEntry);
 }
 som::SomListMetaRef idWorkflowStepEntry_WOSTSY_SYST_LST(IdWorkflowStepEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WOSTSY-SYST-LST"), metaIdFactoryWorkflowStepSystem);

@@ -19,6 +19,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per business rule reference.
+  birure-rule-ref:
+    prefix: BIRURE_RULE_REF
   rulexm-exam-lst:
     prefix: RULEXM_EXAM_LST
     subsection-types:
@@ -117,6 +119,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per entity relationship.
+  enrle-sour-ref:
+    prefix: ENRLE_SOUR_REF
+  enrle-targ-ref:
+    prefix: ENRLE_TARG_REF
   fndmx-func-lst:
     prefix: FNDMX_FUNC_LST
     subsection-types:
@@ -157,6 +163,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per key attribute.
+  keatt-refe-ref:
+    prefix: KEATT_REFE_REF
   lftrs-life-lst:
     prefix: LFTRS_LIFE_LST
     subsection-types:
@@ -221,6 +229,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per affected function.
+  affn-func-ref:
+    prefix: AFFN_FUNC_REF
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
     subsection-types:
@@ -229,6 +239,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per affected object.
+  afob-obje-ref:
+    prefix: AFOB_OBJE_REF
   biru-busi-lst:
     prefix: BIRU_BUSI_LST
     subsection-types:
@@ -277,6 +289,9 @@ section-types:
     description: Add one entry per business object attribute.
   birure-keyb:
     prefix: BIRURE_KEYB_
+    subsection-types:
+      birure-rule-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^BIRURE-KEYB-[0-9]+$"
       error-message: IDs of this section must match BIRURE-KEYB-xxx
@@ -406,6 +421,10 @@ section-types:
         max-count: 1
       relat-rela-lst:
         max-count: 1
+      enrle-sour-ref:
+        max-count: 1
+      enrle-targ-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^ENRLE-ITEM-[0-9]+$"
       error-message: IDs of this section must match ENRLE-ITEM-xxx
@@ -451,6 +470,8 @@ section-types:
       kearf:
         max-count: 1
       keagv:
+        max-count: 1
+      keatt-refe-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^KEATT-KEYA-[0-9]+$"
@@ -507,12 +528,18 @@ section-types:
     description: Add one entry per volume metric.
   affn-affe:
     prefix: AFFN_AFFE_
+    subsection-types:
+      affn-func-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^AFFN-AFFE-[0-9]+$"
       error-message: IDs of this section must match AFFN-AFFE-xxx
     description: Add one entry per affected function.
   afob-affe:
     prefix: AFOB_AFFE_
+    subsection-types:
+      afob-obje-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^AFOB-AFFE-[0-9]+$"
       error-message: IDs of this section must match AFOB-AFFE-xxx

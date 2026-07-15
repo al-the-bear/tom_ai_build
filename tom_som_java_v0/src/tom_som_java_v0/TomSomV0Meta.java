@@ -3449,6 +3449,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AffectedFunctionEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "functionRef";
+        n.sectionId = "AFFN-FUNC-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "functionName")));
@@ -3462,7 +3463,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef functionRef() {
-      return new SomMetaRef(tree, path + "/functionRef");
+      return new SomMetaRef(tree, path + "/AFFN-FUNC-REF");
     }
   }
 
@@ -3493,6 +3494,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AffectedObjectEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "objectRef";
+        n.sectionId = "AFOB-OBJE-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "objectName")));
@@ -3506,7 +3508,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef objectRef() {
-      return new SomMetaRef(tree, path + "/objectRef");
+      return new SomMetaRef(tree, path + "/AFOB-OBJE-REF");
     }
   }
 
@@ -15099,6 +15101,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("BusinessRuleReferenceEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "ruleRef";
+        n.sectionId = "BIRURE-RULE-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "ruleId")));
@@ -15112,7 +15115,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef ruleRef() {
-      return new SomMetaRef(tree, path + "/ruleRef");
+      return new SomMetaRef(tree, path + "/BIRURE-RULE-REF");
     }
   }
 
@@ -35614,6 +35617,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DataEntityReferenceEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "relatedEntity";
+        n.sectionId = "DAENRE-RELA-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Data Model Entity")));
@@ -35627,7 +35631,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef relatedEntity() {
-      return new SomMetaRef(tree, path + "/relatedEntity");
+      return new SomMetaRef(tree, path + "/DAENRE-RELA-REF");
     }
   }
 
@@ -51712,6 +51716,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("EntityRelationshipEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "sourceEntityRef";
+        n.sectionId = "ENRLE-SOUR-REF";
         n.serializationOrder = 6;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "sourceEntityName")));
@@ -51720,6 +51725,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("EntityRelationshipEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "targetEntityRef";
+        n.sectionId = "ENRLE-TARG-REF";
         n.serializationOrder = 7;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "targetEntityName")));
@@ -51753,11 +51759,11 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef sourceEntityRef() {
-      return new SomMetaRef(tree, path + "/sourceEntityRef");
+      return new SomMetaRef(tree, path + "/ENRLE-SOUR-REF");
     }
 
     public SomMetaRef targetEntityRef() {
-      return new SomMetaRef(tree, path + "/targetEntityRef");
+      return new SomMetaRef(tree, path + "/ENRLE-TARG-REF");
     }
   }
 
@@ -57568,6 +57574,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
         n.memberName = "primaryDependentSystem";
+        n.sectionId = "EXSDE-PRIM-REF";
         n.classSectionId = "ESENT";
         n.serializationOrder = 4;
         n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
@@ -57597,7 +57604,7 @@ public final class TomSomV0Meta {
     }
 
     public ExistingSystemEntryNav primaryDependentSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/primaryDependentSystem");
+      return new ExistingSystemEntryNav(tree, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -62657,6 +62664,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("GoalDependencyEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "relatedGoal";
+        n.sectionId = "GOLDE-RELA-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Goal")));
@@ -62670,7 +62678,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef relatedGoal() {
-      return new SomMetaRef(tree, path + "/relatedGoal");
+      return new SomMetaRef(tree, path + "/GOLDE-RELA-REF");
     }
   }
 
@@ -72970,6 +72978,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("KeyAttributeEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "referencedEntityRef";
+        n.sectionId = "KEATT-REFE-REF";
         n.serializationOrder = 4;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "referencedEntity")));
@@ -72995,7 +73004,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef referencedEntityRef() {
-      return new SomMetaRef(tree, path + "/referencedEntityRef");
+      return new SomMetaRef(tree, path + "/KEATT-REFE-REF");
     }
   }
 
@@ -98100,6 +98109,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("CurrentBusinessProcess", s, CurrentBusinessProcessNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("CurrentBusinessProcess", SomMetaKind.COMPLEX, "CurrentBusinessProcess");
         n.memberName = "processReference";
+        n.sectionId = "PME-PROC-REF";
         n.classSectionId = "CUBIPR";
         n.serializationOrder = 3;
         n.docComment = "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.";
@@ -98125,7 +98135,7 @@ public final class TomSomV0Meta {
     }
 
     public CurrentBusinessProcessNav processReference() {
-      return new CurrentBusinessProcessNav(tree, path + "/processReference");
+      return new CurrentBusinessProcessNav(tree, path + "/PME-PROC-REF");
     }
   }
 
@@ -108665,6 +108675,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("RequirementDependencyEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "relatedRequirement";
+        n.sectionId = "RQDEP-RELA-REF";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Requirement")));
@@ -108678,7 +108689,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef relatedRequirement() {
-      return new SomMetaRef(tree, path + "/relatedRequirement");
+      return new SomMetaRef(tree, path + "/RQDEP-RELA-REF");
     }
   }
 
@@ -108833,6 +108844,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("RequirementTestCaseEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "relatedCriterion";
+        n.sectionId = "RQTSC-RELA-REF";
         n.serializationOrder = 3;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Acceptance Criterion")));
@@ -108854,7 +108866,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef relatedCriterion() {
-      return new SomMetaRef(tree, path + "/relatedCriterion");
+      return new SomMetaRef(tree, path + "/RQTSC-RELA-REF");
     }
   }
 
@@ -134493,6 +134505,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
         n.memberName = "sourceSystem";
+        n.sectionId = "SYDE-SOUR-REF";
         n.classSectionId = "ESENT";
         n.serializationOrder = 5;
         n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
@@ -134505,6 +134518,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
         n.memberName = "targetSystem";
+        n.sectionId = "SYDE-TARG-REF";
         n.classSectionId = "ESENT";
         n.serializationOrder = 6;
         n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
@@ -134538,11 +134552,11 @@ public final class TomSomV0Meta {
     }
 
     public ExistingSystemEntryNav sourceSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/sourceSystem");
+      return new ExistingSystemEntryNav(tree, path + "/SYDE-SOUR-REF");
     }
 
     public ExistingSystemEntryNav targetSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/targetSystem");
+      return new ExistingSystemEntryNav(tree, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -135537,6 +135551,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
         n.memberName = "sourceSystem";
+        n.sectionId = "SYIN-SOUR-REF";
         n.classSectionId = "ESENT";
         n.serializationOrder = 7;
         n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
@@ -135549,6 +135564,7 @@ public final class TomSomV0Meta {
       out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
         n.memberName = "targetSystem";
+        n.sectionId = "SYIN-TARG-REF";
         n.classSectionId = "ESENT";
         n.serializationOrder = 8;
         n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
@@ -135590,11 +135606,11 @@ public final class TomSomV0Meta {
     }
 
     public ExistingSystemEntryNav sourceSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/sourceSystem");
+      return new ExistingSystemEntryNav(tree, path + "/SYIN-SOUR-REF");
     }
 
     public ExistingSystemEntryNav targetSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/targetSystem");
+      return new ExistingSystemEntryNav(tree, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -137510,6 +137526,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "relatedUseCase";
+        n.sectionId = "SYTS-RELA-REF";
         n.serializationOrder = 4;
         n.contentType = new SomContentTypeMeta("text", "");
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Use Case")));
@@ -137575,7 +137592,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef relatedUseCase() {
-      return new SomMetaRef(tree, path + "/relatedUseCase");
+      return new SomMetaRef(tree, path + "/SYTS-RELA-REF");
     }
 
     public SomListMetaRef<SystemTaskWorkflowStepEntryNav> workflowSteps() {
@@ -155723,6 +155740,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("WorkflowActorEntry", SomMetaKind.LIST, "WorkflowStepEntry");
         n.memberName = "participatingSteps";
+        n.sectionId = "WAE-PART-REF";
         n.serializationOrder = 1;
         n.docComment = "Steps this actor participates in.";
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Participating Steps")));
@@ -155745,7 +155763,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<WorkflowStepEntryNav> participatingSteps() {
-      return new SomListMetaRef<>(tree, path + "/participatingSteps", (t, p) -> new WorkflowStepEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/WAE-PART-REF", (t, p) -> new WorkflowStepEntryNav(t, p));
     }
   }
 
@@ -157053,6 +157071,10 @@ public final class TomSomV0Meta {
     public AffectedFunctionEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
+
+    public SomMetaRef AFFN_FUNC_REF() {
+      return new SomMetaRef(tree, path + "/AFFN-FUNC-REF");
+    }
   }
 
   // AffectedObjectEntryId holds the ID-tree accessors of `AffectedObjectEntry` (DR1 §4.2): methods
@@ -157062,6 +157084,10 @@ public final class TomSomV0Meta {
   public static final class AffectedObjectEntryId extends SomMetaRef {
     public AffectedObjectEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef AFOB_OBJE_REF() {
+      return new SomMetaRef(tree, path + "/AFOB-OBJE-REF");
     }
   }
 
@@ -157538,6 +157564,10 @@ public final class TomSomV0Meta {
   public static final class BusinessRuleReferenceEntryId extends SomMetaRef {
     public BusinessRuleReferenceEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef BIRURE_RULE_REF() {
+      return new SomMetaRef(tree, path + "/BIRURE-RULE-REF");
     }
   }
 
@@ -160669,6 +160699,10 @@ public final class TomSomV0Meta {
     public DataEntityReferenceEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
+
+    public SomMetaRef DAENRE_RELA_REF() {
+      return new SomMetaRef(tree, path + "/DAENRE-RELA-REF");
+    }
   }
 
   // DataGovernancePolicyEntryId holds the ID-tree accessors of `DataGovernancePolicyEntry` (DR1 §4.2): methods
@@ -161187,6 +161221,14 @@ public final class TomSomV0Meta {
     public SomListMetaRef<RelationshipAttributeEntryId> RELAT_RELA_LST() {
       return new SomListMetaRef<>(tree, path + "/RELAT-RELA-LST", (t, p) -> new RelationshipAttributeEntryId(t, p));
     }
+
+    public SomMetaRef ENRLE_SOUR_REF() {
+      return new SomMetaRef(tree, path + "/ENRLE-SOUR-REF");
+    }
+
+    public SomMetaRef ENRLE_TARG_REF() {
+      return new SomMetaRef(tree, path + "/ENRLE-TARG-REF");
+    }
   }
 
   // EntryPointEntryId holds the ID-tree accessors of `EntryPointEntry` (DR1 §4.2): methods
@@ -161434,8 +161476,8 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<LimitationEntryId> LIMET_KNOW_LST() {
-      return new SomListMetaRef<>(tree, path + "/primaryDependentSystem/LIMET-KNOW-LST", (t, p) -> new LimitationEntryId(t, p));
+    public ExistingSystemEntryId EXSDE_PRIM_REF() {
+      return new ExistingSystemEntryId(tree, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -161690,6 +161732,10 @@ public final class TomSomV0Meta {
   public static final class GoalDependencyEntryId extends SomMetaRef {
     public GoalDependencyEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef GOLDE_RELA_REF() {
+      return new SomMetaRef(tree, path + "/GOLDE-RELA-REF");
     }
   }
 
@@ -162080,6 +162126,10 @@ public final class TomSomV0Meta {
   public static final class KeyAttributeEntryId extends SomMetaRef {
     public KeyAttributeEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef KEATT_REFE_REF() {
+      return new SomMetaRef(tree, path + "/KEATT-REFE-REF");
     }
   }
 
@@ -163024,44 +163074,8 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<WorkflowSummaryEntryId> WOSUEN_ENTR_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", (t, p) -> new WorkflowSummaryEntryId(t, p));
-    }
-
-    public SomListMetaRef<CurrentWorkflowEntryId> CUWF_WORK_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/workflowDescriptions/CUWF-WORK-LST", (t, p) -> new CurrentWorkflowEntryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricCategoryId> PRMECA_EFFI_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PRMECA-EFFI-LST", (t, p) -> new ProcessMetricCategoryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricCategoryId> PRMECA_QUAL_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PRMECA-QUAL-LST", (t, p) -> new ProcessMetricCategoryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricCategoryId> PRMECA_VOLU_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PRMECA-VOLU-LST", (t, p) -> new ProcessMetricCategoryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricCategoryId> PRMECA_COST_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PRMECA-COST-LST", (t, p) -> new ProcessMetricCategoryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricCategoryId> PRMECA_MANU_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PRMECA-MANU-LST", (t, p) -> new ProcessMetricCategoryId(t, p));
-    }
-
-    public SomListMetaRef<ProcessMetricEntryId> PME_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/PME-ITEM-LST", (t, p) -> new ProcessMetricEntryId(t, p));
-    }
-
-    public SomListMetaRef<MetricsBaselineEntryId> MEBAEN_ENTR_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST", (t, p) -> new MetricsBaselineEntryId(t, p));
-    }
-
-    public SomListMetaRef<CurrentProcessImprovementEntryId> CPIE_IMPR_LST() {
-      return new SomListMetaRef<>(tree, path + "/processReference/processPainPoints/CPIE-IMPR-LST", (t, p) -> new CurrentProcessImprovementEntryId(t, p));
+    public CurrentBusinessProcessId PME_PROC_REF() {
+      return new CurrentBusinessProcessId(tree, path + "/PME-PROC-REF");
     }
   }
 
@@ -163527,6 +163541,10 @@ public final class TomSomV0Meta {
     public RequirementDependencyEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
+
+    public SomMetaRef RQDEP_RELA_REF() {
+      return new SomMetaRef(tree, path + "/RQDEP-RELA-REF");
+    }
   }
 
   // RequirementRelationshipsId holds the ID-tree accessors of `RequirementRelationships` (DR1 §4.2): methods
@@ -163560,6 +163578,10 @@ public final class TomSomV0Meta {
   public static final class RequirementTestCaseEntryId extends SomMetaRef {
     public RequirementTestCaseEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef RQTSC_RELA_REF() {
+      return new SomMetaRef(tree, path + "/RQTSC-RELA-REF");
     }
   }
 
@@ -164566,12 +164588,12 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<LimitationEntryId> LIMET_KNOW_LST() {
-      return new SomListMetaRef<>(tree, path + "/sourceSystem/LIMET-KNOW-LST", (t, p) -> new LimitationEntryId(t, p));
+    public ExistingSystemEntryId SYDE_SOUR_REF() {
+      return new ExistingSystemEntryId(tree, path + "/SYDE-SOUR-REF");
     }
 
-    public SomListMetaRef<LimitationEntryId> LIMET_KNOW_LST_2() {
-      return new SomListMetaRef<>(tree, path + "/targetSystem/LIMET-KNOW-LST", (t, p) -> new LimitationEntryId(t, p));
+    public ExistingSystemEntryId SYDE_TARG_REF() {
+      return new ExistingSystemEntryId(tree, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -164594,12 +164616,12 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<LimitationEntryId> LIMET_KNOW_LST() {
-      return new SomListMetaRef<>(tree, path + "/sourceSystem/LIMET-KNOW-LST", (t, p) -> new LimitationEntryId(t, p));
+    public ExistingSystemEntryId SYIN_SOUR_REF() {
+      return new ExistingSystemEntryId(tree, path + "/SYIN-SOUR-REF");
     }
 
-    public SomListMetaRef<LimitationEntryId> LIMET_KNOW_LST_2() {
-      return new SomListMetaRef<>(tree, path + "/targetSystem/LIMET-KNOW-LST", (t, p) -> new LimitationEntryId(t, p));
+    public ExistingSystemEntryId SYIN_TARG_REF() {
+      return new ExistingSystemEntryId(tree, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -164620,6 +164642,10 @@ public final class TomSomV0Meta {
   public static final class SystemTaskEntryId extends SomMetaRef {
     public SystemTaskEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef SYTS_RELA_REF() {
+      return new SomMetaRef(tree, path + "/SYTS-RELA-REF");
     }
 
     public SomListMetaRef<SystemTaskWorkflowStepEntryId> SYSTE_WORK_LST() {
@@ -165374,6 +165400,10 @@ public final class TomSomV0Meta {
   public static final class WorkflowActorEntryId extends SomMetaRef {
     public WorkflowActorEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<WorkflowStepEntryId> WAE_PART_REF() {
+      return new SomListMetaRef<>(tree, path + "/WAE-PART-REF", (t, p) -> new WorkflowStepEntryId(t, p));
     }
   }
 

@@ -115,6 +115,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per business rule reference.
+  birure-rule-ref:
+    prefix: BIRURE_RULE_REF
   boasen-item-lst:
     prefix: BOASEN_ITEM_LST
     subsection-types:
@@ -292,6 +294,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
+  daenre-rela-ref:
+    prefix: DAENRE_RELA_REF
   daowen-owne-lst:
     prefix: DAOWEN_OWNE_LST
     subsection-types:
@@ -1679,6 +1683,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per entity relationship.
+  enrle-sour-ref:
+    prefix: ENRLE_SOUR_REF
+  enrle-targ-ref:
+    prefix: ENRLE_TARG_REF
   enven-item-lst:
     prefix: ENVEN_ITEM_LST
     subsection-types:
@@ -1744,6 +1752,26 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
+  exsde-prim-ref:
+    prefix: EXSDE_PRIM_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
   exsycoen-syst:
     prefix: EXSYCOEN_SYST_
     subsection-types:
@@ -1861,6 +1889,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per dependency, including its type and impact."
+  golde-rela-ref:
+    prefix: GOLDE_RELA_REF
   golms-item-lst:
     prefix: GOLMS_ITEM_LST
     subsection-types:
@@ -1990,6 +2020,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per key attribute.
+  keatt-refe-ref:
+    prefix: KEATT_REFE_REF
   kecon-conc-lst:
     prefix: KECON_CONC_LST
     subsection-types:
@@ -2670,6 +2702,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per dependency on another requirement.
+  rqdep-rela-ref:
+    prefix: RQDEP_RELA_REF
+  rqtsc-rela-ref:
+    prefix: RQTSC_RELA_REF
   rqtsc-test-lst:
     prefix: RQTSC_TEST_LST
     subsection-types:
@@ -3247,6 +3283,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per affected function.
+  affn-func-ref:
+    prefix: AFFN_FUNC_REF
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
     subsection-types:
@@ -3255,6 +3293,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per affected object.
+  afob-obje-ref:
+    prefix: AFOB_OBJE_REF
   alfl-alte-lst:
     prefix: ALFL_ALTE_LST
     subsection-types:
@@ -4096,6 +4136,46 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
+  syde-sour-ref:
+    prefix: SYDE_SOUR_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  syde-targ-ref:
+    prefix: SYDE_TARG_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
   syin-item-lst:
     prefix: SYIN_ITEM_LST
     subsection-types:
@@ -4104,6 +4184,46 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
+  syin-sour-ref:
+    prefix: SYIN_SOUR_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
+  syin-targ-ref:
+    prefix: SYIN_TARG_REF
+    subsection-types:
+      estec:
+        max-count: 1
+      esbct:
+        max-count: 1
+      esusg:
+        max-count: 1
+      eslcy:
+        max-count: 1
+      esint:
+        max-count: 1
+      esinf:
+        max-count: 1
+      limet-know-lst:
+        max-count: 1
+      esqua:
+        max-count: 1
+    description: An existing system entry (form).
   sytr-syst-lst:
     prefix: SYTR_SYST_LST
     subsection-types:
@@ -4112,6 +4232,8 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: System-specific training.
+  syts-rela-ref:
+    prefix: SYTS_RELA_REF
   syts-syst-lst:
     prefix: SYTS_SYST_LST
     subsection-types:
@@ -4397,6 +4519,9 @@ section-types:
     description: Add one entry per business object attribute.
   birure-keyb:
     prefix: BIRURE_KEYB_
+    subsection-types:
+      birure-rule-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^BIRURE-KEYB-[0-9]+$"
       error-message: IDs of this section must match BIRURE-KEYB-xxx
@@ -4675,6 +4800,9 @@ section-types:
     description: Add one entry per supported database.
   daenre-enti:
     prefix: DAENRE_ENTI_
+    subsection-types:
+      daenre-rela-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^DAENRE-ENTI-[0-9]+$"
       error-message: IDs of this section must match DAENRE-ENTI-xxx
@@ -5408,6 +5536,18 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per metric in this category, with its current value, unit, and measurement details."
+  pme-proc-ref:
+    prefix: PME_PROC_REF
+    subsection-types:
+      pc:
+        max-count: 1
+      wode:
+        max-count: 1
+      pm:
+        max-count: 1
+      prpapo:
+        max-count: 1
+    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
   poangu-post:
     prefix: POANGU_POST_
     pattern-check-id:
@@ -6149,6 +6289,14 @@ section-types:
       pattern: "^VPREEN-VPNR-[0-9]+$"
       error-message: IDs of this section must match VPREEN-VPNR-xxx
     description: Add one entry per VPN requirement.
+  wae-part-ref:
+    prefix: WAE_PART_REF
+    subsection-types:
+      wse:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Steps this actor participates in.
   wasele-serv:
     prefix: WASELE_SERV_
     pattern-check-id:
@@ -6611,6 +6759,10 @@ section-types:
         max-count: 1
       relat-rela-lst:
         max-count: 1
+      enrle-sour-ref:
+        max-count: 1
+      enrle-targ-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^ENRLE-ITEM-[0-9]+$"
       error-message: IDs of this section must match ENRLE-ITEM-xxx
@@ -6715,7 +6867,7 @@ section-types:
         max-count: 1
       exsrk:
         max-count: 1
-      esent:
+      exsde-prim-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^EXSDE-ITEM-[0-9]+$"
@@ -6820,6 +6972,9 @@ section-types:
     description: "Add one entry per term or acronym, alphabetically ordered."
   golde-item:
     prefix: GOLDE_ITEM_
+    subsection-types:
+      golde-rela-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^GOLDE-ITEM-[0-9]+$"
       error-message: IDs of this section must match GOLDE-ITEM-xxx
@@ -6974,6 +7129,8 @@ section-types:
       kearf:
         max-count: 1
       keagv:
+        max-count: 1
+      keatt-refe-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^KEATT-KEYA-[0-9]+$"
@@ -7762,6 +7919,9 @@ section-types:
     description: Add one entry per required competency.
   rqdep-item:
     prefix: RQDEP_ITEM_
+    subsection-types:
+      rqdep-rela-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^RQDEP-ITEM-[0-9]+$"
       error-message: IDs of this section must match RQDEP-ITEM-xxx
@@ -7772,6 +7932,8 @@ section-types:
       rtcee:
         max-count: 1
       rtcea:
+        max-count: 1
+      rqtsc-rela-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^RQTSC-TEST-[0-9]+$"
@@ -8534,12 +8696,18 @@ section-types:
     description: Add one entry per acceptance-process step.
   affn-affe:
     prefix: AFFN_AFFE_
+    subsection-types:
+      affn-func-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^AFFN-AFFE-[0-9]+$"
       error-message: IDs of this section must match AFFN-AFFE-xxx
     description: Add one entry per affected function.
   afob-affe:
     prefix: AFOB_AFFE_
+    subsection-types:
+      afob-obje-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^AFOB-AFFE-[0-9]+$"
       error-message: IDs of this section must match AFOB-AFFE-xxx
@@ -9677,7 +9845,9 @@ section-types:
         max-count: 1
       sdeo:
         max-count: 1
-      esent:
+      syde-sour-ref:
+        max-count: 1
+      syde-targ-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^SYDE-ITEM-[0-9]+$"
@@ -9698,7 +9868,9 @@ section-types:
         max-count: 1
       syinow:
         max-count: 1
-      esent:
+      syin-sour-ref:
+        max-count: 1
+      syin-targ-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^SYIN-ITEM-[0-9]+$"
@@ -9725,6 +9897,8 @@ section-types:
       sted:
         max-count: 1
       stec:
+        max-count: 1
+      syts-rela-ref:
         max-count: 1
       syste-work-lst:
         max-count: 1
@@ -9946,8 +10120,8 @@ section-types:
   wfac-acto:
     prefix: WFAC_ACTO_
     subsection-types:
-      wse:
-        max-count: infinite
+      wae-part-ref:
+        max-count: 1
     pattern-check-id:
       pattern: "^WFAC-ACTO-[0-9]+$"
       error-message: IDs of this section must match WFAC-ACTO-xxx
@@ -10162,7 +10336,7 @@ section-types:
         max-count: 1
       pmet:
         max-count: 1
-      cubipr:
+      pme-proc-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^PME-ITEM-[0-9]+$"
@@ -10175,7 +10349,7 @@ section-types:
         max-count: 1
       pmet:
         max-count: 1
-      cubipr:
+      pme-proc-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^PME-KEYM-[0-9]+$"
@@ -10188,7 +10362,7 @@ section-types:
         max-count: 1
       pmet:
         max-count: 1
-      cubipr:
+      pme-proc-ref:
         max-count: 1
     pattern-check-id:
       pattern: "^PME-METR-[0-9]+$"
@@ -11542,18 +11716,6 @@ section-types:
   crpran:
     prefix: CRPRAN
     description: 6.1.8. Cross-Process Analysis.
-  cubipr:
-    prefix: CUBIPR
-    subsection-types:
-      pc:
-        max-count: 1
-      wode:
-        max-count: 1
-      pm:
-        max-count: 1
-      prpapo:
-        max-count: 1
-    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
   cubupr:
     prefix: CUBUPR
     subsection-types:
@@ -15314,26 +15476,6 @@ section-types:
   escet:
     prefix: ESCET
     description: Testing and notes.
-  esent:
-    prefix: ESENT
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
-    description: An existing system entry (form).
   esinf:
     prefix: ESINF
     description: Infrastructure details.

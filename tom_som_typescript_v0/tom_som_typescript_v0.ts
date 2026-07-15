@@ -1318,11 +1318,11 @@ export class AffectedFunctionEntry extends SomNode {
   }
 
   get functionRef(): string {
-    return this.doc.content(this.path + "/functionRef") || '';
+    return this.doc.content(this.path + "/AFFN-FUNC-REF") || '';
   }
 
   set functionRef(value: string) {
-    this.doc.setContent(this.path + "/functionRef", value);
+    this.doc.setContent(this.path + "/AFFN-FUNC-REF", value);
   }
 }
 
@@ -1339,11 +1339,11 @@ export class AffectedObjectEntry extends SomNode {
   }
 
   get objectRef(): string {
-    return this.doc.content(this.path + "/objectRef") || '';
+    return this.doc.content(this.path + "/AFOB-OBJE-REF") || '';
   }
 
   set objectRef(value: string) {
-    this.doc.setContent(this.path + "/objectRef", value);
+    this.doc.setContent(this.path + "/AFOB-OBJE-REF", value);
   }
 }
 
@@ -5552,11 +5552,11 @@ export class BusinessRuleReferenceEntry extends SomNode {
   }
 
   get ruleRef(): string {
-    return this.doc.content(this.path + "/ruleRef") || '';
+    return this.doc.content(this.path + "/BIRURE-RULE-REF") || '';
   }
 
   set ruleRef(value: string) {
-    this.doc.setContent(this.path + "/ruleRef", value);
+    this.doc.setContent(this.path + "/BIRURE-RULE-REF", value);
   }
 }
 
@@ -13471,11 +13471,11 @@ export class DataEntityReferenceEntry extends SomNode {
   }
 
   get relatedEntity(): string {
-    return this.doc.content(this.path + "/relatedEntity") || '';
+    return this.doc.content(this.path + "/DAENRE-RELA-REF") || '';
   }
 
   set relatedEntity(value: string) {
-    this.doc.setContent(this.path + "/relatedEntity", value);
+    this.doc.setContent(this.path + "/DAENRE-RELA-REF", value);
   }
 }
 
@@ -19382,19 +19382,19 @@ export class EntityRelationshipEntry extends SomNode {
   }
 
   get sourceEntityRef(): string {
-    return this.doc.content(this.path + "/sourceEntityRef") || '';
+    return this.doc.content(this.path + "/ENRLE-SOUR-REF") || '';
   }
 
   set sourceEntityRef(value: string) {
-    this.doc.setContent(this.path + "/sourceEntityRef", value);
+    this.doc.setContent(this.path + "/ENRLE-SOUR-REF", value);
   }
 
   get targetEntityRef(): string {
-    return this.doc.content(this.path + "/targetEntityRef") || '';
+    return this.doc.content(this.path + "/ENRLE-TARG-REF") || '';
   }
 
   set targetEntityRef(value: string) {
-    this.doc.setContent(this.path + "/targetEntityRef", value);
+    this.doc.setContent(this.path + "/ENRLE-TARG-REF", value);
   }
 }
 
@@ -21449,7 +21449,7 @@ export class ExternalServiceDependencyEntry extends SomNode {
   }
 
   get primaryDependentSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/primaryDependentSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -23339,11 +23339,11 @@ export class GoalDependencyEntry extends SomNode {
   }
 
   get relatedGoal(): string {
-    return this.doc.content(this.path + "/relatedGoal") || '';
+    return this.doc.content(this.path + "/GOLDE-RELA-REF") || '';
   }
 
   set relatedGoal(value: string) {
-    this.doc.setContent(this.path + "/relatedGoal", value);
+    this.doc.setContent(this.path + "/GOLDE-RELA-REF", value);
   }
 }
 
@@ -27090,11 +27090,11 @@ export class KeyAttributeEntry extends SomNode {
   }
 
   get referencedEntityRef(): string {
-    return this.doc.content(this.path + "/referencedEntityRef") || '';
+    return this.doc.content(this.path + "/KEATT-REFE-REF") || '';
   }
 
   set referencedEntityRef(value: string) {
-    this.doc.setContent(this.path + "/referencedEntityRef", value);
+    this.doc.setContent(this.path + "/KEATT-REFE-REF", value);
   }
 }
 
@@ -36177,7 +36177,7 @@ export class ProcessMetricEntry extends SomNode {
   }
 
   get processReference(): CurrentBusinessProcess {
-    return new CurrentBusinessProcess(this.doc, this.path + "/processReference");
+    return new CurrentBusinessProcess(this.doc, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -39844,11 +39844,11 @@ export class RequirementDependencyEntry extends SomNode {
   }
 
   get relatedRequirement(): string {
-    return this.doc.content(this.path + "/relatedRequirement") || '';
+    return this.doc.content(this.path + "/RQDEP-RELA-REF") || '';
   }
 
   set relatedRequirement(value: string) {
-    this.doc.setContent(this.path + "/relatedRequirement", value);
+    this.doc.setContent(this.path + "/RQDEP-RELA-REF", value);
   }
 }
 
@@ -39912,11 +39912,11 @@ export class RequirementTestCaseEntry extends SomNode {
   }
 
   get relatedCriterion(): string {
-    return this.doc.content(this.path + "/relatedCriterion") || '';
+    return this.doc.content(this.path + "/RQTSC-RELA-REF") || '';
   }
 
   set relatedCriterion(value: string) {
-    this.doc.setContent(this.path + "/relatedCriterion", value);
+    this.doc.setContent(this.path + "/RQTSC-RELA-REF", value);
   }
 }
 
@@ -49350,11 +49350,11 @@ export class SystemDependencyEntry extends SomNode {
   }
 
   get sourceSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/sourceSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-SOUR-REF");
   }
 
   get targetSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/targetSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -49727,11 +49727,11 @@ export class SystemIntegrationEntry extends SomNode {
   }
 
   get sourceSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/sourceSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-SOUR-REF");
   }
 
   get targetSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/targetSystem");
+    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -50437,11 +50437,11 @@ export class SystemTaskEntry extends SomNode {
   }
 
   get relatedUseCase(): string {
-    return this.doc.content(this.path + "/relatedUseCase") || '';
+    return this.doc.content(this.path + "/SYTS-RELA-REF") || '';
   }
 
   set relatedUseCase(value: string) {
-    this.doc.setContent(this.path + "/relatedUseCase", value);
+    this.doc.setContent(this.path + "/SYTS-RELA-REF", value);
   }
 
   // Task workflow steps.
@@ -57011,7 +57011,7 @@ export class WorkflowActorEntry extends SomNode {
 
   // Steps this actor participates in.
   get participatingSteps(): SomList<WorkflowStepEntry> {
-    return new SomList(this.doc, this.path + "/participatingSteps", (d: SpecDocument, p: string) => new WorkflowStepEntry(d, p));
+    return new SomList(this.doc, this.path + "/WAE-PART-REF", (d: SpecDocument, p: string) => new WorkflowStepEntry(d, p));
   }
 }
 

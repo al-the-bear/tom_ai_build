@@ -3783,6 +3783,7 @@ class SystemTaskEntry {
     @SerializationOrder(3)
     SystemTaskEntryContext context = SystemTaskEntryContext();
 
+  @SectionId('SYTS-RELA-REF')
   @Reference('Related Use Case')
   @SerializationOrder(4)
   String? relatedUseCase;
@@ -4776,6 +4777,7 @@ class GoalDependencyEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('GOLDE-RELA-REF')
   @Reference('Related Goal')
   @SerializationOrder(1)
   String? relatedGoal;
@@ -6523,6 +6525,7 @@ class DataEntityReferenceEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('DAENRE-RELA-REF')
   @Reference('Related Data Model Entity')
   @SerializationOrder(1)
   String? relatedEntity;
@@ -7027,6 +7030,7 @@ class RequirementDependencyEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('RQDEP-RELA-REF')
   @Reference('Related Requirement')
   @SerializationOrder(1)
   String? relatedRequirement;
@@ -7187,6 +7191,7 @@ class RequirementTestCaseEntry {
     RequirementTestCaseEntryAutomation automation =
             RequirementTestCaseEntryAutomation();
 
+  @SectionId('RQTSC-RELA-REF')
   @Reference('Related Acceptance Criterion')
   @SerializationOrder(3)
   String? relatedCriterion;

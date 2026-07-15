@@ -169,7 +169,7 @@ void main() {
         // field-level @SectionId. YRB1 only ENFORCES the rule (adds the errors
         // + this guard); it does not fix the model — that is YRB5.
         //
-        // Count = 177. A by-kind census of the exported spec_model.json reports
+        // Count = 166. A by-kind census of the exported spec_model.json reports
         // 185 (65 content-kind + 120 form-kind), but that over-counts the
         // canonical String rule by 8:
         //   • 7 of the 120 "form-kind" fields are `TextSection?` sub-sections
@@ -180,13 +180,19 @@ void main() {
         //   • 1 content-kind offender (UserCategories.userCategoryDiagram) lives
         //     in an orphan class unreachable from the container, so no document
         //     tree ever reaches it. (Orphan-class hygiene is out of YRB1 scope.)
+        // That leaves 177; YRB3 then folded the 11 String-typed `@Reference`
+        // inline-reference fields (shape (3)) into the id sweep — each now
+        // carries a `<PARENT>-<FIELD4>-REF` field-level @SectionId — so the
+        // remaining un-ided backlog is 177 − 11 = 166. (The other 7 of the 18
+        // `@Reference` fields are complex/list-typed and were never counted by
+        // this String-only rule.)
         final result = validateModel(classes, 'DocSpecsProject');
         final missingId = result.errors
             .where((e) => e.contains('§6.1 field-shape') &&
                 e.contains('must carry a field-level @SectionId'))
             .toList();
-        expect(missingId.length, 177,
-            reason: 'expected exactly 177 un-ided inline sub-section String '
+        expect(missingId.length, 166,
+            reason: 'expected exactly 166 un-ided inline sub-section String '
                 'fields; got ${missingId.length}');
       },
     );

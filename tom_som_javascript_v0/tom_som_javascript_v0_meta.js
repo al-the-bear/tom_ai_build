@@ -1754,6 +1754,7 @@ function _mc_AffectedFunctionEntry(s) {
      new SomMetaNode({
       className: "AffectedFunctionEntry",
       memberName: "functionRef",
+      sectionId: "AFFN-FUNC-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -1774,6 +1775,7 @@ function _mc_AffectedObjectEntry(s) {
      new SomMetaNode({
       className: "AffectedObjectEntry",
       memberName: "objectRef",
+      sectionId: "AFOB-OBJE-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -7793,6 +7795,7 @@ function _mc_BusinessRuleReferenceEntry(s) {
      new SomMetaNode({
       className: "BusinessRuleReferenceEntry",
       memberName: "ruleRef",
+      sectionId: "BIRURE-RULE-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -18710,6 +18713,7 @@ function _mc_DataEntityReferenceEntry(s) {
      new SomMetaNode({
       className: "DataEntityReferenceEntry",
       memberName: "relatedEntity",
+      sectionId: "DAENRE-RELA-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -27015,6 +27019,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "sourceEntityRef",
+      sectionId: "ENRLE-SOUR-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 6,
@@ -27023,6 +27028,7 @@ function _mc_EntityRelationshipEntry(s) {
      new SomMetaNode({
       className: "EntityRelationshipEntry",
       memberName: "targetEntityRef",
+      sectionId: "ENRLE-TARG-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 7,
@@ -30029,6 +30035,7 @@ function _mc_ExternalServiceDependencyEntry(s) {
       (r, c) => new SomMetaNode({
         className: "ExistingSystemEntry",
         memberName: "primaryDependentSystem",
+        sectionId: "EXSDE-PRIM-REF",
         classSectionId: "ESENT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemEntry",
@@ -32568,6 +32575,7 @@ function _mc_GoalDependencyEntry(s) {
      new SomMetaNode({
       className: "GoalDependencyEntry",
       memberName: "relatedGoal",
+      sectionId: "GOLDE-RELA-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -37727,6 +37735,7 @@ function _mc_KeyAttributeEntry(s) {
      new SomMetaNode({
       className: "KeyAttributeEntry",
       memberName: "referencedEntityRef",
+      sectionId: "KEATT-REFE-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 4,
@@ -50255,6 +50264,7 @@ function _mc_ProcessMetricEntry(s) {
       (r, c) => new SomMetaNode({
         className: "CurrentBusinessProcess",
         memberName: "processReference",
+        sectionId: "PME-PROC-REF",
         classSectionId: "CUBIPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "CurrentBusinessProcess",
@@ -55440,6 +55450,7 @@ function _mc_RequirementDependencyEntry(s) {
      new SomMetaNode({
       className: "RequirementDependencyEntry",
       memberName: "relatedRequirement",
+      sectionId: "RQDEP-RELA-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -55521,6 +55532,7 @@ function _mc_RequirementTestCaseEntry(s) {
      new SomMetaNode({
       className: "RequirementTestCaseEntry",
       memberName: "relatedCriterion",
+      sectionId: "RQTSC-RELA-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 3,
@@ -68480,6 +68492,7 @@ function _mc_SystemDependencyEntry(s) {
       (r, c) => new SomMetaNode({
         className: "ExistingSystemEntry",
         memberName: "sourceSystem",
+        sectionId: "SYDE-SOUR-REF",
         classSectionId: "ESENT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemEntry",
@@ -68493,6 +68506,7 @@ function _mc_SystemDependencyEntry(s) {
       (r, c) => new SomMetaNode({
         className: "ExistingSystemEntry",
         memberName: "targetSystem",
+        sectionId: "SYDE-TARG-REF",
         classSectionId: "ESENT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemEntry",
@@ -69034,6 +69048,7 @@ function _mc_SystemIntegrationEntry(s) {
       (r, c) => new SomMetaNode({
         className: "ExistingSystemEntry",
         memberName: "sourceSystem",
+        sectionId: "SYIN-SOUR-REF",
         classSectionId: "ESENT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemEntry",
@@ -69047,6 +69062,7 @@ function _mc_SystemIntegrationEntry(s) {
       (r, c) => new SomMetaNode({
         className: "ExistingSystemEntry",
         memberName: "targetSystem",
+        sectionId: "SYIN-TARG-REF",
         classSectionId: "ESENT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemEntry",
@@ -70228,6 +70244,7 @@ function _mc_SystemTaskEntry(s) {
      new SomMetaNode({
       className: "SystemTaskEntry",
       memberName: "relatedUseCase",
+      sectionId: "SYTS-RELA-REF",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 4,
@@ -79350,6 +79367,7 @@ function _mc_WorkflowActorEntry(s) {
      new SomMetaNode({
       className: "WorkflowActorEntry",
       memberName: "participatingSteps",
+      sectionId: "WAE-PART-REF",
       kind: SomMetaKind.LIST,
       typeName: "WorkflowStepEntry",
       serializationOrder: 1,
@@ -80902,7 +80920,7 @@ class AffectedFunctionEntry$Nav extends SomMetaRef {
   }
 
   get functionRef() {
-    return new SomMetaRef(this.tree, this.path + "/functionRef");
+    return new SomMetaRef(this.tree, this.path + "/AFFN-FUNC-REF");
   }
 }
 
@@ -80916,7 +80934,7 @@ class AffectedObjectEntry$Nav extends SomMetaRef {
   }
 
   get objectRef() {
-    return new SomMetaRef(this.tree, this.path + "/objectRef");
+    return new SomMetaRef(this.tree, this.path + "/AFOB-OBJE-REF");
   }
 }
 
@@ -84292,7 +84310,7 @@ class BusinessRuleReferenceEntry$Nav extends SomMetaRef {
   }
 
   get ruleRef() {
-    return new SomMetaRef(this.tree, this.path + "/ruleRef");
+    return new SomMetaRef(this.tree, this.path + "/BIRURE-RULE-REF");
   }
 }
 
@@ -90140,7 +90158,7 @@ class DataEntityReferenceEntry$Nav extends SomMetaRef {
   }
 
   get relatedEntity() {
-    return new SomMetaRef(this.tree, this.path + "/relatedEntity");
+    return new SomMetaRef(this.tree, this.path + "/DAENRE-RELA-REF");
   }
 }
 
@@ -94882,11 +94900,11 @@ class EntityRelationshipEntry$Nav extends SomMetaRef {
   }
 
   get sourceEntityRef() {
-    return new SomMetaRef(this.tree, this.path + "/sourceEntityRef");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-SOUR-REF");
   }
 
   get targetEntityRef() {
-    return new SomMetaRef(this.tree, this.path + "/targetEntityRef");
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-TARG-REF");
   }
 }
 
@@ -96556,7 +96574,7 @@ class ExternalServiceDependencyEntry$Nav extends SomMetaRef {
   }
 
   get primaryDependentSystem() {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/primaryDependentSystem");
+    return new ExistingSystemEntry$Nav(this.tree, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -98044,7 +98062,7 @@ class GoalDependencyEntry$Nav extends SomMetaRef {
   }
 
   get relatedGoal() {
-    return new SomMetaRef(this.tree, this.path + "/relatedGoal");
+    return new SomMetaRef(this.tree, this.path + "/GOLDE-RELA-REF");
   }
 }
 
@@ -101044,7 +101062,7 @@ class KeyAttributeEntry$Nav extends SomMetaRef {
   }
 
   get referencedEntityRef() {
-    return new SomMetaRef(this.tree, this.path + "/referencedEntityRef");
+    return new SomMetaRef(this.tree, this.path + "/KEATT-REFE-REF");
   }
 }
 
@@ -108342,7 +108360,7 @@ class ProcessMetricEntry$Nav extends SomMetaRef {
   }
 
   get processReference() {
-    return new CurrentBusinessProcess$Nav(this.tree, this.path + "/processReference");
+    return new CurrentBusinessProcess$Nav(this.tree, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -111372,7 +111390,7 @@ class RequirementDependencyEntry$Nav extends SomMetaRef {
   }
 
   get relatedRequirement() {
-    return new SomMetaRef(this.tree, this.path + "/relatedRequirement");
+    return new SomMetaRef(this.tree, this.path + "/RQDEP-RELA-REF");
   }
 }
 
@@ -111418,7 +111436,7 @@ class RequirementTestCaseEntry$Nav extends SomMetaRef {
   }
 
   get relatedCriterion() {
-    return new SomMetaRef(this.tree, this.path + "/relatedCriterion");
+    return new SomMetaRef(this.tree, this.path + "/RQTSC-RELA-REF");
   }
 }
 
@@ -118916,11 +118934,11 @@ class SystemDependencyEntry$Nav extends SomMetaRef {
   }
 
   get sourceSystem() {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/sourceSystem");
+    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYDE-SOUR-REF");
   }
 
   get targetSystem() {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/targetSystem");
+    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -119220,11 +119238,11 @@ class SystemIntegrationEntry$Nav extends SomMetaRef {
   }
 
   get sourceSystem() {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/sourceSystem");
+    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYIN-SOUR-REF");
   }
 
   get targetSystem() {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/targetSystem");
+    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -119760,7 +119778,7 @@ class SystemTaskEntry$Nav extends SomMetaRef {
   }
 
   get relatedUseCase() {
-    return new SomMetaRef(this.tree, this.path + "/relatedUseCase");
+    return new SomMetaRef(this.tree, this.path + "/SYTS-RELA-REF");
   }
 
   get workflowSteps() {
@@ -124998,7 +125016,7 @@ class WorkflowActorEntry$Nav extends SomMetaRef {
   }
 
   get participatingSteps() {
-    return new SomListMetaRef(this.tree, this.path + "/participatingSteps", (t, p) => new WorkflowStepEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/WAE-PART-REF", (t, p) => new WorkflowStepEntry$Nav(t, p));
   }
 }
 
@@ -125405,12 +125423,18 @@ class AffectedDepartmentEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class AffectedFunctionEntry$Id extends SomMetaRef {
+  get AFFN_FUNC_REF() {
+    return new SomMetaRef(this.tree, this.path + "/AFFN-FUNC-REF");
+  }
 }
 
 // ID-tree accessors of `AffectedObjectEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class AffectedObjectEntry$Id extends SomMetaRef {
+  get AFOB_OBJE_REF() {
+    return new SomMetaRef(this.tree, this.path + "/AFOB-OBJE-REF");
+  }
 }
 
 // ID-tree accessors of `AlertDefinitionEntry` (DR1 §4.2): getters named by section id
@@ -125743,6 +125767,9 @@ class BusinessRuleEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class BusinessRuleReferenceEntry$Id extends SomMetaRef {
+  get BIRURE_RULE_REF() {
+    return new SomMetaRef(this.tree, this.path + "/BIRURE-RULE-REF");
+  }
 }
 
 // ID-tree accessors of `CategoryDependencyEntry` (DR1 §4.2): getters named by section id
@@ -128558,6 +128585,9 @@ class DataEntityMigrationEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class DataEntityReferenceEntry$Id extends SomMetaRef {
+  get DAENRE_RELA_REF() {
+    return new SomMetaRef(this.tree, this.path + "/DAENRE-RELA-REF");
+  }
 }
 
 // ID-tree accessors of `DataGovernancePolicyEntry` (DR1 §4.2): getters named by section id
@@ -128874,6 +128904,14 @@ class EntityRelationshipEntry$Id extends SomMetaRef {
   get RELAT_RELA_LST() {
     return new SomListMetaRef(this.tree, this.path + "/RELAT-RELA-LST", (t, p) => new RelationshipAttributeEntry$Id(t, p));
   }
+
+  get ENRLE_SOUR_REF() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-SOUR-REF");
+  }
+
+  get ENRLE_TARG_REF() {
+    return new SomMetaRef(this.tree, this.path + "/ENRLE-TARG-REF");
+  }
 }
 
 // ID-tree accessors of `EntryPointEntry` (DR1 §4.2): getters named by section id
@@ -129038,8 +129076,8 @@ class ExternalPartnerOperations$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ExternalServiceDependencyEntry$Id extends SomMetaRef {
-  get LIMET_KNOW_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/primaryDependentSystem/LIMET-KNOW-LST", (t, p) => new LimitationEntry$Id(t, p));
+  get EXSDE_PRIM_REF() {
+    return new ExistingSystemEntry$Id(this.tree, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -129207,6 +129245,9 @@ class GlossaryEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class GoalDependencyEntry$Id extends SomMetaRef {
+  get GOLDE_RELA_REF() {
+    return new SomMetaRef(this.tree, this.path + "/GOLDE-RELA-REF");
+  }
 }
 
 // ID-tree accessors of `GoalMilestoneEntry` (DR1 §4.2): getters named by section id
@@ -129454,6 +129495,9 @@ class KeyAssumptionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class KeyAttributeEntry$Id extends SomMetaRef {
+  get KEATT_REFE_REF() {
+    return new SomMetaRef(this.tree, this.path + "/KEATT-REFE-REF");
+  }
 }
 
 // ID-tree accessors of `KeyConceptEntry` (DR1 §4.2): getters named by section id
@@ -130037,44 +130081,8 @@ class ProcessMetricCategory$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ProcessMetricEntry$Id extends SomMetaRef {
-  get WOSUEN_ENTR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/workflowDescriptions/summaryTable/WOSUEN-ENTR-LST", (t, p) => new WorkflowSummaryEntry$Id(t, p));
-  }
-
-  get CUWF_WORK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/workflowDescriptions/CUWF-WORK-LST", (t, p) => new CurrentWorkflowEntry$Id(t, p));
-  }
-
-  get PRMECA_EFFI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PRMECA-EFFI-LST", (t, p) => new ProcessMetricCategory$Id(t, p));
-  }
-
-  get PRMECA_QUAL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PRMECA-QUAL-LST", (t, p) => new ProcessMetricCategory$Id(t, p));
-  }
-
-  get PRMECA_VOLU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PRMECA-VOLU-LST", (t, p) => new ProcessMetricCategory$Id(t, p));
-  }
-
-  get PRMECA_COST_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PRMECA-COST-LST", (t, p) => new ProcessMetricCategory$Id(t, p));
-  }
-
-  get PRMECA_MANU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PRMECA-MANU-LST", (t, p) => new ProcessMetricCategory$Id(t, p));
-  }
-
-  get PME_ITEM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/PME-ITEM-LST", (t, p) => new ProcessMetricEntry$Id(t, p));
-  }
-
-  get MEBAEN_ENTR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processMetrics/baselineTable/MEBAEN-ENTR-LST", (t, p) => new MetricsBaselineEntry$Id(t, p));
-  }
-
-  get CPIE_IMPR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/processReference/processPainPoints/CPIE-IMPR-LST", (t, p) => new CurrentProcessImprovementEntry$Id(t, p));
+  get PME_PROC_REF() {
+    return new CurrentBusinessProcess$Id(this.tree, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -130367,6 +130375,9 @@ class RequirementBusinessRuleEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class RequirementDependencyEntry$Id extends SomMetaRef {
+  get RQDEP_RELA_REF() {
+    return new SomMetaRef(this.tree, this.path + "/RQDEP-RELA-REF");
+  }
 }
 
 // ID-tree accessors of `RequirementRelationships` (DR1 §4.2): getters named by section id
@@ -130388,6 +130399,9 @@ class RequirementScreenActionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class RequirementTestCaseEntry$Id extends SomMetaRef {
+  get RQTSC_RELA_REF() {
+    return new SomMetaRef(this.tree, this.path + "/RQTSC-RELA-REF");
+  }
 }
 
 // ID-tree accessors of `ResourceAllocationEntry` (DR1 §4.2): getters named by section id
@@ -131021,12 +131035,12 @@ class SystemBusinessUnitEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class SystemDependencyEntry$Id extends SomMetaRef {
-  get LIMET_KNOW_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/sourceSystem/LIMET-KNOW-LST", (t, p) => new LimitationEntry$Id(t, p));
+  get SYDE_SOUR_REF() {
+    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYDE-SOUR-REF");
   }
 
-  get LIMET_KNOW_LST_2() {
-    return new SomListMetaRef(this.tree, this.path + "/targetSystem/LIMET-KNOW-LST", (t, p) => new LimitationEntry$Id(t, p));
+  get SYDE_TARG_REF() {
+    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -131040,12 +131054,12 @@ class SystemErrorCodeEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class SystemIntegrationEntry$Id extends SomMetaRef {
-  get LIMET_KNOW_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/sourceSystem/LIMET-KNOW-LST", (t, p) => new LimitationEntry$Id(t, p));
+  get SYIN_SOUR_REF() {
+    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYIN-SOUR-REF");
   }
 
-  get LIMET_KNOW_LST_2() {
-    return new SomListMetaRef(this.tree, this.path + "/targetSystem/LIMET-KNOW-LST", (t, p) => new LimitationEntry$Id(t, p));
+  get SYIN_TARG_REF() {
+    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -131059,6 +131073,10 @@ class SystemMigrationRiskEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class SystemTaskEntry$Id extends SomMetaRef {
+  get SYTS_RELA_REF() {
+    return new SomMetaRef(this.tree, this.path + "/SYTS-RELA-REF");
+  }
+
   get SYSTE_WORK_LST() {
     return new SomListMetaRef(this.tree, this.path + "/SYSTE-WORK-LST", (t, p) => new SystemTaskWorkflowStepEntry$Id(t, p));
   }
@@ -131566,6 +131584,9 @@ class WcagSuccessCriterionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class WorkflowActorEntry$Id extends SomMetaRef {
+  get WAE_PART_REF() {
+    return new SomListMetaRef(this.tree, this.path + "/WAE-PART-REF", (t, p) => new WorkflowStepEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `WorkflowBusinessRule` (DR1 §4.2): getters named by section id

@@ -649,10 +649,10 @@ AffectedFunctionEntryContentForm AffectedFunctionEntry::content() const {
   return AffectedFunctionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string AffectedFunctionEntry::functionRef() const {
-  return doc().content(som::joinPath(path(), "functionRef"));
+  return doc().content(som::joinPath(path(), "AFFN-FUNC-REF"));
 }
 void AffectedFunctionEntry::setFunctionRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "functionRef"), value);
+  doc().setContent(som::joinPath(path(), "AFFN-FUNC-REF"), value);
 }
 
 AffectedObjectEntry::AffectedObjectEntry(som::SpecDocument& doc, std::string path)
@@ -661,10 +661,10 @@ AffectedObjectEntryContentForm AffectedObjectEntry::content() const {
   return AffectedObjectEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string AffectedObjectEntry::objectRef() const {
-  return doc().content(som::joinPath(path(), "objectRef"));
+  return doc().content(som::joinPath(path(), "AFOB-OBJE-REF"));
 }
 void AffectedObjectEntry::setObjectRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "objectRef"), value);
+  doc().setContent(som::joinPath(path(), "AFOB-OBJE-REF"), value);
 }
 
 AlertDefinitionEntry::AlertDefinitionEntry(som::SpecDocument& doc, std::string path)
@@ -2878,10 +2878,10 @@ BusinessRuleReferenceEntryContentForm BusinessRuleReferenceEntry::content() cons
   return BusinessRuleReferenceEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string BusinessRuleReferenceEntry::ruleRef() const {
-  return doc().content(som::joinPath(path(), "ruleRef"));
+  return doc().content(som::joinPath(path(), "BIRURE-RULE-REF"));
 }
 void BusinessRuleReferenceEntry::setRuleRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "ruleRef"), value);
+  doc().setContent(som::joinPath(path(), "BIRURE-RULE-REF"), value);
 }
 
 CapacityPlanningSection::CapacityPlanningSection(som::SpecDocument& doc, std::string path)
@@ -7190,10 +7190,10 @@ DataEntityReferenceEntryContentForm DataEntityReferenceEntry::content() const {
   return DataEntityReferenceEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string DataEntityReferenceEntry::relatedEntity() const {
-  return doc().content(som::joinPath(path(), "relatedEntity"));
+  return doc().content(som::joinPath(path(), "DAENRE-RELA-REF"));
 }
 void DataEntityReferenceEntry::setRelatedEntity(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "relatedEntity"), value);
+  doc().setContent(som::joinPath(path(), "DAENRE-RELA-REF"), value);
 }
 
 DataFormatCompatibility::DataFormatCompatibility(som::SpecDocument& doc, std::string path)
@@ -10310,16 +10310,16 @@ som::SomList EntityRelationshipEntry::relationshipAttributes() const {
   return som::SomList(doc(), som::joinPath(path(), "RELAT-RELA-LST"), "RELAT-RELA-xxx");
 }
 std::string EntityRelationshipEntry::sourceEntityRef() const {
-  return doc().content(som::joinPath(path(), "sourceEntityRef"));
+  return doc().content(som::joinPath(path(), "ENRLE-SOUR-REF"));
 }
 void EntityRelationshipEntry::setSourceEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "sourceEntityRef"), value);
+  doc().setContent(som::joinPath(path(), "ENRLE-SOUR-REF"), value);
 }
 std::string EntityRelationshipEntry::targetEntityRef() const {
-  return doc().content(som::joinPath(path(), "targetEntityRef"));
+  return doc().content(som::joinPath(path(), "ENRLE-TARG-REF"));
 }
 void EntityRelationshipEntry::setTargetEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "targetEntityRef"), value);
+  doc().setContent(som::joinPath(path(), "ENRLE-TARG-REF"), value);
 }
 
 EntityRelationships::EntityRelationships(som::SpecDocument& doc, std::string path)
@@ -11405,7 +11405,7 @@ ExternalServiceDependencyEntryRisk ExternalServiceDependencyEntry::risk() const 
   return ExternalServiceDependencyEntryRisk(doc(), som::joinPath(path(), "risk"));
 }
 ExistingSystemEntry ExternalServiceDependencyEntry::primaryDependentSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "primaryDependentSystem"));
+  return ExistingSystemEntry(doc(), som::joinPath(path(), "EXSDE-PRIM-REF"));
 }
 
 ExternalServiceDependencyEntryOperations::ExternalServiceDependencyEntryOperations(som::SpecDocument& doc, std::string path)
@@ -12374,10 +12374,10 @@ GoalDependencyEntryContentForm GoalDependencyEntry::content() const {
   return GoalDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string GoalDependencyEntry::relatedGoal() const {
-  return doc().content(som::joinPath(path(), "relatedGoal"));
+  return doc().content(som::joinPath(path(), "GOLDE-RELA-REF"));
 }
 void GoalDependencyEntry::setRelatedGoal(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "relatedGoal"), value);
+  doc().setContent(som::joinPath(path(), "GOLDE-RELA-REF"), value);
 }
 
 GoalKeyResults::GoalKeyResults(som::SpecDocument& doc, std::string path)
@@ -14363,10 +14363,10 @@ KeyAttributeEntryGovernance KeyAttributeEntry::governance() const {
   return KeyAttributeEntryGovernance(doc(), som::joinPath(path(), "governance"));
 }
 std::string KeyAttributeEntry::referencedEntityRef() const {
-  return doc().content(som::joinPath(path(), "referencedEntityRef"));
+  return doc().content(som::joinPath(path(), "KEATT-REFE-REF"));
 }
 void KeyAttributeEntry::setReferencedEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "referencedEntityRef"), value);
+  doc().setContent(som::joinPath(path(), "KEATT-REFE-REF"), value);
 }
 
 KeyAttributeEntryGeneration::KeyAttributeEntryGeneration(som::SpecDocument& doc, std::string path)
@@ -19064,7 +19064,7 @@ ProcessMetricEntryTargets ProcessMetricEntry::targets() const {
   return ProcessMetricEntryTargets(doc(), som::joinPath(path(), "targets"));
 }
 CurrentBusinessProcess ProcessMetricEntry::processReference() const {
-  return CurrentBusinessProcess(doc(), som::joinPath(path(), "processReference"));
+  return CurrentBusinessProcess(doc(), som::joinPath(path(), "PME-PROC-REF"));
 }
 
 ProcessMetricEntryMeasurement::ProcessMetricEntryMeasurement(som::SpecDocument& doc, std::string path)
@@ -20993,10 +20993,10 @@ RequirementDependencyEntryContentForm RequirementDependencyEntry::content() cons
   return RequirementDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string RequirementDependencyEntry::relatedRequirement() const {
-  return doc().content(som::joinPath(path(), "relatedRequirement"));
+  return doc().content(som::joinPath(path(), "RQDEP-RELA-REF"));
 }
 void RequirementDependencyEntry::setRelatedRequirement(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "relatedRequirement"), value);
+  doc().setContent(som::joinPath(path(), "RQDEP-RELA-REF"), value);
 }
 
 RequirementRelationships::RequirementRelationships(som::SpecDocument& doc, std::string path)
@@ -21029,10 +21029,10 @@ RequirementTestCaseEntryAutomation RequirementTestCaseEntry::automation() const 
   return RequirementTestCaseEntryAutomation(doc(), som::joinPath(path(), "automation"));
 }
 std::string RequirementTestCaseEntry::relatedCriterion() const {
-  return doc().content(som::joinPath(path(), "relatedCriterion"));
+  return doc().content(som::joinPath(path(), "RQTSC-RELA-REF"));
 }
 void RequirementTestCaseEntry::setRelatedCriterion(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "relatedCriterion"), value);
+  doc().setContent(som::joinPath(path(), "RQTSC-RELA-REF"), value);
 }
 
 RequirementTestCaseEntryAutomation::RequirementTestCaseEntryAutomation(som::SpecDocument& doc, std::string path)
@@ -25943,10 +25943,10 @@ SystemDependencyEntryOperations SystemDependencyEntry::operations() const {
   return SystemDependencyEntryOperations(doc(), som::joinPath(path(), "operations"));
 }
 ExistingSystemEntry SystemDependencyEntry::sourceSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "sourceSystem"));
+  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYDE-SOUR-REF"));
 }
 ExistingSystemEntry SystemDependencyEntry::targetSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "targetSystem"));
+  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYDE-TARG-REF"));
 }
 
 SystemDependencyEntryDataExchange::SystemDependencyEntryDataExchange(som::SpecDocument& doc, std::string path)
@@ -26144,10 +26144,10 @@ SystemIntegrationOwnership SystemIntegrationEntry::ownership() const {
   return SystemIntegrationOwnership(doc(), som::joinPath(path(), "ownership"));
 }
 ExistingSystemEntry SystemIntegrationEntry::sourceSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "sourceSystem"));
+  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYIN-SOUR-REF"));
 }
 ExistingSystemEntry SystemIntegrationEntry::targetSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "targetSystem"));
+  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYIN-TARG-REF"));
 }
 
 SystemIntegrationErrorHandling::SystemIntegrationErrorHandling(som::SpecDocument& doc, std::string path)
@@ -26510,10 +26510,10 @@ SystemTaskEntryContext SystemTaskEntry::context() const {
   return SystemTaskEntryContext(doc(), som::joinPath(path(), "context"));
 }
 std::string SystemTaskEntry::relatedUseCase() const {
-  return doc().content(som::joinPath(path(), "relatedUseCase"));
+  return doc().content(som::joinPath(path(), "SYTS-RELA-REF"));
 }
 void SystemTaskEntry::setRelatedUseCase(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "relatedUseCase"), value);
+  doc().setContent(som::joinPath(path(), "SYTS-RELA-REF"), value);
 }
 som::SomList SystemTaskEntry::workflowSteps() const {
   return som::SomList(doc(), som::joinPath(path(), "SYSTE-WORK-LST"), "SYSTE-WORK-xxx");
@@ -29921,7 +29921,7 @@ WorkflowActorEntryContentForm WorkflowActorEntry::content() const {
   return WorkflowActorEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList WorkflowActorEntry::participatingSteps() const {
-  return som::SomList(doc(), som::joinPath(path(), "participatingSteps"), "");
+  return som::SomList(doc(), som::joinPath(path(), "WAE-PART-REF"), "");
 }
 
 WorkflowBusinessRule::WorkflowBusinessRule(som::SpecDocument& doc, std::string path)

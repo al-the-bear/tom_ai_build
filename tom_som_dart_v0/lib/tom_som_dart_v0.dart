@@ -845,8 +845,8 @@ class AffectedFunctionEntry extends SomNode {
 
   AffectedFunctionEntryContentForm get content => AffectedFunctionEntryContentForm(doc, '$path/content');
 
-  String get functionRef => doc.content('$path/functionRef') ?? '';
-  set functionRef(String value) => doc.setContent('$path/functionRef', value);
+  String get functionRef => doc.content('$path/AFFN-FUNC-REF') ?? '';
+  set functionRef(String value) => doc.setContent('$path/AFFN-FUNC-REF', value);
 }
 
 /// An affected object reference entry (form).
@@ -857,8 +857,8 @@ class AffectedObjectEntry extends SomNode {
 
   AffectedObjectEntryContentForm get content => AffectedObjectEntryContentForm(doc, '$path/content');
 
-  String get objectRef => doc.content('$path/objectRef') ?? '';
-  set objectRef(String value) => doc.setContent('$path/objectRef', value);
+  String get objectRef => doc.content('$path/AFOB-OBJE-REF') ?? '';
+  set objectRef(String value) => doc.setContent('$path/AFOB-OBJE-REF', value);
 }
 
 /// Alert definition entry.
@@ -3531,8 +3531,8 @@ class BusinessRuleReferenceEntry extends SomNode {
 
   BusinessRuleReferenceEntryContentForm get content => BusinessRuleReferenceEntryContentForm(doc, '$path/content');
 
-  String get ruleRef => doc.content('$path/ruleRef') ?? '';
-  set ruleRef(String value) => doc.setContent('$path/ruleRef', value);
+  String get ruleRef => doc.content('$path/BIRURE-RULE-REF') ?? '';
+  set ruleRef(String value) => doc.setContent('$path/BIRURE-RULE-REF', value);
 }
 
 /// 8.7.3. Capacity Planning.
@@ -8679,8 +8679,8 @@ class DataEntityReferenceEntry extends SomNode {
 
   DataEntityReferenceEntryContentForm get content => DataEntityReferenceEntryContentForm(doc, '$path/content');
 
-  String get relatedEntity => doc.content('$path/relatedEntity') ?? '';
-  set relatedEntity(String value) => doc.setContent('$path/relatedEntity', value);
+  String get relatedEntity => doc.content('$path/DAENRE-RELA-REF') ?? '';
+  set relatedEntity(String value) => doc.setContent('$path/DAENRE-RELA-REF', value);
 }
 
 /// Data format and encoding compatibility.
@@ -12412,11 +12412,11 @@ class EntityRelationshipEntry extends SomNode {
 
   SomList<RelationshipAttributeEntry> get relationshipAttributes => SomList<RelationshipAttributeEntry>(doc, '$path/RELAT-RELA-LST', (d, p) => RelationshipAttributeEntry(d, p), pattern: 'RELAT-RELA-xxx');
 
-  String get sourceEntityRef => doc.content('$path/sourceEntityRef') ?? '';
-  set sourceEntityRef(String value) => doc.setContent('$path/sourceEntityRef', value);
+  String get sourceEntityRef => doc.content('$path/ENRLE-SOUR-REF') ?? '';
+  set sourceEntityRef(String value) => doc.setContent('$path/ENRLE-SOUR-REF', value);
 
-  String get targetEntityRef => doc.content('$path/targetEntityRef') ?? '';
-  set targetEntityRef(String value) => doc.setContent('$path/targetEntityRef', value);
+  String get targetEntityRef => doc.content('$path/ENRLE-TARG-REF') ?? '';
+  set targetEntityRef(String value) => doc.setContent('$path/ENRLE-TARG-REF', value);
 }
 
 /// 7.1.2. Entity Relationships.
@@ -13725,7 +13725,7 @@ class ExternalServiceDependencyEntry extends SomNode {
   /// Risk and fallback considerations.
   ExternalServiceDependencyEntryRisk get risk => ExternalServiceDependencyEntryRisk(doc, '$path/risk');
 
-  ExistingSystemEntry get primaryDependentSystem => ExistingSystemEntry(doc, '$path/primaryDependentSystem');
+  ExistingSystemEntry get primaryDependentSystem => ExistingSystemEntry(doc, '$path/EXSDE-PRIM-REF');
 }
 
 /// Availability and data handling details.
@@ -14938,8 +14938,8 @@ class GoalDependencyEntry extends SomNode {
 
   GoalDependencyEntryContentForm get content => GoalDependencyEntryContentForm(doc, '$path/content');
 
-  String get relatedGoal => doc.content('$path/relatedGoal') ?? '';
-  set relatedGoal(String value) => doc.setContent('$path/relatedGoal', value);
+  String get relatedGoal => doc.content('$path/GOLDE-RELA-REF') ?? '';
+  set relatedGoal(String value) => doc.setContent('$path/GOLDE-RELA-REF', value);
 }
 
 /// 4.2.1.n.1. Key Results.
@@ -17306,8 +17306,8 @@ class KeyAttributeEntry extends SomNode {
   /// Constraint semantics and business meaning.
   KeyAttributeEntryGovernance get governance => KeyAttributeEntryGovernance(doc, '$path/governance');
 
-  String get referencedEntityRef => doc.content('$path/referencedEntityRef') ?? '';
-  set referencedEntityRef(String value) => doc.setContent('$path/referencedEntityRef', value);
+  String get referencedEntityRef => doc.content('$path/KEATT-REFE-REF') ?? '';
+  set referencedEntityRef(String value) => doc.setContent('$path/KEATT-REFE-REF', value);
 }
 
 /// Key generation settings.
@@ -23125,7 +23125,7 @@ class ProcessMetricEntry extends SomNode {
   /// Target setting and benchmarking context.
   ProcessMetricEntryTargets get targets => ProcessMetricEntryTargets(doc, '$path/targets');
 
-  CurrentBusinessProcess get processReference => CurrentBusinessProcess(doc, '$path/processReference');
+  CurrentBusinessProcess get processReference => CurrentBusinessProcess(doc, '$path/PME-PROC-REF');
 }
 
 /// Measurement collection details.
@@ -25456,8 +25456,8 @@ class RequirementDependencyEntry extends SomNode {
 
   RequirementDependencyEntryContentForm get content => RequirementDependencyEntryContentForm(doc, '$path/content');
 
-  String get relatedRequirement => doc.content('$path/relatedRequirement') ?? '';
-  set relatedRequirement(String value) => doc.setContent('$path/relatedRequirement', value);
+  String get relatedRequirement => doc.content('$path/RQDEP-RELA-REF') ?? '';
+  set relatedRequirement(String value) => doc.setContent('$path/RQDEP-RELA-REF', value);
 }
 
 /// 4.3.5. Requirement Relationships.
@@ -25497,8 +25497,8 @@ class RequirementTestCaseEntry extends SomNode {
   /// Automation and prioritization details.
   RequirementTestCaseEntryAutomation get automation => RequirementTestCaseEntryAutomation(doc, '$path/automation');
 
-  String get relatedCriterion => doc.content('$path/relatedCriterion') ?? '';
-  set relatedCriterion(String value) => doc.setContent('$path/relatedCriterion', value);
+  String get relatedCriterion => doc.content('$path/RQTSC-RELA-REF') ?? '';
+  set relatedCriterion(String value) => doc.setContent('$path/RQTSC-RELA-REF', value);
 }
 
 /// Automation and prioritization details.
@@ -31506,9 +31506,9 @@ class SystemDependencyEntry extends SomNode {
   /// Operations and documentation.
   SystemDependencyEntryOperations get operations => SystemDependencyEntryOperations(doc, '$path/operations');
 
-  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/sourceSystem');
+  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/SYDE-SOUR-REF');
 
-  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/targetSystem');
+  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/SYDE-TARG-REF');
 }
 
 /// Data exchange characteristics for system dependency.
@@ -31745,9 +31745,9 @@ class SystemIntegrationEntry extends SomNode {
   /// Ownership and documentation.
   SystemIntegrationOwnership get ownership => SystemIntegrationOwnership(doc, '$path/ownership');
 
-  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/sourceSystem');
+  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/SYIN-SOUR-REF');
 
-  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/targetSystem');
+  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/SYIN-TARG-REF');
 }
 
 /// Error handling and retry.
@@ -32198,8 +32198,8 @@ class SystemTaskEntry extends SomNode {
   /// Tooling and linked artifacts.
   SystemTaskEntryContext get context => SystemTaskEntryContext(doc, '$path/context');
 
-  String get relatedUseCase => doc.content('$path/relatedUseCase') ?? '';
-  set relatedUseCase(String value) => doc.setContent('$path/relatedUseCase', value);
+  String get relatedUseCase => doc.content('$path/SYTS-RELA-REF') ?? '';
+  set relatedUseCase(String value) => doc.setContent('$path/SYTS-RELA-REF', value);
 
   /// Task workflow steps.
   SomList<SystemTaskWorkflowStepEntry> get workflowSteps => SomList<SystemTaskWorkflowStepEntry>(doc, '$path/SYSTE-WORK-LST', (d, p) => SystemTaskWorkflowStepEntry(d, p), pattern: 'SYSTE-WORK-xxx');
@@ -36394,7 +36394,7 @@ class WorkflowActorEntry extends SomNode {
   WorkflowActorEntryContentForm get content => WorkflowActorEntryContentForm(doc, '$path/content');
 
   /// Steps this actor participates in.
-  SomList<WorkflowStepEntry> get participatingSteps => SomList<WorkflowStepEntry>(doc, '$path/participatingSteps', (d, p) => WorkflowStepEntry(d, p));
+  SomList<WorkflowStepEntry> get participatingSteps => SomList<WorkflowStepEntry>(doc, '$path/WAE-PART-REF', (d, p) => WorkflowStepEntry(d, p));
 }
 
 /// A business rule governing workflow behavior.

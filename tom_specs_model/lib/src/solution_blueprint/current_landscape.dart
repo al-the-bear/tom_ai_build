@@ -699,6 +699,7 @@ class ExternalServiceDependencyEntry {
   ExternalServiceDependencyEntryRisk risk =
       ExternalServiceDependencyEntryRisk();
 
+  @SectionId('EXSDE-PRIM-REF')
   @Reference('Primary Dependent System')
   @SerializationOrder(4)
   ExistingSystemEntry? primaryDependentSystem;
@@ -1029,10 +1030,12 @@ class SystemDependencyEntry {
   SystemDependencyEntryOperations operations =
       SystemDependencyEntryOperations();
 
+  @SectionId('SYDE-SOUR-REF')
   @Reference('Source System')
   @SerializationOrder(5)
   ExistingSystemEntry? sourceSystem;
 
+  @SectionId('SYDE-TARG-REF')
   @Reference('Target System')
   @SerializationOrder(6)
   ExistingSystemEntry? targetSystem;
@@ -1182,10 +1185,12 @@ class SystemIntegrationEntry {
   @SerializationOrder(6)
   SystemIntegrationOwnership ownership = SystemIntegrationOwnership();
 
+  @SectionId('SYIN-SOUR-REF')
   @Reference('Source System')
   @SerializationOrder(7)
   ExistingSystemEntry? sourceSystem;
 
+  @SectionId('SYIN-TARG-REF')
   @Reference('Target System')
   @SerializationOrder(8)
   ExistingSystemEntry? targetSystem;
@@ -2111,6 +2116,7 @@ class WorkflowActorEntry {
   String? content;
 
   /// Steps this actor participates in.
+  @SectionId('WAE-PART-REF')
   @Reference('Participating Steps')
   @SerializationOrder(1)
   List<WorkflowStepEntry> participatingSteps = [];
@@ -2514,6 +2520,7 @@ class ProcessMetricEntry {
     @SerializationOrder(2)
     ProcessMetricEntryTargets targets = ProcessMetricEntryTargets();
 
+  @SectionId('PME-PROC-REF')
   @Reference('Process Reference')
   @SerializationOrder(3)
   CurrentBusinessProcess? processReference;

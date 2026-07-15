@@ -1570,11 +1570,11 @@ func (x *AffectedFunctionEntry) Content() *AffectedFunctionEntryContentForm {
 }
 
 func (x *AffectedFunctionEntry) FunctionRef() string {
-	return x.Doc().ContentOr(x.Path() + "/functionRef")
+	return x.Doc().ContentOr(x.Path() + "/AFFN-FUNC-REF")
 }
 
 func (x *AffectedFunctionEntry) SetFunctionRef(value string) {
-	x.Doc().SetContent(x.Path()+"/functionRef", value)
+	x.Doc().SetContent(x.Path()+"/AFFN-FUNC-REF", value)
 }
 
 // An affected object reference entry (form).
@@ -1594,11 +1594,11 @@ func (x *AffectedObjectEntry) Content() *AffectedObjectEntryContentForm {
 }
 
 func (x *AffectedObjectEntry) ObjectRef() string {
-	return x.Doc().ContentOr(x.Path() + "/objectRef")
+	return x.Doc().ContentOr(x.Path() + "/AFOB-OBJE-REF")
 }
 
 func (x *AffectedObjectEntry) SetObjectRef(value string) {
-	x.Doc().SetContent(x.Path()+"/objectRef", value)
+	x.Doc().SetContent(x.Path()+"/AFOB-OBJE-REF", value)
 }
 
 // Alert definition entry.
@@ -6613,11 +6613,11 @@ func (x *BusinessRuleReferenceEntry) Content() *BusinessRuleReferenceEntryConten
 }
 
 func (x *BusinessRuleReferenceEntry) RuleRef() string {
-	return x.Doc().ContentOr(x.Path() + "/ruleRef")
+	return x.Doc().ContentOr(x.Path() + "/BIRURE-RULE-REF")
 }
 
 func (x *BusinessRuleReferenceEntry) SetRuleRef(value string) {
-	x.Doc().SetContent(x.Path()+"/ruleRef", value)
+	x.Doc().SetContent(x.Path()+"/BIRURE-RULE-REF", value)
 }
 
 // 8.7.3. Capacity Planning.
@@ -16119,11 +16119,11 @@ func (x *DataEntityReferenceEntry) Content() *DataEntityReferenceEntryContentFor
 }
 
 func (x *DataEntityReferenceEntry) RelatedEntity() string {
-	return x.Doc().ContentOr(x.Path() + "/relatedEntity")
+	return x.Doc().ContentOr(x.Path() + "/DAENRE-RELA-REF")
 }
 
 func (x *DataEntityReferenceEntry) SetRelatedEntity(value string) {
-	x.Doc().SetContent(x.Path()+"/relatedEntity", value)
+	x.Doc().SetContent(x.Path()+"/DAENRE-RELA-REF", value)
 }
 
 // Data format and encoding compatibility.
@@ -23164,19 +23164,19 @@ func (x *EntityRelationshipEntry) RelationshipAttributes() *som.SomList[*Relatio
 }
 
 func (x *EntityRelationshipEntry) SourceEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/sourceEntityRef")
+	return x.Doc().ContentOr(x.Path() + "/ENRLE-SOUR-REF")
 }
 
 func (x *EntityRelationshipEntry) SetSourceEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/sourceEntityRef", value)
+	x.Doc().SetContent(x.Path()+"/ENRLE-SOUR-REF", value)
 }
 
 func (x *EntityRelationshipEntry) TargetEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/targetEntityRef")
+	return x.Doc().ContentOr(x.Path() + "/ENRLE-TARG-REF")
 }
 
 func (x *EntityRelationshipEntry) SetTargetEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/targetEntityRef", value)
+	x.Doc().SetContent(x.Path()+"/ENRLE-TARG-REF", value)
 }
 
 // 7.1.2. Entity Relationships.
@@ -25630,7 +25630,7 @@ func (x *ExternalServiceDependencyEntry) Risk() *ExternalServiceDependencyEntryR
 }
 
 func (x *ExternalServiceDependencyEntry) PrimaryDependentSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/primaryDependentSystem")
+	return NewExistingSystemEntry(x.Doc(), x.Path()+"/EXSDE-PRIM-REF")
 }
 
 // Availability and data handling details.
@@ -27894,11 +27894,11 @@ func (x *GoalDependencyEntry) Content() *GoalDependencyEntryContentForm {
 }
 
 func (x *GoalDependencyEntry) RelatedGoal() string {
-	return x.Doc().ContentOr(x.Path() + "/relatedGoal")
+	return x.Doc().ContentOr(x.Path() + "/GOLDE-RELA-REF")
 }
 
 func (x *GoalDependencyEntry) SetRelatedGoal(value string) {
-	x.Doc().SetContent(x.Path()+"/relatedGoal", value)
+	x.Doc().SetContent(x.Path()+"/GOLDE-RELA-REF", value)
 }
 
 // 4.2.1.n.1. Key Results.
@@ -32411,11 +32411,11 @@ func (x *KeyAttributeEntry) Governance() *KeyAttributeEntryGovernance {
 }
 
 func (x *KeyAttributeEntry) ReferencedEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/referencedEntityRef")
+	return x.Doc().ContentOr(x.Path() + "/KEATT-REFE-REF")
 }
 
 func (x *KeyAttributeEntry) SetReferencedEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/referencedEntityRef", value)
+	x.Doc().SetContent(x.Path()+"/KEATT-REFE-REF", value)
 }
 
 // Key generation settings.
@@ -43323,7 +43323,7 @@ func (x *ProcessMetricEntry) Targets() *ProcessMetricEntryTargets {
 }
 
 func (x *ProcessMetricEntry) ProcessReference() *CurrentBusinessProcess {
-	return NewCurrentBusinessProcess(x.Doc(), x.Path()+"/processReference")
+	return NewCurrentBusinessProcess(x.Doc(), x.Path()+"/PME-PROC-REF")
 }
 
 // Measurement collection details.
@@ -47760,11 +47760,11 @@ func (x *RequirementDependencyEntry) Content() *RequirementDependencyEntryConten
 }
 
 func (x *RequirementDependencyEntry) RelatedRequirement() string {
-	return x.Doc().ContentOr(x.Path() + "/relatedRequirement")
+	return x.Doc().ContentOr(x.Path() + "/RQDEP-RELA-REF")
 }
 
 func (x *RequirementDependencyEntry) SetRelatedRequirement(value string) {
-	x.Doc().SetContent(x.Path()+"/relatedRequirement", value)
+	x.Doc().SetContent(x.Path()+"/RQDEP-RELA-REF", value)
 }
 
 // 4.3.5. Requirement Relationships.
@@ -47841,11 +47841,11 @@ func (x *RequirementTestCaseEntry) Automation() *RequirementTestCaseEntryAutomat
 }
 
 func (x *RequirementTestCaseEntry) RelatedCriterion() string {
-	return x.Doc().ContentOr(x.Path() + "/relatedCriterion")
+	return x.Doc().ContentOr(x.Path() + "/RQTSC-RELA-REF")
 }
 
 func (x *RequirementTestCaseEntry) SetRelatedCriterion(value string) {
-	x.Doc().SetContent(x.Path()+"/relatedCriterion", value)
+	x.Doc().SetContent(x.Path()+"/RQTSC-RELA-REF", value)
 }
 
 // Automation and prioritization details.
@@ -59143,11 +59143,11 @@ func (x *SystemDependencyEntry) Operations() *SystemDependencyEntryOperations {
 }
 
 func (x *SystemDependencyEntry) SourceSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/sourceSystem")
+	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYDE-SOUR-REF")
 }
 
 func (x *SystemDependencyEntry) TargetSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/targetSystem")
+	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYDE-TARG-REF")
 }
 
 // Data exchange characteristics for system dependency.
@@ -59590,11 +59590,11 @@ func (x *SystemIntegrationEntry) Ownership() *SystemIntegrationOwnership {
 }
 
 func (x *SystemIntegrationEntry) SourceSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/sourceSystem")
+	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYIN-SOUR-REF")
 }
 
 func (x *SystemIntegrationEntry) TargetSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/targetSystem")
+	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYIN-TARG-REF")
 }
 
 // Error handling and retry.
@@ -60400,11 +60400,11 @@ func (x *SystemTaskEntry) Context() *SystemTaskEntryContext {
 }
 
 func (x *SystemTaskEntry) RelatedUseCase() string {
-	return x.Doc().ContentOr(x.Path() + "/relatedUseCase")
+	return x.Doc().ContentOr(x.Path() + "/SYTS-RELA-REF")
 }
 
 func (x *SystemTaskEntry) SetRelatedUseCase(value string) {
-	x.Doc().SetContent(x.Path()+"/relatedUseCase", value)
+	x.Doc().SetContent(x.Path()+"/SYTS-RELA-REF", value)
 }
 
 // Task workflow steps.
@@ -68290,7 +68290,7 @@ func (x *WorkflowActorEntry) Content() *WorkflowActorEntryContentForm {
 
 // Steps this actor participates in.
 func (x *WorkflowActorEntry) ParticipatingSteps() *som.SomList[*WorkflowStepEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/participatingSteps", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
+	return som.NewSomList(x.Doc(), x.Path()+"/WAE-PART-REF", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
 		return NewWorkflowStepEntry(d, p)
 	}, "")
 }

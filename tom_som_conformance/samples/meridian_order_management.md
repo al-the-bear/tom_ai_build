@@ -1083,6 +1083,8 @@ KeyType: Foreign
 KeyColumns: order_id
 Description: References the owning order.
 
+######## <!--[KEATT-REFE-REF]--> Referenced Entity Ref
+
 Order
 
 ##### <!--[DAENT-ENTI-3]--> Data Entity 3
@@ -1227,7 +1229,11 @@ TargetCardinality: 1..*
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order_line.order_id
 
+####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
+
 Order
+
+####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
 OrderLine
 
@@ -1245,7 +1251,11 @@ TargetCardinality: 1
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order.customer_id
 
+####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
+
 Order
+
+####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
 Customer
 
@@ -1263,7 +1273,11 @@ TargetCardinality: 1
 Navigability: Bidirectional
 ForeignKeyLocation: mom_order_line.product_id
 
+####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
+
 OrderLine
+
+####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
 Product
 

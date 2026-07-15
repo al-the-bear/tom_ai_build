@@ -868,7 +868,7 @@ void _actor(dynamic a, String id, String name, String type, String category,
 void _step(dynamic s, String number, String actorAction, String systemResponse,
     {String data = '', String rule = '', String ui = ''}) {
   s.content
-    ..stepNumber = number
+    ..stepNumber = int.tryParse(number)
     ..actorAction = actorAction
     ..systemResponse = systemResponse
     ..dataInvolved = data
@@ -886,7 +886,7 @@ void _extStep(dynamic s, String number, String action, String response) {
 void _scnStep(dynamic s, String number, String actor, String action,
     String systemResponse) {
   s.content
-    ..stepNumber = number
+    ..stepNumber = int.tryParse(number)
     ..actor = actor
     ..action = action
     ..systemResponse = systemResponse;
@@ -1117,7 +1117,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionType = 'Toolbar';
   filters.layout.content
     ..layoutDirection = 'Horizontal'
-    ..displayOrder = '1';
+    ..displayOrder = 1;
   final stateFilter = filters.elements.add();
   stateFilter.content
     ..elementId = 'SCR-01-EL-1'
@@ -1135,7 +1135,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionType = 'DataTable';
   list.layout.content
     ..layoutDirection = 'Vertical'
-    ..displayOrder = '2';
+    ..displayOrder = 2;
   final idCol = list.elements.add();
   idCol.content
     ..elementId = 'SCR-01-EL-2'
@@ -1202,7 +1202,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionType = 'Timeline';
   timeline.layout.content
     ..layoutDirection = 'Vertical'
-    ..displayOrder = '1';
+    ..displayOrder = 1;
 
   final lines = detail.sections.items.add();
   lines.content
@@ -1212,7 +1212,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..sectionType = 'EditableTable';
   lines.layout.content
     ..layoutDirection = 'Vertical'
-    ..displayOrder = '2';
+    ..displayOrder = 2;
   final qty = lines.elements.add();
   qty.content
     ..elementId = 'SCR-02-EL-1'

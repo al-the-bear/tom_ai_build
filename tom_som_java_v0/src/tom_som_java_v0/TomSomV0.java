@@ -1340,12 +1340,12 @@ public final class TomSomV0 {
     }
 
     public String functionRef() {
-      String v = doc.content(path + "/functionRef");
+      String v = doc.content(path + "/AFFN-FUNC-REF");
       return v == null ? "" : v;
     }
 
     public void functionRef(String value) {
-      doc.setContent(path + "/functionRef", value);
+      doc.setContent(path + "/AFFN-FUNC-REF", value);
     }
   }
 
@@ -1362,12 +1362,12 @@ public final class TomSomV0 {
     }
 
     public String objectRef() {
-      String v = doc.content(path + "/objectRef");
+      String v = doc.content(path + "/AFOB-OBJE-REF");
       return v == null ? "" : v;
     }
 
     public void objectRef(String value) {
-      doc.setContent(path + "/objectRef", value);
+      doc.setContent(path + "/AFOB-OBJE-REF", value);
     }
   }
 
@@ -5636,12 +5636,12 @@ public final class TomSomV0 {
     }
 
     public String ruleRef() {
-      String v = doc.content(path + "/ruleRef");
+      String v = doc.content(path + "/BIRURE-RULE-REF");
       return v == null ? "" : v;
     }
 
     public void ruleRef(String value) {
-      doc.setContent(path + "/ruleRef", value);
+      doc.setContent(path + "/BIRURE-RULE-REF", value);
     }
   }
 
@@ -13759,12 +13759,12 @@ public final class TomSomV0 {
     }
 
     public String relatedEntity() {
-      String v = doc.content(path + "/relatedEntity");
+      String v = doc.content(path + "/DAENRE-RELA-REF");
       return v == null ? "" : v;
     }
 
     public void relatedEntity(String value) {
-      doc.setContent(path + "/relatedEntity", value);
+      doc.setContent(path + "/DAENRE-RELA-REF", value);
     }
   }
 
@@ -19768,21 +19768,21 @@ public final class TomSomV0 {
     }
 
     public String sourceEntityRef() {
-      String v = doc.content(path + "/sourceEntityRef");
+      String v = doc.content(path + "/ENRLE-SOUR-REF");
       return v == null ? "" : v;
     }
 
     public void sourceEntityRef(String value) {
-      doc.setContent(path + "/sourceEntityRef", value);
+      doc.setContent(path + "/ENRLE-SOUR-REF", value);
     }
 
     public String targetEntityRef() {
-      String v = doc.content(path + "/targetEntityRef");
+      String v = doc.content(path + "/ENRLE-TARG-REF");
       return v == null ? "" : v;
     }
 
     public void targetEntityRef(String value) {
-      doc.setContent(path + "/targetEntityRef", value);
+      doc.setContent(path + "/ENRLE-TARG-REF", value);
     }
   }
 
@@ -21859,7 +21859,7 @@ public final class TomSomV0 {
     }
 
     public ExistingSystemEntry primaryDependentSystem() {
-      return new ExistingSystemEntry(doc, path + "/primaryDependentSystem");
+      return new ExistingSystemEntry(doc, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -23780,12 +23780,12 @@ public final class TomSomV0 {
     }
 
     public String relatedGoal() {
-      String v = doc.content(path + "/relatedGoal");
+      String v = doc.content(path + "/GOLDE-RELA-REF");
       return v == null ? "" : v;
     }
 
     public void relatedGoal(String value) {
-      doc.setContent(path + "/relatedGoal", value);
+      doc.setContent(path + "/GOLDE-RELA-REF", value);
     }
   }
 
@@ -27588,12 +27588,12 @@ public final class TomSomV0 {
     }
 
     public String referencedEntityRef() {
-      String v = doc.content(path + "/referencedEntityRef");
+      String v = doc.content(path + "/KEATT-REFE-REF");
       return v == null ? "" : v;
     }
 
     public void referencedEntityRef(String value) {
-      doc.setContent(path + "/referencedEntityRef", value);
+      doc.setContent(path + "/KEATT-REFE-REF", value);
     }
   }
 
@@ -36809,7 +36809,7 @@ public final class TomSomV0 {
     }
 
     public CurrentBusinessProcess processReference() {
-      return new CurrentBusinessProcess(doc, path + "/processReference");
+      return new CurrentBusinessProcess(doc, path + "/PME-PROC-REF");
     }
   }
 
@@ -40526,12 +40526,12 @@ public final class TomSomV0 {
     }
 
     public String relatedRequirement() {
-      String v = doc.content(path + "/relatedRequirement");
+      String v = doc.content(path + "/RQDEP-RELA-REF");
       return v == null ? "" : v;
     }
 
     public void relatedRequirement(String value) {
-      doc.setContent(path + "/relatedRequirement", value);
+      doc.setContent(path + "/RQDEP-RELA-REF", value);
     }
   }
 
@@ -40597,12 +40597,12 @@ public final class TomSomV0 {
     }
 
     public String relatedCriterion() {
-      String v = doc.content(path + "/relatedCriterion");
+      String v = doc.content(path + "/RQTSC-RELA-REF");
       return v == null ? "" : v;
     }
 
     public void relatedCriterion(String value) {
-      doc.setContent(path + "/relatedCriterion", value);
+      doc.setContent(path + "/RQTSC-RELA-REF", value);
     }
   }
 
@@ -50188,11 +50188,11 @@ public final class TomSomV0 {
     }
 
     public ExistingSystemEntry sourceSystem() {
-      return new ExistingSystemEntry(doc, path + "/sourceSystem");
+      return new ExistingSystemEntry(doc, path + "/SYDE-SOUR-REF");
     }
 
     public ExistingSystemEntry targetSystem() {
-      return new ExistingSystemEntry(doc, path + "/targetSystem");
+      return new ExistingSystemEntry(doc, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -50569,11 +50569,11 @@ public final class TomSomV0 {
     }
 
     public ExistingSystemEntry sourceSystem() {
-      return new ExistingSystemEntry(doc, path + "/sourceSystem");
+      return new ExistingSystemEntry(doc, path + "/SYIN-SOUR-REF");
     }
 
     public ExistingSystemEntry targetSystem() {
-      return new ExistingSystemEntry(doc, path + "/targetSystem");
+      return new ExistingSystemEntry(doc, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -51292,12 +51292,12 @@ public final class TomSomV0 {
     }
 
     public String relatedUseCase() {
-      String v = doc.content(path + "/relatedUseCase");
+      String v = doc.content(path + "/SYTS-RELA-REF");
       return v == null ? "" : v;
     }
 
     public void relatedUseCase(String value) {
-      doc.setContent(path + "/relatedUseCase", value);
+      doc.setContent(path + "/SYTS-RELA-REF", value);
     }
 
     // Task workflow steps.
@@ -57970,7 +57970,7 @@ public final class TomSomV0 {
 
     // Steps this actor participates in.
     public SomList<WorkflowStepEntry> participatingSteps() {
-      return new SomList<>(doc, path + "/participatingSteps", (d, p) -> new WorkflowStepEntry(d, p));
+      return new SomList<>(doc, path + "/WAE-PART-REF", (d, p) -> new WorkflowStepEntry(d, p));
     }
   }
 

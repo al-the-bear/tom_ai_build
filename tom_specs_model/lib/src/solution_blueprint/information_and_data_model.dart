@@ -528,6 +528,7 @@ class KeyAttributeEntry {
   @SerializationOrder(3)
   KeyAttributeEntryGovernance governance = KeyAttributeEntryGovernance();
 
+  @SectionId('KEATT-REFE-REF')
   @Reference('referencedEntity')
   @SerializationOrder(4)
   String? referencedEntityRef;
@@ -872,10 +873,12 @@ class EntityRelationshipEntry {
   @SerializationOrder(5)
   List<RelationshipAttributeEntry> relationshipAttributes = [];
 
+  @SectionId('ENRLE-SOUR-REF')
   @Reference('sourceEntityName')
   @SerializationOrder(6)
   String? sourceEntityRef;
 
+  @SectionId('ENRLE-TARG-REF')
   @Reference('targetEntityName')
   @SerializationOrder(7)
   String? targetEntityRef;
@@ -1550,6 +1553,7 @@ class BusinessRuleReferenceEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('BIRURE-RULE-REF')
   @Reference('ruleId')
   @SerializationOrder(1)
   String? ruleRef;
@@ -2237,6 +2241,7 @@ class AffectedObjectEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('AFOB-OBJE-REF')
   @Reference('objectName')
   @SerializationOrder(1)
   String? objectRef;
@@ -2267,6 +2272,7 @@ class AffectedFunctionEntry {
   @SerializationOrder(0)
   String? content;
 
+  @SectionId('AFFN-FUNC-REF')
   @Reference('functionName')
   @SerializationOrder(1)
   String? functionRef;

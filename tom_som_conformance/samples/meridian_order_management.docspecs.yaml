@@ -1416,7 +1416,7 @@ document:
                     order_id
                   description: |2-
                     References the owning order.
-                referencedEntityRef: |2-
+                KEATT-REFE-REF referencedEntityRef: |2-
                   Order
           DAENT-ENTI-3:
             identity:
@@ -1622,9 +1622,9 @@ document:
                   Bidirectional
                 foreignKeyLocation: |2-
                   mom_order_line.order_id
-              sourceEntityRef: |2-
+              ENRLE-SOUR-REF sourceEntityRef: |2-
                 Order
-              targetEntityRef: |2-
+              ENRLE-TARG-REF targetEntityRef: |2-
                 OrderLine
             ENRLE-ITEM-2:
               identity:
@@ -1648,9 +1648,9 @@ document:
                   Bidirectional
                 foreignKeyLocation: |2-
                   mom_order.customer_id
-              sourceEntityRef: |2-
+              ENRLE-SOUR-REF sourceEntityRef: |2-
                 Order
-              targetEntityRef: |2-
+              ENRLE-TARG-REF targetEntityRef: |2-
                 Customer
             ENRLE-ITEM-3:
               identity:
@@ -1674,9 +1674,9 @@ document:
                   Bidirectional
                 foreignKeyLocation: |2-
                   mom_order_line.product_id
-              sourceEntityRef: |2-
+              ENRLE-SOUR-REF sourceEntityRef: |2-
                 OrderLine
-              targetEntityRef: |2-
+              ENRLE-TARG-REF targetEntityRef: |2-
                 Product
     REQS requirements:
       content: |2-
