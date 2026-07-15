@@ -160,6 +160,7 @@ class SomMetaNode {
     typeName,
     memberName = null,
     sectionId = null,
+    classSectionId = null,
     sectionIdPattern = null,
     serializationOrder = null,
     min = null,
@@ -188,6 +189,11 @@ class SomMetaNode {
     this.memberName = memberName;
     /** The effective `@SectionId` (field-level wins over class-level). */
     this.sectionId = sectionId;
+    /** The target class's own `@SectionId` (DR1 §2.2 fallback): the id its
+     *  DR3 schema type is keyed by, used only to build the mapping key of a
+     *  section/complex node whose field carries no id. Never enters
+     *  {@link segment} — the path stays field-level. */
+    this.classSectionId = classSectionId;
     /** The `@SectionIdPattern` on a list field (item ids), when any. */
     this.sectionIdPattern = sectionIdPattern;
     /** The structural kind of the node. */

@@ -95,12 +95,23 @@ class SpecYamlContents {
  * The mapping key a metadata node writes (DR1 §2.2): its effective section id,
  * one space, then the exact member name (class name on the document root);
  * just the name when the node carries no id.
+ *
+ * The id is the field-level {@link SomMetaNode#sectionId} when present; for a
+ * section/complex node whose field carries none, the target **class**'s id
+ * ({@link SomMetaNode#classSectionId}) — the id its DR3 schema type is keyed
+ * by. This mirrors the markdown codec's heading rule exactly. Content, scalar,
+ * enum, form and list keys keep only their field-level id (no class fallback),
+ * and the path {@link SomMetaNode#segment} is unaffected in every case.
  */
 function nodeKey(node) {
   const name = node.memberName !== null && node.memberName !== undefined
     ? node.memberName
     : node.className;
-  const id = node.sectionId;
+  let id = node.sectionId;
+  if ((id === null || id === undefined) &&
+      (node.kind === SomMetaKind.SECTION || node.kind === SomMetaKind.COMPLEX)) {
+    id = node.classSectionId;
+  }
   return id === null || id === undefined ? name : `${id} ${name}`;
 }
 
