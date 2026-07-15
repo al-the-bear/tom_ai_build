@@ -220,6 +220,10 @@ class SomCEmitter {
       final fp = _FormPlan(pf.typeName, pf.field);
       fp.initFn = _alloc(_funcNames, '${prefix}_init');
       fp.freeFn = _alloc(_funcNames, '${prefix}_free');
+      if (!fp.hasContentMember) {
+        fp.contentGetFn = _alloc(_funcNames, '${prefix}_content');
+        fp.contentSetFn = _alloc(_funcNames, '${prefix}_set_content');
+      }
       for (final ff in pf.field.formFields) {
         final acc = _snakeAccessor(ff.name);
         fp.getFn[ff.name] = _alloc(_funcNames, '${prefix}_$acc');
@@ -231,6 +235,36 @@ class SomCEmitter {
     }
 
     _prepared = true;
+  }
+
+  /// True when any reachable `@Form` field projects to a non-`String` typed
+  /// member (`int`/`double`/`num`/`bool`) — which pulls in `<stdbool.h>` for the
+  /// header's `bool` returns and `<stdio.h>` for the source's `snprintf`.
+  bool _hasTypedFormMember() {
+    for (final fp in _formPlans) {
+      for (final ff in fp.field.formFields) {
+        if (_scalarType(ff.type) != 'String') return true;
+      }
+    }
+    return false;
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always compiles.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   bool _hasSetter(SpecField f) {
@@ -263,8 +297,12 @@ class SomCEmitter {
       // access trees and the per-root `<root>_meta_tree()` entry points) is
       // part of this facade's public API, so a single facade include exposes
       // both the typed editing structs and the structural navigation surface.
-      ..writeln('#include "$_metaHeaderBasename"')
-      ..writeln();
+      ..writeln('#include "$_metaHeaderBasename"');
+    if (_hasTypedFormMember()) {
+      // Typed `@Form` members expose `bool` returns for boolean form fields.
+      b.writeln('#include <stdbool.h>');
+    }
+    b.writeln();
 
     // enum tokens + parse declarations
     for (final e in _enums) {
@@ -446,15 +484,36 @@ class SomCEmitter {
   void _declForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
     b
-      ..writeln('// $t is the generated form facade for the `${fp.field.name}` '
-          '@Form section.')
+      ..writeln('// $t is the generated section facade for the '
+          '`${fp.field.name}` @Form section: its own `content` text followed '
+          'by one typed member per form field.')
       ..writeln('void ${fp.initFn}($t *self, SpecDocument *doc, '
           'const char *path);')
       ..writeln('void ${fp.freeFn}($t *self);');
+    if (fp.contentGetFn != null) {
+      b
+        ..writeln('// The section\'s own free-text content, before the form '
+            'fields (owned).')
+        ..writeln('char *${fp.contentGetFn}(const $t *self);')
+        ..writeln('void ${fp.contentSetFn}($t *self, const char *value);');
+    }
     for (final ff in fp.field.formFields) {
-      b.writeln('char *${fp.getFn[ff.name]}(const $t *self);');
-      b.writeln(
-          'void ${fp.setFn[ff.name]}($t *self, const char *value);');
+      switch (_scalarType(ff.type)) {
+        case 'int':
+          b.writeln('long ${fp.getFn[ff.name]}(const $t *self);');
+          b.writeln('void ${fp.setFn[ff.name]}($t *self, long value);');
+        case 'double':
+        case 'num':
+          b.writeln('double ${fp.getFn[ff.name]}(const $t *self);');
+          b.writeln('void ${fp.setFn[ff.name]}($t *self, double value);');
+        case 'bool':
+          b.writeln('bool ${fp.getFn[ff.name]}(const $t *self);');
+          b.writeln('void ${fp.setFn[ff.name]}($t *self, bool value);');
+        default:
+          b.writeln('char *${fp.getFn[ff.name]}(const $t *self);');
+          b.writeln(
+              'void ${fp.setFn[ff.name]}($t *self, const char *value);');
+      }
     }
   }
 
@@ -471,8 +530,12 @@ class SomCEmitter {
       ..writeln('#include "$_metaHeaderBasename"')
       ..writeln()
       ..writeln('#include <stdlib.h>')
-      ..writeln('#include <string.h>')
-      ..writeln();
+      ..writeln('#include <string.h>');
+    if (_hasTypedFormMember()) {
+      // Typed `@Form` member setters format scalar values with `snprintf`.
+      b.writeln('#include <stdio.h>');
+    }
+    b.writeln();
 
     for (final e in _enums) {
       _defineParse(b, e);
@@ -690,18 +753,73 @@ class SomCEmitter {
       ..writeln('void ${fp.freeFn}($t *self) {')
       ..writeln('\tsom_node_free(&self->node);')
       ..writeln('}');
-    for (final ff in fp.field.formFields) {
-      final field = _cStr(ff.name);
+    if (fp.contentGetFn != null) {
       b
-        ..writeln('char *${fp.getFn[ff.name]}(const $t *self) {')
-        ..writeln('\tconst char *v = spec_document_form_field(self->node.doc, '
-            'self->node.path, "$field");')
+        ..writeln('char *${fp.contentGetFn}(const $t *self) {')
+        ..writeln('\tconst char *v = spec_document_content(self->node.doc, '
+            'self->node.path);')
         ..writeln('\treturn som_strdup(v != NULL ? v : "");')
         ..writeln('}')
-        ..writeln('void ${fp.setFn[ff.name]}($t *self, const char *value) {')
-        ..writeln('\tspec_document_set_form_field(self->node.doc, '
-            'self->node.path, "$field", value);')
+        ..writeln('void ${fp.contentSetFn}($t *self, const char *value) {')
+        ..writeln('\tspec_document_set_content(self->node.doc, '
+            'self->node.path, value);')
         ..writeln('}');
+    }
+    for (final ff in fp.field.formFields) {
+      final field = _cStr(ff.name);
+      final get = fp.getFn[ff.name]!;
+      final set = fp.setFn[ff.name]!;
+      switch (_scalarType(ff.type)) {
+        case 'int':
+          b
+            ..writeln('long $get(const $t *self) {')
+            ..writeln('\tconst char *v = spec_document_form_field('
+                'self->node.doc, self->node.path, "$field");')
+            ..writeln('\treturn (v != NULL && *v) ? atol(v) : 0;')
+            ..writeln('}')
+            ..writeln('void $set($t *self, long value) {')
+            ..writeln('\tchar buf[32];')
+            ..writeln('\tsnprintf(buf, sizeof(buf), "%ld", value);')
+            ..writeln('\tspec_document_set_form_field(self->node.doc, '
+                'self->node.path, "$field", buf);')
+            ..writeln('}');
+        case 'double':
+        case 'num':
+          b
+            ..writeln('double $get(const $t *self) {')
+            ..writeln('\tconst char *v = spec_document_form_field('
+                'self->node.doc, self->node.path, "$field");')
+            ..writeln('\treturn (v != NULL && *v) ? strtod(v, NULL) : 0.0;')
+            ..writeln('}')
+            ..writeln('void $set($t *self, double value) {')
+            ..writeln('\tchar buf[32];')
+            ..writeln('\tsnprintf(buf, sizeof(buf), "%g", value);')
+            ..writeln('\tspec_document_set_form_field(self->node.doc, '
+                'self->node.path, "$field", buf);')
+            ..writeln('}');
+        case 'bool':
+          b
+            ..writeln('bool $get(const $t *self) {')
+            ..writeln('\tconst char *v = spec_document_form_field('
+                'self->node.doc, self->node.path, "$field");')
+            ..writeln('\treturn v != NULL && strcmp(v, "true") == 0;')
+            ..writeln('}')
+            ..writeln('void $set($t *self, bool value) {')
+            ..writeln('\tspec_document_set_form_field(self->node.doc, '
+                'self->node.path, "$field", value ? "true" : "false");')
+            ..writeln('}');
+        default:
+          b
+            ..writeln('char *$get(const $t *self) {')
+            ..writeln('\tconst char *v = spec_document_form_field('
+                'self->node.doc, self->node.path, "$field");')
+            ..writeln('\treturn som_strdup(v != NULL ? v : "");')
+            ..writeln('}')
+            ..writeln('void $set($t *self, const char *value) {')
+            ..writeln('\tspec_document_set_form_field(self->node.doc, '
+                'self->node.path, "$field", value);')
+            ..writeln('}');
+      }
     }
   }
 
@@ -871,7 +989,13 @@ class _FormPlan {
   final SpecField field;
   late String initFn;
   late String freeFn;
+  // The form section's own `content` text accessor (before the form fields).
+  // Absent when the form itself declares a field literally named `content`.
+  String? contentGetFn;
+  String? contentSetFn;
   final Map<String, String> getFn = {};
   final Map<String, String> setFn = {};
   _FormPlan(this.typeName, this.field);
+
+  bool get hasContentMember => field.formFields.any((ff) => ff.name == 'content');
 }
