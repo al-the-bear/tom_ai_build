@@ -49,7 +49,7 @@ fn meta_children_risk(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
         Rc::new(som::SomMetaNode { class_name: "Risk".to_string(), member_name: "title".to_string(), section_id: "title".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "Risk".to_string(), member_name: "probability".to_string(), section_id: "prob".to_string(), kind: som::SOM_META_KIND_ENUM_VALUE.to_string(), type_name: "Probability".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("Risk", s, meta_children_risk, |r, c| som::SomMetaNode {
-            class_name: "Risk".to_string(), member_name: "mitigation".to_string(), section_id: "mitigation".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Risk".to_string(),
+            class_name: "Risk".to_string(), member_name: "mitigation".to_string(), section_id: "mitigation".to_string(), class_section_id: "RISK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Risk".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -62,18 +62,18 @@ fn meta_children_solution_blueprint(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         {
             let mut n = som::SomMetaNode { class_name: "SolutionBlueprint".to_string(), member_name: "risks".to_string(), section_id: "risks".to_string(), section_id_pattern: "RISK-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "Risk".to_string(), min: Some(2), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("Risk", s, meta_children_risk, |r, c| som::SomMetaNode {
-                class_name: "Risk".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Risk".to_string(), recursive: r, children: c,
+                class_name: "Risk".to_string(), class_section_id: "RISK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Risk".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
         Rc::new(som::SomMetaNode { class_name: "SolutionBlueprint".to_string(), member_name: "tags".to_string(), section_id: "tags".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("CurrentLandscapeAssessment", s, meta_children_current_landscape_assessment, |r, c| som::SomMetaNode {
-            class_name: "CurrentLandscapeAssessment".to_string(), member_name: "situation".to_string(), section_id: "situation".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentLandscapeAssessment".to_string(),
+            class_name: "CurrentLandscapeAssessment".to_string(), member_name: "situation".to_string(), section_id: "situation".to_string(), class_section_id: "CS00".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentLandscapeAssessment".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("CurrentLandscapeAssessment", s, meta_children_current_landscape_assessment, |r, c| som::SomMetaNode {
-            class_name: "CurrentLandscapeAssessment".to_string(), member_name: "details".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "CurrentLandscapeAssessment".to_string(),
+            class_name: "CurrentLandscapeAssessment".to_string(), member_name: "details".to_string(), class_section_id: "CS00".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "CurrentLandscapeAssessment".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -334,7 +334,7 @@ pub fn solution_blueprint_meta_tree() -> som::SomMetaTree {
     let mut stack: HashSet<String> = HashSet::new();
     stack.insert("SolutionBlueprint".to_string());
     let children = meta_children_solution_blueprint(&mut stack);
-    let root = som::SomMetaNode { class_name: "SolutionBlueprint".to_string(), section_id: "PD00".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "SolutionBlueprint".to_string(), doc_comment: "Root of a project definition document.".to_string(), class_doc_comment: "Root of a project definition document.".to_string(), document: Some(som::SomDocMeta { name: "Project Definition".to_string(), description: "The structured project overview.".to_string(), based_on: vec![] }), children, ..som::SomMetaNode::default() };
+    let root = som::SomMetaNode { class_name: "SolutionBlueprint".to_string(), section_id: "PD00".to_string(), class_section_id: "PD00".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "SolutionBlueprint".to_string(), doc_comment: "Root of a project definition document.".to_string(), class_doc_comment: "Root of a project definition document.".to_string(), document: Some(som::SomDocMeta { name: "Project Definition".to_string(), description: "The structured project overview.".to_string(), based_on: vec![] }), children, ..som::SomMetaNode::default() };
     som::SomMetaTree::new(Rc::new(root))
         .expect("generated metadata tree failed to wire (emitter bug)")
 }

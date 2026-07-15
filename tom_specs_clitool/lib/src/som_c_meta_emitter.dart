@@ -578,6 +578,10 @@ class SomCMetaEmitter {
     if (f.sectionId != null) {
       b.writeln('\tmeta_set(&n->section_id, "${_cStr(f.sectionId!)}");');
     }
+    if (target?.sectionId != null) {
+      b.writeln('\tmeta_set(&n->class_section_id, '
+          '"${_cStr(target!.sectionId!)}");');
+    }
     if (f.sectionIdPattern != null) {
       b.writeln('\tmeta_set(&n->section_id_pattern, '
           '"${_cStr(f.sectionIdPattern!)}");');
@@ -638,6 +642,10 @@ class SomCMetaEmitter {
   /// subtree node.
   void _emitElementFields(StringBuffer b, SpecClass element) {
     b.writeln('\tmeta_set(&n->class_name, "${_cStr(element.name)}");');
+    if (element.sectionId != null) {
+      b.writeln('\tmeta_set(&n->class_section_id, '
+          '"${_cStr(element.sectionId!)}");');
+    }
     b.writeln('\tn->kind = SOM_META_KIND_COMPLEX;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(element.name)}");');
     if (element.doc != null) {
@@ -741,6 +749,9 @@ class SomCMetaEmitter {
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) {
       b.writeln('\tmeta_set(&n->section_id, "${_cStr(sectionId)}");');
+    }
+    if (cls?.sectionId != null) {
+      b.writeln('\tmeta_set(&n->class_section_id, "${_cStr(cls!.sectionId!)}");');
     }
     b.writeln('\tn->kind = SOM_META_KIND_SECTION;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(root.type)}");');

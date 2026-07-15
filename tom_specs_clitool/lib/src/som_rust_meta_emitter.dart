@@ -356,6 +356,9 @@ class SomRustMetaEmitter {
     add('class_name', _strLit(target?.name ?? owner.name));
     add('member_name', _strLit(f.name));
     if (f.sectionId != null) add('section_id', _strLit(f.sectionId!));
+    if (target?.sectionId != null) {
+      add('class_section_id', _strLit(target!.sectionId!));
+    }
     if (f.sectionIdPattern != null) {
       add('section_id_pattern', _strLit(f.sectionIdPattern!));
     }
@@ -424,6 +427,8 @@ class SomRustMetaEmitter {
     if (element != null) {
       final elemArgs = <String>[
         'class_name: ${_strLit(element.name)}',
+        if (element.sectionId != null)
+          'class_section_id: ${_strLit(element.sectionId!)}',
         'kind: som::SOM_META_KIND_COMPLEX.to_string()',
         'type_name: ${_strLit(element.name)}',
         if (element.doc != null) 'doc_comment: ${_strLit(element.doc!)}',
@@ -487,6 +492,9 @@ class SomRustMetaEmitter {
     final args = <String>['class_name: ${_strLit(root.type)}'];
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) args.add('section_id: ${_strLit(sectionId)}');
+    if (cls?.sectionId != null) {
+      args.add('class_section_id: ${_strLit(cls!.sectionId!)}');
+    }
     args
       ..add('kind: som::SOM_META_KIND_SECTION.to_string()')
       ..add('type_name: ${_strLit(root.type)}');

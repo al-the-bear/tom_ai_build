@@ -516,6 +516,7 @@ class SomCppMetaEmitter {
     set('className', className);
     set('memberName', f.name);
     if (f.sectionId != null) set('sectionId', f.sectionId!);
+    if (target?.sectionId != null) set('classSectionId', target!.sectionId!);
     if (f.sectionIdPattern != null) set('sectionIdPattern', f.sectionIdPattern!);
     b.writeln('$indent$recv.kind = ${_kindConst(f.kind)};');
     set('typeName', f.type ?? f.elementType ?? f.enumType ?? 'String');
@@ -558,6 +559,7 @@ class SomCppMetaEmitter {
     void set(String field, String value) =>
         b.writeln('$indent$recv.$field = "${_cppStr(value)}";');
     set('className', element.name);
+    if (element.sectionId != null) set('classSectionId', element.sectionId!);
     b.writeln('$indent$recv.kind = som::kSomMetaKindComplex;');
     set('typeName', element.name);
     if (element.doc != null) {
@@ -630,6 +632,9 @@ class SomCppMetaEmitter {
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) {
       b.writeln('\t\tn->sectionId = "${_cppStr(sectionId)}";');
+    }
+    if (cls?.sectionId != null) {
+      b.writeln('\t\tn->classSectionId = "${_cppStr(cls!.sectionId!)}";');
     }
     b.writeln('\t\tn->kind = som::kSomMetaKindSection;');
     b.writeln('\t\tn->typeName = "${_cppStr(root.type)}";');

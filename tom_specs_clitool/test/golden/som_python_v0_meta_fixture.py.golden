@@ -88,7 +88,7 @@ def _mc_SolutionBlueprint(s):
             kind=SomMetaKind.LIST,
             type_name="Risk",
             min=2,
-            element_node=_cx("Risk", s, _mc_Risk, lambda r, c: SomMetaNode(class_name="Risk", kind=SomMetaKind.COMPLEX, type_name="Risk", recursive=r, children=c))),
+            element_node=_cx("Risk", s, _mc_Risk, lambda r, c: SomMetaNode(class_name="Risk", class_section_id="RISK", kind=SomMetaKind.COMPLEX, type_name="Risk", recursive=r, children=c))),
          SomMetaNode(
             class_name="SolutionBlueprint",
             member_name="tags",
@@ -100,6 +100,7 @@ def _mc_SolutionBlueprint(s):
                 class_name="CurrentLandscapeAssessment",
                 member_name="situation",
                 section_id="situation",
+                class_section_id="CS00",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentLandscapeAssessment",
                 recursive=r,
@@ -223,6 +224,7 @@ class SolutionBlueprintId(SomMetaRef):
 solutionBlueprintMetaTree = SomMetaTree(SomMetaNode(
     class_name="SolutionBlueprint",
     section_id="PD00",
+    class_section_id="PD00",
     kind=SomMetaKind.SECTION,
     type_name="SolutionBlueprint",
     doc_comment="Root of a project definition document.",

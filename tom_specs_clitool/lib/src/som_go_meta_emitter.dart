@@ -394,6 +394,9 @@ class SomGoMetaEmitter {
     add('ClassName', _str(target?.name ?? owner.name));
     add('MemberName', _str(f.name));
     if (f.sectionId != null) add('SectionID', _str(f.sectionId!));
+    if (target?.sectionId != null) {
+      add('ClassSectionID', _str(target!.sectionId!));
+    }
     if (f.sectionIdPattern != null) {
       add('SectionIDPattern', _str(f.sectionIdPattern!));
     }
@@ -467,6 +470,8 @@ class SomGoMetaEmitter {
     if (element != null) {
       final elemArgs = <String>[
         'ClassName: ${_str(element.name)}',
+        if (element.sectionId != null)
+          'ClassSectionID: ${_str(element.sectionId!)}',
         'Kind: som.SomMetaKindComplex',
         'TypeName: ${_str(element.name)}',
         if (element.doc != null) 'DocComment: ${_str(element.doc!)}',
@@ -527,6 +532,9 @@ class SomGoMetaEmitter {
     final args = <String>['ClassName: ${_str(root.type)}'];
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) args.add('SectionID: ${_str(sectionId)}');
+    if (cls?.sectionId != null) {
+      args.add('ClassSectionID: ${_str(cls!.sectionId!)}');
+    }
     args
       ..add('Kind: som.SomMetaKindSection')
       ..add('TypeName: ${_str(root.type)}');

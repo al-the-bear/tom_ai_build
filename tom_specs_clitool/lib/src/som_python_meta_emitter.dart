@@ -262,6 +262,9 @@ class SomPythonMetaEmitter {
     add('class_name', _str(target?.name ?? owner.name));
     add('member_name', _str(f.name));
     if (f.sectionId != null) add('section_id', _str(f.sectionId!));
+    if (target?.sectionId != null) {
+      add('class_section_id', _str(target!.sectionId!));
+    }
     if (f.sectionIdPattern != null) {
       add('section_id_pattern', _str(f.sectionIdPattern!));
     }
@@ -317,6 +320,8 @@ class SomPythonMetaEmitter {
       if (element != null) {
         final elemArgs = <String>[
           'class_name=${_str(element.name)}',
+          if (element.sectionId != null)
+            'class_section_id=${_str(element.sectionId!)}',
           'kind=SomMetaKind.COMPLEX',
           'type_name=${_str(element.name)}',
           if (element.doc != null) 'doc_comment=${_str(element.doc!)}',
@@ -377,6 +382,9 @@ class SomPythonMetaEmitter {
     final args = <String>['class_name=${_str(root.type)}'];
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) args.add('section_id=${_str(sectionId)}');
+    if (cls?.sectionId != null) {
+      args.add('class_section_id=${_str(cls!.sectionId!)}');
+    }
     args
       ..add('kind=SomMetaKind.SECTION')
       ..add('type_name=${_str(root.type)}');

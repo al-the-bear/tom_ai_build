@@ -98,7 +98,7 @@ function _mc_SolutionBlueprint(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.LIST,
       typeName: "Risk",
       min: 2,
-      elementNode: _cx("Risk", s, _mc_Risk, (r, c) => new SomMetaNode({className: "Risk", kind: SomMetaKind.COMPLEX, typeName: "Risk", recursive: r, children: c}))}),
+      elementNode: _cx("Risk", s, _mc_Risk, (r, c) => new SomMetaNode({className: "Risk", classSectionId: "RISK", kind: SomMetaKind.COMPLEX, typeName: "Risk", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "SolutionBlueprint",
       memberName: "tags",
@@ -110,6 +110,7 @@ function _mc_SolutionBlueprint(s: Set<string>): SomMetaNode[] {
         className: "CurrentLandscapeAssessment",
         memberName: "situation",
         sectionId: "situation",
+        classSectionId: "CS00",
         kind: SomMetaKind.COMPLEX,
         typeName: "CurrentLandscapeAssessment",
         recursive: r,
@@ -224,6 +225,7 @@ export class SolutionBlueprint$Id extends SomMetaRef {
 export const solutionBlueprintMetaTree: SomMetaTree = new SomMetaTree(new SomMetaNode({
   className: "SolutionBlueprint",
   sectionId: "PD00",
+  classSectionId: "PD00",
   kind: SomMetaKind.SECTION,
   typeName: "SolutionBlueprint",
   docComment: "Root of a project definition document.",

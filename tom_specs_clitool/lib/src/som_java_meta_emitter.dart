@@ -380,6 +380,9 @@ class SomJavaMetaEmitter {
         _str(f.type ?? f.elementType ?? f.enumType ?? 'String');
     add('memberName', _str(f.name));
     if (f.sectionId != null) add('sectionId', _str(f.sectionId!));
+    if (target?.sectionId != null) {
+      add('classSectionId', _str(target!.sectionId!));
+    }
     if (f.sectionIdPattern != null) {
       add('sectionIdPattern', _str(f.sectionIdPattern!));
     }
@@ -457,6 +460,9 @@ class SomJavaMetaEmitter {
       b.writeln('$_i2$_i3'
           'SomMetaNode e = new SomMetaNode(${_str(element.name)}, '
           'SomMetaKind.COMPLEX, ${_str(element.name)});');
+      if (element.sectionId != null) {
+        b.writeln('$_i2${_i3}e.classSectionId = ${_str(element.sectionId!)};');
+      }
       if (element.doc != null) {
         b
           ..writeln('$_i2${_i3}e.docComment = ${_str(element.doc!)};')
@@ -522,6 +528,9 @@ class SomJavaMetaEmitter {
     final sectionId = root.sectionId ?? cls?.sectionId;
     if (sectionId != null) {
       b.writeln('${_i2}n.sectionId = ${_str(sectionId)};');
+    }
+    if (cls?.sectionId != null) {
+      b.writeln('${_i2}n.classSectionId = ${_str(cls!.sectionId!)};');
     }
     final doc = root.doc ?? cls?.doc;
     if (doc != null) b.writeln('${_i2}n.docComment = ${_str(doc)};');
