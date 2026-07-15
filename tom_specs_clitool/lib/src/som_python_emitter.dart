@@ -409,30 +409,122 @@ class SomPythonEmitter {
       ..writeln('        self.doc.set_content($childPath, value)');
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the section's
+  /// own `content` text FIRST, then one correctly-typed member per `@Form`
+  /// `Field(name, Type, …)` entry, in declaration order. A member's declared
+  /// scalar type (`int`/`double`/`num`/`bool`) becomes its parsed Python return
+  /// type; any non-primitive (enums, `List`, …) falls back to `str`. Members
+  /// read/write through the generic form store, so the on-disk markdown format
+  /// and the conformance golden stay byte-identical.
   String _emitFormClass(String name, SpecField f) {
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
       ..writeln('class $name(SomNode):')
-      ..writeln('    """Generated form facade for the `${f.name}` '
-          '@Form section."""')
+      ..writeln('    """Generated section facade for the `${f.name}` @Form '
+          'section: its own content text followed by one typed member per form '
+          'field."""')
       ..writeln()
       ..writeln('    def __init__(self, doc, path):')
-      ..writeln('        super().__init__(doc, path)');
-    for (final ff in f.formFields) {
-      final field = '"${_pystr(ff.name)}"';
-      // The form-field key string ($field) is preserved; only the Python
-      // accessor identifier is keyword-sanitised.
-      final acc = _acc(ff.name);
+      ..writeln('        super().__init__(doc, path)')
+      ..writeln()
+      ..writeln('    def can_have_content(self):')
+      ..writeln('        return True');
+    if (!hasContentMember) {
       b
         ..writeln()
         ..writeln('    @property')
-        ..writeln('    def $acc(self):')
-        ..writeln('        return self.doc.form_field(self.path, $field) or ""')
+        ..writeln('    def content(self) -> str:')
+        ..writeln('        return self.doc.content(self.path) or ""')
         ..writeln()
-        ..writeln('    @$acc.setter')
-        ..writeln('    def $acc(self, value):')
-        ..writeln('        self.doc.set_form_field(self.path, $field, value)');
+        ..writeln('    @content.setter')
+        ..writeln('    def content(self, value):')
+        ..writeln('        self.doc.set_content(self.path, value)');
+    }
+    for (final ff in f.formFields) {
+      _writeFormMember(b, ff);
     }
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member property. The value is stored through
+  /// the generic form store, so the on-disk format and the generic reading are
+  /// unchanged; only the parsed Python type mirrors the declared form-field
+  /// type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
+    final field = '"${_pystr(ff.name)}"';
+    // The form-field key string ($field) is preserved; only the Python accessor
+    // identifier is keyword-sanitised.
+    final acc = _acc(ff.name);
+    b..writeln()..writeln('    @property');
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('    def $acc(self) -> "int | None":')
+          ..writeln('        v = self.doc.form_field(self.path, $field)')
+          ..writeln('        if v is None or v == "":')
+          ..writeln('            return None')
+          ..writeln('        try:')
+          ..writeln('            return int(v)')
+          ..writeln('        except (TypeError, ValueError):')
+          ..writeln('            return None')
+          ..writeln()
+          ..writeln('    @$acc.setter')
+          ..writeln('    def $acc(self, value):')
+          ..writeln('        self.doc.set_form_field(self.path, $field, '
+              '"" if value is None else str(value))');
+      case 'double':
+      case 'num':
+        b
+          ..writeln('    def $acc(self) -> "float | None":')
+          ..writeln('        v = self.doc.form_field(self.path, $field)')
+          ..writeln('        if v is None or v == "":')
+          ..writeln('            return None')
+          ..writeln('        try:')
+          ..writeln('            return float(v)')
+          ..writeln('        except (TypeError, ValueError):')
+          ..writeln('            return None')
+          ..writeln()
+          ..writeln('    @$acc.setter')
+          ..writeln('    def $acc(self, value):')
+          ..writeln('        self.doc.set_form_field(self.path, $field, '
+              '"" if value is None else str(value))');
+      case 'bool':
+        b
+          ..writeln('    def $acc(self) -> "bool | None":')
+          ..writeln('        v = self.doc.form_field(self.path, $field)')
+          ..writeln('        return None if v is None else (v == "true")')
+          ..writeln()
+          ..writeln('    @$acc.setter')
+          ..writeln('    def $acc(self, value):')
+          ..writeln('        self.doc.set_form_field(self.path, $field, '
+              '"" if value is None else ("true" if value else "false"))');
+      default:
+        b
+          ..writeln('    def $acc(self) -> str:')
+          ..writeln('        return self.doc.form_field(self.path, $field) or ""')
+          ..writeln()
+          ..writeln('    @$acc.setter')
+          ..writeln('    def $acc(self, value):')
+          ..writeln('        self.doc.set_form_field(self.path, $field, value)');
+    }
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always round-trips as text.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   void _writeDoc(StringBuffer b, String? doc, String indent) {
