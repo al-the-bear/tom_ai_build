@@ -415,30 +415,118 @@ class SomTypeScriptEmitter {
       ..writeln('  }');
   }
 
+  /// Emits the typed **section class** for a `@Form` field (YRB2): the section's
+  /// own `content` text FIRST, then one correctly-typed member per `@Form`
+  /// `Field(name, Type, …)` entry, in declaration order. A member's declared
+  /// scalar type (`int`/`double`/`num` → `number`, `bool` → `boolean`) becomes
+  /// its parsed TypeScript type; any non-primitive (enums, `List`, …) falls back
+  /// to `string`. Members read/write through the generic form store, so the
+  /// on-disk markdown format and the conformance golden stay byte-identical.
   String _emitFormClass(String name, SpecField f) {
+    final hasContentMember = f.formFields.any((ff) => ff.name == 'content');
     final b = StringBuffer()
-      ..writeln('// Generated form facade for the `${f.name}` @Form section.')
+      ..writeln('// Generated section facade for the `${f.name}` @Form section: '
+          'its own content text followed by one typed member per form field.')
       ..writeln('export class $name extends SomNode {')
       ..writeln('  constructor(doc: SpecDocument, path: string) {')
       ..writeln('    super(doc, path);')
+      ..writeln('  }')
+      ..writeln()
+      ..writeln('  get canHaveContent(): boolean {')
+      ..writeln('    return true;')
       ..writeln('  }');
-    for (final ff in f.formFields) {
-      final field = '"${_jstr(ff.name)}"';
-      // The form-field key string ($field) is preserved; only the TS accessor
-      // identifier is keyword-sanitised.
-      final acc = _acc(ff.name);
+    if (!hasContentMember) {
       b
         ..writeln()
-        ..writeln('  get $acc(): string {')
-        ..writeln("    return this.doc.formField(this.path, $field) || '';")
+        ..writeln('  get content(): string {')
+        ..writeln("    return this.doc.content(this.path) || '';")
         ..writeln('  }')
         ..writeln()
-        ..writeln('  set $acc(value: string) {')
-        ..writeln('    this.doc.setFormField(this.path, $field, value);')
+        ..writeln('  set content(value: string) {')
+        ..writeln('    this.doc.setContent(this.path, value);')
         ..writeln('  }');
+    }
+    for (final ff in f.formFields) {
+      _writeFormMember(b, ff);
     }
     b.writeln('}');
     return b.toString();
+  }
+
+  /// Emits a single typed `@Form` member accessor pair backed by the generic
+  /// form store, so the on-disk format and the generic reading are unchanged;
+  /// only the TypeScript type mirrors the declared form-field type.
+  void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
+    final field = '"${_jstr(ff.name)}"';
+    // The form-field key string ($field) is preserved; only the TS accessor
+    // identifier is keyword-sanitised.
+    final acc = _acc(ff.name);
+    b.writeln();
+    switch (_scalarType(ff.type)) {
+      case 'int':
+        b
+          ..writeln('  get $acc(): number | null {')
+          ..writeln('    const v = this.doc.formField(this.path, $field);')
+          ..writeln("    return v == null || v === '' ? null : "
+              'Number.parseInt(v, 10);')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  set $acc(value: number | null) {')
+          ..writeln('    this.doc.setFormField(this.path, $field, '
+              "value == null ? '' : String(value));")
+          ..writeln('  }');
+      case 'double':
+      case 'num':
+        b
+          ..writeln('  get $acc(): number | null {')
+          ..writeln('    const v = this.doc.formField(this.path, $field);')
+          ..writeln("    return v == null || v === '' ? null : "
+              'Number.parseFloat(v);')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  set $acc(value: number | null) {')
+          ..writeln('    this.doc.setFormField(this.path, $field, '
+              "value == null ? '' : String(value));")
+          ..writeln('  }');
+      case 'bool':
+        b
+          ..writeln('  get $acc(): boolean | null {')
+          ..writeln('    const v = this.doc.formField(this.path, $field);')
+          ..writeln("    return v == null ? null : v === 'true';")
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  set $acc(value: boolean | null) {')
+          ..writeln('    this.doc.setFormField(this.path, $field, '
+              "value == null ? '' : (value ? 'true' : 'false'));")
+          ..writeln('  }');
+      default:
+        b
+          ..writeln('  get $acc(): string {')
+          ..writeln("    return this.doc.formField(this.path, $field) || '';")
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  set $acc(value: string) {')
+          ..writeln('    this.doc.setFormField(this.path, $field, value);')
+          ..writeln('  }');
+    }
+  }
+
+  /// Maps a `@Form` field's declared type name to the primitive scalar kind the
+  /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
+  /// unresolved types) so the generated code always round-trips as text.
+  static String _scalarType(String typeName) {
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
+    switch (base) {
+      case 'int':
+      case 'double':
+      case 'num':
+      case 'bool':
+        return base;
+      default:
+        return 'String';
+    }
   }
 
   /// Emits a doc block as `//` line comments at [indent]. A `*/` cannot
