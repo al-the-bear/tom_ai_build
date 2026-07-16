@@ -494,10 +494,8 @@ typedef struct { SomNode node; } FunctionalRequirements;
 typedef struct { SomNode node; } FunctionalResponsibilities;
 typedef struct { SomNode node; } FunctionalSuitabilityCharacteristic;
 typedef struct { SomNode node; } GapEntry;
-typedef struct { SomNode node; } Gaps;
 typedef struct { SomNode node; } GeographicDistributionRequirements;
 typedef struct { SomNode node; } GlobalRoleExclusionEntry;
-typedef struct { SomNode node; } Glossary;
 typedef struct { SomNode node; } GlossaryAndAbbreviations;
 typedef struct { SomNode node; } GlossaryEntry;
 typedef struct { SomNode node; } GoalDependencies;
@@ -904,7 +902,6 @@ typedef struct { SomNode node; } ReusableUiComponentEntry;
 typedef struct { SomNode node; } ReuseGoalEntry;
 typedef struct { SomNode node; } ReviewCriterionEntry;
 typedef struct { SomNode node; } RevisionEntry;
-typedef struct { SomNode node; } RevisionHistory;
 typedef struct { SomNode node; } RiskBusinessImpact;
 typedef struct { SomNode node; } RiskEntry;
 typedef struct { SomNode node; } RiskIdentification;
@@ -1036,7 +1033,6 @@ typedef struct { SomNode node; } StagingDependencies;
 typedef struct { SomNode node; } StagingDrivers;
 typedef struct { SomNode node; } StagingStrategy;
 typedef struct { SomNode node; } StakeholderEntry;
-typedef struct { SomNode node; } StakeholderRegister;
 typedef struct { SomNode node; } StakeholderRegisterEntry;
 typedef struct { SomNode node; } StakeholdersAndBeneficiaries;
 typedef struct { SomNode node; } StakeholdersAndGovernance;
@@ -10393,8 +10389,8 @@ DocCorrectnessVerificationForm doc_correctness_verification(const DocCorrectness
 // SBP.1 Document Control.
 //
 // Holds the [DocumentHeader] (id, project, version, date, author, status)
-// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-// that gate its release.
+// together with the document's revision history ([RevisionEntry] list) and
+// the [ApprovalRecord]s that gate its release.
 // Binds a DocumentControl facade to a document and a path (path copied).
 void document_control_init(DocumentControl *self, SpecDocument *doc, const char *path);
 void document_control_free(DocumentControl *self);
@@ -10405,7 +10401,8 @@ void document_control_set_content(DocumentControl *self, const char *value);
 // Document header form (id, project, version, date, author, status).
 DocumentHeader document_control_header(const DocumentControl *self);
 // Chronological revision history of this document.
-RevisionHistory document_control_revision_history(const DocumentControl *self);
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList document_control_revision_history(const DocumentControl *self);
 // Formal approvals (sign-offs) recorded for this document.
 // Returns the list view; element type: ApprovalRecord (construct from item paths).
 SomList document_control_approvals(const DocumentControl *self);
@@ -12119,18 +12116,6 @@ GapEntryWorkaroundForm gap_entry_workaround(const GapEntry *self);
 // Resolution planning.
 GapEntryResolutionForm gap_entry_resolution(const GapEntry *self);
 
-// 1.3.4. Gaps.
-// Binds a Gaps facade to a document and a path (path copied).
-void gaps_init(Gaps *self, SpecDocument *doc, const char *path);
-void gaps_free(Gaps *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int gaps_can_have_content(const Gaps *self);
-char *gaps_content(const Gaps *self);
-void gaps_set_content(Gaps *self, const char *value);
-// Contains 0+× Gap.
-// Returns the list view; element type: GapEntry (construct from item paths).
-SomList gaps_items(const Gaps *self);
-
 // Geographic distribution requirements.
 // Binds a GeographicDistributionRequirements facade to a document and a path (path copied).
 void geographic_distribution_requirements_init(GeographicDistributionRequirements *self, SpecDocument *doc, const char *path);
@@ -12158,18 +12143,6 @@ void global_role_exclusion_entry_free(GlobalRoleExclusionEntry *self);
 int global_role_exclusion_entry_can_have_content(const GlobalRoleExclusionEntry *self);
 GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const GlobalRoleExclusionEntry *self);
 
-// An ordered collection of glossary entries.
-// Binds a Glossary facade to a document and a path (path copied).
-void glossary_init(Glossary *self, SpecDocument *doc, const char *path);
-void glossary_free(Glossary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int glossary_can_have_content(const Glossary *self);
-char *glossary_content(const Glossary *self);
-void glossary_set_content(Glossary *self, const char *value);
-// One entry per defined term or acronym.
-// Returns the list view; element type: GlossaryEntry (construct from item paths).
-SomList glossary_entries(const Glossary *self);
-
 // SBP.3 Glossary & Abbreviations.
 // Binds a GlossaryAndAbbreviations facade to a document and a path (path copied).
 void glossary_and_abbreviations_init(GlossaryAndAbbreviations *self, SpecDocument *doc, const char *path);
@@ -12179,7 +12152,8 @@ int glossary_and_abbreviations_can_have_content(const GlossaryAndAbbreviations *
 char *glossary_and_abbreviations_content(const GlossaryAndAbbreviations *self);
 void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, const char *value);
 // The set of defined terms and abbreviations.
-Glossary glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self);
+// Returns the list view; element type: GlossaryEntry (construct from item paths).
+SomList glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self);
 
 // A single glossary entry (form).
 // Binds a GlossaryEntry facade to a document and a path (path copied).
@@ -15806,7 +15780,8 @@ BusinessPainPoints pain_points_and_gaps_business_pain_points(const PainPointsAnd
 // 1.3.3. Technical Pain Points.
 TechnicalPainPoints pain_points_and_gaps_technical_pain_points(const PainPointsAndGaps *self);
 // 1.3.4. Gaps.
-Gaps pain_points_and_gaps_gaps(const PainPointsAndGaps *self);
+// Returns the list view; element type: GapEntry (construct from item paths).
+SomList pain_points_and_gaps_gaps(const PainPointsAndGaps *self);
 // Cross-reference between pain points and gaps.
 PainPointGapCorrelation pain_points_and_gaps_pain_point_gap_correlation(const PainPointsAndGaps *self);
 
@@ -18468,18 +18443,6 @@ void revision_entry_free(RevisionEntry *self);
 int revision_entry_can_have_content(const RevisionEntry *self);
 RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
 
-// Chronological revision history.
-// Binds a RevisionHistory facade to a document and a path (path copied).
-void revision_history_init(RevisionHistory *self, SpecDocument *doc, const char *path);
-void revision_history_free(RevisionHistory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int revision_history_can_have_content(const RevisionHistory *self);
-char *revision_history_content(const RevisionHistory *self);
-void revision_history_set_content(RevisionHistory *self, const char *value);
-// One entry per published revision of the document.
-// Returns the list view; element type: RevisionEntry (construct from item paths).
-SomList revision_history_revisions(const RevisionHistory *self);
-
 // Business impact assessment for the risk.
 // Binds a RiskBusinessImpact facade to a document and a path (path copied).
 void risk_business_impact_init(RiskBusinessImpact *self, SpecDocument *doc, const char *path);
@@ -20684,23 +20647,6 @@ void stakeholder_entry_free(StakeholderEntry *self);
 int stakeholder_entry_can_have_content(const StakeholderEntry *self);
 StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *self);
 
-// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-//
-// This is the single source of truth for stakeholder role, interest,
-// influence, concerns and engagement strategy. SBP.2
-// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-// references this register rather than restating its attributes.
-// Binds a StakeholderRegister facade to a document and a path (path copied).
-void stakeholder_register_init(StakeholderRegister *self, SpecDocument *doc, const char *path);
-void stakeholder_register_free(StakeholderRegister *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int stakeholder_register_can_have_content(const StakeholderRegister *self);
-char *stakeholder_register_content(const StakeholderRegister *self);
-void stakeholder_register_set_content(StakeholderRegister *self, const char *value);
-// One entry per stakeholder or stakeholder group.
-// Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
-SomList stakeholder_register_stakeholders(const StakeholderRegister *self);
-
 // A single stakeholder register entry (form).
 //
 // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -20717,7 +20663,7 @@ StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const Sta
 // A scope-framing *benefits lens* over the stakeholder landscape: who
 // benefits from the system and what they gain. The canonical stakeholder
 // register — with role, interest, influence, concerns and engagement
-// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 // recorded there once and are not restated here (L34C-6 / SR-15).
 // Binds a StakeholdersAndBeneficiaries facade to a document and a path (path copied).
 void stakeholders_and_beneficiaries_init(StakeholdersAndBeneficiaries *self, SpecDocument *doc, const char *path);
@@ -20758,7 +20704,8 @@ ChangeProcedure stakeholders_and_governance_change_procedure(const StakeholdersA
 // Renamed to `LegalAndContractualRequirements` in L34C-9.
 LegalAndContractualRequirements stakeholders_and_governance_legal_and_contractual(const StakeholdersAndGovernance *self);
 // Stakeholder register (§5 completeness addition).
-StakeholderRegister stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
+// Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
+SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
 
 // Stakeholders and interests.
 // Binds a StakeholdersAndInterests facade to a document and a path (path copied).

@@ -15,40 +15,29 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 )
 @SectionId('GLAB')
 class GlossaryAndAbbreviations {
-  @ContentType('description', 'Introduce the glossary: scope, conventions, '
-      'and how terms are maintained.')
+  @ContentType(
+    'description',
+    'Introduce the glossary: scope, conventions, '
+        'and how terms are maintained.',
+  )
   @SerializationOrder(0)
   String? content;
 
   /// The set of defined terms and abbreviations.
-  @SerializationOrder(1)
-  Glossary glossary = Glossary();
-}
-
-/// An ordered collection of glossary entries.
-@StandardReferences(
-  ['ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations'],
-  'The ordered collection of defined terms and abbreviations.',
-)
-@SectionId('GLOSS')
-class Glossary {
-  @Unused()
-  @SerializationOrder(0)
-  String? content;
-
-  /// One entry per defined term or acronym.
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations',
+  ], 'The ordered collection of defined terms and abbreviations.')
   @SectionId('GLOSS-ENTR-LST')
   @SectionIdPattern('GLOSS-ENTR-xxx')
   @ContentHelp('Add one entry per term or acronym, alphabetically ordered.')
   @SerializationOrder(1)
-  List<GlossaryEntry> entries = [];
+  List<GlossaryEntry> glossary = [];
 }
 
 /// A single glossary entry (form).
-@StandardReferences(
-  ['ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations'],
-  'A single defined term or acronym with its definition and related terms.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations',
+], 'A single defined term or acronym with its definition and related terms.')
 @SectionId('GLENT')
 class GlossaryEntry {
   @Form([

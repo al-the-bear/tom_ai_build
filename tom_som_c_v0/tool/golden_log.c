@@ -360,8 +360,7 @@ int main(int argc, char **argv) {
   som_strlist_push_copy(&out, "SECTION\tmeta");
   meta_node(meta_tree, &out, "SBP");
   meta_node(meta_tree, &out, "SBP/documentControl");
-  meta_node(meta_tree, &out, "SBP/documentControl/revisionHistory");
-  meta_node(meta_tree, &out, "SBP/documentControl/revisionHistory/RVHST-REVS-LST");
+  meta_node(meta_tree, &out, "SBP/documentControl/RVHST-REVS-LST");
   meta_node(meta_tree, &out, "SBP/introductionAndScope");
   meta_node(meta_tree, &out, "SBP/introductionAndScope/goals");
   meta_node(meta_tree, &out, "SBP/introductionAndScope/goals/content");
@@ -414,8 +413,7 @@ int main(int argc, char **argv) {
 
     SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(id_sbp);
     som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
-    som_nav_revision_history n_rh = document_control_nav_revision_history(n_dc);
-    SomListMetaRef nav_revs = revision_history_nav_revisions(n_rh);
+    SomListMetaRef nav_revs = document_control_nav_revision_history(n_dc);
     meta_id(&out, &id_revs.ref, &nav_revs.ref);
 
     void *id_item0 = som_list_meta_ref_item(&id_revs, 0);
@@ -427,7 +425,6 @@ int main(int argc, char **argv) {
     free(nav_item0);
 
     som_meta_ref_free(&nav_revs.ref);
-    som_meta_ref_free(&n_rh.ref);
     som_meta_ref_free(&n_dc.ref);
     som_meta_ref_free(&id_revs.ref);
     som_meta_ref_free(&nroot.ref);

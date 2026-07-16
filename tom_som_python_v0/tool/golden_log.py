@@ -175,8 +175,7 @@ def main() -> None:
 
     meta_node("SBP")
     meta_node("SBP/documentControl")
-    meta_node("SBP/documentControl/revisionHistory")
-    meta_node("SBP/documentControl/revisionHistory/RVHST-REVS-LST")
+    meta_node("SBP/documentControl/RVHST-REVS-LST")
     meta_node("SBP/introductionAndScope")
     meta_node("SBP/introductionAndScope/goals")
     meta_node("SBP/introductionAndScope/goals/content")
@@ -222,10 +221,9 @@ def main() -> None:
 
     meta_id(m.SBP, m.d00SolutionBlueprint)
     meta_id(m.SBP.RVHST_REVS_LST,
-            m.d00SolutionBlueprint.documentControl.revisionHistory.revisions)
+            m.d00SolutionBlueprint.documentControl.revisionHistory)
     meta_id(m.SBP.RVHST_REVS_LST.item(0),
-            m.d00SolutionBlueprint.documentControl.revisionHistory
-            .revisions.item(0))
+            m.d00SolutionBlueprint.documentControl.revisionHistory.item(0))
 
     out.append("SECTION\tdocspecs")
     with open(_DEFAULT_SCHEMA, encoding="utf-8") as fh:

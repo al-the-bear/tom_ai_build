@@ -16788,8 +16788,8 @@ impl DocCorrectness {
 /// SBP.1 Document Control.
 ///
 /// Holds the [DocumentHeader] (id, project, version, date, author, status)
-/// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-/// that gate its release.
+/// together with the document's revision history ([RevisionEntry] list) and
+/// the [ApprovalRecord]s that gate its release.
 pub struct DocumentControl {
     pub node: som::SomNode,
 }
@@ -16822,8 +16822,13 @@ impl DocumentControl {
     }
 
     /// Chronological revision history of this document.
-    pub fn revision_history(&self) -> RevisionHistory {
-        RevisionHistory::new(self.node.doc(), format!("{}/{}", self.node.path(), "revisionHistory"))
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVHST-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVHST-REVS-xxx".to_string(),
+        )
     }
 
     /// Formal approvals (sign-offs) recorded for this document.
@@ -21257,44 +21262,6 @@ impl GapEntry {
     }
 }
 
-/// 1.3.4. Gaps.
-pub struct Gaps {
-    pub node: som::SomNode,
-}
-
-impl Gaps {
-    /// Binds a Gaps facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> Gaps {
-        Gaps { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Contains 0+× Gap.
-    pub fn items(&self) -> som::SomList<GapEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "GAPE-ITEM-LST"),
-            Box::new(GapEntry::new),
-            "GAPE-ITEM-xxx".to_string(),
-        )
-    }
-}
-
 /// Geographic distribution requirements.
 pub struct GeographicDistributionRequirements {
     pub node: som::SomNode,
@@ -21364,44 +21331,6 @@ impl GlobalRoleExclusionEntry {
     }
 }
 
-/// An ordered collection of glossary entries.
-pub struct Glossary {
-    pub node: som::SomNode,
-}
-
-impl Glossary {
-    /// Binds a Glossary facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> Glossary {
-        Glossary { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// One entry per defined term or acronym.
-    pub fn entries(&self) -> som::SomList<GlossaryEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "GLOSS-ENTR-LST"),
-            Box::new(GlossaryEntry::new),
-            "GLOSS-ENTR-xxx".to_string(),
-        )
-    }
-}
-
 /// SBP.3 Glossary & Abbreviations.
 pub struct GlossaryAndAbbreviations {
     pub node: som::SomNode,
@@ -21430,8 +21359,13 @@ impl GlossaryAndAbbreviations {
     }
 
     /// The set of defined terms and abbreviations.
-    pub fn glossary(&self) -> Glossary {
-        Glossary::new(self.node.doc(), format!("{}/{}", self.node.path(), "glossary"))
+    pub fn glossary(&self) -> som::SomList<GlossaryEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "GLOSS-ENTR-LST"),
+            Box::new(GlossaryEntry::new),
+            "GLOSS-ENTR-xxx".to_string(),
+        )
     }
 }
 
@@ -30889,8 +30823,13 @@ impl PainPointsAndGaps {
     }
 
     /// 1.3.4. Gaps.
-    pub fn gaps(&self) -> Gaps {
-        Gaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "gaps"))
+    pub fn gaps(&self) -> som::SomList<GapEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "GAPE-ITEM-LST"),
+            Box::new(GapEntry::new),
+            "GAPE-ITEM-xxx".to_string(),
+        )
     }
 
     /// Cross-reference between pain points and gaps.
@@ -38023,44 +37962,6 @@ impl RevisionEntry {
     }
 }
 
-/// Chronological revision history.
-pub struct RevisionHistory {
-    pub node: som::SomNode,
-}
-
-impl RevisionHistory {
-    /// Binds a RevisionHistory facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RevisionHistory {
-        RevisionHistory { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// One entry per published revision of the document.
-    pub fn revisions(&self) -> som::SomList<RevisionEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RVHST-REVS-LST"),
-            Box::new(RevisionEntry::new),
-            "RVHST-REVS-xxx".to_string(),
-        )
-    }
-}
-
 /// Business impact assessment for the risk.
 pub struct RiskBusinessImpact {
     pub node: som::SomNode,
@@ -43699,49 +43600,6 @@ impl StakeholderEntry {
     }
 }
 
-/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-///
-/// This is the single source of truth for stakeholder role, interest,
-/// influence, concerns and engagement strategy. SBP.2
-/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-/// references this register rather than restating its attributes.
-pub struct StakeholderRegister {
-    pub node: som::SomNode,
-}
-
-impl StakeholderRegister {
-    /// Binds a StakeholderRegister facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StakeholderRegister {
-        StakeholderRegister { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// One entry per stakeholder or stakeholder group.
-    pub fn stakeholders(&self) -> som::SomList<StakeholderRegisterEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "STKRG-STAK-LST"),
-            Box::new(StakeholderRegisterEntry::new),
-            "STKRG-STAK-xxx".to_string(),
-        )
-    }
-}
-
 /// A single stakeholder register entry (form).
 ///
 /// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -43773,7 +43631,7 @@ impl StakeholderRegisterEntry {
 /// A scope-framing *benefits lens* over the stakeholder landscape: who
 /// benefits from the system and what they gain. The canonical stakeholder
 /// register — with role, interest, influence, concerns and engagement
-/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 /// recorded there once and are not restated here (L34C-6 / SR-15).
 pub struct StakeholdersAndBeneficiaries {
     pub node: som::SomNode,
@@ -43887,8 +43745,13 @@ impl StakeholdersAndGovernance {
     }
 
     /// Stakeholder register (§5 completeness addition).
-    pub fn stakeholder_register(&self) -> StakeholderRegister {
-        StakeholderRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholderRegister"))
+    pub fn stakeholder_register(&self) -> som::SomList<StakeholderRegisterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "STKRG-STAK-LST"),
+            Box::new(StakeholderRegisterEntry::new),
+            "STKRG-STAK-xxx".to_string(),
+        )
     }
 }
 

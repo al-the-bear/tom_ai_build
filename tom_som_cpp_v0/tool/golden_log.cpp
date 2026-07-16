@@ -209,8 +209,7 @@ int main(int argc, char** argv) {
 
   metaNode("SBP");
   metaNode("SBP/documentControl");
-  metaNode("SBP/documentControl/revisionHistory");
-  metaNode("SBP/documentControl/revisionHistory/RVHST-REVS-LST");
+  metaNode("SBP/documentControl/RVHST-REVS-LST");
   metaNode("SBP/introductionAndScope");
   metaNode("SBP/introductionAndScope/goals");
   metaNode("SBP/introductionAndScope/goals/content");
@@ -264,8 +263,7 @@ int main(int argc, char** argv) {
 
   m::IdD00SolutionBlueprint idRoot = m::d00SolutionBlueprintMetaId(metaTree);
   som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVHST_REVS_LST(idRoot);
-  m::NavRevisionHistory navRh = m::navDocumentControl_revisionHistory(navDc);
-  som::SomListMetaRef navRevs = m::navRevisionHistory_revisions(navRh);
+  som::SomListMetaRef navRevs = m::navDocumentControl_revisionHistory(navDc);
 
   metaId(idRoot.ref, navRoot.ref);
   metaId(idRevs.ref, navRevs.ref);

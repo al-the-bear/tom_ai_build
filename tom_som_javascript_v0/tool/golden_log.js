@@ -174,8 +174,7 @@ function main() {
 
   metaNode('SBP');
   metaNode('SBP/documentControl');
-  metaNode('SBP/documentControl/revisionHistory');
-  metaNode('SBP/documentControl/revisionHistory/RVHST-REVS-LST');
+  metaNode('SBP/documentControl/RVHST-REVS-LST');
   metaNode('SBP/introductionAndScope');
   metaNode('SBP/introductionAndScope/goals');
   metaNode('SBP/introductionAndScope/goals/content');
@@ -224,9 +223,9 @@ function main() {
 
   metaId(m.SBP, m.d00SolutionBlueprint);
   metaId(m.SBP.RVHST_REVS_LST,
-    m.d00SolutionBlueprint.documentControl.revisionHistory.revisions);
+    m.d00SolutionBlueprint.documentControl.revisionHistory);
   metaId(m.SBP.RVHST_REVS_LST.item(0),
-    m.d00SolutionBlueprint.documentControl.revisionHistory.revisions.item(0));
+    m.d00SolutionBlueprint.documentControl.revisionHistory.item(0));
 
   out.push('SECTION\tdocspecs');
   const schema = DocSpecsSchema.fromYamlText(

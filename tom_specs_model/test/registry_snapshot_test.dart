@@ -13,14 +13,16 @@ void main() {
     test('registerSpecOps registers ops for the whole model + section leaves',
         () {
       DocSpecsProject(); // idempotent registration
-      // 1222 reflected model classes after TSMA2's list-element leaf collapse
-      // (TSMA1 folded 1813 single-field leaves into field-level content/form
-      // fields, 3080 → 1267; TSMA2 then collapsed 45 pure-content list-element
-      // leaf classes into inline `List<String>` sub-section lists, 1267 →
-      // 1222), minus the two hand-written `SpecNode` leaves (DocumentHeader,
-      // SectionMeta) that adopt the contract via the mixin fast-path, plus the
-      // 10 tom_specs_core section content leaves — SpecRegistry.length == 1230.
-      expect(SpecRegistry.length, greaterThanOrEqualTo(1222 - 2 + 10));
+      // 1218 reflected model classes after TSMA4's single-subsection wrapper
+      // collapse (TSMA1 folded 1813 single-field leaves into field-level
+      // content/form fields, 3080 → 1267; TSMA2 collapsed 45 pure-content
+      // list-element leaf classes into inline `List<String>` sub-section lists,
+      // 1267 → 1222; TSMA4 promoted 4 single-subsection wrapper classes'
+      // subsections onto the parent field, 1222 → 1218), minus the two
+      // hand-written `SpecNode` leaves (DocumentHeader, SectionMeta) that adopt
+      // the contract via the mixin fast-path, plus the 10 tom_specs_core section
+      // content leaves — SpecRegistry.length == 1226.
+      expect(SpecRegistry.length, greaterThanOrEqualTo(1218 - 2 + 10));
       // A representative deep model class resolves to real ops.
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });

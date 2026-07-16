@@ -5813,7 +5813,7 @@ void registerSpecOps() {
       final n = o as DocumentControl;
       return [
         SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.revisionHistory, (v) => n.revisionHistory = v as RevisionHistory, label: 'revisionHistory'),
+        SpecSlot.list(() => n.revisionHistory, (v) => n.revisionHistory = v.cast<RevisionEntry>(), label: 'revisionHistory'),
         SpecSlot.list(() => n.approvals, (v) => n.approvals = v.cast<ApprovalRecord>(), label: 'approvals'),
         SpecSlot.node(() => n.referenceDocuments, (v) => n.referenceDocuments = v as ReferenceDocuments, label: 'referenceDocuments'),
       ];
@@ -7411,21 +7411,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as GapEntry).content,
   ));
-  SpecRegistry.register(Gaps, SpecClassOps(
-    slots: (o) {
-      final n = o as Gaps;
-      return [
-        SpecSlot.list(() => n.items, (v) => n.items = v.cast<GapEntry>(), label: 'items'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as Gaps;
-      return Gaps()
-        ..content = n.content
-        ..items = n.items;
-    },
-    yamlScalar: (o) => (o as Gaps).content,
-  ));
   SpecRegistry.register(GeographicDistributionRequirements, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -7448,26 +7433,11 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as GlobalRoleExclusionEntry).content,
   ));
-  SpecRegistry.register(Glossary, SpecClassOps(
-    slots: (o) {
-      final n = o as Glossary;
-      return [
-        SpecSlot.list(() => n.entries, (v) => n.entries = v.cast<GlossaryEntry>(), label: 'entries'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as Glossary;
-      return Glossary()
-        ..content = n.content
-        ..entries = n.entries;
-    },
-    yamlScalar: (o) => (o as Glossary).content,
-  ));
   SpecRegistry.register(GlossaryAndAbbreviations, SpecClassOps(
     slots: (o) {
       final n = o as GlossaryAndAbbreviations;
       return [
-        SpecSlot.node(() => n.glossary, (v) => n.glossary = v as Glossary, label: 'glossary'),
+        SpecSlot.list(() => n.glossary, (v) => n.glossary = v.cast<GlossaryEntry>(), label: 'glossary'),
       ];
     },
     cloneShallow: (o) {
@@ -10831,7 +10801,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.operationalPainPoints, (v) => n.operationalPainPoints = v as OperationalPainPoints, label: 'operationalPainPoints'),
         SpecSlot.node(() => n.businessPainPoints, (v) => n.businessPainPoints = v as BusinessPainPoints, label: 'businessPainPoints'),
         SpecSlot.node(() => n.technicalPainPoints, (v) => n.technicalPainPoints = v as TechnicalPainPoints, label: 'technicalPainPoints'),
-        SpecSlot.node(() => n.gaps, (v) => n.gaps = v as Gaps, label: 'gaps'),
+        SpecSlot.list(() => n.gaps, (v) => n.gaps = v.cast<GapEntry>(), label: 'gaps'),
         SpecSlot.node(() => n.painPointGapCorrelation, (v) => n.painPointGapCorrelation = v as PainPointGapCorrelation, label: 'painPointGapCorrelation'),
       ];
     },
@@ -13488,21 +13458,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RevisionEntry).content,
   ));
-  SpecRegistry.register(RevisionHistory, SpecClassOps(
-    slots: (o) {
-      final n = o as RevisionHistory;
-      return [
-        SpecSlot.list(() => n.revisions, (v) => n.revisions = v.cast<RevisionEntry>(), label: 'revisions'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as RevisionHistory;
-      return RevisionHistory()
-        ..content = n.content
-        ..revisions = n.revisions;
-    },
-    yamlScalar: (o) => (o as RevisionHistory).content,
-  ));
   SpecRegistry.register(Risk, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -15489,21 +15444,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as StakeholderEntry).content,
   ));
-  SpecRegistry.register(StakeholderRegister, SpecClassOps(
-    slots: (o) {
-      final n = o as StakeholderRegister;
-      return [
-        SpecSlot.list(() => n.stakeholders, (v) => n.stakeholders = v.cast<StakeholderRegisterEntry>(), label: 'stakeholders'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as StakeholderRegister;
-      return StakeholderRegister()
-        ..content = n.content
-        ..stakeholders = n.stakeholders;
-    },
-    yamlScalar: (o) => (o as StakeholderRegister).content,
-  ));
   SpecRegistry.register(StakeholderRegisterEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -15540,7 +15480,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.distributionList, (v) => n.distributionList = v as DistributionList, label: 'distributionList'),
         SpecSlot.node(() => n.changeProcedure, (v) => n.changeProcedure = v as ChangeProcedure, label: 'changeProcedure'),
         SpecSlot.node(() => n.legalAndContractual, (v) => n.legalAndContractual = v as LegalAndContractualRequirements, label: 'legalAndContractual'),
-        SpecSlot.node(() => n.stakeholderRegister, (v) => n.stakeholderRegister = v as StakeholderRegister, label: 'stakeholderRegister'),
+        SpecSlot.list(() => n.stakeholderRegister, (v) => n.stakeholderRegister = v.cast<StakeholderRegisterEntry>(), label: 'stakeholderRegister'),
       ];
     },
     cloneShallow: (o) {

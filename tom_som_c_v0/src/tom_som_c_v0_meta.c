@@ -516,10 +516,8 @@ static SomMetaNode **meta_children_functional_requirements(SomStrList *stack, si
 static SomMetaNode **meta_children_functional_responsibilities(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_functional_suitability_characteristic(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_gap_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_gaps(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_geographic_distribution_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_global_role_exclusion_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_glossary(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_glossary_and_abbreviations(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_glossary_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_goal_dependencies(SomStrList *stack, size_t *len);
@@ -926,7 +924,6 @@ static SomMetaNode **meta_children_reusable_ui_component_entry(SomStrList *stack
 static SomMetaNode **meta_children_reuse_goal_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_review_criterion_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_revision_history(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_identification(SomStrList *stack, size_t *len);
@@ -1058,7 +1055,6 @@ static SomMetaNode **meta_children_staging_dependencies(SomStrList *stack, size_
 static SomMetaNode **meta_children_staging_drivers(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_staging_strategy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholder_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_stakeholder_register(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholder_register_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholders_and_beneficiaries(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholders_and_governance(SomStrList *stack, size_t *len);
@@ -3007,6 +3003,7 @@ static void meta_build_doc_correctness_narrative(SomMetaNode *n);
 static void meta_build_document_control_content(SomMetaNode *n);
 static void meta_build_document_control_header(SomMetaNode *n);
 static void meta_build_document_control_revision_history(SomMetaNode *n);
+static void meta_build_document_control_revision_history_elem(SomMetaNode *n);
 static void meta_build_document_control_approvals(SomMetaNode *n);
 static void meta_build_document_control_approvals_elem(SomMetaNode *n);
 static void meta_build_document_control_reference_documents(SomMetaNode *n);
@@ -3464,20 +3461,15 @@ static void meta_build_gap_entry_description(SomMetaNode *n);
 static void meta_build_gap_entry_discovery(SomMetaNode *n);
 static void meta_build_gap_entry_workaround(SomMetaNode *n);
 static void meta_build_gap_entry_resolution(SomMetaNode *n);
-static void meta_build_gaps_content(SomMetaNode *n);
-static void meta_build_gaps_items(SomMetaNode *n);
-static void meta_build_gaps_items_elem(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_content(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_cdn(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_routing(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_anycast(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_performance(SomMetaNode *n);
 static void meta_build_global_role_exclusion_entry_content(SomMetaNode *n);
-static void meta_build_glossary_content(SomMetaNode *n);
-static void meta_build_glossary_entries(SomMetaNode *n);
-static void meta_build_glossary_entries_elem(SomMetaNode *n);
 static void meta_build_glossary_and_abbreviations_content(SomMetaNode *n);
 static void meta_build_glossary_and_abbreviations_glossary(SomMetaNode *n);
+static void meta_build_glossary_and_abbreviations_glossary_elem(SomMetaNode *n);
 static void meta_build_glossary_entry_content(SomMetaNode *n);
 static void meta_build_goal_dependencies_content(SomMetaNode *n);
 static void meta_build_goal_dependencies_items(SomMetaNode *n);
@@ -4434,6 +4426,7 @@ static void meta_build_pain_points_and_gaps_operational_pain_points(SomMetaNode 
 static void meta_build_pain_points_and_gaps_business_pain_points(SomMetaNode *n);
 static void meta_build_pain_points_and_gaps_technical_pain_points(SomMetaNode *n);
 static void meta_build_pain_points_and_gaps_gaps(SomMetaNode *n);
+static void meta_build_pain_points_and_gaps_gaps_elem(SomMetaNode *n);
 static void meta_build_pain_points_and_gaps_pain_point_gap_correlation(SomMetaNode *n);
 static void meta_build_participant_entry_content(SomMetaNode *n);
 static void meta_build_password_and_credential_policy_content(SomMetaNode *n);
@@ -5122,9 +5115,6 @@ static void meta_build_review_criterion_entry_content(SomMetaNode *n);
 static void meta_build_review_criterion_entry_assessment(SomMetaNode *n);
 static void meta_build_review_criterion_entry_result(SomMetaNode *n);
 static void meta_build_revision_entry_content(SomMetaNode *n);
-static void meta_build_revision_history_content(SomMetaNode *n);
-static void meta_build_revision_history_revisions(SomMetaNode *n);
-static void meta_build_revision_history_revisions_elem(SomMetaNode *n);
 static void meta_build_risk_business_impact_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_stakeholders(SomMetaNode *n);
 static void meta_build_risk_business_impact_delivery(SomMetaNode *n);
@@ -5700,9 +5690,6 @@ static void meta_build_staging_strategy_rationale_narrative(SomMetaNode *n);
 static void meta_build_staging_strategy_key_assumptions(SomMetaNode *n);
 static void meta_build_staging_strategy_constraints(SomMetaNode *n);
 static void meta_build_stakeholder_entry_content(SomMetaNode *n);
-static void meta_build_stakeholder_register_content(SomMetaNode *n);
-static void meta_build_stakeholder_register_stakeholders(SomMetaNode *n);
-static void meta_build_stakeholder_register_stakeholders_elem(SomMetaNode *n);
 static void meta_build_stakeholder_register_entry_content(SomMetaNode *n);
 static void meta_build_stakeholders_and_beneficiaries_content(SomMetaNode *n);
 static void meta_build_stakeholders_and_beneficiaries_primary_stakeholders(SomMetaNode *n);
@@ -5718,6 +5705,7 @@ static void meta_build_stakeholders_and_governance_distribution_list(SomMetaNode
 static void meta_build_stakeholders_and_governance_change_procedure(SomMetaNode *n);
 static void meta_build_stakeholders_and_governance_legal_and_contractual(SomMetaNode *n);
 static void meta_build_stakeholders_and_governance_stakeholder_register(SomMetaNode *n);
+static void meta_build_stakeholders_and_governance_stakeholder_register_elem(SomMetaNode *n);
 static void meta_build_stakeholders_and_interests_content(SomMetaNode *n);
 static void meta_build_standard_software_requirements_content(SomMetaNode *n);
 static void meta_build_standard_software_requirements_compatibility_requirements(SomMetaNode *n);
@@ -38339,7 +38327,7 @@ static void meta_build_d00_solution_blueprint_document_control(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "SBP.1 Document Control (header + revision history + approvals).");
-  meta_set(&n->class_doc_comment, "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.");
+  meta_set(&n->class_doc_comment, "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.");
 }
 static void meta_build_d00_solution_blueprint_introduction_and_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "IntroductionAndScope");
@@ -53871,15 +53859,28 @@ static void meta_build_document_control_header(SomMetaNode *n) {
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
 static void meta_build_document_control_revision_history(SomMetaNode *n) {
-  meta_set(&n->class_name, "RevisionHistory");
+  meta_set(&n->class_name, "DocumentControl");
   meta_set(&n->member_name, "revisionHistory");
-  meta_set(&n->class_section_id, "RVHST");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RevisionHistory");
+  meta_set(&n->section_id, "RVHST-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVHST-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.");
   meta_set(&n->doc_comment, "Chronological revision history of this document.");
-  meta_set(&n->class_doc_comment, "Chronological revision history.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_document_control_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
 }
 static void meta_build_document_control_approvals(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentControl");
@@ -65923,42 +65924,6 @@ static void meta_build_gap_entry_resolution(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §6 — gap analysis (closing the gap toward the desired state)\"],\"connotation\":\"The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps.\"}", NULL);
 }
-static void meta_build_gaps_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "Gaps");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->unused = 1;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
-}
-static void meta_build_gaps_items(SomMetaNode *n) {
-  meta_set(&n->class_name, "Gaps");
-  meta_set(&n->member_name, "items");
-  meta_set(&n->section_id, "GAPE-ITEM-LST");
-  meta_set(&n->section_id_pattern, "GAPE-ITEM-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "GapEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 1;
-  meta_set(&n->content_help, "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.");
-  meta_set(&n->doc_comment, "Contains 0+× Gap.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §6 — gap analysis (capability gap identification)\"],\"connotation\":\"The list of individual capability gaps documented in detail.\"}", NULL);
-}
-static void meta_build_gaps_items_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "GapEntry");
-  meta_set(&n->class_section_id, "GAPE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "GapEntry");
-  meta_set(&n->doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
-  meta_set(&n->class_doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
-}
 static void meta_build_geographic_distribution_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GeographicDistributionRequirements");
   meta_set(&n->member_name, "content");
@@ -66175,38 +66140,6 @@ static void meta_build_global_role_exclusion_entry_content(SomMetaNode *n) {
   n->form->fields[4].hint = som_strdup("Regulatory or policy reference requiring this exclusion (e.g. SOX Section 404, ISO 27001 A.6.1.2)");
   n->form->fields[4].order = 4;
 }
-static void meta_build_glossary_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "Glossary");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->unused = 1;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
-}
-static void meta_build_glossary_entries(SomMetaNode *n) {
-  meta_set(&n->class_name, "Glossary");
-  meta_set(&n->member_name, "entries");
-  meta_set(&n->section_id, "GLOSS-ENTR-LST");
-  meta_set(&n->section_id_pattern, "GLOSS-ENTR-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "GlossaryEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 1;
-  meta_set(&n->content_help, "Add one entry per term or acronym, alphabetically ordered.");
-  meta_set(&n->doc_comment, "One entry per defined term or acronym.");
-}
-static void meta_build_glossary_entries_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "GlossaryEntry");
-  meta_set(&n->class_section_id, "GLENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "GlossaryEntry");
-  meta_set(&n->doc_comment, "A single glossary entry (form).");
-  meta_set(&n->class_doc_comment, "A single glossary entry (form).");
-}
 static void meta_build_glossary_and_abbreviations_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GlossaryAndAbbreviations");
   meta_set(&n->member_name, "content");
@@ -66219,15 +66152,28 @@ static void meta_build_glossary_and_abbreviations_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("Introduce the glossary: scope, conventions, and how terms are maintained.");
 }
 static void meta_build_glossary_and_abbreviations_glossary(SomMetaNode *n) {
-  meta_set(&n->class_name, "Glossary");
+  meta_set(&n->class_name, "GlossaryAndAbbreviations");
   meta_set(&n->member_name, "glossary");
-  meta_set(&n->class_section_id, "GLOSS");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "Glossary");
+  meta_set(&n->section_id, "GLOSS-ENTR-LST");
+  meta_set(&n->section_id_pattern, "GLOSS-ENTR-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "GlossaryEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per term or acronym, alphabetically ordered.");
   meta_set(&n->doc_comment, "The set of defined terms and abbreviations.");
-  meta_set(&n->class_doc_comment, "An ordered collection of glossary entries.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations\"],\"connotation\":\"The ordered collection of defined terms and abbreviations.\"}", NULL);
+}
+static void meta_build_glossary_and_abbreviations_glossary_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "GlossaryEntry");
+  meta_set(&n->class_section_id, "GLENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GlossaryEntry");
+  meta_set(&n->doc_comment, "A single glossary entry (form).");
+  meta_set(&n->class_doc_comment, "A single glossary entry (form).");
 }
 static void meta_build_glossary_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GlossaryEntry");
@@ -92237,15 +92183,28 @@ static void meta_build_pain_points_and_gaps_technical_pain_points(SomMetaNode *n
   meta_set(&n->class_doc_comment, "1.3.3. Technical Pain Points.\n\nProblems that affect development and maintenance: outdated technology,\nsecurity vulnerabilities, lack of documentation, vendor lock-in,\nand technical debt.");
 }
 static void meta_build_pain_points_and_gaps_gaps(SomMetaNode *n) {
-  meta_set(&n->class_name, "Gaps");
+  meta_set(&n->class_name, "PainPointsAndGaps");
   meta_set(&n->member_name, "gaps");
-  meta_set(&n->class_section_id, "GAPS");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "Gaps");
+  meta_set(&n->section_id, "GAPE-ITEM-LST");
+  meta_set(&n->section_id_pattern, "GAPE-ITEM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "GapEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
+  meta_set(&n->content_help, "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.");
   meta_set(&n->doc_comment, "1.3.4. Gaps.");
-  meta_set(&n->class_doc_comment, "1.3.4. Gaps.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §6 — gap analysis (capability gap identification)\"],\"connotation\":\"The list of individual capability gaps documented in detail.\"}", NULL);
+}
+static void meta_build_pain_points_and_gaps_gaps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "GapEntry");
+  meta_set(&n->class_section_id, "GAPE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GapEntry");
+  meta_set(&n->doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
+  meta_set(&n->class_doc_comment, "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.");
 }
 static void meta_build_pain_points_and_gaps_pain_point_gap_correlation(SomMetaNode *n) {
   meta_set(&n->class_name, "PainPointGapCorrelation");
@@ -110848,42 +110807,6 @@ static void meta_build_revision_entry_content(SomMetaNode *n) {
   n->form->fields[3].hint = som_strdup("One or two sentences on what changed and why.");
   n->form->fields[3].order = 3;
 }
-static void meta_build_revision_history_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RevisionHistory");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->unused = 1;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
-}
-static void meta_build_revision_history_revisions(SomMetaNode *n) {
-  meta_set(&n->class_name, "RevisionHistory");
-  meta_set(&n->member_name, "revisions");
-  meta_set(&n->section_id, "RVHST-REVS-LST");
-  meta_set(&n->section_id_pattern, "RVHST-REVS-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RevisionEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 1;
-  meta_set(&n->content_help, "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.");
-  meta_set(&n->doc_comment, "One entry per published revision of the document.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
-}
-static void meta_build_revision_history_revisions_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RevisionEntry");
-  meta_set(&n->class_section_id, "RVENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RevisionEntry");
-  meta_set(&n->doc_comment, "A single document revision entry (form).");
-  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
-}
 static void meta_build_risk_business_impact_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskBusinessImpact");
   meta_set(&n->member_name, "content");
@@ -126926,38 +126849,6 @@ static void meta_build_stakeholder_entry_content(SomMetaNode *n) {
   n->form->fields[2].hint = som_strdup("The scope-framing value this group gains from the system");
   n->form->fields[2].order = 2;
 }
-static void meta_build_stakeholder_register_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "StakeholderRegister");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->unused = 1;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
-}
-static void meta_build_stakeholder_register_stakeholders(SomMetaNode *n) {
-  meta_set(&n->class_name, "StakeholderRegister");
-  meta_set(&n->member_name, "stakeholders");
-  meta_set(&n->section_id, "STKRG-STAK-LST");
-  meta_set(&n->section_id_pattern, "STKRG-STAK-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "StakeholderRegisterEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 1;
-  meta_set(&n->content_help, "Add one entry per stakeholder or group (STK-NNN).");
-  meta_set(&n->doc_comment, "One entry per stakeholder or stakeholder group.");
-}
-static void meta_build_stakeholder_register_stakeholders_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "StakeholderRegisterEntry");
-  meta_set(&n->class_section_id, "STKRE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "StakeholderRegisterEntry");
-  meta_set(&n->doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
-  meta_set(&n->class_doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
-}
 static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderRegisterEntry");
   meta_set(&n->member_name, "content");
@@ -127228,15 +127119,28 @@ static void meta_build_stakeholders_and_governance_legal_and_contractual(SomMeta
   meta_set(&n->class_doc_comment, "3.6. Legal and Contractual Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.");
 }
 static void meta_build_stakeholders_and_governance_stakeholder_register(SomMetaNode *n) {
-  meta_set(&n->class_name, "StakeholderRegister");
+  meta_set(&n->class_name, "StakeholdersAndGovernance");
   meta_set(&n->member_name, "stakeholderRegister");
-  meta_set(&n->class_section_id, "STKRG");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "StakeholderRegister");
+  meta_set(&n->section_id, "STKRG-STAK-LST");
+  meta_set(&n->section_id_pattern, "STKRG-STAK-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "StakeholderRegisterEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
+  meta_set(&n->content_help, "Add one entry per stakeholder or group (STK-NNN).");
   meta_set(&n->doc_comment, "Stakeholder register (§5 completeness addition).");
-  meta_set(&n->class_doc_comment, "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)\"],\"connotation\":\"The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.\"}", NULL);
+}
+static void meta_build_stakeholders_and_governance_stakeholder_register_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "StakeholderRegisterEntry");
+  meta_set(&n->class_section_id, "STKRE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "StakeholderRegisterEntry");
+  meta_set(&n->doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
+  meta_set(&n->class_doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
 }
 static void meta_build_stakeholders_and_interests_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndInterests");
@@ -131783,7 +131687,7 @@ static void meta_build_system_purpose_stakeholders(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.");
-  meta_set(&n->class_doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).");
+  meta_set(&n->class_doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).");
 }
 static void meta_build_system_purpose_value_proposition(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");
@@ -160311,7 +160215,12 @@ static SomMetaNode **meta_children_document_control(SomStrList *stack, size_t *l
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_document_control_header));
-  meta_push(&arr, len, &cap, meta_cx("RevisionHistory", stack, meta_children_revision_history, meta_build_document_control_revision_history));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_document_control_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_document_control_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_document_control_approvals(ln);
@@ -162900,24 +162809,6 @@ static SomMetaNode **meta_children_gap_entry(SomStrList *stack, size_t *len) {
   return arr;
 }
 
-static SomMetaNode **meta_children_gaps(SomStrList *stack, size_t *len) {
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_gaps_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_gaps_items(ln);
-    ln->element_node = meta_cx("GapEntry", stack, meta_children_gap_entry, meta_build_gaps_items_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_geographic_distribution_requirements(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -162964,24 +162855,6 @@ static SomMetaNode **meta_children_global_role_exclusion_entry(SomStrList *stack
   return arr;
 }
 
-static SomMetaNode **meta_children_glossary(SomStrList *stack, size_t *len) {
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_glossary_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_glossary_entries(ln);
-    ln->element_node = meta_cx("GlossaryEntry", stack, meta_children_glossary_entry, meta_build_glossary_entries_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_glossary_and_abbreviations(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -162991,7 +162864,12 @@ static SomMetaNode **meta_children_glossary_and_abbreviations(SomStrList *stack,
     meta_build_glossary_and_abbreviations_content(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("Glossary", stack, meta_children_glossary, meta_build_glossary_and_abbreviations_glossary));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_glossary_and_abbreviations_glossary(ln);
+    ln->element_node = meta_cx("GlossaryEntry", stack, meta_children_glossary_entry, meta_build_glossary_and_abbreviations_glossary_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   return arr;
 }
 
@@ -168628,7 +168506,12 @@ static SomMetaNode **meta_children_pain_points_and_gaps(SomStrList *stack, size_
   meta_push(&arr, len, &cap, meta_cx("OperationalPainPoints", stack, meta_children_operational_pain_points, meta_build_pain_points_and_gaps_operational_pain_points));
   meta_push(&arr, len, &cap, meta_cx("BusinessPainPoints", stack, meta_children_business_pain_points, meta_build_pain_points_and_gaps_business_pain_points));
   meta_push(&arr, len, &cap, meta_cx("TechnicalPainPoints", stack, meta_children_technical_pain_points, meta_build_pain_points_and_gaps_technical_pain_points));
-  meta_push(&arr, len, &cap, meta_cx("Gaps", stack, meta_children_gaps, meta_build_pain_points_and_gaps_gaps));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_pain_points_and_gaps_gaps(ln);
+    ln->element_node = meta_cx("GapEntry", stack, meta_children_gap_entry, meta_build_pain_points_and_gaps_gaps_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("PainPointGapCorrelation", stack, meta_children_pain_point_gap_correlation, meta_build_pain_points_and_gaps_pain_point_gap_correlation));
   return arr;
 }
@@ -172831,24 +172714,6 @@ static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len
   return arr;
 }
 
-static SomMetaNode **meta_children_revision_history(SomStrList *stack, size_t *len) {
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_revision_history_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_revision_history_revisions(ln);
-    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_revision_history_revisions_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -176283,24 +176148,6 @@ static SomMetaNode **meta_children_stakeholder_entry(SomStrList *stack, size_t *
   return arr;
 }
 
-static SomMetaNode **meta_children_stakeholder_register(SomStrList *stack, size_t *len) {
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_stakeholder_register_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_stakeholder_register_stakeholders(ln);
-    ln->element_node = meta_cx("StakeholderRegisterEntry", stack, meta_children_stakeholder_register_entry, meta_build_stakeholder_register_stakeholders_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_stakeholder_register_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -176358,7 +176205,12 @@ static SomMetaNode **meta_children_stakeholders_and_governance(SomStrList *stack
   meta_push(&arr, len, &cap, meta_cx("DistributionList", stack, meta_children_distribution_list, meta_build_stakeholders_and_governance_distribution_list));
   meta_push(&arr, len, &cap, meta_cx("ChangeProcedure", stack, meta_children_change_procedure, meta_build_stakeholders_and_governance_change_procedure));
   meta_push(&arr, len, &cap, meta_cx("LegalAndContractualRequirements", stack, meta_children_legal_and_contractual_requirements, meta_build_stakeholders_and_governance_legal_and_contractual));
-  meta_push(&arr, len, &cap, meta_cx("StakeholderRegister", stack, meta_children_stakeholder_register, meta_build_stakeholders_and_governance_stakeholder_register));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_stakeholders_and_governance_stakeholder_register(ln);
+    ln->element_node = meta_cx("StakeholderRegisterEntry", stack, meta_children_stakeholder_register_entry, meta_build_stakeholders_and_governance_stakeholder_register_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   return arr;
 }
 
@@ -193230,10 +193082,10 @@ som_nav_document_header document_control_nav_header(som_nav_document_control x) 
   free(path);
   return out;
 }
-som_nav_revision_history document_control_nav_revision_history(som_nav_document_control x) {
-  som_nav_revision_history out;
-  char *path = spec_path_join(x.ref.path, "revisionHistory");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+SomListMetaRef document_control_nav_revision_history(som_nav_document_control x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVHST-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -196107,20 +195959,6 @@ SomMetaRef gap_entry_nav_resolution(som_nav_gap_entry x) {
   free(path);
   return out;
 }
-SomMetaRef gaps_nav_content(som_nav_gaps x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomListMetaRef gaps_nav_items(som_nav_gaps x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "GAPE-ITEM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_gap_entry);
-  free(path);
-  return out;
-}
 SomMetaRef geographic_distribution_requirements_nav_content(som_nav_geographic_distribution_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -196163,20 +196001,6 @@ SomMetaRef global_role_exclusion_entry_nav_content(som_nav_global_role_exclusion
   free(path);
   return out;
 }
-SomMetaRef glossary_nav_content(som_nav_glossary x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomListMetaRef glossary_nav_entries(som_nav_glossary x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "GLOSS-ENTR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_glossary_entry);
-  free(path);
-  return out;
-}
 SomMetaRef glossary_and_abbreviations_nav_content(som_nav_glossary_and_abbreviations x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -196184,10 +196008,10 @@ SomMetaRef glossary_and_abbreviations_nav_content(som_nav_glossary_and_abbreviat
   free(path);
   return out;
 }
-som_nav_glossary glossary_and_abbreviations_nav_glossary(som_nav_glossary_and_abbreviations x) {
-  som_nav_glossary out;
-  char *path = spec_path_join(x.ref.path, "glossary");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+SomListMetaRef glossary_and_abbreviations_nav_glossary(som_nav_glossary_and_abbreviations x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GLOSS-ENTR-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_glossary_entry);
   free(path);
   return out;
 }
@@ -202288,10 +202112,10 @@ som_nav_technical_pain_points pain_points_and_gaps_nav_technical_pain_points(som
   free(path);
   return out;
 }
-som_nav_gaps pain_points_and_gaps_nav_gaps(som_nav_pain_points_and_gaps x) {
-  som_nav_gaps out;
-  char *path = spec_path_join(x.ref.path, "gaps");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+SomListMetaRef pain_points_and_gaps_nav_gaps(som_nav_pain_points_and_gaps x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GAPE-ITEM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_gap_entry);
   free(path);
   return out;
 }
@@ -206516,20 +206340,6 @@ SomMetaRef revision_entry_nav_content(som_nav_revision_entry x) {
   free(path);
   return out;
 }
-SomMetaRef revision_history_nav_content(som_nav_revision_history x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomListMetaRef revision_history_nav_revisions(som_nav_revision_history x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "RVHST-REVS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
-  free(path);
-  return out;
-}
 SomMetaRef risk_business_impact_nav_content(som_nav_risk_business_impact x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -210240,20 +210050,6 @@ SomMetaRef stakeholder_entry_nav_content(som_nav_stakeholder_entry x) {
   free(path);
   return out;
 }
-SomMetaRef stakeholder_register_nav_content(som_nav_stakeholder_register x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomListMetaRef stakeholder_register_nav_stakeholders(som_nav_stakeholder_register x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "STKRG-STAK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_stakeholder_register_entry);
-  free(path);
-  return out;
-}
 SomMetaRef stakeholder_register_entry_nav_content(som_nav_stakeholder_register_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -210338,10 +210134,10 @@ som_nav_legal_and_contractual_requirements stakeholders_and_governance_nav_legal
   free(path);
   return out;
 }
-som_nav_stakeholder_register stakeholders_and_governance_nav_stakeholder_register(som_nav_stakeholders_and_governance x) {
-  som_nav_stakeholder_register out;
-  char *path = spec_path_join(x.ref.path, "stakeholderRegister");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+SomListMetaRef stakeholders_and_governance_nav_stakeholder_register(som_nav_stakeholders_and_governance x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "STKRG-STAK-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_stakeholder_register_entry);
   free(path);
   return out;
 }
@@ -217964,7 +217760,7 @@ SomListMetaRef custom_distribution_group_id_dsrc_memb_lst(som_id_custom_distribu
 }
 SomListMetaRef d00_solution_blueprint_id_rvhst_revs_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "documentControl/revisionHistory/RVHST-REVS-LST");
+  char *path = spec_path_join(x.ref.path, "documentControl/RVHST-REVS-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
@@ -218790,7 +218586,7 @@ SomListMetaRef d00_solution_blueprint_id_rien_keyr_lst(som_id_d00_solution_bluep
 }
 SomListMetaRef d00_solution_blueprint_id_gloss_entr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST");
+  char *path = spec_path_join(x.ref.path, "glossaryAndAbbreviations/GLOSS-ENTR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_glossary_entry);
   free(path);
   return out;
@@ -219133,7 +218929,7 @@ SomListMetaRef d00_solution_blueprint_id_otagr_othe_lst(som_id_d00_solution_blue
 }
 SomListMetaRef d00_solution_blueprint_id_stkrg_stak_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/stakeholderRegister/STKRG-STAK-LST");
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/STKRG-STAK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_stakeholder_register_entry);
   free(path);
   return out;
@@ -219329,7 +219125,7 @@ SomListMetaRef d00_solution_blueprint_id_tepapo_item_lst(som_id_d00_solution_blu
 }
 SomListMetaRef d00_solution_blueprint_id_gape_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "currentLandscape/painPointsAndGaps/GAPE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_gap_entry);
   free(path);
   return out;
@@ -227358,7 +227154,7 @@ SomListMetaRef d01_current_landscape_assessment_id_tepapo_item_lst(som_id_d01_cu
 }
 SomListMetaRef d01_current_landscape_assessment_id_gape_item_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "painPointsAndGaps/gaps/GAPE-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "painPointsAndGaps/GAPE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_gap_entry);
   free(path);
   return out;

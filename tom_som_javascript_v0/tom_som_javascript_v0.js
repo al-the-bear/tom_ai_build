@@ -12119,8 +12119,8 @@ class DocCorrectness extends SomNode {
 // SBP.1 Document Control.
 //
 // Holds the [DocumentHeader] (id, project, version, date, author, status)
-// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-// that gate its release.
+// together with the document's revision history ([RevisionEntry] list) and
+// the [ApprovalRecord]s that gate its release.
 class DocumentControl extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -12145,7 +12145,7 @@ class DocumentControl extends SomNode {
 
   // Chronological revision history of this document.
   get revisionHistory() {
-    return new RevisionHistory(this.doc, this.path + "/revisionHistory");
+    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVHST-REVS-xxx");
   }
 
   // Formal approvals (sign-offs) recorded for this document.
@@ -15259,30 +15259,6 @@ class GapEntry extends SomNode {
   }
 }
 
-// 1.3.4. Gaps.
-class Gaps extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Contains 0+× Gap.
-  get items() {
-    return new SomList(this.doc, this.path + "/GAPE-ITEM-LST", (d, p) => new GapEntry(d, p), "GAPE-ITEM-xxx");
-  }
-}
-
 // Geographic distribution requirements.
 class GeographicDistributionRequirements extends SomNode {
   constructor(doc, path) {
@@ -15328,30 +15304,6 @@ class GlobalRoleExclusionEntry extends SomNode {
   }
 }
 
-// An ordered collection of glossary entries.
-class Glossary extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per defined term or acronym.
-  get entries() {
-    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d, p) => new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
-  }
-}
-
 // SBP.3 Glossary & Abbreviations.
 class GlossaryAndAbbreviations extends SomNode {
   constructor(doc, path) {
@@ -15372,7 +15324,7 @@ class GlossaryAndAbbreviations extends SomNode {
 
   // The set of defined terms and abbreviations.
   get glossary() {
-    return new Glossary(this.doc, this.path + "/glossary");
+    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d, p) => new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
   }
 }
 
@@ -21952,7 +21904,7 @@ class PainPointsAndGaps extends SomNode {
 
   // 1.3.4. Gaps.
   get gaps() {
-    return new Gaps(this.doc, this.path + "/gaps");
+    return new SomList(this.doc, this.path + "/GAPE-ITEM-LST", (d, p) => new GapEntry(d, p), "GAPE-ITEM-xxx");
   }
 
   // Cross-reference between pain points and gaps.
@@ -26694,30 +26646,6 @@ class RevisionEntry extends SomNode {
   }
 }
 
-// Chronological revision history.
-class RevisionHistory extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per published revision of the document.
-  get revisions() {
-    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVHST-REVS-xxx");
-  }
-}
-
 // Business impact assessment for the risk.
 class RiskBusinessImpact extends SomNode {
   constructor(doc, path) {
@@ -30740,35 +30668,6 @@ class StakeholderEntry extends SomNode {
   }
 }
 
-// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-//
-// This is the single source of truth for stakeholder role, interest,
-// influence, concerns and engagement strategy. SBP.2
-// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-// references this register rather than restating its attributes.
-class StakeholderRegister extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per stakeholder or stakeholder group.
-  get stakeholders() {
-    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d, p) => new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
-  }
-}
-
 // A single stakeholder register entry (form).
 //
 // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -30788,7 +30687,7 @@ class StakeholderRegisterEntry extends SomNode {
 // A scope-framing *benefits lens* over the stakeholder landscape: who
 // benefits from the system and what they gain. The canonical stakeholder
 // register — with role, interest, influence, concerns and engagement
-// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 // recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries extends SomNode {
   constructor(doc, path) {
@@ -30875,7 +30774,7 @@ class StakeholdersAndGovernance extends SomNode {
 
   // Stakeholder register (§5 completeness addition).
   get stakeholderRegister() {
-    return new StakeholderRegister(this.doc, this.path + "/stakeholderRegister");
+    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d, p) => new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
   }
 }
 
@@ -178699,10 +178598,8 @@ module.exports = {
   FunctionalResponsibilities,
   FunctionalSuitabilityCharacteristic,
   GapEntry,
-  Gaps,
   GeographicDistributionRequirements,
   GlobalRoleExclusionEntry,
-  Glossary,
   GlossaryAndAbbreviations,
   GlossaryEntry,
   GoalDependencies,
@@ -179109,7 +179006,6 @@ module.exports = {
   ReuseGoalEntry,
   ReviewCriterionEntry,
   RevisionEntry,
-  RevisionHistory,
   RiskBusinessImpact,
   RiskEntry,
   RiskIdentification,
@@ -179241,7 +179137,6 @@ module.exports = {
   StagingDrivers,
   StagingStrategy,
   StakeholderEntry,
-  StakeholderRegister,
   StakeholderRegisterEntry,
   StakeholdersAndBeneficiaries,
   StakeholdersAndGovernance,

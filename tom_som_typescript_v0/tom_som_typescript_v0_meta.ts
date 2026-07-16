@@ -10618,7 +10618,7 @@ function _mc_D00SolutionBlueprint(s: Set<string>): SomMetaNode[] {
         typeName: "DocumentControl",
         serializationOrder: 1,
         docComment: "SBP.1 Document Control (header + revision history + approvals).",
-        classDocComment: "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.",
+        classDocComment: "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.",
         recursive: r,
         children: c})),
      _cx("IntroductionAndScope", s, _mc_IntroductionAndScope,
@@ -17743,18 +17743,18 @@ function _mc_DocumentControl(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
-     _cx("RevisionHistory", s, _mc_RevisionHistory,
-      (r, c) => new SomMetaNode({
-        className: "RevisionHistory",
-        memberName: "revisionHistory",
-        classSectionId: "RVHST",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "RevisionHistory",
-        serializationOrder: 2,
-        docComment: "Chronological revision history of this document.",
-        classDocComment: "Chronological revision history.",
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "DocumentControl",
+      memberName: "revisionHistory",
+      sectionId: "RVHST-REVS-LST",
+      sectionIdPattern: "RVHST-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 2,
+      contentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.",
+      docComment: "Chronological revision history of this document.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "DocumentControl",
       memberName: "approvals",
@@ -22277,31 +22277,6 @@ function _mc_GapEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_Gaps(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "Gaps",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      unused: true,
-      contentType: new SomContentTypeMeta("text", "")}),
-     new SomMetaNode({
-      className: "Gaps",
-      memberName: "items",
-      sectionId: "GAPE-ITEM-LST",
-      sectionIdPattern: "GAPE-ITEM-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "GapEntry",
-      serializationOrder: 1,
-      contentHelp: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.",
-      docComment: "Contains 0+× Gap.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §6 — gap analysis (capability gap identification)"], "connotation": "The list of individual capability gaps documented in detail."})],
-      elementNode: _cx("GapEntry", s, _mc_GapEntry, (r, c) => new SomMetaNode({className: "GapEntry", classSectionId: "GAPE", kind: SomMetaKind.COMPLEX, typeName: "GapEntry", docComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", classDocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", recursive: r, children: c}))}),
-  ];
-}
-
 function _mc_GeographicDistributionRequirements(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -22366,30 +22341,6 @@ function _mc_GlobalRoleExclusionEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_Glossary(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "Glossary",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      unused: true,
-      contentType: new SomContentTypeMeta("text", "")}),
-     new SomMetaNode({
-      className: "Glossary",
-      memberName: "entries",
-      sectionId: "GLOSS-ENTR-LST",
-      sectionIdPattern: "GLOSS-ENTR-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "GlossaryEntry",
-      serializationOrder: 1,
-      contentHelp: "Add one entry per term or acronym, alphabetically ordered.",
-      docComment: "One entry per defined term or acronym.",
-      elementNode: _cx("GlossaryEntry", s, _mc_GlossaryEntry, (r, c) => new SomMetaNode({className: "GlossaryEntry", classSectionId: "GLENT", kind: SomMetaKind.COMPLEX, typeName: "GlossaryEntry", docComment: "A single glossary entry (form).", classDocComment: "A single glossary entry (form).", recursive: r, children: c}))}),
-  ];
-}
-
 function _mc_GlossaryAndAbbreviations(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -22399,18 +22350,18 @@ function _mc_GlossaryAndAbbreviations(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("description", "Introduce the glossary: scope, conventions, and how terms are maintained.")}),
-     _cx("Glossary", s, _mc_Glossary,
-      (r, c) => new SomMetaNode({
-        className: "Glossary",
-        memberName: "glossary",
-        classSectionId: "GLOSS",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "Glossary",
-        serializationOrder: 1,
-        docComment: "The set of defined terms and abbreviations.",
-        classDocComment: "An ordered collection of glossary entries.",
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "GlossaryAndAbbreviations",
+      memberName: "glossary",
+      sectionId: "GLOSS-ENTR-LST",
+      sectionIdPattern: "GLOSS-ENTR-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "GlossaryEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per term or acronym, alphabetically ordered.",
+      docComment: "The set of defined terms and abbreviations.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"], "connotation": "The ordered collection of defined terms and abbreviations."})],
+      elementNode: _cx("GlossaryEntry", s, _mc_GlossaryEntry, (r, c) => new SomMetaNode({className: "GlossaryEntry", classSectionId: "GLENT", kind: SomMetaKind.COMPLEX, typeName: "GlossaryEntry", docComment: "A single glossary entry (form).", classDocComment: "A single glossary entry (form).", recursive: r, children: c}))}),
   ];
 }
 
@@ -31975,18 +31926,18 @@ function _mc_PainPointsAndGaps(s: Set<string>): SomMetaNode[] {
         classDocComment: "1.3.3. Technical Pain Points.\n\nProblems that affect development and maintenance: outdated technology,\nsecurity vulnerabilities, lack of documentation, vendor lock-in,\nand technical debt.",
         recursive: r,
         children: c})),
-     _cx("Gaps", s, _mc_Gaps,
-      (r, c) => new SomMetaNode({
-        className: "Gaps",
-        memberName: "gaps",
-        classSectionId: "GAPS",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "Gaps",
-        serializationOrder: 7,
-        docComment: "1.3.4. Gaps.",
-        classDocComment: "1.3.4. Gaps.",
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "PainPointsAndGaps",
+      memberName: "gaps",
+      sectionId: "GAPE-ITEM-LST",
+      sectionIdPattern: "GAPE-ITEM-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "GapEntry",
+      serializationOrder: 7,
+      contentHelp: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.",
+      docComment: "1.3.4. Gaps.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §6 — gap analysis (capability gap identification)"], "connotation": "The list of individual capability gaps documented in detail."})],
+      elementNode: _cx("GapEntry", s, _mc_GapEntry, (r, c) => new SomMetaNode({className: "GapEntry", classSectionId: "GAPE", kind: SomMetaKind.COMPLEX, typeName: "GapEntry", docComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", classDocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", recursive: r, children: c}))}),
      _cx("PainPointGapCorrelation", s, _mc_PainPointGapCorrelation,
       (r, c) => new SomMetaNode({
         className: "PainPointGapCorrelation",
@@ -38767,31 +38718,6 @@ function _mc_RevisionEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_RevisionHistory(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "RevisionHistory",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      unused: true,
-      contentType: new SomContentTypeMeta("text", "")}),
-     new SomMetaNode({
-      className: "RevisionHistory",
-      memberName: "revisions",
-      sectionId: "RVHST-REVS-LST",
-      sectionIdPattern: "RVHST-REVS-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "RevisionEntry",
-      serializationOrder: 1,
-      contentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.",
-      docComment: "One entry per published revision of the document.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
-      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
-  ];
-}
-
 function _mc_Risk(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -44585,30 +44511,6 @@ function _mc_StakeholderEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_StakeholderRegister(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "StakeholderRegister",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      unused: true,
-      contentType: new SomContentTypeMeta("text", "")}),
-     new SomMetaNode({
-      className: "StakeholderRegister",
-      memberName: "stakeholders",
-      sectionId: "STKRG-STAK-LST",
-      sectionIdPattern: "STKRG-STAK-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "StakeholderRegisterEntry",
-      serializationOrder: 1,
-      contentHelp: "Add one entry per stakeholder or group (STK-NNN).",
-      docComment: "One entry per stakeholder or stakeholder group.",
-      elementNode: _cx("StakeholderRegisterEntry", s, _mc_StakeholderRegisterEntry, (r, c) => new SomMetaNode({className: "StakeholderRegisterEntry", classSectionId: "STKRE", kind: SomMetaKind.COMPLEX, typeName: "StakeholderRegisterEntry", docComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", classDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", recursive: r, children: c}))}),
-  ];
-}
-
 function _mc_StakeholderRegisterEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -44750,18 +44652,18 @@ function _mc_StakeholdersAndGovernance(s: Set<string>): SomMetaNode[] {
         classDocComment: "3.6. Legal and Contractual Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.",
         recursive: r,
         children: c})),
-     _cx("StakeholderRegister", s, _mc_StakeholderRegister,
-      (r, c) => new SomMetaNode({
-        className: "StakeholderRegister",
-        memberName: "stakeholderRegister",
-        classSectionId: "STKRG",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "StakeholderRegister",
-        serializationOrder: 8,
-        docComment: "Stakeholder register (§5 completeness addition).",
-        classDocComment: "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.",
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "StakeholdersAndGovernance",
+      memberName: "stakeholderRegister",
+      sectionId: "STKRG-STAK-LST",
+      sectionIdPattern: "STKRG-STAK-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "StakeholderRegisterEntry",
+      serializationOrder: 8,
+      contentHelp: "Add one entry per stakeholder or group (STK-NNN).",
+      docComment: "Stakeholder register (§5 completeness addition).",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"], "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."})],
+      elementNode: _cx("StakeholderRegisterEntry", s, _mc_StakeholderRegisterEntry, (r, c) => new SomMetaNode({className: "StakeholderRegisterEntry", classSectionId: "STKRE", kind: SomMetaKind.COMPLEX, typeName: "StakeholderRegisterEntry", docComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", classDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", recursive: r, children: c}))}),
   ];
 }
 
@@ -46708,7 +46610,7 @@ function _mc_SystemPurpose(s: Set<string>): SomMetaNode[] {
         typeName: "StakeholdersAndBeneficiaries",
         serializationOrder: 4,
         docComment: "4.1.1.3. Stakeholders and Beneficiaries.",
-        classDocComment: "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).",
+        classDocComment: "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).",
         recursive: r,
         children: c})),
      _cx("ValueProposition", s, _mc_ValueProposition,
@@ -62550,8 +62452,8 @@ export class DocumentControl$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
-  get revisionHistory(): RevisionHistory$Nav {
-    return new RevisionHistory$Nav(this.tree, this.path + "/revisionHistory");
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVHST-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get approvals(): SomListMetaRef<ApprovalRecord$Nav> {
@@ -64801,20 +64703,6 @@ export class GapEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `Gaps` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class Gaps$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get items(): SomListMetaRef<GapEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Nav(t, p));
-  }
-}
-
 // Dot-notation accessors of `GeographicDistributionRequirements` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -64851,20 +64739,6 @@ export class GlobalRoleExclusionEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `Glossary` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class Glossary$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get entries(): SomListMetaRef<GlossaryEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/GLOSS-ENTR-LST", (t: SomMetaTree, p: string) => new GlossaryEntry$Nav(t, p));
-  }
-}
-
 // Dot-notation accessors of `GlossaryAndAbbreviations` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -64874,8 +64748,8 @@ export class GlossaryAndAbbreviations$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
-  get glossary(): Glossary$Nav {
-    return new Glossary$Nav(this.tree, this.path + "/glossary");
+  get glossary(): SomListMetaRef<GlossaryEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/GLOSS-ENTR-LST", (t: SomMetaTree, p: string) => new GlossaryEntry$Nav(t, p));
   }
 }
 
@@ -69706,8 +69580,8 @@ export class PainPointsAndGaps$Nav extends SomMetaRef {
     return new TechnicalPainPoints$Nav(this.tree, this.path + "/technicalPainPoints");
   }
 
-  get gaps(): Gaps$Nav {
-    return new Gaps$Nav(this.tree, this.path + "/gaps");
+  get gaps(): SomListMetaRef<GapEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Nav(t, p));
   }
 
   get painPointGapCorrelation(): PainPointGapCorrelation$Nav {
@@ -73259,20 +73133,6 @@ export class RevisionEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `RevisionHistory` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class RevisionHistory$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get revisions(): SomListMetaRef<RevisionEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/RVHST-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
-  }
-}
-
 // Dot-notation accessors of `Risk` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -76219,20 +76079,6 @@ export class StakeholderEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `StakeholderRegister` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class StakeholderRegister$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get stakeholders(): SomListMetaRef<StakeholderRegisterEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/STKRG-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Nav(t, p));
-  }
-}
-
 // Dot-notation accessors of `StakeholderRegisterEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -76298,8 +76144,8 @@ export class StakeholdersAndGovernance$Nav extends SomMetaRef {
     return new LegalAndContractualRequirements$Nav(this.tree, this.path + "/legalAndContractual");
   }
 
-  get stakeholderRegister(): StakeholderRegister$Nav {
-    return new StakeholderRegister$Nav(this.tree, this.path + "/stakeholderRegister");
+  get stakeholderRegister(): SomListMetaRef<StakeholderRegisterEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/STKRG-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Nav(t, p));
   }
 }
 
@@ -82403,7 +82249,7 @@ export class CustomMetricEntry$Id extends SomMetaRef {
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D00SolutionBlueprint$Id extends SomMetaRef {
   get RVHST_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/documentControl/revisionHistory/RVHST-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/documentControl/RVHST-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
   }
 
   get DOCTL_APRV_LST(): SomListMetaRef<ApprovalRecord$Id> {
@@ -82875,7 +82721,7 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get GLOSS_ENTR_LST(): SomListMetaRef<GlossaryEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST", (t: SomMetaTree, p: string) => new GlossaryEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/glossaryAndAbbreviations/GLOSS-ENTR-LST", (t: SomMetaTree, p: string) => new GlossaryEntry$Id(t, p));
   }
 
   get ADMSM(): SomMetaRef {
@@ -83071,7 +82917,7 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get STKRG_STAK_LST(): SomListMetaRef<StakeholderRegisterEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/stakeholderRegister/STKRG-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/STKRG-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Id(t, p));
   }
 
   get ESENT_SYST_LST(): SomListMetaRef<ExistingSystemEntry$Id> {
@@ -83183,7 +83029,7 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get GAPE_ITEM_LST(): SomListMetaRef<GapEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/painPointsAndGaps/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Id(t, p));
   }
 
   get PPGC_CORR(): SomMetaRef {
@@ -87776,7 +87622,7 @@ export class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   }
 
   get GAPE_ITEM_LST(): SomListMetaRef<GapEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/painPointsAndGaps/GAPE-ITEM-LST", (t: SomMetaTree, p: string) => new GapEntry$Id(t, p));
   }
 
   get PPGC_CORR(): SomMetaRef {

@@ -12260,8 +12260,8 @@ public final class TomSomV0 {
   // SBP.1 Document Control.
   //
   // Holds the [DocumentHeader] (id, project, version, date, author, status)
-  // together with the document's [RevisionHistory] and the [ApprovalRecord]s
-  // that gate its release.
+  // together with the document's revision history ([RevisionEntry] list) and
+  // the [ApprovalRecord]s that gate its release.
   public static final class DocumentControl extends SomNode {
     public DocumentControl(SpecDocument doc, String path) {
       super(doc, path);
@@ -12287,8 +12287,8 @@ public final class TomSomV0 {
     }
 
     // Chronological revision history of this document.
-    public RevisionHistory revisionHistory() {
-      return new RevisionHistory(doc, path + "/revisionHistory");
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVHST-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVHST-REVS-xxx");
     }
 
     // Formal approvals (sign-offs) recorded for this document.
@@ -15405,32 +15405,6 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.3.4. Gaps.
-  public static final class Gaps extends SomNode {
-    public Gaps(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Contains 0+× Gap.
-    public SomList<GapEntry> items() {
-      return new SomList<>(doc, path + "/GAPE-ITEM-LST", (d, p) -> new GapEntry(d, p), "GAPE-ITEM-xxx");
-    }
-  }
-
   // Geographic distribution requirements.
   public static final class GeographicDistributionRequirements extends SomNode {
     public GeographicDistributionRequirements(SpecDocument doc, String path) {
@@ -15476,32 +15450,6 @@ public final class TomSomV0 {
     }
   }
 
-  // An ordered collection of glossary entries.
-  public static final class Glossary extends SomNode {
-    public Glossary(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // One entry per defined term or acronym.
-    public SomList<GlossaryEntry> entries() {
-      return new SomList<>(doc, path + "/GLOSS-ENTR-LST", (d, p) -> new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
-    }
-  }
-
   // SBP.3 Glossary & Abbreviations.
   public static final class GlossaryAndAbbreviations extends SomNode {
     public GlossaryAndAbbreviations(SpecDocument doc, String path) {
@@ -15523,8 +15471,8 @@ public final class TomSomV0 {
     }
 
     // The set of defined terms and abbreviations.
-    public Glossary glossary() {
-      return new Glossary(doc, path + "/glossary");
+    public SomList<GlossaryEntry> glossary() {
+      return new SomList<>(doc, path + "/GLOSS-ENTR-LST", (d, p) -> new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
     }
   }
 
@@ -22089,8 +22037,8 @@ public final class TomSomV0 {
     }
 
     // 1.3.4. Gaps.
-    public Gaps gaps() {
-      return new Gaps(doc, path + "/gaps");
+    public SomList<GapEntry> gaps() {
+      return new SomList<>(doc, path + "/GAPE-ITEM-LST", (d, p) -> new GapEntry(d, p), "GAPE-ITEM-xxx");
     }
 
     // Cross-reference between pain points and gaps.
@@ -26851,32 +26799,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Chronological revision history.
-  public static final class RevisionHistory extends SomNode {
-    public RevisionHistory(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // One entry per published revision of the document.
-    public SomList<RevisionEntry> revisions() {
-      return new SomList<>(doc, path + "/RVHST-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVHST-REVS-xxx");
-    }
-  }
-
   // Business impact assessment for the risk.
   public static final class RiskBusinessImpact extends SomNode {
     public RiskBusinessImpact(SpecDocument doc, String path) {
@@ -30898,37 +30820,6 @@ public final class TomSomV0 {
     }
   }
 
-  // The canonical register of the project's stakeholders (L34C-6 / SR-15).
-  //
-  // This is the single source of truth for stakeholder role, interest,
-  // influence, concerns and engagement strategy. SBP.2
-  // `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-  // references this register rather than restating its attributes.
-  public static final class StakeholderRegister extends SomNode {
-    public StakeholderRegister(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // One entry per stakeholder or stakeholder group.
-    public SomList<StakeholderRegisterEntry> stakeholders() {
-      return new SomList<>(doc, path + "/STKRG-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
-    }
-  }
-
   // A single stakeholder register entry (form).
   //
   // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -30948,7 +30839,7 @@ public final class TomSomV0 {
   // A scope-framing *benefits lens* over the stakeholder landscape: who
   // benefits from the system and what they gain. The canonical stakeholder
   // register — with role, interest, influence, concerns and engagement
-  // strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+  // strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
   // recorded there once and are not restated here (L34C-6 / SR-15).
   public static final class StakeholdersAndBeneficiaries extends SomNode {
     public StakeholdersAndBeneficiaries(SpecDocument doc, String path) {
@@ -31038,8 +30929,8 @@ public final class TomSomV0 {
     }
 
     // Stakeholder register (§5 completeness addition).
-    public StakeholderRegister stakeholderRegister() {
-      return new StakeholderRegister(doc, path + "/stakeholderRegister");
+    public SomList<StakeholderRegisterEntry> stakeholderRegister() {
+      return new SomList<>(doc, path + "/STKRG-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
     }
   }
 

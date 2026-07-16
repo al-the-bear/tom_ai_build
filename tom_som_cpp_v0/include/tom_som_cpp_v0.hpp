@@ -470,10 +470,8 @@ class FunctionalRequirements;
 class FunctionalResponsibilities;
 class FunctionalSuitabilityCharacteristic;
 class GapEntry;
-class Gaps;
 class GeographicDistributionRequirements;
 class GlobalRoleExclusionEntry;
-class Glossary;
 class GlossaryAndAbbreviations;
 class GlossaryEntry;
 class GoalDependencies;
@@ -880,7 +878,6 @@ class ReusableUiComponentEntry;
 class ReuseGoalEntry;
 class ReviewCriterionEntry;
 class RevisionEntry;
-class RevisionHistory;
 class RiskBusinessImpact;
 class RiskEntry;
 class RiskIdentification;
@@ -1012,7 +1009,6 @@ class StagingDependencies;
 class StagingDrivers;
 class StagingStrategy;
 class StakeholderEntry;
-class StakeholderRegister;
 class StakeholderRegisterEntry;
 class StakeholdersAndBeneficiaries;
 class StakeholdersAndGovernance;
@@ -10489,8 +10485,8 @@ class DocCorrectness : public som::SomNode {
 // SBP.1 Document Control.
 //
 // Holds the [DocumentHeader] (id, project, version, date, author, status)
-// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-// that gate its release.
+// together with the document's revision history ([RevisionEntry] list) and
+// the [ApprovalRecord]s that gate its release.
 class DocumentControl : public som::SomNode {
  public:
   DocumentControl(som::SpecDocument& doc, std::string path);
@@ -10499,7 +10495,8 @@ class DocumentControl : public som::SomNode {
   // Document header form (id, project, version, date, author, status).
   DocumentHeader header() const;
   // Chronological revision history of this document.
-  RevisionHistory revisionHistory() const;
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Formal approvals (sign-offs) recorded for this document.
   // Returns the list view; element type: ApprovalRecord (construct from item paths).
   som::SomList approvals() const;
@@ -12229,21 +12226,6 @@ class GapEntry : public som::SomNode {
   GapEntryResolutionForm resolution() const;
 };
 
-// 1.3.4. Gaps.
-class Gaps : public som::SomNode {
- public:
-  Gaps(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Contains 0+× Gap.
-  // Returns the list view; element type: GapEntry (construct from item paths).
-  som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
-};
-
 // Geographic distribution requirements.
 class GeographicDistributionRequirements : public som::SomNode {
  public:
@@ -12269,21 +12251,6 @@ class GlobalRoleExclusionEntry : public som::SomNode {
   GlobalRoleExclusionEntryContentForm content() const;
 };
 
-// An ordered collection of glossary entries.
-class Glossary : public som::SomNode {
- public:
-  Glossary(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // One entry per defined term or acronym.
-  // Returns the list view; element type: GlossaryEntry (construct from item paths).
-  som::SomList entries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
-};
-
 // SBP.3 Glossary & Abbreviations.
 class GlossaryAndAbbreviations : public som::SomNode {
  public:
@@ -12291,7 +12258,8 @@ class GlossaryAndAbbreviations : public som::SomNode {
   std::string content() const;
   void setContent(const std::string& value);
   // The set of defined terms and abbreviations.
-  Glossary glossary() const;
+  // Returns the list view; element type: GlossaryEntry (construct from item paths).
+  som::SomList glossary() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -15926,7 +15894,8 @@ class PainPointsAndGaps : public som::SomNode {
   // 1.3.3. Technical Pain Points.
   TechnicalPainPoints technicalPainPoints() const;
   // 1.3.4. Gaps.
-  Gaps gaps() const;
+  // Returns the list view; element type: GapEntry (construct from item paths).
+  som::SomList gaps() const;
   // Cross-reference between pain points and gaps.
   PainPointGapCorrelation painPointGapCorrelation() const;
   // This section type declares the standard `content` text leaf (§ item 10):
@@ -18600,21 +18569,6 @@ class RevisionEntry : public som::SomNode {
   RevisionEntryContentForm content() const;
 };
 
-// Chronological revision history.
-class RevisionHistory : public som::SomNode {
- public:
-  RevisionHistory(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // One entry per published revision of the document.
-  // Returns the list view; element type: RevisionEntry (construct from item paths).
-  som::SomList revisions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
-};
-
 // Business impact assessment for the risk.
 class RiskBusinessImpact : public som::SomNode {
  public:
@@ -20844,26 +20798,6 @@ class StakeholderEntry : public som::SomNode {
   StakeholderEntryContentForm content() const;
 };
 
-// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-//
-// This is the single source of truth for stakeholder role, interest,
-// influence, concerns and engagement strategy. SBP.2
-// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-// references this register rather than restating its attributes.
-class StakeholderRegister : public som::SomNode {
- public:
-  StakeholderRegister(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // One entry per stakeholder or stakeholder group.
-  // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
-  som::SomList stakeholders() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
-};
-
 // A single stakeholder register entry (form).
 //
 // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -20879,7 +20813,7 @@ class StakeholderRegisterEntry : public som::SomNode {
 // A scope-framing *benefits lens* over the stakeholder landscape: who
 // benefits from the system and what they gain. The canonical stakeholder
 // register — with role, interest, influence, concerns and engagement
-// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 // recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries : public som::SomNode {
  public:
@@ -20921,7 +20855,8 @@ class StakeholdersAndGovernance : public som::SomNode {
   // Renamed to `LegalAndContractualRequirements` in L34C-9.
   LegalAndContractualRequirements legalAndContractual() const;
   // Stakeholder register (§5 completeness addition).
-  StakeholderRegister stakeholderRegister() const;
+  // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
+  som::SomList stakeholderRegister() const;
   // This section type declares the standard `content` text leaf (§ item 10):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).

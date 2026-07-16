@@ -11928,8 +11928,8 @@ export class DocCorrectness extends SomNode {
 // SBP.1 Document Control.
 //
 // Holds the [DocumentHeader] (id, project, version, date, author, status)
-// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-// that gate its release.
+// together with the document's revision history ([RevisionEntry] list) and
+// the [ApprovalRecord]s that gate its release.
 export class DocumentControl extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11953,8 +11953,8 @@ export class DocumentControl extends SomNode {
   }
 
   // Chronological revision history of this document.
-  get revisionHistory(): RevisionHistory {
-    return new RevisionHistory(this.doc, this.path + "/revisionHistory");
+  get revisionHistory(): SomList<RevisionEntry> {
+    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d: SpecDocument, p: string) => new RevisionEntry(d, p), "RVHST-REVS-xxx");
   }
 
   // Formal approvals (sign-offs) recorded for this document.
@@ -15008,30 +15008,6 @@ export class GapEntry extends SomNode {
   }
 }
 
-// 1.3.4. Gaps.
-export class Gaps extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Contains 0+× Gap.
-  get items(): SomList<GapEntry> {
-    return new SomList(this.doc, this.path + "/GAPE-ITEM-LST", (d: SpecDocument, p: string) => new GapEntry(d, p), "GAPE-ITEM-xxx");
-  }
-}
-
 // Geographic distribution requirements.
 export class GeographicDistributionRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -15077,30 +15053,6 @@ export class GlobalRoleExclusionEntry extends SomNode {
   }
 }
 
-// An ordered collection of glossary entries.
-export class Glossary extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per defined term or acronym.
-  get entries(): SomList<GlossaryEntry> {
-    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d: SpecDocument, p: string) => new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
-  }
-}
-
 // SBP.3 Glossary & Abbreviations.
 export class GlossaryAndAbbreviations extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -15120,8 +15072,8 @@ export class GlossaryAndAbbreviations extends SomNode {
   }
 
   // The set of defined terms and abbreviations.
-  get glossary(): Glossary {
-    return new Glossary(this.doc, this.path + "/glossary");
+  get glossary(): SomList<GlossaryEntry> {
+    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d: SpecDocument, p: string) => new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
   }
 }
 
@@ -21560,8 +21512,8 @@ export class PainPointsAndGaps extends SomNode {
   }
 
   // 1.3.4. Gaps.
-  get gaps(): Gaps {
-    return new Gaps(this.doc, this.path + "/gaps");
+  get gaps(): SomList<GapEntry> {
+    return new SomList(this.doc, this.path + "/GAPE-ITEM-LST", (d: SpecDocument, p: string) => new GapEntry(d, p), "GAPE-ITEM-xxx");
   }
 
   // Cross-reference between pain points and gaps.
@@ -26219,30 +26171,6 @@ export class RevisionEntry extends SomNode {
   }
 }
 
-// Chronological revision history.
-export class RevisionHistory extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per published revision of the document.
-  get revisions(): SomList<RevisionEntry> {
-    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d: SpecDocument, p: string) => new RevisionEntry(d, p), "RVHST-REVS-xxx");
-  }
-}
-
 // Business impact assessment for the risk.
 export class RiskBusinessImpact extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -30185,35 +30113,6 @@ export class StakeholderEntry extends SomNode {
   }
 }
 
-// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-//
-// This is the single source of truth for stakeholder role, interest,
-// influence, concerns and engagement strategy. SBP.2
-// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-// references this register rather than restating its attributes.
-export class StakeholderRegister extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // One entry per stakeholder or stakeholder group.
-  get stakeholders(): SomList<StakeholderRegisterEntry> {
-    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d: SpecDocument, p: string) => new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
-  }
-}
-
 // A single stakeholder register entry (form).
 //
 // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -30233,7 +30132,7 @@ export class StakeholderRegisterEntry extends SomNode {
 // A scope-framing *benefits lens* over the stakeholder landscape: who
 // benefits from the system and what they gain. The canonical stakeholder
 // register — with role, interest, influence, concerns and engagement
-// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 // recorded there once and are not restated here (L34C-6 / SR-15).
 export class StakeholdersAndBeneficiaries extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -30319,8 +30218,8 @@ export class StakeholdersAndGovernance extends SomNode {
   }
 
   // Stakeholder register (§5 completeness addition).
-  get stakeholderRegister(): StakeholderRegister {
-    return new StakeholderRegister(this.doc, this.path + "/stakeholderRegister");
+  get stakeholderRegister(): SomList<StakeholderRegisterEntry> {
+    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d: SpecDocument, p: string) => new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
   }
 }
 

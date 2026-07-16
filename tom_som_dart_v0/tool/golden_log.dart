@@ -178,8 +178,7 @@ void main(List<String> args) {
 
   metaNode('SBP');
   metaNode('SBP/documentControl');
-  metaNode('SBP/documentControl/revisionHistory');
-  metaNode('SBP/documentControl/revisionHistory/RVHST-REVS-LST');
+  metaNode('SBP/documentControl/RVHST-REVS-LST');
   metaNode('SBP/introductionAndScope');
   metaNode('SBP/introductionAndScope/goals');
   metaNode('SBP/introductionAndScope/goals/content');
@@ -229,9 +228,9 @@ void main(List<String> args) {
 
   metaId(SBP, d00SolutionBlueprint);
   metaId(SBP.RVHST_REVS_LST,
-      d00SolutionBlueprint.documentControl.revisionHistory.revisions);
+      d00SolutionBlueprint.documentControl.revisionHistory);
   metaId(SBP.RVHST_REVS_LST.item(0),
-      d00SolutionBlueprint.documentControl.revisionHistory.revisions.item(0));
+      d00SolutionBlueprint.documentControl.revisionHistory.item(0));
 
   // DocSpecs validation: the shared markdown rendering of the sample validates
   // cleanly against the facade's generated Solution-Blueprint schema. root id,

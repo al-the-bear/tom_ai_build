@@ -3162,7 +3162,7 @@ func metaChildrenD00SolutionBlueprint(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "D00SolutionBlueprint", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		metaCx("DocumentControl", s, metaChildrenDocumentControl, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "documentControl", ClassSectionID: "DOCTL", Kind: som.SomMetaKindComplex, TypeName: "DocumentControl", SerializationOrder: metaIntPtr(1), DocComment: "SBP.1 Document Control (header + revision history + approvals).", ClassDocComment: "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "documentControl", ClassSectionID: "DOCTL", Kind: som.SomMetaKindComplex, TypeName: "DocumentControl", SerializationOrder: metaIntPtr(1), DocComment: "SBP.1 Document Control (header + revision history + approvals).", ClassDocComment: "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.", Recursive: r, Children: c}
 		}),
 		metaCx("IntroductionAndScope", s, metaChildrenIntroductionAndScope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "IntroductionAndScope", MemberName: "introductionAndScope", ClassSectionID: "INSC", Kind: som.SomMetaKindComplex, TypeName: "IntroductionAndScope", SerializationOrder: metaIntPtr(2), DocComment: "SBP.2 Introduction & Scope.", ClassDocComment: "4. Introduction & Scope.\n\nHigh-level overview of the system to be built: its purpose, goals,\nscope boundaries, and the environment it operates in. This section\nestablishes the foundation for all subsequent specification work.", Recursive: r, Children: c}
@@ -5137,9 +5137,13 @@ func metaChildrenDocumentControl(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Document header form (id, project, version, date, author, status).", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("RevisionHistory", s, metaChildrenRevisionHistory, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RevisionHistory", MemberName: "revisionHistory", ClassSectionID: "RVHST", Kind: som.SomMetaKindComplex, TypeName: "RevisionHistory", SerializationOrder: metaIntPtr(2), DocComment: "Chronological revision history of this document.", ClassDocComment: "Chronological revision history.", Recursive: r, Children: c}
-		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "revisionHistory", SectionID: "RVHST-REVS-LST", SectionIDPattern: "RVHST-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.", DocComment: "Chronological revision history of this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "approvals", SectionID: "DOCTL-APRV-LST", SectionIDPattern: "DOCTL-APRV-xxx", Kind: som.SomMetaKindList, TypeName: "ApprovalRecord", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.", DocComment: "Formal approvals (sign-offs) recorded for this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"}, "connotation": "The set of formal sign-offs required before this document is released."}}}}
 			n.ElementNode = metaCx("ApprovalRecord", s, metaChildrenApprovalRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6476,19 +6480,6 @@ func metaChildrenGapEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenGaps(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "Gaps", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "Gaps", MemberName: "items", SectionID: "GAPE-ITEM-LST", SectionIDPattern: "GAPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "GapEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.", DocComment: "Contains 0+× Gap.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §6 — gap analysis (capability gap identification)"}, "connotation": "The list of individual capability gaps documented in detail."}}}}
-			n.ElementNode = metaCx("GapEntry", s, metaChildrenGapEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "GapEntry", ClassSectionID: "GAPE", Kind: som.SomMetaKindComplex, TypeName: "GapEntry", DocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", ClassDocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-	}
-}
-
 func metaChildrenGeographicDistributionRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "GeographicDistributionRequirements", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "primaryRegion", TypeName: "String", Description: "Primary Region", Hint: "Primary deployment region", Order: 0}, {Name: "secondaryRegions", TypeName: "String", Description: "Secondary Regions", Hint: "Secondary/backup regions", Order: 1}, {Name: "edgeLocations", TypeName: "String", Description: "Edge Locations", Hint: "CDN edge locations", Order: 2}, {Name: "regionalCompliance", TypeName: "String", Description: "Regional Compliance", Hint: "Data residency requirements", Order: 3}}}},
@@ -6505,25 +6496,16 @@ func metaChildrenGlobalRoleExclusionEntry(s map[string]bool) []*som.SomMetaNode 
 	}
 }
 
-func metaChildrenGlossary(s map[string]bool) []*som.SomMetaNode {
+func metaChildrenGlossaryAndAbbreviations(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Glossary", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "GlossaryAndAbbreviations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Introduce the glossary: scope, conventions, and how terms are maintained."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "Glossary", MemberName: "entries", SectionID: "GLOSS-ENTR-LST", SectionIDPattern: "GLOSS-ENTR-xxx", Kind: som.SomMetaKindList, TypeName: "GlossaryEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per term or acronym, alphabetically ordered.", DocComment: "One entry per defined term or acronym."}
+			n := &som.SomMetaNode{ClassName: "GlossaryAndAbbreviations", MemberName: "glossary", SectionID: "GLOSS-ENTR-LST", SectionIDPattern: "GLOSS-ENTR-xxx", Kind: som.SomMetaKindList, TypeName: "GlossaryEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per term or acronym, alphabetically ordered.", DocComment: "The set of defined terms and abbreviations.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"}, "connotation": "The ordered collection of defined terms and abbreviations."}}}}
 			n.ElementNode = metaCx("GlossaryEntry", s, metaChildrenGlossaryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "GlossaryEntry", ClassSectionID: "GLENT", Kind: som.SomMetaKindComplex, TypeName: "GlossaryEntry", DocComment: "A single glossary entry (form).", ClassDocComment: "A single glossary entry (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-	}
-}
-
-func metaChildrenGlossaryAndAbbreviations(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "GlossaryAndAbbreviations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Introduce the glossary: scope, conventions, and how terms are maintained."}},
-		metaCx("Glossary", s, metaChildrenGlossary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Glossary", MemberName: "glossary", ClassSectionID: "GLOSS", Kind: som.SomMetaKindComplex, TypeName: "Glossary", SerializationOrder: metaIntPtr(1), DocComment: "The set of defined terms and abbreviations.", ClassDocComment: "An ordered collection of glossary entries.", Recursive: r, Children: c}
-		}),
 	}
 }
 
@@ -9275,9 +9257,13 @@ func metaChildrenPainPointsAndGaps(s map[string]bool) []*som.SomMetaNode {
 		metaCx("TechnicalPainPoints", s, metaChildrenTechnicalPainPoints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TechnicalPainPoints", MemberName: "technicalPainPoints", ClassSectionID: "TEPAPO", Kind: som.SomMetaKindComplex, TypeName: "TechnicalPainPoints", SerializationOrder: metaIntPtr(6), DocComment: "1.3.3. Technical Pain Points.", ClassDocComment: "1.3.3. Technical Pain Points.\n\nProblems that affect development and maintenance: outdated technology,\nsecurity vulnerabilities, lack of documentation, vendor lock-in,\nand technical debt.", Recursive: r, Children: c}
 		}),
-		metaCx("Gaps", s, metaChildrenGaps, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Gaps", MemberName: "gaps", ClassSectionID: "GAPS", Kind: som.SomMetaKindComplex, TypeName: "Gaps", SerializationOrder: metaIntPtr(7), DocComment: "1.3.4. Gaps.", ClassDocComment: "1.3.4. Gaps.", Recursive: r, Children: c}
-		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "PainPointsAndGaps", MemberName: "gaps", SectionID: "GAPE-ITEM-LST", SectionIDPattern: "GAPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "GapEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.", DocComment: "1.3.4. Gaps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §6 — gap analysis (capability gap identification)"}, "connotation": "The list of individual capability gaps documented in detail."}}}}
+			n.ElementNode = metaCx("GapEntry", s, metaChildrenGapEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "GapEntry", ClassSectionID: "GAPE", Kind: som.SomMetaKindComplex, TypeName: "GapEntry", DocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", ClassDocComment: "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("PainPointGapCorrelation", s, metaChildrenPainPointGapCorrelation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PainPointGapCorrelation", MemberName: "painPointGapCorrelation", ClassSectionID: "PPGC", Kind: som.SomMetaKindComplex, TypeName: "PainPointGapCorrelation", SerializationOrder: metaIntPtr(8), DocComment: "Cross-reference between pain points and gaps.", ClassDocComment: "Cross-reference analysis between pain points and gaps.", Recursive: r, Children: c}
 		}),
@@ -11469,19 +11455,6 @@ func metaChildrenRevisionEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenRevisionHistory(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "RevisionHistory", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "RevisionHistory", MemberName: "revisions", SectionID: "RVHST-REVS-LST", SectionIDPattern: "RVHST-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.", DocComment: "One entry per published revision of the document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
-			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-	}
-}
-
 func metaChildrenRisk(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "Risk", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskId", TypeName: "String", Description: "Risk ID (RISK-NNN)", Required: true, Order: 0}, {Name: "name", TypeName: "String", Description: "Name", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "probability", TypeName: "Probability", Description: "Probability", Order: 3}, {Name: "impact", TypeName: "Impact", Description: "Impact assessment", Order: 4}, {Name: "mitigation", TypeName: "String", Description: "Mitigation strategy", Order: 5}, {Name: "riskOwner", TypeName: "String", Description: "Risk Owner", Order: 6}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Order: 7}}}},
@@ -13095,19 +13068,6 @@ func metaChildrenStakeholderEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenStakeholderRegister(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "StakeholderRegister", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StakeholderRegister", MemberName: "stakeholders", SectionID: "STKRG-STAK-LST", SectionIDPattern: "STKRG-STAK-xxx", Kind: som.SomMetaKindList, TypeName: "StakeholderRegisterEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per stakeholder or group (STK-NNN).", DocComment: "One entry per stakeholder or stakeholder group."}
-			n.ElementNode = metaCx("StakeholderRegisterEntry", s, metaChildrenStakeholderRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "StakeholderRegisterEntry", ClassSectionID: "STKRE", Kind: som.SomMetaKindComplex, TypeName: "StakeholderRegisterEntry", DocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-	}
-}
-
 func metaChildrenStakeholderRegisterEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "StakeholderRegisterEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "stakeholderId", TypeName: "String", Description: "Stakeholder ID (STK-NNN)", Required: true, Order: 0}, {Name: "name", TypeName: "String", Description: "Name or Group", Required: true, Order: 1}, {Name: "role", TypeName: "String", Description: "Role", Required: true, Order: 2}, {Name: "interest", TypeName: "String", Description: "Interest (what they care about)", Order: 3}, {Name: "influence", TypeName: "String", Description: "Influence (High, Medium, Low)", Order: 4}, {Name: "concerns", TypeName: "String", Description: "Concerns", Order: 5}, {Name: "engagementStrategy", TypeName: "String", Description: "Engagement Strategy", Order: 6}}}},
@@ -13156,9 +13116,13 @@ func metaChildrenStakeholdersAndGovernance(s map[string]bool) []*som.SomMetaNode
 		metaCx("LegalAndContractualRequirements", s, metaChildrenLegalAndContractualRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LegalAndContractualRequirements", MemberName: "legalAndContractual", ClassSectionID: "LCR", Kind: som.SomMetaKindComplex, TypeName: "LegalAndContractualRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Legal and contractual requirements (IP, NDAs, compliance, audit).\nRenamed to `LegalAndContractualRequirements` in L34C-9.", ClassDocComment: "3.6. Legal and Contractual Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.", Recursive: r, Children: c}
 		}),
-		metaCx("StakeholderRegister", s, metaChildrenStakeholderRegister, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "StakeholderRegister", MemberName: "stakeholderRegister", ClassSectionID: "STKRG", Kind: som.SomMetaKindComplex, TypeName: "StakeholderRegister", SerializationOrder: metaIntPtr(8), DocComment: "Stakeholder register (§5 completeness addition).", ClassDocComment: "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.", Recursive: r, Children: c}
-		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "StakeholdersAndGovernance", MemberName: "stakeholderRegister", SectionID: "STKRG-STAK-LST", SectionIDPattern: "STKRG-STAK-xxx", Kind: som.SomMetaKindList, TypeName: "StakeholderRegisterEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per stakeholder or group (STK-NNN).", DocComment: "Stakeholder register (§5 completeness addition).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"}, "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."}}}}
+			n.ElementNode = metaCx("StakeholderRegisterEntry", s, metaChildrenStakeholderRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "StakeholderRegisterEntry", ClassSectionID: "STKRE", Kind: som.SomMetaKindComplex, TypeName: "StakeholderRegisterEntry", DocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -13732,7 +13696,7 @@ func metaChildrenSystemPurpose(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "OpportunityStatement", MemberName: "opportunityStatement", ClassSectionID: "OPPST", Kind: som.SomMetaKindComplex, TypeName: "OpportunityStatement", SerializationOrder: metaIntPtr(3), DocComment: "4.1.1.2. Opportunity Statement.", ClassDocComment: "4.1.1.2. Opportunity Statement.\n\nDescription of the opportunity this system enables — new capabilities,\ncompetitive advantages, or improvements over current state.", Recursive: r, Children: c}
 		}),
 		metaCx("StakeholdersAndBeneficiaries", s, metaChildrenStakeholdersAndBeneficiaries, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "StakeholdersAndBeneficiaries", MemberName: "stakeholders", ClassSectionID: "SAB", Kind: som.SomMetaKindComplex, TypeName: "StakeholdersAndBeneficiaries", SerializationOrder: metaIntPtr(4), DocComment: "4.1.1.3. Stakeholders and Beneficiaries.", ClassDocComment: "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "StakeholdersAndBeneficiaries", MemberName: "stakeholders", ClassSectionID: "SAB", Kind: som.SomMetaKindComplex, TypeName: "StakeholdersAndBeneficiaries", SerializationOrder: metaIntPtr(4), DocComment: "4.1.1.3. Stakeholders and Beneficiaries.", ClassDocComment: "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).", Recursive: r, Children: c}
 		}),
 		metaCx("ValueProposition", s, metaChildrenValueProposition, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ValueProposition", MemberName: "valueProposition", ClassSectionID: "VALPX", Kind: som.SomMetaKindComplex, TypeName: "ValueProposition", SerializationOrder: metaIntPtr(5), DocComment: "4.1.1.4. Value Proposition.", ClassDocComment: "4.1.1.4. Value Proposition.\n\nClear articulation of the value this system provides, including\nquantifiable benefits and return on investment analysis.", Recursive: r, Children: c}
@@ -27610,8 +27574,10 @@ func (x *DocumentControlNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
-func (x *DocumentControlNav) RevisionHistory() *RevisionHistoryNav {
-	return newRevisionHistoryNav(x.Tree, x.Path+"/revisionHistory")
+func (x *DocumentControlNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *DocumentControlNav) Approvals() *som.SomListMetaRef[*ApprovalRecordNav] {
@@ -30766,30 +30732,6 @@ func (x *GapEntryNav) Resolution() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GAENRE"}
 }
 
-// GapsNav holds the dot-notation accessors of `Gaps` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type GapsNav struct {
-	som.SomMetaRef
-}
-
-// newGapsNav binds a GapsNav accessor to a tree and a path.
-func newGapsNav(tree *som.SomMetaTree, path string) *GapsNav {
-	return &GapsNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *GapsNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *GapsNav) Items() *som.SomListMetaRef[*GapEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryNav {
-		return newGapEntryNav(t, p)
-	})
-}
-
 // GeographicDistributionRequirementsNav holds the dot-notation accessors of `GeographicDistributionRequirements` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -30842,30 +30784,6 @@ func (x *GlobalRoleExclusionEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-// GlossaryNav holds the dot-notation accessors of `Glossary` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type GlossaryNav struct {
-	som.SomMetaRef
-}
-
-// newGlossaryNav binds a GlossaryNav accessor to a tree and a path.
-func newGlossaryNav(tree *som.SomMetaTree, path string) *GlossaryNav {
-	return &GlossaryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *GlossaryNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *GlossaryNav) Entries() *som.SomListMetaRef[*GlossaryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryNav {
-		return newGlossaryEntryNav(t, p)
-	})
-}
-
 // GlossaryAndAbbreviationsNav holds the dot-notation accessors of `GlossaryAndAbbreviations` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -30884,8 +30802,10 @@ func (x *GlossaryAndAbbreviationsNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-func (x *GlossaryAndAbbreviationsNav) Glossary() *GlossaryNav {
-	return newGlossaryNav(x.Tree, x.Path+"/glossary")
+func (x *GlossaryAndAbbreviationsNav) Glossary() *som.SomListMetaRef[*GlossaryEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryNav {
+		return newGlossaryEntryNav(t, p)
+	})
 }
 
 // GlossaryEntryNav holds the dot-notation accessors of `GlossaryEntry` (DR1 §4.1).
@@ -37706,8 +37626,10 @@ func (x *PainPointsAndGapsNav) TechnicalPainPoints() *TechnicalPainPointsNav {
 	return newTechnicalPainPointsNav(x.Tree, x.Path+"/technicalPainPoints")
 }
 
-func (x *PainPointsAndGapsNav) Gaps() *GapsNav {
-	return newGapsNav(x.Tree, x.Path+"/gaps")
+func (x *PainPointsAndGapsNav) Gaps() *som.SomListMetaRef[*GapEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryNav {
+		return newGapEntryNav(t, p)
+	})
 }
 
 func (x *PainPointsAndGapsNav) PainPointGapCorrelation() *PainPointGapCorrelationNav {
@@ -42920,30 +42842,6 @@ func (x *RevisionEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-// RevisionHistoryNav holds the dot-notation accessors of `RevisionHistory` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type RevisionHistoryNav struct {
-	som.SomMetaRef
-}
-
-// newRevisionHistoryNav binds a RevisionHistoryNav accessor to a tree and a path.
-func newRevisionHistoryNav(tree *som.SomMetaTree, path string) *RevisionHistoryNav {
-	return &RevisionHistoryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *RevisionHistoryNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *RevisionHistoryNav) Revisions() *som.SomListMetaRef[*RevisionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
-		return newRevisionEntryNav(t, p)
-	})
-}
-
 // RiskNav holds the dot-notation accessors of `Risk` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -47066,30 +46964,6 @@ func (x *StakeholderEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-// StakeholderRegisterNav holds the dot-notation accessors of `StakeholderRegister` (DR1 §4.1).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type StakeholderRegisterNav struct {
-	som.SomMetaRef
-}
-
-// newStakeholderRegisterNav binds a StakeholderRegisterNav accessor to a tree and a path.
-func newStakeholderRegisterNav(tree *som.SomMetaTree, path string) *StakeholderRegisterNav {
-	return &StakeholderRegisterNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *StakeholderRegisterNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *StakeholderRegisterNav) Stakeholders() *som.SomListMetaRef[*StakeholderRegisterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryNav {
-		return newStakeholderRegisterEntryNav(t, p)
-	})
-}
-
 // StakeholderRegisterEntryNav holds the dot-notation accessors of `StakeholderRegisterEntry` (DR1 §4.1).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -47184,8 +47058,10 @@ func (x *StakeholdersAndGovernanceNav) LegalAndContractual() *LegalAndContractua
 	return newLegalAndContractualRequirementsNav(x.Tree, x.Path+"/legalAndContractual")
 }
 
-func (x *StakeholdersAndGovernanceNav) StakeholderRegister() *StakeholderRegisterNav {
-	return newStakeholderRegisterNav(x.Tree, x.Path+"/stakeholderRegister")
+func (x *StakeholdersAndGovernanceNav) StakeholderRegister() *som.SomListMetaRef[*StakeholderRegisterEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryNav {
+		return newStakeholderRegisterEntryNav(t, p)
+	})
 }
 
 // StakeholdersAndInterestsNav holds the dot-notation accessors of `StakeholdersAndInterests` (DR1 §4.1).
@@ -56005,7 +55881,7 @@ func newD00SolutionBlueprintID(tree *som.SomMetaTree, path string) *D00SolutionB
 }
 
 func (x *D00SolutionBlueprintID) RVHST_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/revisionHistory/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
 		return newRevisionEntryID(t, p)
 	})
 }
@@ -56603,7 +56479,7 @@ func (x *D00SolutionBlueprintID) RIEN_KEYR_LST() *som.SomListMetaRef[*RiskEntryI
 }
 
 func (x *D00SolutionBlueprintID) GLOSS_ENTR_LST() *som.SomListMetaRef[*GlossaryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/glossaryAndAbbreviations/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryID {
 		return newGlossaryEntryID(t, p)
 	})
 }
@@ -56859,7 +56735,7 @@ func (x *D00SolutionBlueprintID) OTAGR_OTHE_LST() *som.SomListMetaRef[*OtherAgre
 }
 
 func (x *D00SolutionBlueprintID) STKRG_STAK_LST() *som.SomListMetaRef[*StakeholderRegisterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/stakeholderRegister/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryID {
 		return newStakeholderRegisterEntryID(t, p)
 	})
 }
@@ -57005,7 +56881,7 @@ func (x *D00SolutionBlueprintID) TEPAPO_ITEM_LST() *som.SomListMetaRef[*PainPoin
 }
 
 func (x *D00SolutionBlueprintID) GAPE_ITEM_LST() *som.SomListMetaRef[*GapEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryID {
 		return newGapEntryID(t, p)
 	})
 }
@@ -62072,7 +61948,7 @@ func (x *D01CurrentLandscapeAssessmentID) TEPAPO_ITEM_LST() *som.SomListMetaRef[
 }
 
 func (x *D01CurrentLandscapeAssessmentID) GAPE_ITEM_LST() *som.SomListMetaRef[*GapEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/gaps/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryID {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/GAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *GapEntryID {
 		return newGapEntryID(t, p)
 	})
 }

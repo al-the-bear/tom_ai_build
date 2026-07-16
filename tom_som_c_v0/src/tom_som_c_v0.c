@@ -15494,10 +15494,10 @@ DocumentHeader document_control_header(const DocumentControl *self) {
   free(path);
   return out;
 }
-RevisionHistory document_control_revision_history(const DocumentControl *self) {
-  char *path = spec_path_join(self->node.path, "revisionHistory");
-  RevisionHistory out;
-  revision_history_init(&out, self->node.doc, path);
+SomList document_control_revision_history(const DocumentControl *self) {
+  char *path = spec_path_join(self->node.path, "RVHST-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVHST-REVS-xxx");
   free(path);
   return out;
 }
@@ -19448,36 +19448,6 @@ GapEntryResolutionForm gap_entry_resolution(const GapEntry *self) {
   return out;
 }
 
-void gaps_init(Gaps *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void gaps_free(Gaps *self) {
-  som_node_free(&self->node);
-}
-int gaps_can_have_content(const Gaps *self) {
-  (void)self;
-  return 1;
-}
-char *gaps_content(const Gaps *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void gaps_set_content(Gaps *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-SomList gaps_items(const Gaps *self) {
-  char *path = spec_path_join(self->node.path, "GAPE-ITEM-LST");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "GAPE-ITEM-xxx");
-  free(path);
-  return out;
-}
-
 void geographic_distribution_requirements_init(GeographicDistributionRequirements *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19542,36 +19512,6 @@ GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const Gl
   return out;
 }
 
-void glossary_init(Glossary *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void glossary_free(Glossary *self) {
-  som_node_free(&self->node);
-}
-int glossary_can_have_content(const Glossary *self) {
-  (void)self;
-  return 1;
-}
-char *glossary_content(const Glossary *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void glossary_set_content(Glossary *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-SomList glossary_entries(const Glossary *self) {
-  char *path = spec_path_join(self->node.path, "GLOSS-ENTR-LST");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "GLOSS-ENTR-xxx");
-  free(path);
-  return out;
-}
-
 void glossary_and_abbreviations_init(GlossaryAndAbbreviations *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19594,10 +19534,10 @@ void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, cons
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
-Glossary glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self) {
-  char *path = spec_path_join(self->node.path, "glossary");
-  Glossary out;
-  glossary_init(&out, self->node.doc, path);
+SomList glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self) {
+  char *path = spec_path_join(self->node.path, "GLOSS-ENTR-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "GLOSS-ENTR-xxx");
   free(path);
   return out;
 }
@@ -28012,10 +27952,10 @@ TechnicalPainPoints pain_points_and_gaps_technical_pain_points(const PainPointsA
   free(path);
   return out;
 }
-Gaps pain_points_and_gaps_gaps(const PainPointsAndGaps *self) {
-  char *path = spec_path_join(self->node.path, "gaps");
-  Gaps out;
-  gaps_init(&out, self->node.doc, path);
+SomList pain_points_and_gaps_gaps(const PainPointsAndGaps *self) {
+  char *path = spec_path_join(self->node.path, "GAPE-ITEM-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "GAPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -34218,36 +34158,6 @@ RevisionEntryContentForm revision_entry_content(const RevisionEntry *self) {
   return out;
 }
 
-void revision_history_init(RevisionHistory *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void revision_history_free(RevisionHistory *self) {
-  som_node_free(&self->node);
-}
-int revision_history_can_have_content(const RevisionHistory *self) {
-  (void)self;
-  return 1;
-}
-char *revision_history_content(const RevisionHistory *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void revision_history_set_content(RevisionHistory *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-SomList revision_history_revisions(const RevisionHistory *self) {
-  char *path = spec_path_join(self->node.path, "RVHST-REVS-LST");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RVHST-REVS-xxx");
-  free(path);
-  return out;
-}
-
 void risk_business_impact_init(RiskBusinessImpact *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -39319,36 +39229,6 @@ StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *se
   return out;
 }
 
-void stakeholder_register_init(StakeholderRegister *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void stakeholder_register_free(StakeholderRegister *self) {
-  som_node_free(&self->node);
-}
-int stakeholder_register_can_have_content(const StakeholderRegister *self) {
-  (void)self;
-  return 1;
-}
-char *stakeholder_register_content(const StakeholderRegister *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void stakeholder_register_set_content(StakeholderRegister *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-SomList stakeholder_register_stakeholders(const StakeholderRegister *self) {
-  char *path = spec_path_join(self->node.path, "STKRG-STAK-LST");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "STKRG-STAK-xxx");
-  free(path);
-  return out;
-}
-
 void stakeholder_register_entry_init(StakeholderRegisterEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -39475,10 +39355,10 @@ LegalAndContractualRequirements stakeholders_and_governance_legal_and_contractua
   free(path);
   return out;
 }
-StakeholderRegister stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self) {
-  char *path = spec_path_join(self->node.path, "stakeholderRegister");
-  StakeholderRegister out;
-  stakeholder_register_init(&out, self->node.doc, path);
+SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "STKRG-STAK-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "STKRG-STAK-xxx");
   free(path);
   return out;
 }

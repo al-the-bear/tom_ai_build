@@ -2397,12 +2397,6 @@ section-types:
     prefix: DVSP
     format: dvsp-form
     description: Forward-looking forecasts and utilization.
-  gaps:
-    prefix: GAPS
-    subsection-types:
-      gape-item-lst:
-        max-count: 1
-    description: 1.3.4. Gaps.
   mdsu:
     prefix: MDSU
     format: mdsu-form
@@ -2461,7 +2455,7 @@ section-types:
         max-count: 1
       tepapo:
         max-count: 1
-      gaps:
+      gape-item-lst:
         max-count: 1
       ppgc:
         max-count: 1

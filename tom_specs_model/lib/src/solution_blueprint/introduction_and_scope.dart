@@ -672,7 +672,7 @@ class OpportunityStatement {
 /// A scope-framing *benefits lens* over the stakeholder landscape: who
 /// benefits from the system and what they gain. The canonical stakeholder
 /// register — with role, interest, influence, concerns and engagement
-/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 /// recorded there once and are not restated here (L34C-6 / SR-15).
 @StandardReferences(
   [

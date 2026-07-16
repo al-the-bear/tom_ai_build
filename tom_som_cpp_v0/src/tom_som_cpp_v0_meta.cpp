@@ -494,10 +494,8 @@ void buildFunctionalRequirementsChildren(som::SomMetaNode& parent, std::vector<s
 void buildFunctionalResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFunctionalSuitabilityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildGapsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlobalRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildGlossaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlossaryAndAbbreviationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlossaryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGoalDependenciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -904,7 +902,6 @@ void buildReusableUiComponentEntryChildren(som::SomMetaNode& parent, std::vector
 void buildReuseGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReviewCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRevisionHistoryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskIdentificationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1036,7 +1033,6 @@ void buildStagingDependenciesChildren(som::SomMetaNode& parent, std::vector<std:
 void buildStagingDriversChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStagingStrategyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholderEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildStakeholderRegisterChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholderRegisterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholdersAndBeneficiariesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholdersAndGovernanceChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -18417,7 +18413,7 @@ void buildD00SolutionBlueprintChildren(som::SomMetaNode& parent, std::vector<std
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "SBP.1 Document Control (header + revision history + approvals).";
-        n.classDocComment = "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.";
+        n.classDocComment = "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.";
       },
       buildDocumentControlChildren);
     parent.addChild(std::move(n));
@@ -29301,20 +29297,29 @@ void buildDocumentControlChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("RevisionHistory", stack,
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "DocumentControl";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVHST-REVS-LST";
+    (*ln).sectionIdPattern = "RVHST-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 2;
+    (*ln).contentHelp = "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.";
+    (*ln).docComment = "Chronological revision history of this document.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
       [](som::SomMetaNode& n) {
-        n.className = "RevisionHistory";
-        n.memberName = "revisionHistory";
-        n.classSectionId = "RVHST";
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
         n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RevisionHistory";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
-        n.docComment = "Chronological revision history of this document.";
-        n.classDocComment = "Chronological revision history.";
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
       },
-      buildRevisionHistoryChildren);
-    parent.addChild(std::move(n));
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
   }
   {
     auto ln = std::make_unique<som::SomMetaNode>();
@@ -36740,46 +36745,6 @@ void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
   }
 }
 
-void buildGapsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "Gaps";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).unused = true;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    parent.addChild(std::move(n));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "Gaps";
-    (*ln).memberName = "items";
-    (*ln).sectionId = "GAPE-ITEM-LST";
-    (*ln).sectionIdPattern = "GAPE-ITEM-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "GapEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.";
-    (*ln).docComment = "Contains 0+× Gap.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §6 — gap analysis (capability gap identification)\"],\"connotation\":\"The list of individual capability gaps documented in detail.\"}", nullptr)});
-    ln->elementNode = metaCx("GapEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "GapEntry";
-        n.classSectionId = "GAPE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "GapEntry";
-        n.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
-        n.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
-      },
-      buildGapEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -36887,45 +36852,6 @@ void buildGlobalRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector
   }
 }
 
-void buildGlossaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "Glossary";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).unused = true;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    parent.addChild(std::move(n));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "Glossary";
-    (*ln).memberName = "entries";
-    (*ln).sectionId = "GLOSS-ENTR-LST";
-    (*ln).sectionIdPattern = "GLOSS-ENTR-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "GlossaryEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per term or acronym, alphabetically ordered.";
-    (*ln).docComment = "One entry per defined term or acronym.";
-    ln->elementNode = metaCx("GlossaryEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "GlossaryEntry";
-        n.classSectionId = "GLENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "GlossaryEntry";
-        n.docComment = "A single glossary entry (form).";
-        n.classDocComment = "A single glossary entry (form).";
-      },
-      buildGlossaryEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
 void buildGlossaryAndAbbreviationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -36939,20 +36865,29 @@ void buildGlossaryAndAbbreviationsChildren(som::SomMetaNode& parent, std::vector
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("Glossary", stack,
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "GlossaryAndAbbreviations";
+    (*ln).memberName = "glossary";
+    (*ln).sectionId = "GLOSS-ENTR-LST";
+    (*ln).sectionIdPattern = "GLOSS-ENTR-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GlossaryEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per term or acronym, alphabetically ordered.";
+    (*ln).docComment = "The set of defined terms and abbreviations.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations\"],\"connotation\":\"The ordered collection of defined terms and abbreviations.\"}", nullptr)});
+    ln->elementNode = metaCx("GlossaryEntry", stack,
       [](som::SomMetaNode& n) {
-        n.className = "Glossary";
-        n.memberName = "glossary";
-        n.classSectionId = "GLOSS";
+        n.className = "GlossaryEntry";
+        n.classSectionId = "GLENT";
         n.kind = som::kSomMetaKindComplex;
-        n.typeName = "Glossary";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 1;
-        n.docComment = "The set of defined terms and abbreviations.";
-        n.classDocComment = "An ordered collection of glossary entries.";
+        n.typeName = "GlossaryEntry";
+        n.docComment = "A single glossary entry (form).";
+        n.classDocComment = "A single glossary entry (form).";
       },
-      buildGlossaryChildren);
-    parent.addChild(std::move(n));
+      buildGlossaryEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -52632,20 +52567,29 @@ void buildPainPointsAndGapsChildren(som::SomMetaNode& parent, std::vector<std::s
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("Gaps", stack,
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "PainPointsAndGaps";
+    (*ln).memberName = "gaps";
+    (*ln).sectionId = "GAPE-ITEM-LST";
+    (*ln).sectionIdPattern = "GAPE-ITEM-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GapEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 7;
+    (*ln).contentHelp = "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.";
+    (*ln).docComment = "1.3.4. Gaps.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §6 — gap analysis (capability gap identification)\"],\"connotation\":\"The list of individual capability gaps documented in detail.\"}", nullptr)});
+    ln->elementNode = metaCx("GapEntry", stack,
       [](som::SomMetaNode& n) {
-        n.className = "Gaps";
-        n.memberName = "gaps";
-        n.classSectionId = "GAPS";
+        n.className = "GapEntry";
+        n.classSectionId = "GAPE";
         n.kind = som::kSomMetaKindComplex;
-        n.typeName = "Gaps";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
-        n.docComment = "1.3.4. Gaps.";
-        n.classDocComment = "1.3.4. Gaps.";
+        n.typeName = "GapEntry";
+        n.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
+        n.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
       },
-      buildGapsChildren);
-    parent.addChild(std::move(n));
+      buildGapEntryChildren);
+    parent.addChild(std::move(ln));
   }
   {
     auto n = metaCx("PainPointGapCorrelation", stack,
@@ -63859,46 +63803,6 @@ void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
   }
 }
 
-void buildRevisionHistoryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RevisionHistory";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).unused = true;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    parent.addChild(std::move(n));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "RevisionHistory";
-    (*ln).memberName = "revisions";
-    (*ln).sectionId = "RVHST-REVS-LST";
-    (*ln).sectionIdPattern = "RVHST-REVS-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RevisionEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.";
-    (*ln).docComment = "One entry per published revision of the document.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
-    ln->elementNode = metaCx("RevisionEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RevisionEntry";
-        n.classSectionId = "RVENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RevisionEntry";
-        n.docComment = "A single document revision entry (form).";
-        n.classDocComment = "A single document revision entry (form).";
-      },
-      buildRevisionEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
 void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -73358,45 +73262,6 @@ void buildStakeholderEntryChildren(som::SomMetaNode& parent, std::vector<std::st
   }
 }
 
-void buildStakeholderRegisterChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "StakeholderRegister";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).unused = true;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    parent.addChild(std::move(n));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "StakeholderRegister";
-    (*ln).memberName = "stakeholders";
-    (*ln).sectionId = "STKRG-STAK-LST";
-    (*ln).sectionIdPattern = "STKRG-STAK-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "StakeholderRegisterEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
-    (*ln).docComment = "One entry per stakeholder or stakeholder group.";
-    ln->elementNode = metaCx("StakeholderRegisterEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "StakeholderRegisterEntry";
-        n.classSectionId = "STKRE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "StakeholderRegisterEntry";
-        n.docComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
-        n.classDocComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
-      },
-      buildStakeholderRegisterEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
 void buildStakeholderRegisterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -73619,20 +73484,29 @@ void buildStakeholdersAndGovernanceChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("StakeholderRegister", stack,
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "StakeholdersAndGovernance";
+    (*ln).memberName = "stakeholderRegister";
+    (*ln).sectionId = "STKRG-STAK-LST";
+    (*ln).sectionIdPattern = "STKRG-STAK-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "StakeholderRegisterEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 8;
+    (*ln).contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
+    (*ln).docComment = "Stakeholder register (§5 completeness addition).";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)\"],\"connotation\":\"The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.\"}", nullptr)});
+    ln->elementNode = metaCx("StakeholderRegisterEntry", stack,
       [](som::SomMetaNode& n) {
-        n.className = "StakeholderRegister";
-        n.memberName = "stakeholderRegister";
-        n.classSectionId = "STKRG";
+        n.className = "StakeholderRegisterEntry";
+        n.classSectionId = "STKRE";
         n.kind = som::kSomMetaKindComplex;
-        n.typeName = "StakeholderRegister";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
-        n.docComment = "Stakeholder register (§5 completeness addition).";
-        n.classDocComment = "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.";
+        n.typeName = "StakeholderRegisterEntry";
+        n.docComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
+        n.classDocComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
       },
-      buildStakeholderRegisterChildren);
-    parent.addChild(std::move(n));
+      buildStakeholderRegisterEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -76734,7 +76608,7 @@ void buildSystemPurposeChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.docComment = "4.1.1.3. Stakeholders and Beneficiaries.";
-        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).";
       },
       buildStakeholdersAndBeneficiariesChildren);
     parent.addChild(std::move(n));
@@ -96696,8 +96570,8 @@ som::SomMetaRef navDocumentControl_content(NavDocumentControl x) {
 NavDocumentHeader navDocumentControl_header(NavDocumentControl x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
-NavRevisionHistory navDocumentControl_revisionHistory(NavDocumentControl x) {
-  return NavRevisionHistory{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "revisionHistory"))};
+som::SomListMetaRef navDocumentControl_revisionHistory(NavDocumentControl x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVHST-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 som::SomListMetaRef navDocumentControl_approvals(NavDocumentControl x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DOCTL-APRV-LST"), metaNavFactoryApprovalRecord);
@@ -97929,12 +97803,6 @@ som::SomMetaRef navGapEntry_workaround(NavGapEntry x) {
 som::SomMetaRef navGapEntry_resolution(NavGapEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAENRE"));
 }
-som::SomMetaRef navGaps_content(NavGaps x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomListMetaRef navGaps_items(NavGaps x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAPE-ITEM-LST"), metaNavFactoryGapEntry);
-}
 som::SomMetaRef navGeographicDistributionRequirements_content(NavGeographicDistributionRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -97953,17 +97821,11 @@ som::SomMetaRef navGeographicDistributionRequirements_performance(NavGeographicD
 som::SomMetaRef navGlobalRoleExclusionEntry_content(NavGlobalRoleExclusionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navGlossary_content(NavGlossary x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomListMetaRef navGlossary_entries(NavGlossary x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GLOSS-ENTR-LST"), metaNavFactoryGlossaryEntry);
-}
 som::SomMetaRef navGlossaryAndAbbreviations_content(NavGlossaryAndAbbreviations x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-NavGlossary navGlossaryAndAbbreviations_glossary(NavGlossaryAndAbbreviations x) {
-  return NavGlossary{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "glossary"))};
+som::SomListMetaRef navGlossaryAndAbbreviations_glossary(NavGlossaryAndAbbreviations x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GLOSS-ENTR-LST"), metaNavFactoryGlossaryEntry);
 }
 som::SomMetaRef navGlossaryEntry_content(NavGlossaryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100578,8 +100440,8 @@ NavBusinessPainPoints navPainPointsAndGaps_businessPainPoints(NavPainPointsAndGa
 NavTechnicalPainPoints navPainPointsAndGaps_technicalPainPoints(NavPainPointsAndGaps x) {
   return NavTechnicalPainPoints{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalPainPoints"))};
 }
-NavGaps navPainPointsAndGaps_gaps(NavPainPointsAndGaps x) {
-  return NavGaps{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gaps"))};
+som::SomListMetaRef navPainPointsAndGaps_gaps(NavPainPointsAndGaps x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAPE-ITEM-LST"), metaNavFactoryGapEntry);
 }
 NavPainPointGapCorrelation navPainPointsAndGaps_painPointGapCorrelation(NavPainPointsAndGaps x) {
   return NavPainPointGapCorrelation{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "painPointGapCorrelation"))};
@@ -102390,12 +102252,6 @@ som::SomMetaRef navReviewCriterionEntry_result(NavReviewCriterionEntry x) {
 som::SomMetaRef navRevisionEntry_content(NavRevisionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navRevisionHistory_content(NavRevisionHistory x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomListMetaRef navRevisionHistory_revisions(NavRevisionHistory x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVHST-REVS-LST"), metaNavFactoryRevisionEntry);
-}
 som::SomMetaRef navRiskBusinessImpact_content(NavRiskBusinessImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -103986,12 +103842,6 @@ som::SomListMetaRef navStagingStrategy_constraints(NavStagingStrategy x) {
 som::SomMetaRef navStakeholderEntry_content(NavStakeholderEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navStakeholderRegister_content(NavStakeholderRegister x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomListMetaRef navStakeholderRegister_stakeholders(NavStakeholderRegister x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STKRG-STAK-LST"), metaNavFactoryStakeholderRegisterEntry);
-}
 som::SomMetaRef navStakeholderRegisterEntry_content(NavStakeholderRegisterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -104028,8 +103878,8 @@ NavChangeProcedure navStakeholdersAndGovernance_changeProcedure(NavStakeholdersA
 NavLegalAndContractualRequirements navStakeholdersAndGovernance_legalAndContractual(NavStakeholdersAndGovernance x) {
   return NavLegalAndContractualRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "legalAndContractual"))};
 }
-NavStakeholderRegister navStakeholdersAndGovernance_stakeholderRegister(NavStakeholdersAndGovernance x) {
-  return NavStakeholderRegister{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholderRegister"))};
+som::SomListMetaRef navStakeholdersAndGovernance_stakeholderRegister(NavStakeholdersAndGovernance x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STKRG-STAK-LST"), metaNavFactoryStakeholderRegisterEntry);
 }
 som::SomMetaRef navStakeholdersAndInterests_content(NavStakeholdersAndInterests x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107297,7 +107147,7 @@ som::SomListMetaRef idCustomDistributionGroup_DSRC_MEMB_LST(IdCustomDistribution
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DSRC-MEMB-LST"), metaIdFactoryDistributionRecipientEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_RVHST_REVS_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "documentControl/revisionHistory/RVHST-REVS-LST"), metaIdFactoryRevisionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "documentControl/RVHST-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_DOCTL_APRV_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "documentControl/DOCTL-APRV-LST"), metaIdFactoryApprovalRecord);
@@ -107651,7 +107501,7 @@ som::SomListMetaRef idD00SolutionBlueprint_RIEN_KEYR_LST(IdD00SolutionBlueprint 
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST"), metaIdFactoryRiskEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_GLOSS_ENTR_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST"), metaIdFactoryGlossaryEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "glossaryAndAbbreviations/GLOSS-ENTR-LST"), metaIdFactoryGlossaryEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_ADMSM(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/ADMSM"));
@@ -107798,7 +107648,7 @@ som::SomListMetaRef idD00SolutionBlueprint_OTAGR_OTHE_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST"), metaIdFactoryOtherAgreementEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_STKRG_STAK_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/stakeholderRegister/STKRG-STAK-LST"), metaIdFactoryStakeholderRegisterEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/STKRG-STAK-LST"), metaIdFactoryStakeholderRegisterEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_ESENT_SYST_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST"), metaIdFactoryExistingSystemEntry);
@@ -107882,7 +107732,7 @@ som::SomListMetaRef idD00SolutionBlueprint_TEPAPO_ITEM_LST(IdD00SolutionBlueprin
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST"), metaIdFactoryPainPointEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_GAPE_ITEM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST"), metaIdFactoryGapEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/painPointsAndGaps/GAPE-ITEM-LST"), metaIdFactoryGapEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_PPGC_CORR(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR"));
@@ -111323,7 +111173,7 @@ som::SomListMetaRef idD01CurrentLandscapeAssessment_TEPAPO_ITEM_LST(IdD01Current
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST"), metaIdFactoryPainPointEntry);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_GAPE_ITEM_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "painPointsAndGaps/gaps/GAPE-ITEM-LST"), metaIdFactoryGapEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "painPointsAndGaps/GAPE-ITEM-LST"), metaIdFactoryGapEntry);
 }
 som::SomMetaRef idD01CurrentLandscapeAssessment_PPGC_CORR(IdD01CurrentLandscapeAssessment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "painPointsAndGaps/painPointGapCorrelation/PPGC-CORR"));

@@ -119,16 +119,16 @@ function testDotNotationSurface() {
   check('dot.meta-member', viaDot.memberName === 'introductionAndScope');
 
   // List positions expose item() with element accessors.
-  const revs = m.d00SolutionBlueprint.documentControl.revisionHistory.revisions;
+  const revs = m.d00SolutionBlueprint.documentControl.revisionHistory;
   check(
     'dot.list',
-    revs.path === 'SBP/documentControl/revisionHistory/RVHST-REVS-LST',
+    revs.path === 'SBP/documentControl/RVHST-REVS-LST',
     revs.path,
   );
   check(
     'dot.list-item',
     revs.item(3).path ===
-      'SBP/documentControl/revisionHistory/RVHST-REVS-LST-3',
+      'SBP/documentControl/RVHST-REVS-LST-3',
     revs.item(3).path,
   );
   // The list node's metadata carries the section-id pattern.
@@ -151,7 +151,7 @@ function testIdTreeSurface() {
   // A hoisted list id agrees with the dot-notation position. RVHST_REVS_LST
   // is hoisted onto the root Id class through the id-less
   // documentControl/revisionHistory members.
-  const revs = m.d00SolutionBlueprint.documentControl.revisionHistory.revisions;
+  const revs = m.d00SolutionBlueprint.documentControl.revisionHistory;
   check('id.hoisted-path', m.SBP.RVHST_REVS_LST.path === revs.path);
   check('id.hoisted-meta', m.SBP.RVHST_REVS_LST.meta === revs.meta);
   check(

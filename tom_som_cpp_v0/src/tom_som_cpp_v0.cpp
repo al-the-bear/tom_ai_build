@@ -6316,8 +6316,8 @@ void DocumentControl::setContent(const std::string& value) {
 DocumentHeader DocumentControl::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
-RevisionHistory DocumentControl::revisionHistory() const {
-  return RevisionHistory(doc(), som::joinPath(path(), "revisionHistory"));
+som::SomList DocumentControl::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVHST-REVS-LST"), "RVHST-REVS-xxx");
 }
 som::SomList DocumentControl::approvals() const {
   return som::SomList(doc(), som::joinPath(path(), "DOCTL-APRV-LST"), "DOCTL-APRV-xxx");
@@ -7868,18 +7868,6 @@ GapEntryResolutionForm GapEntry::resolution() const {
   return GapEntryResolutionForm(doc(), som::joinPath(path(), "GAENRE"));
 }
 
-Gaps::Gaps(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string Gaps::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void Gaps::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-som::SomList Gaps::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "GAPE-ITEM-LST"), "GAPE-ITEM-xxx");
-}
-
 GeographicDistributionRequirements::GeographicDistributionRequirements(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 GeographicDistributionRequirementsContentForm GeographicDistributionRequirements::content() const {
@@ -7904,18 +7892,6 @@ GlobalRoleExclusionEntryContentForm GlobalRoleExclusionEntry::content() const {
   return GlobalRoleExclusionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-Glossary::Glossary(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string Glossary::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void Glossary::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-som::SomList Glossary::entries() const {
-  return som::SomList(doc(), som::joinPath(path(), "GLOSS-ENTR-LST"), "GLOSS-ENTR-xxx");
-}
-
 GlossaryAndAbbreviations::GlossaryAndAbbreviations(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string GlossaryAndAbbreviations::content() const {
@@ -7924,8 +7900,8 @@ std::string GlossaryAndAbbreviations::content() const {
 void GlossaryAndAbbreviations::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
-Glossary GlossaryAndAbbreviations::glossary() const {
-  return Glossary(doc(), som::joinPath(path(), "glossary"));
+som::SomList GlossaryAndAbbreviations::glossary() const {
+  return som::SomList(doc(), som::joinPath(path(), "GLOSS-ENTR-LST"), "GLOSS-ENTR-xxx");
 }
 
 GlossaryEntry::GlossaryEntry(som::SpecDocument& doc, std::string path)
@@ -11206,8 +11182,8 @@ BusinessPainPoints PainPointsAndGaps::businessPainPoints() const {
 TechnicalPainPoints PainPointsAndGaps::technicalPainPoints() const {
   return TechnicalPainPoints(doc(), som::joinPath(path(), "technicalPainPoints"));
 }
-Gaps PainPointsAndGaps::gaps() const {
-  return Gaps(doc(), som::joinPath(path(), "gaps"));
+som::SomList PainPointsAndGaps::gaps() const {
+  return som::SomList(doc(), som::joinPath(path(), "GAPE-ITEM-LST"), "GAPE-ITEM-xxx");
 }
 PainPointGapCorrelation PainPointsAndGaps::painPointGapCorrelation() const {
   return PainPointGapCorrelation(doc(), som::joinPath(path(), "painPointGapCorrelation"));
@@ -13604,18 +13580,6 @@ RevisionEntryContentForm RevisionEntry::content() const {
   return RevisionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-RevisionHistory::RevisionHistory(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RevisionHistory::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RevisionHistory::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-som::SomList RevisionHistory::revisions() const {
-  return som::SomList(doc(), som::joinPath(path(), "RVHST-REVS-LST"), "RVHST-REVS-xxx");
-}
-
 RiskBusinessImpact::RiskBusinessImpact(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 RiskBusinessImpactContentForm RiskBusinessImpact::content() const {
@@ -15599,18 +15563,6 @@ StakeholderEntryContentForm StakeholderEntry::content() const {
   return StakeholderEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-StakeholderRegister::StakeholderRegister(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string StakeholderRegister::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StakeholderRegister::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-som::SomList StakeholderRegister::stakeholders() const {
-  return som::SomList(doc(), som::joinPath(path(), "STKRG-STAK-LST"), "STKRG-STAK-xxx");
-}
-
 StakeholderRegisterEntry::StakeholderRegisterEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 StakeholderRegisterEntryContentForm StakeholderRegisterEntry::content() const {
@@ -15661,8 +15613,8 @@ ChangeProcedure StakeholdersAndGovernance::changeProcedure() const {
 LegalAndContractualRequirements StakeholdersAndGovernance::legalAndContractual() const {
   return LegalAndContractualRequirements(doc(), som::joinPath(path(), "legalAndContractual"));
 }
-StakeholderRegister StakeholdersAndGovernance::stakeholderRegister() const {
-  return StakeholderRegister(doc(), som::joinPath(path(), "stakeholderRegister"));
+som::SomList StakeholdersAndGovernance::stakeholderRegister() const {
+  return som::SomList(doc(), som::joinPath(path(), "STKRG-STAK-LST"), "STKRG-STAK-xxx");
 }
 
 StakeholdersAndInterests::StakeholdersAndInterests(som::SpecDocument& doc, std::string path)

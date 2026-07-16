@@ -11549,8 +11549,8 @@ class DocumentControl(SomNode):
     """SBP.1 Document Control.
     
     Holds the [DocumentHeader] (id, project, version, date, author, status)
-    together with the document's [RevisionHistory] and the [ApprovalRecord]s
-    that gate its release.
+    together with the document's revision history ([RevisionEntry] list) and
+    the [ApprovalRecord]s that gate its release.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -11575,7 +11575,7 @@ class DocumentControl(SomNode):
     # Chronological revision history of this document.
     @property
     def revisionHistory(self):
-        return RevisionHistory(self.doc, f"{self.path}/revisionHistory")
+        return SomList(self.doc, f"{self.path}/RVHST-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVHST-REVS-xxx")
 
     # Formal approvals (sign-offs) recorded for this document.
     @property
@@ -14540,28 +14540,6 @@ class GapEntry(SomNode):
     def resolution(self):
         return GapEntryResolutionForm(self.doc, f"{self.path}/GAENRE")
 
-class Gaps(SomNode):
-    """1.3.4. Gaps."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Contains 0+× Gap.
-    @property
-    def items(self):
-        return SomList(self.doc, f"{self.path}/GAPE-ITEM-LST", lambda d, p: GapEntry(d, p), pattern="GAPE-ITEM-xxx")
-
 class GeographicDistributionRequirements(SomNode):
     """Geographic distribution requirements."""
     def __init__(self, doc, path):
@@ -14604,28 +14582,6 @@ class GlobalRoleExclusionEntry(SomNode):
     def content(self):
         return GlobalRoleExclusionEntryContentForm(self.doc, f"{self.path}/content")
 
-class Glossary(SomNode):
-    """An ordered collection of glossary entries."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # One entry per defined term or acronym.
-    @property
-    def entries(self):
-        return SomList(self.doc, f"{self.path}/GLOSS-ENTR-LST", lambda d, p: GlossaryEntry(d, p), pattern="GLOSS-ENTR-xxx")
-
 class GlossaryAndAbbreviations(SomNode):
     """SBP.3 Glossary & Abbreviations."""
     def __init__(self, doc, path):
@@ -14646,7 +14602,7 @@ class GlossaryAndAbbreviations(SomNode):
     # The set of defined terms and abbreviations.
     @property
     def glossary(self):
-        return Glossary(self.doc, f"{self.path}/glossary")
+        return SomList(self.doc, f"{self.path}/GLOSS-ENTR-LST", lambda d, p: GlossaryEntry(d, p), pattern="GLOSS-ENTR-xxx")
 
 class GlossaryEntry(SomNode):
     """A single glossary entry (form)."""
@@ -20886,7 +20842,7 @@ class PainPointsAndGaps(SomNode):
     # 1.3.4. Gaps.
     @property
     def gaps(self):
-        return Gaps(self.doc, f"{self.path}/gaps")
+        return SomList(self.doc, f"{self.path}/GAPE-ITEM-LST", lambda d, p: GapEntry(d, p), pattern="GAPE-ITEM-xxx")
 
     # Cross-reference between pain points and gaps.
     @property
@@ -25340,28 +25296,6 @@ class RevisionEntry(SomNode):
     def content(self):
         return RevisionEntryContentForm(self.doc, f"{self.path}/content")
 
-class RevisionHistory(SomNode):
-    """Chronological revision history."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # One entry per published revision of the document.
-    @property
-    def revisions(self):
-        return SomList(self.doc, f"{self.path}/RVHST-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVHST-REVS-xxx")
-
 class RiskBusinessImpact(SomNode):
     """Business impact assessment for the risk."""
     def __init__(self, doc, path):
@@ -29196,34 +29130,6 @@ class StakeholderEntry(SomNode):
     def content(self):
         return StakeholderEntryContentForm(self.doc, f"{self.path}/content")
 
-class StakeholderRegister(SomNode):
-    """The canonical register of the project's stakeholders (L34C-6 / SR-15).
-    
-    This is the single source of truth for stakeholder role, interest,
-    influence, concerns and engagement strategy. SBP.2
-    `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-    references this register rather than restating its attributes.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # One entry per stakeholder or stakeholder group.
-    @property
-    def stakeholders(self):
-        return SomList(self.doc, f"{self.path}/STKRG-STAK-LST", lambda d, p: StakeholderRegisterEntry(d, p), pattern="STKRG-STAK-xxx")
-
 class StakeholderRegisterEntry(SomNode):
     """A single stakeholder register entry (form).
     
@@ -29243,7 +29149,7 @@ class StakeholdersAndBeneficiaries(SomNode):
     A scope-framing *benefits lens* over the stakeholder landscape: who
     benefits from the system and what they gain. The canonical stakeholder
     register — with role, interest, influence, concerns and engagement
-    strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+    strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
     recorded there once and are not restated here (L34C-6 / SR-15).
     """
     def __init__(self, doc, path):
@@ -29328,7 +29234,7 @@ class StakeholdersAndGovernance(SomNode):
     # Stakeholder register (§5 completeness addition).
     @property
     def stakeholderRegister(self):
-        return StakeholderRegister(self.doc, f"{self.path}/stakeholderRegister")
+        return SomList(self.doc, f"{self.path}/STKRG-STAK-LST", lambda d, p: StakeholderRegisterEntry(d, p), pattern="STKRG-STAK-xxx")
 
 class StakeholdersAndInterests(SomNode):
     """Stakeholders and interests."""

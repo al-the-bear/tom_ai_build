@@ -125,11 +125,11 @@ func TestDotNotationSurface(t *testing.T) {
 	}
 
 	// List positions expose Item() with element accessors.
-	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory().Revisions()
-	if revs.Path != "SBP/documentControl/revisionHistory/RVHST-REVS-LST" {
+	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory()
+	if revs.Path != "SBP/documentControl/RVHST-REVS-LST" {
 		t.Errorf("dot list path = %q", revs.Path)
 	}
-	if got := revs.Item(3).Path; got != "SBP/documentControl/revisionHistory/RVHST-REVS-LST-3" {
+	if got := revs.Item(3).Path; got != "SBP/documentControl/RVHST-REVS-LST-3" {
 		t.Errorf("dot list-item path = %q", got)
 	}
 	// The list node's metadata carries the section-id pattern.
@@ -163,7 +163,7 @@ func TestIdTreeSurface(t *testing.T) {
 	// A hoisted list id agrees with the dot-notation position: RVHST_REVS_LST
 	// is hoisted onto the root ID type through the id-less documentControl /
 	// revisionHistory members.
-	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory().Revisions()
+	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory()
 	hoisted := SBP.RVHST_REVS_LST()
 	if hoisted.Path != revs.Path {
 		t.Errorf("hoisted path = %q != dot path %q", hoisted.Path, revs.Path)

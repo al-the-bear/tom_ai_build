@@ -3,7 +3,8 @@
 /// Consolidates the project's organizational and administrative framing:
 /// governance, steering, RACI (from [ProjectOrganizationAndProcess]) and the
 /// team, distribution list, change procedure, and legal/contractual
-/// requirements. A [StakeholderRegister] (§5 completeness addition) was added
+/// requirements. A stakeholder register ([StakeholderRegisterEntry] list, §5
+/// completeness addition) was added
 /// in IP-6. The former `Administrative` (`ADMN`) wrapper was dissolved in
 /// L34C-5: its children now hang directly off this node, and
 /// `ReferenceDocuments` was re-homed to SBP.1 `DocumentControl`.
@@ -135,33 +136,16 @@ from standard organizational project governance procedures.
       LegalAndContractualRequirements();
 
   /// Stakeholder register (§5 completeness addition).
-  @SerializationOrder(8)
-  StakeholderRegister stakeholderRegister = StakeholderRegister();
-}
-
-/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-///
-/// This is the single source of truth for stakeholder role, interest,
-/// influence, concerns and engagement strategy. SBP.2
-/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-/// references this register rather than restating its attributes.
-@StandardReferences(
-  ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
-  'The canonical source of truth for the role, interest, influence, concerns, '
-  'and engagement strategy of each stakeholder.',
-)
-@SectionId('STKRG')
-class StakeholderRegister {
-  @Unused()
-  @SerializationOrder(0)
-  String? content;
-
-  /// One entry per stakeholder or stakeholder group.
+  @StandardReferences(
+    ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
+    'The canonical source of truth for the role, interest, influence, concerns, '
+    'and engagement strategy of each stakeholder.',
+  )
   @SectionId('STKRG-STAK-LST')
   @SectionIdPattern('STKRG-STAK-xxx')
   @ContentHelp('Add one entry per stakeholder or group (STK-NNN).')
-  @SerializationOrder(1)
-  List<StakeholderRegisterEntry> stakeholders = [];
+  @SerializationOrder(8)
+  List<StakeholderRegisterEntry> stakeholderRegister = [];
 }
 
 /// A single stakeholder register entry (form).

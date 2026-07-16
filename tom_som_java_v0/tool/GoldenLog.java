@@ -144,8 +144,7 @@ public final class GoldenLog {
     out.add("SECTION\tmeta");
     metaNode(out, metaTree, "SBP");
     metaNode(out, metaTree, "SBP/documentControl");
-    metaNode(out, metaTree, "SBP/documentControl/revisionHistory");
-    metaNode(out, metaTree, "SBP/documentControl/revisionHistory/RVHST-REVS-LST");
+    metaNode(out, metaTree, "SBP/documentControl/RVHST-REVS-LST");
     metaNode(out, metaTree, "SBP/introductionAndScope");
     metaNode(out, metaTree, "SBP/introductionAndScope/goals");
     metaNode(out, metaTree, "SBP/introductionAndScope/goals/content");
@@ -176,10 +175,10 @@ public final class GoldenLog {
     out.add("SECTION\tmeta-id");
     metaId(out, TomSomV0Meta.SBP, TomSomV0Meta.D00SolutionBlueprintMeta);
     metaId(out, TomSomV0Meta.SBP.RVHST_REVS_LST(),
-        TomSomV0Meta.D00SolutionBlueprintMeta.documentControl().revisionHistory().revisions());
+        TomSomV0Meta.D00SolutionBlueprintMeta.documentControl().revisionHistory());
     metaId(out, TomSomV0Meta.SBP.RVHST_REVS_LST().item(0),
         TomSomV0Meta.D00SolutionBlueprintMeta.documentControl().revisionHistory()
-            .revisions().item(0));
+            .item(0));
 
     out.add("SECTION\tdocspecs");
     String schemaText = new String(Files.readAllBytes(Paths.get(

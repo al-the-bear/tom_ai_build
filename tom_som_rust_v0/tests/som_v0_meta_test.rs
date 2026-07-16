@@ -163,14 +163,14 @@ fn dot_notation_surface() {
     assert_eq!(via_dot.member_name, "introductionAndScope", "member name");
 
     // List positions expose item() with element accessors.
-    let revs = dot.document_control().revision_history().revisions();
+    let revs = dot.document_control().revision_history();
     assert_eq!(
-        revs.meta_ref.path, "SBP/documentControl/revisionHistory/RVHST-REVS-LST",
+        revs.meta_ref.path, "SBP/documentControl/RVHST-REVS-LST",
         "dot list path"
     );
     assert_eq!(
         revs.item(3).path(),
-        "SBP/documentControl/revisionHistory/RVHST-REVS-LST-3",
+        "SBP/documentControl/RVHST-REVS-LST-3",
         "dot list-item path"
     );
     // The list node's metadata carries the section-id pattern.
@@ -235,7 +235,7 @@ fn id_tree_surface() {
     // A hoisted list id agrees with the dot-notation position: RVHST_REVS_LST
     // is hoisted onto the root ID type through the id-less documentControl /
     // revisionHistory members.
-    let revs = dot.document_control().revision_history().revisions();
+    let revs = dot.document_control().revision_history();
     let hoisted = sbp.RVHST_REVS_LST();
     assert_eq!(
         hoisted.meta_ref.path, revs.meta_ref.path,

@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+8.1acef99",
-  "classCount": 1222,
+  "classCount": 1218,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -84355,7 +84355,7 @@
     "DocumentControl": {
       "name": "DocumentControl",
       "sectionId": "DOCTL",
-      "doc": "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.",
+      "doc": "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.",
       "help": "Fill in the document header, then maintain the revision history, approvals, and reference-document catalogue as the specification evolves. This section governs the document — not the system it describes.",
       "standardReferences": {
         "standards": [
@@ -84421,10 +84421,46 @@
         },
         {
           "name": "revisionHistory",
-          "kind": "complex",
+          "kind": "list",
           "doc": "Chronological revision history of this document.",
+          "help": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.",
+          "sectionId": "RVHST-REVS-LST",
+          "sectionIdPattern": "RVHST-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVHST-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVHST-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -84432,7 +84468,8 @@
               }
             }
           ],
-          "type": "RevisionHistory"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
           "name": "approvals",
@@ -108225,105 +108262,6 @@
         }
       ]
     },
-    "Gaps": {
-      "name": "Gaps",
-      "sectionId": "GAPS",
-      "doc": "1.3.4. Gaps.",
-      "standardReferences": {
-        "standards": [
-          "BABOK v3 §6 — gap analysis (current vs. desired state)"
-        ],
-        "connotation": "The set of missing or inadequate capabilities — the differences between what the current state delivers and what the business needs."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BABOK v3 §6 — gap analysis (current vs. desired state)"
-            ],
-            "connotation": "The set of missing or inadequate capabilities — the differences between what the current state delivers and what the business needs."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "GAPS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "Unused"
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "items",
-          "kind": "list",
-          "doc": "Contains 0+× Gap.",
-          "help": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.",
-          "sectionId": "GAPE-ITEM-LST",
-          "sectionIdPattern": "GAPE-ITEM-xxx",
-          "standardReferences": {
-            "standards": [
-              "BABOK v3 §6 — gap analysis (capability gap identification)"
-            ],
-            "connotation": "The list of individual capability gaps documented in detail."
-          },
-          "serializationOrder": 1,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "BABOK v3 §6 — gap analysis (capability gap identification)"
-                ],
-                "connotation": "The list of individual capability gaps documented in detail."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "GAPE-ITEM-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "GAPE-ITEM-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 1
-              }
-            }
-          ],
-          "elementType": "GapEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
     "GeographicDistributionRequirements": {
       "name": "GeographicDistributionRequirements",
       "sectionId": "GEDIRE",
@@ -108755,90 +108693,6 @@
         }
       ]
     },
-    "Glossary": {
-      "name": "Glossary",
-      "sectionId": "GLOSS",
-      "doc": "An ordered collection of glossary entries.",
-      "standardReferences": {
-        "standards": [
-          "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
-        ],
-        "connotation": "The ordered collection of defined terms and abbreviations."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
-            ],
-            "connotation": "The ordered collection of defined terms and abbreviations."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "GLOSS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "Unused"
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "entries",
-          "kind": "list",
-          "doc": "One entry per defined term or acronym.",
-          "help": "Add one entry per term or acronym, alphabetically ordered.",
-          "sectionId": "GLOSS-ENTR-LST",
-          "sectionIdPattern": "GLOSS-ENTR-xxx",
-          "serializationOrder": 1,
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "GLOSS-ENTR-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "GLOSS-ENTR-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per term or acronym, alphabetically ordered."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 1
-              }
-            }
-          ],
-          "elementType": "GlossaryEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
     "GlossaryAndAbbreviations": {
       "name": "GlossaryAndAbbreviations",
       "sectionId": "GLAB",
@@ -108890,10 +108744,46 @@
         },
         {
           "name": "glossary",
-          "kind": "complex",
+          "kind": "list",
           "doc": "The set of defined terms and abbreviations.",
+          "help": "Add one entry per term or acronym, alphabetically ordered.",
+          "sectionId": "GLOSS-ENTR-LST",
+          "sectionIdPattern": "GLOSS-ENTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+            ],
+            "connotation": "The ordered collection of defined terms and abbreviations."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+                ],
+                "connotation": "The ordered collection of defined terms and abbreviations."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GLOSS-ENTR-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "GLOSS-ENTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per term or acronym, alphabetically ordered."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -108901,7 +108791,8 @@
               }
             }
           ],
-          "type": "Glossary"
+          "elementType": "GlossaryEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -160596,10 +160487,46 @@
         },
         {
           "name": "gaps",
-          "kind": "complex",
+          "kind": "list",
           "doc": "1.3.4. Gaps.",
+          "help": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.",
+          "sectionId": "GAPE-ITEM-LST",
+          "sectionIdPattern": "GAPE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (capability gap identification)"
+            ],
+            "connotation": "The list of individual capability gaps documented in detail."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §6 — gap analysis (capability gap identification)"
+                ],
+                "connotation": "The list of individual capability gaps documented in detail."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GAPE-ITEM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "GAPE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -160607,7 +160534,8 @@
               }
             }
           ],
-          "type": "Gaps"
+          "elementType": "GapEntry",
+          "elementIsComplex": true
         },
         {
           "name": "painPointGapCorrelation",
@@ -198649,112 +198577,6 @@
         }
       ]
     },
-    "RevisionHistory": {
-      "name": "RevisionHistory",
-      "sectionId": "RVHST",
-      "doc": "Chronological revision history.",
-      "help": "Record one entry per published revision so readers can trace how the document evolved. Keep entries in chronological order, newest last.",
-      "standardReferences": {
-        "standards": [
-          "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
-        ],
-        "connotation": "The chronological record of how this document has changed across its published revisions."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
-            ],
-            "connotation": "The chronological record of how this document has changed across its published revisions."
-          }
-        },
-        {
-          "name": "ContentHelp",
-          "arguments": {
-            "guidance": "Record one entry per published revision so readers can trace how the document evolved. Keep entries in chronological order, newest last."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RVHST"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "Unused"
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "revisions",
-          "kind": "list",
-          "doc": "One entry per published revision of the document.",
-          "help": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.",
-          "sectionId": "RVHST-REVS-LST",
-          "sectionIdPattern": "RVHST-REVS-xxx",
-          "standardReferences": {
-            "standards": [
-              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
-            ],
-            "connotation": "The ordered set of published revisions of this document."
-          },
-          "serializationOrder": 1,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
-                ],
-                "connotation": "The ordered set of published revisions of this document."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "RVHST-REVS-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "RVHST-REVS-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 1
-              }
-            }
-          ],
-          "elementType": "RevisionEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
     "Risk": {
       "name": "Risk",
       "sectionId": "RISK",
@@ -230632,90 +230454,6 @@
         }
       ]
     },
-    "StakeholderRegister": {
-      "name": "StakeholderRegister",
-      "sectionId": "STKRG",
-      "doc": "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.",
-      "standardReferences": {
-        "standards": [
-          "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
-        ],
-        "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
-            ],
-            "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "STKRG"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "Unused"
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "stakeholders",
-          "kind": "list",
-          "doc": "One entry per stakeholder or stakeholder group.",
-          "help": "Add one entry per stakeholder or group (STK-NNN).",
-          "sectionId": "STKRG-STAK-LST",
-          "sectionIdPattern": "STKRG-STAK-xxx",
-          "serializationOrder": 1,
-          "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "STKRG-STAK-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "STKRG-STAK-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per stakeholder or group (STK-NNN)."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 1
-              }
-            }
-          ],
-          "elementType": "StakeholderRegisterEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
     "StakeholderRegisterEntry": {
       "name": "StakeholderRegisterEntry",
       "sectionId": "STKRE",
@@ -230812,7 +230550,7 @@
     "StakeholdersAndBeneficiaries": {
       "name": "StakeholdersAndBeneficiaries",
       "sectionId": "SAB",
-      "doc": "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).",
+      "doc": "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).",
       "help": "Identify the stakeholders and beneficiaries from a benefits perspective: who they are and the value they gain from the system. Record the canonical register (role, interest, influence, engagement) once, in SBP.4 StakeholderRegister — reference it here, do not restate it.",
       "standardReferences": {
         "standards": [
@@ -231239,10 +230977,46 @@
         },
         {
           "name": "stakeholderRegister",
-          "kind": "complex",
+          "kind": "list",
           "doc": "Stakeholder register (§5 completeness addition).",
+          "help": "Add one entry per stakeholder or group (STK-NNN).",
+          "sectionId": "STKRG-STAK-LST",
+          "sectionIdPattern": "STKRG-STAK-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+            ],
+            "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+                ],
+                "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "STKRG-STAK-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "STKRG-STAK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per stakeholder or group (STK-NNN)."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -231250,7 +231024,8 @@
               }
             }
           ],
-          "type": "StakeholderRegister"
+          "elementType": "StakeholderRegisterEntry",
+          "elementIsComplex": true
         }
       ]
     },

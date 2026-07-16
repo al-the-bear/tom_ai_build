@@ -7683,8 +7683,8 @@ class DocCorrectness extends SomNode {
 /// SBP.1 Document Control.
 /// 
 /// Holds the [DocumentHeader] (id, project, version, date, author, status)
-/// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-/// that gate its release.
+/// together with the document's revision history ([RevisionEntry] list) and
+/// the [ApprovalRecord]s that gate its release.
 class DocumentControl extends SomNode {
   DocumentControl(super.doc, super.path);
 
@@ -7698,7 +7698,7 @@ class DocumentControl extends SomNode {
   DocumentHeader get header => DocumentHeader(doc, '$path/header');
 
   /// Chronological revision history of this document.
-  RevisionHistory get revisionHistory => RevisionHistory(doc, '$path/revisionHistory');
+  SomList<RevisionEntry> get revisionHistory => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p), pattern: 'RVHST-REVS-xxx');
 
   /// Formal approvals (sign-offs) recorded for this document.
   SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p), pattern: 'DOCTL-APRV-xxx');
@@ -9656,20 +9656,6 @@ class GapEntry extends SomNode {
   GapEntryResolutionForm get resolution => GapEntryResolutionForm(doc, '$path/GAENRE');
 }
 
-/// 1.3.4. Gaps.
-class Gaps extends SomNode {
-  Gaps(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Contains 0+× Gap.
-  SomList<GapEntry> get items => SomList<GapEntry>(doc, '$path/GAPE-ITEM-LST', (d, p) => GapEntry(d, p), pattern: 'GAPE-ITEM-xxx');
-}
-
 /// Geographic distribution requirements.
 class GeographicDistributionRequirements extends SomNode {
   GeographicDistributionRequirements(super.doc, super.path);
@@ -9699,20 +9685,6 @@ class GlobalRoleExclusionEntry extends SomNode {
   GlobalRoleExclusionEntryContentForm get content => GlobalRoleExclusionEntryContentForm(doc, '$path/content');
 }
 
-/// An ordered collection of glossary entries.
-class Glossary extends SomNode {
-  Glossary(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// One entry per defined term or acronym.
-  SomList<GlossaryEntry> get entries => SomList<GlossaryEntry>(doc, '$path/GLOSS-ENTR-LST', (d, p) => GlossaryEntry(d, p), pattern: 'GLOSS-ENTR-xxx');
-}
-
 /// SBP.3 Glossary & Abbreviations.
 class GlossaryAndAbbreviations extends SomNode {
   GlossaryAndAbbreviations(super.doc, super.path);
@@ -9724,7 +9696,7 @@ class GlossaryAndAbbreviations extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// The set of defined terms and abbreviations.
-  Glossary get glossary => Glossary(doc, '$path/glossary');
+  SomList<GlossaryEntry> get glossary => SomList<GlossaryEntry>(doc, '$path/GLOSS-ENTR-LST', (d, p) => GlossaryEntry(d, p), pattern: 'GLOSS-ENTR-xxx');
 }
 
 /// A single glossary entry (form).
@@ -13850,7 +13822,7 @@ class PainPointsAndGaps extends SomNode {
   TechnicalPainPoints get technicalPainPoints => TechnicalPainPoints(doc, '$path/technicalPainPoints');
 
   /// 1.3.4. Gaps.
-  Gaps get gaps => Gaps(doc, '$path/gaps');
+  SomList<GapEntry> get gaps => SomList<GapEntry>(doc, '$path/GAPE-ITEM-LST', (d, p) => GapEntry(d, p), pattern: 'GAPE-ITEM-xxx');
 
   /// Cross-reference between pain points and gaps.
   PainPointGapCorrelation get painPointGapCorrelation => PainPointGapCorrelation(doc, '$path/painPointGapCorrelation');
@@ -16808,20 +16780,6 @@ class RevisionEntry extends SomNode {
   RevisionEntryContentForm get content => RevisionEntryContentForm(doc, '$path/content');
 }
 
-/// Chronological revision history.
-class RevisionHistory extends SomNode {
-  RevisionHistory(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// One entry per published revision of the document.
-  SomList<RevisionEntry> get revisions => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p), pattern: 'RVHST-REVS-xxx');
-}
-
 /// Business impact assessment for the risk.
 class RiskBusinessImpact extends SomNode {
   RiskBusinessImpact(super.doc, super.path);
@@ -19363,25 +19321,6 @@ class StakeholderEntry extends SomNode {
   StakeholderEntryContentForm get content => StakeholderEntryContentForm(doc, '$path/content');
 }
 
-/// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-/// 
-/// This is the single source of truth for stakeholder role, interest,
-/// influence, concerns and engagement strategy. SBP.2
-/// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-/// references this register rather than restating its attributes.
-class StakeholderRegister extends SomNode {
-  StakeholderRegister(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// One entry per stakeholder or stakeholder group.
-  SomList<StakeholderRegisterEntry> get stakeholders => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p), pattern: 'STKRG-STAK-xxx');
-}
-
 /// A single stakeholder register entry (form).
 /// 
 /// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -19397,7 +19336,7 @@ class StakeholderRegisterEntry extends SomNode {
 /// A scope-framing *benefits lens* over the stakeholder landscape: who
 /// benefits from the system and what they gain. The canonical stakeholder
 /// register — with role, interest, influence, concerns and engagement
-/// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+/// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 /// recorded there once and are not restated here (L34C-6 / SR-15).
 class StakeholdersAndBeneficiaries extends SomNode {
   StakeholdersAndBeneficiaries(super.doc, super.path);
@@ -19449,7 +19388,7 @@ class StakeholdersAndGovernance extends SomNode {
   LegalAndContractualRequirements get legalAndContractual => LegalAndContractualRequirements(doc, '$path/legalAndContractual');
 
   /// Stakeholder register (§5 completeness addition).
-  StakeholderRegister get stakeholderRegister => StakeholderRegister(doc, '$path/stakeholderRegister');
+  SomList<StakeholderRegisterEntry> get stakeholderRegister => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p), pattern: 'STKRG-STAK-xxx');
 }
 
 /// Stakeholders and interests.

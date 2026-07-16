@@ -3399,8 +3399,18 @@ and technical capabilities. Highlight interdependencies between pain points.
   TechnicalPainPoints technicalPainPoints = TechnicalPainPoints();
 
   /// 1.3.4. Gaps.
+  @StandardReferences([
+    'BABOK v3 §6 — gap analysis (capability gap identification)',
+  ], 'The list of individual capability gaps documented in detail.')
+  @SectionId('GAPE-ITEM-LST')
+  @SectionIdPattern('GAPE-ITEM-xxx')
+  @ContentHelp(
+    'Add one entry per identified gap between current capabilities '
+    'and business needs, each with its category, severity, cost, drivers, '
+    'and proposed resolution.',
+  )
   @SerializationOrder(7)
-  Gaps gaps = Gaps();
+  List<GapEntry> gaps = [];
 
   /// Cross-reference between pain points and gaps.
   @SerializationOrder(8)
@@ -4107,33 +4117,6 @@ class PainPointGapCorrelationEntry {
   ])
   @SerializationOrder(0)
   String? content;
-}
-
-/// 1.3.4. Gaps.
-@StandardReferences(
-  ['BABOK v3 §6 — gap analysis (current vs. desired state)'],
-  'The set of missing or inadequate capabilities — the differences between '
-  'what the current state delivers and what the business needs.',
-)
-@SectionId('GAPS')
-class Gaps {
-  @Unused()
-  @SerializationOrder(0)
-  String? content;
-
-  /// Contains 0+× Gap.
-  @StandardReferences([
-    'BABOK v3 §6 — gap analysis (capability gap identification)',
-  ], 'The list of individual capability gaps documented in detail.')
-  @SectionId('GAPE-ITEM-LST')
-  @SectionIdPattern('GAPE-ITEM-xxx')
-  @ContentHelp(
-    'Add one entry per identified gap between current capabilities '
-    'and business needs, each with its category, severity, cost, drivers, '
-    'and proposed resolution.',
-  )
-  @SerializationOrder(1)
-  List<GapEntry> items = [];
 }
 
 /// A gap entry (form) — a missing capability or feature.
@@ -7311,6 +7294,3 @@ replacing them. Not to be confused with target-state risks.
   @SerializationOrder(0)
   String? content;
 }
-
-
-

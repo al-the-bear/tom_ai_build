@@ -229,16 +229,15 @@ void testDotNotationSurface() {
 
   // List positions expose item accessors and the section-id pattern.
   m::NavDocumentControl dc = m::navD00SolutionBlueprint_documentControl(root);
-  m::NavRevisionHistory rh = m::navDocumentControl_revisionHistory(dc);
-  som::SomListMetaRef revs = m::navRevisionHistory_revisions(rh);
-  eqStr(revs.ref.path, "SBP/documentControl/revisionHistory/RVHST-REVS-LST",
+  som::SomListMetaRef revs = m::navDocumentControl_revisionHistory(dc);
+  eqStr(revs.ref.path, "SBP/documentControl/RVHST-REVS-LST",
         "dot list path");
 
   void* item3 = revs.item(3);
   som::SomMetaRef* item3Ref =
       reinterpret_cast<som::SomMetaRef*>(item3);  // first member of any accessor
   eqStr(item3Ref->path,
-        "SBP/documentControl/revisionHistory/RVHST-REVS-LST-3",
+        "SBP/documentControl/RVHST-REVS-LST-3",
         "dot list-item path");
   delete reinterpret_cast<m::NavRevisionEntry*>(item3);
 
@@ -268,8 +267,7 @@ void testIdTreeSurface() {
 
   // The hoisted list id agrees with the dot-notation position.
   m::NavDocumentControl dc = m::navD00SolutionBlueprint_documentControl(dot);
-  m::NavRevisionHistory rh = m::navDocumentControl_revisionHistory(dc);
-  som::SomListMetaRef dotRevs = m::navRevisionHistory_revisions(rh);
+  som::SomListMetaRef dotRevs = m::navDocumentControl_revisionHistory(dc);
   som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVHST_REVS_LST(sbp);
   eqStr(idRevs.ref.path, dotRevs.ref.path, "hoisted id path == dot list path");
   ok(idRevs.ref.meta() == dotRevs.ref.meta(),

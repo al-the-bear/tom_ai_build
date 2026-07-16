@@ -20126,7 +20126,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "DOCTL";
         n.serializationOrder = 1;
         n.docComment = "SBP.1 Document Control (header + revision history + approvals).";
-        n.classDocComment = "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.";
+        n.classDocComment = "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's revision history ([RevisionEntry] list) and\nthe [ApprovalRecord]s that gate its release.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -32537,17 +32537,26 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
-      out.add(metaCx("RevisionHistory", s, RevisionHistoryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("RevisionHistory", SomMetaKind.COMPLEX, "RevisionHistory");
+      {
+        SomMetaNode n = new SomMetaNode("DocumentControl", SomMetaKind.LIST, "RevisionEntry");
         n.memberName = "revisionHistory";
-        n.classSectionId = "RVHST";
+        n.sectionId = "RVHST-REVS-LST";
+        n.sectionIdPattern = "RVHST-REVS-xxx";
         n.serializationOrder = 2;
+        n.contentHelp = "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.";
         n.docComment = "Chronological revision history of this document.";
-        n.classDocComment = "Chronological revision history.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       {
         SomMetaNode n = new SomMetaNode("DocumentControl", SomMetaKind.LIST, "ApprovalRecord");
         n.memberName = "approvals";
@@ -32590,8 +32599,8 @@ public final class TomSomV0Meta {
       return new DocumentHeaderNav(tree, path + "/header");
     }
 
-    public RevisionHistoryNav revisionHistory() {
-      return new RevisionHistoryNav(tree, path + "/revisionHistory");
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVHST-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public SomListMetaRef<ApprovalRecordNav> approvals() {
@@ -41227,59 +41236,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // GapsNav holds the dot-notation accessors of `Gaps` (DR1 §4.1).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class GapsNav extends SomMetaRef {
-    public GapsNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `Gaps` (DR1 §3.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("Gaps", SomMetaKind.CONTENT, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.unused = true;
-        n.contentType = new SomContentTypeMeta("text", "");
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("Gaps", SomMetaKind.LIST, "GapEntry");
-        n.memberName = "items";
-        n.sectionId = "GAPE-ITEM-LST";
-        n.sectionIdPattern = "GAPE-ITEM-xxx";
-        n.serializationOrder = 1;
-        n.contentHelp = "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.";
-        n.docComment = "Contains 0+× Gap.";
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §6 — gap analysis (capability gap identification)"), "connotation", "The list of individual capability gaps documented in detail.")));
-        n.elementNode = metaCx("GapEntry", s, GapEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("GapEntry", SomMetaKind.COMPLEX, "GapEntry");
-          e.classSectionId = "GAPE";
-          e.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
-          e.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-
-    public SomListMetaRef<GapEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/GAPE-ITEM-LST", (t, p) -> new GapEntryNav(t, p));
-    }
-  }
-
   // GeographicDistributionRequirementsNav holds the dot-notation accessors of `GeographicDistributionRequirements` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -41413,58 +41369,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // GlossaryNav holds the dot-notation accessors of `Glossary` (DR1 §4.1).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class GlossaryNav extends SomMetaRef {
-    public GlossaryNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `Glossary` (DR1 §3.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("Glossary", SomMetaKind.CONTENT, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.unused = true;
-        n.contentType = new SomContentTypeMeta("text", "");
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("Glossary", SomMetaKind.LIST, "GlossaryEntry");
-        n.memberName = "entries";
-        n.sectionId = "GLOSS-ENTR-LST";
-        n.sectionIdPattern = "GLOSS-ENTR-xxx";
-        n.serializationOrder = 1;
-        n.contentHelp = "Add one entry per term or acronym, alphabetically ordered.";
-        n.docComment = "One entry per defined term or acronym.";
-        n.elementNode = metaCx("GlossaryEntry", s, GlossaryEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("GlossaryEntry", SomMetaKind.COMPLEX, "GlossaryEntry");
-          e.classSectionId = "GLENT";
-          e.docComment = "A single glossary entry (form).";
-          e.classDocComment = "A single glossary entry (form).";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-
-    public SomListMetaRef<GlossaryEntryNav> entries() {
-      return new SomListMetaRef<>(tree, path + "/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryNav(t, p));
-    }
-  }
-
   // GlossaryAndAbbreviationsNav holds the dot-notation accessors of `GlossaryAndAbbreviations` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -41485,17 +41389,26 @@ public final class TomSomV0Meta {
         n.contentType = new SomContentTypeMeta("description", "Introduce the glossary: scope, conventions, and how terms are maintained.");
         out.add(n);
       }
-      out.add(metaCx("Glossary", s, GlossaryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("Glossary", SomMetaKind.COMPLEX, "Glossary");
+      {
+        SomMetaNode n = new SomMetaNode("GlossaryAndAbbreviations", SomMetaKind.LIST, "GlossaryEntry");
         n.memberName = "glossary";
-        n.classSectionId = "GLOSS";
+        n.sectionId = "GLOSS-ENTR-LST";
+        n.sectionIdPattern = "GLOSS-ENTR-xxx";
         n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per term or acronym, alphabetically ordered.";
         n.docComment = "The set of defined terms and abbreviations.";
-        n.classDocComment = "An ordered collection of glossary entries.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"), "connotation", "The ordered collection of defined terms and abbreviations.")));
+        n.elementNode = metaCx("GlossaryEntry", s, GlossaryEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("GlossaryEntry", SomMetaKind.COMPLEX, "GlossaryEntry");
+          e.classSectionId = "GLENT";
+          e.docComment = "A single glossary entry (form).";
+          e.classDocComment = "A single glossary entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -41503,8 +41416,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/content");
     }
 
-    public GlossaryNav glossary() {
-      return new GlossaryNav(tree, path + "/glossary");
+    public SomListMetaRef<GlossaryEntryNav> glossary() {
+      return new SomListMetaRef<>(tree, path + "/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryNav(t, p));
     }
   }
 
@@ -59926,17 +59839,26 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
-      out.add(metaCx("Gaps", s, GapsNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("Gaps", SomMetaKind.COMPLEX, "Gaps");
+      {
+        SomMetaNode n = new SomMetaNode("PainPointsAndGaps", SomMetaKind.LIST, "GapEntry");
         n.memberName = "gaps";
-        n.classSectionId = "GAPS";
+        n.sectionId = "GAPE-ITEM-LST";
+        n.sectionIdPattern = "GAPE-ITEM-xxx";
         n.serializationOrder = 7;
+        n.contentHelp = "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.";
         n.docComment = "1.3.4. Gaps.";
-        n.classDocComment = "1.3.4. Gaps.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §6 — gap analysis (capability gap identification)"), "connotation", "The list of individual capability gaps documented in detail.")));
+        n.elementNode = metaCx("GapEntry", s, GapEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("GapEntry", SomMetaKind.COMPLEX, "GapEntry");
+          e.classSectionId = "GAPE";
+          e.docComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
+          e.classDocComment = "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("PainPointGapCorrelation", s, PainPointGapCorrelationNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("PainPointGapCorrelation", SomMetaKind.COMPLEX, "PainPointGapCorrelation");
         n.memberName = "painPointGapCorrelation";
@@ -59979,8 +59901,8 @@ public final class TomSomV0Meta {
       return new TechnicalPainPointsNav(tree, path + "/technicalPainPoints");
     }
 
-    public GapsNav gaps() {
-      return new GapsNav(tree, path + "/gaps");
+    public SomListMetaRef<GapEntryNav> gaps() {
+      return new SomListMetaRef<>(tree, path + "/GAPE-ITEM-LST", (t, p) -> new GapEntryNav(t, p));
     }
 
     public PainPointGapCorrelationNav painPointGapCorrelation() {
@@ -73612,59 +73534,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // RevisionHistoryNav holds the dot-notation accessors of `RevisionHistory` (DR1 §4.1).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class RevisionHistoryNav extends SomMetaRef {
-    public RevisionHistoryNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `RevisionHistory` (DR1 §3.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("RevisionHistory", SomMetaKind.CONTENT, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.unused = true;
-        n.contentType = new SomContentTypeMeta("text", "");
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("RevisionHistory", SomMetaKind.LIST, "RevisionEntry");
-        n.memberName = "revisions";
-        n.sectionId = "RVHST-REVS-LST";
-        n.sectionIdPattern = "RVHST-REVS-xxx";
-        n.serializationOrder = 1;
-        n.contentHelp = "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.";
-        n.docComment = "One entry per published revision of the document.";
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
-        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
-          e.classSectionId = "RVENT";
-          e.docComment = "A single document revision entry (form).";
-          e.classDocComment = "A single document revision entry (form).";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-
-    public SomListMetaRef<RevisionEntryNav> revisions() {
-      return new SomListMetaRef<>(tree, path + "/RVHST-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
-    }
-  }
-
   // RiskNav holds the dot-notation accessors of `Risk` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -84878,58 +84747,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // StakeholderRegisterNav holds the dot-notation accessors of `StakeholderRegister` (DR1 §4.1).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class StakeholderRegisterNav extends SomMetaRef {
-    public StakeholderRegisterNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `StakeholderRegister` (DR1 §3.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("StakeholderRegister", SomMetaKind.CONTENT, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.unused = true;
-        n.contentType = new SomContentTypeMeta("text", "");
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("StakeholderRegister", SomMetaKind.LIST, "StakeholderRegisterEntry");
-        n.memberName = "stakeholders";
-        n.sectionId = "STKRG-STAK-LST";
-        n.sectionIdPattern = "STKRG-STAK-xxx";
-        n.serializationOrder = 1;
-        n.contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
-        n.docComment = "One entry per stakeholder or stakeholder group.";
-        n.elementNode = metaCx("StakeholderRegisterEntry", s, StakeholderRegisterEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("StakeholderRegisterEntry", SomMetaKind.COMPLEX, "StakeholderRegisterEntry");
-          e.classSectionId = "STKRE";
-          e.docComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
-          e.classDocComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-
-    public SomListMetaRef<StakeholderRegisterEntryNav> stakeholders() {
-      return new SomListMetaRef<>(tree, path + "/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryNav(t, p));
-    }
-  }
-
   // StakeholderRegisterEntryNav holds the dot-notation accessors of `StakeholderRegisterEntry` (DR1 §4.1).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -85149,17 +84966,26 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
-      out.add(metaCx("StakeholderRegister", s, StakeholderRegisterNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("StakeholderRegister", SomMetaKind.COMPLEX, "StakeholderRegister");
+      {
+        SomMetaNode n = new SomMetaNode("StakeholdersAndGovernance", SomMetaKind.LIST, "StakeholderRegisterEntry");
         n.memberName = "stakeholderRegister";
-        n.classSectionId = "STKRG";
+        n.sectionId = "STKRG-STAK-LST";
+        n.sectionIdPattern = "STKRG-STAK-xxx";
         n.serializationOrder = 8;
+        n.contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
         n.docComment = "Stakeholder register (§5 completeness addition).";
-        n.classDocComment = "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"), "connotation", "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.")));
+        n.elementNode = metaCx("StakeholderRegisterEntry", s, StakeholderRegisterEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("StakeholderRegisterEntry", SomMetaKind.COMPLEX, "StakeholderRegisterEntry");
+          e.classSectionId = "STKRE";
+          e.docComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
+          e.classDocComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -85195,8 +85021,8 @@ public final class TomSomV0Meta {
       return new LegalAndContractualRequirementsNav(tree, path + "/legalAndContractual");
     }
 
-    public StakeholderRegisterNav stakeholderRegister() {
-      return new StakeholderRegisterNav(tree, path + "/stakeholderRegister");
+    public SomListMetaRef<StakeholderRegisterEntryNav> stakeholderRegister() {
+      return new SomListMetaRef<>(tree, path + "/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryNav(t, p));
     }
   }
 
@@ -88752,7 +88578,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SAB";
         n.serializationOrder = 4;
         n.docComment = "4.1.1.3. Stakeholders and Beneficiaries.";
-        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 [StakeholderRegister]; those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).";
         n.recursive = r;
         n.children = c;
         return n;
@@ -104769,7 +104595,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<RevisionEntryId> RVHST_REVS_LST() {
-      return new SomListMetaRef<>(tree, path + "/documentControl/revisionHistory/RVHST-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+      return new SomListMetaRef<>(tree, path + "/documentControl/RVHST-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomListMetaRef<ApprovalRecordId> DOCTL_APRV_LST() {
@@ -105241,7 +105067,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<GlossaryEntryId> GLOSS_ENTR_LST() {
-      return new SomListMetaRef<>(tree, path + "/glossaryAndAbbreviations/glossary/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryId(t, p));
+      return new SomListMetaRef<>(tree, path + "/glossaryAndAbbreviations/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryId(t, p));
     }
 
     public SomMetaRef ADMSM() {
@@ -105437,7 +105263,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<StakeholderRegisterEntryId> STKRG_STAK_LST() {
-      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/stakeholderRegister/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryId(t, p));
+      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryId(t, p));
     }
 
     public SomListMetaRef<ExistingSystemEntryId> ESENT_SYST_LST() {
@@ -105549,7 +105375,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<GapEntryId> GAPE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t, p) -> new GapEntryId(t, p));
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/GAPE-ITEM-LST", (t, p) -> new GapEntryId(t, p));
     }
 
     public SomMetaRef PPGC_CORR() {
@@ -110147,7 +109973,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<GapEntryId> GAPE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/gaps/GAPE-ITEM-LST", (t, p) -> new GapEntryId(t, p));
+      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/GAPE-ITEM-LST", (t, p) -> new GapEntryId(t, p));
     }
 
     public SomMetaRef PPGC_CORR() {

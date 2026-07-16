@@ -223,15 +223,14 @@ static void test_dot_notation_surface(void) {
   /* List positions expose item accessors and the section-id pattern. */
   som_nav_document_control dc =
       d00_solution_blueprint_nav_document_control(root);
-  som_nav_revision_history rh = document_control_nav_revision_history(dc);
-  SomListMetaRef revs = revision_history_nav_revisions(rh);
-  eq_str(revs.ref.path, "SBP/documentControl/revisionHistory/RVHST-REVS-LST",
+  SomListMetaRef revs = document_control_nav_revision_history(dc);
+  eq_str(revs.ref.path, "SBP/documentControl/RVHST-REVS-LST",
          "dot list path");
 
   void *item3 = som_list_meta_ref_item(&revs, 3);
   SomMetaRef *item3_ref = (SomMetaRef *)item3; /* first member of any accessor */
   eq_str(item3_ref->path,
-         "SBP/documentControl/revisionHistory/RVHST-REVS-LST-3",
+         "SBP/documentControl/RVHST-REVS-LST-3",
          "dot list-item path");
   som_meta_ref_free(item3_ref);
   free(item3);
@@ -241,7 +240,6 @@ static void test_dot_notation_surface(void) {
      "list node carries a section-id pattern");
 
   som_meta_ref_free(&revs.ref);
-  som_meta_ref_free(&rh.ref);
   som_meta_ref_free(&dc.ref);
   som_meta_ref_free(&goals_content);
   som_meta_ref_free(&goals.ref);
@@ -272,8 +270,7 @@ static void test_id_tree_surface(void) {
 
   /* The hoisted list id agrees with the dot-notation position. */
   som_nav_document_control dc = d00_solution_blueprint_nav_document_control(dot);
-  som_nav_revision_history rh = document_control_nav_revision_history(dc);
-  SomListMetaRef dot_revs = revision_history_nav_revisions(rh);
+  SomListMetaRef dot_revs = document_control_nav_revision_history(dc);
   SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(sbp);
   eq_str(id_revs.ref.path, dot_revs.ref.path, "hoisted id path == dot list path");
   ok(meta_of(&id_revs.ref) == meta_of(&dot_revs.ref),
@@ -290,7 +287,6 @@ static void test_id_tree_surface(void) {
 
   som_meta_ref_free(&id_revs.ref);
   som_meta_ref_free(&dot_revs.ref);
-  som_meta_ref_free(&rh.ref);
   som_meta_ref_free(&dc.ref);
   som_meta_ref_free(&sbp.ref);
   som_meta_ref_free(&dot.ref);

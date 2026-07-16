@@ -189,8 +189,7 @@ func main() {
 	}
 	metaNode("SBP")
 	metaNode("SBP/documentControl")
-	metaNode("SBP/documentControl/revisionHistory")
-	metaNode("SBP/documentControl/revisionHistory/RVHST-REVS-LST")
+	metaNode("SBP/documentControl/RVHST-REVS-LST")
 	metaNode("SBP/introductionAndScope")
 	metaNode("SBP/introductionAndScope/goals")
 	metaNode("SBP/introductionAndScope/goals/content")
@@ -241,7 +240,7 @@ func main() {
 		}
 		out = append(out, "D\t"+idRef.Path)
 	}
-	revs := nav.DocumentControl().RevisionHistory().Revisions()
+	revs := nav.DocumentControl().RevisionHistory()
 	metaID(&somv0.SBP.SomMetaRef, &nav.SomMetaRef)
 	metaID(&somv0.SBP.RVHST_REVS_LST().SomMetaRef, &revs.SomMetaRef)
 	metaID(&somv0.SBP.RVHST_REVS_LST().Item(0).SomMetaRef, &revs.Item(0).SomMetaRef)

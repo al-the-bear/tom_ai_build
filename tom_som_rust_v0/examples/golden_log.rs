@@ -174,8 +174,7 @@ fn main() {
     for path in [
         "SBP",
         "SBP/documentControl",
-        "SBP/documentControl/revisionHistory",
-        "SBP/documentControl/revisionHistory/RVHST-REVS-LST",
+        "SBP/documentControl/RVHST-REVS-LST",
         "SBP/introductionAndScope",
         "SBP/introductionAndScope/goals",
         "SBP/introductionAndScope/goals/content",
@@ -275,7 +274,7 @@ fn main() {
         out.push(format!("D\t{}", id_path));
     };
 
-    let revs = doc_control.revision_history().revisions();
+    let revs = doc_control.revision_history();
     let hoisted = sbp_id.RVHST_REVS_LST();
     meta_id(
         sbp_id.path(),

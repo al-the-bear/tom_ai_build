@@ -125,16 +125,16 @@ def test_dot_notation_surface() -> None:
     _check("dot.meta-member", via_dot.member_name == "introductionAndScope")
 
     # List positions expose item() with element accessors.
-    revs = m.d00SolutionBlueprint.documentControl.revisionHistory.revisions
+    revs = m.d00SolutionBlueprint.documentControl.revisionHistory
     _check(
         "dot.list",
-        revs.path == "SBP/documentControl/revisionHistory/RVHST-REVS-LST",
+        revs.path == "SBP/documentControl/RVHST-REVS-LST",
         revs.path,
     )
     _check(
         "dot.list-item",
         revs.item(3).path
-        == "SBP/documentControl/revisionHistory/RVHST-REVS-LST-3",
+        == "SBP/documentControl/RVHST-REVS-LST-3",
         revs.item(3).path,
     )
     # The list node's metadata carries the section-id pattern.
@@ -157,7 +157,7 @@ def test_id_tree_surface() -> None:
     # A hoisted list id agrees with the dot-notation position. RVHST_REVS_LST
     # is hoisted onto the root Id class through the id-less
     # documentControl/revisionHistory members.
-    revs = m.d00SolutionBlueprint.documentControl.revisionHistory.revisions
+    revs = m.d00SolutionBlueprint.documentControl.revisionHistory
     _check("id.hoisted-path", m.SBP.RVHST_REVS_LST.path == revs.path)
     _check("id.hoisted-meta", m.SBP.RVHST_REVS_LST.meta is revs.meta)
     _check(

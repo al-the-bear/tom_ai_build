@@ -13762,8 +13762,8 @@ func (x *DocCorrectness) Verification() *DocCorrectnessVerificationForm {
 // SBP.1 Document Control.
 //
 // Holds the [DocumentHeader] (id, project, version, date, author, status)
-// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-// that gate its release.
+// together with the document's revision history ([RevisionEntry] list) and
+// the [ApprovalRecord]s that gate its release.
 type DocumentControl struct {
 	som.SomNode
 }
@@ -13793,8 +13793,10 @@ func (x *DocumentControl) Header() *DocumentHeader {
 }
 
 // Chronological revision history of this document.
-func (x *DocumentControl) RevisionHistory() *RevisionHistory {
-	return NewRevisionHistory(x.Doc(), x.Path()+"/revisionHistory")
+func (x *DocumentControl) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVHST-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVHST-REVS-xxx")
 }
 
 // Formal approvals (sign-offs) recorded for this document.
@@ -17304,37 +17306,6 @@ func (x *GapEntry) Resolution() *GapEntryResolutionForm {
 	return NewGapEntryResolutionForm(x.Doc(), x.Path()+"/GAENRE")
 }
 
-// 1.3.4. Gaps.
-type Gaps struct {
-	som.SomNode
-}
-
-// NewGaps binds a Gaps facade to a document and a path.
-func NewGaps(doc *som.SpecDocument, path string) *Gaps {
-	return &Gaps{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *Gaps) CanHaveContent() bool {
-	return true
-}
-
-func (x *Gaps) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *Gaps) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// Contains 0+× Gap.
-func (x *Gaps) Items() *som.SomList[*GapEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/GAPE-ITEM-LST", func(d *som.SpecDocument, p string) *GapEntry {
-		return NewGapEntry(d, p)
-	}, "GAPE-ITEM-xxx")
-}
-
 // Geographic distribution requirements.
 type GeographicDistributionRequirements struct {
 	som.SomNode
@@ -17386,37 +17357,6 @@ func (x *GlobalRoleExclusionEntry) Content() *GlobalRoleExclusionEntryContentFor
 	return NewGlobalRoleExclusionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// An ordered collection of glossary entries.
-type Glossary struct {
-	som.SomNode
-}
-
-// NewGlossary binds a Glossary facade to a document and a path.
-func NewGlossary(doc *som.SpecDocument, path string) *Glossary {
-	return &Glossary{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *Glossary) CanHaveContent() bool {
-	return true
-}
-
-func (x *Glossary) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *Glossary) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// One entry per defined term or acronym.
-func (x *Glossary) Entries() *som.SomList[*GlossaryEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/GLOSS-ENTR-LST", func(d *som.SpecDocument, p string) *GlossaryEntry {
-		return NewGlossaryEntry(d, p)
-	}, "GLOSS-ENTR-xxx")
-}
-
 // SBP.3 Glossary & Abbreviations.
 type GlossaryAndAbbreviations struct {
 	som.SomNode
@@ -17442,8 +17382,10 @@ func (x *GlossaryAndAbbreviations) SetContent(value string) {
 }
 
 // The set of defined terms and abbreviations.
-func (x *GlossaryAndAbbreviations) Glossary() *Glossary {
-	return NewGlossary(x.Doc(), x.Path()+"/glossary")
+func (x *GlossaryAndAbbreviations) Glossary() *som.SomList[*GlossaryEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/GLOSS-ENTR-LST", func(d *som.SpecDocument, p string) *GlossaryEntry {
+		return NewGlossaryEntry(d, p)
+	}, "GLOSS-ENTR-xxx")
 }
 
 // A single glossary entry (form).
@@ -24868,8 +24810,10 @@ func (x *PainPointsAndGaps) TechnicalPainPoints() *TechnicalPainPoints {
 }
 
 // 1.3.4. Gaps.
-func (x *PainPointsAndGaps) Gaps() *Gaps {
-	return NewGaps(x.Doc(), x.Path()+"/gaps")
+func (x *PainPointsAndGaps) Gaps() *som.SomList[*GapEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/GAPE-ITEM-LST", func(d *som.SpecDocument, p string) *GapEntry {
+		return NewGapEntry(d, p)
+	}, "GAPE-ITEM-xxx")
 }
 
 // Cross-reference between pain points and gaps.
@@ -30337,37 +30281,6 @@ func (x *RevisionEntry) Content() *RevisionEntryContentForm {
 	return NewRevisionEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// Chronological revision history.
-type RevisionHistory struct {
-	som.SomNode
-}
-
-// NewRevisionHistory binds a RevisionHistory facade to a document and a path.
-func NewRevisionHistory(doc *som.SpecDocument, path string) *RevisionHistory {
-	return &RevisionHistory{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RevisionHistory) CanHaveContent() bool {
-	return true
-}
-
-func (x *RevisionHistory) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RevisionHistory) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// One entry per published revision of the document.
-func (x *RevisionHistory) Revisions() *som.SomList[*RevisionEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RVHST-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
-		return NewRevisionEntry(d, p)
-	}, "RVHST-REVS-xxx")
-}
-
 // Business impact assessment for the risk.
 type RiskBusinessImpact struct {
 	som.SomNode
@@ -34877,42 +34790,6 @@ func (x *StakeholderEntry) Content() *StakeholderEntryContentForm {
 	return NewStakeholderEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// The canonical register of the project's stakeholders (L34C-6 / SR-15).
-//
-// This is the single source of truth for stakeholder role, interest,
-// influence, concerns and engagement strategy. SBP.2
-// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
-// references this register rather than restating its attributes.
-type StakeholderRegister struct {
-	som.SomNode
-}
-
-// NewStakeholderRegister binds a StakeholderRegister facade to a document and a path.
-func NewStakeholderRegister(doc *som.SpecDocument, path string) *StakeholderRegister {
-	return &StakeholderRegister{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *StakeholderRegister) CanHaveContent() bool {
-	return true
-}
-
-func (x *StakeholderRegister) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StakeholderRegister) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// One entry per stakeholder or stakeholder group.
-func (x *StakeholderRegister) Stakeholders() *som.SomList[*StakeholderRegisterEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/STKRG-STAK-LST", func(d *som.SpecDocument, p string) *StakeholderRegisterEntry {
-		return NewStakeholderRegisterEntry(d, p)
-	}, "STKRG-STAK-xxx")
-}
-
 // A single stakeholder register entry (form).
 //
 // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
@@ -34935,7 +34812,7 @@ func (x *StakeholderRegisterEntry) Content() *StakeholderRegisterEntryContentFor
 // A scope-framing *benefits lens* over the stakeholder landscape: who
 // benefits from the system and what they gain. The canonical stakeholder
 // register — with role, interest, influence, concerns and engagement
-// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
+// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
 // recorded there once and are not restated here (L34C-6 / SR-15).
 type StakeholdersAndBeneficiaries struct {
 	som.SomNode
@@ -35036,8 +34913,10 @@ func (x *StakeholdersAndGovernance) LegalAndContractual() *LegalAndContractualRe
 }
 
 // Stakeholder register (§5 completeness addition).
-func (x *StakeholdersAndGovernance) StakeholderRegister() *StakeholderRegister {
-	return NewStakeholderRegister(x.Doc(), x.Path()+"/stakeholderRegister")
+func (x *StakeholdersAndGovernance) StakeholderRegister() *som.SomList[*StakeholderRegisterEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/STKRG-STAK-LST", func(d *som.SpecDocument, p string) *StakeholderRegisterEntry {
+		return NewStakeholderRegisterEntry(d, p)
+	}, "STKRG-STAK-xxx")
 }
 
 // Stakeholders and interests.

@@ -12,8 +12,8 @@ import '../common/document_header.dart';
 /// SBP.1 Document Control.
 ///
 /// Holds the [DocumentHeader] (id, project, version, date, author, status)
-/// together with the document's [RevisionHistory] and the [ApprovalRecord]s
-/// that gate its release.
+/// together with the document's revision history ([RevisionEntry] list) and
+/// the [ApprovalRecord]s that gate its release.
 @StandardReferences(
   ['ISO/IEC/IEEE 29148:2018 §6 — front matter (document control)'],
   'Front-matter governance of the document itself: its header identity, '
@@ -36,8 +36,17 @@ class DocumentControl {
   DocumentHeader header = DocumentHeader();
 
   /// Chronological revision history of this document.
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
+  ], 'The ordered set of published revisions of this document.')
+  @SectionId('RVHST-REVS-LST')
+  @SectionIdPattern('RVHST-REVS-xxx')
+  @ContentHelp(
+    'Add one entry per revision, newest last. Each entry captures '
+    'the version, date, author, and a short summary of what changed.',
+  )
   @SerializationOrder(2)
-  RevisionHistory revisionHistory = RevisionHistory();
+  List<RevisionEntry> revisionHistory = [];
 
   /// Formal approvals (sign-offs) recorded for this document.
   @StandardReferences([
@@ -59,36 +68,6 @@ class DocumentControl {
   /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
   @SerializationOrder(4)
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
-}
-
-/// Chronological revision history.
-@StandardReferences(
-  ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'],
-  'The chronological record of how this document has changed across its '
-  'published revisions.',
-)
-@ContentHelp(
-  'Record one entry per published revision so readers can trace how '
-  'the document evolved. Keep entries in chronological order, newest last.',
-)
-@SectionId('RVHST')
-class RevisionHistory {
-  @Unused()
-  @SerializationOrder(0)
-  String? content;
-
-  /// One entry per published revision of the document.
-  @StandardReferences([
-    'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
-  ], 'The ordered set of published revisions of this document.')
-  @SectionId('RVHST-REVS-LST')
-  @SectionIdPattern('RVHST-REVS-xxx')
-  @ContentHelp(
-    'Add one entry per revision, newest last. Each entry captures '
-    'the version, date, author, and a short summary of what changed.',
-  )
-  @SerializationOrder(1)
-  List<RevisionEntry> revisions = [];
 }
 
 /// A single document revision entry (form).
