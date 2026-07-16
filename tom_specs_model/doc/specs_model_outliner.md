@@ -268,6 +268,20 @@ A model class may contain **only** the following six member shapes — nothing e
 
 Enum fields are outside these String/scalar rules and are neither required to carry a field-level id nor forbidden.
 
+### 6.1b When a sub-section stays a class (keep-a-class criteria) (TSMA3)
+
+Shapes (3) and (6) let a leaf sub-section be expressed as a *field* instead of a dedicated class — this is what the TSMA1 (single-`content` leaf → shape (3)) and TSMA2 (single-`content` **unshared** list element → shape (6) `List<String>`) simplifications do. Not every leaf class is a collapse candidate, though. A sub-section **must stay a class** — shape (4) `<SectionClass> field` or shape (5) `List<SectionClass>` — in either of these cases:
+
+1. **Shared substructure.** The class is referenced by **more than one** parent field (as a complex field and/or as a list element type, counted across the whole model). Inlining it into a field would duplicate the definition at every use site and lose the single point of change, so a shared leaf stays a class. The canonical example is `DocumentHeader`, reused by all 13 documents; others include `RequirementTraceability`, `ComplianceFramework`, `SystemArchitectureSpec`, `DistributionGroupSummary`, and the shared list elements (`ResponsibilityChangeEntry`, `CompetencyEntry`, `RoleCompetencyEntry`, `MigrationInteractions`, …).
+
+2. **Form-bearing list elements.** The class is used as a `List<L>` element and its element `L` carries `@Form` (field-level on `content`, or class-level on the element). A scalar `List<String>` (shape (6)) has no place to hold per-element form fields, so an element with real per-element form structure stays `List<SectionClass>` (shape (5)). The optional TSMA2 conversion never touches these.
+
+(A multi-field leaf, or any class with a real subsection child, is inherently not a collapse candidate either — it is already a genuine section (shape (4)).)
+
+**The validator does not flag kept classes.** Shapes (4) and (5) are canonical §6.1a shapes; the validator only enforces shape *legality* and never marks a class as "collapsible". Collapse **candidacy** is decided solely by the one-shot codemod tools (`collapse_leaves.dart`, `collapse_list_leaves.dart`) via their exclusion guards (shared-reference and `@Form` checks) — it is a migration concern, not a validation rule. After TSMA1 + TSMA2 the model is at the keep-a-class steady state: both codemods plan **0** further collapses.
+
+> Census (post-TSMA1/TSMA2, 1222-class model — regenerate with `tom_specs_clitool/tool/keep_class_census.dart`): **50** shared leaves (refs > 1), **378** form-bearing list-element leaves, **417** in the union — all confirmed exempt (the earlier 30 / 232 projection predates the TSMA1/TSMA2 collapses, which turned many former container classes into leaves).
+
 ### 6.2 Class Style
 
 | Rule | Description |
