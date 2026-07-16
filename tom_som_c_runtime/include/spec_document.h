@@ -49,6 +49,7 @@ typedef struct {
   DocListEntry *lists;
   size_t lists_len;
   size_t lists_cap;
+  SomMap headlines; /* path → stored headline (YRD3) */
 } DocumentJson;
 
 void document_json_init(DocumentJson *d);
@@ -84,6 +85,7 @@ typedef struct {
   size_t list_items_cap;
   SomMap list_seq;         /* list path → decimal seq counter */
   SomMap item_section_id;  /* item path → assigned section id (criteria 3–6) */
+  SomMap headline;         /* path → stored headline (YRD3), sparse */
   char *model_version;     /* owned; the authoring object-model version
                             * (major.minor) this document was loaded from, "" for
                             * a brand-new / unstamped document. Retained by
@@ -155,6 +157,15 @@ int spec_document_set_item_section_id(SpecDocument *d, const char *item_path,
  * (items without an id are skipped) into `out` (initialised by callee). */
 void spec_document_list_item_section_ids(const SpecDocument *d,
                                          const char *list_path, SomStrList *out);
+
+/* headlines (YRD3): the stored per-section headline at `path`, or NULL when
+ * unset. Set with an empty value to clear. */
+const char *spec_document_headline(const SpecDocument *d, const char *path);
+void spec_document_set_headline(SpecDocument *d, const char *path,
+                                const char *value);
+/* Writes every path carrying a stored headline (byte-sorted) into `out`
+ * (initialised by callee). */
+void spec_document_headline_paths(const SpecDocument *d, SomStrList *out);
 
 int spec_document_is_empty(const SpecDocument *d);
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix);

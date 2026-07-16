@@ -58,6 +58,11 @@ int som_node_is_empty(const SomNode *n);
  * may be NULL. */
 int som_node_set_section_id(const SomNode *n, const char *id,
                             SpecSectionIdError *err);
+/* Returns this node's stored headline (owned; "" when unset) — the per-section
+ * display headline overriding the derived md heading title (YRD3). */
+char *som_node_headline(const SomNode *n);
+/* Sets the stored headline; an empty value clears it (YRD3). */
+void som_node_set_headline(const SomNode *n, const char *value);
 
 /* ---- SomScalar — a bare string list item -------------------------------- */
 

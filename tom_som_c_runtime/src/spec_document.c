@@ -191,6 +191,7 @@ void document_json_init(DocumentJson *d) {
   d->lists = NULL;
   d->lists_len = 0;
   d->lists_cap = 0;
+  som_map_init(&d->headlines);
 }
 
 void document_json_free(DocumentJson *d) {
@@ -206,6 +207,7 @@ void document_json_free(DocumentJson *d) {
     som_map_free(&d->lists[i].ids);
   }
   free(d->lists);
+  som_map_free(&d->headlines);
   document_json_init(d);
 }
 
@@ -268,6 +270,17 @@ void document_json_from_json(const SomJson *v, DocumentJson *out) {
             som_map_set(&e->ids, im->key, s);
           }
         }
+      }
+    }
+  }
+
+  const SomJson *headlines = som_json_get(v, "headlines");
+  if (headlines != NULL && headlines->type == SOM_JSON_OBJECT) {
+    for (size_t i = 0; i < headlines->as.object.len; i++) {
+      const SomJsonMember *m = &headlines->as.object.members[i];
+      const char *s = som_json_as_str(m->value);
+      if (s != NULL) {
+        som_map_set(&out->headlines, m->key, s);
       }
     }
   }
@@ -343,6 +356,7 @@ char *document_json_to_canonical_json(const DocumentJson *d) {
     if (!first) {
       som_buf_putc(&b, ',');
     }
+    first = 0;
     som_buf_puts(&b, "\"lists\":{");
     for (size_t i = 0; i < d->lists_len; i++) {
       if (i > 0) {
@@ -386,6 +400,26 @@ char *document_json_to_canonical_json(const DocumentJson *d) {
     som_buf_putc(&b, '}');
   }
 
+  if (d->headlines.len > 0) {
+    if (!first) {
+      som_buf_putc(&b, ',');
+    }
+    som_buf_puts(&b, "\"headlines\":{");
+    for (size_t i = 0; i < d->headlines.len; i++) {
+      if (i > 0) {
+        som_buf_putc(&b, ',');
+      }
+      char *k = som_json_encode_str(d->headlines.entries[i].key);
+      char *val = som_json_encode_str(d->headlines.entries[i].val);
+      som_buf_puts(&b, k);
+      som_buf_putc(&b, ':');
+      som_buf_puts(&b, val);
+      free(k);
+      free(val);
+    }
+    som_buf_putc(&b, '}');
+  }
+
   som_buf_putc(&b, '}');
   return som_buf_take(&b);
 }
@@ -404,6 +438,7 @@ void spec_document_init(SpecDocument *d) {
   d->list_items_cap = 0;
   som_map_init(&d->list_seq);
   som_map_init(&d->item_section_id);
+  som_map_init(&d->headline);
   d->model_version = NULL;
 }
 
@@ -421,6 +456,7 @@ void spec_document_free(SpecDocument *d) {
   free(d->list_items);
   som_map_free(&d->list_seq);
   som_map_free(&d->item_section_id);
+  som_map_free(&d->headline);
   free(d->model_version);
   spec_document_init(d);
 }
@@ -654,6 +690,17 @@ static void purge_under(SpecDocument *d, const char *prefix) {
       i++;
     }
   }
+  for (size_t i = 0; i < d->headline.len;) {
+    if (is_under(d->headline.entries[i].key, prefix)) {
+      free(d->headline.entries[i].key);
+      free(d->headline.entries[i].val);
+      memmove(&d->headline.entries[i], &d->headline.entries[i + 1],
+              (d->headline.len - i - 1) * sizeof(SomMapEntry));
+      d->headline.len--;
+    } else {
+      i++;
+    }
+  }
 }
 
 int spec_document_remove_list_item(SpecDocument *d, const char *item_path) {
@@ -680,10 +727,33 @@ int spec_document_remove_list_item(SpecDocument *d, const char *item_path) {
   return 1;
 }
 
+/* --- headlines (YRD3) --- */
+
+const char *spec_document_headline(const SpecDocument *d, const char *path) {
+  return som_map_get(&d->headline, path);
+}
+
+void spec_document_set_headline(SpecDocument *d, const char *path,
+                                const char *value) {
+  if (value == NULL || value[0] == '\0') {
+    som_map_remove(&d->headline, path);
+  } else {
+    som_map_set(&d->headline, path, value);
+  }
+}
+
+void spec_document_headline_paths(const SpecDocument *d, SomStrList *out) {
+  som_strlist_init(out);
+  for (size_t i = 0; i < d->headline.len; i++) {
+    som_strlist_push_copy(out, d->headline.entries[i].key);
+  }
+}
+
 /* --- queries --- */
 
 int spec_document_is_empty(const SpecDocument *d) {
-  return d->content.len == 0 && d->forms_len == 0 && d->list_items_len == 0;
+  return d->content.len == 0 && d->forms_len == 0 && d->list_items_len == 0 &&
+         d->headline.len == 0;
 }
 
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix) {
@@ -699,6 +769,11 @@ int spec_document_has_values_under(const SpecDocument *d, const char *prefix) {
   }
   for (size_t i = 0; i < d->list_items_len; i++) {
     if (is_under(d->list_items[i].key, prefix)) {
+      return 1;
+    }
+  }
+  for (size_t i = 0; i < d->headline.len; i++) {
+    if (is_under(d->headline.entries[i].key, prefix)) {
       return 1;
     }
   }
@@ -782,6 +857,10 @@ void spec_document_to_json(const SpecDocument *d, DocumentJson *out) {
       }
     }
   }
+  for (size_t i = 0; i < d->headline.len; i++) {
+    som_map_set(&out->headlines, d->headline.entries[i].key,
+                d->headline.entries[i].val);
+  }
 }
 
 void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
@@ -799,6 +878,7 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
   d->list_items_len = 0;
   som_map_clear(&d->list_seq);
   som_map_clear(&d->item_section_id);
+  som_map_clear(&d->headline);
 
   for (size_t i = 0; i < j->content.len; i++) {
     som_map_set(&d->content, j->content.entries[i].key,
@@ -832,6 +912,13 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
       som_map_set(&d->item_section_id, j->lists[i].ids.entries[k].key,
                   j->lists[i].ids.entries[k].val);
     }
+  }
+  for (size_t i = 0; i < j->headlines.len; i++) {
+    if (j->headlines.entries[i].val[0] == '\0') {
+      continue; /* skip empty values (YRD3) */
+    }
+    som_map_set(&d->headline, j->headlines.entries[i].key,
+                j->headlines.entries[i].val);
   }
 }
 

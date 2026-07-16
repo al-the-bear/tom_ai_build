@@ -366,6 +366,16 @@ static void test_markdown_round_trip(Checker *c, const SpecModel *model) {
   SpecDocument applied;
   spec_document_init(&applied);
   spec_document_load_json(&applied, spec_markdown_result_document(&result));
+  /* YRD3: the stored item id and stored headline round-trip through md. */
+  {
+    const char *sid = spec_document_item_section_id(&applied, "DEMO/REF-LST-1");
+    check(c, "md.parse.storedId",
+          sid != NULL && strcmp(sid, "REF-SPEC") == 0, sid != NULL ? sid : "");
+    const char *hl = spec_document_headline(&applied, "DEMO/REF-LST-1");
+    check(c, "md.parse.headline",
+          hl != NULL && strcmp(hl, "Reference to the Spec") == 0,
+          hl != NULL ? hl : "");
+  }
   char *actual =
       spec_markdown_export_root(model, &applied, &model->roots[0], NULL);
   char *d = byte_diff("md.parse.reexport", actual, expected);
@@ -589,6 +599,19 @@ static void test_operations(Checker *c) {
       char detail[64];
       snprintf(detail, sizeof(detail), "%zu", got);
       check(c, tag, got == (size_t)exp, detail);
+    } else if (strcmp(op_name, "setHeadline") == 0) {
+      spec_document_set_headline(&doc, som_json_str_or(op, "path"),
+                                 som_json_str_or(op, "value"));
+    } else if (strcmp(op_name, "headline") == 0) {
+      const char *val =
+          spec_document_headline(&doc, som_json_str_or(op, "path"));
+      const SomJson *e = som_json_get(op, "expect");
+      const char *exp = som_json_as_str(e);
+      if (exp == NULL) {
+        check(c, tag, val == NULL, "expected unset");
+      } else {
+        check(c, tag, val != NULL && strcmp(val, exp) == 0, val ? val : "");
+      }
     } else if (strcmp(op_name, "hasValuesUnder") == 0) {
       int exp = som_json_bool_or(op, "expect");
       check(c, tag,

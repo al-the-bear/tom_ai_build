@@ -202,8 +202,10 @@ static int match_heading_line(const char *s, int *level, char **rest) {
 }
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]-->\s*(.*)$`. On match writes owned
- * group 1 (id) to `*id`, returns 1. `s` should already be TrimSpace'd. */
-static int match_headline_comment(const char *s, char **id) {
+ * group 1 (id) to `*id` and owned TrimSpace'd group 2 (the heading title, ""
+ * when absent — YRD3) to `*title`, returns 1. `s` should already be
+ * TrimSpace'd. `title` may be NULL when the caller does not need it. */
+static int match_headline_comment(const char *s, char **id, char **title) {
   if (strncmp(s, "<!--[", 5) != 0) {
     return 0;
   }
@@ -216,6 +218,18 @@ static int match_headline_comment(const char *s, char **id) {
     return 0;
   }
   *id = som_strdup_n(p, (size_t)(close - p));
+  if (title != NULL) {
+    const char *t = close + 4;
+    while (is_ws(*t)) {
+      t++;
+    }
+    /* TrimSpace the remainder (leading ws consumed above). */
+    size_t len = strlen(t);
+    while (len > 0 && is_ws(t[len - 1])) {
+      len--;
+    }
+    *title = som_strdup_n(t, len);
+  }
   return 1;
 }
 
@@ -722,6 +736,18 @@ static char *md_title_of(const SomMetaNode *node) {
   return spec_markdown_title_case(name);
 }
 
+/* headingTitle: resolves the heading title for a node at `path` — the
+ * document's STORED headline when present, else the derived title (YRD3).
+ * Owned result. */
+static char *heading_title(MdCodec *c, const char *path,
+                           const SomMetaNode *node) {
+  const char *h = spec_document_headline(c->document, path);
+  if (h != NULL && h[0] != '\0') {
+    return som_strdup(h);
+  }
+  return md_title_of(node);
+}
+
 static void md_write_heading(SomBuf *b, int depth, const char *id,
                              const char *title) {
   for (int i = 0; i < depth; i++) {
@@ -903,10 +929,11 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     return 1;
   }
   /* The container heading: its id is the list's `-LST` @SectionId (else the
-     member segment for a pattern-less list); its title is the member name. */
+     member segment for a pattern-less list); its title is the member name
+     (or the stored headline, YRD3). */
   {
     char *chid = heading_id_of(c, node);
-    char *ctitle = md_title_of(node);
+    char *ctitle = heading_title(c, list_path, node);
     md_write_heading(b, depth, chid, ctitle);
     free(chid);
     free(ctitle);
@@ -936,10 +963,13 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
     char *item_id = NULL;
-    /* DRC5: md list identity is purely positional. A stored @SectionId is
-       never surfaced in md; it is preserved losslessly only in the yaml
-       format. */
-    if (pattern[0] != '\0') {
+    /* YRD3 (supersedes DRC5): a stored @SectionId IS the item's md heading
+       id; the positional derivation is only the fallback. */
+    const char *stored_id = spec_document_item_section_id(c->document,
+                                                          item_path);
+    if (stored_id != NULL) {
+      item_id = som_strdup(stored_id);
+    } else if (pattern[0] != '\0') {
       /* pattern with "xxx" → pos */
       SomBuf ib;
       som_buf_init(&ib);
@@ -962,9 +992,17 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       item_id = vcat3(member, "-", num);
       free(num);
     }
-    char *pos_str = itoa_dup(pos);
-    char *title = vcat3(stem, " ", pos_str);
-    free(pos_str);
+    /* YRD3: a stored per-item headline overrides the derived "stem pos"
+       title. */
+    const char *item_headline = spec_document_headline(c->document, item_path);
+    char *title;
+    if (item_headline != NULL && item_headline[0] != '\0') {
+      title = som_strdup(item_headline);
+    } else {
+      char *pos_str = itoa_dup(pos);
+      title = vcat3(stem, " ", pos_str);
+      free(pos_str);
+    }
     /* Items sit one level below the container heading. */
     md_write_heading(b, depth + 1, item_id, title);
     free(title);
@@ -1015,7 +1053,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         continue;
       }
       char *hid = heading_id_of(c, child);
-      char *title = md_title_of(child);
+      char *title = heading_title(c, path, child);
       md_write_heading(b, depth, hid, title);
       free(hid);
       free(title);
@@ -1026,7 +1064,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         continue;
       }
       char *hid = heading_id_of(c, child);
-      char *title = md_title_of(child);
+      char *title = heading_title(c, path, child);
       md_write_heading(b, depth, hid, title);
       free(hid);
       free(title);
@@ -1034,7 +1072,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     } else if (strcmp(kind, SOM_META_KIND_SECTION) == 0 ||
                strcmp(kind, SOM_META_KIND_COMPLEX) == 0) {
       char *hid = heading_id_of(c, child);
-      char *title = md_title_of(child);
+      char *title = heading_title(c, path, child);
       md_write_heading(b, depth, hid, title);
       free(hid);
       free(title);
@@ -1071,7 +1109,12 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
   free(kebab);
   free(version);
   const char *root_seg = som_meta_node_segment(node);
-  md_write_heading(&b, 1, root_seg, root->title);
+  /* YRD3: a stored headline at the root path overrides the root title. */
+  const char *root_headline = spec_document_headline(c->document, root_seg);
+  md_write_heading(&b, 1, root_seg,
+                   (root_headline != NULL && root_headline[0] != '\0')
+                       ? root_headline
+                       : root->title);
   if (!write_section_body(c, &b, node, root_seg, err)) {
     som_buf_free(&b);
     return NULL;
@@ -1598,7 +1641,8 @@ static void parser_close_to(MdParser *p, int level) {
 
 static void parser_open_item(MdParser *p, int level, const char *list_path,
                              const SomMetaNode *list_node, long long n,
-                             const char *stored_id, int has_n, size_t line) {
+                             const char *stored_id, int has_n,
+                             const char *title, size_t line) {
   MdListState *state = parser_list_state(p, list_path);
   long long number = n;
   if (!has_n) {
@@ -1609,11 +1653,31 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
   }
   char *num = itoa_dup(number);
   char *item_path = vcat3(list_path, "-", num);
-  free(num);
   som_strlist_push_copy(&state->items, item_path);
   if (!has_n) {
     som_map_set(&state->ids, item_path, stored_id != NULL ? stored_id : "");
   }
+  /* YRD3 §8.7: stage the heading title as a stored headline only when it
+     differs from the effective default "<stem> <n>". */
+  if (title != NULL && title[0] != '\0') {
+    const SomMetaNode *element = list_node->element_node;
+    char *stem;
+    if (element != NULL) {
+      stem = spec_markdown_item_title_stem(element->class_name);
+    } else {
+      const char *member = list_node->member_name[0] != '\0'
+                               ? list_node->member_name
+                               : som_meta_node_segment(list_node);
+      stem = spec_markdown_title_case(member);
+    }
+    char *deflt = vcat3(stem, " ", num);
+    if (strcmp(title, deflt) != 0) {
+      som_map_set(&p->staged.headlines, item_path, title);
+    }
+    free(deflt);
+    free(stem);
+  }
+  free(num);
   parser_push_frame(p, level, list_node->element_node, item_path, line, 0);
 }
 
@@ -1734,7 +1798,7 @@ static int numbered_pattern_match(const char *pattern, const char *id,
 /* ---- open heading ------------------------------------------------------- */
 
 static void parser_open_root(MdParser *p, int level, const char *id,
-                             size_t line);
+                             const char *title, size_t line);
 
 /* Opens a list-item frame under a `-LST` container frame (DR1 §1.2). The
    heading `id` is matched positionally against the container's list: the
@@ -1744,13 +1808,14 @@ static void parser_open_root(MdParser *p, int level, const char *id,
 static void parser_open_item_heading(MdParser *p, int level,
                                      const char *list_path,
                                      const SomMetaNode *list_node,
-                                     const char *id, size_t line) {
+                                     const char *id, const char *title,
+                                     size_t line) {
   const char *member = list_node->member_name[0] != '\0'
                            ? list_node->member_name
                            : som_meta_node_segment(list_node);
   long long n = 0;
   if (anon_member_match(member, id, &n)) {
-    parser_open_item(p, level, list_path, list_node, n, "", 1, line);
+    parser_open_item(p, level, list_path, list_node, n, "", 1, title, line);
     return;
   }
   const SomMetaNode *element = list_node->element_node;
@@ -1761,24 +1826,26 @@ static void parser_open_item_heading(MdParser *p, int level,
   if (pattern[0] != '\0') {
     long long num = 0;
     if (numbered_pattern_match(pattern, id, &num)) {
-      parser_open_item(p, level, list_path, list_node, num, "", 1, line);
+      parser_open_item(p, level, list_path, list_node, num, "", 1, title,
+                       line);
       return;
     }
     if (pattern_matches(pattern, id)) {
-      parser_open_item(p, level, list_path, list_node, 0, id, 0, line);
+      parser_open_item(p, level, list_path, list_node, 0, id, 0, title, line);
       return;
     }
   }
   /* Any other id under the container is an anonymous next item; a genuine
      stored id is kept (it survives only through the yaml format, DR1 §2). */
-  parser_open_item(p, level, list_path, list_node, 0, id, 0, line);
+  parser_open_item(p, level, list_path, list_node, 0, id, 0, title, line);
 }
 
 static void parser_open_heading(MdParser *p, int level, const char *rest,
                                 size_t line) {
   char *trimmed = trim_space(rest);
   char *id = NULL;
-  int matched = match_headline_comment(trimmed, &id);
+  char *title = NULL;
+  int matched = match_headline_comment(trimmed, &id, &title);
   if (!matched) {
     parser_push_rejection(p, line, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
                           "heading carries no <!--[SECTION-ID]--> headline "
@@ -1791,8 +1858,9 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   free(trimmed);
 
   if (p->stack_len == 0) {
-    parser_open_root(p, level, id, line);
+    parser_open_root(p, level, id, title, line);
     free(id);
+    free(title);
     return;
   }
 
@@ -1802,6 +1870,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
                           "section nested under an unresolvable parent", id);
     parser_push_frame(p, level, NULL, som_strdup(""), line, 1);
     free(id);
+    free(title);
     return;
   }
   const SomMetaNode *p_node = parent->node;
@@ -1811,6 +1880,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
                           id);
     parser_push_frame(p, level, NULL, som_strdup(""), line, 1);
     free(id);
+    free(title);
     return;
   }
 
@@ -1819,9 +1889,10 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   /* 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
      that list's items — resolved positionally, not by the schema tree. */
   if (strcmp(p_node->kind, SOM_META_KIND_LIST) == 0) {
-    parser_open_item_heading(p, level, parent_path, p_node, id, line);
+    parser_open_item_heading(p, level, parent_path, p_node, id, title, line);
     free(parent_path);
     free(id);
+    free(title);
     return;
   }
 
@@ -1838,6 +1909,15 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(hid);
     if (hit) {
       char *path = spec_path_join(parent_path, eff.items[i].rel);
+      /* YRD3 §8.7: stage the heading title as a stored headline only when it
+         differs from the derived default title of this node. */
+      if (title[0] != '\0') {
+        char *deflt = md_title_of(en);
+        if (strcmp(title, deflt) != 0) {
+          som_map_set(&p->staged.headlines, path, title);
+        }
+        free(deflt);
+      }
       parser_push_frame(p, level, en, path, line, 0);
       handled = 1;
       break;
@@ -1847,6 +1927,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     nrv_free(&eff);
     free(parent_path);
     free(id);
+    free(title);
     return;
   }
 
@@ -1862,10 +1943,11 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   nrv_free(&eff);
   free(parent_path);
   free(id);
+  free(title);
 }
 
 static void parser_open_root(MdParser *p, int level, const char *id,
-                             size_t line) {
+                             const char *title, size_t line) {
   const SpecModel *model = p->codec->model;
   for (size_t i = 0; i < model->roots_len; i++) {
     const SpecRoot *root = &model->roots[i];
@@ -1879,6 +1961,12 @@ static void parser_open_root(MdParser *p, int level, const char *id,
         break;
       }
       root_prefix_insert(p, seg);
+      /* YRD3 §8.7: stage the root heading title as a stored headline only
+         when it differs from the root's declared title. */
+      if (title != NULL && title[0] != '\0' &&
+          strcmp(title, root->title) != 0) {
+        som_map_set(&p->staged.headlines, seg, title);
+      }
       parser_push_frame(p, level, tree->root, som_strdup(seg), line, 0);
       return;
     }

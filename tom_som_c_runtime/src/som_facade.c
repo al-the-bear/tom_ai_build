@@ -49,6 +49,15 @@ int som_node_set_section_id(const SomNode *n, const char *id,
   return spec_document_set_item_section_id(n->doc, n->path, id, err);
 }
 
+char *som_node_headline(const SomNode *n) {
+  const char *h = spec_document_headline(n->doc, n->path);
+  return som_strdup(h != NULL ? h : "");
+}
+
+void som_node_set_headline(const SomNode *n, const char *value) {
+  spec_document_set_headline(n->doc, n->path, value);
+}
+
 /* ---- SomScalar ---------------------------------------------------------- */
 
 void som_scalar_init(SomScalar *s, SpecDocument *doc, const char *path) {

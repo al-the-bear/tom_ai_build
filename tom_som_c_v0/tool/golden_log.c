@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t2");
+  som_strlist_push_copy(&out, "FORMAT\t3");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -241,7 +241,9 @@ int main(int argc, char **argv) {
     som_strlist_free(&paths);
   }
 
-  /* Generic: list containers + item paths (document order). */
+  /* Generic: list containers + item paths (document order). FORMAT 3: each
+     item with a *stored* section id additionally emits an `ID` line (item
+     path + stored id); items without one emit no `ID` line. */
   som_strlist_push_copy(&out, "SECTION\tgeneric-lists");
   {
     SomStrList paths;
@@ -254,7 +256,29 @@ int main(int argc, char **argv) {
       som_strlist_push(&out, fmt("L\t%s\t%zu", p, count));
       for (size_t j = 0; j < count; j++) {
         som_strlist_push(&out, fmt("I\t%s", items->items[j]));
+        const char *id = spec_document_item_section_id(doc, items->items[j]);
+        if (id != NULL) {
+          char *e = esc(id);
+          som_strlist_push(&out, fmt("ID\t%s\t%s", items->items[j], e));
+          free(e);
+        }
       }
+    }
+    som_strlist_free(&paths);
+  }
+
+  /* Generic: every stored headline, sorted by path (FORMAT 3, YRD3). */
+  som_strlist_push_copy(&out, "SECTION\tgeneric-headlines");
+  {
+    SomStrList paths;
+    som_strlist_init(&paths);
+    spec_document_headline_paths(doc, &paths);
+    for (size_t i = 0; i < paths.len; i++) {
+      const char *p = paths.items[i];
+      const char *v = spec_document_headline(doc, p);
+      char *e = esc(v != NULL ? v : "");
+      som_strlist_push(&out, fmt("H\t%s\t%s", p, e));
+      free(e);
     }
     som_strlist_free(&paths);
   }
