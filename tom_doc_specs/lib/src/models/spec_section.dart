@@ -1,4 +1,4 @@
-import 'package:tom_doc_scanner/src/models/section.dart';
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 
 /// A section with schema type information.
 ///
@@ -44,12 +44,11 @@ class SpecSection extends Section {
     required super.id,
     required super.text,
     super.fields = const {},
-    List<Section>? sections,
+    super.sections,
     this.type,
     List<String>? tags,
     this.format,
-  })  : tags = tags ?? const [],
-        super(sections: sections);
+  }) : tags = tags ?? const [];
 
   /// Creates a SpecSection from a base Section with additional properties.
   factory SpecSection.fromSection(

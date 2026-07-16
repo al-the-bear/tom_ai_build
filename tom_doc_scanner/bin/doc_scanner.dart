@@ -7,12 +7,12 @@ import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 /// Command-line tool for scanning markdown files into structured JSON.
 ///
 /// Usage:
-///   doc_scanner scandocument <file> [-target=<folder>] [-overwrite]
-///   doc_scanner scandocuments <file1> <file2> ... [-target=<folder>] [-overwrite]
-///   doc_scanner scantree <folder> [-target=<folder>] [-flat] [-overwrite]
+///   doc_scanner scandocument `<file>` `[-target=<folder>]` [-overwrite]
+///   doc_scanner scandocuments `<file1>` `<file2>` ... `[-target=<folder>]` [-overwrite]
+///   doc_scanner scantree `<folder>` `[-target=<folder>]` [-flat] [-overwrite]
 ///
 /// Options:
-///   -target=<folder>  Output directory (default: current directory)
+///   `-target=<folder>`  Output directory (default: current directory)
 ///   -flat             Flatten all output files (scantree only)
 ///   -overwrite        Overwrite existing files without renaming
 ///

@@ -7,13 +7,13 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 /// Command-line tool for validating and scanning DocSpec documents.
 ///
 /// Usage:
-///   docspecs validate <files...> [options]
-///   docspecs scan <files...> [options]
+///   docspecs validate `<files...>` [options]
+///   docspecs scan `<files...>` [options]
 ///   docspecs list-schemas
 ///
 /// Options:
-///   -target=<folder>   Output folder (default: current)
-///   -schema=<id>       Override schema (ignore document declaration)
+///   `-target=<folder>`   Output folder (default: current)
+///   `-schema=<id>`       Override schema (ignore document declaration)
 ///   -format=json|yaml  Output format (default: json)
 ///   -quiet             Suppress output except errors
 ///   -overwrite         Overwrite existing files

@@ -1,5 +1,4 @@
-import 'package:tom_doc_scanner/src/models/document.dart';
-import 'package:tom_doc_scanner/src/models/section.dart';
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import '../models/schema/doc_spec_schema.dart';
 import '../models/schema/document_structure.dart';
 import '../models/schema/section_type_def.dart';

@@ -67,8 +67,8 @@ Every document is a tree of **sections**. Always, at every level, a section is:
    structures the section's content; it does not change the section shape.
 4. **Nesting depth is unbounded.** There is no six-heading-level cap in the md
    format (§8.2); DocSpecs and its tooling must accept arbitrary nesting
-   *(DECIDED — YRD2; current `tom_doc_scanner` grammar is `#{1,6}` and is not
-   yet a conforming reader of deep SOM documents)*.
+   *(implemented — YRD2; `tom_doc_scanner` grammar is `#{1,}` and parses the
+   shared SOM sample, which nests to level 12, end-to-end)*.
 
 Terminology used throughout: *section id* = the `@SectionId` mnemonic
 (`INSC`); *member name* = the exact field/class identifier in the model;
@@ -562,7 +562,7 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
   (§8.6).
 - Heading level = 1 + section depth, **uncapped**. Strict CommonMark renderers
   render `#######`+ as literal text — the machine format is authoritative, not
-  the rendering. DocSpecs tooling must accept `#{7,}` *(DECIDED — YRD2)*.
+  the rendering. DocSpecs tooling must accept `#{7,}` *(implemented — YRD2)*.
 - Emission is **sparse** (only populated subtrees); sibling order is
   `@SerializationOrder` order.
 - Parse resolves a heading's id against the schema tree *at its nesting
@@ -894,7 +894,7 @@ tool:
 
 Scope: a consolidated clean design, **not** a port of `tom_doc_scanner` /
 `tom_doc_specs` internals (those packages are not touched by SOM work; their
-own arbitrary-nesting upgrade is YRD2). Supported schema features are exactly
+own arbitrary-nesting upgrade landed with YRD2). Supported schema features are exactly
 what §10 can generate; unsupported features load ignored plus a `warnings`
 list. `@Reference` sections parse as ordinary content sections (the id-string
 stored verbatim, never dereferenced).
@@ -956,7 +956,6 @@ The decided-but-unimplemented parts of this document, by quest todo
 
 | Todo | Scope | Sections here |
 | --- | --- | --- |
-| **YRD2** | DocSpecs arbitrary nesting (spec + `tom_doc_scanner` `#{1,}` + validation tooling) | §1.4, §8.2 |
 | **YRD3** | Universal stored headline + id, full md/yaml round-trip in all 9 runtimes | §1.1, §3.3, §4, §8.5–§8.7, §9.2/§9.3.6, §10 |
 | **YRD4** | `@Headline` annotation defaults | §4.2, §5, §6.1 |
 | **YRD5** | `DocSpecsSection` base class replaces `String`; `DocSpecsForm` | §2.2 |

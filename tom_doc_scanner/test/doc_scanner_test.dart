@@ -8,7 +8,6 @@ void main() {
   final fixturesPath = path.join(
     Directory.current.path,
     'test',
-    'doc_scanner',
     'fixtures',
   );
 
@@ -48,13 +47,74 @@ void main() {
         expect(feature1.name, equals('Feature One'));
       });
 
-      test('calculates hierarchy depth', () async {
+      test('calculates hierarchy depth (uncapped, beyond 6 levels)', () async {
         final doc = await DocScanner.scanDocument(
           filepath: path.join(fixturesPath, 'nested.md'),
           workspaceRoot: Directory.current.path,
         );
 
-        expect(doc.hierarchyDepth, equals(6));
+        expect(doc.hierarchyDepth, equals(9));
+      });
+
+      test('builds section hierarchy through levels 7-9', () async {
+        final doc = await DocScanner.scanDocument(
+          filepath: path.join(fixturesPath, 'nested.md'),
+          workspaceRoot: Directory.current.path,
+        );
+
+        // Walk the single chain Level 2 -> ... -> Level 9.
+        var section = doc.sections!.single;
+        expect(section.name, equals('Level 2'));
+        for (final name in [
+          'Level 3',
+          'Level 4',
+          'Level 5',
+          'Level 6',
+          'Level 7',
+          'Level 8',
+          'Level 9',
+        ]) {
+          section = section.sections!.single;
+          expect(section.name, equals(name));
+          if (name == 'Level 8') {
+            // Explicit id on a level-8 heading is extracted.
+            expect(section.id, equals('deep8'));
+          }
+        }
+        expect(section.sections, anyOf(isNull, isEmpty));
+      });
+
+      test('parses SOM shared sample end-to-end (nests to level 12)', () async {
+        // Regression fixture: snapshot of
+        // tom_som_conformance/samples/meridian_order_management.md, the SOM
+        // shared conformance sample. SOM documents nest far past CommonMark's
+        // 6 heading levels; DocScanner must be a conforming reader (YRD2).
+        final doc = await DocScanner.scanDocument(
+          filepath: path.join(fixturesPath, 'som_meridian_order_management.md'),
+          workspaceRoot: Directory.current.path,
+        );
+
+        expect(doc.hierarchyDepth, equals(12));
+        expect(doc.id, equals('SBP'));
+
+        // Every heading in the file must have been picked up as a section.
+        var sectionCount = 0;
+        String? deepId;
+        void walk(Section s) {
+          sectionCount++;
+          if (s.id == 'EXTST-STEP-1') deepId = s.id; // a level-12 section
+          for (final child in s.sections ?? const <Section>[]) {
+            walk(child);
+          }
+        }
+
+        for (final s in doc.sections ?? const <Section>[]) {
+          walk(s);
+        }
+
+        // 331 headings total, minus the level-1 document headline.
+        expect(sectionCount, equals(330));
+        expect(deepId, equals('EXTST-STEP-1'));
       });
 
       test('handles document without headlines', () async {

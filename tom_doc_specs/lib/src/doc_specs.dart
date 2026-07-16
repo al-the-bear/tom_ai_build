@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as path;
 
-import 'package:tom_doc_scanner/src/doc_scanner.dart';
-import 'package:tom_doc_scanner/src/models/document_folder.dart';
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'doc_specs_factory.dart';
 import 'models/schema/doc_spec_schema.dart';
 import 'models/schema/schema_info.dart';

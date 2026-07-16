@@ -5,7 +5,11 @@ library;
 
 /// A parsed headline from markdown.
 class ParsedHeadline {
-  /// The headline level (1-6 for # through ######).
+  /// The headline level (1 for `#`, 2 for `##`, … — uncapped).
+  ///
+  /// DocSpecs documents support arbitrary section nesting depth, so levels
+  /// beyond 6 (`#######` and deeper) are valid, even though CommonMark
+  /// renderers treat them as plain text.
   final int level;
 
   /// The line number in the source file (1-based).
@@ -39,8 +43,11 @@ class ParsedHeadline {
 
 /// Parses markdown content into structured sections.
 class MarkdownParser {
-  /// Pattern to match headlines: # through ######
-  static final _headlinePattern = RegExp(r'^(#{1,6})\s+(.*)$');
+  /// Pattern to match headlines: `#`, `##`, … with no upper bound.
+  ///
+  /// DocSpecs supports arbitrary nesting depth (heading level = 1 + depth,
+  /// uncapped), so the grammar is `#{1,}` rather than CommonMark's `#{1,6}`.
+  static final _headlinePattern = RegExp(r'^(#{1,})\s+(.*)$');
 
   /// Pattern to extract HTML comment with optional content: <!--...-->
   static final _htmlCommentPattern = RegExp(r'<!--\s*(.*?)\s*-->');

@@ -54,12 +54,18 @@ class DocSpecsSkeletonGenerator {
   }
 
   /// Generate a single section with its subsections.
+  ///
+  /// [typePath] holds the section-type names on the current recursion path;
+  /// it guards against infinite recursion for self-/mutually-recursive
+  /// section types. There is no fixed depth cap: DocSpecs documents support
+  /// arbitrary section nesting (heading level = 1 + depth, uncapped).
   static void _generateSection(
     StringBuffer buffer, {
     required String sectionName,
     required SectionTypeDef sectionType,
     required int level,
     required DocSpecSchema schema,
+    Set<String> typePath = const {},
   }) {
     // Generate heading with ID prefix
     final prefix = sectionType.prefix ?? sectionType.name;
@@ -82,9 +88,11 @@ class DocSpecsSkeletonGenerator {
       buffer.writeln();
     }
 
-    // Generate required subsections
+    // Generate required subsections (no depth cap — nesting is uncapped;
+    // recursion is bounded by the cycle guard on section-type names).
     final subsectionTypes = sectionType.subsectionTypes;
-    if (subsectionTypes != null && level < 6) {
+    if (subsectionTypes != null) {
+      final nextPath = {...typePath, sectionType.name};
       for (final subEntry in subsectionTypes.entries) {
         final subTypeName = subEntry.key;
         final constraint = subEntry.value;
@@ -98,6 +106,9 @@ class DocSpecsSkeletonGenerator {
         final subType = schema.sectionTypes[subTypeName];
         if (subType == null) continue;
 
+        // Cycle guard: don't recurse into a type already on this path.
+        if (nextPath.contains(subType.name)) continue;
+
         // Generate the minimum required number of subsections
         final count = minCount > 0 ? minCount : 1;
         for (var i = 1; i <= count; i++) {
@@ -107,6 +118,7 @@ class DocSpecsSkeletonGenerator {
             sectionType: subType,
             level: level + 1,
             schema: schema,
+            typePath: nextPath,
           );
         }
       }

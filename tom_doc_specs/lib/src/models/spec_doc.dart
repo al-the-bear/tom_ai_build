@@ -1,5 +1,4 @@
-import 'package:tom_doc_scanner/src/models/document.dart';
-import 'package:tom_doc_scanner/src/models/section.dart';
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'spec_section.dart';
 import 'spec_section_type.dart';
 
@@ -49,7 +48,7 @@ class SpecDoc extends Document {
     required super.id,
     required super.text,
     super.fields = const {},
-    List<Section>? sections,
+    super.sections,
     required super.filenameWithPath,
     required super.loadTimestamp,
     required super.filename,
@@ -64,8 +63,7 @@ class SpecDoc extends Document {
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
   })  : validationErrors = validationErrors ?? [],
-        _accessKeys = accessKeys ?? const {},
-        super(sections: sections);
+        _accessKeys = accessKeys ?? const {};
 
   /// Creates a SpecDoc from a base Document with additional properties.
   factory SpecDoc.fromDocument(

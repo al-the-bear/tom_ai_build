@@ -34,6 +34,34 @@ void main() {
         expect(headlines[5].$1.level, equals(6));
       });
 
+      test('parses headline levels beyond 6 (uncapped DocSpecs grammar)', () {
+        const content = '''
+###### Level 6
+####### Level 7
+######## Level 8
+######### Level 9
+''';
+        final headlines = MarkdownParser.parseHeadlines(content);
+
+        expect(headlines.length, equals(4));
+        expect(headlines[0].$1.level, equals(6));
+        expect(headlines[1].$1.level, equals(7));
+        expect(headlines[2].$1.level, equals(8));
+        expect(headlines[3].$1.level, equals(9));
+        expect(headlines[1].$1.text, equals('Level 7'));
+        expect(headlines[3].$1.text, equals('Level 9'));
+      });
+
+      test('extracts ID and fields from deep headline (level 8)', () {
+        const content = '######## <!--[GOAL-ITEM-1]--> Goal 1';
+        final headlines = MarkdownParser.parseHeadlines(content);
+
+        expect(headlines.length, equals(1));
+        expect(headlines.first.$1.level, equals(8));
+        expect(headlines.first.$1.explicitId, equals('GOAL-ITEM-1'));
+        expect(headlines.first.$1.text, equals('Goal 1'));
+      });
+
       test('extracts ID from square brackets', () {
         const content = '## [my_id] My Section';
         final headlines = MarkdownParser.parseHeadlines(content);

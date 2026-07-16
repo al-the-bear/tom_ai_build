@@ -6,7 +6,7 @@ DocScanner processes markdown files and extracts headline-based structure into a
 
 ## Features
 
-- **Parse Headlines**: Extracts all headline levels (`#` through `######`)
+- **Parse Headlines**: Extracts headlines of **any** level (`#`, `##`, … with no upper bound). DocSpecs documents support arbitrary section nesting depth (heading level = 1 + depth), so levels beyond 6 (`#######` and deeper) are parsed as sections — note that CommonMark renderers display 7+ `#` as plain text; the machine format is authoritative.
 - **Extract IDs**: Supports explicit IDs via `[id]` or `<!--[id]-->` syntax
 - **Auto-generate IDs**: Creates IDs from headline text when not specified
 - **Section Hierarchy**: Builds nested section tree based on headline levels

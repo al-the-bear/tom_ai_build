@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tom_doc_scanner/src/models/section.dart';
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 
 import '../models/spec_doc.dart';
 import '../models/spec_section.dart';
