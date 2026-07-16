@@ -282,6 +282,31 @@ Shapes (3) and (6) let a leaf sub-section be expressed as a *field* instead of a
 
 > Census (post-TSMA1/TSMA2, 1222-class model — regenerate with `tom_specs_clitool/tool/keep_class_census.dart`): **50** shared leaves (refs > 1), **378** form-bearing list-element leaves, **417** in the union — all confirmed exempt (the earlier 30 / 232 projection predates the TSMA1/TSMA2 collapses, which turned many former container classes into leaves).
 
+### 6.1c When a wrapper stays a level (keep-a-level criteria) (TSMA4/TSMA5)
+
+§6.1b is about a *leaf* sub-section becoming a field; §6.1c is the dual, about a *wrapper* level being removed. A **single-subsection wrapper** is a class whose only structural child is one subsection — one complex field, one `List<L>`, or one section-type field — with no other content of its own. Such a wrapper is pure indirection: it can be **collapsed** (TSMA4) by promoting the subsection onto the parent field, deleting the redundant hierarchy level. But collapse is only safe when the wrapper's *own content has no meaning by itself*; otherwise the level **stays**.
+
+**The operational "content has no meaning by itself" test.** A wrapper `W` is a **collapse candidate** iff *all* of these hold (this is exactly what the clitool validator and `tom_specs_clitool/tool/tsma4_census.dart` compute):
+
+1. `W` is not the container root, not the `D00SolutionBlueprint` master-blueprint anchor, and not a `@Document` root.
+2. `W` is referenced by **exactly one** complex parent field and by **zero** list-element positions (counted across the whole model) — i.e. it is **unshared**.
+3. `W` has **exactly one** subsection field (`isList` | `isComplex` | `isSectionType`).
+4. Every *other* field of `W` is a `String`/enum **leaf** — no nested section hides among the siblings.
+5. Neither `W` nor any of its fields carries `@Form` (no per-section form structure to preserve).
+6. No leaf carries substantive `@ContentHelp`, `@StandardReferences`, or a **non-Form** `@ContentType` (nothing documents the section as a distinct concept).
+7. `W` declares **no named leaf besides `content`** — a named scalar is independent meaning that promotion would orphan.
+
+When all hold, `W`'s content is absent or a bare `content` lead-in that only restates the subsection, so the level is removed. When any fails, the level is a **kept wrapper** (canonical §6.1a shape (4)/(5) section) for one of the mirror-of-§6.1b reasons:
+
+1. **Form-bearing wrapper.** The wrapper (class or a field) carries `@Form`. Promoting the subsection would strip the per-section form structure, so it stays a level. (These are the bulk of kept wrappers.)
+2. **Meaningful content.** A leaf carries substantive `@ContentHelp` / `@StandardReferences` / a non-Form `@ContentType` — the wrapper's own text documents the section as a distinct concept, independent of its child.
+3. **Shared substructure.** The wrapper is reached by more than one parent field (same rule as §6.1b keep-a-class): collapsing it would duplicate the promotion at every use site.
+4. **Independent scalar** — a named leaf besides `content`, or more than one subsection (already a genuine multi-child section).
+
+**The validator DOES flag collapse candidates** — this is the one place the validator surfaces a *migration* smell rather than a legality error. It emits a `§6.1c collapsible-wrapper` **warning** (not an error — generation still proceeds) for any wrapper meeting all seven criteria, and never for the kept ones. After TSMA4 the model is at the keep-a-level steady state: **0** collapse candidates remain, so the validator emits zero §6.1c warnings.
+
+> Census (post-TSMA4, 1218-class model — regenerate with `tom_specs_clitool/tool/tsma4_census.dart`): **230** single-subsection wrappers (unshared, leaf-only siblings), of which **0** are COLLAPSIBLE, **168** are kept for `@Form`, **62** for `@ContentHelp`/`@StandardReferences`/non-Form `@ContentType`, and **0** for an extra non-`content` leaf — every remaining wrapper is a deliberate level.
+
 ### 6.2 Class Style
 
 | Rule | Description |

@@ -1522,4 +1522,186 @@ void main() {
       expect(src, isNot(contains('SpecRegistry.register(SectionMeta,')));
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // §6.1c collapsible-wrapper detection (TSMA4–TSMA5). The validator warns when
+  // a single-subsection wrapper with vacuous content adds a redundant hierarchy
+  // level (single complex referrer, one subsection field, bare `content`). The
+  // TSMA5 keep-a-level exemptions — form-bearing, meaningful-content
+  // (@ContentHelp / @StandardReferences / non-Form @ContentType), and
+  // shared/multi-referrer wrappers — must NOT be flagged.
+  // ---------------------------------------------------------------------------
+  group('unit: §6.1c collapsible-wrapper detection (TSMA4–TSMA5)', () {
+    // Collapsible-wrapper detection lives in the §8.6 structural pass, so a
+    // D00SolutionBlueprint root must reach the candidate. The root references
+    // the wrapper; the wrapper carries exactly one subsection + bare content.
+    List<String> collapsibleWarnings(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .warnings
+            .where((w) => w.contains('§6.1c collapsible-wrapper'))
+            .toList();
+
+    // A leaf section the wrapper's single subsection points at.
+    ModelClass innerSection() =>
+        _cls('Inner', [AnnotationData('SectionId', {'id': 'INR'})], [
+          _field('content', 'String'),
+        ]);
+
+    Map<String, ModelClass> modelWithWrapper(ModelClass wrapper) => {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [AnnotationData('SectionId', {'id': 'TST'})],
+            [_field('wrapper', 'Wrapper')],
+          ),
+          'Wrapper': wrapper,
+          'Inner': innerSection(),
+        };
+
+    test('flags a collapsible single-subsection wrapper with bare content', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String'),
+          _field('inner', 'Inner'),
+        ]),
+      );
+      final warns = collapsibleWarnings(classes);
+      expect(warns, hasLength(1), reason: warns.join('\n'));
+      expect(warns.single, contains('Wrapper'));
+      expect(warns.single, contains('D00SolutionBlueprint.wrapper'));
+      expect(warns.single, contains('complex:Inner'));
+    });
+
+    test('flags a collapsible wrapper with a list subsection and no content', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _listField('inner', 'Inner',
+              [AnnotationData('SectionIdPattern', {'pattern': 'WRP-{n}'})]),
+        ]),
+      );
+      final warns = collapsibleWarnings(classes);
+      expect(warns, hasLength(1), reason: warns.join('\n'));
+      expect(warns.single, contains('list<Inner>'));
+    });
+
+    test('does NOT flag a form-bearing wrapper (keep-a-level, TSMA5)', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper',
+            [AnnotationData('SectionId', {'id': 'WRP'}), AnnotationData('Form', {})],
+            [
+              _field('content', 'String'),
+              _field('inner', 'Inner'),
+            ]),
+      );
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a wrapper whose content carries @ContentHelp '
+        '(meaningful content, TSMA5)', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String',
+              [AnnotationData('ContentHelp', {'guidance': 'distinct concept'})]),
+          _field('inner', 'Inner'),
+        ]),
+      );
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a wrapper whose content carries @StandardReferences '
+        '(meaningful content, TSMA5)', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String', [
+            AnnotationData('StandardReferences', {
+              'standards': ['ISO/IEC 25010:2023 §4.2'],
+              'connotation': 'documents the section as a distinct concept',
+            }),
+          ]),
+          _field('inner', 'Inner'),
+        ]),
+      );
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a wrapper whose content carries a non-Form @ContentType '
+        '(meaningful content, TSMA5)', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String',
+              [AnnotationData('ContentType', {'type': 'mermaid'})]),
+          _field('inner', 'Inner'),
+        ]),
+      );
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a shared wrapper reached by >1 parent field '
+        '(shared substructure, TSMA5/TSMA3 rule)', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            _field('first', 'Wrapper'),
+            _field('second', 'Wrapper'),
+          ],
+        ),
+        'Wrapper': _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String'),
+          _field('inner', 'Inner'),
+        ]),
+        'Inner': innerSection(),
+      };
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a wrapper with a named scalar besides content '
+        '(independent meaning, TSMA5)', () {
+      final classes = modelWithWrapper(
+        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('content', 'String'),
+          _field('label', 'String'),
+          _field('inner', 'Inner'),
+        ]),
+      );
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+
+    test('does NOT flag a class with two subsections (not a single-subsection '
+        'wrapper)', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('wrapper', 'Wrapper')],
+        ),
+        'Wrapper': _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
+          _field('inner', 'Inner'),
+          _field('other', 'Other'),
+        ]),
+        'Inner': innerSection(),
+        'Other': _cls('Other', [AnnotationData('SectionId', {'id': 'OTH'})], [
+          _field('content', 'String'),
+        ]),
+      };
+      expect(collapsibleWarnings(classes), isEmpty);
+    });
+  });
+
+  group('end-to-end: real tom_specs_model §6.1c collapsible-wrapper steady state',
+      () {
+    test('the post-TSMA4 model emits zero collapsible-wrapper warnings', () async {
+      final driver = createAnalysisDriver(modelPath);
+      final reader = ModelReader(driver);
+      await reader.analyzePackage(p.join(modelPath, 'lib'));
+      final result = validateStructuralInvariants(reader.classes);
+      final collapsible = result.warnings
+          .where((w) => w.contains('§6.1c collapsible-wrapper'))
+          .toList();
+      // TSMA4 collapsed every meaning-free wrapper; the census (tsma4_census.dart)
+      // now reports 0 COLLAPSIBLE. TSMA5's kept wrappers (form-bearing /
+      // meaningful-content / shared) are exempt, so the validator flags none.
+      expect(collapsible, isEmpty, reason: collapsible.join('\n'));
+    });
+  });
 }

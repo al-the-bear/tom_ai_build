@@ -175,6 +175,15 @@ import 'model_reader.dart';
 ///   `D00SolutionBlueprint` to `C` (inclusive) must carry `@MapsTo(D)`.
 /// - **Detail-count per `@Document` class** — warns if a `@Document`-tagged
 ///   class has zero `@DetailedIn` entries in the SBP tree (likely omission).
+/// - **Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5)** — warns when a
+///   *single-subsection wrapper* with vacuous content adds a redundant
+///   hierarchy level: a class referenced by exactly one complex parent field
+///   (unshared), holding exactly one subsection field, whose every other field
+///   is a bare `content` leaf carrying no `@Form`, no substantive
+///   `@ContentHelp`/`@StandardReferences`/non-Form `@ContentType`, and no named
+///   scalar. The keep-a-level exemptions (form-bearing, meaningful content,
+///   shared/multi-referrer) are canonical shape (4)/(5) sections and are NOT
+///   flagged. Reported as a warning (a design smell), not an error.
 ///
 /// If [D00SolutionBlueprint] is not present in [classes] the function is a
 /// no-op (useful for unit tests against small synthetic models that don't
@@ -533,6 +542,106 @@ void _validateStructuralInvariants(
         'root must contain no content without a SBP counterpart (N12)',
       );
     }
+  }
+
+  // --- 7. Collapsible-wrapper detection (§6.1c / TSMA4–TSMA5) ---------------
+  //
+  // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
+  // adds a redundant hierarchy level when its own content carries no meaning of
+  // its own. Such a wrapper W:
+  //   * is referenced by EXACTLY ONE parent field as a single complex field
+  //     (one complex referrer, never a list element) — unshared (TSMA3 rule),
+  //   * has EXACTLY ONE subsection field (list / complex / section type),
+  //   * whose every OTHER field is a leaf (String/enum),
+  //   * carries NO `@Form` (class- or field-level) — form structure would be
+  //     lost by promotion,
+  //   * carries NO substantive `@ContentHelp` / `@StandardReferences` / non-Form
+  //     `@ContentType` on a leaf — such content documents a distinct concept,
+  //   * declares NO named leaf besides `content` — a named scalar is
+  //     independent meaning that would be orphaned.
+  // When all hold, the wrapper level is pure indirection and should be
+  // collapsed (promote the subsection onto the parent field — TSMA4). This is
+  // the operational "content has no meaning by itself" test: content is absent
+  // or a bare `content` with no form / help / refs / non-Form type and no
+  // sibling named scalar. The keep-a-level exemptions (§6.1c / TSMA5) — a
+  // form-bearing wrapper, a meaningful-content wrapper, or a shared/multi-
+  // referrer wrapper — are canonical §6.1a shape (4)/(5) sections and are NOT
+  // flagged. Reported as a WARNING (a design smell, not a correctness error):
+  // generation still proceeds. This mirrors `tsma4_census.dart`; after TSMA4
+  // the real model yields zero of these.
+  final containerRootName = findContainerRoot(classes);
+
+  // Referrer counts across the whole model (matches keep-a-class / TSMA3
+  // sharing semantics): a class reached by >1 field anywhere is shared.
+  final complexReferrers = <String, int>{};
+  final listReferrers = <String, int>{};
+  final soleComplexParent = <String, ({String parent, String field})>{};
+  for (final owner in classes.values) {
+    for (final field in owner.fields) {
+      if (field.isList) {
+        final el = field.listElementTypeName;
+        if (el != null && field.listElementIsComplex && classes.containsKey(el)) {
+          listReferrers[el] = (listReferrers[el] ?? 0) + 1;
+        }
+      } else if (field.isComplex) {
+        final t = field.typeName.replaceAll('?', '');
+        if (classes.containsKey(t)) {
+          complexReferrers[t] = (complexReferrers[t] ?? 0) + 1;
+          soleComplexParent[t] = (parent: owner.name, field: field.name);
+        }
+      }
+    }
+  }
+
+  bool isSubsectionField(ModelField f) =>
+      f.isList || f.isComplex || f.isSectionType;
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    if (className == containerRootName) continue;
+    if (className == sbpRoot) continue; // the master-blueprint anchor is not a wrapper
+    if (cls.getAnnotation('Document') != null) continue;
+    // Unshared: exactly one complex referrer, never a list element.
+    if ((complexReferrers[className] ?? 0) != 1) continue;
+    if ((listReferrers[className] ?? 0) != 0) continue;
+
+    final subs = cls.fields.where(isSubsectionField).toList();
+    if (subs.length != 1) continue;
+    final others = cls.fields.where((f) => !isSubsectionField(f)).toList();
+    // Every non-subsection field must be a leaf (String/enum).
+    if (others.any((f) => !f.isLeaf)) continue;
+
+    // Keep-a-level exemptions (TSMA5) — do NOT flag these.
+    final classForm =
+        cls.getAnnotation('Form') != null || cls.formFields.isNotEmpty;
+    final anyFieldForm = cls.fields
+        .any((f) => f.getAnnotation('Form') != null || f.formFields.isNotEmpty);
+    if (classForm || anyFieldForm) continue; // form-bearing wrapper stays
+    final anyHelpRefs = others.any((f) {
+      if (f.getAnnotation('ContentHelp') != null) return true;
+      if (f.getAnnotation('StandardReferences') != null) return true;
+      final ct = f.getAnnotation('ContentType');
+      return ct != null && (ct.arguments['type'] as String? ?? 'Form') != 'Form';
+    });
+    if (anyHelpRefs) continue; // meaningful-content wrapper stays
+    if (others.any((f) => f.name != 'content')) continue; // named scalar stays
+
+    // Collapsible — vacuous content, single subsection, single referrer.
+    final sub = subs.single;
+    final subKind = sub.isList
+        ? 'list<${sub.listElementTypeName}>'
+        : sub.isSectionType
+            ? 'section:${sub.typeName}'
+            : 'complex:${sub.typeName.replaceAll('?', '')}';
+    final origin = soleComplexParent[className];
+    final where =
+        origin == null ? '(unknown parent)' : '${origin.parent}.${origin.field}';
+    warnings.add(
+      '§6.1c collapsible-wrapper: $className is a single-subsection wrapper '
+      'with vacuous content, referenced only by $where — collapse it by '
+      'promoting ${sub.name} ($subKind) onto the parent field (TSMA4)',
+    );
   }
 }
 
