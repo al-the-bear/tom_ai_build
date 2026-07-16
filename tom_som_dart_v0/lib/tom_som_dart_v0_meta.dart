@@ -35837,7 +35837,7 @@ List<SomMetaNode> _mc$ResponsiveBehavior(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use', 'WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices'], 'connotation': 'The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.'})]),
        _cx('ResponsiveBehaviorContent', s, _mc$ResponsiveBehaviorContent, (r, c) => SomMetaNode(
           className: 'ResponsiveBehaviorContent',
-          memberName: 'content',
+          memberName: 'contentReflow',
           classSectionId: 'REBECO',
           kind: SomMetaKind.complex,
           typeName: 'ResponsiveBehaviorContent',
@@ -61284,7 +61284,7 @@ class ResponsiveBehavior$Nav extends SomMetaRef {
   SomMetaRef get navigation => SomMetaRef(tree, '$path/REBENA');
   SomMetaRef get visibility => SomMetaRef(tree, '$path/REBEVI');
   SomMetaRef get touch => SomMetaRef(tree, '$path/REBETO');
-  ResponsiveBehaviorContent$Nav get content => ResponsiveBehaviorContent$Nav(tree, '$path/content');
+  ResponsiveBehaviorContent$Nav get contentReflow => ResponsiveBehaviorContent$Nav(tree, '$path/contentReflow');
   SomMetaRef get behaviorNarrative => SomMetaRef(tree, '$path/behaviorNarrative');
   SomListMetaRef<ResponsiveScreenRuleEntry$Nav> get screenRules => SomListMetaRef(tree, '$path/RESPSR-SCRE-LST', ResponsiveScreenRuleEntry$Nav.new);
 }

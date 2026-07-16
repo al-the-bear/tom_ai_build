@@ -24992,8 +24992,8 @@ class ResponsiveBehavior(SomNode):
 
     # Content reflow rules.
     @property
-    def content(self):
-        return ResponsiveBehaviorContent(self.doc, f"{self.path}/content")
+    def contentReflow(self):
+        return ResponsiveBehaviorContent(self.doc, f"{self.path}/contentReflow")
 
     # Responsive behavior narrative.
     @property

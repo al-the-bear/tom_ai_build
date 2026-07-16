@@ -26323,8 +26323,8 @@ class ResponsiveBehavior extends SomNode {
   }
 
   // Content reflow rules.
-  get content() {
-    return new ResponsiveBehaviorContent(this.doc, this.path + "/content");
+  get contentReflow() {
+    return new ResponsiveBehaviorContent(this.doc, this.path + "/contentReflow");
   }
 
   // Responsive behavior narrative.

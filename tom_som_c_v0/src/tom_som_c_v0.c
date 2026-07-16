@@ -33730,8 +33730,8 @@ ResponsiveBehaviorTouchForm responsive_behavior_touch(const ResponsiveBehavior *
   free(path);
   return out;
 }
-ResponsiveBehaviorContent responsive_behavior_content(const ResponsiveBehavior *self) {
-  char *path = spec_path_join(self->node.path, "content");
+ResponsiveBehaviorContent responsive_behavior_content_reflow(const ResponsiveBehavior *self) {
+  char *path = spec_path_join(self->node.path, "contentReflow");
   ResponsiveBehaviorContent out;
   responsive_behavior_content_init(&out, self->node.doc, path);
   free(path);

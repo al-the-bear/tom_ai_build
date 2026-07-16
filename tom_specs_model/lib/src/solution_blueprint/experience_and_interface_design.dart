@@ -10370,7 +10370,7 @@ class ResponsiveBehavior {
 
   /// Content reflow rules.
   @SerializationOrder(4)
-  ResponsiveBehaviorContent content = ResponsiveBehaviorContent();
+  ResponsiveBehaviorContent contentReflow = ResponsiveBehaviorContent();
 
   /// Responsive behavior narrative.
   @ContentHelp(

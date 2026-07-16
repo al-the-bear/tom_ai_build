@@ -26482,8 +26482,8 @@ public final class TomSomV0 {
     }
 
     // Content reflow rules.
-    public ResponsiveBehaviorContent content() {
-      return new ResponsiveBehaviorContent(doc, path + "/content");
+    public ResponsiveBehaviorContent contentReflow() {
+      return new ResponsiveBehaviorContent(doc, path + "/contentReflow");
     }
 
     // Responsive behavior narrative.

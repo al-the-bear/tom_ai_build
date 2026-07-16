@@ -5145,7 +5145,7 @@ som::SomMetaRef navResponsiveBehavior_layoutAdaptation(NavResponsiveBehavior x);
 som::SomMetaRef navResponsiveBehavior_navigation(NavResponsiveBehavior x);
 som::SomMetaRef navResponsiveBehavior_visibility(NavResponsiveBehavior x);
 som::SomMetaRef navResponsiveBehavior_touch(NavResponsiveBehavior x);
-NavResponsiveBehaviorContent navResponsiveBehavior_content(NavResponsiveBehavior x);
+NavResponsiveBehaviorContent navResponsiveBehavior_contentReflow(NavResponsiveBehavior x);
 som::SomMetaRef navResponsiveBehavior_behaviorNarrative(NavResponsiveBehavior x);
 som::SomListMetaRef navResponsiveBehavior_screenRules(NavResponsiveBehavior x);
 som::SomMetaRef navResponsiveBehaviorContent_content(NavResponsiveBehaviorContent x);

@@ -38195,7 +38195,7 @@ def _mc_ResponsiveBehavior(s):
          _cx("ResponsiveBehaviorContent", s, _mc_ResponsiveBehaviorContent,
             lambda r, c: SomMetaNode(
                 class_name="ResponsiveBehaviorContent",
-                member_name="content",
+                member_name="contentReflow",
                 class_section_id="REBECO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResponsiveBehaviorContent",
@@ -73730,8 +73730,8 @@ class ResponsiveBehaviorNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/REBETO")
 
     @property
-    def content(self):
-        return ResponsiveBehaviorContentNav(self.tree, f"{self.path}/content")
+    def contentReflow(self):
+        return ResponsiveBehaviorContentNav(self.tree, f"{self.path}/contentReflow")
 
     @property
     def behaviorNarrative(self):

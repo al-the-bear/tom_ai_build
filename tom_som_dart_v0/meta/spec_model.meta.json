@@ -195793,7 +195793,7 @@
           ]
         },
         {
-          "name": "content",
+          "name": "contentReflow",
           "kind": "complex",
           "doc": "Content reflow rules.",
           "serializationOrder": 4,

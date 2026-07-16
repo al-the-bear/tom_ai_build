@@ -189,20 +189,20 @@ void main() {
     );
 
     test(
-      '§6.1 field-shape (YRB1): the reserved name "content" is only misused by '
-      'ResponsiveBehavior.content (tracked in YRC1)',
+      '§6.1 field-shape (YRB1/YRC1): no field misuses the reserved name '
+      '"content" for a non-String value',
       () {
         // The reserved-name rule flags any `content` field that is not a plain
-        // String value. Exactly one such case exists today —
-        // ResponsiveBehavior.content is a complex sub-section named `content`.
-        // Its model fix (rename + regen) is YRB5-category work, filed as YRC1.
+        // String value. YRC1 fixed the last offender —
+        // ResponsiveBehavior.content (a complex sub-section named `content`) was
+        // renamed to `contentReflow` — so the sweep is now complete: zero
+        // reserved-name violations across the whole model.
         final result = validateModel(classes, 'DocSpecsProject');
         final reserved = result.errors
             .where((e) => e.contains('§6.1 field-shape') &&
                 e.contains('reserved field name'))
             .toList();
-        expect(reserved.length, 1, reason: reserved.join('\n'));
-        expect(reserved.single, contains('ResponsiveBehavior.content'));
+        expect(reserved, isEmpty, reason: reserved.join('\n'));
       },
     );
 

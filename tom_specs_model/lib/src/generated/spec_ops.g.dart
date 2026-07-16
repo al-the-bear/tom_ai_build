@@ -13285,7 +13285,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as ResponsiveBehavior;
       return [
-        SpecSlot.node(() => n.content, (v) => n.content = v as ResponsiveBehaviorContent, label: 'content'),
+        SpecSlot.node(() => n.contentReflow, (v) => n.contentReflow = v as ResponsiveBehaviorContent, label: 'contentReflow'),
         SpecSlot.node(() => n.behaviorNarrative, (v) => n.behaviorNarrative = v as TextSection, label: 'behaviorNarrative'),
         SpecSlot.list(() => n.screenRules, (v) => n.screenRules = v.cast<ResponsiveScreenRuleEntry>(), label: 'screenRules'),
       ];
@@ -13297,7 +13297,7 @@ void registerSpecOps() {
         ..navigation = n.navigation
         ..visibility = n.visibility
         ..touch = n.touch
-        ..content = n.content
+        ..contentReflow = n.contentReflow
         ..behaviorNarrative = n.behaviorNarrative
         ..screenRules = n.screenRules;
     },

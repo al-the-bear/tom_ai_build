@@ -38203,7 +38203,7 @@ function _mc_ResponsiveBehavior(s) {
      _cx("ResponsiveBehaviorContent", s, _mc_ResponsiveBehaviorContent,
       (r, c) => new SomMetaNode({
         className: "ResponsiveBehaviorContent",
-        memberName: "content",
+        memberName: "contentReflow",
         classSectionId: "REBECO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ResponsiveBehaviorContent",
@@ -72876,8 +72876,8 @@ class ResponsiveBehavior$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/REBETO");
   }
 
-  get content() {
-    return new ResponsiveBehaviorContent$Nav(this.tree, this.path + "/content");
+  get contentReflow() {
+    return new ResponsiveBehaviorContent$Nav(this.tree, this.path + "/contentReflow");
   }
 
   get behaviorNarrative() {

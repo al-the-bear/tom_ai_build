@@ -18262,7 +18262,7 @@ ResponsiveBehaviorVisibilityForm responsive_behavior_visibility(const Responsive
 // Touch and interaction optimizations.
 ResponsiveBehaviorTouchForm responsive_behavior_touch(const ResponsiveBehavior *self);
 // Content reflow rules.
-ResponsiveBehaviorContent responsive_behavior_content(const ResponsiveBehavior *self);
+ResponsiveBehaviorContent responsive_behavior_content_reflow(const ResponsiveBehavior *self);
 // Responsive behavior narrative.
 // (skipped: behaviorNarrative has no target type)
 // Screen-specific responsive rules.

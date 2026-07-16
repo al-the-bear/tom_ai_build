@@ -29920,8 +29920,8 @@ func (x *ResponsiveBehavior) Touch() *ResponsiveBehaviorTouchForm {
 }
 
 // Content reflow rules.
-func (x *ResponsiveBehavior) Content() *ResponsiveBehaviorContent {
-	return NewResponsiveBehaviorContent(x.Doc(), x.Path()+"/content")
+func (x *ResponsiveBehavior) ContentReflow() *ResponsiveBehaviorContent {
+	return NewResponsiveBehaviorContent(x.Doc(), x.Path()+"/contentReflow")
 }
 
 // Responsive behavior narrative.

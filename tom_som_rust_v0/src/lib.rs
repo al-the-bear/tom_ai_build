@@ -37488,8 +37488,8 @@ impl ResponsiveBehavior {
     }
 
     /// Content reflow rules.
-    pub fn content(&self) -> ResponsiveBehaviorContent {
-        ResponsiveBehaviorContent::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content_reflow(&self) -> ResponsiveBehaviorContent {
+        ResponsiveBehaviorContent::new(self.node.doc(), format!("{}/{}", self.node.path(), "contentReflow"))
     }
 
     // Responsive behavior narrative.

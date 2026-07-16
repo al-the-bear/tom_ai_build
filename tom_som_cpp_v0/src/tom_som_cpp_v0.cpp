@@ -13414,8 +13414,8 @@ ResponsiveBehaviorVisibilityForm ResponsiveBehavior::visibility() const {
 ResponsiveBehaviorTouchForm ResponsiveBehavior::touch() const {
   return ResponsiveBehaviorTouchForm(doc(), som::joinPath(path(), "REBETO"));
 }
-ResponsiveBehaviorContent ResponsiveBehavior::content() const {
-  return ResponsiveBehaviorContent(doc(), som::joinPath(path(), "content"));
+ResponsiveBehaviorContent ResponsiveBehavior::contentReflow() const {
+  return ResponsiveBehaviorContent(doc(), som::joinPath(path(), "contentReflow"));
 }
 som::SomList ResponsiveBehavior::screenRules() const {
   return som::SomList(doc(), som::joinPath(path(), "RESPSR-SCRE-LST"), "RESPSR-SCRE-xxx");

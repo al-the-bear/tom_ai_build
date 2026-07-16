@@ -72531,7 +72531,7 @@ public final class TomSomV0Meta {
       }
       out.add(metaCx("ResponsiveBehaviorContent", s, ResponsiveBehaviorContentNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ResponsiveBehaviorContent", SomMetaKind.COMPLEX, "ResponsiveBehaviorContent");
-        n.memberName = "content";
+        n.memberName = "contentReflow";
         n.classSectionId = "REBECO";
         n.serializationOrder = 4;
         n.docComment = "Content reflow rules.";
@@ -72588,8 +72588,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/REBETO");
     }
 
-    public ResponsiveBehaviorContentNav content() {
-      return new ResponsiveBehaviorContentNav(tree, path + "/content");
+    public ResponsiveBehaviorContentNav contentReflow() {
+      return new ResponsiveBehaviorContentNav(tree, path + "/contentReflow");
     }
 
     public SomMetaRef behaviorNarrative() {

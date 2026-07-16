@@ -18394,7 +18394,7 @@ class ResponsiveBehavior : public som::SomNode {
   // Touch and interaction optimizations.
   ResponsiveBehaviorTouchForm touch() const;
   // Content reflow rules.
-  ResponsiveBehaviorContent content() const;
+  ResponsiveBehaviorContent contentReflow() const;
   // Responsive behavior narrative.
   // (skipped: behaviorNarrative has no target type)
   // Screen-specific responsive rules.

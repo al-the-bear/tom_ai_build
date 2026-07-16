@@ -16577,7 +16577,7 @@ class ResponsiveBehavior extends SomNode {
   ResponsiveBehaviorTouchForm get touch => ResponsiveBehaviorTouchForm(doc, '$path/REBETO');
 
   /// Content reflow rules.
-  ResponsiveBehaviorContent get content => ResponsiveBehaviorContent(doc, '$path/content');
+  ResponsiveBehaviorContent get contentReflow => ResponsiveBehaviorContent(doc, '$path/contentReflow');
 
   /// Responsive behavior narrative.
   // (skipped: behaviorNarrative has no target type)

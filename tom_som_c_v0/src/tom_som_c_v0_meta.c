@@ -5062,7 +5062,7 @@ static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n);
 static void meta_build_responsive_behavior_navigation(SomMetaNode *n);
 static void meta_build_responsive_behavior_visibility(SomMetaNode *n);
 static void meta_build_responsive_behavior_touch(SomMetaNode *n);
-static void meta_build_responsive_behavior_content(SomMetaNode *n);
+static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n);
 static void meta_build_responsive_behavior_behavior_narrative(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules_elem(SomMetaNode *n);
@@ -109423,9 +109423,9 @@ static void meta_build_responsive_behavior_touch(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use\",\"WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices\"],\"connotation\":\"The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device.\"}", NULL);
 }
-static void meta_build_responsive_behavior_content(SomMetaNode *n) {
+static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveBehaviorContent");
-  meta_set(&n->member_name, "content");
+  meta_set(&n->member_name, "contentReflow");
   meta_set(&n->class_section_id, "REBECO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsiveBehaviorContent");
@@ -172408,7 +172408,7 @@ static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t
     meta_build_responsive_behavior_touch(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("ResponsiveBehaviorContent", stack, meta_children_responsive_behavior_content, meta_build_responsive_behavior_content));
+  meta_push(&arr, len, &cap, meta_cx("ResponsiveBehaviorContent", stack, meta_children_responsive_behavior_content, meta_build_responsive_behavior_content_reflow));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_responsive_behavior_behavior_narrative(n);
@@ -206011,9 +206011,9 @@ SomMetaRef responsive_behavior_nav_touch(som_nav_responsive_behavior x) {
   free(path);
   return out;
 }
-som_nav_responsive_behavior_content responsive_behavior_nav_content(som_nav_responsive_behavior x) {
+som_nav_responsive_behavior_content responsive_behavior_nav_content_reflow(som_nav_responsive_behavior x) {
   som_nav_responsive_behavior_content out;
-  char *path = spec_path_join(x.ref.path, "content");
+  char *path = spec_path_join(x.ref.path, "contentReflow");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;

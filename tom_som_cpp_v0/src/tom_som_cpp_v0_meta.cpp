@@ -62953,7 +62953,7 @@ void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::
     auto n = metaCx("ResponsiveBehaviorContent", stack,
       [](som::SomMetaNode& n) {
         n.className = "ResponsiveBehaviorContent";
-        n.memberName = "content";
+        n.memberName = "contentReflow";
         n.classSectionId = "REBECO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResponsiveBehaviorContent";
@@ -102111,8 +102111,8 @@ som::SomMetaRef navResponsiveBehavior_visibility(NavResponsiveBehavior x) {
 som::SomMetaRef navResponsiveBehavior_touch(NavResponsiveBehavior x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REBETO"));
 }
-NavResponsiveBehaviorContent navResponsiveBehavior_content(NavResponsiveBehavior x) {
-  return NavResponsiveBehaviorContent{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"))};
+NavResponsiveBehaviorContent navResponsiveBehavior_contentReflow(NavResponsiveBehavior x) {
+  return NavResponsiveBehaviorContent{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "contentReflow"))};
 }
 som::SomMetaRef navResponsiveBehavior_behaviorNarrative(NavResponsiveBehavior x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "behaviorNarrative"));
