@@ -114,5 +114,49 @@
     "op": "removeListItem",
     "itemPath": "A/l-9",
     "expect": false
+  },
+  {
+    "op": "setHeadline",
+    "path": "A/h",
+    "value": "Custom Heading"
+  },
+  {
+    "op": "headline",
+    "path": "A/h",
+    "expect": "Custom Heading"
+  },
+  {
+    "op": "isEmpty",
+    "expect": false
+  },
+  {
+    "op": "setHeadline",
+    "path": "A/h",
+    "value": ""
+  },
+  {
+    "op": "headline",
+    "path": "A/h",
+    "expect": null
+  },
+  {
+    "op": "setHeadline",
+    "path": "A/l-3/t",
+    "value": "Item Heading"
+  },
+  {
+    "op": "headline",
+    "path": "A/l-3/t",
+    "expect": "Item Heading"
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "A/l-3",
+    "expect": true
+  },
+  {
+    "op": "headline",
+    "path": "A/l-3/t",
+    "expect": null
   }
 ]

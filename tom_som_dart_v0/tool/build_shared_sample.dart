@@ -247,11 +247,25 @@ parallel-run gate passes.''');
   // DR9: renumber every patterned list item to the deterministic anonymous
   // 1-based id form (`FRE-REQU-1`, …) before serialising. The AA1-generated
   // ids embed the *creation date* (two-letter-date component), which would
-  // churn on every regeneration of this committed sample and does not match
-  // the DR3 schema's `pattern-check-id` (`[0-9]+`) — see quest todo DRC5 for
-  // the generator/AA1 reconciliation. Explicit numeric ids are a sanctioned
-  // AA1 criterion-5 override.
+  // churn on every regeneration of this committed sample. Since YRD3 the DR3
+  // schema's `pattern-check-id` is a `.+` stem check, so date-lettered ids
+  // would be *schema-valid* — the normalization is kept purely for
+  // regeneration determinism. Explicit ids are a sanctioned AA1 criterion-5
+  // override.
   _normalizeListItemIds(doc, d00SolutionBlueprintMetaTree);
+
+  // YRD3: exercise stored headlines + stored (non-positional) item section
+  // ids in the committed sample. The first functional requirement carries a
+  // semantic stored id and a real headline; the Functional Requirements fixed
+  // section carries a renamed headline. Both must round-trip byte-identically
+  // through md and yaml in every runtime.
+  final freList =
+      doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
+  final firstReq = doc.listItems(freList).first;
+  doc.setItemSectionId(firstReq, 'FRE-REQU-ORDER-CAPTURE');
+  doc.setHeadline(firstReq, 'FR-01 — Capture Orders from EDI and REST');
+  final frSection = freList.substring(0, freList.lastIndexOf('/'));
+  doc.setHeadline(frSection, 'Functional Requirements (FR)');
 
   // --- Serialise ----------------------------------------------------------
   final samplesDir = Directory('../tom_som_conformance/samples');

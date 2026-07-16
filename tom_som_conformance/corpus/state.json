@@ -39,7 +39,10 @@
       "items": [
         "DEMO/REF-LST-1",
         "DEMO/REF-LST-2"
-      ]
+      ],
+      "ids": {
+        "DEMO/REF-LST-1": "REF-SPEC"
+      }
     },
     "DEMO/items": {
       "seq": 2,
@@ -48,5 +51,11 @@
         "DEMO/items-2"
       ]
     }
+  },
+  "headlines": {
+    "DEMO/DET": "Details & Contacts",
+    "DEMO/REF-LST-1": "Reference to the Spec",
+    "DEMO/SUM": "Executive Summary",
+    "DEMO/items": "Work Items"
   }
 }

@@ -9,8 +9,12 @@
 /// else target-class id" fallback the markdown codec's headings use). Sections
 /// nest their children, list items appear under their container keyed by their
 /// stored section id (or an anonymous positional `<member>-<n>` key), a node's
-/// own body text uses the literal key `content`, and form fields use their bare
-/// field names (no class fallback for content/form/list/scalar/enum keys). The
+/// own body text uses the literal key `content`, a node's **stored headline**
+/// (YRD3) uses the literal key `headline`, and form fields use their bare
+/// field names (no class fallback for content/form/list/scalar/enum keys).
+/// A scalar-valued node (content/scalar/enum leaf or scalar list item) that
+/// carries a stored headline is emitted as a `{headline: …, content: …}`
+/// mapping instead of a direct scalar. The
 /// former flat two-level path-map format (`document: {content: {"A/b": …}}`) is
 /// **retired**; readers reject `version: 1` files with a clear error (no
 /// compatibility path).
@@ -361,6 +365,7 @@ class _Encoder {
   final Map<String, String> _content;
   final Map<String, Map<String, String>> _forms;
   final Set<String> _lists;
+  final Map<String, String> _headlines;
 
   _Encoder(this.doc, this.tree)
       : _content = {for (final p in doc.contentPaths) p: doc.content(p)!},
@@ -368,7 +373,10 @@ class _Encoder {
           for (final p in doc.formPaths)
             p: {for (final f in doc.formFieldNames(p)) f: doc.formField(p, f)!},
         },
-        _lists = doc.listPaths.toSet();
+        _lists = doc.listPaths.toSet(),
+        _headlines = {
+          for (final p in doc.headlinePaths) p: doc.headline(p)!,
+        };
 
   void writeDocumentPass(StringBuffer b) {
     final root = tree.root;
@@ -390,6 +398,17 @@ class _Encoder {
   String _mappingBody(SomMetaNode node, String path, int indent) {
     final b = StringBuffer();
 
+    // The node's own stored headline — the literal `headline` key (YRD3).
+    final ownHeadline = _headlines.remove(path);
+    if (ownHeadline != null) {
+      if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'headline')) {
+        throw SpecYamlFormatException(
+            'cannot emit the stored headline at `$path`: a child of '
+            '${node.debugName} also serializes as key `headline`');
+      }
+      _writeText(b, indent, 'headline', ownHeadline);
+    }
+
     // The node's own body text — the literal `content` key (DR1 §2.2).
     final own = _content.remove(path);
     if (own != null) {
@@ -407,11 +426,21 @@ class _Encoder {
       switch (child.kind) {
         case SomMetaKind.content:
           final v = _content.remove(childPath);
-          if (v != null) _writeText(b, indent, key, v);
+          final h = _headlines.remove(childPath);
+          if (h != null) {
+            _writeScalarWithHeadline(b, indent, key, h, v, text: true);
+          } else if (v != null) {
+            _writeText(b, indent, key, v);
+          }
         case SomMetaKind.scalar:
         case SomMetaKind.enumValue:
           final v = _content.remove(childPath);
-          if (v != null) _writeValue(b, indent, key, v);
+          final h = _headlines.remove(childPath);
+          if (h != null) {
+            _writeScalarWithHeadline(b, indent, key, h, v, text: false);
+          } else if (v != null) {
+            _writeValue(b, indent, key, v);
+          }
         case SomMetaKind.form:
           _writeForm(b, indent, key, child, childPath);
         case SomMetaKind.section:
@@ -428,10 +457,27 @@ class _Encoder {
     return b.toString();
   }
 
+  /// Emits a scalar-valued node (content/scalar/enum leaf) that carries a
+  /// stored headline as a `{headline: …, content: …}` mapping (YRD3).
+  void _writeScalarWithHeadline(StringBuffer b, int indent, String key,
+      String headline, String? value,
+      {required bool text}) {
+    b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
+    _writeText(b, indent + 2, 'headline', headline);
+    if (value != null) {
+      if (text) {
+        _writeText(b, indent + 2, 'content', value);
+      } else {
+        _writeValue(b, indent + 2, 'content', value);
+      }
+    }
+  }
+
   void _writeForm(StringBuffer b, int indent, String key, SomMetaNode node,
       String path) {
-    final fields = _forms.remove(path);
-    if (fields == null || fields.isEmpty) return;
+    final fields = _forms.remove(path) ?? const <String, String>{};
+    final headline = _headlines.remove(path);
+    if (fields.isEmpty && headline == null) return;
     final meta = node.form ?? const SomFormMeta(fields: []);
     for (final name in fields.keys) {
       if (meta.fieldNamed(name) == null) {
@@ -439,7 +485,13 @@ class _Encoder {
             'form `$path` holds a field `$name` unknown to the model');
       }
     }
+    if (headline != null && meta.fieldNamed('headline') != null) {
+      throw SpecYamlFormatException(
+          'cannot emit the stored headline at `$path`: the form declares a '
+          'field literally named `headline`');
+    }
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
+    if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     for (final f in meta.fields) {
       final v = fields[f.name];
       if (v == null) continue;
@@ -454,10 +506,12 @@ class _Encoder {
   void _writeList(StringBuffer b, int indent, String key, SomMetaNode node,
       String path) {
     _lists.remove(path);
+    final headline = _headlines.remove(path);
     final items = doc.listItems(path);
-    if (items.isEmpty) return;
+    if (items.isEmpty && headline == null) return;
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
-    final used = <String>{};
+    if (headline != null) _writeText(b, indent + 2, 'headline', headline);
+    final used = <String>{'headline'};
     var pos = 0;
     for (final itemPath in items) {
       pos++;
@@ -477,9 +531,16 @@ class _Encoder {
       }
       final element = node.elementNode;
       if (element == null) {
-        // Scalar list: the item is a direct value.
-        final v = _content.remove(itemPath) ?? '';
-        _writeValue(b, indent + 2, itemKey, v);
+        // Scalar list: the item is a direct value — unless it carries a
+        // stored headline, in which case it becomes a
+        // `{headline: …, content: …}` mapping (YRD3).
+        final v = _content.remove(itemPath);
+        final ih = _headlines.remove(itemPath);
+        if (ih != null) {
+          _writeScalarWithHeadline(b, indent + 2, itemKey, ih, v, text: false);
+        } else {
+          _writeValue(b, indent + 2, itemKey, v ?? '');
+        }
       } else {
         final sub = _mappingBody(element, itemPath, indent + 4);
         if (sub.isEmpty) {
@@ -525,6 +586,7 @@ class _Encoder {
       ..._content.keys.map((p) => 'content at `$p`'),
       ..._forms.keys.map((p) => 'form values at `$p`'),
       ..._lists.map((p) => 'list items at `$p`'),
+      ..._headlines.keys.map((p) => 'headline at `$p`'),
     ]..sort();
     if (leftovers.isNotEmpty) {
       throw SpecYamlFormatException(
@@ -556,6 +618,10 @@ class _Decoder {
         doc.setContent(path, _scalarOf(value, '$path/content'));
         return;
       }
+      if (key == 'headline') {
+        doc.setHeadline(path, _scalarOf(value, '$path (headline)'));
+        return;
+      }
       throw SpecYamlFormatException(
           'key `$key` under `$path` matches no member of ${node.debugName} '
           '(expected one of: ${_expectedKeys(node).join(', ')})');
@@ -572,6 +638,7 @@ class _Decoder {
   Iterable<String> _expectedKeys(SomMetaNode node) => [
         for (final c in node.children) '`${SpecDocumentYaml.nodeKey(c)}`',
         '`content`',
+        '`headline`',
       ];
 
   void _loadChild(SomMetaNode child, String path, String key, Object? value) {
@@ -579,7 +646,12 @@ class _Decoder {
       case SomMetaKind.content:
       case SomMetaKind.scalar:
       case SomMetaKind.enumValue:
-        doc.setContent(path, _scalarOf(value, path));
+        if (value is Map) {
+          // Headline-extended scalar node (YRD3): `{headline: …, content: …}`.
+          _loadScalarWithHeadline(path, key, value);
+        } else {
+          doc.setContent(path, _scalarOf(value, path));
+        }
       case SomMetaKind.form:
         if (value is! Map) {
           throw SpecYamlFormatException(
@@ -589,6 +661,10 @@ class _Decoder {
         value.forEach((f, v) {
           final name = '$f';
           if (meta.fieldNamed(name) == null) {
+            if (name == 'headline') {
+              doc.setHeadline(path, _scalarOf(v, '$path (headline)'));
+              return;
+            }
             throw SpecYamlFormatException(
                 'form `$path` has no field `$name` in the model');
           }
@@ -617,12 +693,23 @@ class _Decoder {
         RegExp('^${RegExp.escape(node.memberName ?? '')}-[0-9]+\$');
     items.forEach((rawKey, value) {
       final key = '$rawKey';
+      if (key == 'headline') {
+        // The list container's own stored headline (YRD3), not an item.
+        doc.setHeadline(path, _scalarOf(value, '$path (headline)'));
+        return;
+      }
       final itemPath = doc.addListItem(path,
           sectionId: anonymous.hasMatch(key) ? null : key);
       final element = node.elementNode;
       if (element == null) {
-        // Scalar list item: the value is the item itself.
-        if (value is Map || value is List) {
+        // Scalar list item: the value is the item itself — or a
+        // `{headline: …, content: …}` mapping when it carries a stored
+        // headline (YRD3).
+        if (value is Map) {
+          _loadScalarWithHeadline(itemPath, key, value);
+          return;
+        }
+        if (value is List) {
           throw SpecYamlFormatException(
               'scalar list item `$key` at `$path` must hold a scalar');
         }
@@ -636,6 +723,23 @@ class _Decoder {
             '(use `{}` for an empty item)');
       }
       loadMapping(element, itemPath, value);
+    });
+  }
+
+  /// Loads a headline-extended scalar node (YRD3): a mapping holding only the
+  /// literal keys `headline` and `content`.
+  void _loadScalarWithHeadline(String path, String key, Map value) {
+    value.forEach((k, v) {
+      final name = '$k';
+      if (name == 'headline') {
+        doc.setHeadline(path, _scalarOf(v, '$path (headline)'));
+      } else if (name == 'content') {
+        doc.setContent(path, _scalarOf(v, '$path/content'));
+      } else {
+        throw SpecYamlFormatException(
+            'scalar node `$key` at `$path` may only hold `headline`/`content` '
+            'keys when written as a mapping, found `$name`');
+      }
     });
   }
 

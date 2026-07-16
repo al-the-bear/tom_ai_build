@@ -5,7 +5,7 @@
 
 Hello
 
-## <!--[SUM]--> Summary
+## <!--[SUM]--> Executive Summary
 
 Line one
 Line two
@@ -20,12 +20,12 @@ high
 
 3
 
-## <!--[DET]--> Details
+## <!--[DET]--> Details & Contacts
 
 Owner: Bob
 Contact: bob@example.com
 
-## <!--[items]--> Items
+## <!--[items]--> Work Items
 
 ### <!--[items-1]--> Item 1
 
@@ -46,7 +46,7 @@ done
 
 ## <!--[REF-LST]--> Refs
 
-### <!--[REF-1]--> Refs 1
+### <!--[REF-SPEC]--> Reference to the Spec
 
 spec §1.2
 

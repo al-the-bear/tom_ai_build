@@ -12,7 +12,11 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 // ---------------------------------------------------------------------------
-// Fixture schema (hand-written in the exact DR3 generator output shape).
+// Fixture schema (hand-written in the DR3 generator output shape). The
+// `pattern-check-id` here deliberately uses `[0-9]+` — a stricter regex than
+// the `.+` stem check the DR3 generator emits since YRD3 — because these
+// tests exercise the regex *mechanism* (the validator is regex-agnostic; any
+// authored pattern is legal in a schema).
 // ---------------------------------------------------------------------------
 
 const _schemaYaml = '''

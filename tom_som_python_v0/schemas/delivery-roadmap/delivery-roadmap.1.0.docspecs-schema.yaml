@@ -260,7 +260,7 @@ section-types:
       doeto:
         max-count: 1
     pattern-check-id:
-      pattern: "^DEOPEN-OPTI-[0-9]+$"
+      pattern: "^DEOPEN-OPTI-.+$"
       error-message: IDs of this section must match DEOPEN-OPTI-xxx
     description: Add one entry per decision option.
   depoen-item:
@@ -275,13 +275,13 @@ section-types:
       dper:
         max-count: 1
     pattern-check-id:
-      pattern: "^DEPOEN-ITEM-[0-9]+$"
+      pattern: "^DEPOEN-ITEM-.+$"
       error-message: IDs of this section must match DEPOEN-ITEM-xxx
     description: Add one entry per decision point.
   fedeen-item:
     prefix: FEDEEN_ITEM_
     pattern-check-id:
-      pattern: "^FEDEEN-ITEM-[0-9]+$"
+      pattern: "^FEDEEN-ITEM-.+$"
       error-message: IDs of this section must match FEDEEN-ITEM-xxx
     description: Add one entry per feature dependency.
   fepren-item:
@@ -306,7 +306,7 @@ section-types:
       fs:
         max-count: 1
     pattern-check-id:
-      pattern: "^FEPREN-ITEM-[0-9]+$"
+      pattern: "^FEPREN-ITEM-.+$"
       error-message: IDs of this section must match FEPREN-ITEM-xxx
     description: Add one entry per prioritized feature.
   festm1-item:
@@ -321,25 +321,25 @@ section-types:
       festmaac:
         max-count: 1
     pattern-check-id:
-      pattern: "^FESTM1-ITEM-[0-9]+$"
+      pattern: "^FESTM1-ITEM-.+$"
       error-message: IDs of this section must match FESTM1-ITEM-xxx
     description: Add one entry per feature-stage mapping.
   miphre-reso:
     prefix: MIPHRE_RESO_
     pattern-check-id:
-      pattern: "^MIPHRE-RESO-[0-9]+$"
+      pattern: "^MIPHRE-RESO-.+$"
       error-message: IDs of this section must match MIPHRE-RESO-xxx
     description: Add one entry per migration-phase resource.
   stagdp-depe:
     prefix: STAGDP_DEPE_
     pattern-check-id:
-      pattern: "^STAGDP-DEPE-[0-9]+$"
+      pattern: "^STAGDP-DEPE-.+$"
       error-message: IDs of this section must match STAGDP-DEPE-xxx
     description: Add one entry per staging dependency.
   stagdr-driv:
     prefix: STAGDR_DRIV_
     pattern-check-id:
-      pattern: "^STAGDR-DRIV-[0-9]+$"
+      pattern: "^STAGDR-DRIV-.+$"
       error-message: IDs of this section must match STAGDR-DRIV-xxx
     description: Add one entry per staging driver.
   stagse-stag:
@@ -360,7 +360,7 @@ section-types:
       stsust:
         max-count: 1
     pattern-check-id:
-      pattern: "^STAGSE-STAG-[0-9]+$"
+      pattern: "^STAGSE-STAG-.+$"
       error-message: IDs of this section must match STAGSE-STAG-xxx
     description: Add one entry per stage summary.
   stgmrs-item:
@@ -383,7 +383,7 @@ section-types:
       smrs:
         max-count: 1
     pattern-check-id:
-      pattern: "^STGMRS-ITEM-[0-9]+$"
+      pattern: "^STGMRS-ITEM-.+$"
       error-message: IDs of this section must match STGMRS-ITEM-xxx
     description: Add one entry per migration risk.
   stgsuc-succ:
@@ -396,31 +396,31 @@ section-types:
       ssces:
         max-count: 1
     pattern-check-id:
-      pattern: "^STGSUC-SUCC-[0-9]+$"
+      pattern: "^STGSUC-SUCC-.+$"
       error-message: IDs of this section must match STGSUC-SUCC-xxx
     description: A success criterion entry (form).
   stmire-reso:
     prefix: STMIRE_RESO_
     pattern-check-id:
-      pattern: "^STMIRE-RESO-[0-9]+$"
+      pattern: "^STMIRE-RESO-.+$"
       error-message: IDs of this section must match STMIRE-RESO-xxx
     description: Add one entry per migration resource.
   stsude-depe:
     prefix: STSUDE_DEPE_
     pattern-check-id:
-      pattern: "^STSUDE-DEPE-[0-9]+$"
+      pattern: "^STSUDE-DEPE-.+$"
       error-message: IDs of this section must match STSUDE-DEPE-xxx
     description: Dependencies for stage summary.
   stsure-reso:
     prefix: STSURE_RESO_
     pattern-check-id:
-      pattern: "^STSURE-RESO-[0-9]+$"
+      pattern: "^STSURE-RESO-.+$"
       error-message: IDs of this section must match STSURE-RESO-xxx
     description: Resources for stage summary.
   keyas-keya:
     prefix: KEYAS_KEYA_
     pattern-check-id:
-      pattern: "^KEYAS-KEYA-[0-9]+$"
+      pattern: "^KEYAS-KEYA-.+$"
       error-message: IDs of this section must match KEYAS-KEYA-xxx
     description: Add one entry per key assumption.
   mgphs-item:
@@ -449,7 +449,7 @@ section-types:
       miphst:
         max-count: 1
     pattern-check-id:
-      pattern: "^MGPHS-ITEM-[0-9]+$"
+      pattern: "^MGPHS-ITEM-.+$"
       error-message: IDs of this section must match MGPHS-ITEM-xxx
     description: Add one entry per migration phase.
   rvcri-revi:
@@ -460,7 +460,7 @@ section-types:
       rcer:
         max-count: 1
     pattern-check-id:
-      pattern: "^RVCRI-REVI-[0-9]+$"
+      pattern: "^RVCRI-REVI-.+$"
       error-message: IDs of this section must match RVCRI-REVI-xxx
     description: Add one entry per review criterion.
   stage-stag:
@@ -491,13 +491,13 @@ section-types:
       stgsuc-succ-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^STAGE-STAG-[0-9]+$"
+      pattern: "^STAGE-STAG-.+$"
       error-message: IDs of this section must match STAGE-STAG-xxx
     description: A stage entry (form) with description subsections.
   stagi-cons:
     prefix: STAGI_CONS_
     pattern-check-id:
-      pattern: "^STAGI-CONS-[0-9]+$"
+      pattern: "^STAGI-CONS-.+$"
       error-message: IDs of this section must match STAGI-CONS-xxx
     description: Add one entry per staging constraint.
   susst-subs:
@@ -514,31 +514,31 @@ section-types:
       sustenst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SUSST-SUBS-[0-9]+$"
+      pattern: "^SUSST-SUBS-.+$"
       error-message: IDs of this section must match SUSST-SUBS-xxx
     description: A sub-stage or milestone entry (form).
   fest-stak:
     prefix: FEST_STAK_
     pattern-check-id:
-      pattern: "^FEST-STAK-[0-9]+$"
+      pattern: "^FEST-STAK-.+$"
       error-message: IDs of this section must match FEST-STAK-xxx
     description: Add one entry per feature stakeholder.
   mien-envi:
     prefix: MIEN_ENVI_
     pattern-check-id:
-      pattern: "^MIEN-ENVI-[0-9]+$"
+      pattern: "^MIEN-ENVI-.+$"
       error-message: IDs of this section must match MIEN-ENVI-xxx
     description: Add one entry per migration environment.
   mist-stak:
     prefix: MIST_STAK_
     pattern-check-id:
-      pattern: "^MIST-STAK-[0-9]+$"
+      pattern: "^MIST-STAK-.+$"
       error-message: IDs of this section must match MIST-STAK-xxx
     description: Add one entry per migration stakeholder.
   misy-syst:
     prefix: MISY_SYST_
     pattern-check-id:
-      pattern: "^MISY-SYST-[0-9]+$"
+      pattern: "^MISY-SYST-.+$"
       error-message: IDs of this section must match MISY-SYST-xxx
     description: Add one entry per source system.
   moen-item:
@@ -553,13 +553,13 @@ section-types:
       moentr:
         max-count: 1
     pattern-check-id:
-      pattern: "^MOEN-ITEM-[0-9]+$"
+      pattern: "^MOEN-ITEM-.+$"
       error-message: IDs of this section must match MOEN-ITEM-xxx
     description: Add one entry per MoSCoW-classified feature.
   mpdr-dryr:
     prefix: MPDR_DRYR_
     pattern-check-id:
-      pattern: "^MPDR-DRYR-[0-9]+$"
+      pattern: "^MPDR-DRYR-.+$"
       error-message: IDs of this section must match MPDR-DRYR-xxx
     description: Add one entry per migration dry run.
   pgre-item:
@@ -580,25 +580,25 @@ section-types:
       rvcri-revi-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^PGRE-ITEM-[0-9]+$"
+      pattern: "^PGRE-ITEM-.+$"
       error-message: IDs of this section must match PGRE-ITEM-xxx
     description: Add one entry per phase gate review.
   stde-depe:
     prefix: STDE_DEPE_
     pattern-check-id:
-      pattern: "^STDE-DEPE-[0-9]+$"
+      pattern: "^STDE-DEPE-.+$"
       error-message: IDs of this section must match STDE-DEPE-xxx
     description: Dependencies for a stage entry.
   stre-reso:
     prefix: STRE_RESO_
     pattern-check-id:
-      pattern: "^STRE-RESO-[0-9]+$"
+      pattern: "^STRE-RESO-.+$"
       error-message: IDs of this section must match STRE-RESO-xxx
     description: Resources and budget for a stage entry.
   stst-stak:
     prefix: STST_STAK_
     pattern-check-id:
-      pattern: "^STST-STAK-[0-9]+$"
+      pattern: "^STST-STAK-.+$"
       error-message: IDs of this section must match STST-STAK-xxx
     description: Stakeholders and communication for a stage entry.
   depoencr:

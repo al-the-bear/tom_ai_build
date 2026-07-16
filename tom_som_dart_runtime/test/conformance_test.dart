@@ -111,6 +111,7 @@ void main() {
         'content': parsed.content,
         'forms': parsed.forms,
         'lists': parsed.lists,
+        'headlines': parsed.headlines,
       });
     expect(SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.first),
         golden);
@@ -132,6 +133,7 @@ void main() {
         'content': parsed.content,
         'forms': parsed.forms,
         'lists': parsed.lists,
+        'headlines': parsed.headlines,
       });
     expect(landed.toJson(), canonical,
         reason: 'Markdown→memory must equal the canonical state.json memory');
@@ -185,7 +187,8 @@ void main() {
 
     test('a `*-LST` list heads under its @SectionId, empty-bodied, items deeper',
         () {
-      expectContainer('REF-LST', ['REF-1', 'REF-2']);
+      // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
+      expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
     });
 
     test('id-less lists head under the member-name container, empty-bodied', () {
@@ -201,9 +204,14 @@ void main() {
           'content': parsed.content,
           'forms': parsed.forms,
           'lists': parsed.lists,
+          'headlines': parsed.headlines,
         });
       expect(reDoc.listItems('DEMO/REF-LST'),
           ['DEMO/REF-LST-1', 'DEMO/REF-LST-2']);
+      expect(reDoc.itemSectionId('DEMO/REF-LST-1'), 'REF-SPEC',
+          reason: 'a stored item id round-trips through md (YRD3)');
+      expect(reDoc.headline('DEMO/REF-LST-1'), 'Reference to the Spec',
+          reason: 'a stored item headline round-trips through md (YRD3)');
       expect(reDoc.content('DEMO/REF-LST-1'), 'spec §1.2');
       expect(reDoc.content('DEMO/REF-LST-2'), 'DR1');
       expect(reDoc.content('DEMO/REF-LST'), isNull,
@@ -265,6 +273,10 @@ void main() {
           expect(d.hasValuesUnder(s['prefix'] as String), s['expect']);
         case 'removeListItem':
           expect(d.removeListItem(s['itemPath'] as String), s['expect']);
+        case 'setHeadline':
+          d.setHeadline(s['path'] as String, s['value'] as String);
+        case 'headline':
+          expect(d.headline(s['path'] as String), s['expect']);
         default:
           fail('unknown op ${s['op']}');
       }
@@ -558,6 +570,18 @@ SpecDocument _buildDocument() {
     final r = d.addListItem('DEMO/REF-LST');
     d.setContent(r, ref);
   }
+  // YRD3 fixtures: stored headlines + a stored (pattern-shaped, non-numeric)
+  // item section id must round-trip through md AND yaml byte-stably.
+  //  * a renamed fixed-section headline on a content leaf (`SUM`);
+  //  * a form-section headline (`DET`) and a list-container headline (`items`);
+  //  * item 1 of `REF-LST` carries stored id `REF-SPEC` (parses back as a
+  //    stored id — non-numeric, so position is recovered as "next item") plus
+  //    a stored headline (a scalar item: yaml `{headline, content}` mapping).
+  d.setHeadline('DEMO/SUM', 'Executive Summary');
+  d.setHeadline('DEMO/DET', 'Details & Contacts');
+  d.setHeadline('DEMO/items', 'Work Items');
+  d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
+  d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
   d.setContent('DEMO/META/OWNR', 'alice');
   // Scalar list exercising the YAML 1.1-special quoting rule (DR1 §2.5, DRC6):
   // `on`/`no` are 1.1-only booleans and `1:30` is a 1.1 sexagesimal int — all
@@ -686,6 +710,16 @@ List<Map<String, dynamic>> _operationsScript() => [
       },
       {'op': 'addListItem', 'listPath': 'A/l', 'expect': 'A/l-3'},
       {'op': 'removeListItem', 'itemPath': 'A/l-9', 'expect': false},
+      // YRD3: stored headlines — set/read, empty-clears, purge on item removal.
+      {'op': 'setHeadline', 'path': 'A/h', 'value': 'Custom Heading'},
+      {'op': 'headline', 'path': 'A/h', 'expect': 'Custom Heading'},
+      {'op': 'isEmpty', 'expect': false},
+      {'op': 'setHeadline', 'path': 'A/h', 'value': ''},
+      {'op': 'headline', 'path': 'A/h', 'expect': null},
+      {'op': 'setHeadline', 'path': 'A/l-3/t', 'value': 'Item Heading'},
+      {'op': 'headline', 'path': 'A/l-3/t', 'expect': 'Item Heading'},
+      {'op': 'removeListItem', 'itemPath': 'A/l-3', 'expect': true},
+      {'op': 'headline', 'path': 'A/l-3/t', 'expect': null},
     ];
 
 /// The section-id corpus (AA1 criteria 3–6). `twoLetterDate` and `generate` pin

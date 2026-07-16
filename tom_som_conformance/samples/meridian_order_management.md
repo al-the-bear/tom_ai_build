@@ -88,11 +88,11 @@ The requirements below are the contract MOM is built and accepted against.
 IDs are stable and referenced from the use cases, screens, and data model so
 every downstream artifact traces back to a requirement.
 
-#### <!--[FR]--> Functional Requirements
+#### <!--[FR]--> Functional Requirements (FR)
 
 ##### <!--[FRE-REQU-LST]--> Requirements
 
-###### <!--[FRE-REQU-1]--> Functional Requirement 1
+###### <!--[FRE-REQU-ORDER-CAPTURE]--> FR-01 — Capture Orders from EDI and REST
 
 RequirementId: FR-01
 Title: Capture orders from EDI and REST channels

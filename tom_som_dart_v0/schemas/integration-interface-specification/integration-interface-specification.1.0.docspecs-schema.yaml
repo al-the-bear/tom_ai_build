@@ -123,13 +123,13 @@ section-types:
       baer:
         max-count: 1
     pattern-check-id:
-      pattern: "^BOASEN-ITEM-[0-9]+$"
+      pattern: "^BOASEN-ITEM-.+$"
       error-message: IDs of this section must match BOASEN-ITEM-xxx
     description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
   boinpa-inte:
     prefix: BOINPA_INTE_
     pattern-check-id:
-      pattern: "^BOINPA-INTE-[0-9]+$"
+      pattern: "^BOINPA-INTE-.+$"
       error-message: IDs of this section must match BOINPA-INTE-xxx
     description: 4.5.5. Boundary Interaction Patterns.
   exinen-inte:
@@ -154,67 +154,67 @@ section-types:
       inte:
         max-count: 1
     pattern-check-id:
-      pattern: "^EXINEN-INTE-[0-9]+$"
+      pattern: "^EXINEN-INTE-.+$"
       error-message: IDs of this section must match EXINEN-INTE-xxx
     description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
   inopen-oper:
     prefix: INOPEN_OPER_
     pattern-check-id:
-      pattern: "^INOPEN-OPER-[0-9]+$"
+      pattern: "^INOPEN-OPER-.+$"
       error-message: IDs of this section must match INOPEN-OPER-xxx
     description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
   depen-depe:
     prefix: DEPEN_DEPE_
     pattern-check-id:
-      pattern: "^DEPEN-DEPE-[0-9]+$"
+      pattern: "^DEPEN-DEPE-.+$"
       error-message: IDs of this section must match DEPEN-DEPE-xxx
     description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
   error-erro:
     prefix: ERROR_ERRO_
     pattern-check-id:
-      pattern: "^ERROR-ERRO-[0-9]+$"
+      pattern: "^ERROR-ERRO-.+$"
       error-message: IDs of this section must match ERROR-ERRO-xxx
     description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
   itse1-test:
     prefix: ITSE1_TEST_
     pattern-check-id:
-      pattern: "^ITSE1-TEST-[0-9]+$"
+      pattern: "^ITSE1-TEST-.+$"
       error-message: IDs of this section must match ITSE1-TEST-xxx
     description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
   mappi-mapp:
     prefix: MAPPI_MAPP_
     pattern-check-id:
-      pattern: "^MAPPI-MAPP-[0-9]+$"
+      pattern: "^MAPPI-MAPP-.+$"
       error-message: IDs of this section must match MAPPI-MAPP-xxx
     description: List data mapping and transformation rules between external and internal representations.
   valid-vali:
     prefix: VALID_VALI_
     pattern-check-id:
-      pattern: "^VALID-VALI-[0-9]+$"
+      pattern: "^VALID-VALI-.+$"
       error-message: IDs of this section must match VALID-VALI-xxx
     description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
   cboc-oper:
     prefix: CBOC_OPER_
     pattern-check-id:
-      pattern: "^CBOC-OPER-[0-9]+$"
+      pattern: "^CBOC-OPER-.+$"
       error-message: IDs of this section must match CBOC-OPER-xxx
     description: 4.5.9. Cross-Boundary Operational Considerations.
   ibpe-depe:
     prefix: IBPE_DEPE_
     pattern-check-id:
-      pattern: "^IBPE-DEPE-[0-9]+$"
+      pattern: "^IBPE-DEPE-.+$"
       error-message: IDs of this section must match IBPE-DEPE-xxx
     description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
   idee-data:
     prefix: IDEE_DATA_
     pattern-check-id:
-      pattern: "^IDEE-DATA-[0-9]+$"
+      pattern: "^IDEE-DATA-.+$"
       error-message: IDs of this section must match IDEE-DATA-xxx
     description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
   miin-migr:
     prefix: MIIN_MIGR_
     pattern-check-id:
-      pattern: "^MIIN-MIGR-[0-9]+$"
+      pattern: "^MIIN-MIGR-.+$"
       error-message: IDs of this section must match MIIN-MIGR-xxx
     description: 4.5.8. Migration Interactions.
   oose-item:
@@ -225,7 +225,7 @@ section-types:
       oosem:
         max-count: 1
     pattern-check-id:
-      pattern: "^OOSE-ITEM-[0-9]+$"
+      pattern: "^OOSE-ITEM-.+$"
       error-message: IDs of this section must match OOSE-ITEM-xxx
     description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   eie-iden:

@@ -13,10 +13,13 @@ import 'spec_section_id.dart';
 /// section-ID path (D3). Nothing is materialised until written, so an untouched
 /// document is empty (matching the "empty = no value" rule, D4).
 ///
-/// Three sparse stores cover the writable field kinds:
+/// Four sparse stores cover the writable field kinds:
 ///   * [_content] — `content`/`scalar` leaves: path → string value.
 ///   * [_form] — `@Form` sections: path → (form-field name → value).
 ///   * [_listItems] — lists: list path → ordered item paths.
+///   * [_headline] — stored headlines (YRD3): any section path → the headline
+///     the document actually renders/rendered. Sparse like content: unset means
+///     "use the effective default" (`@Headline` default, else name derivation).
 ///
 /// List item paths are `"$listPath-$seq"` where `seq` is a per-list monotonic
 /// counter ([_listSeq]). The counter never reuses a number, so a path is stable
@@ -38,6 +41,7 @@ class SpecDocument {
   final Map<String, List<String>> _listItems = {};
   final Map<String, int> _listSeq = {};
   final Map<String, String> _itemSectionId = {};
+  final Map<String, String> _headline = {};
 
   /// The authoring object-model version (`major.minor`) this document was loaded
   /// from, or `null` for a brand-new / unstamped document. Retained here by
@@ -114,6 +118,24 @@ class SpecDocument {
       _content[path] = value;
     }
   }
+
+  /// The stored headline at [path], or `null` when the section renders its
+  /// effective default title (YRD3 — headlines are sparse like content).
+  String? headline(String path) => _headline[path];
+
+  /// Sets the stored headline at [path]. An empty value clears it, returning
+  /// the section to its effective default title (YRD3).
+  void setHeadline(String path, String value) {
+    if (value.isEmpty) {
+      _headline.remove(path);
+    } else {
+      _headline[path] = value;
+    }
+  }
+
+  /// All section paths currently carrying a stored headline (unordered
+  /// snapshot).
+  Iterable<String> get headlinePaths => _headline.keys;
 
   /// The value of form [field] at [path], or `null` if unset.
   String? formField(String path, String field) => _form[path]?[field];
@@ -233,10 +255,15 @@ class SpecDocument {
     _listItems.removeWhere((k, _) => isUnder(k));
     _listSeq.removeWhere((k, _) => isUnder(k));
     _itemSectionId.removeWhere((k, _) => isUnder(k));
+    _headline.removeWhere((k, _) => isUnder(k));
   }
 
   /// Whether the document holds no values at all.
-  bool get isEmpty => _content.isEmpty && _form.isEmpty && _listItems.isEmpty;
+  bool get isEmpty =>
+      _content.isEmpty &&
+      _form.isEmpty &&
+      _listItems.isEmpty &&
+      _headline.isEmpty;
 
   /// Whether any value exists at [prefix] or nested beneath it — the structural
   /// "empty = no value" test (§13.1, D4).
@@ -253,7 +280,8 @@ class SpecDocument {
         key.startsWith('$prefix-');
     return _content.keys.any(isUnder) ||
         _form.keys.any(isUnder) ||
-        _listItems.keys.any(isUnder);
+        _listItems.keys.any(isUnder) ||
+        _headline.keys.any(isUnder);
   }
 
   /// All content-leaf paths currently set (unordered snapshot).
@@ -279,9 +307,10 @@ class SpecDocument {
   ///
   /// ```
   /// {
-  ///   content: { "<path>": "<value>", ... },
-  ///   forms:   { "<path>": { "<field>": "<value>", ... }, ... },
-  ///   lists:   { "<path>": { seq: <int>, items: ["<path-1>", ...] }, ... },
+  ///   content:   { "<path>": "<value>", ... },
+  ///   forms:     { "<path>": { "<field>": "<value>", ... }, ... },
+  ///   lists:     { "<path>": { seq: <int>, items: ["<path-1>", ...] }, ... },
+  ///   headlines: { "<path>": "<stored headline>", ... },
   /// }
   /// ```
   ///
@@ -311,6 +340,10 @@ class SpecDocument {
                 },
             },
         },
+      if (_headline.isNotEmpty)
+        'headlines': {
+          for (final k in sorted(_headline.keys)) k: _headline[k],
+        },
     };
   }
 
@@ -324,6 +357,7 @@ class SpecDocument {
     _listItems.clear();
     _listSeq.clear();
     _itemSectionId.clear();
+    _headline.clear();
 
     final content = json['content'];
     if (content is Map) {
@@ -370,6 +404,13 @@ class SpecDocument {
         }
       });
     }
+
+    final headlines = json['headlines'];
+    if (headlines is Map) {
+      headlines.forEach((k, v) {
+        if (v != null && '$v'.isNotEmpty) _headline['$k'] = '$v';
+      });
+    }
   }
 
   /// A deep-copied snapshot of the whole document, for the undo stack (§10).
@@ -382,6 +423,7 @@ class SpecDocument {
         listItems: {for (final e in _listItems.entries) e.key: List.of(e.value)},
         listSeq: Map.of(_listSeq),
         itemSectionId: Map.of(_itemSectionId),
+        headline: Map.of(_headline),
       );
 
   /// Replaces the document's contents with a previously [captureState]d
@@ -404,6 +446,9 @@ class SpecDocument {
     _itemSectionId
       ..clear()
       ..addAll(state._itemSectionId);
+    _headline
+      ..clear()
+      ..addAll(state._headline);
   }
 }
 
@@ -418,6 +463,7 @@ class SpecDocumentState {
   final Map<String, List<String>> _listItems;
   final Map<String, int> _listSeq;
   final Map<String, String> _itemSectionId;
+  final Map<String, String> _headline;
 
   SpecDocumentState._({
     required Map<String, String> content,
@@ -425,11 +471,13 @@ class SpecDocumentState {
     required Map<String, List<String>> listItems,
     required Map<String, int> listSeq,
     required Map<String, String> itemSectionId,
+    required Map<String, String> headline,
   })  : _content = content,
         _form = form,
         _listItems = listItems,
         _listSeq = listSeq,
-        _itemSectionId = itemSectionId;
+        _itemSectionId = itemSectionId,
+        _headline = headline;
 
   /// The content value at [path] as of this snapshot (the review's base pane).
   String? contentAt(String path) => _content[path];
@@ -456,6 +504,7 @@ class SpecDocumentState {
       enc(formFlat),
       enc(listFlat),
       enc(_itemSectionId),
+      enc(_headline),
     ].join('\u0002');
   }
 }

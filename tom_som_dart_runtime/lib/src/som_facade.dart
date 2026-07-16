@@ -77,6 +77,16 @@ abstract class SomNode {
     if (id == null) return;
     doc.setItemSectionId(path, id);
   }
+
+  /// This section's **stored headline** (YRD3), or `null` when the section
+  /// renders its effective default title (`@Headline` default, else name
+  /// derivation). Available on every node — fixed sections and list items
+  /// alike — and `$`-prefixed for the same collision-proofing as [$sectionId].
+  String? get $headline => doc.headline(path);
+
+  /// Sets or clears this section's stored headline (YRD3). `null` or an empty
+  /// string clears the store, returning the section to its default title.
+  set $headline(String? value) => doc.setHeadline(path, value ?? '');
 }
 
 /// A scalar list item — a bare string value held in the document's content

@@ -26,8 +26,9 @@ import 'model_reader.dart';
 ///   because the DocSpecs prefix grammar (`^[a-zA-Z0-9_]+$`) forbids the
 ///   dashes TomSpecs ids use (case is preserved);
 /// - `pattern-check-id:` (list-element types only) is the exact
-///   `@SectionIdPattern` with `xxx` compiled to `[0-9]+`
-///   (`^DAENT-ENTI-[0-9]+$`) — §5 keeps the untransformed id here;
+///   `@SectionIdPattern` with `xxx` compiled to `.+` (`^DAENT-ENTI-.+$`) —
+///   a stem check, since YRD3 renders stored item ids in md; §5 keeps the
+///   untransformed id here;
 /// - `subsection-types:` lists the nearest section-bearing descendants with
 ///   `min-count` from the child's `@Min` and `max-count` `1` for singleton
 ///   children / `infinite` for list elements (bounded by `@Max`);
@@ -353,7 +354,7 @@ class _SchemaBuilder {
       exactId: exactId,
       node: element,
       listNode: node,
-      // §5: the exact @SectionIdPattern with `xxx` compiled to `[0-9]+`.
+      // §5: the exact @SectionIdPattern with `xxx` compiled to `.+` (YRD3).
       patternCheckId: pattern == null
           ? null
           : PatternCheckDef(
@@ -564,12 +565,20 @@ class _SchemaBuilder {
   static String _patternStem(String pattern) =>
       pattern.replaceAll(RegExp(r'xxx.*$'), '');
 
-  /// Compiles a `@SectionIdPattern` to a regex body: `xxx` → `[0-9]+`, all
+  /// Compiles a `@SectionIdPattern` to a regex body: `xxx` → `.+`, all
   /// other characters taken literally.
+  ///
+  /// YRD3: since the md format renders **stored** item section ids (AA1
+  /// date-lettered generated ids like `GOAL-ITEM-GN1`, or criterion-5
+  /// overrides) in the item headings, the schema's `pattern-check-id` is a
+  /// **stem** check — anonymous positional numbering and stored-id shape are
+  /// the runtime's list-scoped concern, not the schema's. This mirrors the md
+  /// parser's own pattern matching (`xxx` → `.+`), so every facade-authored
+  /// document validates against its own schema regardless of its stored ids.
   static String _compilePattern(String pattern) => pattern
       .split('xxx')
       .map(RegExp.escape)
-      .join('[0-9]+');
+      .join('.+');
 
   /// A unique, DocSpecs-legal prefix for a section id: the exact id with the
   /// TomSpecs dashes transformed to `_` (the prefix grammar `^[a-zA-Z0-9_]+$`

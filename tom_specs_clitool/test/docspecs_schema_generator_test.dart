@@ -196,12 +196,15 @@ void main() {
     });
 
     test('§5.2: list-element pattern-check-id compiles the exact '
-        '@SectionIdPattern with xxx → [0-9]+', () {
+        '@SectionIdPattern with xxx → .+ (YRD3 stem check)', () {
       final schema = gen.generateFor('DemoDoc');
       final check = schema.sectionTypes['d00-itm']!.patternCheckId;
       expect(check, isNotNull);
-      expect(check!.pattern, r'^D00-ITM-[0-9]+$');
+      expect(check!.pattern, r'^D00-ITM-.+$');
       expect(RegExp(check.pattern).hasMatch('D00-ITM-001'), isTrue);
+      // YRD3: stored (AA1 / override) ids are surfaced in md, so the schema
+      // checks only the stem — non-numeric suffixes are valid.
+      expect(RegExp(check.pattern).hasMatch('D00-ITM-GN1'), isTrue);
       expect(RegExp(check.pattern).hasMatch('D00-ITM-'), isFalse);
       // Single (non-pattern) sections carry no id pattern-check.
       expect(schema.sectionTypes['d00-ovr']!.patternCheckId, isNull);
@@ -319,7 +322,7 @@ void main() {
       // Subsection constraints survive the round-trip.
       final itm = reloaded.sectionTypes['d00-itm']!;
       expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
-      expect(itm.patternCheckId!.pattern, r'^D00-ITM-[0-9]+$');
+      expect(itm.patternCheckId!.pattern, r'^D00-ITM-.+$');
       // Form field description + pattern-check survive.
       final form = reloaded.formTypes!['d00-hdr-form']!;
       expect(form.fields.first.description, 'e.g. My System');

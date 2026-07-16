@@ -5,19 +5,26 @@ document:
   DEMO Demo:
     TTL title: |2-
       Hello
-    SUM summary: |2-
-      Line one
-      Line two
+    SUM summary:
+      headline: |2-
+        Executive Summary
+      content: |2-
+        Line one
+        Line two
 
-      Line four
+        Line four
     PRI priority: high
     CNT count: 3
     DET details:
+      headline: |2-
+        Details & Contacts
       owner: |2-
         Bob
       contact: |2-
         bob@example.com
     items:
+      headline: |2-
+        Work Items
       items-1:
         label: |2-
           First
@@ -28,7 +35,10 @@ document:
           with ```triple``` ticks
         STS status: done
     REF-LST refs:
-      refs-1: spec §1.2
+      REF-SPEC:
+        headline: |2-
+          Reference to the Spec
+        content: spec §1.2
       refs-2: DR1
     META meta:
       OWNR owner: |2-

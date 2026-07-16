@@ -78,8 +78,12 @@ document:
           IDs are stable and referenced from the use cases, screens, and data model so
           every downstream artifact traces back to a requirement.
         FR functionalRequirements:
+          headline: |2-
+            Functional Requirements (FR)
           FRE-REQU-LST requirements:
-            FRE-REQU-1:
+            FRE-REQU-ORDER-CAPTURE:
+              headline: |2-
+                FR-01 — Capture Orders from EDI and REST
               content:
                 requirementId: |2-
                   FR-01

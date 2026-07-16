@@ -631,7 +631,7 @@ section-types:
       ased:
         max-count: 1
     pattern-check-id:
-      pattern: "^ACCSTD-ACCE-[0-9]+$"
+      pattern: "^ACCSTD-ACCE-.+$"
       error-message: IDs of this section must match ACCSTD-ACCE-xxx
     description: Add one entry per accessibility standard.
   aldeen-aler:
@@ -644,7 +644,7 @@ section-types:
       aden:
         max-count: 1
     pattern-check-id:
-      pattern: "^ALDEEN-ALER-[0-9]+$"
+      pattern: "^ALDEEN-ALER-.+$"
       error-message: IDs of this section must match ALDEEN-ALER-xxx
     description: Add one entry per alert definition.
   alruen-aler:
@@ -657,13 +657,13 @@ section-types:
       areo:
         max-count: 1
     pattern-check-id:
-      pattern: "^ALRUEN-ALER-[0-9]+$"
+      pattern: "^ALRUEN-ALER-.+$"
       error-message: IDs of this section must match ALRUEN-ALER-xxx
     description: Add one entry per alert rule.
   alsuru-supp:
     prefix: ALSURU_SUPP_
     pattern-check-id:
-      pattern: "^ALSURU-SUPP-[0-9]+$"
+      pattern: "^ALSURU-SUPP-.+$"
       error-message: IDs of this section must match ALSURU-SUPP-xxx
     description: Add one entry per suppression or maintenance window.
   bapoen-back:
@@ -678,7 +678,7 @@ section-types:
       bapoenst:
         max-count: 1
     pattern-check-id:
-      pattern: "^BAPOEN-BACK-[0-9]+$"
+      pattern: "^BAPOEN-BACK-.+$"
       error-message: IDs of this section must match BAPOEN-BACK-xxx
     description: Add one entry per backup policy.
   bocoen-boun:
@@ -693,7 +693,7 @@ section-types:
       bocoenin:
         max-count: 1
     pattern-check-id:
-      pattern: "^BOCOEN-BOUN-[0-9]+$"
+      pattern: "^BOCOEN-BOUN-.+$"
       error-message: IDs of this section must match BOCOEN-BOUN-xxx
     description: Add one entry per bounded context.
   brcoen-brow:
@@ -708,7 +708,7 @@ section-types:
       brcoente:
         max-count: 1
     pattern-check-id:
-      pattern: "^BRCOEN-BROW-[0-9]+$"
+      pattern: "^BRCOEN-BROW-.+$"
       error-message: IDs of this section must match BRCOEN-BROW-xxx
     description: Add one entry per supported browser.
   brreen-brow:
@@ -723,7 +723,7 @@ section-types:
       brei:
         max-count: 1
     pattern-check-id:
-      pattern: "^BRREEN-BROW-[0-9]+$"
+      pattern: "^BRREEN-BROW-.+$"
       error-message: IDs of this section must match BRREEN-BROW-xxx
     description: Add one entry per supported web browser.
   bucoen-busi:
@@ -740,7 +740,7 @@ section-types:
       bcer:
         max-count: 1
     pattern-check-id:
-      pattern: "^BUCOEN-BUSI-[0-9]+$"
+      pattern: "^BUCOEN-BUSI-.+$"
       error-message: IDs of this section must match BUCOEN-BUSI-xxx
     description: Add one entry per business component.
   comlicentcon:
@@ -759,7 +759,7 @@ section-types:
       creg:
         max-count: 1
     pattern-check-id:
-      pattern: "^COREEN-RESP-[0-9]+$"
+      pattern: "^COREEN-RESP-.+$"
       error-message: IDs of this section must match COREEN-RESP-xxx
     description: Add one entry per component responsibility.
   costen-codi:
@@ -774,13 +774,13 @@ section-types:
       csee:
         max-count: 1
     pattern-check-id:
-      pattern: "^COSTEN-CODI-[0-9]+$"
+      pattern: "^COSTEN-CODI-.+$"
       error-message: IDs of this section must match COSTEN-CODI-xxx
     description: Add one entry per coding standard.
   cumeen-cust:
     prefix: CUMEEN_CUST_
     pattern-check-id:
-      pattern: "^CUMEEN-CUST-[0-9]+$"
+      pattern: "^CUMEEN-CUST-.+$"
       error-message: IDs of this section must match CUMEEN-CUST-xxx
     description: Add one entry per custom metric.
   dacoen-data:
@@ -795,7 +795,7 @@ section-types:
       dcep:
         max-count: 1
     pattern-check-id:
-      pattern: "^DACOEN-DATA-[0-9]+$"
+      pattern: "^DACOEN-DATA-.+$"
       error-message: IDs of this section must match DACOEN-DATA-xxx
     description: Add one entry per supported database.
   decoen-deve:
@@ -812,7 +812,7 @@ section-types:
       dcee:
         max-count: 1
     pattern-check-id:
-      pattern: "^DECOEN-DEVE-[0-9]+$"
+      pattern: "^DECOEN-DEVE-.+$"
       error-message: IDs of this section must match DECOEN-DEVE-xxx
     description: Add one entry per development convention.
   deenen-envi:
@@ -827,7 +827,7 @@ section-types:
       deem:
         max-count: 1
     pattern-check-id:
-      pattern: "^DEENEN-ENVI-[0-9]+$"
+      pattern: "^DEENEN-ENVI-.+$"
       error-message: IDs of this section must match DEENEN-ENVI-xxx
     description: Add one entry per deployment environment.
   detaen-depl:
@@ -844,13 +844,13 @@ section-types:
       dtec:
         max-count: 1
     pattern-check-id:
-      pattern: "^DETAEN-DEPL-[0-9]+$"
+      pattern: "^DETAEN-DEPL-.+$"
       error-message: IDs of this section must match DETAEN-DEPL-xxx
     description: Add one entry per deployment target.
   expaop-oper:
     prefix: EXPAOP_OPER_
     pattern-check-id:
-      pattern: "^EXPAOP-OPER-[0-9]+$"
+      pattern: "^EXPAOP-OPER-.+$"
       error-message: IDs of this section must match EXPAOP-OPER-xxx
     description: Add one entry per operational contact.
   ftrmod-feat:
@@ -867,7 +867,7 @@ section-types:
       fmen:
         max-count: 1
     pattern-check-id:
-      pattern: "^FTRMOD-FEAT-[0-9]+$"
+      pattern: "^FTRMOD-FEAT-.+$"
       error-message: IDs of this section must match FTRMOD-FEAT-xxx
     description: Add one entry per feature module.
   idreen-ider:
@@ -880,7 +880,7 @@ section-types:
       ires:
         max-count: 1
     pattern-check-id:
-      pattern: "^IDREEN-IDER-[0-9]+$"
+      pattern: "^IDREEN-IDER-.+$"
       error-message: IDs of this section must match IDREEN-IDER-xxx
     description: Add one entry per IDE or editor.
   incoe1-inte:
@@ -895,7 +895,7 @@ section-types:
       incoenco:
         max-count: 1
     pattern-check-id:
-      pattern: "^INCOE1-INTE-[0-9]+$"
+      pattern: "^INCOE1-INTE-.+$"
       error-message: IDs of this section must match INCOE1-INTE-xxx
     description: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect."
   incoen-infr:
@@ -912,7 +912,7 @@ section-types:
       icer:
         max-count: 1
     pattern-check-id:
-      pattern: "^INCOEN-INFR-[0-9]+$"
+      pattern: "^INCOEN-INFR-.+$"
       error-message: IDs of this section must match INCOEN-INFR-xxx
     description: Add one entry per infrastructure component.
   inspen-inte:
@@ -927,7 +927,7 @@ section-types:
       iset:
         max-count: 1
     pattern-check-id:
-      pattern: "^INSPEN-INTE-[0-9]+$"
+      pattern: "^INSPEN-INTE-.+$"
       error-message: IDs of this section must match INSPEN-INTE-xxx
     description: Add one entry per interface specification.
   insten-indu:
@@ -944,7 +944,7 @@ section-types:
       iser:
         max-count: 1
     pattern-check-id:
-      pattern: "^INSTEN-INDU-[0-9]+$"
+      pattern: "^INSTEN-INDU-.+$"
       error-message: IDs of this section must match INSTEN-INDU-xxx
     description: Add one entry per industry standard.
   lecoen-lega:
@@ -959,7 +959,7 @@ section-types:
       lcer:
         max-count: 1
     pattern-check-id:
-      pattern: "^LECOEN-LEGA-[0-9]+$"
+      pattern: "^LECOEN-LEGA-.+$"
       error-message: IDs of this section must match LECOEN-LEGA-xxx
     description: Add one entry per legacy system.
   mawien-main:
@@ -974,7 +974,7 @@ section-types:
       mwer:
         max-count: 1
     pattern-check-id:
-      pattern: "^MAWIEN-MAIN-[0-9]+$"
+      pattern: "^MAWIEN-MAIN-.+$"
       error-message: IDs of this section must match MAWIEN-MAIN-xxx
     description: Add one entry per maintenance window.
   mocoen-mobi:
@@ -989,7 +989,7 @@ section-types:
       mocoendi:
         max-count: 1
     pattern-check-id:
-      pattern: "^MOCOEN-MOBI-[0-9]+$"
+      pattern: "^MOCOEN-MOBI-.+$"
       error-message: IDs of this section must match MOCOEN-MOBI-xxx
     description: Add one entry per supported mobile platform.
   oscoen-osco:
@@ -1004,7 +1004,7 @@ section-types:
       ocel:
         max-count: 1
     pattern-check-id:
-      pattern: "^OSCOEN-OSCO-[0-9]+$"
+      pattern: "^OSCOEN-OSCO-.+$"
       error-message: IDs of this section must match OSCOEN-OSCO-xxx
     description: Add one entry per supported operating system.
   pijoen-jobs:
@@ -1019,7 +1019,7 @@ section-types:
       pjeo:
         max-count: 1
     pattern-check-id:
-      pattern: "^PIJOEN-JOBS-[0-9]+$"
+      pattern: "^PIJOEN-JOBS-.+$"
       error-message: IDs of this section must match PIJOEN-JOBS-xxx
     description: Add one entry per pipeline job.
   pisten-stag:
@@ -1034,7 +1034,7 @@ section-types:
       psef:
         max-count: 1
     pattern-check-id:
-      pattern: "^PISTEN-STAG-[0-9]+$"
+      pattern: "^PISTEN-STAG-.+$"
       error-message: IDs of this section must match PISTEN-STAG-xxx
     description: Add one entry per pipeline stage.
   recoen-regu:
@@ -1049,7 +1049,7 @@ section-types:
       rceo:
         max-count: 1
     pattern-check-id:
-      pattern: "^RECOEN-REGU-[0-9]+$"
+      pattern: "^RECOEN-REGU-.+$"
       error-message: IDs of this section must match RECOEN-REGU-xxx
     description: Add one entry per regulation.
   ruicmp-uico:
@@ -1066,7 +1066,7 @@ section-types:
       reuicoenim:
         max-count: 1
     pattern-check-id:
-      pattern: "^RUICMP-UICO-[0-9]+$"
+      pattern: "^RUICMP-UICO-.+$"
       error-message: IDs of this section must match RUICMP-UICO-xxx
     description: Add one entry per UI component.
   seauen-audi:
@@ -1079,7 +1079,7 @@ section-types:
       saefu:
         max-count: 1
     pattern-check-id:
-      pattern: "^SEAUEN-AUDI-[0-9]+$"
+      pattern: "^SEAUEN-AUDI-.+$"
       error-message: IDs of this section must match SEAUEN-AUDI-xxx
     description: Add one entry per security audit requirement.
   seenen-envi:
@@ -1094,7 +1094,7 @@ section-types:
       seenenli:
         max-count: 1
     pattern-check-id:
-      pattern: "^SEENEN-ENVI-[0-9]+$"
+      pattern: "^SEENEN-ENVI-.+$"
       error-message: IDs of this section must match SEENEN-ENVI-xxx
     description: Add one entry per server environment.
   seroen-serv:
@@ -1109,7 +1109,7 @@ section-types:
       sren:
         max-count: 1
     pattern-check-id:
-      pattern: "^SEROEN-SERV-[0-9]+$"
+      pattern: "^SEROEN-SERV-.+$"
       error-message: IDs of this section must match SEROEN-SERV-xxx
     description: Add one entry per server role.
   sesten-stan:
@@ -1122,7 +1122,7 @@ section-types:
       ssev:
         max-count: 1
     pattern-check-id:
-      pattern: "^SESTEN-STAN-[0-9]+$"
+      pattern: "^SESTEN-STAN-.+$"
       error-message: IDs of this section must match SESTEN-STAN-xxx
     description: Add one entry per security standard.
   solaen-soft:
@@ -1137,7 +1137,7 @@ section-types:
       slet:
         max-count: 1
     pattern-check-id:
-      pattern: "^SOLAEN-SOFT-[0-9]+$"
+      pattern: "^SOLAEN-SOFT-.+$"
       error-message: IDs of this section must match SOLAEN-SOFT-xxx
     description: Add one entry per software layer.
   testen-tech:
@@ -1152,7 +1152,7 @@ section-types:
       tsei:
         max-count: 1
     pattern-check-id:
-      pattern: "^TESTEN-TECH-[0-9]+$"
+      pattern: "^TESTEN-TECH-.+$"
       error-message: IDs of this section must match TESTEN-TECH-xxx
     description: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
   thpali-thir:
@@ -1169,7 +1169,7 @@ section-types:
       tplem:
         max-count: 1
     pattern-check-id:
-      pattern: "^THPALI-THIR-[0-9]+$"
+      pattern: "^THPALI-THIR-.+$"
       error-message: IDs of this section must match THPALI-THIR-xxx
     description: Add one entry per third-party library.
   vpreen-vpnr:
@@ -1184,7 +1184,7 @@ section-types:
       vrea:
         max-count: 1
     pattern-check-id:
-      pattern: "^VPREEN-VPNR-[0-9]+$"
+      pattern: "^VPREEN-VPNR-.+$"
       error-message: IDs of this section must match VPREEN-VPNR-xxx
     description: Add one entry per VPN requirement.
   btcen-buil:
@@ -1203,7 +1203,7 @@ section-types:
       butoenop:
         max-count: 1
     pattern-check-id:
-      pattern: "^BTCEN-BUIL-[0-9]+$"
+      pattern: "^BTCEN-BUIL-.+$"
       error-message: IDs of this section must match BTCEN-BUIL-xxx
     description: Add one entry per build tool.
   cmpnt-comp:
@@ -1234,19 +1234,19 @@ section-types:
       coreen-resp-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMPNT-COMP-[0-9]+$"
+      pattern: "^CMPNT-COMP-.+$"
       error-message: IDs of this section must match CMPNT-COMP-xxx
     description: Add one entry per cataloged component.
   datac-data:
     prefix: DATAC_DATA_
     pattern-check-id:
-      pattern: "^DATAC-DATA-[0-9]+$"
+      pattern: "^DATAC-DATA-.+$"
       error-message: IDs of this section must match DATAC-DATA-xxx
     description: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints."
   devop-devo:
     prefix: DEVOP_DEVO_
     pattern-check-id:
-      pattern: "^DEVOP-DEVO-[0-9]+$"
+      pattern: "^DEVOP-DEVO-.+$"
       error-message: IDs of this section must match DEVOP-DEVO-xxx
     description: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules."
   dore1-desk:
@@ -1261,7 +1261,7 @@ section-types:
       doret:
         max-count: 1
     pattern-check-id:
-      pattern: "^DORE1-DESK-[0-9]+$"
+      pattern: "^DORE1-DESK-.+$"
       error-message: IDs of this section must match DORE1-DESK-xxx
     description: Add one entry per supported desktop operating system.
   evcen-item:
@@ -1274,7 +1274,7 @@ section-types:
       evceg:
         max-count: 1
     pattern-check-id:
-      pattern: "^EVCEN-ITEM-[0-9]+$"
+      pattern: "^EVCEN-ITEM-.+$"
       error-message: IDs of this section must match EVCEN-ITEM-xxx
     description: Add one entry per evaluation criterion.
   fwren-fram:
@@ -1293,13 +1293,13 @@ section-types:
       fwrjt:
         max-count: 1
     pattern-check-id:
-      pattern: "^FWREN-FRAM-[0-9]+$"
+      pattern: "^FWREN-FRAM-.+$"
       error-message: IDs of this section must match FWREN-FRAM-xxx
     description: Add one entry per framework or library.
   maint-main:
     prefix: MAINT_MAIN_
     pattern-check-id:
-      pattern: "^MAINT-MAIN-[0-9]+$"
+      pattern: "^MAINT-MAIN-.+$"
       error-message: IDs of this section must match MAINT-MAIN-xxx
     description: Add one entry per maintenance procedure.
   meanob-metr:
@@ -1315,7 +1315,7 @@ section-types:
       mder:
         max-count: 1
     pattern-check-id:
-      pattern: "^MNDEP-ITEM-[0-9]+$"
+      pattern: "^MNDEP-ITEM-.+$"
       error-message: IDs of this section must match MNDEP-ITEM-xxx
     description: Add one entry per maintenance dependency.
   moen1-modu:
@@ -1332,7 +1332,7 @@ section-types:
       moente:
         max-count: 1
     pattern-check-id:
-      pattern: "^MOEN1-MODU-[0-9]+$"
+      pattern: "^MOEN1-MODU-.+$"
       error-message: IDs of this section must match MOEN1-MODU-xxx
     description: Add one entry per module.
   monito-moni:
@@ -1341,7 +1341,7 @@ section-types:
   obser-obse:
     prefix: OBSER_OBSE_
     pattern-check-id:
-      pattern: "^OBSER-OBSE-[0-9]+$"
+      pattern: "^OBSER-OBSE-.+$"
       error-message: IDs of this section must match OBSER-OBSE-xxx
     description: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms."
   plgen-prog:
@@ -1358,7 +1358,7 @@ section-types:
       plgjt:
         max-count: 1
     pattern-check-id:
-      pattern: "^PLGEN-PROG-[0-9]+$"
+      pattern: "^PLGEN-PROG-.+$"
       error-message: IDs of this section must match PLGEN-PROG-xxx
     description: Add one entry per programming language.
   qlstd-qual:
@@ -1373,7 +1373,7 @@ section-types:
       qsem:
         max-count: 1
     pattern-check-id:
-      pattern: "^QLSTD-QUAL-[0-9]+$"
+      pattern: "^QLSTD-QUAL-.+$"
       error-message: IDs of this section must match QLSTD-QUAL-xxx
     description: Add one entry per quality standard.
   rguse-reus:
@@ -1386,7 +1386,7 @@ section-types:
       rgenb:
         max-count: 1
     pattern-check-id:
-      pattern: "^RGUSE-REUS-[0-9]+$"
+      pattern: "^RGUSE-REUS-.+$"
       error-message: IDs of this section must match RGUSE-REUS-xxx
     description: Add one entry per reuse goal.
   rndep-item:
@@ -1403,7 +1403,7 @@ section-types:
       rudeenri:
         max-count: 1
     pattern-check-id:
-      pattern: "^RNDEP-ITEM-[0-9]+$"
+      pattern: "^RNDEP-ITEM-.+$"
       error-message: IDs of this section must match RNDEP-ITEM-xxx
     description: Add one entry per runtime dependency.
   shlcp-shar:
@@ -1418,7 +1418,7 @@ section-types:
       slceo:
         max-count: 1
     pattern-check-id:
-      pattern: "^SHLCP-SHAR-[0-9]+$"
+      pattern: "^SHLCP-SHAR-.+$"
       error-message: IDs of this section must match SHLCP-SHAR-xxx
     description: Add one entry per shared library.
   shlib-shar:
@@ -1431,7 +1431,7 @@ section-types:
       slel:
         max-count: 1
     pattern-check-id:
-      pattern: "^SHLIB-SHAR-[0-9]+$"
+      pattern: "^SHLIB-SHAR-.+$"
       error-message: IDs of this section must match SHLIB-SHAR-xxx
     description: Add one entry per shared library.
   tgplt-targ:
@@ -1446,7 +1446,7 @@ section-types:
       tpelc:
         max-count: 1
     pattern-check-id:
-      pattern: "^TGPLT-TARG-[0-9]+$"
+      pattern: "^TGPLT-TARG-.+$"
       error-message: IDs of this section must match TGPLT-TARG-xxx
     description: Add one entry per target platform.
   trareq-tran:
@@ -1464,7 +1464,7 @@ section-types:
       aces:
         max-count: 1
     pattern-check-id:
-      pattern: "^APCP-APIC-[0-9]+$"
+      pattern: "^APCP-APIC-.+$"
       error-message: IDs of this section must match APCP-APIC-xxx
     description: Add one entry per API or protocol.
   arcm-comp:
@@ -1481,7 +1481,7 @@ section-types:
       aceo:
         max-count: 1
     pattern-check-id:
-      pattern: "^ARCM-COMP-[0-9]+$"
+      pattern: "^ARCM-COMP-.+$"
       error-message: IDs of this section must match ARCM-COMP-xxx
     description: Add one entry per architecture component or service.
   arde-deci:
@@ -1496,7 +1496,7 @@ section-types:
       adrr:
         max-count: 1
     pattern-check-id:
-      pattern: "^ARDE-DECI-[0-9]+$"
+      pattern: "^ARDE-DECI-.+$"
       error-message: IDs of this section must match ARDE-DECI-xxx
     description: Add one entry per architecture decision record.
   arpr-prin:
@@ -1507,7 +1507,7 @@ section-types:
       arprengo:
         max-count: 1
     pattern-check-id:
-      pattern: "^ARPR-PRIN-[0-9]+$"
+      pattern: "^ARPR-PRIN-.+$"
       error-message: IDs of this section must match ARPR-PRIN-xxx
     description: Add one entry per architecture principle.
   cmif-inte:
@@ -1524,7 +1524,7 @@ section-types:
       cieo:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMIF-INTE-[0-9]+$"
+      pattern: "^CMIF-INTE-.+$"
       error-message: IDs of this section must match CMIF-INTE-xxx
     description: Add one entry per component interface.
   cmrs-risk:
@@ -1541,13 +1541,13 @@ section-types:
       coriengo:
         max-count: 1
     pattern-check-id:
-      pattern: "^CMRS-RISK-[0-9]+$"
+      pattern: "^CMRS-RISK-.+$"
       error-message: IDs of this section must match CMRS-RISK-xxx
     description: Add one entry per component risk.
   codo-docs:
     prefix: CODO_DOCS_
     pattern-check-id:
-      pattern: "^CODO-DOCS-[0-9]+$"
+      pattern: "^CODO-DOCS-.+$"
       error-message: IDs of this section must match CODO-DOCS-xxx
     description: Add one entry per component document.
   copl-item:
@@ -1564,7 +1564,7 @@ section-types:
       cpet:
         max-count: 1
     pattern-check-id:
-      pattern: "^COPL-ITEM-[0-9]+$"
+      pattern: "^COPL-ITEM-.+$"
       error-message: IDs of this section must match COPL-ITEM-xxx
     description: Add one entry per contingency plan.
   daen-dash:
@@ -1575,7 +1575,7 @@ section-types:
       daenop:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAEN-DASH-[0-9]+$"
+      pattern: "^DAEN-DASH-.+$"
       error-message: IDs of this section must match DAEN-DASH-xxx
     description: Add one entry per dashboard.
   dasurimaau:
@@ -1585,7 +1585,7 @@ section-types:
   date-dash:
     prefix: DATE_DASH_
     pattern-check-id:
-      pattern: "^DATE-DASH-[0-9]+$"
+      pattern: "^DATE-DASH-.+$"
       error-message: IDs of this section must match DATE-DASH-xxx
     description: Add one entry per dashboard template.
   deosreenso:
@@ -1606,7 +1606,7 @@ section-types:
       dpee:
         max-count: 1
     pattern-check-id:
-      pattern: "^DSPT-DESI-[0-9]+$"
+      pattern: "^DSPT-DESI-.+$"
       error-message: IDs of this section must match DSPT-DESI-xxx
     description: Add one entry per design pattern.
   epce-part:
@@ -1625,7 +1625,7 @@ section-types:
       expaop-oper-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^EPCE-PART-[0-9]+$"
+      pattern: "^EPCE-PART-.+$"
       error-message: IDs of this section must match EPCE-PART-xxx
     description: Add one entry per external partner connection.
   esce-ente:
@@ -1640,7 +1640,7 @@ section-types:
       escet:
         max-count: 1
     pattern-check-id:
-      pattern: "^ESCE-ENTE-[0-9]+$"
+      pattern: "^ESCE-ENTE-.+$"
       error-message: IDs of this section must match ESCE-ENTE-xxx
     description: Add one entry per enterprise system.
   inprcoenin:
@@ -1659,7 +1659,7 @@ section-types:
       inprcoenin:
         max-count: 1
     pattern-check-id:
-      pattern: "^IPCE-INDU-[0-9]+$"
+      pattern: "^IPCE-INDU-.+$"
       error-message: IDs of this section must match IPCE-INDU-xxx
     description: Add one entry per industry protocol.
   isce-itst:
@@ -1676,7 +1676,7 @@ section-types:
       iscee:
         max-count: 1
     pattern-check-id:
-      pattern: "^ISCE-ITST-[0-9]+$"
+      pattern: "^ISCE-ITST-.+$"
       error-message: IDs of this section must match ISCE-ITST-xxx
     description: Add one entry per IT standard.
   mdre-mobi:
@@ -1691,13 +1691,13 @@ section-types:
       mdrec:
         max-count: 1
     pattern-check-id:
-      pattern: "^MDRE-MOBI-[0-9]+$"
+      pattern: "^MDRE-MOBI-.+$"
       error-message: IDs of this section must match MDRE-MOBI-xxx
     description: Add one entry per supported mobile platform.
   pren-prot:
     prefix: PREN_PROT_
     pattern-check-id:
-      pattern: "^PREN-PROT-[0-9]+$"
+      pattern: "^PREN-PROT-.+$"
       error-message: IDs of this section must match PREN-PROT-xxx
     description: Add one entry per protocol.
   reuicoende:
@@ -1724,7 +1724,7 @@ section-types:
       slenop:
         max-count: 1
     pattern-check-id:
-      pattern: "^SLEN-SLOS-[0-9]+$"
+      pattern: "^SLEN-SLOS-.+$"
       error-message: IDs of this section must match SLEN-SLOS-xxx
     description: Add one entry per SLO.
   ssce-secu:
@@ -1739,7 +1739,7 @@ section-types:
       sestcoenst:
         max-count: 1
     pattern-check-id:
-      pattern: "^SSCE-SECU-[0-9]+$"
+      pattern: "^SSCE-SECU-.+$"
       error-message: IDs of this section must match SSCE-SECU-xxx
     description: Add one entry per security standard.
   thpaapinai:
@@ -1758,7 +1758,7 @@ section-types:
       tpces:
         max-count: 1
     pattern-check-id:
-      pattern: "^TPCE-THIR-[0-9]+$"
+      pattern: "^TPCE-THIR-.+$"
       error-message: IDs of this section must match TPCE-THIR-xxx
     description: Add one entry per third-party software product.
   alco-aler:

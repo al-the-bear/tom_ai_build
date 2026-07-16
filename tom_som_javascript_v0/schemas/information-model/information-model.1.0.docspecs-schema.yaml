@@ -284,7 +284,7 @@ section-types:
       boaeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^BIOBAT-ATTR-[0-9]+$"
+      pattern: "^BIOBAT-ATTR-.+$"
       error-message: IDs of this section must match BIOBAT-ATTR-xxx
     description: Add one entry per business object attribute.
   birure-keyb:
@@ -293,7 +293,7 @@ section-types:
       birure-rule-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^BIRURE-KEYB-[0-9]+$"
+      pattern: "^BIRURE-KEYB-.+$"
       error-message: IDs of this section must match BIRURE-KEYB-xxx
     description: Add one entry per business rule reference.
   cre-comp-lst:
@@ -307,19 +307,19 @@ section-types:
   rulexm-exam:
     prefix: RULEXM_EXAM_
     pattern-check-id:
-      pattern: "^RULEXM-EXAM-[0-9]+$"
+      pattern: "^RULEXM-EXAM-.+$"
       error-message: IDs of this section must match RULEXM-EXAM-xxx
     description: Add one entry per rule example.
   acrse-acce:
     prefix: ACRSE_ACCE_
     pattern-check-id:
-      pattern: "^ACRSE-ACCE-[0-9]+$"
+      pattern: "^ACRSE-ACCE-.+$"
       error-message: IDs of this section must match ACRSE-ACCE-xxx
     description: Add one entry per access restriction.
   behav-beha:
     prefix: BEHAV_BEHA_
     pattern-check-id:
-      pattern: "^BEHAV-BEHA-[0-9]+$"
+      pattern: "^BEHAV-BEHA-.+$"
       error-message: IDs of this section must match BEHAV-BEHA-xxx
     description: Add one entry per behavior rule.
   bjoen-obje:
@@ -350,7 +350,7 @@ section-types:
       obinv-inva-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^BJOEN-OBJE-[0-9]+$"
+      pattern: "^BJOEN-OBJE-.+$"
       error-message: IDs of this section must match BJOEN-OBJE-xxx
     description: A business object entry (form).
   daatt-attr:
@@ -371,7 +371,7 @@ section-types:
       displ-disp-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAATT-ATTR-[0-9]+$"
+      pattern: "^DAATT-ATTR-.+$"
       error-message: IDs of this section must match DAATT-ATTR-xxx
     description: Add one entry per data attribute.
   daent-enti:
@@ -402,13 +402,13 @@ section-types:
       migme-migr-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^DAENT-ENTI-[0-9]+$"
+      pattern: "^DAENT-ENTI-.+$"
       error-message: IDs of this section must match DAENT-ENTI-xxx
     description: A data entity entry (form).
   dataa-cons:
     prefix: DATAA_CONS_
     pattern-check-id:
-      pattern: "^DATAA-CONS-[0-9]+$"
+      pattern: "^DATAA-CONS-.+$"
       error-message: IDs of this section must match DATAA-CONS-xxx
     description: Add one entry per attribute constraint.
   dclse-item:
@@ -429,25 +429,25 @@ section-types:
       acrse-acce-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^DCLSE-ITEM-[0-9]+$"
+      pattern: "^DCLSE-ITEM-.+$"
       error-message: IDs of this section must match DCLSE-ITEM-xxx
     description: Add one entry per data classification level.
   displ-disp:
     prefix: DISPL_DISP_
     pattern-check-id:
-      pattern: "^DISPL-DISP-[0-9]+$"
+      pattern: "^DISPL-DISP-.+$"
       error-message: IDs of this section must match DISPL-DISP-xxx
     description: Add one entry per display property.
   encns-cons:
     prefix: ENCNS_CONS_
     pattern-check-id:
-      pattern: "^ENCNS-CONS-[0-9]+$"
+      pattern: "^ENCNS-CONS-.+$"
       error-message: IDs of this section must match ENCNS-CONS-xxx
     description: Add one entry per entity constraint.
   enidx-inde:
     prefix: ENIDX_INDE_
     pattern-check-id:
-      pattern: "^ENIDX-INDE-[0-9]+$"
+      pattern: "^ENIDX-INDE-.+$"
       error-message: IDs of this section must match ENIDX-INDE-xxx
     description: Add one entry per entity index.
   enrle-item:
@@ -470,13 +470,13 @@ section-types:
       enrle-targ-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^ENRLE-ITEM-[0-9]+$"
+      pattern: "^ENRLE-ITEM-.+$"
       error-message: IDs of this section must match ENRLE-ITEM-xxx
     description: Add one entry per entity relationship.
   fndmx-func:
     prefix: FNDMX_FUNC_
     pattern-check-id:
-      pattern: "^FNDMX-FUNC-[0-9]+$"
+      pattern: "^FNDMX-FUNC-.+$"
       error-message: IDs of this section must match FNDMX-FUNC-xxx
     description: A function-to-data matrix entry (form).
   funct-func:
@@ -491,19 +491,19 @@ section-types:
       sufn-subf-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^FUNCT-FUNC-[0-9]+$"
+      pattern: "^FUNCT-FUNC-.+$"
       error-message: IDs of this section must match FUNCT-FUNC-xxx
     description: A function entry (form).
   hndre-hand:
     prefix: HNDRE_HAND_
     pattern-check-id:
-      pattern: "^HNDRE-HAND-[0-9]+$"
+      pattern: "^HNDRE-HAND-.+$"
       error-message: IDs of this section must match HNDRE-HAND-xxx
     description: Add one entry per handling requirement.
   integ-inte:
     prefix: INTEG_INTE_
     pattern-check-id:
-      pattern: "^INTEG-INTE-[0-9]+$"
+      pattern: "^INTEG-INTE-.+$"
       error-message: IDs of this section must match INTEG-INTE-xxx
     description: Add one entry per integration point.
   keatt-keya:
@@ -518,7 +518,7 @@ section-types:
       keatt-refe-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^KEATT-KEYA-[0-9]+$"
+      pattern: "^KEATT-KEYA-.+$"
       error-message: IDs of this section must match KEATT-KEYA-xxx
     description: Add one entry per key attribute.
   lftrs-life:
@@ -531,43 +531,43 @@ section-types:
       ltee:
         max-count: 1
     pattern-check-id:
-      pattern: "^LFTRS-LIFE-[0-9]+$"
+      pattern: "^LFTRS-LIFE-.+$"
       error-message: IDs of this section must match LFTRS-LIFE-xxx
     description: Add one entry per lifecycle transition.
   migme-migr:
     prefix: MIGME_MIGR_
     pattern-check-id:
-      pattern: "^MIGME-MIGR-[0-9]+$"
+      pattern: "^MIGME-MIGR-.+$"
       error-message: IDs of this section must match MIGME-MIGR-xxx
     description: Add one entry per migration mapping.
   obinv-inva:
     prefix: OBINV_INVA_
     pattern-check-id:
-      pattern: "^OBINV-INVA-[0-9]+$"
+      pattern: "^OBINV-INVA-.+$"
       error-message: IDs of this section must match OBINV-INVA-xxx
     description: Add one entry per object invariant.
   parti-part:
     prefix: PARTI_PART_
     pattern-check-id:
-      pattern: "^PARTI-PART-[0-9]+$"
+      pattern: "^PARTI-PART-.+$"
       error-message: IDs of this section must match PARTI-PART-xxx
     description: Add one entry per participating entity.
   relat-rela:
     prefix: RELAT_RELA_
     pattern-check-id:
-      pattern: "^RELAT-RELA-[0-9]+$"
+      pattern: "^RELAT-RELA-.+$"
       error-message: IDs of this section must match RELAT-RELA-xxx
     description: Add one entry per relationship attribute.
   techn-tech:
     prefix: TECHN_TECH_
     pattern-check-id:
-      pattern: "^TECHN-TECH-[0-9]+$"
+      pattern: "^TECHN-TECH-.+$"
       error-message: IDs of this section must match TECHN-TECH-xxx
     description: Add one entry per technical characteristic.
   volum-volu:
     prefix: VOLUM_VOLU_
     pattern-check-id:
-      pattern: "^VOLUM-VOLU-[0-9]+$"
+      pattern: "^VOLUM-VOLU-.+$"
       error-message: IDs of this section must match VOLUM-VOLU-xxx
     description: Add one entry per volume metric.
   affn-affe:
@@ -576,7 +576,7 @@ section-types:
       affn-func-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^AFFN-AFFE-[0-9]+$"
+      pattern: "^AFFN-AFFE-.+$"
       error-message: IDs of this section must match AFFN-AFFE-xxx
     description: Add one entry per affected function.
   afob-affe:
@@ -585,7 +585,7 @@ section-types:
       afob-obje-ref:
         max-count: 1
     pattern-check-id:
-      pattern: "^AFOB-AFFE-[0-9]+$"
+      pattern: "^AFOB-AFFE-.+$"
       error-message: IDs of this section must match AFOB-AFFE-xxx
     description: Add one entry per affected object.
   biru-busi:
@@ -610,7 +610,7 @@ section-types:
       rulexm-exam-lst:
         max-count: 1
     pattern-check-id:
-      pattern: "^BIRU-BUSI-[0-9]+$"
+      pattern: "^BIRU-BUSI-.+$"
       error-message: IDs of this section must match BIRU-BUSI-xxx
     description: A business rule entry (form).
   bjoen-doma:
@@ -692,19 +692,19 @@ section-types:
       ooeg:
         max-count: 1
     pattern-check-id:
-      pattern: "^OBOP-OPER-[0-9]+$"
+      pattern: "^OBOP-OPER-.+$"
       error-message: IDs of this section must match OBOP-OPER-xxx
     description: Add one entry per object operation.
   obst-keys:
     prefix: OBST_KEYS_
     pattern-check-id:
-      pattern: "^OBST-KEYS-[0-9]+$"
+      pattern: "^OBST-KEYS-.+$"
       error-message: IDs of this section must match OBST-KEYS-xxx
     description: Add one entry per object state.
   sufn-subf:
     prefix: SUFN_SUBF_
     pattern-check-id:
-      pattern: "^SUFN-SUBF-[0-9]+$"
+      pattern: "^SUFN-SUBF-.+$"
       error-message: IDs of this section must match SUFN-SUBF-xxx
     description: Add one entry per sub-function.
   biru-clas:
@@ -728,7 +728,7 @@ section-types:
   cre-comp:
     prefix: CRE_COMP_
     pattern-check-id:
-      pattern: "^CRE-COMP-[0-9]+$"
+      pattern: "^CRE-COMP-.+$"
       error-message: IDs of this section must match CRE-COMP-xxx
     description: Add one entry per compliance requirement.
   fuencl:
