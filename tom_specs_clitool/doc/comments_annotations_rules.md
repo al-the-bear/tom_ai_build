@@ -1,5 +1,14 @@
 # Comment → Annotation Mapping Rules
 
+> **Historical / non-normative (2026-07-16, YRD1 consolidation).** This
+> document describes the one-time migration campaign that derived
+> `tom_specs_core` annotations from doc-comment conventions. Its id scheme
+> (`[SBP-XXX-YYY]`, `-nn`/`-xx` patterns, entry classes without `@SectionId`)
+> predates and contradicts the current model rules. The normative model /
+> annotation / mapping authority is
+> **`tom_specs_model/doc/som_mapping.md`**. Keep this file for provenance
+> only; do not implement against it.
+
 Rules for automatically deriving `tom_specs_core` annotations from doc-comment
 conventions used in the `solution_blueprint` model code.
 
