@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t2".to_string());
+    out.push("FORMAT\t3".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -76,7 +76,9 @@ fn main() {
         }
     }
 
-    // Generic: list containers + item paths (document order).
+    // Generic: list containers + item paths (document order). FORMAT 3: each
+    // item with a *stored* section id additionally emits an `ID` line (item
+    // path + stored id); items without one emit no `ID` line.
     out.push("SECTION\tgeneric-lists".to_string());
     let mut list_paths = doc.list_paths();
     list_paths.sort();
@@ -85,7 +87,18 @@ fn main() {
         out.push(format!("L\t{}\t{}", p, items.len()));
         for item in &items {
             out.push(format!("I\t{}", item));
+            if let Some(id) = doc.item_section_id(item) {
+                out.push(format!("ID\t{}\t{}", item, esc(id)));
+            }
         }
+    }
+
+    // Generic: every stored headline, sorted by path (FORMAT 3, YRD3).
+    out.push("SECTION\tgeneric-headlines".to_string());
+    let mut headline_paths = doc.headline_paths();
+    headline_paths.sort();
+    for p in &headline_paths {
+        out.push(format!("H\t{}\t{}", p, esc(&doc.headline_or(p))));
     }
 
     // Typed: curated traversal that must agree with the generic reads.

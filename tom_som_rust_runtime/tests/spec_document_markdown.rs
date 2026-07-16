@@ -145,6 +145,7 @@ fn md_reload(md: &str) -> (SpecDocument, SpecMarkdownResult) {
         content: report.content.clone(),
         forms: report.forms.clone(),
         lists: report.lists.clone(),
+        headlines: report.headlines.clone(),
     });
     (target, report)
 }
@@ -275,19 +276,19 @@ fn test_markdown_export_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md = md_export(&doc);
-    // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-    // is not surfaced in md; the anonymous positional id is emitted instead.
+    // YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+    // anonymous items fall back to the positional derivation.
     c.check(
         "export.storedId.container",
         md.contains("## <!--[D00-ITM]--> Items"),
         &md,
     );
     c.check(
-        "export.storedId.positional",
-        md.contains("### <!--[items-1]--> Demo Item 1"),
+        "export.storedId.heading",
+        md.contains("### <!--[D01-CUSTOM]--> Demo Item 1"),
         &md,
     );
-    c.check("export.storedId.noStored", !md.contains("D01-CUSTOM"), &md);
+    c.check("export.storedId.noPositional", !md.contains("items-1"), &md);
 }
 
 fn test_markdown_export_unterm_fence_errors(c: &mut Checker) {
@@ -444,8 +445,9 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
         .expect("add_list_item_with_section_id");
     doc.set_content(&format!("{}/D01-LBL", item), "Custom-id item");
     let md1 = md_export(&doc);
-    // DRC5: a stored id does not round-trip through md; item reloads anonymous.
-    c.check("storedId.noStored", !md1.contains("D01-CUSTOM"), &md1);
+    // YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+    // recovered on parse.
+    c.check("storedId.inMd", md1.contains("<!--[D01-CUSTOM]-->"), &md1);
     let (reloaded, report) = md_reload(&md1);
     c.check("storedId.clean", report.is_clean(), &md_rej_str(&report));
     let items = reloaded.list_items("D00/D00-ITM");
@@ -453,7 +455,7 @@ fn test_markdown_round_trip_stored_item_id(c: &mut Checker) {
     if items.len() == 1 {
         c.check(
             "storedId.sectionId",
-            reloaded.item_section_id_or(&items[0]).is_empty(),
+            reloaded.item_section_id_or(&items[0]) == "D01-CUSTOM",
             &reloaded.item_section_id_or(&items[0]),
         );
         c.check(

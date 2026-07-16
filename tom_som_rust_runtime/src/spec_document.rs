@@ -41,6 +41,10 @@ pub struct DocumentJson {
     pub content: BTreeMap<String, String>,
     pub forms: BTreeMap<String, BTreeMap<String, String>>,
     pub lists: BTreeMap<String, ListJson>,
+    /// Stored headlines (YRD3): path → headline. Present only for sections whose
+    /// heading was customised; omitted (empty) otherwise so byte-stable output
+    /// stays identical for headline-less documents.
+    pub headlines: BTreeMap<String, String>,
 }
 
 impl DocumentJson {
@@ -89,11 +93,18 @@ impl DocumentJson {
                 out.lists.insert(k.clone(), ListJson { seq, items, ids });
             }
         }
+        if let Some(headlines) = v.get("headlines").and_then(|j| j.as_object()) {
+            for (k, val) in headlines {
+                if let Some(s) = val.as_str() {
+                    out.headlines.insert(k.clone(), s.to_string());
+                }
+            }
+        }
         out
     }
 
     /// Renders a deterministic canonical JSON string (sorted keys, fixed field
-    /// order content/forms/lists, omitting empty stores). Used only for
+    /// order content/forms/lists/headlines, omitting empty stores). Used only for
     /// internal consistency checks — both compared sides use this same encoder.
     pub fn to_canonical_json(&self) -> String {
         let mut out = String::from("{");
@@ -145,6 +156,7 @@ impl DocumentJson {
             if !first {
                 out.push(',');
             }
+            first = false;
             out.push_str("\"lists\":{");
             let mut list_first = true;
             for (k, spec) in &self.lists {
@@ -181,6 +193,23 @@ impl DocumentJson {
             }
             out.push('}');
         }
+        if !self.headlines.is_empty() {
+            if !first {
+                out.push(',');
+            }
+            out.push_str("\"headlines\":{");
+            let mut headline_first = true;
+            for (k, v) in &self.headlines {
+                if !headline_first {
+                    out.push(',');
+                }
+                headline_first = false;
+                out.push_str(&encode_str(k));
+                out.push(':');
+                out.push_str(&encode_str(v));
+            }
+            out.push('}');
+        }
         out.push('}');
         out
     }
@@ -203,6 +232,7 @@ pub struct SpecDocument {
     list_items: BTreeMap<String, Vec<String>>,
     list_seq: BTreeMap<String, i64>,
     item_section_id: BTreeMap<String, String>,
+    headline: BTreeMap<String, String>,
     /// The authoring object-model version (`major.minor`) this document was
     /// loaded from, or `""` for a brand-new / unstamped document. Retained here
     /// by [`SpecDocument::from_yaml`] so a consumer need not thread
@@ -513,13 +543,46 @@ impl SpecDocument {
         self.list_items.retain(|k, _| !is_under(k, prefix));
         self.list_seq.retain(|k, _| !is_under(k, prefix));
         self.item_section_id.retain(|k, _| !is_under(k, prefix));
+        self.headline.retain(|k, _| !is_under(k, prefix));
+    }
+
+    // --- headlines (YRD3) ---------------------------------------------------
+
+    /// Returns the stored headline of the section at `path`, or `None` when
+    /// none is stored — the effective heading then falls back to the derived
+    /// default (YRD3).
+    pub fn headline(&self, path: &str) -> Option<&String> {
+        self.headline.get(path)
+    }
+
+    /// Returns the stored headline at `path`, or `""` when none.
+    pub fn headline_or(&self, path: &str) -> String {
+        self.headline.get(path).cloned().unwrap_or_default()
+    }
+
+    /// Stores a headline for the section at `path` (YRD3). An empty value
+    /// clears the stored headline, reverting to the derived default heading.
+    pub fn set_headline(&mut self, path: &str, value: &str) {
+        if value.is_empty() {
+            self.headline.remove(path);
+        } else {
+            self.headline.insert(path.to_string(), value.to_string());
+        }
+    }
+
+    /// Returns the paths that carry a stored headline (sorted).
+    pub fn headline_paths(&self) -> Vec<String> {
+        self.headline.keys().cloned().collect()
     }
 
     // --- queries -----------------------------------------------------------
 
     /// Reports whether the document holds no values at all.
     pub fn is_empty(&self) -> bool {
-        self.content.is_empty() && self.form.is_empty() && self.list_items.is_empty()
+        self.content.is_empty()
+            && self.form.is_empty()
+            && self.list_items.is_empty()
+            && self.headline.is_empty()
     }
 
     /// Reports whether any value exists at `prefix` or nested beneath it — the
@@ -529,6 +592,7 @@ impl SpecDocument {
         self.content.keys().any(|k| is_under(k, prefix))
             || self.form.keys().any(|k| is_under(k, prefix))
             || self.list_items.keys().any(|k| is_under(k, prefix))
+            || self.headline.keys().any(|k| is_under(k, prefix))
     }
 
     /// Returns the content paths (sorted).
@@ -597,6 +661,9 @@ impl SpecDocument {
                 },
             );
         }
+        for (k, v) in &self.headline {
+            out.headlines.insert(k.clone(), v.clone());
+        }
         out
     }
 
@@ -608,6 +675,7 @@ impl SpecDocument {
         self.list_items.clear();
         self.list_seq.clear();
         self.item_section_id.clear();
+        self.headline.clear();
         for (k, v) in &j.content {
             self.content.insert(k.clone(), v.clone());
         }
@@ -630,6 +698,12 @@ impl SpecDocument {
                     self.item_section_id.insert(item_path.clone(), id.clone());
                 }
             }
+        }
+        for (k, v) in &j.headlines {
+            if v.is_empty() {
+                continue;
+            }
+            self.headline.insert(k.clone(), v.clone());
         }
     }
 }

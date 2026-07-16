@@ -7,8 +7,11 @@
 //! model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
 //! sections nest their children, list items appear under their container keyed
 //! by their stored section id (or an anonymous positional `<member>-<n>` key), a
-//! node's own body text uses the literal key `content`, and form fields use
-//! their bare field names. The former flat two-level path-map format
+//! node's own body text uses the literal key `content`, a node's own stored
+//! headline (YRD3) uses the literal key `headline`, and form fields use their
+//! bare field names. A scalar-valued node (content/scalar/enum leaf or scalar
+//! list item) that carries a stored headline is emitted as a
+//! `{headline: …, content: …}` mapping. The former flat two-level path-map format
 //! (`document: {content: {"A/b": …}}`) is **retired**; readers reject
 //! `version: 1` files with a clear error (no compatibility path).
 //!
@@ -465,6 +468,7 @@ struct YamlEncoder<'a> {
     content: BTreeMap<String, String>,
     forms: BTreeMap<String, BTreeMap<String, String>>,
     lists: BTreeSet<String>,
+    headlines: BTreeMap<String, String>,
 }
 
 impl<'a> YamlEncoder<'a> {
@@ -474,6 +478,7 @@ impl<'a> YamlEncoder<'a> {
             content: BTreeMap::new(),
             forms: BTreeMap::new(),
             lists: BTreeSet::new(),
+            headlines: BTreeMap::new(),
         };
         for p in doc.content_paths() {
             let v = doc.content_or(&p);
@@ -489,6 +494,10 @@ impl<'a> YamlEncoder<'a> {
         }
         for p in doc.list_paths() {
             e.lists.insert(p);
+        }
+        for p in doc.headline_paths() {
+            let v = doc.headline_or(&p);
+            e.headlines.insert(p, v);
         }
         e
     }
@@ -523,6 +532,20 @@ impl<'a> YamlEncoder<'a> {
     ) -> Result<String, SpecYamlError> {
         let mut b = YamlBuffer::new();
 
+        // The node's own stored headline — the literal `headline` key (YRD3).
+        if let Some(own_headline) = self.headlines.remove(path) {
+            for c in &node.children {
+                if node_key(c) == "headline" {
+                    return Err(yaml_format_err(format!(
+                        "cannot emit the stored headline at `{}`: a child of {} also serializes as key `headline`",
+                        path,
+                        node.debug_name()
+                    )));
+                }
+            }
+            self.write_text(&mut b, indent, "headline", &own_headline);
+        }
+
         // The node's own body text — the literal `content` key (DR1 §2.2).
         if let Some(own) = self.content.remove(path) {
             for c in &node.children {
@@ -542,12 +565,20 @@ impl<'a> YamlEncoder<'a> {
             let key = node_key(child);
             match child.kind.as_str() {
                 SOM_META_KIND_CONTENT => {
-                    if let Some(v) = self.content.remove(&child_path) {
+                    let v = self.content.remove(&child_path);
+                    let h = self.headlines.remove(&child_path);
+                    if let Some(h) = h {
+                        self.write_scalar_with_headline(&mut b, indent, &key, &h, &v, true);
+                    } else if let Some(v) = v {
                         self.write_text(&mut b, indent, &key, &v);
                     }
                 }
                 SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
-                    if let Some(v) = self.content.remove(&child_path) {
+                    let v = self.content.remove(&child_path);
+                    let h = self.headlines.remove(&child_path);
+                    if let Some(h) = h {
+                        self.write_scalar_with_headline(&mut b, indent, &key, &h, &v, false);
+                    } else if let Some(v) = v {
                         self.write_value(&mut b, indent, &key, &v);
                     }
                 }
@@ -570,6 +601,29 @@ impl<'a> YamlEncoder<'a> {
         Ok(b.out)
     }
 
+    /// Emits a scalar-valued node (content/scalar/enum leaf or scalar list
+    /// item) that carries a stored headline as a `{headline: …, content: …}`
+    /// mapping (YRD3). The content entry is omitted when `value` is `None`.
+    fn write_scalar_with_headline(
+        &self,
+        b: &mut YamlBuffer,
+        indent: usize,
+        key: &str,
+        headline: &str,
+        value: &Option<String>,
+        text: bool,
+    ) {
+        b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
+        self.write_text(b, indent + 2, "headline", headline);
+        if let Some(v) = value {
+            if text {
+                self.write_text(b, indent + 2, "content", v);
+            } else {
+                self.write_value(b, indent + 2, "content", v);
+            }
+        }
+    }
+
     fn write_form(
         &mut self,
         b: &mut YamlBuffer,
@@ -578,11 +632,11 @@ impl<'a> YamlEncoder<'a> {
         node: &SomMetaNode,
         path: &str,
     ) -> Result<(), SpecYamlError> {
-        let fields = self.forms.remove(path);
-        let fields = match fields {
-            Some(f) if !f.is_empty() => f,
-            _ => return Ok(()),
-        };
+        let fields = self.forms.remove(path).unwrap_or_default();
+        let headline = self.headlines.remove(path);
+        if fields.is_empty() && headline.is_none() {
+            return Ok(());
+        }
         let empty_meta = SomFormMeta::default();
         let meta = node.form.as_ref().unwrap_or(&empty_meta);
         for name in fields.keys() {
@@ -593,7 +647,16 @@ impl<'a> YamlEncoder<'a> {
                 )));
             }
         }
+        if headline.is_some() && meta.field_named("headline").is_some() {
+            return Err(yaml_format_err(format!(
+                "cannot emit the stored headline at `{}`: the form declares a field literally named `headline`",
+                path
+            )));
+        }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
+        if let Some(h) = &headline {
+            self.write_text(b, indent + 2, "headline", h);
+        }
         for f in &meta.fields {
             let v = match fields.get(&f.name) {
                 Some(v) => v,
@@ -617,12 +680,17 @@ impl<'a> YamlEncoder<'a> {
         path: &str,
     ) -> Result<(), SpecYamlError> {
         self.lists.remove(path);
+        let headline = self.headlines.remove(path);
         let items = self.doc.list_items(path);
-        if items.is_empty() {
+        if items.is_empty() && headline.is_none() {
             return Ok(());
         }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
+        if let Some(h) = &headline {
+            self.write_text(b, indent + 2, "headline", h);
+        }
         let mut used: HashSet<String> = HashSet::new();
+        used.insert("headline".to_string());
         let mut pos = 0usize;
         for item_path in &items {
             pos += 1;
@@ -664,9 +732,16 @@ impl<'a> YamlEncoder<'a> {
     ) -> Result<(), SpecYamlError> {
         match &node.element_node {
             None => {
-                // Scalar list: the item is a direct value.
-                let v = self.content.remove(item_path).unwrap_or_default();
-                self.write_value(b, indent + 2, item_key, &v);
+                // Scalar list: the item is a direct value — unless it carries
+                // a stored headline, in which case it becomes a
+                // `{headline: …, content: …}` mapping (YRD3).
+                let v = self.content.remove(item_path);
+                let h = self.headlines.remove(item_path);
+                if let Some(h) = h {
+                    self.write_scalar_with_headline(b, indent + 2, item_key, &h, &v, false);
+                } else {
+                    self.write_value(b, indent + 2, item_key, &v.unwrap_or_default());
+                }
             }
             Some(element) => {
                 let sub = self.mapping_body(element, item_path, indent + 4)?;
@@ -711,6 +786,9 @@ impl<'a> YamlEncoder<'a> {
         }
         for p in &self.lists {
             leftovers.push(format!("list items at `{}`", p));
+        }
+        for p in self.headlines.keys() {
+            leftovers.push(format!("headline at `{}`", p));
         }
         if leftovers.is_empty() {
             return Ok(());
@@ -857,6 +935,11 @@ impl YamlDecoder<'_> {
                 self.doc.set_content(path, &v);
                 continue;
             }
+            if key == "headline" {
+                let v = decoder_scalar_of(value, &format!("{} (headline)", path))?;
+                self.doc.set_headline(path, &v);
+                continue;
+            }
             return Err(yaml_format_err(format!(
                 "key `{}` under `{}` matches no member of {} (expected one of: {})",
                 key,
@@ -877,6 +960,15 @@ impl YamlDecoder<'_> {
     ) -> Result<(), SpecYamlError> {
         match child.kind.as_str() {
             SOM_META_KIND_CONTENT | SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
+                // A populated mapping is a headline-extended scalar node
+                // (YRD3): `{headline: …, content: …}`. An empty mapping is the
+                // hand-rolled parser's spelling of a bare `key:` and stays the
+                // empty scalar.
+                if let Some(m) = value.as_map() {
+                    if !m.is_empty() {
+                        return self.load_scalar_with_headline(path, key, m);
+                    }
+                }
                 let v = decoder_scalar_of(value, path)?;
                 self.doc.set_content(path, &v);
                 Ok(())
@@ -895,6 +987,12 @@ impl YamlDecoder<'_> {
                 let meta = child.form.as_ref().unwrap_or(&empty_meta);
                 for (name, raw) in fields.iter() {
                     if meta.field_named(name).is_none() {
+                        if name == "headline" {
+                            let v =
+                                decoder_scalar_of(raw, &format!("{} (headline)", path))?;
+                            self.doc.set_headline(path, &v);
+                            continue;
+                        }
                         return Err(yaml_format_err(format!(
                             "form `{}` has no field `{}` in the model",
                             path, name
@@ -940,6 +1038,12 @@ impl YamlDecoder<'_> {
         items: &YamlMap,
     ) -> Result<(), SpecYamlError> {
         for (key, value) in items.iter() {
+            if key == "headline" {
+                // The list container's own stored headline (YRD3), not an item.
+                let v = decoder_scalar_of(value, &format!("{} (headline)", path))?;
+                self.doc.set_headline(path, &v);
+                continue;
+            }
             let item_path = if is_anonymous_item_key(&node.member_name, key) {
                 self.doc.add_list_item(path)
             } else {
@@ -949,10 +1053,11 @@ impl YamlDecoder<'_> {
             };
             match &node.element_node {
                 None => {
-                    // Scalar list item: the value is the item itself. The
-                    // hand-rolled parser cannot distinguish a bare `key:`
-                    // (null) from `key: {}`, so an empty mapping counts as
-                    // "no value" here.
+                    // Scalar list item: the value is the item itself — or a
+                    // `{headline: …, content: …}` mapping when it carries a
+                    // stored headline (YRD3). The hand-rolled parser cannot
+                    // distinguish a bare `key:` (null) from `key: {}`, so an
+                    // empty mapping counts as "no value" here.
                     match value {
                         YamlValue::Seq(_) => {
                             return Err(yaml_format_err(format!(
@@ -962,10 +1067,7 @@ impl YamlDecoder<'_> {
                         }
                         YamlValue::Map(m) => {
                             if !m.is_empty() {
-                                return Err(yaml_format_err(format!(
-                                    "scalar list item `{}` at `{}` must hold a scalar",
-                                    key, path
-                                )));
+                                self.load_scalar_with_headline(&item_path, key, m)?;
                             }
                             continue;
                         }
@@ -985,6 +1087,35 @@ impl YamlDecoder<'_> {
                         }
                     };
                     self.load_mapping(element, &item_path, mapping)?;
+                }
+            }
+        }
+        Ok(())
+    }
+
+    /// Loads a headline-extended scalar node (YRD3): a mapping holding only
+    /// the literal keys `headline` and `content`.
+    fn load_scalar_with_headline(
+        &mut self,
+        path: &str,
+        key: &str,
+        value: &YamlMap,
+    ) -> Result<(), SpecYamlError> {
+        for (name, v) in value.iter() {
+            match name.as_str() {
+                "headline" => {
+                    let s = decoder_scalar_of(v, &format!("{} (headline)", path))?;
+                    self.doc.set_headline(path, &s);
+                }
+                "content" => {
+                    let s = decoder_scalar_of(v, &format!("{}/content", path))?;
+                    self.doc.set_content(path, &s);
+                }
+                _ => {
+                    return Err(yaml_format_err(format!(
+                        "scalar node `{}` at `{}` may only hold `headline`/`content` keys when written as a mapping, found `{}`",
+                        key, path, name
+                    )));
                 }
             }
         }
@@ -1012,6 +1143,7 @@ fn decoder_expected_keys(node: &SomMetaNode) -> Vec<String> {
         .map(|c| format!("`{}`", node_key(c)))
         .collect();
     out.push("`content`".to_string());
+    out.push("`headline`".to_string());
     out
 }
 

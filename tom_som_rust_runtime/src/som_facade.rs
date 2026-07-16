@@ -73,6 +73,18 @@ impl SomNode {
         self.doc.borrow_mut().set_item_section_id(&self.path, id)
     }
 
+    /// Returns this section's stored headline (YRD3), or `""` when none is
+    /// stored — the effective heading then falls back to the derived default.
+    pub fn headline(&self) -> String {
+        self.doc.borrow().headline_or(&self.path)
+    }
+
+    /// Stores a headline for this section (YRD3). An empty value clears the
+    /// stored headline, reverting to the derived default heading.
+    pub fn set_headline(&self, value: &str) {
+        self.doc.borrow_mut().set_headline(&self.path, value);
+    }
+
     /// Returns `true` iff this section holds no value at its path or nested
     /// beneath it — delegates to [`SpecDocument::has_values_under`] (SOM
     /// roadmap § item 5).

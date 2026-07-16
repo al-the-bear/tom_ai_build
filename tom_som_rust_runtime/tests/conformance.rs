@@ -255,6 +255,17 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
     c.check("md.parse.clean", parsed.rejections.is_empty(), &rej_detail(&parsed));
     let mut re_doc = SpecDocument::new();
     re_doc.load_json(&parsed.to_document_json());
+    // YRD3: the stored item id and stored headline round-trip through md.
+    c.check(
+        "md.parse.storedId",
+        re_doc.item_section_id_or("DEMO/REF-LST-1") == "REF-SPEC",
+        &re_doc.item_section_id_or("DEMO/REF-LST-1"),
+    );
+    c.check(
+        "md.parse.headline",
+        re_doc.headline_or("DEMO/REF-LST-1") == "Reference to the Spec",
+        &re_doc.headline_or("DEMO/REF-LST-1"),
+    );
     match SpecDocumentMarkdown::new(model, &re_doc).export_root(&model.roots[0]) {
         Ok(actual) => c.check(
             "md.parse.reexport",
@@ -440,6 +451,20 @@ fn test_operations(c: &mut Checker) {
             "removeListItem" => {
                 let exp = op.get("expect").and_then(|v| v.as_bool()).unwrap_or(false);
                 c.check(&tag, doc.remove_list_item(&op.str_or("itemPath")) == exp, "");
+            }
+            "setHeadline" => {
+                doc.set_headline(&op.str_or("path"), &op.str_or("value"));
+            }
+            "headline" => {
+                let path = op.str_or("path");
+                let val = doc.headline(&path).cloned();
+                match op.get("expect") {
+                    Some(Json::Null) | None => c.check(&tag, val.is_none(), "expected unset"),
+                    Some(e) => {
+                        let exp = e.as_str().unwrap_or("").to_string();
+                        c.check(&tag, val.as_deref() == Some(exp.as_str()), &val.unwrap_or_default());
+                    }
+                }
             }
             other => c.check(&format!("{}.unknown", tag), false, other),
         }
