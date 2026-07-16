@@ -290,10 +290,18 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("md.parse.clean", len(parsed.Rejections) == 0, rejDetail(parsed))
 	reDoc := som.NewSpecDocument()
 	reDoc.LoadJSON(&som.DocumentJson{
-		Content: parsed.Content,
-		Forms:   parsed.Forms,
-		Lists:   parsed.Lists,
+		Content:   parsed.Content,
+		Forms:     parsed.Forms,
+		Lists:     parsed.Lists,
+		Headlines: parsed.Headlines,
 	})
+	// YRD3: the stored item id and stored headline round-trip through md.
+	c.check("md.parse.storedId",
+		reDoc.ItemSectionIDOr("DEMO/REF-LST-1") == "REF-SPEC",
+		reDoc.ItemSectionIDOr("DEMO/REF-LST-1"))
+	c.check("md.parse.headline",
+		reDoc.HeadlineOr("DEMO/REF-LST-1") == "Reference to the Spec",
+		reDoc.HeadlineOr("DEMO/REF-LST-1"))
 	actual, err := som.NewSpecDocumentMarkdown(model, reDoc).ExportRoot(model.Roots[0])
 	if err != nil {
 		c.check("md.parse.reexport", false, err.Error())
@@ -314,9 +322,10 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("md.land.clean", len(parsed.Rejections) == 0, rejDetail(parsed))
 	landed := som.NewSpecDocument()
 	landed.LoadJSON(&som.DocumentJson{
-		Content: parsed.Content,
-		Forms:   parsed.Forms,
-		Lists:   parsed.Lists,
+		Content:   parsed.Content,
+		Forms:     parsed.Forms,
+		Lists:     parsed.Lists,
+		Headlines: parsed.Headlines,
 	})
 	got := canonJSON(t, landed.ToJSON())
 	want := canonJSON(t, &canonical)
@@ -457,6 +466,17 @@ func testOperations(c *checker, t *testing.T) {
 			var exp int
 			json.Unmarshal(op.Expect, &exp)
 			c.check(tag, doc.ListItemCount(op.ListPath) == exp, itoa(doc.ListItemCount(op.ListPath)))
+		case "setHeadline":
+			doc.SetHeadline(op.Path, op.Value)
+		case "headline":
+			var exp *string
+			json.Unmarshal(op.Expect, &exp)
+			val, ok := doc.Headline(op.Path)
+			if exp == nil {
+				c.check(tag, !ok, "expected unset")
+			} else {
+				c.check(tag, ok && val == *exp, val)
+			}
 		case "hasValuesUnder":
 			var exp bool
 			json.Unmarshal(op.Expect, &exp)

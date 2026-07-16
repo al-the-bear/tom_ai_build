@@ -9,8 +9,11 @@ package somruntime
 // model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
 // sections nest their children, list items appear under their container keyed
 // by their stored section id (or an anonymous positional `<member>-<n>` key), a
-// node's own body text uses the literal key `content`, and form fields use
-// their bare field names. The former flat two-level path-map format
+// node's own body text uses the literal key `content`, a node's own stored
+// headline (YRD3) uses the literal key `headline`, and form fields use their
+// bare field names. A scalar-valued node (content/scalar/enum leaf or scalar
+// list item) that carries a stored headline is emitted as a
+// `{headline: …, content: …}` mapping. The former flat two-level path-map format
 // (`document: {content: {"A/b": …}}`) is **retired**; readers reject
 // `version: 1` files with a clear error (no compatibility path).
 //
@@ -382,18 +385,20 @@ func EncodeYaml(document *SpecDocument, tree *SomMetaTree, modelVersion string) 
 // from snapshots of the document's stores so anything left unconsumed at the
 // end is a structured error (nothing is silently dropped).
 type yamlEncoder struct {
-	doc     *SpecDocument
-	content map[string]string
-	forms   map[string]map[string]string
-	lists   map[string]bool
+	doc       *SpecDocument
+	content   map[string]string
+	forms     map[string]map[string]string
+	lists     map[string]bool
+	headlines map[string]string
 }
 
 func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
 	e := &yamlEncoder{
-		doc:     doc,
-		content: map[string]string{},
-		forms:   map[string]map[string]string{},
-		lists:   map[string]bool{},
+		doc:       doc,
+		content:   map[string]string{},
+		forms:     map[string]map[string]string{},
+		lists:     map[string]bool{},
+		headlines: map[string]string{},
 	}
 	for _, p := range doc.ContentPaths() {
 		e.content[p] = doc.ContentOr(p)
@@ -407,6 +412,9 @@ func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
 	}
 	for _, p := range doc.ListPaths() {
 		e.lists[p] = true
+	}
+	for _, p := range doc.HeadlinePaths() {
+		e.headlines[p] = doc.HeadlineOr(p)
 	}
 	return e
 }
@@ -436,6 +444,19 @@ func (e *yamlEncoder) writeDocumentPass(b *yamlBuffer, tree *SomMetaTree) error 
 func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (string, error) {
 	b := &yamlBuffer{}
 
+	// The node's own stored headline — the literal `headline` key (YRD3).
+	if ownHeadline, ok := e.headlines[path]; ok {
+		delete(e.headlines, path)
+		for _, c := range node.Children {
+			if NodeKey(c) == "headline" {
+				return "", yamlFormatErr(
+					"cannot emit the stored headline at `" + path + "`: a child of " +
+						node.DebugName() + " also serializes as key `headline`")
+			}
+		}
+		e.writeText(b, indent, "headline", ownHeadline)
+	}
+
 	// The node's own body text — the literal `content` key (DR1 §2.2).
 	if own, ok := e.content[path]; ok {
 		delete(e.content, path)
@@ -454,13 +475,23 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 		key := NodeKey(child)
 		switch child.Kind {
 		case SomMetaKindContent:
-			if v, ok := e.content[childPath]; ok {
-				delete(e.content, childPath)
+			v, hasV := e.content[childPath]
+			delete(e.content, childPath)
+			h, hasH := e.headlines[childPath]
+			delete(e.headlines, childPath)
+			if hasH {
+				e.writeScalarWithHeadline(b, indent, key, h, v, hasV, true)
+			} else if hasV {
 				e.writeText(b, indent, key, v)
 			}
 		case SomMetaKindScalar, SomMetaKindEnumValue:
-			if v, ok := e.content[childPath]; ok {
-				delete(e.content, childPath)
+			v, hasV := e.content[childPath]
+			delete(e.content, childPath)
+			h, hasH := e.headlines[childPath]
+			delete(e.headlines, childPath)
+			if hasH {
+				e.writeScalarWithHeadline(b, indent, key, h, v, hasV, false)
+			} else if hasV {
 				e.writeValue(b, indent, key, v)
 			}
 		case SomMetaKindForm:
@@ -485,12 +516,32 @@ func (e *yamlEncoder) mappingBody(node *SomMetaNode, path string, indent int) (s
 	return b.String(), nil
 }
 
+// writeScalarWithHeadline emits a scalar-valued node (content/scalar/enum leaf
+// or scalar list item) that carries a stored headline as a
+// `{headline: …, content: …}` mapping (YRD3). The content entry is omitted when
+// hasValue is false.
+func (e *yamlEncoder) writeScalarWithHeadline(
+	b *yamlBuffer, indent int, key, headline, value string, hasValue, text bool,
+) {
+	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
+	e.writeText(b, indent+2, "headline", headline)
+	if hasValue {
+		if text {
+			e.writeText(b, indent+2, "content", value)
+		} else {
+			e.writeValue(b, indent+2, "content", value)
+		}
+	}
+}
+
 func (e *yamlEncoder) writeForm(
 	b *yamlBuffer, indent int, key string, node *SomMetaNode, path string,
 ) error {
 	fields, ok := e.forms[path]
 	delete(e.forms, path)
-	if !ok || len(fields) == 0 {
+	headline, hasHeadline := e.headlines[path]
+	delete(e.headlines, path)
+	if (!ok || len(fields) == 0) && !hasHeadline {
 		return nil
 	}
 	meta := node.Form
@@ -503,7 +554,15 @@ func (e *yamlEncoder) writeForm(
 				"form `" + path + "` holds a field `" + name + "` unknown to the model")
 		}
 	}
+	if hasHeadline && meta.FieldNamed("headline") != nil {
+		return yamlFormatErr(
+			"cannot emit the stored headline at `" + path + "`: the form declares a " +
+				"field literally named `headline`")
+	}
 	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
+	if hasHeadline {
+		e.writeText(b, indent+2, "headline", headline)
+	}
 	for _, f := range meta.Fields {
 		v, ok := fields[f.Name]
 		if !ok {
@@ -522,12 +581,17 @@ func (e *yamlEncoder) writeList(
 	b *yamlBuffer, indent int, key string, node *SomMetaNode, path string,
 ) error {
 	delete(e.lists, path)
+	headline, hasHeadline := e.headlines[path]
+	delete(e.headlines, path)
 	items := e.doc.ListItems(path)
-	if len(items) == 0 {
+	if len(items) == 0 && !hasHeadline {
 		return nil
 	}
 	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
-	used := map[string]bool{}
+	if hasHeadline {
+		e.writeText(b, indent+2, "headline", headline)
+	}
+	used := map[string]bool{"headline": true}
 	pos := 0
 	for _, itemPath := range items {
 		pos++
@@ -552,13 +616,18 @@ func (e *yamlEncoder) writeList(
 		}
 		element := node.ElementNode
 		if element == nil {
-			// Scalar list: the item is a direct value.
-			v := ""
-			if cv, ok := e.content[itemPath]; ok {
-				v = cv
-				delete(e.content, itemPath)
+			// Scalar list: the item is a direct value — unless it carries a
+			// stored headline, in which case it becomes a
+			// `{headline: …, content: …}` mapping (YRD3).
+			v, hasV := e.content[itemPath]
+			delete(e.content, itemPath)
+			ih, hasIh := e.headlines[itemPath]
+			delete(e.headlines, itemPath)
+			if hasIh {
+				e.writeScalarWithHeadline(b, indent+2, itemKey, ih, v, hasV, false)
+			} else {
+				e.writeValue(b, indent+2, itemKey, v)
 			}
-			e.writeValue(b, indent+2, itemKey, v)
 		} else {
 			sub, err := e.mappingBody(element, itemPath, indent+4)
 			if err != nil {
@@ -601,6 +670,9 @@ func (e *yamlEncoder) assertNothingLeft() error {
 	}
 	for p := range e.lists {
 		leftovers = append(leftovers, "list items at `"+p+"`")
+	}
+	for p := range e.headlines {
+		leftovers = append(leftovers, "headline at `"+p+"`")
 	}
 	if len(leftovers) == 0 {
 		return nil
@@ -740,6 +812,14 @@ func (d *yamlDecoder) loadMapping(node *SomMetaNode, path string, body *YamlMap)
 			d.doc.SetContent(path, v)
 			continue
 		}
+		if key == "headline" {
+			v, err := decoderScalarOf(value, path+" (headline)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetHeadline(path, v)
+			continue
+		}
 		return yamlFormatErr(
 			"key `" + key + "` under `" + path + "` matches no member of " +
 				node.DebugName() + " (expected one of: " +
@@ -762,7 +842,7 @@ func decoderExpectedKeys(node *SomMetaNode) []string {
 	for _, c := range node.Children {
 		out = append(out, "`"+NodeKey(c)+"`")
 	}
-	return append(out, "`content`")
+	return append(out, "`content`", "`headline`")
 }
 
 func (d *yamlDecoder) loadChild(
@@ -770,6 +850,12 @@ func (d *yamlDecoder) loadChild(
 ) error {
 	switch child.Kind {
 	case SomMetaKindContent, SomMetaKindScalar, SomMetaKindEnumValue:
+		// A populated mapping is a headline-extended scalar node (YRD3):
+		// `{headline: …, content: …}`. An empty mapping is the hand-rolled
+		// parser's spelling of a bare `key:` and stays the empty scalar.
+		if m, isMap := value.(*YamlMap); isMap && m.Len() > 0 {
+			return d.loadScalarWithHeadline(path, key, m)
+		}
 		v, err := decoderScalarOf(value, path)
 		if err != nil {
 			return err
@@ -788,6 +874,14 @@ func (d *yamlDecoder) loadChild(
 		}
 		for _, name := range fields.Keys() {
 			if meta.FieldNamed(name) == nil {
+				if name == "headline" {
+					v, err := decoderScalarOf(fields.GetOr(name), path+" (headline)")
+					if err != nil {
+						return err
+					}
+					d.doc.SetHeadline(path, v)
+					continue
+				}
 				return yamlFormatErr(
 					"form `" + path + "` has no field `" + name + "` in the model")
 			}
@@ -828,6 +922,15 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 		"^" + regexp.QuoteMeta(node.MemberName) + "-[0-9]+$")
 	for _, key := range items.Keys() {
 		value := items.GetOr(key)
+		if key == "headline" {
+			// The list container's own stored headline (YRD3), not an item.
+			v, err := decoderScalarOf(value, path+" (headline)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetHeadline(path, v)
+			continue
+		}
 		var itemPath string
 		if anonymous.MatchString(key) {
 			itemPath = d.doc.AddListItem(path)
@@ -840,10 +943,11 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 		}
 		element := node.ElementNode
 		if element == nil {
-			// Scalar list item: the value is the item itself. The hand-rolled
-			// parser cannot distinguish a bare `key:` (null) from `key: {}`, so
-			// an empty mapping counts as "no value" here (Python raises on an
-			// explicit `{}`).
+			// Scalar list item: the value is the item itself — or a
+			// `{headline: …, content: …}` mapping when it carries a stored
+			// headline (YRD3). The hand-rolled parser cannot distinguish a bare
+			// `key:` (null) from `key: {}`, so an empty mapping counts as
+			// "no value" here (Python raises on an explicit `{}`).
 			if seq, isSeq := value.([]interface{}); isSeq {
 				_ = seq
 				return yamlFormatErr(
@@ -851,8 +955,9 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 			}
 			if m, isMap := value.(*YamlMap); isMap {
 				if m.Len() > 0 {
-					return yamlFormatErr(
-						"scalar list item `" + key + "` at `" + path + "` must hold a scalar")
+					if err := d.loadScalarWithHeadline(itemPath, key, m); err != nil {
+						return err
+					}
 				}
 				continue
 			}
@@ -872,6 +977,34 @@ func (d *yamlDecoder) loadList(node *SomMetaNode, path string, items *YamlMap) e
 		}
 		if err := d.loadMapping(element, itemPath, mapping); err != nil {
 			return err
+		}
+	}
+	return nil
+}
+
+// loadScalarWithHeadline loads a headline-extended scalar node (YRD3): a
+// mapping holding only the literal keys `headline` and `content`.
+func (d *yamlDecoder) loadScalarWithHeadline(path, key string, value *YamlMap) error {
+	for _, name := range value.Keys() {
+		v := value.GetOr(name)
+		switch name {
+		case "headline":
+			s, err := decoderScalarOf(v, path+" (headline)")
+			if err != nil {
+				return err
+			}
+			d.doc.SetHeadline(path, s)
+		case "content":
+			s, err := decoderScalarOf(v, path+"/content")
+			if err != nil {
+				return err
+			}
+			d.doc.SetContent(path, s)
+		default:
+			return yamlFormatErr(
+				"scalar node `" + key + "` at `" + path + "` may only hold " +
+					"`headline`/`content` keys when written as a mapping, " +
+					"found `" + name + "`")
 		}
 	}
 	return nil

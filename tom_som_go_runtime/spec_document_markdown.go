@@ -106,6 +106,11 @@ type SpecMarkdownResult struct {
 	// segment of each accepted path) — the scope a full-overwrite apply
 	// purges first.
 	RootPrefixes map[string]bool
+	// Headlines holds stored headlines staged from heading titles (YRD3
+	// §8.7): path → headline, populated ONLY when the parsed heading text
+	// differs from the effective default derivation (byte-stability — a
+	// default title stages nothing).
+	Headlines map[string]string
 }
 
 // IsClean reports whether the parse was clean (no rejections).
@@ -444,7 +449,12 @@ func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
 	b.writeln("<!-- docspec: " + SpecMarkdownKebabCase(root.Title) + "/" +
 		c.Model.ModelVersionString() + " -->")
 	rootSeg := node.Segment()
-	mdWriteHeading(b, 1, rootSeg, root.Title)
+	// YRD3: a stored headline overrides the derived title at every heading.
+	rootTitle := c.Document.HeadlineOr(rootSeg)
+	if rootTitle == "" {
+		rootTitle = root.Title
+	}
+	mdWriteHeading(b, 1, rootSeg, rootTitle)
 	if err := c.writeSectionBody(b, node, rootSeg); err != nil {
 		return "", err
 	}
@@ -495,7 +505,7 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !ok {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), mdTitleOf(child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
 			if err := c.writeBody(b, value, path); err != nil {
 				return err
 			}
@@ -503,12 +513,12 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !c.formHasValues(child, path) {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), mdTitleOf(child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
 			if err := c.writeForm(b, child, path); err != nil {
 				return err
 			}
 		case SomMetaKindSection, SomMetaKindComplex:
-			mdWriteHeading(b, depth, c.headingIdOf(child), mdTitleOf(child))
+			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child))
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
@@ -538,7 +548,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
-	mdWriteHeading(b, depth, c.headingIdOf(node), mdTitleOf(node))
+	mdWriteHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node))
 	// Item heading stem. Complex lists derive it from the element class name
 	// (DR1 §1.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
@@ -562,15 +572,15 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	for i, itemPath := range items {
 		pos := i + 1
-		// DR1 §1.2: md list identity is purely positional. The heading id is the
-		// `@SectionIdPattern` resolved with the 1-based position
-		// (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only pattern-less lists fall back to
-		// `<member>-<pos>`. A stored `@SectionId` (AA1 generated or a
-		// criterion-5 override) is NOT surfaced — it round-trips through the
-		// `*.docspecs.yaml` format (§2), not md — so the exported md always
-		// validates against the `[0-9]+` schema pattern (DRC5).
+		// YRD3 (supersedes DRC5): an item's STORED section id IS its md heading
+		// id — stored ids round-trip through Markdown too. Only anonymous items
+		// fall back to the positional derivation: the `@SectionIdPattern`
+		// resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
+		// else `<member>-<pos>` for a pattern-less list.
 		var itemID string
-		if pattern != "" {
+		if storedID, ok := c.Document.ItemSectionID(itemPath); ok {
+			itemID = storedID
+		} else if pattern != "" {
 			itemID = strings.Join(strings.Split(pattern, "xxx"), itoa(pos))
 		} else {
 			member := node.MemberName
@@ -579,8 +589,13 @@ func (c *SpecDocumentMarkdown) writeListItems(
 			}
 			itemID = member + "-" + itoa(pos)
 		}
-		// Items sit one level below the container.
-		mdWriteHeading(b, depth+1, itemID, stem+" "+itoa(pos))
+		// Items sit one level below the container. A stored headline overrides
+		// the derived `<stem> <pos>` title (YRD3).
+		itemTitle := c.Document.HeadlineOr(itemPath)
+		if itemTitle == "" {
+			itemTitle = stem + " " + itoa(pos)
+		}
+		mdWriteHeading(b, depth+1, itemID, itemTitle)
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -711,6 +726,15 @@ func mdTitleOf(node *SomMetaNode) string {
 	return SpecMarkdownTitleCase(name)
 }
 
+// headingTitle resolves the heading title for a node at path: the document's
+// STORED headline when present, else the derived title (YRD3).
+func (c *SpecDocumentMarkdown) headingTitle(path string, node *SomMetaNode) string {
+	if h := c.Document.HeadlineOr(path); h != "" {
+		return h
+	}
+	return mdTitleOf(node)
+}
+
 // --- Import (DR1 §1.7) --------------------------------------------------------
 
 // Parse parses text into staged values + a rejection report, **without**
@@ -724,6 +748,7 @@ func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 		Lists:        p.listsJson(),
 		Rejections:   p.rejections,
 		RootPrefixes: p.rootPrefixes,
+		Headlines:    p.headlines,
 	}
 }
 
@@ -749,10 +774,14 @@ type mdListState struct {
 }
 
 type mdParser struct {
-	codec        *SpecDocumentMarkdown
-	content      map[string]string
-	forms        map[string]map[string]string
-	lists        map[string]*mdListState
+	codec   *SpecDocumentMarkdown
+	content map[string]string
+	forms   map[string]map[string]string
+	lists   map[string]*mdListState
+	// headlines stages stored headlines (YRD3 §8.7): a heading's title is
+	// stored ONLY when it differs from the effective default derivation, so
+	// default-titled documents stay byte-stable.
+	headlines    map[string]string
 	listOrder    []string
 	rejections   []*SpecMarkdownRejection
 	rootPrefixes map[string]bool
@@ -771,6 +800,7 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		content:      map[string]string{},
 		forms:        map[string]map[string]string{},
 		lists:        map[string]*mdListState{},
+		headlines:    map[string]string{},
 		rootPrefixes: map[string]bool{},
 		fence:        &MarkdownFenceTracker{},
 	}
@@ -835,9 +865,10 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 		return
 	}
 	id := m[1]
+	title := strings.TrimSpace(m[2])
 
 	if len(p.stack) == 0 {
-		p.openRoot(level, id, lineNo)
+		p.openRoot(level, id, title, lineNo)
 		return
 	}
 
@@ -867,7 +898,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	// 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
 	//    of that list's items — resolved positionally, not by the schema tree.
 	if pNode.Kind == SomMetaKindList {
-		p.openItemHeading(level, parent, pNode, id, lineNo)
+		p.openItemHeading(level, parent, pNode, id, title, lineNo)
 		return
 	}
 
@@ -879,6 +910,11 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	//    the transparent segments.
 	for _, entry := range p.codec.effectiveChildren(pNode) {
 		if p.codec.headingIdOf(entry.node) == id {
+			// YRD3 §8.7: stage the heading text as a stored headline ONLY when
+			// it differs from the derived default (byte-stability).
+			if title != "" && title != mdTitleOf(entry.node) {
+				p.headlines[parent.path+"/"+entry.rel] = title
+			}
 			p.stack = append(p.stack, &mdFrame{
 				level: level,
 				node:  entry.node,
@@ -905,7 +941,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 // number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
 // id, or — for any other id — an anonymous next item carrying the stored id.
 func (p *mdParser) openItemHeading(
-	level int, container *mdFrame, listNode *SomMetaNode, id string, lineNo int,
+	level int, container *mdFrame, listNode *SomMetaNode, id, title string, lineNo int,
 ) {
 	listPath := container.path
 	member := listNode.MemberName
@@ -915,7 +951,7 @@ func (p *mdParser) openItemHeading(
 	anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
 	if err == nil {
 		if anon := anonRE.FindStringSubmatch(id); anon != nil {
-			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, lineNo)
+			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, lineNo)
 			return
 		}
 	}
@@ -933,22 +969,22 @@ func (p *mdParser) openItemHeading(
 				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
 			if err == nil {
 				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, lineNo)
+					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, title, lineNo)
 					return
 				}
 			}
 		}
 		if mdPatternMatches(pattern, id) {
-			p.openItem(level, listPath, listNode, 0, id, false, lineNo)
+			p.openItem(level, listPath, listNode, 0, id, false, title, lineNo)
 			return
 		}
 	}
-	// Any other id under the container is an anonymous next item; a genuine
-	// stored id is kept (it survives only through the yaml format, DR1 §2).
-	p.openItem(level, listPath, listNode, 0, id, false, lineNo)
+	// Any other id under the container is an anonymous next item carrying the
+	// stored id — stored ids round-trip through Markdown too (YRD3).
+	p.openItem(level, listPath, listNode, 0, id, false, title, lineNo)
 }
 
-func (p *mdParser) openRoot(level int, id string, lineNo int) {
+func (p *mdParser) openRoot(level int, id, title string, lineNo int) {
 	for _, root := range p.codec.Model.Roots {
 		seg := root.SectionID
 		if seg == "" {
@@ -958,6 +994,10 @@ func (p *mdParser) openRoot(level int, id string, lineNo int) {
 			tree, err := p.codec.treeFor(root.Type)
 			if err != nil {
 				break
+			}
+			// YRD3 §8.7: stage a non-default root heading text.
+			if title != "" && title != root.Title {
+				p.headlines[seg] = title
 			}
 			p.rootPrefixes[seg] = true
 			p.stack = append(p.stack, &mdFrame{
@@ -992,7 +1032,7 @@ func (p *mdParser) openRoot(level int, id string, lineNo int) {
 // number instead.
 func (p *mdParser) openItem(
 	level int, listPath string, listNode *SomMetaNode,
-	n int, storedID string, hasN bool, lineNo int,
+	n int, storedID string, hasN bool, title string, lineNo int,
 ) {
 	state, ok := p.lists[listPath]
 	if !ok {
@@ -1011,6 +1051,22 @@ func (p *mdParser) openItem(
 	state.items = append(state.items, itemPath)
 	if !hasN {
 		state.ids[itemPath] = storedID
+	}
+	// YRD3 §8.7: stage a non-default item heading text against the derived
+	// `<stem> <pos>` default.
+	element := listNode.ElementNode
+	var stem string
+	if element != nil {
+		stem = SpecMarkdownItemTitleStem(element.ClassName)
+	} else {
+		member := listNode.MemberName
+		if member == "" {
+			member = listNode.Segment()
+		}
+		stem = SpecMarkdownTitleCase(member)
+	}
+	if title != "" && title != stem+" "+itoa(number) {
+		p.headlines[itemPath] = title
 	}
 	p.stack = append(p.stack, &mdFrame{
 		level: level,

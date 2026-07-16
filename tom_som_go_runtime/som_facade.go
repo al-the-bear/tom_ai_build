@@ -67,6 +67,19 @@ func (n SomNode) SetSectionID(id string) error {
 	return n.doc.SetItemSectionID(n.path, id)
 }
 
+// Headline returns this section's stored headline (YRD3), or "" when none is
+// stored — the effective heading then falls back to the derived default.
+//
+// Named Headline / SetHeadline — names the Go emitter reserves in its accessor
+// allocator (the same collision-proofing as SectionID, AF-D1) — so this
+// structural accessor can never collide with a typed field a generated struct
+// emits.
+func (n SomNode) Headline() string { return n.doc.HeadlineOr(n.path) }
+
+// SetHeadline stores a headline for this section (YRD3). An empty value clears
+// the stored headline, reverting to the derived default heading.
+func (n SomNode) SetHeadline(value string) { n.doc.SetHeadline(n.path, value) }
+
 // IsEmpty reports whether this section holds no value at its path or nested
 // beneath it (delegates to HasValuesUnder). Promoted to every generated section
 // facade via the embedded SomNode. (SOM roadmap § item 5.)

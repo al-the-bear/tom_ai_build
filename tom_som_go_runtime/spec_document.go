@@ -9,11 +9,13 @@ package somruntime
 // section-ID path. Nothing is materialised until written, so an untouched
 // document is empty (the "empty = no value" rule).
 //
-// Three sparse stores cover the writable field kinds:
+// Four sparse stores cover the writable field kinds:
 //
 //   - content — content/scalar leaves: path → string value;
 //   - form — @Form sections: path → (form-field name → value);
-//   - listItems — lists: list path → ordered item paths.
+//   - listItems — lists: list path → ordered item paths;
+//   - headline — stored headlines (YRD3): path → heading text, present only
+//     when it differs from the derived default.
 //
 // List item paths are "<listPath>-<seq>" where seq is a per-list monotonic
 // counter that never reuses a number.
@@ -36,9 +38,10 @@ type ListJson struct {
 // DocumentJson is a SpecDocument.ToJSON-shaped plain-data view of a document.
 // Only non-empty stores are populated.
 type DocumentJson struct {
-	Content map[string]string            `json:"content,omitempty"`
-	Forms   map[string]map[string]string `json:"forms,omitempty"`
-	Lists   map[string]ListJson          `json:"lists,omitempty"`
+	Content   map[string]string            `json:"content,omitempty"`
+	Forms     map[string]map[string]string `json:"forms,omitempty"`
+	Lists     map[string]ListJson          `json:"lists,omitempty"`
+	Headlines map[string]string            `json:"headlines,omitempty"`
 }
 
 // SpecDocument is the sparse in-memory document.
@@ -56,6 +59,7 @@ type SpecDocument struct {
 	listItems     map[string][]string
 	listSeq       map[string]int
 	itemSectionID map[string]string
+	headline      map[string]string
 
 	// ModelVersion is the authoring object-model version (major.minor) this
 	// document was loaded from, or "" for a brand-new / unstamped document. Go's
@@ -76,6 +80,7 @@ func NewSpecDocument() *SpecDocument {
 		listItems:     map[string][]string{},
 		listSeq:       map[string]int{},
 		itemSectionID: map[string]string{},
+		headline:      map[string]string{},
 	}
 }
 
@@ -118,6 +123,9 @@ func (d *SpecDocument) ensure() {
 	}
 	if d.itemSectionID == nil {
 		d.itemSectionID = map[string]string{}
+	}
+	if d.headline == nil {
+		d.headline = map[string]string{}
 	}
 }
 
@@ -190,6 +198,40 @@ func (d *SpecDocument) SetFormField(path, fieldName, value string) {
 		d.form[path] = fields
 	}
 	fields[fieldName] = value
+}
+
+// --- headlines (YRD3) --------------------------------------------------------
+
+// Headline returns the stored headline at path, and ok=false when none is
+// stored (the effective heading then falls back to the derived default).
+func (d *SpecDocument) Headline(path string) (string, bool) {
+	v, ok := d.headline[path]
+	return v, ok
+}
+
+// HeadlineOr returns the stored headline at path, or "" when none is stored.
+func (d *SpecDocument) HeadlineOr(path string) string {
+	return d.headline[path]
+}
+
+// SetHeadline sets the stored headline at path. An empty value clears it
+// (reverting the section to its derived default heading).
+func (d *SpecDocument) SetHeadline(path, value string) {
+	d.ensure()
+	if value == "" {
+		delete(d.headline, path)
+	} else {
+		d.headline[path] = value
+	}
+}
+
+// HeadlinePaths returns the set of paths carrying a stored headline (unordered).
+func (d *SpecDocument) HeadlinePaths() []string {
+	out := make([]string, 0, len(d.headline))
+	for k := range d.headline {
+		out = append(out, k)
+	}
+	return out
 }
 
 // --- lists -----------------------------------------------------------------
@@ -378,6 +420,11 @@ func (d *SpecDocument) purgeUnder(prefix string) {
 			delete(d.itemSectionID, k)
 		}
 	}
+	for k := range d.headline {
+		if isUnder(k, prefix) {
+			delete(d.headline, k)
+		}
+	}
 }
 
 // errNotLiveItem describes an attempt to set a section id on a path that is not
@@ -461,7 +508,8 @@ func (e *ambiguousRootError) Error() string {
 
 // IsEmpty reports whether the document holds no values at all.
 func (d *SpecDocument) IsEmpty() bool {
-	return len(d.content) == 0 && len(d.form) == 0 && len(d.listItems) == 0
+	return len(d.content) == 0 && len(d.form) == 0 && len(d.listItems) == 0 &&
+		len(d.headline) == 0
 }
 
 // HasValuesUnder reports whether any value exists at prefix or nested beneath it
@@ -479,6 +527,11 @@ func (d *SpecDocument) HasValuesUnder(prefix string) bool {
 		}
 	}
 	for k := range d.listItems {
+		if isUnder(k, prefix) {
+			return true
+		}
+	}
+	for k := range d.headline {
 		if isUnder(k, prefix) {
 			return true
 		}
@@ -576,6 +629,13 @@ func (d *SpecDocument) ToJSON() *DocumentJson {
 		}
 		out.Lists = lists
 	}
+	if len(d.headline) > 0 {
+		headlines := map[string]string{}
+		for k, v := range d.headline {
+			headlines[k] = v
+		}
+		out.Headlines = headlines
+	}
 	return out
 }
 
@@ -594,6 +654,7 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 	d.listItems = map[string][]string{}
 	d.listSeq = map[string]int{}
 	d.itemSectionID = map[string]string{}
+	d.headline = map[string]string{}
 	if j == nil {
 		return
 	}
@@ -623,6 +684,11 @@ func (d *SpecDocument) LoadJSON(j *DocumentJson) {
 			for itemPath, id := range spec.Ids {
 				d.itemSectionID[itemPath] = id
 			}
+		}
+	}
+	for k, v := range j.Headlines {
+		if v != "" {
+			d.headline[k] = v
 		}
 	}
 }

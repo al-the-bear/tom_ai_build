@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t2")
+	out = append(out, "FORMAT\t3")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -104,7 +104,9 @@ func main() {
 		}
 	}
 
-	// Generic: list containers + item paths (document order).
+	// Generic: list containers + item paths (document order). FORMAT 3: each
+	// item with a *stored* section id additionally emits an `ID` line (item
+	// path + stored id); items without one emit no `ID` line.
 	out = append(out, "SECTION\tgeneric-lists")
 	listPaths := doc.ListPaths()
 	sort.Strings(listPaths)
@@ -113,7 +115,18 @@ func main() {
 		out = append(out, fmt.Sprintf("L\t%s\t%d", p, len(items)))
 		for _, item := range items {
 			out = append(out, "I\t"+item)
+			if id, ok := doc.ItemSectionID(item); ok {
+				out = append(out, "ID\t"+item+"\t"+esc(id))
+			}
 		}
+	}
+
+	// Generic: every stored headline, sorted by path (FORMAT 3, YRD3).
+	out = append(out, "SECTION\tgeneric-headlines")
+	headlinePaths := doc.HeadlinePaths()
+	sort.Strings(headlinePaths)
+	for _, p := range headlinePaths {
+		out = append(out, "H\t"+p+"\t"+esc(doc.HeadlineOr(p)))
 	}
 
 	// Typed: curated traversal that must agree with the generic reads.

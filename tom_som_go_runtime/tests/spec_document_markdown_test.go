@@ -76,9 +76,10 @@ func mdReload(t *testing.T, md string) (*som.SpecDocument, *som.SpecMarkdownResu
 	target := som.NewSpecDocument()
 	report := som.NewSpecDocumentMarkdown(demoModel(t), target).Parse(md)
 	target.LoadJSON(&som.DocumentJson{
-		Content: report.Content,
-		Forms:   report.Forms,
-		Lists:   report.Lists,
+		Content:   report.Content,
+		Forms:     report.Forms,
+		Lists:     report.Lists,
+		Headlines: report.Headlines,
 	})
 	return target, report
 }
@@ -155,11 +156,11 @@ func TestMarkdownExportStoredItemId(t *testing.T) {
 	}
 	doc.SetContent(item+"/D01-LBL", "Custom-id item")
 	md := mdExport(t, doc)
-	// DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-	// is not surfaced in md; the anonymous positional id is emitted instead.
+	// YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+	// anonymous items fall back to the positional derivation.
 	mdCheck(t, "export.storedId.container", strings.Contains(md, "## <!--[D00-ITM]--> Items"), md)
-	mdCheck(t, "export.storedId.positional", strings.Contains(md, "### <!--[items-1]--> Demo Item 1"), md)
-	mdCheck(t, "export.storedId.noStored", !strings.Contains(md, "D01-CUSTOM"), md)
+	mdCheck(t, "export.storedId.heading", strings.Contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md)
+	mdCheck(t, "export.storedId.noPositional", !strings.Contains(md, "items-1"), md)
 }
 
 func TestMarkdownExportUntermFenceErrors(t *testing.T) {
@@ -282,15 +283,16 @@ func TestMarkdownRoundTripStoredItemId(t *testing.T) {
 	}
 	doc.SetContent(item+"/D01-LBL", "Custom-id item")
 	md1 := mdExport(t, doc)
-	// DRC5: a stored id does not round-trip through md; the item reloads anonymous.
-	mdCheck(t, "storedId.noStored", !strings.Contains(md1, "D01-CUSTOM"), md1)
+	// YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+	// recovered on parse.
+	mdCheck(t, "storedId.inMd", strings.Contains(md1, "<!--[D01-CUSTOM]-->"), md1)
 	reloaded, report := mdReload(t, md1)
 	mdCheck(t, "storedId.clean", report.IsClean(), mdRejStr(report))
 	items := reloaded.ListItems("D00/D00-ITM")
 	mdCheck(t, "storedId.itemCount", len(items) == 1, fmt.Sprintf("%v", items))
 	if len(items) == 1 {
 		mdCheck(t, "storedId.sectionId",
-			reloaded.ItemSectionIDOr(items[0]) == "",
+			reloaded.ItemSectionIDOr(items[0]) == "D01-CUSTOM",
 			reloaded.ItemSectionIDOr(items[0]))
 		mdCheck(t, "storedId.label", reloaded.ContentOr(items[0]+"/D01-LBL") == "Custom-id item")
 	}
