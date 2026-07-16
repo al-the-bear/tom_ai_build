@@ -234,13 +234,13 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md = mdExport(doc);
-    // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-    // is not surfaced in md; the anonymous positional id is emitted instead.
+    // YRD3 (supersedes DRC5): the stored id IS the md heading id; only
+    // anonymous items fall back to the positional derivation.
     check("export.storedId.container",
         md.contains("## <!--[D00-ITM]--> Items"), md);
-    check("export.storedId.positional",
-        md.contains("### <!--[items-1]--> Demo Item 1"), md);
-    check("export.storedId.noStored", !md.contains("D01-CUSTOM"), md);
+    check("export.storedId.heading",
+        md.contains("### <!--[D01-CUSTOM]--> Demo Item 1"), md);
+    check("export.storedId.noPositional", !md.contains("items-1"), md);
   }
 
   private static void testExportUntermFenceErrors() {
@@ -366,8 +366,9 @@ public final class SpecDocumentMarkdownTest {
     String item = doc.addListItem("D00/D00-ITM", "D01-CUSTOM");
     doc.setContent(item + "/D01-LBL", "Custom-id item");
     String md1 = mdExport(doc);
-    // DRC5: a stored id does not round-trip through md; item reloads anonymous.
-    check("storedId.noStored", !md1.contains("D01-CUSTOM"), md1);
+    // YRD3 (supersedes DRC5): the stored id IS the md heading id and is
+    // recovered on parse.
+    check("storedId.inMd", md1.contains("<!--[D01-CUSTOM]-->"), md1);
     Object[] pair = mdReload(md1);
     SpecDocument reloaded = (SpecDocument) pair[0];
     SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
@@ -376,7 +377,7 @@ public final class SpecDocumentMarkdownTest {
     check("storedId.itemCount", items.size() == 1, items.toString());
     if (items.size() == 1) {
       check("storedId.sectionId",
-          reloaded.itemSectionId(items.get(0)) == null,
+          "D01-CUSTOM".equals(reloaded.itemSectionId(items.get(0))),
           or(reloaded.itemSectionId(items.get(0))));
       check("storedId.label",
           "Custom-id item".equals(reloaded.content(items.get(0) + "/D01-LBL")));

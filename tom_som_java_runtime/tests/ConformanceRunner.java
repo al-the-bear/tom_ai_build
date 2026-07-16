@@ -186,6 +186,15 @@ public final class ConformanceRunner {
     check("md.parse.clean", parsed.rejections.isEmpty(), rejDetail(parsed));
     SpecDocument reDoc = new SpecDocument();
     reDoc.loadJson(parsed.toLoadJson());
+    // YRD3: the stored item id and stored headline round-trip through md.
+    check(
+        "md.parse.storedId",
+        "REF-SPEC".equals(reDoc.itemSectionId("DEMO/REF-LST-1")),
+        String.valueOf(reDoc.itemSectionId("DEMO/REF-LST-1")));
+    check(
+        "md.parse.headline",
+        "Reference to the Spec".equals(reDoc.headline("DEMO/REF-LST-1")),
+        String.valueOf(reDoc.headline("DEMO/REF-LST-1")));
     String actual;
     try {
       actual = new SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots.get(0));
@@ -333,6 +342,15 @@ public final class ConformanceRunner {
               doc.listItemCount((String) op.get("listPath"))
                   == ((Number) op.get("expect")).intValue(),
               "");
+          break;
+        case "setHeadline":
+          doc.setHeadline((String) op.get("path"), (String) op.get("value"));
+          break;
+        case "headline":
+          check(
+              "op[" + n + "].headline",
+              Objects.equals(doc.headline((String) op.get("path")), op.get("expect")),
+              String.valueOf(doc.headline((String) op.get("path"))));
           break;
         case "hasValuesUnder":
           check(

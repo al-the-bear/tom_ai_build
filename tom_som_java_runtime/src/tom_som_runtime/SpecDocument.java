@@ -33,6 +33,10 @@ public final class SpecDocument {
   // edits (never renumbered), while the section id is what the document exposes
   // and may be overridden or reused same-day after the last item is deleted.
   private final Map<String, String> itemSectionId = new LinkedHashMap<>();
+  // Stored headlines (YRD3): any section path → the headline text shown for
+  // that section. Sparse like content — absent means "render the effective
+  // default title".
+  private final Map<String, String> headline = new LinkedHashMap<>();
 
   // The authoring object-model version (`major.minor`) this document was loaded
   // from, or null for a brand-new / unstamped document. Retained here by
@@ -185,6 +189,34 @@ public final class SpecDocument {
     } else {
       content.put(path, value);
     }
+  }
+
+  // --- headlines (YRD3) -----------------------------------------------------
+
+  /**
+   * The stored headline at {@code path}, or {@code null} when the section
+   * renders its effective default title (YRD3 — headlines are sparse like
+   * content).
+   */
+  public String headline(String path) {
+    return headline.get(path);
+  }
+
+  /**
+   * Sets the stored headline at {@code path}. An empty value clears it,
+   * returning the section to its default title.
+   */
+  public void setHeadline(String path, String value) {
+    if (value.isEmpty()) {
+      headline.remove(path);
+    } else {
+      headline.put(path, value);
+    }
+  }
+
+  /** All section paths currently carrying a stored headline. */
+  public Set<String> headlinePaths() {
+    return headline.keySet();
   }
 
   // --- forms --------------------------------------------------------------
@@ -353,12 +385,14 @@ public final class SpecDocument {
     listItems.keySet().removeIf(k -> isUnder(k, prefix));
     listSeq.keySet().removeIf(k -> isUnder(k, prefix));
     itemSectionId.keySet().removeIf(k -> isUnder(k, prefix));
+    headline.keySet().removeIf(k -> isUnder(k, prefix));
   }
 
   // --- queries ------------------------------------------------------------
 
   public boolean isEmpty() {
-    return content.isEmpty() && form.isEmpty() && listItems.isEmpty();
+    return content.isEmpty() && form.isEmpty() && listItems.isEmpty()
+        && headline.isEmpty();
   }
 
   /**
@@ -378,6 +412,11 @@ public final class SpecDocument {
       }
     }
     for (String k : listItems.keySet()) {
+      if (isUnder(k, prefix)) {
+        return true;
+      }
+    }
+    for (String k : headline.keySet()) {
       if (isUnder(k, prefix)) {
         return true;
       }
@@ -446,6 +485,9 @@ public final class SpecDocument {
       }
       out.put("lists", lists);
     }
+    if (!headline.isEmpty()) {
+      out.put("headlines", new TreeMap<>(headline));
+    }
     return out;
   }
 
@@ -460,6 +502,7 @@ public final class SpecDocument {
     listItems.clear();
     listSeq.clear();
     itemSectionId.clear();
+    headline.clear();
 
     Object rawContent = json.get("content");
     if (rawContent instanceof Map) {
@@ -519,6 +562,15 @@ public final class SpecDocument {
               }
             }
           }
+        }
+      }
+    }
+
+    Object rawHeadlines = json.get("headlines");
+    if (rawHeadlines instanceof Map) {
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) rawHeadlines).entrySet()) {
+        if (e.getValue() != null && !e.getValue().toString().isEmpty()) {
+          headline.put(e.getKey(), e.getValue().toString());
         }
       }
     }

@@ -327,7 +327,12 @@ public final class SpecDocumentMarkdown {
     writeln(b, "<!-- docspec: " + kebabCase(root.title) + "/"
         + model.modelVersionString() + " -->");
     String rootSeg = node.segment();
-    writeHeading(b, 1, rootSeg, root.title);
+    // YRD3: a stored headline overrides the derived title at every heading.
+    String rootTitle = document.headline(rootSeg);
+    if (rootTitle == null || rootTitle.isEmpty()) {
+      rootTitle = root.title;
+    }
+    writeHeading(b, 1, rootSeg, rootTitle);
     writeSectionBody(b, node, rootSeg);
     writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -372,17 +377,17 @@ public final class SpecDocumentMarkdown {
         if (value == null) {
           continue;
         }
-        writeHeading(b, depth, headingIdOf(child), titleOf(child));
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child));
         writeBody(b, value, path);
       } else if (SomMetaKind.FORM.equals(child.kind)) {
         if (!formHasValues(child, path)) {
           continue;
         }
-        writeHeading(b, depth, headingIdOf(child), titleOf(child));
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child));
         writeForm(b, child, path);
       } else if (SomMetaKind.SECTION.equals(child.kind)
           || SomMetaKind.COMPLEX.equals(child.kind)) {
-        writeHeading(b, depth, headingIdOf(child), titleOf(child));
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child));
         writeSectionBody(b, child, path);
         writeChildren(b, child, path, depth + 1);
       } else if (SomMetaKind.LIST.equals(child.kind)) {
@@ -404,8 +409,9 @@ public final class SpecDocumentMarkdown {
       return;
     }
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
-    // member segment for a pattern-less list); its title is the member name.
-    writeHeading(b, depth, headingIdOf(node), titleOf(node));
+    // member segment for a pattern-less list); its title is the member name —
+    // unless a stored headline overrides it (YRD3).
+    writeHeading(b, depth, headingIdOf(node), headingTitle(listPath, node));
     // Item heading stem. Complex lists derive it from the element class name
     // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
     // — its element typeName is literally `String`, which would render
@@ -430,15 +436,15 @@ public final class SpecDocumentMarkdown {
     for (int i = 0; i < items.size(); i++) {
       String itemPath = items.get(i);
       int pos = i + 1;
-      // DR1 §1.2: md list identity is purely positional. The heading id is the
-      // `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx`
-      // → `GOAL-ITEM-1`); only pattern-less lists fall back to `<member>-<pos>`.
-      // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
-      // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
-      // md — so the exported md always validates against the `[0-9]+` schema
-      // pattern (DRC5).
+      // YRD3 (supersedes DRC5): a list item's STORED section id is the md
+      // heading id when present; the `@SectionIdPattern` resolved with the
+      // 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`) and the
+      // `<member>-<pos>` fallback are positional derivations for id-less items.
       String itemId;
-      if (pattern != null && !pattern.isEmpty()) {
+      String storedItemId = document.itemSectionId(itemPath);
+      if (storedItemId != null) {
+        itemId = storedItemId;
+      } else if (pattern != null && !pattern.isEmpty()) {
         itemId = String.join(String.valueOf(pos), splitAll(pattern, "xxx"));
       } else {
         String member = node.memberName;
@@ -447,8 +453,13 @@ public final class SpecDocumentMarkdown {
         }
         itemId = member + "-" + pos;
       }
-      // Items sit one level below the container.
-      writeHeading(b, depth + 1, itemId, stem + " " + pos);
+      // Items sit one level below the container. A stored headline overrides
+      // the derived `<stem> <pos>` title (YRD3).
+      String itemTitle = document.headline(itemPath);
+      if (itemTitle == null || itemTitle.isEmpty()) {
+        itemTitle = stem + " " + pos;
+      }
+      writeHeading(b, depth + 1, itemId, itemTitle);
       if (element == null) {
         // Scalar list: the item's value is its body.
         String value = document.content(itemPath);
@@ -554,6 +565,18 @@ public final class SpecDocumentMarkdown {
     return String.join("\n", out);
   }
 
+  /**
+   * The heading title for {@code node} at {@code path}: the stored headline
+   * when set (YRD3), else the derived Title-Case member name.
+   */
+  private String headingTitle(String path, SomMetaNode node) {
+    String h = document.headline(path);
+    if (h != null && !h.isEmpty()) {
+      return h;
+    }
+    return titleOf(node);
+  }
+
   private static String titleOf(SomMetaNode node) {
     String name = node.memberName;
     if (name == null || name.isEmpty()) {
@@ -590,6 +613,7 @@ public final class SpecDocumentMarkdown {
     result.content.putAll(p.content);
     result.forms.putAll(p.forms);
     result.lists.putAll(p.listsJson());
+    result.headlines.putAll(p.headlines);
     result.rejections.addAll(p.rejections);
     result.rootPrefixes.addAll(p.rootPrefixes);
     return result;
@@ -631,6 +655,10 @@ public final class SpecDocumentMarkdown {
     final SpecDocumentMarkdown codec;
     final Map<String, String> content = new LinkedHashMap<>();
     final Map<String, Map<String, String>> forms = new LinkedHashMap<>();
+    // Stored headlines staged from heading titles that differ from their
+    // effective default (YRD3 §8.7) — byte-stability: a default title stages
+    // nothing.
+    final Map<String, String> headlines = new LinkedHashMap<>();
     final Map<String, MdListState> lists = new LinkedHashMap<>();
     final List<String> listOrder = new ArrayList<>();
     final List<SpecMarkdownRejection> rejections = new ArrayList<>();
@@ -704,9 +732,10 @@ public final class SpecDocumentMarkdown {
         return;
       }
       String id = m.group(1);
+      String title = m.group(2).trim();
 
       if (stack.isEmpty()) {
-        openRoot(level, id, lineNo);
+        openRoot(level, id, title, lineNo);
         return;
       }
 
@@ -734,7 +763,7 @@ public final class SpecDocumentMarkdown {
       // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
       //    of that list's items — resolved positionally, not by the schema tree.
       if (SomMetaKind.LIST.equals(pNode.kind)) {
-        openItemHeading(level, parent, pNode, id, lineNo);
+        openItemHeading(level, parent, pNode, id, title, lineNo);
         return;
       }
 
@@ -746,6 +775,11 @@ public final class SpecDocumentMarkdown {
       //    path runs through the transparent segments.
       for (NodeRel entry : codec.effectiveChildren(pNode)) {
         if (codec.headingIdOf(entry.node).equals(id)) {
+          // Stage the heading text as a stored headline ONLY when it differs
+          // from the effective default title (YRD3 §8.7, byte-stability).
+          if (!title.isEmpty() && !title.equals(titleOf(entry.node))) {
+            headlines.put(parent.path + "/" + entry.rel, title);
+          }
           stack.add(new MdFrame(
               level, entry.node, parent.path + "/" + entry.rel, lineNo, false));
           return;
@@ -770,7 +804,7 @@ public final class SpecDocumentMarkdown {
      * anonymous next item carrying the stored id.
      */
     void openItemHeading(int level, MdFrame container, SomMetaNode listNode,
-        String id, int lineNo) {
+        String id, String title, int lineNo) {
       String listPath = container.path;
       String member = listNode.memberName;
       if (member == null || member.isEmpty()) {
@@ -780,7 +814,8 @@ public final class SpecDocumentMarkdown {
           .compile("^" + Pattern.quote(member) + "-([0-9]+)$")
           .matcher(id);
       if (anon.matches()) {
-        openItem(level, listPath, listNode, Integer.parseInt(anon.group(1)), null, true, lineNo);
+        openItem(level, listPath, listNode, Integer.parseInt(anon.group(1)),
+            null, true, title, lineNo);
         return;
       }
       SomMetaNode element = listNode.elementNode;
@@ -799,21 +834,21 @@ public final class SpecDocumentMarkdown {
               .matcher(id);
           if (numbered.matches()) {
             openItem(level, listPath, listNode, Integer.parseInt(numbered.group(1)),
-                null, true, lineNo);
+                null, true, title, lineNo);
             return;
           }
         }
         if (patternMatches(pattern, id)) {
-          openItem(level, listPath, listNode, 0, id, false, lineNo);
+          openItem(level, listPath, listNode, 0, id, false, title, lineNo);
           return;
         }
       }
-      // Any other id under the container is an anonymous next item; a genuine
-      // stored id is kept (it survives only through the yaml format, DR1 §2).
-      openItem(level, listPath, listNode, 0, id, false, lineNo);
+      // Any other id under the container is a stored-id item (YRD3 — the
+      // stored id round-trips through md as the heading id).
+      openItem(level, listPath, listNode, 0, id, false, title, lineNo);
     }
 
-    void openRoot(int level, String id, int lineNo) {
+    void openRoot(int level, String id, String title, int lineNo) {
       for (SpecRoot root : codec.model.roots) {
         String seg = root.sectionId;
         if (seg == null || seg.isEmpty()) {
@@ -827,6 +862,11 @@ public final class SpecDocumentMarkdown {
             break;
           }
           rootPrefixes.add(seg);
+          // Stage the root heading text as a stored headline when it differs
+          // from the document title (YRD3 §8.7).
+          if (!title.isEmpty() && !title.equals(root.title)) {
+            headlines.put(seg, title);
+          }
           stack.add(new MdFrame(level, tree.root, seg, lineNo, false));
           return;
         }
@@ -854,7 +894,7 @@ public final class SpecDocumentMarkdown {
      * the next free number instead.
      */
     void openItem(int level, String listPath, SomMetaNode listNode,
-        int n, String storedId, boolean hasN, int lineNo) {
+        int n, String storedId, boolean hasN, String title, int lineNo) {
       MdListState state = lists.get(listPath);
       if (state == null) {
         state = new MdListState();
@@ -869,6 +909,22 @@ public final class SpecDocumentMarkdown {
       state.items.add(itemPath);
       if (!hasN) {
         state.ids.put(itemPath, storedId);
+      }
+      // Stage the item heading text as a stored headline when it differs from
+      // the derived `<stem> <n>` default (YRD3 §8.7).
+      SomMetaNode element = listNode.elementNode;
+      String stem;
+      if (element != null) {
+        stem = itemTitleStem(element.className);
+      } else {
+        String stemMember = listNode.memberName;
+        if (stemMember == null || stemMember.isEmpty()) {
+          stemMember = listNode.segment();
+        }
+        stem = titleCase(stemMember);
+      }
+      if (!title.isEmpty() && !title.equals(stem + " " + number)) {
+        headlines.put(itemPath, title);
       }
       stack.add(new MdFrame(level, listNode.elementNode, itemPath, lineNo, false));
     }

@@ -48,6 +48,29 @@ public class SomNode {
   }
 
   /**
+   * The stored headline of this section (YRD3), or {@code null} when it renders
+   * its effective default title.
+   *
+   * <p>Named {@code $headline} for the same collision-proofing reason as
+   * {@link #$sectionId()}: the emitter never produces a {@code $}-prefixed
+   * accessor, so a typed field named {@code headline} cannot collide.
+   */
+  public String $headline() {
+    return doc.headline(path);
+  }
+
+  /**
+   * Sets this section's stored headline (YRD3). An empty value clears it,
+   * returning the section to its default title. A {@code null} value is
+   * ignored.
+   */
+  public void $headline(String value) {
+    if (value != null) {
+      doc.setHeadline(path, value);
+    }
+  }
+
+  /**
    * True iff this section holds no value at its {@link #path} or nested beneath
    * it (SOM § item 5) — delegates to {@link SpecDocument#hasValuesUnder}.
    * Inherited by every generated section facade.

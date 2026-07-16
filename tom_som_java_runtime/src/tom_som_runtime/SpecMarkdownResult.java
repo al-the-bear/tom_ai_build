@@ -15,6 +15,12 @@ public final class SpecMarkdownResult {
   public final Map<String, String> content = new LinkedHashMap<>();
   public final Map<String, Map<String, String>> forms = new LinkedHashMap<>();
   public final Map<String, Object> lists = new LinkedHashMap<>();
+
+  /**
+   * Stored headlines staged from heading titles that differ from their
+   * effective default (YRD3 §8.7) — path → headline.
+   */
+  public final Map<String, String> headlines = new LinkedHashMap<>();
   public final List<SpecMarkdownRejection> rejections = new ArrayList<>();
   public final Set<String> rootPrefixes = new LinkedHashSet<>();
 
@@ -36,6 +42,7 @@ public final class SpecMarkdownResult {
     out.put("content", content);
     out.put("forms", forms);
     out.put("lists", lists);
+    out.put("headlines", headlines);
     return out;
   }
 }

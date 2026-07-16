@@ -57,7 +57,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t2");
+    out.add("FORMAT\t3");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -91,7 +91,20 @@ public final class GoldenLog {
       out.add("L\t" + p + "\t" + items.size());
       for (String item : items) {
         out.add("I\t" + item);
+        String storedId = doc.itemSectionId(item);
+        if (storedId != null) {
+          out.add("ID\t" + item + "\t" + esc(storedId));
+        }
       }
+    }
+
+    // Generic: stored headlines (YRD3), sorted by path.
+    out.add("SECTION\tgeneric-headlines");
+    List<String> headlinePaths = new ArrayList<>(doc.headlinePaths());
+    Collections.sort(headlinePaths);
+    for (String p : headlinePaths) {
+      String h = doc.headline(p);
+      out.add("H\t" + p + "\t" + esc(h == null ? "" : h));
     }
 
     // Typed: curated traversal that must agree with the generic reads.
