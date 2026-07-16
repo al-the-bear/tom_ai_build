@@ -54,9 +54,9 @@ Every document is a tree of **sections**. Always, at every level, a section is:
 1. **Every section has a section id and a headline.** Both are first-class
    *stored* values on every section — fixed sections and list items alike —
    persisted in md and yaml, surviving modification through all three
-   representations (object model, yaml, md). *(DECIDED — YRD3; current
-   behaviour: headlines are derived at render time and discarded on parse;
-   list-item stored ids round-trip through yaml only.)*
+   representations (object model, yaml, md). *(IMPLEMENTED — YRD3, in all
+   nine runtimes: `SpecDocument` carries a sparse headline store; stored
+   headlines and stored list-item ids round-trip through md and yaml.)*
 2. **A list is always an outer section** containing the entry sections of the
    list. The content of the outer (container) section has **no meaning defined
    by the tom_specs description** — it may hold text, but the model assigns it
@@ -344,17 +344,20 @@ List items can carry **stored** section ids: AA1 date-lettered generated ids
 uniqueness. Items without a stored id are **anonymous** — identified by their
 1-based positional pattern id.
 
-*(DECIDED — YRD3; reverses the earlier DRC5 rule)*: stored ids are persisted
-by **both** wire formats. The md exporter renders a stored id in the item's
-`<!--[id]-->` comment (positional pattern id only as fallback for anonymous
-items); the md parser already accepts and keeps stored ids. Parse-side
-positional matching of anonymous items is kept. *Current behaviour: the md
-exporter emits only positional ids, so md round-trips lose id overrides;
-yaml preserves them losslessly.*
+*(IMPLEMENTED — YRD3; reverses the earlier DRC5 rule)*: stored ids are
+persisted by **both** wire formats. The md exporter renders a stored id in the
+item's `<!--[id]-->` comment (positional pattern id only as fallback for
+anonymous items); the md parser accepts and keeps stored ids. Parse-side
+positional matching of anonymous items is kept: `<member>-<n>` and the
+`@SectionIdPattern` with `xxx` as a *number* both resolve to anonymous item
+`<n>` (never stored); any other id under the container opens the next item
+*with* that stored id.
 
-Schema interaction: the generated `pattern-check-id` stays a clean
-`^FOO-FLD-[0-9]+$`; stored non-positional ids are validated by the runtime's
-list-scoped rules, not by the schema pattern.
+Schema interaction *(IMPLEMENTED — YRD3, superseding the DRC5-era `[0-9]+`)*:
+the generated `pattern-check-id` compiles `@SectionIdPattern` `xxx` to `.+` —
+a **stem check** (`^FOO-FLD-.+$`). Numbering and list-scoped uniqueness are
+runtime-owned, not schema-owned, so surfaced AA1 date-lettered ids and
+explicit overrides validate against their own schema (§10).
 
 ---
 
@@ -386,10 +389,14 @@ Per `headline_id_storage_decisions.md`:
    list-entry sections; fixed sections show their stored/default headline
    read-only.
 
-*Current behaviour (bug, per decision (a)): there is no headline storage
-anywhere — every md heading title is derived at render time and the md parser
-discards heading text (`spec_document_markdown.dart` reads only the id
-group). YRD3 fixes storage + round-trip in all nine runtimes.*
+*Implementation state: headline storage (decision 1) and render precedence
+(decision 3, with the `@Headline` slot still absent) are IMPLEMENTED by YRD3
+in all nine runtimes — `SpecDocument` carries a sparse per-section headline
+store (`headline`/`setHeadline`/`headlinePaths`, in state, fingerprint, json,
+yaml, md); the md parser captures heading text and stages it as a stored
+headline only when it differs from the effective default, keeping untouched
+documents byte-stable (§8.7). `@Headline` (YRD4), `TitleField`/`IdField`
+(YRD6), and editor strict mode (YRD9) remain open.*
 
 ---
 
@@ -536,7 +543,7 @@ Rust, C, C++):
 
 The generated/authored markdown **is a genuine DocSpecs document**, readable
 and validatable by any DocSpecs-conform tool. **Markdown is a FULL-fidelity
-format** *(DECIDED — YRD3)*: it fully serializes **and** deserializes all
+format** *(IMPLEMENTED — YRD3)*: it fully serializes **and** deserializes all
 headlines, content, form fields, and sections exactly as the yaml format and
 the SOM do. (The earlier "md loses stored list-item ids / discards heading
 titles" clauses are retired as bugs.)
@@ -631,7 +638,7 @@ Remove the nightly batch window.
 
 - Container heading: the list's `-LST` id (member name for a pattern-less
   list), Title-Case member name as default title, **empty body** (§3.2).
-- Item heading id: the item's **stored id** when one exists *(DECIDED — YRD3)*,
+- Item heading id: the item's **stored id** when one exists *(IMPLEMENTED — YRD3)*,
   else the positional pattern id (`GOAL-ITEM-<n>`, 1-based). Item heading
   title: stored headline, else `<ElementTitle> <seq>` (§4.3).
 - On parse, anonymous positional ids recover list membership and order from
@@ -669,7 +676,7 @@ rejection list: `unknownSection`, `kindMismatch`, `orphanContent`,
 `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
 collapse and the §8.6 transparency canonicalisations). Stored headlines are
 staged only when they differ from the effective default, keeping untouched
-documents byte-stable *(DECIDED — YRD3)*.
+documents byte-stable *(IMPLEMENTED — YRD3)*.
 
 ### 8.8 Complete example
 
@@ -747,7 +754,7 @@ path segment is the bare `introductionAndScope`.
 | Content value | literal key `content` | `content` |
 | Form field value | literal field name | `approvedBy` |
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
-| Stored headline | literal key (Dart reference fixes the spelling; DECIDED — YRD3) | |
+| Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping (IMPLEMENTED — YRD3) | `headline` |
 
 ### 9.3 Structure rules
 
@@ -761,8 +768,14 @@ path segment is the bare `introductionAndScope`.
 5. **The `*-LST` container is a pure structural level** — it never carries a
    `content` key; its mapping holds only the item keys.
 6. Stored list-item ids and stored headlines persist here losslessly
-   (yaml has always carried stored item ids; stored headlines are DECIDED —
-   YRD3).
+   (yaml has always carried stored item ids; stored headlines are
+   IMPLEMENTED — YRD3). A section whose value would otherwise be a plain
+   scalar (a content leaf, or a scalar-keyed field) but which carries a
+   stored headline is emitted as a **`{headline: …, content: …}` mapping**
+   instead of the bare scalar; decoders accept both shapes. Collision
+   guards are errors: a model child key literally named `headline`, a form
+   field named `headline`, or a list-item key `headline` all refuse to
+   serialize.
 
 ### 9.4 Text values
 
@@ -846,7 +859,7 @@ One DocSpecs schema per document root, generated from the §6 tree:
 2. **`section-types:`** — one type per distinct section-bearing class, named
    by its section id lower-cased. Per type: `prefix:` (exact id;
    list-element types use the pattern stem), `pattern-check-id:` for element
-   types (`xxx` → `[0-9]+`), `subsection-types:` with `min-count`/`max-count`
+   types (`xxx` → `.+`, YRD3), `subsection-types:` with `min-count`/`max-count`
    from `@Min`/`@Max`, `format: <id>-form` for `@Form` classes,
    `text-required`/`min-text-length`/`max-text-length` from
    `@TextRequired`/`@MinLength`/`@MaxLength`, `description:` from
@@ -869,13 +882,14 @@ One DocSpecs schema per document root, generated from the §6 tree:
    `schemas/<schema-id>/<schema-id>.<ver>.docspecs-schema.yaml`; must be
    parseable by the existing DocSpecs schema consumer (`tom_doc_specs`).
 
-Because md item identity for anonymous items is positional, and stored ids are
-runtime-validated (§3.3), every facade-authored document validates against its
-own schema regardless of stored ids. *(YRD3 note: once stored ids render in
-md, schema validation of a stored-id heading follows the runtime's
-list-scoped rules; the schema `pattern-check-id` remains `[0-9]+` for
-anonymous items — the exact reconciliation is fixed by the Dart reference in
-YRD3 and this section amended to match.)*
+*(IMPLEMENTED — YRD3 reconciliation, fixed by the Dart reference)*: because
+stored ids now render in md (§3.3), the generated `pattern-check-id` compiles
+`@SectionIdPattern` `xxx` to **`.+`** — a *stem check* (`^GOAL-ITEM-.+$`),
+mirroring the md parser's pattern matcher. Numbering of anonymous items and
+list-scoped id uniqueness are **runtime-owned**, not schema-owned. Every
+facade-authored document — anonymous positional ids, AA1 date-lettered ids,
+or explicit overrides — therefore validates against its own schema; only an
+id that drops the pattern stem is an `idPatternMismatch`.
 
 ---
 
@@ -956,7 +970,6 @@ The decided-but-unimplemented parts of this document, by quest todo
 
 | Todo | Scope | Sections here |
 | --- | --- | --- |
-| **YRD3** | Universal stored headline + id, full md/yaml round-trip in all 9 runtimes | §1.1, §3.3, §4, §8.5–§8.7, §9.2/§9.3.6, §10 |
 | **YRD4** | `@Headline` annotation defaults | §4.2, §5, §6.1 |
 | **YRD5** | `DocSpecsSection` base class replaces `String`; `DocSpecsForm` | §2.2 |
 | **YRD6** | `TitleField` / `IdField` form-field roles | §4.4, §6.1, §8.4.6 |
@@ -965,7 +978,10 @@ The decided-but-unimplemented parts of this document, by quest todo
 | **YRD9** | Editor strict mode | §4.5 |
 
 Everything not listed above describes implemented behaviour (Dart reference;
-ports per the conformance harness).
+ports per the conformance harness). YRD3 (universal stored headline + id,
+full md/yaml round-trip, §1.1/§3.3/§4/§8.5–§8.7/§9.2/§9.3.6/§10) was
+implemented 2026-07-16 across all nine runtimes, including the schema
+`pattern-check-id` stem-check reconciliation.
 
 ---
 

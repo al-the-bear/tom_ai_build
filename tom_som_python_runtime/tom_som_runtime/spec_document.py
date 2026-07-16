@@ -6,11 +6,14 @@ the *values* the user/agent has actually set, keyed by the globally-unique
 section-ID path. Nothing is materialised until written, so an untouched document
 is empty (the "empty = no value" rule).
 
-Three sparse stores cover the writable field kinds:
+Four sparse stores cover the writable field kinds:
 
   * ``_content`` — ``content``/``scalar`` leaves: path → string value;
   * ``_form`` — ``@Form`` sections: path → (form-field name → value);
-  * ``_list_items`` — lists: list path → ordered item paths.
+  * ``_list_items`` — lists: list path → ordered item paths;
+  * ``_headline`` — stored headlines (YRD3): any section path → the headline
+    the document actually renders/rendered. Sparse like content: unset means
+    "use the effective default" (``@Headline`` default, else name derivation).
 
 List item paths are ``"<list_path>-<seq>"`` where ``seq`` is a per-list
 monotonic counter that never reuses a number.
@@ -42,6 +45,7 @@ class SpecDocument:
         self._list_items: dict[str, list[str]] = {}
         self._list_seq: dict[str, int] = {}
         self._item_section_id: dict[str, str] = {}
+        self._headline: dict[str, str] = {}
         #: The authoring object-model version (``major.minor``) this document was
         #: loaded from, or ``None`` for a brand-new / unstamped document. Retained
         #: here by :meth:`from_yaml` so a consumer need not thread
@@ -146,6 +150,28 @@ class SpecDocument:
             self._content.pop(path, None)
         else:
             self._content[path] = value
+
+    # --- headlines (YRD3) ---------------------------------------------------
+
+    def headline(self, path: str) -> Optional[str]:
+        """The stored headline at *path*, or ``None`` when the section renders
+        its effective default title (YRD3 — headlines are sparse like
+        content)."""
+        return self._headline.get(path)
+
+    def set_headline(self, path: str, value: str) -> None:
+        """Sets the stored headline at *path*. An empty value clears it,
+        returning the section to its effective default title (YRD3)."""
+        if value == "":
+            self._headline.pop(path, None)
+        else:
+            self._headline[path] = value
+
+    @property
+    def headline_paths(self) -> Iterable[str]:
+        """All section paths currently carrying a stored headline (unordered
+        snapshot)."""
+        return self._headline.keys()
 
     # --- forms --------------------------------------------------------------
 
@@ -268,6 +294,7 @@ class SpecDocument:
             self._list_items,
             self._list_seq,
             self._item_section_id,
+            self._headline,
         ):
             for key in [k for k in store if is_under(k)]:
                 store.pop(key, None)
@@ -276,7 +303,12 @@ class SpecDocument:
 
     @property
     def is_empty(self) -> bool:
-        return not self._content and not self._form and not self._list_items
+        return (
+            not self._content
+            and not self._form
+            and not self._list_items
+            and not self._headline
+        )
 
     def has_values_under(self, prefix: str) -> bool:
         """Whether any value exists at *prefix* or nested beneath it — the
@@ -294,6 +326,7 @@ class SpecDocument:
             any(is_under(k) for k in self._content)
             or any(is_under(k) for k in self._form)
             or any(is_under(k) for k in self._list_items)
+            or any(is_under(k) for k in self._headline)
         )
 
     @property
@@ -345,6 +378,10 @@ class SpecDocument:
                     entry["ids"] = ids
                 lists[k] = entry
             out["lists"] = lists
+        if self._headline:
+            out["headlines"] = {
+                k: self._headline[k] for k in sorted(self._headline)
+            }
         return out
 
     def load_json(self, json: dict[str, Any]) -> None:
@@ -355,6 +392,7 @@ class SpecDocument:
         self._list_items.clear()
         self._list_seq.clear()
         self._item_section_id.clear()
+        self._headline.clear()
 
         content = json.get("content")
         if isinstance(content, dict):
@@ -390,3 +428,9 @@ class SpecDocument:
                         for item_path, id in ids.items():
                             if id is not None:
                                 self._item_section_id[str(item_path)] = str(id)
+
+        headlines = json.get("headlines")
+        if isinstance(headlines, dict):
+            for k, v in headlines.items():
+                if v is not None and str(v) != "":
+                    self._headline[str(k)] = str(v)

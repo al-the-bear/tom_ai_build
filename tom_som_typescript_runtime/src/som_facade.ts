@@ -90,6 +90,23 @@ export class SomNode {
     }
     this.doc.setItemSectionId(this.path, id);
   }
+
+  /**
+   * This section's stored headline (YRD3), or `null` when the section renders
+   * its derived default title. Named `$headline` for the same
+   * collision-proofing reason as {@link $sectionId}.
+   */
+  get $headline(): string | null {
+    return this.doc.headline(this.path);
+  }
+
+  /** Sets the stored headline; `''`/`null` clears back to the default. */
+  set $headline(value: string | null) {
+    this.doc.setHeadline(
+      this.path,
+      value !== null && value !== undefined ? value : '',
+    );
+  }
 }
 
 /**

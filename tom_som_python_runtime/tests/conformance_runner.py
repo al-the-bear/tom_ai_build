@@ -166,7 +166,14 @@ def test_markdown_round_trip(model: SpecModel) -> None:
         "content": parsed.content,
         "forms": parsed.forms,
         "lists": parsed.lists,
+        "headlines": parsed.headlines,
     })
+    _check("md.parse.storedId",
+           re_doc.item_section_id("DEMO/REF-LST-1") == "REF-SPEC",
+           str(re_doc.item_section_id("DEMO/REF-LST-1")))
+    _check("md.parse.headline",
+           re_doc.headline("DEMO/REF-LST-1") == "Reference to the Spec",
+           str(re_doc.headline("DEMO/REF-LST-1")))
     actual = SpecDocumentMarkdown(model, re_doc).export_root(model.roots[0])
     _check("md.parse.reexport", actual == golden,
            _byte_diff("md.parse.reexport", actual, golden))
@@ -187,6 +194,7 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
         "content": parsed.content,
         "forms": parsed.forms,
         "lists": parsed.lists,
+        "headlines": parsed.headlines,
     })
     _check("md.land.memory", landed.to_json() == canonical,
            _json_mismatch(landed.to_json(), canonical))
@@ -257,6 +265,12 @@ def test_operations() -> None:
         elif kind == "removeListItem":
             _check(f"op[{n}].removeListItem",
                    doc.remove_list_item(op["itemPath"]) == op["expect"])
+        elif kind == "setHeadline":
+            doc.set_headline(op["path"], op["value"])
+        elif kind == "headline":
+            _check(f"op[{n}].headline",
+                   doc.headline(op["path"]) == op.get("expect"),
+                   str(doc.headline(op["path"])))
         else:  # pragma: no cover
             _check(f"op[{n}].unknown", False, kind)
 

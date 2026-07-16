@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t2")
+    out.append("FORMAT\t3")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -97,12 +97,22 @@ def main() -> None:
             out.append("F\t%s\t%s\t%s" % (p, f, esc(doc.form_field(p, f) or "")))
 
     # Generic: list containers + item paths (document order).
+    # FORMAT 3: each item with a *stored* section id additionally emits an
+    # `ID` line (item path + stored id); items without one emit no `ID` line.
     out.append("SECTION\tgeneric-lists")
     for p in sorted(doc.list_paths):
         items = doc.list_items(p)
         out.append("L\t%s\t%d" % (p, len(items)))
         for item in items:
             out.append("I\t%s" % item)
+            item_id = doc.item_section_id(item)
+            if item_id is not None:
+                out.append("ID\t%s\t%s" % (item, esc(item_id)))
+
+    # Generic: every stored headline, sorted by path (FORMAT 3, YRD3).
+    out.append("SECTION\tgeneric-headlines")
+    for p in sorted(doc.headline_paths):
+        out.append("H\t%s\t%s" % (p, esc(doc.headline(p) or "")))
 
     # Typed: curated traversal that must agree with the generic reads.
     out.append("SECTION\ttyped")

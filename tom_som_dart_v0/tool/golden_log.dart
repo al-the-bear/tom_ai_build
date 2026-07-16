@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t2');
+  out.add('FORMAT\t3');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -77,7 +77,9 @@ void main(List<String> args) {
     }
   }
 
-  // --- Generic: every list container + its item paths (document order). ---
+  // --- Generic: every list container + its item paths (document order).
+  // FORMAT 3: each item with a *stored* section id additionally emits an
+  // `ID` line (item path + stored id); items without one emit no `ID` line. ---
   out.add('SECTION\tgeneric-lists');
   final listPaths = doc.listPaths.toList()..sort();
   for (final p in listPaths) {
@@ -85,7 +87,16 @@ void main(List<String> args) {
     out.add('L\t$p\t${items.length}');
     for (final item in items) {
       out.add('I\t$item');
+      final id = doc.itemSectionId(item);
+      if (id != null) out.add('ID\t$item\t${esc(id)}');
     }
+  }
+
+  // --- Generic: every stored headline, sorted by path (FORMAT 3, YRD3). ---
+  out.add('SECTION\tgeneric-headlines');
+  final headlinePaths = doc.headlinePaths.toList()..sort();
+  for (final p in headlinePaths) {
+    out.add('H\t$p\t${esc(doc.headline(p) ?? '')}');
   }
 
   // --- Typed: a curated traversal of the facade that must agree with the

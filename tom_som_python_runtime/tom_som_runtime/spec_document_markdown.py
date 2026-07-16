@@ -4,17 +4,20 @@ faithful port of ``tom_som_dart_runtime/lib/src/spec_document_markdown.dart``.
 The generated/authored ``*.md`` **is a genuine DocSpecs document**: line 1 is
 the ``<!-- docspec: <schema-id>/<version> -->`` declaration, every populated
 section is one markdown heading whose machine-readable identity is the DocSpecs
-headline comment ``<!--[SECTION-ID]-->`` and whose text is the human-readable
-Title-Case member name. Content values are **normal markdown text** under their
-heading (no fences, no anchors); ``@Form`` sections use the DocSpecs plain-text
-``FieldName: value`` format; a list emits its ``-LST`` **container heading**
-(the id the DR3 schema keys its container type by), with the numbered items one
-level deeper, each carrying the item's **anonymous positional** section id — the
+headline comment ``<!--[SECTION-ID]-->`` and whose text is the section's
+**stored headline** when one exists, else the human-readable Title-Case member
+name (YRD3: md is a full-fidelity format — stored headlines round-trip).
+Content values are **normal markdown text** under their heading (no fences, no
+anchors); ``@Form`` sections use the DocSpecs plain-text ``FieldName: value``
+format; a list emits its ``-LST`` **container heading** (the id the DR3 schema
+keys its container type by), with the numbered items one level deeper, each
+carrying the item's **stored section id** when one exists (an AA1 date-lettered
+generated id or a criterion-5 override), else the anonymous positional id — the
 ``@SectionIdPattern`` resolved with the 1-based position (``GOAL-ITEM-xxx`` →
 ``GOAL-ITEM-1``), else ``<member>-<pos>`` for a pattern-less list. The container
-carries no content of its own; a stored ``@SectionId`` is **not** surfaced in md
-(it lives losslessly in the ``*.docspecs.yaml`` format, DR1 §2) so the generated
-schema's ``pattern-check-id`` stays a clean ``^<stem>-[0-9]+$``.
+carries no content of its own. On parse, anonymous positional ids recover list
+membership and order from position; stored ids are kept as stored ids (YRD3,
+superseding DRC5's yaml-only rule — see som_mapping.md §8.5).
 Id-less members are **transparent** (mirroring the DR3 schema generator):
 a transparent value member's text or form block is the owner's body region,
 emitted without a heading and bound at its own path; a transparent
@@ -102,6 +105,10 @@ class SpecMarkdownResult:
     #: List membership: list path → ``{seq, items, ids?}`` (the
     #: :meth:`SpecDocument.to_json` shape), recovered from the item headings.
     lists: dict[str, dict[str, Any]] = dataclass_field(default_factory=dict)
+    #: Stored headlines (YRD3): path → heading text, staged only when the
+    #: parsed heading text differs from the effective default title (keeping
+    #: untouched documents byte-stable).
+    headlines: dict[str, str] = dataclass_field(default_factory=dict)
     #: Every rejected block, in source order.
     rejections: list[SpecMarkdownRejection] = dataclass_field(
         default_factory=list
@@ -369,7 +376,9 @@ class SpecDocumentMarkdown:
             f"{self.model.model_version_string} -->"
         )
         root_seg = node.segment
-        self._write_heading(b, 1, root_seg, root.title)
+        self._write_heading(
+            b, 1, root_seg, self.document.headline(root_seg) or root.title
+        )
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
         return str(b)
@@ -407,19 +416,28 @@ class SpecDocumentMarkdown:
                 if value is None:
                     continue
                 self._write_heading(
-                    b, depth, self._heading_id_of(child), self._title_of(child)
+                    b,
+                    depth,
+                    self._heading_id_of(child),
+                    self.document.headline(path) or self._title_of(child),
                 )
                 self._write_body(b, value, path)
             elif kind == SomMetaKind.FORM:
                 if not self._form_has_values(child, path):
                     continue
                 self._write_heading(
-                    b, depth, self._heading_id_of(child), self._title_of(child)
+                    b,
+                    depth,
+                    self._heading_id_of(child),
+                    self.document.headline(path) or self._title_of(child),
                 )
                 self._write_form(b, child, path)
             elif kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
                 self._write_heading(
-                    b, depth, self._heading_id_of(child), self._title_of(child)
+                    b,
+                    depth,
+                    self._heading_id_of(child),
+                    self.document.headline(path) or self._title_of(child),
                 )
                 self._write_section_body(b, child, path)
                 self._write_children(b, child, path, depth + 1)
@@ -433,15 +451,19 @@ class SpecDocumentMarkdown:
         at *depth*, wrapping the numbered item headings one level deeper. The
         container is a real section — the id the DR3 schema keys its container
         type by — but carries **no content of its own** (schema content
-        min/max-text-length 0). Item identity is purely positional."""
+        min/max-text-length 0). Item identity is the stored id when one
+        exists, else positional (YRD3)."""
         items = self.document.list_items(list_path)
         if not items:
             return
         # The container heading: its id is the list's `-LST` `@SectionId` (else
-        # the member segment for a pattern-less list); its title is the member
-        # name.
+        # the member segment for a pattern-less list); its title is the stored
+        # headline, else the member name.
         self._write_heading(
-            b, depth, self._heading_id_of(node), self._title_of(node)
+            b,
+            depth,
+            self._heading_id_of(node),
+            self.document.headline(list_path) or self._title_of(node),
         )
         # Item heading stem. Complex lists derive it from the element class name
         # (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element
@@ -460,19 +482,28 @@ class SpecDocumentMarkdown:
         )
         for i, item_path in enumerate(items):
             pos = i + 1
-            # DR1 §1.2: md list identity is purely positional. The heading id is
+            # YRD3 (superseding DRC5): the heading id is the item's STORED
+            # section id when one exists (an AA1 generated id or a criterion-5
+            # override); only anonymous items fall back to the positional id —
             # the `@SectionIdPattern` resolved with the 1-based position
-            # (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); only pattern-less lists fall
-            # back to `<member>-<pos>`. A stored `@SectionId` (AA1 generated or
-            # a criterion-5 override) is NOT surfaced — it round-trips through
-            # the `*.docspecs.yaml` format (§2), not md — so the exported md
-            # always validates against the `[0-9]+` schema pattern (DRC5).
-            # Items sit one level below the container.
-            if pattern is not None:
+            # (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), else `<member>-<pos>` for a
+            # pattern-less list. On parse, numbered-pattern ids recover
+            # membership and order from position; other pattern-shaped ids
+            # parse back as stored ids. Items sit one level below the
+            # container.
+            stored = self.document.item_section_id(item_path)
+            if stored is not None:
+                item_id = stored
+            elif pattern is not None:
                 item_id = pattern.replace("xxx", str(pos))
             else:
                 item_id = f"{node.member_name or node.segment}-{pos}"
-            self._write_heading(b, depth + 1, item_id, f"{stem} {pos}")
+            self._write_heading(
+                b,
+                depth + 1,
+                item_id,
+                self.document.headline(item_path) or f"{stem} {pos}",
+            )
             if element is None:
                 # Scalar list: the item's value is its body.
                 self._write_body(
@@ -575,6 +606,7 @@ class SpecDocumentMarkdown:
             content=p.content,
             forms=p.forms,
             lists=p.lists_json(),
+            headlines=p.headlines,
             rejections=p.rejections,
             root_prefixes=p.root_prefixes,
         )
@@ -623,6 +655,7 @@ class _Parser:
         self.content: dict[str, str] = {}
         self.forms: dict[str, dict[str, str]] = {}
         self.lists: dict[str, _ListState] = {}
+        self.headlines: dict[str, str] = {}
         self.rejections: list[SpecMarkdownRejection] = []
         self.root_prefixes: set[str] = set()
         self._stack: list[_Frame] = []
@@ -688,9 +721,10 @@ class _Parser:
             )
             return
         id = m.group(1)
+        title = m.group(2).strip()
 
         if not self._stack:
-            self._open_root(level, id, line_no)
+            self._open_root(level, id, title, line_no)
             return
 
         parent = self._stack[-1]
@@ -728,7 +762,7 @@ class _Parser:
         #    one of that list's items — resolved positionally, not by the
         #    schema tree.
         if p_node.kind == SomMetaKind.LIST:
-            self._open_item_heading(level, parent, p_node, id, line_no)
+            self._open_item_heading(level, parent, p_node, id, title, line_no)
             return
 
         # 2. A regular (non-list) or list-**container** *effective* child —
@@ -740,13 +774,14 @@ class _Parser:
         effective = self.codec._effective_children(p_node)
         for c, rel in effective:
             if self.codec._heading_id_of(c) == id:
+                path = f"{parent.path}/{rel}"
+                # YRD3: stage the heading text as a stored headline only when
+                # it differs from the effective default title
+                # (byte-stability).
+                if title and title != SpecDocumentMarkdown._title_of(c):
+                    self.headlines[path] = title
                 self._stack.append(
-                    _Frame(
-                        level=level,
-                        node=c,
-                        path=f"{parent.path}/{rel}",
-                        line=line_no,
-                    )
+                    _Frame(level=level, node=c, path=path, line=line_no)
                 )
                 return
 
@@ -771,6 +806,7 @@ class _Parser:
         container: "_Frame",
         list_node: SomMetaNode,
         id: str,
+        title: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame under a ``-LST`` container frame (DR1 §1.2).
@@ -788,7 +824,13 @@ class _Parser:
         )
         if anon is not None:
             self._open_item(
-                level, list_path, list_node, int(anon.group(1)), None, line_no
+                level,
+                list_path,
+                list_node,
+                int(anon.group(1)),
+                None,
+                title,
+                line_no,
             )
             return
         element = list_node.element_node
@@ -797,7 +839,8 @@ class _Parser:
         )
         if pattern is not None:
             # Canonical anonymous id: the pattern with `xxx` as a number —
-            # parses back as item <n>, NOT as a stored id (DR1 §1.2 round-trip).
+            # parses back as item <n>, NOT as a stored id (YRD3 round-trip,
+            # §8.5).
             numbered_re = (
                 "^"
                 + "([0-9]+)".join(re.escape(p) for p in pattern.split("xxx"))
@@ -811,22 +854,31 @@ class _Parser:
                     list_node,
                     int(numbered.group(1)),
                     None,
+                    title,
                     line_no,
                 )
                 return
             if self._pattern_matches(pattern, id):
-                self._open_item(level, list_path, list_node, None, id, line_no)
+                self._open_item(
+                    level, list_path, list_node, None, id, title, line_no
+                )
                 return
-        # Any other id under the container is an anonymous next item; a genuine
-        # stored id is kept (it survives only through the yaml format, DR1 §2).
-        self._open_item(level, list_path, list_node, None, id, line_no)
+        # Any other id under the container is an anonymous next item carrying
+        # the stored id (YRD3: stored ids round-trip through md as well as
+        # yaml).
+        self._open_item(level, list_path, list_node, None, id, title, line_no)
 
-    def _open_root(self, level: int, id: str, line_no: int) -> None:
+    def _open_root(
+        self, level: int, id: str, title: str, line_no: int
+    ) -> None:
         for root in self.codec.model.roots:
             seg = root.section_id or root.type
             if seg == id:
                 tree = self.codec._tree_for(root.type)
                 self.root_prefixes.add(seg)
+                # YRD3: stage a renamed root heading as a stored headline.
+                if title and title != root.title:
+                    self.headlines[seg] = title
                 self._stack.append(
                     _Frame(level=level, node=tree.root, path=seg, line=line_no)
                 )
@@ -855,11 +907,13 @@ class _Parser:
         list_node: SomMetaNode,
         n: Optional[int],
         stored_id: Optional[str],
+        title: str,
         line_no: int,
     ) -> None:
         """Opens a list-item frame. *n* is the anonymous heading number (also
-        the path number); a stored-id item gets the next free number
-        instead."""
+        the path number); a stored-id item gets the next free number instead.
+        The heading *title* is staged as a stored headline when it differs
+        from the default item title ``<stem> <number>`` (YRD3)."""
         state = self.lists.get(list_path)
         if state is None:
             state = _ListState()
@@ -871,6 +925,16 @@ class _Parser:
         state.items.append(item_path)
         if stored_id is not None:
             state.ids[item_path] = stored_id
+        element = list_node.element_node
+        stem = (
+            SpecDocumentMarkdown.item_title_stem(element.class_name)
+            if element is not None
+            else SpecDocumentMarkdown.title_case(
+                list_node.member_name or list_node.segment
+            )
+        )
+        if title and title != f"{stem} {number}":
+            self.headlines[item_path] = title
         self._stack.append(
             _Frame(
                 level=level,

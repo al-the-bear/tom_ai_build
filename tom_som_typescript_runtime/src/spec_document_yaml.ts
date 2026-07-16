@@ -8,8 +8,11 @@
  * model node becomes a mapping key (`<section-id> <member-name>`, DR1 §2.2),
  * sections nest their children, list items appear under their container keyed
  * by their stored section id (or an anonymous positional `<member>-<n>` key), a
- * node's own body text uses the literal key `content`, and form fields use
- * their bare field names. The former flat two-level path-map format
+ * node's own body text uses the literal key `content`, a node's **stored
+ * headline** (YRD3) uses the literal key `headline`, and form fields use
+ * their bare field names. A scalar-valued node (content/scalar/enum leaf or
+ * scalar list item) that carries a stored headline is emitted as a
+ * `{headline: …, content: …}` mapping. The former flat two-level path-map format
  * (`document: {content: {"A/b": …}}`) is **retired**; readers reject
  * `version: 1` files with a clear error (no compatibility path).
  *
@@ -384,6 +387,7 @@ class _Encoder {
   private _content: Map<string, string> = new Map();
   private _forms: Map<string, Map<string, string>> = new Map();
   private _lists: Set<string>;
+  private _headlines: Map<string, string> = new Map();
 
   constructor(doc: SpecDocument, tree: SomMetaTree) {
     this.doc = doc;
@@ -401,6 +405,10 @@ class _Encoder {
       this._forms.set(p, fields);
     }
     this._lists = new Set(doc.listPaths);
+    for (const p of doc.headlinePaths) {
+      const h = doc.headline(p);
+      this._headlines.set(p, h !== null ? h : '');
+    }
   }
 
   writeDocumentPass(b: _Buffer): void {
@@ -424,6 +432,19 @@ class _Encoder {
   private _mappingBody(node: SomMetaNode, path: string, indent: number): string {
     const b = new _Buffer();
 
+    // The node's own stored headline — the literal `headline` key (YRD3).
+    if (this._headlines.has(path)) {
+      const ownHeadline = this._headlines.get(path) as string;
+      this._headlines.delete(path);
+      if (node.children.some((c) => nodeKey(c) === 'headline')) {
+        throw new SpecYamlFormatException(
+          `cannot emit the stored headline at \`${path}\`: a child of ` +
+            `${node.debugName} also serializes as key \`headline\``,
+        );
+      }
+      this._writeText(b, indent, 'headline', ownHeadline);
+    }
+
     // The node's own body text — the literal `content` key (DR1 §2.2).
     if (this._content.has(path)) {
       const own = this._content.get(path) as string;
@@ -441,19 +462,31 @@ class _Encoder {
       const childPath = specPathJoin(path, child.segment);
       const key = nodeKey(child);
       if (child.kind === SomMetaKind.CONTENT) {
-        if (this._content.has(childPath)) {
-          const v = this._content.get(childPath) as string;
-          this._content.delete(childPath);
-          this._writeText(b, indent, key, v);
+        const hasV = this._content.has(childPath);
+        const v = hasV ? (this._content.get(childPath) as string) : null;
+        this._content.delete(childPath);
+        const hasH = this._headlines.has(childPath);
+        const h = hasH ? (this._headlines.get(childPath) as string) : null;
+        this._headlines.delete(childPath);
+        if (hasH) {
+          this._writeScalarWithHeadline(b, indent, key, h as string, v, true);
+        } else if (hasV) {
+          this._writeText(b, indent, key, v as string);
         }
       } else if (
         child.kind === SomMetaKind.SCALAR ||
         child.kind === SomMetaKind.ENUM_VALUE
       ) {
-        if (this._content.has(childPath)) {
-          const v = this._content.get(childPath) as string;
-          this._content.delete(childPath);
-          this._writeValue(b, indent, key, v);
+        const hasV = this._content.has(childPath);
+        const v = hasV ? (this._content.get(childPath) as string) : null;
+        this._content.delete(childPath);
+        const hasH = this._headlines.has(childPath);
+        const h = hasH ? (this._headlines.get(childPath) as string) : null;
+        this._headlines.delete(childPath);
+        if (hasH) {
+          this._writeScalarWithHeadline(b, indent, key, h as string, v, false);
+        } else if (hasV) {
+          this._writeValue(b, indent, key, v as string);
         }
       } else if (child.kind === SomMetaKind.FORM) {
         this._writeForm(b, indent, key, child, childPath);
@@ -473,6 +506,30 @@ class _Encoder {
     return b.toString();
   }
 
+  /**
+   * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
+   * that carries a stored headline as a `{headline: …, content: …}` mapping
+   * (YRD3).
+   */
+  private _writeScalarWithHeadline(
+    b: _Buffer,
+    indent: number,
+    key: string,
+    headline: string,
+    value: string | null,
+    text: boolean,
+  ): void {
+    b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
+    this._writeText(b, indent + 2, 'headline', headline);
+    if (value !== null && value !== undefined) {
+      if (text) {
+        this._writeText(b, indent + 2, 'content', value);
+      } else {
+        this._writeValue(b, indent + 2, 'content', value);
+      }
+    }
+  }
+
   private _writeForm(
     b: _Buffer,
     indent: number,
@@ -480,9 +537,12 @@ class _Encoder {
     node: SomMetaNode,
     path: string,
   ): void {
-    const fields = this._forms.get(path);
+    const fields = this._forms.get(path) || new Map<string, string>();
     this._forms.delete(path);
-    if (!fields || fields.size === 0) {
+    const hasHeadline = this._headlines.has(path);
+    const headline = hasHeadline ? (this._headlines.get(path) as string) : null;
+    this._headlines.delete(path);
+    if (fields.size === 0 && !hasHeadline) {
       return;
     }
     const meta = node.form !== null && node.form !== undefined
@@ -495,7 +555,16 @@ class _Encoder {
         );
       }
     }
+    if (hasHeadline && meta.fieldNamed('headline') !== null) {
+      throw new SpecYamlFormatException(
+        `cannot emit the stored headline at \`${path}\`: the form declares a ` +
+          'field literally named `headline`',
+      );
+    }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
+    if (hasHeadline) {
+      this._writeText(b, indent + 2, 'headline', headline as string);
+    }
     for (const f of meta.fields) {
       if (!fields.has(f.name)) {
         continue;
@@ -517,12 +586,18 @@ class _Encoder {
     path: string,
   ): void {
     this._lists.delete(path);
+    const hasHeadline = this._headlines.has(path);
+    const headline = hasHeadline ? (this._headlines.get(path) as string) : null;
+    this._headlines.delete(path);
     const items = this.doc.listItems(path);
-    if (items.length === 0) {
+    if (items.length === 0 && !hasHeadline) {
       return;
     }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
-    const used = new Set<string>();
+    if (hasHeadline) {
+      this._writeText(b, indent + 2, 'headline', headline as string);
+    }
+    const used = new Set<string>(['headline']);
     let pos = 0;
     for (const itemPath of items) {
       pos += 1;
@@ -545,13 +620,22 @@ class _Encoder {
       }
       const element = node.elementNode;
       if (element === null || element === undefined) {
-        // Scalar list: the item is a direct value.
-        let v = '';
-        if (this._content.has(itemPath)) {
-          v = this._content.get(itemPath) as string;
-          this._content.delete(itemPath);
+        // Scalar list: the item is a direct value — unless it carries a
+        // stored headline, in which case it becomes a
+        // `{headline: …, content: …}` mapping (YRD3).
+        const hasV = this._content.has(itemPath);
+        const v = hasV ? (this._content.get(itemPath) as string) : null;
+        this._content.delete(itemPath);
+        const hasIh = this._headlines.has(itemPath);
+        const ih = hasIh ? (this._headlines.get(itemPath) as string) : null;
+        this._headlines.delete(itemPath);
+        if (hasIh) {
+          this._writeScalarWithHeadline(
+            b, indent + 2, itemKey, ih as string, v, false,
+          );
+        } else {
+          this._writeValue(b, indent + 2, itemKey, hasV ? (v as string) : '');
         }
-        this._writeValue(b, indent + 2, itemKey, v);
       } else {
         const sub = this._mappingBody(element, itemPath, indent + 4);
         if (sub === '') {
@@ -587,6 +671,7 @@ class _Encoder {
       ...Array.from(this._content.keys()).map((p) => `content at \`${p}\``),
       ...Array.from(this._forms.keys()).map((p) => `form values at \`${p}\``),
       ...Array.from(this._lists).map((p) => `list items at \`${p}\``),
+      ...Array.from(this._headlines.keys()).map((p) => `headline at \`${p}\``),
     ].sort();
     if (leftovers.length > 0) {
       throw new SpecYamlFormatException(
@@ -700,6 +785,13 @@ class _Decoder {
         this.doc.setContent(path, _Decoder._scalarOf(value, `${path}/content`));
         continue;
       }
+      if (key === 'headline') {
+        this.doc.setHeadline(
+          path,
+          _Decoder._scalarOf(value, `${path} (headline)`),
+        );
+        continue;
+      }
       const expected = _Decoder._expectedKeys(node).join(', ');
       throw new SpecYamlFormatException(
         `key \`${key}\` under \`${path}\` matches no member of ` +
@@ -713,7 +805,9 @@ class _Decoder {
   }
 
   private static _expectedKeys(node: SomMetaNode): string[] {
-    return node.children.map((c) => `\`${nodeKey(c)}\``).concat(['`content`']);
+    return node.children
+      .map((c) => `\`${nodeKey(c)}\``)
+      .concat(['`content`', '`headline`']);
   }
 
   private _loadChild(
@@ -727,7 +821,14 @@ class _Decoder {
       child.kind === SomMetaKind.SCALAR ||
       child.kind === SomMetaKind.ENUM_VALUE
     ) {
-      this.doc.setContent(path, _Decoder._scalarOf(value, path));
+      // A populated mapping is a headline-extended scalar node (YRD3):
+      // `{headline: …, content: …}`. An empty mapping is the hand-rolled
+      // parser's spelling of a bare `key:` and stays the empty scalar.
+      if (_isMapping(value) && Object.keys(value).length > 0) {
+        this._loadScalarWithHeadline(path, key, value);
+      } else {
+        this.doc.setContent(path, _Decoder._scalarOf(value, path));
+      }
     } else if (child.kind === SomMetaKind.FORM) {
       if (!_isMapping(value)) {
         throw new SpecYamlFormatException(
@@ -740,6 +841,13 @@ class _Decoder {
       for (const [f, v] of Object.entries(value)) {
         const name = String(f);
         if (meta.fieldNamed(name) === null) {
+          if (name === 'headline') {
+            this.doc.setHeadline(
+              path,
+              _Decoder._scalarOf(v, `${path} (headline)`),
+            );
+            continue;
+          }
           throw new SpecYamlFormatException(
             `form \`${path}\` has no field \`${name}\` in the model`,
           );
@@ -781,23 +889,33 @@ class _Decoder {
     );
     for (const [rawKey, value] of Object.entries(items)) {
       const key = String(rawKey);
+      if (key === 'headline') {
+        // The list container's own stored headline (YRD3), not an item.
+        this.doc.setHeadline(
+          path,
+          _Decoder._scalarOf(value, `${path} (headline)`),
+        );
+        continue;
+      }
       const itemPath = this.doc.addListItem(
         path,
         anonymous.test(key) ? null : key,
       );
       const element = node.elementNode;
       if (element === null || element === undefined) {
-        // Scalar list item: the value is the item itself. The hand-rolled
-        // parser cannot distinguish a bare `key:` (null) from `key: {}`, so an
-        // empty mapping counts as "no value" here (Python raises on an
-        // explicit `{}`).
-        if (
-          Array.isArray(value) ||
-          (_isMapping(value) && Object.keys(value as object).length > 0)
-        ) {
+        // Scalar list item: the value is the item itself — or a
+        // `{headline: …, content: …}` mapping when it carries a stored
+        // headline (YRD3). The hand-rolled parser cannot distinguish a bare
+        // `key:` (null) from `key: {}`, so an empty mapping counts as
+        // "no value" here (Python raises on an explicit `{}`).
+        if (Array.isArray(value)) {
           throw new SpecYamlFormatException(
             `scalar list item \`${key}\` at \`${path}\` must hold a scalar`,
           );
+        }
+        if (_isMapping(value) && Object.keys(value as object).length > 0) {
+          this._loadScalarWithHeadline(itemPath, key, value);
+          continue;
         }
         if (value !== null && value !== undefined && !_isMapping(value)) {
           this.doc.setContent(itemPath, _parsedScalarStr(value));
@@ -814,6 +932,30 @@ class _Decoder {
         );
       }
       this.loadMapping(element, itemPath, value);
+    }
+  }
+
+  /**
+   * Loads a headline-extended scalar node (YRD3): a mapping holding only the
+   * literal keys `headline` and `content`.
+   */
+  private _loadScalarWithHeadline(path: string, key: string, value: any): void {
+    for (const [k, v] of Object.entries(value)) {
+      const name = String(k);
+      if (name === 'headline') {
+        this.doc.setHeadline(
+          path,
+          _Decoder._scalarOf(v, `${path} (headline)`),
+        );
+      } else if (name === 'content') {
+        this.doc.setContent(path, _Decoder._scalarOf(v, `${path}/content`));
+      } else {
+        throw new SpecYamlFormatException(
+          `scalar node \`${key}\` at \`${path}\` may only hold ` +
+            `\`headline\`/\`content\` keys when written as a mapping, ` +
+            `found \`${name}\``,
+        );
+      }
     }
   }
 

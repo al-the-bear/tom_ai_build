@@ -156,6 +156,7 @@ function _reload(md) {
     content: report.content,
     forms: report.forms,
     lists: report.lists,
+    headlines: report.headlines,
   });
   return [target, report];
 }
@@ -227,12 +228,11 @@ function testExportStoredItemId() {
   const item = doc.addListItem('D00/D00-ITM', 'D01-CUSTOM');
   doc.setContent(`${item}/D01-LBL`, 'Custom-id item');
   const md = _export(doc);
-  // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-  // is not surfaced in md; the anonymous positional id is emitted instead, one
-  // level below the `-LST` container heading.
+  // YRD3: a stored id IS the item's heading id in md — the positional
+  // fallback is used only for anonymous items.
   _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> Items'), md);
-  _check('export.storedId.positional', md.includes('### <!--[items-1]--> Demo Item 1'), md);
-  _check('export.storedId.noStored', !md.includes('D01-CUSTOM'), md);
+  _check('export.storedId.heading', md.includes('### <!--[D01-CUSTOM]--> Demo Item 1'), md);
+  _check('export.storedId.noPositional', !md.includes('items-1'), md);
 }
 
 function testExportUntermFenceThrows() {
@@ -338,8 +338,9 @@ function testRoundTripStoredItemId() {
   const item = doc.addListItem('D00/D00-ITM', 'D01-CUSTOM');
   doc.setContent(`${item}/D01-LBL`, 'Custom-id item');
   const md1 = _export(doc);
-  // DRC5: a stored id does not round-trip through md; the item reloads anonymous.
-  _check('storedId.noStored', !md1.includes('D01-CUSTOM'), md1);
+  // YRD3: a stored id round-trips through md — it is the heading id and is
+  // recovered on parse.
+  _check('storedId.inMd', md1.includes('<!--[D01-CUSTOM]-->'), md1);
   const [reloaded, report] = _reload(md1);
   _check('storedId.clean', report.isClean, _rejStr(report));
   const items = reloaded.listItems('D00/D00-ITM');
@@ -347,7 +348,7 @@ function testRoundTripStoredItemId() {
   if (items.length === 1) {
     _check(
       'storedId.sectionId',
-      reloaded.itemSectionId(items[0]) === null,
+      reloaded.itemSectionId(items[0]) === 'D01-CUSTOM',
       String(reloaded.itemSectionId(items[0])),
     );
     _check('storedId.label', reloaded.content(`${items[0]}/D01-LBL`) === 'Custom-id item');

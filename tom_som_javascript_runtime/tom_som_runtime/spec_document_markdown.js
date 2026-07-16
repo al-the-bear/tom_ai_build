@@ -100,6 +100,11 @@ class SpecMarkdownResult {
      *  {@link SpecDocument#toJson} shape), recovered from the item headings.
      *  @type {Object<string, Object>} */
     this.lists = {};
+    /** Stored headlines recovered from headings (YRD3): path → headline.
+     *  Only headings whose text differs from the effective default title are
+     *  staged, so a default-rendered document stays byte-stable.
+     *  @type {Object<string, string>} */
+    this.headlines = {};
     /** Every rejected block, in source order.
      *  @type {SpecMarkdownRejection[]} */
     this.rejections = [];
@@ -425,7 +430,9 @@ class SpecDocumentMarkdown {
         `${this.model.modelVersionString} -->`,
     );
     const rootSeg = node.segment;
-    SpecDocumentMarkdown._writeHeading(b, 1, rootSeg, root.title);
+    SpecDocumentMarkdown._writeHeading(
+      b, 1, rootSeg, this.document.headline(rootSeg) || root.title,
+    );
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -470,7 +477,7 @@ class SpecDocumentMarkdown {
           b,
           depth,
           this._headingIdOf(child),
-          SpecDocumentMarkdown._titleOf(child),
+          this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
         );
         this._writeBody(b, value, path);
       } else if (kind === SomMetaKind.FORM) {
@@ -481,7 +488,7 @@ class SpecDocumentMarkdown {
           b,
           depth,
           this._headingIdOf(child),
-          SpecDocumentMarkdown._titleOf(child),
+          this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
         );
         this._writeForm(b, child, path);
       } else if (kind === SomMetaKind.SECTION || kind === SomMetaKind.COMPLEX) {
@@ -489,7 +496,7 @@ class SpecDocumentMarkdown {
           b,
           depth,
           this._headingIdOf(child),
-          SpecDocumentMarkdown._titleOf(child),
+          this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
         );
         this._writeSectionBody(b, child, path);
         this._writeChildren(b, child, path, depth + 1);
@@ -515,7 +522,7 @@ class SpecDocumentMarkdown {
       b,
       depth,
       this._headingIdOf(node),
-      SpecDocumentMarkdown._titleOf(node),
+      this.document.headline(listPath) || SpecDocumentMarkdown._titleOf(node),
     );
     // Item heading stem. Complex lists derive it from the element class name
     // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
@@ -537,20 +544,26 @@ class SpecDocumentMarkdown {
     for (let i = 0; i < items.length; i++) {
       const itemPath = items[i];
       const pos = i + 1;
-      // DR1 §1.2: md list identity is purely positional. The heading id is the
-      // `@SectionIdPattern` resolved with the 1-based position (`GOAL-ITEM-xxx`
-      // → `GOAL-ITEM-1`); only pattern-less lists fall back to `<member>-<pos>`.
-      // A stored `@SectionId` (AA1 generated or a criterion-5 override) is NOT
-      // surfaced — it round-trips through the `*.docspecs.yaml` format (§2), not
-      // md — so the exported md always validates against the `[0-9]+` schema
-      // pattern (DRC5). Items sit one level below the container.
+      // YRD3 (superseding DRC5): a stored `@SectionId` (AA1 generated or a
+      // criterion-5 override) IS the md heading id. Only items without one
+      // fall back to the `@SectionIdPattern` resolved with the 1-based
+      // position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), then to `<member>-<pos>`
+      // for pattern-less lists. Items sit one level below the container.
+      const storedId = this.document.itemSectionId(itemPath);
       let itemId;
-      if (pattern !== null) {
+      if (storedId !== null) {
+        itemId = storedId;
+      } else if (pattern !== null) {
         itemId = pattern.split('xxx').join(String(pos));
       } else {
         itemId = `${node.memberName || node.segment}-${pos}`;
       }
-      SpecDocumentMarkdown._writeHeading(b, depth + 1, itemId, `${stem} ${pos}`);
+      SpecDocumentMarkdown._writeHeading(
+        b,
+        depth + 1,
+        itemId,
+        this.document.headline(itemPath) || `${stem} ${pos}`,
+      );
       if (element === null || element === undefined) {
         // Scalar list: the item's value is its body.
         this._writeBody(b, this.document.content(itemPath) || '', itemPath);
@@ -668,6 +681,7 @@ class SpecDocumentMarkdown {
     result.content = p.content;
     result.forms = p.forms;
     result.lists = p.listsJson();
+    result.headlines = p.headlines;
     result.rejections = p.rejections;
     result.rootPrefixes = p.rootPrefixes;
     return result;
@@ -719,6 +733,9 @@ class _Parser {
     this.forms = {};
     /** @type {Map<string, _ListState>} */
     this.lists = new Map();
+    /** Stored headlines staged from heading text (YRD3): path → headline.
+     *  @type {Object<string, string>} */
+    this.headlines = {};
     /** @type {SpecMarkdownRejection[]} */
     this.rejections = [];
     /** @type {Set<string>} */
@@ -797,9 +814,10 @@ class _Parser {
       return;
     }
     const id = m[1];
+    const title = m[2].trim();
 
     if (this._stack.length === 0) {
-      this._openRoot(level, id, lineNo);
+      this._openRoot(level, id, title, lineNo);
       return;
     }
 
@@ -833,7 +851,7 @@ class _Parser {
     // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one
     //    of that list's items — resolved positionally, not by the schema tree.
     if (pNode.kind === SomMetaKind.LIST) {
-      this._openItemHeading(level, parent, pNode, id, lineNo);
+      this._openItemHeading(level, parent, pNode, id, title, lineNo);
       return;
     }
 
@@ -846,6 +864,11 @@ class _Parser {
     const effective = this.codec._effectiveChildren(pNode);
     for (const [c, rel] of effective) {
       if (this.codec._headingIdOf(c) === id) {
+        // Stage the heading text as a stored headline only when it differs
+        // from the effective default title (YRD3 §8.7 — byte-stability).
+        if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
+          this.headlines[`${parent.path}/${rel}`] = title;
+        }
         this._stack.push(
           new _Frame(level, c, `${parent.path}/${rel}`, lineNo),
         );
@@ -872,13 +895,15 @@ class _Parser {
    * (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored id, or
    * — for any other id — an anonymous next item carrying the stored id.
    */
-  _openItemHeading(level, container, listNode, id, lineNo) {
+  _openItemHeading(level, container, listNode, id, title, lineNo) {
     const listPath = container.path;
     const anon = new RegExp(
       '^' + _escapeRegExp(listNode.memberName || listNode.segment) + '-([0-9]+)$',
     ).exec(id);
     if (anon !== null) {
-      this._openItem(level, listPath, listNode, parseInt(anon[1], 10), null, lineNo);
+      this._openItem(
+        level, listPath, listNode, parseInt(anon[1], 10), null, title, lineNo,
+      );
       return;
     }
     const element = listNode.elementNode;
@@ -903,27 +928,31 @@ class _Parser {
             listNode,
             parseInt(numbered[1], 10),
             null,
+            title,
             lineNo,
           );
           return;
         }
       }
       if (_Parser._patternMatches(pattern, id)) {
-        this._openItem(level, listPath, listNode, null, id, lineNo);
+        this._openItem(level, listPath, listNode, null, id, title, lineNo);
         return;
       }
     }
-    // Any other id under the container is an anonymous next item; a genuine
-    // stored id is kept (it survives only through the yaml format, DR1 §2).
-    this._openItem(level, listPath, listNode, null, id, lineNo);
+    // Any other id under the container is an anonymous next item carrying the
+    // stored id — stored ids round-trip through Markdown too (YRD3).
+    this._openItem(level, listPath, listNode, null, id, title, lineNo);
   }
 
-  _openRoot(level, id, lineNo) {
+  _openRoot(level, id, title, lineNo) {
     for (const root of this.codec.model.roots) {
       const seg = root.sectionId || root.type;
       if (seg === id) {
         const tree = this.codec._treeFor(root.type);
         this.rootPrefixes.add(seg);
+        if (title && title !== root.title) {
+          this.headlines[seg] = title;
+        }
         this._stack.push(new _Frame(level, tree.root, seg, lineNo));
         return;
       }
@@ -946,7 +975,7 @@ class _Parser {
    * Opens a list-item frame. `n` is the anonymous heading number (also the
    * path number); a stored-id item gets the next free number instead.
    */
-  _openItem(level, listPath, listNode, n, storedId, lineNo) {
+  _openItem(level, listPath, listNode, n, storedId, title, lineNo) {
     let state = this.lists.get(listPath);
     if (!state) {
       state = new _ListState();
@@ -958,6 +987,15 @@ class _Parser {
     }
     const itemPath = `${listPath}-${number}`;
     state.items.push(itemPath);
+    // Stage the item heading text as a stored headline only when it differs
+    // from the effective default `<stem> <n>` title (YRD3 §8.7).
+    const element = listNode.elementNode;
+    const stem = element !== null && element !== undefined
+      ? SpecDocumentMarkdown.itemTitleStem(element.className)
+      : SpecDocumentMarkdown.titleCase(listNode.memberName || listNode.segment);
+    if (title && title !== `${stem} ${number}`) {
+      this.headlines[itemPath] = title;
+    }
     if (storedId !== null) {
       state.ids[itemPath] = storedId;
     }

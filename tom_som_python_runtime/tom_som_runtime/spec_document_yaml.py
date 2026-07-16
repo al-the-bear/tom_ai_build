@@ -6,8 +6,12 @@ One nested YAML tree whose indentation mirrors the document structure: every
 model node becomes a mapping key (``<section-id> <member-name>``, DR1 §2.2),
 sections nest their children, list items appear under their container keyed by
 their stored section id (or an anonymous positional ``<member>-<n>`` key), a
-node's own body text uses the literal key ``content``, and form fields use
-their bare field names. The former flat two-level path-map format
+node's own body text uses the literal key ``content``, a node's **stored
+headline** (YRD3) uses the literal key ``headline``, and form fields use
+their bare field names. A scalar-valued node (content/scalar/enum leaf or
+scalar list item) that carries a stored headline is emitted as a
+``{headline: …, content: …}`` mapping instead of a direct scalar. The former
+flat two-level path-map format
 (``document: {content: {"A/b": …}}``) is **retired**; readers reject
 ``version: 1`` files with a clear error (no compatibility path).
 
@@ -337,6 +341,9 @@ class _Encoder:
             for p in doc.form_paths
         }
         self._lists: set[str] = set(doc.list_paths)
+        self._headlines: dict[str, str] = {
+            p: doc.headline(p) or "" for p in doc.headline_paths
+        }
 
     def write_document_pass(self, b: _Buffer) -> None:
         root = self.tree.root
@@ -356,6 +363,16 @@ class _Encoder:
         populated."""
         b = _Buffer()
 
+        # The node's own stored headline — the literal `headline` key (YRD3).
+        own_headline = self._headlines.pop(path, None)
+        if own_headline is not None:
+            if any(node_key(c) == "headline" for c in node.children):
+                raise SpecYamlFormatException(
+                    f"cannot emit the stored headline at `{path}`: a child of "
+                    f"{node.debug_name} also serializes as key `headline`"
+                )
+            self._write_text(b, indent, "headline", own_headline)
+
         # The node's own body text — the literal `content` key (DR1 §2.2).
         own = self._content.pop(path, None)
         if own is not None:
@@ -371,11 +388,21 @@ class _Encoder:
             key = node_key(child)
             if child.kind is SomMetaKind.CONTENT:
                 v = self._content.pop(child_path, None)
-                if v is not None:
+                h = self._headlines.pop(child_path, None)
+                if h is not None:
+                    self._write_scalar_with_headline(
+                        b, indent, key, h, v, text=True
+                    )
+                elif v is not None:
                     self._write_text(b, indent, key, v)
             elif child.kind in (SomMetaKind.SCALAR, SomMetaKind.ENUM_VALUE):
                 v = self._content.pop(child_path, None)
-                if v is not None:
+                h = self._headlines.pop(child_path, None)
+                if h is not None:
+                    self._write_scalar_with_headline(
+                        b, indent, key, h, v, text=False
+                    )
+                elif v is not None:
                     self._write_value(b, indent, key, v)
             elif child.kind is SomMetaKind.FORM:
                 self._write_form(b, indent, key, child, child_path)
@@ -388,11 +415,32 @@ class _Encoder:
                 self._write_list(b, indent, key, child, child_path)
         return str(b)
 
+    def _write_scalar_with_headline(
+        self,
+        b: _Buffer,
+        indent: int,
+        key: str,
+        headline: str,
+        value: Optional[str],
+        *,
+        text: bool,
+    ) -> None:
+        """Emits a scalar-valued node (content/scalar/enum leaf) that carries a
+        stored headline as a ``{headline: …, content: …}`` mapping (YRD3)."""
+        b.writeln(f"{' ' * indent}{plain_key(key)}:")
+        self._write_text(b, indent + 2, "headline", headline)
+        if value is not None:
+            if text:
+                self._write_text(b, indent + 2, "content", value)
+            else:
+                self._write_value(b, indent + 2, "content", value)
+
     def _write_form(
         self, b: _Buffer, indent: int, key: str, node: SomMetaNode, path: str
     ) -> None:
-        fields = self._forms.pop(path, None)
-        if not fields:
+        fields = self._forms.pop(path, None) or {}
+        headline = self._headlines.pop(path, None)
+        if not fields and headline is None:
             return
         meta = node.form if node.form is not None else SomFormMeta(fields=[])
         for name in fields:
@@ -401,7 +449,14 @@ class _Encoder:
                     f"form `{path}` holds a field `{name}` unknown to the "
                     "model"
                 )
+        if headline is not None and meta.field_named("headline") is not None:
+            raise SpecYamlFormatException(
+                f"cannot emit the stored headline at `{path}`: the form "
+                "declares a field literally named `headline`"
+            )
         b.writeln(f"{' ' * indent}{plain_key(key)}:")
+        if headline is not None:
+            self._write_text(b, indent + 2, "headline", headline)
         for f in meta.fields:
             v = fields.get(f.name)
             if v is None:
@@ -415,11 +470,14 @@ class _Encoder:
         self, b: _Buffer, indent: int, key: str, node: SomMetaNode, path: str
     ) -> None:
         self._lists.discard(path)
+        headline = self._headlines.pop(path, None)
         items = self.doc.list_items(path)
-        if not items:
+        if not items and headline is None:
             return
         b.writeln(f"{' ' * indent}{plain_key(key)}:")
-        used: set[str] = set()
+        if headline is not None:
+            self._write_text(b, indent + 2, "headline", headline)
+        used: set[str] = {"headline"}
         pos = 0
         for item_path in items:
             pos += 1
@@ -442,9 +500,17 @@ class _Encoder:
                 used.add(item_key)
             element = node.element_node
             if element is None:
-                # Scalar list: the item is a direct value.
-                v = self._content.pop(item_path, "")
-                self._write_value(b, indent + 2, item_key, v)
+                # Scalar list: the item is a direct value — unless it carries
+                # a stored headline, in which case it becomes a
+                # `{headline: …, content: …}` mapping (YRD3).
+                v = self._content.pop(item_path, None)
+                ih = self._headlines.pop(item_path, None)
+                if ih is not None:
+                    self._write_scalar_with_headline(
+                        b, indent + 2, item_key, ih, v, text=False
+                    )
+                else:
+                    self._write_value(b, indent + 2, item_key, v or "")
             else:
                 sub = self._mapping_body(element, item_path, indent + 4)
                 if sub == "":
@@ -478,6 +544,7 @@ class _Encoder:
             [f"content at `{p}`" for p in self._content]
             + [f"form values at `{p}`" for p in self._forms]
             + [f"list items at `{p}`" for p in self._lists]
+            + [f"headline at `{p}`" for p in self._headlines]
         )
         if leftovers:
             raise SpecYamlFormatException(
@@ -587,6 +654,11 @@ class _Decoder:
                     path, self._scalar_of(value, f"{path}/content")
                 )
                 continue
+            if key == "headline":
+                self.doc.set_headline(
+                    path, self._scalar_of(value, f"{path} (headline)")
+                )
+                continue
             expected = ", ".join(self._expected_keys(node))
             raise SpecYamlFormatException(
                 f"key `{key}` under `{path}` matches no member of "
@@ -602,7 +674,10 @@ class _Decoder:
 
     @staticmethod
     def _expected_keys(node: SomMetaNode) -> list[str]:
-        return [f"`{node_key(c)}`" for c in node.children] + ["`content`"]
+        return [f"`{node_key(c)}`" for c in node.children] + [
+            "`content`",
+            "`headline`",
+        ]
 
     def _load_child(
         self, child: SomMetaNode, path: str, key: str, value: Any
@@ -612,7 +687,12 @@ class _Decoder:
             SomMetaKind.SCALAR,
             SomMetaKind.ENUM_VALUE,
         ):
-            self.doc.set_content(path, self._scalar_of(value, path))
+            if isinstance(value, dict):
+                # Headline-extended scalar node (YRD3):
+                # `{headline: …, content: …}`.
+                self._load_scalar_with_headline(path, key, value)
+            else:
+                self.doc.set_content(path, self._scalar_of(value, path))
         elif child.kind is SomMetaKind.FORM:
             if not isinstance(value, dict):
                 raise SpecYamlFormatException(
@@ -624,6 +704,11 @@ class _Decoder:
             for f, v in value.items():
                 name = str(f)
                 if meta.field_named(name) is None:
+                    if name == "headline":
+                        self.doc.set_headline(
+                            path, self._scalar_of(v, f"{path} (headline)")
+                        )
+                        continue
                     raise SpecYamlFormatException(
                         f"form `{path}` has no field `{name}` in the model"
                     )
@@ -654,13 +739,25 @@ class _Decoder:
         )
         for raw_key, value in items.items():
             key = str(raw_key)
+            if key == "headline":
+                # The list container's own stored headline (YRD3), not an
+                # item.
+                self.doc.set_headline(
+                    path, self._scalar_of(value, f"{path} (headline)")
+                )
+                continue
             item_path = self.doc.add_list_item(
                 path, section_id=None if anonymous.match(key) else key
             )
             element = node.element_node
             if element is None:
-                # Scalar list item: the value is the item itself.
-                if isinstance(value, (dict, list)):
+                # Scalar list item: the value is the item itself — or a
+                # `{headline: …, content: …}` mapping when it carries a
+                # stored headline (YRD3).
+                if isinstance(value, dict):
+                    self._load_scalar_with_headline(item_path, key, value)
+                    continue
+                if isinstance(value, list):
                     raise SpecYamlFormatException(
                         f"scalar list item `{key}` at `{path}` must hold a "
                         "scalar"
@@ -676,6 +773,28 @@ class _Decoder:
                     "(use `{}` for an empty item)"
                 )
             self.load_mapping(element, item_path, value)
+
+    def _load_scalar_with_headline(
+        self, path: str, key: str, value: dict
+    ) -> None:
+        """Loads a headline-extended scalar node (YRD3): a mapping holding
+        only the literal keys ``headline`` and ``content``."""
+        for k, v in value.items():
+            name = str(k)
+            if name == "headline":
+                self.doc.set_headline(
+                    path, self._scalar_of(v, f"{path} (headline)")
+                )
+            elif name == "content":
+                self.doc.set_content(
+                    path, self._scalar_of(v, f"{path}/content")
+                )
+            else:
+                raise SpecYamlFormatException(
+                    f"scalar node `{key}` at `{path}` may only hold "
+                    f"`headline`/`content` keys when written as a mapping, "
+                    f"found `{name}`"
+                )
 
     @staticmethod
     def _scalar_of(value: Any, where: str) -> str:

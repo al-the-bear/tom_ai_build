@@ -229,13 +229,14 @@ def test_export_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md = _export(doc)
-    # DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-    # is not surfaced in md; the anonymous positional id is emitted instead,
-    # one level below the `-LST` container heading.
+    # YRD3 (superseding DRC5 — som_mapping.md §8.5): the stored id
+    # (`D01-CUSTOM` — an override, or equally an AA1 generated id) is the md
+    # heading id; the anonymous positional id is only the fallback for items
+    # WITHOUT a stored id.
     _check("export.storedId.container", "## <!--[D00-ITM]--> Items" in md, md)
-    _check("export.storedId.positional",
-           "### <!--[items-1]--> Demo Item 1" in md, md)
-    _check("export.storedId.noStored", "D01-CUSTOM" not in md, md)
+    _check("export.storedId.stored",
+           "### <!--[D01-CUSTOM]--> Demo Item 1" in md, md)
+    _check("export.storedId.noPositional", "items-1" not in md, md)
 
 
 def test_export_unterminated_fence_throws() -> None:
@@ -353,16 +354,18 @@ def test_round_trip_stored_item_id() -> None:
     item = doc.add_list_item("D00/D00-ITM", section_id="D01-CUSTOM")
     doc.set_content(f"{item}/D01-LBL", "Custom-id item")
     md1 = _export(doc)
-    # DRC5: a stored id does not round-trip through md; the item reloads anonymous.
-    _check("storedId.noStored", "D01-CUSTOM" not in md1, md1)
+    # YRD3 (superseding DR1 §1.2.1 loss 3 / DRC5): the stored id IS surfaced
+    # in the item heading and round-trips through md.
+    _check("storedId.surfaced", "<!--[D01-CUSTOM]-->" in md1, md1)
     reloaded, report = _reload(md1)
     _check("storedId.clean", report.is_clean,
            "; ".join(str(r) for r in report.rejections))
     items = reloaded.list_items("D00/D00-ITM")
     _check("storedId.itemCount", len(items) == 1, str(items))
     if len(items) == 1:
+        # YRD3: the stored id is recovered from the heading.
         _check("storedId.sectionId",
-               reloaded.item_section_id(items[0]) is None,
+               reloaded.item_section_id(items[0]) == "D01-CUSTOM",
                str(reloaded.item_section_id(items[0])))
         _check("storedId.label",
                reloaded.content(f"{items[0]}/D01-LBL") == "Custom-id item")

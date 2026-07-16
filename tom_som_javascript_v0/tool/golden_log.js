@@ -73,7 +73,7 @@ function main() {
   const out = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t2');
+  out.push('FORMAT\t3');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   // Generic: content leaves, sorted by path.
@@ -91,13 +91,25 @@ function main() {
   }
 
   // Generic: list containers + item paths (document order).
+  // FORMAT 3: each item with a *stored* section id additionally emits an
+  // `ID` line (item path + stored id); items without one emit no `ID` line.
   out.push('SECTION\tgeneric-lists');
   for (const p of Array.from(doc.listPaths).sort()) {
     const items = doc.listItems(p);
     out.push('L\t' + p + '\t' + items.length);
     for (const item of items) {
       out.push('I\t' + item);
+      const itemId = doc.itemSectionId(item);
+      if (itemId !== null) {
+        out.push('ID\t' + item + '\t' + esc(itemId));
+      }
     }
+  }
+
+  // Generic: every stored headline, sorted by path (FORMAT 3, YRD3).
+  out.push('SECTION\tgeneric-headlines');
+  for (const p of Array.from(doc.headlinePaths).sort()) {
+    out.push('H\t' + p + '\t' + esc(doc.headline(p) || ''));
   }
 
   // Typed: curated traversal that must agree with the generic reads.

@@ -63,6 +63,27 @@ class SomNode {
   }
 
   /**
+   * This node's stored headline (YRD3), or `null` when none is stored (the
+   * exporter then derives the default title). Named `$headline` for the same
+   * collision-proofing reason as {@link SomNode#$sectionId}.
+   *
+   * @returns {string|null}
+   */
+  get $headline() {
+    return this.doc.headline(this.path);
+  }
+
+  /**
+   * Sets this node's stored headline. Assigning `null`/`undefined`/`''`
+   * clears the stored value (the derived default applies again).
+   *
+   * @param {string|null} value
+   */
+  set $headline(value) {
+    this.doc.setHeadline(this.path, value || '');
+  }
+
+  /**
    * Whether this section holds no value at its {@link path} or nested beneath
    * it — the typed-facade view of "is this section filled?", kept in agreement
    * with the generic API by delegating to {@link SpecDocument#hasValuesUnder}

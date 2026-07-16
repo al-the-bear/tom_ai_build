@@ -11,11 +11,13 @@ const { SpecSectionIdCollision } = require('./spec_section_id');
  * section-ID path. Nothing is materialised until written, so an untouched
  * document is empty (the "empty = no value" rule).
  *
- * Three sparse stores cover the writable field kinds:
+ * Four sparse stores cover the writable field kinds:
  *
  *   * `_content` — `content`/`scalar` leaves: path → string value;
  *   * `_form` — `@Form` sections: path → (form-field name → value);
- *   * `_listItems` — lists: list path → ordered item paths.
+ *   * `_listItems` — lists: list path → ordered item paths;
+ *   * `_headline` — stored headlines (YRD3): path → headline text overriding
+ *     the derived default title at that section's heading.
  *
  * List item paths are `"<listPath>-<seq>"` where `seq` is a per-list monotonic
  * counter that never reuses a number.
@@ -41,6 +43,8 @@ class SpecDocument {
     this._listSeq = new Map();
     /** @type {Map<string, string>} */
     this._itemSectionId = new Map();
+    /** @type {Map<string, string>} */
+    this._headline = new Map();
     /**
      * The authoring object-model version (`major.minor`) this document was
      * loaded from, or `null` for a brand-new / unstamped document. Retained
@@ -204,6 +208,32 @@ class SpecDocument {
       }
       fields.set(fieldName, value);
     }
+  }
+
+  // --- headlines (YRD3) ---------------------------------------------------
+
+  /**
+   * The stored headline at `path`, or `null` when none is stored (the
+   * exporter then derives the default title).
+   *
+   * @returns {string|null}
+   */
+  headline(path) {
+    return this._headline.has(path) ? this._headline.get(path) : null;
+  }
+
+  /** Sets the stored headline at `path`. An empty value clears it. */
+  setHeadline(path, value) {
+    if (value === '') {
+      this._headline.delete(path);
+    } else {
+      this._headline.set(path, value);
+    }
+  }
+
+  /** @returns {Iterable<string>} */
+  get headlinePaths() {
+    return this._headline.keys();
   }
 
   // --- lists --------------------------------------------------------------
@@ -373,6 +403,7 @@ class SpecDocument {
       this._listItems,
       this._listSeq,
       this._itemSectionId,
+      this._headline,
     ]) {
       for (const key of Array.from(store.keys())) {
         if (isUnder(key)) {
@@ -388,7 +419,8 @@ class SpecDocument {
     return (
       this._content.size === 0 &&
       this._form.size === 0 &&
-      this._listItems.size === 0
+      this._listItems.size === 0 &&
+      this._headline.size === 0
     );
   }
 
@@ -409,6 +441,9 @@ class SpecDocument {
       if (isUnder(k)) return true;
     }
     for (const k of this._listItems.keys()) {
+      if (isUnder(k)) return true;
+    }
+    for (const k of this._headline.keys()) {
       if (isUnder(k)) return true;
     }
     return false;
@@ -494,6 +529,13 @@ class SpecDocument {
       }
       out.lists = lists;
     }
+    if (this._headline.size > 0) {
+      const headlines = {};
+      for (const k of Array.from(this._headline.keys()).sort()) {
+        headlines[k] = this._headline.get(k);
+      }
+      out.headlines = headlines;
+    }
     return out;
   }
 
@@ -507,6 +549,7 @@ class SpecDocument {
     this._listItems.clear();
     this._listSeq.clear();
     this._itemSectionId.clear();
+    this._headline.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -559,6 +602,15 @@ class SpecDocument {
               }
             }
           }
+        }
+      }
+    }
+
+    const headlines = json ? json.headlines : null;
+    if (headlines && typeof headlines === 'object') {
+      for (const [k, v] of Object.entries(headlines)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._headline.set(String(k), String(v));
         }
       }
     }

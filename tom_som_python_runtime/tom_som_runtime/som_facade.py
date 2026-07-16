@@ -103,6 +103,23 @@ class SomNode:
             return
         self.doc.set_item_section_id(self.path, id)
 
+    @property
+    def spec_headline(self) -> Optional[str]:
+        """This section's **stored headline** (YRD3), or ``None`` when the
+        section renders its effective default title (``@Headline`` default,
+        else name derivation). Available on every node — fixed sections and
+        list items alike — and ``spec_``-prefixed for the same
+        collision-proofing as :attr:`spec_section_id` (mirrors the Dart
+        ``$headline``)."""
+        return self.doc.headline(self.path)
+
+    @spec_headline.setter
+    def spec_headline(self, value: Optional[str]) -> None:
+        """Sets or clears this section's stored headline (YRD3). ``None`` or an
+        empty string clears the store, returning the section to its default
+        title."""
+        self.doc.set_headline(self.path, value or "")
+
 
 class SomScalar(SomNode):
     """A scalar list item — a bare string value held in the document's content

@@ -8,11 +8,12 @@
  * section-ID path. Nothing is materialised until written, so an untouched
  * document is empty (the "empty = no value" rule).
  *
- * Three sparse stores cover the writable field kinds:
+ * Four sparse stores cover the writable field kinds:
  *
  *   * `_content` — `content`/`scalar` leaves: path → string value;
  *   * `_form` — `@Form` sections: path → (form-field name → value);
- *   * `_listItems` — lists: list path → ordered item paths.
+ *   * `_listItems` — lists: list path → ordered item paths;
+ *   * `_headline` — stored headlines (YRD3): path → headline text.
  *
  * List item paths are `"<listPath>-<seq>"` where `seq` is a per-list monotonic
  * counter that never reuses a number.
@@ -45,6 +46,7 @@ export interface DocumentJson {
   content?: Record<string, string>;
   forms?: Record<string, Record<string, string>>;
   lists?: Record<string, ListJson>;
+  headlines?: Record<string, string>;
 }
 
 export class SpecDocument {
@@ -53,6 +55,7 @@ export class SpecDocument {
   private _listItems: Map<string, string[]> = new Map();
   private _listSeq: Map<string, number> = new Map();
   private _itemSectionId: Map<string, string> = new Map();
+  private _headline: Map<string, string> = new Map();
 
   /**
    * The authoring object-model version (`major.minor`) this document was loaded
@@ -190,6 +193,32 @@ export class SpecDocument {
       }
       fields.set(fieldName, value);
     }
+  }
+
+  // --- headlines (YRD3) -----------------------------------------------------
+
+  /**
+   * The stored headline at `path`, or `null` when the section renders its
+   * derived default title (YRD3).
+   */
+  headline(path: string): string | null {
+    return this._headline.has(path)
+      ? (this._headline.get(path) as string)
+      : null;
+  }
+
+  /** Sets the stored headline at `path`. An empty value clears it. */
+  setHeadline(path: string, value: string): void {
+    if (value === '') {
+      this._headline.delete(path);
+    } else {
+      this._headline.set(path, value);
+    }
+  }
+
+  /** Every path with a stored headline. */
+  get headlinePaths(): Iterable<string> {
+    return this._headline.keys();
   }
 
   // --- lists --------------------------------------------------------------
@@ -340,6 +369,7 @@ export class SpecDocument {
       this._listItems,
       this._listSeq,
       this._itemSectionId,
+      this._headline,
     ];
     for (const store of stores) {
       for (const key of Array.from(store.keys())) {
@@ -356,7 +386,8 @@ export class SpecDocument {
     return (
       this._content.size === 0 &&
       this._form.size === 0 &&
-      this._listItems.size === 0
+      this._listItems.size === 0 &&
+      this._headline.size === 0
     );
   }
 
@@ -377,6 +408,9 @@ export class SpecDocument {
       if (isUnder(k)) return true;
     }
     for (const k of this._listItems.keys()) {
+      if (isUnder(k)) return true;
+    }
+    for (const k of this._headline.keys()) {
       if (isUnder(k)) return true;
     }
     return false;
@@ -457,6 +491,13 @@ export class SpecDocument {
       }
       out.lists = lists;
     }
+    if (this._headline.size > 0) {
+      const headlines: Record<string, string> = {};
+      for (const k of Array.from(this._headline.keys()).sort()) {
+        headlines[k] = this._headline.get(k) as string;
+      }
+      out.headlines = headlines;
+    }
     return out;
   }
 
@@ -470,6 +511,7 @@ export class SpecDocument {
     this._listItems.clear();
     this._listSeq.clear();
     this._itemSectionId.clear();
+    this._headline.clear();
 
     const content = json ? json.content : null;
     if (content && typeof content === 'object') {
@@ -526,6 +568,15 @@ export class SpecDocument {
               }
             }
           }
+        }
+      }
+    }
+
+    const headlines = json ? json.headlines : null;
+    if (headlines && typeof headlines === 'object') {
+      for (const [k, v] of Object.entries(headlines)) {
+        if (v !== null && v !== undefined && String(v) !== '') {
+          this._headline.set(String(k), String(v));
         }
       }
     }

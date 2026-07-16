@@ -198,7 +198,18 @@ function testMarkdownRoundTrip(model) {
     content: parsed.content,
     forms: parsed.forms,
     lists: parsed.lists,
+    headlines: parsed.headlines,
   });
+  _check(
+    'md.parse.storedId',
+    reDoc.itemSectionId('DEMO/REF-LST-1') === 'REF-SPEC',
+    String(reDoc.itemSectionId('DEMO/REF-LST-1')),
+  );
+  _check(
+    'md.parse.headline',
+    reDoc.headline('DEMO/REF-LST-1') === 'Reference to the Spec',
+    String(reDoc.headline('DEMO/REF-LST-1')),
+  );
   const actual = new SpecDocumentMarkdown(model, reDoc).exportRoot(model.roots[0]);
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
@@ -221,6 +232,7 @@ function testMarkdownMemoryLanding(model) {
     content: parsed.content,
     forms: parsed.forms,
     lists: parsed.lists,
+    headlines: parsed.headlines,
   });
   _check(
     'md.land.memory',
@@ -288,6 +300,11 @@ function testOperations() {
       _check(`op[${n}].hasValuesUnder`, doc.hasValuesUnder(op.prefix) === op.expect);
     } else if (kind === 'removeListItem') {
       _check(`op[${n}].removeListItem`, doc.removeListItem(op.itemPath) === op.expect);
+    } else if (kind === 'setHeadline') {
+      doc.setHeadline(op.path, op.value);
+    } else if (kind === 'headline') {
+      const expect = op.expect === undefined ? null : op.expect;
+      _check(`op[${n}].headline`, doc.headline(op.path) === expect, String(doc.headline(op.path)));
     } else {
       _check(`op[${n}].unknown`, false, kind);
     }
