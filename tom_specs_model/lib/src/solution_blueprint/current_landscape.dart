@@ -211,7 +211,7 @@ class CurrentArchitecture {
     'pattern is applied and why.',
   )
   @SerializationOrder(3)
-  List<IntegrationPatternEntry> integrationPatterns = [];
+  List<String> integrationPatterns = [];
 
   /// Shared services inventory.
   @StandardReferences(
@@ -227,7 +227,7 @@ class CurrentArchitecture {
     'consume it.',
   )
   @SerializationOrder(4)
-  List<SharedServiceEntry> sharedServices = [];
+  List<String> sharedServices = [];
 }
 
 /// An existing system entry (form).
@@ -1292,7 +1292,7 @@ class IntegrationHealthSummary {
     'that threaten operations or the new system implementation.',
   )
   @SerializationOrder(1)
-  List<FragilePointEntry> fragilePoints = [];
+  List<String> fragilePoints = [];
 }
 
 /// 1.1.3.4. System Integrations.
@@ -7312,50 +7312,5 @@ replacing them. Not to be confused with target-state risks.
   String? content;
 }
 
-/// A single integration pattern entry.
-@StandardReferences(
-  ['BABOK v3 §10 — current-state analysis (integration pattern)'],
-  'One integration pattern in use across the current architecture — the style '
-  'and mechanism by which two or more existing systems exchange data today.',
-)
-@SectionId('IPE')
-class IntegrationPatternEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single shared service entry.
-@StandardReferences(
-  ['BABOK v3 §10 — current-state analysis (shared service)'],
-  'One shared service or common capability that multiple existing systems '
-  'depend on, forming part of the current architectural baseline.',
-)
-@SectionId('SHARE')
-class SharedServiceEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single fragile point entry.
-@StandardReferences(
-  ['BABOK v3 §10 — current-state analysis (integration risk / fragile point)'],
-  'One fragile or high-risk point in the current integration landscape whose '
-  'failure would disrupt operations or threaten the new system implementation.',
-)
-@SectionId('FRAGI')
-class FragilePointEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

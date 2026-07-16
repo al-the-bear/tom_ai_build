@@ -1752,9 +1752,9 @@ func (x *ApplicableRegulationEntry) Content() *ApplicableRegulationEntryContentF
 }
 
 // Specific compliance measures for this regulation.
-func (x *ApplicableRegulationEntry) ComplianceMeasures() *som.SomList[*ComplianceMeasureEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/COMPL-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceMeasureEntry {
-		return NewComplianceMeasureEntry(d, p)
+func (x *ApplicableRegulationEntry) ComplianceMeasures() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/COMPL-COMP-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "COMPL-COMP-xxx")
 }
 
@@ -2198,30 +2198,6 @@ func (x *AssumptionsConstraintsDependencies) SetContent(value string) {
 // The consolidated assumption / constraint register.
 func (x *AssumptionsConstraintsDependencies) Register() *AssumptionConstraintDependencyRegister {
 	return NewAssumptionConstraintDependencyRegister(x.Doc(), x.Path()+"/register")
-}
-
-// A single attribute interdependency entry.
-type AttributeInterdependencyEntry struct {
-	som.SomNode
-}
-
-// NewAttributeInterdependencyEntry binds a AttributeInterdependencyEntry facade to a document and a path.
-func NewAttributeInterdependencyEntry(doc *som.SpecDocument, path string) *AttributeInterdependencyEntry {
-	return &AttributeInterdependencyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *AttributeInterdependencyEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *AttributeInterdependencyEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AttributeInterdependencyEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 9.6. Audit and Logging.
@@ -4354,30 +4330,6 @@ func (x *CapacityReviewProcess) Planning() *CapacityReviewProcessPlanningForm {
 	return NewCapacityReviewProcessPlanningForm(x.Doc(), x.Path()+"/CRPP")
 }
 
-// A single category dependency entry.
-type CategoryDependencyEntry struct {
-	som.SomNode
-}
-
-// NewCategoryDependencyEntry binds a CategoryDependencyEntry facade to a document and a path.
-func NewCategoryDependencyEntry(doc *som.SpecDocument, path string) *CategoryDependencyEntry {
-	return &CategoryDependencyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *CategoryDependencyEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *CategoryDependencyEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CategoryDependencyEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // A CCB member entry.
 type CcbMemberEntry struct {
 	som.SomNode
@@ -4558,30 +4510,6 @@ func (x *CertificationRequirementsSection) Costs() *CertificationRequirementsSec
 // Marketing and notes.
 func (x *CertificationRequirementsSection) Marketing() *CertificationRequirementsSectionMarketingForm {
 	return NewCertificationRequirementsSectionMarketingForm(x.Doc(), x.Path()+"/CRSM")
-}
-
-// A single change advocate entry.
-type ChangeAdvocateEntry struct {
-	som.SomNode
-}
-
-// NewChangeAdvocateEntry binds a ChangeAdvocateEntry facade to a document and a path.
-func NewChangeAdvocateEntry(doc *som.SpecDocument, path string) *ChangeAdvocateEntry {
-	return &ChangeAdvocateEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ChangeAdvocateEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ChangeAdvocateEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ChangeAdvocateEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A change category entry.
@@ -5847,30 +5775,6 @@ func (x *CommunicationPatterns) Observability() *CommunicationPatternsObservabil
 	return NewCommunicationPatternsObservabilityForm(x.Doc(), x.Path()+"/COPAOB")
 }
 
-// A single communication preference entry.
-type CommunicationPreferenceEntry struct {
-	som.SomNode
-}
-
-// NewCommunicationPreferenceEntry binds a CommunicationPreferenceEntry facade to a document and a path.
-func NewCommunicationPreferenceEntry(doc *som.SpecDocument, path string) *CommunicationPreferenceEntry {
-	return &CommunicationPreferenceEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *CommunicationPreferenceEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *CommunicationPreferenceEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CommunicationPreferenceEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 8.6. Communication Requirements.
 type CommunicationRequirements struct {
 	som.SomNode
@@ -6174,30 +6078,6 @@ func (x *ComplianceFramework) Content() string {
 }
 
 func (x *ComplianceFramework) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// A single compliance measure entry.
-type ComplianceMeasureEntry struct {
-	som.SomNode
-}
-
-// NewComplianceMeasureEntry binds a ComplianceMeasureEntry facade to a document and a path.
-func NewComplianceMeasureEntry(doc *som.SpecDocument, path string) *ComplianceMeasureEntry {
-	return &ComplianceMeasureEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ComplianceMeasureEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ComplianceMeasureEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ComplianceMeasureEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
@@ -7621,30 +7501,6 @@ func (x *CredentialRecoveryPolicy) SetContent(value string) {
 // Credential Recovery Details (text).
 // (skipped: credentialRecoveryDetails has no target type)
 
-// A single critical knowledge area entry.
-type CriticalKnowledgeAreaEntry struct {
-	som.SomNode
-}
-
-// NewCriticalKnowledgeAreaEntry binds a CriticalKnowledgeAreaEntry facade to a document and a path.
-func NewCriticalKnowledgeAreaEntry(doc *som.SpecDocument, path string) *CriticalKnowledgeAreaEntry {
-	return &CriticalKnowledgeAreaEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *CriticalKnowledgeAreaEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *CriticalKnowledgeAreaEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CriticalKnowledgeAreaEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
@@ -7798,30 +7654,6 @@ func (x *CrossTenantAccessPolicy) SetContent(value string) {
 // Cross-Tenant Access Policy Details (text).
 // (skipped: crossTenantAccessPolicyDetails has no target type)
 
-// A single cultural consideration entry.
-type CulturalConsiderationEntry struct {
-	som.SomNode
-}
-
-// NewCulturalConsiderationEntry binds a CulturalConsiderationEntry facade to a document and a path.
-func NewCulturalConsiderationEntry(doc *som.SpecDocument, path string) *CulturalConsiderationEntry {
-	return &CulturalConsiderationEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *CulturalConsiderationEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *CulturalConsiderationEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CulturalConsiderationEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
@@ -7868,16 +7700,16 @@ func (x *CurrentArchitecture) SetDeploymentTopology(value string) {
 }
 
 // Integration patterns used.
-func (x *CurrentArchitecture) IntegrationPatterns() *som.SomList[*IntegrationPatternEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/IPE-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPatternEntry {
-		return NewIntegrationPatternEntry(d, p)
+func (x *CurrentArchitecture) IntegrationPatterns() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/IPE-INTE-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "IPE-INTE-xxx")
 }
 
 // Shared services inventory.
-func (x *CurrentArchitecture) SharedServices() *som.SomList[*SharedServiceEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/SHARE-SHAR-LST", func(d *som.SpecDocument, p string) *SharedServiceEntry {
-		return NewSharedServiceEntry(d, p)
+func (x *CurrentArchitecture) SharedServices() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SHARE-SHAR-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "SHARE-SHAR-xxx")
 }
 
@@ -11980,30 +11812,6 @@ func (x *DatabaseEncryptionPolicy) SetContent(value string) {
 // Database Encryption Details (text).
 // (skipped: databaseEncryptionDetails has no target type)
 
-// A single datacenter entry.
-type DatacenterEntry struct {
-	som.SomNode
-}
-
-// NewDatacenterEntry binds a DatacenterEntry facade to a document and a path.
-func NewDatacenterEntry(doc *som.SpecDocument, path string) *DatacenterEntry {
-	return &DatacenterEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *DatacenterEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *DatacenterEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DatacenterEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // Debugging configuration.
 type DebuggingConfiguration struct {
 	som.SomNode
@@ -12605,30 +12413,6 @@ func (x *DependenciesAndIntegrations) Integrations() *Integrations {
 // 1.1.3.5. Integration Health Summary.
 func (x *DependenciesAndIntegrations) HealthSummary() *IntegrationHealthSummary {
 	return NewIntegrationHealthSummary(x.Doc(), x.Path()+"/healthSummary")
-}
-
-// A single dependency entry.
-type DependencyEntry struct {
-	som.SomNode
-}
-
-// NewDependencyEntry binds a DependencyEntry facade to a document and a path.
-func NewDependencyEntry(doc *som.SpecDocument, path string) *DependencyEntry {
-	return &DependencyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *DependencyEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *DependencyEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DependencyEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Dependency health monitoring.
@@ -13601,30 +13385,6 @@ func (x *DevelopmentQualityGates) Documentation() *DevelopmentQualityGatesDocume
 // Performance checks.
 func (x *DevelopmentQualityGates) Performance() *DevelopmentQualityGatesPerformanceForm {
 	return NewDevelopmentQualityGatesPerformanceForm(x.Doc(), x.Path()+"/DQGP")
-}
-
-// A single devops standard entry.
-type DevopsStandardEntry struct {
-	som.SomNode
-}
-
-// NewDevopsStandardEntry binds a DevopsStandardEntry facade to a document and a path.
-func NewDevopsStandardEntry(doc *som.SpecDocument, path string) *DevopsStandardEntry {
-	return &DevopsStandardEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *DevopsStandardEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *DevopsStandardEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DevopsStandardEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Disaster recovery requirements.
@@ -15434,54 +15194,6 @@ func (x *ErrorHandlingStandards) Recovery() *ErrorHandlingStandardsRecoveryForm 
 	return NewErrorHandlingStandardsRecoveryForm(x.Doc(), x.Path()+"/ERHASTRE")
 }
 
-// A single error page design entry.
-type ErrorPageDesignEntry struct {
-	som.SomNode
-}
-
-// NewErrorPageDesignEntry binds a ErrorPageDesignEntry facade to a document and a path.
-func NewErrorPageDesignEntry(doc *som.SpecDocument, path string) *ErrorPageDesignEntry {
-	return &ErrorPageDesignEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ErrorPageDesignEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ErrorPageDesignEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ErrorPageDesignEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// A single error procedure entry.
-type ErrorProcedureEntry struct {
-	som.SomNode
-}
-
-// NewErrorProcedureEntry binds a ErrorProcedureEntry facade to a document and a path.
-func NewErrorProcedureEntry(doc *som.SpecDocument, path string) *ErrorProcedureEntry {
-	return &ErrorProcedureEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ErrorProcedureEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ErrorProcedureEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ErrorProcedureEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
@@ -15528,9 +15240,9 @@ func (x *ErrorRecovery) SessionHandling() *ErrorRecoverySessionHandlingForm {
 // (skipped: recoveryNarrative has no target type)
 
 // Recovery flow diagrams.
-func (x *ErrorRecovery) RecoveryFlows() *som.SomList[*RecoveryFlowEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RECOV-RECO-LST", func(d *som.SpecDocument, p string) *RecoveryFlowEntry {
-		return NewRecoveryFlowEntry(d, p)
+func (x *ErrorRecovery) RecoveryFlows() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RECOV-RECO-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "RECOV-RECO-xxx")
 }
 
@@ -15539,30 +15251,6 @@ func (x *ErrorRecovery) RecoveryScenarios() *som.SomList[*RecoveryScenarioEntry]
 	return som.NewSomList(x.Doc(), x.Path()+"/RCVSCN-RECO-LST", func(d *som.SpecDocument, p string) *RecoveryScenarioEntry {
 		return NewRecoveryScenarioEntry(d, p)
 	}, "RCVSCN-RECO-xxx")
-}
-
-// A single escalation procedure entry.
-type EscalationProcedureEntry struct {
-	som.SomNode
-}
-
-// NewEscalationProcedureEntry binds a EscalationProcedureEntry facade to a document and a path.
-func NewEscalationProcedureEntry(doc *som.SpecDocument, path string) *EscalationProcedureEntry {
-	return &EscalationProcedureEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *EscalationProcedureEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *EscalationProcedureEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *EscalationProcedureEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 12.1.2. Evaluation Criteria.
@@ -16102,9 +15790,9 @@ func (x *ExternalActorEntry) Context() *ExternalActorEntryContextForm {
 }
 
 // Interaction scenarios for this actor.
-func (x *ExternalActorEntry) InteractionScenarios() *som.SomList[*InteractionScenarioEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/INTER-INTE-LST", func(d *som.SpecDocument, p string) *InteractionScenarioEntry {
-		return NewInteractionScenarioEntry(d, p)
+func (x *ExternalActorEntry) InteractionScenarios() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/INTER-INTE-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "INTER-INTE-xxx")
 }
 
@@ -16915,30 +16603,6 @@ func (x *FieldValidationRule) Content() *FieldValidationRuleContentForm {
 	return NewFieldValidationRuleContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// A single field validation rule entry.
-type FieldValidationRuleEntry struct {
-	som.SomNode
-}
-
-// NewFieldValidationRuleEntry binds a FieldValidationRuleEntry facade to a document and a path.
-func NewFieldValidationRuleEntry(doc *som.SpecDocument, path string) *FieldValidationRuleEntry {
-	return &FieldValidationRuleEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *FieldValidationRuleEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *FieldValidationRuleEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FieldValidationRuleEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // File access control policy — who can access, modify, share, and delete
 // files, and how access decisions are enforced.
 //
@@ -17222,30 +16886,6 @@ func (x *FlexibilityCharacteristic) Flexibility() *Flexibility {
 // 11.9.2. Portability.
 func (x *FlexibilityCharacteristic) Portability() *Portability {
 	return NewPortability(x.Doc(), x.Path()+"/portability")
-}
-
-// A single fragile point entry.
-type FragilePointEntry struct {
-	som.SomNode
-}
-
-// NewFragilePointEntry binds a FragilePointEntry facade to a document and a path.
-func NewFragilePointEntry(doc *som.SpecDocument, path string) *FragilePointEntry {
-	return &FragilePointEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *FragilePointEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *FragilePointEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FragilePointEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Framework or library requirement entry.
@@ -17727,30 +17367,6 @@ func (x *GeographicDistributionRequirements) Anycast() *GeographicDistributionRe
 // Performance considerations.
 func (x *GeographicDistributionRequirements) Performance() *GeographicDistributionRequirementsPerformanceForm {
 	return NewGeographicDistributionRequirementsPerformanceForm(x.Doc(), x.Path()+"/GDRP")
-}
-
-// A single global entry point entry.
-type GlobalEntryPointEntry struct {
-	som.SomNode
-}
-
-// NewGlobalEntryPointEntry binds a GlobalEntryPointEntry facade to a document and a path.
-func NewGlobalEntryPointEntry(doc *som.SpecDocument, path string) *GlobalEntryPointEntry {
-	return &GlobalEntryPointEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *GlobalEntryPointEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *GlobalEntryPointEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *GlobalEntryPointEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A global role exclusion entry (form).
@@ -18853,9 +18469,9 @@ func (x *InformationArchitecture) SetContent(value string) {
 // (skipped: navigationStructure has no target type)
 
 // Global entry points.
-func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*GlobalEntryPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/GLOBA-GLOB-LST", func(d *som.SpecDocument, p string) *GlobalEntryPointEntry {
-		return NewGlobalEntryPointEntry(d, p)
+func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/GLOBA-GLOB-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "GLOBA-GLOB-xxx")
 }
 
@@ -19257,34 +18873,10 @@ func (x *IntegrationHealthSummary) Content() *IntegrationHealthSummaryContentFor
 }
 
 // Fragile integration points requiring attention.
-func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*FragilePointEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/FRAGI-FRAG-LST", func(d *som.SpecDocument, p string) *FragilePointEntry {
-		return NewFragilePointEntry(d, p)
+func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/FRAGI-FRAG-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "FRAGI-FRAG-xxx")
-}
-
-// A single integration pattern entry.
-type IntegrationPatternEntry struct {
-	som.SomNode
-}
-
-// NewIntegrationPatternEntry binds a IntegrationPatternEntry facade to a document and a path.
-func NewIntegrationPatternEntry(doc *som.SpecDocument, path string) *IntegrationPatternEntry {
-	return &IntegrationPatternEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *IntegrationPatternEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *IntegrationPatternEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *IntegrationPatternEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A single integration point entry.
@@ -19704,30 +19296,6 @@ func (x *InteractionPatterns) Patterns() *som.SomList[*InteractionPatternEntry] 
 	}, "INPTN-PATT-xxx")
 }
 
-// A single interaction scenario entry.
-type InteractionScenarioEntry struct {
-	som.SomNode
-}
-
-// NewInteractionScenarioEntry binds a InteractionScenarioEntry facade to a document and a path.
-func NewInteractionScenarioEntry(doc *som.SpecDocument, path string) *InteractionScenarioEntry {
-	return &InteractionScenarioEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *InteractionScenarioEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *InteractionScenarioEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *InteractionScenarioEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
@@ -19826,16 +19394,16 @@ func (x *InterfaceDataSpec) DataEntities() *som.SomList[*InterfaceDataEntityEntr
 }
 
 // Data mapping and transformation rules.
-func (x *InterfaceDataSpec) MappingRules() *som.SomList[*MappingRuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/MAPPI-MAPP-LST", func(d *som.SpecDocument, p string) *MappingRuleEntry {
-		return NewMappingRuleEntry(d, p)
+func (x *InterfaceDataSpec) MappingRules() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MAPPI-MAPP-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "MAPPI-MAPP-xxx")
 }
 
 // Data validation rules.
-func (x *InterfaceDataSpec) ValidationRules() *som.SomList[*ValidationRuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/VALID-VALI-LST", func(d *som.SpecDocument, p string) *ValidationRuleEntry {
-		return NewValidationRuleEntry(d, p)
+func (x *InterfaceDataSpec) ValidationRules() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/VALID-VALI-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "VALID-VALI-xxx")
 }
 
@@ -19869,9 +19437,9 @@ func (x *InterfaceErrorHandling) Timeout() *InterfaceErrorHandlingTimeoutForm {
 }
 
 // Error handling procedures.
-func (x *InterfaceErrorHandling) ErrorProcedures() *som.SomList[*ErrorProcedureEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/ERROR-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorProcedureEntry {
-		return NewErrorProcedureEntry(d, p)
+func (x *InterfaceErrorHandling) ErrorProcedures() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/ERROR-ERRO-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "ERROR-ERRO-xxx")
 }
 
@@ -19946,9 +19514,9 @@ func (x *InterfaceOperational) Support() *InterfaceOperationalSupportForm {
 }
 
 // Operational dependencies.
-func (x *InterfaceOperational) Dependencies() *som.SomList[*DependencyEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/DEPEN-DEPE-LST", func(d *som.SpecDocument, p string) *DependencyEntry {
-		return NewDependencyEntry(d, p)
+func (x *InterfaceOperational) Dependencies() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DEPEN-DEPE-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "DEPEN-DEPE-xxx")
 }
 
@@ -20575,30 +20143,6 @@ func (x *JourneyStageEntry) Content() *JourneyStageEntryContentForm {
 	return NewJourneyStageEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// A single key assumption entry.
-type KeyAssumptionEntry struct {
-	som.SomNode
-}
-
-// NewKeyAssumptionEntry binds a KeyAssumptionEntry facade to a document and a path.
-func NewKeyAssumptionEntry(doc *som.SpecDocument, path string) *KeyAssumptionEntry {
-	return &KeyAssumptionEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *KeyAssumptionEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *KeyAssumptionEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *KeyAssumptionEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
@@ -20916,30 +20460,6 @@ func (x *KeyStoragePolicy) Content() *KeyStoragePolicyContentForm {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// A single key touchpoint entry.
-type KeyTouchpointEntry struct {
-	som.SomNode
-}
-
-// NewKeyTouchpointEntry binds a KeyTouchpointEntry facade to a document and a path.
-func NewKeyTouchpointEntry(doc *som.SpecDocument, path string) *KeyTouchpointEntry {
-	return &KeyTouchpointEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *KeyTouchpointEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *KeyTouchpointEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *KeyTouchpointEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers handover-agreement
@@ -20964,78 +20484,6 @@ func (x *KnowledgeTransfer) Content() string {
 }
 
 func (x *KnowledgeTransfer) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// A single known issue entry.
-type KnownIssueEntry struct {
-	som.SomNode
-}
-
-// NewKnownIssueEntry binds a KnownIssueEntry facade to a document and a path.
-func NewKnownIssueEntry(doc *som.SpecDocument, path string) *KnownIssueEntry {
-	return &KnownIssueEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *KnownIssueEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *KnownIssueEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *KnownIssueEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// A single known quality issue entry.
-type KnownQualityIssueEntry struct {
-	som.SomNode
-}
-
-// NewKnownQualityIssueEntry binds a KnownQualityIssueEntry facade to a document and a path.
-func NewKnownQualityIssueEntry(doc *som.SpecDocument, path string) *KnownQualityIssueEntry {
-	return &KnownQualityIssueEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *KnownQualityIssueEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *KnownQualityIssueEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *KnownQualityIssueEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
-// A single kpi entry.
-type KpiEntry struct {
-	som.SomNode
-}
-
-// NewKpiEntry binds a KpiEntry facade to a document and a path.
-func NewKpiEntry(doc *som.SpecDocument, path string) *KpiEntry {
-	return &KpiEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *KpiEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *KpiEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *KpiEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
@@ -21928,30 +21376,6 @@ func (x *MaintenanceDependencyEntry) Risk() *MaintenanceDependencyEntryRiskForm 
 	return NewMaintenanceDependencyEntryRiskForm(x.Doc(), x.Path()+"/MDER")
 }
 
-// A single maintenance procedure entry.
-type MaintenanceProcedureEntry struct {
-	som.SomNode
-}
-
-// NewMaintenanceProcedureEntry binds a MaintenanceProcedureEntry facade to a document and a path.
-func NewMaintenanceProcedureEntry(doc *som.SpecDocument, path string) *MaintenanceProcedureEntry {
-	return &MaintenanceProcedureEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *MaintenanceProcedureEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *MaintenanceProcedureEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MaintenanceProcedureEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // User impact and communication.
 type MaintenanceUserImpact struct {
 	som.SomNode
@@ -22075,30 +21499,6 @@ func (x *MaintenanceWindowsSection) UserImpact() *MaintenanceUserImpact {
 // Post-maintenance validation.
 func (x *MaintenanceWindowsSection) PostMaintenance() *PostMaintenanceValidation {
 	return NewPostMaintenanceValidation(x.Doc(), x.Path()+"/postMaintenance")
-}
-
-// A single mapping rule entry.
-type MappingRuleEntry struct {
-	som.SomNode
-}
-
-// NewMappingRuleEntry binds a MappingRuleEntry facade to a document and a path.
-func NewMappingRuleEntry(doc *som.SpecDocument, path string) *MappingRuleEntry {
-	return &MappingRuleEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *MappingRuleEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *MappingRuleEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MappingRuleEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Master data domain entry.
@@ -22403,34 +21803,10 @@ func (x *MfaConfiguration) SetContent(value string) {
 }
 
 // MFA Implementation Details (text).
-func (x *MfaConfiguration) MfaDetails() *som.SomList[*MfaDetailEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/MFADE-MFAD-LST", func(d *som.SpecDocument, p string) *MfaDetailEntry {
-		return NewMfaDetailEntry(d, p)
+func (x *MfaConfiguration) MfaDetails() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MFADE-MFAD-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "MFADE-MFAD-xxx")
-}
-
-// A single mfa detail entry.
-type MfaDetailEntry struct {
-	som.SomNode
-}
-
-// NewMfaDetailEntry binds a MfaDetailEntry facade to a document and a path.
-func NewMfaDetailEntry(doc *som.SpecDocument, path string) *MfaDetailEntry {
-	return &MfaDetailEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *MfaDetailEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *MfaDetailEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MfaDetailEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 4.4.2. Migration Considerations (global).
@@ -22490,9 +21866,9 @@ func (x *MigrationConsiderations) Milestones() *som.SomList[*MigrationMilestoneE
 // (skipped: communicationPlan has no target type)
 
 // Escalation procedures during migration.
-func (x *MigrationConsiderations) EscalationProcedures() *som.SomList[*EscalationProcedureEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/ESCAL-ESCA-LST", func(d *som.SpecDocument, p string) *EscalationProcedureEntry {
-		return NewEscalationProcedureEntry(d, p)
+func (x *MigrationConsiderations) EscalationProcedures() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/ESCAL-ESCA-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "ESCAL-ESCA-xxx")
 }
 
@@ -22890,30 +22266,30 @@ func (x *MigrationRisks) Reporting() *MigrationRisksReportingForm {
 // (skipped: assessmentMethodology has no target type)
 
 // Risk categories and taxonomy.
-func (x *MigrationRisks) RiskCategories() *som.SomList[*RiskCategoryEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RISKC-RISK-LST", func(d *som.SpecDocument, p string) *RiskCategoryEntry {
-		return NewRiskCategoryEntry(d, p)
+func (x *MigrationRisks) RiskCategories() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RISKC-RISK-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "RISKC-RISK-xxx")
 }
 
 // Risk-based decision making criteria.
-func (x *MigrationRisks) RiskBasedDecisions() *som.SomList[*RiskBasedDecisionEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RISKB-RISK-LST", func(d *som.SpecDocument, p string) *RiskBasedDecisionEntry {
-		return NewRiskBasedDecisionEntry(d, p)
+func (x *MigrationRisks) RiskBasedDecisions() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RISKB-RISK-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "RISKB-RISK-xxx")
 }
 
 // Risk monitoring and control procedures.
-func (x *MigrationRisks) MonitoringProcedures() *som.SomList[*MonitoringProcedureEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/MONIT-MONI-LST", func(d *som.SpecDocument, p string) *MonitoringProcedureEntry {
-		return NewMonitoringProcedureEntry(d, p)
+func (x *MigrationRisks) MonitoringProcedures() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MONIT-MONI-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "MONIT-MONI-xxx")
 }
 
 // Risk response strategies by category.
-func (x *MigrationRisks) ResponseStrategies() *som.SomList[*ResponseStrategyEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RESPO-RESP-LST", func(d *som.SpecDocument, p string) *ResponseStrategyEntry {
-		return NewResponseStrategyEntry(d, p)
+func (x *MigrationRisks) ResponseStrategies() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RESPO-RESP-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "RESPO-RESP-xxx")
 }
 
@@ -23313,30 +22689,6 @@ func (x *MonitoringInfrastructure) Collection() *MonitoringInfrastructureCollect
 // Access and privacy controls.
 func (x *MonitoringInfrastructure) Access() *MonitoringInfrastructureAccessForm {
 	return NewMonitoringInfrastructureAccessForm(x.Doc(), x.Path()+"/MOINAC")
-}
-
-// A single monitoring procedure entry.
-type MonitoringProcedureEntry struct {
-	som.SomNode
-}
-
-// NewMonitoringProcedureEntry binds a MonitoringProcedureEntry facade to a document and a path.
-func NewMonitoringProcedureEntry(doc *som.SpecDocument, path string) *MonitoringProcedureEntry {
-	return &MonitoringProcedureEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *MonitoringProcedureEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *MonitoringProcedureEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MonitoringProcedureEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 13.4.1. MoSCoW Analysis.
@@ -24257,30 +23609,6 @@ func (x *NewRoleResponsibilities) DecisionAuthority() *NewRoleResponsibilitiesDe
 	return NewNewRoleResponsibilitiesDecisionAuthorityForm(x.Doc(), x.Path()+"/RODEAU")
 }
 
-// A single non financial benefit entry.
-type NonFinancialBenefitEntry struct {
-	som.SomNode
-}
-
-// NewNonFinancialBenefitEntry binds a NonFinancialBenefitEntry facade to a document and a path.
-func NewNonFinancialBenefitEntry(doc *som.SpecDocument, path string) *NonFinancialBenefitEntry {
-	return &NonFinancialBenefitEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *NonFinancialBenefitEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *NonFinancialBenefitEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *NonFinancialBenefitEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // A notification channel entry.
 type NotificationChannelEntry struct {
 	som.SomNode
@@ -24418,30 +23746,6 @@ func NewObjectStateEntry(doc *som.SpecDocument, path string) *ObjectStateEntry {
 
 func (x *ObjectStateEntry) Content() *ObjectStateEntryContentForm {
 	return NewObjectStateEntryContentForm(x.Doc(), x.Path()+"/content")
-}
-
-// A single observability requirement entry.
-type ObservabilityRequirementEntry struct {
-	som.SomNode
-}
-
-// NewObservabilityRequirementEntry binds a ObservabilityRequirementEntry facade to a document and a path.
-func NewObservabilityRequirementEntry(doc *som.SpecDocument, path string) *ObservabilityRequirementEntry {
-	return &ObservabilityRequirementEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ObservabilityRequirementEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ObservabilityRequirementEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ObservabilityRequirementEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // On-call procedures.
@@ -25019,16 +24323,16 @@ func (x *OrganizationalEnvironment) DecisionMakers() *som.SomList[*DecisionMaker
 }
 
 // Cultural considerations and organizational dynamics.
-func (x *OrganizationalEnvironment) CulturalConsiderations() *som.SomList[*CulturalConsiderationEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/CULTU-CULT-LST", func(d *som.SpecDocument, p string) *CulturalConsiderationEntry {
-		return NewCulturalConsiderationEntry(d, p)
+func (x *OrganizationalEnvironment) CulturalConsiderations() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CULTU-CULT-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "CULTU-CULT-xxx")
 }
 
 // Stakeholder communication preferences.
-func (x *OrganizationalEnvironment) CommunicationPreferences() *som.SomList[*CommunicationPreferenceEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/COMMU-COMM-LST", func(d *som.SpecDocument, p string) *CommunicationPreferenceEntry {
-		return NewCommunicationPreferenceEntry(d, p)
+func (x *OrganizationalEnvironment) CommunicationPreferences() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/COMMU-COMM-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "COMMU-COMM-xxx")
 }
 
@@ -25036,9 +24340,9 @@ func (x *OrganizationalEnvironment) CommunicationPreferences() *som.SomList[*Com
 // (skipped: politicalLandscape has no target type)
 
 // Change champions and sponsors.
-func (x *OrganizationalEnvironment) ChangeAdvocates() *som.SomList[*ChangeAdvocateEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/CHANG-CHAN-LST", func(d *som.SpecDocument, p string) *ChangeAdvocateEntry {
-		return NewChangeAdvocateEntry(d, p)
+func (x *OrganizationalEnvironment) ChangeAdvocates() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CHANG-CHAN-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "CHANG-CHAN-xxx")
 }
 
@@ -26515,30 +25819,6 @@ func (x *PreconditionsAndTriggers) Content() *PreconditionsAndTriggersContentFor
 	return NewPreconditionsAndTriggersContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// A single predecessor dependency entry.
-type PredecessorDependencyEntry struct {
-	som.SomNode
-}
-
-// NewPredecessorDependencyEntry binds a PredecessorDependencyEntry facade to a document and a path.
-func NewPredecessorDependencyEntry(doc *som.SpecDocument, path string) *PredecessorDependencyEntry {
-	return &PredecessorDependencyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *PredecessorDependencyEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *PredecessorDependencyEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PredecessorDependencyEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -26749,9 +26029,9 @@ func (x *ProblemStatement) ProblemDetails() *ProblemStatementProblemDetailsForm 
 }
 
 // Related pain points from Current State Analysis.
-func (x *ProblemStatement) RelatedPainPoints() *som.SomList[*RelatedPainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/RPPE-RELA-LST", func(d *som.SpecDocument, p string) *RelatedPainPointEntry {
-		return NewRelatedPainPointEntry(d, p)
+func (x *ProblemStatement) RelatedPainPoints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RPPE-RELA-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "RPPE-RELA-xxx")
 }
 
@@ -28537,9 +27817,9 @@ func (x *QualityFramework) QualityCategories() *som.SomList[*QualityCategoryEntr
 }
 
 // Quality dependencies map.
-func (x *QualityFramework) CategoryDependencies() *som.SomList[*CategoryDependencyEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/CATEG-CATE-LST", func(d *som.SpecDocument, p string) *CategoryDependencyEntry {
-		return NewCategoryDependencyEntry(d, p)
+func (x *QualityFramework) CategoryDependencies() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CATEG-CATE-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "CATEG-CATE-xxx")
 }
 
@@ -28917,30 +28197,6 @@ func (x *ReadinessCriteriaEntry) Content() *ReadinessCriteriaEntryContentForm {
 	return NewReadinessCriteriaEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// A single recovery flow entry.
-type RecoveryFlowEntry struct {
-	som.SomNode
-}
-
-// NewRecoveryFlowEntry binds a RecoveryFlowEntry facade to a document and a path.
-func NewRecoveryFlowEntry(doc *som.SpecDocument, path string) *RecoveryFlowEntry {
-	return &RecoveryFlowEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RecoveryFlowEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *RecoveryFlowEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RecoveryFlowEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // Recovery procedures.
 type RecoveryProcedures struct {
 	som.SomNode
@@ -29252,30 +28508,6 @@ func NewRelatedDocumentEntry(doc *som.SpecDocument, path string) *RelatedDocumen
 
 func (x *RelatedDocumentEntry) Content() *RelatedDocumentEntryContentForm {
 	return NewRelatedDocumentEntryContentForm(x.Doc(), x.Path()+"/content")
-}
-
-// A single related pain point entry.
-type RelatedPainPointEntry struct {
-	som.SomNode
-}
-
-// NewRelatedPainPointEntry binds a RelatedPainPointEntry facade to a document and a path.
-func NewRelatedPainPointEntry(doc *som.SpecDocument, path string) *RelatedPainPointEntry {
-	return &RelatedPainPointEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RelatedPainPointEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *RelatedPainPointEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RelatedPainPointEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A single relationship attribute entry.
@@ -29907,30 +29139,6 @@ func (x *ReportSectionEntry) Charts() *som.SomList[*ReportChartEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/RECHEN-CHAR-LST", func(d *som.SpecDocument, p string) *ReportChartEntry {
 		return NewReportChartEntry(d, p)
 	}, "RECHEN-CHAR-xxx")
-}
-
-// A single representative quote entry.
-type RepresentativeQuoteEntry struct {
-	som.SomNode
-}
-
-// NewRepresentativeQuoteEntry binds a RepresentativeQuoteEntry facade to a document and a path.
-func NewRepresentativeQuoteEntry(doc *som.SpecDocument, path string) *RepresentativeQuoteEntry {
-	return &RepresentativeQuoteEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RepresentativeQuoteEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *RepresentativeQuoteEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RepresentativeQuoteEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 4.3.1.n.1. Acceptance Criteria.
@@ -30603,30 +29811,6 @@ func (x *ResourceRequirementEntry) Content() *ResourceRequirementEntryContentFor
 	return NewResourceRequirementEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// A single response strategy entry.
-type ResponseStrategyEntry struct {
-	som.SomNode
-}
-
-// NewResponseStrategyEntry binds a ResponseStrategyEntry facade to a document and a path.
-func NewResponseStrategyEntry(doc *som.SpecDocument, path string) *ResponseStrategyEntry {
-	return &ResponseStrategyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ResponseStrategyEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ResponseStrategyEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ResponseStrategyEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // Responsibility change entry (form).
 type ResponsibilityChangeEntry struct {
 	som.SomNode
@@ -31184,30 +30368,6 @@ func (x *RevisionHistory) Revisions() *som.SomList[*RevisionEntry] {
 	}, "RVHST-REVS-xxx")
 }
 
-// A single risk based decision entry.
-type RiskBasedDecisionEntry struct {
-	som.SomNode
-}
-
-// NewRiskBasedDecisionEntry binds a RiskBasedDecisionEntry facade to a document and a path.
-func NewRiskBasedDecisionEntry(doc *som.SpecDocument, path string) *RiskBasedDecisionEntry {
-	return &RiskBasedDecisionEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RiskBasedDecisionEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *RiskBasedDecisionEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RiskBasedDecisionEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // Business impact assessment for the risk.
 type RiskBusinessImpact struct {
 	som.SomNode
@@ -31230,30 +30390,6 @@ func (x *RiskBusinessImpact) Stakeholders() *RiskBusinessImpactStakeholdersForm 
 // Operational and delivery consequences.
 func (x *RiskBusinessImpact) Delivery() *RiskBusinessImpactDeliveryForm {
 	return NewRiskBusinessImpactDeliveryForm(x.Doc(), x.Path()+"/RBID")
-}
-
-// A single risk category entry.
-type RiskCategoryEntry struct {
-	som.SomNode
-}
-
-// NewRiskCategoryEntry binds a RiskCategoryEntry facade to a document and a path.
-func NewRiskCategoryEntry(doc *som.SpecDocument, path string) *RiskCategoryEntry {
-	return &RiskCategoryEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *RiskCategoryEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *RiskCategoryEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RiskCategoryEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A risk entry (form).
@@ -32313,30 +31449,6 @@ func (x *ScheduledMaintenancePolicy) Approval() *ScheduledMaintenancePolicyAppro
 	return NewScheduledMaintenancePolicyApprovalForm(x.Doc(), x.Path()+"/SMPA")
 }
 
-// A single scope assumption entry.
-type ScopeAssumptionEntry struct {
-	som.SomNode
-}
-
-// NewScopeAssumptionEntry binds a ScopeAssumptionEntry facade to a document and a path.
-func NewScopeAssumptionEntry(doc *som.SpecDocument, path string) *ScopeAssumptionEntry {
-	return &ScopeAssumptionEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ScopeAssumptionEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ScopeAssumptionEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ScopeAssumptionEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
@@ -32386,9 +31498,9 @@ func (x *ScopeBoundaries) DeferredItems() *som.SomList[*DeferredScopeItemEntry] 
 }
 
 // Scope Assumptions.
-func (x *ScopeBoundaries) ScopeAssumptions() *som.SomList[*ScopeAssumptionEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/SCOPE-SCOP-LST", func(d *som.SpecDocument, p string) *ScopeAssumptionEntry {
-		return NewScopeAssumptionEntry(d, p)
+func (x *ScopeBoundaries) ScopeAssumptions() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCOPE-SCOP-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "SCOPE-SCOP-xxx")
 }
 
@@ -33331,30 +32443,6 @@ func (x *SecurityCodeReviewPolicy) Process() *SecurityCodeReviewPolicyProcessFor
 // Finding management and residual risk handling.
 func (x *SecurityCodeReviewPolicy) Findings() *SecurityCodeReviewPolicyFindingsForm {
 	return NewSecurityCodeReviewPolicyFindingsForm(x.Doc(), x.Path()+"/SCRPF")
-}
-
-// A single security concern entry.
-type SecurityConcernEntry struct {
-	som.SomNode
-}
-
-// NewSecurityConcernEntry binds a SecurityConcernEntry facade to a document and a path.
-func NewSecurityConcernEntry(doc *som.SpecDocument, path string) *SecurityConcernEntry {
-	return &SecurityConcernEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *SecurityConcernEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *SecurityConcernEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SecurityConcernEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A security control entry (form).
@@ -34640,30 +33728,6 @@ func (x *SharedLibraryEntry) Lifecycle() *SharedLibraryEntryLifecycleForm {
 	return NewSharedLibraryEntryLifecycleForm(x.Doc(), x.Path()+"/SLEL")
 }
 
-// A single shared service entry.
-type SharedServiceEntry struct {
-	som.SomNode
-}
-
-// NewSharedServiceEntry binds a SharedServiceEntry facade to a document and a path.
-func NewSharedServiceEntry(doc *som.SpecDocument, path string) *SharedServiceEntry {
-	return &SharedServiceEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *SharedServiceEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *SharedServiceEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SharedServiceEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
-}
-
 // 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
@@ -35782,41 +34846,17 @@ func (x *StagingStrategy) Governance() *StagingStrategyGovernanceForm {
 // (skipped: rationaleNarrative has no target type)
 
 // 13.1.3. Key Assumptions.
-func (x *StagingStrategy) KeyAssumptions() *som.SomList[*KeyAssumptionEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/KEYAS-KEYA-LST", func(d *som.SpecDocument, p string) *KeyAssumptionEntry {
-		return NewKeyAssumptionEntry(d, p)
+func (x *StagingStrategy) KeyAssumptions() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/KEYAS-KEYA-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "KEYAS-KEYA-xxx")
 }
 
 // 13.1.4. Constraints.
-func (x *StagingStrategy) Constraints() *som.SomList[*StagingStrategyConstraintEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/STAGI-CONS-LST", func(d *som.SpecDocument, p string) *StagingStrategyConstraintEntry {
-		return NewStagingStrategyConstraintEntry(d, p)
+func (x *StagingStrategy) Constraints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/STAGI-CONS-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "STAGI-CONS-xxx")
-}
-
-// A single constraint entry.
-type StagingStrategyConstraintEntry struct {
-	som.SomNode
-}
-
-// NewStagingStrategyConstraintEntry binds a StagingStrategyConstraintEntry facade to a document and a path.
-func NewStagingStrategyConstraintEntry(doc *som.SpecDocument, path string) *StagingStrategyConstraintEntry {
-	return &StagingStrategyConstraintEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *StagingStrategyConstraintEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *StagingStrategyConstraintEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StagingStrategyConstraintEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // A stakeholder or beneficiary entry — benefits lens (form).
@@ -36213,34 +35253,10 @@ func (x *StepUpAuthenticationPolicy) SetContent(value string) {
 }
 
 // Step-Up Authentication Details (text).
-func (x *StepUpAuthenticationPolicy) StepUpDetails() *som.SomList[*StepUpDetailEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/STEPU-STEP-LST", func(d *som.SpecDocument, p string) *StepUpDetailEntry {
-		return NewStepUpDetailEntry(d, p)
+func (x *StepUpAuthenticationPolicy) StepUpDetails() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/STEPU-STEP-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "STEPU-STEP-xxx")
-}
-
-// A single step up detail entry.
-type StepUpDetailEntry struct {
-	som.SomNode
-}
-
-// NewStepUpDetailEntry binds a StepUpDetailEntry facade to a document and a path.
-func NewStepUpDetailEntry(doc *som.SpecDocument, path string) *StepUpDetailEntry {
-	return &StepUpDetailEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *StepUpDetailEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *StepUpDetailEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StepUpDetailEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Storage encryption policy — how files and storage volumes are encrypted
@@ -36975,9 +35991,9 @@ func (x *SystemCostAnalysis) Benefits() *SystemCostAnalysisBenefitsForm {
 // (skipped: costBreakdown has no target type)
 
 // Non-financial benefits to include in ROI.
-func (x *SystemCostAnalysis) NonFinancialBenefits() *som.SomList[*NonFinancialBenefitEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/NONFI-NONF-LST", func(d *som.SpecDocument, p string) *NonFinancialBenefitEntry {
-		return NewNonFinancialBenefitEntry(d, p)
+func (x *SystemCostAnalysis) NonFinancialBenefits() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/NONFI-NONF-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "NONFI-NONF-xxx")
 }
 
@@ -37013,9 +36029,9 @@ func (x *SystemDataScope) Entities() *som.SomList[*DataEntityMigrationEntry] {
 }
 
 // Data quality issues to address.
-func (x *SystemDataScope) KnownQualityIssues() *som.SomList[*KnownQualityIssueEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/KNOWN-KNOW-LST", func(d *som.SpecDocument, p string) *KnownQualityIssueEntry {
-		return NewKnownQualityIssueEntry(d, p)
+func (x *SystemDataScope) KnownQualityIssues() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/KNOWN-KNOW-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "KNOWN-KNOW-xxx")
 }
 
@@ -37219,9 +36235,9 @@ func (x *SystemErrorDisplay) Fallback() *SystemErrorDisplayFallbackForm {
 // (skipped: systemErrorNarrative has no target type)
 
 // Error page designs.
-func (x *SystemErrorDisplay) ErrorPageDesigns() *som.SomList[*ErrorPageDesignEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/EPDE-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorPageDesignEntry {
-		return NewErrorPageDesignEntry(d, p)
+func (x *SystemErrorDisplay) ErrorPageDesigns() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/EPDE-ERRO-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "EPDE-ERRO-xxx")
 }
 
@@ -37337,9 +36353,9 @@ func (x *SystemKnowledgeTransfer) Content() *SystemKnowledgeTransferContentForm 
 }
 
 // Critical knowledge areas to preserve.
-func (x *SystemKnowledgeTransfer) CriticalKnowledgeAreas() *som.SomList[*CriticalKnowledgeAreaEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/CRITI-CRIT-LST", func(d *som.SpecDocument, p string) *CriticalKnowledgeAreaEntry {
-		return NewCriticalKnowledgeAreaEntry(d, p)
+func (x *SystemKnowledgeTransfer) CriticalKnowledgeAreas() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CRITI-CRIT-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "CRITI-CRIT-xxx")
 }
 
@@ -37453,9 +36469,9 @@ func (x *SystemOperation) AdministrationRequirements() *AdministrationRequiremen
 }
 
 // Maintenance Procedures.
-func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*MaintenanceProcedureEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/MAINT-MAIN-LST", func(d *som.SpecDocument, p string) *MaintenanceProcedureEntry {
-		return NewMaintenanceProcedureEntry(d, p)
+func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MAINT-MAIN-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "MAINT-MAIN-xxx")
 }
 
@@ -37615,9 +36631,9 @@ func (x *SystemQualityGoals) Resources() *SystemQualityGoalsResourcesForm {
 // (skipped: qaStrategy has no target type)
 
 // Quality attribute interdependencies.
-func (x *SystemQualityGoals) AttributeInterdependencies() *som.SomList[*AttributeInterdependencyEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/ATTRI-ATTR-LST", func(d *som.SpecDocument, p string) *AttributeInterdependencyEntry {
-		return NewAttributeInterdependencyEntry(d, p)
+func (x *SystemQualityGoals) AttributeInterdependencies() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/ATTRI-ATTR-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "ATTRI-ATTR-xxx")
 }
 
@@ -37723,9 +36739,9 @@ func (x *SystemReplacementStrategy) Phases() *som.SomList[*ReplacementPhaseEntry
 }
 
 // Predecessor systems that must be addressed first.
-func (x *SystemReplacementStrategy) PredecessorDependencies() *som.SomList[*PredecessorDependencyEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/PREDE-PRED-LST", func(d *som.SpecDocument, p string) *PredecessorDependencyEntry {
-		return NewPredecessorDependencyEntry(d, p)
+func (x *SystemReplacementStrategy) PredecessorDependencies() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/PREDE-PRED-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "PREDE-PRED-xxx")
 }
 
@@ -37959,41 +36975,17 @@ func (x *SystemTaskEntry) SetRelatedUseCase(value string) {
 }
 
 // Task workflow steps.
-func (x *SystemTaskEntry) WorkflowSteps() *som.SomList[*SystemTaskWorkflowStepEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/SYSTE-WORK-LST", func(d *som.SpecDocument, p string) *SystemTaskWorkflowStepEntry {
-		return NewSystemTaskWorkflowStepEntry(d, p)
+func (x *SystemTaskEntry) WorkflowSteps() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SYSTE-WORK-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "SYSTE-WORK-xxx")
 }
 
 // Variations and exceptions.
-func (x *SystemTaskEntry) VariationsAndExceptions() *som.SomList[*VariationsAndExceptionEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/VARIA-VARI-LST", func(d *som.SpecDocument, p string) *VariationsAndExceptionEntry {
-		return NewVariationsAndExceptionEntry(d, p)
+func (x *SystemTaskEntry) VariationsAndExceptions() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/VARIA-VARI-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "VARIA-VARI-xxx")
-}
-
-// A single workflow step entry.
-type SystemTaskWorkflowStepEntry struct {
-	som.SomNode
-}
-
-// NewSystemTaskWorkflowStepEntry binds a SystemTaskWorkflowStepEntry facade to a document and a path.
-func NewSystemTaskWorkflowStepEntry(doc *som.SpecDocument, path string) *SystemTaskWorkflowStepEntry {
-	return &SystemTaskWorkflowStepEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *SystemTaskWorkflowStepEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *SystemTaskWorkflowStepEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SystemTaskWorkflowStepEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Technical assessment for a system to replace.
@@ -38026,16 +37018,16 @@ func (x *SystemTechnicalAssessment) Quality() *SystemTechnicalAssessmentQualityF
 }
 
 // Known technical issues and deficiencies.
-func (x *SystemTechnicalAssessment) KnownIssues() *som.SomList[*KnownIssueEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/KIE-KNOW-LST", func(d *som.SpecDocument, p string) *KnownIssueEntry {
-		return NewKnownIssueEntry(d, p)
+func (x *SystemTechnicalAssessment) KnownIssues() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/KIE-KNOW-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "KIE-KNOW-xxx")
 }
 
 // Security vulnerabilities and compliance gaps.
-func (x *SystemTechnicalAssessment) SecurityConcerns() *som.SomList[*SecurityConcernEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/SECUR-SECU-LST", func(d *som.SpecDocument, p string) *SecurityConcernEntry {
-		return NewSecurityConcernEntry(d, p)
+func (x *SystemTechnicalAssessment) SecurityConcerns() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SECUR-SECU-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "SECUR-SECU-xxx")
 }
 
@@ -38558,9 +37550,9 @@ func (x *TechnicalEnvironment) Network() *TechnicalEnvironmentNetwork {
 // (skipped: existingInfrastructure has no target type)
 
 // Data center and hosting environment details.
-func (x *TechnicalEnvironment) Datacenters() *som.SomList[*DatacenterEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/DATAC-DATA-LST", func(d *som.SpecDocument, p string) *DatacenterEntry {
-		return NewDatacenterEntry(d, p)
+func (x *TechnicalEnvironment) Datacenters() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DATAC-DATA-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "DATAC-DATA-xxx")
 }
 
@@ -38602,16 +37594,16 @@ func (x *TechnicalEnvironmentNetwork) Content() *TechnicalEnvironmentNetworkCont
 }
 
 // DevOps and deployment standards.
-func (x *TechnicalEnvironmentNetwork) DevopsStandards() *som.SomList[*DevopsStandardEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/DEVOP-DEVO-LST", func(d *som.SpecDocument, p string) *DevopsStandardEntry {
-		return NewDevopsStandardEntry(d, p)
+func (x *TechnicalEnvironmentNetwork) DevopsStandards() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DEVOP-DEVO-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "DEVOP-DEVO-xxx")
 }
 
 // Monitoring and observability requirements.
-func (x *TechnicalEnvironmentNetwork) ObservabilityRequirements() *som.SomList[*ObservabilityRequirementEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/OBSER-OBSE-LST", func(d *som.SpecDocument, p string) *ObservabilityRequirementEntry {
-		return NewObservabilityRequirementEntry(d, p)
+func (x *TechnicalEnvironmentNetwork) ObservabilityRequirements() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/OBSER-OBSE-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "OBSER-OBSE-xxx")
 }
 
@@ -41787,16 +40779,16 @@ func (x *UserJourney) Stages() *som.SomList[*JourneyStageEntry] {
 }
 
 // Key touchpoints.
-func (x *UserJourney) KeyTouchpoints() *som.SomList[*KeyTouchpointEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/KEYTO-KEYT-LST", func(d *som.SpecDocument, p string) *KeyTouchpointEntry {
-		return NewKeyTouchpointEntry(d, p)
+func (x *UserJourney) KeyTouchpoints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/KEYTO-KEYT-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "KEYTO-KEYT-xxx")
 }
 
 // Pain points in the journey.
-func (x *UserJourney) PainPoints() *som.SomList[*UserJourneyPainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/USERJ-PAIN-LST", func(d *som.SpecDocument, p string) *UserJourneyPainPointEntry {
-		return NewUserJourneyPainPointEntry(d, p)
+func (x *UserJourney) PainPoints() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/USERJ-PAIN-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "USERJ-PAIN-xxx")
 }
 
@@ -41807,30 +40799,6 @@ func (x *UserJourney) OpportunitiesForDelight() string {
 
 func (x *UserJourney) SetOpportunitiesForDelight(value string) {
 	x.Doc().SetContent(x.Path()+"/UJ-OPPO", value)
-}
-
-// A single pain point entry.
-type UserJourneyPainPointEntry struct {
-	som.SomNode
-}
-
-// NewUserJourneyPainPointEntry binds a UserJourneyPainPointEntry facade to a document and a path.
-func NewUserJourneyPainPointEntry(doc *som.SpecDocument, path string) *UserJourneyPainPointEntry {
-	return &UserJourneyPainPointEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *UserJourneyPainPointEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *UserJourneyPainPointEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserJourneyPainPointEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 9.1.2. User Lifecycle.
@@ -42136,9 +41104,9 @@ func (x *UserPersonaDetails) SetVisualRepresentation(value string) {
 }
 
 // Key quotes that represent this persona's mindset.
-func (x *UserPersonaDetails) RepresentativeQuotes() *som.SomList[*RepresentativeQuoteEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/REPRE-REPR-LST", func(d *som.SpecDocument, p string) *RepresentativeQuoteEntry {
-		return NewRepresentativeQuoteEntry(d, p)
+func (x *UserPersonaDetails) RepresentativeQuotes() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/REPRE-REPR-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "REPRE-REPR-xxx")
 }
 
@@ -42447,9 +41415,9 @@ func (x *ValidationFeedback) MessageTemplates() *som.SomList[*ValidationMessageT
 }
 
 // Field validation rules by type.
-func (x *ValidationFeedback) FieldValidationRules() *som.SomList[*FieldValidationRuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/FIELD-FIEL-LST", func(d *som.SpecDocument, p string) *FieldValidationRuleEntry {
-		return NewFieldValidationRuleEntry(d, p)
+func (x *ValidationFeedback) FieldValidationRules() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/FIELD-FIEL-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "FIELD-FIEL-xxx")
 }
 
@@ -42465,30 +41433,6 @@ func NewValidationMessageTemplate(doc *som.SpecDocument, path string) *Validatio
 
 func (x *ValidationMessageTemplate) Content() *ValidationMessageTemplateContentForm {
 	return NewValidationMessageTemplateContentForm(x.Doc(), x.Path()+"/content")
-}
-
-// A single validation rule entry.
-type ValidationRuleEntry struct {
-	som.SomNode
-}
-
-// NewValidationRuleEntry binds a ValidationRuleEntry facade to a document and a path.
-func NewValidationRuleEntry(doc *som.SpecDocument, path string) *ValidationRuleEntry {
-	return &ValidationRuleEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *ValidationRuleEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *ValidationRuleEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ValidationRuleEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // 4.1.1.4. Value Proposition.
@@ -42534,34 +41478,10 @@ func (x *ValueProposition) ReturnProfile() *ValuePropositionReturnProfileForm {
 }
 
 // Key Performance Indicators for value measurement.
-func (x *ValueProposition) Kpis() *som.SomList[*KpiEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/KPIEN-KPIS-LST", func(d *som.SpecDocument, p string) *KpiEntry {
-		return NewKpiEntry(d, p)
+func (x *ValueProposition) Kpis() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path()+"/KPIEN-KPIS-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
 	}, "KPIEN-KPIS-xxx")
-}
-
-// A single variations and exception entry.
-type VariationsAndExceptionEntry struct {
-	som.SomNode
-}
-
-// NewVariationsAndExceptionEntry binds a VariationsAndExceptionEntry facade to a document and a path.
-func NewVariationsAndExceptionEntry(doc *som.SpecDocument, path string) *VariationsAndExceptionEntry {
-	return &VariationsAndExceptionEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (§ item 10) — it shadows the embedded som.SomNode false default.
-func (x *VariationsAndExceptionEntry) CanHaveContent() bool {
-	return true
-}
-
-func (x *VariationsAndExceptionEntry) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *VariationsAndExceptionEntry) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Version control configuration.

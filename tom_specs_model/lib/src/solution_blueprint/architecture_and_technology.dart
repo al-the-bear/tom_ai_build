@@ -26892,7 +26892,7 @@ Provide an overview of system operation approach.
   @SectionIdPattern('MAINT-MAIN-xxx')
   @ContentHelp('Add one entry per maintenance procedure.')
   @SerializationOrder(2)
-  List<MaintenanceProcedureEntry> maintenanceProcedures = [];
+  List<String> maintenanceProcedures = [];
 }
 
 /// 8.7.1.1. Administration Requirements.
@@ -35615,20 +35615,3 @@ drivers / trade-offs.
   String? content;
 }
 
-/// A single maintenance procedure entry.
-@StandardReferences(
-  [
-    'ISO/IEC 20000-1 — service management: change and release management',
-    'ITIL 4 — change enablement and service maintenance practices',
-  ],
-  'Records a single maintenance procedure to be performed on the deployed system.',
-)
-@SectionId('MAINT')
-class MaintenanceProcedureEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

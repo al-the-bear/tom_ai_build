@@ -105,7 +105,6 @@ typedef struct { SomNode node; } ArchitectureStyle;
 typedef struct { SomNode node; } AssumptionConstraintDependencyRegister;
 typedef struct { SomNode node; } AssumptionRegisterEntry;
 typedef struct { SomNode node; } AssumptionsConstraintsDependencies;
-typedef struct { SomNode node; } AttributeInterdependencyEntry;
 typedef struct { SomNode node; } AuditAndLogging;
 typedef struct { SomNode node; } AuditEntry;
 typedef struct { SomNode node; } AuditEvidenceRequirements;
@@ -161,14 +160,12 @@ typedef struct { SomNode node; } BusinessRuleEntry;
 typedef struct { SomNode node; } BusinessRuleReferenceEntry;
 typedef struct { SomNode node; } CapacityPlanningSection;
 typedef struct { SomNode node; } CapacityReviewProcess;
-typedef struct { SomNode node; } CategoryDependencyEntry;
 typedef struct { SomNode node; } CcbMemberEntry;
 typedef struct { SomNode node; } CertificateAuthenticationPolicy;
 typedef struct { SomNode node; } CertificateManagement;
 typedef struct { SomNode node; } CertificateManagementPolicy;
 typedef struct { SomNode node; } CertificationEntry;
 typedef struct { SomNode node; } CertificationRequirementsSection;
-typedef struct { SomNode node; } ChangeAdvocateEntry;
 typedef struct { SomNode node; } ChangeCategoryEntry;
 typedef struct { SomNode node; } ChangeControlBoard;
 typedef struct { SomNode node; } ChangeImpactCriteria;
@@ -208,7 +205,6 @@ typedef struct { SomNode node; } CommunicationChannelEncryptionEntry;
 typedef struct { SomNode node; } CommunicationEventEntry;
 typedef struct { SomNode node; } CommunicationMatrix;
 typedef struct { SomNode node; } CommunicationPatterns;
-typedef struct { SomNode node; } CommunicationPreferenceEntry;
 typedef struct { SomNode node; } CommunicationRequirements;
 typedef struct { SomNode node; } CommunicationToolsRequirements;
 typedef struct { SomNode node; } CommunicationTypeEntry;
@@ -219,7 +215,6 @@ typedef struct { SomNode node; } CompetencyFramework;
 typedef struct { SomNode node; } CompetencyLevelChangeEntry;
 typedef struct { SomNode node; } ComplianceAuditSchedule;
 typedef struct { SomNode node; } ComplianceFramework;
-typedef struct { SomNode node; } ComplianceMeasureEntry;
 typedef struct { SomNode node; } ComplianceMilestoneEntry;
 typedef struct { SomNode node; } ComplianceReporting;
 typedef struct { SomNode node; } ComplianceRequirementEntry;
@@ -261,13 +256,11 @@ typedef struct { SomNode node; } ContingencyPlans;
 typedef struct { SomNode node; } Correctness;
 typedef struct { SomNode node; } CredentialCompromiseDetectionPolicy;
 typedef struct { SomNode node; } CredentialRecoveryPolicy;
-typedef struct { SomNode node; } CriticalKnowledgeAreaEntry;
 typedef struct { SomNode node; } CrossBoundaryErrorHandling;
 typedef struct { SomNode node; } CrossBoundaryOperationalConsiderations;
 typedef struct { SomNode node; } CrossCuttingConcerns;
 typedef struct { SomNode node; } CrossProcessAnalysis;
 typedef struct { SomNode node; } CrossTenantAccessPolicy;
-typedef struct { SomNode node; } CulturalConsiderationEntry;
 typedef struct { SomNode node; } CurrentArchitecture;
 typedef struct { SomNode node; } CurrentBusinessProcess;
 typedef struct { SomNode node; } CurrentBusinessProcesses;
@@ -342,7 +335,6 @@ typedef struct { SomNode node; } DataVolumesAndGrowth;
 typedef struct { SomNode node; } DatabaseAccessPolicy;
 typedef struct { SomNode node; } DatabaseCompatibilityEntry;
 typedef struct { SomNode node; } DatabaseEncryptionPolicy;
-typedef struct { SomNode node; } DatacenterEntry;
 typedef struct { SomNode node; } DebuggingConfiguration;
 typedef struct { SomNode node; } DecisionAuthorityEntry;
 typedef struct { SomNode node; } DecisionMakerEntry;
@@ -361,7 +353,6 @@ typedef struct { SomNode node; } DeliveryScope;
 typedef struct { SomNode node; } DeliveryScopeAndAcceptance;
 typedef struct { SomNode node; } DeliveryTransitionAndRollout;
 typedef struct { SomNode node; } DependenciesAndIntegrations;
-typedef struct { SomNode node; } DependencyEntry;
 typedef struct { SomNode node; } DependencyHealthMonitoring;
 typedef struct { SomNode node; } DependencyInjectionStructure;
 typedef struct { SomNode node; } DependencyManagement;
@@ -388,7 +379,6 @@ typedef struct { SomNode node; } DeveloperOnboarding;
 typedef struct { SomNode node; } DevelopmentConventionEntry;
 typedef struct { SomNode node; } DevelopmentEnvironment;
 typedef struct { SomNode node; } DevelopmentQualityGates;
-typedef struct { SomNode node; } DevopsStandardEntry;
 typedef struct { SomNode node; } DisasterRecoveryRequirements;
 typedef struct { SomNode node; } DisplayEquipmentEntry;
 typedef struct { SomNode node; } DisplayPropertyEntry;
@@ -445,10 +435,7 @@ typedef struct { SomNode node; } EquipmentRequirements;
 typedef struct { SomNode node; } ErrorBudgetTracking;
 typedef struct { SomNode node; } ErrorHandling;
 typedef struct { SomNode node; } ErrorHandlingStandards;
-typedef struct { SomNode node; } ErrorPageDesignEntry;
-typedef struct { SomNode node; } ErrorProcedureEntry;
 typedef struct { SomNode node; } ErrorRecovery;
-typedef struct { SomNode node; } EscalationProcedureEntry;
 typedef struct { SomNode node; } EvaluationCriteria;
 typedef struct { SomNode node; } EvaluationCriterionEntry;
 typedef struct { SomNode node; } EventAttributePolicy;
@@ -488,7 +475,6 @@ typedef struct { SomNode node; } FeatureStakeholders;
 typedef struct { SomNode node; } FeatureTourEntry;
 typedef struct { SomNode node; } FieldHelpEntry;
 typedef struct { SomNode node; } FieldValidationRule;
-typedef struct { SomNode node; } FieldValidationRuleEntry;
 typedef struct { SomNode node; } FileAccessControlPolicy;
 typedef struct { SomNode node; } FileAndStorageSecurity;
 typedef struct { SomNode node; } FileDownloadSecurityPolicy;
@@ -497,7 +483,6 @@ typedef struct { SomNode node; } FileUploadValidationPolicy;
 typedef struct { SomNode node; } FirewallRequirements;
 typedef struct { SomNode node; } Flexibility;
 typedef struct { SomNode node; } FlexibilityCharacteristic;
-typedef struct { SomNode node; } FragilePointEntry;
 typedef struct { SomNode node; } FrameworkRequirementEntry;
 typedef struct { SomNode node; } FullDistribution;
 typedef struct { SomNode node; } FunctionDataMatrixEntry;
@@ -511,7 +496,6 @@ typedef struct { SomNode node; } FunctionalSuitabilityCharacteristic;
 typedef struct { SomNode node; } GapEntry;
 typedef struct { SomNode node; } Gaps;
 typedef struct { SomNode node; } GeographicDistributionRequirements;
-typedef struct { SomNode node; } GlobalEntryPointEntry;
 typedef struct { SomNode node; } GlobalRoleExclusionEntry;
 typedef struct { SomNode node; } Glossary;
 typedef struct { SomNode node; } GlossaryAndAbbreviations;
@@ -560,7 +544,6 @@ typedef struct { SomNode node; } InsuranceLiabilityRequirements;
 typedef struct { SomNode node; } IntegrationArchitecture;
 typedef struct { SomNode node; } IntegrationConstraintEntry;
 typedef struct { SomNode node; } IntegrationHealthSummary;
-typedef struct { SomNode node; } IntegrationPatternEntry;
 typedef struct { SomNode node; } IntegrationPointEntry;
 typedef struct { SomNode node; } Integrations;
 typedef struct { SomNode node; } IntegrityConstraints;
@@ -573,7 +556,6 @@ typedef struct { SomNode node; } InteractionDependencyAnalysis;
 typedef struct { SomNode node; } InteractionEntry;
 typedef struct { SomNode node; } InteractionPatternEntry;
 typedef struct { SomNode node; } InteractionPatterns;
-typedef struct { SomNode node; } InteractionScenarioEntry;
 typedef struct { SomNode node; } InteractionTestingStrategy;
 typedef struct { SomNode node; } InterfaceBusinessContext;
 typedef struct { SomNode node; } InterfaceBusinessProcessEntry;
@@ -601,7 +583,6 @@ typedef struct { SomNode node; } ItSecurityStandardsSection;
 typedef struct { SomNode node; } ItStandardComplianceEntry;
 typedef struct { SomNode node; } JobDescriptionsAndStaffing;
 typedef struct { SomNode node; } JourneyStageEntry;
-typedef struct { SomNode node; } KeyAssumptionEntry;
 typedef struct { SomNode node; } KeyAttributeEntry;
 typedef struct { SomNode node; } KeyCompromiseRecoveryPolicy;
 typedef struct { SomNode node; } KeyConceptEntry;
@@ -613,11 +594,7 @@ typedef struct { SomNode node; } KeyResultEntry;
 typedef struct { SomNode node; } KeyRotationPolicy;
 typedef struct { SomNode node; } KeyScenarios;
 typedef struct { SomNode node; } KeyStoragePolicy;
-typedef struct { SomNode node; } KeyTouchpointEntry;
 typedef struct { SomNode node; } KnowledgeTransfer;
-typedef struct { SomNode node; } KnownIssueEntry;
-typedef struct { SomNode node; } KnownQualityIssueEntry;
-typedef struct { SomNode node; } KpiEntry;
 typedef struct { SomNode node; } LanguageCountrySelection;
 typedef struct { SomNode node; } LayerCommunicationRules;
 typedef struct { SomNode node; } LayeringAndModuleStructure;
@@ -646,11 +623,9 @@ typedef struct { SomNode node; } MaintainabilityCharacteristic;
 typedef struct { SomNode node; } MaintenanceChangeManagement;
 typedef struct { SomNode node; } MaintenanceDependencies;
 typedef struct { SomNode node; } MaintenanceDependencyEntry;
-typedef struct { SomNode node; } MaintenanceProcedureEntry;
 typedef struct { SomNode node; } MaintenanceUserImpact;
 typedef struct { SomNode node; } MaintenanceWindowEntry;
 typedef struct { SomNode node; } MaintenanceWindowsSection;
-typedef struct { SomNode node; } MappingRuleEntry;
 typedef struct { SomNode node; } MasterDataDomainEntry;
 typedef struct { SomNode node; } MasterDataManagement;
 typedef struct { SomNode node; } MessageFormatStandards;
@@ -661,7 +636,6 @@ typedef struct { SomNode node; } MetricsCollectionRequirements;
 typedef struct { SomNode node; } MetricsDashboardSummary;
 typedef struct { SomNode node; } MfaCategoryRequirementEntry;
 typedef struct { SomNode node; } MfaConfiguration;
-typedef struct { SomNode node; } MfaDetailEntry;
 typedef struct { SomNode node; } MigrationConsiderations;
 typedef struct { SomNode node; } MigrationEnvironments;
 typedef struct { SomNode node; } MigrationInteractions;
@@ -687,7 +661,6 @@ typedef struct { SomNode node; } Monitoring;
 typedef struct { SomNode node; } MonitoringAndAlertingSection;
 typedef struct { SomNode node; } MonitoringDashboards;
 typedef struct { SomNode node; } MonitoringInfrastructure;
-typedef struct { SomNode node; } MonitoringProcedureEntry;
 typedef struct { SomNode node; } MoscowAnalysis;
 typedef struct { SomNode node; } MoscowEntry;
 typedef struct { SomNode node; } MultiChannelExperience;
@@ -713,14 +686,12 @@ typedef struct { SomNode node; } NewOrganizationStructure;
 typedef struct { SomNode node; } NewRoleEntry;
 typedef struct { SomNode node; } NewRoleQualifications;
 typedef struct { SomNode node; } NewRoleResponsibilities;
-typedef struct { SomNode node; } NonFinancialBenefitEntry;
 typedef struct { SomNode node; } NotificationChannelEntry;
 typedef struct { SomNode node; } NotificationModel;
 typedef struct { SomNode node; } NotificationTypeEntry;
 typedef struct { SomNode node; } ObjectInvariantEntry;
 typedef struct { SomNode node; } ObjectOperationEntry;
 typedef struct { SomNode node; } ObjectStateEntry;
-typedef struct { SomNode node; } ObservabilityRequirementEntry;
 typedef struct { SomNode node; } OnCallProcedures;
 typedef struct { SomNode node; } OnCallScheduleConfig;
 typedef struct { SomNode node; } OnboardingHelp;
@@ -784,7 +755,6 @@ typedef struct { SomNode node; } Portability;
 typedef struct { SomNode node; } PostMaintenanceValidation;
 typedef struct { SomNode node; } PostconditionsAndGuarantees;
 typedef struct { SomNode node; } PreconditionsAndTriggers;
-typedef struct { SomNode node; } PredecessorDependencyEntry;
 typedef struct { SomNode node; } PrimaryNavigation;
 typedef struct { SomNode node; } PrintAndExportLayout;
 typedef struct { SomNode node; } PrivacyImpactAssessmentProcess;
@@ -864,7 +834,6 @@ typedef struct { SomNode node; } QualityWeightEntry;
 typedef struct { SomNode node; } RateLimitingPolicy;
 typedef struct { SomNode node; } Readability;
 typedef struct { SomNode node; } ReadinessCriteriaEntry;
-typedef struct { SomNode node; } RecoveryFlowEntry;
 typedef struct { SomNode node; } RecoveryProcedures;
 typedef struct { SomNode node; } RecoveryScenarioEntry;
 typedef struct { SomNode node; } RedirectHandlingPolicy;
@@ -876,7 +845,6 @@ typedef struct { SomNode node; } RegulatoryComplianceRequirements;
 typedef struct { SomNode node; } RegulatoryContext;
 typedef struct { SomNode node; } RegulatoryRequirementEntry;
 typedef struct { SomNode node; } RelatedDocumentEntry;
-typedef struct { SomNode node; } RelatedPainPointEntry;
 typedef struct { SomNode node; } RelationshipAttributeEntry;
 typedef struct { SomNode node; } ReleaseStrategy;
 typedef struct { SomNode node; } RelevantSectionEntry;
@@ -896,7 +864,6 @@ typedef struct { SomNode node; } ReportFilterEntry;
 typedef struct { SomNode node; } ReportRecipientEntry;
 typedef struct { SomNode node; } ReportScheduleEntry;
 typedef struct { SomNode node; } ReportSectionEntry;
-typedef struct { SomNode node; } RepresentativeQuoteEntry;
 typedef struct { SomNode node; } RequirementAcceptanceCriteria;
 typedef struct { SomNode node; } RequirementBusinessRuleEntry;
 typedef struct { SomNode node; } RequirementBusinessRules;
@@ -918,7 +885,6 @@ typedef struct { SomNode node; } ResourceKeyEntry;
 typedef struct { SomNode node; } ResourceKeyReferenceEntry;
 typedef struct { SomNode node; } ResourceProtection;
 typedef struct { SomNode node; } ResourceRequirementEntry;
-typedef struct { SomNode node; } ResponseStrategyEntry;
 typedef struct { SomNode node; } ResponsibilityChangeEntry;
 typedef struct { SomNode node; } ResponsibilityContacts;
 typedef struct { SomNode node; } ResponsibilityDetailEntry;
@@ -939,9 +905,7 @@ typedef struct { SomNode node; } ReuseGoalEntry;
 typedef struct { SomNode node; } ReviewCriterionEntry;
 typedef struct { SomNode node; } RevisionEntry;
 typedef struct { SomNode node; } RevisionHistory;
-typedef struct { SomNode node; } RiskBasedDecisionEntry;
 typedef struct { SomNode node; } RiskBusinessImpact;
-typedef struct { SomNode node; } RiskCategoryEntry;
 typedef struct { SomNode node; } RiskEntry;
 typedef struct { SomNode node; } RiskIdentification;
 typedef struct { SomNode node; } RiskMonitoring;
@@ -977,7 +941,6 @@ typedef struct { SomNode node; } ScalingTriggersAndThresholds;
 typedef struct { SomNode node; } ScenarioEntry;
 typedef struct { SomNode node; } ScenarioStepEntry;
 typedef struct { SomNode node; } ScheduledMaintenancePolicy;
-typedef struct { SomNode node; } ScopeAssumptionEntry;
 typedef struct { SomNode node; } ScopeBoundaries;
 typedef struct { SomNode node; } ScopeItemEntry;
 typedef struct { SomNode node; } ScreenActionEntry;
@@ -1006,7 +969,6 @@ typedef struct { SomNode node; } SecurityAuditRequirementsSection;
 typedef struct { SomNode node; } SecurityCertificationRequirements;
 typedef struct { SomNode node; } SecurityCharacteristic;
 typedef struct { SomNode node; } SecurityCodeReviewPolicy;
-typedef struct { SomNode node; } SecurityConcernEntry;
 typedef struct { SomNode node; } SecurityControlEntry;
 typedef struct { SomNode node; } SecurityControls;
 typedef struct { SomNode node; } SecurityDevelopmentLifecycle;
@@ -1043,7 +1005,6 @@ typedef struct { SomNode node; } SharedInfrastructureDependencies;
 typedef struct { SomNode node; } SharedInfrastructureEntry;
 typedef struct { SomNode node; } SharedLibraryComponentEntry;
 typedef struct { SomNode node; } SharedLibraryEntry;
-typedef struct { SomNode node; } SharedServiceEntry;
 typedef struct { SomNode node; } SignOffProcess;
 typedef struct { SomNode node; } SingleSignOnPolicy;
 typedef struct { SomNode node; } SlaAndSloMonitoring;
@@ -1074,7 +1035,6 @@ typedef struct { SomNode node; } StageSummaryResources;
 typedef struct { SomNode node; } StagingDependencies;
 typedef struct { SomNode node; } StagingDrivers;
 typedef struct { SomNode node; } StagingStrategy;
-typedef struct { SomNode node; } StagingStrategyConstraintEntry;
 typedef struct { SomNode node; } StakeholderEntry;
 typedef struct { SomNode node; } StakeholderRegister;
 typedef struct { SomNode node; } StakeholderRegisterEntry;
@@ -1085,7 +1045,6 @@ typedef struct { SomNode node; } StandardSoftwareRequirements;
 typedef struct { SomNode node; } StandardsComplianceSection;
 typedef struct { SomNode node; } SteeringCommittee;
 typedef struct { SomNode node; } StepUpAuthenticationPolicy;
-typedef struct { SomNode node; } StepUpDetailEntry;
 typedef struct { SomNode node; } StorageEncryptionPolicy;
 typedef struct { SomNode node; } StorageLifecyclePolicy;
 typedef struct { SomNode node; } StrategicAlignment;
@@ -1127,7 +1086,6 @@ typedef struct { SomNode node; } SystemRollout;
 typedef struct { SomNode node; } SystemStagePlan;
 typedef struct { SomNode node; } SystemSummary;
 typedef struct { SomNode node; } SystemTaskEntry;
-typedef struct { SomNode node; } SystemTaskWorkflowStepEntry;
 typedef struct { SomNode node; } SystemTechnicalAssessment;
 typedef struct { SomNode node; } SystemToReplaceEntry;
 typedef struct { SomNode node; } SystemTrainingEntry;
@@ -1241,7 +1199,6 @@ typedef struct { SomNode node; } UserGrowthProjections;
 typedef struct { SomNode node; } UserInteractionModel;
 typedef struct { SomNode node; } UserInteractionModelSummary;
 typedef struct { SomNode node; } UserJourney;
-typedef struct { SomNode node; } UserJourneyPainPointEntry;
 typedef struct { SomNode node; } UserLifecycle;
 typedef struct { SomNode node; } UserLifecycleTransitionEntry;
 typedef struct { SomNode node; } UserLifecycleTransitions;
@@ -1259,9 +1216,7 @@ typedef struct { SomNode node; } UtilityNavigationItemEntry;
 typedef struct { SomNode node; } ValidationConstraints;
 typedef struct { SomNode node; } ValidationFeedback;
 typedef struct { SomNode node; } ValidationMessageTemplate;
-typedef struct { SomNode node; } ValidationRuleEntry;
 typedef struct { SomNode node; } ValueProposition;
-typedef struct { SomNode node; } VariationsAndExceptionEntry;
 typedef struct { SomNode node; } VersionControlConfiguration;
 typedef struct { SomNode node; } VirtualizationRequirements;
 typedef struct { SomNode node; } VolumeMetricEntry;
@@ -4803,7 +4758,7 @@ void applicable_regulation_entry_free(ApplicableRegulationEntry *self);
 int applicable_regulation_entry_can_have_content(const ApplicableRegulationEntry *self);
 ApplicableRegulationEntryContentForm applicable_regulation_entry_content(const ApplicableRegulationEntry *self);
 // Specific compliance measures for this regulation.
-// Returns the list view; element type: ComplianceMeasureEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList applicable_regulation_entry_compliance_measures(const ApplicableRegulationEntry *self);
 
 // Application diagnostics.
@@ -5010,15 +4965,6 @@ char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsD
 void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
 // The consolidated assumption / constraint register.
 AssumptionConstraintDependencyRegister assumptions_constraints_dependencies_register_(const AssumptionsConstraintsDependencies *self);
-
-// A single attribute interdependency entry.
-// Binds a AttributeInterdependencyEntry facade to a document and a path (path copied).
-void attribute_interdependency_entry_init(AttributeInterdependencyEntry *self, SpecDocument *doc, const char *path);
-void attribute_interdependency_entry_free(AttributeInterdependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int attribute_interdependency_entry_can_have_content(const AttributeInterdependencyEntry *self);
-char *attribute_interdependency_entry_content(const AttributeInterdependencyEntry *self);
-void attribute_interdependency_entry_set_content(AttributeInterdependencyEntry *self, const char *value);
 
 // 9.6. Audit and Logging.
 //
@@ -6015,15 +5961,6 @@ CapacityReviewProcessEscalationForm capacity_review_process_escalation(const Cap
 // Budgeting and rightsizing planning.
 CapacityReviewProcessPlanningForm capacity_review_process_planning(const CapacityReviewProcess *self);
 
-// A single category dependency entry.
-// Binds a CategoryDependencyEntry facade to a document and a path (path copied).
-void category_dependency_entry_init(CategoryDependencyEntry *self, SpecDocument *doc, const char *path);
-void category_dependency_entry_free(CategoryDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int category_dependency_entry_can_have_content(const CategoryDependencyEntry *self);
-char *category_dependency_entry_content(const CategoryDependencyEntry *self);
-void category_dependency_entry_set_content(CategoryDependencyEntry *self, const char *value);
-
 // A CCB member entry.
 // Binds a CcbMemberEntry facade to a document and a path (path copied).
 void ccb_member_entry_init(CcbMemberEntry *self, SpecDocument *doc, const char *path);
@@ -6110,15 +6047,6 @@ CertificationRequirementsSectionTimelineForm certification_requirements_section_
 CertificationRequirementsSectionCostsForm certification_requirements_section_costs(const CertificationRequirementsSection *self);
 // Marketing and notes.
 CertificationRequirementsSectionMarketingForm certification_requirements_section_marketing(const CertificationRequirementsSection *self);
-
-// A single change advocate entry.
-// Binds a ChangeAdvocateEntry facade to a document and a path (path copied).
-void change_advocate_entry_init(ChangeAdvocateEntry *self, SpecDocument *doc, const char *path);
-void change_advocate_entry_free(ChangeAdvocateEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int change_advocate_entry_can_have_content(const ChangeAdvocateEntry *self);
-char *change_advocate_entry_content(const ChangeAdvocateEntry *self);
-void change_advocate_entry_set_content(ChangeAdvocateEntry *self, const char *value);
 
 // A change category entry.
 //
@@ -6739,15 +6667,6 @@ CommunicationPatternsReliabilityForm communication_patterns_reliability(const Co
 // Observability settings.
 CommunicationPatternsObservabilityForm communication_patterns_observability(const CommunicationPatterns *self);
 
-// A single communication preference entry.
-// Binds a CommunicationPreferenceEntry facade to a document and a path (path copied).
-void communication_preference_entry_init(CommunicationPreferenceEntry *self, SpecDocument *doc, const char *path);
-void communication_preference_entry_free(CommunicationPreferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int communication_preference_entry_can_have_content(const CommunicationPreferenceEntry *self);
-char *communication_preference_entry_content(const CommunicationPreferenceEntry *self);
-void communication_preference_entry_set_content(CommunicationPreferenceEntry *self, const char *value);
-
 // 8.6. Communication Requirements.
 // Binds a CommunicationRequirements facade to a document and a path (path copied).
 void communication_requirements_init(CommunicationRequirements *self, SpecDocument *doc, const char *path);
@@ -6896,15 +6815,6 @@ void compliance_framework_free(ComplianceFramework *self);
 int compliance_framework_can_have_content(const ComplianceFramework *self);
 char *compliance_framework_content(const ComplianceFramework *self);
 void compliance_framework_set_content(ComplianceFramework *self, const char *value);
-
-// A single compliance measure entry.
-// Binds a ComplianceMeasureEntry facade to a document and a path (path copied).
-void compliance_measure_entry_init(ComplianceMeasureEntry *self, SpecDocument *doc, const char *path);
-void compliance_measure_entry_free(ComplianceMeasureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int compliance_measure_entry_can_have_content(const ComplianceMeasureEntry *self);
-char *compliance_measure_entry_content(const ComplianceMeasureEntry *self);
-void compliance_measure_entry_set_content(ComplianceMeasureEntry *self, const char *value);
 
 // A compliance milestone entry.
 // Binds a ComplianceMilestoneEntry facade to a document and a path (path copied).
@@ -7601,15 +7511,6 @@ void credential_recovery_policy_set_content(CredentialRecoveryPolicy *self, cons
 // Credential Recovery Details (text).
 // (skipped: credentialRecoveryDetails has no target type)
 
-// A single critical knowledge area entry.
-// Binds a CriticalKnowledgeAreaEntry facade to a document and a path (path copied).
-void critical_knowledge_area_entry_init(CriticalKnowledgeAreaEntry *self, SpecDocument *doc, const char *path);
-void critical_knowledge_area_entry_free(CriticalKnowledgeAreaEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int critical_knowledge_area_entry_can_have_content(const CriticalKnowledgeAreaEntry *self);
-char *critical_knowledge_area_entry_content(const CriticalKnowledgeAreaEntry *self);
-void critical_knowledge_area_entry_set_content(CriticalKnowledgeAreaEntry *self, const char *value);
-
 // 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
@@ -7681,15 +7582,6 @@ void cross_tenant_access_policy_set_content(CrossTenantAccessPolicy *self, const
 // Cross-Tenant Access Policy Details (text).
 // (skipped: crossTenantAccessPolicyDetails has no target type)
 
-// A single cultural consideration entry.
-// Binds a CulturalConsiderationEntry facade to a document and a path (path copied).
-void cultural_consideration_entry_init(CulturalConsiderationEntry *self, SpecDocument *doc, const char *path);
-void cultural_consideration_entry_free(CulturalConsiderationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int cultural_consideration_entry_can_have_content(const CulturalConsiderationEntry *self);
-char *cultural_consideration_entry_content(const CulturalConsiderationEntry *self);
-void cultural_consideration_entry_set_content(CulturalConsiderationEntry *self, const char *value);
-
 // 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
@@ -7708,10 +7600,10 @@ void current_architecture_set_architecture_diagram(CurrentArchitecture *self, co
 char *current_architecture_deployment_topology(const CurrentArchitecture *self);
 void current_architecture_set_deployment_topology(CurrentArchitecture *self, const char *value);
 // Integration patterns used.
-// Returns the list view; element type: IntegrationPatternEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList current_architecture_integration_patterns(const CurrentArchitecture *self);
 // Shared services inventory.
-// Returns the list view; element type: SharedServiceEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList current_architecture_shared_services(const CurrentArchitecture *self);
 
 // A current business process.
@@ -9569,15 +9461,6 @@ void database_encryption_policy_set_content(DatabaseEncryptionPolicy *self, cons
 // Database Encryption Details (text).
 // (skipped: databaseEncryptionDetails has no target type)
 
-// A single datacenter entry.
-// Binds a DatacenterEntry facade to a document and a path (path copied).
-void datacenter_entry_init(DatacenterEntry *self, SpecDocument *doc, const char *path);
-void datacenter_entry_free(DatacenterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int datacenter_entry_can_have_content(const DatacenterEntry *self);
-char *datacenter_entry_content(const DatacenterEntry *self);
-void datacenter_entry_set_content(DatacenterEntry *self, const char *value);
-
 // Debugging configuration.
 // Binds a DebuggingConfiguration facade to a document and a path (path copied).
 void debugging_configuration_init(DebuggingConfiguration *self, SpecDocument *doc, const char *path);
@@ -9869,15 +9752,6 @@ SharedInfrastructureDependencies dependencies_and_integrations_shared_infrastruc
 Integrations dependencies_and_integrations_integrations(const DependenciesAndIntegrations *self);
 // 1.1.3.5. Integration Health Summary.
 IntegrationHealthSummary dependencies_and_integrations_health_summary(const DependenciesAndIntegrations *self);
-
-// A single dependency entry.
-// Binds a DependencyEntry facade to a document and a path (path copied).
-void dependency_entry_init(DependencyEntry *self, SpecDocument *doc, const char *path);
-void dependency_entry_free(DependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int dependency_entry_can_have_content(const DependencyEntry *self);
-char *dependency_entry_content(const DependencyEntry *self);
-void dependency_entry_set_content(DependencyEntry *self, const char *value);
 
 // Dependency health monitoring.
 // Binds a DependencyHealthMonitoring facade to a document and a path (path copied).
@@ -10331,15 +10205,6 @@ DevelopmentQualityGatesSecurityForm development_quality_gates_security(const Dev
 DevelopmentQualityGatesDocumentationForm development_quality_gates_documentation(const DevelopmentQualityGates *self);
 // Performance checks.
 DevelopmentQualityGatesPerformanceForm development_quality_gates_performance(const DevelopmentQualityGates *self);
-
-// A single devops standard entry.
-// Binds a DevopsStandardEntry facade to a document and a path (path copied).
-void devops_standard_entry_init(DevopsStandardEntry *self, SpecDocument *doc, const char *path);
-void devops_standard_entry_free(DevopsStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int devops_standard_entry_can_have_content(const DevopsStandardEntry *self);
-char *devops_standard_entry_content(const DevopsStandardEntry *self);
-void devops_standard_entry_set_content(DevopsStandardEntry *self, const char *value);
 
 // Disaster recovery requirements.
 // Binds a DisasterRecoveryRequirements facade to a document and a path (path copied).
@@ -11215,24 +11080,6 @@ ErrorHandlingStandardsUserCommunicationForm error_handling_standards_user_commun
 // Recovery guidance.
 ErrorHandlingStandardsRecoveryForm error_handling_standards_recovery(const ErrorHandlingStandards *self);
 
-// A single error page design entry.
-// Binds a ErrorPageDesignEntry facade to a document and a path (path copied).
-void error_page_design_entry_init(ErrorPageDesignEntry *self, SpecDocument *doc, const char *path);
-void error_page_design_entry_free(ErrorPageDesignEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int error_page_design_entry_can_have_content(const ErrorPageDesignEntry *self);
-char *error_page_design_entry_content(const ErrorPageDesignEntry *self);
-void error_page_design_entry_set_content(ErrorPageDesignEntry *self, const char *value);
-
-// A single error procedure entry.
-// Binds a ErrorProcedureEntry facade to a document and a path (path copied).
-void error_procedure_entry_init(ErrorProcedureEntry *self, SpecDocument *doc, const char *path);
-void error_procedure_entry_free(ErrorProcedureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int error_procedure_entry_can_have_content(const ErrorProcedureEntry *self);
-char *error_procedure_entry_content(const ErrorProcedureEntry *self);
-void error_procedure_entry_set_content(ErrorProcedureEntry *self, const char *value);
-
 // 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
@@ -11256,20 +11103,11 @@ ErrorRecoverySessionHandlingForm error_recovery_session_handling(const ErrorReco
 // Error recovery narrative.
 // (skipped: recoveryNarrative has no target type)
 // Recovery flow diagrams.
-// Returns the list view; element type: RecoveryFlowEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList error_recovery_recovery_flows(const ErrorRecovery *self);
 // Common recovery scenarios.
 // Returns the list view; element type: RecoveryScenarioEntry (construct from item paths).
 SomList error_recovery_recovery_scenarios(const ErrorRecovery *self);
-
-// A single escalation procedure entry.
-// Binds a EscalationProcedureEntry facade to a document and a path (path copied).
-void escalation_procedure_entry_init(EscalationProcedureEntry *self, SpecDocument *doc, const char *path);
-void escalation_procedure_entry_free(EscalationProcedureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int escalation_procedure_entry_can_have_content(const EscalationProcedureEntry *self);
-char *escalation_procedure_entry_content(const EscalationProcedureEntry *self);
-void escalation_procedure_entry_set_content(EscalationProcedureEntry *self, const char *value);
 
 // 12.1.2. Evaluation Criteria.
 //
@@ -11525,7 +11363,7 @@ ExternalActorEntryInteractionForm external_actor_entry_interaction(const Externa
 // Access, authentication, and context details.
 ExternalActorEntryContextForm external_actor_entry_context(const ExternalActorEntry *self);
 // Interaction scenarios for this actor.
-// Returns the list view; element type: InteractionScenarioEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList external_actor_entry_interaction_scenarios(const ExternalActorEntry *self);
 
 // 4.1.2.3. External Actors.
@@ -11933,15 +11771,6 @@ void field_validation_rule_free(FieldValidationRule *self);
 int field_validation_rule_can_have_content(const FieldValidationRule *self);
 FieldValidationRuleContentForm field_validation_rule_content(const FieldValidationRule *self);
 
-// A single field validation rule entry.
-// Binds a FieldValidationRuleEntry facade to a document and a path (path copied).
-void field_validation_rule_entry_init(FieldValidationRuleEntry *self, SpecDocument *doc, const char *path);
-void field_validation_rule_entry_free(FieldValidationRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int field_validation_rule_entry_can_have_content(const FieldValidationRuleEntry *self);
-char *field_validation_rule_entry_content(const FieldValidationRuleEntry *self);
-void field_validation_rule_entry_set_content(FieldValidationRuleEntry *self, const char *value);
-
 // File access control policy — who can access, modify, share, and delete
 // files, and how access decisions are enforced.
 //
@@ -12081,15 +11910,6 @@ FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexi
 Flexibility flexibility_characteristic_flexibility(const FlexibilityCharacteristic *self);
 // 11.9.2. Portability.
 Portability flexibility_characteristic_portability(const FlexibilityCharacteristic *self);
-
-// A single fragile point entry.
-// Binds a FragilePointEntry facade to a document and a path (path copied).
-void fragile_point_entry_init(FragilePointEntry *self, SpecDocument *doc, const char *path);
-void fragile_point_entry_free(FragilePointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int fragile_point_entry_can_have_content(const FragilePointEntry *self);
-char *fragile_point_entry_content(const FragilePointEntry *self);
-void fragile_point_entry_set_content(FragilePointEntry *self, const char *value);
 
 // Framework or library requirement entry.
 // Binds a FrameworkRequirementEntry facade to a document and a path (path copied).
@@ -12326,15 +12146,6 @@ GeographicDistributionRequirementsRoutingForm geographic_distribution_requiremen
 GeographicDistributionRequirementsAnycastForm geographic_distribution_requirements_anycast(const GeographicDistributionRequirements *self);
 // Performance considerations.
 GeographicDistributionRequirementsPerformanceForm geographic_distribution_requirements_performance(const GeographicDistributionRequirements *self);
-
-// A single global entry point entry.
-// Binds a GlobalEntryPointEntry facade to a document and a path (path copied).
-void global_entry_point_entry_init(GlobalEntryPointEntry *self, SpecDocument *doc, const char *path);
-void global_entry_point_entry_free(GlobalEntryPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int global_entry_point_entry_can_have_content(const GlobalEntryPointEntry *self);
-char *global_entry_point_entry_content(const GlobalEntryPointEntry *self);
-void global_entry_point_entry_set_content(GlobalEntryPointEntry *self, const char *value);
 
 // A global role exclusion entry (form).
 //
@@ -12851,7 +12662,7 @@ void information_architecture_set_content(InformationArchitecture *self, const c
 // Navigation structure.
 // (skipped: navigationStructure has no target type)
 // Global entry points.
-// Returns the list view; element type: GlobalEntryPointEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList information_architecture_global_entry_points(const InformationArchitecture *self);
 // 10.2.2.5. Information Architecture Diagram.
 // (skipped: architectureDiagram has no target type)
@@ -13047,17 +12858,8 @@ void integration_health_summary_free(IntegrationHealthSummary *self);
 int integration_health_summary_can_have_content(const IntegrationHealthSummary *self);
 IntegrationHealthSummaryContentForm integration_health_summary_content(const IntegrationHealthSummary *self);
 // Fragile integration points requiring attention.
-// Returns the list view; element type: FragilePointEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList integration_health_summary_fragile_points(const IntegrationHealthSummary *self);
-
-// A single integration pattern entry.
-// Binds a IntegrationPatternEntry facade to a document and a path (path copied).
-void integration_pattern_entry_init(IntegrationPatternEntry *self, SpecDocument *doc, const char *path);
-void integration_pattern_entry_free(IntegrationPatternEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int integration_pattern_entry_can_have_content(const IntegrationPatternEntry *self);
-char *integration_pattern_entry_content(const IntegrationPatternEntry *self);
-void integration_pattern_entry_set_content(IntegrationPatternEntry *self, const char *value);
 
 // A single integration point entry.
 // Binds a IntegrationPointEntry facade to a document and a path (path copied).
@@ -13261,15 +13063,6 @@ void interaction_patterns_set_content(InteractionPatterns *self, const char *val
 // Returns the list view; element type: InteractionPatternEntry (construct from item paths).
 SomList interaction_patterns_patterns(const InteractionPatterns *self);
 
-// A single interaction scenario entry.
-// Binds a InteractionScenarioEntry facade to a document and a path (path copied).
-void interaction_scenario_entry_init(InteractionScenarioEntry *self, SpecDocument *doc, const char *path);
-void interaction_scenario_entry_free(InteractionScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int interaction_scenario_entry_can_have_content(const InteractionScenarioEntry *self);
-char *interaction_scenario_entry_content(const InteractionScenarioEntry *self);
-void interaction_scenario_entry_set_content(InteractionScenarioEntry *self, const char *value);
-
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
@@ -13320,10 +13113,10 @@ InterfaceDataSpecContentForm interface_data_spec_content(const InterfaceDataSpec
 // Returns the list view; element type: InterfaceDataEntityEntry (construct from item paths).
 SomList interface_data_spec_data_entities(const InterfaceDataSpec *self);
 // Data mapping and transformation rules.
-// Returns the list view; element type: MappingRuleEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList interface_data_spec_mapping_rules(const InterfaceDataSpec *self);
 // Data validation rules.
-// Returns the list view; element type: ValidationRuleEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList interface_data_spec_validation_rules(const InterfaceDataSpec *self);
 
 // Error handling specification.
@@ -13340,7 +13133,7 @@ InterfaceErrorHandlingFallbackForm interface_error_handling_fallback(const Inter
 // Connection and transaction timeouts.
 InterfaceErrorHandlingTimeoutForm interface_error_handling_timeout(const InterfaceErrorHandling *self);
 // Error handling procedures.
-// Returns the list view; element type: ErrorProcedureEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList interface_error_handling_error_procedures(const InterfaceErrorHandling *self);
 
 // Governance and contracts.
@@ -13379,7 +13172,7 @@ InterfaceOperationalMonitoringForm interface_operational_monitoring(const Interf
 // Support model.
 InterfaceOperationalSupportForm interface_operational_support(const InterfaceOperational *self);
 // Operational dependencies.
-// Returns the list view; element type: DependencyEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList interface_operational_dependencies(const InterfaceOperational *self);
 
 // Security specification for an interface.
@@ -13676,15 +13469,6 @@ void journey_stage_entry_free(JourneyStageEntry *self);
 int journey_stage_entry_can_have_content(const JourneyStageEntry *self);
 JourneyStageEntryContentForm journey_stage_entry_content(const JourneyStageEntry *self);
 
-// A single key assumption entry.
-// Binds a KeyAssumptionEntry facade to a document and a path (path copied).
-void key_assumption_entry_init(KeyAssumptionEntry *self, SpecDocument *doc, const char *path);
-void key_assumption_entry_free(KeyAssumptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int key_assumption_entry_can_have_content(const KeyAssumptionEntry *self);
-char *key_assumption_entry_content(const KeyAssumptionEntry *self);
-void key_assumption_entry_set_content(KeyAssumptionEntry *self, const char *value);
-
 // A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
@@ -13854,15 +13638,6 @@ KeyStoragePolicyContentForm key_storage_policy_content(const KeyStoragePolicy *s
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// A single key touchpoint entry.
-// Binds a KeyTouchpointEntry facade to a document and a path (path copied).
-void key_touchpoint_entry_init(KeyTouchpointEntry *self, SpecDocument *doc, const char *path);
-void key_touchpoint_entry_free(KeyTouchpointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int key_touchpoint_entry_can_have_content(const KeyTouchpointEntry *self);
-char *key_touchpoint_entry_content(const KeyTouchpointEntry *self);
-void key_touchpoint_entry_set_content(KeyTouchpointEntry *self, const char *value);
-
 // 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers handover-agreement
@@ -13874,33 +13649,6 @@ void knowledge_transfer_free(KnowledgeTransfer *self);
 int knowledge_transfer_can_have_content(const KnowledgeTransfer *self);
 char *knowledge_transfer_content(const KnowledgeTransfer *self);
 void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value);
-
-// A single known issue entry.
-// Binds a KnownIssueEntry facade to a document and a path (path copied).
-void known_issue_entry_init(KnownIssueEntry *self, SpecDocument *doc, const char *path);
-void known_issue_entry_free(KnownIssueEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int known_issue_entry_can_have_content(const KnownIssueEntry *self);
-char *known_issue_entry_content(const KnownIssueEntry *self);
-void known_issue_entry_set_content(KnownIssueEntry *self, const char *value);
-
-// A single known quality issue entry.
-// Binds a KnownQualityIssueEntry facade to a document and a path (path copied).
-void known_quality_issue_entry_init(KnownQualityIssueEntry *self, SpecDocument *doc, const char *path);
-void known_quality_issue_entry_free(KnownQualityIssueEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int known_quality_issue_entry_can_have_content(const KnownQualityIssueEntry *self);
-char *known_quality_issue_entry_content(const KnownQualityIssueEntry *self);
-void known_quality_issue_entry_set_content(KnownQualityIssueEntry *self, const char *value);
-
-// A single kpi entry.
-// Binds a KpiEntry facade to a document and a path (path copied).
-void kpi_entry_init(KpiEntry *self, SpecDocument *doc, const char *path);
-void kpi_entry_free(KpiEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int kpi_entry_can_have_content(const KpiEntry *self);
-char *kpi_entry_content(const KpiEntry *self);
-void kpi_entry_set_content(KpiEntry *self, const char *value);
 
 // 10.12.4. Language and Country Selection.
 //
@@ -14343,15 +14091,6 @@ MaintenanceDependencyEntryUpdateForm maintenance_dependency_entry_update(const M
 // Risk and fallback planning.
 MaintenanceDependencyEntryRiskForm maintenance_dependency_entry_risk(const MaintenanceDependencyEntry *self);
 
-// A single maintenance procedure entry.
-// Binds a MaintenanceProcedureEntry facade to a document and a path (path copied).
-void maintenance_procedure_entry_init(MaintenanceProcedureEntry *self, SpecDocument *doc, const char *path);
-void maintenance_procedure_entry_free(MaintenanceProcedureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int maintenance_procedure_entry_can_have_content(const MaintenanceProcedureEntry *self);
-char *maintenance_procedure_entry_content(const MaintenanceProcedureEntry *self);
-void maintenance_procedure_entry_set_content(MaintenanceProcedureEntry *self, const char *value);
-
 // User impact and communication.
 // Binds a MaintenanceUserImpact facade to a document and a path (path copied).
 void maintenance_user_impact_init(MaintenanceUserImpact *self, SpecDocument *doc, const char *path);
@@ -14408,15 +14147,6 @@ MaintenanceChangeManagement maintenance_windows_section_change_management(const 
 MaintenanceUserImpact maintenance_windows_section_user_impact(const MaintenanceWindowsSection *self);
 // Post-maintenance validation.
 PostMaintenanceValidation maintenance_windows_section_post_maintenance(const MaintenanceWindowsSection *self);
-
-// A single mapping rule entry.
-// Binds a MappingRuleEntry facade to a document and a path (path copied).
-void mapping_rule_entry_init(MappingRuleEntry *self, SpecDocument *doc, const char *path);
-void mapping_rule_entry_free(MappingRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int mapping_rule_entry_can_have_content(const MappingRuleEntry *self);
-char *mapping_rule_entry_content(const MappingRuleEntry *self);
-void mapping_rule_entry_set_content(MappingRuleEntry *self, const char *value);
 
 // Master data domain entry.
 // Binds a MasterDataDomainEntry facade to a document and a path (path copied).
@@ -14562,17 +14292,8 @@ int mfa_configuration_can_have_content(const MfaConfiguration *self);
 char *mfa_configuration_content(const MfaConfiguration *self);
 void mfa_configuration_set_content(MfaConfiguration *self, const char *value);
 // MFA Implementation Details (text).
-// Returns the list view; element type: MfaDetailEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList mfa_configuration_mfa_details(const MfaConfiguration *self);
-
-// A single mfa detail entry.
-// Binds a MfaDetailEntry facade to a document and a path (path copied).
-void mfa_detail_entry_init(MfaDetailEntry *self, SpecDocument *doc, const char *path);
-void mfa_detail_entry_free(MfaDetailEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int mfa_detail_entry_can_have_content(const MfaDetailEntry *self);
-char *mfa_detail_entry_content(const MfaDetailEntry *self);
-void mfa_detail_entry_set_content(MfaDetailEntry *self, const char *value);
 
 // 4.4.2. Migration Considerations (global).
 //
@@ -14607,7 +14328,7 @@ SomList migration_considerations_milestones(const MigrationConsiderations *self)
 // Stakeholder communication plan for migration program.
 // (skipped: communicationPlan has no target type)
 // Escalation procedures during migration.
-// Returns the list view; element type: EscalationProcedureEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList migration_considerations_escalation_procedures(const MigrationConsiderations *self);
 
 // Environment strategy for migration.
@@ -14819,16 +14540,16 @@ MigrationRisksReportingForm migration_risks_reporting(const MigrationRisks *self
 // Risk assessment methodology narrative.
 // (skipped: assessmentMethodology has no target type)
 // Risk categories and taxonomy.
-// Returns the list view; element type: RiskCategoryEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList migration_risks_risk_categories(const MigrationRisks *self);
 // Risk-based decision making criteria.
-// Returns the list view; element type: RiskBasedDecisionEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList migration_risks_risk_based_decisions(const MigrationRisks *self);
 // Risk monitoring and control procedures.
-// Returns the list view; element type: MonitoringProcedureEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList migration_risks_monitoring_procedures(const MigrationRisks *self);
 // Risk response strategies by category.
-// Returns the list view; element type: ResponseStrategyEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList migration_risks_response_strategies(const MigrationRisks *self);
 // Risk aggregation and portfolio view.
 // (skipped: riskAggregation has no target type)
@@ -15023,15 +14744,6 @@ MonitoringInfrastructureDeploymentForm monitoring_infrastructure_deployment(cons
 MonitoringInfrastructureCollectionForm monitoring_infrastructure_collection(const MonitoringInfrastructure *self);
 // Access and privacy controls.
 MonitoringInfrastructureAccessForm monitoring_infrastructure_access(const MonitoringInfrastructure *self);
-
-// A single monitoring procedure entry.
-// Binds a MonitoringProcedureEntry facade to a document and a path (path copied).
-void monitoring_procedure_entry_init(MonitoringProcedureEntry *self, SpecDocument *doc, const char *path);
-void monitoring_procedure_entry_free(MonitoringProcedureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int monitoring_procedure_entry_can_have_content(const MonitoringProcedureEntry *self);
-char *monitoring_procedure_entry_content(const MonitoringProcedureEntry *self);
-void monitoring_procedure_entry_set_content(MonitoringProcedureEntry *self, const char *value);
 
 // 13.4.1. MoSCoW Analysis.
 //
@@ -15481,15 +15193,6 @@ SomList new_role_responsibilities_secondary_responsibilities(const NewRoleRespon
 // Decision-making authority.
 NewRoleResponsibilitiesDecisionAuthorityForm new_role_responsibilities_decision_authority(const NewRoleResponsibilities *self);
 
-// A single non financial benefit entry.
-// Binds a NonFinancialBenefitEntry facade to a document and a path (path copied).
-void non_financial_benefit_entry_init(NonFinancialBenefitEntry *self, SpecDocument *doc, const char *path);
-void non_financial_benefit_entry_free(NonFinancialBenefitEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int non_financial_benefit_entry_can_have_content(const NonFinancialBenefitEntry *self);
-char *non_financial_benefit_entry_content(const NonFinancialBenefitEntry *self);
-void non_financial_benefit_entry_set_content(NonFinancialBenefitEntry *self, const char *value);
-
 // A notification channel entry.
 // Binds a NotificationChannelEntry facade to a document and a path (path copied).
 void notification_channel_entry_init(NotificationChannelEntry *self, SpecDocument *doc, const char *path);
@@ -15562,15 +15265,6 @@ void object_state_entry_free(ObjectStateEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
 int object_state_entry_can_have_content(const ObjectStateEntry *self);
 ObjectStateEntryContentForm object_state_entry_content(const ObjectStateEntry *self);
-
-// A single observability requirement entry.
-// Binds a ObservabilityRequirementEntry facade to a document and a path (path copied).
-void observability_requirement_entry_init(ObservabilityRequirementEntry *self, SpecDocument *doc, const char *path);
-void observability_requirement_entry_free(ObservabilityRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int observability_requirement_entry_can_have_content(const ObservabilityRequirementEntry *self);
-char *observability_requirement_entry_content(const ObservabilityRequirementEntry *self);
-void observability_requirement_entry_set_content(ObservabilityRequirementEntry *self, const char *value);
 
 // On-call procedures.
 // Binds a OnCallProcedures facade to a document and a path (path copied).
@@ -15842,15 +15536,15 @@ SomList organizational_environment_affected_departments(const OrganizationalEnvi
 // Returns the list view; element type: DecisionMakerEntry (construct from item paths).
 SomList organizational_environment_decision_makers(const OrganizationalEnvironment *self);
 // Cultural considerations and organizational dynamics.
-// Returns the list view; element type: CulturalConsiderationEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList organizational_environment_cultural_considerations(const OrganizationalEnvironment *self);
 // Stakeholder communication preferences.
-// Returns the list view; element type: CommunicationPreferenceEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList organizational_environment_communication_preferences(const OrganizationalEnvironment *self);
 // Political dynamics and influence patterns.
 // (skipped: politicalLandscape has no target type)
 // Change champions and sponsors.
-// Returns the list view; element type: ChangeAdvocateEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList organizational_environment_change_advocates(const OrganizationalEnvironment *self);
 
 // 5. Organizational Framework.
@@ -16575,15 +16269,6 @@ void preconditions_and_triggers_free(PreconditionsAndTriggers *self);
 int preconditions_and_triggers_can_have_content(const PreconditionsAndTriggers *self);
 PreconditionsAndTriggersContentForm preconditions_and_triggers_content(const PreconditionsAndTriggers *self);
 
-// A single predecessor dependency entry.
-// Binds a PredecessorDependencyEntry facade to a document and a path (path copied).
-void predecessor_dependency_entry_init(PredecessorDependencyEntry *self, SpecDocument *doc, const char *path);
-void predecessor_dependency_entry_free(PredecessorDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int predecessor_dependency_entry_can_have_content(const PredecessorDependencyEntry *self);
-char *predecessor_dependency_entry_content(const PredecessorDependencyEntry *self);
-void predecessor_dependency_entry_set_content(PredecessorDependencyEntry *self, const char *value);
-
 // 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -16686,7 +16371,7 @@ void problem_statement_set_content(ProblemStatement *self, const char *value);
 // Problem Description Form.
 ProblemStatementProblemDetailsForm problem_statement_problem_details(const ProblemStatement *self);
 // Related pain points from Current State Analysis.
-// Returns the list view; element type: RelatedPainPointEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList problem_statement_related_pain_points(const ProblemStatement *self);
 
 // Details for process adjustment.
@@ -17556,7 +17241,7 @@ QualityFrameworkVerificationForm quality_framework_verification(const QualityFra
 // Returns the list view; element type: QualityCategoryEntry (construct from item paths).
 SomList quality_framework_quality_categories(const QualityFramework *self);
 // Quality dependencies map.
-// Returns the list view; element type: CategoryDependencyEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList quality_framework_category_dependencies(const QualityFramework *self);
 
 // Gate details.
@@ -17746,15 +17431,6 @@ void readiness_criteria_entry_free(ReadinessCriteriaEntry *self);
 int readiness_criteria_entry_can_have_content(const ReadinessCriteriaEntry *self);
 ReadinessCriteriaEntryContentForm readiness_criteria_entry_content(const ReadinessCriteriaEntry *self);
 
-// A single recovery flow entry.
-// Binds a RecoveryFlowEntry facade to a document and a path (path copied).
-void recovery_flow_entry_init(RecoveryFlowEntry *self, SpecDocument *doc, const char *path);
-void recovery_flow_entry_free(RecoveryFlowEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int recovery_flow_entry_can_have_content(const RecoveryFlowEntry *self);
-char *recovery_flow_entry_content(const RecoveryFlowEntry *self);
-void recovery_flow_entry_set_content(RecoveryFlowEntry *self, const char *value);
-
 // Recovery procedures.
 // Binds a RecoveryProcedures facade to a document and a path (path copied).
 void recovery_procedures_init(RecoveryProcedures *self, SpecDocument *doc, const char *path);
@@ -17907,15 +17583,6 @@ void related_document_entry_free(RelatedDocumentEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
 int related_document_entry_can_have_content(const RelatedDocumentEntry *self);
 RelatedDocumentEntryContentForm related_document_entry_content(const RelatedDocumentEntry *self);
-
-// A single related pain point entry.
-// Binds a RelatedPainPointEntry facade to a document and a path (path copied).
-void related_pain_point_entry_init(RelatedPainPointEntry *self, SpecDocument *doc, const char *path);
-void related_pain_point_entry_free(RelatedPainPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int related_pain_point_entry_can_have_content(const RelatedPainPointEntry *self);
-char *related_pain_point_entry_content(const RelatedPainPointEntry *self);
-void related_pain_point_entry_set_content(RelatedPainPointEntry *self, const char *value);
 
 // A single relationship attribute entry.
 // Binds a RelationshipAttributeEntry facade to a document and a path (path copied).
@@ -18231,15 +17898,6 @@ SomList report_section_entry_columns(const ReportSectionEntry *self);
 // Returns the list view; element type: ReportChartEntry (construct from item paths).
 SomList report_section_entry_charts(const ReportSectionEntry *self);
 
-// A single representative quote entry.
-// Binds a RepresentativeQuoteEntry facade to a document and a path (path copied).
-void representative_quote_entry_init(RepresentativeQuoteEntry *self, SpecDocument *doc, const char *path);
-void representative_quote_entry_free(RepresentativeQuoteEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int representative_quote_entry_can_have_content(const RepresentativeQuoteEntry *self);
-char *representative_quote_entry_content(const RepresentativeQuoteEntry *self);
-void representative_quote_entry_set_content(RepresentativeQuoteEntry *self, const char *value);
-
 // 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
@@ -18540,15 +18198,6 @@ void resource_requirement_entry_free(ResourceRequirementEntry *self);
 int resource_requirement_entry_can_have_content(const ResourceRequirementEntry *self);
 ResourceRequirementEntryContentForm resource_requirement_entry_content(const ResourceRequirementEntry *self);
 
-// A single response strategy entry.
-// Binds a ResponseStrategyEntry facade to a document and a path (path copied).
-void response_strategy_entry_init(ResponseStrategyEntry *self, SpecDocument *doc, const char *path);
-void response_strategy_entry_free(ResponseStrategyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int response_strategy_entry_can_have_content(const ResponseStrategyEntry *self);
-char *response_strategy_entry_content(const ResponseStrategyEntry *self);
-void response_strategy_entry_set_content(ResponseStrategyEntry *self, const char *value);
-
 // Responsibility change entry (form).
 // Binds a ResponsibilityChangeEntry facade to a document and a path (path copied).
 void responsibility_change_entry_init(ResponsibilityChangeEntry *self, SpecDocument *doc, const char *path);
@@ -18831,15 +18480,6 @@ void revision_history_set_content(RevisionHistory *self, const char *value);
 // Returns the list view; element type: RevisionEntry (construct from item paths).
 SomList revision_history_revisions(const RevisionHistory *self);
 
-// A single risk based decision entry.
-// Binds a RiskBasedDecisionEntry facade to a document and a path (path copied).
-void risk_based_decision_entry_init(RiskBasedDecisionEntry *self, SpecDocument *doc, const char *path);
-void risk_based_decision_entry_free(RiskBasedDecisionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int risk_based_decision_entry_can_have_content(const RiskBasedDecisionEntry *self);
-char *risk_based_decision_entry_content(const RiskBasedDecisionEntry *self);
-void risk_based_decision_entry_set_content(RiskBasedDecisionEntry *self, const char *value);
-
 // Business impact assessment for the risk.
 // Binds a RiskBusinessImpact facade to a document and a path (path copied).
 void risk_business_impact_init(RiskBusinessImpact *self, SpecDocument *doc, const char *path);
@@ -18851,15 +18491,6 @@ RiskBusinessImpactContentForm risk_business_impact_content(const RiskBusinessImp
 RiskBusinessImpactStakeholdersForm risk_business_impact_stakeholders(const RiskBusinessImpact *self);
 // Operational and delivery consequences.
 RiskBusinessImpactDeliveryForm risk_business_impact_delivery(const RiskBusinessImpact *self);
-
-// A single risk category entry.
-// Binds a RiskCategoryEntry facade to a document and a path (path copied).
-void risk_category_entry_init(RiskCategoryEntry *self, SpecDocument *doc, const char *path);
-void risk_category_entry_free(RiskCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int risk_category_entry_can_have_content(const RiskCategoryEntry *self);
-char *risk_category_entry_content(const RiskCategoryEntry *self);
-void risk_category_entry_set_content(RiskCategoryEntry *self, const char *value);
 
 // A risk entry (form).
 //
@@ -19392,15 +19023,6 @@ ScheduledMaintenancePolicyNoticeForm scheduled_maintenance_policy_notice(const S
 // Approval requirements.
 ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(const ScheduledMaintenancePolicy *self);
 
-// A single scope assumption entry.
-// Binds a ScopeAssumptionEntry facade to a document and a path (path copied).
-void scope_assumption_entry_init(ScopeAssumptionEntry *self, SpecDocument *doc, const char *path);
-void scope_assumption_entry_free(ScopeAssumptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int scope_assumption_entry_can_have_content(const ScopeAssumptionEntry *self);
-char *scope_assumption_entry_content(const ScopeAssumptionEntry *self);
-void scope_assumption_entry_set_content(ScopeAssumptionEntry *self, const char *value);
-
 // 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
@@ -19422,7 +19044,7 @@ SomList scope_boundaries_out_of_scope_items(const ScopeBoundaries *self);
 // Returns the list view; element type: DeferredScopeItemEntry (construct from item paths).
 SomList scope_boundaries_deferred_items(const ScopeBoundaries *self);
 // Scope Assumptions.
-// Returns the list view; element type: ScopeAssumptionEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList scope_boundaries_scope_assumptions(const ScopeBoundaries *self);
 
 // A scope item entry (in-scope or out-of-scope).
@@ -19875,15 +19497,6 @@ SecurityCodeReviewPolicyReviewersForm security_code_review_policy_reviewers(cons
 SecurityCodeReviewPolicyProcessForm security_code_review_policy_process(const SecurityCodeReviewPolicy *self);
 // Finding management and residual risk handling.
 SecurityCodeReviewPolicyFindingsForm security_code_review_policy_findings(const SecurityCodeReviewPolicy *self);
-
-// A single security concern entry.
-// Binds a SecurityConcernEntry facade to a document and a path (path copied).
-void security_concern_entry_init(SecurityConcernEntry *self, SpecDocument *doc, const char *path);
-void security_concern_entry_free(SecurityConcernEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int security_concern_entry_can_have_content(const SecurityConcernEntry *self);
-char *security_concern_entry_content(const SecurityConcernEntry *self);
-void security_concern_entry_set_content(SecurityConcernEntry *self, const char *value);
 
 // A security control entry (form).
 // Binds a SecurityControlEntry facade to a document and a path (path copied).
@@ -20491,15 +20104,6 @@ SharedLibraryEntryApiForm shared_library_entry_api(const SharedLibraryEntry *sel
 // Constraints and lifecycle.
 SharedLibraryEntryLifecycleForm shared_library_entry_lifecycle(const SharedLibraryEntry *self);
 
-// A single shared service entry.
-// Binds a SharedServiceEntry facade to a document and a path (path copied).
-void shared_service_entry_init(SharedServiceEntry *self, SpecDocument *doc, const char *path);
-void shared_service_entry_free(SharedServiceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int shared_service_entry_can_have_content(const SharedServiceEntry *self);
-char *shared_service_entry_content(const SharedServiceEntry *self);
-void shared_service_entry_set_content(SharedServiceEntry *self, const char *value);
-
 // 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
@@ -21062,20 +20666,11 @@ StagingStrategyGovernanceForm staging_strategy_governance(const StagingStrategy 
 // 13.1.2. Rationale.
 // (skipped: rationaleNarrative has no target type)
 // 13.1.3. Key Assumptions.
-// Returns the list view; element type: KeyAssumptionEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList staging_strategy_key_assumptions(const StagingStrategy *self);
 // 13.1.4. Constraints.
-// Returns the list view; element type: StagingStrategyConstraintEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList staging_strategy_constraints(const StagingStrategy *self);
-
-// A single constraint entry.
-// Binds a StagingStrategyConstraintEntry facade to a document and a path (path copied).
-void staging_strategy_constraint_entry_init(StagingStrategyConstraintEntry *self, SpecDocument *doc, const char *path);
-void staging_strategy_constraint_entry_free(StagingStrategyConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int staging_strategy_constraint_entry_can_have_content(const StagingStrategyConstraintEntry *self);
-char *staging_strategy_constraint_entry_content(const StagingStrategyConstraintEntry *self);
-void staging_strategy_constraint_entry_set_content(StagingStrategyConstraintEntry *self, const char *value);
 
 // A stakeholder or beneficiary entry — benefits lens (form).
 //
@@ -21257,17 +20852,8 @@ int step_up_authentication_policy_can_have_content(const StepUpAuthenticationPol
 char *step_up_authentication_policy_content(const StepUpAuthenticationPolicy *self);
 void step_up_authentication_policy_set_content(StepUpAuthenticationPolicy *self, const char *value);
 // Step-Up Authentication Details (text).
-// Returns the list view; element type: StepUpDetailEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList step_up_authentication_policy_step_up_details(const StepUpAuthenticationPolicy *self);
-
-// A single step up detail entry.
-// Binds a StepUpDetailEntry facade to a document and a path (path copied).
-void step_up_detail_entry_init(StepUpDetailEntry *self, SpecDocument *doc, const char *path);
-void step_up_detail_entry_free(StepUpDetailEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int step_up_detail_entry_can_have_content(const StepUpDetailEntry *self);
-char *step_up_detail_entry_content(const StepUpDetailEntry *self);
-void step_up_detail_entry_set_content(StepUpDetailEntry *self, const char *value);
 
 // Storage encryption policy — how files and storage volumes are encrypted
 // at rest and in transit to/from storage.
@@ -21616,7 +21202,7 @@ SystemCostAnalysisBenefitsForm system_cost_analysis_benefits(const SystemCostAna
 // Cost breakdown by category if detailed analysis available.
 // (skipped: costBreakdown has no target type)
 // Non-financial benefits to include in ROI.
-// Returns the list view; element type: NonFinancialBenefitEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_cost_analysis_non_financial_benefits(const SystemCostAnalysis *self);
 
 // Data scope and migration assessment.
@@ -21634,7 +21220,7 @@ SystemDataScopeMigrationForm system_data_scope_migration(const SystemDataScope *
 // Returns the list view; element type: DataEntityMigrationEntry (construct from item paths).
 SomList system_data_scope_entities(const SystemDataScope *self);
 // Data quality issues to address.
-// Returns the list view; element type: KnownQualityIssueEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_data_scope_known_quality_issues(const SystemDataScope *self);
 
 // A system dependency entry (form).
@@ -21732,7 +21318,7 @@ SystemErrorDisplayFallbackForm system_error_display_fallback(const SystemErrorDi
 // System error display narrative.
 // (skipped: systemErrorNarrative has no target type)
 // Error page designs.
-// Returns the list view; element type: ErrorPageDesignEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_error_display_error_page_designs(const SystemErrorDisplay *self);
 // Error codes catalog.
 // Returns the list view; element type: SystemErrorCodeEntry (construct from item paths).
@@ -21787,7 +21373,7 @@ void system_knowledge_transfer_free(SystemKnowledgeTransfer *self);
 int system_knowledge_transfer_can_have_content(const SystemKnowledgeTransfer *self);
 SystemKnowledgeTransferContentForm system_knowledge_transfer_content(const SystemKnowledgeTransfer *self);
 // Critical knowledge areas to preserve.
-// Returns the list view; element type: CriticalKnowledgeAreaEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_knowledge_transfer_critical_knowledge_areas(const SystemKnowledgeTransfer *self);
 // Knowledge transfer plan if SME risk is high.
 // (skipped: knowledgeTransferPlan has no target type)
@@ -21841,7 +21427,7 @@ void system_operation_set_content(SystemOperation *self, const char *value);
 // 8.7.1.1. Administration Requirements.
 AdministrationRequirementsSection system_operation_administration_requirements(const SystemOperation *self);
 // Maintenance Procedures.
-// Returns the list view; element type: MaintenanceProcedureEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_operation_maintenance_procedures(const SystemOperation *self);
 
 // 8.7. System Operation and Monitoring.
@@ -21915,7 +21501,7 @@ SystemQualityGoalsResourcesForm system_quality_goals_resources(const SystemQuali
 // Quality assurance strategy.
 // (skipped: qaStrategy has no target type)
 // Quality attribute interdependencies.
-// Returns the list view; element type: AttributeInterdependencyEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_quality_goals_attribute_interdependencies(const SystemQualityGoals *self);
 // Quality attribute priority radar.
 // (skipped: qualityRadar has no target type)
@@ -21963,7 +21549,7 @@ SystemReplacementStrategyCutoverForm system_replacement_strategy_cutover(const S
 // Returns the list view; element type: ReplacementPhaseEntry (construct from item paths).
 SomList system_replacement_strategy_phases(const SystemReplacementStrategy *self);
 // Predecessor systems that must be addressed first.
-// Returns the list view; element type: PredecessorDependencyEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_replacement_strategy_predecessor_dependencies(const SystemReplacementStrategy *self);
 // Success criteria for replacement completion.
 // (skipped: successCriteria has no target type)
@@ -22076,20 +21662,11 @@ SystemTaskEntryContextForm system_task_entry_context(const SystemTaskEntry *self
 char *system_task_entry_related_use_case(const SystemTaskEntry *self);
 void system_task_entry_set_related_use_case(SystemTaskEntry *self, const char *value);
 // Task workflow steps.
-// Returns the list view; element type: SystemTaskWorkflowStepEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_task_entry_workflow_steps(const SystemTaskEntry *self);
 // Variations and exceptions.
-// Returns the list view; element type: VariationsAndExceptionEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_task_entry_variations_and_exceptions(const SystemTaskEntry *self);
-
-// A single workflow step entry.
-// Binds a SystemTaskWorkflowStepEntry facade to a document and a path (path copied).
-void system_task_workflow_step_entry_init(SystemTaskWorkflowStepEntry *self, SpecDocument *doc, const char *path);
-void system_task_workflow_step_entry_free(SystemTaskWorkflowStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int system_task_workflow_step_entry_can_have_content(const SystemTaskWorkflowStepEntry *self);
-char *system_task_workflow_step_entry_content(const SystemTaskWorkflowStepEntry *self);
-void system_task_workflow_step_entry_set_content(SystemTaskWorkflowStepEntry *self, const char *value);
 
 // Technical assessment for a system to replace.
 // Binds a SystemTechnicalAssessment facade to a document and a path (path copied).
@@ -22105,10 +21682,10 @@ SystemTechnicalAssessmentLifecycleForm system_technical_assessment_lifecycle(con
 // Technical quality indicators.
 SystemTechnicalAssessmentQualityForm system_technical_assessment_quality(const SystemTechnicalAssessment *self);
 // Known technical issues and deficiencies.
-// Returns the list view; element type: KnownIssueEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_technical_assessment_known_issues(const SystemTechnicalAssessment *self);
 // Security vulnerabilities and compliance gaps.
-// Returns the list view; element type: SecurityConcernEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList system_technical_assessment_security_concerns(const SystemTechnicalAssessment *self);
 
 // A system to replace entry (form).
@@ -22372,7 +21949,7 @@ TechnicalEnvironmentNetwork technical_environment_network(const TechnicalEnviron
 // Existing infrastructure that must be reused or integrated with.
 // (skipped: existingInfrastructure has no target type)
 // Data center and hosting environment details.
-// Returns the list view; element type: DatacenterEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList technical_environment_datacenters(const TechnicalEnvironment *self);
 // Network topology and connectivity constraints.
 // (skipped: networkTopology has no target type)
@@ -22395,10 +21972,10 @@ void technical_environment_network_free(TechnicalEnvironmentNetwork *self);
 int technical_environment_network_can_have_content(const TechnicalEnvironmentNetwork *self);
 TechnicalEnvironmentNetworkContentForm technical_environment_network_content(const TechnicalEnvironmentNetwork *self);
 // DevOps and deployment standards.
-// Returns the list view; element type: DevopsStandardEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList technical_environment_network_devops_standards(const TechnicalEnvironmentNetwork *self);
 // Monitoring and observability requirements.
-// Returns the list view; element type: ObservabilityRequirementEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList technical_environment_network_observability_requirements(const TechnicalEnvironmentNetwork *self);
 // Disaster recovery and business continuity requirements.
 // (skipped: disasterRecovery has no target type)
@@ -23937,23 +23514,14 @@ void user_journey_set_journey_diagram(UserJourney *self, const char *value);
 // Returns the list view; element type: JourneyStageEntry (construct from item paths).
 SomList user_journey_stages(const UserJourney *self);
 // Key touchpoints.
-// Returns the list view; element type: KeyTouchpointEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList user_journey_key_touchpoints(const UserJourney *self);
 // Pain points in the journey.
-// Returns the list view; element type: UserJourneyPainPointEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList user_journey_pain_points(const UserJourney *self);
 // Opportunities for delight.
 char *user_journey_opportunities_for_delight(const UserJourney *self);
 void user_journey_set_opportunities_for_delight(UserJourney *self, const char *value);
-
-// A single pain point entry.
-// Binds a UserJourneyPainPointEntry facade to a document and a path (path copied).
-void user_journey_pain_point_entry_init(UserJourneyPainPointEntry *self, SpecDocument *doc, const char *path);
-void user_journey_pain_point_entry_free(UserJourneyPainPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int user_journey_pain_point_entry_can_have_content(const UserJourneyPainPointEntry *self);
-char *user_journey_pain_point_entry_content(const UserJourneyPainPointEntry *self);
-void user_journey_pain_point_entry_set_content(UserJourneyPainPointEntry *self, const char *value);
 
 // 9.1.2. User Lifecycle.
 //
@@ -24090,7 +23658,7 @@ UserPersonaDetailsBehaviorForm user_persona_details_behavior(const UserPersonaDe
 char *user_persona_details_visual_representation(const UserPersonaDetails *self);
 void user_persona_details_set_visual_representation(UserPersonaDetails *self, const char *value);
 // Key quotes that represent this persona's mindset.
-// Returns the list view; element type: RepresentativeQuoteEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList user_persona_details_representative_quotes(const UserPersonaDetails *self);
 
 // 10.1.3. User Personas.
@@ -24238,7 +23806,7 @@ ValidationFeedbackBehaviorForm validation_feedback_behavior(const ValidationFeed
 // Returns the list view; element type: ValidationMessageTemplate (construct from item paths).
 SomList validation_feedback_message_templates(const ValidationFeedback *self);
 // Field validation rules by type.
-// Returns the list view; element type: FieldValidationRuleEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList validation_feedback_field_validation_rules(const ValidationFeedback *self);
 
 // A validation message template.
@@ -24248,15 +23816,6 @@ void validation_message_template_free(ValidationMessageTemplate *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
 int validation_message_template_can_have_content(const ValidationMessageTemplate *self);
 ValidationMessageTemplateContentForm validation_message_template_content(const ValidationMessageTemplate *self);
-
-// A single validation rule entry.
-// Binds a ValidationRuleEntry facade to a document and a path (path copied).
-void validation_rule_entry_init(ValidationRuleEntry *self, SpecDocument *doc, const char *path);
-void validation_rule_entry_free(ValidationRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int validation_rule_entry_can_have_content(const ValidationRuleEntry *self);
-char *validation_rule_entry_content(const ValidationRuleEntry *self);
-void validation_rule_entry_set_content(ValidationRuleEntry *self, const char *value);
 
 // 4.1.1.4. Value Proposition.
 //
@@ -24276,17 +23835,8 @@ ValuePropositionBenefitsForm value_proposition_benefits(const ValueProposition *
 // ROI and realization timeline.
 ValuePropositionReturnProfileForm value_proposition_return_profile(const ValueProposition *self);
 // Key Performance Indicators for value measurement.
-// Returns the list view; element type: KpiEntry (construct from item paths).
+// Returns the list view; element type: scalar (construct from item paths).
 SomList value_proposition_kpis(const ValueProposition *self);
-
-// A single variations and exception entry.
-// Binds a VariationsAndExceptionEntry facade to a document and a path (path copied).
-void variations_and_exception_entry_init(VariationsAndExceptionEntry *self, SpecDocument *doc, const char *path);
-void variations_and_exception_entry_free(VariationsAndExceptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
-int variations_and_exception_entry_can_have_content(const VariationsAndExceptionEntry *self);
-char *variations_and_exception_entry_content(const VariationsAndExceptionEntry *self);
-void variations_and_exception_entry_set_content(VariationsAndExceptionEntry *self, const char *value);
 
 // Version control configuration.
 // Binds a VersionControlConfiguration facade to a document and a path (path copied).

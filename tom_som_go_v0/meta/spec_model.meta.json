@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+8.1acef99",
-  "classCount": 1267,
+  "classCount": 1222,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -10351,8 +10351,8 @@
               }
             }
           ],
-          "elementType": "ComplianceMeasureEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -13673,57 +13673,6 @@
             }
           ],
           "type": "AssumptionConstraintDependencyRegister"
-        }
-      ]
-    },
-    "AttributeInterdependencyEntry": {
-      "name": "AttributeInterdependencyEntry",
-      "sectionId": "ATTRI",
-      "doc": "A single attribute interdependency entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly"
-        ],
-        "connotation": "A single attribute-interdependency entry describing how two quality attributes interact or trade off."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly"
-            ],
-            "connotation": "A single attribute-interdependency entry describing how two quality attributes interact or trade off."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "ATTRI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -27212,57 +27161,6 @@
         }
       ]
     },
-    "CategoryDependencyEntry": {
-      "name": "CategoryDependencyEntry",
-      "sectionId": "CATEG",
-      "doc": "A single category dependency entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs"
-        ],
-        "connotation": "A single category-dependency entry describing how one quality category depends on another."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs"
-            ],
-            "connotation": "A single category-dependency entry describing how one quality category depends on another."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "CATEG"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "CcbMemberEntry": {
       "name": "CcbMemberEntry",
       "sectionId": "CCME",
@@ -28475,42 +28373,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "ChangeAdvocateEntry": {
-      "name": "ChangeAdvocateEntry",
-      "sectionId": "CHANG",
-      "doc": "A single change advocate entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "CHANG"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -38572,42 +38434,6 @@
         }
       ]
     },
-    "CommunicationPreferenceEntry": {
-      "name": "CommunicationPreferenceEntry",
-      "sectionId": "COMMU",
-      "doc": "A single communication preference entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "COMMU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "CommunicationRequirements": {
       "name": "CommunicationRequirements",
       "sectionId": "COMREQ",
@@ -40422,42 +40248,6 @@
               "name": "ContentHelp",
               "arguments": {
                 "guidance": "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "ComplianceMeasureEntry": {
-      "name": "ComplianceMeasureEntry",
-      "sectionId": "COMPL",
-      "doc": "A single compliance measure entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "COMPL"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
               }
             },
             {
@@ -51065,42 +50855,6 @@
         }
       ]
     },
-    "CriticalKnowledgeAreaEntry": {
-      "name": "CriticalKnowledgeAreaEntry",
-      "sectionId": "CRITI",
-      "doc": "A single critical knowledge area entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "CRITI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "CrossBoundaryErrorHandling": {
       "name": "CrossBoundaryErrorHandling",
       "sectionId": "CBEH",
@@ -51745,42 +51499,6 @@
         }
       ]
     },
-    "CulturalConsiderationEntry": {
-      "name": "CulturalConsiderationEntry",
-      "sectionId": "CULTU",
-      "doc": "A single cultural consideration entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "CULTU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "CurrentArchitecture": {
       "name": "CurrentArchitecture",
       "sectionId": "CARCH",
@@ -51939,8 +51657,8 @@
               }
             }
           ],
-          "elementType": "IntegrationPatternEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "sharedServices",
@@ -51991,8 +51709,8 @@
               }
             }
           ],
-          "elementType": "SharedServiceEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -70399,42 +70117,6 @@
         }
       ]
     },
-    "DatacenterEntry": {
-      "name": "DatacenterEntry",
-      "sectionId": "DATAC",
-      "doc": "A single datacenter entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "DATAC"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "DebuggingConfiguration": {
       "name": "DebuggingConfiguration",
       "sectionId": "DECO",
@@ -74498,42 +74180,6 @@
             }
           ],
           "type": "IntegrationHealthSummary"
-        }
-      ]
-    },
-    "DependencyEntry": {
-      "name": "DependencyEntry",
-      "sectionId": "DEPEN",
-      "doc": "A single dependency entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "DEPEN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -81486,42 +81132,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "DevopsStandardEntry": {
-      "name": "DevopsStandardEntry",
-      "sectionId": "DEVOP",
-      "doc": "A single devops standard entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "DEVOP"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -93969,93 +93579,6 @@
         }
       ]
     },
-    "ErrorPageDesignEntry": {
-      "name": "ErrorPageDesignEntry",
-      "sectionId": "EPDE",
-      "doc": "A single error page design entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly"
-        ],
-        "connotation": "A single error-page design entry describing how an error state is presented to the user."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly"
-            ],
-            "connotation": "A single error-page design entry describing how an error state is presented to the user."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "EPDE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "ErrorProcedureEntry": {
-      "name": "ErrorProcedureEntry",
-      "sectionId": "ERROR",
-      "doc": "A single error procedure entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "ERROR"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "ErrorRecovery": {
       "name": "ErrorRecovery",
       "sectionId": "ERRE",
@@ -94579,8 +94102,8 @@
               }
             }
           ],
-          "elementType": "RecoveryFlowEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "recoveryScenarios",
@@ -94635,42 +94158,6 @@
           ],
           "elementType": "RecoveryScenarioEntry",
           "elementIsComplex": true
-        }
-      ]
-    },
-    "EscalationProcedureEntry": {
-      "name": "EscalationProcedureEntry",
-      "sectionId": "ESCAL",
-      "doc": "A single escalation procedure entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "ESCAL"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -98716,8 +98203,8 @@
               }
             }
           ],
-          "elementType": "InteractionScenarioEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -104579,57 +104066,6 @@
         }
       ]
     },
-    "FieldValidationRuleEntry": {
-      "name": "FieldValidationRuleEntry",
-      "sectionId": "FIELD",
-      "doc": "A single field validation rule entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry"
-        ],
-        "connotation": "A single field-validation rule entry describing how one input field is checked and corrected."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry"
-            ],
-            "connotation": "A single field-validation rule entry describing how one input field is checked and corrected."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "FIELD"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "FileAccessControlPolicy": {
       "name": "FileAccessControlPolicy",
       "sectionId": "FACP",
@@ -105838,57 +105274,6 @@
             }
           ],
           "type": "Portability"
-        }
-      ]
-    },
-    "FragilePointEntry": {
-      "name": "FragilePointEntry",
-      "sectionId": "FRAGI",
-      "doc": "A single fragile point entry.",
-      "standardReferences": {
-        "standards": [
-          "BABOK v3 §10 — current-state analysis (integration risk / fragile point)"
-        ],
-        "connotation": "One fragile or high-risk point in the current integration landscape whose failure would disrupt operations or threaten the new system implementation."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BABOK v3 §10 — current-state analysis (integration risk / fragile point)"
-            ],
-            "connotation": "One fragile or high-risk point in the current integration landscape whose failure would disrupt operations or threaten the new system implementation."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "FRAGI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -109279,57 +108664,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "GlobalEntryPointEntry": {
-      "name": "GlobalEntryPointEntry",
-      "sectionId": "GLOBA",
-      "doc": "A single global entry point entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point"
-        ],
-        "connotation": "A single global entry-point entry describing a top-level way users enter the system."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point"
-            ],
-            "connotation": "A single global entry-point entry describing a top-level way users enter the system."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "GLOBA"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -116233,8 +115567,8 @@
               }
             }
           ],
-          "elementType": "GlobalEntryPointEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "architectureDiagram",
@@ -119319,59 +118653,8 @@
               }
             }
           ],
-          "elementType": "FragilePointEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "IntegrationPatternEntry": {
-      "name": "IntegrationPatternEntry",
-      "sectionId": "IPE",
-      "doc": "A single integration pattern entry.",
-      "standardReferences": {
-        "standards": [
-          "BABOK v3 §10 — current-state analysis (integration pattern)"
-        ],
-        "connotation": "One integration pattern in use across the current architecture — the style and mechanism by which two or more existing systems exchange data today."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BABOK v3 §10 — current-state analysis (integration pattern)"
-            ],
-            "connotation": "One integration pattern in use across the current architecture — the style and mechanism by which two or more existing systems exchange data today."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "IPE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -122248,42 +121531,6 @@
         }
       ]
     },
-    "InteractionScenarioEntry": {
-      "name": "InteractionScenarioEntry",
-      "sectionId": "INTER",
-      "doc": "A single interaction scenario entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "INTER"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "InteractionTestingStrategy": {
       "name": "InteractionTestingStrategy",
       "sectionId": "INTES1",
@@ -122889,8 +122136,8 @@
               }
             }
           ],
-          "elementType": "MappingRuleEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "validationRules",
@@ -122941,8 +122188,8 @@
               }
             }
           ],
-          "elementType": "ValidationRuleEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -123276,8 +122523,8 @@
               }
             }
           ],
-          "elementType": "ErrorProcedureEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -123987,8 +123234,8 @@
               }
             }
           ],
-          "elementType": "DependencyEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -128204,59 +127451,6 @@
         }
       ]
     },
-    "KeyAssumptionEntry": {
-      "name": "KeyAssumptionEntry",
-      "sectionId": "KEYAS",
-      "doc": "A single key assumption entry.",
-      "standardReferences": {
-        "standards": [
-          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions that underpin the delivery approach",
-          "ISO 21502:2020 — the guidance on project management defines assumption identification and management within the project life-cycle"
-        ],
-        "connotation": "Captures a single key assumption on which the delivery staging plan depends."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions that underpin the delivery approach",
-              "ISO 21502:2020 — the guidance on project management defines assumption identification and management within the project life-cycle"
-            ],
-            "connotation": "Captures a single key assumption on which the delivery staging plan depends."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "KEYAS"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "KeyAttributeEntry": {
       "name": "KeyAttributeEntry",
       "sectionId": "KEATT",
@@ -129923,42 +129117,6 @@
         }
       ]
     },
-    "KeyTouchpointEntry": {
-      "name": "KeyTouchpointEntry",
-      "sectionId": "KEYTO",
-      "doc": "A single key touchpoint entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "KEYTO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "KnowledgeTransfer": {
       "name": "KnowledgeTransfer",
       "sectionId": "KNTFR",
@@ -130013,114 +129171,6 @@
               "name": "ContentHelp",
               "arguments": {
                 "guidance": "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "KnownIssueEntry": {
-      "name": "KnownIssueEntry",
-      "sectionId": "KIE",
-      "doc": "A single known issue entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "KIE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "KnownQualityIssueEntry": {
-      "name": "KnownQualityIssueEntry",
-      "sectionId": "KNOWN",
-      "doc": "A single known quality issue entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "KNOWN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
-    "KpiEntry": {
-      "name": "KpiEntry",
-      "sectionId": "KPIEN",
-      "doc": "A single kpi entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "KPIEN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
               }
             },
             {
@@ -136331,59 +135381,6 @@
         }
       ]
     },
-    "MaintenanceProcedureEntry": {
-      "name": "MaintenanceProcedureEntry",
-      "sectionId": "MAINT",
-      "doc": "A single maintenance procedure entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO/IEC 20000-1 — service management: change and release management",
-          "ITIL 4 — change enablement and service maintenance practices"
-        ],
-        "connotation": "Records a single maintenance procedure to be performed on the deployed system."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO/IEC 20000-1 — service management: change and release management",
-              "ITIL 4 — change enablement and service maintenance practices"
-            ],
-            "connotation": "Records a single maintenance procedure to be performed on the deployed system."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MAINT"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "MaintenanceUserImpact": {
       "name": "MaintenanceUserImpact",
       "sectionId": "MAUSIM",
@@ -137257,42 +136254,6 @@
             }
           ],
           "type": "PostMaintenanceValidation"
-        }
-      ]
-    },
-    "MappingRuleEntry": {
-      "name": "MappingRuleEntry",
-      "sectionId": "MAPPI",
-      "doc": "A single mapping rule entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MAPPI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -139494,61 +138455,8 @@
               }
             }
           ],
-          "elementType": "MfaDetailEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "MfaDetailEntry": {
-      "name": "MfaDetailEntry",
-      "sectionId": "MFADE",
-      "doc": "A single mfa detail entry.",
-      "standardReferences": {
-        "standards": [
-          "NIST SP 800-63B — multi-factor authentication and authenticator requirements",
-          "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
-        ],
-        "connotation": "A single multi-factor authentication detail entry."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "NIST SP 800-63B — multi-factor authentication and authenticator requirements",
-              "ISO/IEC 27001:2022 — control A.8.5 secure authentication"
-            ],
-            "connotation": "A single multi-factor authentication detail entry."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MFADE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -139915,8 +138823,8 @@
               }
             }
           ],
-          "elementType": "EscalationProcedureEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -143377,8 +142285,8 @@
               }
             }
           ],
-          "elementType": "RiskCategoryEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "riskBasedDecisions",
@@ -143431,8 +142339,8 @@
               }
             }
           ],
-          "elementType": "RiskBasedDecisionEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "monitoringProcedures",
@@ -143485,8 +142393,8 @@
               }
             }
           ],
-          "elementType": "MonitoringProcedureEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "responseStrategies",
@@ -143539,8 +142447,8 @@
               }
             }
           ],
-          "elementType": "ResponseStrategyEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "riskAggregation",
@@ -146502,42 +145410,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "MonitoringProcedureEntry": {
-      "name": "MonitoringProcedureEntry",
-      "sectionId": "MONIT",
-      "doc": "A single monitoring procedure entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "MONIT"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -153209,42 +152081,6 @@
         }
       ]
     },
-    "NonFinancialBenefitEntry": {
-      "name": "NonFinancialBenefitEntry",
-      "sectionId": "NONFI",
-      "doc": "A single non financial benefit entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "NONFI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "NotificationChannelEntry": {
       "name": "NotificationChannelEntry",
       "sectionId": "NTFCH",
@@ -154208,42 +153044,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "ObservabilityRequirementEntry": {
-      "name": "ObservabilityRequirementEntry",
-      "sectionId": "OBSER",
-      "doc": "A single observability requirement entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "OBSER"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -158232,8 +157032,8 @@
               }
             }
           ],
-          "elementType": "CulturalConsiderationEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "communicationPreferences",
@@ -158286,8 +157086,8 @@
               }
             }
           ],
-          "elementType": "CommunicationPreferenceEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "politicalLandscape",
@@ -158363,8 +157163,8 @@
               }
             }
           ],
-          "elementType": "ChangeAdvocateEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -167285,42 +166085,6 @@
         }
       ]
     },
-    "PredecessorDependencyEntry": {
-      "name": "PredecessorDependencyEntry",
-      "sectionId": "PREDE",
-      "doc": "A single predecessor dependency entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "PREDE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "PrimaryNavigation": {
       "name": "PrimaryNavigation",
       "sectionId": "PRNA",
@@ -169267,8 +168031,8 @@
               }
             }
           ],
-          "elementType": "RelatedPainPointEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -181844,8 +180608,8 @@
               }
             }
           ],
-          "elementType": "CategoryDependencyEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -184721,57 +183485,6 @@
         }
       ]
     },
-    "RecoveryFlowEntry": {
-      "name": "RecoveryFlowEntry",
-      "sectionId": "RECOV",
-      "doc": "A single recovery flow entry.",
-      "standardReferences": {
-        "standards": [
-          "ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task"
-        ],
-        "connotation": "A single recovery-flow entry describing how users regain access or recover from an interrupted task."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task"
-            ],
-            "connotation": "A single recovery-flow entry describing how users regain access or recover from an interrupted task."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RECOV"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "RecoveryProcedures": {
       "name": "RecoveryProcedures",
       "sectionId": "RP",
@@ -186729,42 +185442,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "RelatedPainPointEntry": {
-      "name": "RelatedPainPointEntry",
-      "sectionId": "RPPE",
-      "doc": "A single related pain point entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RPPE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -192621,42 +191298,6 @@
         }
       ]
     },
-    "RepresentativeQuoteEntry": {
-      "name": "RepresentativeQuoteEntry",
-      "sectionId": "REPRE",
-      "doc": "A single representative quote entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "REPRE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "Requirement": {
       "name": "Requirement",
       "sectionId": "REQ",
@@ -195979,42 +194620,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "ResponseStrategyEntry": {
-      "name": "ResponseStrategyEntry",
-      "sectionId": "RESPO",
-      "doc": "A single response strategy entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RESPO"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -200249,42 +198854,6 @@
         }
       ]
     },
-    "RiskBasedDecisionEntry": {
-      "name": "RiskBasedDecisionEntry",
-      "sectionId": "RISKB",
-      "doc": "A single risk based decision entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RISKB"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "RiskBusinessImpact": {
       "name": "RiskBusinessImpact",
       "sectionId": "RIBUIM",
@@ -200513,42 +199082,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "RiskCategoryEntry": {
-      "name": "RiskCategoryEntry",
-      "sectionId": "RISKC",
-      "doc": "A single risk category entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "RISKC"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -208151,42 +206684,6 @@
         }
       ]
     },
-    "ScopeAssumptionEntry": {
-      "name": "ScopeAssumptionEntry",
-      "sectionId": "SCOPE",
-      "doc": "A single scope assumption entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SCOPE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
-        }
-      ]
-    },
     "ScopeBoundaries": {
       "name": "ScopeBoundaries",
       "sectionId": "SCBND",
@@ -208450,8 +206947,8 @@
               }
             }
           ],
-          "elementType": "ScopeAssumptionEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -214558,42 +213055,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "SecurityConcernEntry": {
-      "name": "SecurityConcernEntry",
-      "sectionId": "SECUR",
-      "doc": "A single security concern entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SECUR"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -222726,57 +221187,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "SharedServiceEntry": {
-      "name": "SharedServiceEntry",
-      "sectionId": "SHARE",
-      "doc": "A single shared service entry.",
-      "standardReferences": {
-        "standards": [
-          "BABOK v3 §10 — current-state analysis (shared service)"
-        ],
-        "connotation": "One shared service or common capability that multiple existing systems depend on, forming part of the current architectural baseline."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "BABOK v3 §10 — current-state analysis (shared service)"
-            ],
-            "connotation": "One shared service or common capability that multiple existing systems depend on, forming part of the current architectural baseline."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SHARE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -232093,8 +230503,8 @@
               }
             }
           ],
-          "elementType": "KeyAssumptionEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "constraints",
@@ -232145,61 +230555,8 @@
               }
             }
           ],
-          "elementType": "StagingStrategyConstraintEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "StagingStrategyConstraintEntry": {
-      "name": "StagingStrategyConstraintEntry",
-      "sectionId": "STAGI",
-      "doc": "A single constraint entry.",
-      "standardReferences": {
-        "standards": [
-          "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions and constraints that bound delivery staging",
-          "ISO 21502:2020 — the guidance on project management defines constraint identification and management within the project life-cycle"
-        ],
-        "connotation": "Captures a single staging constraint that bounds how the delivery plan may be structured."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions and constraints that bound delivery staging",
-              "ISO 21502:2020 — the guidance on project management defines constraint identification and management within the project life-cycle"
-            ],
-            "connotation": "Captures a single staging constraint that bounds how the delivery plan may be structured."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "STAGI"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -233847,61 +232204,8 @@
               }
             }
           ],
-          "elementType": "StepUpDetailEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "StepUpDetailEntry": {
-      "name": "StepUpDetailEntry",
-      "sectionId": "STEPU",
-      "doc": "A single step up detail entry.",
-      "standardReferences": {
-        "standards": [
-          "NIST SP 800-63B — reauthentication and authenticator assurance levels",
-          "OWASP ASVS 4.0 — V2 authentication verification requirements"
-        ],
-        "connotation": "A single step-up authentication detail entry."
-      },
-      "annotations": [
-        {
-          "name": "StandardReferences",
-          "arguments": {
-            "standards": [
-              "NIST SP 800-63B — reauthentication and authenticator assurance levels",
-              "OWASP ASVS 4.0 — V2 authentication verification requirements"
-            ],
-            "connotation": "A single step-up authentication detail entry."
-          }
-        },
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "STEPU"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -238419,8 +236723,8 @@
               }
             }
           ],
-          "elementType": "NonFinancialBenefitEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -238750,8 +237054,8 @@
               }
             }
           ],
-          "elementType": "KnownQualityIssueEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -240482,8 +238786,8 @@
               }
             }
           ],
-          "elementType": "ErrorPageDesignEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "errorCodes",
@@ -241379,8 +239683,8 @@
               }
             }
           ],
-          "elementType": "CriticalKnowledgeAreaEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "knowledgeTransferPlan",
@@ -242006,8 +240310,8 @@
               }
             }
           ],
-          "elementType": "MaintenanceProcedureEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -242809,8 +241113,8 @@
               }
             }
           ],
-          "elementType": "AttributeInterdependencyEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "qualityRadar",
@@ -243351,8 +241655,8 @@
               }
             }
           ],
-          "elementType": "PredecessorDependencyEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "successCriteria",
@@ -244584,8 +242888,8 @@
               }
             }
           ],
-          "elementType": "SystemTaskWorkflowStepEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "variationsAndExceptions",
@@ -244638,44 +242942,8 @@
               }
             }
           ],
-          "elementType": "VariationsAndExceptionEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "SystemTaskWorkflowStepEntry": {
-      "name": "SystemTaskWorkflowStepEntry",
-      "sectionId": "SYSTE",
-      "doc": "A single workflow step entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "SYSTE"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -245032,8 +243300,8 @@
               }
             }
           ],
-          "elementType": "KnownIssueEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "securityConcerns",
@@ -245084,8 +243352,8 @@
               }
             }
           ],
-          "elementType": "SecurityConcernEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -248645,8 +246913,8 @@
               }
             }
           ],
-          "elementType": "DatacenterEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "networkTopology",
@@ -248964,8 +247232,8 @@
               }
             }
           ],
-          "elementType": "DevopsStandardEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "observabilityRequirements",
@@ -249018,8 +247286,8 @@
               }
             }
           ],
-          "elementType": "ObservabilityRequirementEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "disasterRecovery",
@@ -271419,8 +269687,8 @@
               }
             }
           ],
-          "elementType": "KeyTouchpointEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "painPoints",
@@ -271473,8 +269741,8 @@
               }
             }
           ],
-          "elementType": "UserJourneyPainPointEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         },
         {
           "name": "opportunitiesForDelight",
@@ -271504,42 +269772,6 @@
             }
           ],
           "contentType": "description"
-        }
-      ]
-    },
-    "UserJourneyPainPointEntry": {
-      "name": "UserJourneyPainPointEntry",
-      "sectionId": "USERJ",
-      "doc": "A single pain point entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "USERJ"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -272855,8 +271087,8 @@
               }
             }
           ],
-          "elementType": "RepresentativeQuoteEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -274756,8 +272988,8 @@
               }
             }
           ],
-          "elementType": "FieldValidationRuleEntry",
-          "elementIsComplex": true
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },
@@ -274881,42 +273113,6 @@
               "required": false
             }
           ]
-        }
-      ]
-    },
-    "ValidationRuleEntry": {
-      "name": "ValidationRuleEntry",
-      "sectionId": "VALID",
-      "doc": "A single validation rule entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "VALID"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
         }
       ]
     },
@@ -275207,44 +273403,8 @@
               }
             }
           ],
-          "elementType": "KpiEntry",
-          "elementIsComplex": true
-        }
-      ]
-    },
-    "VariationsAndExceptionEntry": {
-      "name": "VariationsAndExceptionEntry",
-      "sectionId": "VARIA",
-      "doc": "A single variations and exception entry.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "VARIA"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "serializationOrder": 0,
-          "annotations": [
-            {
-              "name": "ContentType",
-              "arguments": {
-                "type": "text",
-                "description": "The description for the content is provided by the doc-comment on the field declaration of this type"
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 0
-              }
-            }
-          ],
-          "contentType": "text"
+          "elementType": "String",
+          "elementIsComplex": false
         }
       ]
     },

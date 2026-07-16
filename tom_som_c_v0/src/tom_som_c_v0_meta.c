@@ -127,7 +127,6 @@ static SomMetaNode **meta_children_architecture_style(SomStrList *stack, size_t 
 static SomMetaNode **meta_children_assumption_constraint_dependency_register(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_assumption_register_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_assumptions_constraints_dependencies(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_attribute_interdependency_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_audit_and_logging(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_audit_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_audit_evidence_requirements(SomStrList *stack, size_t *len);
@@ -183,14 +182,12 @@ static SomMetaNode **meta_children_business_rule_entry(SomStrList *stack, size_t
 static SomMetaNode **meta_children_business_rule_reference_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_capacity_planning_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_capacity_review_process(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_category_dependency_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_ccb_member_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_certificate_authentication_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_certificate_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_certificate_management_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_certification_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_certification_requirements_section(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_change_advocate_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_change_category_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_change_control_board(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_change_impact_criteria(SomStrList *stack, size_t *len);
@@ -230,7 +227,6 @@ static SomMetaNode **meta_children_communication_channel_encryption_entry(SomStr
 static SomMetaNode **meta_children_communication_event_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_communication_matrix(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_communication_patterns(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_communication_preference_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_communication_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_communication_tools_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_communication_type_entry(SomStrList *stack, size_t *len);
@@ -241,7 +237,6 @@ static SomMetaNode **meta_children_competency_framework(SomStrList *stack, size_
 static SomMetaNode **meta_children_competency_level_change_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_compliance_audit_schedule(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_compliance_framework(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_compliance_measure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_compliance_milestone_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_compliance_reporting(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_compliance_requirement_entry(SomStrList *stack, size_t *len);
@@ -283,13 +278,11 @@ static SomMetaNode **meta_children_contingency_plans(SomStrList *stack, size_t *
 static SomMetaNode **meta_children_correctness(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_credential_compromise_detection_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_credential_recovery_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_critical_knowledge_area_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_cross_boundary_error_handling(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_cross_boundary_operational_considerations(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_cross_cutting_concerns(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_cross_process_analysis(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_cross_tenant_access_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_cultural_consideration_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_current_architecture(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_current_business_process(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_current_business_processes(SomStrList *stack, size_t *len);
@@ -364,7 +357,6 @@ static SomMetaNode **meta_children_data_volumes_and_growth(SomStrList *stack, si
 static SomMetaNode **meta_children_database_access_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_database_compatibility_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_database_encryption_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_datacenter_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_debugging_configuration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_decision_authority_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_decision_maker_entry(SomStrList *stack, size_t *len);
@@ -383,7 +375,6 @@ static SomMetaNode **meta_children_delivery_scope(SomStrList *stack, size_t *len
 static SomMetaNode **meta_children_delivery_scope_and_acceptance(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_delivery_transition_and_rollout(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_dependencies_and_integrations(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_dependency_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_dependency_health_monitoring(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_dependency_injection_structure(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_dependency_management(SomStrList *stack, size_t *len);
@@ -410,7 +401,6 @@ static SomMetaNode **meta_children_developer_onboarding(SomStrList *stack, size_
 static SomMetaNode **meta_children_development_convention_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_development_environment(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_development_quality_gates(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_devops_standard_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_disaster_recovery_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_display_equipment_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_display_property_entry(SomStrList *stack, size_t *len);
@@ -467,10 +457,7 @@ static SomMetaNode **meta_children_equipment_requirements(SomStrList *stack, siz
 static SomMetaNode **meta_children_error_budget_tracking(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_handling(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_handling_standards(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_error_page_design_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_error_procedure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_error_recovery(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_escalation_procedure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_evaluation_criteria(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_evaluation_criterion_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_event_attribute_policy(SomStrList *stack, size_t *len);
@@ -510,7 +497,6 @@ static SomMetaNode **meta_children_feature_stakeholders(SomStrList *stack, size_
 static SomMetaNode **meta_children_feature_tour_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_field_help_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_field_validation_rule(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_field_validation_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_file_access_control_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_file_and_storage_security(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_file_download_security_policy(SomStrList *stack, size_t *len);
@@ -519,7 +505,6 @@ static SomMetaNode **meta_children_file_upload_validation_policy(SomStrList *sta
 static SomMetaNode **meta_children_firewall_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_flexibility(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_flexibility_characteristic(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_fragile_point_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_framework_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_full_distribution(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_function_data_matrix_entry(SomStrList *stack, size_t *len);
@@ -533,7 +518,6 @@ static SomMetaNode **meta_children_functional_suitability_characteristic(SomStrL
 static SomMetaNode **meta_children_gap_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_gaps(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_geographic_distribution_requirements(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_global_entry_point_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_global_role_exclusion_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_glossary(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_glossary_and_abbreviations(SomStrList *stack, size_t *len);
@@ -582,7 +566,6 @@ static SomMetaNode **meta_children_insurance_liability_requirements(SomStrList *
 static SomMetaNode **meta_children_integration_architecture(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_integration_constraint_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_integration_health_summary(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_integration_pattern_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_integration_point_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_integrations(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_integrity_constraints(SomStrList *stack, size_t *len);
@@ -595,7 +578,6 @@ static SomMetaNode **meta_children_interaction_dependency_analysis(SomStrList *s
 static SomMetaNode **meta_children_interaction_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_interaction_pattern_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_interaction_patterns(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_interaction_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_interaction_testing_strategy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_interface_business_context(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_interface_business_process_entry(SomStrList *stack, size_t *len);
@@ -623,7 +605,6 @@ static SomMetaNode **meta_children_it_security_standards_section(SomStrList *sta
 static SomMetaNode **meta_children_it_standard_compliance_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_job_descriptions_and_staffing(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_journey_stage_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_key_assumption_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_attribute_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_compromise_recovery_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_concept_entry(SomStrList *stack, size_t *len);
@@ -635,11 +616,7 @@ static SomMetaNode **meta_children_key_result_entry(SomStrList *stack, size_t *l
 static SomMetaNode **meta_children_key_rotation_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_scenarios(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_storage_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_key_touchpoint_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_knowledge_transfer(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_known_issue_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_known_quality_issue_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_kpi_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_language_country_selection(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_layer_communication_rules(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_layering_and_module_structure(SomStrList *stack, size_t *len);
@@ -668,11 +645,9 @@ static SomMetaNode **meta_children_maintainability_characteristic(SomStrList *st
 static SomMetaNode **meta_children_maintenance_change_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_dependencies(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_dependency_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_maintenance_procedure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_user_impact(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_window_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_windows_section(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_mapping_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_master_data_domain_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_master_data_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_message_format_standards(SomStrList *stack, size_t *len);
@@ -683,7 +658,6 @@ static SomMetaNode **meta_children_metrics_collection_requirements(SomStrList *s
 static SomMetaNode **meta_children_metrics_dashboard_summary(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_mfa_category_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_mfa_configuration(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_mfa_detail_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_migration_considerations(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_migration_environments(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_migration_interactions(SomStrList *stack, size_t *len);
@@ -709,7 +683,6 @@ static SomMetaNode **meta_children_monitoring(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_monitoring_and_alerting_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_monitoring_dashboards(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_monitoring_infrastructure(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_monitoring_procedure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_moscow_analysis(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_moscow_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_multi_channel_experience(SomStrList *stack, size_t *len);
@@ -735,14 +708,12 @@ static SomMetaNode **meta_children_new_organization_structure(SomStrList *stack,
 static SomMetaNode **meta_children_new_role_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_new_role_qualifications(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_new_role_responsibilities(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_non_financial_benefit_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_notification_channel_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_notification_model(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_notification_type_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_object_invariant_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_object_operation_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_object_state_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_observability_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_on_call_procedures(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_on_call_schedule_config(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_onboarding_help(SomStrList *stack, size_t *len);
@@ -806,7 +777,6 @@ static SomMetaNode **meta_children_portability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_post_maintenance_validation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_postconditions_and_guarantees(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_preconditions_and_triggers(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_predecessor_dependency_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_primary_navigation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_print_and_export_layout(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_privacy_impact_assessment_process(SomStrList *stack, size_t *len);
@@ -886,7 +856,6 @@ static SomMetaNode **meta_children_quality_weight_entry(SomStrList *stack, size_
 static SomMetaNode **meta_children_rate_limiting_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_readability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_readiness_criteria_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_recovery_flow_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_recovery_procedures(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_recovery_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_redirect_handling_policy(SomStrList *stack, size_t *len);
@@ -898,7 +867,6 @@ static SomMetaNode **meta_children_regulatory_compliance_requirements(SomStrList
 static SomMetaNode **meta_children_regulatory_context(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_regulatory_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_related_document_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_related_pain_point_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_relationship_attribute_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_release_strategy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_relevant_section_entry(SomStrList *stack, size_t *len);
@@ -918,7 +886,6 @@ static SomMetaNode **meta_children_report_filter_entry(SomStrList *stack, size_t
 static SomMetaNode **meta_children_report_recipient_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_schedule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_section_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_representative_quote_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_requirement_acceptance_criteria(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_requirement_business_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_requirement_business_rules(SomStrList *stack, size_t *len);
@@ -940,7 +907,6 @@ static SomMetaNode **meta_children_resource_key_entry(SomStrList *stack, size_t 
 static SomMetaNode **meta_children_resource_key_reference_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_resource_protection(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_resource_requirement_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_response_strategy_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsibility_change_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsibility_contacts(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_responsibility_detail_entry(SomStrList *stack, size_t *len);
@@ -961,9 +927,7 @@ static SomMetaNode **meta_children_reuse_goal_entry(SomStrList *stack, size_t *l
 static SomMetaNode **meta_children_review_criterion_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_revision_history(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_risk_based_decision_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_risk_category_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_identification(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_monitoring(SomStrList *stack, size_t *len);
@@ -999,7 +963,6 @@ static SomMetaNode **meta_children_scaling_triggers_and_thresholds(SomStrList *s
 static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_scope_assumption_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scope_boundaries(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scope_item_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_screen_action_entry(SomStrList *stack, size_t *len);
@@ -1028,7 +991,6 @@ static SomMetaNode **meta_children_security_audit_requirements_section(SomStrLis
 static SomMetaNode **meta_children_security_certification_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security_characteristic(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security_code_review_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_security_concern_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security_control_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security_controls(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_security_development_lifecycle(SomStrList *stack, size_t *len);
@@ -1065,7 +1027,6 @@ static SomMetaNode **meta_children_shared_infrastructure_dependencies(SomStrList
 static SomMetaNode **meta_children_shared_infrastructure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_shared_library_component_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_shared_library_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_shared_service_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_sign_off_process(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_single_sign_on_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_sla_and_slo_monitoring(SomStrList *stack, size_t *len);
@@ -1096,7 +1057,6 @@ static SomMetaNode **meta_children_stage_summary_resources(SomStrList *stack, si
 static SomMetaNode **meta_children_staging_dependencies(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_staging_drivers(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_staging_strategy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_staging_strategy_constraint_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholder_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholder_register(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_stakeholder_register_entry(SomStrList *stack, size_t *len);
@@ -1107,7 +1067,6 @@ static SomMetaNode **meta_children_standard_software_requirements(SomStrList *st
 static SomMetaNode **meta_children_standards_compliance_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_steering_committee(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_step_up_authentication_policy(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_step_up_detail_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_storage_encryption_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_storage_lifecycle_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_strategic_alignment(SomStrList *stack, size_t *len);
@@ -1149,7 +1108,6 @@ static SomMetaNode **meta_children_system_rollout(SomStrList *stack, size_t *len
 static SomMetaNode **meta_children_system_stage_plan(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_system_summary(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_system_task_entry(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_system_task_workflow_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_system_technical_assessment(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_system_to_replace_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_system_training_entry(SomStrList *stack, size_t *len);
@@ -1263,7 +1221,6 @@ static SomMetaNode **meta_children_user_growth_projections(SomStrList *stack, si
 static SomMetaNode **meta_children_user_interaction_model(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_interaction_model_summary(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_journey(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_user_journey_pain_point_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_lifecycle(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_lifecycle_transition_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_lifecycle_transitions(SomStrList *stack, size_t *len);
@@ -1281,9 +1238,7 @@ static SomMetaNode **meta_children_utility_navigation_item_entry(SomStrList *sta
 static SomMetaNode **meta_children_validation_constraints(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_validation_feedback(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_validation_message_template(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_validation_rule_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_value_proposition(SomStrList *stack, size_t *len);
-static SomMetaNode **meta_children_variations_and_exception_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_version_control_configuration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_virtualization_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_volume_metric_entry(SomStrList *stack, size_t *len);
@@ -1509,7 +1464,6 @@ static void meta_build_api_versioning_strategy_compatibility(SomMetaNode *n);
 static void meta_build_api_versioning_strategy_documentation(SomMetaNode *n);
 static void meta_build_applicable_regulation_entry_content(SomMetaNode *n);
 static void meta_build_applicable_regulation_entry_compliance_measures(SomMetaNode *n);
-static void meta_build_applicable_regulation_entry_compliance_measures_elem(SomMetaNode *n);
 static void meta_build_application_diagnostics_content(SomMetaNode *n);
 static void meta_build_application_diagnostics_performance(SomMetaNode *n);
 static void meta_build_application_diagnostics_runtime(SomMetaNode *n);
@@ -1571,7 +1525,6 @@ static void meta_build_assumption_constraint_dependency_register_dependencies_el
 static void meta_build_assumption_register_entry_content(SomMetaNode *n);
 static void meta_build_assumptions_constraints_dependencies_content(SomMetaNode *n);
 static void meta_build_assumptions_constraints_dependencies_register(SomMetaNode *n);
-static void meta_build_attribute_interdependency_entry_content(SomMetaNode *n);
 static void meta_build_audit_and_logging_content(SomMetaNode *n);
 static void meta_build_audit_and_logging_security_events(SomMetaNode *n);
 static void meta_build_audit_and_logging_audit_log_format(SomMetaNode *n);
@@ -1868,7 +1821,6 @@ static void meta_build_capacity_review_process_content(SomMetaNode *n);
 static void meta_build_capacity_review_process_monitoring(SomMetaNode *n);
 static void meta_build_capacity_review_process_escalation(SomMetaNode *n);
 static void meta_build_capacity_review_process_planning(SomMetaNode *n);
-static void meta_build_category_dependency_entry_content(SomMetaNode *n);
 static void meta_build_ccb_member_entry_content(SomMetaNode *n);
 static void meta_build_certificate_authentication_policy_content(SomMetaNode *n);
 static void meta_build_certificate_authentication_policy_certificate_details(SomMetaNode *n);
@@ -1890,7 +1842,6 @@ static void meta_build_certification_requirements_section_process(SomMetaNode *n
 static void meta_build_certification_requirements_section_timeline(SomMetaNode *n);
 static void meta_build_certification_requirements_section_costs(SomMetaNode *n);
 static void meta_build_certification_requirements_section_marketing(SomMetaNode *n);
-static void meta_build_change_advocate_entry_content(SomMetaNode *n);
 static void meta_build_change_category_entry_content(SomMetaNode *n);
 static void meta_build_change_category_entry_scope_details(SomMetaNode *n);
 static void meta_build_change_category_entry_handling(SomMetaNode *n);
@@ -2070,7 +2021,6 @@ static void meta_build_communication_patterns_asynchronous(SomMetaNode *n);
 static void meta_build_communication_patterns_data_exchange(SomMetaNode *n);
 static void meta_build_communication_patterns_reliability(SomMetaNode *n);
 static void meta_build_communication_patterns_observability(SomMetaNode *n);
-static void meta_build_communication_preference_entry_content(SomMetaNode *n);
 static void meta_build_communication_requirements_content(SomMetaNode *n);
 static void meta_build_communication_requirements_protocols_and_standards(SomMetaNode *n);
 static void meta_build_communication_requirements_external_connectivity(SomMetaNode *n);
@@ -2113,7 +2063,6 @@ static void meta_build_compliance_audit_schedule_planning(SomMetaNode *n);
 static void meta_build_compliance_audit_schedule_execution(SomMetaNode *n);
 static void meta_build_compliance_audit_schedule_reporting(SomMetaNode *n);
 static void meta_build_compliance_framework_content(SomMetaNode *n);
-static void meta_build_compliance_measure_entry_content(SomMetaNode *n);
 static void meta_build_compliance_milestone_entry_content(SomMetaNode *n);
 static void meta_build_compliance_reporting_content(SomMetaNode *n);
 static void meta_build_compliance_reporting_periodic_reviews(SomMetaNode *n);
@@ -2302,7 +2251,6 @@ static void meta_build_credential_compromise_detection_policy_content(SomMetaNod
 static void meta_build_credential_compromise_detection_policy_compromise_detection_details(SomMetaNode *n);
 static void meta_build_credential_recovery_policy_content(SomMetaNode *n);
 static void meta_build_credential_recovery_policy_credential_recovery_details(SomMetaNode *n);
-static void meta_build_critical_knowledge_area_entry_content(SomMetaNode *n);
 static void meta_build_cross_boundary_error_handling_content(SomMetaNode *n);
 static void meta_build_cross_boundary_operational_considerations_content(SomMetaNode *n);
 static void meta_build_cross_cutting_concerns_content(SomMetaNode *n);
@@ -2314,14 +2262,11 @@ static void meta_build_cross_cutting_concerns_shared(SomMetaNode *n);
 static void meta_build_cross_process_analysis_content(SomMetaNode *n);
 static void meta_build_cross_tenant_access_policy_content(SomMetaNode *n);
 static void meta_build_cross_tenant_access_policy_cross_tenant_access_policy_details(SomMetaNode *n);
-static void meta_build_cultural_consideration_entry_content(SomMetaNode *n);
 static void meta_build_current_architecture_content(SomMetaNode *n);
 static void meta_build_current_architecture_architecture_diagram(SomMetaNode *n);
 static void meta_build_current_architecture_deployment_topology(SomMetaNode *n);
 static void meta_build_current_architecture_integration_patterns(SomMetaNode *n);
-static void meta_build_current_architecture_integration_patterns_elem(SomMetaNode *n);
 static void meta_build_current_architecture_shared_services(SomMetaNode *n);
-static void meta_build_current_architecture_shared_services_elem(SomMetaNode *n);
 static void meta_build_current_business_process_content(SomMetaNode *n);
 static void meta_build_current_business_process_process_context(SomMetaNode *n);
 static void meta_build_current_business_process_workflow_descriptions(SomMetaNode *n);
@@ -2803,7 +2748,6 @@ static void meta_build_database_compatibility_entry_connection(SomMetaNode *n);
 static void meta_build_database_compatibility_entry_performance(SomMetaNode *n);
 static void meta_build_database_encryption_policy_content(SomMetaNode *n);
 static void meta_build_database_encryption_policy_database_encryption_details(SomMetaNode *n);
-static void meta_build_datacenter_entry_content(SomMetaNode *n);
 static void meta_build_debugging_configuration_content(SomMetaNode *n);
 static void meta_build_debugging_configuration_breakpoints(SomMetaNode *n);
 static void meta_build_debugging_configuration_logging(SomMetaNode *n);
@@ -2879,7 +2823,6 @@ static void meta_build_dependencies_and_integrations_external_service_dependenci
 static void meta_build_dependencies_and_integrations_shared_infrastructure_dependencies(SomMetaNode *n);
 static void meta_build_dependencies_and_integrations_integrations(SomMetaNode *n);
 static void meta_build_dependencies_and_integrations_health_summary(SomMetaNode *n);
-static void meta_build_dependency_entry_content(SomMetaNode *n);
 static void meta_build_dependency_health_monitoring_content(SomMetaNode *n);
 static void meta_build_dependency_health_monitoring_cache(SomMetaNode *n);
 static void meta_build_dependency_health_monitoring_queue(SomMetaNode *n);
@@ -3011,7 +2954,6 @@ static void meta_build_development_quality_gates_complexity(SomMetaNode *n);
 static void meta_build_development_quality_gates_security(SomMetaNode *n);
 static void meta_build_development_quality_gates_documentation(SomMetaNode *n);
 static void meta_build_development_quality_gates_performance(SomMetaNode *n);
-static void meta_build_devops_standard_entry_content(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_failover(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_failback(SomMetaNode *n);
@@ -3240,8 +3182,6 @@ static void meta_build_error_handling_standards_patterns(SomMetaNode *n);
 static void meta_build_error_handling_standards_reporting(SomMetaNode *n);
 static void meta_build_error_handling_standards_user_communication(SomMetaNode *n);
 static void meta_build_error_handling_standards_recovery(SomMetaNode *n);
-static void meta_build_error_page_design_entry_content(SomMetaNode *n);
-static void meta_build_error_procedure_entry_content(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n);
 static void meta_build_error_recovery_data_preservation(SomMetaNode *n);
 static void meta_build_error_recovery_retry_mechanisms(SomMetaNode *n);
@@ -3250,10 +3190,8 @@ static void meta_build_error_recovery_support_contact(SomMetaNode *n);
 static void meta_build_error_recovery_session_handling(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_narrative(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_flows(SomMetaNode *n);
-static void meta_build_error_recovery_recovery_flows_elem(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_scenarios(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_scenarios_elem(SomMetaNode *n);
-static void meta_build_escalation_procedure_entry_content(SomMetaNode *n);
 static void meta_build_evaluation_criteria_content(SomMetaNode *n);
 static void meta_build_evaluation_criteria_items(SomMetaNode *n);
 static void meta_build_evaluation_criteria_items_elem(SomMetaNode *n);
@@ -3328,7 +3266,6 @@ static void meta_build_external_actor_entry_content(SomMetaNode *n);
 static void meta_build_external_actor_entry_interaction(SomMetaNode *n);
 static void meta_build_external_actor_entry_context(SomMetaNode *n);
 static void meta_build_external_actor_entry_interaction_scenarios(SomMetaNode *n);
-static void meta_build_external_actor_entry_interaction_scenarios_elem(SomMetaNode *n);
 static void meta_build_external_actors_content(SomMetaNode *n);
 static void meta_build_external_actors_actors(SomMetaNode *n);
 static void meta_build_external_actors_actors_elem(SomMetaNode *n);
@@ -3438,7 +3375,6 @@ static void meta_build_feature_tour_entry_steps(SomMetaNode *n);
 static void meta_build_feature_tour_entry_steps_elem(SomMetaNode *n);
 static void meta_build_field_help_entry_content(SomMetaNode *n);
 static void meta_build_field_validation_rule_content(SomMetaNode *n);
-static void meta_build_field_validation_rule_entry_content(SomMetaNode *n);
 static void meta_build_file_access_control_policy_content(SomMetaNode *n);
 static void meta_build_file_access_control_policy_file_access_control_details(SomMetaNode *n);
 static void meta_build_file_and_storage_security_content(SomMetaNode *n);
@@ -3469,7 +3405,6 @@ static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNod
 static void meta_build_flexibility_characteristic_overview(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_flexibility(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_portability(SomMetaNode *n);
-static void meta_build_fragile_point_entry_content(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_content(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_identity(SomMetaNode *n);
 static void meta_build_framework_requirement_entry_version(SomMetaNode *n);
@@ -3537,7 +3472,6 @@ static void meta_build_geographic_distribution_requirements_cdn(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_routing(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_anycast(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_performance(SomMetaNode *n);
-static void meta_build_global_entry_point_entry_content(SomMetaNode *n);
 static void meta_build_global_role_exclusion_entry_content(SomMetaNode *n);
 static void meta_build_glossary_content(SomMetaNode *n);
 static void meta_build_glossary_entries(SomMetaNode *n);
@@ -3669,7 +3603,6 @@ static void meta_build_information_architecture_site_map(SomMetaNode *n);
 static void meta_build_information_architecture_content_hierarchy(SomMetaNode *n);
 static void meta_build_information_architecture_navigation_structure(SomMetaNode *n);
 static void meta_build_information_architecture_global_entry_points(SomMetaNode *n);
-static void meta_build_information_architecture_global_entry_points_elem(SomMetaNode *n);
 static void meta_build_information_architecture_architecture_diagram(SomMetaNode *n);
 static void meta_build_information_for_use_requirements_content(SomMetaNode *n);
 static void meta_build_information_for_use_requirements_user_documentation(SomMetaNode *n);
@@ -3719,8 +3652,6 @@ static void meta_build_integration_constraint_entry_mitigation(SomMetaNode *n);
 static void meta_build_integration_constraint_entry_compliance(SomMetaNode *n);
 static void meta_build_integration_health_summary_content(SomMetaNode *n);
 static void meta_build_integration_health_summary_fragile_points(SomMetaNode *n);
-static void meta_build_integration_health_summary_fragile_points_elem(SomMetaNode *n);
-static void meta_build_integration_pattern_entry_content(SomMetaNode *n);
 static void meta_build_integration_point_entry_content(SomMetaNode *n);
 static void meta_build_integrations_content(SomMetaNode *n);
 static void meta_build_integrations_items(SomMetaNode *n);
@@ -3773,7 +3704,6 @@ static void meta_build_interaction_pattern_entry_usage(SomMetaNode *n);
 static void meta_build_interaction_patterns_content(SomMetaNode *n);
 static void meta_build_interaction_patterns_patterns(SomMetaNode *n);
 static void meta_build_interaction_patterns_patterns_elem(SomMetaNode *n);
-static void meta_build_interaction_scenario_entry_content(SomMetaNode *n);
 static void meta_build_interaction_testing_strategy_content(SomMetaNode *n);
 static void meta_build_interface_business_context_content(SomMetaNode *n);
 static void meta_build_interface_business_context_dependent_processes(SomMetaNode *n);
@@ -3784,15 +3714,12 @@ static void meta_build_interface_data_spec_content(SomMetaNode *n);
 static void meta_build_interface_data_spec_data_entities(SomMetaNode *n);
 static void meta_build_interface_data_spec_data_entities_elem(SomMetaNode *n);
 static void meta_build_interface_data_spec_mapping_rules(SomMetaNode *n);
-static void meta_build_interface_data_spec_mapping_rules_elem(SomMetaNode *n);
 static void meta_build_interface_data_spec_validation_rules(SomMetaNode *n);
-static void meta_build_interface_data_spec_validation_rules_elem(SomMetaNode *n);
 static void meta_build_interface_error_handling_content(SomMetaNode *n);
 static void meta_build_interface_error_handling_retry(SomMetaNode *n);
 static void meta_build_interface_error_handling_fallback(SomMetaNode *n);
 static void meta_build_interface_error_handling_timeout(SomMetaNode *n);
 static void meta_build_interface_error_handling_error_procedures(SomMetaNode *n);
-static void meta_build_interface_error_handling_error_procedures_elem(SomMetaNode *n);
 static void meta_build_interface_governance_content(SomMetaNode *n);
 static void meta_build_interface_governance_contract(SomMetaNode *n);
 static void meta_build_interface_governance_lifecycle(SomMetaNode *n);
@@ -3803,7 +3730,6 @@ static void meta_build_interface_operational_rate_limiting(SomMetaNode *n);
 static void meta_build_interface_operational_monitoring(SomMetaNode *n);
 static void meta_build_interface_operational_support(SomMetaNode *n);
 static void meta_build_interface_operational_dependencies(SomMetaNode *n);
-static void meta_build_interface_operational_dependencies_elem(SomMetaNode *n);
 static void meta_build_interface_security_content(SomMetaNode *n);
 static void meta_build_interface_security_authorization(SomMetaNode *n);
 static void meta_build_interface_security_encryption(SomMetaNode *n);
@@ -3887,7 +3813,6 @@ static void meta_build_job_descriptions_and_staffing_removed_roles_elem(SomMetaN
 static void meta_build_job_descriptions_and_staffing_staffing_plan(SomMetaNode *n);
 static void meta_build_job_descriptions_and_staffing_competency_framework(SomMetaNode *n);
 static void meta_build_journey_stage_entry_content(SomMetaNode *n);
-static void meta_build_key_assumption_entry_content(SomMetaNode *n);
 static void meta_build_key_attribute_entry_content(SomMetaNode *n);
 static void meta_build_key_attribute_entry_generation(SomMetaNode *n);
 static void meta_build_key_attribute_entry_reference(SomMetaNode *n);
@@ -3922,11 +3847,7 @@ static void meta_build_key_scenarios_scenarios(SomMetaNode *n);
 static void meta_build_key_scenarios_scenarios_elem(SomMetaNode *n);
 static void meta_build_key_storage_policy_content(SomMetaNode *n);
 static void meta_build_key_storage_policy_notes(SomMetaNode *n);
-static void meta_build_key_touchpoint_entry_content(SomMetaNode *n);
 static void meta_build_knowledge_transfer_content(SomMetaNode *n);
-static void meta_build_known_issue_entry_content(SomMetaNode *n);
-static void meta_build_known_quality_issue_entry_content(SomMetaNode *n);
-static void meta_build_kpi_entry_content(SomMetaNode *n);
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n);
 static void meta_build_language_country_selection_defaults(SomMetaNode *n);
 static void meta_build_language_country_selection_persistence(SomMetaNode *n);
@@ -4043,7 +3964,6 @@ static void meta_build_maintenance_dependency_entry_content(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_classification(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_update(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_risk(SomMetaNode *n);
-static void meta_build_maintenance_procedure_entry_content(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_content(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_during(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_graceful_degradation(SomMetaNode *n);
@@ -4062,7 +3982,6 @@ static void meta_build_maintenance_windows_section_emergency_maintenance(SomMeta
 static void meta_build_maintenance_windows_section_change_management(SomMetaNode *n);
 static void meta_build_maintenance_windows_section_user_impact(SomMetaNode *n);
 static void meta_build_maintenance_windows_section_post_maintenance(SomMetaNode *n);
-static void meta_build_mapping_rule_entry_content(SomMetaNode *n);
 static void meta_build_master_data_domain_entry_content(SomMetaNode *n);
 static void meta_build_master_data_domain_entry_quality(SomMetaNode *n);
 static void meta_build_master_data_domain_entry_usage(SomMetaNode *n);
@@ -4100,8 +4019,6 @@ static void meta_build_mfa_category_requirement_entry_timing(SomMetaNode *n);
 static void meta_build_mfa_category_requirement_entry_operations(SomMetaNode *n);
 static void meta_build_mfa_configuration_content(SomMetaNode *n);
 static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n);
-static void meta_build_mfa_configuration_mfa_details_elem(SomMetaNode *n);
-static void meta_build_mfa_detail_entry_content(SomMetaNode *n);
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n);
 static void meta_build_migration_considerations_strategy_narrative(SomMetaNode *n);
 static void meta_build_migration_considerations_resources(SomMetaNode *n);
@@ -4115,7 +4032,6 @@ static void meta_build_migration_considerations_rollback_strategy(SomMetaNode *n
 static void meta_build_migration_considerations_go_no_gos_criteria(SomMetaNode *n);
 static void meta_build_migration_considerations_communication_plan(SomMetaNode *n);
 static void meta_build_migration_considerations_escalation_procedures(SomMetaNode *n);
-static void meta_build_migration_considerations_escalation_procedures_elem(SomMetaNode *n);
 static void meta_build_migration_environments_content(SomMetaNode *n);
 static void meta_build_migration_interactions_content(SomMetaNode *n);
 static void meta_build_migration_mapping_entry_content(SomMetaNode *n);
@@ -4166,13 +4082,9 @@ static void meta_build_migration_risks_reporting(SomMetaNode *n);
 static void meta_build_migration_risks_risk_overview(SomMetaNode *n);
 static void meta_build_migration_risks_assessment_methodology(SomMetaNode *n);
 static void meta_build_migration_risks_risk_categories(SomMetaNode *n);
-static void meta_build_migration_risks_risk_categories_elem(SomMetaNode *n);
 static void meta_build_migration_risks_risk_based_decisions(SomMetaNode *n);
-static void meta_build_migration_risks_risk_based_decisions_elem(SomMetaNode *n);
 static void meta_build_migration_risks_monitoring_procedures(SomMetaNode *n);
-static void meta_build_migration_risks_monitoring_procedures_elem(SomMetaNode *n);
 static void meta_build_migration_risks_response_strategies(SomMetaNode *n);
-static void meta_build_migration_risks_response_strategies_elem(SomMetaNode *n);
 static void meta_build_migration_risks_risk_aggregation(SomMetaNode *n);
 static void meta_build_migration_risks_risk_matrix(SomMetaNode *n);
 static void meta_build_migration_risks_risk_timeline(SomMetaNode *n);
@@ -4234,7 +4146,6 @@ static void meta_build_monitoring_infrastructure_content(SomMetaNode *n);
 static void meta_build_monitoring_infrastructure_deployment(SomMetaNode *n);
 static void meta_build_monitoring_infrastructure_collection(SomMetaNode *n);
 static void meta_build_monitoring_infrastructure_access(SomMetaNode *n);
-static void meta_build_monitoring_procedure_entry_content(SomMetaNode *n);
 static void meta_build_moscow_analysis_content(SomMetaNode *n);
 static void meta_build_moscow_analysis_moscow_rationale(SomMetaNode *n);
 static void meta_build_moscow_analysis_items(SomMetaNode *n);
@@ -4362,7 +4273,6 @@ static void meta_build_new_role_responsibilities_primary_responsibilities_elem(S
 static void meta_build_new_role_responsibilities_secondary_responsibilities(SomMetaNode *n);
 static void meta_build_new_role_responsibilities_secondary_responsibilities_elem(SomMetaNode *n);
 static void meta_build_new_role_responsibilities_decision_authority(SomMetaNode *n);
-static void meta_build_non_financial_benefit_entry_content(SomMetaNode *n);
 static void meta_build_notification_channel_entry_content(SomMetaNode *n);
 static void meta_build_notification_model_content(SomMetaNode *n);
 static void meta_build_notification_model_channels(SomMetaNode *n);
@@ -4378,7 +4288,6 @@ static void meta_build_object_operation_entry_execution(SomMetaNode *n);
 static void meta_build_object_operation_entry_lifecycle(SomMetaNode *n);
 static void meta_build_object_operation_entry_governance(SomMetaNode *n);
 static void meta_build_object_state_entry_content(SomMetaNode *n);
-static void meta_build_observability_requirement_entry_content(SomMetaNode *n);
 static void meta_build_on_call_procedures_content(SomMetaNode *n);
 static void meta_build_on_call_procedures_teams(SomMetaNode *n);
 static void meta_build_on_call_procedures_slas(SomMetaNode *n);
@@ -4454,12 +4363,9 @@ static void meta_build_organizational_environment_decision_making(SomMetaNode *n
 static void meta_build_organizational_environment_decision_makers(SomMetaNode *n);
 static void meta_build_organizational_environment_decision_makers_elem(SomMetaNode *n);
 static void meta_build_organizational_environment_cultural_considerations(SomMetaNode *n);
-static void meta_build_organizational_environment_cultural_considerations_elem(SomMetaNode *n);
 static void meta_build_organizational_environment_communication_preferences(SomMetaNode *n);
-static void meta_build_organizational_environment_communication_preferences_elem(SomMetaNode *n);
 static void meta_build_organizational_environment_political_landscape(SomMetaNode *n);
 static void meta_build_organizational_environment_change_advocates(SomMetaNode *n);
-static void meta_build_organizational_environment_change_advocates_elem(SomMetaNode *n);
 static void meta_build_organizational_framework_overview(SomMetaNode *n);
 static void meta_build_organizational_framework_organization_structure(SomMetaNode *n);
 static void meta_build_organizational_framework_job_descriptions(SomMetaNode *n);
@@ -4638,7 +4544,6 @@ static void meta_build_post_maintenance_validation_monitoring(SomMetaNode *n);
 static void meta_build_post_maintenance_validation_closure(SomMetaNode *n);
 static void meta_build_postconditions_and_guarantees_content(SomMetaNode *n);
 static void meta_build_preconditions_and_triggers_content(SomMetaNode *n);
-static void meta_build_predecessor_dependency_entry_content(SomMetaNode *n);
 static void meta_build_primary_navigation_content(SomMetaNode *n);
 static void meta_build_primary_navigation_drawer(SomMetaNode *n);
 static void meta_build_primary_navigation_bottom_nav(SomMetaNode *n);
@@ -4670,7 +4575,6 @@ static void meta_build_privilege_usage_reporting_notes(SomMetaNode *n);
 static void meta_build_problem_statement_content(SomMetaNode *n);
 static void meta_build_problem_statement_problem_details(SomMetaNode *n);
 static void meta_build_problem_statement_related_pain_points(SomMetaNode *n);
-static void meta_build_problem_statement_related_pain_points_elem(SomMetaNode *n);
 static void meta_build_process_adjustment_details_content(SomMetaNode *n);
 static void meta_build_process_adjustment_entry_content(SomMetaNode *n);
 static void meta_build_process_adjustment_entry_identity(SomMetaNode *n);
@@ -4903,7 +4807,6 @@ static void meta_build_quality_framework_objectives_breakdown(SomMetaNode *n);
 static void meta_build_quality_framework_quality_categories(SomMetaNode *n);
 static void meta_build_quality_framework_quality_categories_elem(SomMetaNode *n);
 static void meta_build_quality_framework_category_dependencies(SomMetaNode *n);
-static void meta_build_quality_framework_category_dependencies_elem(SomMetaNode *n);
 static void meta_build_quality_gate_adjustment_details_content(SomMetaNode *n);
 static void meta_build_quality_gate_adjustment_entry_content(SomMetaNode *n);
 static void meta_build_quality_gate_adjustment_entry_details(SomMetaNode *n);
@@ -4951,7 +4854,6 @@ static void meta_build_readability_structure(SomMetaNode *n);
 static void meta_build_readability_style(SomMetaNode *n);
 static void meta_build_readability_narrative(SomMetaNode *n);
 static void meta_build_readiness_criteria_entry_content(SomMetaNode *n);
-static void meta_build_recovery_flow_entry_content(SomMetaNode *n);
 static void meta_build_recovery_procedures_content(SomMetaNode *n);
 static void meta_build_recovery_procedures_database(SomMetaNode *n);
 static void meta_build_recovery_procedures_application(SomMetaNode *n);
@@ -4987,7 +4889,6 @@ static void meta_build_regulatory_context_regulations(SomMetaNode *n);
 static void meta_build_regulatory_context_regulations_elem(SomMetaNode *n);
 static void meta_build_regulatory_requirement_entry_content(SomMetaNode *n);
 static void meta_build_related_document_entry_content(SomMetaNode *n);
-static void meta_build_related_pain_point_entry_content(SomMetaNode *n);
 static void meta_build_relationship_attribute_entry_content(SomMetaNode *n);
 static void meta_build_release_strategy_content(SomMetaNode *n);
 static void meta_build_release_strategy_blue_green(SomMetaNode *n);
@@ -5081,7 +4982,6 @@ static void meta_build_report_section_entry_columns(SomMetaNode *n);
 static void meta_build_report_section_entry_columns_elem(SomMetaNode *n);
 static void meta_build_report_section_entry_charts(SomMetaNode *n);
 static void meta_build_report_section_entry_charts_elem(SomMetaNode *n);
-static void meta_build_representative_quote_entry_content(SomMetaNode *n);
 static void meta_build_requirement_acceptance_criteria_content(SomMetaNode *n);
 static void meta_build_requirement_acceptance_criteria_criteria(SomMetaNode *n);
 static void meta_build_requirement_acceptance_criteria_criteria_elem(SomMetaNode *n);
@@ -5150,7 +5050,6 @@ static void meta_build_resource_protection_data_level_security(SomMetaNode *n);
 static void meta_build_resource_protection_api_security(SomMetaNode *n);
 static void meta_build_resource_protection_file_and_storage_security(SomMetaNode *n);
 static void meta_build_resource_requirement_entry_content(SomMetaNode *n);
-static void meta_build_response_strategy_entry_content(SomMetaNode *n);
 static void meta_build_responsibility_change_entry_content(SomMetaNode *n);
 static void meta_build_responsibility_contacts_content(SomMetaNode *n);
 static void meta_build_responsibility_detail_entry_content(SomMetaNode *n);
@@ -5226,11 +5125,9 @@ static void meta_build_revision_entry_content(SomMetaNode *n);
 static void meta_build_revision_history_content(SomMetaNode *n);
 static void meta_build_revision_history_revisions(SomMetaNode *n);
 static void meta_build_revision_history_revisions_elem(SomMetaNode *n);
-static void meta_build_risk_based_decision_entry_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_stakeholders(SomMetaNode *n);
 static void meta_build_risk_business_impact_delivery(SomMetaNode *n);
-static void meta_build_risk_category_entry_content(SomMetaNode *n);
 static void meta_build_risk_entry_identification(SomMetaNode *n);
 static void meta_build_risk_entry_analysis(SomMetaNode *n);
 static void meta_build_risk_entry_response(SomMetaNode *n);
@@ -5352,7 +5249,6 @@ static void meta_build_scheduled_maintenance_policy_scheduling(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_duration(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_notice(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_approval(SomMetaNode *n);
-static void meta_build_scope_assumption_entry_content(SomMetaNode *n);
 static void meta_build_scope_boundaries_content(SomMetaNode *n);
 static void meta_build_scope_boundaries_in_scope_items(SomMetaNode *n);
 static void meta_build_scope_boundaries_in_scope_items_elem(SomMetaNode *n);
@@ -5361,7 +5257,6 @@ static void meta_build_scope_boundaries_out_of_scope_items_elem(SomMetaNode *n);
 static void meta_build_scope_boundaries_deferred_items(SomMetaNode *n);
 static void meta_build_scope_boundaries_deferred_items_elem(SomMetaNode *n);
 static void meta_build_scope_boundaries_scope_assumptions(SomMetaNode *n);
-static void meta_build_scope_boundaries_scope_assumptions_elem(SomMetaNode *n);
 static void meta_build_scope_item_entry_content(SomMetaNode *n);
 static void meta_build_screen_action_entry_content(SomMetaNode *n);
 static void meta_build_screen_action_entry_visual(SomMetaNode *n);
@@ -5484,7 +5379,6 @@ static void meta_build_security_code_review_policy_content(SomMetaNode *n);
 static void meta_build_security_code_review_policy_reviewers(SomMetaNode *n);
 static void meta_build_security_code_review_policy_process(SomMetaNode *n);
 static void meta_build_security_code_review_policy_findings(SomMetaNode *n);
-static void meta_build_security_concern_entry_content(SomMetaNode *n);
 static void meta_build_security_control_entry_content(SomMetaNode *n);
 static void meta_build_security_control_entry_implementation(SomMetaNode *n);
 static void meta_build_security_control_entry_verification(SomMetaNode *n);
@@ -5640,7 +5534,6 @@ static void meta_build_shared_library_entry_content(SomMetaNode *n);
 static void meta_build_shared_library_entry_description(SomMetaNode *n);
 static void meta_build_shared_library_entry_api(SomMetaNode *n);
 static void meta_build_shared_library_entry_lifecycle(SomMetaNode *n);
-static void meta_build_shared_service_entry_content(SomMetaNode *n);
 static void meta_build_sign_off_process_content(SomMetaNode *n);
 static void meta_build_sign_off_process_governance(SomMetaNode *n);
 static void meta_build_sign_off_process_evidence(SomMetaNode *n);
@@ -5805,10 +5698,7 @@ static void meta_build_staging_strategy_governance(SomMetaNode *n);
 static void meta_build_staging_strategy_staging_approach(SomMetaNode *n);
 static void meta_build_staging_strategy_rationale_narrative(SomMetaNode *n);
 static void meta_build_staging_strategy_key_assumptions(SomMetaNode *n);
-static void meta_build_staging_strategy_key_assumptions_elem(SomMetaNode *n);
 static void meta_build_staging_strategy_constraints(SomMetaNode *n);
-static void meta_build_staging_strategy_constraints_elem(SomMetaNode *n);
-static void meta_build_staging_strategy_constraint_entry_content(SomMetaNode *n);
 static void meta_build_stakeholder_entry_content(SomMetaNode *n);
 static void meta_build_stakeholder_register_content(SomMetaNode *n);
 static void meta_build_stakeholder_register_stakeholders(SomMetaNode *n);
@@ -5858,8 +5748,6 @@ static void meta_build_steering_committee_members(SomMetaNode *n);
 static void meta_build_steering_committee_members_elem(SomMetaNode *n);
 static void meta_build_step_up_authentication_policy_content(SomMetaNode *n);
 static void meta_build_step_up_authentication_policy_step_up_details(SomMetaNode *n);
-static void meta_build_step_up_authentication_policy_step_up_details_elem(SomMetaNode *n);
-static void meta_build_step_up_detail_entry_content(SomMetaNode *n);
 static void meta_build_storage_encryption_policy_content(SomMetaNode *n);
 static void meta_build_storage_encryption_policy_storage_encryption_details(SomMetaNode *n);
 static void meta_build_storage_lifecycle_policy_content(SomMetaNode *n);
@@ -5951,14 +5839,12 @@ static void meta_build_system_cost_analysis_migration(SomMetaNode *n);
 static void meta_build_system_cost_analysis_benefits(SomMetaNode *n);
 static void meta_build_system_cost_analysis_cost_breakdown(SomMetaNode *n);
 static void meta_build_system_cost_analysis_non_financial_benefits(SomMetaNode *n);
-static void meta_build_system_cost_analysis_non_financial_benefits_elem(SomMetaNode *n);
 static void meta_build_system_data_scope_content(SomMetaNode *n);
 static void meta_build_system_data_scope_governance(SomMetaNode *n);
 static void meta_build_system_data_scope_migration(SomMetaNode *n);
 static void meta_build_system_data_scope_entities(SomMetaNode *n);
 static void meta_build_system_data_scope_entities_elem(SomMetaNode *n);
 static void meta_build_system_data_scope_known_quality_issues(SomMetaNode *n);
-static void meta_build_system_data_scope_known_quality_issues_elem(SomMetaNode *n);
 static void meta_build_system_dependency_entry_content(SomMetaNode *n);
 static void meta_build_system_dependency_entry_mechanism(SomMetaNode *n);
 static void meta_build_system_dependency_entry_data_exchange(SomMetaNode *n);
@@ -5988,7 +5874,6 @@ static void meta_build_system_error_display_display_content(SomMetaNode *n);
 static void meta_build_system_error_display_fallback(SomMetaNode *n);
 static void meta_build_system_error_display_system_error_narrative(SomMetaNode *n);
 static void meta_build_system_error_display_error_page_designs(SomMetaNode *n);
-static void meta_build_system_error_display_error_page_designs_elem(SomMetaNode *n);
 static void meta_build_system_error_display_error_codes(SomMetaNode *n);
 static void meta_build_system_error_display_error_codes_elem(SomMetaNode *n);
 static void meta_build_system_integration_entry_content(SomMetaNode *n);
@@ -6005,7 +5890,6 @@ static void meta_build_system_inventory_systems(SomMetaNode *n);
 static void meta_build_system_inventory_systems_elem(SomMetaNode *n);
 static void meta_build_system_knowledge_transfer_content(SomMetaNode *n);
 static void meta_build_system_knowledge_transfer_critical_knowledge_areas(SomMetaNode *n);
-static void meta_build_system_knowledge_transfer_critical_knowledge_areas_elem(SomMetaNode *n);
 static void meta_build_system_knowledge_transfer_knowledge_transfer_plan(SomMetaNode *n);
 static void meta_build_system_landscape_inventory_content(SomMetaNode *n);
 static void meta_build_system_migration_plan_content(SomMetaNode *n);
@@ -6019,7 +5903,6 @@ static void meta_build_system_migration_risk_entry_content(SomMetaNode *n);
 static void meta_build_system_operation_content(SomMetaNode *n);
 static void meta_build_system_operation_administration_requirements(SomMetaNode *n);
 static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n);
-static void meta_build_system_operation_maintenance_procedures_elem(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_content(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_system_operation(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_monitoring(SomMetaNode *n);
@@ -6041,7 +5924,6 @@ static void meta_build_system_quality_goals_executive_summary(SomMetaNode *n);
 static void meta_build_system_quality_goals_quality_vision(SomMetaNode *n);
 static void meta_build_system_quality_goals_qa_strategy(SomMetaNode *n);
 static void meta_build_system_quality_goals_attribute_interdependencies(SomMetaNode *n);
-static void meta_build_system_quality_goals_attribute_interdependencies_elem(SomMetaNode *n);
 static void meta_build_system_quality_goals_quality_radar(SomMetaNode *n);
 static void meta_build_system_quality_goals_framework(SomMetaNode *n);
 static void meta_build_system_quality_goals_functional_suitability(SomMetaNode *n);
@@ -6062,7 +5944,6 @@ static void meta_build_system_replacement_strategy_cutover(SomMetaNode *n);
 static void meta_build_system_replacement_strategy_phases(SomMetaNode *n);
 static void meta_build_system_replacement_strategy_phases_elem(SomMetaNode *n);
 static void meta_build_system_replacement_strategy_predecessor_dependencies(SomMetaNode *n);
-static void meta_build_system_replacement_strategy_predecessor_dependencies_elem(SomMetaNode *n);
 static void meta_build_system_replacement_strategy_success_criteria(SomMetaNode *n);
 static void meta_build_system_rollout_content(SomMetaNode *n);
 static void meta_build_system_rollout_rollout_plan(SomMetaNode *n);
@@ -6097,18 +5978,13 @@ static void meta_build_system_task_entry_data(SomMetaNode *n);
 static void meta_build_system_task_entry_context(SomMetaNode *n);
 static void meta_build_system_task_entry_related_use_case(SomMetaNode *n);
 static void meta_build_system_task_entry_workflow_steps(SomMetaNode *n);
-static void meta_build_system_task_entry_workflow_steps_elem(SomMetaNode *n);
 static void meta_build_system_task_entry_variations_and_exceptions(SomMetaNode *n);
-static void meta_build_system_task_entry_variations_and_exceptions_elem(SomMetaNode *n);
-static void meta_build_system_task_workflow_step_entry_content(SomMetaNode *n);
 static void meta_build_system_technical_assessment_content(SomMetaNode *n);
 static void meta_build_system_technical_assessment_platform(SomMetaNode *n);
 static void meta_build_system_technical_assessment_lifecycle(SomMetaNode *n);
 static void meta_build_system_technical_assessment_quality(SomMetaNode *n);
 static void meta_build_system_technical_assessment_known_issues(SomMetaNode *n);
-static void meta_build_system_technical_assessment_known_issues_elem(SomMetaNode *n);
 static void meta_build_system_technical_assessment_security_concerns(SomMetaNode *n);
-static void meta_build_system_technical_assessment_security_concerns_elem(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_profile(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_vendor(SomMetaNode *n);
@@ -6177,7 +6053,6 @@ static void meta_build_technical_environment_security(SomMetaNode *n);
 static void meta_build_technical_environment_network(SomMetaNode *n);
 static void meta_build_technical_environment_existing_infrastructure(SomMetaNode *n);
 static void meta_build_technical_environment_datacenters(SomMetaNode *n);
-static void meta_build_technical_environment_datacenters_elem(SomMetaNode *n);
 static void meta_build_technical_environment_network_topology(SomMetaNode *n);
 static void meta_build_technical_environment_standards_overview(SomMetaNode *n);
 static void meta_build_technical_environment_technology_standards(SomMetaNode *n);
@@ -6187,9 +6062,7 @@ static void meta_build_technical_environment_integration_constraints(SomMetaNode
 static void meta_build_technical_environment_integration_constraints_elem(SomMetaNode *n);
 static void meta_build_technical_environment_network_content(SomMetaNode *n);
 static void meta_build_technical_environment_network_devops_standards(SomMetaNode *n);
-static void meta_build_technical_environment_network_devops_standards_elem(SomMetaNode *n);
 static void meta_build_technical_environment_network_observability_requirements(SomMetaNode *n);
-static void meta_build_technical_environment_network_observability_requirements_elem(SomMetaNode *n);
 static void meta_build_technical_environment_network_disaster_recovery(SomMetaNode *n);
 static void meta_build_technical_framework_concept_content(SomMetaNode *n);
 static void meta_build_technical_framework_concept_basic_requirements(SomMetaNode *n);
@@ -6600,11 +6473,8 @@ static void meta_build_user_journey_journey_diagram(SomMetaNode *n);
 static void meta_build_user_journey_stages(SomMetaNode *n);
 static void meta_build_user_journey_stages_elem(SomMetaNode *n);
 static void meta_build_user_journey_key_touchpoints(SomMetaNode *n);
-static void meta_build_user_journey_key_touchpoints_elem(SomMetaNode *n);
 static void meta_build_user_journey_pain_points(SomMetaNode *n);
-static void meta_build_user_journey_pain_points_elem(SomMetaNode *n);
 static void meta_build_user_journey_opportunities_for_delight(SomMetaNode *n);
-static void meta_build_user_journey_pain_point_entry_content(SomMetaNode *n);
 static void meta_build_user_lifecycle_content(SomMetaNode *n);
 static void meta_build_user_lifecycle_overview(SomMetaNode *n);
 static void meta_build_user_lifecycle_account_states(SomMetaNode *n);
@@ -6639,7 +6509,6 @@ static void meta_build_user_persona_details_goals(SomMetaNode *n);
 static void meta_build_user_persona_details_behavior(SomMetaNode *n);
 static void meta_build_user_persona_details_visual_representation(SomMetaNode *n);
 static void meta_build_user_persona_details_representative_quotes(SomMetaNode *n);
-static void meta_build_user_persona_details_representative_quotes_elem(SomMetaNode *n);
 static void meta_build_user_personas_content(SomMetaNode *n);
 static void meta_build_user_personas_overview(SomMetaNode *n);
 static void meta_build_user_personas_items(SomMetaNode *n);
@@ -6676,16 +6545,12 @@ static void meta_build_validation_feedback_validation_narrative(SomMetaNode *n);
 static void meta_build_validation_feedback_message_templates(SomMetaNode *n);
 static void meta_build_validation_feedback_message_templates_elem(SomMetaNode *n);
 static void meta_build_validation_feedback_field_validation_rules(SomMetaNode *n);
-static void meta_build_validation_feedback_field_validation_rules_elem(SomMetaNode *n);
 static void meta_build_validation_message_template_content(SomMetaNode *n);
-static void meta_build_validation_rule_entry_content(SomMetaNode *n);
 static void meta_build_value_proposition_content(SomMetaNode *n);
 static void meta_build_value_proposition_value_details(SomMetaNode *n);
 static void meta_build_value_proposition_benefits(SomMetaNode *n);
 static void meta_build_value_proposition_return_profile(SomMetaNode *n);
 static void meta_build_value_proposition_kpis(SomMetaNode *n);
-static void meta_build_value_proposition_kpis_elem(SomMetaNode *n);
-static void meta_build_variations_and_exception_entry_content(SomMetaNode *n);
 static void meta_build_version_control_configuration_content(SomMetaNode *n);
 static void meta_build_version_control_configuration_repository(SomMetaNode *n);
 static void meta_build_version_control_configuration_branching(SomMetaNode *n);
@@ -6783,6 +6648,11 @@ static void meta_build_workplace_support_resources_self_service(SomMetaNode *n);
 static void meta_build_workplace_support_resources_incidents(SomMetaNode *n);
 
 /* ── element-accessor factories (SomMetaRefFactory) ─────────────────────── */
+static void *meta_leaf_factory(const SomMetaTree *tree, const char *path) {
+  SomMetaRef *r = (SomMetaRef *)malloc(sizeof(SomMetaRef));
+  som_meta_ref_init(r, tree, path);
+  return r;
+}
 static void *meta_nav_factory_acceptance_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_nav_acceptance_criterion_entry *r = (som_nav_acceptance_criterion_entry *)malloc(sizeof(som_nav_acceptance_criterion_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -6908,11 +6778,6 @@ static void *meta_nav_factory_assumption_register_entry(const SomMetaTree *tree,
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_attribute_interdependency_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_attribute_interdependency_entry *r = (som_nav_attribute_interdependency_entry *)malloc(sizeof(som_nav_attribute_interdependency_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_audit_entry(const SomMetaTree *tree, const char *path) {
   som_nav_audit_entry *r = (som_nav_audit_entry *)malloc(sizeof(som_nav_audit_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7018,11 +6883,6 @@ static void *meta_nav_factory_business_rule_reference_entry(const SomMetaTree *t
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_category_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_category_dependency_entry *r = (som_nav_category_dependency_entry *)malloc(sizeof(som_nav_category_dependency_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_ccb_member_entry(const SomMetaTree *tree, const char *path) {
   som_nav_ccb_member_entry *r = (som_nav_ccb_member_entry *)malloc(sizeof(som_nav_ccb_member_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7030,11 +6890,6 @@ static void *meta_nav_factory_ccb_member_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_nav_factory_certification_entry(const SomMetaTree *tree, const char *path) {
   som_nav_certification_entry *r = (som_nav_certification_entry *)malloc(sizeof(som_nav_certification_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_change_advocate_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_change_advocate_entry *r = (som_nav_change_advocate_entry *)malloc(sizeof(som_nav_change_advocate_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7103,11 +6958,6 @@ static void *meta_nav_factory_communication_event_entry(const SomMetaTree *tree,
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_communication_preference_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_communication_preference_entry *r = (som_nav_communication_preference_entry *)malloc(sizeof(som_nav_communication_preference_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_communication_tools_requirements(const SomMetaTree *tree, const char *path) {
   som_nav_communication_tools_requirements *r = (som_nav_communication_tools_requirements *)malloc(sizeof(som_nav_communication_tools_requirements));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7125,11 +6975,6 @@ static void *meta_nav_factory_competency_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_nav_factory_competency_level_change_entry(const SomMetaTree *tree, const char *path) {
   som_nav_competency_level_change_entry *r = (som_nav_competency_level_change_entry *)malloc(sizeof(som_nav_competency_level_change_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_compliance_measure_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_compliance_measure_entry *r = (som_nav_compliance_measure_entry *)malloc(sizeof(som_nav_compliance_measure_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7218,18 +7063,8 @@ static void *meta_nav_factory_contingency_plan_entry(const SomMetaTree *tree, co
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_critical_knowledge_area_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_critical_knowledge_area_entry *r = (som_nav_critical_knowledge_area_entry *)malloc(sizeof(som_nav_critical_knowledge_area_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_cross_boundary_operational_considerations(const SomMetaTree *tree, const char *path) {
   som_nav_cross_boundary_operational_considerations *r = (som_nav_cross_boundary_operational_considerations *)malloc(sizeof(som_nav_cross_boundary_operational_considerations));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_cultural_consideration_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_cultural_consideration_entry *r = (som_nav_cultural_consideration_entry *)malloc(sizeof(som_nav_cultural_consideration_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7363,11 +7198,6 @@ static void *meta_nav_factory_database_compatibility_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_datacenter_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_datacenter_entry *r = (som_nav_datacenter_entry *)malloc(sizeof(som_nav_datacenter_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_decision_authority_entry(const SomMetaTree *tree, const char *path) {
   som_nav_decision_authority_entry *r = (som_nav_decision_authority_entry *)malloc(sizeof(som_nav_decision_authority_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7410,11 +7240,6 @@ static void *meta_nav_factory_deliverable_entry(const SomMetaTree *tree, const c
 }
 static void *meta_nav_factory_delivery_acceptance_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_nav_delivery_acceptance_criterion_entry *r = (som_nav_delivery_acceptance_criterion_entry *)malloc(sizeof(som_nav_delivery_acceptance_criterion_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_dependency_entry *r = (som_nav_dependency_entry *)malloc(sizeof(som_nav_dependency_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7465,11 +7290,6 @@ static void *meta_nav_factory_detailed_process_workflow(const SomMetaTree *tree,
 }
 static void *meta_nav_factory_development_convention_entry(const SomMetaTree *tree, const char *path) {
   som_nav_development_convention_entry *r = (som_nav_development_convention_entry *)malloc(sizeof(som_nav_development_convention_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_devops_standard_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_devops_standard_entry *r = (som_nav_devops_standard_entry *)malloc(sizeof(som_nav_devops_standard_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7570,21 +7390,6 @@ static void *meta_nav_factory_entry_point_entry(const SomMetaTree *tree, const c
 }
 static void *meta_nav_factory_environment_entry(const SomMetaTree *tree, const char *path) {
   som_nav_environment_entry *r = (som_nav_environment_entry *)malloc(sizeof(som_nav_environment_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_error_page_design_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_error_page_design_entry *r = (som_nav_error_page_design_entry *)malloc(sizeof(som_nav_error_page_design_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_error_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_error_procedure_entry *r = (som_nav_error_procedure_entry *)malloc(sizeof(som_nav_error_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_escalation_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_escalation_procedure_entry *r = (som_nav_escalation_procedure_entry *)malloc(sizeof(som_nav_escalation_procedure_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7708,16 +7513,6 @@ static void *meta_nav_factory_field_validation_rule(const SomMetaTree *tree, con
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_field_validation_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_field_validation_rule_entry *r = (som_nav_field_validation_rule_entry *)malloc(sizeof(som_nav_field_validation_rule_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_fragile_point_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_fragile_point_entry *r = (som_nav_fragile_point_entry *)malloc(sizeof(som_nav_fragile_point_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_framework_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_nav_framework_requirement_entry *r = (som_nav_framework_requirement_entry *)malloc(sizeof(som_nav_framework_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7740,11 +7535,6 @@ static void *meta_nav_factory_functional_requirement_entry(const SomMetaTree *tr
 }
 static void *meta_nav_factory_gap_entry(const SomMetaTree *tree, const char *path) {
   som_nav_gap_entry *r = (som_nav_gap_entry *)malloc(sizeof(som_nav_gap_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_global_entry_point_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_global_entry_point_entry *r = (som_nav_global_entry_point_entry *)malloc(sizeof(som_nav_global_entry_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7848,11 +7638,6 @@ static void *meta_nav_factory_integration_constraint_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_integration_pattern_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_integration_pattern_entry *r = (som_nav_integration_pattern_entry *)malloc(sizeof(som_nav_integration_pattern_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_integration_point_entry(const SomMetaTree *tree, const char *path) {
   som_nav_integration_point_entry *r = (som_nav_integration_point_entry *)malloc(sizeof(som_nav_integration_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7875,11 +7660,6 @@ static void *meta_nav_factory_interaction_entry(const SomMetaTree *tree, const c
 }
 static void *meta_nav_factory_interaction_pattern_entry(const SomMetaTree *tree, const char *path) {
   som_nav_interaction_pattern_entry *r = (som_nav_interaction_pattern_entry *)malloc(sizeof(som_nav_interaction_pattern_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_interaction_scenario_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_interaction_scenario_entry *r = (som_nav_interaction_scenario_entry *)malloc(sizeof(som_nav_interaction_scenario_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -7928,11 +7708,6 @@ static void *meta_nav_factory_journey_stage_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_key_assumption_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_key_assumption_entry *r = (som_nav_key_assumption_entry *)malloc(sizeof(som_nav_key_assumption_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_key_attribute_entry(const SomMetaTree *tree, const char *path) {
   som_nav_key_attribute_entry *r = (som_nav_key_attribute_entry *)malloc(sizeof(som_nav_key_attribute_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7945,26 +7720,6 @@ static void *meta_nav_factory_key_concept_entry(const SomMetaTree *tree, const c
 }
 static void *meta_nav_factory_key_result_entry(const SomMetaTree *tree, const char *path) {
   som_nav_key_result_entry *r = (som_nav_key_result_entry *)malloc(sizeof(som_nav_key_result_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_key_touchpoint_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_key_touchpoint_entry *r = (som_nav_key_touchpoint_entry *)malloc(sizeof(som_nav_key_touchpoint_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_known_issue_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_known_issue_entry *r = (som_nav_known_issue_entry *)malloc(sizeof(som_nav_known_issue_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_known_quality_issue_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_known_quality_issue_entry *r = (som_nav_known_quality_issue_entry *)malloc(sizeof(som_nav_known_quality_issue_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_kpi_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_kpi_entry *r = (som_nav_kpi_entry *)malloc(sizeof(som_nav_kpi_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8003,18 +7758,8 @@ static void *meta_nav_factory_maintenance_dependency_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_maintenance_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_maintenance_procedure_entry *r = (som_nav_maintenance_procedure_entry *)malloc(sizeof(som_nav_maintenance_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_maintenance_window_entry(const SomMetaTree *tree, const char *path) {
   som_nav_maintenance_window_entry *r = (som_nav_maintenance_window_entry *)malloc(sizeof(som_nav_maintenance_window_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_mapping_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_mapping_rule_entry *r = (som_nav_mapping_rule_entry *)malloc(sizeof(som_nav_mapping_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8030,11 +7775,6 @@ static void *meta_nav_factory_metrics_baseline_entry(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_mfa_category_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_nav_mfa_category_requirement_entry *r = (som_nav_mfa_category_requirement_entry *)malloc(sizeof(som_nav_mfa_category_requirement_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_mfa_detail_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_mfa_detail_entry *r = (som_nav_mfa_detail_entry *)malloc(sizeof(som_nav_mfa_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8113,11 +7853,6 @@ static void *meta_nav_factory_module_entry(const SomMetaTree *tree, const char *
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_monitoring_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_monitoring_procedure_entry *r = (som_nav_monitoring_procedure_entry *)malloc(sizeof(som_nav_monitoring_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_moscow_entry(const SomMetaTree *tree, const char *path) {
   som_nav_moscow_entry *r = (som_nav_moscow_entry *)malloc(sizeof(som_nav_moscow_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8148,11 +7883,6 @@ static void *meta_nav_factory_new_role_entry(const SomMetaTree *tree, const char
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_non_financial_benefit_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_non_financial_benefit_entry *r = (som_nav_non_financial_benefit_entry *)malloc(sizeof(som_nav_non_financial_benefit_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_notification_channel_entry(const SomMetaTree *tree, const char *path) {
   som_nav_notification_channel_entry *r = (som_nav_notification_channel_entry *)malloc(sizeof(som_nav_notification_channel_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8175,11 +7905,6 @@ static void *meta_nav_factory_object_operation_entry(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_object_state_entry(const SomMetaTree *tree, const char *path) {
   som_nav_object_state_entry *r = (som_nav_object_state_entry *)malloc(sizeof(som_nav_object_state_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_observability_requirement_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_observability_requirement_entry *r = (som_nav_observability_requirement_entry *)malloc(sizeof(som_nav_observability_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8300,11 +8025,6 @@ static void *meta_nav_factory_postconditions_and_guarantees(const SomMetaTree *t
 }
 static void *meta_nav_factory_preconditions_and_triggers(const SomMetaTree *tree, const char *path) {
   som_nav_preconditions_and_triggers *r = (som_nav_preconditions_and_triggers *)malloc(sizeof(som_nav_preconditions_and_triggers));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_predecessor_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_predecessor_dependency_entry *r = (som_nav_predecessor_dependency_entry *)malloc(sizeof(som_nav_predecessor_dependency_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8463,11 +8183,6 @@ static void *meta_nav_factory_readiness_criteria_entry(const SomMetaTree *tree, 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_recovery_flow_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_recovery_flow_entry *r = (som_nav_recovery_flow_entry *)malloc(sizeof(som_nav_recovery_flow_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_recovery_scenario_entry(const SomMetaTree *tree, const char *path) {
   som_nav_recovery_scenario_entry *r = (som_nav_recovery_scenario_entry *)malloc(sizeof(som_nav_recovery_scenario_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8490,11 +8205,6 @@ static void *meta_nav_factory_regulatory_requirement_entry(const SomMetaTree *tr
 }
 static void *meta_nav_factory_related_document_entry(const SomMetaTree *tree, const char *path) {
   som_nav_related_document_entry *r = (som_nav_related_document_entry *)malloc(sizeof(som_nav_related_document_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_related_pain_point_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_related_pain_point_entry *r = (som_nav_related_pain_point_entry *)malloc(sizeof(som_nav_related_pain_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8568,11 +8278,6 @@ static void *meta_nav_factory_report_section_entry(const SomMetaTree *tree, cons
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_representative_quote_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_representative_quote_entry *r = (som_nav_representative_quote_entry *)malloc(sizeof(som_nav_representative_quote_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_requirement_business_rule_entry(const SomMetaTree *tree, const char *path) {
   som_nav_requirement_business_rule_entry *r = (som_nav_requirement_business_rule_entry *)malloc(sizeof(som_nav_requirement_business_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8615,11 +8320,6 @@ static void *meta_nav_factory_resource_key_reference_entry(const SomMetaTree *tr
 }
 static void *meta_nav_factory_resource_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_nav_resource_requirement_entry *r = (som_nav_resource_requirement_entry *)malloc(sizeof(som_nav_resource_requirement_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_response_strategy_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_response_strategy_entry *r = (som_nav_response_strategy_entry *)malloc(sizeof(som_nav_response_strategy_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8685,16 +8385,6 @@ static void *meta_nav_factory_review_criterion_entry(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_revision_entry(const SomMetaTree *tree, const char *path) {
   som_nav_revision_entry *r = (som_nav_revision_entry *)malloc(sizeof(som_nav_revision_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_risk_based_decision_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_risk_based_decision_entry *r = (som_nav_risk_based_decision_entry *)malloc(sizeof(som_nav_risk_based_decision_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_risk_category_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_risk_category_entry *r = (som_nav_risk_category_entry *)malloc(sizeof(som_nav_risk_category_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8773,11 +8463,6 @@ static void *meta_nav_factory_scenario_step_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_scope_assumption_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_scope_assumption_entry *r = (som_nav_scope_assumption_entry *)malloc(sizeof(som_nav_scope_assumption_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_scope_item_entry(const SomMetaTree *tree, const char *path) {
   som_nav_scope_item_entry *r = (som_nav_scope_item_entry *)malloc(sizeof(som_nav_scope_item_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8830,11 +8515,6 @@ static void *meta_nav_factory_screen_user_category_entry(const SomMetaTree *tree
 }
 static void *meta_nav_factory_security_audit_entry(const SomMetaTree *tree, const char *path) {
   som_nav_security_audit_entry *r = (som_nav_security_audit_entry *)malloc(sizeof(som_nav_security_audit_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_security_concern_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_security_concern_entry *r = (som_nav_security_concern_entry *)malloc(sizeof(som_nav_security_concern_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8895,11 +8575,6 @@ static void *meta_nav_factory_shared_library_component_entry(const SomMetaTree *
 }
 static void *meta_nav_factory_shared_library_entry(const SomMetaTree *tree, const char *path) {
   som_nav_shared_library_entry *r = (som_nav_shared_library_entry *)malloc(sizeof(som_nav_shared_library_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_shared_service_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_shared_service_entry *r = (som_nav_shared_service_entry *)malloc(sizeof(som_nav_shared_service_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8983,11 +8658,6 @@ static void *meta_nav_factory_staging_drivers(const SomMetaTree *tree, const cha
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_staging_strategy_constraint_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_staging_strategy_constraint_entry *r = (som_nav_staging_strategy_constraint_entry *)malloc(sizeof(som_nav_staging_strategy_constraint_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_stakeholder_entry(const SomMetaTree *tree, const char *path) {
   som_nav_stakeholder_entry *r = (som_nav_stakeholder_entry *)malloc(sizeof(som_nav_stakeholder_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9000,11 +8670,6 @@ static void *meta_nav_factory_stakeholder_register_entry(const SomMetaTree *tree
 }
 static void *meta_nav_factory_stakeholders_and_interests(const SomMetaTree *tree, const char *path) {
   som_nav_stakeholders_and_interests *r = (som_nav_stakeholders_and_interests *)malloc(sizeof(som_nav_stakeholders_and_interests));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_step_up_detail_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_step_up_detail_entry *r = (som_nav_step_up_detail_entry *)malloc(sizeof(som_nav_step_up_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9065,11 +8730,6 @@ static void *meta_nav_factory_system_migration_risk_entry(const SomMetaTree *tre
 }
 static void *meta_nav_factory_system_task_entry(const SomMetaTree *tree, const char *path) {
   som_nav_system_task_entry *r = (som_nav_system_task_entry *)malloc(sizeof(som_nav_system_task_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_system_task_workflow_step_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_system_task_workflow_step_entry *r = (som_nav_system_task_workflow_step_entry *)malloc(sizeof(som_nav_system_task_workflow_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9298,11 +8958,6 @@ static void *meta_nav_factory_user_group_impact_entry(const SomMetaTree *tree, c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_nav_factory_user_journey_pain_point_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_user_journey_pain_point_entry *r = (som_nav_user_journey_pain_point_entry *)malloc(sizeof(som_nav_user_journey_pain_point_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_nav_factory_user_lifecycle_transition_entry(const SomMetaTree *tree, const char *path) {
   som_nav_user_lifecycle_transition_entry *r = (som_nav_user_lifecycle_transition_entry *)malloc(sizeof(som_nav_user_lifecycle_transition_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9325,16 +8980,6 @@ static void *meta_nav_factory_utility_navigation_item_entry(const SomMetaTree *t
 }
 static void *meta_nav_factory_validation_message_template(const SomMetaTree *tree, const char *path) {
   som_nav_validation_message_template *r = (som_nav_validation_message_template *)malloc(sizeof(som_nav_validation_message_template));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_validation_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_validation_rule_entry *r = (som_nav_validation_rule_entry *)malloc(sizeof(som_nav_validation_rule_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_nav_factory_variations_and_exception_entry(const SomMetaTree *tree, const char *path) {
-  som_nav_variations_and_exception_entry *r = (som_nav_variations_and_exception_entry *)malloc(sizeof(som_nav_variations_and_exception_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9543,11 +9188,6 @@ static void *meta_id_factory_assumption_register_entry(const SomMetaTree *tree, 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_attribute_interdependency_entry(const SomMetaTree *tree, const char *path) {
-  som_id_attribute_interdependency_entry *r = (som_id_attribute_interdependency_entry *)malloc(sizeof(som_id_attribute_interdependency_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_audit_entry(const SomMetaTree *tree, const char *path) {
   som_id_audit_entry *r = (som_id_audit_entry *)malloc(sizeof(som_id_audit_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9653,11 +9293,6 @@ static void *meta_id_factory_business_rule_reference_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_category_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_id_category_dependency_entry *r = (som_id_category_dependency_entry *)malloc(sizeof(som_id_category_dependency_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_ccb_member_entry(const SomMetaTree *tree, const char *path) {
   som_id_ccb_member_entry *r = (som_id_ccb_member_entry *)malloc(sizeof(som_id_ccb_member_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9665,11 +9300,6 @@ static void *meta_id_factory_ccb_member_entry(const SomMetaTree *tree, const cha
 }
 static void *meta_id_factory_certification_entry(const SomMetaTree *tree, const char *path) {
   som_id_certification_entry *r = (som_id_certification_entry *)malloc(sizeof(som_id_certification_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_change_advocate_entry(const SomMetaTree *tree, const char *path) {
-  som_id_change_advocate_entry *r = (som_id_change_advocate_entry *)malloc(sizeof(som_id_change_advocate_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9738,11 +9368,6 @@ static void *meta_id_factory_communication_event_entry(const SomMetaTree *tree, 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_communication_preference_entry(const SomMetaTree *tree, const char *path) {
-  som_id_communication_preference_entry *r = (som_id_communication_preference_entry *)malloc(sizeof(som_id_communication_preference_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_communication_tools_requirements(const SomMetaTree *tree, const char *path) {
   som_id_communication_tools_requirements *r = (som_id_communication_tools_requirements *)malloc(sizeof(som_id_communication_tools_requirements));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9760,11 +9385,6 @@ static void *meta_id_factory_competency_entry(const SomMetaTree *tree, const cha
 }
 static void *meta_id_factory_competency_level_change_entry(const SomMetaTree *tree, const char *path) {
   som_id_competency_level_change_entry *r = (som_id_competency_level_change_entry *)malloc(sizeof(som_id_competency_level_change_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_compliance_measure_entry(const SomMetaTree *tree, const char *path) {
-  som_id_compliance_measure_entry *r = (som_id_compliance_measure_entry *)malloc(sizeof(som_id_compliance_measure_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9853,18 +9473,8 @@ static void *meta_id_factory_contingency_plan_entry(const SomMetaTree *tree, con
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_critical_knowledge_area_entry(const SomMetaTree *tree, const char *path) {
-  som_id_critical_knowledge_area_entry *r = (som_id_critical_knowledge_area_entry *)malloc(sizeof(som_id_critical_knowledge_area_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_cross_boundary_operational_considerations(const SomMetaTree *tree, const char *path) {
   som_id_cross_boundary_operational_considerations *r = (som_id_cross_boundary_operational_considerations *)malloc(sizeof(som_id_cross_boundary_operational_considerations));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_cultural_consideration_entry(const SomMetaTree *tree, const char *path) {
-  som_id_cultural_consideration_entry *r = (som_id_cultural_consideration_entry *)malloc(sizeof(som_id_cultural_consideration_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9998,11 +9608,6 @@ static void *meta_id_factory_database_compatibility_entry(const SomMetaTree *tre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_datacenter_entry(const SomMetaTree *tree, const char *path) {
-  som_id_datacenter_entry *r = (som_id_datacenter_entry *)malloc(sizeof(som_id_datacenter_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_decision_authority_entry(const SomMetaTree *tree, const char *path) {
   som_id_decision_authority_entry *r = (som_id_decision_authority_entry *)malloc(sizeof(som_id_decision_authority_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10045,11 +9650,6 @@ static void *meta_id_factory_deliverable_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_id_factory_delivery_acceptance_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_id_delivery_acceptance_criterion_entry *r = (som_id_delivery_acceptance_criterion_entry *)malloc(sizeof(som_id_delivery_acceptance_criterion_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_id_dependency_entry *r = (som_id_dependency_entry *)malloc(sizeof(som_id_dependency_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10100,11 +9700,6 @@ static void *meta_id_factory_detailed_process_workflow(const SomMetaTree *tree, 
 }
 static void *meta_id_factory_development_convention_entry(const SomMetaTree *tree, const char *path) {
   som_id_development_convention_entry *r = (som_id_development_convention_entry *)malloc(sizeof(som_id_development_convention_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_devops_standard_entry(const SomMetaTree *tree, const char *path) {
-  som_id_devops_standard_entry *r = (som_id_devops_standard_entry *)malloc(sizeof(som_id_devops_standard_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10205,21 +9800,6 @@ static void *meta_id_factory_entry_point_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_id_factory_environment_entry(const SomMetaTree *tree, const char *path) {
   som_id_environment_entry *r = (som_id_environment_entry *)malloc(sizeof(som_id_environment_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_error_page_design_entry(const SomMetaTree *tree, const char *path) {
-  som_id_error_page_design_entry *r = (som_id_error_page_design_entry *)malloc(sizeof(som_id_error_page_design_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_error_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_id_error_procedure_entry *r = (som_id_error_procedure_entry *)malloc(sizeof(som_id_error_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_escalation_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_id_escalation_procedure_entry *r = (som_id_escalation_procedure_entry *)malloc(sizeof(som_id_escalation_procedure_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10343,16 +9923,6 @@ static void *meta_id_factory_field_validation_rule(const SomMetaTree *tree, cons
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_field_validation_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_id_field_validation_rule_entry *r = (som_id_field_validation_rule_entry *)malloc(sizeof(som_id_field_validation_rule_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_fragile_point_entry(const SomMetaTree *tree, const char *path) {
-  som_id_fragile_point_entry *r = (som_id_fragile_point_entry *)malloc(sizeof(som_id_fragile_point_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_framework_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_id_framework_requirement_entry *r = (som_id_framework_requirement_entry *)malloc(sizeof(som_id_framework_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10375,11 +9945,6 @@ static void *meta_id_factory_functional_requirement_entry(const SomMetaTree *tre
 }
 static void *meta_id_factory_gap_entry(const SomMetaTree *tree, const char *path) {
   som_id_gap_entry *r = (som_id_gap_entry *)malloc(sizeof(som_id_gap_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_global_entry_point_entry(const SomMetaTree *tree, const char *path) {
-  som_id_global_entry_point_entry *r = (som_id_global_entry_point_entry *)malloc(sizeof(som_id_global_entry_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10483,11 +10048,6 @@ static void *meta_id_factory_integration_constraint_entry(const SomMetaTree *tre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_integration_pattern_entry(const SomMetaTree *tree, const char *path) {
-  som_id_integration_pattern_entry *r = (som_id_integration_pattern_entry *)malloc(sizeof(som_id_integration_pattern_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_integration_point_entry(const SomMetaTree *tree, const char *path) {
   som_id_integration_point_entry *r = (som_id_integration_point_entry *)malloc(sizeof(som_id_integration_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10510,11 +10070,6 @@ static void *meta_id_factory_interaction_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_id_factory_interaction_pattern_entry(const SomMetaTree *tree, const char *path) {
   som_id_interaction_pattern_entry *r = (som_id_interaction_pattern_entry *)malloc(sizeof(som_id_interaction_pattern_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_interaction_scenario_entry(const SomMetaTree *tree, const char *path) {
-  som_id_interaction_scenario_entry *r = (som_id_interaction_scenario_entry *)malloc(sizeof(som_id_interaction_scenario_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10563,11 +10118,6 @@ static void *meta_id_factory_journey_stage_entry(const SomMetaTree *tree, const 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_key_assumption_entry(const SomMetaTree *tree, const char *path) {
-  som_id_key_assumption_entry *r = (som_id_key_assumption_entry *)malloc(sizeof(som_id_key_assumption_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_key_attribute_entry(const SomMetaTree *tree, const char *path) {
   som_id_key_attribute_entry *r = (som_id_key_attribute_entry *)malloc(sizeof(som_id_key_attribute_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10580,26 +10130,6 @@ static void *meta_id_factory_key_concept_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_id_factory_key_result_entry(const SomMetaTree *tree, const char *path) {
   som_id_key_result_entry *r = (som_id_key_result_entry *)malloc(sizeof(som_id_key_result_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_key_touchpoint_entry(const SomMetaTree *tree, const char *path) {
-  som_id_key_touchpoint_entry *r = (som_id_key_touchpoint_entry *)malloc(sizeof(som_id_key_touchpoint_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_known_issue_entry(const SomMetaTree *tree, const char *path) {
-  som_id_known_issue_entry *r = (som_id_known_issue_entry *)malloc(sizeof(som_id_known_issue_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_known_quality_issue_entry(const SomMetaTree *tree, const char *path) {
-  som_id_known_quality_issue_entry *r = (som_id_known_quality_issue_entry *)malloc(sizeof(som_id_known_quality_issue_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_kpi_entry(const SomMetaTree *tree, const char *path) {
-  som_id_kpi_entry *r = (som_id_kpi_entry *)malloc(sizeof(som_id_kpi_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10638,18 +10168,8 @@ static void *meta_id_factory_maintenance_dependency_entry(const SomMetaTree *tre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_maintenance_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_id_maintenance_procedure_entry *r = (som_id_maintenance_procedure_entry *)malloc(sizeof(som_id_maintenance_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_maintenance_window_entry(const SomMetaTree *tree, const char *path) {
   som_id_maintenance_window_entry *r = (som_id_maintenance_window_entry *)malloc(sizeof(som_id_maintenance_window_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_mapping_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_id_mapping_rule_entry *r = (som_id_mapping_rule_entry *)malloc(sizeof(som_id_mapping_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10665,11 +10185,6 @@ static void *meta_id_factory_metrics_baseline_entry(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_mfa_category_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_id_mfa_category_requirement_entry *r = (som_id_mfa_category_requirement_entry *)malloc(sizeof(som_id_mfa_category_requirement_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_mfa_detail_entry(const SomMetaTree *tree, const char *path) {
-  som_id_mfa_detail_entry *r = (som_id_mfa_detail_entry *)malloc(sizeof(som_id_mfa_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10748,11 +10263,6 @@ static void *meta_id_factory_module_entry(const SomMetaTree *tree, const char *p
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_monitoring_procedure_entry(const SomMetaTree *tree, const char *path) {
-  som_id_monitoring_procedure_entry *r = (som_id_monitoring_procedure_entry *)malloc(sizeof(som_id_monitoring_procedure_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_moscow_entry(const SomMetaTree *tree, const char *path) {
   som_id_moscow_entry *r = (som_id_moscow_entry *)malloc(sizeof(som_id_moscow_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10783,11 +10293,6 @@ static void *meta_id_factory_new_role_entry(const SomMetaTree *tree, const char 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_non_financial_benefit_entry(const SomMetaTree *tree, const char *path) {
-  som_id_non_financial_benefit_entry *r = (som_id_non_financial_benefit_entry *)malloc(sizeof(som_id_non_financial_benefit_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_notification_channel_entry(const SomMetaTree *tree, const char *path) {
   som_id_notification_channel_entry *r = (som_id_notification_channel_entry *)malloc(sizeof(som_id_notification_channel_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10810,11 +10315,6 @@ static void *meta_id_factory_object_operation_entry(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_object_state_entry(const SomMetaTree *tree, const char *path) {
   som_id_object_state_entry *r = (som_id_object_state_entry *)malloc(sizeof(som_id_object_state_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_observability_requirement_entry(const SomMetaTree *tree, const char *path) {
-  som_id_observability_requirement_entry *r = (som_id_observability_requirement_entry *)malloc(sizeof(som_id_observability_requirement_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10935,11 +10435,6 @@ static void *meta_id_factory_postconditions_and_guarantees(const SomMetaTree *tr
 }
 static void *meta_id_factory_preconditions_and_triggers(const SomMetaTree *tree, const char *path) {
   som_id_preconditions_and_triggers *r = (som_id_preconditions_and_triggers *)malloc(sizeof(som_id_preconditions_and_triggers));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_predecessor_dependency_entry(const SomMetaTree *tree, const char *path) {
-  som_id_predecessor_dependency_entry *r = (som_id_predecessor_dependency_entry *)malloc(sizeof(som_id_predecessor_dependency_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11098,11 +10593,6 @@ static void *meta_id_factory_readiness_criteria_entry(const SomMetaTree *tree, c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_recovery_flow_entry(const SomMetaTree *tree, const char *path) {
-  som_id_recovery_flow_entry *r = (som_id_recovery_flow_entry *)malloc(sizeof(som_id_recovery_flow_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_recovery_scenario_entry(const SomMetaTree *tree, const char *path) {
   som_id_recovery_scenario_entry *r = (som_id_recovery_scenario_entry *)malloc(sizeof(som_id_recovery_scenario_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11125,11 +10615,6 @@ static void *meta_id_factory_regulatory_requirement_entry(const SomMetaTree *tre
 }
 static void *meta_id_factory_related_document_entry(const SomMetaTree *tree, const char *path) {
   som_id_related_document_entry *r = (som_id_related_document_entry *)malloc(sizeof(som_id_related_document_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_related_pain_point_entry(const SomMetaTree *tree, const char *path) {
-  som_id_related_pain_point_entry *r = (som_id_related_pain_point_entry *)malloc(sizeof(som_id_related_pain_point_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11203,11 +10688,6 @@ static void *meta_id_factory_report_section_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_representative_quote_entry(const SomMetaTree *tree, const char *path) {
-  som_id_representative_quote_entry *r = (som_id_representative_quote_entry *)malloc(sizeof(som_id_representative_quote_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_requirement_business_rule_entry(const SomMetaTree *tree, const char *path) {
   som_id_requirement_business_rule_entry *r = (som_id_requirement_business_rule_entry *)malloc(sizeof(som_id_requirement_business_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11250,11 +10730,6 @@ static void *meta_id_factory_resource_key_reference_entry(const SomMetaTree *tre
 }
 static void *meta_id_factory_resource_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_id_resource_requirement_entry *r = (som_id_resource_requirement_entry *)malloc(sizeof(som_id_resource_requirement_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_response_strategy_entry(const SomMetaTree *tree, const char *path) {
-  som_id_response_strategy_entry *r = (som_id_response_strategy_entry *)malloc(sizeof(som_id_response_strategy_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11320,16 +10795,6 @@ static void *meta_id_factory_review_criterion_entry(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_revision_entry(const SomMetaTree *tree, const char *path) {
   som_id_revision_entry *r = (som_id_revision_entry *)malloc(sizeof(som_id_revision_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_risk_based_decision_entry(const SomMetaTree *tree, const char *path) {
-  som_id_risk_based_decision_entry *r = (som_id_risk_based_decision_entry *)malloc(sizeof(som_id_risk_based_decision_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_risk_category_entry(const SomMetaTree *tree, const char *path) {
-  som_id_risk_category_entry *r = (som_id_risk_category_entry *)malloc(sizeof(som_id_risk_category_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11408,11 +10873,6 @@ static void *meta_id_factory_scenario_step_entry(const SomMetaTree *tree, const 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_scope_assumption_entry(const SomMetaTree *tree, const char *path) {
-  som_id_scope_assumption_entry *r = (som_id_scope_assumption_entry *)malloc(sizeof(som_id_scope_assumption_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_scope_item_entry(const SomMetaTree *tree, const char *path) {
   som_id_scope_item_entry *r = (som_id_scope_item_entry *)malloc(sizeof(som_id_scope_item_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11465,11 +10925,6 @@ static void *meta_id_factory_screen_user_category_entry(const SomMetaTree *tree,
 }
 static void *meta_id_factory_security_audit_entry(const SomMetaTree *tree, const char *path) {
   som_id_security_audit_entry *r = (som_id_security_audit_entry *)malloc(sizeof(som_id_security_audit_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_security_concern_entry(const SomMetaTree *tree, const char *path) {
-  som_id_security_concern_entry *r = (som_id_security_concern_entry *)malloc(sizeof(som_id_security_concern_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11530,11 +10985,6 @@ static void *meta_id_factory_shared_library_component_entry(const SomMetaTree *t
 }
 static void *meta_id_factory_shared_library_entry(const SomMetaTree *tree, const char *path) {
   som_id_shared_library_entry *r = (som_id_shared_library_entry *)malloc(sizeof(som_id_shared_library_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_shared_service_entry(const SomMetaTree *tree, const char *path) {
-  som_id_shared_service_entry *r = (som_id_shared_service_entry *)malloc(sizeof(som_id_shared_service_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11618,11 +11068,6 @@ static void *meta_id_factory_staging_drivers(const SomMetaTree *tree, const char
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_staging_strategy_constraint_entry(const SomMetaTree *tree, const char *path) {
-  som_id_staging_strategy_constraint_entry *r = (som_id_staging_strategy_constraint_entry *)malloc(sizeof(som_id_staging_strategy_constraint_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_stakeholder_entry(const SomMetaTree *tree, const char *path) {
   som_id_stakeholder_entry *r = (som_id_stakeholder_entry *)malloc(sizeof(som_id_stakeholder_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11635,11 +11080,6 @@ static void *meta_id_factory_stakeholder_register_entry(const SomMetaTree *tree,
 }
 static void *meta_id_factory_stakeholders_and_interests(const SomMetaTree *tree, const char *path) {
   som_id_stakeholders_and_interests *r = (som_id_stakeholders_and_interests *)malloc(sizeof(som_id_stakeholders_and_interests));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_step_up_detail_entry(const SomMetaTree *tree, const char *path) {
-  som_id_step_up_detail_entry *r = (som_id_step_up_detail_entry *)malloc(sizeof(som_id_step_up_detail_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11700,11 +11140,6 @@ static void *meta_id_factory_system_migration_risk_entry(const SomMetaTree *tree
 }
 static void *meta_id_factory_system_task_entry(const SomMetaTree *tree, const char *path) {
   som_id_system_task_entry *r = (som_id_system_task_entry *)malloc(sizeof(som_id_system_task_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_system_task_workflow_step_entry(const SomMetaTree *tree, const char *path) {
-  som_id_system_task_workflow_step_entry *r = (som_id_system_task_workflow_step_entry *)malloc(sizeof(som_id_system_task_workflow_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11933,11 +11368,6 @@ static void *meta_id_factory_user_group_impact_entry(const SomMetaTree *tree, co
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
-static void *meta_id_factory_user_journey_pain_point_entry(const SomMetaTree *tree, const char *path) {
-  som_id_user_journey_pain_point_entry *r = (som_id_user_journey_pain_point_entry *)malloc(sizeof(som_id_user_journey_pain_point_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
 static void *meta_id_factory_user_lifecycle_transition_entry(const SomMetaTree *tree, const char *path) {
   som_id_user_lifecycle_transition_entry *r = (som_id_user_lifecycle_transition_entry *)malloc(sizeof(som_id_user_lifecycle_transition_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11960,16 +11390,6 @@ static void *meta_id_factory_utility_navigation_item_entry(const SomMetaTree *tr
 }
 static void *meta_id_factory_validation_message_template(const SomMetaTree *tree, const char *path) {
   som_id_validation_message_template *r = (som_id_validation_message_template *)malloc(sizeof(som_id_validation_message_template));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_validation_rule_entry(const SomMetaTree *tree, const char *path) {
-  som_id_validation_rule_entry *r = (som_id_validation_rule_entry *)malloc(sizeof(som_id_validation_rule_entry));
-  som_meta_ref_init(&r->ref, tree, path);
-  return r;
-}
-static void *meta_id_factory_variations_and_exception_entry(const SomMetaTree *tree, const char *path) {
-  som_id_variations_and_exception_entry *r = (som_id_variations_and_exception_entry *)malloc(sizeof(som_id_variations_and_exception_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -17053,7 +16473,7 @@ static void meta_build_applicable_regulation_entry_compliance_measures(SomMetaNo
   meta_set(&n->section_id, "COMPL-COMP-LST");
   meta_set(&n->section_id_pattern, "COMPL-COMP-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ComplianceMeasureEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per compliance measure taken to satisfy this regulation.");
@@ -17062,14 +16482,6 @@ static void meta_build_applicable_regulation_entry_compliance_measures(SomMetaNo
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001 — compliance with legal & contractual requirements\"],\"connotation\":\"The set of specific compliance-measure entries for this regulation.\"}", NULL);
-}
-static void meta_build_applicable_regulation_entry_compliance_measures_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ComplianceMeasureEntry");
-  meta_set(&n->class_section_id, "COMPL");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ComplianceMeasureEntry");
-  meta_set(&n->doc_comment, "A single compliance measure entry.");
-  meta_set(&n->class_doc_comment, "A single compliance measure entry.");
 }
 static void meta_build_application_diagnostics_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ApplicationDiagnostics");
@@ -18727,17 +18139,6 @@ static void meta_build_assumptions_constraints_dependencies_register(SomMetaNode
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "The consolidated assumption / constraint register.");
   meta_set(&n->class_doc_comment, "A consolidated register of assumptions and constraints.");
-}
-static void meta_build_attribute_interdependency_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "AttributeInterdependencyEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_audit_and_logging_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AuditAndLogging");
@@ -25534,17 +24935,6 @@ static void meta_build_capacity_review_process_planning(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 20000 — capacity management process\",\"Google SRE — capacity planning and demand forecasting\"],\"connotation\":\"Captures budget integration, procurement lead time, and rightsizing decisions produced by the capacity review.\"}", NULL);
 }
-static void meta_build_category_dependency_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "CategoryDependencyEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_ccb_member_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CcbMemberEntry");
   meta_set(&n->member_name, "content");
@@ -26177,17 +25567,6 @@ static void meta_build_certification_requirements_section_marketing(SomMetaNode 
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9001 — quality management systems\",\"ISO/IEC 27001 — information security management\"],\"connotation\":\"Captures how achieved certifications are displayed and used in marketing.\"}", NULL);
-}
-static void meta_build_change_advocate_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ChangeAdvocateEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_change_category_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangeCategoryEntry");
@@ -31241,17 +30620,6 @@ static void meta_build_communication_patterns_observability(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Twelve-Factor App — cloud-native methodology\",\"ISO/IEC 25010 — architectural quality attributes\"],\"connotation\":\"The tracing, logging, and metrics settings for observing component communication.\"}", NULL);
 }
-static void meta_build_communication_preference_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "CommunicationPreferenceEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_communication_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CommunicationRequirements");
   meta_set(&n->member_name, "content");
@@ -32102,17 +31470,6 @@ static void meta_build_compliance_framework_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n");
-}
-static void meta_build_compliance_measure_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ComplianceMeasureEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_compliance_milestone_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ComplianceMilestoneEntry");
@@ -37411,17 +36768,6 @@ static void meta_build_credential_recovery_policy_credential_recovery_details(So
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Credential Recovery Details (text).");
 }
-static void meta_build_critical_knowledge_area_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "CriticalKnowledgeAreaEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_cross_boundary_error_handling_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CrossBoundaryErrorHandling");
   meta_set(&n->member_name, "content");
@@ -37685,17 +37031,6 @@ static void meta_build_cross_tenant_access_policy_cross_tenant_access_policy_det
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Cross-Tenant Access Policy Details (text).");
 }
-static void meta_build_cultural_consideration_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "CulturalConsiderationEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_current_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentArchitecture");
   meta_set(&n->member_name, "content");
@@ -37740,7 +37075,7 @@ static void meta_build_current_architecture_integration_patterns(SomMetaNode *n)
   meta_set(&n->section_id, "IPE-INTE-LST");
   meta_set(&n->section_id_pattern, "IPE-INTE-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "IntegrationPatternEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.");
@@ -37750,21 +37085,13 @@ static void meta_build_current_architecture_integration_patterns(SomMetaNode *n)
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (integration patterns)\"],\"connotation\":\"The set of integration patterns the current architecture relies on to connect its systems.\"}", NULL);
 }
-static void meta_build_current_architecture_integration_patterns_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "IntegrationPatternEntry");
-  meta_set(&n->class_section_id, "IPE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "IntegrationPatternEntry");
-  meta_set(&n->doc_comment, "A single integration pattern entry.");
-  meta_set(&n->class_doc_comment, "A single integration pattern entry.");
-}
 static void meta_build_current_architecture_shared_services(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentArchitecture");
   meta_set(&n->member_name, "sharedServices");
   meta_set(&n->section_id, "SHARE-SHAR-LST");
   meta_set(&n->section_id_pattern, "SHARE-SHAR-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "SharedServiceEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.");
@@ -37773,14 +37100,6 @@ static void meta_build_current_architecture_shared_services(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (shared services)\"],\"connotation\":\"The set of shared services the current architecture provides across multiple systems.\"}", NULL);
-}
-static void meta_build_current_architecture_shared_services_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "SharedServiceEntry");
-  meta_set(&n->class_section_id, "SHARE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "SharedServiceEntry");
-  meta_set(&n->doc_comment, "A single shared service entry.");
-  meta_set(&n->class_doc_comment, "A single shared service entry.");
 }
 static void meta_build_current_business_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentBusinessProcess");
@@ -47483,17 +46802,6 @@ static void meta_build_database_encryption_policy_database_encryption_details(So
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Database Encryption Details (text).");
 }
-static void meta_build_datacenter_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "DatacenterEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_debugging_configuration_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DebuggingConfiguration");
   meta_set(&n->member_name, "content");
@@ -49511,17 +48819,6 @@ static void meta_build_dependencies_and_integrations_health_summary(SomMetaNode 
   meta_set(&n->comment, "Overall assessment of integration landscape health");
   meta_set(&n->doc_comment, "1.1.3.5. Integration Health Summary.");
   meta_set(&n->class_doc_comment, "1.1.3.5. Integration Health Summary.\n\nExecutive summary of overall integration landscape health and risk areas.");
-}
-static void meta_build_dependency_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "DependencyEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_dependency_health_monitoring_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DependencyHealthMonitoring");
@@ -52971,17 +52268,6 @@ static void meta_build_development_quality_gates_performance(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"CI/CD — continuous integration / delivery pipelines\",\"ISO/IEC 25010 — maintainability quality attributes\"],\"connotation\":\"Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline.\"}", NULL);
-}
-static void meta_build_devops_standard_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "DevopsStandardEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DisasterRecoveryRequirements");
@@ -59167,28 +58453,6 @@ static void meta_build_error_handling_standards_recovery(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"POSA — patterns of software architecture\",\"GoF design patterns — reusable OO design\"],\"connotation\":\"Defines standard recovery strategies and compensating actions for partial failures.\"}", NULL);
 }
-static void meta_build_error_page_design_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ErrorPageDesignEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
-static void meta_build_error_procedure_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ErrorProcedureEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
   meta_set(&n->member_name, "recoveryMechanismsContent");
@@ -59443,7 +58707,7 @@ static void meta_build_error_recovery_recovery_flows(SomMetaNode *n) {
   meta_set(&n->section_id, "RECOV-RECO-LST");
   meta_set(&n->section_id_pattern, "RECOV-RECO-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RecoveryFlowEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per recovery flow.");
@@ -59452,14 +58716,6 @@ static void meta_build_error_recovery_recovery_flows(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs\",\"ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data\"],\"connotation\":\"The collection of recovery-flow entries.\"}", NULL);
-}
-static void meta_build_error_recovery_recovery_flows_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RecoveryFlowEntry");
-  meta_set(&n->class_section_id, "RECOV");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RecoveryFlowEntry");
-  meta_set(&n->doc_comment, "A single recovery flow entry.");
-  meta_set(&n->class_doc_comment, "A single recovery flow entry.");
 }
 static void meta_build_error_recovery_recovery_scenarios(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
@@ -59484,17 +58740,6 @@ static void meta_build_error_recovery_recovery_scenarios_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "RecoveryScenarioEntry");
   meta_set(&n->doc_comment, "A recovery scenario entry.");
   meta_set(&n->class_doc_comment, "A recovery scenario entry.");
-}
-static void meta_build_escalation_procedure_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "EscalationProcedureEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_evaluation_criteria_content(SomMetaNode *n) {
   meta_set(&n->class_name, "EvaluationCriteria");
@@ -61636,7 +60881,7 @@ static void meta_build_external_actor_entry_interaction_scenarios(SomMetaNode *n
   meta_set(&n->section_id, "INTER-INTE-LST");
   meta_set(&n->section_id_pattern, "INTER-INTE-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "InteractionScenarioEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per interaction scenario between this actor and the system.");
@@ -61645,14 +60890,6 @@ static void meta_build_external_actor_entry_interaction_scenarios(SomMetaNode *n
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — external interfaces & actors\"],\"connotation\":\"The set of interaction-scenario entries for this actor.\"}", NULL);
-}
-static void meta_build_external_actor_entry_interaction_scenarios_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "InteractionScenarioEntry");
-  meta_set(&n->class_section_id, "INTER");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "InteractionScenarioEntry");
-  meta_set(&n->doc_comment, "A single interaction scenario entry.");
-  meta_set(&n->class_doc_comment, "A single interaction scenario entry.");
 }
 static void meta_build_external_actors_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalActors");
@@ -64624,17 +63861,6 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   n->form->fields[4].hint = som_strdup("OnBlur, OnChange, or OnSubmit");
   n->form->fields[4].order = 4;
 }
-static void meta_build_field_validation_rule_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "FieldValidationRuleEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_file_access_control_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FileAccessControlPolicy");
   meta_set(&n->member_name, "content");
@@ -65202,17 +64428,6 @@ static void meta_build_flexibility_characteristic_portability(SomMetaNode *n) {
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.9.2. Portability.");
   meta_set(&n->class_doc_comment, "11.3.2. Portability quality.");
-}
-static void meta_build_fragile_point_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "FragilePointEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_framework_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FrameworkRequirementEntry");
@@ -66918,17 +66133,6 @@ static void meta_build_geographic_distribution_requirements_performance(SomMetaN
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — performance efficiency (network throughput / latency)\"],\"connotation\":\"Geographic distribution performance considerations such as edge caching.\"}", NULL);
-}
-static void meta_build_global_entry_point_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "GlobalEntryPointEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_global_role_exclusion_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GlobalRoleExclusionEntry");
@@ -70240,7 +69444,7 @@ static void meta_build_information_architecture_global_entry_points(SomMetaNode 
   meta_set(&n->section_id, "GLOBA-GLOB-LST");
   meta_set(&n->section_id_pattern, "GLOBA-GLOB-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "GlobalEntryPointEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per global entry point.");
@@ -70249,14 +69453,6 @@ static void meta_build_information_architecture_global_entry_points(SomMetaNode 
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — information architecture and navigation entry points to the site\",\"ISO 9241-11:2018 — context of use in which users reach the system\"],\"connotation\":\"The collection of global access points through which users enter the application.\"}", NULL);
-}
-static void meta_build_information_architecture_global_entry_points_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "GlobalEntryPointEntry");
-  meta_set(&n->class_section_id, "GLOBA");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "GlobalEntryPointEntry");
-  meta_set(&n->doc_comment, "A single global entry point entry.");
-  meta_set(&n->class_doc_comment, "A single global entry point entry.");
 }
 static void meta_build_information_architecture_architecture_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
@@ -71824,7 +71020,7 @@ static void meta_build_integration_health_summary_fragile_points(SomMetaNode *n)
   meta_set(&n->section_id, "FRAGI-FRAG-LST");
   meta_set(&n->section_id_pattern, "FRAGI-FRAG-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "FragilePointEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.");
@@ -71833,25 +71029,6 @@ static void meta_build_integration_health_summary_fragile_points(SomMetaNode *n)
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (fragile integration points)\"],\"connotation\":\"The set of fragile integration points in the AS-IS landscape that pose risk and require attention.\"}", NULL);
-}
-static void meta_build_integration_health_summary_fragile_points_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "FragilePointEntry");
-  meta_set(&n->class_section_id, "FRAGI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "FragilePointEntry");
-  meta_set(&n->doc_comment, "A single fragile point entry.");
-  meta_set(&n->class_doc_comment, "A single fragile point entry.");
-}
-static void meta_build_integration_pattern_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "IntegrationPatternEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_integration_point_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "IntegrationPointEntry");
@@ -73254,17 +72431,6 @@ static void meta_build_interaction_patterns_patterns_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "An interaction pattern entry (form).\n\nDefinition of a specific interaction pattern including timing, triggers,\nand user experience considerations.");
   meta_set(&n->class_doc_comment, "An interaction pattern entry (form).\n\nDefinition of a specific interaction pattern including timing, triggers,\nand user experience considerations.");
 }
-static void meta_build_interaction_scenario_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "InteractionScenarioEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_interaction_testing_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionTestingStrategy");
   meta_set(&n->member_name, "content");
@@ -73543,7 +72709,7 @@ static void meta_build_interface_data_spec_mapping_rules(SomMetaNode *n) {
   meta_set(&n->section_id, "MAPPI-MAPP-LST");
   meta_set(&n->section_id_pattern, "MAPPI-MAPP-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "MappingRuleEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "List data mapping and transformation rules between external and internal representations.");
@@ -73553,21 +72719,13 @@ static void meta_build_interface_data_spec_mapping_rules(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Captures the mapping and transformation rules applied between external and internal data representations.\"}", NULL);
 }
-static void meta_build_interface_data_spec_mapping_rules_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "MappingRuleEntry");
-  meta_set(&n->class_section_id, "MAPPI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "MappingRuleEntry");
-  meta_set(&n->doc_comment, "A single mapping rule entry.");
-  meta_set(&n->class_doc_comment, "A single mapping rule entry.");
-}
 static void meta_build_interface_data_spec_validation_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceDataSpec");
   meta_set(&n->member_name, "validationRules");
   meta_set(&n->section_id, "VALID-VALI-LST");
   meta_set(&n->section_id_pattern, "VALID-VALI-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ValidationRuleEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->content_help, "List data validation rules applied to inbound and outbound payloads at the interface boundary.");
@@ -73576,14 +72734,6 @@ static void meta_build_interface_data_spec_validation_rules(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — scope & external interfaces\"],\"connotation\":\"Captures the validation rules applied to exchanged data to ensure integrity at the boundary.\"}", NULL);
-}
-static void meta_build_interface_data_spec_validation_rules_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ValidationRuleEntry");
-  meta_set(&n->class_section_id, "VALID");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ValidationRuleEntry");
-  meta_set(&n->doc_comment, "A single validation rule entry.");
-  meta_set(&n->class_doc_comment, "A single validation rule entry.");
 }
 static void meta_build_interface_error_handling_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceErrorHandling");
@@ -73737,7 +72887,7 @@ static void meta_build_interface_error_handling_error_procedures(SomMetaNode *n)
   meta_set(&n->section_id, "ERROR-ERRO-LST");
   meta_set(&n->section_id_pattern, "ERROR-ERRO-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ErrorProcedureEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.");
@@ -73746,14 +72896,6 @@ static void meta_build_interface_error_handling_error_procedures(SomMetaNode *n)
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.\"}", NULL);
-}
-static void meta_build_interface_error_handling_error_procedures_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ErrorProcedureEntry");
-  meta_set(&n->class_section_id, "ERROR");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ErrorProcedureEntry");
-  meta_set(&n->doc_comment, "A single error procedure entry.");
-  meta_set(&n->class_doc_comment, "A single error procedure entry.");
 }
 static void meta_build_interface_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceGovernance");
@@ -74119,7 +73261,7 @@ static void meta_build_interface_operational_dependencies(SomMetaNode *n) {
   meta_set(&n->section_id, "DEPEN-DEPE-LST");
   meta_set(&n->section_id_pattern, "DEPEN-DEPE-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "DependencyEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.");
@@ -74128,14 +73270,6 @@ static void meta_build_interface_operational_dependencies(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — product quality (operational/performance)\"],\"connotation\":\"Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.\"}", NULL);
-}
-static void meta_build_interface_operational_dependencies_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "DependencyEntry");
-  meta_set(&n->class_section_id, "DEPEN");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "DependencyEntry");
-  meta_set(&n->doc_comment, "A single dependency entry.");
-  meta_set(&n->class_doc_comment, "A single dependency entry.");
 }
 static void meta_build_interface_security_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceSecurity");
@@ -76272,17 +75406,6 @@ static void meta_build_journey_stage_entry_content(SomMetaNode *n) {
   n->form->fields[8].hint = som_strdup("How success is measured for this stage");
   n->form->fields[8].order = 8;
 }
-static void meta_build_key_assumption_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "KeyAssumptionEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_key_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyAttributeEntry");
   meta_set(&n->member_name, "content");
@@ -77133,17 +76256,6 @@ static void meta_build_key_storage_policy_notes(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Additional Notes (text).");
 }
-static void meta_build_key_touchpoint_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "KeyTouchpointEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_knowledge_transfer_content(SomMetaNode *n) {
   meta_set(&n->class_name, "KnowledgeTransfer");
   meta_set(&n->member_name, "content");
@@ -77155,39 +76267,6 @@ static void meta_build_knowledge_transfer_content(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n");
-}
-static void meta_build_known_issue_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "KnownIssueEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
-static void meta_build_known_quality_issue_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "KnownQualityIssueEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
-static void meta_build_kpi_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "KpiEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
@@ -80235,17 +79314,6 @@ static void meta_build_maintenance_dependency_entry_risk(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, and provenance\"],\"connotation\":\"Captures compatibility notes, alternatives, transitive dependency risk, and security patch SLA for one maintenance dependency.\"}", NULL);
 }
-static void meta_build_maintenance_procedure_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "MaintenanceProcedureEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_maintenance_user_impact_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintenanceUserImpact");
   meta_set(&n->member_name, "content");
@@ -80699,17 +79767,6 @@ static void meta_build_maintenance_windows_section_post_maintenance(SomMetaNode 
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "Post-maintenance validation.");
   meta_set(&n->class_doc_comment, "Post-maintenance validation.");
-}
-static void meta_build_mapping_rule_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "MappingRuleEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_master_data_domain_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MasterDataDomainEntry");
@@ -81797,7 +80854,7 @@ static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n) {
   meta_set(&n->section_id, "MFADE-MFAD-LST");
   meta_set(&n->section_id_pattern, "MFADE-MFAD-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "MfaDetailEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per MFA method definition.");
@@ -81806,25 +80863,6 @@ static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"FIDO2 / W3C WebAuthn — phishing-resistant authentication\"],\"connotation\":\"The catalog of multi-factor authentication method definitions.\"}", NULL);
-}
-static void meta_build_mfa_configuration_mfa_details_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "MfaDetailEntry");
-  meta_set(&n->class_section_id, "MFADE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "MfaDetailEntry");
-  meta_set(&n->doc_comment, "A single mfa detail entry.");
-  meta_set(&n->class_doc_comment, "A single mfa detail entry.");
-}
-static void meta_build_mfa_detail_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "MfaDetailEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationConsiderations");
@@ -82010,7 +81048,7 @@ static void meta_build_migration_considerations_escalation_procedures(SomMetaNod
   meta_set(&n->section_id, "ESCAL-ESCA-LST");
   meta_set(&n->section_id_pattern, "ESCAL-ESCA-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "EscalationProcedureEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 11;
   meta_set(&n->content_help, "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.");
@@ -82019,14 +81057,6 @@ static void meta_build_migration_considerations_escalation_procedures(SomMetaNod
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ITIL — service transition / change enablement\",\"ISO 31000 — risk management (migration risk)\"],\"connotation\":\"The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition.\"}", NULL);
-}
-static void meta_build_migration_considerations_escalation_procedures_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "EscalationProcedureEntry");
-  meta_set(&n->class_section_id, "ESCAL");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "EscalationProcedureEntry");
-  meta_set(&n->doc_comment, "A single escalation procedure entry.");
-  meta_set(&n->class_doc_comment, "A single escalation procedure entry.");
 }
 static void meta_build_migration_environments_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationEnvironments");
@@ -83875,7 +82905,7 @@ static void meta_build_migration_risks_risk_categories(SomMetaNode *n) {
   meta_set(&n->section_id, "RISKC-RISK-LST");
   meta_set(&n->section_id_pattern, "RISKC-RISK-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RiskCategoryEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per risk category, naming the category and the kinds of migration risks it groups.");
@@ -83885,21 +82915,13 @@ static void meta_build_migration_risks_risk_categories(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The taxonomy of migration risk categories used to classify and organize risks across the program.\"}", NULL);
 }
-static void meta_build_migration_risks_risk_categories_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RiskCategoryEntry");
-  meta_set(&n->class_section_id, "RISKC");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RiskCategoryEntry");
-  meta_set(&n->doc_comment, "A single risk category entry.");
-  meta_set(&n->class_doc_comment, "A single risk category entry.");
-}
 static void meta_build_migration_risks_risk_based_decisions(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
   meta_set(&n->member_name, "riskBasedDecisions");
   meta_set(&n->section_id, "RISKB-RISK-LST");
   meta_set(&n->section_id_pattern, "RISKB-RISK-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RiskBasedDecisionEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.");
@@ -83909,21 +82931,13 @@ static void meta_build_migration_risks_risk_based_decisions(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The decision criteria that govern how migration risks drive go/no-go and acceptance choices.\"}", NULL);
 }
-static void meta_build_migration_risks_risk_based_decisions_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RiskBasedDecisionEntry");
-  meta_set(&n->class_section_id, "RISKB");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RiskBasedDecisionEntry");
-  meta_set(&n->doc_comment, "A single risk based decision entry.");
-  meta_set(&n->class_doc_comment, "A single risk based decision entry.");
-}
 static void meta_build_migration_risks_monitoring_procedures(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
   meta_set(&n->member_name, "monitoringProcedures");
   meta_set(&n->section_id, "MONIT-MONI-LST");
   meta_set(&n->section_id_pattern, "MONIT-MONI-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "MonitoringProcedureEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.");
@@ -83933,21 +82947,13 @@ static void meta_build_migration_risks_monitoring_procedures(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"ITIL — service transition / change enablement\"],\"connotation\":\"The procedures used to monitor and control migration risks throughout the transition.\"}", NULL);
 }
-static void meta_build_migration_risks_monitoring_procedures_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "MonitoringProcedureEntry");
-  meta_set(&n->class_section_id, "MONIT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "MonitoringProcedureEntry");
-  meta_set(&n->doc_comment, "A single monitoring procedure entry.");
-  meta_set(&n->class_doc_comment, "A single monitoring procedure entry.");
-}
 static void meta_build_migration_risks_response_strategies(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
   meta_set(&n->member_name, "responseStrategies");
   meta_set(&n->section_id, "RESPO-RESP-LST");
   meta_set(&n->section_id_pattern, "RESPO-RESP-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ResponseStrategyEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.");
@@ -83956,14 +82962,6 @@ static void meta_build_migration_risks_response_strategies(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk.\"}", NULL);
-}
-static void meta_build_migration_risks_response_strategies_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ResponseStrategyEntry");
-  meta_set(&n->class_section_id, "RESPO");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ResponseStrategyEntry");
-  meta_set(&n->doc_comment, "A single response strategy entry.");
-  meta_set(&n->class_doc_comment, "A single response strategy entry.");
 }
 static void meta_build_migration_risks_risk_aggregation(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
@@ -85524,17 +84522,6 @@ static void meta_build_monitoring_infrastructure_access(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"OpenTelemetry — observability / metrics / tracing\",\"ISO/IEC 20000 — IT service management system\"],\"connotation\":\"Describes access control, data privacy, and multi-tenant isolation for monitoring.\"}", NULL);
-}
-static void meta_build_monitoring_procedure_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "MonitoringProcedureEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_moscow_analysis_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MoscowAnalysis");
@@ -88983,17 +87970,6 @@ static void meta_build_new_role_responsibilities_decision_authority(SomMetaNode 
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"RACI — accountable/responsible\",\"PMBOK — resource management (roles & responsibilities)\"],\"connotation\":\"Defines the decisions the role can make on its own — approval, budget, hiring, policy and contract authority — and when escalation is required.\"}", NULL);
 }
-static void meta_build_non_financial_benefit_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "NonFinancialBenefitEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_notification_channel_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "NotificationChannelEntry");
   meta_set(&n->member_name, "content");
@@ -89472,17 +88448,6 @@ static void meta_build_object_state_entry_content(SomMetaNode *n) {
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("Events that trigger notifications in this state");
   n->form->fields[9].order = 9;
-}
-static void meta_build_observability_requirement_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ObservabilityRequirementEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_on_call_procedures_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OnCallProcedures");
@@ -91494,7 +90459,7 @@ static void meta_build_organizational_environment_cultural_considerations(SomMet
   meta_set(&n->section_id, "CULTU-CULT-LST");
   meta_set(&n->section_id_pattern, "CULTU-CULT-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "CulturalConsiderationEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->content_help, "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.");
@@ -91504,21 +90469,13 @@ static void meta_build_organizational_environment_cultural_considerations(SomMet
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"TOGAF — enterprise context & environment\"],\"connotation\":\"Captures cultural considerations and organizational dynamics that may influence adoption and change.\"}", NULL);
 }
-static void meta_build_organizational_environment_cultural_considerations_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "CulturalConsiderationEntry");
-  meta_set(&n->class_section_id, "CULTU");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "CulturalConsiderationEntry");
-  meta_set(&n->doc_comment, "A single cultural consideration entry.");
-  meta_set(&n->class_doc_comment, "A single cultural consideration entry.");
-}
 static void meta_build_organizational_environment_communication_preferences(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalEnvironment");
   meta_set(&n->member_name, "communicationPreferences");
   meta_set(&n->section_id, "COMMU-COMM-LST");
   meta_set(&n->section_id_pattern, "COMMU-COMM-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "CommunicationPreferenceEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.");
@@ -91527,14 +90484,6 @@ static void meta_build_organizational_environment_communication_preferences(SomM
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture environment & stakeholders\",\"PMBOK — enterprise environmental factors (EEF)\"],\"connotation\":\"Records stakeholder communication preferences so engagement and reporting fit the organizational context.\"}", NULL);
-}
-static void meta_build_organizational_environment_communication_preferences_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "CommunicationPreferenceEntry");
-  meta_set(&n->class_section_id, "COMMU");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "CommunicationPreferenceEntry");
-  meta_set(&n->doc_comment, "A single communication preference entry.");
-  meta_set(&n->class_doc_comment, "A single communication preference entry.");
 }
 static void meta_build_organizational_environment_political_landscape(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalEnvironment");
@@ -91555,7 +90504,7 @@ static void meta_build_organizational_environment_change_advocates(SomMetaNode *
   meta_set(&n->section_id, "CHANG-CHAN-LST");
   meta_set(&n->section_id_pattern, "CHANG-CHAN-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ChangeAdvocateEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->content_help, "List change champions and sponsors, noting their influence and role in driving adoption across the organization.");
@@ -91564,14 +90513,6 @@ static void meta_build_organizational_environment_change_advocates(SomMetaNode *
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"ISO 21500 — organizational roles & responsibilities\"],\"connotation\":\"Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.\"}", NULL);
-}
-static void meta_build_organizational_environment_change_advocates_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ChangeAdvocateEntry");
-  meta_set(&n->class_section_id, "CHANG");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ChangeAdvocateEntry");
-  meta_set(&n->doc_comment, "A single change advocate entry.");
-  meta_set(&n->class_doc_comment, "A single change advocate entry.");
 }
 static void meta_build_organizational_framework_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalFramework");
@@ -95969,17 +94910,6 @@ static void meta_build_preconditions_and_triggers_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Guard checks performed before the main flow");
   n->form->fields[6].order = 6;
 }
-static void meta_build_predecessor_dependency_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "PredecessorDependencyEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_primary_navigation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrimaryNavigation");
   meta_set(&n->member_name, "content");
@@ -96967,7 +95897,7 @@ static void meta_build_problem_statement_related_pain_points(SomMetaNode *n) {
   meta_set(&n->section_id, "RPPE-RELA-LST");
   meta_set(&n->section_id_pattern, "RPPE-RELA-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RelatedPainPointEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.");
@@ -96976,14 +95906,6 @@ static void meta_build_problem_statement_related_pain_points(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — problem space\"],\"connotation\":\"The set of related pain points drawn from the Current State Analysis that this problem connects to.\"}", NULL);
-}
-static void meta_build_problem_statement_related_pain_points_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RelatedPainPointEntry");
-  meta_set(&n->class_section_id, "RPPE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RelatedPainPointEntry");
-  meta_set(&n->doc_comment, "A single related pain point entry.");
-  meta_set(&n->class_doc_comment, "A single related pain point entry.");
 }
 static void meta_build_process_adjustment_details_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessAdjustmentDetails");
@@ -102997,7 +101919,7 @@ static void meta_build_quality_framework_category_dependencies(SomMetaNode *n) {
   meta_set(&n->section_id, "CATEG-CATE-LST");
   meta_set(&n->section_id_pattern, "CATEG-CATE-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "CategoryDependencyEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per category dependency.");
@@ -103006,14 +101928,6 @@ static void meta_build_quality_framework_category_dependencies(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs\"],\"connotation\":\"Lists dependencies between quality categories used to reason about trade-offs.\"}", NULL);
-}
-static void meta_build_quality_framework_category_dependencies_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "CategoryDependencyEntry");
-  meta_set(&n->class_section_id, "CATEG");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "CategoryDependencyEntry");
-  meta_set(&n->doc_comment, "A single category dependency entry.");
-  meta_set(&n->class_doc_comment, "A single category dependency entry.");
 }
 static void meta_build_quality_gate_adjustment_details_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateAdjustmentDetails");
@@ -104474,17 +103388,6 @@ static void meta_build_readiness_criteria_entry_content(SomMetaNode *n) {
   n->form->fields[9].hint = som_strdup("The date on which this group's readiness was last assessed");
   n->form->fields[9].order = 9;
 }
-static void meta_build_recovery_flow_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RecoveryFlowEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_recovery_procedures_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RecoveryProcedures");
   meta_set(&n->member_name, "content");
@@ -105427,17 +104330,6 @@ static void meta_build_related_document_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Explain the connection between the two documents.");
   n->form->fields[3].order = 3;
-}
-static void meta_build_related_pain_point_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RelatedPainPointEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_relationship_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RelationshipAttributeEntry");
@@ -108505,17 +107397,6 @@ static void meta_build_report_section_entry_charts_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A chart/visualization in a report\n(form).");
   meta_set(&n->class_doc_comment, "A chart/visualization in a report\n(form).");
 }
-static void meta_build_representative_quote_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RepresentativeQuoteEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_requirement_acceptance_criteria_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementAcceptanceCriteria");
   meta_set(&n->member_name, "content");
@@ -109976,17 +108857,6 @@ static void meta_build_resource_requirement_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Current recruitment progress for this position");
   n->form->fields[6].order = 6;
-}
-static void meta_build_response_strategy_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ResponseStrategyEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_responsibility_change_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsibilityChangeEntry");
@@ -112014,17 +110884,6 @@ static void meta_build_revision_history_revisions_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A single document revision entry (form).");
   meta_set(&n->class_doc_comment, "A single document revision entry (form).");
 }
-static void meta_build_risk_based_decision_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RiskBasedDecisionEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_risk_business_impact_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskBusinessImpact");
   meta_set(&n->member_name, "content");
@@ -112141,17 +111000,6 @@ static void meta_build_risk_business_impact_delivery(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000:2018 — risk management\",\"PMBOK — project risk management\"],\"connotation\":\"This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables.\"}", NULL);
-}
-static void meta_build_risk_category_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "RiskCategoryEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_risk_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskIdentification");
@@ -115850,17 +114698,6 @@ static void meta_build_scheduled_maintenance_policy_approval(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ITIL 4 — change management\",\"ISO/IEC 20000 — IT service management system\"],\"connotation\":\"Defines who must approve scheduled maintenance and the approval requirements.\"}", NULL);
 }
-static void meta_build_scope_assumption_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ScopeAssumptionEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
-}
 static void meta_build_scope_boundaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScopeBoundaries");
   meta_set(&n->member_name, "content");
@@ -115952,7 +114789,7 @@ static void meta_build_scope_boundaries_scope_assumptions(SomMetaNode *n) {
   meta_set(&n->section_id, "SCOPE-SCOP-LST");
   meta_set(&n->section_id_pattern, "SCOPE-SCOP-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ScopeAssumptionEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.");
@@ -115961,14 +114798,6 @@ static void meta_build_scope_boundaries_scope_assumptions(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — system scope & boundaries\"],\"connotation\":\"The set of assumptions on which the defined scope boundaries depend.\"}", NULL);
-}
-static void meta_build_scope_boundaries_scope_assumptions_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ScopeAssumptionEntry");
-  meta_set(&n->class_section_id, "SCOPE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ScopeAssumptionEntry");
-  meta_set(&n->doc_comment, "A single scope assumption entry.");
-  meta_set(&n->class_doc_comment, "A single scope assumption entry.");
 }
 static void meta_build_scope_item_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScopeItemEntry");
@@ -118971,17 +117800,6 @@ static void meta_build_security_code_review_policy_findings(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"OWASP ASVS — verification and security testing requirements\",\"ISO/IEC 27001 — internal audit and management review (Clause 9)\"],\"connotation\":\"Finding classification, tracking, and residual-risk handling for security code review.\"}", NULL);
-}
-static void meta_build_security_concern_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "SecurityConcernEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_security_control_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityControlEntry");
@@ -123010,17 +121828,6 @@ static void meta_build_shared_library_entry_lifecycle(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Domain-Driven Design — bounded contexts / modules\",\"ISO/IEC 25010 — maintainability / modularity quality attributes\"],\"connotation\":\"Captures the compatibility, performance, thread-safety, and deprecation lifecycle of a shared library.\"}", NULL);
-}
-static void meta_build_shared_service_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "SharedServiceEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_sign_off_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SignOffProcess");
@@ -128064,7 +126871,7 @@ static void meta_build_staging_strategy_key_assumptions(SomMetaNode *n) {
   meta_set(&n->section_id, "KEYAS-KEYA-LST");
   meta_set(&n->section_id_pattern, "KEYAS-KEYA-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "KeyAssumptionEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 15;
   meta_set(&n->content_help, "Add one entry per key assumption.");
@@ -128074,21 +126881,13 @@ static void meta_build_staging_strategy_key_assumptions(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions\"],\"connotation\":\"Lists the key assumptions underpinning the staging strategy.\"}", NULL);
 }
-static void meta_build_staging_strategy_key_assumptions_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "KeyAssumptionEntry");
-  meta_set(&n->class_section_id, "KEYAS");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "KeyAssumptionEntry");
-  meta_set(&n->doc_comment, "A single key assumption entry.");
-  meta_set(&n->class_doc_comment, "A single key assumption entry.");
-}
 static void meta_build_staging_strategy_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "StagingStrategy");
   meta_set(&n->member_name, "constraints");
   meta_set(&n->section_id, "STAGI-CONS-LST");
   meta_set(&n->section_id_pattern, "STAGI-CONS-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "StagingStrategyConstraintEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 16;
   meta_set(&n->content_help, "Add one entry per staging constraint.");
@@ -128097,25 +126896,6 @@ static void meta_build_staging_strategy_constraints(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 21502:2020 — the guidance on project management covers identification and management of project constraints\"],\"connotation\":\"Lists the constraints bounding the staging strategy.\"}", NULL);
-}
-static void meta_build_staging_strategy_constraints_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "StagingStrategyConstraintEntry");
-  meta_set(&n->class_section_id, "STAGI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "StagingStrategyConstraintEntry");
-  meta_set(&n->doc_comment, "A single constraint entry.");
-  meta_set(&n->class_doc_comment, "A single constraint entry.");
-}
-static void meta_build_staging_strategy_constraint_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "StagingStrategyConstraintEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_stakeholder_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderEntry");
@@ -128840,7 +127620,7 @@ static void meta_build_step_up_authentication_policy_step_up_details(SomMetaNode
   meta_set(&n->section_id, "STEPU-STEP-LST");
   meta_set(&n->section_id_pattern, "STEPU-STEP-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "StepUpDetailEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per step-up authentication step.");
@@ -128849,25 +127629,6 @@ static void meta_build_step_up_authentication_policy_step_up_details(SomMetaNode
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"OWASP ASVS V2 — authentication verification requirements\"],\"connotation\":\"The catalog of step-up authentication detail entries.\"}", NULL);
-}
-static void meta_build_step_up_authentication_policy_step_up_details_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "StepUpDetailEntry");
-  meta_set(&n->class_section_id, "STEPU");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "StepUpDetailEntry");
-  meta_set(&n->doc_comment, "A single step up detail entry.");
-  meta_set(&n->class_doc_comment, "A single step up detail entry.");
-}
-static void meta_build_step_up_detail_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "StepUpDetailEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_storage_encryption_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StorageEncryptionPolicy");
@@ -131109,7 +129870,7 @@ static void meta_build_system_cost_analysis_non_financial_benefits(SomMetaNode *
   meta_set(&n->section_id, "NONFI-NONF-LST");
   meta_set(&n->section_id_pattern, "NONFI-NONF-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "NonFinancialBenefitEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.");
@@ -131118,14 +129879,6 @@ static void meta_build_system_cost_analysis_non_financial_benefits(SomMetaNode *
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — cost management (benefits realization)\"],\"connotation\":\"Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision.\"}", NULL);
-}
-static void meta_build_system_cost_analysis_non_financial_benefits_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "NonFinancialBenefitEntry");
-  meta_set(&n->class_section_id, "NONFI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "NonFinancialBenefitEntry");
-  meta_set(&n->doc_comment, "A single non financial benefit entry.");
-  meta_set(&n->class_doc_comment, "A single non financial benefit entry.");
 }
 static void meta_build_system_data_scope_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemDataScope");
@@ -131274,7 +130027,7 @@ static void meta_build_system_data_scope_known_quality_issues(SomMetaNode *n) {
   meta_set(&n->section_id, "KNOWN-KNOW-LST");
   meta_set(&n->section_id_pattern, "KNOWN-KNOW-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "KnownQualityIssueEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per data-quality issue to address; note severity and remediation approach.");
@@ -131283,14 +130036,6 @@ static void meta_build_system_data_scope_known_quality_issues(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"DAMA-DMBOK2 — data quality & migration\"],\"connotation\":\"Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system.\"}", NULL);
-}
-static void meta_build_system_data_scope_known_quality_issues_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "KnownQualityIssueEntry");
-  meta_set(&n->class_section_id, "KNOWN");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "KnownQualityIssueEntry");
-  meta_set(&n->doc_comment, "A single known quality issue entry.");
-  meta_set(&n->class_doc_comment, "A single known quality issue entry.");
 }
 static void meta_build_system_dependency_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemDependencyEntry");
@@ -132194,7 +130939,7 @@ static void meta_build_system_error_display_error_page_designs(SomMetaNode *n) {
   meta_set(&n->section_id, "EPDE-ERRO-LST");
   meta_set(&n->section_id_pattern, "EPDE-ERRO-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ErrorPageDesignEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per error page design.");
@@ -132203,14 +130948,6 @@ static void meta_build_system_error_display_error_page_designs(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs\",\"ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback\"],\"connotation\":\"The collection of error-page design entries.\"}", NULL);
-}
-static void meta_build_system_error_display_error_page_designs_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ErrorPageDesignEntry");
-  meta_set(&n->class_section_id, "EPDE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ErrorPageDesignEntry");
-  meta_set(&n->doc_comment, "A single error page design entry.");
-  meta_set(&n->class_doc_comment, "A single error page design entry.");
 }
 static void meta_build_system_error_display_error_codes(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorDisplay");
@@ -132651,7 +131388,7 @@ static void meta_build_system_knowledge_transfer_critical_knowledge_areas(SomMet
   meta_set(&n->section_id, "CRITI-CRIT-LST");
   meta_set(&n->section_id_pattern, "CRITI-CRIT-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "CriticalKnowledgeAreaEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per critical knowledge area at risk of being lost when the system is retired.");
@@ -132660,14 +131397,6 @@ static void meta_build_system_knowledge_transfer_critical_knowledge_areas(SomMet
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — resource & knowledge management\"],\"connotation\":\"Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse.\"}", NULL);
-}
-static void meta_build_system_knowledge_transfer_critical_knowledge_areas_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "CriticalKnowledgeAreaEntry");
-  meta_set(&n->class_section_id, "CRITI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "CriticalKnowledgeAreaEntry");
-  meta_set(&n->doc_comment, "A single critical knowledge area entry.");
-  meta_set(&n->class_doc_comment, "A single critical knowledge area entry.");
 }
 static void meta_build_system_knowledge_transfer_knowledge_transfer_plan(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemKnowledgeTransfer");
@@ -132943,7 +131672,7 @@ static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n) {
   meta_set(&n->section_id, "MAINT-MAIN-LST");
   meta_set(&n->section_id_pattern, "MAINT-MAIN-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "MaintenanceProcedureEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per maintenance procedure.");
@@ -132952,14 +131681,6 @@ static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"The catalog of scheduled maintenance procedures the system requires.\"}", NULL);
-}
-static void meta_build_system_operation_maintenance_procedures_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "MaintenanceProcedureEntry");
-  meta_set(&n->class_section_id, "MAINT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "MaintenanceProcedureEntry");
-  meta_set(&n->doc_comment, "A single maintenance procedure entry.");
-  meta_set(&n->class_doc_comment, "A single maintenance procedure entry.");
 }
 static void meta_build_system_operation_and_monitoring_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemOperationAndMonitoring");
@@ -133336,7 +132057,7 @@ static void meta_build_system_quality_goals_attribute_interdependencies(SomMetaN
   meta_set(&n->section_id, "ATTRI-ATTR-LST");
   meta_set(&n->section_id_pattern, "ATTRI-ATTR-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "AttributeInterdependencyEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per quality attribute interdependency.");
@@ -133345,14 +132066,6 @@ static void meta_build_system_quality_goals_attribute_interdependencies(SomMetaN
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs\"],\"connotation\":\"Lists interdependencies between quality attributes used to manage trade-offs.\"}", NULL);
-}
-static void meta_build_system_quality_goals_attribute_interdependencies_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "AttributeInterdependencyEntry");
-  meta_set(&n->class_section_id, "ATTRI");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "AttributeInterdependencyEntry");
-  meta_set(&n->doc_comment, "A single attribute interdependency entry.");
-  meta_set(&n->class_doc_comment, "A single attribute interdependency entry.");
 }
 static void meta_build_system_quality_goals_quality_radar(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
@@ -133664,7 +132377,7 @@ static void meta_build_system_replacement_strategy_predecessor_dependencies(SomM
   meta_set(&n->section_id, "PREDE-PRED-LST");
   meta_set(&n->section_id_pattern, "PREDE-PRED-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "PredecessorDependencyEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.");
@@ -133673,14 +132386,6 @@ static void meta_build_system_replacement_strategy_predecessor_dependencies(SomM
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"TOGAF — migration planning (dependency sequencing)\"],\"connotation\":\"Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap.\"}", NULL);
-}
-static void meta_build_system_replacement_strategy_predecessor_dependencies_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "PredecessorDependencyEntry");
-  meta_set(&n->class_section_id, "PREDE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "PredecessorDependencyEntry");
-  meta_set(&n->doc_comment, "A single predecessor dependency entry.");
-  meta_set(&n->class_doc_comment, "A single predecessor dependency entry.");
 }
 static void meta_build_system_replacement_strategy_success_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemReplacementStrategy");
@@ -134381,7 +133086,7 @@ static void meta_build_system_task_entry_workflow_steps(SomMetaNode *n) {
   meta_set(&n->section_id, "SYSTE-WORK-LST");
   meta_set(&n->section_id_pattern, "SYSTE-WORK-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "SystemTaskWorkflowStepEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per step in the task workflow, in the order the user performs them.");
@@ -134391,21 +133096,13 @@ static void meta_build_system_task_entry_workflow_steps(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The ordered set of workflow steps that make up this task.\"}", NULL);
 }
-static void meta_build_system_task_entry_workflow_steps_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "SystemTaskWorkflowStepEntry");
-  meta_set(&n->class_section_id, "SYSTE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "SystemTaskWorkflowStepEntry");
-  meta_set(&n->doc_comment, "A single workflow step entry.");
-  meta_set(&n->class_doc_comment, "A single workflow step entry.");
-}
 static void meta_build_system_task_entry_variations_and_exceptions(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTaskEntry");
   meta_set(&n->member_name, "variationsAndExceptions");
   meta_set(&n->section_id, "VARIA-VARI-LST");
   meta_set(&n->section_id_pattern, "VARIA-VARI-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "VariationsAndExceptionEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per variation or exception to the normal task flow.");
@@ -134414,25 +133111,6 @@ static void meta_build_system_task_entry_variations_and_exceptions(SomMetaNode *
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The set of alternative flows and exceptions for this task.\"}", NULL);
-}
-static void meta_build_system_task_entry_variations_and_exceptions_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "VariationsAndExceptionEntry");
-  meta_set(&n->class_section_id, "VARIA");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "VariationsAndExceptionEntry");
-  meta_set(&n->doc_comment, "A single variations and exception entry.");
-  meta_set(&n->class_doc_comment, "A single variations and exception entry.");
-}
-static void meta_build_system_task_workflow_step_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "SystemTaskWorkflowStepEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_system_technical_assessment_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTechnicalAssessment");
@@ -134604,7 +133282,7 @@ static void meta_build_system_technical_assessment_known_issues(SomMetaNode *n) 
   meta_set(&n->section_id, "KIE-KNOW-LST");
   meta_set(&n->section_id_pattern, "KIE-KNOW-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "KnownIssueEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per significant known technical issue, defect, or deficiency affecting the system.");
@@ -134614,21 +133292,13 @@ static void meta_build_system_technical_assessment_known_issues(SomMetaNode *n) 
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — product quality (defects & maintainability)\"],\"connotation\":\"Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk.\"}", NULL);
 }
-static void meta_build_system_technical_assessment_known_issues_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "KnownIssueEntry");
-  meta_set(&n->class_section_id, "KIE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "KnownIssueEntry");
-  meta_set(&n->doc_comment, "A single known issue entry.");
-  meta_set(&n->class_doc_comment, "A single known issue entry.");
-}
 static void meta_build_system_technical_assessment_security_concerns(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTechnicalAssessment");
   meta_set(&n->member_name, "securityConcerns");
   meta_set(&n->section_id, "SECUR-SECU-LST");
   meta_set(&n->section_id_pattern, "SECUR-SECU-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "SecurityConcernEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per security vulnerability or compliance gap; note severity and remediation status.");
@@ -134637,14 +133307,6 @@ static void meta_build_system_technical_assessment_security_concerns(SomMetaNode
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)\"],\"connotation\":\"Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.\"}", NULL);
-}
-static void meta_build_system_technical_assessment_security_concerns_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "SecurityConcernEntry");
-  meta_set(&n->class_section_id, "SECUR");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "SecurityConcernEntry");
-  meta_set(&n->doc_comment, "A single security concern entry.");
-  meta_set(&n->class_doc_comment, "A single security concern entry.");
 }
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemToReplaceEntry");
@@ -136436,7 +135098,7 @@ static void meta_build_technical_environment_datacenters(SomMetaNode *n) {
   meta_set(&n->section_id, "DATAC-DATA-LST");
   meta_set(&n->section_id_pattern, "DATAC-DATA-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "DatacenterEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->content_help, "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.");
@@ -136445,14 +135107,6 @@ static void meta_build_technical_environment_datacenters(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Enumerates data center and hosting environments the solution must run on or integrate with.\"}", NULL);
-}
-static void meta_build_technical_environment_datacenters_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "DatacenterEntry");
-  meta_set(&n->class_section_id, "DATAC");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "DatacenterEntry");
-  meta_set(&n->doc_comment, "A single datacenter entry.");
-  meta_set(&n->class_doc_comment, "A single datacenter entry.");
 }
 static void meta_build_technical_environment_network_topology(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironment");
@@ -136588,7 +135242,7 @@ static void meta_build_technical_environment_network_devops_standards(SomMetaNod
   meta_set(&n->section_id, "DEVOP-DEVO-LST");
   meta_set(&n->section_id_pattern, "DEVOP-DEVO-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "DevopsStandardEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.");
@@ -136598,21 +135252,13 @@ static void meta_build_technical_environment_network_devops_standards(SomMetaNod
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists mandated DevOps and deployment standards the delivery pipeline must follow.\"}", NULL);
 }
-static void meta_build_technical_environment_network_devops_standards_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "DevopsStandardEntry");
-  meta_set(&n->class_section_id, "DEVOP");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "DevopsStandardEntry");
-  meta_set(&n->doc_comment, "A single devops standard entry.");
-  meta_set(&n->class_doc_comment, "A single devops standard entry.");
-}
 static void meta_build_technical_environment_network_observability_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironmentNetwork");
   meta_set(&n->member_name, "observabilityRequirements");
   meta_set(&n->section_id, "OBSER-OBSE-LST");
   meta_set(&n->section_id_pattern, "OBSER-OBSE-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ObservabilityRequirementEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.");
@@ -136621,14 +135267,6 @@ static void meta_build_technical_environment_network_observability_requirements(
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — product quality (infrastructure/platform quality)\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists monitoring and observability requirements the solution must meet for operational visibility.\"}", NULL);
-}
-static void meta_build_technical_environment_network_observability_requirements_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ObservabilityRequirementEntry");
-  meta_set(&n->class_section_id, "OBSER");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ObservabilityRequirementEntry");
-  meta_set(&n->doc_comment, "A single observability requirement entry.");
-  meta_set(&n->class_doc_comment, "A single observability requirement entry.");
 }
 static void meta_build_technical_environment_network_disaster_recovery(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironmentNetwork");
@@ -147999,7 +146637,7 @@ static void meta_build_user_journey_key_touchpoints(SomMetaNode *n) {
   meta_set(&n->section_id, "KEYTO-KEYT-LST");
   meta_set(&n->section_id_pattern, "KEYTO-KEYT-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "KeyTouchpointEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per key touchpoint in the user journey.");
@@ -148009,21 +146647,13 @@ static void meta_build_user_journey_key_touchpoints(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of key touchpoints where this user category interacts with the system across the journey.\"}", NULL);
 }
-static void meta_build_user_journey_key_touchpoints_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "KeyTouchpointEntry");
-  meta_set(&n->class_section_id, "KEYTO");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "KeyTouchpointEntry");
-  meta_set(&n->doc_comment, "A single key touchpoint entry.");
-  meta_set(&n->class_doc_comment, "A single key touchpoint entry.");
-}
 static void meta_build_user_journey_pain_points(SomMetaNode *n) {
   meta_set(&n->class_name, "UserJourney");
   meta_set(&n->member_name, "painPoints");
   meta_set(&n->section_id, "USERJ-PAIN-LST");
   meta_set(&n->section_id_pattern, "USERJ-PAIN-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "UserJourneyPainPointEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per pain point or friction in the user journey.");
@@ -148032,14 +146662,6 @@ static void meta_build_user_journey_pain_points(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of pain points this user category encounters during the journey.\"}", NULL);
-}
-static void meta_build_user_journey_pain_points_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "UserJourneyPainPointEntry");
-  meta_set(&n->class_section_id, "USERJ");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "UserJourneyPainPointEntry");
-  meta_set(&n->doc_comment, "A single pain point entry.");
-  meta_set(&n->class_doc_comment, "A single pain point entry.");
 }
 static void meta_build_user_journey_opportunities_for_delight(SomMetaNode *n) {
   meta_set(&n->class_name, "UserJourney");
@@ -148053,17 +146675,6 @@ static void meta_build_user_journey_opportunities_for_delight(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Opportunities to exceed user expectations and create positive experiences.");
   meta_set(&n->doc_comment, "Opportunities for delight.");
-}
-static void meta_build_user_journey_pain_point_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "UserJourneyPainPointEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_user_lifecycle_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserLifecycle");
@@ -148659,7 +147270,7 @@ static void meta_build_user_persona_details_representative_quotes(SomMetaNode *n
   meta_set(&n->section_id, "REPRE-REPR-LST");
   meta_set(&n->section_id_pattern, "REPRE-REPR-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "RepresentativeQuoteEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->content_help, "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.");
@@ -148668,14 +147279,6 @@ static void meta_build_user_persona_details_representative_quotes(SomMetaNode *n
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-210 — personas & context of use\",\"BABOK v3 §10.43 — personas\"],\"connotation\":\"The set of representative quotes capturing this persona's mindset.\"}", NULL);
-}
-static void meta_build_user_persona_details_representative_quotes_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "RepresentativeQuoteEntry");
-  meta_set(&n->class_section_id, "REPRE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "RepresentativeQuoteEntry");
-  meta_set(&n->doc_comment, "A single representative quote entry.");
-  meta_set(&n->class_doc_comment, "A single representative quote entry.");
 }
 static void meta_build_user_personas_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserPersonas");
@@ -149559,7 +148162,7 @@ static void meta_build_validation_feedback_field_validation_rules(SomMetaNode *n
   meta_set(&n->section_id, "FIELD-FIEL-LST");
   meta_set(&n->section_id_pattern, "FIELD-FIEL-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "FieldValidationRuleEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per field validation rule.");
@@ -149568,14 +148171,6 @@ static void meta_build_validation_feedback_field_validation_rules(SomMetaNode *n
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field\",\"ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data\"],\"connotation\":\"The collection of field validation rule entries organised by field type.\"}", NULL);
-}
-static void meta_build_validation_feedback_field_validation_rules_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "FieldValidationRuleEntry");
-  meta_set(&n->class_section_id, "FIELD");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "FieldValidationRuleEntry");
-  meta_set(&n->doc_comment, "A single field validation rule entry.");
-  meta_set(&n->class_doc_comment, "A single field validation rule entry.");
 }
 static void meta_build_validation_message_template_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValidationMessageTemplate");
@@ -149647,17 +148242,6 @@ static void meta_build_validation_message_template_content(SomMetaNode *n) {
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("i18n key for translation");
   n->form->fields[9].order = 9;
-}
-static void meta_build_validation_rule_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "ValidationRuleEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_value_proposition_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");
@@ -149788,7 +148372,7 @@ static void meta_build_value_proposition_kpis(SomMetaNode *n) {
   meta_set(&n->section_id, "KPIEN-KPIS-LST");
   meta_set(&n->section_id_pattern, "KPIEN-KPIS-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "KpiEntry");
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.");
@@ -149797,25 +148381,6 @@ static void meta_build_value_proposition_kpis(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — measures of effectiveness\"],\"connotation\":\"The set of key performance indicators by which the system's delivered value will be measured.\"}", NULL);
-}
-static void meta_build_value_proposition_kpis_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "KpiEntry");
-  meta_set(&n->class_section_id, "KPIEN");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "KpiEntry");
-  meta_set(&n->doc_comment, "A single kpi entry.");
-  meta_set(&n->class_doc_comment, "A single kpi entry.");
-}
-static void meta_build_variations_and_exception_entry_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "VariationsAndExceptionEntry");
-  meta_set(&n->member_name, "content");
-  n->kind = SOM_META_KIND_CONTENT;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 0;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("The description for the content is provided by the doc-comment on the field declaration of this type");
 }
 static void meta_build_version_control_configuration_content(SomMetaNode *n) {
   meta_set(&n->class_name, "VersionControlConfiguration");
@@ -153658,6 +152223,7 @@ static SomMetaNode **meta_children_api_versioning_strategy(SomStrList *stack, si
 }
 
 static SomMetaNode **meta_children_applicable_regulation_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -153667,10 +152233,9 @@ static SomMetaNode **meta_children_applicable_regulation_entry(SomStrList *stack
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_applicable_regulation_entry_compliance_measures(ln);
-    ln->element_node = meta_cx("ComplianceMeasureEntry", stack, meta_children_compliance_measure_entry, meta_build_applicable_regulation_entry_compliance_measures_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_applicable_regulation_entry_compliance_measures(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -154022,19 +152587,6 @@ static SomMetaNode **meta_children_assumptions_constraints_dependencies(SomStrLi
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("AssumptionConstraintDependencyRegister", stack, meta_children_assumption_constraint_dependency_register, meta_build_assumptions_constraints_dependencies_register));
-  return arr;
-}
-
-static SomMetaNode **meta_children_attribute_interdependency_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_attribute_interdependency_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
   return arr;
 }
 
@@ -155522,19 +154074,6 @@ static SomMetaNode **meta_children_capacity_review_process(SomStrList *stack, si
   return arr;
 }
 
-static SomMetaNode **meta_children_category_dependency_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_category_dependency_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_ccb_member_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -155683,19 +154222,6 @@ static SomMetaNode **meta_children_certification_requirements_section(SomStrList
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_certification_requirements_section_marketing(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_change_advocate_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_change_advocate_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -156747,19 +155273,6 @@ static SomMetaNode **meta_children_communication_patterns(SomStrList *stack, siz
   return arr;
 }
 
-static SomMetaNode **meta_children_communication_preference_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_communication_preference_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_communication_requirements(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -156978,19 +155491,6 @@ static SomMetaNode **meta_children_compliance_framework(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_compliance_framework_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_compliance_measure_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_compliance_measure_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -158158,19 +156658,6 @@ static SomMetaNode **meta_children_credential_recovery_policy(SomStrList *stack,
   return arr;
 }
 
-static SomMetaNode **meta_children_critical_knowledge_area_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_critical_knowledge_area_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_cross_boundary_error_handling(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -158266,20 +156753,8 @@ static SomMetaNode **meta_children_cross_tenant_access_policy(SomStrList *stack,
   return arr;
 }
 
-static SomMetaNode **meta_children_cultural_consideration_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_cultural_consideration_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_current_architecture(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -158299,16 +156774,14 @@ static SomMetaNode **meta_children_current_architecture(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_current_architecture_integration_patterns(ln);
-    ln->element_node = meta_cx("IntegrationPatternEntry", stack, meta_children_integration_pattern_entry, meta_build_current_architecture_integration_patterns_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_current_architecture_integration_patterns(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_current_architecture_shared_services(ln);
-    ln->element_node = meta_cx("SharedServiceEntry", stack, meta_children_shared_service_entry, meta_build_current_architecture_shared_services_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_current_architecture_shared_services(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -160329,19 +158802,6 @@ static SomMetaNode **meta_children_database_encryption_policy(SomStrList *stack,
   return arr;
 }
 
-static SomMetaNode **meta_children_datacenter_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_datacenter_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_debugging_configuration(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -160773,19 +159233,6 @@ static SomMetaNode **meta_children_dependencies_and_integrations(SomStrList *sta
   meta_push(&arr, len, &cap, meta_cx("SharedInfrastructureDependencies", stack, meta_children_shared_infrastructure_dependencies, meta_build_dependencies_and_integrations_shared_infrastructure_dependencies));
   meta_push(&arr, len, &cap, meta_cx("Integrations", stack, meta_children_integrations, meta_build_dependencies_and_integrations_integrations));
   meta_push(&arr, len, &cap, meta_cx("IntegrationHealthSummary", stack, meta_children_integration_health_summary, meta_build_dependencies_and_integrations_health_summary));
-  return arr;
-}
-
-static SomMetaNode **meta_children_dependency_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_dependency_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
   return arr;
 }
 
@@ -161517,19 +159964,6 @@ static SomMetaNode **meta_children_development_quality_gates(SomStrList *stack, 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_development_quality_gates_performance(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_devops_standard_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_devops_standard_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -162923,32 +161357,6 @@ static SomMetaNode **meta_children_error_handling_standards(SomStrList *stack, s
   return arr;
 }
 
-static SomMetaNode **meta_children_error_page_design_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_error_page_design_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_error_procedure_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_error_procedure_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_error_recovery(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -162989,29 +161397,15 @@ static SomMetaNode **meta_children_error_recovery(SomStrList *stack, size_t *len
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_error_recovery_recovery_flows(ln);
-    ln->element_node = meta_cx("RecoveryFlowEntry", stack, meta_children_recovery_flow_entry, meta_build_error_recovery_recovery_flows_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_error_recovery_recovery_flows(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_error_recovery_recovery_scenarios(ln);
     ln->element_node = meta_cx("RecoveryScenarioEntry", stack, meta_children_recovery_scenario_entry, meta_build_error_recovery_recovery_scenarios_elem);
     meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_escalation_procedure_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_escalation_procedure_entry_content(n);
-    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -163384,6 +161778,7 @@ static SomMetaNode **meta_children_extension_step_entry(SomStrList *stack, size_
 }
 
 static SomMetaNode **meta_children_external_actor_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -163403,10 +161798,9 @@ static SomMetaNode **meta_children_external_actor_entry(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_external_actor_entry_interaction_scenarios(ln);
-    ln->element_node = meta_cx("InteractionScenarioEntry", stack, meta_children_interaction_scenario_entry, meta_build_external_actor_entry_interaction_scenarios_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_external_actor_entry_interaction_scenarios(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -164018,19 +162412,6 @@ static SomMetaNode **meta_children_field_validation_rule(SomStrList *stack, size
   return arr;
 }
 
-static SomMetaNode **meta_children_field_validation_rule_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_field_validation_rule_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_file_access_control_policy(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -164208,19 +162589,6 @@ static SomMetaNode **meta_children_flexibility_characteristic(SomStrList *stack,
   }
   meta_push(&arr, len, &cap, meta_cx("Flexibility", stack, meta_children_flexibility, meta_build_flexibility_characteristic_flexibility));
   meta_push(&arr, len, &cap, meta_cx("Portability", stack, meta_children_portability, meta_build_flexibility_characteristic_portability));
-  return arr;
-}
-
-static SomMetaNode **meta_children_fragile_point_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_fragile_point_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
   return arr;
 }
 
@@ -164578,19 +162946,6 @@ static SomMetaNode **meta_children_geographic_distribution_requirements(SomStrLi
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_geographic_distribution_requirements_performance(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_global_entry_point_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_global_entry_point_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -165356,6 +163711,7 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
 }
 
 static SomMetaNode **meta_children_information_architecture(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -165380,10 +163736,9 @@ static SomMetaNode **meta_children_information_architecture(SomStrList *stack, s
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_information_architecture_global_entry_points(ln);
-    ln->element_node = meta_cx("GlobalEntryPointEntry", stack, meta_children_global_entry_point_entry, meta_build_information_architecture_global_entry_points_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_information_architecture_global_entry_points(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -165706,6 +164061,7 @@ static SomMetaNode **meta_children_integration_constraint_entry(SomStrList *stac
 }
 
 static SomMetaNode **meta_children_integration_health_summary(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -165715,22 +164071,8 @@ static SomMetaNode **meta_children_integration_health_summary(SomStrList *stack,
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_integration_health_summary_fragile_points(ln);
-    ln->element_node = meta_cx("FragilePointEntry", stack, meta_children_fragile_point_entry, meta_build_integration_health_summary_fragile_points_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_integration_pattern_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_integration_pattern_entry_content(n);
+    meta_build_integration_health_summary_fragile_points(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -166029,19 +164371,6 @@ static SomMetaNode **meta_children_interaction_patterns(SomStrList *stack, size_
   return arr;
 }
 
-static SomMetaNode **meta_children_interaction_scenario_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_interaction_scenario_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_interaction_testing_strategy(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -166115,21 +164444,20 @@ static SomMetaNode **meta_children_interface_data_spec(SomStrList *stack, size_t
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_interface_data_spec_mapping_rules(ln);
-    ln->element_node = meta_cx("MappingRuleEntry", stack, meta_children_mapping_rule_entry, meta_build_interface_data_spec_mapping_rules_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_interface_data_spec_mapping_rules(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_interface_data_spec_validation_rules(ln);
-    ln->element_node = meta_cx("ValidationRuleEntry", stack, meta_children_validation_rule_entry, meta_build_interface_data_spec_validation_rules_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_interface_data_spec_validation_rules(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
 
 static SomMetaNode **meta_children_interface_error_handling(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -166154,10 +164482,9 @@ static SomMetaNode **meta_children_interface_error_handling(SomStrList *stack, s
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_interface_error_handling_error_procedures(ln);
-    ln->element_node = meta_cx("ErrorProcedureEntry", stack, meta_children_error_procedure_entry, meta_build_interface_error_handling_error_procedures_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_interface_error_handling_error_procedures(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -166204,6 +164531,7 @@ static SomMetaNode **meta_children_interface_operation_entry(SomStrList *stack, 
 }
 
 static SomMetaNode **meta_children_interface_operational(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -166228,10 +164556,9 @@ static SomMetaNode **meta_children_interface_operational(SomStrList *stack, size
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_interface_operational_dependencies(ln);
-    ln->element_node = meta_cx("DependencyEntry", stack, meta_children_dependency_entry, meta_build_interface_operational_dependencies_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_interface_operational_dependencies(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -166696,19 +165023,6 @@ static SomMetaNode **meta_children_journey_stage_entry(SomStrList *stack, size_t
   return arr;
 }
 
-static SomMetaNode **meta_children_key_assumption_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_key_assumption_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_key_attribute_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -166936,19 +165250,6 @@ static SomMetaNode **meta_children_key_storage_policy(SomStrList *stack, size_t 
   return arr;
 }
 
-static SomMetaNode **meta_children_key_touchpoint_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_key_touchpoint_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_knowledge_transfer(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -166957,45 +165258,6 @@ static SomMetaNode **meta_children_knowledge_transfer(SomStrList *stack, size_t 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_knowledge_transfer_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_known_issue_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_known_issue_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_known_quality_issue_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_known_quality_issue_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_kpi_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_kpi_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -167706,19 +165968,6 @@ static SomMetaNode **meta_children_maintenance_dependency_entry(SomStrList *stac
   return arr;
 }
 
-static SomMetaNode **meta_children_maintenance_procedure_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_maintenance_procedure_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_maintenance_user_impact(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -167805,19 +166054,6 @@ static SomMetaNode **meta_children_maintenance_windows_section(SomStrList *stack
   meta_push(&arr, len, &cap, meta_cx("MaintenanceChangeManagement", stack, meta_children_maintenance_change_management, meta_build_maintenance_windows_section_change_management));
   meta_push(&arr, len, &cap, meta_cx("MaintenanceUserImpact", stack, meta_children_maintenance_user_impact, meta_build_maintenance_windows_section_user_impact));
   meta_push(&arr, len, &cap, meta_cx("PostMaintenanceValidation", stack, meta_children_post_maintenance_validation, meta_build_maintenance_windows_section_post_maintenance));
-  return arr;
-}
-
-static SomMetaNode **meta_children_mapping_rule_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_mapping_rule_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
   return arr;
 }
 
@@ -168038,6 +166274,7 @@ static SomMetaNode **meta_children_mfa_category_requirement_entry(SomStrList *st
 }
 
 static SomMetaNode **meta_children_mfa_configuration(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -168047,22 +166284,8 @@ static SomMetaNode **meta_children_mfa_configuration(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_mfa_configuration_mfa_details(ln);
-    ln->element_node = meta_cx("MfaDetailEntry", stack, meta_children_mfa_detail_entry, meta_build_mfa_configuration_mfa_details_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_mfa_detail_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_mfa_detail_entry_content(n);
+    meta_build_mfa_configuration_mfa_details(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -168121,10 +166344,9 @@ static SomMetaNode **meta_children_migration_considerations(SomStrList *stack, s
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_migration_considerations_escalation_procedures(ln);
-    ln->element_node = meta_cx("EscalationProcedureEntry", stack, meta_children_escalation_procedure_entry, meta_build_migration_considerations_escalation_procedures_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_considerations_escalation_procedures(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -168456,28 +166678,24 @@ static SomMetaNode **meta_children_migration_risks(SomStrList *stack, size_t *le
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_migration_risks_risk_categories(ln);
-    ln->element_node = meta_cx("RiskCategoryEntry", stack, meta_children_risk_category_entry, meta_build_migration_risks_risk_categories_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_risks_risk_categories(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_migration_risks_risk_based_decisions(ln);
-    ln->element_node = meta_cx("RiskBasedDecisionEntry", stack, meta_children_risk_based_decision_entry, meta_build_migration_risks_risk_based_decisions_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_risks_risk_based_decisions(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_migration_risks_monitoring_procedures(ln);
-    ln->element_node = meta_cx("MonitoringProcedureEntry", stack, meta_children_monitoring_procedure_entry, meta_build_migration_risks_monitoring_procedures_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_risks_monitoring_procedures(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_migration_risks_response_strategies(ln);
-    ln->element_node = meta_cx("ResponseStrategyEntry", stack, meta_children_response_strategy_entry, meta_build_migration_risks_response_strategies_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_risks_response_strategies(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -168795,19 +167013,6 @@ static SomMetaNode **meta_children_monitoring_infrastructure(SomStrList *stack, 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_monitoring_infrastructure_access(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_monitoring_procedure_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_monitoring_procedure_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -169504,19 +167709,6 @@ static SomMetaNode **meta_children_new_role_responsibilities(SomStrList *stack, 
   return arr;
 }
 
-static SomMetaNode **meta_children_non_financial_benefit_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_non_financial_benefit_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_notification_channel_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -169622,19 +167814,6 @@ static SomMetaNode **meta_children_object_state_entry(SomStrList *stack, size_t 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_object_state_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_observability_requirement_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_observability_requirement_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -170067,16 +168246,14 @@ static SomMetaNode **meta_children_organizational_environment(SomStrList *stack,
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_organizational_environment_cultural_considerations(ln);
-    ln->element_node = meta_cx("CulturalConsiderationEntry", stack, meta_children_cultural_consideration_entry, meta_build_organizational_environment_cultural_considerations_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_environment_cultural_considerations(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_organizational_environment_communication_preferences(ln);
-    ln->element_node = meta_cx("CommunicationPreferenceEntry", stack, meta_children_communication_preference_entry, meta_build_organizational_environment_communication_preferences_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_environment_communication_preferences(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -170084,10 +168261,9 @@ static SomMetaNode **meta_children_organizational_environment(SomStrList *stack,
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_organizational_environment_change_advocates(ln);
-    ln->element_node = meta_cx("ChangeAdvocateEntry", stack, meta_children_change_advocate_entry, meta_build_organizational_environment_change_advocates_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_environment_change_advocates(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -171153,19 +169329,6 @@ static SomMetaNode **meta_children_preconditions_and_triggers(SomStrList *stack,
   return arr;
 }
 
-static SomMetaNode **meta_children_predecessor_dependency_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_predecessor_dependency_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_primary_navigation(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -171334,6 +169497,7 @@ static SomMetaNode **meta_children_privilege_usage_reporting(SomStrList *stack, 
 }
 
 static SomMetaNode **meta_children_problem_statement(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -171348,10 +169512,9 @@ static SomMetaNode **meta_children_problem_statement(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_problem_statement_related_pain_points(ln);
-    ln->element_node = meta_cx("RelatedPainPointEntry", stack, meta_children_related_pain_point_entry, meta_build_problem_statement_related_pain_points_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_problem_statement_related_pain_points(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -172694,10 +170857,9 @@ static SomMetaNode **meta_children_quality_framework(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_quality_framework_category_dependencies(ln);
-    ln->element_node = meta_cx("CategoryDependencyEntry", stack, meta_children_category_dependency_entry, meta_build_quality_framework_category_dependencies_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_quality_framework_category_dependencies(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -173012,19 +171174,6 @@ static SomMetaNode **meta_children_readiness_criteria_entry(SomStrList *stack, s
   return arr;
 }
 
-static SomMetaNode **meta_children_recovery_flow_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_recovery_flow_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_recovery_procedures(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -173255,19 +171404,6 @@ static SomMetaNode **meta_children_related_document_entry(SomStrList *stack, siz
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_related_document_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_related_pain_point_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_related_pain_point_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -173833,19 +171969,6 @@ static SomMetaNode **meta_children_report_section_entry(SomStrList *stack, size_
   return arr;
 }
 
-static SomMetaNode **meta_children_representative_quote_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_representative_quote_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_requirement_acceptance_criteria(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -174255,19 +172378,6 @@ static SomMetaNode **meta_children_resource_requirement_entry(SomStrList *stack,
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_resource_requirement_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_response_strategy_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_response_strategy_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -174739,19 +172849,6 @@ static SomMetaNode **meta_children_revision_history(SomStrList *stack, size_t *l
   return arr;
 }
 
-static SomMetaNode **meta_children_risk_based_decision_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_risk_based_decision_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -174770,19 +172867,6 @@ static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_risk_business_impact_delivery(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_risk_category_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_risk_category_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -175607,19 +173691,6 @@ static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stac
   return arr;
 }
 
-static SomMetaNode **meta_children_scope_assumption_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_scope_assumption_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_scope_boundaries(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -175648,10 +173719,9 @@ static SomMetaNode **meta_children_scope_boundaries(SomStrList *stack, size_t *l
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_scope_boundaries_scope_assumptions(ln);
-    ln->element_node = meta_cx("ScopeAssumptionEntry", stack, meta_children_scope_assumption_entry, meta_build_scope_boundaries_scope_assumptions_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scope_boundaries_scope_assumptions(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -176315,19 +174385,6 @@ static SomMetaNode **meta_children_security_code_review_policy(SomStrList *stack
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_security_code_review_policy_findings(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_security_concern_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_security_concern_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -177250,19 +175307,6 @@ static SomMetaNode **meta_children_shared_library_entry(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_shared_library_entry_lifecycle(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_shared_service_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_shared_service_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -178214,28 +176258,13 @@ static SomMetaNode **meta_children_staging_strategy(SomStrList *stack, size_t *l
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_staging_strategy_key_assumptions(ln);
-    ln->element_node = meta_cx("KeyAssumptionEntry", stack, meta_children_key_assumption_entry, meta_build_staging_strategy_key_assumptions_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_staging_strategy_key_assumptions(n);
+    meta_push(&arr, len, &cap, n);
   }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_staging_strategy_constraints(ln);
-    ln->element_node = meta_cx("StagingStrategyConstraintEntry", stack, meta_children_staging_strategy_constraint_entry, meta_build_staging_strategy_constraints_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_staging_strategy_constraint_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_staging_strategy_constraint_entry_content(n);
+    meta_build_staging_strategy_constraints(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -178443,6 +176472,7 @@ static SomMetaNode **meta_children_steering_committee(SomStrList *stack, size_t 
 }
 
 static SomMetaNode **meta_children_step_up_authentication_policy(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -178452,22 +176482,8 @@ static SomMetaNode **meta_children_step_up_authentication_policy(SomStrList *sta
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_step_up_authentication_policy_step_up_details(ln);
-    ln->element_node = meta_cx("StepUpDetailEntry", stack, meta_children_step_up_detail_entry, meta_build_step_up_authentication_policy_step_up_details_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_step_up_detail_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_step_up_detail_entry_content(n);
+    meta_build_step_up_authentication_policy_step_up_details(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -178949,6 +176965,7 @@ static SomMetaNode **meta_children_system_context(SomStrList *stack, size_t *len
 }
 
 static SomMetaNode **meta_children_system_cost_analysis(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -178978,10 +176995,9 @@ static SomMetaNode **meta_children_system_cost_analysis(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_cost_analysis_non_financial_benefits(ln);
-    ln->element_node = meta_cx("NonFinancialBenefitEntry", stack, meta_children_non_financial_benefit_entry, meta_build_system_cost_analysis_non_financial_benefits_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_cost_analysis_non_financial_benefits(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -179012,10 +177028,9 @@ static SomMetaNode **meta_children_system_data_scope(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_data_scope_known_quality_issues(ln);
-    ln->element_node = meta_cx("KnownQualityIssueEntry", stack, meta_children_known_quality_issue_entry, meta_build_system_data_scope_known_quality_issues_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_data_scope_known_quality_issues(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -179167,10 +177182,9 @@ static SomMetaNode **meta_children_system_error_display(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_error_display_error_page_designs(ln);
-    ln->element_node = meta_cx("ErrorPageDesignEntry", stack, meta_children_error_page_design_entry, meta_build_system_error_display_error_page_designs_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_error_display_error_page_designs(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *ln = som_meta_node_new();
@@ -179244,6 +177258,7 @@ static SomMetaNode **meta_children_system_inventory(SomStrList *stack, size_t *l
 }
 
 static SomMetaNode **meta_children_system_knowledge_transfer(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -179253,10 +177268,9 @@ static SomMetaNode **meta_children_system_knowledge_transfer(SomStrList *stack, 
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_knowledge_transfer_critical_knowledge_areas(ln);
-    ln->element_node = meta_cx("CriticalKnowledgeAreaEntry", stack, meta_children_critical_knowledge_area_entry, meta_build_system_knowledge_transfer_critical_knowledge_areas_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_knowledge_transfer_critical_knowledge_areas(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -179341,10 +177355,9 @@ static SomMetaNode **meta_children_system_operation(SomStrList *stack, size_t *l
   }
   meta_push(&arr, len, &cap, meta_cx("AdministrationRequirementsSection", stack, meta_children_administration_requirements_section, meta_build_system_operation_administration_requirements));
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_operation_maintenance_procedures(ln);
-    ln->element_node = meta_cx("MaintenanceProcedureEntry", stack, meta_children_maintenance_procedure_entry, meta_build_system_operation_maintenance_procedures_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_operation_maintenance_procedures(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -179432,10 +177445,9 @@ static SomMetaNode **meta_children_system_quality_goals(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_quality_goals_attribute_interdependencies(ln);
-    ln->element_node = meta_cx("AttributeInterdependencyEntry", stack, meta_children_attribute_interdependency_entry, meta_build_system_quality_goals_attribute_interdependencies_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_quality_goals_attribute_interdependencies(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -179484,10 +177496,9 @@ static SomMetaNode **meta_children_system_replacement_strategy(SomStrList *stack
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_replacement_strategy_predecessor_dependencies(ln);
-    ln->element_node = meta_cx("PredecessorDependencyEntry", stack, meta_children_predecessor_dependency_entry, meta_build_system_replacement_strategy_predecessor_dependencies_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_replacement_strategy_predecessor_dependencies(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -179591,6 +177602,7 @@ static SomMetaNode **meta_children_system_summary(SomStrList *stack, size_t *len
 }
 
 static SomMetaNode **meta_children_system_task_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -179620,34 +177632,20 @@ static SomMetaNode **meta_children_system_task_entry(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_task_entry_workflow_steps(ln);
-    ln->element_node = meta_cx("SystemTaskWorkflowStepEntry", stack, meta_children_system_task_workflow_step_entry, meta_build_system_task_entry_workflow_steps_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_task_entry_workflow_steps(n);
+    meta_push(&arr, len, &cap, n);
   }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_task_entry_variations_and_exceptions(ln);
-    ln->element_node = meta_cx("VariationsAndExceptionEntry", stack, meta_children_variations_and_exception_entry, meta_build_system_task_entry_variations_and_exceptions_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_system_task_workflow_step_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_system_task_workflow_step_entry_content(n);
+    meta_build_system_task_entry_variations_and_exceptions(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
 
 static SomMetaNode **meta_children_system_technical_assessment(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -179672,16 +177670,14 @@ static SomMetaNode **meta_children_system_technical_assessment(SomStrList *stack
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_technical_assessment_known_issues(ln);
-    ln->element_node = meta_cx("KnownIssueEntry", stack, meta_children_known_issue_entry, meta_build_system_technical_assessment_known_issues_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_technical_assessment_known_issues(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_system_technical_assessment_security_concerns(ln);
-    ln->element_node = meta_cx("SecurityConcernEntry", stack, meta_children_security_concern_entry, meta_build_system_technical_assessment_security_concerns_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_technical_assessment_security_concerns(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -180070,10 +178066,9 @@ static SomMetaNode **meta_children_technical_environment(SomStrList *stack, size
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_technical_environment_datacenters(ln);
-    ln->element_node = meta_cx("DatacenterEntry", stack, meta_children_datacenter_entry, meta_build_technical_environment_datacenters_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_technical_environment_datacenters(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -180106,6 +178101,7 @@ static SomMetaNode **meta_children_technical_environment(SomStrList *stack, size
 }
 
 static SomMetaNode **meta_children_technical_environment_network(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -180115,16 +178111,14 @@ static SomMetaNode **meta_children_technical_environment_network(SomStrList *sta
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_technical_environment_network_devops_standards(ln);
-    ln->element_node = meta_cx("DevopsStandardEntry", stack, meta_children_devops_standard_entry, meta_build_technical_environment_network_devops_standards_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_technical_environment_network_devops_standards(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_technical_environment_network_observability_requirements(ln);
-    ln->element_node = meta_cx("ObservabilityRequirementEntry", stack, meta_children_observability_requirement_entry, meta_build_technical_environment_network_observability_requirements_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_technical_environment_network_observability_requirements(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
@@ -182503,33 +180497,18 @@ static SomMetaNode **meta_children_user_journey(SomStrList *stack, size_t *len) 
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_user_journey_key_touchpoints(ln);
-    ln->element_node = meta_cx("KeyTouchpointEntry", stack, meta_children_key_touchpoint_entry, meta_build_user_journey_key_touchpoints_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_journey_key_touchpoints(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_user_journey_pain_points(ln);
-    ln->element_node = meta_cx("UserJourneyPainPointEntry", stack, meta_children_user_journey_pain_point_entry, meta_build_user_journey_pain_points_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_journey_pain_points(n);
+    meta_push(&arr, len, &cap, n);
   }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_user_journey_opportunities_for_delight(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_user_journey_pain_point_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_user_journey_pain_point_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -182664,6 +180643,7 @@ static SomMetaNode **meta_children_user_notification_preferences(SomStrList *sta
 }
 
 static SomMetaNode **meta_children_user_persona_details(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -182698,10 +180678,9 @@ static SomMetaNode **meta_children_user_persona_details(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_user_persona_details_representative_quotes(ln);
-    ln->element_node = meta_cx("RepresentativeQuoteEntry", stack, meta_children_representative_quote_entry, meta_build_user_persona_details_representative_quotes_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_persona_details_representative_quotes(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -182926,10 +180905,9 @@ static SomMetaNode **meta_children_validation_feedback(SomStrList *stack, size_t
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_validation_feedback_field_validation_rules(ln);
-    ln->element_node = meta_cx("FieldValidationRuleEntry", stack, meta_children_field_validation_rule_entry, meta_build_validation_feedback_field_validation_rules_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_validation_feedback_field_validation_rules(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -182947,20 +180925,8 @@ static SomMetaNode **meta_children_validation_message_template(SomStrList *stack
   return arr;
 }
 
-static SomMetaNode **meta_children_validation_rule_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_validation_rule_entry_content(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  return arr;
-}
-
 static SomMetaNode **meta_children_value_proposition(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -182985,22 +180951,8 @@ static SomMetaNode **meta_children_value_proposition(SomStrList *stack, size_t *
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_value_proposition_kpis(ln);
-    ln->element_node = meta_cx("KpiEntry", stack, meta_children_kpi_entry, meta_build_value_proposition_kpis_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  return arr;
-}
-
-static SomMetaNode **meta_children_variations_and_exception_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
-  SomMetaNode **arr = NULL;
-  size_t cap = 0;
-  *len = 0;
-  {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_variations_and_exception_entry_content(n);
+    meta_build_value_proposition_kpis(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -185537,7 +183489,7 @@ SomMetaRef applicable_regulation_entry_nav_content(som_nav_applicable_regulation
 SomListMetaRef applicable_regulation_entry_nav_compliance_measures(som_nav_applicable_regulation_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "COMPL-COMP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_compliance_measure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -185923,13 +183875,6 @@ som_nav_assumption_constraint_dependency_register assumptions_constraints_depend
   som_nav_assumption_constraint_dependency_register out;
   char *path = spec_path_join(x.ref.path, "register");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef attribute_interdependency_entry_nav_content(som_nav_attribute_interdependency_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -187795,13 +185740,6 @@ SomMetaRef capacity_review_process_nav_planning(som_nav_capacity_review_process 
   free(path);
   return out;
 }
-SomMetaRef category_dependency_entry_nav_content(som_nav_category_dependency_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef ccb_member_entry_nav_content(som_nav_ccb_member_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -187945,13 +185883,6 @@ SomMetaRef certification_requirements_section_nav_costs(som_nav_certification_re
 SomMetaRef certification_requirements_section_nav_marketing(som_nav_certification_requirements_section x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CRSM");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef change_advocate_entry_nav_content(som_nav_change_advocate_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -189048,13 +186979,6 @@ SomMetaRef communication_patterns_nav_observability(som_nav_communication_patter
   free(path);
   return out;
 }
-SomMetaRef communication_preference_entry_nav_content(som_nav_communication_preference_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef communication_requirements_nav_content(som_nav_communication_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -189266,13 +187190,6 @@ SomMetaRef compliance_audit_schedule_nav_reporting(som_nav_compliance_audit_sche
   return out;
 }
 SomMetaRef compliance_framework_nav_content(som_nav_compliance_framework x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef compliance_measure_entry_nav_content(som_nav_compliance_measure_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -190504,13 +188421,6 @@ SomMetaRef credential_recovery_policy_nav_credential_recovery_details(som_nav_cr
   free(path);
   return out;
 }
-SomMetaRef critical_knowledge_area_entry_nav_content(som_nav_critical_knowledge_area_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef cross_boundary_error_handling_nav_content(som_nav_cross_boundary_error_handling x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -190588,13 +188498,6 @@ SomMetaRef cross_tenant_access_policy_nav_cross_tenant_access_policy_details(som
   free(path);
   return out;
 }
-SomMetaRef cultural_consideration_entry_nav_content(som_nav_cultural_consideration_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef current_architecture_nav_content(som_nav_current_architecture x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -190619,14 +188522,14 @@ SomMetaRef current_architecture_nav_deployment_topology(som_nav_current_architec
 SomListMetaRef current_architecture_nav_integration_patterns(som_nav_current_architecture x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "IPE-INTE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_integration_pattern_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef current_architecture_nav_shared_services(som_nav_current_architecture x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SHARE-SHAR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_shared_service_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -193612,13 +191515,6 @@ SomMetaRef database_encryption_policy_nav_database_encryption_details(som_nav_da
   free(path);
   return out;
 }
-SomMetaRef datacenter_entry_nav_content(som_nav_datacenter_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef debugging_configuration_nav_content(som_nav_debugging_configuration x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -194113,13 +192009,6 @@ som_nav_integration_health_summary dependencies_and_integrations_nav_health_summ
   som_nav_integration_health_summary out;
   char *path = spec_path_join(x.ref.path, "healthSummary");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef dependency_entry_nav_content(som_nav_dependency_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -194987,13 +192876,6 @@ SomMetaRef development_quality_gates_nav_documentation(som_nav_development_quali
 SomMetaRef development_quality_gates_nav_performance(som_nav_development_quality_gates x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DQGP");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef devops_standard_entry_nav_content(som_nav_devops_standard_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -196426,20 +194308,6 @@ SomMetaRef error_handling_standards_nav_recovery(som_nav_error_handling_standard
   free(path);
   return out;
 }
-SomMetaRef error_page_design_entry_nav_content(som_nav_error_page_design_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef error_procedure_entry_nav_content(som_nav_error_procedure_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef error_recovery_nav_recovery_mechanisms_content(som_nav_error_recovery x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ERRE-RECO");
@@ -196492,7 +194360,7 @@ SomMetaRef error_recovery_nav_recovery_narrative(som_nav_error_recovery x) {
 SomListMetaRef error_recovery_nav_recovery_flows(som_nav_error_recovery x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RECOV-RECO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_recovery_flow_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -196500,13 +194368,6 @@ SomListMetaRef error_recovery_nav_recovery_scenarios(som_nav_error_recovery x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RCVSCN-RECO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_recovery_scenario_entry);
-  free(path);
-  return out;
-}
-SomMetaRef escalation_procedure_entry_nav_content(som_nav_escalation_procedure_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -196982,7 +194843,7 @@ SomMetaRef external_actor_entry_nav_context(som_nav_external_actor_entry x) {
 SomListMetaRef external_actor_entry_nav_interaction_scenarios(som_nav_external_actor_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "INTER-INTE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_interaction_scenario_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -197672,13 +195533,6 @@ SomMetaRef field_validation_rule_nav_content(som_nav_field_validation_rule x) {
   free(path);
   return out;
 }
-SomMetaRef field_validation_rule_entry_nav_content(som_nav_field_validation_rule_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef file_access_control_policy_nav_content(som_nav_file_access_control_policy x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -197886,13 +195740,6 @@ som_nav_portability flexibility_characteristic_nav_portability(som_nav_flexibili
   som_nav_portability out;
   char *path = spec_path_join(x.ref.path, "portability");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef fragile_point_entry_nav_content(som_nav_fragile_point_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -198305,13 +196152,6 @@ SomMetaRef geographic_distribution_requirements_nav_anycast(som_nav_geographic_d
 SomMetaRef geographic_distribution_requirements_nav_performance(som_nav_geographic_distribution_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "GDRP");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef global_entry_point_entry_nav_content(som_nav_global_entry_point_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -199145,7 +196985,7 @@ SomMetaRef information_architecture_nav_navigation_structure(som_nav_information
 SomListMetaRef information_architecture_nav_global_entry_points(som_nav_information_architecture x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "GLOBA-GLOB-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_global_entry_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -199474,14 +197314,7 @@ SomMetaRef integration_health_summary_nav_content(som_nav_integration_health_sum
 SomListMetaRef integration_health_summary_nav_fragile_points(som_nav_integration_health_summary x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "FRAGI-FRAG-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_fragile_point_entry);
-  free(path);
-  return out;
-}
-SomMetaRef integration_pattern_entry_nav_content(som_nav_integration_pattern_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -199779,13 +197612,6 @@ SomListMetaRef interaction_patterns_nav_patterns(som_nav_interaction_patterns x)
   free(path);
   return out;
 }
-SomMetaRef interaction_scenario_entry_nav_content(som_nav_interaction_scenario_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef interaction_testing_strategy_nav_content(som_nav_interaction_testing_strategy x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -199838,14 +197664,14 @@ SomListMetaRef interface_data_spec_nav_data_entities(som_nav_interface_data_spec
 SomListMetaRef interface_data_spec_nav_mapping_rules(som_nav_interface_data_spec x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "MAPPI-MAPP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_mapping_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef interface_data_spec_nav_validation_rules(som_nav_interface_data_spec x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "VALID-VALI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_validation_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -199880,7 +197706,7 @@ SomMetaRef interface_error_handling_nav_timeout(som_nav_interface_error_handling
 SomListMetaRef interface_error_handling_nav_error_procedures(som_nav_interface_error_handling x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ERROR-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_error_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -199950,7 +197776,7 @@ SomMetaRef interface_operational_nav_support(som_nav_interface_operational x) {
 SomListMetaRef interface_operational_nav_dependencies(som_nav_interface_operational x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DEPEN-DEPE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -200479,13 +198305,6 @@ SomMetaRef journey_stage_entry_nav_content(som_nav_journey_stage_entry x) {
   free(path);
   return out;
 }
-SomMetaRef key_assumption_entry_nav_content(som_nav_key_assumption_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef key_attribute_entry_nav_content(som_nav_key_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -200710,35 +198529,7 @@ SomMetaRef key_storage_policy_nav_notes(som_nav_key_storage_policy x) {
   free(path);
   return out;
 }
-SomMetaRef key_touchpoint_entry_nav_content(som_nav_key_touchpoint_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef knowledge_transfer_nav_content(som_nav_knowledge_transfer x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef known_issue_entry_nav_content(som_nav_known_issue_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef known_quality_issue_entry_nav_content(som_nav_known_quality_issue_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef kpi_entry_nav_content(som_nav_kpi_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -201501,13 +199292,6 @@ SomMetaRef maintenance_dependency_entry_nav_risk(som_nav_maintenance_dependency_
   free(path);
   return out;
 }
-SomMetaRef maintenance_procedure_entry_nav_content(som_nav_maintenance_procedure_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef maintenance_user_impact_nav_content(som_nav_maintenance_user_impact x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -201624,13 +199408,6 @@ som_nav_post_maintenance_validation maintenance_windows_section_nav_post_mainten
   som_nav_post_maintenance_validation out;
   char *path = spec_path_join(x.ref.path, "postMaintenance");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef mapping_rule_entry_nav_content(som_nav_mapping_rule_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -201868,14 +199645,7 @@ SomMetaRef mfa_configuration_nav_content(som_nav_mfa_configuration x) {
 SomListMetaRef mfa_configuration_nav_mfa_details(som_nav_mfa_configuration x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "MFADE-MFAD-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_mfa_detail_entry);
-  free(path);
-  return out;
-}
-SomMetaRef mfa_detail_entry_nav_content(som_nav_mfa_detail_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -201959,7 +199729,7 @@ SomMetaRef migration_considerations_nav_communication_plan(som_nav_migration_con
 SomListMetaRef migration_considerations_nav_escalation_procedures(som_nav_migration_considerations x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ESCAL-ESCA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_escalation_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -202281,28 +200051,28 @@ SomMetaRef migration_risks_nav_assessment_methodology(som_nav_migration_risks x)
 SomListMetaRef migration_risks_nav_risk_categories(som_nav_migration_risks x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RISKC-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_risk_category_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef migration_risks_nav_risk_based_decisions(som_nav_migration_risks x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RISKB-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_risk_based_decision_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef migration_risks_nav_monitoring_procedures(som_nav_migration_risks x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "MONIT-MONI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_monitoring_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef migration_risks_nav_response_strategies(som_nav_migration_risks x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RESPO-RESP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_response_strategy_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -202701,13 +200471,6 @@ SomMetaRef monitoring_infrastructure_nav_collection(som_nav_monitoring_infrastru
 SomMetaRef monitoring_infrastructure_nav_access(som_nav_monitoring_infrastructure x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MOINAC");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef monitoring_procedure_entry_nav_content(som_nav_monitoring_procedure_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -203531,13 +201294,6 @@ SomMetaRef new_role_responsibilities_nav_decision_authority(som_nav_new_role_res
   free(path);
   return out;
 }
-SomMetaRef non_financial_benefit_entry_nav_content(som_nav_non_financial_benefit_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef notification_channel_entry_nav_content(som_nav_notification_channel_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -203616,13 +201372,6 @@ SomMetaRef object_operation_entry_nav_governance(som_nav_object_operation_entry 
   return out;
 }
 SomMetaRef object_state_entry_nav_content(som_nav_object_state_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef observability_requirement_entry_nav_content(som_nav_observability_requirement_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -204101,14 +201850,14 @@ SomListMetaRef organizational_environment_nav_decision_makers(som_nav_organizati
 SomListMetaRef organizational_environment_nav_cultural_considerations(som_nav_organizational_environment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CULTU-CULT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_cultural_consideration_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef organizational_environment_nav_communication_preferences(som_nav_organizational_environment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "COMMU-COMM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_communication_preference_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -204122,7 +201871,7 @@ SomMetaRef organizational_environment_nav_political_landscape(som_nav_organizati
 SomListMetaRef organizational_environment_nav_change_advocates(som_nav_organizational_environment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CHANG-CHAN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_change_advocate_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -205239,13 +202988,6 @@ SomMetaRef preconditions_and_triggers_nav_content(som_nav_preconditions_and_trig
   free(path);
   return out;
 }
-SomMetaRef predecessor_dependency_entry_nav_content(som_nav_predecessor_dependency_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef primary_navigation_nav_content(som_nav_primary_navigation x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -205438,7 +203180,7 @@ SomMetaRef problem_statement_nav_problem_details(som_nav_problem_statement x) {
 SomListMetaRef problem_statement_nav_related_pain_points(som_nav_problem_statement x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RPPE-RELA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_related_pain_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -206817,7 +204559,7 @@ SomListMetaRef quality_framework_nav_quality_categories(som_nav_quality_framewor
 SomListMetaRef quality_framework_nav_category_dependencies(som_nav_quality_framework x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CATEG-CATE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_category_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -207122,13 +204864,6 @@ SomMetaRef readiness_criteria_entry_nav_content(som_nav_readiness_criteria_entry
   free(path);
   return out;
 }
-SomMetaRef recovery_flow_entry_nav_content(som_nav_recovery_flow_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef recovery_procedures_nav_content(som_nav_recovery_procedures x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -207340,13 +205075,6 @@ SomMetaRef regulatory_requirement_entry_nav_content(som_nav_regulatory_requireme
   return out;
 }
 SomMetaRef related_document_entry_nav_content(som_nav_related_document_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef related_pain_point_entry_nav_content(som_nav_related_pain_point_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -207941,13 +205669,6 @@ SomListMetaRef report_section_entry_nav_charts(som_nav_report_section_entry x) {
   free(path);
   return out;
 }
-SomMetaRef representative_quote_entry_nav_content(som_nav_representative_quote_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef requirement_acceptance_criteria_nav_content(som_nav_requirement_acceptance_criteria x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -208348,13 +206069,6 @@ som_nav_file_and_storage_security resource_protection_nav_file_and_storage_secur
   return out;
 }
 SomMetaRef resource_requirement_entry_nav_content(som_nav_resource_requirement_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef response_strategy_entry_nav_content(som_nav_response_strategy_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -208816,13 +206530,6 @@ SomListMetaRef revision_history_nav_revisions(som_nav_revision_history x) {
   free(path);
   return out;
 }
-SomMetaRef risk_based_decision_entry_nav_content(som_nav_risk_based_decision_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef risk_business_impact_nav_content(som_nav_risk_business_impact x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -208840,13 +206547,6 @@ SomMetaRef risk_business_impact_nav_stakeholders(som_nav_risk_business_impact x)
 SomMetaRef risk_business_impact_nav_delivery(som_nav_risk_business_impact x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RBID");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef risk_category_entry_nav_content(som_nav_risk_category_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -209635,13 +207335,6 @@ SomMetaRef scheduled_maintenance_policy_nav_approval(som_nav_scheduled_maintenan
   free(path);
   return out;
 }
-SomMetaRef scope_assumption_entry_nav_content(som_nav_scope_assumption_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef scope_boundaries_nav_content(som_nav_scope_boundaries x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -209673,7 +207366,7 @@ SomListMetaRef scope_boundaries_nav_deferred_items(som_nav_scope_boundaries x) {
 SomListMetaRef scope_boundaries_nav_scope_assumptions(som_nav_scope_boundaries x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCOPE-SCOP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_scope_assumption_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -210443,13 +208136,6 @@ SomMetaRef security_code_review_policy_nav_process(som_nav_security_code_review_
 SomMetaRef security_code_review_policy_nav_findings(som_nav_security_code_review_policy x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCRPF");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef security_concern_entry_nav_content(som_nav_security_concern_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -211486,13 +209172,6 @@ SomMetaRef shared_library_entry_nav_api(som_nav_shared_library_entry x) {
 SomMetaRef shared_library_entry_nav_lifecycle(som_nav_shared_library_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SLEL");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef shared_service_entry_nav_content(som_nav_shared_service_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -212543,21 +210222,14 @@ SomMetaRef staging_strategy_nav_rationale_narrative(som_nav_staging_strategy x) 
 SomListMetaRef staging_strategy_nav_key_assumptions(som_nav_staging_strategy x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "KEYAS-KEYA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_key_assumption_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef staging_strategy_nav_constraints(som_nav_staging_strategy x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "STAGI-CONS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_staging_strategy_constraint_entry);
-  free(path);
-  return out;
-}
-SomMetaRef staging_strategy_constraint_entry_nav_content(som_nav_staging_strategy_constraint_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -212823,14 +210495,7 @@ SomMetaRef step_up_authentication_policy_nav_content(som_nav_step_up_authenticat
 SomListMetaRef step_up_authentication_policy_nav_step_up_details(som_nav_step_up_authentication_policy x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "STEPU-STEP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_step_up_detail_entry);
-  free(path);
-  return out;
-}
-SomMetaRef step_up_detail_entry_nav_content(som_nav_step_up_detail_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213411,7 +211076,7 @@ SomMetaRef system_cost_analysis_nav_cost_breakdown(som_nav_system_cost_analysis 
 SomListMetaRef system_cost_analysis_nav_non_financial_benefits(som_nav_system_cost_analysis x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "NONFI-NONF-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_non_financial_benefit_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213446,7 +211111,7 @@ SomListMetaRef system_data_scope_nav_entities(som_nav_system_data_scope x) {
 SomListMetaRef system_data_scope_nav_known_quality_issues(som_nav_system_data_scope x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "KNOWN-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_known_quality_issue_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213642,7 +211307,7 @@ SomMetaRef system_error_display_nav_system_error_narrative(som_nav_system_error_
 SomListMetaRef system_error_display_nav_error_page_designs(som_nav_system_error_display x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "EPDE-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_error_page_design_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213740,7 +211405,7 @@ SomMetaRef system_knowledge_transfer_nav_content(som_nav_system_knowledge_transf
 SomListMetaRef system_knowledge_transfer_nav_critical_knowledge_areas(som_nav_system_knowledge_transfer x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CRITI-CRIT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_critical_knowledge_area_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213824,7 +211489,7 @@ som_nav_administration_requirements_section system_operation_nav_administration_
 SomListMetaRef system_operation_nav_maintenance_procedures(som_nav_system_operation x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "MAINT-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_maintenance_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -213971,7 +211636,7 @@ SomMetaRef system_quality_goals_nav_qa_strategy(som_nav_system_quality_goals x) 
 SomListMetaRef system_quality_goals_nav_attribute_interdependencies(som_nav_system_quality_goals x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ATTRI-ATTR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_attribute_interdependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -214104,7 +211769,7 @@ SomListMetaRef system_replacement_strategy_nav_phases(som_nav_system_replacement
 SomListMetaRef system_replacement_strategy_nav_predecessor_dependencies(som_nav_system_replacement_strategy x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "PREDE-PRED-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_predecessor_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -214335,21 +212000,14 @@ SomMetaRef system_task_entry_nav_related_use_case(som_nav_system_task_entry x) {
 SomListMetaRef system_task_entry_nav_workflow_steps(som_nav_system_task_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYSTE-WORK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_system_task_workflow_step_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef system_task_entry_nav_variations_and_exceptions(som_nav_system_task_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "VARIA-VARI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_variations_and_exception_entry);
-  free(path);
-  return out;
-}
-SomMetaRef system_task_workflow_step_entry_nav_content(som_nav_system_task_workflow_step_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -214384,14 +212042,14 @@ SomMetaRef system_technical_assessment_nav_quality(som_nav_system_technical_asse
 SomListMetaRef system_technical_assessment_nav_known_issues(som_nav_system_technical_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "KIE-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_known_issue_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef system_technical_assessment_nav_security_concerns(som_nav_system_technical_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SECUR-SECU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_security_concern_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -214832,7 +212490,7 @@ SomMetaRef technical_environment_nav_existing_infrastructure(som_nav_technical_e
 SomListMetaRef technical_environment_nav_datacenters(som_nav_technical_environment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DATAC-DATA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_datacenter_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -214881,14 +212539,14 @@ SomMetaRef technical_environment_network_nav_content(som_nav_technical_environme
 SomListMetaRef technical_environment_network_nav_devops_standards(som_nav_technical_environment_network x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DEVOP-DEVO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_devops_standard_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef technical_environment_network_nav_observability_requirements(som_nav_technical_environment_network x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "OBSER-OBSE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_observability_requirement_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -217443,27 +215101,20 @@ SomListMetaRef user_journey_nav_stages(som_nav_user_journey x) {
 SomListMetaRef user_journey_nav_key_touchpoints(som_nav_user_journey x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "KEYTO-KEYT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_key_touchpoint_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef user_journey_nav_pain_points(som_nav_user_journey x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "USERJ-PAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_user_journey_pain_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomMetaRef user_journey_nav_opportunities_for_delight(som_nav_user_journey x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "UJ-OPPO");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef user_journey_pain_point_entry_nav_content(som_nav_user_journey_pain_point_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217688,7 +215339,7 @@ SomMetaRef user_persona_details_nav_visual_representation(som_nav_user_persona_d
 SomListMetaRef user_persona_details_nav_representative_quotes(som_nav_user_persona_details x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "REPRE-REPR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_representative_quote_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -217905,18 +215556,11 @@ SomListMetaRef validation_feedback_nav_message_templates(som_nav_validation_feed
 SomListMetaRef validation_feedback_nav_field_validation_rules(som_nav_validation_feedback x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "FIELD-FIEL-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_field_validation_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomMetaRef validation_message_template_nav_content(som_nav_validation_message_template x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef validation_rule_entry_nav_content(som_nav_validation_rule_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -217954,14 +215598,7 @@ SomMetaRef value_proposition_nav_return_profile(som_nav_value_proposition x) {
 SomListMetaRef value_proposition_nav_kpis(som_nav_value_proposition x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "KPIEN-KPIS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_kpi_entry);
-  free(path);
-  return out;
-}
-SomMetaRef variations_and_exception_entry_nav_content(som_nav_variations_and_exception_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "content");
-  som_meta_ref_init(&out, x.ref.tree, path);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -218767,7 +216404,7 @@ SomMetaRef api_compatibility_entry_id_aces(som_id_api_compatibility_entry x) {
 SomListMetaRef applicable_regulation_entry_id_compl_comp_lst(som_id_applicable_regulation_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "COMPL-COMP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_compliance_measure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -220398,7 +218035,7 @@ SomMetaRef d00_solution_blueprint_id_sypup_visi(som_id_d00_solution_blueprint x)
 SomListMetaRef d00_solution_blueprint_id_rppe_rela_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_related_pain_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -220433,7 +218070,7 @@ SomMetaRef d00_solution_blueprint_id_valrp(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_kpien_kpis_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_kpi_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -220461,7 +218098,7 @@ SomListMetaRef d00_solution_blueprint_id_dfscp_defe_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_scope_scop_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_scope_assumption_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -220916,28 +218553,28 @@ SomMetaRef d00_solution_blueprint_id_mirire(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_riskc_risk_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_risk_category_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_riskb_risk_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_risk_based_decision_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_monit_moni_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_monitoring_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_respo_resp_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_response_strategy_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -220958,7 +218595,7 @@ SomListMetaRef d00_solution_blueprint_id_mgmls_mile_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_escal_esca_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_escalation_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -221042,21 +218679,21 @@ SomListMetaRef d00_solution_blueprint_id_demaen_deci_lst(som_id_d00_solution_blu
 SomListMetaRef d00_solution_blueprint_id_cultu_cult_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_cultural_consideration_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_commu_comm_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_communication_preference_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_chang_chan_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_change_advocate_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -221098,21 +218735,21 @@ SomMetaRef d00_solution_blueprint_id_tes(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_devop_devo_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_devops_standard_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_obser_obse_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_observability_requirement_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_datac_data_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_datacenter_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -221525,14 +219162,14 @@ SomMetaRef d00_solution_blueprint_id_carch_depl(som_id_d00_solution_blueprint x)
 SomListMetaRef d00_solution_blueprint_id_ipe_inte_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_integration_pattern_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_share_shar_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_shared_service_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -221574,7 +219211,7 @@ SomListMetaRef d00_solution_blueprint_id_syin_item_lst(som_id_d00_solution_bluep
 SomListMetaRef d00_solution_blueprint_id_fragi_frag_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_fragile_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -225830,7 +223467,7 @@ SomMetaRef d00_solution_blueprint_id_sdtss(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_maint_main_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_maintenance_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227062,7 +224699,7 @@ SomListMetaRef d00_solution_blueprint_id_idtam_attr_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_mfade_mfad_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mfa_detail_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227076,7 +224713,7 @@ SomListMetaRef d00_solution_blueprint_id_atme_item_lst(som_id_d00_solution_bluep
 SomListMetaRef d00_solution_blueprint_id_stepu_step_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_step_up_detail_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227202,7 +224839,7 @@ SomListMetaRef d00_solution_blueprint_id_scren_item_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_globa_glob_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_global_entry_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227398,7 +225035,7 @@ SomListMetaRef d00_solution_blueprint_id_vamete_mess_lst(som_id_d00_solution_blu
 SomListMetaRef d00_solution_blueprint_id_field_fiel_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_validation_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227440,7 +225077,7 @@ SomMetaRef d00_solution_blueprint_id_sedf(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_epde_erro_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_error_page_design_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -227496,7 +225133,7 @@ SomMetaRef d00_solution_blueprint_id_ersh(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_recov_reco_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_recovery_flow_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -228147,7 +225784,7 @@ SomMetaRef d00_solution_blueprint_id_sqgrs(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_attri_attr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_attribute_interdependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -228189,7 +225826,7 @@ SomListMetaRef d00_solution_blueprint_id_qcate_qual_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_categ_cate_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_category_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -229099,14 +226736,14 @@ SomMetaRef d00_solution_blueprint_id_staggv(som_id_d00_solution_blueprint x) {
 SomListMetaRef d00_solution_blueprint_id_keyas_keya_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_key_assumption_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d00_solution_blueprint_id_stagi_cons_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_staging_strategy_constraint_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -229554,14 +227191,14 @@ SomMetaRef d01_current_landscape_assessment_id_carch_depl(som_id_d01_current_lan
 SomListMetaRef d01_current_landscape_assessment_id_ipe_inte_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/IPE-INTE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_integration_pattern_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d01_current_landscape_assessment_id_share_shar_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_shared_service_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -229603,7 +227240,7 @@ SomListMetaRef d01_current_landscape_assessment_id_syin_item_lst(som_id_d01_curr
 SomListMetaRef d01_current_landscape_assessment_id_fragi_frag_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_fragile_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -230030,28 +227667,28 @@ SomMetaRef d01_current_landscape_assessment_id_mirire(som_id_d01_current_landsca
 SomListMetaRef d01_current_landscape_assessment_id_riskc_risk_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "migrationConsiderations/migrationRisks/RISKC-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_risk_category_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d01_current_landscape_assessment_id_riskb_risk_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "migrationConsiderations/migrationRisks/RISKB-RISK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_risk_based_decision_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d01_current_landscape_assessment_id_monit_moni_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "migrationConsiderations/migrationRisks/MONIT-MONI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_monitoring_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d01_current_landscape_assessment_id_respo_resp_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "migrationConsiderations/migrationRisks/RESPO-RESP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_response_strategy_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -230072,7 +227709,7 @@ SomListMetaRef d01_current_landscape_assessment_id_mgmls_mile_lst(som_id_d01_cur
 SomListMetaRef d01_current_landscape_assessment_id_escal_esca_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "migrationConsiderations/ESCAL-ESCA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_escalation_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -233705,7 +231342,7 @@ SomMetaRef d06_architecture_technology_specification_id_sdtss(som_id_d06_archite
 SomListMetaRef d06_architecture_technology_specification_id_maint_main_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_maintenance_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -234818,21 +232455,21 @@ SomMetaRef d06_architecture_technology_specification_id_tes(som_id_d06_architect
 SomListMetaRef d06_architecture_technology_specification_id_devop_devo_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalEnvironment/network/DEVOP-DEVO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_devops_standard_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d06_architecture_technology_specification_id_obser_obse_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalEnvironment/network/OBSER-OBSE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_observability_requirement_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d06_architecture_technology_specification_id_datac_data_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalEnvironment/DATAC-DATA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_datacenter_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235077,7 +232714,7 @@ SomListMetaRef d08_security_access_specification_id_idtam_attr_lst(som_id_d08_se
 SomListMetaRef d08_security_access_specification_id_mfade_mfad_lst(som_id_d08_security_access_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mfa_detail_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235091,7 +232728,7 @@ SomListMetaRef d08_security_access_specification_id_atme_item_lst(som_id_d08_sec
 SomListMetaRef d08_security_access_specification_id_stepu_step_lst(som_id_d08_security_access_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_step_up_detail_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235217,7 +232854,7 @@ SomListMetaRef d09_experience_design_specification_id_scren_item_lst(som_id_d09_
 SomListMetaRef d09_experience_design_specification_id_globa_glob_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "screens/informationArchitecture/GLOBA-GLOB-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_global_entry_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235413,7 +233050,7 @@ SomListMetaRef d09_experience_design_specification_id_vamete_mess_lst(som_id_d09
 SomListMetaRef d09_experience_design_specification_id_field_fiel_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/validationFeedback/FIELD-FIEL-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_field_validation_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235455,7 +233092,7 @@ SomMetaRef d09_experience_design_specification_id_sedf(som_id_d09_experience_des
 SomListMetaRef d09_experience_design_specification_id_epde_erro_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/systemErrorDisplay/EPDE-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_error_page_design_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -235511,7 +233148,7 @@ SomMetaRef d09_experience_design_specification_id_ersh(som_id_d09_experience_des
 SomListMetaRef d09_experience_design_specification_id_recov_reco_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/errorRecovery/RECOV-RECO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_recovery_flow_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -236148,7 +233785,7 @@ SomListMetaRef d10_quality_acceptance_plan_id_qcate_qual_lst(som_id_d10_quality_
 SomListMetaRef d10_quality_acceptance_plan_id_categ_cate_lst(som_id_d10_quality_acceptance_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityFramework/CATEG-CATE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_category_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -237002,14 +234639,14 @@ SomMetaRef d11_delivery_roadmap_id_staggv(som_id_d11_delivery_roadmap x) {
 SomListMetaRef d11_delivery_roadmap_id_keyas_keya_lst(som_id_d11_delivery_roadmap x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "stagingStrategy/KEYAS-KEYA-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_key_assumption_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef d11_delivery_roadmap_id_stagi_cons_lst(som_id_d11_delivery_roadmap x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "stagingStrategy/STAGI-CONS-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_staging_strategy_constraint_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -238591,7 +236228,7 @@ SomMetaRef external_actor_entry_id_eaec(som_id_external_actor_entry x) {
 SomListMetaRef external_actor_entry_id_inter_inte_lst(som_id_external_actor_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "INTER-INTE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interaction_scenario_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -238647,14 +236284,14 @@ SomListMetaRef external_interface_entry_id_idee_data_lst(som_id_external_interfa
 SomListMetaRef external_interface_entry_id_mappi_mapp_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dataSpec/MAPPI-MAPP-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mapping_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef external_interface_entry_id_valid_vali_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dataSpec/VALID-VALI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_validation_rule_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -238703,7 +236340,7 @@ SomMetaRef external_interface_entry_id_inopsu(som_id_external_interface_entry x)
 SomListMetaRef external_interface_entry_id_depen_depe_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "operational/DEPEN-DEPE-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -238731,7 +236368,7 @@ SomMetaRef external_interface_entry_id_ieht(som_id_external_interface_entry x) {
 SomListMetaRef external_interface_entry_id_error_erro_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "errorHandling/ERROR-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_error_procedure_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -242882,14 +240519,14 @@ SomMetaRef system_task_entry_id_syts_rela_ref(som_id_system_task_entry x) {
 SomListMetaRef system_task_entry_id_syste_work_lst(som_id_system_task_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYSTE-WORK-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_task_workflow_step_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef system_task_entry_id_varia_vari_lst(som_id_system_task_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "VARIA-VARI-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_variations_and_exception_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -242938,14 +240575,14 @@ SomMetaRef system_to_replace_entry_id_staq(som_id_system_to_replace_entry x) {
 SomListMetaRef system_to_replace_entry_id_kie_know_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalAssessment/KIE-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_known_issue_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef system_to_replace_entry_id_secur_secu_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalAssessment/SECUR-SECU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_concern_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -243001,7 +240638,7 @@ SomListMetaRef system_to_replace_entry_id_repphs_phas_lst(som_id_system_to_repla
 SomListMetaRef system_to_replace_entry_id_prede_pred_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "replacementStrategy/PREDE-PRED-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_predecessor_dependency_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -243029,7 +240666,7 @@ SomListMetaRef system_to_replace_entry_id_deme_enti_lst(som_id_system_to_replace
 SomListMetaRef system_to_replace_entry_id_known_know_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dataScope/KNOWN-KNOW-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_known_quality_issue_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -243092,7 +240729,7 @@ SomMetaRef system_to_replace_entry_id_scab(som_id_system_to_replace_entry x) {
 SomListMetaRef system_to_replace_entry_id_nonfi_nonf_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "costAnalysis/NONFI-NONF-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_non_financial_benefit_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -243120,7 +240757,7 @@ SomListMetaRef system_to_replace_entry_id_smre_risk_lst(som_id_system_to_replace
 SomListMetaRef system_to_replace_entry_id_criti_crit_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "knowledgeTransfer/CRITI-CRIT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_critical_knowledge_area_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -243932,7 +241569,7 @@ SomMetaRef user_category_entry_id_upd_visu(som_id_user_category_entry x) {
 SomListMetaRef user_category_entry_id_repre_repr_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "personaDetails/REPRE-REPR-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_representative_quote_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
@@ -244016,14 +241653,14 @@ SomListMetaRef user_category_entry_id_jrnst_stag_lst(som_id_user_category_entry 
 SomListMetaRef user_category_entry_id_keyto_keyt_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "userJourney/KEYTO-KEYT-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_key_touchpoint_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }
 SomListMetaRef user_category_entry_id_userj_pain_lst(som_id_user_category_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "userJourney/USERJ-PAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_journey_pain_point_entry);
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
   free(path);
   return out;
 }

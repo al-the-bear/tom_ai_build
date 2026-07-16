@@ -2381,29 +2381,6 @@ AssumptionConstraintDependencyRegister assumptions_constraints_dependencies_regi
   return out;
 }
 
-void attribute_interdependency_entry_init(AttributeInterdependencyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void attribute_interdependency_entry_free(AttributeInterdependencyEntry *self) {
-  som_node_free(&self->node);
-}
-int attribute_interdependency_entry_can_have_content(const AttributeInterdependencyEntry *self) {
-  (void)self;
-  return 1;
-}
-char *attribute_interdependency_entry_content(const AttributeInterdependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void attribute_interdependency_entry_set_content(AttributeInterdependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void audit_and_logging_init(AuditAndLogging *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -4859,29 +4836,6 @@ CapacityReviewProcessPlanningForm capacity_review_process_planning(const Capacit
   return out;
 }
 
-void category_dependency_entry_init(CategoryDependencyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void category_dependency_entry_free(CategoryDependencyEntry *self) {
-  som_node_free(&self->node);
-}
-int category_dependency_entry_can_have_content(const CategoryDependencyEntry *self) {
-  (void)self;
-  return 1;
-}
-char *category_dependency_entry_content(const CategoryDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void category_dependency_entry_set_content(CategoryDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void ccb_member_entry_init(CcbMemberEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -5089,29 +5043,6 @@ CertificationRequirementsSectionMarketingForm certification_requirements_section
   certification_requirements_section_marketing_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void change_advocate_entry_init(ChangeAdvocateEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void change_advocate_entry_free(ChangeAdvocateEntry *self) {
-  som_node_free(&self->node);
-}
-int change_advocate_entry_can_have_content(const ChangeAdvocateEntry *self) {
-  (void)self;
-  return 1;
-}
-char *change_advocate_entry_content(const ChangeAdvocateEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void change_advocate_entry_set_content(ChangeAdvocateEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void change_category_entry_init(ChangeCategoryEntry *self, SpecDocument *doc, const char *path) {
@@ -6623,29 +6554,6 @@ CommunicationPatternsObservabilityForm communication_patterns_observability(cons
   return out;
 }
 
-void communication_preference_entry_init(CommunicationPreferenceEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void communication_preference_entry_free(CommunicationPreferenceEntry *self) {
-  som_node_free(&self->node);
-}
-int communication_preference_entry_can_have_content(const CommunicationPreferenceEntry *self) {
-  (void)self;
-  return 1;
-}
-char *communication_preference_entry_content(const CommunicationPreferenceEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void communication_preference_entry_set_content(CommunicationPreferenceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void communication_requirements_init(CommunicationRequirements *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -6969,29 +6877,6 @@ char *compliance_framework_content(const ComplianceFramework *self) {
   return out;
 }
 void compliance_framework_set_content(ComplianceFramework *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void compliance_measure_entry_init(ComplianceMeasureEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void compliance_measure_entry_free(ComplianceMeasureEntry *self) {
-  som_node_free(&self->node);
-}
-int compliance_measure_entry_can_have_content(const ComplianceMeasureEntry *self) {
-  (void)self;
-  return 1;
-}
-char *compliance_measure_entry_content(const ComplianceMeasureEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void compliance_measure_entry_set_content(ComplianceMeasureEntry *self, const char *value) {
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
@@ -8621,29 +8506,6 @@ void credential_recovery_policy_set_content(CredentialRecoveryPolicy *self, cons
   free(path);
 }
 
-void critical_knowledge_area_entry_init(CriticalKnowledgeAreaEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void critical_knowledge_area_entry_free(CriticalKnowledgeAreaEntry *self) {
-  som_node_free(&self->node);
-}
-int critical_knowledge_area_entry_can_have_content(const CriticalKnowledgeAreaEntry *self) {
-  (void)self;
-  return 1;
-}
-char *critical_knowledge_area_entry_content(const CriticalKnowledgeAreaEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void critical_knowledge_area_entry_set_content(CriticalKnowledgeAreaEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void cross_boundary_error_handling_init(CrossBoundaryErrorHandling *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -8784,29 +8646,6 @@ char *cross_tenant_access_policy_content(const CrossTenantAccessPolicy *self) {
   return out;
 }
 void cross_tenant_access_policy_set_content(CrossTenantAccessPolicy *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void cultural_consideration_entry_init(CulturalConsiderationEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void cultural_consideration_entry_free(CulturalConsiderationEntry *self) {
-  som_node_free(&self->node);
-}
-int cultural_consideration_entry_can_have_content(const CulturalConsiderationEntry *self) {
-  (void)self;
-  return 1;
-}
-char *cultural_consideration_entry_content(const CulturalConsiderationEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void cultural_consideration_entry_set_content(CulturalConsiderationEntry *self, const char *value) {
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
@@ -13307,29 +13146,6 @@ void database_encryption_policy_set_content(DatabaseEncryptionPolicy *self, cons
   free(path);
 }
 
-void datacenter_entry_init(DatacenterEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void datacenter_entry_free(DatacenterEntry *self) {
-  som_node_free(&self->node);
-}
-int datacenter_entry_can_have_content(const DatacenterEntry *self) {
-  (void)self;
-  return 1;
-}
-char *datacenter_entry_content(const DatacenterEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void datacenter_entry_set_content(DatacenterEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void debugging_configuration_init(DebuggingConfiguration *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -14025,29 +13841,6 @@ IntegrationHealthSummary dependencies_and_integrations_health_summary(const Depe
   integration_health_summary_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void dependency_entry_init(DependencyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_entry_free(DependencyEntry *self) {
-  som_node_free(&self->node);
-}
-int dependency_entry_can_have_content(const DependencyEntry *self) {
-  (void)self;
-  return 1;
-}
-char *dependency_entry_content(const DependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void dependency_entry_set_content(DependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void dependency_health_monitoring_init(DependencyHealthMonitoring *self, SpecDocument *doc, const char *path) {
@@ -15207,29 +15000,6 @@ DevelopmentQualityGatesPerformanceForm development_quality_gates_performance(con
   development_quality_gates_performance_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void devops_standard_entry_init(DevopsStandardEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void devops_standard_entry_free(DevopsStandardEntry *self) {
-  som_node_free(&self->node);
-}
-int devops_standard_entry_can_have_content(const DevopsStandardEntry *self) {
-  (void)self;
-  return 1;
-}
-char *devops_standard_entry_content(const DevopsStandardEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void devops_standard_entry_set_content(DevopsStandardEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void disaster_recovery_requirements_init(DisasterRecoveryRequirements *self, SpecDocument *doc, const char *path) {
@@ -17297,52 +17067,6 @@ ErrorHandlingStandardsRecoveryForm error_handling_standards_recovery(const Error
   return out;
 }
 
-void error_page_design_entry_init(ErrorPageDesignEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void error_page_design_entry_free(ErrorPageDesignEntry *self) {
-  som_node_free(&self->node);
-}
-int error_page_design_entry_can_have_content(const ErrorPageDesignEntry *self) {
-  (void)self;
-  return 1;
-}
-char *error_page_design_entry_content(const ErrorPageDesignEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void error_page_design_entry_set_content(ErrorPageDesignEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void error_procedure_entry_init(ErrorProcedureEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void error_procedure_entry_free(ErrorProcedureEntry *self) {
-  som_node_free(&self->node);
-}
-int error_procedure_entry_can_have_content(const ErrorProcedureEntry *self) {
-  (void)self;
-  return 1;
-}
-char *error_procedure_entry_content(const ErrorProcedureEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void error_procedure_entry_set_content(ErrorProcedureEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void error_recovery_init(ErrorRecovery *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -17408,29 +17132,6 @@ SomList error_recovery_recovery_scenarios(const ErrorRecovery *self) {
   som_list_init_pattern(&out, self->node.doc, path, "RCVSCN-RECO-xxx");
   free(path);
   return out;
-}
-
-void escalation_procedure_entry_init(EscalationProcedureEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void escalation_procedure_entry_free(EscalationProcedureEntry *self) {
-  som_node_free(&self->node);
-}
-int escalation_procedure_entry_can_have_content(const EscalationProcedureEntry *self) {
-  (void)self;
-  return 1;
-}
-char *escalation_procedure_entry_content(const EscalationProcedureEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void escalation_procedure_entry_set_content(EscalationProcedureEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void evaluation_criteria_init(EvaluationCriteria *self, SpecDocument *doc, const char *path) {
@@ -18999,29 +18700,6 @@ FieldValidationRuleContentForm field_validation_rule_content(const FieldValidati
   return out;
 }
 
-void field_validation_rule_entry_init(FieldValidationRuleEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void field_validation_rule_entry_free(FieldValidationRuleEntry *self) {
-  som_node_free(&self->node);
-}
-int field_validation_rule_entry_can_have_content(const FieldValidationRuleEntry *self) {
-  (void)self;
-  return 1;
-}
-char *field_validation_rule_entry_content(const FieldValidationRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void field_validation_rule_entry_set_content(FieldValidationRuleEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void file_access_control_policy_init(FileAccessControlPolicy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19294,29 +18972,6 @@ Portability flexibility_characteristic_portability(const FlexibilityCharacterist
   portability_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void fragile_point_entry_init(FragilePointEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void fragile_point_entry_free(FragilePointEntry *self) {
-  som_node_free(&self->node);
-}
-int fragile_point_entry_can_have_content(const FragilePointEntry *self) {
-  (void)self;
-  return 1;
-}
-char *fragile_point_entry_content(const FragilePointEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void fragile_point_entry_set_content(FragilePointEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void framework_requirement_entry_init(FrameworkRequirementEntry *self, SpecDocument *doc, const char *path) {
@@ -19867,29 +19522,6 @@ GeographicDistributionRequirementsPerformanceForm geographic_distribution_requir
   geographic_distribution_requirements_performance_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void global_entry_point_entry_init(GlobalEntryPointEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void global_entry_point_entry_free(GlobalEntryPointEntry *self) {
-  som_node_free(&self->node);
-}
-int global_entry_point_entry_can_have_content(const GlobalEntryPointEntry *self) {
-  (void)self;
-  return 1;
-}
-char *global_entry_point_entry_content(const GlobalEntryPointEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void global_entry_point_entry_set_content(GlobalEntryPointEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void global_role_exclusion_entry_init(GlobalRoleExclusionEntry *self, SpecDocument *doc, const char *path) {
@@ -21630,29 +21262,6 @@ SomList integration_health_summary_fragile_points(const IntegrationHealthSummary
   return out;
 }
 
-void integration_pattern_entry_init(IntegrationPatternEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void integration_pattern_entry_free(IntegrationPatternEntry *self) {
-  som_node_free(&self->node);
-}
-int integration_pattern_entry_can_have_content(const IntegrationPatternEntry *self) {
-  (void)self;
-  return 1;
-}
-char *integration_pattern_entry_content(const IntegrationPatternEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void integration_pattern_entry_set_content(IntegrationPatternEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void integration_point_entry_init(IntegrationPointEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -22095,29 +21704,6 @@ SomList interaction_patterns_patterns(const InteractionPatterns *self) {
   som_list_init_pattern(&out, self->node.doc, path, "INPTN-PATT-xxx");
   free(path);
   return out;
-}
-
-void interaction_scenario_entry_init(InteractionScenarioEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void interaction_scenario_entry_free(InteractionScenarioEntry *self) {
-  som_node_free(&self->node);
-}
-int interaction_scenario_entry_can_have_content(const InteractionScenarioEntry *self) {
-  (void)self;
-  return 1;
-}
-char *interaction_scenario_entry_content(const InteractionScenarioEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void interaction_scenario_entry_set_content(InteractionScenarioEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void interaction_testing_strategy_init(InteractionTestingStrategy *self, SpecDocument *doc, const char *path) {
@@ -23117,29 +22703,6 @@ JourneyStageEntryContentForm journey_stage_entry_content(const JourneyStageEntry
   return out;
 }
 
-void key_assumption_entry_init(KeyAssumptionEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void key_assumption_entry_free(KeyAssumptionEntry *self) {
-  som_node_free(&self->node);
-}
-int key_assumption_entry_can_have_content(const KeyAssumptionEntry *self) {
-  (void)self;
-  return 1;
-}
-char *key_assumption_entry_content(const KeyAssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void key_assumption_entry_set_content(KeyAssumptionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void key_attribute_entry_init(KeyAttributeEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -23454,29 +23017,6 @@ KeyStoragePolicyContentForm key_storage_policy_content(const KeyStoragePolicy *s
   return out;
 }
 
-void key_touchpoint_entry_init(KeyTouchpointEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void key_touchpoint_entry_free(KeyTouchpointEntry *self) {
-  som_node_free(&self->node);
-}
-int key_touchpoint_entry_can_have_content(const KeyTouchpointEntry *self) {
-  (void)self;
-  return 1;
-}
-char *key_touchpoint_entry_content(const KeyTouchpointEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void key_touchpoint_entry_set_content(KeyTouchpointEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void knowledge_transfer_init(KnowledgeTransfer *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -23495,75 +23035,6 @@ char *knowledge_transfer_content(const KnowledgeTransfer *self) {
   return out;
 }
 void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void known_issue_entry_init(KnownIssueEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void known_issue_entry_free(KnownIssueEntry *self) {
-  som_node_free(&self->node);
-}
-int known_issue_entry_can_have_content(const KnownIssueEntry *self) {
-  (void)self;
-  return 1;
-}
-char *known_issue_entry_content(const KnownIssueEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void known_issue_entry_set_content(KnownIssueEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void known_quality_issue_entry_init(KnownQualityIssueEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void known_quality_issue_entry_free(KnownQualityIssueEntry *self) {
-  som_node_free(&self->node);
-}
-int known_quality_issue_entry_can_have_content(const KnownQualityIssueEntry *self) {
-  (void)self;
-  return 1;
-}
-char *known_quality_issue_entry_content(const KnownQualityIssueEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void known_quality_issue_entry_set_content(KnownQualityIssueEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
-void kpi_entry_init(KpiEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void kpi_entry_free(KpiEntry *self) {
-  som_node_free(&self->node);
-}
-int kpi_entry_can_have_content(const KpiEntry *self) {
-  (void)self;
-  return 1;
-}
-char *kpi_entry_content(const KpiEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void kpi_entry_set_content(KpiEntry *self, const char *value) {
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
@@ -24586,29 +24057,6 @@ MaintenanceDependencyEntryRiskForm maintenance_dependency_entry_risk(const Maint
   return out;
 }
 
-void maintenance_procedure_entry_init(MaintenanceProcedureEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void maintenance_procedure_entry_free(MaintenanceProcedureEntry *self) {
-  som_node_free(&self->node);
-}
-int maintenance_procedure_entry_can_have_content(const MaintenanceProcedureEntry *self) {
-  (void)self;
-  return 1;
-}
-char *maintenance_procedure_entry_content(const MaintenanceProcedureEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void maintenance_procedure_entry_set_content(MaintenanceProcedureEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void maintenance_user_impact_init(MaintenanceUserImpact *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -24757,29 +24205,6 @@ PostMaintenanceValidation maintenance_windows_section_post_maintenance(const Mai
   post_maintenance_validation_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void mapping_rule_entry_init(MappingRuleEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void mapping_rule_entry_free(MappingRuleEntry *self) {
-  som_node_free(&self->node);
-}
-int mapping_rule_entry_can_have_content(const MappingRuleEntry *self) {
-  (void)self;
-  return 1;
-}
-char *mapping_rule_entry_content(const MappingRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void mapping_rule_entry_set_content(MappingRuleEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void master_data_domain_entry_init(MasterDataDomainEntry *self, SpecDocument *doc, const char *path) {
@@ -25136,29 +24561,6 @@ SomList mfa_configuration_mfa_details(const MfaConfiguration *self) {
   som_list_init_pattern(&out, self->node.doc, path, "MFADE-MFAD-xxx");
   free(path);
   return out;
-}
-
-void mfa_detail_entry_init(MfaDetailEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void mfa_detail_entry_free(MfaDetailEntry *self) {
-  som_node_free(&self->node);
-}
-int mfa_detail_entry_can_have_content(const MfaDetailEntry *self) {
-  (void)self;
-  return 1;
-}
-char *mfa_detail_entry_content(const MfaDetailEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void mfa_detail_entry_set_content(MfaDetailEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void migration_considerations_init(MigrationConsiderations *self, SpecDocument *doc, const char *path) {
@@ -26142,29 +25544,6 @@ MonitoringInfrastructureAccessForm monitoring_infrastructure_access(const Monito
   monitoring_infrastructure_access_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void monitoring_procedure_entry_init(MonitoringProcedureEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void monitoring_procedure_entry_free(MonitoringProcedureEntry *self) {
-  som_node_free(&self->node);
-}
-int monitoring_procedure_entry_can_have_content(const MonitoringProcedureEntry *self) {
-  (void)self;
-  return 1;
-}
-char *monitoring_procedure_entry_content(const MonitoringProcedureEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void monitoring_procedure_entry_set_content(MonitoringProcedureEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void moscow_analysis_init(MoscowAnalysis *self, SpecDocument *doc, const char *path) {
@@ -27221,29 +26600,6 @@ NewRoleResponsibilitiesDecisionAuthorityForm new_role_responsibilities_decision_
   return out;
 }
 
-void non_financial_benefit_entry_init(NonFinancialBenefitEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void non_financial_benefit_entry_free(NonFinancialBenefitEntry *self) {
-  som_node_free(&self->node);
-}
-int non_financial_benefit_entry_can_have_content(const NonFinancialBenefitEntry *self) {
-  (void)self;
-  return 1;
-}
-char *non_financial_benefit_entry_content(const NonFinancialBenefitEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void non_financial_benefit_entry_set_content(NonFinancialBenefitEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void notification_channel_entry_init(NotificationChannelEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -27397,29 +26753,6 @@ ObjectStateEntryContentForm object_state_entry_content(const ObjectStateEntry *s
   object_state_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void observability_requirement_entry_init(ObservabilityRequirementEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void observability_requirement_entry_free(ObservabilityRequirementEntry *self) {
-  som_node_free(&self->node);
-}
-int observability_requirement_entry_can_have_content(const ObservabilityRequirementEntry *self) {
-  (void)self;
-  return 1;
-}
-char *observability_requirement_entry_content(const ObservabilityRequirementEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void observability_requirement_entry_set_content(ObservabilityRequirementEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void on_call_procedures_init(OnCallProcedures *self, SpecDocument *doc, const char *path) {
@@ -29699,29 +29032,6 @@ PreconditionsAndTriggersContentForm preconditions_and_triggers_content(const Pre
   preconditions_and_triggers_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void predecessor_dependency_entry_init(PredecessorDependencyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void predecessor_dependency_entry_free(PredecessorDependencyEntry *self) {
-  som_node_free(&self->node);
-}
-int predecessor_dependency_entry_can_have_content(const PredecessorDependencyEntry *self) {
-  (void)self;
-  return 1;
-}
-char *predecessor_dependency_entry_content(const PredecessorDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void predecessor_dependency_entry_set_content(PredecessorDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void primary_navigation_init(PrimaryNavigation *self, SpecDocument *doc, const char *path) {
@@ -32455,29 +31765,6 @@ ReadinessCriteriaEntryContentForm readiness_criteria_entry_content(const Readine
   return out;
 }
 
-void recovery_flow_entry_init(RecoveryFlowEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void recovery_flow_entry_free(RecoveryFlowEntry *self) {
-  som_node_free(&self->node);
-}
-int recovery_flow_entry_can_have_content(const RecoveryFlowEntry *self) {
-  (void)self;
-  return 1;
-}
-char *recovery_flow_entry_content(const RecoveryFlowEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void recovery_flow_entry_set_content(RecoveryFlowEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void recovery_procedures_init(RecoveryProcedures *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -32813,29 +32100,6 @@ RelatedDocumentEntryContentForm related_document_entry_content(const RelatedDocu
   related_document_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void related_pain_point_entry_init(RelatedPainPointEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void related_pain_point_entry_free(RelatedPainPointEntry *self) {
-  som_node_free(&self->node);
-}
-int related_pain_point_entry_can_have_content(const RelatedPainPointEntry *self) {
-  (void)self;
-  return 1;
-}
-char *related_pain_point_entry_content(const RelatedPainPointEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void related_pain_point_entry_set_content(RelatedPainPointEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void relationship_attribute_entry_init(RelationshipAttributeEntry *self, SpecDocument *doc, const char *path) {
@@ -33605,29 +32869,6 @@ SomList report_section_entry_charts(const ReportSectionEntry *self) {
   return out;
 }
 
-void representative_quote_entry_init(RepresentativeQuoteEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void representative_quote_entry_free(RepresentativeQuoteEntry *self) {
-  som_node_free(&self->node);
-}
-int representative_quote_entry_can_have_content(const RepresentativeQuoteEntry *self) {
-  (void)self;
-  return 1;
-}
-char *representative_quote_entry_content(const RepresentativeQuoteEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void representative_quote_entry_set_content(RepresentativeQuoteEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void requirement_acceptance_criteria_init(RequirementAcceptanceCriteria *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -34350,29 +33591,6 @@ ResourceRequirementEntryContentForm resource_requirement_entry_content(const Res
   return out;
 }
 
-void response_strategy_entry_init(ResponseStrategyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void response_strategy_entry_free(ResponseStrategyEntry *self) {
-  som_node_free(&self->node);
-}
-int response_strategy_entry_can_have_content(const ResponseStrategyEntry *self) {
-  (void)self;
-  return 1;
-}
-char *response_strategy_entry_content(const ResponseStrategyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void response_strategy_entry_set_content(ResponseStrategyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void responsibility_change_entry_init(ResponsibilityChangeEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -35030,29 +34248,6 @@ SomList revision_history_revisions(const RevisionHistory *self) {
   return out;
 }
 
-void risk_based_decision_entry_init(RiskBasedDecisionEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void risk_based_decision_entry_free(RiskBasedDecisionEntry *self) {
-  som_node_free(&self->node);
-}
-int risk_based_decision_entry_can_have_content(const RiskBasedDecisionEntry *self) {
-  (void)self;
-  return 1;
-}
-char *risk_based_decision_entry_content(const RiskBasedDecisionEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void risk_based_decision_entry_set_content(RiskBasedDecisionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void risk_business_impact_init(RiskBusinessImpact *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -35083,29 +34278,6 @@ RiskBusinessImpactDeliveryForm risk_business_impact_delivery(const RiskBusinessI
   risk_business_impact_delivery_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void risk_category_entry_init(RiskCategoryEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void risk_category_entry_free(RiskCategoryEntry *self) {
-  som_node_free(&self->node);
-}
-int risk_category_entry_can_have_content(const RiskCategoryEntry *self) {
-  (void)self;
-  return 1;
-}
-char *risk_category_entry_content(const RiskCategoryEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void risk_category_entry_set_content(RiskCategoryEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void risk_entry_init(RiskEntry *self, SpecDocument *doc, const char *path) {
@@ -36299,29 +35471,6 @@ ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(con
   return out;
 }
 
-void scope_assumption_entry_init(ScopeAssumptionEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void scope_assumption_entry_free(ScopeAssumptionEntry *self) {
-  som_node_free(&self->node);
-}
-int scope_assumption_entry_can_have_content(const ScopeAssumptionEntry *self) {
-  (void)self;
-  return 1;
-}
-char *scope_assumption_entry_content(const ScopeAssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void scope_assumption_entry_set_content(ScopeAssumptionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void scope_boundaries_init(ScopeBoundaries *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -37434,29 +36583,6 @@ SecurityCodeReviewPolicyFindingsForm security_code_review_policy_findings(const 
   security_code_review_policy_findings_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-
-void security_concern_entry_init(SecurityConcernEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void security_concern_entry_free(SecurityConcernEntry *self) {
-  som_node_free(&self->node);
-}
-int security_concern_entry_can_have_content(const SecurityConcernEntry *self) {
-  (void)self;
-  return 1;
-}
-char *security_concern_entry_content(const SecurityConcernEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void security_concern_entry_set_content(SecurityConcernEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void security_control_entry_init(SecurityControlEntry *self, SpecDocument *doc, const char *path) {
@@ -38880,29 +38006,6 @@ SharedLibraryEntryLifecycleForm shared_library_entry_lifecycle(const SharedLibra
   return out;
 }
 
-void shared_service_entry_init(SharedServiceEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void shared_service_entry_free(SharedServiceEntry *self) {
-  som_node_free(&self->node);
-}
-int shared_service_entry_can_have_content(const SharedServiceEntry *self) {
-  (void)self;
-  return 1;
-}
-char *shared_service_entry_content(const SharedServiceEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void shared_service_entry_set_content(SharedServiceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void sign_off_process_init(SignOffProcess *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -40198,29 +39301,6 @@ SomList staging_strategy_constraints(const StagingStrategy *self) {
   return out;
 }
 
-void staging_strategy_constraint_entry_init(StagingStrategyConstraintEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void staging_strategy_constraint_entry_free(StagingStrategyConstraintEntry *self) {
-  som_node_free(&self->node);
-}
-int staging_strategy_constraint_entry_can_have_content(const StagingStrategyConstraintEntry *self) {
-  (void)self;
-  return 1;
-}
-char *staging_strategy_constraint_entry_content(const StagingStrategyConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void staging_strategy_constraint_entry_set_content(StagingStrategyConstraintEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void stakeholder_entry_init(StakeholderEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -40623,29 +39703,6 @@ SomList step_up_authentication_policy_step_up_details(const StepUpAuthentication
   som_list_init_pattern(&out, self->node.doc, path, "STEPU-STEP-xxx");
   free(path);
   return out;
-}
-
-void step_up_detail_entry_init(StepUpDetailEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void step_up_detail_entry_free(StepUpDetailEntry *self) {
-  som_node_free(&self->node);
-}
-int step_up_detail_entry_can_have_content(const StepUpDetailEntry *self) {
-  (void)self;
-  return 1;
-}
-char *step_up_detail_entry_content(const StepUpDetailEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void step_up_detail_entry_set_content(StepUpDetailEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void storage_encryption_policy_init(StorageEncryptionPolicy *self, SpecDocument *doc, const char *path) {
@@ -42621,29 +41678,6 @@ SomList system_task_entry_variations_and_exceptions(const SystemTaskEntry *self)
   som_list_init_pattern(&out, self->node.doc, path, "VARIA-VARI-xxx");
   free(path);
   return out;
-}
-
-void system_task_workflow_step_entry_init(SystemTaskWorkflowStepEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void system_task_workflow_step_entry_free(SystemTaskWorkflowStepEntry *self) {
-  som_node_free(&self->node);
-}
-int system_task_workflow_step_entry_can_have_content(const SystemTaskWorkflowStepEntry *self) {
-  (void)self;
-  return 1;
-}
-char *system_task_workflow_step_entry_content(const SystemTaskWorkflowStepEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void system_task_workflow_step_entry_set_content(SystemTaskWorkflowStepEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void system_technical_assessment_init(SystemTechnicalAssessment *self, SpecDocument *doc, const char *path) {
@@ -46936,29 +45970,6 @@ void user_journey_set_opportunities_for_delight(UserJourney *self, const char *v
   free(path);
 }
 
-void user_journey_pain_point_entry_init(UserJourneyPainPointEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void user_journey_pain_point_entry_free(UserJourneyPainPointEntry *self) {
-  som_node_free(&self->node);
-}
-int user_journey_pain_point_entry_can_have_content(const UserJourneyPainPointEntry *self) {
-  (void)self;
-  return 1;
-}
-char *user_journey_pain_point_entry_content(const UserJourneyPainPointEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void user_journey_pain_point_entry_set_content(UserJourneyPainPointEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void user_lifecycle_init(UserLifecycle *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -47605,29 +46616,6 @@ ValidationMessageTemplateContentForm validation_message_template_content(const V
   return out;
 }
 
-void validation_rule_entry_init(ValidationRuleEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void validation_rule_entry_free(ValidationRuleEntry *self) {
-  som_node_free(&self->node);
-}
-int validation_rule_entry_can_have_content(const ValidationRuleEntry *self) {
-  (void)self;
-  return 1;
-}
-char *validation_rule_entry_content(const ValidationRuleEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void validation_rule_entry_set_content(ValidationRuleEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-
 void value_proposition_init(ValueProposition *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -47677,29 +46665,6 @@ SomList value_proposition_kpis(const ValueProposition *self) {
   som_list_init_pattern(&out, self->node.doc, path, "KPIEN-KPIS-xxx");
   free(path);
   return out;
-}
-
-void variations_and_exception_entry_init(VariationsAndExceptionEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void variations_and_exception_entry_free(VariationsAndExceptionEntry *self) {
-  som_node_free(&self->node);
-}
-int variations_and_exception_entry_can_have_content(const VariationsAndExceptionEntry *self) {
-  (void)self;
-  return 1;
-}
-char *variations_and_exception_entry_content(const VariationsAndExceptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void variations_and_exception_entry_set_content(VariationsAndExceptionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void version_control_configuration_init(VersionControlConfiguration *self, SpecDocument *doc, const char *path) {

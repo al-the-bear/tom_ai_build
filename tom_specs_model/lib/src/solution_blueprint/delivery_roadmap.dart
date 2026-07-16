@@ -725,7 +725,7 @@ class StagingStrategy {
   @SectionIdPattern('KEYAS-KEYA-xxx')
   @ContentHelp('Add one entry per key assumption.')
   @SerializationOrder(15)
-  List<KeyAssumptionEntry> keyAssumptions = [];
+  List<String> keyAssumptions = [];
 
   /// 13.1.4. Constraints.
   @StandardReferences([
@@ -735,7 +735,7 @@ class StagingStrategy {
   @SectionIdPattern('STAGI-CONS-xxx')
   @ContentHelp('Add one entry per staging constraint.')
   @SerializationOrder(16)
-  List<StagingStrategyConstraintEntry> constraints = [];
+  List<String> constraints = [];
 }
 
 /// Key drivers for staging strategy.
@@ -7558,38 +7558,4 @@ finishes. Provides the project-specific bridge to the static
   String? content;
 }
 
-/// A single key assumption entry.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions that underpin the delivery approach',
-    'ISO 21502:2020 — the guidance on project management defines assumption identification and management within the project life-cycle',
-  ],
-  'Captures a single key assumption on which the delivery staging plan depends.',
-)
-@SectionId('KEYAS')
-class KeyAssumptionEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single constraint entry.
-@StandardReferences(
-  [
-    'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers planning assumptions and constraints that bound delivery staging',
-    'ISO 21502:2020 — the guidance on project management defines constraint identification and management within the project life-cycle',
-  ],
-  'Captures a single staging constraint that bounds how the delivery plan may be structured.',
-)
-@SectionId('STAGI')
-class StagingStrategyConstraintEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

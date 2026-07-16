@@ -2197,11 +2197,11 @@ impl ApplicableRegulationEntry {
     }
 
     /// Specific compliance measures for this regulation.
-    pub fn compliance_measures(&self) -> som::SomList<ComplianceMeasureEntry> {
+    pub fn compliance_measures(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMPL-COMP-LST"),
-            Box::new(ComplianceMeasureEntry::new),
+            Box::new(som::SomScalar::new),
             "COMPL-COMP-xxx".to_string(),
         )
     }
@@ -2766,34 +2766,6 @@ impl AssumptionsConstraintsDependencies {
     /// The consolidated assumption / constraint register.
     pub fn register(&self) -> AssumptionConstraintDependencyRegister {
         AssumptionConstraintDependencyRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "register"))
-    }
-}
-
-/// A single attribute interdependency entry.
-pub struct AttributeInterdependencyEntry {
-    pub node: som::SomNode,
-}
-
-impl AttributeInterdependencyEntry {
-    /// Binds a AttributeInterdependencyEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AttributeInterdependencyEntry {
-        AttributeInterdependencyEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -5418,34 +5390,6 @@ impl CapacityReviewProcess {
     }
 }
 
-/// A single category dependency entry.
-pub struct CategoryDependencyEntry {
-    pub node: som::SomNode,
-}
-
-impl CategoryDependencyEntry {
-    /// Binds a CategoryDependencyEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CategoryDependencyEntry {
-        CategoryDependencyEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// A CCB member entry.
 pub struct CcbMemberEntry {
     pub node: som::SomNode,
@@ -5669,34 +5613,6 @@ impl CertificationRequirementsSection {
     /// Marketing and notes.
     pub fn marketing(&self) -> CertificationRequirementsSectionMarketingForm {
         CertificationRequirementsSectionMarketingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "CRSM"))
-    }
-}
-
-/// A single change advocate entry.
-pub struct ChangeAdvocateEntry {
-    pub node: som::SomNode,
-}
-
-impl ChangeAdvocateEntry {
-    /// Binds a ChangeAdvocateEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ChangeAdvocateEntry {
-        ChangeAdvocateEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -7359,34 +7275,6 @@ impl CommunicationPatterns {
     }
 }
 
-/// A single communication preference entry.
-pub struct CommunicationPreferenceEntry {
-    pub node: som::SomNode,
-}
-
-impl CommunicationPreferenceEntry {
-    /// Binds a CommunicationPreferenceEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CommunicationPreferenceEntry {
-        CommunicationPreferenceEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 8.6. Communication Requirements.
 pub struct CommunicationRequirements {
     pub node: som::SomNode,
@@ -7782,34 +7670,6 @@ impl ComplianceFramework {
     /// Binds a ComplianceFramework facade to a document and a path.
     pub fn new(doc: som::DocRef, path: String) -> ComplianceFramework {
         ComplianceFramework { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single compliance measure entry.
-pub struct ComplianceMeasureEntry {
-    pub node: som::SomNode,
-}
-
-impl ComplianceMeasureEntry {
-    /// Binds a ComplianceMeasureEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ComplianceMeasureEntry {
-        ComplianceMeasureEntry { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -9609,34 +9469,6 @@ impl CredentialRecoveryPolicy {
     // (skipped: credentialRecoveryDetails has no target type)
 }
 
-/// A single critical knowledge area entry.
-pub struct CriticalKnowledgeAreaEntry {
-    pub node: som::SomNode,
-}
-
-impl CriticalKnowledgeAreaEntry {
-    /// Binds a CriticalKnowledgeAreaEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CriticalKnowledgeAreaEntry {
-        CriticalKnowledgeAreaEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 4.5.10. Cross-Boundary Error Handling.
 ///
 /// Failure-propagation policy that applies across system boundaries.
@@ -9815,34 +9647,6 @@ impl CrossTenantAccessPolicy {
     // (skipped: crossTenantAccessPolicyDetails has no target type)
 }
 
-/// A single cultural consideration entry.
-pub struct CulturalConsiderationEntry {
-    pub node: som::SomNode,
-}
-
-impl CulturalConsiderationEntry {
-    /// Binds a CulturalConsiderationEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CulturalConsiderationEntry {
-        CulturalConsiderationEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 1.1.2. Current Architecture.
 ///
 /// Description of the current system architecture including deployment
@@ -9894,21 +9698,21 @@ impl CurrentArchitecture {
     }
 
     /// Integration patterns used.
-    pub fn integration_patterns(&self) -> som::SomList<IntegrationPatternEntry> {
+    pub fn integration_patterns(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "IPE-INTE-LST"),
-            Box::new(IntegrationPatternEntry::new),
+            Box::new(som::SomScalar::new),
             "IPE-INTE-xxx".to_string(),
         )
     }
 
     /// Shared services inventory.
-    pub fn shared_services(&self) -> som::SomList<SharedServiceEntry> {
+    pub fn shared_services(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SHARE-SHAR-LST"),
-            Box::new(SharedServiceEntry::new),
+            Box::new(som::SomScalar::new),
             "SHARE-SHAR-xxx".to_string(),
         )
     }
@@ -14551,34 +14355,6 @@ impl DatabaseEncryptionPolicy {
     // (skipped: databaseEncryptionDetails has no target type)
 }
 
-/// A single datacenter entry.
-pub struct DatacenterEntry {
-    pub node: som::SomNode,
-}
-
-impl DatacenterEntry {
-    /// Binds a DatacenterEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DatacenterEntry {
-        DatacenterEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// Debugging configuration.
 pub struct DebuggingConfiguration {
     pub node: som::SomNode,
@@ -15329,34 +15105,6 @@ impl DependenciesAndIntegrations {
     /// 1.1.3.5. Integration Health Summary.
     pub fn health_summary(&self) -> IntegrationHealthSummary {
         IntegrationHealthSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "healthSummary"))
-    }
-}
-
-/// A single dependency entry.
-pub struct DependencyEntry {
-    pub node: som::SomNode,
-}
-
-impl DependencyEntry {
-    /// Binds a DependencyEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DependencyEntry {
-        DependencyEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -16544,34 +16292,6 @@ impl DevelopmentQualityGates {
     /// Performance checks.
     pub fn performance(&self) -> DevelopmentQualityGatesPerformanceForm {
         DevelopmentQualityGatesPerformanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DQGP"))
-    }
-}
-
-/// A single devops standard entry.
-pub struct DevopsStandardEntry {
-    pub node: som::SomNode,
-}
-
-impl DevopsStandardEntry {
-    /// Binds a DevopsStandardEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DevopsStandardEntry {
-        DevopsStandardEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -18889,62 +18609,6 @@ impl ErrorHandlingStandards {
     }
 }
 
-/// A single error page design entry.
-pub struct ErrorPageDesignEntry {
-    pub node: som::SomNode,
-}
-
-impl ErrorPageDesignEntry {
-    /// Binds a ErrorPageDesignEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorPageDesignEntry {
-        ErrorPageDesignEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single error procedure entry.
-pub struct ErrorProcedureEntry {
-    pub node: som::SomNode,
-}
-
-impl ErrorProcedureEntry {
-    /// Binds a ErrorProcedureEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ErrorProcedureEntry {
-        ErrorProcedureEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 10.7.3. Error Recovery.
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
@@ -18999,11 +18663,11 @@ impl ErrorRecovery {
     // (skipped: recoveryNarrative has no target type)
 
     /// Recovery flow diagrams.
-    pub fn recovery_flows(&self) -> som::SomList<RecoveryFlowEntry> {
+    pub fn recovery_flows(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RECOV-RECO-LST"),
-            Box::new(RecoveryFlowEntry::new),
+            Box::new(som::SomScalar::new),
             "RECOV-RECO-xxx".to_string(),
         )
     }
@@ -19016,34 +18680,6 @@ impl ErrorRecovery {
             Box::new(RecoveryScenarioEntry::new),
             "RCVSCN-RECO-xxx".to_string(),
         )
-    }
-}
-
-/// A single escalation procedure entry.
-pub struct EscalationProcedureEntry {
-    pub node: som::SomNode,
-}
-
-impl EscalationProcedureEntry {
-    /// Binds a EscalationProcedureEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> EscalationProcedureEntry {
-        EscalationProcedureEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -19716,11 +19352,11 @@ impl ExternalActorEntry {
     }
 
     /// Interaction scenarios for this actor.
-    pub fn interaction_scenarios(&self) -> som::SomList<InteractionScenarioEntry> {
+    pub fn interaction_scenarios(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "INTER-INTE-LST"),
-            Box::new(InteractionScenarioEntry::new),
+            Box::new(som::SomScalar::new),
             "INTER-INTE-xxx".to_string(),
         )
     }
@@ -20763,34 +20399,6 @@ impl FieldValidationRule {
     }
 }
 
-/// A single field validation rule entry.
-pub struct FieldValidationRuleEntry {
-    pub node: som::SomNode,
-}
-
-impl FieldValidationRuleEntry {
-    /// Binds a FieldValidationRuleEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FieldValidationRuleEntry {
-        FieldValidationRuleEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// File access control policy — who can access, modify, share, and delete
 /// files, and how access decisions are enforced.
 ///
@@ -21120,34 +20728,6 @@ impl FlexibilityCharacteristic {
     /// 11.9.2. Portability.
     pub fn portability(&self) -> Portability {
         Portability::new(self.node.doc(), format!("{}/{}", self.node.path(), "portability"))
-    }
-}
-
-/// A single fragile point entry.
-pub struct FragilePointEntry {
-    pub node: som::SomNode,
-}
-
-impl FragilePointEntry {
-    /// Binds a FragilePointEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> FragilePointEntry {
-        FragilePointEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -21755,34 +21335,6 @@ impl GeographicDistributionRequirements {
     /// Performance considerations.
     pub fn performance(&self) -> GeographicDistributionRequirementsPerformanceForm {
         GeographicDistributionRequirementsPerformanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "GDRP"))
-    }
-}
-
-/// A single global entry point entry.
-pub struct GlobalEntryPointEntry {
-    pub node: som::SomNode,
-}
-
-impl GlobalEntryPointEntry {
-    /// Binds a GlobalEntryPointEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> GlobalEntryPointEntry {
-        GlobalEntryPointEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -23173,11 +22725,11 @@ impl InformationArchitecture {
     // (skipped: navigationStructure has no target type)
 
     /// Global entry points.
-    pub fn global_entry_points(&self) -> som::SomList<GlobalEntryPointEntry> {
+    pub fn global_entry_points(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "GLOBA-GLOB-LST"),
-            Box::new(GlobalEntryPointEntry::new),
+            Box::new(som::SomScalar::new),
             "GLOBA-GLOB-xxx".to_string(),
         )
     }
@@ -23688,41 +23240,13 @@ impl IntegrationHealthSummary {
     }
 
     /// Fragile integration points requiring attention.
-    pub fn fragile_points(&self) -> som::SomList<FragilePointEntry> {
+    pub fn fragile_points(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FRAGI-FRAG-LST"),
-            Box::new(FragilePointEntry::new),
+            Box::new(som::SomScalar::new),
             "FRAGI-FRAG-xxx".to_string(),
         )
-    }
-}
-
-/// A single integration pattern entry.
-pub struct IntegrationPatternEntry {
-    pub node: som::SomNode,
-}
-
-impl IntegrationPatternEntry {
-    /// Binds a IntegrationPatternEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> IntegrationPatternEntry {
-        IntegrationPatternEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -24256,34 +23780,6 @@ impl InteractionPatterns {
     }
 }
 
-/// A single interaction scenario entry.
-pub struct InteractionScenarioEntry {
-    pub node: som::SomNode,
-}
-
-impl InteractionScenarioEntry {
-    /// Binds a InteractionScenarioEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> InteractionScenarioEntry {
-        InteractionScenarioEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 4.5.6. Interaction Testing Strategy.
 ///
 /// Contract / integration / failure-mode testing for system boundaries.
@@ -24427,21 +23923,21 @@ impl InterfaceDataSpec {
     }
 
     /// Data mapping and transformation rules.
-    pub fn mapping_rules(&self) -> som::SomList<MappingRuleEntry> {
+    pub fn mapping_rules(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MAPPI-MAPP-LST"),
-            Box::new(MappingRuleEntry::new),
+            Box::new(som::SomScalar::new),
             "MAPPI-MAPP-xxx".to_string(),
         )
     }
 
     /// Data validation rules.
-    pub fn validation_rules(&self) -> som::SomList<ValidationRuleEntry> {
+    pub fn validation_rules(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VALID-VALI-LST"),
-            Box::new(ValidationRuleEntry::new),
+            Box::new(som::SomScalar::new),
             "VALID-VALI-xxx".to_string(),
         )
     }
@@ -24485,11 +23981,11 @@ impl InterfaceErrorHandling {
     }
 
     /// Error handling procedures.
-    pub fn error_procedures(&self) -> som::SomList<ErrorProcedureEntry> {
+    pub fn error_procedures(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ERROR-ERRO-LST"),
-            Box::new(ErrorProcedureEntry::new),
+            Box::new(som::SomScalar::new),
             "ERROR-ERRO-xxx".to_string(),
         )
     }
@@ -24592,11 +24088,11 @@ impl InterfaceOperational {
     }
 
     /// Operational dependencies.
-    pub fn dependencies(&self) -> som::SomList<DependencyEntry> {
+    pub fn dependencies(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEPEN-DEPE-LST"),
-            Box::new(DependencyEntry::new),
+            Box::new(som::SomScalar::new),
             "DEPEN-DEPE-xxx".to_string(),
         )
     }
@@ -25387,34 +24883,6 @@ impl JourneyStageEntry {
     }
 }
 
-/// A single key assumption entry.
-pub struct KeyAssumptionEntry {
-    pub node: som::SomNode,
-}
-
-impl KeyAssumptionEntry {
-    /// Binds a KeyAssumptionEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> KeyAssumptionEntry {
-        KeyAssumptionEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// A key attribute entry (form).
 ///
 /// Specification for primary, foreign, alternate, and composite keys.
@@ -25824,34 +25292,6 @@ impl KeyStoragePolicy {
     // (skipped: notes has no target type)
 }
 
-/// A single key touchpoint entry.
-pub struct KeyTouchpointEntry {
-    pub node: som::SomNode,
-}
-
-impl KeyTouchpointEntry {
-    /// Binds a KeyTouchpointEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> KeyTouchpointEntry {
-        KeyTouchpointEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 15.7. Knowledge Transfer.
 ///
 /// Handover from delivery team to operations. Covers handover-agreement
@@ -25864,90 +25304,6 @@ impl KnowledgeTransfer {
     /// Binds a KnowledgeTransfer facade to a document and a path.
     pub fn new(doc: som::DocRef, path: String) -> KnowledgeTransfer {
         KnowledgeTransfer { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single known issue entry.
-pub struct KnownIssueEntry {
-    pub node: som::SomNode,
-}
-
-impl KnownIssueEntry {
-    /// Binds a KnownIssueEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> KnownIssueEntry {
-        KnownIssueEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single known quality issue entry.
-pub struct KnownQualityIssueEntry {
-    pub node: som::SomNode,
-}
-
-impl KnownQualityIssueEntry {
-    /// Binds a KnownQualityIssueEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> KnownQualityIssueEntry {
-        KnownQualityIssueEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single kpi entry.
-pub struct KpiEntry {
-    pub node: som::SomNode,
-}
-
-impl KpiEntry {
-    /// Binds a KpiEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> KpiEntry {
-        KpiEntry { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -27102,34 +26458,6 @@ impl MaintenanceDependencyEntry {
     }
 }
 
-/// A single maintenance procedure entry.
-pub struct MaintenanceProcedureEntry {
-    pub node: som::SomNode,
-}
-
-impl MaintenanceProcedureEntry {
-    /// Binds a MaintenanceProcedureEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MaintenanceProcedureEntry {
-        MaintenanceProcedureEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// User impact and communication.
 pub struct MaintenanceUserImpact {
     pub node: som::SomNode,
@@ -27277,34 +26605,6 @@ impl MaintenanceWindowsSection {
     /// Post-maintenance validation.
     pub fn post_maintenance(&self) -> PostMaintenanceValidation {
         PostMaintenanceValidation::new(self.node.doc(), format!("{}/{}", self.node.path(), "postMaintenance"))
-    }
-}
-
-/// A single mapping rule entry.
-pub struct MappingRuleEntry {
-    pub node: som::SomNode,
-}
-
-impl MappingRuleEntry {
-    /// Binds a MappingRuleEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MappingRuleEntry {
-        MappingRuleEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -27693,41 +26993,13 @@ impl MfaConfiguration {
     }
 
     /// MFA Implementation Details (text).
-    pub fn mfa_details(&self) -> som::SomList<MfaDetailEntry> {
+    pub fn mfa_details(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MFADE-MFAD-LST"),
-            Box::new(MfaDetailEntry::new),
+            Box::new(som::SomScalar::new),
             "MFADE-MFAD-xxx".to_string(),
         )
-    }
-}
-
-/// A single mfa detail entry.
-pub struct MfaDetailEntry {
-    pub node: som::SomNode,
-}
-
-impl MfaDetailEntry {
-    /// Binds a MfaDetailEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MfaDetailEntry {
-        MfaDetailEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -27799,11 +27071,11 @@ impl MigrationConsiderations {
     // (skipped: communicationPlan has no target type)
 
     /// Escalation procedures during migration.
-    pub fn escalation_procedures(&self) -> som::SomList<EscalationProcedureEntry> {
+    pub fn escalation_procedures(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ESCAL-ESCA-LST"),
-            Box::new(EscalationProcedureEntry::new),
+            Box::new(som::SomScalar::new),
             "ESCAL-ESCA-xxx".to_string(),
         )
     }
@@ -28321,41 +27593,41 @@ impl MigrationRisks {
     // (skipped: assessmentMethodology has no target type)
 
     /// Risk categories and taxonomy.
-    pub fn risk_categories(&self) -> som::SomList<RiskCategoryEntry> {
+    pub fn risk_categories(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RISKC-RISK-LST"),
-            Box::new(RiskCategoryEntry::new),
+            Box::new(som::SomScalar::new),
             "RISKC-RISK-xxx".to_string(),
         )
     }
 
     /// Risk-based decision making criteria.
-    pub fn risk_based_decisions(&self) -> som::SomList<RiskBasedDecisionEntry> {
+    pub fn risk_based_decisions(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RISKB-RISK-LST"),
-            Box::new(RiskBasedDecisionEntry::new),
+            Box::new(som::SomScalar::new),
             "RISKB-RISK-xxx".to_string(),
         )
     }
 
     /// Risk monitoring and control procedures.
-    pub fn monitoring_procedures(&self) -> som::SomList<MonitoringProcedureEntry> {
+    pub fn monitoring_procedures(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MONIT-MONI-LST"),
-            Box::new(MonitoringProcedureEntry::new),
+            Box::new(som::SomScalar::new),
             "MONIT-MONI-xxx".to_string(),
         )
     }
 
     /// Risk response strategies by category.
-    pub fn response_strategies(&self) -> som::SomList<ResponseStrategyEntry> {
+    pub fn response_strategies(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RESPO-RESP-LST"),
-            Box::new(ResponseStrategyEntry::new),
+            Box::new(som::SomScalar::new),
             "RESPO-RESP-xxx".to_string(),
         )
     }
@@ -28862,34 +28134,6 @@ impl MonitoringInfrastructure {
     /// Access and privacy controls.
     pub fn access(&self) -> MonitoringInfrastructureAccessForm {
         MonitoringInfrastructureAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MOINAC"))
-    }
-}
-
-/// A single monitoring procedure entry.
-pub struct MonitoringProcedureEntry {
-    pub node: som::SomNode,
-}
-
-impl MonitoringProcedureEntry {
-    /// Binds a MonitoringProcedureEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MonitoringProcedureEntry {
-        MonitoringProcedureEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -30036,34 +29280,6 @@ impl NewRoleResponsibilities {
     }
 }
 
-/// A single non financial benefit entry.
-pub struct NonFinancialBenefitEntry {
-    pub node: som::SomNode,
-}
-
-impl NonFinancialBenefitEntry {
-    /// Binds a NonFinancialBenefitEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> NonFinancialBenefitEntry {
-        NonFinancialBenefitEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// A notification channel entry.
 pub struct NotificationChannelEntry {
     pub node: som::SomNode,
@@ -30258,34 +29474,6 @@ impl ObjectStateEntry {
 
     pub fn content(&self) -> ObjectStateEntryContentForm {
         ObjectStateEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// A single observability requirement entry.
-pub struct ObservabilityRequirementEntry {
-    pub node: som::SomNode,
-}
-
-impl ObservabilityRequirementEntry {
-    /// Binds a ObservabilityRequirementEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ObservabilityRequirementEntry {
-        ObservabilityRequirementEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -31000,21 +30188,21 @@ impl OrganizationalEnvironment {
     }
 
     /// Cultural considerations and organizational dynamics.
-    pub fn cultural_considerations(&self) -> som::SomList<CulturalConsiderationEntry> {
+    pub fn cultural_considerations(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CULTU-CULT-LST"),
-            Box::new(CulturalConsiderationEntry::new),
+            Box::new(som::SomScalar::new),
             "CULTU-CULT-xxx".to_string(),
         )
     }
 
     /// Stakeholder communication preferences.
-    pub fn communication_preferences(&self) -> som::SomList<CommunicationPreferenceEntry> {
+    pub fn communication_preferences(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "COMMU-COMM-LST"),
-            Box::new(CommunicationPreferenceEntry::new),
+            Box::new(som::SomScalar::new),
             "COMMU-COMM-xxx".to_string(),
         )
     }
@@ -31023,11 +30211,11 @@ impl OrganizationalEnvironment {
     // (skipped: politicalLandscape has no target type)
 
     /// Change champions and sponsors.
-    pub fn change_advocates(&self) -> som::SomList<ChangeAdvocateEntry> {
+    pub fn change_advocates(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CHANG-CHAN-LST"),
-            Box::new(ChangeAdvocateEntry::new),
+            Box::new(som::SomScalar::new),
             "CHANG-CHAN-xxx".to_string(),
         )
     }
@@ -32914,34 +32102,6 @@ impl PreconditionsAndTriggers {
     }
 }
 
-/// A single predecessor dependency entry.
-pub struct PredecessorDependencyEntry {
-    pub node: som::SomNode,
-}
-
-impl PredecessorDependencyEntry {
-    /// Binds a PredecessorDependencyEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> PredecessorDependencyEntry {
-        PredecessorDependencyEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 10.3.1.3. Primary Navigation.
 ///
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -33209,11 +32369,11 @@ impl ProblemStatement {
     }
 
     /// Related pain points from Current State Analysis.
-    pub fn related_pain_points(&self) -> som::SomList<RelatedPainPointEntry> {
+    pub fn related_pain_points(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "RPPE-RELA-LST"),
-            Box::new(RelatedPainPointEntry::new),
+            Box::new(som::SomScalar::new),
             "RPPE-RELA-xxx".to_string(),
         )
     }
@@ -35578,11 +34738,11 @@ impl QualityFramework {
     }
 
     /// Quality dependencies map.
-    pub fn category_dependencies(&self) -> som::SomList<CategoryDependencyEntry> {
+    pub fn category_dependencies(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CATEG-CATE-LST"),
-            Box::new(CategoryDependencyEntry::new),
+            Box::new(som::SomScalar::new),
             "CATEG-CATE-xxx".to_string(),
         )
     }
@@ -36082,34 +35242,6 @@ impl ReadinessCriteriaEntry {
     }
 }
 
-/// A single recovery flow entry.
-pub struct RecoveryFlowEntry {
-    pub node: som::SomNode,
-}
-
-impl RecoveryFlowEntry {
-    /// Binds a RecoveryFlowEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RecoveryFlowEntry {
-        RecoveryFlowEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// Recovery procedures.
 pub struct RecoveryProcedures {
     pub node: som::SomNode,
@@ -36511,34 +35643,6 @@ impl RelatedDocumentEntry {
 
     pub fn content(&self) -> RelatedDocumentEntryContentForm {
         RelatedDocumentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// A single related pain point entry.
-pub struct RelatedPainPointEntry {
-    pub node: som::SomNode,
-}
-
-impl RelatedPainPointEntry {
-    /// Binds a RelatedPainPointEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RelatedPainPointEntry {
-        RelatedPainPointEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -37363,34 +36467,6 @@ impl ReportSectionEntry {
             Box::new(ReportChartEntry::new),
             "RECHEN-CHAR-xxx".to_string(),
         )
-    }
-}
-
-/// A single representative quote entry.
-pub struct RepresentativeQuoteEntry {
-    pub node: som::SomNode,
-}
-
-impl RepresentativeQuoteEntry {
-    /// Binds a RepresentativeQuoteEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RepresentativeQuoteEntry {
-        RepresentativeQuoteEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -38228,34 +37304,6 @@ impl ResourceRequirementEntry {
     }
 }
 
-/// A single response strategy entry.
-pub struct ResponseStrategyEntry {
-    pub node: som::SomNode,
-}
-
-impl ResponseStrategyEntry {
-    /// Binds a ResponseStrategyEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ResponseStrategyEntry {
-        ResponseStrategyEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// Responsibility change entry (form).
 pub struct ResponsibilityChangeEntry {
     pub node: som::SomNode,
@@ -39013,34 +38061,6 @@ impl RevisionHistory {
     }
 }
 
-/// A single risk based decision entry.
-pub struct RiskBasedDecisionEntry {
-    pub node: som::SomNode,
-}
-
-impl RiskBasedDecisionEntry {
-    /// Binds a RiskBasedDecisionEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RiskBasedDecisionEntry {
-        RiskBasedDecisionEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// Business impact assessment for the risk.
 pub struct RiskBusinessImpact {
     pub node: som::SomNode,
@@ -39071,34 +38091,6 @@ impl RiskBusinessImpact {
     /// Operational and delivery consequences.
     pub fn delivery(&self) -> RiskBusinessImpactDeliveryForm {
         RiskBusinessImpactDeliveryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RBID"))
-    }
-}
-
-/// A single risk category entry.
-pub struct RiskCategoryEntry {
-    pub node: som::SomNode,
-}
-
-impl RiskCategoryEntry {
-    /// Binds a RiskCategoryEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> RiskCategoryEntry {
-        RiskCategoryEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -40457,34 +39449,6 @@ impl ScheduledMaintenancePolicy {
     }
 }
 
-/// A single scope assumption entry.
-pub struct ScopeAssumptionEntry {
-    pub node: som::SomNode,
-}
-
-impl ScopeAssumptionEntry {
-    /// Binds a ScopeAssumptionEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ScopeAssumptionEntry {
-        ScopeAssumptionEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 4.1.1.6. Scope Boundaries.
 ///
 /// Clear definition of what is in scope and out of scope for this system.
@@ -40546,11 +39510,11 @@ impl ScopeBoundaries {
     }
 
     /// Scope Assumptions.
-    pub fn scope_assumptions(&self) -> som::SomList<ScopeAssumptionEntry> {
+    pub fn scope_assumptions(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SCOPE-SCOP-LST"),
-            Box::new(ScopeAssumptionEntry::new),
+            Box::new(som::SomScalar::new),
             "SCOPE-SCOP-xxx".to_string(),
         )
     }
@@ -41728,34 +40692,6 @@ impl SecurityCodeReviewPolicy {
     /// Finding management and residual risk handling.
     pub fn findings(&self) -> SecurityCodeReviewPolicyFindingsForm {
         SecurityCodeReviewPolicyFindingsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCRPF"))
-    }
-}
-
-/// A single security concern entry.
-pub struct SecurityConcernEntry {
-    pub node: som::SomNode,
-}
-
-impl SecurityConcernEntry {
-    /// Binds a SecurityConcernEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SecurityConcernEntry {
-        SecurityConcernEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -43307,34 +42243,6 @@ impl SharedLibraryEntry {
     }
 }
 
-/// A single shared service entry.
-pub struct SharedServiceEntry {
-    pub node: som::SomNode,
-}
-
-impl SharedServiceEntry {
-    /// Binds a SharedServiceEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SharedServiceEntry {
-        SharedServiceEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
 /// 14.2.5. Sign-off Process.
 ///
 /// Formal sign-off process: who signs off (business acceptance board,
@@ -44744,51 +43652,23 @@ impl StagingStrategy {
     // (skipped: rationaleNarrative has no target type)
 
     /// 13.1.3. Key Assumptions.
-    pub fn key_assumptions(&self) -> som::SomList<KeyAssumptionEntry> {
+    pub fn key_assumptions(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KEYAS-KEYA-LST"),
-            Box::new(KeyAssumptionEntry::new),
+            Box::new(som::SomScalar::new),
             "KEYAS-KEYA-xxx".to_string(),
         )
     }
 
     /// 13.1.4. Constraints.
-    pub fn constraints(&self) -> som::SomList<StagingStrategyConstraintEntry> {
+    pub fn constraints(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STAGI-CONS-LST"),
-            Box::new(StagingStrategyConstraintEntry::new),
+            Box::new(som::SomScalar::new),
             "STAGI-CONS-xxx".to_string(),
         )
-    }
-}
-
-/// A single constraint entry.
-pub struct StagingStrategyConstraintEntry {
-    pub node: som::SomNode,
-}
-
-impl StagingStrategyConstraintEntry {
-    /// Binds a StagingStrategyConstraintEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StagingStrategyConstraintEntry {
-        StagingStrategyConstraintEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -45273,41 +44153,13 @@ impl StepUpAuthenticationPolicy {
     }
 
     /// Step-Up Authentication Details (text).
-    pub fn step_up_details(&self) -> som::SomList<StepUpDetailEntry> {
+    pub fn step_up_details(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "STEPU-STEP-LST"),
-            Box::new(StepUpDetailEntry::new),
+            Box::new(som::SomScalar::new),
             "STEPU-STEP-xxx".to_string(),
         )
-    }
-}
-
-/// A single step up detail entry.
-pub struct StepUpDetailEntry {
-    pub node: som::SomNode,
-}
-
-impl StepUpDetailEntry {
-    /// Binds a StepUpDetailEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> StepUpDetailEntry {
-        StepUpDetailEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -46218,11 +45070,11 @@ impl SystemCostAnalysis {
     // (skipped: costBreakdown has no target type)
 
     /// Non-financial benefits to include in ROI.
-    pub fn non_financial_benefits(&self) -> som::SomList<NonFinancialBenefitEntry> {
+    pub fn non_financial_benefits(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "NONFI-NONF-LST"),
-            Box::new(NonFinancialBenefitEntry::new),
+            Box::new(som::SomScalar::new),
             "NONFI-NONF-xxx".to_string(),
         )
     }
@@ -46271,11 +45123,11 @@ impl SystemDataScope {
     }
 
     /// Data quality issues to address.
-    pub fn known_quality_issues(&self) -> som::SomList<KnownQualityIssueEntry> {
+    pub fn known_quality_issues(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KNOWN-KNOW-LST"),
-            Box::new(KnownQualityIssueEntry::new),
+            Box::new(som::SomScalar::new),
             "KNOWN-KNOW-xxx".to_string(),
         )
     }
@@ -46523,11 +45375,11 @@ impl SystemErrorDisplay {
     // (skipped: systemErrorNarrative has no target type)
 
     /// Error page designs.
-    pub fn error_page_designs(&self) -> som::SomList<ErrorPageDesignEntry> {
+    pub fn error_page_designs(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "EPDE-ERRO-LST"),
-            Box::new(ErrorPageDesignEntry::new),
+            Box::new(som::SomScalar::new),
             "EPDE-ERRO-xxx".to_string(),
         )
     }
@@ -46672,11 +45524,11 @@ impl SystemKnowledgeTransfer {
     }
 
     /// Critical knowledge areas to preserve.
-    pub fn critical_knowledge_areas(&self) -> som::SomList<CriticalKnowledgeAreaEntry> {
+    pub fn critical_knowledge_areas(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "CRITI-CRIT-LST"),
-            Box::new(CriticalKnowledgeAreaEntry::new),
+            Box::new(som::SomScalar::new),
             "CRITI-CRIT-xxx".to_string(),
         )
     }
@@ -46820,11 +45672,11 @@ impl SystemOperation {
     }
 
     /// Maintenance Procedures.
-    pub fn maintenance_procedures(&self) -> som::SomList<MaintenanceProcedureEntry> {
+    pub fn maintenance_procedures(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "MAINT-MAIN-LST"),
-            Box::new(MaintenanceProcedureEntry::new),
+            Box::new(som::SomScalar::new),
             "MAINT-MAIN-xxx".to_string(),
         )
     }
@@ -47003,11 +45855,11 @@ impl SystemQualityGoals {
     // (skipped: qaStrategy has no target type)
 
     /// Quality attribute interdependencies.
-    pub fn attribute_interdependencies(&self) -> som::SomList<AttributeInterdependencyEntry> {
+    pub fn attribute_interdependencies(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "ATTRI-ATTR-LST"),
-            Box::new(AttributeInterdependencyEntry::new),
+            Box::new(som::SomScalar::new),
             "ATTRI-ATTR-xxx".to_string(),
         )
     }
@@ -47126,11 +45978,11 @@ impl SystemReplacementStrategy {
     }
 
     /// Predecessor systems that must be addressed first.
-    pub fn predecessor_dependencies(&self) -> som::SomList<PredecessorDependencyEntry> {
+    pub fn predecessor_dependencies(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "PREDE-PRED-LST"),
-            Box::new(PredecessorDependencyEntry::new),
+            Box::new(som::SomScalar::new),
             "PREDE-PRED-xxx".to_string(),
         )
     }
@@ -47400,51 +46252,23 @@ impl SystemTaskEntry {
     }
 
     /// Task workflow steps.
-    pub fn workflow_steps(&self) -> som::SomList<SystemTaskWorkflowStepEntry> {
+    pub fn workflow_steps(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SYSTE-WORK-LST"),
-            Box::new(SystemTaskWorkflowStepEntry::new),
+            Box::new(som::SomScalar::new),
             "SYSTE-WORK-xxx".to_string(),
         )
     }
 
     /// Variations and exceptions.
-    pub fn variations_and_exceptions(&self) -> som::SomList<VariationsAndExceptionEntry> {
+    pub fn variations_and_exceptions(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "VARIA-VARI-LST"),
-            Box::new(VariationsAndExceptionEntry::new),
+            Box::new(som::SomScalar::new),
             "VARIA-VARI-xxx".to_string(),
         )
-    }
-}
-
-/// A single workflow step entry.
-pub struct SystemTaskWorkflowStepEntry {
-    pub node: som::SomNode,
-}
-
-impl SystemTaskWorkflowStepEntry {
-    /// Binds a SystemTaskWorkflowStepEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemTaskWorkflowStepEntry {
-        SystemTaskWorkflowStepEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -47486,21 +46310,21 @@ impl SystemTechnicalAssessment {
     }
 
     /// Known technical issues and deficiencies.
-    pub fn known_issues(&self) -> som::SomList<KnownIssueEntry> {
+    pub fn known_issues(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KIE-KNOW-LST"),
-            Box::new(KnownIssueEntry::new),
+            Box::new(som::SomScalar::new),
             "KIE-KNOW-xxx".to_string(),
         )
     }
 
     /// Security vulnerabilities and compliance gaps.
-    pub fn security_concerns(&self) -> som::SomList<SecurityConcernEntry> {
+    pub fn security_concerns(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "SECUR-SECU-LST"),
-            Box::new(SecurityConcernEntry::new),
+            Box::new(som::SomScalar::new),
             "SECUR-SECU-xxx".to_string(),
         )
     }
@@ -48191,11 +47015,11 @@ impl TechnicalEnvironment {
     // (skipped: existingInfrastructure has no target type)
 
     /// Data center and hosting environment details.
-    pub fn datacenters(&self) -> som::SomList<DatacenterEntry> {
+    pub fn datacenters(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DATAC-DATA-LST"),
-            Box::new(DatacenterEntry::new),
+            Box::new(som::SomScalar::new),
             "DATAC-DATA-xxx".to_string(),
         )
     }
@@ -48253,21 +47077,21 @@ impl TechnicalEnvironmentNetwork {
     }
 
     /// DevOps and deployment standards.
-    pub fn devops_standards(&self) -> som::SomList<DevopsStandardEntry> {
+    pub fn devops_standards(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "DEVOP-DEVO-LST"),
-            Box::new(DevopsStandardEntry::new),
+            Box::new(som::SomScalar::new),
             "DEVOP-DEVO-xxx".to_string(),
         )
     }
 
     /// Monitoring and observability requirements.
-    pub fn observability_requirements(&self) -> som::SomList<ObservabilityRequirementEntry> {
+    pub fn observability_requirements(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "OBSER-OBSE-LST"),
-            Box::new(ObservabilityRequirementEntry::new),
+            Box::new(som::SomScalar::new),
             "OBSER-OBSE-xxx".to_string(),
         )
     }
@@ -52267,21 +51091,21 @@ impl UserJourney {
     }
 
     /// Key touchpoints.
-    pub fn key_touchpoints(&self) -> som::SomList<KeyTouchpointEntry> {
+    pub fn key_touchpoints(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KEYTO-KEYT-LST"),
-            Box::new(KeyTouchpointEntry::new),
+            Box::new(som::SomScalar::new),
             "KEYTO-KEYT-xxx".to_string(),
         )
     }
 
     /// Pain points in the journey.
-    pub fn pain_points(&self) -> som::SomList<UserJourneyPainPointEntry> {
+    pub fn pain_points(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "USERJ-PAIN-LST"),
-            Box::new(UserJourneyPainPointEntry::new),
+            Box::new(som::SomScalar::new),
             "USERJ-PAIN-xxx".to_string(),
         )
     }
@@ -52293,34 +51117,6 @@ impl UserJourney {
 
     pub fn set_opportunities_for_delight(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "UJ-OPPO");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// A single pain point entry.
-pub struct UserJourneyPainPointEntry {
-    pub node: som::SomNode,
-}
-
-impl UserJourneyPainPointEntry {
-    /// Binds a UserJourneyPainPointEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserJourneyPainPointEntry {
-        UserJourneyPainPointEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -52667,11 +51463,11 @@ impl UserPersonaDetails {
     }
 
     /// Key quotes that represent this persona's mindset.
-    pub fn representative_quotes(&self) -> som::SomList<RepresentativeQuoteEntry> {
+    pub fn representative_quotes(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "REPRE-REPR-LST"),
-            Box::new(RepresentativeQuoteEntry::new),
+            Box::new(som::SomScalar::new),
             "REPRE-REPR-xxx".to_string(),
         )
     }
@@ -53052,11 +51848,11 @@ impl ValidationFeedback {
     }
 
     /// Field validation rules by type.
-    pub fn field_validation_rules(&self) -> som::SomList<FieldValidationRuleEntry> {
+    pub fn field_validation_rules(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FIELD-FIEL-LST"),
-            Box::new(FieldValidationRuleEntry::new),
+            Box::new(som::SomScalar::new),
             "FIELD-FIEL-xxx".to_string(),
         )
     }
@@ -53082,34 +51878,6 @@ impl ValidationMessageTemplate {
 
     pub fn content(&self) -> ValidationMessageTemplateContentForm {
         ValidationMessageTemplateContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// A single validation rule entry.
-pub struct ValidationRuleEntry {
-    pub node: som::SomNode,
-}
-
-impl ValidationRuleEntry {
-    /// Binds a ValidationRuleEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ValidationRuleEntry {
-        ValidationRuleEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 
@@ -53159,41 +51927,13 @@ impl ValueProposition {
     }
 
     /// Key Performance Indicators for value measurement.
-    pub fn kpis(&self) -> som::SomList<KpiEntry> {
+    pub fn kpis(&self) -> som::SomList<som::SomScalar> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "KPIEN-KPIS-LST"),
-            Box::new(KpiEntry::new),
+            Box::new(som::SomScalar::new),
             "KPIEN-KPIS-xxx".to_string(),
         )
-    }
-}
-
-/// A single variations and exception entry.
-pub struct VariationsAndExceptionEntry {
-    pub node: som::SomNode,
-}
-
-impl VariationsAndExceptionEntry {
-    /// Binds a VariationsAndExceptionEntry facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> VariationsAndExceptionEntry {
-        VariationsAndExceptionEntry { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
 

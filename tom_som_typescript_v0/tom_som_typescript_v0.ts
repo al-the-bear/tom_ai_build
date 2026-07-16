@@ -1514,8 +1514,8 @@ export class ApplicableRegulationEntry extends SomNode {
   }
 
   // Specific compliance measures for this regulation.
-  get complianceMeasures(): SomList<ComplianceMeasureEntry> {
-    return new SomList(this.doc, this.path + "/COMPL-COMP-LST", (d: SpecDocument, p: string) => new ComplianceMeasureEntry(d, p), "COMPL-COMP-xxx");
+  get complianceMeasures(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/COMPL-COMP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "COMPL-COMP-xxx");
   }
 }
 
@@ -1901,25 +1901,6 @@ export class AssumptionsConstraintsDependencies extends SomNode {
   // The consolidated assumption / constraint register.
   get register(): AssumptionConstraintDependencyRegister {
     return new AssumptionConstraintDependencyRegister(this.doc, this.path + "/register");
-  }
-}
-
-// A single attribute interdependency entry.
-export class AttributeInterdependencyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -3790,25 +3771,6 @@ export class CapacityReviewProcess extends SomNode {
   }
 }
 
-// A single category dependency entry.
-export class CategoryDependencyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A CCB member entry.
 export class CcbMemberEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -3966,25 +3928,6 @@ export class CertificationRequirementsSection extends SomNode {
   // Marketing and notes.
   get marketing(): CertificationRequirementsSectionMarketingForm {
     return new CertificationRequirementsSectionMarketingForm(this.doc, this.path + "/CRSM");
-  }
-}
-
-// A single change advocate entry.
-export class ChangeAdvocateEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -5078,25 +5021,6 @@ export class CommunicationPatterns extends SomNode {
   }
 }
 
-// A single communication preference entry.
-export class CommunicationPreferenceEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 8.6. Communication Requirements.
 export class CommunicationRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -5328,25 +5252,6 @@ export class ComplianceAuditSchedule extends SomNode {
 // authorization. Pulls the compliance references currently scattered
 // across @ContentHelp strings into an explicit section.
 export class ComplianceFramework extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single compliance measure entry.
-export class ComplianceMeasureEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -6615,25 +6520,6 @@ export class CredentialRecoveryPolicy extends SomNode {
   // (skipped: credentialRecoveryDetails has no target type)
 }
 
-// A single critical knowledge area entry.
-export class CriticalKnowledgeAreaEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
@@ -6764,25 +6650,6 @@ export class CrossTenantAccessPolicy extends SomNode {
   // (skipped: crossTenantAccessPolicyDetails has no target type)
 }
 
-// A single cultural consideration entry.
-export class CulturalConsiderationEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
@@ -6823,13 +6690,13 @@ export class CurrentArchitecture extends SomNode {
   }
 
   // Integration patterns used.
-  get integrationPatterns(): SomList<IntegrationPatternEntry> {
-    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d: SpecDocument, p: string) => new IntegrationPatternEntry(d, p), "IPE-INTE-xxx");
+  get integrationPatterns(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "IPE-INTE-xxx");
   }
 
   // Shared services inventory.
-  get sharedServices(): SomList<SharedServiceEntry> {
-    return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d: SpecDocument, p: string) => new SharedServiceEntry(d, p), "SHARE-SHAR-xxx");
+  get sharedServices(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SHARE-SHAR-xxx");
   }
 }
 
@@ -10336,25 +10203,6 @@ export class DatabaseEncryptionPolicy extends SomNode {
   // (skipped: databaseEncryptionDetails has no target type)
 }
 
-// A single datacenter entry.
-export class DatacenterEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Debugging configuration.
 export class DebuggingConfiguration extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -10883,25 +10731,6 @@ export class DependenciesAndIntegrations extends SomNode {
   // 1.1.3.5. Integration Health Summary.
   get healthSummary(): IntegrationHealthSummary {
     return new IntegrationHealthSummary(this.doc, this.path + "/healthSummary");
-  }
-}
-
-// A single dependency entry.
-export class DependencyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -11766,25 +11595,6 @@ export class DevelopmentQualityGates extends SomNode {
   // Performance checks.
   get performance(): DevelopmentQualityGatesPerformanceForm {
     return new DevelopmentQualityGatesPerformanceForm(this.doc, this.path + "/DQGP");
-  }
-}
-
-// A single devops standard entry.
-export class DevopsStandardEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -13349,44 +13159,6 @@ export class ErrorHandlingStandards extends SomNode {
   }
 }
 
-// A single error page design entry.
-export class ErrorPageDesignEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single error procedure entry.
-export class ErrorProcedureEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
@@ -13429,32 +13201,13 @@ export class ErrorRecovery extends SomNode {
   // (skipped: recoveryNarrative has no target type)
 
   // Recovery flow diagrams.
-  get recoveryFlows(): SomList<RecoveryFlowEntry> {
-    return new SomList(this.doc, this.path + "/RECOV-RECO-LST", (d: SpecDocument, p: string) => new RecoveryFlowEntry(d, p), "RECOV-RECO-xxx");
+  get recoveryFlows(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/RECOV-RECO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RECOV-RECO-xxx");
   }
 
   // Common recovery scenarios.
   get recoveryScenarios(): SomList<RecoveryScenarioEntry> {
     return new SomList(this.doc, this.path + "/RCVSCN-RECO-LST", (d: SpecDocument, p: string) => new RecoveryScenarioEntry(d, p), "RCVSCN-RECO-xxx");
-  }
-}
-
-// A single escalation procedure entry.
-export class EscalationProcedureEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -13929,8 +13682,8 @@ export class ExternalActorEntry extends SomNode {
   }
 
   // Interaction scenarios for this actor.
-  get interactionScenarios(): SomList<InteractionScenarioEntry> {
-    return new SomList(this.doc, this.path + "/INTER-INTE-LST", (d: SpecDocument, p: string) => new InteractionScenarioEntry(d, p), "INTER-INTE-xxx");
+  get interactionScenarios(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/INTER-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INTER-INTE-xxx");
   }
 }
 
@@ -14639,25 +14392,6 @@ export class FieldValidationRule extends SomNode {
   }
 }
 
-// A single field validation rule entry.
-export class FieldValidationRuleEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // File access control policy — who can access, modify, share, and delete
 // files, and how access decisions are enforced.
 //
@@ -14906,25 +14640,6 @@ export class FlexibilityCharacteristic extends SomNode {
   // 11.9.2. Portability.
   get portability(): Portability {
     return new Portability(this.doc, this.path + "/portability");
-  }
-}
-
-// A single fragile point entry.
-export class FragilePointEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -15345,25 +15060,6 @@ export class GeographicDistributionRequirements extends SomNode {
   // Performance considerations.
   get performance(): GeographicDistributionRequirementsPerformanceForm {
     return new GeographicDistributionRequirementsPerformanceForm(this.doc, this.path + "/GDRP");
-  }
-}
-
-// A single global entry point entry.
-export class GlobalEntryPointEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -16311,8 +16007,8 @@ export class InformationArchitecture extends SomNode {
   // (skipped: navigationStructure has no target type)
 
   // Global entry points.
-  get globalEntryPoints(): SomList<GlobalEntryPointEntry> {
-    return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d: SpecDocument, p: string) => new GlobalEntryPointEntry(d, p), "GLOBA-GLOB-xxx");
+  get globalEntryPoints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "GLOBA-GLOB-xxx");
   }
 
   // 10.2.2.5. Information Architecture Diagram.
@@ -16664,27 +16360,8 @@ export class IntegrationHealthSummary extends SomNode {
   }
 
   // Fragile integration points requiring attention.
-  get fragilePoints(): SomList<FragilePointEntry> {
-    return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d: SpecDocument, p: string) => new FragilePointEntry(d, p), "FRAGI-FRAG-xxx");
-  }
-}
-
-// A single integration pattern entry.
-export class IntegrationPatternEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get fragilePoints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "FRAGI-FRAG-xxx");
   }
 }
 
@@ -17039,25 +16716,6 @@ export class InteractionPatterns extends SomNode {
   }
 }
 
-// A single interaction scenario entry.
-export class InteractionScenarioEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
@@ -17134,13 +16792,13 @@ export class InterfaceDataSpec extends SomNode {
   }
 
   // Data mapping and transformation rules.
-  get mappingRules(): SomList<MappingRuleEntry> {
-    return new SomList(this.doc, this.path + "/MAPPI-MAPP-LST", (d: SpecDocument, p: string) => new MappingRuleEntry(d, p), "MAPPI-MAPP-xxx");
+  get mappingRules(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/MAPPI-MAPP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MAPPI-MAPP-xxx");
   }
 
   // Data validation rules.
-  get validationRules(): SomList<ValidationRuleEntry> {
-    return new SomList(this.doc, this.path + "/VALID-VALI-LST", (d: SpecDocument, p: string) => new ValidationRuleEntry(d, p), "VALID-VALI-xxx");
+  get validationRules(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/VALID-VALI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VALID-VALI-xxx");
   }
 }
 
@@ -17170,8 +16828,8 @@ export class InterfaceErrorHandling extends SomNode {
   }
 
   // Error handling procedures.
-  get errorProcedures(): SomList<ErrorProcedureEntry> {
-    return new SomList(this.doc, this.path + "/ERROR-ERRO-LST", (d: SpecDocument, p: string) => new ErrorProcedureEntry(d, p), "ERROR-ERRO-xxx");
+  get errorProcedures(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/ERROR-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ERROR-ERRO-xxx");
   }
 }
 
@@ -17236,8 +16894,8 @@ export class InterfaceOperational extends SomNode {
   }
 
   // Operational dependencies.
-  get dependencies(): SomList<DependencyEntry> {
-    return new SomList(this.doc, this.path + "/DEPEN-DEPE-LST", (d: SpecDocument, p: string) => new DependencyEntry(d, p), "DEPEN-DEPE-xxx");
+  get dependencies(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/DEPEN-DEPE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DEPEN-DEPE-xxx");
   }
 }
 
@@ -17784,25 +17442,6 @@ export class JourneyStageEntry extends SomNode {
   }
 }
 
-// A single key assumption entry.
-export class KeyAssumptionEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
@@ -18077,87 +17716,11 @@ export class KeyStoragePolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// A single key touchpoint entry.
-export class KeyTouchpointEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers handover-agreement
 // content.
 export class KnowledgeTransfer extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single known issue entry.
-export class KnownIssueEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single known quality issue entry.
-export class KnownQualityIssueEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single kpi entry.
-export class KpiEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -18952,25 +18515,6 @@ export class MaintenanceDependencyEntry extends SomNode {
   }
 }
 
-// A single maintenance procedure entry.
-export class MaintenanceProcedureEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // User impact and communication.
 export class MaintenanceUserImpact extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -19080,25 +18624,6 @@ export class MaintenanceWindowsSection extends SomNode {
   // Post-maintenance validation.
   get postMaintenance(): PostMaintenanceValidation {
     return new PostMaintenanceValidation(this.doc, this.path + "/postMaintenance");
-  }
-}
-
-// A single mapping rule entry.
-export class MappingRuleEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -19361,27 +18886,8 @@ export class MfaConfiguration extends SomNode {
   }
 
   // MFA Implementation Details (text).
-  get mfaDetails(): SomList<MfaDetailEntry> {
-    return new SomList(this.doc, this.path + "/MFADE-MFAD-LST", (d: SpecDocument, p: string) => new MfaDetailEntry(d, p), "MFADE-MFAD-xxx");
-  }
-}
-
-// A single mfa detail entry.
-export class MfaDetailEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get mfaDetails(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/MFADE-MFAD-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MFADE-MFAD-xxx");
   }
 }
 
@@ -19436,8 +18942,8 @@ export class MigrationConsiderations extends SomNode {
   // (skipped: communicationPlan has no target type)
 
   // Escalation procedures during migration.
-  get escalationProcedures(): SomList<EscalationProcedureEntry> {
-    return new SomList(this.doc, this.path + "/ESCAL-ESCA-LST", (d: SpecDocument, p: string) => new EscalationProcedureEntry(d, p), "ESCAL-ESCA-xxx");
+  get escalationProcedures(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/ESCAL-ESCA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ESCAL-ESCA-xxx");
   }
 }
 
@@ -19783,23 +19289,23 @@ export class MigrationRisks extends SomNode {
   // (skipped: assessmentMethodology has no target type)
 
   // Risk categories and taxonomy.
-  get riskCategories(): SomList<RiskCategoryEntry> {
-    return new SomList(this.doc, this.path + "/RISKC-RISK-LST", (d: SpecDocument, p: string) => new RiskCategoryEntry(d, p), "RISKC-RISK-xxx");
+  get riskCategories(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/RISKC-RISK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RISKC-RISK-xxx");
   }
 
   // Risk-based decision making criteria.
-  get riskBasedDecisions(): SomList<RiskBasedDecisionEntry> {
-    return new SomList(this.doc, this.path + "/RISKB-RISK-LST", (d: SpecDocument, p: string) => new RiskBasedDecisionEntry(d, p), "RISKB-RISK-xxx");
+  get riskBasedDecisions(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/RISKB-RISK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RISKB-RISK-xxx");
   }
 
   // Risk monitoring and control procedures.
-  get monitoringProcedures(): SomList<MonitoringProcedureEntry> {
-    return new SomList(this.doc, this.path + "/MONIT-MONI-LST", (d: SpecDocument, p: string) => new MonitoringProcedureEntry(d, p), "MONIT-MONI-xxx");
+  get monitoringProcedures(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/MONIT-MONI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MONIT-MONI-xxx");
   }
 
   // Risk response strategies by category.
-  get responseStrategies(): SomList<ResponseStrategyEntry> {
-    return new SomList(this.doc, this.path + "/RESPO-RESP-LST", (d: SpecDocument, p: string) => new ResponseStrategyEntry(d, p), "RESPO-RESP-xxx");
+  get responseStrategies(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/RESPO-RESP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RESPO-RESP-xxx");
   }
 
   // Risk aggregation and portfolio view.
@@ -20155,25 +19661,6 @@ export class MonitoringInfrastructure extends SomNode {
   // Access and privacy controls.
   get access(): MonitoringInfrastructureAccessForm {
     return new MonitoringInfrastructureAccessForm(this.doc, this.path + "/MOINAC");
-  }
-}
-
-// A single monitoring procedure entry.
-export class MonitoringProcedureEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -20988,25 +20475,6 @@ export class NewRoleResponsibilities extends SomNode {
   }
 }
 
-// A single non financial benefit entry.
-export class NonFinancialBenefitEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A notification channel entry.
 export class NotificationChannelEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -21117,25 +20585,6 @@ export class ObjectStateEntry extends SomNode {
 
   get content(): ObjectStateEntryContentForm {
     return new ObjectStateEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single observability requirement entry.
-export class ObservabilityRequirementEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -21639,21 +21088,21 @@ export class OrganizationalEnvironment extends SomNode {
   }
 
   // Cultural considerations and organizational dynamics.
-  get culturalConsiderations(): SomList<CulturalConsiderationEntry> {
-    return new SomList(this.doc, this.path + "/CULTU-CULT-LST", (d: SpecDocument, p: string) => new CulturalConsiderationEntry(d, p), "CULTU-CULT-xxx");
+  get culturalConsiderations(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/CULTU-CULT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CULTU-CULT-xxx");
   }
 
   // Stakeholder communication preferences.
-  get communicationPreferences(): SomList<CommunicationPreferenceEntry> {
-    return new SomList(this.doc, this.path + "/COMMU-COMM-LST", (d: SpecDocument, p: string) => new CommunicationPreferenceEntry(d, p), "COMMU-COMM-xxx");
+  get communicationPreferences(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/COMMU-COMM-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "COMMU-COMM-xxx");
   }
 
   // Political dynamics and influence patterns.
   // (skipped: politicalLandscape has no target type)
 
   // Change champions and sponsors.
-  get changeAdvocates(): SomList<ChangeAdvocateEntry> {
-    return new SomList(this.doc, this.path + "/CHANG-CHAN-LST", (d: SpecDocument, p: string) => new ChangeAdvocateEntry(d, p), "CHANG-CHAN-xxx");
+  get changeAdvocates(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/CHANG-CHAN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CHANG-CHAN-xxx");
   }
 }
 
@@ -22921,25 +22370,6 @@ export class PreconditionsAndTriggers extends SomNode {
   }
 }
 
-// A single predecessor dependency entry.
-export class PredecessorDependencyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -23123,8 +22553,8 @@ export class ProblemStatement extends SomNode {
   }
 
   // Related pain points from Current State Analysis.
-  get relatedPainPoints(): SomList<RelatedPainPointEntry> {
-    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d: SpecDocument, p: string) => new RelatedPainPointEntry(d, p), "RPPE-RELA-xxx");
+  get relatedPainPoints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RPPE-RELA-xxx");
   }
 }
 
@@ -24631,8 +24061,8 @@ export class QualityFramework extends SomNode {
   }
 
   // Quality dependencies map.
-  get categoryDependencies(): SomList<CategoryDependencyEntry> {
-    return new SomList(this.doc, this.path + "/CATEG-CATE-LST", (d: SpecDocument, p: string) => new CategoryDependencyEntry(d, p), "CATEG-CATE-xxx");
+  get categoryDependencies(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/CATEG-CATE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CATEG-CATE-xxx");
   }
 }
 
@@ -24959,25 +24389,6 @@ export class ReadinessCriteriaEntry extends SomNode {
   }
 }
 
-// A single recovery flow entry.
-export class RecoveryFlowEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Recovery procedures.
 export class RecoveryProcedures extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -25239,25 +24650,6 @@ export class RelatedDocumentEntry extends SomNode {
 
   get content(): RelatedDocumentEntryContentForm {
     return new RelatedDocumentEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single related pain point entry.
-export class RelatedPainPointEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -25812,25 +25204,6 @@ export class ReportSectionEntry extends SomNode {
   // Contains 0+× Report Chart.
   get charts(): SomList<ReportChartEntry> {
     return new SomList(this.doc, this.path + "/RECHEN-CHAR-LST", (d: SpecDocument, p: string) => new ReportChartEntry(d, p), "RECHEN-CHAR-xxx");
-  }
-}
-
-// A single representative quote entry.
-export class RepresentativeQuoteEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -26397,25 +25770,6 @@ export class ResourceRequirementEntry extends SomNode {
   }
 }
 
-// A single response strategy entry.
-export class ResponseStrategyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Responsibility change entry (form).
 export class ResponsibilityChangeEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -26889,25 +26243,6 @@ export class RevisionHistory extends SomNode {
   }
 }
 
-// A single risk based decision entry.
-export class RiskBasedDecisionEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Business impact assessment for the risk.
 export class RiskBusinessImpact extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -26926,25 +26261,6 @@ export class RiskBusinessImpact extends SomNode {
   // Operational and delivery consequences.
   get delivery(): RiskBusinessImpactDeliveryForm {
     return new RiskBusinessImpactDeliveryForm(this.doc, this.path + "/RBID");
-  }
-}
-
-// A single risk category entry.
-export class RiskCategoryEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -27864,25 +27180,6 @@ export class ScheduledMaintenancePolicy extends SomNode {
   }
 }
 
-// A single scope assumption entry.
-export class ScopeAssumptionEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
@@ -27920,8 +27217,8 @@ export class ScopeBoundaries extends SomNode {
   }
 
   // Scope Assumptions.
-  get scopeAssumptions(): SomList<ScopeAssumptionEntry> {
-    return new SomList(this.doc, this.path + "/SCOPE-SCOP-LST", (d: SpecDocument, p: string) => new ScopeAssumptionEntry(d, p), "SCOPE-SCOP-xxx");
+  get scopeAssumptions(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/SCOPE-SCOP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SCOPE-SCOP-xxx");
   }
 }
 
@@ -28740,25 +28037,6 @@ export class SecurityCodeReviewPolicy extends SomNode {
   // Finding management and residual risk handling.
   get findings(): SecurityCodeReviewPolicyFindingsForm {
     return new SecurityCodeReviewPolicyFindingsForm(this.doc, this.path + "/SCRPF");
-  }
-}
-
-// A single security concern entry.
-export class SecurityConcernEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -29891,25 +29169,6 @@ export class SharedLibraryEntry extends SomNode {
   }
 }
 
-// A single shared service entry.
-export class SharedServiceEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
@@ -30901,32 +30160,13 @@ export class StagingStrategy extends SomNode {
   // (skipped: rationaleNarrative has no target type)
 
   // 13.1.3. Key Assumptions.
-  get keyAssumptions(): SomList<KeyAssumptionEntry> {
-    return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d: SpecDocument, p: string) => new KeyAssumptionEntry(d, p), "KEYAS-KEYA-xxx");
+  get keyAssumptions(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KEYAS-KEYA-xxx");
   }
 
   // 13.1.4. Constraints.
-  get constraints(): SomList<StagingStrategyConstraintEntry> {
-    return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d: SpecDocument, p: string) => new StagingStrategyConstraintEntry(d, p), "STAGI-CONS-xxx");
-  }
-}
-
-// A single constraint entry.
-export class StagingStrategyConstraintEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get constraints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STAGI-CONS-xxx");
   }
 }
 
@@ -31257,27 +30497,8 @@ export class StepUpAuthenticationPolicy extends SomNode {
   }
 
   // Step-Up Authentication Details (text).
-  get stepUpDetails(): SomList<StepUpDetailEntry> {
-    return new SomList(this.doc, this.path + "/STEPU-STEP-LST", (d: SpecDocument, p: string) => new StepUpDetailEntry(d, p), "STEPU-STEP-xxx");
-  }
-}
-
-// A single step up detail entry.
-export class StepUpDetailEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get stepUpDetails(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/STEPU-STEP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STEPU-STEP-xxx");
   }
 }
 
@@ -31923,8 +31144,8 @@ export class SystemCostAnalysis extends SomNode {
   // (skipped: costBreakdown has no target type)
 
   // Non-financial benefits to include in ROI.
-  get nonFinancialBenefits(): SomList<NonFinancialBenefitEntry> {
-    return new SomList(this.doc, this.path + "/NONFI-NONF-LST", (d: SpecDocument, p: string) => new NonFinancialBenefitEntry(d, p), "NONFI-NONF-xxx");
+  get nonFinancialBenefits(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/NONFI-NONF-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "NONFI-NONF-xxx");
   }
 }
 
@@ -31954,8 +31175,8 @@ export class SystemDataScope extends SomNode {
   }
 
   // Data quality issues to address.
-  get knownQualityIssues(): SomList<KnownQualityIssueEntry> {
-    return new SomList(this.doc, this.path + "/KNOWN-KNOW-LST", (d: SpecDocument, p: string) => new KnownQualityIssueEntry(d, p), "KNOWN-KNOW-xxx");
+  get knownQualityIssues(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/KNOWN-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KNOWN-KNOW-xxx");
   }
 }
 
@@ -32139,8 +31360,8 @@ export class SystemErrorDisplay extends SomNode {
   // (skipped: systemErrorNarrative has no target type)
 
   // Error page designs.
-  get errorPageDesigns(): SomList<ErrorPageDesignEntry> {
-    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d: SpecDocument, p: string) => new ErrorPageDesignEntry(d, p), "EPDE-ERRO-xxx");
+  get errorPageDesigns(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "EPDE-ERRO-xxx");
   }
 
   // Error codes catalog.
@@ -32240,8 +31461,8 @@ export class SystemKnowledgeTransfer extends SomNode {
   }
 
   // Critical knowledge areas to preserve.
-  get criticalKnowledgeAreas(): SomList<CriticalKnowledgeAreaEntry> {
-    return new SomList(this.doc, this.path + "/CRITI-CRIT-LST", (d: SpecDocument, p: string) => new CriticalKnowledgeAreaEntry(d, p), "CRITI-CRIT-xxx");
+  get criticalKnowledgeAreas(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/CRITI-CRIT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CRITI-CRIT-xxx");
   }
 
   // Knowledge transfer plan if SME risk is high.
@@ -32336,8 +31557,8 @@ export class SystemOperation extends SomNode {
   }
 
   // Maintenance Procedures.
-  get maintenanceProcedures(): SomList<MaintenanceProcedureEntry> {
-    return new SomList(this.doc, this.path + "/MAINT-MAIN-LST", (d: SpecDocument, p: string) => new MaintenanceProcedureEntry(d, p), "MAINT-MAIN-xxx");
+  get maintenanceProcedures(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/MAINT-MAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MAINT-MAIN-xxx");
   }
 }
 
@@ -32483,8 +31704,8 @@ export class SystemQualityGoals extends SomNode {
   // (skipped: qaStrategy has no target type)
 
   // Quality attribute interdependencies.
-  get attributeInterdependencies(): SomList<AttributeInterdependencyEntry> {
-    return new SomList(this.doc, this.path + "/ATTRI-ATTR-LST", (d: SpecDocument, p: string) => new AttributeInterdependencyEntry(d, p), "ATTRI-ATTR-xxx");
+  get attributeInterdependencies(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/ATTRI-ATTR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ATTRI-ATTR-xxx");
   }
 
   // Quality attribute priority radar.
@@ -32584,8 +31805,8 @@ export class SystemReplacementStrategy extends SomNode {
   }
 
   // Predecessor systems that must be addressed first.
-  get predecessorDependencies(): SomList<PredecessorDependencyEntry> {
-    return new SomList(this.doc, this.path + "/PREDE-PRED-LST", (d: SpecDocument, p: string) => new PredecessorDependencyEntry(d, p), "PREDE-PRED-xxx");
+  get predecessorDependencies(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/PREDE-PRED-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "PREDE-PRED-xxx");
   }
 
   // Success criteria for replacement completion.
@@ -32802,32 +32023,13 @@ export class SystemTaskEntry extends SomNode {
   }
 
   // Task workflow steps.
-  get workflowSteps(): SomList<SystemTaskWorkflowStepEntry> {
-    return new SomList(this.doc, this.path + "/SYSTE-WORK-LST", (d: SpecDocument, p: string) => new SystemTaskWorkflowStepEntry(d, p), "SYSTE-WORK-xxx");
+  get workflowSteps(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/SYSTE-WORK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYSTE-WORK-xxx");
   }
 
   // Variations and exceptions.
-  get variationsAndExceptions(): SomList<VariationsAndExceptionEntry> {
-    return new SomList(this.doc, this.path + "/VARIA-VARI-LST", (d: SpecDocument, p: string) => new VariationsAndExceptionEntry(d, p), "VARIA-VARI-xxx");
-  }
-}
-
-// A single workflow step entry.
-export class SystemTaskWorkflowStepEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get variationsAndExceptions(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/VARIA-VARI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VARIA-VARI-xxx");
   }
 }
 
@@ -32857,13 +32059,13 @@ export class SystemTechnicalAssessment extends SomNode {
   }
 
   // Known technical issues and deficiencies.
-  get knownIssues(): SomList<KnownIssueEntry> {
-    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d: SpecDocument, p: string) => new KnownIssueEntry(d, p), "KIE-KNOW-xxx");
+  get knownIssues(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KIE-KNOW-xxx");
   }
 
   // Security vulnerabilities and compliance gaps.
-  get securityConcerns(): SomList<SecurityConcernEntry> {
-    return new SomList(this.doc, this.path + "/SECUR-SECU-LST", (d: SpecDocument, p: string) => new SecurityConcernEntry(d, p), "SECUR-SECU-xxx");
+  get securityConcerns(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/SECUR-SECU-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SECUR-SECU-xxx");
   }
 }
 
@@ -33317,8 +32519,8 @@ export class TechnicalEnvironment extends SomNode {
   // (skipped: existingInfrastructure has no target type)
 
   // Data center and hosting environment details.
-  get datacenters(): SomList<DatacenterEntry> {
-    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d: SpecDocument, p: string) => new DatacenterEntry(d, p), "DATAC-DATA-xxx");
+  get datacenters(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DATAC-DATA-xxx");
   }
 
   // Network topology and connectivity constraints.
@@ -33352,13 +32554,13 @@ export class TechnicalEnvironmentNetwork extends SomNode {
   }
 
   // DevOps and deployment standards.
-  get devopsStandards(): SomList<DevopsStandardEntry> {
-    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d: SpecDocument, p: string) => new DevopsStandardEntry(d, p), "DEVOP-DEVO-xxx");
+  get devopsStandards(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DEVOP-DEVO-xxx");
   }
 
   // Monitoring and observability requirements.
-  get observabilityRequirements(): SomList<ObservabilityRequirementEntry> {
-    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d: SpecDocument, p: string) => new ObservabilityRequirementEntry(d, p), "OBSER-OBSE-xxx");
+  get observabilityRequirements(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "OBSER-OBSE-xxx");
   }
 
   // Disaster recovery and business continuity requirements.
@@ -36104,13 +35306,13 @@ export class UserJourney extends SomNode {
   }
 
   // Key touchpoints.
-  get keyTouchpoints(): SomList<KeyTouchpointEntry> {
-    return new SomList(this.doc, this.path + "/KEYTO-KEYT-LST", (d: SpecDocument, p: string) => new KeyTouchpointEntry(d, p), "KEYTO-KEYT-xxx");
+  get keyTouchpoints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/KEYTO-KEYT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KEYTO-KEYT-xxx");
   }
 
   // Pain points in the journey.
-  get painPoints(): SomList<UserJourneyPainPointEntry> {
-    return new SomList(this.doc, this.path + "/USERJ-PAIN-LST", (d: SpecDocument, p: string) => new UserJourneyPainPointEntry(d, p), "USERJ-PAIN-xxx");
+  get painPoints(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/USERJ-PAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "USERJ-PAIN-xxx");
   }
 
   // Opportunities for delight.
@@ -36120,25 +35322,6 @@ export class UserJourney extends SomNode {
 
   set opportunitiesForDelight(value: string) {
     this.doc.setContent(this.path + "/UJ-OPPO", value);
-  }
-}
-
-// A single pain point entry.
-export class UserJourneyPainPointEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -36407,8 +35590,8 @@ export class UserPersonaDetails extends SomNode {
   }
 
   // Key quotes that represent this persona's mindset.
-  get representativeQuotes(): SomList<RepresentativeQuoteEntry> {
-    return new SomList(this.doc, this.path + "/REPRE-REPR-LST", (d: SpecDocument, p: string) => new RepresentativeQuoteEntry(d, p), "REPRE-REPR-xxx");
+  get representativeQuotes(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/REPRE-REPR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "REPRE-REPR-xxx");
   }
 }
 
@@ -36669,8 +35852,8 @@ export class ValidationFeedback extends SomNode {
   }
 
   // Field validation rules by type.
-  get fieldValidationRules(): SomList<FieldValidationRuleEntry> {
-    return new SomList(this.doc, this.path + "/FIELD-FIEL-LST", (d: SpecDocument, p: string) => new FieldValidationRuleEntry(d, p), "FIELD-FIEL-xxx");
+  get fieldValidationRules(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/FIELD-FIEL-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "FIELD-FIEL-xxx");
   }
 }
 
@@ -36682,25 +35865,6 @@ export class ValidationMessageTemplate extends SomNode {
 
   get content(): ValidationMessageTemplateContentForm {
     return new ValidationMessageTemplateContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single validation rule entry.
-export class ValidationRuleEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -36741,27 +35905,8 @@ export class ValueProposition extends SomNode {
   }
 
   // Key Performance Indicators for value measurement.
-  get kpis(): SomList<KpiEntry> {
-    return new SomList(this.doc, this.path + "/KPIEN-KPIS-LST", (d: SpecDocument, p: string) => new KpiEntry(d, p), "KPIEN-KPIS-xxx");
-  }
-}
-
-// A single variations and exception entry.
-export class VariationsAndExceptionEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get kpis(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/KPIEN-KPIS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KPIEN-KPIS-xxx");
   }
 }
 

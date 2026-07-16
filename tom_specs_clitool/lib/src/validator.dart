@@ -34,14 +34,25 @@ import 'model_reader.dart';
     }
 
     for (final field in cls.fields) {
-      // §6.1 — no List<String> or List<primitive>
+      // §6.1 — list fields. Shape (5) uses `List<ComplexType>`; shape (6) is an
+      // inline list of content sub-sections written as `List<String>` carrying
+      // both `@SectionId` (the `-LST` container id) and `@SectionIdPattern`. A
+      // `List<String>` (or `List<primitive>`) WITHOUT that annotated pair is a
+      // bare primitive list and remains an error.
       if (field.isList) {
         final inner = field.listElementTypeName ?? '';
         if (_isPrimitive(inner)) {
-          errors.add(
-            '$className.${field.name}: List<$inner> not allowed — '
-            'list fields must use complex types',
-          );
+          final isInlineContentList = inner == 'String' &&
+              field.getAnnotation('SectionId') != null &&
+              field.getAnnotation('SectionIdPattern') != null;
+          if (!isInlineContentList) {
+            errors.add(
+              '$className.${field.name}: List<$inner> not allowed — '
+              'list fields must use complex types, or (for List<String>) carry '
+              '@SectionId + @SectionIdPattern as an inline content sub-section '
+              'list (§6.1 shape 6)',
+            );
+          }
         }
       }
 

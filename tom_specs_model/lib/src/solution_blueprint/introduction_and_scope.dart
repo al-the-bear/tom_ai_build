@@ -580,7 +580,7 @@ class ProblemStatement {
     'State Analysis that this problem statement connects to.',
   )
   @SerializationOrder(2)
-  List<RelatedPainPointEntry> relatedPainPoints = [];
+  List<String> relatedPainPoints = [];
 }
 
 /// 4.1.1.2. Opportunity Statement.
@@ -899,7 +899,7 @@ class ValueProposition {
     'Include the metric, its baseline, and its target.',
   )
   @SerializationOrder(4)
-  List<KpiEntry> kpis = [];
+  List<String> kpis = [];
 }
 
 /// 4.1.1.5. Strategic Alignment.
@@ -1054,7 +1054,7 @@ class ScopeBoundaries {
     'boundaries. State what is assumed and the impact if it proves false.',
   )
   @SerializationOrder(4)
-  List<ScopeAssumptionEntry> scopeAssumptions = [];
+  List<String> scopeAssumptions = [];
 }
 
 /// A scope item entry (in-scope or out-of-scope).
@@ -1519,7 +1519,7 @@ class ExternalActorEntry {
     'and the system.',
   )
   @SerializationOrder(3)
-  List<InteractionScenarioEntry> interactionScenarios = [];
+  List<String> interactionScenarios = [];
 }
 
 /// 4.1.2.4. External Systems.
@@ -2150,7 +2150,7 @@ class ApplicableRegulationEntry {
     'this regulation.',
   )
   @SerializationOrder(1)
-  List<ComplianceMeasureEntry> complianceMeasures = [];
+  List<String> complianceMeasures = [];
 }
 
 // ---------------------------------------------------------------------------
@@ -5015,7 +5015,7 @@ class UserPersonaDetails {
     'to make the persona vivid for designers.',
   )
   @SerializationOrder(6)
-  List<RepresentativeQuoteEntry> representativeQuotes = [];
+  List<String> representativeQuotes = [];
 }
 
 /// A system task entry.
@@ -5179,7 +5179,7 @@ class SystemTaskEntry {
     'user performs them.',
   )
   @SerializationOrder(5)
-  List<SystemTaskWorkflowStepEntry> workflowSteps = [];
+  List<String> workflowSteps = [];
 
   /// Variations and exceptions.
   @StandardReferences([
@@ -5193,7 +5193,7 @@ class SystemTaskEntry {
     'flow.',
   )
   @SerializationOrder(6)
-  List<VariationsAndExceptionEntry> variationsAndExceptions = [];
+  List<String> variationsAndExceptions = [];
 }
 
 /// 4.1.4.n.4. Access and Permissions.
@@ -5645,7 +5645,7 @@ class UserJourney {
   @SectionIdPattern('KEYTO-KEYT-xxx')
   @ContentHelp('Add one entry per key touchpoint in the user journey.')
   @SerializationOrder(3)
-  List<KeyTouchpointEntry> keyTouchpoints = [];
+  List<String> keyTouchpoints = [];
 
   /// Pain points in the journey.
   @StandardReferences([
@@ -5656,7 +5656,7 @@ class UserJourney {
   @SectionIdPattern('USERJ-PAIN-xxx')
   @ContentHelp('Add one entry per pain point or friction in the user journey.')
   @SerializationOrder(4)
-  List<UserJourneyPainPointEntry> painPoints = [];
+  List<String> painPoints = [];
 
   /// Opportunities for delight.
   @SectionId('UJ-OPPO')
@@ -11642,7 +11642,7 @@ class SystemTechnicalAssessment {
     'or deficiency affecting the system.',
   )
   @SerializationOrder(4)
-  List<KnownIssueEntry> knownIssues = [];
+  List<String> knownIssues = [];
 
   /// Security vulnerabilities and compliance gaps.
   @StandardReferences(
@@ -11659,7 +11659,7 @@ class SystemTechnicalAssessment {
     'note severity and remediation status.',
   )
   @SerializationOrder(5)
-  List<SecurityConcernEntry> securityConcerns = [];
+  List<String> securityConcerns = [];
 }
 
 /// Business criticality assessment.
@@ -12028,7 +12028,7 @@ class SystemReplacementStrategy {
     'addressed before this system can proceed.',
   )
   @SerializationOrder(4)
-  List<PredecessorDependencyEntry> predecessorDependencies = [];
+  List<String> predecessorDependencies = [];
 
   /// Success criteria for replacement completion.
   @ContentHelp(
@@ -12216,7 +12216,7 @@ class SystemDataScope {
     'and remediation approach.',
   )
   @SerializationOrder(4)
-  List<KnownQualityIssueEntry> knownQualityIssues = [];
+  List<String> knownQualityIssues = [];
 }
 
 /// A data entity migration entry.
@@ -12701,7 +12701,7 @@ class SystemCostAnalysis {
     'agility) to weigh in the ROI case.',
   )
   @SerializationOrder(5)
-  List<NonFinancialBenefitEntry> nonFinancialBenefits = [];
+  List<String> nonFinancialBenefits = [];
 }
 
 /// Per-system migration plan.
@@ -12992,7 +12992,7 @@ class SystemKnowledgeTransfer {
     'lost when the system is retired.',
   )
   @SerializationOrder(1)
-  List<CriticalKnowledgeAreaEntry> criticalKnowledgeAreas = [];
+  List<String> criticalKnowledgeAreas = [];
 
   /// Knowledge transfer plan if SME risk is high.
   @ContentHelp(
@@ -13138,7 +13138,7 @@ class MigrationConsiderations {
     'condition, the escalation path, and the responsible decision authority.',
   )
   @SerializationOrder(11)
-  List<EscalationProcedureEntry> escalationProcedures = [];
+  List<String> escalationProcedures = [];
 }
 
 /// Migration resource requirements.
@@ -13499,7 +13499,7 @@ class MigrationRisks {
     'kinds of migration risks it groups.',
   )
   @SerializationOrder(7)
-  List<RiskCategoryEntry> riskCategories = [];
+  List<String> riskCategories = [];
 
   /// Risk-based decision making criteria.
   @StandardReferences(
@@ -13517,7 +13517,7 @@ class MigrationRisks {
     'threshold or criterion and the decision it triggers.',
   )
   @SerializationOrder(8)
-  List<RiskBasedDecisionEntry> riskBasedDecisions = [];
+  List<String> riskBasedDecisions = [];
 
   /// Risk monitoring and control procedures.
   @StandardReferences(
@@ -13535,7 +13535,7 @@ class MigrationRisks {
     'tracked, how often, and the control action taken.',
   )
   @SerializationOrder(9)
-  List<MonitoringProcedureEntry> monitoringProcedures = [];
+  List<String> monitoringProcedures = [];
 
   /// Risk response strategies by category.
   @StandardReferences(
@@ -13553,7 +13553,7 @@ class MigrationRisks {
     'its chosen response approach and rationale.',
   )
   @SerializationOrder(10)
-  List<ResponseStrategyEntry> responseStrategies = [];
+  List<String> responseStrategies = [];
 
   /// Risk aggregation and portfolio view.
   @ContentHelp(
@@ -14992,7 +14992,7 @@ class InterfaceDataSpec {
     'and internal representations.',
   )
   @SerializationOrder(2)
-  List<MappingRuleEntry> mappingRules = [];
+  List<String> mappingRules = [];
 
   /// Data validation rules.
   @StandardReferences(
@@ -15006,7 +15006,7 @@ class InterfaceDataSpec {
     'payloads at the interface boundary.',
   )
   @SerializationOrder(3)
-  List<ValidationRuleEntry> validationRules = [];
+  List<String> validationRules = [];
 }
 
 /// Data entity exchanged.
@@ -15343,7 +15343,7 @@ class InterfaceOperational {
     'upstream services, network paths, and shared infrastructure.',
   )
   @SerializationOrder(4)
-  List<DependencyEntry> dependencies = [];
+  List<String> dependencies = [];
 }
 
 /// Error handling specification.
@@ -15491,7 +15491,7 @@ class InterfaceErrorHandling {
     'error conditions to detection and recovery steps.',
   )
   @SerializationOrder(4)
-  List<ErrorProcedureEntry> errorProcedures = [];
+  List<String> errorProcedures = [];
 }
 
 /// Governance and contracts.
@@ -16411,7 +16411,7 @@ class OrganizationalEnvironment {
     'affect project adoption, collaboration, or change readiness.',
   )
   @SerializationOrder(7)
-  List<CulturalConsiderationEntry> culturalConsiderations = [];
+  List<String> culturalConsiderations = [];
 
   /// Stakeholder communication preferences.
   @StandardReferences(
@@ -16428,7 +16428,7 @@ class OrganizationalEnvironment {
     'engagement channels, frequency, and reporting style.',
   )
   @SerializationOrder(8)
-  List<CommunicationPreferenceEntry> communicationPreferences = [];
+  List<String> communicationPreferences = [];
 
   // -------------------------------------------------------------------------
   // Political Landscape
@@ -16457,7 +16457,7 @@ class OrganizationalEnvironment {
     'role in driving adoption across the organization.',
   )
   @SerializationOrder(10)
-  List<ChangeAdvocateEntry> changeAdvocates = [];
+  List<String> changeAdvocates = [];
 }
 
 /// An affected department entry.
@@ -17190,7 +17190,7 @@ class TechnicalEnvironment {
     'ownership, capacity, and any reuse or integration constraints.',
   )
   @SerializationOrder(6)
-  List<DatacenterEntry> datacenters = [];
+  List<String> datacenters = [];
 
   /// Network topology and connectivity constraints.
   @ContentHelp(
@@ -17324,7 +17324,7 @@ class TechnicalEnvironmentNetwork {
     'release process, and environment promotion rules.',
   )
   @SerializationOrder(1)
-  List<DevopsStandardEntry> devopsStandards = [];
+  List<String> devopsStandards = [];
 
   /// Monitoring and observability requirements.
   @StandardReferences(
@@ -17341,7 +17341,7 @@ class TechnicalEnvironmentNetwork {
     'alerting standards, and required monitoring platforms.',
   )
   @SerializationOrder(2)
-  List<ObservabilityRequirementEntry> observabilityRequirements = [];
+  List<String> observabilityRequirements = [];
 
   /// Disaster recovery and business continuity requirements.
   @ContentHelp(
@@ -18764,343 +18764,33 @@ captures partner-specific logic.
   String? content;
 }
 
-/// A single compliance measure entry.
-@SectionId('COMPL')
-class ComplianceMeasureEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single interaction scenario entry.
-@SectionId('INTER')
-class InteractionScenarioEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single related pain point entry.
-@SectionId('RPPE')
-class RelatedPainPointEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single scope assumption entry.
-@SectionId('SCOPE')
-class ScopeAssumptionEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single workflow step entry.
-@SectionId('SYSTE')
-class SystemTaskWorkflowStepEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single variations and exception entry.
-@SectionId('VARIA')
-class VariationsAndExceptionEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single key touchpoint entry.
-@SectionId('KEYTO')
-class KeyTouchpointEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single pain point entry.
-@SectionId('USERJ')
-class UserJourneyPainPointEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single representative quote entry.
-@SectionId('REPRE')
-class RepresentativeQuoteEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single kpi entry.
-@SectionId('KPIEN')
-class KpiEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single mapping rule entry.
-@SectionId('MAPPI')
-class MappingRuleEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single validation rule entry.
-@SectionId('VALID')
-class ValidationRuleEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single error procedure entry.
-@SectionId('ERROR')
-class ErrorProcedureEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single dependency entry.
-@SectionId('DEPEN')
-class DependencyEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single escalation procedure entry.
-@SectionId('ESCAL')
-class EscalationProcedureEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single risk category entry.
-@SectionId('RISKC')
-class RiskCategoryEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single risk based decision entry.
-@SectionId('RISKB')
-class RiskBasedDecisionEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single monitoring procedure entry.
-@SectionId('MONIT')
-class MonitoringProcedureEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single response strategy entry.
-@SectionId('RESPO')
-class ResponseStrategyEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single cultural consideration entry.
-@SectionId('CULTU')
-class CulturalConsiderationEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single communication preference entry.
-@SectionId('COMMU')
-class CommunicationPreferenceEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single change advocate entry.
-@SectionId('CHANG')
-class ChangeAdvocateEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single non financial benefit entry.
-@SectionId('NONFI')
-class NonFinancialBenefitEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single known quality issue entry.
-@SectionId('KNOWN')
-class KnownQualityIssueEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single critical knowledge area entry.
-@SectionId('CRITI')
-class CriticalKnowledgeAreaEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single predecessor dependency entry.
-@SectionId('PREDE')
-class PredecessorDependencyEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single known issue entry.
-@SectionId('KIE')
-class KnownIssueEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single security concern entry.
-@SectionId('SECUR')
-class SecurityConcernEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single datacenter entry.
-@SectionId('DATAC')
-class DatacenterEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single devops standard entry.
-@SectionId('DEVOP')
-class DevopsStandardEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single observability requirement entry.
-@SectionId('OBSER')
-class ObservabilityRequirementEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

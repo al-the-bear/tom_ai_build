@@ -934,15 +934,6 @@ AssumptionConstraintDependencyRegister AssumptionsConstraintsDependencies::regis
   return AssumptionConstraintDependencyRegister(doc(), som::joinPath(path(), "register"));
 }
 
-AttributeInterdependencyEntry::AttributeInterdependencyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AttributeInterdependencyEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AttributeInterdependencyEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 AuditAndLogging::AuditAndLogging(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AuditAndLogging::content() const {
@@ -1918,15 +1909,6 @@ CapacityReviewProcessPlanningForm CapacityReviewProcess::planning() const {
   return CapacityReviewProcessPlanningForm(doc(), som::joinPath(path(), "CRPP"));
 }
 
-CategoryDependencyEntry::CategoryDependencyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string CategoryDependencyEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CategoryDependencyEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 CcbMemberEntry::CcbMemberEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 CcbMemberEntryContentForm CcbMemberEntry::content() const {
@@ -2006,15 +1988,6 @@ CertificationRequirementsSectionCostsForm CertificationRequirementsSection::cost
 }
 CertificationRequirementsSectionMarketingForm CertificationRequirementsSection::marketing() const {
   return CertificationRequirementsSectionMarketingForm(doc(), som::joinPath(path(), "CRSM"));
-}
-
-ChangeAdvocateEntry::ChangeAdvocateEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ChangeAdvocateEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ChangeAdvocateEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 ChangeCategoryEntry::ChangeCategoryEntry(som::SpecDocument& doc, std::string path)
@@ -2602,15 +2575,6 @@ CommunicationPatternsObservabilityForm CommunicationPatterns::observability() co
   return CommunicationPatternsObservabilityForm(doc(), som::joinPath(path(), "COPAOB"));
 }
 
-CommunicationPreferenceEntry::CommunicationPreferenceEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string CommunicationPreferenceEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CommunicationPreferenceEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 CommunicationRequirements::CommunicationRequirements(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CommunicationRequirements::content() const {
@@ -2734,15 +2698,6 @@ std::string ComplianceFramework::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
 void ComplianceFramework::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-ComplianceMeasureEntry::ComplianceMeasureEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ComplianceMeasureEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ComplianceMeasureEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
@@ -3382,15 +3337,6 @@ void CredentialRecoveryPolicy::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
-CriticalKnowledgeAreaEntry::CriticalKnowledgeAreaEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string CriticalKnowledgeAreaEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CriticalKnowledgeAreaEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 CrossBoundaryErrorHandling::CrossBoundaryErrorHandling(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CrossBoundaryErrorHandling::content() const {
@@ -3445,15 +3391,6 @@ std::string CrossTenantAccessPolicy::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
 void CrossTenantAccessPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-CulturalConsiderationEntry::CulturalConsiderationEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string CulturalConsiderationEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CulturalConsiderationEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
@@ -5459,15 +5396,6 @@ void DatabaseEncryptionPolicy::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
-DatacenterEntry::DatacenterEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DatacenterEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DatacenterEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 DebuggingConfiguration::DebuggingConfiguration(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 DebuggingConfigurationContentForm DebuggingConfiguration::content() const {
@@ -5739,15 +5667,6 @@ Integrations DependenciesAndIntegrations::integrations() const {
 }
 IntegrationHealthSummary DependenciesAndIntegrations::healthSummary() const {
   return IntegrationHealthSummary(doc(), som::joinPath(path(), "healthSummary"));
-}
-
-DependencyEntry::DependencyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DependencyEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 DependencyHealthMonitoring::DependencyHealthMonitoring(som::SpecDocument& doc, std::string path)
@@ -6207,15 +6126,6 @@ DevelopmentQualityGatesDocumentationForm DevelopmentQualityGates::documentation(
 }
 DevelopmentQualityGatesPerformanceForm DevelopmentQualityGates::performance() const {
   return DevelopmentQualityGatesPerformanceForm(doc(), som::joinPath(path(), "DQGP"));
-}
-
-DevopsStandardEntry::DevopsStandardEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DevopsStandardEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DevopsStandardEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 DisasterRecoveryRequirements::DisasterRecoveryRequirements(som::SpecDocument& doc, std::string path)
@@ -7025,24 +6935,6 @@ ErrorHandlingStandardsRecoveryForm ErrorHandlingStandards::recovery() const {
   return ErrorHandlingStandardsRecoveryForm(doc(), som::joinPath(path(), "ERHASTRE"));
 }
 
-ErrorPageDesignEntry::ErrorPageDesignEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ErrorPageDesignEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ErrorPageDesignEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-ErrorProcedureEntry::ErrorProcedureEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ErrorProcedureEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ErrorProcedureEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 ErrorRecovery::ErrorRecovery(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ErrorRecoveryRecoveryMechanismsContentForm ErrorRecovery::recoveryMechanismsContent() const {
@@ -7068,15 +6960,6 @@ som::SomList ErrorRecovery::recoveryFlows() const {
 }
 som::SomList ErrorRecovery::recoveryScenarios() const {
   return som::SomList(doc(), som::joinPath(path(), "RCVSCN-RECO-LST"), "RCVSCN-RECO-xxx");
-}
-
-EscalationProcedureEntry::EscalationProcedureEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string EscalationProcedureEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void EscalationProcedureEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 EvaluationCriteria::EvaluationCriteria(som::SpecDocument& doc, std::string path)
@@ -7691,15 +7574,6 @@ FieldValidationRuleContentForm FieldValidationRule::content() const {
   return FieldValidationRuleContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-FieldValidationRuleEntry::FieldValidationRuleEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FieldValidationRuleEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FieldValidationRuleEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 FileAccessControlPolicy::FileAccessControlPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string FileAccessControlPolicy::content() const {
@@ -7806,15 +7680,6 @@ Flexibility FlexibilityCharacteristic::flexibility() const {
 }
 Portability FlexibilityCharacteristic::portability() const {
   return Portability(doc(), som::joinPath(path(), "portability"));
-}
-
-FragilePointEntry::FragilePointEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FragilePointEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FragilePointEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 FrameworkRequirementEntry::FrameworkRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -8031,15 +7896,6 @@ GeographicDistributionRequirementsAnycastForm GeographicDistributionRequirements
 }
 GeographicDistributionRequirementsPerformanceForm GeographicDistributionRequirements::performance() const {
   return GeographicDistributionRequirementsPerformanceForm(doc(), som::joinPath(path(), "GDRP"));
-}
-
-GlobalEntryPointEntry::GlobalEntryPointEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string GlobalEntryPointEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void GlobalEntryPointEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 GlobalRoleExclusionEntry::GlobalRoleExclusionEntry(som::SpecDocument& doc, std::string path)
@@ -8720,15 +8576,6 @@ som::SomList IntegrationHealthSummary::fragilePoints() const {
   return som::SomList(doc(), som::joinPath(path(), "FRAGI-FRAG-LST"), "FRAGI-FRAG-xxx");
 }
 
-IntegrationPatternEntry::IntegrationPatternEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string IntegrationPatternEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void IntegrationPatternEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 IntegrationPointEntry::IntegrationPointEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 IntegrationPointEntryContentForm IntegrationPointEntry::content() const {
@@ -8901,15 +8748,6 @@ void InteractionPatterns::setContent(const std::string& value) {
 }
 som::SomList InteractionPatterns::patterns() const {
   return som::SomList(doc(), som::joinPath(path(), "INPTN-PATT-LST"), "INPTN-PATT-xxx");
-}
-
-InteractionScenarioEntry::InteractionScenarioEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string InteractionScenarioEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void InteractionScenarioEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 InteractionTestingStrategy::InteractionTestingStrategy(som::SpecDocument& doc, std::string path)
@@ -9299,15 +9137,6 @@ JourneyStageEntryContentForm JourneyStageEntry::content() const {
   return JourneyStageEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-KeyAssumptionEntry::KeyAssumptionEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string KeyAssumptionEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void KeyAssumptionEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 KeyAttributeEntry::KeyAttributeEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 KeyAttributeEntryContentForm KeyAttributeEntry::content() const {
@@ -9428,48 +9257,12 @@ KeyStoragePolicyContentForm KeyStoragePolicy::content() const {
   return KeyStoragePolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-KeyTouchpointEntry::KeyTouchpointEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string KeyTouchpointEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void KeyTouchpointEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 KnowledgeTransfer::KnowledgeTransfer(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string KnowledgeTransfer::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
 void KnowledgeTransfer::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-KnownIssueEntry::KnownIssueEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string KnownIssueEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void KnownIssueEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-KnownQualityIssueEntry::KnownQualityIssueEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string KnownQualityIssueEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void KnownQualityIssueEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-KpiEntry::KpiEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string KpiEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void KpiEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 
@@ -9866,15 +9659,6 @@ MaintenanceDependencyEntryRiskForm MaintenanceDependencyEntry::risk() const {
   return MaintenanceDependencyEntryRiskForm(doc(), som::joinPath(path(), "MDER"));
 }
 
-MaintenanceProcedureEntry::MaintenanceProcedureEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MaintenanceProcedureEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MaintenanceProcedureEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 MaintenanceUserImpact::MaintenanceUserImpact(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 MaintenanceUserImpactContentForm MaintenanceUserImpact::content() const {
@@ -9933,15 +9717,6 @@ MaintenanceUserImpact MaintenanceWindowsSection::userImpact() const {
 }
 PostMaintenanceValidation MaintenanceWindowsSection::postMaintenance() const {
   return PostMaintenanceValidation(doc(), som::joinPath(path(), "postMaintenance"));
-}
-
-MappingRuleEntry::MappingRuleEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MappingRuleEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MappingRuleEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 MasterDataDomainEntry::MasterDataDomainEntry(som::SpecDocument& doc, std::string path)
@@ -10080,15 +9855,6 @@ void MfaConfiguration::setContent(const std::string& value) {
 }
 som::SomList MfaConfiguration::mfaDetails() const {
   return som::SomList(doc(), som::joinPath(path(), "MFADE-MFAD-LST"), "MFADE-MFAD-xxx");
-}
-
-MfaDetailEntry::MfaDetailEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MfaDetailEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MfaDetailEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 MigrationConsiderations::MigrationConsiderations(som::SpecDocument& doc, std::string path)
@@ -10470,15 +10236,6 @@ MonitoringInfrastructureCollectionForm MonitoringInfrastructure::collection() co
 }
 MonitoringInfrastructureAccessForm MonitoringInfrastructure::access() const {
   return MonitoringInfrastructureAccessForm(doc(), som::joinPath(path(), "MOINAC"));
-}
-
-MonitoringProcedureEntry::MonitoringProcedureEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MonitoringProcedureEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MonitoringProcedureEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 MoscowAnalysis::MoscowAnalysis(som::SpecDocument& doc, std::string path)
@@ -10895,15 +10652,6 @@ NewRoleResponsibilitiesDecisionAuthorityForm NewRoleResponsibilities::decisionAu
   return NewRoleResponsibilitiesDecisionAuthorityForm(doc(), som::joinPath(path(), "RODEAU"));
 }
 
-NonFinancialBenefitEntry::NonFinancialBenefitEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string NonFinancialBenefitEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void NonFinancialBenefitEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 NotificationChannelEntry::NotificationChannelEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 NotificationChannelEntryContentForm NotificationChannelEntry::content() const {
@@ -10959,15 +10707,6 @@ ObjectStateEntry::ObjectStateEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ObjectStateEntryContentForm ObjectStateEntry::content() const {
   return ObjectStateEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ObservabilityRequirementEntry::ObservabilityRequirementEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ObservabilityRequirementEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ObservabilityRequirementEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 OnCallProcedures::OnCallProcedures(som::SpecDocument& doc, std::string path)
@@ -11859,15 +11598,6 @@ PreconditionsAndTriggers::PreconditionsAndTriggers(som::SpecDocument& doc, std::
     : som::SomNode(doc, std::move(path)) {}
 PreconditionsAndTriggersContentForm PreconditionsAndTriggers::content() const {
   return PreconditionsAndTriggersContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-PredecessorDependencyEntry::PredecessorDependencyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string PredecessorDependencyEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PredecessorDependencyEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 PrimaryNavigation::PrimaryNavigation(som::SpecDocument& doc, std::string path)
@@ -12923,15 +12653,6 @@ ReadinessCriteriaEntryContentForm ReadinessCriteriaEntry::content() const {
   return ReadinessCriteriaEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-RecoveryFlowEntry::RecoveryFlowEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RecoveryFlowEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RecoveryFlowEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 RecoveryProcedures::RecoveryProcedures(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 RecoveryProceduresContentForm RecoveryProcedures::content() const {
@@ -13059,15 +12780,6 @@ RelatedDocumentEntry::RelatedDocumentEntry(som::SpecDocument& doc, std::string p
     : som::SomNode(doc, std::move(path)) {}
 RelatedDocumentEntryContentForm RelatedDocumentEntry::content() const {
   return RelatedDocumentEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-RelatedPainPointEntry::RelatedPainPointEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RelatedPainPointEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RelatedPainPointEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 RelationshipAttributeEntry::RelationshipAttributeEntry(som::SpecDocument& doc, std::string path)
@@ -13367,15 +13079,6 @@ som::SomList ReportSectionEntry::charts() const {
   return som::SomList(doc(), som::joinPath(path(), "RECHEN-CHAR-LST"), "RECHEN-CHAR-xxx");
 }
 
-RepresentativeQuoteEntry::RepresentativeQuoteEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RepresentativeQuoteEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RepresentativeQuoteEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 RequirementAcceptanceCriteria::RequirementAcceptanceCriteria(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string RequirementAcceptanceCriteria::content() const {
@@ -13664,15 +13367,6 @@ ResourceRequirementEntryContentForm ResourceRequirementEntry::content() const {
   return ResourceRequirementEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ResponseStrategyEntry::ResponseStrategyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ResponseStrategyEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ResponseStrategyEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 ResponsibilityChangeEntry::ResponsibilityChangeEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ResponsibilityChangeEntryContentForm ResponsibilityChangeEntry::content() const {
@@ -13922,15 +13616,6 @@ som::SomList RevisionHistory::revisions() const {
   return som::SomList(doc(), som::joinPath(path(), "RVHST-REVS-LST"), "RVHST-REVS-xxx");
 }
 
-RiskBasedDecisionEntry::RiskBasedDecisionEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RiskBasedDecisionEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RiskBasedDecisionEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 RiskBusinessImpact::RiskBusinessImpact(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 RiskBusinessImpactContentForm RiskBusinessImpact::content() const {
@@ -13941,15 +13626,6 @@ RiskBusinessImpactStakeholdersForm RiskBusinessImpact::stakeholders() const {
 }
 RiskBusinessImpactDeliveryForm RiskBusinessImpact::delivery() const {
   return RiskBusinessImpactDeliveryForm(doc(), som::joinPath(path(), "RBID"));
-}
-
-RiskCategoryEntry::RiskCategoryEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string RiskCategoryEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RiskCategoryEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 RiskEntry::RiskEntry(som::SpecDocument& doc, std::string path)
@@ -14411,15 +14087,6 @@ ScheduledMaintenancePolicyApprovalForm ScheduledMaintenancePolicy::approval() co
   return ScheduledMaintenancePolicyApprovalForm(doc(), som::joinPath(path(), "SMPA"));
 }
 
-ScopeAssumptionEntry::ScopeAssumptionEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ScopeAssumptionEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ScopeAssumptionEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 ScopeBoundaries::ScopeBoundaries(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ScopeBoundaries::content() const {
@@ -14856,15 +14523,6 @@ SecurityCodeReviewPolicyProcessForm SecurityCodeReviewPolicy::process() const {
 }
 SecurityCodeReviewPolicyFindingsForm SecurityCodeReviewPolicy::findings() const {
   return SecurityCodeReviewPolicyFindingsForm(doc(), som::joinPath(path(), "SCRPF"));
-}
-
-SecurityConcernEntry::SecurityConcernEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SecurityConcernEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SecurityConcernEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 SecurityControlEntry::SecurityControlEntry(som::SpecDocument& doc, std::string path)
@@ -15428,15 +15086,6 @@ SharedLibraryEntryLifecycleForm SharedLibraryEntry::lifecycle() const {
   return SharedLibraryEntryLifecycleForm(doc(), som::joinPath(path(), "SLEL"));
 }
 
-SharedServiceEntry::SharedServiceEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SharedServiceEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SharedServiceEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 SignOffProcess::SignOffProcess(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 SignOffProcessContentForm SignOffProcess::content() const {
@@ -15944,15 +15593,6 @@ som::SomList StagingStrategy::constraints() const {
   return som::SomList(doc(), som::joinPath(path(), "STAGI-CONS-LST"), "STAGI-CONS-xxx");
 }
 
-StagingStrategyConstraintEntry::StagingStrategyConstraintEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string StagingStrategyConstraintEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StagingStrategyConstraintEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 StakeholderEntry::StakeholderEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 StakeholderEntryContentForm StakeholderEntry::content() const {
@@ -16113,15 +15753,6 @@ void StepUpAuthenticationPolicy::setContent(const std::string& value) {
 }
 som::SomList StepUpAuthenticationPolicy::stepUpDetails() const {
   return som::SomList(doc(), som::joinPath(path(), "STEPU-STEP-LST"), "STEPU-STEP-xxx");
-}
-
-StepUpDetailEntry::StepUpDetailEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string StepUpDetailEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StepUpDetailEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 StorageEncryptionPolicy::StorageEncryptionPolicy(som::SpecDocument& doc, std::string path)
@@ -16917,15 +16548,6 @@ som::SomList SystemTaskEntry::workflowSteps() const {
 }
 som::SomList SystemTaskEntry::variationsAndExceptions() const {
   return som::SomList(doc(), som::joinPath(path(), "VARIA-VARI-LST"), "VARIA-VARI-xxx");
-}
-
-SystemTaskWorkflowStepEntry::SystemTaskWorkflowStepEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemTaskWorkflowStepEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SystemTaskWorkflowStepEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 SystemTechnicalAssessment::SystemTechnicalAssessment(som::SpecDocument& doc, std::string path)
@@ -18602,15 +18224,6 @@ void UserJourney::setOpportunitiesForDelight(const std::string& value) {
   doc().setContent(som::joinPath(path(), "UJ-OPPO"), value);
 }
 
-UserJourneyPainPointEntry::UserJourneyPainPointEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string UserJourneyPainPointEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserJourneyPainPointEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 UserLifecycle::UserLifecycle(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string UserLifecycle::content() const {
@@ -18869,15 +18482,6 @@ ValidationMessageTemplateContentForm ValidationMessageTemplate::content() const 
   return ValidationMessageTemplateContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ValidationRuleEntry::ValidationRuleEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ValidationRuleEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ValidationRuleEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-
 ValueProposition::ValueProposition(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ValueProposition::content() const {
@@ -18897,15 +18501,6 @@ ValuePropositionReturnProfileForm ValueProposition::returnProfile() const {
 }
 som::SomList ValueProposition::kpis() const {
   return som::SomList(doc(), som::joinPath(path(), "KPIEN-KPIS-LST"), "KPIEN-KPIS-xxx");
-}
-
-VariationsAndExceptionEntry::VariationsAndExceptionEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string VariationsAndExceptionEntry::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void VariationsAndExceptionEntry::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 VersionControlConfiguration::VersionControlConfiguration(som::SpecDocument& doc, std::string path)

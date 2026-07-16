@@ -230,7 +230,7 @@ class SystemQualityGoals {
   @SectionIdPattern('ATTRI-ATTR-xxx')
   @ContentHelp('Add one entry per quality attribute interdependency.')
   @SerializationOrder(8)
-  List<AttributeInterdependencyEntry> attributeInterdependencies = [];
+  List<String> attributeInterdependencies = [];
 
   /// Quality attribute priority radar.
   @ContentHelp('Visual showing relative importance of quality attributes.')
@@ -486,7 +486,7 @@ class QualityFramework {
   @SectionIdPattern('CATEG-CATE-xxx')
   @ContentHelp('Add one entry per category dependency.')
   @SerializationOrder(7)
-  List<CategoryDependencyEntry> categoryDependencies = [];
+  List<String> categoryDependencies = [];
 }
 
 /// A quality category entry (form).
@@ -4757,36 +4757,4 @@ quality-goal sections; this section integrates them.
   String? content;
 }
 
-/// A single category dependency entry.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are recorded to manage trade-offs',
-  ],
-  'A single category-dependency entry describing how one quality category depends on another.',
-)
-@SectionId('CATEG')
-class CategoryDependencyEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single attribute interdependency entry.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — improving one quality attribute can affect another, so interdependencies between attributes are captured explicitly',
-  ],
-  'A single attribute-interdependency entry describing how two quality attributes interact or trade off.',
-)
-@SectionId('ATTRI')
-class AttributeInterdependencyEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

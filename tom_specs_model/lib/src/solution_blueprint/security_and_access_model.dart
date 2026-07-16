@@ -3191,7 +3191,7 @@ class MfaConfiguration {
   @SectionIdPattern('MFADE-MFAD-xxx')
   @ContentHelp('Add one entry per MFA method definition.')
   @SerializationOrder(1)
-  List<MfaDetailEntry> mfaDetails = [];
+  List<String> mfaDetails = [];
 }
 
 /// Single Sign-On (SSO) policy (form).
@@ -4572,7 +4572,7 @@ class StepUpAuthenticationPolicy {
   @SectionIdPattern('STEPU-STEP-xxx')
   @ContentHelp('Add one entry per step-up authentication step.')
   @SerializationOrder(1)
-  List<StepUpDetailEntry> stepUpDetails = [];
+  List<String> stepUpDetails = [];
 }
 
 /// A login flow step entry (form).
@@ -14379,32 +14379,4 @@ compliance frameworks the project must satisfy.
   String? content;
 }
 
-/// A single mfa detail entry.
-@StandardReferences([
-  'NIST SP 800-63B — multi-factor authentication and authenticator requirements',
-  'ISO/IEC 27001:2022 — control A.8.5 secure authentication',
-], 'A single multi-factor authentication detail entry.')
-@SectionId('MFADE')
-class MfaDetailEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single step up detail entry.
-@StandardReferences([
-  'NIST SP 800-63B — reauthentication and authenticator assurance levels',
-  'OWASP ASVS 4.0 — V2 authentication verification requirements',
-], 'A single step-up authentication detail entry.')
-@SectionId('STEPU')
-class StepUpDetailEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

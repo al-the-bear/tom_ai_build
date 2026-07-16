@@ -105,7 +105,6 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
 void buildAssumptionConstraintDependencyRegisterChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAssumptionRegisterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAssumptionsConstraintsDependenciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildAttributeInterdependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuditAndLoggingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuditEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuditEvidenceRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -161,14 +160,12 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
 void buildBusinessRuleReferenceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCapacityPlanningSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCapacityReviewProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildCategoryDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCcbMemberEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCertificateAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCertificateManagementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCertificateManagementPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCertificationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCertificationRequirementsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildChangeAdvocateEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildChangeCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildChangeControlBoardChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildChangeImpactCriteriaChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -208,7 +205,6 @@ void buildCommunicationChannelEncryptionEntryChildren(som::SomMetaNode& parent, 
 void buildCommunicationEventEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCommunicationMatrixChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCommunicationPatternsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildCommunicationPreferenceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCommunicationRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCommunicationToolsRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCommunicationTypeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -219,7 +215,6 @@ void buildCompetencyFrameworkChildren(som::SomMetaNode& parent, std::vector<std:
 void buildCompetencyLevelChangeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildComplianceAuditScheduleChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildComplianceFrameworkChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildComplianceMeasureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildComplianceMilestoneEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildComplianceReportingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildComplianceRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -261,13 +256,11 @@ void buildContingencyPlansChildren(som::SomMetaNode& parent, std::vector<std::st
 void buildCorrectnessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCredentialCompromiseDetectionPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCredentialRecoveryPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildCriticalKnowledgeAreaEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCrossBoundaryErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCrossBoundaryOperationalConsiderationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCrossCuttingConcernsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCrossProcessAnalysisChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCrossTenantAccessPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildCulturalConsiderationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCurrentArchitectureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCurrentBusinessProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildCurrentBusinessProcessesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -342,7 +335,6 @@ void buildDataVolumesAndGrowthChildren(som::SomMetaNode& parent, std::vector<std
 void buildDatabaseAccessPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDatabaseCompatibilityEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDatabaseEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildDatacenterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDebuggingConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDecisionAuthorityEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDecisionMakerEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -361,7 +353,6 @@ void buildDeliveryScopeChildren(som::SomMetaNode& parent, std::vector<std::strin
 void buildDeliveryScopeAndAcceptanceChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDeliveryTransitionAndRolloutChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDependenciesAndIntegrationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDependencyHealthMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDependencyInjectionStructureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDependencyManagementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -388,7 +379,6 @@ void buildDeveloperOnboardingChildren(som::SomMetaNode& parent, std::vector<std:
 void buildDevelopmentConventionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDevelopmentEnvironmentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDevelopmentQualityGatesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildDevopsStandardEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDisasterRecoveryRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDisplayEquipmentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDisplayPropertyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -445,10 +435,7 @@ void buildEquipmentRequirementsChildren(som::SomMetaNode& parent, std::vector<st
 void buildErrorBudgetTrackingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorHandlingStandardsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildErrorPageDesignEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildErrorProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildEscalationProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildEvaluationCriteriaChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildEvaluationCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildEventAttributePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -488,7 +475,6 @@ void buildFeatureStakeholdersChildren(som::SomMetaNode& parent, std::vector<std:
 void buildFeatureTourEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFieldHelpEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFieldValidationRuleChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildFieldValidationRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFileAccessControlPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFileAndStorageSecurityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFileDownloadSecurityPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -497,7 +483,6 @@ void buildFileUploadValidationPolicyChildren(som::SomMetaNode& parent, std::vect
 void buildFirewallRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFlexibilityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFlexibilityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildFragilePointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFrameworkRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFullDistributionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFunctionDataMatrixEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -511,7 +496,6 @@ void buildFunctionalSuitabilityCharacteristicChildren(som::SomMetaNode& parent, 
 void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGapsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildGlobalEntryPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlobalRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlossaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlossaryAndAbbreviationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -560,7 +544,6 @@ void buildInsuranceLiabilityRequirementsChildren(som::SomMetaNode& parent, std::
 void buildIntegrationArchitectureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIntegrationConstraintEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIntegrationHealthSummaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildIntegrationPatternEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIntegrationPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIntegrationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIntegrityConstraintsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -573,7 +556,6 @@ void buildInteractionDependencyAnalysisChildren(som::SomMetaNode& parent, std::v
 void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildInteractionPatternEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildInteractionPatternsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildInteractionScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildInteractionTestingStrategyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildInterfaceBusinessContextChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildInterfaceBusinessProcessEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -601,7 +583,6 @@ void buildItSecurityStandardsSectionChildren(som::SomMetaNode& parent, std::vect
 void buildItStandardComplianceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildJobDescriptionsAndStaffingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildJourneyStageEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildKeyAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKeyAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKeyCompromiseRecoveryPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKeyConceptEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -613,11 +594,7 @@ void buildKeyResultEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
 void buildKeyRotationPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKeyScenariosChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKeyStoragePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildKeyTouchpointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildKnowledgeTransferChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildKnownIssueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildKnownQualityIssueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildKpiEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLanguageCountrySelectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLayerCommunicationRulesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildLayeringAndModuleStructureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -646,11 +623,9 @@ void buildMaintainabilityCharacteristicChildren(som::SomMetaNode& parent, std::v
 void buildMaintenanceChangeManagementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMaintenanceDependenciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMaintenanceDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildMaintenanceProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMaintenanceUserImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMaintenanceWindowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMaintenanceWindowsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildMappingRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMasterDataDomainEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMasterDataManagementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMessageFormatStandardsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -661,7 +636,6 @@ void buildMetricsCollectionRequirementsChildren(som::SomMetaNode& parent, std::v
 void buildMetricsDashboardSummaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMfaCategoryRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMfaConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildMfaDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMigrationConsiderationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMigrationEnvironmentsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMigrationInteractionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -687,7 +661,6 @@ void buildMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>&
 void buildMonitoringAndAlertingSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMonitoringDashboardsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMonitoringInfrastructureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildMonitoringProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMoscowAnalysisChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildMultiChannelExperienceChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -713,14 +686,12 @@ void buildNewOrganizationStructureChildren(som::SomMetaNode& parent, std::vector
 void buildNewRoleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildNewRoleQualificationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildNewRoleResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildNonFinancialBenefitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildNotificationChannelEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildNotificationModelChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildNotificationTypeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildObjectInvariantEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildObjectOperationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildObjectStateEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildObservabilityRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOnCallProceduresChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOnCallScheduleConfigChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOnboardingHelpChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -784,7 +755,6 @@ void buildPortabilityChildren(som::SomMetaNode& parent, std::vector<std::string>
 void buildPostMaintenanceValidationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPostconditionsAndGuaranteesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPreconditionsAndTriggersChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildPredecessorDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPrimaryNavigationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPrintAndExportLayoutChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPrivacyImpactAssessmentProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -864,7 +834,6 @@ void buildQualityWeightEntryChildren(som::SomMetaNode& parent, std::vector<std::
 void buildRateLimitingPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReadabilityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReadinessCriteriaEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRecoveryFlowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRecoveryProceduresChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRecoveryScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRedirectHandlingPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -876,7 +845,6 @@ void buildRegulatoryComplianceRequirementsChildren(som::SomMetaNode& parent, std
 void buildRegulatoryContextChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRegulatoryRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRelatedDocumentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRelatedPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRelationshipAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReleaseStrategyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRelevantSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -896,7 +864,6 @@ void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::s
 void buildReportRecipientEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportScheduleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRepresentativeQuoteEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRequirementAcceptanceCriteriaChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRequirementBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRequirementBusinessRulesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -918,7 +885,6 @@ void buildResourceKeyEntryChildren(som::SomMetaNode& parent, std::vector<std::st
 void buildResourceKeyReferenceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResourceProtectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResourceRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildResponseStrategyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsibilityChangeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsibilityContactsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildResponsibilityDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -939,9 +905,7 @@ void buildReuseGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
 void buildReviewCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRevisionHistoryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRiskBasedDecisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildRiskCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskIdentificationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -977,7 +941,6 @@ void buildScalingTriggersAndThresholdsChildren(som::SomMetaNode& parent, std::ve
 void buildScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScheduledMaintenancePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildScopeAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScopeBoundariesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScopeItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScreenActionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1006,7 +969,6 @@ void buildSecurityAuditRequirementsSectionChildren(som::SomMetaNode& parent, std
 void buildSecurityCertificationRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityCodeReviewPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildSecurityConcernEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityControlEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityControlsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSecurityDevelopmentLifecycleChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1043,7 +1005,6 @@ void buildSharedInfrastructureDependenciesChildren(som::SomMetaNode& parent, std
 void buildSharedInfrastructureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSharedLibraryComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSharedLibraryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildSharedServiceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSignOffProcessChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSingleSignOnPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSlaAndSloMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1074,7 +1035,6 @@ void buildStageSummaryResourcesChildren(som::SomMetaNode& parent, std::vector<st
 void buildStagingDependenciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStagingDriversChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStagingStrategyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildStagingStrategyConstraintEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholderEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholderRegisterChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStakeholderRegisterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1085,7 +1045,6 @@ void buildStandardSoftwareRequirementsChildren(som::SomMetaNode& parent, std::ve
 void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSteeringCommitteeChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStepUpAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildStepUpDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStorageEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStorageLifecyclePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildStrategicAlignmentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1127,7 +1086,6 @@ void buildSystemRolloutChildren(som::SomMetaNode& parent, std::vector<std::strin
 void buildSystemStagePlanChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSystemSummaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildSystemTaskWorkflowStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSystemTechnicalAssessmentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSystemToReplaceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSystemTrainingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1241,7 +1199,6 @@ void buildUserGrowthProjectionsChildren(som::SomMetaNode& parent, std::vector<st
 void buildUserInteractionModelChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildUserInteractionModelSummaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildUserJourneyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildUserJourneyPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildUserLifecycleChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildUserLifecycleTransitionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildUserLifecycleTransitionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -1259,9 +1216,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
 void buildValidationConstraintsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildValidationFeedbackChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildValidationMessageTemplateChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildValidationRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildValuePropositionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
-void buildVariationsAndExceptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildVersionControlConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildVirtualizationRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildVolumeMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -4424,6 +4379,7 @@ void buildApiVersioningStrategyChildren(som::SomMetaNode& parent, std::vector<st
 }
 
 void buildApplicableRegulationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApplicableRegulationEntry";
@@ -4446,29 +4402,19 @@ void buildApplicableRegulationEntryChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ApplicableRegulationEntry";
-    (*ln).memberName = "complianceMeasures";
-    (*ln).sectionId = "COMPL-COMP-LST";
-    (*ln).sectionIdPattern = "COMPL-COMP-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ComplianceMeasureEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per compliance measure taken to satisfy this regulation.";
-    (*ln).docComment = "Specific compliance measures for this regulation.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 — compliance with legal & contractual requirements\"],\"connotation\":\"The set of specific compliance-measure entries for this regulation.\"}", nullptr)});
-    ln->elementNode = metaCx("ComplianceMeasureEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ComplianceMeasureEntry";
-        n.classSectionId = "COMPL";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ComplianceMeasureEntry";
-        n.docComment = "A single compliance measure entry.";
-        n.classDocComment = "A single compliance measure entry.";
-      },
-      buildComplianceMeasureEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ApplicableRegulationEntry";
+    (*n).memberName = "complianceMeasures";
+    (*n).sectionId = "COMPL-COMP-LST";
+    (*n).sectionIdPattern = "COMPL-COMP-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "Add one entry per compliance measure taken to satisfy this regulation.";
+    (*n).docComment = "Specific compliance measures for this regulation.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 — compliance with legal & contractual requirements\"],\"connotation\":\"The set of specific compliance-measure entries for this regulation.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -5465,21 +5411,6 @@ void buildAssumptionsConstraintsDependenciesChildren(som::SomMetaNode& parent, s
         n.classDocComment = "A consolidated register of assumptions and constraints.";
       },
       buildAssumptionConstraintDependencyRegisterChildren);
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildAttributeInterdependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "AttributeInterdependencyEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -10187,21 +10118,6 @@ void buildCapacityReviewProcessChildren(som::SomMetaNode& parent, std::vector<st
   }
 }
 
-void buildCategoryDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "CategoryDependencyEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildCcbMemberEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -10546,21 +10462,6 @@ void buildCertificationRequirementsSectionChildren(som::SomMetaNode& parent, std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"marketingUse", "String", "Marketing Use", false, "Use in marketing", 1});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional certification notes", 2});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9001 — quality management systems\",\"ISO/IEC 27001 — information security management\"],\"connotation\":\"Captures how achieved certifications are displayed and used in marketing.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildChangeAdvocateEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ChangeAdvocateEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -13492,21 +13393,6 @@ void buildCommunicationPatternsChildren(som::SomMetaNode& parent, std::vector<st
   }
 }
 
-void buildCommunicationPreferenceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "CommunicationPreferenceEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildCommunicationRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -14135,21 +14021,6 @@ void buildComplianceFrameworkChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n";
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildComplianceMeasureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ComplianceMeasureEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -17213,21 +17084,6 @@ void buildCredentialRecoveryPolicyChildren(som::SomMetaNode& parent, std::vector
   }
 }
 
-void buildCriticalKnowledgeAreaEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "CriticalKnowledgeAreaEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildCrossBoundaryErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -17406,22 +17262,8 @@ void buildCrossTenantAccessPolicyChildren(som::SomMetaNode& parent, std::vector<
   }
 }
 
-void buildCulturalConsiderationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "CulturalConsiderationEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildCurrentArchitectureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CurrentArchitecture";
@@ -17461,54 +17303,34 @@ void buildCurrentArchitectureChildren(som::SomMetaNode& parent, std::vector<std:
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "CurrentArchitecture";
-    (*ln).memberName = "integrationPatterns";
-    (*ln).sectionId = "IPE-INTE-LST";
-    (*ln).sectionIdPattern = "IPE-INTE-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "IntegrationPatternEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 3;
-    (*ln).contentHelp = "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.";
-    (*ln).docComment = "Integration patterns used.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (integration patterns)\"],\"connotation\":\"The set of integration patterns the current architecture relies on to connect its systems.\"}", nullptr)});
-    ln->elementNode = metaCx("IntegrationPatternEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "IntegrationPatternEntry";
-        n.classSectionId = "IPE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "IntegrationPatternEntry";
-        n.docComment = "A single integration pattern entry.";
-        n.classDocComment = "A single integration pattern entry.";
-      },
-      buildIntegrationPatternEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "CurrentArchitecture";
+    (*n).memberName = "integrationPatterns";
+    (*n).sectionId = "IPE-INTE-LST";
+    (*n).sectionIdPattern = "IPE-INTE-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).contentHelp = "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.";
+    (*n).docComment = "Integration patterns used.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (integration patterns)\"],\"connotation\":\"The set of integration patterns the current architecture relies on to connect its systems.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "CurrentArchitecture";
-    (*ln).memberName = "sharedServices";
-    (*ln).sectionId = "SHARE-SHAR-LST";
-    (*ln).sectionIdPattern = "SHARE-SHAR-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "SharedServiceEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.";
-    (*ln).docComment = "Shared services inventory.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (shared services)\"],\"connotation\":\"The set of shared services the current architecture provides across multiple systems.\"}", nullptr)});
-    ln->elementNode = metaCx("SharedServiceEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "SharedServiceEntry";
-        n.classSectionId = "SHARE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "SharedServiceEntry";
-        n.docComment = "A single shared service entry.";
-        n.classDocComment = "A single shared service entry.";
-      },
-      buildSharedServiceEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "CurrentArchitecture";
+    (*n).memberName = "sharedServices";
+    (*n).sectionId = "SHARE-SHAR-LST";
+    (*n).sectionIdPattern = "SHARE-SHAR-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.";
+    (*n).docComment = "Shared services inventory.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (shared services)\"],\"connotation\":\"The set of shared services the current architecture provides across multiple systems.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -25205,21 +25027,6 @@ void buildDatabaseEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector
   }
 }
 
-void buildDatacenterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "DatacenterEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildDebuggingConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -26466,21 +26273,6 @@ void buildDependenciesAndIntegrationsChildren(som::SomMetaNode& parent, std::vec
         n.classDocComment = "1.1.3.5. Integration Health Summary.\n\nExecutive summary of overall integration landscape health and risk areas.";
       },
       buildIntegrationHealthSummaryChildren);
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "DependencyEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -28627,21 +28419,6 @@ void buildDevelopmentQualityGatesChildren(som::SomMetaNode& parent, std::vector<
     (*n).form->fields.push_back(som::SomFormFieldMeta{"startupTimeLimit", "String", "Startup Time Limit", false, "Maximum startup time", 2});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional quality gate notes", 3});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"CI/CD — continuous integration / delivery pipelines\",\"ISO/IEC 25010 — maintainability quality attributes\"],\"connotation\":\"Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildDevopsStandardEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "DevopsStandardEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -32331,36 +32108,6 @@ void buildErrorHandlingStandardsChildren(som::SomMetaNode& parent, std::vector<s
   }
 }
 
-void buildErrorPageDesignEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ErrorPageDesignEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildErrorProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ErrorProcedureEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -32481,29 +32228,19 @@ void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::strin
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ErrorRecovery";
-    (*ln).memberName = "recoveryFlows";
-    (*ln).sectionId = "RECOV-RECO-LST";
-    (*ln).sectionIdPattern = "RECOV-RECO-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RecoveryFlowEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "Add one entry per recovery flow.";
-    (*ln).docComment = "Recovery flow diagrams.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs\",\"ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data\"],\"connotation\":\"The collection of recovery-flow entries.\"}", nullptr)});
-    ln->elementNode = metaCx("RecoveryFlowEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RecoveryFlowEntry";
-        n.classSectionId = "RECOV";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RecoveryFlowEntry";
-        n.docComment = "A single recovery flow entry.";
-        n.classDocComment = "A single recovery flow entry.";
-      },
-      buildRecoveryFlowEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ErrorRecovery";
+    (*n).memberName = "recoveryFlows";
+    (*n).sectionId = "RECOV-RECO-LST";
+    (*n).sectionIdPattern = "RECOV-RECO-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).contentHelp = "Add one entry per recovery flow.";
+    (*n).docComment = "Recovery flow diagrams.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs\",\"ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data\"],\"connotation\":\"The collection of recovery-flow entries.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto ln = std::make_unique<som::SomMetaNode>();
@@ -32529,21 +32266,6 @@ void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::strin
       },
       buildRecoveryScenarioEntryChildren);
     parent.addChild(std::move(ln));
-  }
-}
-
-void buildEscalationProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "EscalationProcedureEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
   }
 }
 
@@ -33751,6 +33473,7 @@ void buildExtensionStepEntryChildren(som::SomMetaNode& parent, std::vector<std::
 }
 
 void buildExternalActorEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExternalActorEntry";
@@ -33802,29 +33525,19 @@ void buildExternalActorEntryChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ExternalActorEntry";
-    (*ln).memberName = "interactionScenarios";
-    (*ln).sectionId = "INTER-INTE-LST";
-    (*ln).sectionIdPattern = "INTER-INTE-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "InteractionScenarioEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 3;
-    (*ln).contentHelp = "Add one entry per interaction scenario between this actor and the system.";
-    (*ln).docComment = "Interaction scenarios for this actor.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — external interfaces & actors\"],\"connotation\":\"The set of interaction-scenario entries for this actor.\"}", nullptr)});
-    ln->elementNode = metaCx("InteractionScenarioEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "InteractionScenarioEntry";
-        n.classSectionId = "INTER";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "InteractionScenarioEntry";
-        n.docComment = "A single interaction scenario entry.";
-        n.classDocComment = "A single interaction scenario entry.";
-      },
-      buildInteractionScenarioEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExternalActorEntry";
+    (*n).memberName = "interactionScenarios";
+    (*n).sectionId = "INTER-INTE-LST";
+    (*n).sectionIdPattern = "INTER-INTE-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).contentHelp = "Add one entry per interaction scenario between this actor and the system.";
+    (*n).docComment = "Interaction scenarios for this actor.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — external interfaces & actors\"],\"connotation\":\"The set of interaction-scenario entries for this actor.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -35619,21 +35332,6 @@ void buildFieldValidationRuleChildren(som::SomMetaNode& parent, std::vector<std:
   }
 }
 
-void buildFieldValidationRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "FieldValidationRuleEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildFileAccessControlPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -36092,21 +35790,6 @@ void buildFlexibilityCharacteristicChildren(som::SomMetaNode& parent, std::vecto
         n.classDocComment = "11.3.2. Portability quality.";
       },
       buildPortabilityChildren);
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildFragilePointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "FragilePointEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -37180,21 +36863,6 @@ void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"edgeCaching", "String", "Edge Caching", false, "Edge cache strategy", 0});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional geographic distribution notes", 1});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — performance efficiency (network throughput / latency)\"],\"connotation\":\"Geographic distribution performance considerations such as edge caching.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildGlobalEntryPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "GlobalEntryPointEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -39250,6 +38918,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
 }
 
 void buildInformationArchitectureChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "InformationArchitecture";
@@ -39299,29 +38968,19 @@ void buildInformationArchitectureChildren(som::SomMetaNode& parent, std::vector<
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "InformationArchitecture";
-    (*ln).memberName = "globalEntryPoints";
-    (*ln).sectionId = "GLOBA-GLOB-LST";
-    (*ln).sectionIdPattern = "GLOBA-GLOB-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "GlobalEntryPointEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per global entry point.";
-    (*ln).docComment = "Global entry points.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — information architecture and navigation entry points to the site\",\"ISO 9241-11:2018 — context of use in which users reach the system\"],\"connotation\":\"The collection of global access points through which users enter the application.\"}", nullptr)});
-    ln->elementNode = metaCx("GlobalEntryPointEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "GlobalEntryPointEntry";
-        n.classSectionId = "GLOBA";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "GlobalEntryPointEntry";
-        n.docComment = "A single global entry point entry.";
-        n.classDocComment = "A single global entry point entry.";
-      },
-      buildGlobalEntryPointEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "InformationArchitecture";
+    (*n).memberName = "globalEntryPoints";
+    (*n).sectionId = "GLOBA-GLOB-LST";
+    (*n).sectionIdPattern = "GLOBA-GLOB-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per global entry point.";
+    (*n).docComment = "Global entry points.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — information architecture and navigation entry points to the site\",\"ISO 9241-11:2018 — context of use in which users reach the system\"],\"connotation\":\"The collection of global access points through which users enter the application.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -40122,6 +39781,7 @@ void buildIntegrationConstraintEntryChildren(som::SomMetaNode& parent, std::vect
 }
 
 void buildIntegrationHealthSummaryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "IntegrationHealthSummary";
@@ -40143,43 +39803,18 @@ void buildIntegrationHealthSummaryChildren(som::SomMetaNode& parent, std::vector
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "IntegrationHealthSummary";
-    (*ln).memberName = "fragilePoints";
-    (*ln).sectionId = "FRAGI-FRAG-LST";
-    (*ln).sectionIdPattern = "FRAGI-FRAG-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "FragilePointEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.";
-    (*ln).docComment = "Fragile integration points requiring attention.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (fragile integration points)\"],\"connotation\":\"The set of fragile integration points in the AS-IS landscape that pose risk and require attention.\"}", nullptr)});
-    ln->elementNode = metaCx("FragilePointEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "FragilePointEntry";
-        n.classSectionId = "FRAGI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "FragilePointEntry";
-        n.docComment = "A single fragile point entry.";
-        n.classDocComment = "A single fragile point entry.";
-      },
-      buildFragilePointEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildIntegrationPatternEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "IntegrationPatternEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "IntegrationHealthSummary";
+    (*n).memberName = "fragilePoints";
+    (*n).sectionId = "FRAGI-FRAG-LST";
+    (*n).sectionIdPattern = "FRAGI-FRAG-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.";
+    (*n).docComment = "Fragile integration points requiring attention.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (fragile integration points)\"],\"connotation\":\"The set of fragile integration points in the AS-IS landscape that pose risk and require attention.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -41023,21 +40658,6 @@ void buildInteractionPatternsChildren(som::SomMetaNode& parent, std::vector<std:
   }
 }
 
-void buildInteractionScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "InteractionScenarioEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildInteractionTestingStrategyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -41189,58 +40809,39 @@ void buildInterfaceDataSpecChildren(som::SomMetaNode& parent, std::vector<std::s
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "InterfaceDataSpec";
-    (*ln).memberName = "mappingRules";
-    (*ln).sectionId = "MAPPI-MAPP-LST";
-    (*ln).sectionIdPattern = "MAPPI-MAPP-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "MappingRuleEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
-    (*ln).contentHelp = "List data mapping and transformation rules between external and internal representations.";
-    (*ln).docComment = "Data mapping and transformation rules.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Captures the mapping and transformation rules applied between external and internal data representations.\"}", nullptr)});
-    ln->elementNode = metaCx("MappingRuleEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "MappingRuleEntry";
-        n.classSectionId = "MAPPI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "MappingRuleEntry";
-        n.docComment = "A single mapping rule entry.";
-        n.classDocComment = "A single mapping rule entry.";
-      },
-      buildMappingRuleEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "InterfaceDataSpec";
+    (*n).memberName = "mappingRules";
+    (*n).sectionId = "MAPPI-MAPP-LST";
+    (*n).sectionIdPattern = "MAPPI-MAPP-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).contentHelp = "List data mapping and transformation rules between external and internal representations.";
+    (*n).docComment = "Data mapping and transformation rules.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Captures the mapping and transformation rules applied between external and internal data representations.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "InterfaceDataSpec";
-    (*ln).memberName = "validationRules";
-    (*ln).sectionId = "VALID-VALI-LST";
-    (*ln).sectionIdPattern = "VALID-VALI-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ValidationRuleEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 3;
-    (*ln).contentHelp = "List data validation rules applied to inbound and outbound payloads at the interface boundary.";
-    (*ln).docComment = "Data validation rules.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — scope & external interfaces\"],\"connotation\":\"Captures the validation rules applied to exchanged data to ensure integrity at the boundary.\"}", nullptr)});
-    ln->elementNode = metaCx("ValidationRuleEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ValidationRuleEntry";
-        n.classSectionId = "VALID";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ValidationRuleEntry";
-        n.docComment = "A single validation rule entry.";
-        n.classDocComment = "A single validation rule entry.";
-      },
-      buildValidationRuleEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "InterfaceDataSpec";
+    (*n).memberName = "validationRules";
+    (*n).sectionId = "VALID-VALI-LST";
+    (*n).sectionIdPattern = "VALID-VALI-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).contentHelp = "List data validation rules applied to inbound and outbound payloads at the interface boundary.";
+    (*n).docComment = "Data validation rules.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — scope & external interfaces\"],\"connotation\":\"Captures the validation rules applied to exchanged data to ensure integrity at the boundary.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
 void buildInterfaceErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "InterfaceErrorHandling";
@@ -41309,29 +40910,19 @@ void buildInterfaceErrorHandlingChildren(som::SomMetaNode& parent, std::vector<s
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "InterfaceErrorHandling";
-    (*ln).memberName = "errorProcedures";
-    (*ln).sectionId = "ERROR-ERRO-LST";
-    (*ln).sectionIdPattern = "ERROR-ERRO-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ErrorProcedureEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.";
-    (*ln).docComment = "Error handling procedures.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.\"}", nullptr)});
-    ln->elementNode = metaCx("ErrorProcedureEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ErrorProcedureEntry";
-        n.classSectionId = "ERROR";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ErrorProcedureEntry";
-        n.docComment = "A single error procedure entry.";
-        n.classDocComment = "A single error procedure entry.";
-      },
-      buildErrorProcedureEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "InterfaceErrorHandling";
+    (*n).memberName = "errorProcedures";
+    (*n).sectionId = "ERROR-ERRO-LST";
+    (*n).sectionIdPattern = "ERROR-ERRO-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.";
+    (*n).docComment = "Error handling procedures.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Enterprise Integration Patterns (EIP) — integration styles\"],\"connotation\":\"Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -41429,6 +41020,7 @@ void buildInterfaceOperationEntryChildren(som::SomMetaNode& parent, std::vector<
 }
 
 void buildInterfaceOperationalChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "InterfaceOperational";
@@ -41498,29 +41090,19 @@ void buildInterfaceOperationalChildren(som::SomMetaNode& parent, std::vector<std
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "InterfaceOperational";
-    (*ln).memberName = "dependencies";
-    (*ln).sectionId = "DEPEN-DEPE-LST";
-    (*ln).sectionIdPattern = "DEPEN-DEPE-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "DependencyEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.";
-    (*ln).docComment = "Operational dependencies.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (operational/performance)\"],\"connotation\":\"Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.\"}", nullptr)});
-    ln->elementNode = metaCx("DependencyEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "DependencyEntry";
-        n.classSectionId = "DEPEN";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "DependencyEntry";
-        n.docComment = "A single dependency entry.";
-        n.classDocComment = "A single dependency entry.";
-      },
-      buildDependencyEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "InterfaceOperational";
+    (*n).memberName = "dependencies";
+    (*n).sectionId = "DEPEN-DEPE-LST";
+    (*n).sectionIdPattern = "DEPEN-DEPE-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.";
+    (*n).docComment = "Operational dependencies.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (operational/performance)\"],\"connotation\":\"Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -42875,21 +42457,6 @@ void buildJourneyStageEntryChildren(som::SomMetaNode& parent, std::vector<std::s
   }
 }
 
-void buildKeyAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "KeyAssumptionEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildKeyAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -43438,21 +43005,6 @@ void buildKeyStoragePolicyChildren(som::SomMetaNode& parent, std::vector<std::st
   }
 }
 
-void buildKeyTouchpointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "KeyTouchpointEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildKnowledgeTransferChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -43465,51 +43017,6 @@ void buildKnowledgeTransferChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n";
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildKnownIssueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "KnownIssueEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildKnownQualityIssueEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "KnownQualityIssueEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildKpiEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "KpiEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -45400,21 +44907,6 @@ void buildMaintenanceDependencyEntryChildren(som::SomMetaNode& parent, std::vect
   }
 }
 
-void buildMaintenanceProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "MaintenanceProcedureEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildMaintenanceUserImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -45706,21 +45198,6 @@ void buildMaintenanceWindowsSectionChildren(som::SomMetaNode& parent, std::vecto
         n.classDocComment = "Post-maintenance validation.";
       },
       buildPostMaintenanceValidationChildren);
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildMappingRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "MappingRuleEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -46321,6 +45798,7 @@ void buildMfaCategoryRequirementEntryChildren(som::SomMetaNode& parent, std::vec
 }
 
 void buildMfaConfigurationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "MfaConfiguration";
@@ -46333,43 +45811,18 @@ void buildMfaConfigurationChildren(som::SomMetaNode& parent, std::vector<std::st
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MfaConfiguration";
-    (*ln).memberName = "mfaDetails";
-    (*ln).sectionId = "MFADE-MFAD-LST";
-    (*ln).sectionIdPattern = "MFADE-MFAD-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "MfaDetailEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per MFA method definition.";
-    (*ln).docComment = "MFA Implementation Details (text).";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"FIDO2 / W3C WebAuthn — phishing-resistant authentication\"],\"connotation\":\"The catalog of multi-factor authentication method definitions.\"}", nullptr)});
-    ln->elementNode = metaCx("MfaDetailEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "MfaDetailEntry";
-        n.classSectionId = "MFADE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "MfaDetailEntry";
-        n.docComment = "A single mfa detail entry.";
-        n.classDocComment = "A single mfa detail entry.";
-      },
-      buildMfaDetailEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildMfaDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "MfaDetailEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "MfaConfiguration";
+    (*n).memberName = "mfaDetails";
+    (*n).sectionId = "MFADE-MFAD-LST";
+    (*n).sectionIdPattern = "MFADE-MFAD-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "Add one entry per MFA method definition.";
+    (*n).docComment = "MFA Implementation Details (text).";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"FIDO2 / W3C WebAuthn — phishing-resistant authentication\"],\"connotation\":\"The catalog of multi-factor authentication method definitions.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -46535,29 +45988,19 @@ void buildMigrationConsiderationsChildren(som::SomMetaNode& parent, std::vector<
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MigrationConsiderations";
-    (*ln).memberName = "escalationProcedures";
-    (*ln).sectionId = "ESCAL-ESCA-LST";
-    (*ln).sectionIdPattern = "ESCAL-ESCA-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "EscalationProcedureEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 11;
-    (*ln).contentHelp = "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.";
-    (*ln).docComment = "Escalation procedures during migration.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ITIL — service transition / change enablement\",\"ISO 31000 — risk management (migration risk)\"],\"connotation\":\"The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition.\"}", nullptr)});
-    ln->elementNode = metaCx("EscalationProcedureEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "EscalationProcedureEntry";
-        n.classSectionId = "ESCAL";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "EscalationProcedureEntry";
-        n.docComment = "A single escalation procedure entry.";
-        n.classDocComment = "A single escalation procedure entry.";
-      },
-      buildEscalationProcedureEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "MigrationConsiderations";
+    (*n).memberName = "escalationProcedures";
+    (*n).sectionId = "ESCAL-ESCA-LST";
+    (*n).sectionIdPattern = "ESCAL-ESCA-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 11;
+    (*n).contentHelp = "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.";
+    (*n).docComment = "Escalation procedures during migration.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ITIL — service transition / change enablement\",\"ISO 31000 — risk management (migration risk)\"],\"connotation\":\"The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -47432,104 +46875,64 @@ void buildMigrationRisksChildren(som::SomMetaNode& parent, std::vector<std::stri
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MigrationRisks";
-    (*ln).memberName = "riskCategories";
-    (*ln).sectionId = "RISKC-RISK-LST";
-    (*ln).sectionIdPattern = "RISKC-RISK-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RiskCategoryEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "Add one entry per risk category, naming the category and the kinds of migration risks it groups.";
-    (*ln).docComment = "Risk categories and taxonomy.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The taxonomy of migration risk categories used to classify and organize risks across the program.\"}", nullptr)});
-    ln->elementNode = metaCx("RiskCategoryEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RiskCategoryEntry";
-        n.classSectionId = "RISKC";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RiskCategoryEntry";
-        n.docComment = "A single risk category entry.";
-        n.classDocComment = "A single risk category entry.";
-      },
-      buildRiskCategoryEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "MigrationRisks";
+    (*n).memberName = "riskCategories";
+    (*n).sectionId = "RISKC-RISK-LST";
+    (*n).sectionIdPattern = "RISKC-RISK-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).contentHelp = "Add one entry per risk category, naming the category and the kinds of migration risks it groups.";
+    (*n).docComment = "Risk categories and taxonomy.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The taxonomy of migration risk categories used to classify and organize risks across the program.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MigrationRisks";
-    (*ln).memberName = "riskBasedDecisions";
-    (*ln).sectionId = "RISKB-RISK-LST";
-    (*ln).sectionIdPattern = "RISKB-RISK-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RiskBasedDecisionEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
-    (*ln).contentHelp = "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.";
-    (*ln).docComment = "Risk-based decision making criteria.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The decision criteria that govern how migration risks drive go/no-go and acceptance choices.\"}", nullptr)});
-    ln->elementNode = metaCx("RiskBasedDecisionEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RiskBasedDecisionEntry";
-        n.classSectionId = "RISKB";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RiskBasedDecisionEntry";
-        n.docComment = "A single risk based decision entry.";
-        n.classDocComment = "A single risk based decision entry.";
-      },
-      buildRiskBasedDecisionEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "MigrationRisks";
+    (*n).memberName = "riskBasedDecisions";
+    (*n).sectionId = "RISKB-RISK-LST";
+    (*n).sectionIdPattern = "RISKB-RISK-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 8;
+    (*n).contentHelp = "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.";
+    (*n).docComment = "Risk-based decision making criteria.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The decision criteria that govern how migration risks drive go/no-go and acceptance choices.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MigrationRisks";
-    (*ln).memberName = "monitoringProcedures";
-    (*ln).sectionId = "MONIT-MONI-LST";
-    (*ln).sectionIdPattern = "MONIT-MONI-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "MonitoringProcedureEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 9;
-    (*ln).contentHelp = "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.";
-    (*ln).docComment = "Risk monitoring and control procedures.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"ITIL — service transition / change enablement\"],\"connotation\":\"The procedures used to monitor and control migration risks throughout the transition.\"}", nullptr)});
-    ln->elementNode = metaCx("MonitoringProcedureEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "MonitoringProcedureEntry";
-        n.classSectionId = "MONIT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "MonitoringProcedureEntry";
-        n.docComment = "A single monitoring procedure entry.";
-        n.classDocComment = "A single monitoring procedure entry.";
-      },
-      buildMonitoringProcedureEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "MigrationRisks";
+    (*n).memberName = "monitoringProcedures";
+    (*n).sectionId = "MONIT-MONI-LST";
+    (*n).sectionIdPattern = "MONIT-MONI-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 9;
+    (*n).contentHelp = "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.";
+    (*n).docComment = "Risk monitoring and control procedures.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"ITIL — service transition / change enablement\"],\"connotation\":\"The procedures used to monitor and control migration risks throughout the transition.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "MigrationRisks";
-    (*ln).memberName = "responseStrategies";
-    (*ln).sectionId = "RESPO-RESP-LST";
-    (*ln).sectionIdPattern = "RESPO-RESP-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ResponseStrategyEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
-    (*ln).contentHelp = "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.";
-    (*ln).docComment = "Risk response strategies by category.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk.\"}", nullptr)});
-    ln->elementNode = metaCx("ResponseStrategyEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ResponseStrategyEntry";
-        n.classSectionId = "RESPO";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ResponseStrategyEntry";
-        n.docComment = "A single response strategy entry.";
-        n.classDocComment = "A single response strategy entry.";
-      },
-      buildResponseStrategyEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "MigrationRisks";
+    (*n).memberName = "responseStrategies";
+    (*n).sectionId = "RESPO-RESP-LST";
+    (*n).sectionIdPattern = "RESPO-RESP-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 10;
+    (*n).contentHelp = "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.";
+    (*n).docComment = "Risk response strategies by category.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (migration risk)\",\"PMBOK — schedule / risk / cost management\"],\"connotation\":\"The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -48524,21 +47927,6 @@ void buildMonitoringInfrastructureChildren(som::SomMetaNode& parent, std::vector
     (*n).form->fields.push_back(som::SomFormFieldMeta{"multiTenant", "bool", "Multi-Tenant", false, "Tenant isolation in monitoring", 2});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional infrastructure notes", 3});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"OpenTelemetry — observability / metrics / tracing\",\"ISO/IEC 20000 — IT service management system\"],\"connotation\":\"Describes access control, data privacy, and multi-tenant isolation for monitoring.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildMonitoringProcedureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "MonitoringProcedureEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -50635,21 +50023,6 @@ void buildNewRoleResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<
   }
 }
 
-void buildNonFinancialBenefitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "NonFinancialBenefitEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildNotificationChannelEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -50902,21 +50275,6 @@ void buildObjectStateEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"restrictedOperations", "String", "Restricted Operations", false, "What operations are not allowed in this state", 7});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"slaRequirements", "String", "SLA Requirements", false, "Any time-bound requirements for this state", 8});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationTriggers", "String", "Notification Triggers", false, "Events that trigger notifications in this state", 9});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildObservabilityRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ObservabilityRequirementEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -52121,54 +51479,34 @@ void buildOrganizationalEnvironmentChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "OrganizationalEnvironment";
-    (*ln).memberName = "culturalConsiderations";
-    (*ln).sectionId = "CULTU-CULT-LST";
-    (*ln).sectionIdPattern = "CULTU-CULT-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "CulturalConsiderationEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.";
-    (*ln).docComment = "Cultural considerations and organizational dynamics.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"TOGAF — enterprise context & environment\"],\"connotation\":\"Captures cultural considerations and organizational dynamics that may influence adoption and change.\"}", nullptr)});
-    ln->elementNode = metaCx("CulturalConsiderationEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "CulturalConsiderationEntry";
-        n.classSectionId = "CULTU";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "CulturalConsiderationEntry";
-        n.docComment = "A single cultural consideration entry.";
-        n.classDocComment = "A single cultural consideration entry.";
-      },
-      buildCulturalConsiderationEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "OrganizationalEnvironment";
+    (*n).memberName = "culturalConsiderations";
+    (*n).sectionId = "CULTU-CULT-LST";
+    (*n).sectionIdPattern = "CULTU-CULT-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).contentHelp = "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.";
+    (*n).docComment = "Cultural considerations and organizational dynamics.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"TOGAF — enterprise context & environment\"],\"connotation\":\"Captures cultural considerations and organizational dynamics that may influence adoption and change.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "OrganizationalEnvironment";
-    (*ln).memberName = "communicationPreferences";
-    (*ln).sectionId = "COMMU-COMM-LST";
-    (*ln).sectionIdPattern = "COMMU-COMM-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "CommunicationPreferenceEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
-    (*ln).contentHelp = "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.";
-    (*ln).docComment = "Stakeholder communication preferences.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture environment & stakeholders\",\"PMBOK — enterprise environmental factors (EEF)\"],\"connotation\":\"Records stakeholder communication preferences so engagement and reporting fit the organizational context.\"}", nullptr)});
-    ln->elementNode = metaCx("CommunicationPreferenceEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "CommunicationPreferenceEntry";
-        n.classSectionId = "COMMU";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "CommunicationPreferenceEntry";
-        n.docComment = "A single communication preference entry.";
-        n.classDocComment = "A single communication preference entry.";
-      },
-      buildCommunicationPreferenceEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "OrganizationalEnvironment";
+    (*n).memberName = "communicationPreferences";
+    (*n).sectionId = "COMMU-COMM-LST";
+    (*n).sectionIdPattern = "COMMU-COMM-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 8;
+    (*n).contentHelp = "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.";
+    (*n).docComment = "Stakeholder communication preferences.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture environment & stakeholders\",\"PMBOK — enterprise environmental factors (EEF)\"],\"connotation\":\"Records stakeholder communication preferences so engagement and reporting fit the organizational context.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -52184,29 +51522,19 @@ void buildOrganizationalEnvironmentChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "OrganizationalEnvironment";
-    (*ln).memberName = "changeAdvocates";
-    (*ln).sectionId = "CHANG-CHAN-LST";
-    (*ln).sectionIdPattern = "CHANG-CHAN-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ChangeAdvocateEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
-    (*ln).contentHelp = "List change champions and sponsors, noting their influence and role in driving adoption across the organization.";
-    (*ln).docComment = "Change champions and sponsors.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"ISO 21500 — organizational roles & responsibilities\"],\"connotation\":\"Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.\"}", nullptr)});
-    ln->elementNode = metaCx("ChangeAdvocateEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ChangeAdvocateEntry";
-        n.classSectionId = "CHANG";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ChangeAdvocateEntry";
-        n.docComment = "A single change advocate entry.";
-        n.classDocComment = "A single change advocate entry.";
-      },
-      buildChangeAdvocateEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "OrganizationalEnvironment";
+    (*n).memberName = "changeAdvocates";
+    (*n).sectionId = "CHANG-CHAN-LST";
+    (*n).sectionIdPattern = "CHANG-CHAN-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 10;
+    (*n).contentHelp = "List change champions and sponsors, noting their influence and role in driving adoption across the organization.";
+    (*n).docComment = "Change champions and sponsors.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"ISO 21500 — organizational roles & responsibilities\"],\"connotation\":\"Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -55068,21 +54396,6 @@ void buildPreconditionsAndTriggersChildren(som::SomMetaNode& parent, std::vector
   }
 }
 
-void buildPredecessorDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "PredecessorDependencyEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildPrimaryNavigationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -55549,6 +54862,7 @@ void buildPrivilegeUsageReportingChildren(som::SomMetaNode& parent, std::vector<
 }
 
 void buildProblemStatementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ProblemStatement";
@@ -55583,29 +54897,19 @@ void buildProblemStatementChildren(som::SomMetaNode& parent, std::vector<std::st
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ProblemStatement";
-    (*ln).memberName = "relatedPainPoints";
-    (*ln).sectionId = "RPPE-RELA-LST";
-    (*ln).sectionIdPattern = "RPPE-RELA-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RelatedPainPointEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
-    (*ln).contentHelp = "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.";
-    (*ln).docComment = "Related pain points from Current State Analysis.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — problem space\"],\"connotation\":\"The set of related pain points drawn from the Current State Analysis that this problem connects to.\"}", nullptr)});
-    ln->elementNode = metaCx("RelatedPainPointEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RelatedPainPointEntry";
-        n.classSectionId = "RPPE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RelatedPainPointEntry";
-        n.docComment = "A single related pain point entry.";
-        n.classDocComment = "A single related pain point entry.";
-      },
-      buildRelatedPainPointEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ProblemStatement";
+    (*n).memberName = "relatedPainPoints";
+    (*n).sectionId = "RPPE-RELA-LST";
+    (*n).sectionIdPattern = "RPPE-RELA-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).contentHelp = "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.";
+    (*n).docComment = "Related pain points from Current State Analysis.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — problem space\"],\"connotation\":\"The set of related pain points drawn from the Current State Analysis that this problem connects to.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -59367,29 +58671,19 @@ void buildQualityFrameworkChildren(som::SomMetaNode& parent, std::vector<std::st
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "QualityFramework";
-    (*ln).memberName = "categoryDependencies";
-    (*ln).sectionId = "CATEG-CATE-LST";
-    (*ln).sectionIdPattern = "CATEG-CATE-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "CategoryDependencyEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "Add one entry per category dependency.";
-    (*ln).docComment = "Quality dependencies map.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs\"],\"connotation\":\"Lists dependencies between quality categories used to reason about trade-offs.\"}", nullptr)});
-    ln->elementNode = metaCx("CategoryDependencyEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "CategoryDependencyEntry";
-        n.classSectionId = "CATEG";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "CategoryDependencyEntry";
-        n.docComment = "A single category dependency entry.";
-        n.classDocComment = "A single category dependency entry.";
-      },
-      buildCategoryDependencyEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "QualityFramework";
+    (*n).memberName = "categoryDependencies";
+    (*n).sectionId = "CATEG-CATE-LST";
+    (*n).sectionIdPattern = "CATEG-CATE-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).contentHelp = "Add one entry per category dependency.";
+    (*n).docComment = "Quality dependencies map.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs\"],\"connotation\":\"Lists dependencies between quality categories used to reason about trade-offs.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -60183,21 +59477,6 @@ void buildReadinessCriteriaEntryChildren(som::SomMetaNode& parent, std::vector<s
   }
 }
 
-void buildRecoveryFlowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RecoveryFlowEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildRecoveryProceduresChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -60758,21 +60037,6 @@ void buildRelatedDocumentEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocumentTitle", "String", "Related Document Title", false, "Title of the related referenced document.", 1});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipType", "String", "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", false, "Nature of the link, e.g. Depends On, Supersedes, Complements.", 2});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipDescription", "String", "Relationship Description (explain the connection)", false, "Explain the connection between the two documents.", 3});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildRelatedPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RelatedPainPointEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -62359,21 +61623,6 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
   }
 }
 
-void buildRepresentativeQuoteEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RepresentativeQuoteEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildRequirementAcceptanceCriteriaChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -63430,21 +62679,6 @@ void buildResourceRequirementEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredBy", "String", "Required By Date", false, "When the position must be filled", 4});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical/High/Medium/Low)", false, "Critical / High / Medium / Low", 5});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Recruitment Status", false, "Current recruitment progress for this position", 6});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildResponseStrategyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ResponseStrategyEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -64665,21 +63899,6 @@ void buildRevisionHistoryChildren(som::SomMetaNode& parent, std::vector<std::str
   }
 }
 
-void buildRiskBasedDecisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RiskBasedDecisionEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -64731,21 +63950,6 @@ void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedMilestones", "String", "Affected Milestones — project milestones at risk", false, "Project milestones placed at risk", 2});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedDeliverables", "String", "Affected Deliverables — specific deliverables at risk", false, "Specific deliverables placed at risk", 3});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000:2018 — risk management\",\"PMBOK — project risk management\"],\"connotation\":\"This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildRiskCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "RiskCategoryEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -66795,21 +65999,6 @@ void buildScheduledMaintenancePolicyChildren(som::SomMetaNode& parent, std::vect
   }
 }
 
-void buildScopeAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ScopeAssumptionEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildScopeBoundariesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -66900,29 +66089,19 @@ void buildScopeBoundariesChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ScopeBoundaries";
-    (*ln).memberName = "scopeAssumptions";
-    (*ln).sectionId = "SCOPE-SCOP-LST";
-    (*ln).sectionIdPattern = "SCOPE-SCOP-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ScopeAssumptionEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.";
-    (*ln).docComment = "Scope Assumptions.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — system scope & boundaries\"],\"connotation\":\"The set of assumptions on which the defined scope boundaries depend.\"}", nullptr)});
-    ln->elementNode = metaCx("ScopeAssumptionEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ScopeAssumptionEntry";
-        n.classSectionId = "SCOPE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ScopeAssumptionEntry";
-        n.docComment = "A single scope assumption entry.";
-        n.classDocComment = "A single scope assumption entry.";
-      },
-      buildScopeAssumptionEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScopeBoundaries";
+    (*n).memberName = "scopeAssumptions";
+    (*n).sectionId = "SCOPE-SCOP-LST";
+    (*n).sectionIdPattern = "SCOPE-SCOP-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.";
+    (*n).docComment = "Scope Assumptions.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — system scope & boundaries\"],\"connotation\":\"The set of assumptions on which the defined scope boundaries depend.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -68893,21 +68072,6 @@ void buildSecurityCodeReviewPolicyChildren(som::SomMetaNode& parent, std::vector
     (*n).form->fields.push_back(som::SomFormFieldMeta{"securityDebtManagement", "String", "Security Debt Management", false, "How accepted security risks are documented and reviewed", 2});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional security code review notes", 3});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"OWASP ASVS — verification and security testing requirements\",\"ISO/IEC 27001 — internal audit and management review (Clause 9)\"],\"connotation\":\"Finding classification, tracking, and residual-risk handling for security code review.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildSecurityConcernEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "SecurityConcernEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -71431,21 +70595,6 @@ void buildSharedLibraryEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"changelogLocation", "String", "Changelog Location", false, "Where changes are documented", 4});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional library notes", 5});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Domain-Driven Design — bounded contexts / modules\",\"ISO/IEC 25010 — maintainability / modularity quality attributes\"],\"connotation\":\"Captures the compatibility, performance, thread-safety, and deprecation lifecycle of a shared library.\"}", nullptr)});
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildSharedServiceEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "SharedServiceEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -74160,68 +73309,33 @@ void buildStagingStrategyChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "StagingStrategy";
-    (*ln).memberName = "keyAssumptions";
-    (*ln).sectionId = "KEYAS-KEYA-LST";
-    (*ln).sectionIdPattern = "KEYAS-KEYA-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "KeyAssumptionEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 15;
-    (*ln).contentHelp = "Add one entry per key assumption.";
-    (*ln).docComment = "13.1.3. Key Assumptions.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions\"],\"connotation\":\"Lists the key assumptions underpinning the staging strategy.\"}", nullptr)});
-    ln->elementNode = metaCx("KeyAssumptionEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "KeyAssumptionEntry";
-        n.classSectionId = "KEYAS";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "KeyAssumptionEntry";
-        n.docComment = "A single key assumption entry.";
-        n.classDocComment = "A single key assumption entry.";
-      },
-      buildKeyAssumptionEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "StagingStrategy";
-    (*ln).memberName = "constraints";
-    (*ln).sectionId = "STAGI-CONS-LST";
-    (*ln).sectionIdPattern = "STAGI-CONS-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "StagingStrategyConstraintEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 16;
-    (*ln).contentHelp = "Add one entry per staging constraint.";
-    (*ln).docComment = "13.1.4. Constraints.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 21502:2020 — the guidance on project management covers identification and management of project constraints\"],\"connotation\":\"Lists the constraints bounding the staging strategy.\"}", nullptr)});
-    ln->elementNode = metaCx("StagingStrategyConstraintEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "StagingStrategyConstraintEntry";
-        n.classSectionId = "STAGI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "StagingStrategyConstraintEntry";
-        n.docComment = "A single constraint entry.";
-        n.classDocComment = "A single constraint entry.";
-      },
-      buildStagingStrategyConstraintEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildStagingStrategyConstraintEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "StagingStrategyConstraintEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "StagingStrategy";
+    (*n).memberName = "keyAssumptions";
+    (*n).sectionId = "KEYAS-KEYA-LST";
+    (*n).sectionIdPattern = "KEYAS-KEYA-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 15;
+    (*n).contentHelp = "Add one entry per key assumption.";
+    (*n).docComment = "13.1.3. Key Assumptions.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions\"],\"connotation\":\"Lists the key assumptions underpinning the staging strategy.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "StagingStrategy";
+    (*n).memberName = "constraints";
+    (*n).sectionId = "STAGI-CONS-LST";
+    (*n).sectionIdPattern = "STAGI-CONS-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 16;
+    (*n).contentHelp = "Add one entry per staging constraint.";
+    (*n).docComment = "13.1.4. Constraints.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 21502:2020 — the guidance on project management covers identification and management of project constraints\"],\"connotation\":\"Lists the constraints bounding the staging strategy.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -74914,6 +74028,7 @@ void buildSteeringCommitteeChildren(som::SomMetaNode& parent, std::vector<std::s
 }
 
 void buildStepUpAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "StepUpAuthenticationPolicy";
@@ -74926,43 +74041,18 @@ void buildStepUpAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vect
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "StepUpAuthenticationPolicy";
-    (*ln).memberName = "stepUpDetails";
-    (*ln).sectionId = "STEPU-STEP-LST";
-    (*ln).sectionIdPattern = "STEPU-STEP-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "StepUpDetailEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per step-up authentication step.";
-    (*ln).docComment = "Step-Up Authentication Details (text).";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"OWASP ASVS V2 — authentication verification requirements\"],\"connotation\":\"The catalog of step-up authentication detail entries.\"}", nullptr)});
-    ln->elementNode = metaCx("StepUpDetailEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "StepUpDetailEntry";
-        n.classSectionId = "STEPU";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "StepUpDetailEntry";
-        n.docComment = "A single step up detail entry.";
-        n.classDocComment = "A single step up detail entry.";
-      },
-      buildStepUpDetailEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildStepUpDetailEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "StepUpDetailEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "StepUpAuthenticationPolicy";
+    (*n).memberName = "stepUpDetails";
+    (*n).sectionId = "STEPU-STEP-LST";
+    (*n).sectionIdPattern = "STEPU-STEP-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "Add one entry per step-up authentication step.";
+    (*n).docComment = "Step-Up Authentication Details (text).";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"OWASP ASVS V2 — authentication verification requirements\"],\"connotation\":\"The catalog of step-up authentication detail entries.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -76346,6 +75436,7 @@ void buildSystemContextChildren(som::SomMetaNode& parent, std::vector<std::strin
 }
 
 void buildSystemCostAnalysisChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemCostAnalysis";
@@ -76427,29 +75518,19 @@ void buildSystemCostAnalysisChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemCostAnalysis";
-    (*ln).memberName = "nonFinancialBenefits";
-    (*ln).sectionId = "NONFI-NONF-LST";
-    (*ln).sectionIdPattern = "NONFI-NONF-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "NonFinancialBenefitEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 5;
-    (*ln).contentHelp = "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.";
-    (*ln).docComment = "Non-financial benefits to include in ROI.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — cost management (benefits realization)\"],\"connotation\":\"Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision.\"}", nullptr)});
-    ln->elementNode = metaCx("NonFinancialBenefitEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "NonFinancialBenefitEntry";
-        n.classSectionId = "NONFI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "NonFinancialBenefitEntry";
-        n.docComment = "A single non financial benefit entry.";
-        n.classDocComment = "A single non financial benefit entry.";
-      },
-      buildNonFinancialBenefitEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemCostAnalysis";
+    (*n).memberName = "nonFinancialBenefits";
+    (*n).sectionId = "NONFI-NONF-LST";
+    (*n).sectionIdPattern = "NONFI-NONF-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).contentHelp = "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.";
+    (*n).docComment = "Non-financial benefits to include in ROI.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — cost management (benefits realization)\"],\"connotation\":\"Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -76531,29 +75612,19 @@ void buildSystemDataScopeChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemDataScope";
-    (*ln).memberName = "knownQualityIssues";
-    (*ln).sectionId = "KNOWN-KNOW-LST";
-    (*ln).sectionIdPattern = "KNOWN-KNOW-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "KnownQualityIssueEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per data-quality issue to address; note severity and remediation approach.";
-    (*ln).docComment = "Data quality issues to address.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DAMA-DMBOK2 — data quality & migration\"],\"connotation\":\"Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system.\"}", nullptr)});
-    ln->elementNode = metaCx("KnownQualityIssueEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "KnownQualityIssueEntry";
-        n.classSectionId = "KNOWN";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "KnownQualityIssueEntry";
-        n.docComment = "A single known quality issue entry.";
-        n.classDocComment = "A single known quality issue entry.";
-      },
-      buildKnownQualityIssueEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemDataScope";
+    (*n).memberName = "knownQualityIssues";
+    (*n).sectionId = "KNOWN-KNOW-LST";
+    (*n).sectionIdPattern = "KNOWN-KNOW-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per data-quality issue to address; note severity and remediation approach.";
+    (*n).docComment = "Data quality issues to address.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DAMA-DMBOK2 — data quality & migration\"],\"connotation\":\"Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -77047,29 +76118,19 @@ void buildSystemErrorDisplayChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemErrorDisplay";
-    (*ln).memberName = "errorPageDesigns";
-    (*ln).sectionId = "EPDE-ERRO-LST";
-    (*ln).sectionIdPattern = "EPDE-ERRO-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ErrorPageDesignEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
-    (*ln).contentHelp = "Add one entry per error page design.";
-    (*ln).docComment = "Error page designs.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs\",\"ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback\"],\"connotation\":\"The collection of error-page design entries.\"}", nullptr)});
-    ln->elementNode = metaCx("ErrorPageDesignEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ErrorPageDesignEntry";
-        n.classSectionId = "EPDE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ErrorPageDesignEntry";
-        n.docComment = "A single error page design entry.";
-        n.classDocComment = "A single error page design entry.";
-      },
-      buildErrorPageDesignEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemErrorDisplay";
+    (*n).memberName = "errorPageDesigns";
+    (*n).sectionId = "EPDE-ERRO-LST";
+    (*n).sectionIdPattern = "EPDE-ERRO-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).contentHelp = "Add one entry per error page design.";
+    (*n).docComment = "Error page designs.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs\",\"ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback\"],\"connotation\":\"The collection of error-page design entries.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto ln = std::make_unique<som::SomMetaNode>();
@@ -77300,6 +76361,7 @@ void buildSystemInventoryChildren(som::SomMetaNode& parent, std::vector<std::str
 }
 
 void buildSystemKnowledgeTransferChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemKnowledgeTransfer";
@@ -77322,29 +76384,19 @@ void buildSystemKnowledgeTransferChildren(som::SomMetaNode& parent, std::vector<
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemKnowledgeTransfer";
-    (*ln).memberName = "criticalKnowledgeAreas";
-    (*ln).sectionId = "CRITI-CRIT-LST";
-    (*ln).sectionIdPattern = "CRITI-CRIT-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "CriticalKnowledgeAreaEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "Add one entry per critical knowledge area at risk of being lost when the system is retired.";
-    (*ln).docComment = "Critical knowledge areas to preserve.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — resource & knowledge management\"],\"connotation\":\"Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse.\"}", nullptr)});
-    ln->elementNode = metaCx("CriticalKnowledgeAreaEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "CriticalKnowledgeAreaEntry";
-        n.classSectionId = "CRITI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "CriticalKnowledgeAreaEntry";
-        n.docComment = "A single critical knowledge area entry.";
-        n.classDocComment = "A single critical knowledge area entry.";
-      },
-      buildCriticalKnowledgeAreaEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemKnowledgeTransfer";
+    (*n).memberName = "criticalKnowledgeAreas";
+    (*n).sectionId = "CRITI-CRIT-LST";
+    (*n).sectionIdPattern = "CRITI-CRIT-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "Add one entry per critical knowledge area at risk of being lost when the system is retired.";
+    (*n).docComment = "Critical knowledge areas to preserve.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — resource & knowledge management\"],\"connotation\":\"Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -77534,29 +76586,19 @@ void buildSystemOperationChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemOperation";
-    (*ln).memberName = "maintenanceProcedures";
-    (*ln).sectionId = "MAINT-MAIN-LST";
-    (*ln).sectionIdPattern = "MAINT-MAIN-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "MaintenanceProcedureEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
-    (*ln).contentHelp = "Add one entry per maintenance procedure.";
-    (*ln).docComment = "Maintenance Procedures.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"The catalog of scheduled maintenance procedures the system requires.\"}", nullptr)});
-    ln->elementNode = metaCx("MaintenanceProcedureEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "MaintenanceProcedureEntry";
-        n.classSectionId = "MAINT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "MaintenanceProcedureEntry";
-        n.docComment = "A single maintenance procedure entry.";
-        n.classDocComment = "A single maintenance procedure entry.";
-      },
-      buildMaintenanceProcedureEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemOperation";
+    (*n).memberName = "maintenanceProcedures";
+    (*n).sectionId = "MAINT-MAIN-LST";
+    (*n).sectionIdPattern = "MAINT-MAIN-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).contentHelp = "Add one entry per maintenance procedure.";
+    (*n).docComment = "Maintenance Procedures.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"The catalog of scheduled maintenance procedures the system requires.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -77875,29 +76917,19 @@ void buildSystemQualityGoalsChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemQualityGoals";
-    (*ln).memberName = "attributeInterdependencies";
-    (*ln).sectionId = "ATTRI-ATTR-LST";
-    (*ln).sectionIdPattern = "ATTRI-ATTR-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "AttributeInterdependencyEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
-    (*ln).contentHelp = "Add one entry per quality attribute interdependency.";
-    (*ln).docComment = "Quality attribute interdependencies.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs\"],\"connotation\":\"Lists interdependencies between quality attributes used to manage trade-offs.\"}", nullptr)});
-    ln->elementNode = metaCx("AttributeInterdependencyEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "AttributeInterdependencyEntry";
-        n.classSectionId = "ATTRI";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "AttributeInterdependencyEntry";
-        n.docComment = "A single attribute interdependency entry.";
-        n.classDocComment = "A single attribute interdependency entry.";
-      },
-      buildAttributeInterdependencyEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemQualityGoals";
+    (*n).memberName = "attributeInterdependencies";
+    (*n).sectionId = "ATTRI-ATTR-LST";
+    (*n).sectionIdPattern = "ATTRI-ATTR-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 8;
+    (*n).contentHelp = "Add one entry per quality attribute interdependency.";
+    (*n).docComment = "Quality attribute interdependencies.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs\"],\"connotation\":\"Lists interdependencies between quality attributes used to manage trade-offs.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -78212,29 +77244,19 @@ void buildSystemReplacementStrategyChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemReplacementStrategy";
-    (*ln).memberName = "predecessorDependencies";
-    (*ln).sectionId = "PREDE-PRED-LST";
-    (*ln).sectionIdPattern = "PREDE-PRED-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "PredecessorDependencyEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.";
-    (*ln).docComment = "Predecessor systems that must be addressed first.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — migration planning (dependency sequencing)\"],\"connotation\":\"Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap.\"}", nullptr)});
-    ln->elementNode = metaCx("PredecessorDependencyEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "PredecessorDependencyEntry";
-        n.classSectionId = "PREDE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "PredecessorDependencyEntry";
-        n.docComment = "A single predecessor dependency entry.";
-        n.classDocComment = "A single predecessor dependency entry.";
-      },
-      buildPredecessorDependencyEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemReplacementStrategy";
+    (*n).memberName = "predecessorDependencies";
+    (*n).sectionId = "PREDE-PRED-LST";
+    (*n).sectionIdPattern = "PREDE-PRED-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.";
+    (*n).docComment = "Predecessor systems that must be addressed first.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — migration planning (dependency sequencing)\"],\"connotation\":\"Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -78700,6 +77722,7 @@ void buildSystemSummaryChildren(som::SomMetaNode& parent, std::vector<std::strin
 }
 
 void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemTaskEntry";
@@ -78780,73 +77803,39 @@ void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemTaskEntry";
-    (*ln).memberName = "workflowSteps";
-    (*ln).sectionId = "SYSTE-WORK-LST";
-    (*ln).sectionIdPattern = "SYSTE-WORK-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "SystemTaskWorkflowStepEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 5;
-    (*ln).contentHelp = "Add one entry per step in the task workflow, in the order the user performs them.";
-    (*ln).docComment = "Task workflow steps.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The ordered set of workflow steps that make up this task.\"}", nullptr)});
-    ln->elementNode = metaCx("SystemTaskWorkflowStepEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "SystemTaskWorkflowStepEntry";
-        n.classSectionId = "SYSTE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "SystemTaskWorkflowStepEntry";
-        n.docComment = "A single workflow step entry.";
-        n.classDocComment = "A single workflow step entry.";
-      },
-      buildSystemTaskWorkflowStepEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemTaskEntry";
-    (*ln).memberName = "variationsAndExceptions";
-    (*ln).sectionId = "VARIA-VARI-LST";
-    (*ln).sectionIdPattern = "VARIA-VARI-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "VariationsAndExceptionEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
-    (*ln).contentHelp = "Add one entry per variation or exception to the normal task flow.";
-    (*ln).docComment = "Variations and exceptions.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The set of alternative flows and exceptions for this task.\"}", nullptr)});
-    ln->elementNode = metaCx("VariationsAndExceptionEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "VariationsAndExceptionEntry";
-        n.classSectionId = "VARIA";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "VariationsAndExceptionEntry";
-        n.docComment = "A single variations and exception entry.";
-        n.classDocComment = "A single variations and exception entry.";
-      },
-      buildVariationsAndExceptionEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildSystemTaskWorkflowStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "SystemTaskWorkflowStepEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "SystemTaskEntry";
+    (*n).memberName = "workflowSteps";
+    (*n).sectionId = "SYSTE-WORK-LST";
+    (*n).sectionIdPattern = "SYSTE-WORK-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 5;
+    (*n).contentHelp = "Add one entry per step in the task workflow, in the order the user performs them.";
+    (*n).docComment = "Task workflow steps.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The ordered set of workflow steps that make up this task.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemTaskEntry";
+    (*n).memberName = "variationsAndExceptions";
+    (*n).sectionId = "VARIA-VARI-LST";
+    (*n).sectionIdPattern = "VARIA-VARI-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).contentHelp = "Add one entry per variation or exception to the normal task flow.";
+    (*n).docComment = "Variations and exceptions.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-11 — tasks & goals (usability)\",\"ISO/IEC/IEEE 29148 §6 — user tasks/use cases\"],\"connotation\":\"The set of alternative flows and exceptions for this task.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
 
 void buildSystemTechnicalAssessmentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemTechnicalAssessment";
@@ -78918,54 +77907,34 @@ void buildSystemTechnicalAssessmentChildren(som::SomMetaNode& parent, std::vecto
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemTechnicalAssessment";
-    (*ln).memberName = "knownIssues";
-    (*ln).sectionId = "KIE-KNOW-LST";
-    (*ln).sectionIdPattern = "KIE-KNOW-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "KnownIssueEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per significant known technical issue, defect, or deficiency affecting the system.";
-    (*ln).docComment = "Known technical issues and deficiencies.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (defects & maintainability)\"],\"connotation\":\"Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk.\"}", nullptr)});
-    ln->elementNode = metaCx("KnownIssueEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "KnownIssueEntry";
-        n.classSectionId = "KIE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "KnownIssueEntry";
-        n.docComment = "A single known issue entry.";
-        n.classDocComment = "A single known issue entry.";
-      },
-      buildKnownIssueEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemTechnicalAssessment";
+    (*n).memberName = "knownIssues";
+    (*n).sectionId = "KIE-KNOW-LST";
+    (*n).sectionIdPattern = "KIE-KNOW-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per significant known technical issue, defect, or deficiency affecting the system.";
+    (*n).docComment = "Known technical issues and deficiencies.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (defects & maintainability)\"],\"connotation\":\"Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "SystemTechnicalAssessment";
-    (*ln).memberName = "securityConcerns";
-    (*ln).sectionId = "SECUR-SECU-LST";
-    (*ln).sectionIdPattern = "SECUR-SECU-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "SecurityConcernEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 5;
-    (*ln).contentHelp = "Add one entry per security vulnerability or compliance gap; note severity and remediation status.";
-    (*ln).docComment = "Security vulnerabilities and compliance gaps.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)\"],\"connotation\":\"Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.\"}", nullptr)});
-    ln->elementNode = metaCx("SecurityConcernEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "SecurityConcernEntry";
-        n.classSectionId = "SECUR";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "SecurityConcernEntry";
-        n.docComment = "A single security concern entry.";
-        n.classDocComment = "A single security concern entry.";
-      },
-      buildSecurityConcernEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemTechnicalAssessment";
+    (*n).memberName = "securityConcerns";
+    (*n).sectionId = "SECUR-SECU-LST";
+    (*n).sectionIdPattern = "SECUR-SECU-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).contentHelp = "Add one entry per security vulnerability or compliance gap; note severity and remediation status.";
+    (*n).docComment = "Security vulnerabilities and compliance gaps.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)\"],\"connotation\":\"Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -80091,29 +79060,19 @@ void buildTechnicalEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "TechnicalEnvironment";
-    (*ln).memberName = "datacenters";
-    (*ln).sectionId = "DATAC-DATA-LST";
-    (*ln).sectionIdPattern = "DATAC-DATA-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "DatacenterEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
-    (*ln).contentHelp = "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.";
-    (*ln).docComment = "Data center and hosting environment details.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Enumerates data center and hosting environments the solution must run on or integrate with.\"}", nullptr)});
-    ln->elementNode = metaCx("DatacenterEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "DatacenterEntry";
-        n.classSectionId = "DATAC";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "DatacenterEntry";
-        n.docComment = "A single datacenter entry.";
-        n.classDocComment = "A single datacenter entry.";
-      },
-      buildDatacenterEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "TechnicalEnvironment";
+    (*n).memberName = "datacenters";
+    (*n).sectionId = "DATAC-DATA-LST";
+    (*n).sectionIdPattern = "DATAC-DATA-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).contentHelp = "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.";
+    (*n).docComment = "Data center and hosting environment details.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Enumerates data center and hosting environments the solution must run on or integrate with.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -80207,6 +79166,7 @@ void buildTechnicalEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
 }
 
 void buildTechnicalEnvironmentNetworkChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TechnicalEnvironmentNetwork";
@@ -80224,54 +79184,34 @@ void buildTechnicalEnvironmentNetworkChildren(som::SomMetaNode& parent, std::vec
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "TechnicalEnvironmentNetwork";
-    (*ln).memberName = "devopsStandards";
-    (*ln).sectionId = "DEVOP-DEVO-LST";
-    (*ln).sectionIdPattern = "DEVOP-DEVO-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "DevopsStandardEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).contentHelp = "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.";
-    (*ln).docComment = "DevOps and deployment standards.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists mandated DevOps and deployment standards the delivery pipeline must follow.\"}", nullptr)});
-    ln->elementNode = metaCx("DevopsStandardEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "DevopsStandardEntry";
-        n.classSectionId = "DEVOP";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "DevopsStandardEntry";
-        n.docComment = "A single devops standard entry.";
-        n.classDocComment = "A single devops standard entry.";
-      },
-      buildDevopsStandardEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "TechnicalEnvironmentNetwork";
+    (*n).memberName = "devopsStandards";
+    (*n).sectionId = "DEVOP-DEVO-LST";
+    (*n).sectionIdPattern = "DEVOP-DEVO-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).contentHelp = "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.";
+    (*n).docComment = "DevOps and deployment standards.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"TOGAF — technology architecture & environment\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists mandated DevOps and deployment standards the delivery pipeline must follow.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "TechnicalEnvironmentNetwork";
-    (*ln).memberName = "observabilityRequirements";
-    (*ln).sectionId = "OBSER-OBSE-LST";
-    (*ln).sectionIdPattern = "OBSER-OBSE-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ObservabilityRequirementEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
-    (*ln).contentHelp = "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.";
-    (*ln).docComment = "Monitoring and observability requirements.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (infrastructure/platform quality)\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists monitoring and observability requirements the solution must meet for operational visibility.\"}", nullptr)});
-    ln->elementNode = metaCx("ObservabilityRequirementEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ObservabilityRequirementEntry";
-        n.classSectionId = "OBSER";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ObservabilityRequirementEntry";
-        n.docComment = "A single observability requirement entry.";
-        n.classDocComment = "A single observability requirement entry.";
-      },
-      buildObservabilityRequirementEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "TechnicalEnvironmentNetwork";
+    (*n).memberName = "observabilityRequirements";
+    (*n).sectionId = "OBSER-OBSE-LST";
+    (*n).sectionIdPattern = "OBSER-OBSE-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).contentHelp = "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.";
+    (*n).docComment = "Monitoring and observability requirements.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — product quality (infrastructure/platform quality)\",\"ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)\"],\"connotation\":\"Lists monitoring and observability requirements the solution must meet for operational visibility.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -86977,54 +85917,34 @@ void buildUserJourneyChildren(som::SomMetaNode& parent, std::vector<std::string>
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "UserJourney";
-    (*ln).memberName = "keyTouchpoints";
-    (*ln).sectionId = "KEYTO-KEYT-LST";
-    (*ln).sectionIdPattern = "KEYTO-KEYT-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "KeyTouchpointEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 3;
-    (*ln).contentHelp = "Add one entry per key touchpoint in the user journey.";
-    (*ln).docComment = "Key touchpoints.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of key touchpoints where this user category interacts with the system across the journey.\"}", nullptr)});
-    ln->elementNode = metaCx("KeyTouchpointEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "KeyTouchpointEntry";
-        n.classSectionId = "KEYTO";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "KeyTouchpointEntry";
-        n.docComment = "A single key touchpoint entry.";
-        n.classDocComment = "A single key touchpoint entry.";
-      },
-      buildKeyTouchpointEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "UserJourney";
+    (*n).memberName = "keyTouchpoints";
+    (*n).sectionId = "KEYTO-KEYT-LST";
+    (*n).sectionIdPattern = "KEYTO-KEYT-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).contentHelp = "Add one entry per key touchpoint in the user journey.";
+    (*n).docComment = "Key touchpoints.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of key touchpoints where this user category interacts with the system across the journey.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "UserJourney";
-    (*ln).memberName = "painPoints";
-    (*ln).sectionId = "USERJ-PAIN-LST";
-    (*ln).sectionIdPattern = "USERJ-PAIN-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "UserJourneyPainPointEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per pain point or friction in the user journey.";
-    (*ln).docComment = "Pain points in the journey.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of pain points this user category encounters during the journey.\"}", nullptr)});
-    ln->elementNode = metaCx("UserJourneyPainPointEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "UserJourneyPainPointEntry";
-        n.classSectionId = "USERJ";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "UserJourneyPainPointEntry";
-        n.docComment = "A single pain point entry.";
-        n.classDocComment = "A single pain point entry.";
-      },
-      buildUserJourneyPainPointEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "UserJourney";
+    (*n).memberName = "painPoints";
+    (*n).sectionId = "USERJ-PAIN-LST";
+    (*n).sectionIdPattern = "USERJ-PAIN-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per pain point or friction in the user journey.";
+    (*n).docComment = "Pain points in the journey.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — user journey & experience\",\"BABOK v3 §10 — customer journey mapping\"],\"connotation\":\"The set of pain points this user category encounters during the journey.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -87037,21 +85957,6 @@ void buildUserJourneyChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).serializationOrder = 5;
     (*n).contentType = som::SomContentTypeMeta{"description", "Opportunities to exceed user expectations and create positive experiences."};
     (*n).docComment = "Opportunities for delight.";
-    parent.addChild(std::move(n));
-  }
-}
-
-void buildUserJourneyPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "UserJourneyPainPointEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
     parent.addChild(std::move(n));
   }
 }
@@ -87466,6 +86371,7 @@ void buildUserNotificationPreferencesChildren(som::SomMetaNode& parent, std::vec
 }
 
 void buildUserPersonaDetailsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserPersonaDetails";
@@ -87561,29 +86467,19 @@ void buildUserPersonaDetailsChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "UserPersonaDetails";
-    (*ln).memberName = "representativeQuotes";
-    (*ln).sectionId = "REPRE-REPR-LST";
-    (*ln).sectionIdPattern = "REPRE-REPR-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "RepresentativeQuoteEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
-    (*ln).contentHelp = "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.";
-    (*ln).docComment = "Key quotes that represent this persona's mindset.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — personas & context of use\",\"BABOK v3 §10.43 — personas\"],\"connotation\":\"The set of representative quotes capturing this persona's mindset.\"}", nullptr)});
-    ln->elementNode = metaCx("RepresentativeQuoteEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "RepresentativeQuoteEntry";
-        n.classSectionId = "REPRE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "RepresentativeQuoteEntry";
-        n.docComment = "A single representative quote entry.";
-        n.classDocComment = "A single representative quote entry.";
-      },
-      buildRepresentativeQuoteEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "UserPersonaDetails";
+    (*n).memberName = "representativeQuotes";
+    (*n).sectionId = "REPRE-REPR-LST";
+    (*n).sectionIdPattern = "REPRE-REPR-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).contentHelp = "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.";
+    (*n).docComment = "Key quotes that represent this persona's mindset.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — personas & context of use\",\"BABOK v3 §10.43 — personas\"],\"connotation\":\"The set of representative quotes capturing this persona's mindset.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -88130,29 +87026,19 @@ void buildValidationFeedbackChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(ln));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ValidationFeedback";
-    (*ln).memberName = "fieldValidationRules";
-    (*ln).sectionId = "FIELD-FIEL-LST";
-    (*ln).sectionIdPattern = "FIELD-FIEL-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "FieldValidationRuleEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "Add one entry per field validation rule.";
-    (*ln).docComment = "Field validation rules by type.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field\",\"ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data\"],\"connotation\":\"The collection of field validation rule entries organised by field type.\"}", nullptr)});
-    ln->elementNode = metaCx("FieldValidationRuleEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "FieldValidationRuleEntry";
-        n.classSectionId = "FIELD";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "FieldValidationRuleEntry";
-        n.docComment = "A single field validation rule entry.";
-        n.classDocComment = "A single field validation rule entry.";
-      },
-      buildFieldValidationRuleEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ValidationFeedback";
+    (*n).memberName = "fieldValidationRules";
+    (*n).sectionId = "FIELD-FIEL-LST";
+    (*n).sectionIdPattern = "FIELD-FIEL-xxx";
+    (*n).kind = som::kSomMetaKindList;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).contentHelp = "Add one entry per field validation rule.";
+    (*n).docComment = "Field validation rules by type.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field\",\"ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data\"],\"connotation\":\"The collection of field validation rule entries organised by field type.\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -88181,22 +87067,8 @@ void buildValidationMessageTemplateChildren(som::SomMetaNode& parent, std::vecto
   }
 }
 
-void buildValidationRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ValidationRuleEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
-    parent.addChild(std::move(n));
-  }
-}
-
 void buildValuePropositionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ValueProposition";
@@ -88260,43 +87132,18 @@ void buildValuePropositionChildren(som::SomMetaNode& parent, std::vector<std::st
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "ValueProposition";
-    (*ln).memberName = "kpis";
-    (*ln).sectionId = "KPIEN-KPIS-LST";
-    (*ln).sectionIdPattern = "KPIEN-KPIS-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "KpiEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
-    (*ln).contentHelp = "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.";
-    (*ln).docComment = "Key Performance Indicators for value measurement.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — measures of effectiveness\"],\"connotation\":\"The set of key performance indicators by which the system's delivered value will be measured.\"}", nullptr)});
-    ln->elementNode = metaCx("KpiEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "KpiEntry";
-        n.classSectionId = "KPIEN";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "KpiEntry";
-        n.docComment = "A single kpi entry.";
-        n.classDocComment = "A single kpi entry.";
-      },
-      buildKpiEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-}
-
-void buildVariationsAndExceptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
-  {
     auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "VariationsAndExceptionEntry";
-    (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).className = "ValueProposition";
+    (*n).memberName = "kpis";
+    (*n).sectionId = "KPIEN-KPIS-LST";
+    (*n).sectionIdPattern = "KPIEN-KPIS-xxx";
+    (*n).kind = som::kSomMetaKindList;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", "The description for the content is provided by the doc-comment on the field declaration of this type"};
+    (*n).serializationOrder = 4;
+    (*n).contentHelp = "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.";
+    (*n).docComment = "Key Performance Indicators for value measurement.";
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — measures of effectiveness\"],\"connotation\":\"The set of key performance indicators by which the system's delivered value will be measured.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -89851,6 +88698,9 @@ void buildWorkplaceSupportResourcesChildren(som::SomMetaNode& parent, std::vecto
 }
 
 // ── element-accessor factories (som::SomMetaRefFactory) ──────────────────
+void* metaLeafFactory(const som::SomMetaTree* tree, const std::string& path) {
+  return new som::SomMetaRef(tree, path);
+}
 void* metaNavFactoryAcceptanceCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavAcceptanceCriterionEntry{som::SomMetaRef(tree, path)};
 }
@@ -89926,9 +88776,6 @@ void* metaNavFactoryArchitecturePrincipleEntry(const som::SomMetaTree* tree, con
 void* metaNavFactoryAssumptionRegisterEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavAssumptionRegisterEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryAttributeInterdependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavAttributeInterdependencyEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryAuditEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavAuditEntry{som::SomMetaRef(tree, path)};
 }
@@ -89992,17 +88839,11 @@ void* metaNavFactoryBusinessRuleEntry(const som::SomMetaTree* tree, const std::s
 void* metaNavFactoryBusinessRuleReferenceEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavBusinessRuleReferenceEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryCategoryDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavCategoryDependencyEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryCcbMemberEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCcbMemberEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryCertificationEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCertificationEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryChangeAdvocateEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavChangeAdvocateEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryChangeCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavChangeCategoryEntry{som::SomMetaRef(tree, path)};
@@ -90043,9 +88884,6 @@ void* metaNavFactoryCommunicationChannelEncryptionEntry(const som::SomMetaTree* 
 void* metaNavFactoryCommunicationEventEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCommunicationEventEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryCommunicationPreferenceEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavCommunicationPreferenceEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryCommunicationToolsRequirements(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCommunicationToolsRequirements{som::SomMetaRef(tree, path)};
 }
@@ -90057,9 +88895,6 @@ void* metaNavFactoryCompetencyEntry(const som::SomMetaTree* tree, const std::str
 }
 void* metaNavFactoryCompetencyLevelChangeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCompetencyLevelChangeEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryComplianceMeasureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavComplianceMeasureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryComplianceMilestoneEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavComplianceMilestoneEntry{som::SomMetaRef(tree, path)};
@@ -90112,14 +88947,8 @@ void* metaNavFactoryConstraintRegisterEntry(const som::SomMetaTree* tree, const 
 void* metaNavFactoryContingencyPlanEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavContingencyPlanEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryCriticalKnowledgeAreaEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavCriticalKnowledgeAreaEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryCrossBoundaryOperationalConsiderations(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCrossBoundaryOperationalConsiderations{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryCulturalConsiderationEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavCulturalConsiderationEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryCurrentBusinessProcess(const som::SomMetaTree* tree, const std::string& path) {
   return new NavCurrentBusinessProcess{som::SomMetaRef(tree, path)};
@@ -90199,9 +89028,6 @@ void* metaNavFactoryDataVolumeEntry(const som::SomMetaTree* tree, const std::str
 void* metaNavFactoryDatabaseCompatibilityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDatabaseCompatibilityEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryDatacenterEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavDatacenterEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryDecisionAuthorityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDecisionAuthorityEntry{som::SomMetaRef(tree, path)};
 }
@@ -90228,9 +89054,6 @@ void* metaNavFactoryDeliverableEntry(const som::SomMetaTree* tree, const std::st
 }
 void* metaNavFactoryDeliveryAcceptanceCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDeliveryAcceptanceCriterionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavDependencyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryDependencyRegisterEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDependencyRegisterEntry{som::SomMetaRef(tree, path)};
@@ -90261,9 +89084,6 @@ void* metaNavFactoryDetailedProcessWorkflow(const som::SomMetaTree* tree, const 
 }
 void* metaNavFactoryDevelopmentConventionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDevelopmentConventionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryDevopsStandardEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavDevopsStandardEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryDisplayEquipmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDisplayEquipmentEntry{som::SomMetaRef(tree, path)};
@@ -90324,15 +89144,6 @@ void* metaNavFactoryEntryPointEntry(const som::SomMetaTree* tree, const std::str
 }
 void* metaNavFactoryEnvironmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavEnvironmentEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryErrorPageDesignEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavErrorPageDesignEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryErrorProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavErrorProcedureEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryEscalationProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavEscalationProcedureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryEvaluationCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavEvaluationCriterionEntry{som::SomMetaRef(tree, path)};
@@ -90406,12 +89217,6 @@ void* metaNavFactoryFieldHelpEntry(const som::SomMetaTree* tree, const std::stri
 void* metaNavFactoryFieldValidationRule(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFieldValidationRule{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryFieldValidationRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavFieldValidationRuleEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryFragilePointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavFragilePointEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryFrameworkRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFrameworkRequirementEntry{som::SomMetaRef(tree, path)};
 }
@@ -90426,9 +89231,6 @@ void* metaNavFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, con
 }
 void* metaNavFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGapEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryGlobalEntryPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavGlobalEntryPointEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryGlobalRoleExclusionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGlobalRoleExclusionEntry{som::SomMetaRef(tree, path)};
@@ -90490,9 +89292,6 @@ void* metaNavFactoryInsuranceEntry(const som::SomMetaTree* tree, const std::stri
 void* metaNavFactoryIntegrationConstraintEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavIntegrationConstraintEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryIntegrationPatternEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavIntegrationPatternEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryIntegrationPointEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavIntegrationPointEntry{som::SomMetaRef(tree, path)};
 }
@@ -90507,9 +89306,6 @@ void* metaNavFactoryInteractionEntry(const som::SomMetaTree* tree, const std::st
 }
 void* metaNavFactoryInteractionPatternEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavInteractionPatternEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryInteractionScenarioEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavInteractionScenarioEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryInterfaceBusinessProcessEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavInterfaceBusinessProcessEntry{som::SomMetaRef(tree, path)};
@@ -90538,9 +89334,6 @@ void* metaNavFactoryItStandardComplianceEntry(const som::SomMetaTree* tree, cons
 void* metaNavFactoryJourneyStageEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavJourneyStageEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryKeyAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavKeyAssumptionEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryKeyAttributeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavKeyAttributeEntry{som::SomMetaRef(tree, path)};
 }
@@ -90549,18 +89342,6 @@ void* metaNavFactoryKeyConceptEntry(const som::SomMetaTree* tree, const std::str
 }
 void* metaNavFactoryKeyResultEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavKeyResultEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryKeyTouchpointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavKeyTouchpointEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryKnownIssueEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavKnownIssueEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryKnownQualityIssueEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavKnownQualityIssueEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryKpiEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavKpiEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryLegacyCompatibilityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavLegacyCompatibilityEntry{som::SomMetaRef(tree, path)};
@@ -90583,14 +89364,8 @@ void* metaNavFactoryMainScenarioStepEntry(const som::SomMetaTree* tree, const st
 void* metaNavFactoryMaintenanceDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMaintenanceDependencyEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryMaintenanceProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavMaintenanceProcedureEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryMaintenanceWindowEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMaintenanceWindowEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryMappingRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavMappingRuleEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryMasterDataDomainEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMasterDataDomainEntry{som::SomMetaRef(tree, path)};
@@ -90600,9 +89375,6 @@ void* metaNavFactoryMetricsBaselineEntry(const som::SomMetaTree* tree, const std
 }
 void* metaNavFactoryMfaCategoryRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMfaCategoryRequirementEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryMfaDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavMfaDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryMigrationEnvironments(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMigrationEnvironments{som::SomMetaRef(tree, path)};
@@ -90649,9 +89421,6 @@ void* metaNavFactoryMobileDeviceRequirementEntry(const som::SomMetaTree* tree, c
 void* metaNavFactoryModuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavModuleEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryMonitoringProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavMonitoringProcedureEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryMoscowEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavMoscowEntry{som::SomMetaRef(tree, path)};
 }
@@ -90670,9 +89439,6 @@ void* metaNavFactoryNavigationItemEntry(const som::SomMetaTree* tree, const std:
 void* metaNavFactoryNewRoleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavNewRoleEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryNonFinancialBenefitEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavNonFinancialBenefitEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryNotificationChannelEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavNotificationChannelEntry{som::SomMetaRef(tree, path)};
 }
@@ -90687,9 +89453,6 @@ void* metaNavFactoryObjectOperationEntry(const som::SomMetaTree* tree, const std
 }
 void* metaNavFactoryObjectStateEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavObjectStateEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryObservabilityRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavObservabilityRequirementEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryOngoingTrainingEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavOngoingTrainingEntry{som::SomMetaRef(tree, path)};
@@ -90762,9 +89525,6 @@ void* metaNavFactoryPostconditionsAndGuarantees(const som::SomMetaTree* tree, co
 }
 void* metaNavFactoryPreconditionsAndTriggers(const som::SomMetaTree* tree, const std::string& path) {
   return new NavPreconditionsAndTriggers{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryPredecessorDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavPredecessorDependencyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryProcessAdjustmentDetails(const som::SomMetaTree* tree, const std::string& path) {
   return new NavProcessAdjustmentDetails{som::SomMetaRef(tree, path)};
@@ -90859,9 +89619,6 @@ void* metaNavFactoryQualityWeightEntry(const som::SomMetaTree* tree, const std::
 void* metaNavFactoryReadinessCriteriaEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavReadinessCriteriaEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryRecoveryFlowEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavRecoveryFlowEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryRecoveryScenarioEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRecoveryScenarioEntry{som::SomMetaRef(tree, path)};
 }
@@ -90876,9 +89633,6 @@ void* metaNavFactoryRegulatoryRequirementEntry(const som::SomMetaTree* tree, con
 }
 void* metaNavFactoryRelatedDocumentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRelatedDocumentEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryRelatedPainPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavRelatedPainPointEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryRelationshipAttributeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRelationshipAttributeEntry{som::SomMetaRef(tree, path)};
@@ -90922,9 +89676,6 @@ void* metaNavFactoryReportScheduleEntry(const som::SomMetaTree* tree, const std:
 void* metaNavFactoryReportSectionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavReportSectionEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryRepresentativeQuoteEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavRepresentativeQuoteEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryRequirementBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRequirementBusinessRuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -90951,9 +89702,6 @@ void* metaNavFactoryResourceKeyReferenceEntry(const som::SomMetaTree* tree, cons
 }
 void* metaNavFactoryResourceRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavResourceRequirementEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryResponseStrategyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavResponseStrategyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryResponsibilityChangeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavResponsibilityChangeEntry{som::SomMetaRef(tree, path)};
@@ -90993,12 +89741,6 @@ void* metaNavFactoryReviewCriterionEntry(const som::SomMetaTree* tree, const std
 }
 void* metaNavFactoryRevisionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRevisionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryRiskBasedDecisionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavRiskBasedDecisionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryRiskCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavRiskCategoryEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryRiskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRiskEntry{som::SomMetaRef(tree, path)};
@@ -91045,9 +89787,6 @@ void* metaNavFactoryScenarioEntry(const som::SomMetaTree* tree, const std::strin
 void* metaNavFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScenarioStepEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryScopeAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavScopeAssumptionEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryScopeItemEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScopeItemEntry{som::SomMetaRef(tree, path)};
 }
@@ -91080,9 +89819,6 @@ void* metaNavFactoryScreenUserCategoryEntry(const som::SomMetaTree* tree, const 
 }
 void* metaNavFactorySecurityAuditEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSecurityAuditEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactorySecurityConcernEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavSecurityConcernEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactorySecurityControlEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSecurityControlEntry{som::SomMetaRef(tree, path)};
@@ -91119,9 +89855,6 @@ void* metaNavFactorySharedLibraryComponentEntry(const som::SomMetaTree* tree, co
 }
 void* metaNavFactorySharedLibraryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSharedLibraryEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactorySharedServiceEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavSharedServiceEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactorySloEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSloEntry{som::SomMetaRef(tree, path)};
@@ -91171,9 +89904,6 @@ void* metaNavFactoryStagingDependencies(const som::SomMetaTree* tree, const std:
 void* metaNavFactoryStagingDrivers(const som::SomMetaTree* tree, const std::string& path) {
   return new NavStagingDrivers{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryStagingStrategyConstraintEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavStagingStrategyConstraintEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryStakeholderEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavStakeholderEntry{som::SomMetaRef(tree, path)};
 }
@@ -91182,9 +89912,6 @@ void* metaNavFactoryStakeholderRegisterEntry(const som::SomMetaTree* tree, const
 }
 void* metaNavFactoryStakeholdersAndInterests(const som::SomMetaTree* tree, const std::string& path) {
   return new NavStakeholdersAndInterests{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryStepUpDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavStepUpDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactorySubFunctionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSubFunctionEntry{som::SomMetaRef(tree, path)};
@@ -91221,9 +89948,6 @@ void* metaNavFactorySystemMigrationRiskEntry(const som::SomMetaTree* tree, const
 }
 void* metaNavFactorySystemTaskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSystemTaskEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactorySystemTaskWorkflowStepEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavSystemTaskWorkflowStepEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactorySystemToReplaceEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSystemToReplaceEntry{som::SomMetaRef(tree, path)};
@@ -91360,9 +90084,6 @@ void* metaNavFactoryUserCategoryEntry(const som::SomMetaTree* tree, const std::s
 void* metaNavFactoryUserGroupImpactEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavUserGroupImpactEntry{som::SomMetaRef(tree, path)};
 }
-void* metaNavFactoryUserJourneyPainPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavUserJourneyPainPointEntry{som::SomMetaRef(tree, path)};
-}
 void* metaNavFactoryUserLifecycleTransitionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavUserLifecycleTransitionEntry{som::SomMetaRef(tree, path)};
 }
@@ -91377,12 +90098,6 @@ void* metaNavFactoryUtilityNavigationItemEntry(const som::SomMetaTree* tree, con
 }
 void* metaNavFactoryValidationMessageTemplate(const som::SomMetaTree* tree, const std::string& path) {
   return new NavValidationMessageTemplate{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryValidationRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavValidationRuleEntry{som::SomMetaRef(tree, path)};
-}
-void* metaNavFactoryVariationsAndExceptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new NavVariationsAndExceptionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryVolumeMetricEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavVolumeMetricEntry{som::SomMetaRef(tree, path)};
@@ -91507,9 +90222,6 @@ void* metaIdFactoryArchitecturePrincipleEntry(const som::SomMetaTree* tree, cons
 void* metaIdFactoryAssumptionRegisterEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdAssumptionRegisterEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryAttributeInterdependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdAttributeInterdependencyEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryAuditEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdAuditEntry{som::SomMetaRef(tree, path)};
 }
@@ -91573,17 +90285,11 @@ void* metaIdFactoryBusinessRuleEntry(const som::SomMetaTree* tree, const std::st
 void* metaIdFactoryBusinessRuleReferenceEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdBusinessRuleReferenceEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryCategoryDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdCategoryDependencyEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryCcbMemberEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCcbMemberEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryCertificationEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCertificationEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryChangeAdvocateEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdChangeAdvocateEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryChangeCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdChangeCategoryEntry{som::SomMetaRef(tree, path)};
@@ -91624,9 +90330,6 @@ void* metaIdFactoryCommunicationChannelEncryptionEntry(const som::SomMetaTree* t
 void* metaIdFactoryCommunicationEventEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCommunicationEventEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryCommunicationPreferenceEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdCommunicationPreferenceEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryCommunicationToolsRequirements(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCommunicationToolsRequirements{som::SomMetaRef(tree, path)};
 }
@@ -91638,9 +90341,6 @@ void* metaIdFactoryCompetencyEntry(const som::SomMetaTree* tree, const std::stri
 }
 void* metaIdFactoryCompetencyLevelChangeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCompetencyLevelChangeEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryComplianceMeasureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdComplianceMeasureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryComplianceMilestoneEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdComplianceMilestoneEntry{som::SomMetaRef(tree, path)};
@@ -91693,14 +90393,8 @@ void* metaIdFactoryConstraintRegisterEntry(const som::SomMetaTree* tree, const s
 void* metaIdFactoryContingencyPlanEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdContingencyPlanEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryCriticalKnowledgeAreaEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdCriticalKnowledgeAreaEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryCrossBoundaryOperationalConsiderations(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCrossBoundaryOperationalConsiderations{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryCulturalConsiderationEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdCulturalConsiderationEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryCurrentBusinessProcess(const som::SomMetaTree* tree, const std::string& path) {
   return new IdCurrentBusinessProcess{som::SomMetaRef(tree, path)};
@@ -91780,9 +90474,6 @@ void* metaIdFactoryDataVolumeEntry(const som::SomMetaTree* tree, const std::stri
 void* metaIdFactoryDatabaseCompatibilityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDatabaseCompatibilityEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryDatacenterEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdDatacenterEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryDecisionAuthorityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDecisionAuthorityEntry{som::SomMetaRef(tree, path)};
 }
@@ -91809,9 +90500,6 @@ void* metaIdFactoryDeliverableEntry(const som::SomMetaTree* tree, const std::str
 }
 void* metaIdFactoryDeliveryAcceptanceCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDeliveryAcceptanceCriterionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdDependencyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryDependencyRegisterEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDependencyRegisterEntry{som::SomMetaRef(tree, path)};
@@ -91842,9 +90530,6 @@ void* metaIdFactoryDetailedProcessWorkflow(const som::SomMetaTree* tree, const s
 }
 void* metaIdFactoryDevelopmentConventionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDevelopmentConventionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryDevopsStandardEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdDevopsStandardEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryDisplayEquipmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDisplayEquipmentEntry{som::SomMetaRef(tree, path)};
@@ -91905,15 +90590,6 @@ void* metaIdFactoryEntryPointEntry(const som::SomMetaTree* tree, const std::stri
 }
 void* metaIdFactoryEnvironmentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdEnvironmentEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryErrorPageDesignEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdErrorPageDesignEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryErrorProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdErrorProcedureEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryEscalationProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdEscalationProcedureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryEvaluationCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdEvaluationCriterionEntry{som::SomMetaRef(tree, path)};
@@ -91987,12 +90663,6 @@ void* metaIdFactoryFieldHelpEntry(const som::SomMetaTree* tree, const std::strin
 void* metaIdFactoryFieldValidationRule(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFieldValidationRule{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryFieldValidationRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdFieldValidationRuleEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryFragilePointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdFragilePointEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryFrameworkRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFrameworkRequirementEntry{som::SomMetaRef(tree, path)};
 }
@@ -92007,9 +90677,6 @@ void* metaIdFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, cons
 }
 void* metaIdFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGapEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryGlobalEntryPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdGlobalEntryPointEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryGlobalRoleExclusionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGlobalRoleExclusionEntry{som::SomMetaRef(tree, path)};
@@ -92071,9 +90738,6 @@ void* metaIdFactoryInsuranceEntry(const som::SomMetaTree* tree, const std::strin
 void* metaIdFactoryIntegrationConstraintEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdIntegrationConstraintEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryIntegrationPatternEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdIntegrationPatternEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryIntegrationPointEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdIntegrationPointEntry{som::SomMetaRef(tree, path)};
 }
@@ -92088,9 +90752,6 @@ void* metaIdFactoryInteractionEntry(const som::SomMetaTree* tree, const std::str
 }
 void* metaIdFactoryInteractionPatternEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdInteractionPatternEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryInteractionScenarioEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdInteractionScenarioEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryInterfaceBusinessProcessEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdInterfaceBusinessProcessEntry{som::SomMetaRef(tree, path)};
@@ -92119,9 +90780,6 @@ void* metaIdFactoryItStandardComplianceEntry(const som::SomMetaTree* tree, const
 void* metaIdFactoryJourneyStageEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdJourneyStageEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryKeyAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdKeyAssumptionEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryKeyAttributeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdKeyAttributeEntry{som::SomMetaRef(tree, path)};
 }
@@ -92130,18 +90788,6 @@ void* metaIdFactoryKeyConceptEntry(const som::SomMetaTree* tree, const std::stri
 }
 void* metaIdFactoryKeyResultEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdKeyResultEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryKeyTouchpointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdKeyTouchpointEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryKnownIssueEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdKnownIssueEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryKnownQualityIssueEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdKnownQualityIssueEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryKpiEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdKpiEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryLegacyCompatibilityEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdLegacyCompatibilityEntry{som::SomMetaRef(tree, path)};
@@ -92164,14 +90810,8 @@ void* metaIdFactoryMainScenarioStepEntry(const som::SomMetaTree* tree, const std
 void* metaIdFactoryMaintenanceDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMaintenanceDependencyEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryMaintenanceProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdMaintenanceProcedureEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryMaintenanceWindowEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMaintenanceWindowEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryMappingRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdMappingRuleEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryMasterDataDomainEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMasterDataDomainEntry{som::SomMetaRef(tree, path)};
@@ -92181,9 +90821,6 @@ void* metaIdFactoryMetricsBaselineEntry(const som::SomMetaTree* tree, const std:
 }
 void* metaIdFactoryMfaCategoryRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMfaCategoryRequirementEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryMfaDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdMfaDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryMigrationEnvironments(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMigrationEnvironments{som::SomMetaRef(tree, path)};
@@ -92230,9 +90867,6 @@ void* metaIdFactoryMobileDeviceRequirementEntry(const som::SomMetaTree* tree, co
 void* metaIdFactoryModuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdModuleEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryMonitoringProcedureEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdMonitoringProcedureEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryMoscowEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdMoscowEntry{som::SomMetaRef(tree, path)};
 }
@@ -92251,9 +90885,6 @@ void* metaIdFactoryNavigationItemEntry(const som::SomMetaTree* tree, const std::
 void* metaIdFactoryNewRoleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdNewRoleEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryNonFinancialBenefitEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdNonFinancialBenefitEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryNotificationChannelEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdNotificationChannelEntry{som::SomMetaRef(tree, path)};
 }
@@ -92268,9 +90899,6 @@ void* metaIdFactoryObjectOperationEntry(const som::SomMetaTree* tree, const std:
 }
 void* metaIdFactoryObjectStateEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdObjectStateEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryObservabilityRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdObservabilityRequirementEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryOngoingTrainingEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdOngoingTrainingEntry{som::SomMetaRef(tree, path)};
@@ -92343,9 +90971,6 @@ void* metaIdFactoryPostconditionsAndGuarantees(const som::SomMetaTree* tree, con
 }
 void* metaIdFactoryPreconditionsAndTriggers(const som::SomMetaTree* tree, const std::string& path) {
   return new IdPreconditionsAndTriggers{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryPredecessorDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdPredecessorDependencyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryProcessAdjustmentDetails(const som::SomMetaTree* tree, const std::string& path) {
   return new IdProcessAdjustmentDetails{som::SomMetaRef(tree, path)};
@@ -92440,9 +91065,6 @@ void* metaIdFactoryQualityWeightEntry(const som::SomMetaTree* tree, const std::s
 void* metaIdFactoryReadinessCriteriaEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdReadinessCriteriaEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryRecoveryFlowEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdRecoveryFlowEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryRecoveryScenarioEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRecoveryScenarioEntry{som::SomMetaRef(tree, path)};
 }
@@ -92457,9 +91079,6 @@ void* metaIdFactoryRegulatoryRequirementEntry(const som::SomMetaTree* tree, cons
 }
 void* metaIdFactoryRelatedDocumentEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRelatedDocumentEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryRelatedPainPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdRelatedPainPointEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryRelationshipAttributeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRelationshipAttributeEntry{som::SomMetaRef(tree, path)};
@@ -92503,9 +91122,6 @@ void* metaIdFactoryReportScheduleEntry(const som::SomMetaTree* tree, const std::
 void* metaIdFactoryReportSectionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdReportSectionEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryRepresentativeQuoteEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdRepresentativeQuoteEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryRequirementBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRequirementBusinessRuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -92532,9 +91148,6 @@ void* metaIdFactoryResourceKeyReferenceEntry(const som::SomMetaTree* tree, const
 }
 void* metaIdFactoryResourceRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdResourceRequirementEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryResponseStrategyEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdResponseStrategyEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryResponsibilityChangeEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdResponsibilityChangeEntry{som::SomMetaRef(tree, path)};
@@ -92574,12 +91187,6 @@ void* metaIdFactoryReviewCriterionEntry(const som::SomMetaTree* tree, const std:
 }
 void* metaIdFactoryRevisionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRevisionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryRiskBasedDecisionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdRiskBasedDecisionEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryRiskCategoryEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdRiskCategoryEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryRiskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRiskEntry{som::SomMetaRef(tree, path)};
@@ -92626,9 +91233,6 @@ void* metaIdFactoryScenarioEntry(const som::SomMetaTree* tree, const std::string
 void* metaIdFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScenarioStepEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryScopeAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdScopeAssumptionEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryScopeItemEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScopeItemEntry{som::SomMetaRef(tree, path)};
 }
@@ -92661,9 +91265,6 @@ void* metaIdFactoryScreenUserCategoryEntry(const som::SomMetaTree* tree, const s
 }
 void* metaIdFactorySecurityAuditEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSecurityAuditEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactorySecurityConcernEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdSecurityConcernEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactorySecurityControlEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSecurityControlEntry{som::SomMetaRef(tree, path)};
@@ -92700,9 +91301,6 @@ void* metaIdFactorySharedLibraryComponentEntry(const som::SomMetaTree* tree, con
 }
 void* metaIdFactorySharedLibraryEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSharedLibraryEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactorySharedServiceEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdSharedServiceEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactorySloEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSloEntry{som::SomMetaRef(tree, path)};
@@ -92752,9 +91350,6 @@ void* metaIdFactoryStagingDependencies(const som::SomMetaTree* tree, const std::
 void* metaIdFactoryStagingDrivers(const som::SomMetaTree* tree, const std::string& path) {
   return new IdStagingDrivers{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryStagingStrategyConstraintEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdStagingStrategyConstraintEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryStakeholderEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdStakeholderEntry{som::SomMetaRef(tree, path)};
 }
@@ -92763,9 +91358,6 @@ void* metaIdFactoryStakeholderRegisterEntry(const som::SomMetaTree* tree, const 
 }
 void* metaIdFactoryStakeholdersAndInterests(const som::SomMetaTree* tree, const std::string& path) {
   return new IdStakeholdersAndInterests{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryStepUpDetailEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdStepUpDetailEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactorySubFunctionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSubFunctionEntry{som::SomMetaRef(tree, path)};
@@ -92802,9 +91394,6 @@ void* metaIdFactorySystemMigrationRiskEntry(const som::SomMetaTree* tree, const 
 }
 void* metaIdFactorySystemTaskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSystemTaskEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactorySystemTaskWorkflowStepEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdSystemTaskWorkflowStepEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactorySystemToReplaceEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSystemToReplaceEntry{som::SomMetaRef(tree, path)};
@@ -92941,9 +91530,6 @@ void* metaIdFactoryUserCategoryEntry(const som::SomMetaTree* tree, const std::st
 void* metaIdFactoryUserGroupImpactEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdUserGroupImpactEntry{som::SomMetaRef(tree, path)};
 }
-void* metaIdFactoryUserJourneyPainPointEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdUserJourneyPainPointEntry{som::SomMetaRef(tree, path)};
-}
 void* metaIdFactoryUserLifecycleTransitionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdUserLifecycleTransitionEntry{som::SomMetaRef(tree, path)};
 }
@@ -92958,12 +91544,6 @@ void* metaIdFactoryUtilityNavigationItemEntry(const som::SomMetaTree* tree, cons
 }
 void* metaIdFactoryValidationMessageTemplate(const som::SomMetaTree* tree, const std::string& path) {
   return new IdValidationMessageTemplate{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryValidationRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdValidationRuleEntry{som::SomMetaRef(tree, path)};
-}
-void* metaIdFactoryVariationsAndExceptionEntry(const som::SomMetaTree* tree, const std::string& path) {
-  return new IdVariationsAndExceptionEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryVolumeMetricEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdVolumeMetricEntry{som::SomMetaRef(tree, path)};
@@ -93941,7 +92521,7 @@ som::SomMetaRef navApplicableRegulationEntry_content(NavApplicableRegulationEntr
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navApplicableRegulationEntry_complianceMeasures(NavApplicableRegulationEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMPL-COMP-LST"), metaNavFactoryComplianceMeasureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMPL-COMP-LST"), metaLeafFactory);
 }
 som::SomMetaRef navApplicationDiagnostics_content(NavApplicationDiagnostics x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -94107,9 +92687,6 @@ som::SomMetaRef navAssumptionsConstraintsDependencies_content(NavAssumptionsCons
 }
 NavAssumptionConstraintDependencyRegister navAssumptionsConstraintsDependencies_register_(NavAssumptionsConstraintsDependencies x) {
   return NavAssumptionConstraintDependencyRegister{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "register"))};
-}
-som::SomMetaRef navAttributeInterdependencyEntry_content(NavAttributeInterdependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navAuditAndLogging_content(NavAuditAndLogging x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -94909,9 +93486,6 @@ som::SomMetaRef navCapacityReviewProcess_escalation(NavCapacityReviewProcess x) 
 som::SomMetaRef navCapacityReviewProcess_planning(NavCapacityReviewProcess x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CRPP"));
 }
-som::SomMetaRef navCategoryDependencyEntry_content(NavCategoryDependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navCcbMemberEntry_content(NavCcbMemberEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -94974,9 +93548,6 @@ som::SomMetaRef navCertificationRequirementsSection_costs(NavCertificationRequir
 }
 som::SomMetaRef navCertificationRequirementsSection_marketing(NavCertificationRequirementsSection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CRSM"));
-}
-som::SomMetaRef navChangeAdvocateEntry_content(NavChangeAdvocateEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navChangeCategoryEntry_content(NavChangeCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -95446,9 +94017,6 @@ som::SomMetaRef navCommunicationPatterns_reliability(NavCommunicationPatterns x)
 som::SomMetaRef navCommunicationPatterns_observability(NavCommunicationPatterns x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COPAOB"));
 }
-som::SomMetaRef navCommunicationPreferenceEntry_content(NavCommunicationPreferenceEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navCommunicationRequirements_content(NavCommunicationRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -95540,9 +94108,6 @@ som::SomMetaRef navComplianceAuditSchedule_reporting(NavComplianceAuditSchedule 
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CASR"));
 }
 som::SomMetaRef navComplianceFramework_content(NavComplianceFramework x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navComplianceMeasureEntry_content(NavComplianceMeasureEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navComplianceMilestoneEntry_content(NavComplianceMilestoneEntry x) {
@@ -96070,9 +94635,6 @@ som::SomMetaRef navCredentialRecoveryPolicy_content(NavCredentialRecoveryPolicy 
 som::SomMetaRef navCredentialRecoveryPolicy_credentialRecoveryDetails(NavCredentialRecoveryPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "credentialRecoveryDetails"));
 }
-som::SomMetaRef navCriticalKnowledgeAreaEntry_content(NavCriticalKnowledgeAreaEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navCrossBoundaryErrorHandling_content(NavCrossBoundaryErrorHandling x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -96106,9 +94668,6 @@ som::SomMetaRef navCrossTenantAccessPolicy_content(NavCrossTenantAccessPolicy x)
 som::SomMetaRef navCrossTenantAccessPolicy_crossTenantAccessPolicyDetails(NavCrossTenantAccessPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "crossTenantAccessPolicyDetails"));
 }
-som::SomMetaRef navCulturalConsiderationEntry_content(NavCulturalConsiderationEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navCurrentArchitecture_content(NavCurrentArchitecture x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -96119,10 +94678,10 @@ som::SomMetaRef navCurrentArchitecture_deploymentTopology(NavCurrentArchitecture
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CARCH-DEPL"));
 }
 som::SomListMetaRef navCurrentArchitecture_integrationPatterns(NavCurrentArchitecture x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IPE-INTE-LST"), metaNavFactoryIntegrationPatternEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IPE-INTE-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navCurrentArchitecture_sharedServices(NavCurrentArchitecture x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SHARE-SHAR-LST"), metaNavFactorySharedServiceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SHARE-SHAR-LST"), metaLeafFactory);
 }
 som::SomMetaRef navCurrentBusinessProcess_content(NavCurrentBusinessProcess x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -97402,9 +95961,6 @@ som::SomMetaRef navDatabaseEncryptionPolicy_content(NavDatabaseEncryptionPolicy 
 som::SomMetaRef navDatabaseEncryptionPolicy_databaseEncryptionDetails(NavDatabaseEncryptionPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "databaseEncryptionDetails"));
 }
-som::SomMetaRef navDatacenterEntry_content(NavDatacenterEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navDebuggingConfiguration_content(NavDebuggingConfiguration x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -97617,9 +96173,6 @@ NavIntegrations navDependenciesAndIntegrations_integrations(NavDependenciesAndIn
 }
 NavIntegrationHealthSummary navDependenciesAndIntegrations_healthSummary(NavDependenciesAndIntegrations x) {
   return NavIntegrationHealthSummary{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "healthSummary"))};
-}
-som::SomMetaRef navDependencyEntry_content(NavDependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navDependencyHealthMonitoring_content(NavDependencyHealthMonitoring x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -97992,9 +96545,6 @@ som::SomMetaRef navDevelopmentQualityGates_documentation(NavDevelopmentQualityGa
 }
 som::SomMetaRef navDevelopmentQualityGates_performance(NavDevelopmentQualityGates x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DQGP"));
-}
-som::SomMetaRef navDevopsStandardEntry_content(NavDevopsStandardEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navDisasterRecoveryRequirements_content(NavDisasterRecoveryRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -98608,12 +97158,6 @@ som::SomMetaRef navErrorHandlingStandards_userCommunication(NavErrorHandlingStan
 som::SomMetaRef navErrorHandlingStandards_recovery(NavErrorHandlingStandards x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERHASTRE"));
 }
-som::SomMetaRef navErrorPageDesignEntry_content(NavErrorPageDesignEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navErrorProcedureEntry_content(NavErrorProcedureEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navErrorRecovery_recoveryMechanismsContent(NavErrorRecovery x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERRE-RECO"));
 }
@@ -98636,13 +97180,10 @@ som::SomMetaRef navErrorRecovery_recoveryNarrative(NavErrorRecovery x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "recoveryNarrative"));
 }
 som::SomListMetaRef navErrorRecovery_recoveryFlows(NavErrorRecovery x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOV-RECO-LST"), metaNavFactoryRecoveryFlowEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOV-RECO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navErrorRecovery_recoveryScenarios(NavErrorRecovery x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RCVSCN-RECO-LST"), metaNavFactoryRecoveryScenarioEntry);
-}
-som::SomMetaRef navEscalationProcedureEntry_content(NavEscalationProcedureEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navEvaluationCriteria_content(NavEvaluationCriteria x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -98846,7 +97387,7 @@ som::SomMetaRef navExternalActorEntry_context(NavExternalActorEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EAEC"));
 }
 som::SomListMetaRef navExternalActorEntry_interactionScenarios(NavExternalActorEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTER-INTE-LST"), metaNavFactoryInteractionScenarioEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTER-INTE-LST"), metaLeafFactory);
 }
 som::SomMetaRef navExternalActors_content(NavExternalActors x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -99142,9 +97683,6 @@ som::SomMetaRef navFieldHelpEntry_content(NavFieldHelpEntry x) {
 som::SomMetaRef navFieldValidationRule_content(NavFieldValidationRule x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navFieldValidationRuleEntry_content(NavFieldValidationRuleEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navFileAccessControlPolicy_content(NavFileAccessControlPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -99234,9 +97772,6 @@ NavFlexibility navFlexibilityCharacteristic_flexibility(NavFlexibilityCharacteri
 }
 NavPortability navFlexibilityCharacteristic_portability(NavFlexibilityCharacteristic x) {
   return NavPortability{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "portability"))};
-}
-som::SomMetaRef navFragilePointEntry_content(NavFragilePointEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navFrameworkRequirementEntry_content(NavFrameworkRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -99414,9 +97949,6 @@ som::SomMetaRef navGeographicDistributionRequirements_anycast(NavGeographicDistr
 }
 som::SomMetaRef navGeographicDistributionRequirements_performance(NavGeographicDistributionRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GDRP"));
-}
-som::SomMetaRef navGlobalEntryPointEntry_content(NavGlobalEntryPointEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navGlobalRoleExclusionEntry_content(NavGlobalRoleExclusionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -99773,7 +98305,7 @@ som::SomMetaRef navInformationArchitecture_navigationStructure(NavInformationArc
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "navigationStructure"));
 }
 som::SomListMetaRef navInformationArchitecture_globalEntryPoints(NavInformationArchitecture x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GLOBA-GLOB-LST"), metaNavFactoryGlobalEntryPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GLOBA-GLOB-LST"), metaLeafFactory);
 }
 som::SomMetaRef navInformationArchitecture_architectureDiagram(NavInformationArchitecture x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "architectureDiagram"));
@@ -99914,10 +98446,7 @@ som::SomMetaRef navIntegrationHealthSummary_content(NavIntegrationHealthSummary 
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navIntegrationHealthSummary_fragilePoints(NavIntegrationHealthSummary x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FRAGI-FRAG-LST"), metaNavFactoryFragilePointEntry);
-}
-som::SomMetaRef navIntegrationPatternEntry_content(NavIntegrationPatternEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FRAGI-FRAG-LST"), metaLeafFactory);
 }
 som::SomMetaRef navIntegrationPointEntry_content(NavIntegrationPointEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100045,9 +98574,6 @@ som::SomMetaRef navInteractionPatterns_content(NavInteractionPatterns x) {
 som::SomListMetaRef navInteractionPatterns_patterns(NavInteractionPatterns x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INPTN-PATT-LST"), metaNavFactoryInteractionPatternEntry);
 }
-som::SomMetaRef navInteractionScenarioEntry_content(NavInteractionScenarioEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navInteractionTestingStrategy_content(NavInteractionTestingStrategy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -100070,10 +98596,10 @@ som::SomListMetaRef navInterfaceDataSpec_dataEntities(NavInterfaceDataSpec x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IDEE-DATA-LST"), metaNavFactoryInterfaceDataEntityEntry);
 }
 som::SomListMetaRef navInterfaceDataSpec_mappingRules(NavInterfaceDataSpec x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MAPPI-MAPP-LST"), metaNavFactoryMappingRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MAPPI-MAPP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navInterfaceDataSpec_validationRules(NavInterfaceDataSpec x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VALID-VALI-LST"), metaNavFactoryValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VALID-VALI-LST"), metaLeafFactory);
 }
 som::SomMetaRef navInterfaceErrorHandling_content(NavInterfaceErrorHandling x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100088,7 +98614,7 @@ som::SomMetaRef navInterfaceErrorHandling_timeout(NavInterfaceErrorHandling x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IEHT"));
 }
 som::SomListMetaRef navInterfaceErrorHandling_errorProcedures(NavInterfaceErrorHandling x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERROR-ERRO-LST"), metaNavFactoryErrorProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERROR-ERRO-LST"), metaLeafFactory);
 }
 som::SomMetaRef navInterfaceGovernance_content(NavInterfaceGovernance x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100118,7 +98644,7 @@ som::SomMetaRef navInterfaceOperational_support(NavInterfaceOperational x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INOPSU"));
 }
 som::SomListMetaRef navInterfaceOperational_dependencies(NavInterfaceOperational x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEPEN-DEPE-LST"), metaNavFactoryDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEPEN-DEPE-LST"), metaLeafFactory);
 }
 som::SomMetaRef navInterfaceSecurity_content(NavInterfaceSecurity x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100345,9 +98871,6 @@ NavCompetencyFramework navJobDescriptionsAndStaffing_competencyFramework(NavJobD
 som::SomMetaRef navJourneyStageEntry_content(NavJourneyStageEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navKeyAssumptionEntry_content(NavKeyAssumptionEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navKeyAttributeEntry_content(NavKeyAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -100444,19 +98967,7 @@ som::SomMetaRef navKeyStoragePolicy_content(NavKeyStoragePolicy x) {
 som::SomMetaRef navKeyStoragePolicy_notes(NavKeyStoragePolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notes"));
 }
-som::SomMetaRef navKeyTouchpointEntry_content(NavKeyTouchpointEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navKnowledgeTransfer_content(NavKnowledgeTransfer x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navKnownIssueEntry_content(NavKnownIssueEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navKnownQualityIssueEntry_content(NavKnownQualityIssueEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navKpiEntry_content(NavKpiEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navLanguageCountrySelection_languageSelectionContent(NavLanguageCountrySelection x) {
@@ -100783,9 +99294,6 @@ som::SomMetaRef navMaintenanceDependencyEntry_update(NavMaintenanceDependencyEnt
 som::SomMetaRef navMaintenanceDependencyEntry_risk(NavMaintenanceDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MDER"));
 }
-som::SomMetaRef navMaintenanceProcedureEntry_content(NavMaintenanceProcedureEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navMaintenanceUserImpact_content(NavMaintenanceUserImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -100836,9 +99344,6 @@ NavMaintenanceUserImpact navMaintenanceWindowsSection_userImpact(NavMaintenanceW
 }
 NavPostMaintenanceValidation navMaintenanceWindowsSection_postMaintenance(NavMaintenanceWindowsSection x) {
   return NavPostMaintenanceValidation{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "postMaintenance"))};
-}
-som::SomMetaRef navMappingRuleEntry_content(NavMappingRuleEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navMasterDataDomainEntry_content(NavMasterDataDomainEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100940,10 +99445,7 @@ som::SomMetaRef navMfaConfiguration_content(NavMfaConfiguration x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navMfaConfiguration_mfaDetails(NavMfaConfiguration x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MFADE-MFAD-LST"), metaNavFactoryMfaDetailEntry);
-}
-som::SomMetaRef navMfaDetailEntry_content(NavMfaDetailEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MFADE-MFAD-LST"), metaLeafFactory);
 }
 som::SomMetaRef navMigrationConsiderations_strategyContent(NavMigrationConsiderations x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MIGCON-STRA"));
@@ -100979,7 +99481,7 @@ som::SomMetaRef navMigrationConsiderations_communicationPlan(NavMigrationConside
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationPlan"));
 }
 som::SomListMetaRef navMigrationConsiderations_escalationProcedures(NavMigrationConsiderations x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ESCAL-ESCA-LST"), metaNavFactoryEscalationProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ESCAL-ESCA-LST"), metaLeafFactory);
 }
 som::SomMetaRef navMigrationEnvironments_content(NavMigrationEnvironments x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -101117,16 +99619,16 @@ som::SomMetaRef navMigrationRisks_assessmentMethodology(NavMigrationRisks x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "assessmentMethodology"));
 }
 som::SomListMetaRef navMigrationRisks_riskCategories(NavMigrationRisks x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RISKC-RISK-LST"), metaNavFactoryRiskCategoryEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RISKC-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navMigrationRisks_riskBasedDecisions(NavMigrationRisks x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RISKB-RISK-LST"), metaNavFactoryRiskBasedDecisionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RISKB-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navMigrationRisks_monitoringProcedures(NavMigrationRisks x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MONIT-MONI-LST"), metaNavFactoryMonitoringProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MONIT-MONI-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navMigrationRisks_responseStrategies(NavMigrationRisks x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESPO-RESP-LST"), metaNavFactoryResponseStrategyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESPO-RESP-LST"), metaLeafFactory);
 }
 som::SomMetaRef navMigrationRisks_riskAggregation(NavMigrationRisks x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "riskAggregation"));
@@ -101298,9 +99800,6 @@ som::SomMetaRef navMonitoringInfrastructure_collection(NavMonitoringInfrastructu
 }
 som::SomMetaRef navMonitoringInfrastructure_access(NavMonitoringInfrastructure x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MOINAC"));
-}
-som::SomMetaRef navMonitoringProcedureEntry_content(NavMonitoringProcedureEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navMoscowAnalysis_content(NavMoscowAnalysis x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -101653,9 +100152,6 @@ som::SomListMetaRef navNewRoleResponsibilities_secondaryResponsibilities(NavNewR
 som::SomMetaRef navNewRoleResponsibilities_decisionAuthority(NavNewRoleResponsibilities x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RODEAU"));
 }
-som::SomMetaRef navNonFinancialBenefitEntry_content(NavNonFinancialBenefitEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navNotificationChannelEntry_content(NavNotificationChannelEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -101690,9 +100186,6 @@ som::SomMetaRef navObjectOperationEntry_governance(NavObjectOperationEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OOEG"));
 }
 som::SomMetaRef navObjectStateEntry_content(NavObjectStateEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navObservabilityRequirementEntry_content(NavObservabilityRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navOnCallProcedures_content(NavOnCallProcedures x) {
@@ -101897,16 +100390,16 @@ som::SomListMetaRef navOrganizationalEnvironment_decisionMakers(NavOrganizationa
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEMAEN-DECI-LST"), metaNavFactoryDecisionMakerEntry);
 }
 som::SomListMetaRef navOrganizationalEnvironment_culturalConsiderations(NavOrganizationalEnvironment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CULTU-CULT-LST"), metaNavFactoryCulturalConsiderationEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CULTU-CULT-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navOrganizationalEnvironment_communicationPreferences(NavOrganizationalEnvironment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMMU-COMM-LST"), metaNavFactoryCommunicationPreferenceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMMU-COMM-LST"), metaLeafFactory);
 }
 som::SomMetaRef navOrganizationalEnvironment_politicalLandscape(NavOrganizationalEnvironment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "politicalLandscape"));
 }
 som::SomListMetaRef navOrganizationalEnvironment_changeAdvocates(NavOrganizationalEnvironment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CHANG-CHAN-LST"), metaNavFactoryChangeAdvocateEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CHANG-CHAN-LST"), metaLeafFactory);
 }
 som::SomMetaRef navOrganizationalFramework_overview(NavOrganizationalFramework x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
@@ -102385,9 +100878,6 @@ som::SomMetaRef navPostconditionsAndGuarantees_content(NavPostconditionsAndGuara
 som::SomMetaRef navPreconditionsAndTriggers_content(NavPreconditionsAndTriggers x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navPredecessorDependencyEntry_content(NavPredecessorDependencyEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navPrimaryNavigation_content(NavPrimaryNavigation x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -102470,7 +100960,7 @@ som::SomMetaRef navProblemStatement_problemDetails(NavProblemStatement x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "problemDetails"));
 }
 som::SomListMetaRef navProblemStatement_relatedPainPoints(NavProblemStatement x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RPPE-RELA-LST"), metaNavFactoryRelatedPainPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RPPE-RELA-LST"), metaLeafFactory);
 }
 som::SomMetaRef navProcessAdjustmentDetails_content(NavProcessAdjustmentDetails x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -103061,7 +101551,7 @@ som::SomListMetaRef navQualityFramework_qualityCategories(NavQualityFramework x)
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "QCATE-QUAL-LST"), metaNavFactoryQualityCategoryEntry);
 }
 som::SomListMetaRef navQualityFramework_categoryDependencies(NavQualityFramework x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CATEG-CATE-LST"), metaNavFactoryCategoryDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CATEG-CATE-LST"), metaLeafFactory);
 }
 som::SomMetaRef navQualityGateAdjustmentDetails_content(NavQualityGateAdjustmentDetails x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -103192,9 +101682,6 @@ som::SomMetaRef navReadability_narrative(NavReadability x) {
 som::SomMetaRef navReadinessCriteriaEntry_content(NavReadinessCriteriaEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomMetaRef navRecoveryFlowEntry_content(NavRecoveryFlowEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navRecoveryProcedures_content(NavRecoveryProcedures x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -103286,9 +101773,6 @@ som::SomMetaRef navRegulatoryRequirementEntry_content(NavRegulatoryRequirementEn
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navRelatedDocumentEntry_content(NavRelatedDocumentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navRelatedPainPointEntry_content(NavRelatedPainPointEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navRelationshipAttributeEntry_content(NavRelationshipAttributeEntry x) {
@@ -103543,9 +102027,6 @@ som::SomListMetaRef navReportSectionEntry_columns(NavReportSectionEntry x) {
 som::SomListMetaRef navReportSectionEntry_charts(NavReportSectionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECHEN-CHAR-LST"), metaNavFactoryReportChartEntry);
 }
-som::SomMetaRef navRepresentativeQuoteEntry_content(NavRepresentativeQuoteEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navRequirementAcceptanceCriteria_content(NavRequirementAcceptanceCriteria x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -103718,9 +102199,6 @@ NavFileAndStorageSecurity navResourceProtection_fileAndStorageSecurity(NavResour
   return NavFileAndStorageSecurity{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "fileAndStorageSecurity"))};
 }
 som::SomMetaRef navResourceRequirementEntry_content(NavResourceRequirementEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navResponseStrategyEntry_content(NavResponseStrategyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navResponsibilityChangeEntry_content(NavResponsibilityChangeEntry x) {
@@ -103918,9 +102396,6 @@ som::SomMetaRef navRevisionHistory_content(NavRevisionHistory x) {
 som::SomListMetaRef navRevisionHistory_revisions(NavRevisionHistory x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVHST-REVS-LST"), metaNavFactoryRevisionEntry);
 }
-som::SomMetaRef navRiskBasedDecisionEntry_content(NavRiskBasedDecisionEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navRiskBusinessImpact_content(NavRiskBusinessImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -103929,9 +102404,6 @@ som::SomMetaRef navRiskBusinessImpact_stakeholders(NavRiskBusinessImpact x) {
 }
 som::SomMetaRef navRiskBusinessImpact_delivery(NavRiskBusinessImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RBID"));
-}
-som::SomMetaRef navRiskCategoryEntry_content(NavRiskCategoryEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 NavRiskIdentification navRiskEntry_identification(NavRiskEntry x) {
   return NavRiskIdentification{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identification"))};
@@ -104269,9 +102741,6 @@ som::SomMetaRef navScheduledMaintenancePolicy_notice(NavScheduledMaintenancePoli
 som::SomMetaRef navScheduledMaintenancePolicy_approval(NavScheduledMaintenancePolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SMPA"));
 }
-som::SomMetaRef navScopeAssumptionEntry_content(NavScopeAssumptionEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
 som::SomMetaRef navScopeBoundaries_content(NavScopeBoundaries x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -104285,7 +102754,7 @@ som::SomListMetaRef navScopeBoundaries_deferredItems(NavScopeBoundaries x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DFSCP-DEFE-LST"), metaNavFactoryDeferredScopeItemEntry);
 }
 som::SomListMetaRef navScopeBoundaries_scopeAssumptions(NavScopeBoundaries x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCOPE-SCOP-LST"), metaNavFactoryScopeAssumptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCOPE-SCOP-LST"), metaLeafFactory);
 }
 som::SomMetaRef navScopeItemEntry_content(NavScopeItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -104616,9 +103085,6 @@ som::SomMetaRef navSecurityCodeReviewPolicy_process(NavSecurityCodeReviewPolicy 
 }
 som::SomMetaRef navSecurityCodeReviewPolicy_findings(NavSecurityCodeReviewPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRPF"));
-}
-som::SomMetaRef navSecurityConcernEntry_content(NavSecurityConcernEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navSecurityControlEntry_content(NavSecurityControlEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105063,9 +103529,6 @@ som::SomMetaRef navSharedLibraryEntry_api(NavSharedLibraryEntry x) {
 }
 som::SomMetaRef navSharedLibraryEntry_lifecycle(NavSharedLibraryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SLEL"));
-}
-som::SomMetaRef navSharedServiceEntry_content(NavSharedServiceEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navSignOffProcess_content(NavSignOffProcess x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105515,13 +103978,10 @@ som::SomMetaRef navStagingStrategy_rationaleNarrative(NavStagingStrategy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "rationaleNarrative"));
 }
 som::SomListMetaRef navStagingStrategy_keyAssumptions(NavStagingStrategy x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEYAS-KEYA-LST"), metaNavFactoryKeyAssumptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEYAS-KEYA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navStagingStrategy_constraints(NavStagingStrategy x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STAGI-CONS-LST"), metaNavFactoryStagingStrategyConstraintEntry);
-}
-som::SomMetaRef navStagingStrategyConstraintEntry_content(NavStagingStrategyConstraintEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STAGI-CONS-LST"), metaLeafFactory);
 }
 som::SomMetaRef navStakeholderEntry_content(NavStakeholderEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105635,10 +104095,7 @@ som::SomMetaRef navStepUpAuthenticationPolicy_content(NavStepUpAuthenticationPol
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navStepUpAuthenticationPolicy_stepUpDetails(NavStepUpAuthenticationPolicy x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STEPU-STEP-LST"), metaNavFactoryStepUpDetailEntry);
-}
-som::SomMetaRef navStepUpDetailEntry_content(NavStepUpDetailEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STEPU-STEP-LST"), metaLeafFactory);
 }
 som::SomMetaRef navStorageEncryptionPolicy_content(NavStorageEncryptionPolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105887,7 +104344,7 @@ som::SomMetaRef navSystemCostAnalysis_costBreakdown(NavSystemCostAnalysis x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "costBreakdown"));
 }
 som::SomListMetaRef navSystemCostAnalysis_nonFinancialBenefits(NavSystemCostAnalysis x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NONFI-NONF-LST"), metaNavFactoryNonFinancialBenefitEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NONFI-NONF-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemDataScope_content(NavSystemDataScope x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105902,7 +104359,7 @@ som::SomListMetaRef navSystemDataScope_entities(NavSystemDataScope x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEME-ENTI-LST"), metaNavFactoryDataEntityMigrationEntry);
 }
 som::SomListMetaRef navSystemDataScope_knownQualityIssues(NavSystemDataScope x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KNOWN-KNOW-LST"), metaNavFactoryKnownQualityIssueEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KNOWN-KNOW-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemDependencyEntry_content(NavSystemDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105986,7 +104443,7 @@ som::SomMetaRef navSystemErrorDisplay_systemErrorNarrative(NavSystemErrorDisplay
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemErrorNarrative"));
 }
 som::SomListMetaRef navSystemErrorDisplay_errorPageDesigns(NavSystemErrorDisplay x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EPDE-ERRO-LST"), metaNavFactoryErrorPageDesignEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EPDE-ERRO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navSystemErrorDisplay_errorCodes(NavSystemErrorDisplay x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SECE-ERRO-LST"), metaNavFactorySystemErrorCodeEntry);
@@ -106028,7 +104485,7 @@ som::SomMetaRef navSystemKnowledgeTransfer_content(NavSystemKnowledgeTransfer x)
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navSystemKnowledgeTransfer_criticalKnowledgeAreas(NavSystemKnowledgeTransfer x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CRITI-CRIT-LST"), metaNavFactoryCriticalKnowledgeAreaEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CRITI-CRIT-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemKnowledgeTransfer_knowledgeTransferPlan(NavSystemKnowledgeTransfer x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "knowledgeTransferPlan"));
@@ -106064,7 +104521,7 @@ NavAdministrationRequirementsSection navSystemOperation_administrationRequiremen
   return NavAdministrationRequirementsSection{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "administrationRequirements"))};
 }
 som::SomListMetaRef navSystemOperation_maintenanceProcedures(NavSystemOperation x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MAINT-MAIN-LST"), metaNavFactoryMaintenanceProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MAINT-MAIN-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemOperationAndMonitoring_content(NavSystemOperationAndMonitoring x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -106127,7 +104584,7 @@ som::SomMetaRef navSystemQualityGoals_qaStrategy(NavSystemQualityGoals x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qaStrategy"));
 }
 som::SomListMetaRef navSystemQualityGoals_attributeInterdependencies(NavSystemQualityGoals x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ATTRI-ATTR-LST"), metaNavFactoryAttributeInterdependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ATTRI-ATTR-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemQualityGoals_qualityRadar(NavSystemQualityGoals x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityRadar"));
@@ -106184,7 +104641,7 @@ som::SomListMetaRef navSystemReplacementStrategy_phases(NavSystemReplacementStra
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPPHS-PHAS-LST"), metaNavFactoryReplacementPhaseEntry);
 }
 som::SomListMetaRef navSystemReplacementStrategy_predecessorDependencies(NavSystemReplacementStrategy x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PREDE-PRED-LST"), metaNavFactoryPredecessorDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PREDE-PRED-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemReplacementStrategy_successCriteria(NavSystemReplacementStrategy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "successCriteria"));
@@ -106283,13 +104740,10 @@ som::SomMetaRef navSystemTaskEntry_relatedUseCase(NavSystemTaskEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTS-RELA-REF"));
 }
 som::SomListMetaRef navSystemTaskEntry_workflowSteps(NavSystemTaskEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaNavFactorySystemTaskWorkflowStepEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navSystemTaskEntry_variationsAndExceptions(NavSystemTaskEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VARIA-VARI-LST"), metaNavFactoryVariationsAndExceptionEntry);
-}
-som::SomMetaRef navSystemTaskWorkflowStepEntry_content(NavSystemTaskWorkflowStepEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VARIA-VARI-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemTechnicalAssessment_content(NavSystemTechnicalAssessment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -106304,10 +104758,10 @@ som::SomMetaRef navSystemTechnicalAssessment_quality(NavSystemTechnicalAssessmen
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STAQ"));
 }
 som::SomListMetaRef navSystemTechnicalAssessment_knownIssues(NavSystemTechnicalAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KIE-KNOW-LST"), metaNavFactoryKnownIssueEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KIE-KNOW-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navSystemTechnicalAssessment_securityConcerns(NavSystemTechnicalAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SECUR-SECU-LST"), metaNavFactorySecurityConcernEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SECUR-SECU-LST"), metaLeafFactory);
 }
 som::SomMetaRef navSystemToReplaceEntry_identificationContent(NavSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTORE-IDEN"));
@@ -106496,7 +104950,7 @@ som::SomMetaRef navTechnicalEnvironment_existingInfrastructure(NavTechnicalEnvir
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingInfrastructure"));
 }
 som::SomListMetaRef navTechnicalEnvironment_datacenters(NavTechnicalEnvironment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAC-DATA-LST"), metaNavFactoryDatacenterEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAC-DATA-LST"), metaLeafFactory);
 }
 som::SomMetaRef navTechnicalEnvironment_networkTopology(NavTechnicalEnvironment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "networkTopology"));
@@ -106517,10 +104971,10 @@ som::SomMetaRef navTechnicalEnvironmentNetwork_content(NavTechnicalEnvironmentNe
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navTechnicalEnvironmentNetwork_devopsStandards(NavTechnicalEnvironmentNetwork x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEVOP-DEVO-LST"), metaNavFactoryDevopsStandardEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEVOP-DEVO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navTechnicalEnvironmentNetwork_observabilityRequirements(NavTechnicalEnvironmentNetwork x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OBSER-OBSE-LST"), metaNavFactoryObservabilityRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OBSER-OBSE-LST"), metaLeafFactory);
 }
 som::SomMetaRef navTechnicalEnvironmentNetwork_disasterRecovery(NavTechnicalEnvironmentNetwork x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "disasterRecovery"));
@@ -107615,16 +106069,13 @@ som::SomListMetaRef navUserJourney_stages(NavUserJourney x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "JRNST-STAG-LST"), metaNavFactoryJourneyStageEntry);
 }
 som::SomListMetaRef navUserJourney_keyTouchpoints(NavUserJourney x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEYTO-KEYT-LST"), metaNavFactoryKeyTouchpointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KEYTO-KEYT-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navUserJourney_painPoints(NavUserJourney x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "USERJ-PAIN-LST"), metaNavFactoryUserJourneyPainPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "USERJ-PAIN-LST"), metaLeafFactory);
 }
 som::SomMetaRef navUserJourney_opportunitiesForDelight(NavUserJourney x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UJ-OPPO"));
-}
-som::SomMetaRef navUserJourneyPainPointEntry_content(NavUserJourneyPainPointEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navUserLifecycle_content(NavUserLifecycle x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107720,7 +106171,7 @@ som::SomMetaRef navUserPersonaDetails_visualRepresentation(NavUserPersonaDetails
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UPD-VISU"));
 }
 som::SomListMetaRef navUserPersonaDetails_representativeQuotes(NavUserPersonaDetails x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPRE-REPR-LST"), metaNavFactoryRepresentativeQuoteEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPRE-REPR-LST"), metaLeafFactory);
 }
 som::SomMetaRef navUserPersonas_content(NavUserPersonas x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107813,12 +106264,9 @@ som::SomListMetaRef navValidationFeedback_messageTemplates(NavValidationFeedback
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VAMETE-MESS-LST"), metaNavFactoryValidationMessageTemplate);
 }
 som::SomListMetaRef navValidationFeedback_fieldValidationRules(NavValidationFeedback x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FIELD-FIEL-LST"), metaNavFactoryFieldValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FIELD-FIEL-LST"), metaLeafFactory);
 }
 som::SomMetaRef navValidationMessageTemplate_content(NavValidationMessageTemplate x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
-}
-som::SomMetaRef navValidationRuleEntry_content(NavValidationRuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navValueProposition_content(NavValueProposition x) {
@@ -107834,10 +106282,7 @@ som::SomMetaRef navValueProposition_returnProfile(NavValueProposition x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VALRP"));
 }
 som::SomListMetaRef navValueProposition_kpis(NavValueProposition x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KPIEN-KPIS-LST"), metaNavFactoryKpiEntry);
-}
-som::SomMetaRef navVariationsAndExceptionEntry_content(NavVariationsAndExceptionEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "KPIEN-KPIS-LST"), metaLeafFactory);
 }
 som::SomMetaRef navVersionControlConfiguration_content(NavVersionControlConfiguration x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -108183,7 +106628,7 @@ som::SomMetaRef idApiCompatibilityEntry_ACES(IdApiCompatibilityEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ACES"));
 }
 som::SomListMetaRef idApplicableRegulationEntry_COMPL_COMP_LST(IdApplicableRegulationEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMPL-COMP-LST"), metaIdFactoryComplianceMeasureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMPL-COMP-LST"), metaLeafFactory);
 }
 som::SomMetaRef idArchitectureComponentEntry_ACEP(IdArchitectureComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ACEP"));
@@ -108882,7 +107327,7 @@ som::SomMetaRef idD00SolutionBlueprint_SYPUP_VISI(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_RPPE_RELA_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST"), metaIdFactoryRelatedPainPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_STKNT_PRIM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/stakeholders/STKNT-PRIM-LST"), metaIdFactoryStakeholderEntry);
@@ -108897,7 +107342,7 @@ som::SomMetaRef idD00SolutionBlueprint_VALRP(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_KPIEN_KPIS_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST"), metaIdFactoryKpiEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_SCITE_INSC_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST"), metaIdFactoryScopeItemEntry);
@@ -108909,7 +107354,7 @@ som::SomListMetaRef idD00SolutionBlueprint_DFSCP_DEFE_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/DFSCP-DEFE-LST"), metaIdFactoryDeferredScopeItemEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_SCOPE_SCOP_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST"), metaIdFactoryScopeAssumptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_CD_DIAG(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemContext/contextDiagram/CD-DIAG"));
@@ -109104,16 +107549,16 @@ som::SomMetaRef idD00SolutionBlueprint_MIRIRE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_RISKC_RISK_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST"), metaIdFactoryRiskCategoryEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_RISKB_RISK_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST"), metaIdFactoryRiskBasedDecisionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_MONIT_MONI_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST"), metaIdFactoryMonitoringProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_RESPO_RESP_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST"), metaIdFactoryResponseStrategyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_MGRSK_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MGRSK-ITEM-LST"), metaIdFactoryMigrationRiskEntry);
@@ -109122,7 +107567,7 @@ som::SomListMetaRef idD00SolutionBlueprint_MGMLS_MILE_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/MGMLS-MILE-LST"), metaIdFactoryMigrationMilestoneEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_ESCAL_ESCA_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST"), metaIdFactoryEscalationProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_EXINEN_INTE_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST"), metaIdFactoryExternalInterfaceEntry);
@@ -109158,13 +107603,13 @@ som::SomListMetaRef idD00SolutionBlueprint_DEMAEN_DECI_LST(IdD00SolutionBlueprin
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST"), metaIdFactoryDecisionMakerEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_CULTU_CULT_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST"), metaIdFactoryCulturalConsiderationEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_COMMU_COMM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST"), metaIdFactoryCommunicationPreferenceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_CHANG_CHAN_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST"), metaIdFactoryChangeAdvocateEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_REEN1_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST"), metaIdFactoryResponsibilityEntry);
@@ -109182,13 +107627,13 @@ som::SomMetaRef idD00SolutionBlueprint_TES(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TES"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_DEVOP_DEVO_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST"), metaIdFactoryDevopsStandardEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_OBSER_OBSE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST"), metaIdFactoryObservabilityRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_DATAC_DATA_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST"), metaIdFactoryDatacenterEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_TESTEN_TECH_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST"), metaIdFactoryTechnologyStandardEntry);
@@ -109365,10 +107810,10 @@ som::SomMetaRef idD00SolutionBlueprint_CARCH_DEPL(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_IPE_INTE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), metaIdFactoryIntegrationPatternEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_SHARE_SHAR_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), metaIdFactorySharedServiceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_DEPNT_DEPE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE"));
@@ -109386,7 +107831,7 @@ som::SomListMetaRef idD00SolutionBlueprint_SYIN_ITEM_LST(IdD00SolutionBlueprint 
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST"), metaIdFactorySystemIntegrationEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_FRAGI_FRAG_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), metaIdFactoryFragilePointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_CUBUPR_PROC(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/currentBusinessProcesses/CUBUPR-PROC"));
@@ -111210,7 +109655,7 @@ som::SomMetaRef idD00SolutionBlueprint_SDTSS(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_MAINT_MAIN_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST"), metaIdFactoryMaintenanceProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_MONITO_MONI(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/MONITO-MONI"));
@@ -111738,13 +110183,13 @@ som::SomListMetaRef idD00SolutionBlueprint_IDTAM_ATTR_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/identification/IDTAM-ATTR-LST"), metaIdFactoryIdentityAttributeMappingEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_MFADE_MFAD_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), metaIdFactoryMfaDetailEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_ATME_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), metaIdFactoryAuthenticationMethodEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_STEPU_STEP_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), metaIdFactoryStepUpDetailEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_LGFLS_LOGI_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST"), metaIdFactoryLoginFlowStepEntry);
@@ -111798,7 +110243,7 @@ som::SomListMetaRef idD00SolutionBlueprint_SCREN_ITEM_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/screens/screenInventory/SCREN-ITEM-LST"), metaIdFactoryScreenEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_GLOBA_GLOB_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST"), metaIdFactoryGlobalEntryPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_NAVGRP_GROU_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST"), metaIdFactoryNavigationGroupEntry);
@@ -111882,7 +110327,7 @@ som::SomListMetaRef idD00SolutionBlueprint_VAMETE_MESS_LST(IdD00SolutionBlueprin
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/VAMETE-MESS-LST"), metaIdFactoryValidationMessageTemplate);
 }
 som::SomListMetaRef idD00SolutionBlueprint_FIELD_FIEL_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST"), metaIdFactoryFieldValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_SYERDI_SYST(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SYERDI-SYST"));
@@ -111900,7 +110345,7 @@ som::SomMetaRef idD00SolutionBlueprint_SEDF(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SEDF"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_EPDE_ERRO_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), metaIdFactoryErrorPageDesignEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_SECE_ERRO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
@@ -111924,7 +110369,7 @@ som::SomMetaRef idD00SolutionBlueprint_ERSH(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/ERSH"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_RECOV_RECO_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST"), metaIdFactoryRecoveryFlowEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_RCVSCN_RECO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/errorHandling/errorRecovery/RCVSCN-RECO-LST"), metaIdFactoryRecoveryScenarioEntry);
@@ -112203,7 +110648,7 @@ som::SomMetaRef idD00SolutionBlueprint_SQGRS(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/SQGRS"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_ATTRI_ATTR_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST"), metaIdFactoryAttributeInterdependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_QLFWK_FRAM(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-FRAM"));
@@ -112221,7 +110666,7 @@ som::SomListMetaRef idD00SolutionBlueprint_QCATE_QUAL_LST(IdD00SolutionBlueprint
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/QCATE-QUAL-LST"), metaIdFactoryQualityCategoryEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_CATEG_CATE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST"), metaIdFactoryCategoryDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_FNSU_FUNC(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/FNSU-FUNC"));
@@ -112611,10 +111056,10 @@ som::SomMetaRef idD00SolutionBlueprint_STAGGV(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV"));
 }
 som::SomListMetaRef idD00SolutionBlueprint_KEYAS_KEYA_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST"), metaIdFactoryKeyAssumptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD00SolutionBlueprint_STAGI_CONS_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST"), metaIdFactoryStagingStrategyConstraintEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD00SolutionBlueprint_SGOVM(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/stageOverview/SGOVM"));
@@ -112806,10 +111251,10 @@ som::SomMetaRef idD01CurrentLandscapeAssessment_CARCH_DEPL(IdD01CurrentLandscape
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-DEPL"));
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_IPE_INTE_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), metaIdFactoryIntegrationPatternEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_SHARE_SHAR_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), metaIdFactorySharedServiceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD01CurrentLandscapeAssessment_DEPNT_DEPE(IdD01CurrentLandscapeAssessment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE"));
@@ -112827,7 +111272,7 @@ som::SomListMetaRef idD01CurrentLandscapeAssessment_SYIN_ITEM_LST(IdD01CurrentLa
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST"), metaIdFactorySystemIntegrationEntry);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_FRAGI_FRAG_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), metaIdFactoryFragilePointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD01CurrentLandscapeAssessment_CUBUPR_PROC(IdD01CurrentLandscapeAssessment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentBusinessProcesses/CUBUPR-PROC"));
@@ -113010,16 +111455,16 @@ som::SomMetaRef idD01CurrentLandscapeAssessment_MIRIRE(IdD01CurrentLandscapeAsse
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/MIRIRE"));
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_RISKC_RISK_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RISKC-RISK-LST"), metaIdFactoryRiskCategoryEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RISKC-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_RISKB_RISK_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RISKB-RISK-LST"), metaIdFactoryRiskBasedDecisionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RISKB-RISK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_MONIT_MONI_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/MONIT-MONI-LST"), metaIdFactoryMonitoringProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/MONIT-MONI-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_RESPO_RESP_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RESPO-RESP-LST"), metaIdFactoryResponseStrategyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/RESPO-RESP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_MGRSK_ITEM_LST(IdD01CurrentLandscapeAssessment x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/migrationRisks/MGRSK-ITEM-LST"), metaIdFactoryMigrationRiskEntry);
@@ -113028,7 +111473,7 @@ som::SomListMetaRef idD01CurrentLandscapeAssessment_MGMLS_MILE_LST(IdD01CurrentL
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/MGMLS-MILE-LST"), metaIdFactoryMigrationMilestoneEntry);
 }
 som::SomListMetaRef idD01CurrentLandscapeAssessment_ESCAL_ESCA_LST(IdD01CurrentLandscapeAssessment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/ESCAL-ESCA-LST"), metaIdFactoryEscalationProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/ESCAL-ESCA-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD02TargetOperatingModel_PVOVW(IdD02TargetOperatingModel x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processVision/PVOVW"));
@@ -114585,7 +113030,7 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_SDTSS(IdD06Architecture
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS"));
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_MAINT_MAIN_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST"), metaIdFactoryMaintenanceProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_MONITO_MONI(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/MONITO-MONI"));
@@ -115062,13 +113507,13 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_TES(IdD06ArchitectureTe
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/TES"));
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_DEVOP_DEVO_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/network/DEVOP-DEVO-LST"), metaIdFactoryDevopsStandardEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/network/DEVOP-DEVO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_OBSER_OBSE_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/network/OBSER-OBSE-LST"), metaIdFactoryObservabilityRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/network/OBSER-OBSE-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_DATAC_DATA_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/DATAC-DATA-LST"), metaIdFactoryDatacenterEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/DATAC-DATA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_TESTEN_TECH_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/TESTEN-TECH-LST"), metaIdFactoryTechnologyStandardEntry);
@@ -115173,13 +113618,13 @@ som::SomListMetaRef idD08SecurityAccessSpecification_IDTAM_ATTR_LST(IdD08Securit
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/identification/IDTAM-ATTR-LST"), metaIdFactoryIdentityAttributeMappingEntry);
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_MFADE_MFAD_LST(IdD08SecurityAccessSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), metaIdFactoryMfaDetailEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_ATME_ITEM_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationMethods/ATME-ITEM-LST"), metaIdFactoryAuthenticationMethodEntry);
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_STEPU_STEP_LST(IdD08SecurityAccessSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), metaIdFactoryStepUpDetailEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_LGFLS_LOGI_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identificationAndAuthentication/authentication/authenticationFlow/LGFLS-LOGI-LST"), metaIdFactoryLoginFlowStepEntry);
@@ -115233,7 +113678,7 @@ som::SomListMetaRef idD09ExperienceDesignSpecification_SCREN_ITEM_LST(IdD09Exper
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screens/screenInventory/SCREN-ITEM-LST"), metaIdFactoryScreenEntry);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_GLOBA_GLOB_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screens/informationArchitecture/GLOBA-GLOB-LST"), metaIdFactoryGlobalEntryPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screens/informationArchitecture/GLOBA-GLOB-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_NAVGRP_GROU_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST"), metaIdFactoryNavigationGroupEntry);
@@ -115317,7 +113762,7 @@ som::SomListMetaRef idD09ExperienceDesignSpecification_VAMETE_MESS_LST(IdD09Expe
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/validationFeedback/VAMETE-MESS-LST"), metaIdFactoryValidationMessageTemplate);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_FIELD_FIEL_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/validationFeedback/FIELD-FIEL-LST"), metaIdFactoryFieldValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/validationFeedback/FIELD-FIEL-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_SYERDI_SYST(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SYERDI-SYST"));
@@ -115335,7 +113780,7 @@ som::SomMetaRef idD09ExperienceDesignSpecification_SEDF(IdD09ExperienceDesignSpe
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SEDF"));
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_EPDE_ERRO_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), metaIdFactoryErrorPageDesignEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_SECE_ERRO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SECE-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
@@ -115359,7 +113804,7 @@ som::SomMetaRef idD09ExperienceDesignSpecification_ERSH(IdD09ExperienceDesignSpe
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/ERSH"));
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_RECOV_RECO_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/RECOV-RECO-LST"), metaIdFactoryRecoveryFlowEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/RECOV-RECO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_RCVSCN_RECO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/RCVSCN-RECO-LST"), metaIdFactoryRecoveryScenarioEntry);
@@ -115632,7 +114077,7 @@ som::SomListMetaRef idD10QualityAcceptancePlan_QCATE_QUAL_LST(IdD10QualityAccept
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityFramework/QCATE-QUAL-LST"), metaIdFactoryQualityCategoryEntry);
 }
 som::SomListMetaRef idD10QualityAcceptancePlan_CATEG_CATE_LST(IdD10QualityAcceptancePlan x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityFramework/CATEG-CATE-LST"), metaIdFactoryCategoryDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityFramework/CATEG-CATE-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD10QualityAcceptancePlan_FNSU_FUNC(IdD10QualityAcceptancePlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionalSuitability/FNSU-FUNC"));
@@ -115998,10 +114443,10 @@ som::SomMetaRef idD11DeliveryRoadmap_STAGGV(IdD11DeliveryRoadmap x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/STAGGV"));
 }
 som::SomListMetaRef idD11DeliveryRoadmap_KEYAS_KEYA_LST(IdD11DeliveryRoadmap x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/KEYAS-KEYA-LST"), metaIdFactoryKeyAssumptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/KEYAS-KEYA-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idD11DeliveryRoadmap_STAGI_CONS_LST(IdD11DeliveryRoadmap x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/STAGI-CONS-LST"), metaIdFactoryStagingStrategyConstraintEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/STAGI-CONS-LST"), metaLeafFactory);
 }
 som::SomMetaRef idD11DeliveryRoadmap_SGOVM(IdD11DeliveryRoadmap x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stageOverview/SGOVM"));
@@ -116679,7 +115124,7 @@ som::SomMetaRef idExternalActorEntry_EAEC(IdExternalActorEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EAEC"));
 }
 som::SomListMetaRef idExternalActorEntry_INTER_INTE_LST(IdExternalActorEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTER-INTE-LST"), metaIdFactoryInteractionScenarioEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTER-INTE-LST"), metaLeafFactory);
 }
 som::SomMetaRef idExternalInterfaceEntry_EIE_IDEN(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EIE-IDEN"));
@@ -116703,10 +115148,10 @@ som::SomListMetaRef idExternalInterfaceEntry_IDEE_DATA_LST(IdExternalInterfaceEn
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/IDEE-DATA-LST"), metaIdFactoryInterfaceDataEntityEntry);
 }
 som::SomListMetaRef idExternalInterfaceEntry_MAPPI_MAPP_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/MAPPI-MAPP-LST"), metaIdFactoryMappingRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/MAPPI-MAPP-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idExternalInterfaceEntry_VALID_VALI_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/VALID-VALI-LST"), metaIdFactoryValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/VALID-VALI-LST"), metaLeafFactory);
 }
 som::SomMetaRef idExternalInterfaceEntry_INSEAU(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "security/INSEAU"));
@@ -116727,7 +115172,7 @@ som::SomMetaRef idExternalInterfaceEntry_INOPSU(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operational/INOPSU"));
 }
 som::SomListMetaRef idExternalInterfaceEntry_DEPEN_DEPE_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operational/DEPEN-DEPE-LST"), metaIdFactoryDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operational/DEPEN-DEPE-LST"), metaLeafFactory);
 }
 som::SomMetaRef idExternalInterfaceEntry_IEHR(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/IEHR"));
@@ -116739,7 +115184,7 @@ som::SomMetaRef idExternalInterfaceEntry_IEHT(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/IEHT"));
 }
 som::SomListMetaRef idExternalInterfaceEntry_ERROR_ERRO_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/ERROR-ERRO-LST"), metaIdFactoryErrorProcedureEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/ERROR-ERRO-LST"), metaLeafFactory);
 }
 som::SomMetaRef idExternalInterfaceEntry_INGOCO(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "governance/INGOCO"));
@@ -118518,10 +116963,10 @@ som::SomMetaRef idSystemTaskEntry_SYTS_RELA_REF(IdSystemTaskEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTS-RELA-REF"));
 }
 som::SomListMetaRef idSystemTaskEntry_SYSTE_WORK_LST(IdSystemTaskEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaIdFactorySystemTaskWorkflowStepEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYSTE-WORK-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idSystemTaskEntry_VARIA_VARI_LST(IdSystemTaskEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VARIA-VARI-LST"), metaIdFactoryVariationsAndExceptionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VARIA-VARI-LST"), metaLeafFactory);
 }
 som::SomMetaRef idSystemToReplaceEntry_SYTORE_IDEN(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYTORE-IDEN"));
@@ -118542,10 +116987,10 @@ som::SomMetaRef idSystemToReplaceEntry_STAQ(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalAssessment/STAQ"));
 }
 som::SomListMetaRef idSystemToReplaceEntry_KIE_KNOW_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalAssessment/KIE-KNOW-LST"), metaIdFactoryKnownIssueEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalAssessment/KIE-KNOW-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idSystemToReplaceEntry_SECUR_SECU_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalAssessment/SECUR-SECU-LST"), metaIdFactorySecurityConcernEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalAssessment/SECUR-SECU-LST"), metaLeafFactory);
 }
 som::SomMetaRef idSystemToReplaceEntry_SBCO(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SBCO"));
@@ -118569,7 +117014,7 @@ som::SomListMetaRef idSystemToReplaceEntry_REPPHS_PHAS_LST(IdSystemToReplaceEntr
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "replacementStrategy/REPPHS-PHAS-LST"), metaIdFactoryReplacementPhaseEntry);
 }
 som::SomListMetaRef idSystemToReplaceEntry_PREDE_PRED_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "replacementStrategy/PREDE-PRED-LST"), metaIdFactoryPredecessorDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "replacementStrategy/PREDE-PRED-LST"), metaLeafFactory);
 }
 som::SomMetaRef idSystemToReplaceEntry_SDSG(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/SDSG"));
@@ -118581,7 +117026,7 @@ som::SomListMetaRef idSystemToReplaceEntry_DEME_ENTI_LST(IdSystemToReplaceEntry 
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/DEME-ENTI-LST"), metaIdFactoryDataEntityMigrationEntry);
 }
 som::SomListMetaRef idSystemToReplaceEntry_KNOWN_KNOW_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/KNOWN-KNOW-LST"), metaIdFactoryKnownQualityIssueEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/KNOWN-KNOW-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idSystemToReplaceEntry_REPSDEP_DEPE_LST(IdSystemToReplaceEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSDEP-DEPE-LST"), metaIdFactoryReplacementSystemDependencyEntry);
@@ -118608,7 +117053,7 @@ som::SomMetaRef idSystemToReplaceEntry_SCAB(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "costAnalysis/SCAB"));
 }
 som::SomListMetaRef idSystemToReplaceEntry_NONFI_NONF_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "costAnalysis/NONFI-NONF-LST"), metaIdFactoryNonFinancialBenefitEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "costAnalysis/NONFI-NONF-LST"), metaLeafFactory);
 }
 som::SomMetaRef idSystemToReplaceEntry_SMPE(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationPlan/SMPE"));
@@ -118620,7 +117065,7 @@ som::SomListMetaRef idSystemToReplaceEntry_SMRE_RISK_LST(IdSystemToReplaceEntry 
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationPlan/SMRE-RISK-LST"), metaIdFactorySystemMigrationRiskEntry);
 }
 som::SomListMetaRef idSystemToReplaceEntry_CRITI_CRIT_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "knowledgeTransfer/CRITI-CRIT-LST"), metaIdFactoryCriticalKnowledgeAreaEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "knowledgeTransfer/CRITI-CRIT-LST"), metaLeafFactory);
 }
 som::SomMetaRef idSystemTrainingEntry_STEF(IdSystemTrainingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STEF"));
@@ -118968,7 +117413,7 @@ som::SomMetaRef idUserCategoryEntry_UPD_VISU(IdUserCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "personaDetails/UPD-VISU"));
 }
 som::SomListMetaRef idUserCategoryEntry_REPRE_REPR_LST(IdUserCategoryEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "personaDetails/REPRE-REPR-LST"), metaIdFactoryRepresentativeQuoteEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "personaDetails/REPRE-REPR-LST"), metaLeafFactory);
 }
 som::SomMetaRef idUserCategoryEntry_UCRE(IdUserCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCRE"));
@@ -119004,10 +117449,10 @@ som::SomListMetaRef idUserCategoryEntry_JRNST_STAG_LST(IdUserCategoryEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/JRNST-STAG-LST"), metaIdFactoryJourneyStageEntry);
 }
 som::SomListMetaRef idUserCategoryEntry_KEYTO_KEYT_LST(IdUserCategoryEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/KEYTO-KEYT-LST"), metaIdFactoryKeyTouchpointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/KEYTO-KEYT-LST"), metaLeafFactory);
 }
 som::SomListMetaRef idUserCategoryEntry_USERJ_PAIN_LST(IdUserCategoryEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/USERJ-PAIN-LST"), metaIdFactoryUserJourneyPainPointEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/USERJ-PAIN-LST"), metaLeafFactory);
 }
 som::SomMetaRef idUserCategoryEntry_UJ_OPPO(IdUserCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userJourney/UJ-OPPO"));

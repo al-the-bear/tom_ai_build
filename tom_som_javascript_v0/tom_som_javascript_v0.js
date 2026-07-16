@@ -1574,7 +1574,7 @@ class ApplicableRegulationEntry extends SomNode {
 
   // Specific compliance measures for this regulation.
   get complianceMeasures() {
-    return new SomList(this.doc, this.path + "/COMPL-COMP-LST", (d, p) => new ComplianceMeasureEntry(d, p), "COMPL-COMP-xxx");
+    return new SomList(this.doc, this.path + "/COMPL-COMP-LST", (d, p) => new SomScalar(d, p), "COMPL-COMP-xxx");
   }
 }
 
@@ -1960,25 +1960,6 @@ class AssumptionsConstraintsDependencies extends SomNode {
   // The consolidated assumption / constraint register.
   get register() {
     return new AssumptionConstraintDependencyRegister(this.doc, this.path + "/register");
-  }
-}
-
-// A single attribute interdependency entry.
-class AttributeInterdependencyEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -3881,25 +3862,6 @@ class CapacityReviewProcess extends SomNode {
   }
 }
 
-// A single category dependency entry.
-class CategoryDependencyEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A CCB member entry.
 class CcbMemberEntry extends SomNode {
   constructor(doc, path) {
@@ -4061,25 +4023,6 @@ class CertificationRequirementsSection extends SomNode {
   // Marketing and notes.
   get marketing() {
     return new CertificationRequirementsSectionMarketingForm(this.doc, this.path + "/CRSM");
-  }
-}
-
-// A single change advocate entry.
-class ChangeAdvocateEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -5185,25 +5128,6 @@ class CommunicationPatterns extends SomNode {
   }
 }
 
-// A single communication preference entry.
-class CommunicationPreferenceEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 8.6. Communication Requirements.
 class CommunicationRequirements extends SomNode {
   constructor(doc, path) {
@@ -5439,25 +5363,6 @@ class ComplianceAuditSchedule extends SomNode {
 // authorization. Pulls the compliance references currently scattered
 // across @ContentHelp strings into an explicit section.
 class ComplianceFramework extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single compliance measure entry.
-class ComplianceMeasureEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -6758,25 +6663,6 @@ class CredentialRecoveryPolicy extends SomNode {
   }
 }
 
-// A single critical knowledge area entry.
-class CriticalKnowledgeAreaEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
@@ -6909,25 +6795,6 @@ class CrossTenantAccessPolicy extends SomNode {
   }
 }
 
-// A single cultural consideration entry.
-class CulturalConsiderationEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
@@ -6969,12 +6836,12 @@ class CurrentArchitecture extends SomNode {
 
   // Integration patterns used.
   get integrationPatterns() {
-    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d, p) => new IntegrationPatternEntry(d, p), "IPE-INTE-xxx");
+    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d, p) => new SomScalar(d, p), "IPE-INTE-xxx");
   }
 
   // Shared services inventory.
   get sharedServices() {
-    return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d, p) => new SharedServiceEntry(d, p), "SHARE-SHAR-xxx");
+    return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d, p) => new SomScalar(d, p), "SHARE-SHAR-xxx");
   }
 }
 
@@ -10503,25 +10370,6 @@ class DatabaseEncryptionPolicy extends SomNode {
   }
 }
 
-// A single datacenter entry.
-class DatacenterEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Debugging configuration.
 class DebuggingConfiguration extends SomNode {
   constructor(doc, path) {
@@ -11058,25 +10906,6 @@ class DependenciesAndIntegrations extends SomNode {
   // 1.1.3.5. Integration Health Summary.
   get healthSummary() {
     return new IntegrationHealthSummary(this.doc, this.path + "/healthSummary");
-  }
-}
-
-// A single dependency entry.
-class DependencyEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -11951,25 +11780,6 @@ class DevelopmentQualityGates extends SomNode {
   // Performance checks.
   get performance() {
     return new DevelopmentQualityGatesPerformanceForm(this.doc, this.path + "/DQGP");
-  }
-}
-
-// A single devops standard entry.
-class DevopsStandardEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -13558,44 +13368,6 @@ class ErrorHandlingStandards extends SomNode {
   }
 }
 
-// A single error page design entry.
-class ErrorPageDesignEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single error procedure entry.
-class ErrorProcedureEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
@@ -13641,31 +13413,12 @@ class ErrorRecovery extends SomNode {
 
   // Recovery flow diagrams.
   get recoveryFlows() {
-    return new SomList(this.doc, this.path + "/RECOV-RECO-LST", (d, p) => new RecoveryFlowEntry(d, p), "RECOV-RECO-xxx");
+    return new SomList(this.doc, this.path + "/RECOV-RECO-LST", (d, p) => new SomScalar(d, p), "RECOV-RECO-xxx");
   }
 
   // Common recovery scenarios.
   get recoveryScenarios() {
     return new SomList(this.doc, this.path + "/RCVSCN-RECO-LST", (d, p) => new RecoveryScenarioEntry(d, p), "RCVSCN-RECO-xxx");
-  }
-}
-
-// A single escalation procedure entry.
-class EscalationProcedureEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -14147,7 +13900,7 @@ class ExternalActorEntry extends SomNode {
 
   // Interaction scenarios for this actor.
   get interactionScenarios() {
-    return new SomList(this.doc, this.path + "/INTER-INTE-LST", (d, p) => new InteractionScenarioEntry(d, p), "INTER-INTE-xxx");
+    return new SomList(this.doc, this.path + "/INTER-INTE-LST", (d, p) => new SomScalar(d, p), "INTER-INTE-xxx");
   }
 }
 
@@ -14870,25 +14623,6 @@ class FieldValidationRule extends SomNode {
   }
 }
 
-// A single field validation rule entry.
-class FieldValidationRuleEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // File access control policy — who can access, modify, share, and delete
 // files, and how access decisions are enforced.
 //
@@ -15151,25 +14885,6 @@ class FlexibilityCharacteristic extends SomNode {
   // 11.9.2. Portability.
   get portability() {
     return new Portability(this.doc, this.path + "/portability");
-  }
-}
-
-// A single fragile point entry.
-class FragilePointEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -15596,25 +15311,6 @@ class GeographicDistributionRequirements extends SomNode {
   // Performance considerations.
   get performance() {
     return new GeographicDistributionRequirementsPerformanceForm(this.doc, this.path + "/GDRP");
-  }
-}
-
-// A single global entry point entry.
-class GlobalEntryPointEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -16573,7 +16269,7 @@ class InformationArchitecture extends SomNode {
 
   // Global entry points.
   get globalEntryPoints() {
-    return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d, p) => new GlobalEntryPointEntry(d, p), "GLOBA-GLOB-xxx");
+    return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d, p) => new SomScalar(d, p), "GLOBA-GLOB-xxx");
   }
 
   // 10.2.2.5. Information Architecture Diagram.
@@ -16928,26 +16624,7 @@ class IntegrationHealthSummary extends SomNode {
 
   // Fragile integration points requiring attention.
   get fragilePoints() {
-    return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d, p) => new FragilePointEntry(d, p), "FRAGI-FRAG-xxx");
-  }
-}
-
-// A single integration pattern entry.
-class IntegrationPatternEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d, p) => new SomScalar(d, p), "FRAGI-FRAG-xxx");
   }
 }
 
@@ -17304,25 +16981,6 @@ class InteractionPatterns extends SomNode {
   }
 }
 
-// A single interaction scenario entry.
-class InteractionScenarioEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
@@ -17400,12 +17058,12 @@ class InterfaceDataSpec extends SomNode {
 
   // Data mapping and transformation rules.
   get mappingRules() {
-    return new SomList(this.doc, this.path + "/MAPPI-MAPP-LST", (d, p) => new MappingRuleEntry(d, p), "MAPPI-MAPP-xxx");
+    return new SomList(this.doc, this.path + "/MAPPI-MAPP-LST", (d, p) => new SomScalar(d, p), "MAPPI-MAPP-xxx");
   }
 
   // Data validation rules.
   get validationRules() {
-    return new SomList(this.doc, this.path + "/VALID-VALI-LST", (d, p) => new ValidationRuleEntry(d, p), "VALID-VALI-xxx");
+    return new SomList(this.doc, this.path + "/VALID-VALI-LST", (d, p) => new SomScalar(d, p), "VALID-VALI-xxx");
   }
 }
 
@@ -17436,7 +17094,7 @@ class InterfaceErrorHandling extends SomNode {
 
   // Error handling procedures.
   get errorProcedures() {
-    return new SomList(this.doc, this.path + "/ERROR-ERRO-LST", (d, p) => new ErrorProcedureEntry(d, p), "ERROR-ERRO-xxx");
+    return new SomList(this.doc, this.path + "/ERROR-ERRO-LST", (d, p) => new SomScalar(d, p), "ERROR-ERRO-xxx");
   }
 }
 
@@ -17504,7 +17162,7 @@ class InterfaceOperational extends SomNode {
 
   // Operational dependencies.
   get dependencies() {
-    return new SomList(this.doc, this.path + "/DEPEN-DEPE-LST", (d, p) => new DependencyEntry(d, p), "DEPEN-DEPE-xxx");
+    return new SomList(this.doc, this.path + "/DEPEN-DEPE-LST", (d, p) => new SomScalar(d, p), "DEPEN-DEPE-xxx");
   }
 }
 
@@ -18057,25 +17715,6 @@ class JourneyStageEntry extends SomNode {
   }
 }
 
-// A single key assumption entry.
-class KeyAssumptionEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
@@ -18366,87 +18005,11 @@ class KeyStoragePolicy extends SomNode {
   }
 }
 
-// A single key touchpoint entry.
-class KeyTouchpointEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers handover-agreement
 // content.
 class KnowledgeTransfer extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single known issue entry.
-class KnownIssueEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single known quality issue entry.
-class KnownQualityIssueEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// A single kpi entry.
-class KpiEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -19263,25 +18826,6 @@ class MaintenanceDependencyEntry extends SomNode {
   }
 }
 
-// A single maintenance procedure entry.
-class MaintenanceProcedureEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // User impact and communication.
 class MaintenanceUserImpact extends SomNode {
   constructor(doc, path) {
@@ -19393,25 +18937,6 @@ class MaintenanceWindowsSection extends SomNode {
   // Post-maintenance validation.
   get postMaintenance() {
     return new PostMaintenanceValidation(this.doc, this.path + "/postMaintenance");
-  }
-}
-
-// A single mapping rule entry.
-class MappingRuleEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -19677,26 +19202,7 @@ class MfaConfiguration extends SomNode {
 
   // MFA Implementation Details (text).
   get mfaDetails() {
-    return new SomList(this.doc, this.path + "/MFADE-MFAD-LST", (d, p) => new MfaDetailEntry(d, p), "MFADE-MFAD-xxx");
-  }
-}
-
-// A single mfa detail entry.
-class MfaDetailEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/MFADE-MFAD-LST", (d, p) => new SomScalar(d, p), "MFADE-MFAD-xxx");
   }
 }
 
@@ -19766,7 +19272,7 @@ class MigrationConsiderations extends SomNode {
 
   // Escalation procedures during migration.
   get escalationProcedures() {
-    return new SomList(this.doc, this.path + "/ESCAL-ESCA-LST", (d, p) => new EscalationProcedureEntry(d, p), "ESCAL-ESCA-xxx");
+    return new SomList(this.doc, this.path + "/ESCAL-ESCA-LST", (d, p) => new SomScalar(d, p), "ESCAL-ESCA-xxx");
   }
 }
 
@@ -20125,22 +19631,22 @@ class MigrationRisks extends SomNode {
 
   // Risk categories and taxonomy.
   get riskCategories() {
-    return new SomList(this.doc, this.path + "/RISKC-RISK-LST", (d, p) => new RiskCategoryEntry(d, p), "RISKC-RISK-xxx");
+    return new SomList(this.doc, this.path + "/RISKC-RISK-LST", (d, p) => new SomScalar(d, p), "RISKC-RISK-xxx");
   }
 
   // Risk-based decision making criteria.
   get riskBasedDecisions() {
-    return new SomList(this.doc, this.path + "/RISKB-RISK-LST", (d, p) => new RiskBasedDecisionEntry(d, p), "RISKB-RISK-xxx");
+    return new SomList(this.doc, this.path + "/RISKB-RISK-LST", (d, p) => new SomScalar(d, p), "RISKB-RISK-xxx");
   }
 
   // Risk monitoring and control procedures.
   get monitoringProcedures() {
-    return new SomList(this.doc, this.path + "/MONIT-MONI-LST", (d, p) => new MonitoringProcedureEntry(d, p), "MONIT-MONI-xxx");
+    return new SomList(this.doc, this.path + "/MONIT-MONI-LST", (d, p) => new SomScalar(d, p), "MONIT-MONI-xxx");
   }
 
   // Risk response strategies by category.
   get responseStrategies() {
-    return new SomList(this.doc, this.path + "/RESPO-RESP-LST", (d, p) => new ResponseStrategyEntry(d, p), "RESPO-RESP-xxx");
+    return new SomList(this.doc, this.path + "/RESPO-RESP-LST", (d, p) => new SomScalar(d, p), "RESPO-RESP-xxx");
   }
 
   // Risk aggregation and portfolio view.
@@ -20508,25 +20014,6 @@ class MonitoringInfrastructure extends SomNode {
   // Access and privacy controls.
   get access() {
     return new MonitoringInfrastructureAccessForm(this.doc, this.path + "/MOINAC");
-  }
-}
-
-// A single monitoring procedure entry.
-class MonitoringProcedureEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -21361,25 +20848,6 @@ class NewRoleResponsibilities extends SomNode {
   }
 }
 
-// A single non financial benefit entry.
-class NonFinancialBenefitEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // A notification channel entry.
 class NotificationChannelEntry extends SomNode {
   constructor(doc, path) {
@@ -21490,25 +20958,6 @@ class ObjectStateEntry extends SomNode {
 
   get content() {
     return new ObjectStateEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single observability requirement entry.
-class ObservabilityRequirementEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -22025,12 +21474,12 @@ class OrganizationalEnvironment extends SomNode {
 
   // Cultural considerations and organizational dynamics.
   get culturalConsiderations() {
-    return new SomList(this.doc, this.path + "/CULTU-CULT-LST", (d, p) => new CulturalConsiderationEntry(d, p), "CULTU-CULT-xxx");
+    return new SomList(this.doc, this.path + "/CULTU-CULT-LST", (d, p) => new SomScalar(d, p), "CULTU-CULT-xxx");
   }
 
   // Stakeholder communication preferences.
   get communicationPreferences() {
-    return new SomList(this.doc, this.path + "/COMMU-COMM-LST", (d, p) => new CommunicationPreferenceEntry(d, p), "COMMU-COMM-xxx");
+    return new SomList(this.doc, this.path + "/COMMU-COMM-LST", (d, p) => new SomScalar(d, p), "COMMU-COMM-xxx");
   }
 
   // Political dynamics and influence patterns.
@@ -22040,7 +21489,7 @@ class OrganizationalEnvironment extends SomNode {
 
   // Change champions and sponsors.
   get changeAdvocates() {
-    return new SomList(this.doc, this.path + "/CHANG-CHAN-LST", (d, p) => new ChangeAdvocateEntry(d, p), "CHANG-CHAN-xxx");
+    return new SomList(this.doc, this.path + "/CHANG-CHAN-LST", (d, p) => new SomScalar(d, p), "CHANG-CHAN-xxx");
   }
 }
 
@@ -23338,25 +22787,6 @@ class PreconditionsAndTriggers extends SomNode {
   }
 }
 
-// A single predecessor dependency entry.
-class PredecessorDependencyEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -23545,7 +22975,7 @@ class ProblemStatement extends SomNode {
 
   // Related pain points from Current State Analysis.
   get relatedPainPoints() {
-    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d, p) => new RelatedPainPointEntry(d, p), "RPPE-RELA-xxx");
+    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d, p) => new SomScalar(d, p), "RPPE-RELA-xxx");
   }
 }
 
@@ -25077,7 +24507,7 @@ class QualityFramework extends SomNode {
 
   // Quality dependencies map.
   get categoryDependencies() {
-    return new SomList(this.doc, this.path + "/CATEG-CATE-LST", (d, p) => new CategoryDependencyEntry(d, p), "CATEG-CATE-xxx");
+    return new SomList(this.doc, this.path + "/CATEG-CATE-LST", (d, p) => new SomScalar(d, p), "CATEG-CATE-xxx");
   }
 }
 
@@ -25410,25 +24840,6 @@ class ReadinessCriteriaEntry extends SomNode {
   }
 }
 
-// A single recovery flow entry.
-class RecoveryFlowEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Recovery procedures.
 class RecoveryProcedures extends SomNode {
   constructor(doc, path) {
@@ -25696,25 +25107,6 @@ class RelatedDocumentEntry extends SomNode {
 
   get content() {
     return new RelatedDocumentEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single related pain point entry.
-class RelatedPainPointEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -26282,25 +25674,6 @@ class ReportSectionEntry extends SomNode {
   }
 }
 
-// A single representative quote entry.
-class RepresentativeQuoteEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
@@ -26864,25 +26237,6 @@ class ResourceRequirementEntry extends SomNode {
   }
 }
 
-// A single response strategy entry.
-class ResponseStrategyEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Responsibility change entry (form).
 class ResponsibilityChangeEntry extends SomNode {
   constructor(doc, path) {
@@ -27364,25 +26718,6 @@ class RevisionHistory extends SomNode {
   }
 }
 
-// A single risk based decision entry.
-class RiskBasedDecisionEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // Business impact assessment for the risk.
 class RiskBusinessImpact extends SomNode {
   constructor(doc, path) {
@@ -27401,25 +26736,6 @@ class RiskBusinessImpact extends SomNode {
   // Operational and delivery consequences.
   get delivery() {
     return new RiskBusinessImpactDeliveryForm(this.doc, this.path + "/RBID");
-  }
-}
-
-// A single risk category entry.
-class RiskCategoryEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -28347,25 +27663,6 @@ class ScheduledMaintenancePolicy extends SomNode {
   }
 }
 
-// A single scope assumption entry.
-class ScopeAssumptionEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
@@ -28404,7 +27701,7 @@ class ScopeBoundaries extends SomNode {
 
   // Scope Assumptions.
   get scopeAssumptions() {
-    return new SomList(this.doc, this.path + "/SCOPE-SCOP-LST", (d, p) => new ScopeAssumptionEntry(d, p), "SCOPE-SCOP-xxx");
+    return new SomList(this.doc, this.path + "/SCOPE-SCOP-LST", (d, p) => new SomScalar(d, p), "SCOPE-SCOP-xxx");
   }
 }
 
@@ -29237,25 +28534,6 @@ class SecurityCodeReviewPolicy extends SomNode {
   // Finding management and residual risk handling.
   get findings() {
     return new SecurityCodeReviewPolicyFindingsForm(this.doc, this.path + "/SCRPF");
-  }
-}
-
-// A single security concern entry.
-class SecurityConcernEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -30414,25 +29692,6 @@ class SharedLibraryEntry extends SomNode {
   }
 }
 
-// A single shared service entry.
-class SharedServiceEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-}
-
 // 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
@@ -31457,31 +30716,12 @@ class StagingStrategy extends SomNode {
 
   // 13.1.3. Key Assumptions.
   get keyAssumptions() {
-    return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d, p) => new KeyAssumptionEntry(d, p), "KEYAS-KEYA-xxx");
+    return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d, p) => new SomScalar(d, p), "KEYAS-KEYA-xxx");
   }
 
   // 13.1.4. Constraints.
   get constraints() {
-    return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d, p) => new StagingStrategyConstraintEntry(d, p), "STAGI-CONS-xxx");
-  }
-}
-
-// A single constraint entry.
-class StagingStrategyConstraintEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d, p) => new SomScalar(d, p), "STAGI-CONS-xxx");
   }
 }
 
@@ -31815,26 +31055,7 @@ class StepUpAuthenticationPolicy extends SomNode {
 
   // Step-Up Authentication Details (text).
   get stepUpDetails() {
-    return new SomList(this.doc, this.path + "/STEPU-STEP-LST", (d, p) => new StepUpDetailEntry(d, p), "STEPU-STEP-xxx");
-  }
-}
-
-// A single step up detail entry.
-class StepUpDetailEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/STEPU-STEP-LST", (d, p) => new SomScalar(d, p), "STEPU-STEP-xxx");
   }
 }
 
@@ -32491,7 +31712,7 @@ class SystemCostAnalysis extends SomNode {
 
   // Non-financial benefits to include in ROI.
   get nonFinancialBenefits() {
-    return new SomList(this.doc, this.path + "/NONFI-NONF-LST", (d, p) => new NonFinancialBenefitEntry(d, p), "NONFI-NONF-xxx");
+    return new SomList(this.doc, this.path + "/NONFI-NONF-LST", (d, p) => new SomScalar(d, p), "NONFI-NONF-xxx");
   }
 }
 
@@ -32522,7 +31743,7 @@ class SystemDataScope extends SomNode {
 
   // Data quality issues to address.
   get knownQualityIssues() {
-    return new SomList(this.doc, this.path + "/KNOWN-KNOW-LST", (d, p) => new KnownQualityIssueEntry(d, p), "KNOWN-KNOW-xxx");
+    return new SomList(this.doc, this.path + "/KNOWN-KNOW-LST", (d, p) => new SomScalar(d, p), "KNOWN-KNOW-xxx");
   }
 }
 
@@ -32709,7 +31930,7 @@ class SystemErrorDisplay extends SomNode {
 
   // Error page designs.
   get errorPageDesigns() {
-    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d, p) => new ErrorPageDesignEntry(d, p), "EPDE-ERRO-xxx");
+    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d, p) => new SomScalar(d, p), "EPDE-ERRO-xxx");
   }
 
   // Error codes catalog.
@@ -32810,7 +32031,7 @@ class SystemKnowledgeTransfer extends SomNode {
 
   // Critical knowledge areas to preserve.
   get criticalKnowledgeAreas() {
-    return new SomList(this.doc, this.path + "/CRITI-CRIT-LST", (d, p) => new CriticalKnowledgeAreaEntry(d, p), "CRITI-CRIT-xxx");
+    return new SomList(this.doc, this.path + "/CRITI-CRIT-LST", (d, p) => new SomScalar(d, p), "CRITI-CRIT-xxx");
   }
 
   // Knowledge transfer plan if SME risk is high.
@@ -32912,7 +32133,7 @@ class SystemOperation extends SomNode {
 
   // Maintenance Procedures.
   get maintenanceProcedures() {
-    return new SomList(this.doc, this.path + "/MAINT-MAIN-LST", (d, p) => new MaintenanceProcedureEntry(d, p), "MAINT-MAIN-xxx");
+    return new SomList(this.doc, this.path + "/MAINT-MAIN-LST", (d, p) => new SomScalar(d, p), "MAINT-MAIN-xxx");
   }
 }
 
@@ -33065,7 +32286,7 @@ class SystemQualityGoals extends SomNode {
 
   // Quality attribute interdependencies.
   get attributeInterdependencies() {
-    return new SomList(this.doc, this.path + "/ATTRI-ATTR-LST", (d, p) => new AttributeInterdependencyEntry(d, p), "ATTRI-ATTR-xxx");
+    return new SomList(this.doc, this.path + "/ATTRI-ATTR-LST", (d, p) => new SomScalar(d, p), "ATTRI-ATTR-xxx");
   }
 
   // Quality attribute priority radar.
@@ -33168,7 +32389,7 @@ class SystemReplacementStrategy extends SomNode {
 
   // Predecessor systems that must be addressed first.
   get predecessorDependencies() {
-    return new SomList(this.doc, this.path + "/PREDE-PRED-LST", (d, p) => new PredecessorDependencyEntry(d, p), "PREDE-PRED-xxx");
+    return new SomList(this.doc, this.path + "/PREDE-PRED-LST", (d, p) => new SomScalar(d, p), "PREDE-PRED-xxx");
   }
 
   // Success criteria for replacement completion.
@@ -33388,31 +32609,12 @@ class SystemTaskEntry extends SomNode {
 
   // Task workflow steps.
   get workflowSteps() {
-    return new SomList(this.doc, this.path + "/SYSTE-WORK-LST", (d, p) => new SystemTaskWorkflowStepEntry(d, p), "SYSTE-WORK-xxx");
+    return new SomList(this.doc, this.path + "/SYSTE-WORK-LST", (d, p) => new SomScalar(d, p), "SYSTE-WORK-xxx");
   }
 
   // Variations and exceptions.
   get variationsAndExceptions() {
-    return new SomList(this.doc, this.path + "/VARIA-VARI-LST", (d, p) => new VariationsAndExceptionEntry(d, p), "VARIA-VARI-xxx");
-  }
-}
-
-// A single workflow step entry.
-class SystemTaskWorkflowStepEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/VARIA-VARI-LST", (d, p) => new SomScalar(d, p), "VARIA-VARI-xxx");
   }
 }
 
@@ -33443,12 +32645,12 @@ class SystemTechnicalAssessment extends SomNode {
 
   // Known technical issues and deficiencies.
   get knownIssues() {
-    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d, p) => new KnownIssueEntry(d, p), "KIE-KNOW-xxx");
+    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d, p) => new SomScalar(d, p), "KIE-KNOW-xxx");
   }
 
   // Security vulnerabilities and compliance gaps.
   get securityConcerns() {
-    return new SomList(this.doc, this.path + "/SECUR-SECU-LST", (d, p) => new SecurityConcernEntry(d, p), "SECUR-SECU-xxx");
+    return new SomList(this.doc, this.path + "/SECUR-SECU-LST", (d, p) => new SomScalar(d, p), "SECUR-SECU-xxx");
   }
 }
 
@@ -33909,7 +33111,7 @@ class TechnicalEnvironment extends SomNode {
 
   // Data center and hosting environment details.
   get datacenters() {
-    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d, p) => new DatacenterEntry(d, p), "DATAC-DATA-xxx");
+    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d, p) => new SomScalar(d, p), "DATAC-DATA-xxx");
   }
 
   // Network topology and connectivity constraints.
@@ -33950,12 +33152,12 @@ class TechnicalEnvironmentNetwork extends SomNode {
 
   // DevOps and deployment standards.
   get devopsStandards() {
-    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d, p) => new DevopsStandardEntry(d, p), "DEVOP-DEVO-xxx");
+    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d, p) => new SomScalar(d, p), "DEVOP-DEVO-xxx");
   }
 
   // Monitoring and observability requirements.
   get observabilityRequirements() {
-    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d, p) => new ObservabilityRequirementEntry(d, p), "OBSER-OBSE-xxx");
+    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d, p) => new SomScalar(d, p), "OBSER-OBSE-xxx");
   }
 
   // Disaster recovery and business continuity requirements.
@@ -36756,12 +35958,12 @@ class UserJourney extends SomNode {
 
   // Key touchpoints.
   get keyTouchpoints() {
-    return new SomList(this.doc, this.path + "/KEYTO-KEYT-LST", (d, p) => new KeyTouchpointEntry(d, p), "KEYTO-KEYT-xxx");
+    return new SomList(this.doc, this.path + "/KEYTO-KEYT-LST", (d, p) => new SomScalar(d, p), "KEYTO-KEYT-xxx");
   }
 
   // Pain points in the journey.
   get painPoints() {
-    return new SomList(this.doc, this.path + "/USERJ-PAIN-LST", (d, p) => new UserJourneyPainPointEntry(d, p), "USERJ-PAIN-xxx");
+    return new SomList(this.doc, this.path + "/USERJ-PAIN-LST", (d, p) => new SomScalar(d, p), "USERJ-PAIN-xxx");
   }
 
   // Opportunities for delight.
@@ -36771,25 +35973,6 @@ class UserJourney extends SomNode {
 
   set opportunitiesForDelight(value) {
     this.doc.setContent(this.path + "/UJ-OPPO", value);
-  }
-}
-
-// A single pain point entry.
-class UserJourneyPainPointEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -37065,7 +36248,7 @@ class UserPersonaDetails extends SomNode {
 
   // Key quotes that represent this persona's mindset.
   get representativeQuotes() {
-    return new SomList(this.doc, this.path + "/REPRE-REPR-LST", (d, p) => new RepresentativeQuoteEntry(d, p), "REPRE-REPR-xxx");
+    return new SomList(this.doc, this.path + "/REPRE-REPR-LST", (d, p) => new SomScalar(d, p), "REPRE-REPR-xxx");
   }
 }
 
@@ -37335,7 +36518,7 @@ class ValidationFeedback extends SomNode {
 
   // Field validation rules by type.
   get fieldValidationRules() {
-    return new SomList(this.doc, this.path + "/FIELD-FIEL-LST", (d, p) => new FieldValidationRuleEntry(d, p), "FIELD-FIEL-xxx");
+    return new SomList(this.doc, this.path + "/FIELD-FIEL-LST", (d, p) => new SomScalar(d, p), "FIELD-FIEL-xxx");
   }
 }
 
@@ -37347,25 +36530,6 @@ class ValidationMessageTemplate extends SomNode {
 
   get content() {
     return new ValidationMessageTemplateContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A single validation rule entry.
-class ValidationRuleEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -37407,26 +36571,7 @@ class ValueProposition extends SomNode {
 
   // Key Performance Indicators for value measurement.
   get kpis() {
-    return new SomList(this.doc, this.path + "/KPIEN-KPIS-LST", (d, p) => new KpiEntry(d, p), "KPIEN-KPIS-xxx");
-  }
-}
-
-// A single variations and exception entry.
-class VariationsAndExceptionEntry extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
+    return new SomList(this.doc, this.path + "/KPIEN-KPIS-LST", (d, p) => new SomScalar(d, p), "KPIEN-KPIS-xxx");
   }
 }
 
@@ -179165,7 +178310,6 @@ module.exports = {
   AssumptionConstraintDependencyRegister,
   AssumptionRegisterEntry,
   AssumptionsConstraintsDependencies,
-  AttributeInterdependencyEntry,
   AuditAndLogging,
   AuditEntry,
   AuditEvidenceRequirements,
@@ -179221,14 +178365,12 @@ module.exports = {
   BusinessRuleReferenceEntry,
   CapacityPlanningSection,
   CapacityReviewProcess,
-  CategoryDependencyEntry,
   CcbMemberEntry,
   CertificateAuthenticationPolicy,
   CertificateManagement,
   CertificateManagementPolicy,
   CertificationEntry,
   CertificationRequirementsSection,
-  ChangeAdvocateEntry,
   ChangeCategoryEntry,
   ChangeControlBoard,
   ChangeImpactCriteria,
@@ -179268,7 +178410,6 @@ module.exports = {
   CommunicationEventEntry,
   CommunicationMatrix,
   CommunicationPatterns,
-  CommunicationPreferenceEntry,
   CommunicationRequirements,
   CommunicationToolsRequirements,
   CommunicationTypeEntry,
@@ -179279,7 +178420,6 @@ module.exports = {
   CompetencyLevelChangeEntry,
   ComplianceAuditSchedule,
   ComplianceFramework,
-  ComplianceMeasureEntry,
   ComplianceMilestoneEntry,
   ComplianceReporting,
   ComplianceRequirementEntry,
@@ -179321,13 +178461,11 @@ module.exports = {
   Correctness,
   CredentialCompromiseDetectionPolicy,
   CredentialRecoveryPolicy,
-  CriticalKnowledgeAreaEntry,
   CrossBoundaryErrorHandling,
   CrossBoundaryOperationalConsiderations,
   CrossCuttingConcerns,
   CrossProcessAnalysis,
   CrossTenantAccessPolicy,
-  CulturalConsiderationEntry,
   CurrentArchitecture,
   CurrentBusinessProcess,
   CurrentBusinessProcesses,
@@ -179402,7 +178540,6 @@ module.exports = {
   DatabaseAccessPolicy,
   DatabaseCompatibilityEntry,
   DatabaseEncryptionPolicy,
-  DatacenterEntry,
   DebuggingConfiguration,
   DecisionAuthorityEntry,
   DecisionMakerEntry,
@@ -179421,7 +178558,6 @@ module.exports = {
   DeliveryScopeAndAcceptance,
   DeliveryTransitionAndRollout,
   DependenciesAndIntegrations,
-  DependencyEntry,
   DependencyHealthMonitoring,
   DependencyInjectionStructure,
   DependencyManagement,
@@ -179448,7 +178584,6 @@ module.exports = {
   DevelopmentConventionEntry,
   DevelopmentEnvironment,
   DevelopmentQualityGates,
-  DevopsStandardEntry,
   DisasterRecoveryRequirements,
   DisplayEquipmentEntry,
   DisplayPropertyEntry,
@@ -179505,10 +178640,7 @@ module.exports = {
   ErrorBudgetTracking,
   ErrorHandling,
   ErrorHandlingStandards,
-  ErrorPageDesignEntry,
-  ErrorProcedureEntry,
   ErrorRecovery,
-  EscalationProcedureEntry,
   EvaluationCriteria,
   EvaluationCriterionEntry,
   EventAttributePolicy,
@@ -179548,7 +178680,6 @@ module.exports = {
   FeatureTourEntry,
   FieldHelpEntry,
   FieldValidationRule,
-  FieldValidationRuleEntry,
   FileAccessControlPolicy,
   FileAndStorageSecurity,
   FileDownloadSecurityPolicy,
@@ -179557,7 +178688,6 @@ module.exports = {
   FirewallRequirements,
   Flexibility,
   FlexibilityCharacteristic,
-  FragilePointEntry,
   FrameworkRequirementEntry,
   FullDistribution,
   FunctionDataMatrixEntry,
@@ -179571,7 +178701,6 @@ module.exports = {
   GapEntry,
   Gaps,
   GeographicDistributionRequirements,
-  GlobalEntryPointEntry,
   GlobalRoleExclusionEntry,
   Glossary,
   GlossaryAndAbbreviations,
@@ -179620,7 +178749,6 @@ module.exports = {
   IntegrationArchitecture,
   IntegrationConstraintEntry,
   IntegrationHealthSummary,
-  IntegrationPatternEntry,
   IntegrationPointEntry,
   Integrations,
   IntegrityConstraints,
@@ -179633,7 +178761,6 @@ module.exports = {
   InteractionEntry,
   InteractionPatternEntry,
   InteractionPatterns,
-  InteractionScenarioEntry,
   InteractionTestingStrategy,
   InterfaceBusinessContext,
   InterfaceBusinessProcessEntry,
@@ -179661,7 +178788,6 @@ module.exports = {
   ItStandardComplianceEntry,
   JobDescriptionsAndStaffing,
   JourneyStageEntry,
-  KeyAssumptionEntry,
   KeyAttributeEntry,
   KeyCompromiseRecoveryPolicy,
   KeyConceptEntry,
@@ -179673,11 +178799,7 @@ module.exports = {
   KeyRotationPolicy,
   KeyScenarios,
   KeyStoragePolicy,
-  KeyTouchpointEntry,
   KnowledgeTransfer,
-  KnownIssueEntry,
-  KnownQualityIssueEntry,
-  KpiEntry,
   LanguageCountrySelection,
   LayerCommunicationRules,
   LayeringAndModuleStructure,
@@ -179706,11 +178828,9 @@ module.exports = {
   MaintenanceChangeManagement,
   MaintenanceDependencies,
   MaintenanceDependencyEntry,
-  MaintenanceProcedureEntry,
   MaintenanceUserImpact,
   MaintenanceWindowEntry,
   MaintenanceWindowsSection,
-  MappingRuleEntry,
   MasterDataDomainEntry,
   MasterDataManagement,
   MessageFormatStandards,
@@ -179721,7 +178841,6 @@ module.exports = {
   MetricsDashboardSummary,
   MfaCategoryRequirementEntry,
   MfaConfiguration,
-  MfaDetailEntry,
   MigrationConsiderations,
   MigrationEnvironments,
   MigrationInteractions,
@@ -179747,7 +178866,6 @@ module.exports = {
   MonitoringAndAlertingSection,
   MonitoringDashboards,
   MonitoringInfrastructure,
-  MonitoringProcedureEntry,
   MoscowAnalysis,
   MoscowEntry,
   MultiChannelExperience,
@@ -179773,14 +178891,12 @@ module.exports = {
   NewRoleEntry,
   NewRoleQualifications,
   NewRoleResponsibilities,
-  NonFinancialBenefitEntry,
   NotificationChannelEntry,
   NotificationModel,
   NotificationTypeEntry,
   ObjectInvariantEntry,
   ObjectOperationEntry,
   ObjectStateEntry,
-  ObservabilityRequirementEntry,
   OnCallProcedures,
   OnCallScheduleConfig,
   OnboardingHelp,
@@ -179844,7 +178960,6 @@ module.exports = {
   PostMaintenanceValidation,
   PostconditionsAndGuarantees,
   PreconditionsAndTriggers,
-  PredecessorDependencyEntry,
   PrimaryNavigation,
   PrintAndExportLayout,
   PrivacyImpactAssessmentProcess,
@@ -179924,7 +179039,6 @@ module.exports = {
   RateLimitingPolicy,
   Readability,
   ReadinessCriteriaEntry,
-  RecoveryFlowEntry,
   RecoveryProcedures,
   RecoveryScenarioEntry,
   RedirectHandlingPolicy,
@@ -179936,7 +179050,6 @@ module.exports = {
   RegulatoryContext,
   RegulatoryRequirementEntry,
   RelatedDocumentEntry,
-  RelatedPainPointEntry,
   RelationshipAttributeEntry,
   ReleaseStrategy,
   RelevantSectionEntry,
@@ -179956,7 +179069,6 @@ module.exports = {
   ReportRecipientEntry,
   ReportScheduleEntry,
   ReportSectionEntry,
-  RepresentativeQuoteEntry,
   RequirementAcceptanceCriteria,
   RequirementBusinessRuleEntry,
   RequirementBusinessRules,
@@ -179978,7 +179090,6 @@ module.exports = {
   ResourceKeyReferenceEntry,
   ResourceProtection,
   ResourceRequirementEntry,
-  ResponseStrategyEntry,
   ResponsibilityChangeEntry,
   ResponsibilityContacts,
   ResponsibilityDetailEntry,
@@ -179999,9 +179110,7 @@ module.exports = {
   ReviewCriterionEntry,
   RevisionEntry,
   RevisionHistory,
-  RiskBasedDecisionEntry,
   RiskBusinessImpact,
-  RiskCategoryEntry,
   RiskEntry,
   RiskIdentification,
   RiskMonitoring,
@@ -180037,7 +179146,6 @@ module.exports = {
   ScenarioEntry,
   ScenarioStepEntry,
   ScheduledMaintenancePolicy,
-  ScopeAssumptionEntry,
   ScopeBoundaries,
   ScopeItemEntry,
   ScreenActionEntry,
@@ -180066,7 +179174,6 @@ module.exports = {
   SecurityCertificationRequirements,
   SecurityCharacteristic,
   SecurityCodeReviewPolicy,
-  SecurityConcernEntry,
   SecurityControlEntry,
   SecurityControls,
   SecurityDevelopmentLifecycle,
@@ -180103,7 +179210,6 @@ module.exports = {
   SharedInfrastructureEntry,
   SharedLibraryComponentEntry,
   SharedLibraryEntry,
-  SharedServiceEntry,
   SignOffProcess,
   SingleSignOnPolicy,
   SlaAndSloMonitoring,
@@ -180134,7 +179240,6 @@ module.exports = {
   StagingDependencies,
   StagingDrivers,
   StagingStrategy,
-  StagingStrategyConstraintEntry,
   StakeholderEntry,
   StakeholderRegister,
   StakeholderRegisterEntry,
@@ -180145,7 +179250,6 @@ module.exports = {
   StandardsComplianceSection,
   SteeringCommittee,
   StepUpAuthenticationPolicy,
-  StepUpDetailEntry,
   StorageEncryptionPolicy,
   StorageLifecyclePolicy,
   StrategicAlignment,
@@ -180187,7 +179291,6 @@ module.exports = {
   SystemStagePlan,
   SystemSummary,
   SystemTaskEntry,
-  SystemTaskWorkflowStepEntry,
   SystemTechnicalAssessment,
   SystemToReplaceEntry,
   SystemTrainingEntry,
@@ -180301,7 +179404,6 @@ module.exports = {
   UserInteractionModel,
   UserInteractionModelSummary,
   UserJourney,
-  UserJourneyPainPointEntry,
   UserLifecycle,
   UserLifecycleTransitionEntry,
   UserLifecycleTransitions,
@@ -180319,9 +179421,7 @@ module.exports = {
   ValidationConstraints,
   ValidationFeedback,
   ValidationMessageTemplate,
-  ValidationRuleEntry,
   ValueProposition,
-  VariationsAndExceptionEntry,
   VersionControlConfiguration,
   VirtualizationRequirements,
   VolumeMetricEntry,

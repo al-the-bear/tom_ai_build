@@ -2027,12 +2027,11 @@ function _mc_ApplicableRegulationEntry(s) {
       sectionId: "COMPL-COMP-LST",
       sectionIdPattern: "COMPL-COMP-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ComplianceMeasureEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "Add one entry per compliance measure taken to satisfy this regulation.",
       docComment: "Specific compliance measures for this regulation.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 27001 — compliance with legal & contractual requirements"], "connotation": "The set of specific compliance-measure entries for this regulation."})],
-      elementNode: _cx("ComplianceMeasureEntry", s, _mc_ComplianceMeasureEntry, (r, c) => new SomMetaNode({className: "ComplianceMeasureEntry", classSectionId: "COMPL", kind: SomMetaKind.COMPLEX, typeName: "ComplianceMeasureEntry", docComment: "A single compliance measure entry.", classDocComment: "A single compliance measure entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 27001 — compliance with legal & contractual requirements"], "connotation": "The set of specific compliance-measure entries for this regulation."})]}),
   ];
 }
 
@@ -2636,18 +2635,6 @@ function _mc_AssumptionsConstraintsDependencies(s) {
         classDocComment: "A consolidated register of assumptions and constraints.",
         recursive: r,
         children: c})),
-  ];
-}
-
-function _mc_AttributeInterdependencyEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "AttributeInterdependencyEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -5610,18 +5597,6 @@ function _mc_CapacityReviewProcess(s) {
   ];
 }
 
-function _mc_CategoryDependencyEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "CategoryDependencyEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_CcbMemberEntry(s) {
   return [
      new SomMetaNode({
@@ -5832,18 +5807,6 @@ function _mc_CertificationRequirementsSection(s) {
       docComment: "Marketing and notes.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "certificationDisplay", typeName: "String", description: "Certification Display", hint: "How to display certs", order: 0}), new SomFormFieldMeta({name: "marketingUse", typeName: "String", description: "Marketing Use", hint: "Use in marketing", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional certification notes", order: 2})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9001 — quality management systems", "ISO/IEC 27001 — information security management"], "connotation": "Captures how achieved certifications are displayed and used in marketing."})]}),
-  ];
-}
-
-function _mc_ChangeAdvocateEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ChangeAdvocateEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -7568,18 +7531,6 @@ function _mc_CommunicationPatterns(s) {
   ];
 }
 
-function _mc_CommunicationPreferenceEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "CommunicationPreferenceEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_CommunicationRequirements(s) {
   return [
      new SomMetaNode({
@@ -7943,18 +7894,6 @@ function _mc_ComplianceFramework(s) {
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
       contentHelp: "Explicit mapping from the access/auth controls in this concept to the\ncompliance frameworks the project must satisfy.\n\n**What to capture:**\n- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)\n- Control mapping (our control → framework requirement)\n- Evidence artefacts per control (policies, logs, reports, screenshots)\n- Audit cadence and ownership\n- Gap analysis and remediation plan\n- Certification targets and timelines\n"}),
-  ];
-}
-
-function _mc_ComplianceMeasureEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ComplianceMeasureEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -9813,18 +9752,6 @@ function _mc_CredentialRecoveryPolicy(s) {
   ];
 }
 
-function _mc_CriticalKnowledgeAreaEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "CriticalKnowledgeAreaEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_CrossBoundaryErrorHandling(s) {
   return [
      new SomMetaNode({
@@ -9946,18 +9873,6 @@ function _mc_CrossTenantAccessPolicy(s) {
   ];
 }
 
-function _mc_CulturalConsiderationEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "CulturalConsiderationEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_CurrentArchitecture(s) {
   return [
      new SomMetaNode({
@@ -9992,24 +9907,22 @@ function _mc_CurrentArchitecture(s) {
       sectionId: "IPE-INTE-LST",
       sectionIdPattern: "IPE-INTE-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "IntegrationPatternEntry",
+      typeName: "String",
       serializationOrder: 3,
       contentHelp: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.",
       docComment: "Integration patterns used.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (integration patterns)"], "connotation": "The set of integration patterns the current architecture relies on to connect its systems."})],
-      elementNode: _cx("IntegrationPatternEntry", s, _mc_IntegrationPatternEntry, (r, c) => new SomMetaNode({className: "IntegrationPatternEntry", classSectionId: "IPE", kind: SomMetaKind.COMPLEX, typeName: "IntegrationPatternEntry", docComment: "A single integration pattern entry.", classDocComment: "A single integration pattern entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (integration patterns)"], "connotation": "The set of integration patterns the current architecture relies on to connect its systems."})]}),
      new SomMetaNode({
       className: "CurrentArchitecture",
       memberName: "sharedServices",
       sectionId: "SHARE-SHAR-LST",
       sectionIdPattern: "SHARE-SHAR-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "SharedServiceEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.",
       docComment: "Shared services inventory.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (shared services)"], "connotation": "The set of shared services the current architecture provides across multiple systems."})],
-      elementNode: _cx("SharedServiceEntry", s, _mc_SharedServiceEntry, (r, c) => new SomMetaNode({className: "SharedServiceEntry", classSectionId: "SHARE", kind: SomMetaKind.COMPLEX, typeName: "SharedServiceEntry", docComment: "A single shared service entry.", classDocComment: "A single shared service entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (shared services)"], "connotation": "The set of shared services the current architecture provides across multiple systems."})]}),
   ];
 }
 
@@ -14994,18 +14907,6 @@ function _mc_DatabaseEncryptionPolicy(s) {
   ];
 }
 
-function _mc_DatacenterEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "DatacenterEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_DebuggingConfiguration(s) {
   return [
      new SomMetaNode({
@@ -15796,18 +15697,6 @@ function _mc_DependenciesAndIntegrations(s) {
         classDocComment: "1.1.3.5. Integration Health Summary.\n\nExecutive summary of overall integration landscape health and risk areas.",
         recursive: r,
         children: c})),
-  ];
-}
-
-function _mc_DependencyEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "DependencyEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -17158,18 +17047,6 @@ function _mc_DevelopmentQualityGates(s) {
       docComment: "Performance checks.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "performanceBudgets", typeName: "String", description: "Performance Budgets", hint: "Performance constraints", order: 0}), new SomFormFieldMeta({name: "bundleSizeLimit", typeName: "String", description: "Bundle Size Limit", hint: "Maximum bundle size", order: 1}), new SomFormFieldMeta({name: "startupTimeLimit", typeName: "String", description: "Startup Time Limit", hint: "Maximum startup time", order: 2}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional quality gate notes", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["CI/CD — continuous integration / delivery pipelines", "ISO/IEC 25010 — maintainability quality attributes"], "connotation": "Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline."})]}),
-  ];
-}
-
-function _mc_DevopsStandardEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "DevopsStandardEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -19540,30 +19417,6 @@ function _mc_ErrorHandlingStandards(s) {
   ];
 }
 
-function _mc_ErrorPageDesignEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ErrorPageDesignEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
-function _mc_ErrorProcedureEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ErrorProcedureEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_ErrorRecovery(s) {
   return [
      new SomMetaNode({
@@ -19639,12 +19492,11 @@ function _mc_ErrorRecovery(s) {
       sectionId: "RECOV-RECO-LST",
       sectionIdPattern: "RECOV-RECO-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "RecoveryFlowEntry",
+      typeName: "String",
       serializationOrder: 7,
       contentHelp: "Add one entry per recovery flow.",
       docComment: "Recovery flow diagrams.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs", "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"], "connotation": "The collection of recovery-flow entries."})],
-      elementNode: _cx("RecoveryFlowEntry", s, _mc_RecoveryFlowEntry, (r, c) => new SomMetaNode({className: "RecoveryFlowEntry", classSectionId: "RECOV", kind: SomMetaKind.COMPLEX, typeName: "RecoveryFlowEntry", docComment: "A single recovery flow entry.", classDocComment: "A single recovery flow entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs", "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"], "connotation": "The collection of recovery-flow entries."})]}),
      new SomMetaNode({
       className: "ErrorRecovery",
       memberName: "recoveryScenarios",
@@ -19657,18 +19509,6 @@ function _mc_ErrorRecovery(s) {
       docComment: "Common recovery scenarios.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery", "ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure"], "connotation": "The collection of common recovery-scenario entries."})],
       elementNode: _cx("RecoveryScenarioEntry", s, _mc_RecoveryScenarioEntry, (r, c) => new SomMetaNode({className: "RecoveryScenarioEntry", classSectionId: "RCVSCN", kind: SomMetaKind.COMPLEX, typeName: "RecoveryScenarioEntry", docComment: "A recovery scenario entry.", classDocComment: "A recovery scenario entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_EscalationProcedureEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "EscalationProcedureEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -20445,12 +20285,11 @@ function _mc_ExternalActorEntry(s) {
       sectionId: "INTER-INTE-LST",
       sectionIdPattern: "INTER-INTE-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "InteractionScenarioEntry",
+      typeName: "String",
       serializationOrder: 3,
       contentHelp: "Add one entry per interaction scenario between this actor and the system.",
       docComment: "Interaction scenarios for this actor.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — external interfaces & actors"], "connotation": "The set of interaction-scenario entries for this actor."})],
-      elementNode: _cx("InteractionScenarioEntry", s, _mc_InteractionScenarioEntry, (r, c) => new SomMetaNode({className: "InteractionScenarioEntry", classSectionId: "INTER", kind: SomMetaKind.COMPLEX, typeName: "InteractionScenarioEntry", docComment: "A single interaction scenario entry.", classDocComment: "A single interaction scenario entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — external interfaces & actors"], "connotation": "The set of interaction-scenario entries for this actor."})]}),
   ];
 }
 
@@ -21541,18 +21380,6 @@ function _mc_FieldValidationRule(s) {
   ];
 }
 
-function _mc_FieldValidationRuleEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "FieldValidationRuleEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_FileAccessControlPolicy(s) {
   return [
      new SomMetaNode({
@@ -21871,18 +21698,6 @@ function _mc_FlexibilityCharacteristic(s) {
         classDocComment: "11.3.2. Portability quality.",
         recursive: r,
         children: c})),
-  ];
-}
-
-function _mc_FragilePointEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "FragilePointEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -22534,18 +22349,6 @@ function _mc_GeographicDistributionRequirements(s) {
       docComment: "Performance considerations.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "edgeCaching", typeName: "String", description: "Edge Caching", hint: "Edge cache strategy", order: 0}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional geographic distribution notes", order: 1})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — performance efficiency (network throughput / latency)"], "connotation": "Geographic distribution performance considerations such as edge caching."})]}),
-  ];
-}
-
-function _mc_GlobalEntryPointEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "GlobalEntryPointEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -23862,12 +23665,11 @@ function _mc_InformationArchitecture(s) {
       sectionId: "GLOBA-GLOB-LST",
       sectionIdPattern: "GLOBA-GLOB-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "GlobalEntryPointEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per global entry point.",
       docComment: "Global entry points.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-151:2008 — information architecture and navigation entry points to the site", "ISO 9241-11:2018 — context of use in which users reach the system"], "connotation": "The collection of global access points through which users enter the application."})],
-      elementNode: _cx("GlobalEntryPointEntry", s, _mc_GlobalEntryPointEntry, (r, c) => new SomMetaNode({className: "GlobalEntryPointEntry", classSectionId: "GLOBA", kind: SomMetaKind.COMPLEX, typeName: "GlobalEntryPointEntry", docComment: "A single global entry point entry.", classDocComment: "A single global entry point entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-151:2008 — information architecture and navigation entry points to the site", "ISO 9241-11:2018 — context of use in which users reach the system"], "connotation": "The collection of global access points through which users enter the application."})]}),
      new SomMetaNode({
       className: "InformationArchitecture",
       memberName: "architectureDiagram",
@@ -24362,24 +24164,11 @@ function _mc_IntegrationHealthSummary(s) {
       sectionId: "FRAGI-FRAG-LST",
       sectionIdPattern: "FRAGI-FRAG-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "FragilePointEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.",
       docComment: "Fragile integration points requiring attention.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (fragile integration points)"], "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."})],
-      elementNode: _cx("FragilePointEntry", s, _mc_FragilePointEntry, (r, c) => new SomMetaNode({className: "FragilePointEntry", classSectionId: "FRAGI", kind: SomMetaKind.COMPLEX, typeName: "FragilePointEntry", docComment: "A single fragile point entry.", classDocComment: "A single fragile point entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_IntegrationPatternEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "IntegrationPatternEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (fragile integration points)"], "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."})]}),
   ];
 }
 
@@ -24864,18 +24653,6 @@ function _mc_InteractionPatterns(s) {
   ];
 }
 
-function _mc_InteractionScenarioEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "InteractionScenarioEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_InteractionTestingStrategy(s) {
   return [
      new SomMetaNode({
@@ -24964,24 +24741,22 @@ function _mc_InterfaceDataSpec(s) {
       sectionId: "MAPPI-MAPP-LST",
       sectionIdPattern: "MAPPI-MAPP-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "MappingRuleEntry",
+      typeName: "String",
       serializationOrder: 2,
       contentHelp: "List data mapping and transformation rules between external and internal representations.",
       docComment: "Data mapping and transformation rules.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Captures the mapping and transformation rules applied between external and internal data representations."})],
-      elementNode: _cx("MappingRuleEntry", s, _mc_MappingRuleEntry, (r, c) => new SomMetaNode({className: "MappingRuleEntry", classSectionId: "MAPPI", kind: SomMetaKind.COMPLEX, typeName: "MappingRuleEntry", docComment: "A single mapping rule entry.", classDocComment: "A single mapping rule entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Captures the mapping and transformation rules applied between external and internal data representations."})]}),
      new SomMetaNode({
       className: "InterfaceDataSpec",
       memberName: "validationRules",
       sectionId: "VALID-VALI-LST",
       sectionIdPattern: "VALID-VALI-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ValidationRuleEntry",
+      typeName: "String",
       serializationOrder: 3,
       contentHelp: "List data validation rules applied to inbound and outbound payloads at the interface boundary.",
       docComment: "Data validation rules.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — scope & external interfaces"], "connotation": "Captures the validation rules applied to exchanged data to ensure integrity at the boundary."})],
-      elementNode: _cx("ValidationRuleEntry", s, _mc_ValidationRuleEntry, (r, c) => new SomMetaNode({className: "ValidationRuleEntry", classSectionId: "VALID", kind: SomMetaKind.COMPLEX, typeName: "ValidationRuleEntry", docComment: "A single validation rule entry.", classDocComment: "A single validation rule entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — scope & external interfaces"], "connotation": "Captures the validation rules applied to exchanged data to ensure integrity at the boundary."})]}),
   ];
 }
 
@@ -25030,12 +24805,11 @@ function _mc_InterfaceErrorHandling(s) {
       sectionId: "ERROR-ERRO-LST",
       sectionIdPattern: "ERROR-ERRO-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ErrorProcedureEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.",
       docComment: "Error handling procedures.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface."})],
-      elementNode: _cx("ErrorProcedureEntry", s, _mc_ErrorProcedureEntry, (r, c) => new SomMetaNode({className: "ErrorProcedureEntry", classSectionId: "ERROR", kind: SomMetaKind.COMPLEX, typeName: "ErrorProcedureEntry", docComment: "A single error procedure entry.", classDocComment: "A single error procedure entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface."})]}),
   ];
 }
 
@@ -25136,12 +24910,11 @@ function _mc_InterfaceOperational(s) {
       sectionId: "DEPEN-DEPE-LST",
       sectionIdPattern: "DEPEN-DEPE-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "DependencyEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.",
       docComment: "Operational dependencies.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (operational/performance)"], "connotation": "Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about."})],
-      elementNode: _cx("DependencyEntry", s, _mc_DependencyEntry, (r, c) => new SomMetaNode({className: "DependencyEntry", classSectionId: "DEPEN", kind: SomMetaKind.COMPLEX, typeName: "DependencyEntry", docComment: "A single dependency entry.", classDocComment: "A single dependency entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (operational/performance)"], "connotation": "Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about."})]}),
   ];
 }
 
@@ -25980,18 +25753,6 @@ function _mc_JourneyStageEntry(s) {
   ];
 }
 
-function _mc_KeyAssumptionEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "KeyAssumptionEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_KeyAttributeEntry(s) {
   return [
      new SomMetaNode({
@@ -26335,18 +26096,6 @@ function _mc_KeyStoragePolicy(s) {
   ];
 }
 
-function _mc_KeyTouchpointEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "KeyTouchpointEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_KnowledgeTransfer(s) {
   return [
      new SomMetaNode({
@@ -26357,42 +26106,6 @@ function _mc_KnowledgeTransfer(s) {
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
       contentHelp: "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n"}),
-  ];
-}
-
-function _mc_KnownIssueEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "KnownIssueEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
-function _mc_KnownQualityIssueEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "KnownQualityIssueEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
-function _mc_KpiEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "KpiEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -27570,18 +27283,6 @@ function _mc_MaintenanceDependencyEntry(s) {
   ];
 }
 
-function _mc_MaintenanceProcedureEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "MaintenanceProcedureEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_MaintenanceUserImpact(s) {
   return [
      new SomMetaNode({
@@ -27766,18 +27467,6 @@ function _mc_MaintenanceWindowsSection(s) {
         classDocComment: "Post-maintenance validation.",
         recursive: r,
         children: c})),
-  ];
-}
-
-function _mc_MappingRuleEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "MappingRuleEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -28150,24 +27839,11 @@ function _mc_MfaConfiguration(s) {
       sectionId: "MFADE-MFAD-LST",
       sectionIdPattern: "MFADE-MFAD-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "MfaDetailEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "Add one entry per MFA method definition.",
       docComment: "MFA Implementation Details (text).",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"], "connotation": "The catalog of multi-factor authentication method definitions."})],
-      elementNode: _cx("MfaDetailEntry", s, _mc_MfaDetailEntry, (r, c) => new SomMetaNode({className: "MfaDetailEntry", classSectionId: "MFADE", kind: SomMetaKind.COMPLEX, typeName: "MfaDetailEntry", docComment: "A single mfa detail entry.", classDocComment: "A single mfa detail entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_MfaDetailEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "MfaDetailEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"], "connotation": "The catalog of multi-factor authentication method definitions."})]}),
   ];
 }
 
@@ -28279,12 +27955,11 @@ function _mc_MigrationConsiderations(s) {
       sectionId: "ESCAL-ESCA-LST",
       sectionIdPattern: "ESCAL-ESCA-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "EscalationProcedureEntry",
+      typeName: "String",
       serializationOrder: 11,
       contentHelp: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.",
       docComment: "Escalation procedures during migration.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL — service transition / change enablement", "ISO 31000 — risk management (migration risk)"], "connotation": "The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition."})],
-      elementNode: _cx("EscalationProcedureEntry", s, _mc_EscalationProcedureEntry, (r, c) => new SomMetaNode({className: "EscalationProcedureEntry", classSectionId: "ESCAL", kind: SomMetaKind.COMPLEX, typeName: "EscalationProcedureEntry", docComment: "A single escalation procedure entry.", classDocComment: "A single escalation procedure entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL — service transition / change enablement", "ISO 31000 — risk management (migration risk)"], "connotation": "The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition."})]}),
   ];
 }
 
@@ -28772,48 +28447,44 @@ function _mc_MigrationRisks(s) {
       sectionId: "RISKC-RISK-LST",
       sectionIdPattern: "RISKC-RISK-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "RiskCategoryEntry",
+      typeName: "String",
       serializationOrder: 7,
       contentHelp: "Add one entry per risk category, naming the category and the kinds of migration risks it groups.",
       docComment: "Risk categories and taxonomy.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The taxonomy of migration risk categories used to classify and organize risks across the program."})],
-      elementNode: _cx("RiskCategoryEntry", s, _mc_RiskCategoryEntry, (r, c) => new SomMetaNode({className: "RiskCategoryEntry", classSectionId: "RISKC", kind: SomMetaKind.COMPLEX, typeName: "RiskCategoryEntry", docComment: "A single risk category entry.", classDocComment: "A single risk category entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The taxonomy of migration risk categories used to classify and organize risks across the program."})]}),
      new SomMetaNode({
       className: "MigrationRisks",
       memberName: "riskBasedDecisions",
       sectionId: "RISKB-RISK-LST",
       sectionIdPattern: "RISKB-RISK-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "RiskBasedDecisionEntry",
+      typeName: "String",
       serializationOrder: 8,
       contentHelp: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.",
       docComment: "Risk-based decision making criteria.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The decision criteria that govern how migration risks drive go/no-go and acceptance choices."})],
-      elementNode: _cx("RiskBasedDecisionEntry", s, _mc_RiskBasedDecisionEntry, (r, c) => new SomMetaNode({className: "RiskBasedDecisionEntry", classSectionId: "RISKB", kind: SomMetaKind.COMPLEX, typeName: "RiskBasedDecisionEntry", docComment: "A single risk based decision entry.", classDocComment: "A single risk based decision entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The decision criteria that govern how migration risks drive go/no-go and acceptance choices."})]}),
      new SomMetaNode({
       className: "MigrationRisks",
       memberName: "monitoringProcedures",
       sectionId: "MONIT-MONI-LST",
       sectionIdPattern: "MONIT-MONI-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "MonitoringProcedureEntry",
+      typeName: "String",
       serializationOrder: 9,
       contentHelp: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.",
       docComment: "Risk monitoring and control procedures.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "ITIL — service transition / change enablement"], "connotation": "The procedures used to monitor and control migration risks throughout the transition."})],
-      elementNode: _cx("MonitoringProcedureEntry", s, _mc_MonitoringProcedureEntry, (r, c) => new SomMetaNode({className: "MonitoringProcedureEntry", classSectionId: "MONIT", kind: SomMetaKind.COMPLEX, typeName: "MonitoringProcedureEntry", docComment: "A single monitoring procedure entry.", classDocComment: "A single monitoring procedure entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "ITIL — service transition / change enablement"], "connotation": "The procedures used to monitor and control migration risks throughout the transition."})]}),
      new SomMetaNode({
       className: "MigrationRisks",
       memberName: "responseStrategies",
       sectionId: "RESPO-RESP-LST",
       sectionIdPattern: "RESPO-RESP-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ResponseStrategyEntry",
+      typeName: "String",
       serializationOrder: 10,
       contentHelp: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.",
       docComment: "Risk response strategies by category.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk."})],
-      elementNode: _cx("ResponseStrategyEntry", s, _mc_ResponseStrategyEntry, (r, c) => new SomMetaNode({className: "ResponseStrategyEntry", classSectionId: "RESPO", kind: SomMetaKind.COMPLEX, typeName: "ResponseStrategyEntry", docComment: "A single response strategy entry.", classDocComment: "A single response strategy entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk."})]}),
      new SomMetaNode({
       className: "MigrationRisks",
       memberName: "riskAggregation",
@@ -29435,18 +29106,6 @@ function _mc_MonitoringInfrastructure(s) {
       docComment: "Access and privacy controls.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "accessControl", typeName: "String", description: "Access Control", hint: "Who can access monitoring", order: 0}), new SomFormFieldMeta({name: "dataPrivacy", typeName: "String", description: "Data Privacy", hint: "Sensitive data handling", order: 1}), new SomFormFieldMeta({name: "multiTenant", typeName: "bool", description: "Multi-Tenant", hint: "Tenant isolation in monitoring", order: 2}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional infrastructure notes", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["OpenTelemetry — observability / metrics / tracing", "ISO/IEC 20000 — IT service management system"], "connotation": "Describes access control, data privacy, and multi-tenant isolation for monitoring."})]}),
-  ];
-}
-
-function _mc_MonitoringProcedureEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "MonitoringProcedureEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -30738,18 +30397,6 @@ function _mc_NewRoleResponsibilities(s) {
   ];
 }
 
-function _mc_NonFinancialBenefitEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "NonFinancialBenefitEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_NotificationChannelEntry(s) {
   return [
      new SomMetaNode({
@@ -30886,18 +30533,6 @@ function _mc_ObjectStateEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "stateName", typeName: "String", description: "State Name", required: true, hint: "Name of the state (e.g., Draft, Submitted)", order: 0}), new SomFormFieldMeta({name: "stateCode", typeName: "String", description: "State Code", hint: "Technical state code or enum value", order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description", hint: "What this state means in business terms", order: 2}), new SomFormFieldMeta({name: "stateType", typeName: "String", description: "State Type", hint: "Initial | Intermediate | Terminal | Error", order: 3}), new SomFormFieldMeta({name: "entryConditions", typeName: "String", description: "Entry Conditions", hint: "Conditions required to enter this state", order: 4}), new SomFormFieldMeta({name: "exitConditions", typeName: "String", description: "Exit Conditions", hint: "Conditions required to exit this state", order: 5}), new SomFormFieldMeta({name: "allowedOperations", typeName: "String", description: "Allowed Operations", hint: "What operations can be performed in this state", order: 6}), new SomFormFieldMeta({name: "restrictedOperations", typeName: "String", description: "Restricted Operations", hint: "What operations are not allowed in this state", order: 7}), new SomFormFieldMeta({name: "slaRequirements", typeName: "String", description: "SLA Requirements", hint: "Any time-bound requirements for this state", order: 8}), new SomFormFieldMeta({name: "notificationTriggers", typeName: "String", description: "Notification Triggers", hint: "Events that trigger notifications in this state", order: 9})])}),
-  ];
-}
-
-function _mc_ObservabilityRequirementEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ObservabilityRequirementEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -31633,24 +31268,22 @@ function _mc_OrganizationalEnvironment(s) {
       sectionId: "CULTU-CULT-LST",
       sectionIdPattern: "CULTU-CULT-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "CulturalConsiderationEntry",
+      typeName: "String",
       serializationOrder: 7,
       contentHelp: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.",
       docComment: "Cultural considerations and organizational dynamics.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"], "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."})],
-      elementNode: _cx("CulturalConsiderationEntry", s, _mc_CulturalConsiderationEntry, (r, c) => new SomMetaNode({className: "CulturalConsiderationEntry", classSectionId: "CULTU", kind: SomMetaKind.COMPLEX, typeName: "CulturalConsiderationEntry", docComment: "A single cultural consideration entry.", classDocComment: "A single cultural consideration entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"], "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."})]}),
      new SomMetaNode({
       className: "OrganizationalEnvironment",
       memberName: "communicationPreferences",
       sectionId: "COMMU-COMM-LST",
       sectionIdPattern: "COMMU-COMM-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "CommunicationPreferenceEntry",
+      typeName: "String",
       serializationOrder: 8,
       contentHelp: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.",
       docComment: "Stakeholder communication preferences.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture environment & stakeholders", "PMBOK — enterprise environmental factors (EEF)"], "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."})],
-      elementNode: _cx("CommunicationPreferenceEntry", s, _mc_CommunicationPreferenceEntry, (r, c) => new SomMetaNode({className: "CommunicationPreferenceEntry", classSectionId: "COMMU", kind: SomMetaKind.COMPLEX, typeName: "CommunicationPreferenceEntry", docComment: "A single communication preference entry.", classDocComment: "A single communication preference entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture environment & stakeholders", "PMBOK — enterprise environmental factors (EEF)"], "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."})]}),
      new SomMetaNode({
       className: "OrganizationalEnvironment",
       memberName: "politicalLandscape",
@@ -31666,12 +31299,11 @@ function _mc_OrganizationalEnvironment(s) {
       sectionId: "CHANG-CHAN-LST",
       sectionIdPattern: "CHANG-CHAN-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ChangeAdvocateEntry",
+      typeName: "String",
       serializationOrder: 10,
       contentHelp: "List change champions and sponsors, noting their influence and role in driving adoption across the organization.",
       docComment: "Change champions and sponsors.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — enterprise environmental factors (EEF)", "ISO 21500 — organizational roles & responsibilities"], "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."})],
-      elementNode: _cx("ChangeAdvocateEntry", s, _mc_ChangeAdvocateEntry, (r, c) => new SomMetaNode({className: "ChangeAdvocateEntry", classSectionId: "CHANG", kind: SomMetaKind.COMPLEX, typeName: "ChangeAdvocateEntry", docComment: "A single change advocate entry.", classDocComment: "A single change advocate entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — enterprise environmental factors (EEF)", "ISO 21500 — organizational roles & responsibilities"], "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."})]}),
   ];
 }
 
@@ -33442,18 +33074,6 @@ function _mc_PreconditionsAndTriggers(s) {
   ];
 }
 
-function _mc_PredecessorDependencyEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "PredecessorDependencyEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_PrimaryNavigation(s) {
   return [
      new SomMetaNode({
@@ -33739,12 +33359,11 @@ function _mc_ProblemStatement(s) {
       sectionId: "RPPE-RELA-LST",
       sectionIdPattern: "RPPE-RELA-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "RelatedPainPointEntry",
+      typeName: "String",
       serializationOrder: 2,
       contentHelp: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.",
       docComment: "Related pain points from Current State Analysis.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — problem space"], "connotation": "The set of related pain points drawn from the Current State Analysis that this problem connects to."})],
-      elementNode: _cx("RelatedPainPointEntry", s, _mc_RelatedPainPointEntry, (r, c) => new SomMetaNode({className: "RelatedPainPointEntry", classSectionId: "RPPE", kind: SomMetaKind.COMPLEX, typeName: "RelatedPainPointEntry", docComment: "A single related pain point entry.", classDocComment: "A single related pain point entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — problem space"], "connotation": "The set of related pain points drawn from the Current State Analysis that this problem connects to."})]}),
   ];
 }
 
@@ -36058,12 +35677,11 @@ function _mc_QualityFramework(s) {
       sectionId: "CATEG-CATE-LST",
       sectionIdPattern: "CATEG-CATE-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "CategoryDependencyEntry",
+      typeName: "String",
       serializationOrder: 7,
       contentHelp: "Add one entry per category dependency.",
       docComment: "Quality dependencies map.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"], "connotation": "Lists dependencies between quality categories used to reason about trade-offs."})],
-      elementNode: _cx("CategoryDependencyEntry", s, _mc_CategoryDependencyEntry, (r, c) => new SomMetaNode({className: "CategoryDependencyEntry", classSectionId: "CATEG", kind: SomMetaKind.COMPLEX, typeName: "CategoryDependencyEntry", docComment: "A single category dependency entry.", classDocComment: "A single category dependency entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"], "connotation": "Lists dependencies between quality categories used to reason about trade-offs."})]}),
   ];
 }
 
@@ -36533,18 +36151,6 @@ function _mc_ReadinessCriteriaEntry(s) {
   ];
 }
 
-function _mc_RecoveryFlowEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "RecoveryFlowEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_RecoveryProcedures(s) {
   return [
      new SomMetaNode({
@@ -36881,18 +36487,6 @@ function _mc_RelatedDocumentEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "relatedDocumentId", typeName: "String", description: "Related Document ID", required: true, hint: "ID of the related referenced document.", order: 0}), new SomFormFieldMeta({name: "relatedDocumentTitle", typeName: "String", description: "Related Document Title", hint: "Title of the related referenced document.", order: 1}), new SomFormFieldMeta({name: "relationshipType", typeName: "String", description: "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", hint: "Nature of the link, e.g. Depends On, Supersedes, Complements.", order: 2}), new SomFormFieldMeta({name: "relationshipDescription", typeName: "String", description: "Relationship Description (explain the connection)", hint: "Explain the connection between the two documents.", order: 3})])}),
-  ];
-}
-
-function _mc_RelatedPainPointEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "RelatedPainPointEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -37797,18 +37391,6 @@ function _mc_ReportSectionEntry(s) {
   ];
 }
 
-function _mc_RepresentativeQuoteEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "RepresentativeQuoteEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_Requirement(s) {
   return [
      new SomMetaNode({
@@ -38484,18 +38066,6 @@ function _mc_ResourceRequirementEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "roleName", typeName: "String", description: "Role Name", required: true, hint: "Name of the role to be staffed", order: 0}), new SomFormFieldMeta({name: "skillsRequired", typeName: "String", description: "Required Skills", hint: "Skills the position requires", order: 1}), new SomFormFieldMeta({name: "experience", typeName: "String", description: "Experience Level", hint: "Seniority or years of experience needed", order: 2}), new SomFormFieldMeta({name: "allocation", typeName: "String", description: "Allocation", hint: "Expected allocation for the role", order: 3}), new SomFormFieldMeta({name: "requiredBy", typeName: "String", description: "Required By Date", hint: "When the position must be filled", order: 4}), new SomFormFieldMeta({name: "priority", typeName: "String", description: "Priority (Critical/High/Medium/Low)", hint: "Critical / High / Medium / Low", order: 5}), new SomFormFieldMeta({name: "status", typeName: "String", description: "Recruitment Status", hint: "Current recruitment progress for this position", order: 6})])}),
-  ];
-}
-
-function _mc_ResponseStrategyEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ResponseStrategyEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -39232,18 +38802,6 @@ function _mc_Risk(s) {
   ];
 }
 
-function _mc_RiskBasedDecisionEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "RiskBasedDecisionEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_RiskBusinessImpact(s) {
   return [
      new SomMetaNode({
@@ -39273,18 +38831,6 @@ function _mc_RiskBusinessImpact(s) {
       docComment: "Operational and delivery consequences.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "operationalImpact", typeName: "String", description: "Operational Impact — impact on ongoing operations", hint: "Impact on ongoing operations", order: 0}), new SomFormFieldMeta({name: "strategicImpact", typeName: "String", description: "Strategic Impact — impact on strategic objectives", hint: "Impact on strategic objectives", order: 1}), new SomFormFieldMeta({name: "affectedMilestones", typeName: "String", description: "Affected Milestones — project milestones at risk", hint: "Project milestones placed at risk", order: 2}), new SomFormFieldMeta({name: "affectedDeliverables", typeName: "String", description: "Affected Deliverables — specific deliverables at risk", hint: "Specific deliverables placed at risk", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 31000:2018 — risk management", "PMBOK — project risk management"], "connotation": "This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables."})]}),
-  ];
-}
-
-function _mc_RiskCategoryEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "RiskCategoryEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -40527,18 +40073,6 @@ function _mc_ScheduledMaintenancePolicy(s) {
   ];
 }
 
-function _mc_ScopeAssumptionEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ScopeAssumptionEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_ScopeBoundaries(s) {
   return [
      new SomMetaNode({
@@ -40591,12 +40125,11 @@ function _mc_ScopeBoundaries(s) {
       sectionId: "SCOPE-SCOP-LST",
       sectionIdPattern: "SCOPE-SCOP-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ScopeAssumptionEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.",
       docComment: "Scope Assumptions.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — system scope & boundaries"], "connotation": "The set of assumptions on which the defined scope boundaries depend."})],
-      elementNode: _cx("ScopeAssumptionEntry", s, _mc_ScopeAssumptionEntry, (r, c) => new SomMetaNode({className: "ScopeAssumptionEntry", classSectionId: "SCOPE", kind: SomMetaKind.COMPLEX, typeName: "ScopeAssumptionEntry", docComment: "A single scope assumption entry.", classDocComment: "A single scope assumption entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — system scope & boundaries"], "connotation": "The set of assumptions on which the defined scope boundaries depend."})]}),
   ];
 }
 
@@ -41843,18 +41376,6 @@ function _mc_SecurityCodeReviewPolicy(s) {
       docComment: "Finding management and residual risk handling.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "findingClassification", typeName: "String", description: "Finding Classification", hint: "Vulnerability, weakness, informational, best-practice deviation", order: 0}), new SomFormFieldMeta({name: "findingTrackingProcess", typeName: "String", description: "Finding Tracking", hint: "How findings are tracked from discovery to resolution", order: 1}), new SomFormFieldMeta({name: "securityDebtManagement", typeName: "String", description: "Security Debt Management", hint: "How accepted security risks are documented and reviewed", order: 2}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional security code review notes", order: 3})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["OWASP ASVS — verification and security testing requirements", "ISO/IEC 27001 — internal audit and management review (Clause 9)"], "connotation": "Finding classification, tracking, and residual-risk handling for security code review."})]}),
-  ];
-}
-
-function _mc_SecurityConcernEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "SecurityConcernEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -43454,18 +42975,6 @@ function _mc_SharedLibraryEntry(s) {
   ];
 }
 
-function _mc_SharedServiceEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "SharedServiceEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
-  ];
-}
-
 function _mc_SignOffProcess(s) {
   return [
      new SomMetaNode({
@@ -45043,36 +44552,22 @@ function _mc_StagingStrategy(s) {
       sectionId: "KEYAS-KEYA-LST",
       sectionIdPattern: "KEYAS-KEYA-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "KeyAssumptionEntry",
+      typeName: "String",
       serializationOrder: 15,
       contentHelp: "Add one entry per key assumption.",
       docComment: "13.1.3. Key Assumptions.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"], "connotation": "Lists the key assumptions underpinning the staging strategy."})],
-      elementNode: _cx("KeyAssumptionEntry", s, _mc_KeyAssumptionEntry, (r, c) => new SomMetaNode({className: "KeyAssumptionEntry", classSectionId: "KEYAS", kind: SomMetaKind.COMPLEX, typeName: "KeyAssumptionEntry", docComment: "A single key assumption entry.", classDocComment: "A single key assumption entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"], "connotation": "Lists the key assumptions underpinning the staging strategy."})]}),
      new SomMetaNode({
       className: "StagingStrategy",
       memberName: "constraints",
       sectionId: "STAGI-CONS-LST",
       sectionIdPattern: "STAGI-CONS-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "StagingStrategyConstraintEntry",
+      typeName: "String",
       serializationOrder: 16,
       contentHelp: "Add one entry per staging constraint.",
       docComment: "13.1.4. Constraints.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"], "connotation": "Lists the constraints bounding the staging strategy."})],
-      elementNode: _cx("StagingStrategyConstraintEntry", s, _mc_StagingStrategyConstraintEntry, (r, c) => new SomMetaNode({className: "StagingStrategyConstraintEntry", classSectionId: "STAGI", kind: SomMetaKind.COMPLEX, typeName: "StagingStrategyConstraintEntry", docComment: "A single constraint entry.", classDocComment: "A single constraint entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_StagingStrategyConstraintEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "StagingStrategyConstraintEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"], "connotation": "Lists the constraints bounding the staging strategy."})]}),
   ];
 }
 
@@ -45522,24 +45017,11 @@ function _mc_StepUpAuthenticationPolicy(s) {
       sectionId: "STEPU-STEP-LST",
       sectionIdPattern: "STEPU-STEP-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "StepUpDetailEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "Add one entry per step-up authentication step.",
       docComment: "Step-Up Authentication Details (text).",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "OWASP ASVS V2 — authentication verification requirements"], "connotation": "The catalog of step-up authentication detail entries."})],
-      elementNode: _cx("StepUpDetailEntry", s, _mc_StepUpDetailEntry, (r, c) => new SomMetaNode({className: "StepUpDetailEntry", classSectionId: "STEPU", kind: SomMetaKind.COMPLEX, typeName: "StepUpDetailEntry", docComment: "A single step up detail entry.", classDocComment: "A single step up detail entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_StepUpDetailEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "StepUpDetailEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-63B — authentication and authenticator lifecycle", "OWASP ASVS V2 — authentication verification requirements"], "connotation": "The catalog of step-up authentication detail entries."})]}),
   ];
 }
 
@@ -46457,12 +45939,11 @@ function _mc_SystemCostAnalysis(s) {
       sectionId: "NONFI-NONF-LST",
       sectionIdPattern: "NONFI-NONF-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "NonFinancialBenefitEntry",
+      typeName: "String",
       serializationOrder: 5,
       contentHelp: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.",
       docComment: "Non-financial benefits to include in ROI.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — cost management (benefits realization)"], "connotation": "Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision."})],
-      elementNode: _cx("NonFinancialBenefitEntry", s, _mc_NonFinancialBenefitEntry, (r, c) => new SomMetaNode({className: "NonFinancialBenefitEntry", classSectionId: "NONFI", kind: SomMetaKind.COMPLEX, typeName: "NonFinancialBenefitEntry", docComment: "A single non financial benefit entry.", classDocComment: "A single non financial benefit entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — cost management (benefits realization)"], "connotation": "Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision."})]}),
   ];
 }
 
@@ -46513,12 +45994,11 @@ function _mc_SystemDataScope(s) {
       sectionId: "KNOWN-KNOW-LST",
       sectionIdPattern: "KNOWN-KNOW-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "KnownQualityIssueEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per data-quality issue to address; note severity and remediation approach.",
       docComment: "Data quality issues to address.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data quality & migration"], "connotation": "Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system."})],
-      elementNode: _cx("KnownQualityIssueEntry", s, _mc_KnownQualityIssueEntry, (r, c) => new SomMetaNode({className: "KnownQualityIssueEntry", classSectionId: "KNOWN", kind: SomMetaKind.COMPLEX, typeName: "KnownQualityIssueEntry", docComment: "A single known quality issue entry.", classDocComment: "A single known quality issue entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["DAMA-DMBOK2 — data quality & migration"], "connotation": "Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system."})]}),
   ];
 }
 
@@ -46825,12 +46305,11 @@ function _mc_SystemErrorDisplay(s) {
       sectionId: "EPDE-ERRO-LST",
       sectionIdPattern: "EPDE-ERRO-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ErrorPageDesignEntry",
+      typeName: "String",
       serializationOrder: 6,
       contentHelp: "Add one entry per error page design.",
       docComment: "Error page designs.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs", "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"], "connotation": "The collection of error-page design entries."})],
-      elementNode: _cx("ErrorPageDesignEntry", s, _mc_ErrorPageDesignEntry, (r, c) => new SomMetaNode({className: "ErrorPageDesignEntry", classSectionId: "EPDE", kind: SomMetaKind.COMPLEX, typeName: "ErrorPageDesignEntry", docComment: "A single error page design entry.", classDocComment: "A single error page design entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs", "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"], "connotation": "The collection of error-page design entries."})]}),
      new SomMetaNode({
       className: "SystemErrorDisplay",
       memberName: "errorCodes",
@@ -46986,12 +46465,11 @@ function _mc_SystemKnowledgeTransfer(s) {
       sectionId: "CRITI-CRIT-LST",
       sectionIdPattern: "CRITI-CRIT-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "CriticalKnowledgeAreaEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "Add one entry per critical knowledge area at risk of being lost when the system is retired.",
       docComment: "Critical knowledge areas to preserve.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — resource & knowledge management"], "connotation": "Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse."})],
-      elementNode: _cx("CriticalKnowledgeAreaEntry", s, _mc_CriticalKnowledgeAreaEntry, (r, c) => new SomMetaNode({className: "CriticalKnowledgeAreaEntry", classSectionId: "CRITI", kind: SomMetaKind.COMPLEX, typeName: "CriticalKnowledgeAreaEntry", docComment: "A single critical knowledge area entry.", classDocComment: "A single critical knowledge area entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["PMBOK — resource & knowledge management"], "connotation": "Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse."})]}),
      new SomMetaNode({
       className: "SystemKnowledgeTransfer",
       memberName: "knowledgeTransferPlan",
@@ -47119,12 +46597,11 @@ function _mc_SystemOperation(s) {
       sectionId: "MAINT-MAIN-LST",
       sectionIdPattern: "MAINT-MAIN-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "MaintenanceProcedureEntry",
+      typeName: "String",
       serializationOrder: 2,
       contentHelp: "Add one entry per maintenance procedure.",
       docComment: "Maintenance Procedures.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL 4 — change enablement and maintenance windows"], "connotation": "The catalog of scheduled maintenance procedures the system requires."})],
-      elementNode: _cx("MaintenanceProcedureEntry", s, _mc_MaintenanceProcedureEntry, (r, c) => new SomMetaNode({className: "MaintenanceProcedureEntry", classSectionId: "MAINT", kind: SomMetaKind.COMPLEX, typeName: "MaintenanceProcedureEntry", docComment: "A single maintenance procedure entry.", classDocComment: "A single maintenance procedure entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL 4 — change enablement and maintenance windows"], "connotation": "The catalog of scheduled maintenance procedures the system requires."})]}),
   ];
 }
 
@@ -47354,12 +46831,11 @@ function _mc_SystemQualityGoals(s) {
       sectionId: "ATTRI-ATTR-LST",
       sectionIdPattern: "ATTRI-ATTR-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "AttributeInterdependencyEntry",
+      typeName: "String",
       serializationOrder: 8,
       contentHelp: "Add one entry per quality attribute interdependency.",
       docComment: "Quality attribute interdependencies.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"], "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."})],
-      elementNode: _cx("AttributeInterdependencyEntry", s, _mc_AttributeInterdependencyEntry, (r, c) => new SomMetaNode({className: "AttributeInterdependencyEntry", classSectionId: "ATTRI", kind: SomMetaKind.COMPLEX, typeName: "AttributeInterdependencyEntry", docComment: "A single attribute interdependency entry.", classDocComment: "A single attribute interdependency entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"], "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."})]}),
      new SomMetaNode({
       className: "SystemQualityGoals",
       memberName: "qualityRadar",
@@ -47588,12 +47064,11 @@ function _mc_SystemReplacementStrategy(s) {
       sectionId: "PREDE-PRED-LST",
       sectionIdPattern: "PREDE-PRED-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "PredecessorDependencyEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.",
       docComment: "Predecessor systems that must be addressed first.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — migration planning (dependency sequencing)"], "connotation": "Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap."})],
-      elementNode: _cx("PredecessorDependencyEntry", s, _mc_PredecessorDependencyEntry, (r, c) => new SomMetaNode({className: "PredecessorDependencyEntry", classSectionId: "PREDE", kind: SomMetaKind.COMPLEX, typeName: "PredecessorDependencyEntry", docComment: "A single predecessor dependency entry.", classDocComment: "A single predecessor dependency entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — migration planning (dependency sequencing)"], "connotation": "Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap."})]}),
      new SomMetaNode({
       className: "SystemReplacementStrategy",
       memberName: "successCriteria",
@@ -47966,36 +47441,22 @@ function _mc_SystemTaskEntry(s) {
       sectionId: "SYSTE-WORK-LST",
       sectionIdPattern: "SYSTE-WORK-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "SystemTaskWorkflowStepEntry",
+      typeName: "String",
       serializationOrder: 5,
       contentHelp: "Add one entry per step in the task workflow, in the order the user performs them.",
       docComment: "Task workflow steps.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"], "connotation": "The ordered set of workflow steps that make up this task."})],
-      elementNode: _cx("SystemTaskWorkflowStepEntry", s, _mc_SystemTaskWorkflowStepEntry, (r, c) => new SomMetaNode({className: "SystemTaskWorkflowStepEntry", classSectionId: "SYSTE", kind: SomMetaKind.COMPLEX, typeName: "SystemTaskWorkflowStepEntry", docComment: "A single workflow step entry.", classDocComment: "A single workflow step entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"], "connotation": "The ordered set of workflow steps that make up this task."})]}),
      new SomMetaNode({
       className: "SystemTaskEntry",
       memberName: "variationsAndExceptions",
       sectionId: "VARIA-VARI-LST",
       sectionIdPattern: "VARIA-VARI-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "VariationsAndExceptionEntry",
+      typeName: "String",
       serializationOrder: 6,
       contentHelp: "Add one entry per variation or exception to the normal task flow.",
       docComment: "Variations and exceptions.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"], "connotation": "The set of alternative flows and exceptions for this task."})],
-      elementNode: _cx("VariationsAndExceptionEntry", s, _mc_VariationsAndExceptionEntry, (r, c) => new SomMetaNode({className: "VariationsAndExceptionEntry", classSectionId: "VARIA", kind: SomMetaKind.COMPLEX, typeName: "VariationsAndExceptionEntry", docComment: "A single variations and exception entry.", classDocComment: "A single variations and exception entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_SystemTaskWorkflowStepEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "SystemTaskWorkflowStepEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"], "connotation": "The set of alternative flows and exceptions for this task."})]}),
   ];
 }
 
@@ -48044,24 +47505,22 @@ function _mc_SystemTechnicalAssessment(s) {
       sectionId: "KIE-KNOW-LST",
       sectionIdPattern: "KIE-KNOW-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "KnownIssueEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per significant known technical issue, defect, or deficiency affecting the system.",
       docComment: "Known technical issues and deficiencies.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (defects & maintainability)"], "connotation": "Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk."})],
-      elementNode: _cx("KnownIssueEntry", s, _mc_KnownIssueEntry, (r, c) => new SomMetaNode({className: "KnownIssueEntry", classSectionId: "KIE", kind: SomMetaKind.COMPLEX, typeName: "KnownIssueEntry", docComment: "A single known issue entry.", classDocComment: "A single known issue entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (defects & maintainability)"], "connotation": "Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk."})]}),
      new SomMetaNode({
       className: "SystemTechnicalAssessment",
       memberName: "securityConcerns",
       sectionId: "SECUR-SECU-LST",
       sectionIdPattern: "SECUR-SECU-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "SecurityConcernEntry",
+      typeName: "String",
       serializationOrder: 5,
       contentHelp: "Add one entry per security vulnerability or compliance gap; note severity and remediation status.",
       docComment: "Security vulnerabilities and compliance gaps.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)"], "connotation": "Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls."})],
-      elementNode: _cx("SecurityConcernEntry", s, _mc_SecurityConcernEntry, (r, c) => new SomMetaNode({className: "SecurityConcernEntry", classSectionId: "SECUR", kind: SomMetaKind.COMPLEX, typeName: "SecurityConcernEntry", docComment: "A single security concern entry.", classDocComment: "A single security concern entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)"], "connotation": "Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls."})]}),
   ];
 }
 
@@ -48773,12 +48232,11 @@ function _mc_TechnicalEnvironment(s) {
       sectionId: "DATAC-DATA-LST",
       sectionIdPattern: "DATAC-DATA-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "DatacenterEntry",
+      typeName: "String",
       serializationOrder: 6,
       contentHelp: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.",
       docComment: "Data center and hosting environment details.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."})],
-      elementNode: _cx("DatacenterEntry", s, _mc_DatacenterEntry, (r, c) => new SomMetaNode({className: "DatacenterEntry", classSectionId: "DATAC", kind: SomMetaKind.COMPLEX, typeName: "DatacenterEntry", docComment: "A single datacenter entry.", classDocComment: "A single datacenter entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."})]}),
      new SomMetaNode({
       className: "TechnicalEnvironment",
       memberName: "networkTopology",
@@ -48848,24 +48306,22 @@ function _mc_TechnicalEnvironmentNetwork(s) {
       sectionId: "DEVOP-DEVO-LST",
       sectionIdPattern: "DEVOP-DEVO-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "DevopsStandardEntry",
+      typeName: "String",
       serializationOrder: 1,
       contentHelp: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.",
       docComment: "DevOps and deployment standards.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."})],
-      elementNode: _cx("DevopsStandardEntry", s, _mc_DevopsStandardEntry, (r, c) => new SomMetaNode({className: "DevopsStandardEntry", classSectionId: "DEVOP", kind: SomMetaKind.COMPLEX, typeName: "DevopsStandardEntry", docComment: "A single devops standard entry.", classDocComment: "A single devops standard entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."})]}),
      new SomMetaNode({
       className: "TechnicalEnvironmentNetwork",
       memberName: "observabilityRequirements",
       sectionId: "OBSER-OBSE-LST",
       sectionIdPattern: "OBSER-OBSE-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "ObservabilityRequirementEntry",
+      typeName: "String",
       serializationOrder: 2,
       contentHelp: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.",
       docComment: "Monitoring and observability requirements.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (infrastructure/platform quality)", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."})],
-      elementNode: _cx("ObservabilityRequirementEntry", s, _mc_ObservabilityRequirementEntry, (r, c) => new SomMetaNode({className: "ObservabilityRequirementEntry", classSectionId: "OBSER", kind: SomMetaKind.COMPLEX, typeName: "ObservabilityRequirementEntry", docComment: "A single observability requirement entry.", classDocComment: "A single observability requirement entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — product quality (infrastructure/platform quality)", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."})]}),
      new SomMetaNode({
       className: "TechnicalEnvironmentNetwork",
       memberName: "disasterRecovery",
@@ -52895,24 +52351,22 @@ function _mc_UserJourney(s) {
       sectionId: "KEYTO-KEYT-LST",
       sectionIdPattern: "KEYTO-KEYT-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "KeyTouchpointEntry",
+      typeName: "String",
       serializationOrder: 3,
       contentHelp: "Add one entry per key touchpoint in the user journey.",
       docComment: "Key touchpoints.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"], "connotation": "The set of key touchpoints where this user category interacts with the system across the journey."})],
-      elementNode: _cx("KeyTouchpointEntry", s, _mc_KeyTouchpointEntry, (r, c) => new SomMetaNode({className: "KeyTouchpointEntry", classSectionId: "KEYTO", kind: SomMetaKind.COMPLEX, typeName: "KeyTouchpointEntry", docComment: "A single key touchpoint entry.", classDocComment: "A single key touchpoint entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"], "connotation": "The set of key touchpoints where this user category interacts with the system across the journey."})]}),
      new SomMetaNode({
       className: "UserJourney",
       memberName: "painPoints",
       sectionId: "USERJ-PAIN-LST",
       sectionIdPattern: "USERJ-PAIN-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "UserJourneyPainPointEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per pain point or friction in the user journey.",
       docComment: "Pain points in the journey.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"], "connotation": "The set of pain points this user category encounters during the journey."})],
-      elementNode: _cx("UserJourneyPainPointEntry", s, _mc_UserJourneyPainPointEntry, (r, c) => new SomMetaNode({className: "UserJourneyPainPointEntry", classSectionId: "USERJ", kind: SomMetaKind.COMPLEX, typeName: "UserJourneyPainPointEntry", docComment: "A single pain point entry.", classDocComment: "A single pain point entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"], "connotation": "The set of pain points this user category encounters during the journey."})]}),
      new SomMetaNode({
       className: "UserJourney",
       memberName: "opportunitiesForDelight",
@@ -52922,18 +52376,6 @@ function _mc_UserJourney(s) {
       serializationOrder: 5,
       contentType: new SomContentTypeMeta("description", "Opportunities to exceed user expectations and create positive experiences."),
       docComment: "Opportunities for delight."}),
-  ];
-}
-
-function _mc_UserJourneyPainPointEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "UserJourneyPainPointEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -53286,12 +52728,11 @@ function _mc_UserPersonaDetails(s) {
       sectionId: "REPRE-REPR-LST",
       sectionIdPattern: "REPRE-REPR-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "RepresentativeQuoteEntry",
+      typeName: "String",
       serializationOrder: 6,
       contentHelp: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.",
       docComment: "Key quotes that represent this persona's mindset.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"], "connotation": "The set of representative quotes capturing this persona's mindset."})],
-      elementNode: _cx("RepresentativeQuoteEntry", s, _mc_RepresentativeQuoteEntry, (r, c) => new SomMetaNode({className: "RepresentativeQuoteEntry", classSectionId: "REPRE", kind: SomMetaKind.COMPLEX, typeName: "RepresentativeQuoteEntry", docComment: "A single representative quote entry.", classDocComment: "A single representative quote entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"], "connotation": "The set of representative quotes capturing this persona's mindset."})]}),
   ];
 }
 
@@ -53623,12 +53064,11 @@ function _mc_ValidationFeedback(s) {
       sectionId: "FIELD-FIEL-LST",
       sectionIdPattern: "FIELD-FIEL-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "FieldValidationRuleEntry",
+      typeName: "String",
       serializationOrder: 7,
       contentHelp: "Add one entry per field validation rule.",
       docComment: "Field validation rules by type.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field", "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"], "connotation": "The collection of field validation rule entries organised by field type."})],
-      elementNode: _cx("FieldValidationRuleEntry", s, _mc_FieldValidationRuleEntry, (r, c) => new SomMetaNode({className: "FieldValidationRuleEntry", classSectionId: "FIELD", kind: SomMetaKind.COMPLEX, typeName: "FieldValidationRuleEntry", docComment: "A single field validation rule entry.", classDocComment: "A single field validation rule entry.", recursive: r, children: c}))}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field", "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"], "connotation": "The collection of field validation rule entries organised by field type."})]}),
   ];
 }
 
@@ -53641,18 +53081,6 @@ function _mc_ValidationMessageTemplate(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "messageId", typeName: "String", description: "Message ID", required: true, hint: "Unique identifier (e.g., VAL-REQ-001)", order: 0}), new SomFormFieldMeta({name: "validationType", typeName: "String", description: "Validation Type", required: true, hint: "Required, format, range, length, custom", order: 1}), new SomFormFieldMeta({name: "fieldTypes", typeName: "String", description: "Applicable Field Types", hint: "Text, email, number, date, select", order: 2}), new SomFormFieldMeta({name: "messageTemplate", typeName: "String", description: "Message Template", required: true, hint: "Template with {field}, {value} placeholders", order: 3}), new SomFormFieldMeta({name: "shortMessage", typeName: "String", description: "Short Message", hint: "Brief version for space-constrained contexts", order: 4}), new SomFormFieldMeta({name: "helpText", typeName: "String", description: "Help Text", hint: "Extended guidance for complex errors", order: 5}), new SomFormFieldMeta({name: "exampleCorrection", typeName: "String", description: "Example Correction", hint: "Example of valid input", order: 6}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity", hint: "Error, warning, info", order: 7}), new SomFormFieldMeta({name: "iconCode", typeName: "String", description: "Icon Code", hint: "Icon to display with message", order: 8}), new SomFormFieldMeta({name: "localizationKey", typeName: "String", description: "Localization Key", hint: "i18n key for translation", order: 9})])}),
-  ];
-}
-
-function _mc_ValidationRuleEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "ValidationRuleEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
   ];
 }
 
@@ -53699,24 +53127,11 @@ function _mc_ValueProposition(s) {
       sectionId: "KPIEN-KPIS-LST",
       sectionIdPattern: "KPIEN-KPIS-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "KpiEntry",
+      typeName: "String",
       serializationOrder: 4,
       contentHelp: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.",
       docComment: "Key Performance Indicators for value measurement.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — measures of effectiveness"], "connotation": "The set of key performance indicators by which the system's delivered value will be measured."})],
-      elementNode: _cx("KpiEntry", s, _mc_KpiEntry, (r, c) => new SomMetaNode({className: "KpiEntry", classSectionId: "KPIEN", kind: SomMetaKind.COMPLEX, typeName: "KpiEntry", docComment: "A single kpi entry.", classDocComment: "A single kpi entry.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_VariationsAndExceptionEntry(s) {
-  return [
-     new SomMetaNode({
-      className: "VariationsAndExceptionEntry",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("text", "The description for the content is provided by the doc-comment on the field declaration of this type")}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148 §6 — measures of effectiveness"], "connotation": "The set of key performance indicators by which the system's delivered value will be measured."})]}),
   ];
 }
 
@@ -55702,7 +55117,7 @@ class ApplicableRegulationEntry$Nav extends SomMetaRef {
   }
 
   get complianceMeasures() {
-    return new SomListMetaRef(this.tree, this.path + "/COMPL-COMP-LST", (t, p) => new ComplianceMeasureEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/COMPL-COMP-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -56001,16 +55416,6 @@ class AssumptionsConstraintsDependencies$Nav extends SomMetaRef {
 
   get register() {
     return new AssumptionConstraintDependencyRegister$Nav(this.tree, this.path + "/register");
-  }
-}
-
-// Dot-notation accessors of `AttributeInterdependencyEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class AttributeInterdependencyEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -57408,16 +56813,6 @@ class CapacityReviewProcess$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `CategoryDependencyEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class CategoryDependencyEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `CcbMemberEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -57535,16 +56930,6 @@ class CertificationRequirementsSection$Nav extends SomMetaRef {
 
   get marketing() {
     return new SomMetaRef(this.tree, this.path + "/CRSM");
-  }
-}
-
-// Dot-notation accessors of `ChangeAdvocateEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ChangeAdvocateEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -58406,16 +57791,6 @@ class CommunicationPatterns$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `CommunicationPreferenceEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class CommunicationPreferenceEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `CommunicationRequirements` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -58595,16 +57970,6 @@ class ComplianceAuditSchedule$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class ComplianceFramework$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ComplianceMeasureEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ComplianceMeasureEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -59556,16 +58921,6 @@ class CredentialRecoveryPolicy$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `CriticalKnowledgeAreaEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class CriticalKnowledgeAreaEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `CrossBoundaryErrorHandling` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -59640,16 +58995,6 @@ class CrossTenantAccessPolicy$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `CulturalConsiderationEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class CulturalConsiderationEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `CurrentArchitecture` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -59668,11 +59013,11 @@ class CurrentArchitecture$Nav extends SomMetaRef {
   }
 
   get integrationPatterns() {
-    return new SomListMetaRef(this.tree, this.path + "/IPE-INTE-LST", (t, p) => new IntegrationPatternEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/IPE-INTE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get sharedServices() {
-    return new SomListMetaRef(this.tree, this.path + "/SHARE-SHAR-LST", (t, p) => new SharedServiceEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/SHARE-SHAR-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -61818,16 +61163,6 @@ class DatabaseEncryptionPolicy$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `DatacenterEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class DatacenterEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `DebuggingConfiguration` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -62217,16 +61552,6 @@ class DependenciesAndIntegrations$Nav extends SomMetaRef {
 
   get healthSummary() {
     return new IntegrationHealthSummary$Nav(this.tree, this.path + "/healthSummary");
-  }
-}
-
-// Dot-notation accessors of `DependencyEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class DependencyEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -62879,16 +62204,6 @@ class DevelopmentQualityGates$Nav extends SomMetaRef {
 
   get performance() {
     return new SomMetaRef(this.tree, this.path + "/DQGP");
-  }
-}
-
-// Dot-notation accessors of `DevopsStandardEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class DevopsStandardEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -64102,26 +63417,6 @@ class ErrorHandlingStandards$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `ErrorPageDesignEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ErrorPageDesignEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ErrorProcedureEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ErrorProcedureEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `ErrorRecovery` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -64156,21 +63451,11 @@ class ErrorRecovery$Nav extends SomMetaRef {
   }
 
   get recoveryFlows() {
-    return new SomListMetaRef(this.tree, this.path + "/RECOV-RECO-LST", (t, p) => new RecoveryFlowEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get recoveryScenarios() {
     return new SomListMetaRef(this.tree, this.path + "/RCVSCN-RECO-LST", (t, p) => new RecoveryScenarioEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `EscalationProcedureEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class EscalationProcedureEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -64532,7 +63817,7 @@ class ExternalActorEntry$Nav extends SomMetaRef {
   }
 
   get interactionScenarios() {
-    return new SomListMetaRef(this.tree, this.path + "/INTER-INTE-LST", (t, p) => new InteractionScenarioEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/INTER-INTE-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -65072,16 +64357,6 @@ class FieldValidationRule$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `FieldValidationRuleEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class FieldValidationRuleEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `FileAccessControlPolicy` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -65247,16 +64522,6 @@ class FlexibilityCharacteristic$Nav extends SomMetaRef {
 
   get portability() {
     return new Portability$Nav(this.tree, this.path + "/portability");
-  }
-}
-
-// Dot-notation accessors of `FragilePointEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class FragilePointEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -65571,16 +64836,6 @@ class GeographicDistributionRequirements$Nav extends SomMetaRef {
 
   get performance() {
     return new SomMetaRef(this.tree, this.path + "/GDRP");
-  }
-}
-
-// Dot-notation accessors of `GlobalEntryPointEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class GlobalEntryPointEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -66266,7 +65521,7 @@ class InformationArchitecture$Nav extends SomMetaRef {
   }
 
   get globalEntryPoints() {
-    return new SomListMetaRef(this.tree, this.path + "/GLOBA-GLOB-LST", (t, p) => new GlobalEntryPointEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get architectureDiagram() {
@@ -66532,17 +65787,7 @@ class IntegrationHealthSummary$Nav extends SomMetaRef {
   }
 
   get fragilePoints() {
-    return new SomListMetaRef(this.tree, this.path + "/FRAGI-FRAG-LST", (t, p) => new FragilePointEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `IntegrationPatternEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class IntegrationPatternEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/FRAGI-FRAG-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -66786,16 +66031,6 @@ class InteractionPatterns$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `InteractionScenarioEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class InteractionScenarioEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `InteractionTestingStrategy` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -66854,11 +66089,11 @@ class InterfaceDataSpec$Nav extends SomMetaRef {
   }
 
   get mappingRules() {
-    return new SomListMetaRef(this.tree, this.path + "/MAPPI-MAPP-LST", (t, p) => new MappingRuleEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/MAPPI-MAPP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get validationRules() {
-    return new SomListMetaRef(this.tree, this.path + "/VALID-VALI-LST", (t, p) => new ValidationRuleEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/VALID-VALI-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -66884,7 +66119,7 @@ class InterfaceErrorHandling$Nav extends SomMetaRef {
   }
 
   get errorProcedures() {
-    return new SomListMetaRef(this.tree, this.path + "/ERROR-ERRO-LST", (t, p) => new ErrorProcedureEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/ERROR-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -66942,7 +66177,7 @@ class InterfaceOperational$Nav extends SomMetaRef {
   }
 
   get dependencies() {
-    return new SomListMetaRef(this.tree, this.path + "/DEPEN-DEPE-LST", (t, p) => new DependencyEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/DEPEN-DEPE-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -67354,16 +66589,6 @@ class JourneyStageEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `KeyAssumptionEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class KeyAssumptionEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `KeyAttributeEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -67558,51 +66783,11 @@ class KeyStoragePolicy$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `KeyTouchpointEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class KeyTouchpointEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `KnowledgeTransfer` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class KnowledgeTransfer$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `KnownIssueEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class KnownIssueEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `KnownQualityIssueEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class KnownQualityIssueEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `KpiEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class KpiEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -68208,16 +67393,6 @@ class MaintenanceDependencyEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `MaintenanceProcedureEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class MaintenanceProcedureEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `MaintenanceUserImpact` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -68301,16 +67476,6 @@ class MaintenanceWindowsSection$Nav extends SomMetaRef {
 
   get postMaintenance() {
     return new PostMaintenanceValidation$Nav(this.tree, this.path + "/postMaintenance");
-  }
-}
-
-// Dot-notation accessors of `MappingRuleEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class MappingRuleEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -68506,17 +67671,7 @@ class MfaConfiguration$Nav extends SomMetaRef {
   }
 
   get mfaDetails() {
-    return new SomListMetaRef(this.tree, this.path + "/MFADE-MFAD-LST", (t, p) => new MfaDetailEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `MfaDetailEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class MfaDetailEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -68570,7 +67725,7 @@ class MigrationConsiderations$Nav extends SomMetaRef {
   }
 
   get escalationProcedures() {
-    return new SomListMetaRef(this.tree, this.path + "/ESCAL-ESCA-LST", (t, p) => new EscalationProcedureEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/ESCAL-ESCA-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -68832,19 +67987,19 @@ class MigrationRisks$Nav extends SomMetaRef {
   }
 
   get riskCategories() {
-    return new SomListMetaRef(this.tree, this.path + "/RISKC-RISK-LST", (t, p) => new RiskCategoryEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/RISKC-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get riskBasedDecisions() {
-    return new SomListMetaRef(this.tree, this.path + "/RISKB-RISK-LST", (t, p) => new RiskBasedDecisionEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/RISKB-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get monitoringProcedures() {
-    return new SomListMetaRef(this.tree, this.path + "/MONIT-MONI-LST", (t, p) => new MonitoringProcedureEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/MONIT-MONI-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get responseStrategies() {
-    return new SomListMetaRef(this.tree, this.path + "/RESPO-RESP-LST", (t, p) => new ResponseStrategyEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/RESPO-RESP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get riskAggregation() {
@@ -69139,16 +68294,6 @@ class MonitoringInfrastructure$Nav extends SomMetaRef {
 
   get access() {
     return new SomMetaRef(this.tree, this.path + "/MOINAC");
-  }
-}
-
-// Dot-notation accessors of `MonitoringProcedureEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class MonitoringProcedureEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -69770,16 +68915,6 @@ class NewRoleResponsibilities$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `NonFinancialBenefitEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class NonFinancialBenefitEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `NotificationChannelEntry` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -69859,16 +68994,6 @@ class ObjectOperationEntry$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class ObjectStateEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ObservabilityRequirementEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ObservabilityRequirementEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -70238,11 +69363,11 @@ class OrganizationalEnvironment$Nav extends SomMetaRef {
   }
 
   get culturalConsiderations() {
-    return new SomListMetaRef(this.tree, this.path + "/CULTU-CULT-LST", (t, p) => new CulturalConsiderationEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/CULTU-CULT-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get communicationPreferences() {
-    return new SomListMetaRef(this.tree, this.path + "/COMMU-COMM-LST", (t, p) => new CommunicationPreferenceEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/COMMU-COMM-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get politicalLandscape() {
@@ -70250,7 +69375,7 @@ class OrganizationalEnvironment$Nav extends SomMetaRef {
   }
 
   get changeAdvocates() {
-    return new SomListMetaRef(this.tree, this.path + "/CHANG-CHAN-LST", (t, p) => new ChangeAdvocateEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/CHANG-CHAN-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -71172,16 +70297,6 @@ class PreconditionsAndTriggers$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `PredecessorDependencyEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class PredecessorDependencyEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `PrimaryNavigation` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -71326,7 +70441,7 @@ class ProblemStatement$Nav extends SomMetaRef {
   }
 
   get relatedPainPoints() {
-    return new SomListMetaRef(this.tree, this.path + "/RPPE-RELA-LST", (t, p) => new RelatedPainPointEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/RPPE-RELA-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -72514,7 +71629,7 @@ class QualityFramework$Nav extends SomMetaRef {
   }
 
   get categoryDependencies() {
-    return new SomListMetaRef(this.tree, this.path + "/CATEG-CATE-LST", (t, p) => new CategoryDependencyEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/CATEG-CATE-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -72768,16 +71883,6 @@ class ReadinessCriteriaEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `RecoveryFlowEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class RecoveryFlowEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `RecoveryProcedures` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -72963,16 +72068,6 @@ class RegulatoryRequirementEntry$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class RelatedDocumentEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `RelatedPainPointEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class RelatedPainPointEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -73428,16 +72523,6 @@ class ReportSectionEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `RepresentativeQuoteEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class RepresentativeQuoteEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `Requirement` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -73801,16 +72886,6 @@ class ResourceProtection$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class ResourceRequirementEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ResponseStrategyEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ResponseStrategyEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -74206,16 +73281,6 @@ class Risk$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `RiskBasedDecisionEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class RiskBasedDecisionEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `RiskBusinessImpact` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -74231,16 +73296,6 @@ class RiskBusinessImpact$Nav extends SomMetaRef {
 
   get delivery() {
     return new SomMetaRef(this.tree, this.path + "/RBID");
-  }
-}
-
-// Dot-notation accessors of `RiskCategoryEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class RiskCategoryEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -74912,16 +73967,6 @@ class ScheduledMaintenancePolicy$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `ScopeAssumptionEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ScopeAssumptionEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `ScopeBoundaries` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -74944,7 +73989,7 @@ class ScopeBoundaries$Nav extends SomMetaRef {
   }
 
   get scopeAssumptions() {
-    return new SomListMetaRef(this.tree, this.path + "/SCOPE-SCOP-LST", (t, p) => new ScopeAssumptionEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/SCOPE-SCOP-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -75557,16 +74602,6 @@ class SecurityCodeReviewPolicy$Nav extends SomMetaRef {
 
   get findings() {
     return new SomMetaRef(this.tree, this.path + "/SCRPF");
-  }
-}
-
-// Dot-notation accessors of `SecurityConcernEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class SecurityConcernEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -76378,16 +75413,6 @@ class SharedLibraryEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `SharedServiceEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class SharedServiceEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `SignOffProcess` (DR1 §4.1). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -77174,21 +76199,11 @@ class StagingStrategy$Nav extends SomMetaRef {
   }
 
   get keyAssumptions() {
-    return new SomListMetaRef(this.tree, this.path + "/KEYAS-KEYA-LST", (t, p) => new KeyAssumptionEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/KEYAS-KEYA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get constraints() {
-    return new SomListMetaRef(this.tree, this.path + "/STAGI-CONS-LST", (t, p) => new StagingStrategyConstraintEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `StagingStrategyConstraintEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class StagingStrategyConstraintEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/STAGI-CONS-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -77400,17 +76415,7 @@ class StepUpAuthenticationPolicy$Nav extends SomMetaRef {
   }
 
   get stepUpDetails() {
-    return new SomListMetaRef(this.tree, this.path + "/STEPU-STEP-LST", (t, p) => new StepUpDetailEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `StepUpDetailEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class StepUpDetailEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -77862,7 +76867,7 @@ class SystemCostAnalysis$Nav extends SomMetaRef {
   }
 
   get nonFinancialBenefits() {
-    return new SomListMetaRef(this.tree, this.path + "/NONFI-NONF-LST", (t, p) => new NonFinancialBenefitEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/NONFI-NONF-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -77888,7 +76893,7 @@ class SystemDataScope$Nav extends SomMetaRef {
   }
 
   get knownQualityIssues() {
-    return new SomListMetaRef(this.tree, this.path + "/KNOWN-KNOW-LST", (t, p) => new KnownQualityIssueEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/KNOWN-KNOW-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -78030,7 +77035,7 @@ class SystemErrorDisplay$Nav extends SomMetaRef {
   }
 
   get errorPageDesigns() {
-    return new SomListMetaRef(this.tree, this.path + "/EPDE-ERRO-LST", (t, p) => new ErrorPageDesignEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get errorCodes() {
@@ -78104,7 +77109,7 @@ class SystemKnowledgeTransfer$Nav extends SomMetaRef {
   }
 
   get criticalKnowledgeAreas() {
-    return new SomListMetaRef(this.tree, this.path + "/CRITI-CRIT-LST", (t, p) => new CriticalKnowledgeAreaEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/CRITI-CRIT-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get knowledgeTransferPlan() {
@@ -78176,7 +77181,7 @@ class SystemOperation$Nav extends SomMetaRef {
   }
 
   get maintenanceProcedures() {
-    return new SomListMetaRef(this.tree, this.path + "/MAINT-MAIN-LST", (t, p) => new MaintenanceProcedureEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/MAINT-MAIN-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -78278,7 +77283,7 @@ class SystemQualityGoals$Nav extends SomMetaRef {
   }
 
   get attributeInterdependencies() {
-    return new SomListMetaRef(this.tree, this.path + "/ATTRI-ATTR-LST", (t, p) => new AttributeInterdependencyEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/ATTRI-ATTR-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get qualityRadar() {
@@ -78360,7 +77365,7 @@ class SystemReplacementStrategy$Nav extends SomMetaRef {
   }
 
   get predecessorDependencies() {
-    return new SomListMetaRef(this.tree, this.path + "/PREDE-PRED-LST", (t, p) => new PredecessorDependencyEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/PREDE-PRED-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get successCriteria() {
@@ -78516,21 +77521,11 @@ class SystemTaskEntry$Nav extends SomMetaRef {
   }
 
   get workflowSteps() {
-    return new SomListMetaRef(this.tree, this.path + "/SYSTE-WORK-LST", (t, p) => new SystemTaskWorkflowStepEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/SYSTE-WORK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get variationsAndExceptions() {
-    return new SomListMetaRef(this.tree, this.path + "/VARIA-VARI-LST", (t, p) => new VariationsAndExceptionEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `SystemTaskWorkflowStepEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class SystemTaskWorkflowStepEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/VARIA-VARI-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -78556,11 +77551,11 @@ class SystemTechnicalAssessment$Nav extends SomMetaRef {
   }
 
   get knownIssues() {
-    return new SomListMetaRef(this.tree, this.path + "/KIE-KNOW-LST", (t, p) => new KnownIssueEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/KIE-KNOW-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get securityConcerns() {
-    return new SomListMetaRef(this.tree, this.path + "/SECUR-SECU-LST", (t, p) => new SecurityConcernEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/SECUR-SECU-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -78920,7 +77915,7 @@ class TechnicalEnvironment$Nav extends SomMetaRef {
   }
 
   get datacenters() {
-    return new SomListMetaRef(this.tree, this.path + "/DATAC-DATA-LST", (t, p) => new DatacenterEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/DATAC-DATA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get networkTopology() {
@@ -78954,11 +77949,11 @@ class TechnicalEnvironmentNetwork$Nav extends SomMetaRef {
   }
 
   get devopsStandards() {
-    return new SomListMetaRef(this.tree, this.path + "/DEVOP-DEVO-LST", (t, p) => new DevopsStandardEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/DEVOP-DEVO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get observabilityRequirements() {
-    return new SomListMetaRef(this.tree, this.path + "/OBSER-OBSE-LST", (t, p) => new ObservabilityRequirementEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/OBSER-OBSE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get disasterRecovery() {
@@ -80994,25 +79989,15 @@ class UserJourney$Nav extends SomMetaRef {
   }
 
   get keyTouchpoints() {
-    return new SomListMetaRef(this.tree, this.path + "/KEYTO-KEYT-LST", (t, p) => new KeyTouchpointEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/KEYTO-KEYT-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get painPoints() {
-    return new SomListMetaRef(this.tree, this.path + "/USERJ-PAIN-LST", (t, p) => new UserJourneyPainPointEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/USERJ-PAIN-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get opportunitiesForDelight() {
     return new SomMetaRef(this.tree, this.path + "/UJ-OPPO");
-  }
-}
-
-// Dot-notation accessors of `UserJourneyPainPointEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class UserJourneyPainPointEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -81182,7 +80167,7 @@ class UserPersonaDetails$Nav extends SomMetaRef {
   }
 
   get representativeQuotes() {
-    return new SomListMetaRef(this.tree, this.path + "/REPRE-REPR-LST", (t, p) => new RepresentativeQuoteEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/REPRE-REPR-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -81360,7 +80345,7 @@ class ValidationFeedback$Nav extends SomMetaRef {
   }
 
   get fieldValidationRules() {
-    return new SomListMetaRef(this.tree, this.path + "/FIELD-FIEL-LST", (t, p) => new FieldValidationRuleEntry$Nav(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -81369,16 +80354,6 @@ class ValidationFeedback$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 class ValidationMessageTemplate$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ValidationRuleEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class ValidationRuleEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -81406,17 +80381,7 @@ class ValueProposition$Nav extends SomMetaRef {
   }
 
   get kpis() {
-    return new SomListMetaRef(this.tree, this.path + "/KPIEN-KPIS-LST", (t, p) => new KpiEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `VariationsAndExceptionEntry` (DR1 §4.1). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-class VariationsAndExceptionEntry$Nav extends SomMetaRef {
-  get content() {
-    return new SomMetaRef(this.tree, this.path + "/content");
+    return new SomListMetaRef(this.tree, this.path + "/KPIEN-KPIS-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -82166,7 +81131,7 @@ class ApiCompatibilityEntry$Id extends SomMetaRef {
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ApplicableRegulationEntry$Id extends SomMetaRef {
   get COMPL_COMP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/COMPL-COMP-LST", (t, p) => new ComplianceMeasureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/COMPL-COMP-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -82239,12 +81204,6 @@ class ArchitecturePrincipleEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class AssumptionRegisterEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `AttributeInterdependencyEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class AttributeInterdependencyEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `AuditEntry` (DR1 §4.2): getters named by section id
@@ -82768,12 +81727,6 @@ class BusinessRuleReferenceEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `CategoryDependencyEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class CategoryDependencyEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `CcbMemberEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -82803,12 +81756,6 @@ class CertificationEntry$Id extends SomMetaRef {
   get CEENSU() {
     return new SomMetaRef(this.tree, this.path + "/CEENSU");
   }
-}
-
-// ID-tree accessors of `ChangeAdvocateEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ChangeAdvocateEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ChangeCategoryEntry` (DR1 §4.2): getters named by section id
@@ -83010,12 +81957,6 @@ class CommunicationEventEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `CommunicationPreferenceEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class CommunicationPreferenceEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `CommunicationToolsRequirements` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -83038,12 +81979,6 @@ class CompetencyEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class CompetencyLevelChangeEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `ComplianceMeasureEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ComplianceMeasureEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ComplianceMilestoneEntry` (DR1 §4.2): getters named by section id
@@ -83322,22 +82257,10 @@ class ContingencyPlanEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `CriticalKnowledgeAreaEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class CriticalKnowledgeAreaEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `CrossBoundaryOperationalConsiderations` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class CrossBoundaryOperationalConsiderations$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `CulturalConsiderationEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class CulturalConsiderationEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `CurrentBusinessProcess` (DR1 §4.2): getters named by section id
@@ -83518,7 +82441,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get RPPE_RELA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", (t, p) => new RelatedPainPointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get STKNT_PRIM_LST() {
@@ -83538,7 +82461,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get KPIEN_KPIS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST", (t, p) => new KpiEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SCITE_INSC_LST() {
@@ -83554,7 +82477,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get SCOPE_SCOP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", (t, p) => new ScopeAssumptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get CD_DIAG() {
@@ -83814,19 +82737,19 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get RISKC_RISK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) => new RiskCategoryEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RISKB_RISK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) => new RiskBasedDecisionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MONIT_MONI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) => new MonitoringProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RESPO_RESP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) => new ResponseStrategyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MGRSK_ITEM_LST() {
@@ -83838,7 +82761,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get ESCAL_ESCA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST", (t, p) => new EscalationProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get EXINEN_INTE_LST() {
@@ -83886,15 +82809,15 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get CULTU_CULT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST", (t, p) => new CulturalConsiderationEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get COMMU_COMM_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST", (t, p) => new CommunicationPreferenceEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get CHANG_CHAN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST", (t, p) => new ChangeAdvocateEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get REEN1_ITEM_LST() {
@@ -83918,15 +82841,15 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get DEVOP_DEVO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) => new DevopsStandardEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get OBSER_OBSE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) => new ObservabilityRequirementEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get DATAC_DATA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST", (t, p) => new DatacenterEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get TESTEN_TECH_LST() {
@@ -84162,11 +83085,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get IPE_INTE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new IntegrationPatternEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SHARE_SHAR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SharedServiceEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get DEPNT_DEPE() {
@@ -84190,7 +83113,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get FRAGI_FRAG_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new FragilePointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get CUBUPR_PROC() {
@@ -86622,7 +85545,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get MAINT_MAIN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) => new MaintenanceProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MONITO_MONI() {
@@ -87326,7 +86249,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get MFADE_MFAD_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new MfaDetailEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get ATME_ITEM_LST() {
@@ -87334,7 +86257,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get STEPU_STEP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new StepUpDetailEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get LGFLS_LOGI_LST() {
@@ -87406,7 +86329,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get GLOBA_GLOB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new GlobalEntryPointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get NAVGRP_GROU_LST() {
@@ -87518,7 +86441,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get FIELD_FIEL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new FieldValidationRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SYERDI_SYST() {
@@ -87542,7 +86465,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get EPDE_ERRO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new ErrorPageDesignEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SECE_ERRO_LST() {
@@ -87574,7 +86497,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get RECOV_RECO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new RecoveryFlowEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RCVSCN_RECO_LST() {
@@ -87946,7 +86869,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get ATTRI_ATTR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", (t, p) => new AttributeInterdependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get QLFWK_FRAM() {
@@ -87970,7 +86893,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get CATEG_CATE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", (t, p) => new CategoryDependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get FNSU_FUNC() {
@@ -88490,11 +87413,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   }
 
   get KEYAS_KEYA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST", (t, p) => new KeyAssumptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get STAGI_CONS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST", (t, p) => new StagingStrategyConstraintEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SGOVM() {
@@ -88755,11 +87678,11 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   }
 
   get IPE_INTE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new IntegrationPatternEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SHARE_SHAR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SharedServiceEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get DEPNT_DEPE() {
@@ -88783,7 +87706,7 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   }
 
   get FRAGI_FRAG_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new FragilePointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get CUBUPR_PROC() {
@@ -89027,19 +87950,19 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   }
 
   get RISKC_RISK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) => new RiskCategoryEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RISKB_RISK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) => new RiskBasedDecisionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MONIT_MONI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) => new MonitoringProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RESPO_RESP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) => new ResponseStrategyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MGRSK_ITEM_LST() {
@@ -89051,7 +87974,7 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   }
 
   get ESCAL_ESCA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/ESCAL-ESCA-LST", (t, p) => new EscalationProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/migrationConsiderations/ESCAL-ESCA-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -91152,7 +90075,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   }
 
   get MAINT_MAIN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", (t, p) => new MaintenanceProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get MONITO_MONI() {
@@ -91788,15 +90711,15 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   }
 
   get DEVOP_DEVO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) => new DevopsStandardEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get OBSER_OBSE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) => new ObservabilityRequirementEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get DATAC_DATA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/DATAC-DATA-LST", (t, p) => new DatacenterEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/technicalEnvironment/DATAC-DATA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get TESTEN_TECH_LST() {
@@ -91946,7 +90869,7 @@ class D08SecurityAccessSpecification$Id extends SomMetaRef {
   }
 
   get MFADE_MFAD_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new MfaDetailEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get ATME_ITEM_LST() {
@@ -91954,7 +90877,7 @@ class D08SecurityAccessSpecification$Id extends SomMetaRef {
   }
 
   get STEPU_STEP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new StepUpDetailEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get LGFLS_LOGI_LST() {
@@ -92031,7 +90954,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   }
 
   get GLOBA_GLOB_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new GlobalEntryPointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get NAVGRP_GROU_LST() {
@@ -92143,7 +91066,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   }
 
   get FIELD_FIEL_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new FieldValidationRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SYERDI_SYST() {
@@ -92167,7 +91090,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   }
 
   get EPDE_ERRO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new ErrorPageDesignEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SECE_ERRO_LST() {
@@ -92199,7 +91122,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   }
 
   get RECOV_RECO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new RecoveryFlowEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get RCVSCN_RECO_LST() {
@@ -92568,7 +91491,7 @@ class D10QualityAcceptancePlan$Id extends SomMetaRef {
   }
 
   get CATEG_CATE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/qualityFramework/CATEG-CATE-LST", (t, p) => new CategoryDependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/qualityFramework/CATEG-CATE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get FNSU_FUNC() {
@@ -93061,11 +91984,11 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
   }
 
   get KEYAS_KEYA_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/stagingStrategy/KEYAS-KEYA-LST", (t, p) => new KeyAssumptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/stagingStrategy/KEYAS-KEYA-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get STAGI_CONS_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/stagingStrategy/STAGI-CONS-LST", (t, p) => new StagingStrategyConstraintEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/stagingStrategy/STAGI-CONS-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SGOVM() {
@@ -93634,12 +92557,6 @@ class DatabaseCompatibilityEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `DatacenterEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class DatacenterEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `DecisionAuthorityEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -93772,12 +92689,6 @@ class DeliveryAcceptanceCriterionEntry$Id extends SomMetaRef {
   get DACES() {
     return new SomMetaRef(this.tree, this.path + "/DACES");
   }
-}
-
-// ID-tree accessors of `DependencyEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class DependencyEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `DependencyRegisterEntry` (DR1 §4.2): getters named by section id
@@ -93925,12 +92836,6 @@ class DevelopmentConventionEntry$Id extends SomMetaRef {
   get DCEE() {
     return new SomMetaRef(this.tree, this.path + "/DCEE");
   }
-}
-
-// ID-tree accessors of `DevopsStandardEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class DevopsStandardEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `DisplayEquipmentEntry` (DR1 §4.2): getters named by section id
@@ -94193,24 +93098,6 @@ class EnvironmentEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `ErrorPageDesignEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ErrorPageDesignEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `ErrorProcedureEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ErrorProcedureEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `EscalationProcedureEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class EscalationProcedureEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `EvaluationCriterionEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -94388,7 +93275,7 @@ class ExternalActorEntry$Id extends SomMetaRef {
   }
 
   get INTER_INTE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/INTER-INTE-LST", (t, p) => new InteractionScenarioEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/INTER-INTE-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -94425,11 +93312,11 @@ class ExternalInterfaceEntry$Id extends SomMetaRef {
   }
 
   get MAPPI_MAPP_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/dataSpec/MAPPI-MAPP-LST", (t, p) => new MappingRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/dataSpec/MAPPI-MAPP-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get VALID_VALI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/dataSpec/VALID-VALI-LST", (t, p) => new ValidationRuleEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/dataSpec/VALID-VALI-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get INSEAU() {
@@ -94457,7 +93344,7 @@ class ExternalInterfaceEntry$Id extends SomMetaRef {
   }
 
   get DEPEN_DEPE_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/operational/DEPEN-DEPE-LST", (t, p) => new DependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/operational/DEPEN-DEPE-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get IEHR() {
@@ -94473,7 +93360,7 @@ class ExternalInterfaceEntry$Id extends SomMetaRef {
   }
 
   get ERROR_ERRO_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/errorHandling/ERROR-ERRO-LST", (t, p) => new ErrorProcedureEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/errorHandling/ERROR-ERRO-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get INGOCO() {
@@ -94700,18 +93587,6 @@ class FieldHelpEntry$Id extends SomMetaRef {
 class FieldValidationRule$Id extends SomMetaRef {
 }
 
-// ID-tree accessors of `FieldValidationRuleEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class FieldValidationRuleEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `FragilePointEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class FragilePointEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `FrameworkRequirementEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -94872,12 +93747,6 @@ class GapEntry$Id extends SomMetaRef {
   get GAENRE() {
     return new SomMetaRef(this.tree, this.path + "/GAENRE");
   }
-}
-
-// ID-tree accessors of `GlobalEntryPointEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class GlobalEntryPointEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `GlobalRoleExclusionEntry` (DR1 §4.2): getters named by section id
@@ -95153,12 +94022,6 @@ class IntegrationConstraintEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `IntegrationPatternEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class IntegrationPatternEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `IntegrationPointEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -95274,12 +94137,6 @@ class InteractionPatternEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `InteractionScenarioEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class InteractionScenarioEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `InterfaceBusinessProcessEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -95368,12 +94225,6 @@ class ItStandardComplianceEntry$Id extends SomMetaRef {
 class JourneyStageEntry$Id extends SomMetaRef {
 }
 
-// ID-tree accessors of `KeyAssumptionEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class KeyAssumptionEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `KeyAttributeEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -95405,30 +94256,6 @@ class KeyConceptEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class KeyResultEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `KeyTouchpointEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class KeyTouchpointEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `KnownIssueEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class KnownIssueEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `KnownQualityIssueEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class KnownQualityIssueEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `KpiEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class KpiEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `LegacyCompatibilityEntry` (DR1 §4.2): getters named by section id
@@ -95521,12 +94348,6 @@ class MaintenanceDependencyEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `MaintenanceProcedureEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class MaintenanceProcedureEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `MaintenanceWindowEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -95546,12 +94367,6 @@ class MaintenanceWindowEntry$Id extends SomMetaRef {
   get MWER() {
     return new SomMetaRef(this.tree, this.path + "/MWER");
   }
-}
-
-// ID-tree accessors of `MappingRuleEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class MappingRuleEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `MasterDataDomainEntry` (DR1 §4.2): getters named by section id
@@ -95592,12 +94407,6 @@ class MfaCategoryRequirementEntry$Id extends SomMetaRef {
   get MCREO() {
     return new SomMetaRef(this.tree, this.path + "/MCREO");
   }
-}
-
-// ID-tree accessors of `MfaDetailEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class MfaDetailEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `MigrationEnvironments` (DR1 §4.2): getters named by section id
@@ -95828,12 +94637,6 @@ class ModuleEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `MonitoringProcedureEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class MonitoringProcedureEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `MoscowEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -95984,12 +94787,6 @@ class NewRoleEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `NonFinancialBenefitEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class NonFinancialBenefitEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `NotificationChannelEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -96029,12 +94826,6 @@ class ObjectOperationEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ObjectStateEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `ObservabilityRequirementEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ObservabilityRequirementEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `OngoingTrainingEntry` (DR1 §4.2): getters named by section id
@@ -96373,12 +95164,6 @@ class PostconditionsAndGuarantees$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class PreconditionsAndTriggers$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `PredecessorDependencyEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class PredecessorDependencyEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ProcessAdjustmentDetails` (DR1 §4.2): getters named by section id
@@ -96722,12 +95507,6 @@ class QualityWeightEntry$Id extends SomMetaRef {
 class ReadinessCriteriaEntry$Id extends SomMetaRef {
 }
 
-// ID-tree accessors of `RecoveryFlowEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class RecoveryFlowEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `RecoveryScenarioEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -96790,12 +95569,6 @@ class RegulatoryRequirementEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class RelatedDocumentEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `RelatedPainPointEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class RelatedPainPointEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `RelationshipAttributeEntry` (DR1 §4.2): getters named by section id
@@ -97065,12 +95838,6 @@ class ReportSectionEntry$Id extends SomMetaRef {
   }
 }
 
-// ID-tree accessors of `RepresentativeQuoteEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class RepresentativeQuoteEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `RequirementBusinessRuleEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -97140,12 +95907,6 @@ class ResourceKeyReferenceEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ResourceRequirementEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `ResponseStrategyEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ResponseStrategyEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ResponsibilityChangeEntry` (DR1 §4.2): getters named by section id
@@ -97291,18 +96052,6 @@ class ReviewCriterionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class RevisionEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `RiskBasedDecisionEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class RiskBasedDecisionEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `RiskCategoryEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class RiskCategoryEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `RiskEntry` (DR1 §4.2): getters named by section id
@@ -97508,12 +96257,6 @@ class ScenarioStepEntry$Id extends SomMetaRef {
   get SCSTENEX() {
     return new SomMetaRef(this.tree, this.path + "/SCSTENEX");
   }
-}
-
-// ID-tree accessors of `ScopeAssumptionEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ScopeAssumptionEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ScopeItemEntry` (DR1 §4.2): getters named by section id
@@ -97722,12 +96465,6 @@ class SecurityAuditEntry$Id extends SomMetaRef {
   get SAEFU() {
     return new SomMetaRef(this.tree, this.path + "/SAEFU");
   }
-}
-
-// ID-tree accessors of `SecurityConcernEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class SecurityConcernEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `SecurityControlEntry` (DR1 §4.2): getters named by section id
@@ -97939,12 +96676,6 @@ class SharedLibraryEntry$Id extends SomMetaRef {
   get SLEL() {
     return new SomMetaRef(this.tree, this.path + "/SLEL");
   }
-}
-
-// ID-tree accessors of `SharedServiceEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class SharedServiceEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `SloEntry` (DR1 §4.2): getters named by section id
@@ -98203,12 +96934,6 @@ class StagingDependencies$Id extends SomMetaRef {
 class StagingDrivers$Id extends SomMetaRef {
 }
 
-// ID-tree accessors of `StagingStrategyConstraintEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class StagingStrategyConstraintEntry$Id extends SomMetaRef {
-}
-
 // ID-tree accessors of `StakeholderEntry` (DR1 §4.2): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -98225,12 +96950,6 @@ class StakeholderRegisterEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class StakeholdersAndInterests$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `StepUpDetailEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class StepUpDetailEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `SubFunctionEntry` (DR1 §4.2): getters named by section id
@@ -98430,18 +97149,12 @@ class SystemTaskEntry$Id extends SomMetaRef {
   }
 
   get SYSTE_WORK_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/SYSTE-WORK-LST", (t, p) => new SystemTaskWorkflowStepEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/SYSTE-WORK-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get VARIA_VARI_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/VARIA-VARI-LST", (t, p) => new VariationsAndExceptionEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/VARIA-VARI-LST", (t, p) => new SomMetaRef(t, p));
   }
-}
-
-// ID-tree accessors of `SystemTaskWorkflowStepEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class SystemTaskWorkflowStepEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `SystemToReplaceEntry` (DR1 §4.2): getters named by section id
@@ -98473,11 +97186,11 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   }
 
   get KIE_KNOW_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/technicalAssessment/KIE-KNOW-LST", (t, p) => new KnownIssueEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/technicalAssessment/KIE-KNOW-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SECUR_SECU_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/technicalAssessment/SECUR-SECU-LST", (t, p) => new SecurityConcernEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/technicalAssessment/SECUR-SECU-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SBCO() {
@@ -98509,7 +97222,7 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   }
 
   get PREDE_PRED_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/replacementStrategy/PREDE-PRED-LST", (t, p) => new PredecessorDependencyEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/replacementStrategy/PREDE-PRED-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SDSG() {
@@ -98525,7 +97238,7 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   }
 
   get KNOWN_KNOW_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/dataScope/KNOWN-KNOW-LST", (t, p) => new KnownQualityIssueEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/dataScope/KNOWN-KNOW-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get REPSDEP_DEPE_LST() {
@@ -98561,7 +97274,7 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   }
 
   get NONFI_NONF_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/costAnalysis/NONFI-NONF-LST", (t, p) => new NonFinancialBenefitEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/costAnalysis/NONFI-NONF-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get SMPE() {
@@ -98577,7 +97290,7 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   }
 
   get CRITI_CRIT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/knowledgeTransfer/CRITI-CRIT-LST", (t, p) => new CriticalKnowledgeAreaEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/knowledgeTransfer/CRITI-CRIT-LST", (t, p) => new SomMetaRef(t, p));
   }
 }
 
@@ -99280,7 +97993,7 @@ class UserCategoryEntry$Id extends SomMetaRef {
   }
 
   get REPRE_REPR_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/personaDetails/REPRE-REPR-LST", (t, p) => new RepresentativeQuoteEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/personaDetails/REPRE-REPR-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get UCRE() {
@@ -99328,11 +98041,11 @@ class UserCategoryEntry$Id extends SomMetaRef {
   }
 
   get KEYTO_KEYT_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/userJourney/KEYTO-KEYT-LST", (t, p) => new KeyTouchpointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/userJourney/KEYTO-KEYT-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get USERJ_PAIN_LST() {
-    return new SomListMetaRef(this.tree, this.path + "/userJourney/USERJ-PAIN-LST", (t, p) => new UserJourneyPainPointEntry$Id(t, p));
+    return new SomListMetaRef(this.tree, this.path + "/userJourney/USERJ-PAIN-LST", (t, p) => new SomMetaRef(t, p));
   }
 
   get UJ_OPPO() {
@@ -99344,12 +98057,6 @@ class UserCategoryEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class UserGroupImpactEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `UserJourneyPainPointEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class UserJourneyPainPointEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `UserLifecycleTransitionEntry` (DR1 §4.2): getters named by section id
@@ -99409,18 +98116,6 @@ class UtilityNavigationItemEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ValidationMessageTemplate$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `ValidationRuleEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class ValidationRuleEntry$Id extends SomMetaRef {
-}
-
-// ID-tree accessors of `VariationsAndExceptionEntry` (DR1 §4.2): getters named by section id
-// (`-` → `_`), hoisted through id-less members so every reachable id is one
-// step. `.path` and `.meta` agree with the dot-notation surface.
-class VariationsAndExceptionEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `VolumeMetricEntry` (DR1 §4.2): getters named by section id
@@ -100032,7 +98727,6 @@ module.exports = {
   AssumptionConstraintDependencyRegister$Nav,
   AssumptionRegisterEntry$Nav,
   AssumptionsConstraintsDependencies$Nav,
-  AttributeInterdependencyEntry$Nav,
   AuditAndLogging$Nav,
   AuditEntry$Nav,
   AuditEvidenceRequirements$Nav,
@@ -100088,14 +98782,12 @@ module.exports = {
   BusinessRuleReferenceEntry$Nav,
   CapacityPlanningSection$Nav,
   CapacityReviewProcess$Nav,
-  CategoryDependencyEntry$Nav,
   CcbMemberEntry$Nav,
   CertificateAuthenticationPolicy$Nav,
   CertificateManagement$Nav,
   CertificateManagementPolicy$Nav,
   CertificationEntry$Nav,
   CertificationRequirementsSection$Nav,
-  ChangeAdvocateEntry$Nav,
   ChangeCategoryEntry$Nav,
   ChangeControlBoard$Nav,
   ChangeImpactCriteria$Nav,
@@ -100135,7 +98827,6 @@ module.exports = {
   CommunicationEventEntry$Nav,
   CommunicationMatrix$Nav,
   CommunicationPatterns$Nav,
-  CommunicationPreferenceEntry$Nav,
   CommunicationRequirements$Nav,
   CommunicationToolsRequirements$Nav,
   CommunicationTypeEntry$Nav,
@@ -100146,7 +98837,6 @@ module.exports = {
   CompetencyLevelChangeEntry$Nav,
   ComplianceAuditSchedule$Nav,
   ComplianceFramework$Nav,
-  ComplianceMeasureEntry$Nav,
   ComplianceMilestoneEntry$Nav,
   ComplianceReporting$Nav,
   ComplianceRequirementEntry$Nav,
@@ -100188,13 +98878,11 @@ module.exports = {
   Correctness$Nav,
   CredentialCompromiseDetectionPolicy$Nav,
   CredentialRecoveryPolicy$Nav,
-  CriticalKnowledgeAreaEntry$Nav,
   CrossBoundaryErrorHandling$Nav,
   CrossBoundaryOperationalConsiderations$Nav,
   CrossCuttingConcerns$Nav,
   CrossProcessAnalysis$Nav,
   CrossTenantAccessPolicy$Nav,
-  CulturalConsiderationEntry$Nav,
   CurrentArchitecture$Nav,
   CurrentBusinessProcess$Nav,
   CurrentBusinessProcesses$Nav,
@@ -100269,7 +98957,6 @@ module.exports = {
   DatabaseAccessPolicy$Nav,
   DatabaseCompatibilityEntry$Nav,
   DatabaseEncryptionPolicy$Nav,
-  DatacenterEntry$Nav,
   DebuggingConfiguration$Nav,
   DecisionAuthorityEntry$Nav,
   DecisionMakerEntry$Nav,
@@ -100288,7 +98975,6 @@ module.exports = {
   DeliveryScopeAndAcceptance$Nav,
   DeliveryTransitionAndRollout$Nav,
   DependenciesAndIntegrations$Nav,
-  DependencyEntry$Nav,
   DependencyHealthMonitoring$Nav,
   DependencyInjectionStructure$Nav,
   DependencyManagement$Nav,
@@ -100315,7 +99001,6 @@ module.exports = {
   DevelopmentConventionEntry$Nav,
   DevelopmentEnvironment$Nav,
   DevelopmentQualityGates$Nav,
-  DevopsStandardEntry$Nav,
   DisasterRecoveryRequirements$Nav,
   DisplayEquipmentEntry$Nav,
   DisplayPropertyEntry$Nav,
@@ -100373,10 +99058,7 @@ module.exports = {
   ErrorBudgetTracking$Nav,
   ErrorHandling$Nav,
   ErrorHandlingStandards$Nav,
-  ErrorPageDesignEntry$Nav,
-  ErrorProcedureEntry$Nav,
   ErrorRecovery$Nav,
-  EscalationProcedureEntry$Nav,
   EvaluationCriteria$Nav,
   EvaluationCriterionEntry$Nav,
   EventAttributePolicy$Nav,
@@ -100416,7 +99098,6 @@ module.exports = {
   FeatureTourEntry$Nav,
   FieldHelpEntry$Nav,
   FieldValidationRule$Nav,
-  FieldValidationRuleEntry$Nav,
   FileAccessControlPolicy$Nav,
   FileAndStorageSecurity$Nav,
   FileDownloadSecurityPolicy$Nav,
@@ -100425,7 +99106,6 @@ module.exports = {
   FirewallRequirements$Nav,
   Flexibility$Nav,
   FlexibilityCharacteristic$Nav,
-  FragilePointEntry$Nav,
   FrameworkRequirementEntry$Nav,
   FullDistribution$Nav,
   FunctionDataMatrixEntry$Nav,
@@ -100439,7 +99119,6 @@ module.exports = {
   GapEntry$Nav,
   Gaps$Nav,
   GeographicDistributionRequirements$Nav,
-  GlobalEntryPointEntry$Nav,
   GlobalRoleExclusionEntry$Nav,
   Glossary$Nav,
   GlossaryAndAbbreviations$Nav,
@@ -100488,7 +99167,6 @@ module.exports = {
   IntegrationArchitecture$Nav,
   IntegrationConstraintEntry$Nav,
   IntegrationHealthSummary$Nav,
-  IntegrationPatternEntry$Nav,
   IntegrationPointEntry$Nav,
   Integrations$Nav,
   IntegrityConstraints$Nav,
@@ -100501,7 +99179,6 @@ module.exports = {
   InteractionEntry$Nav,
   InteractionPatternEntry$Nav,
   InteractionPatterns$Nav,
-  InteractionScenarioEntry$Nav,
   InteractionTestingStrategy$Nav,
   InterfaceBusinessContext$Nav,
   InterfaceBusinessProcessEntry$Nav,
@@ -100529,7 +99206,6 @@ module.exports = {
   ItStandardComplianceEntry$Nav,
   JobDescriptionsAndStaffing$Nav,
   JourneyStageEntry$Nav,
-  KeyAssumptionEntry$Nav,
   KeyAttributeEntry$Nav,
   KeyCompromiseRecoveryPolicy$Nav,
   KeyConceptEntry$Nav,
@@ -100541,11 +99217,7 @@ module.exports = {
   KeyRotationPolicy$Nav,
   KeyScenarios$Nav,
   KeyStoragePolicy$Nav,
-  KeyTouchpointEntry$Nav,
   KnowledgeTransfer$Nav,
-  KnownIssueEntry$Nav,
-  KnownQualityIssueEntry$Nav,
-  KpiEntry$Nav,
   LanguageCountrySelection$Nav,
   LayerCommunicationRules$Nav,
   LayeringAndModuleStructure$Nav,
@@ -100574,11 +99246,9 @@ module.exports = {
   MaintenanceChangeManagement$Nav,
   MaintenanceDependencies$Nav,
   MaintenanceDependencyEntry$Nav,
-  MaintenanceProcedureEntry$Nav,
   MaintenanceUserImpact$Nav,
   MaintenanceWindowEntry$Nav,
   MaintenanceWindowsSection$Nav,
-  MappingRuleEntry$Nav,
   MasterDataDomainEntry$Nav,
   MasterDataManagement$Nav,
   MessageFormatStandards$Nav,
@@ -100589,7 +99259,6 @@ module.exports = {
   MetricsDashboardSummary$Nav,
   MfaCategoryRequirementEntry$Nav,
   MfaConfiguration$Nav,
-  MfaDetailEntry$Nav,
   MigrationConsiderations$Nav,
   MigrationEnvironments$Nav,
   MigrationInteractions$Nav,
@@ -100615,7 +99284,6 @@ module.exports = {
   MonitoringAndAlertingSection$Nav,
   MonitoringDashboards$Nav,
   MonitoringInfrastructure$Nav,
-  MonitoringProcedureEntry$Nav,
   MoscowAnalysis$Nav,
   MoscowEntry$Nav,
   MultiChannelExperience$Nav,
@@ -100641,14 +99309,12 @@ module.exports = {
   NewRoleEntry$Nav,
   NewRoleQualifications$Nav,
   NewRoleResponsibilities$Nav,
-  NonFinancialBenefitEntry$Nav,
   NotificationChannelEntry$Nav,
   NotificationModel$Nav,
   NotificationTypeEntry$Nav,
   ObjectInvariantEntry$Nav,
   ObjectOperationEntry$Nav,
   ObjectStateEntry$Nav,
-  ObservabilityRequirementEntry$Nav,
   OnCallProcedures$Nav,
   OnCallScheduleConfig$Nav,
   OnboardingHelp$Nav,
@@ -100712,7 +99378,6 @@ module.exports = {
   PostMaintenanceValidation$Nav,
   PostconditionsAndGuarantees$Nav,
   PreconditionsAndTriggers$Nav,
-  PredecessorDependencyEntry$Nav,
   PrimaryNavigation$Nav,
   PrintAndExportLayout$Nav,
   PrivacyImpactAssessmentProcess$Nav,
@@ -100796,7 +99461,6 @@ module.exports = {
   RateLimitingPolicy$Nav,
   Readability$Nav,
   ReadinessCriteriaEntry$Nav,
-  RecoveryFlowEntry$Nav,
   RecoveryProcedures$Nav,
   RecoveryScenarioEntry$Nav,
   RedirectHandlingPolicy$Nav,
@@ -100808,7 +99472,6 @@ module.exports = {
   RegulatoryContext$Nav,
   RegulatoryRequirementEntry$Nav,
   RelatedDocumentEntry$Nav,
-  RelatedPainPointEntry$Nav,
   RelationshipAttributeEntry$Nav,
   ReleaseStrategy$Nav,
   RelevantSectionEntry$Nav,
@@ -100828,7 +99491,6 @@ module.exports = {
   ReportRecipientEntry$Nav,
   ReportScheduleEntry$Nav,
   ReportSectionEntry$Nav,
-  RepresentativeQuoteEntry$Nav,
   Requirement$Nav,
   RequirementAcceptanceCriteria$Nav,
   RequirementBusinessRuleEntry$Nav,
@@ -100851,7 +99513,6 @@ module.exports = {
   ResourceKeyReferenceEntry$Nav,
   ResourceProtection$Nav,
   ResourceRequirementEntry$Nav,
-  ResponseStrategyEntry$Nav,
   ResponsibilityChangeEntry$Nav,
   ResponsibilityContacts$Nav,
   ResponsibilityDetailEntry$Nav,
@@ -100873,9 +99534,7 @@ module.exports = {
   RevisionEntry$Nav,
   RevisionHistory$Nav,
   Risk$Nav,
-  RiskBasedDecisionEntry$Nav,
   RiskBusinessImpact$Nav,
-  RiskCategoryEntry$Nav,
   RiskEntry$Nav,
   RiskIdentification$Nav,
   RiskMonitoring$Nav,
@@ -100912,7 +99571,6 @@ module.exports = {
   ScenarioEntry$Nav,
   ScenarioStepEntry$Nav,
   ScheduledMaintenancePolicy$Nav,
-  ScopeAssumptionEntry$Nav,
   ScopeBoundaries$Nav,
   ScopeItemEntry$Nav,
   ScreenActionEntry$Nav,
@@ -100942,7 +99600,6 @@ module.exports = {
   SecurityCertificationRequirements$Nav,
   SecurityCharacteristic$Nav,
   SecurityCodeReviewPolicy$Nav,
-  SecurityConcernEntry$Nav,
   SecurityControlEntry$Nav,
   SecurityControls$Nav,
   SecurityDevelopmentLifecycle$Nav,
@@ -100979,7 +99636,6 @@ module.exports = {
   SharedInfrastructureEntry$Nav,
   SharedLibraryComponentEntry$Nav,
   SharedLibraryEntry$Nav,
-  SharedServiceEntry$Nav,
   SignOffProcess$Nav,
   SingleSignOnPolicy$Nav,
   SkillEntry$Nav,
@@ -101011,7 +99667,6 @@ module.exports = {
   StagingDependencies$Nav,
   StagingDrivers$Nav,
   StagingStrategy$Nav,
-  StagingStrategyConstraintEntry$Nav,
   StakeholderEntry$Nav,
   StakeholderRegister$Nav,
   StakeholderRegisterEntry$Nav,
@@ -101022,7 +99677,6 @@ module.exports = {
   StandardsComplianceSection$Nav,
   SteeringCommittee$Nav,
   StepUpAuthenticationPolicy$Nav,
-  StepUpDetailEntry$Nav,
   StorageEncryptionPolicy$Nav,
   StorageLifecyclePolicy$Nav,
   StrategicAlignment$Nav,
@@ -101064,7 +99718,6 @@ module.exports = {
   SystemStagePlan$Nav,
   SystemSummary$Nav,
   SystemTaskEntry$Nav,
-  SystemTaskWorkflowStepEntry$Nav,
   SystemTechnicalAssessment$Nav,
   SystemToReplaceEntry$Nav,
   SystemTrainingEntry$Nav,
@@ -101179,7 +99832,6 @@ module.exports = {
   UserInteractionModel$Nav,
   UserInteractionModelSummary$Nav,
   UserJourney$Nav,
-  UserJourneyPainPointEntry$Nav,
   UserLifecycle$Nav,
   UserLifecycleTransitionEntry$Nav,
   UserLifecycleTransitions$Nav,
@@ -101197,9 +99849,7 @@ module.exports = {
   ValidationConstraints$Nav,
   ValidationFeedback$Nav,
   ValidationMessageTemplate$Nav,
-  ValidationRuleEntry$Nav,
   ValueProposition$Nav,
-  VariationsAndExceptionEntry$Nav,
   VersionControlConfiguration$Nav,
   VirtualizationRequirements$Nav,
   VolumeMetricEntry$Nav,
@@ -101255,7 +99905,6 @@ module.exports = {
   ArchitectureDecisionRecord$Id,
   ArchitecturePrincipleEntry$Id,
   AssumptionRegisterEntry$Id,
-  AttributeInterdependencyEntry$Id,
   AuditEntry$Id,
   AuditEvidenceTypeEntry$Id,
   AuthenticationMethodEntry$Id,
@@ -101277,10 +99926,8 @@ module.exports = {
   BusinessProcessEntry$Id,
   BusinessRuleEntry$Id,
   BusinessRuleReferenceEntry$Id,
-  CategoryDependencyEntry$Id,
   CcbMemberEntry$Id,
   CertificationEntry$Id,
-  ChangeAdvocateEntry$Id,
   ChangeCategoryEntry$Id,
   ChangeImpactCriterionEntry$Id,
   ChangeNotificationRules$Id,
@@ -101294,12 +99941,10 @@ module.exports = {
   CommitteeResponsibilityEntry$Id,
   CommunicationChannelEncryptionEntry$Id,
   CommunicationEventEntry$Id,
-  CommunicationPreferenceEntry$Id,
   CommunicationToolsRequirements$Id,
   CommunicationTypeEntry$Id,
   CompetencyEntry$Id,
   CompetencyLevelChangeEntry$Id,
-  ComplianceMeasureEntry$Id,
   ComplianceMilestoneEntry$Id,
   ComplianceRequirementEntry$Id,
   ComponentActionEntry$Id,
@@ -101317,9 +99962,7 @@ module.exports = {
   ConfidentialInfoCategoryEntry$Id,
   ConstraintRegisterEntry$Id,
   ContingencyPlanEntry$Id,
-  CriticalKnowledgeAreaEntry$Id,
   CrossBoundaryOperationalConsiderations$Id,
-  CulturalConsiderationEntry$Id,
   CurrentBusinessProcess$Id,
   CurrentOperationalMetric$Id,
   CurrentProcessImprovementEntry$Id,
@@ -101359,7 +100002,6 @@ module.exports = {
   DataSourceEntry$Id,
   DataVolumeEntry$Id,
   DatabaseCompatibilityEntry$Id,
-  DatacenterEntry$Id,
   DecisionAuthorityEntry$Id,
   DecisionMakerEntry$Id,
   DecisionOptionEntry$Id,
@@ -101369,7 +100011,6 @@ module.exports = {
   DeliverableDependencies$Id,
   DeliverableEntry$Id,
   DeliveryAcceptanceCriterionEntry$Id,
-  DependencyEntry$Id,
   DependencyRegisterEntry$Id,
   DeploymentEnvironmentEntry$Id,
   DeploymentTargetEntry$Id,
@@ -101380,7 +100021,6 @@ module.exports = {
   DesktopOsRequirementEntry$Id,
   DetailedProcessWorkflow$Id,
   DevelopmentConventionEntry$Id,
-  DevopsStandardEntry$Id,
   DisplayEquipmentEntry$Id,
   DisplayPropertyEntry$Id,
   DistributionRecipientEntry$Id,
@@ -101401,9 +100041,6 @@ module.exports = {
   EntityRelationshipEntry$Id,
   EntryPointEntry$Id,
   EnvironmentEntry$Id,
-  ErrorPageDesignEntry$Id,
-  ErrorProcedureEntry$Id,
-  EscalationProcedureEntry$Id,
   EvaluationCriterionEntry$Id,
   ExistingSystemEntry$Id,
   ExpectedImprovements$Id,
@@ -101428,14 +100065,11 @@ module.exports = {
   FeatureTourEntry$Id,
   FieldHelpEntry$Id,
   FieldValidationRule$Id,
-  FieldValidationRuleEntry$Id,
-  FragilePointEntry$Id,
   FrameworkRequirementEntry$Id,
   FunctionDataMatrixEntry$Id,
   FunctionEntry$Id,
   FunctionalRequirementEntry$Id,
   GapEntry$Id,
-  GlobalEntryPointEntry$Id,
   GlobalRoleExclusionEntry$Id,
   GlossaryEntry$Id,
   GoalDependencyEntry$Id,
@@ -101456,13 +100090,11 @@ module.exports = {
   InputDeviceEntry$Id,
   InsuranceEntry$Id,
   IntegrationConstraintEntry$Id,
-  IntegrationPatternEntry$Id,
   IntegrationPointEntry$Id,
   InteractionBusinessRules$Id,
   InteractionChannelEntry$Id,
   InteractionEntry$Id,
   InteractionPatternEntry$Id,
-  InteractionScenarioEntry$Id,
   InterfaceBusinessProcessEntry$Id,
   InterfaceDataEntityEntry$Id,
   InterfaceOperationEntry$Id,
@@ -101472,14 +100104,9 @@ module.exports = {
   Iso25010CoverageEntry$Id,
   ItStandardComplianceEntry$Id,
   JourneyStageEntry$Id,
-  KeyAssumptionEntry$Id,
   KeyAttributeEntry$Id,
   KeyConceptEntry$Id,
   KeyResultEntry$Id,
-  KeyTouchpointEntry$Id,
-  KnownIssueEntry$Id,
-  KnownQualityIssueEntry$Id,
-  KpiEntry$Id,
   LegacyCompatibilityEntry$Id,
   LiabilityLimitations$Id,
   LifecycleTransitionEntry$Id,
@@ -101487,13 +100114,10 @@ module.exports = {
   LoginFlowStepEntry$Id,
   MainScenarioStepEntry$Id,
   MaintenanceDependencyEntry$Id,
-  MaintenanceProcedureEntry$Id,
   MaintenanceWindowEntry$Id,
-  MappingRuleEntry$Id,
   MasterDataDomainEntry$Id,
   MetricsBaselineEntry$Id,
   MfaCategoryRequirementEntry$Id,
-  MfaDetailEntry$Id,
   MigrationEnvironments$Id,
   MigrationInteractions$Id,
   MigrationMappingEntry$Id,
@@ -101509,20 +100133,17 @@ module.exports = {
   MobileDeviceEntry$Id,
   MobileDeviceRequirementEntry$Id,
   ModuleEntry$Id,
-  MonitoringProcedureEntry$Id,
   MoscowEntry$Id,
   MustPassCriterionEntry$Id,
   NavigationGroupEntry$Id,
   NavigationGuardEntry$Id,
   NavigationItemEntry$Id,
   NewRoleEntry$Id,
-  NonFinancialBenefitEntry$Id,
   NotificationChannelEntry$Id,
   NotificationTypeEntry$Id,
   ObjectInvariantEntry$Id,
   ObjectOperationEntry$Id,
   ObjectStateEntry$Id,
-  ObservabilityRequirementEntry$Id,
   OngoingTrainingEntry$Id,
   OrgChangeRisks$Id,
   OrgImplementationActivity$Id,
@@ -101547,7 +100168,6 @@ module.exports = {
   PipelineStageEntry$Id,
   PostconditionsAndGuarantees$Id,
   PreconditionsAndTriggers$Id,
-  PredecessorDependencyEntry$Id,
   ProcessAdjustmentDetails$Id,
   ProcessAdjustmentEntry$Id,
   ProcessControlEntry$Id,
@@ -101579,13 +100199,11 @@ module.exports = {
   QualityStandardEntry$Id,
   QualityWeightEntry$Id,
   ReadinessCriteriaEntry$Id,
-  RecoveryFlowEntry$Id,
   RecoveryScenarioEntry$Id,
   ReferenceDocumentEntry$Id,
   RegulatoryComplianceEntry$Id,
   RegulatoryRequirementEntry$Id,
   RelatedDocumentEntry$Id,
-  RelatedPainPointEntry$Id,
   RelationshipAttributeEntry$Id,
   RelevantSectionEntry$Id,
   RemovedRoleEntry$Id,
@@ -101600,7 +100218,6 @@ module.exports = {
   ReportRecipientEntry$Id,
   ReportScheduleEntry$Id,
   ReportSectionEntry$Id,
-  RepresentativeQuoteEntry$Id,
   RequirementBusinessRuleEntry$Id,
   RequirementDependencyEntry$Id,
   RequirementRelationships$Id,
@@ -101610,7 +100227,6 @@ module.exports = {
   ResourceKeyEntry$Id,
   ResourceKeyReferenceEntry$Id,
   ResourceRequirementEntry$Id,
-  ResponseStrategyEntry$Id,
   ResponsibilityChangeEntry$Id,
   ResponsibilityContacts$Id,
   ResponsibilityDetailEntry$Id,
@@ -101624,8 +100240,6 @@ module.exports = {
   ReuseGoalEntry$Id,
   ReviewCriterionEntry$Id,
   RevisionEntry$Id,
-  RiskBasedDecisionEntry$Id,
-  RiskCategoryEntry$Id,
   RiskEntry$Id,
   RiskRelationships$Id,
   RoleAdjustmentEntry$Id,
@@ -101641,7 +100255,6 @@ module.exports = {
   RuntimeDependencyEntry$Id,
   ScenarioEntry$Id,
   ScenarioStepEntry$Id,
-  ScopeAssumptionEntry$Id,
   ScopeItemEntry$Id,
   ScreenActionEntry$Id,
   ScreenBehaviorEntry$Id,
@@ -101653,7 +100266,6 @@ module.exports = {
   ScreenStateEntry$Id,
   ScreenUserCategoryEntry$Id,
   SecurityAuditEntry$Id,
-  SecurityConcernEntry$Id,
   SecurityControlEntry$Id,
   SecurityEventEntry$Id,
   SecurityRequirementEntry$Id,
@@ -101666,7 +100278,6 @@ module.exports = {
   SharedInfrastructureEntry$Id,
   SharedLibraryComponentEntry$Id,
   SharedLibraryEntry$Id,
-  SharedServiceEntry$Id,
   SloEntry$Id,
   SoftwareLayerEntry$Id,
   SpecializedEquipmentEntry$Id,
@@ -101683,11 +100294,9 @@ module.exports = {
   StageSummaryResources$Id,
   StagingDependencies$Id,
   StagingDrivers$Id,
-  StagingStrategyConstraintEntry$Id,
   StakeholderEntry$Id,
   StakeholderRegisterEntry$Id,
   StakeholdersAndInterests$Id,
-  StepUpDetailEntry$Id,
   SubFunctionEntry$Id,
   SubStageEntry$Id,
   SuccessCriterionEntry$Id,
@@ -101700,7 +100309,6 @@ module.exports = {
   SystemIntegrationEntry$Id,
   SystemMigrationRiskEntry$Id,
   SystemTaskEntry$Id,
-  SystemTaskWorkflowStepEntry$Id,
   SystemToReplaceEntry$Id,
   SystemTrainingEntry$Id,
   TabBarDefinitionEntry$Id,
@@ -101746,14 +100354,11 @@ module.exports = {
   UserCategoryDefinition$Id,
   UserCategoryEntry$Id,
   UserGroupImpactEntry$Id,
-  UserJourneyPainPointEntry$Id,
   UserLifecycleTransitionEntry$Id,
   UserNotificationPreferences$Id,
   UtilityMenuItemEntry$Id,
   UtilityNavigationItemEntry$Id,
   ValidationMessageTemplate$Id,
-  ValidationRuleEntry$Id,
-  VariationsAndExceptionEntry$Id,
   VolumeMetricEntry$Id,
   VpnRequirementEntry$Id,
   WarrantyServiceLevels$Id,

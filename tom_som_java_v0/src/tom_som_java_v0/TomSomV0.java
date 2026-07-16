@@ -1554,8 +1554,8 @@ public final class TomSomV0 {
     }
 
     // Specific compliance measures for this regulation.
-    public SomList<ComplianceMeasureEntry> complianceMeasures() {
-      return new SomList<>(doc, path + "/COMPL-COMP-LST", (d, p) -> new ComplianceMeasureEntry(d, p), "COMPL-COMP-xxx");
+    public SomList<SomScalar> complianceMeasures() {
+      return new SomList<>(doc, path + "/COMPL-COMP-LST", (d, p) -> new SomScalar(d, p), "COMPL-COMP-xxx");
     }
   }
 
@@ -1947,27 +1947,6 @@ public final class TomSomV0 {
     // The consolidated assumption / constraint register.
     public AssumptionConstraintDependencyRegister register() {
       return new AssumptionConstraintDependencyRegister(doc, path + "/register");
-    }
-  }
-
-  // A single attribute interdependency entry.
-  public static final class AttributeInterdependencyEntry extends SomNode {
-    public AttributeInterdependencyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -3877,27 +3856,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single category dependency entry.
-  public static final class CategoryDependencyEntry extends SomNode {
-    public CategoryDependencyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // A CCB member entry.
   public static final class CcbMemberEntry extends SomNode {
     public CcbMemberEntry(SpecDocument doc, String path) {
@@ -4059,27 +4017,6 @@ public final class TomSomV0 {
     // Marketing and notes.
     public CertificationRequirementsSectionMarketingForm marketing() {
       return new CertificationRequirementsSectionMarketingForm(doc, path + "/CRSM");
-    }
-  }
-
-  // A single change advocate entry.
-  public static final class ChangeAdvocateEntry extends SomNode {
-    public ChangeAdvocateEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -5184,27 +5121,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single communication preference entry.
-  public static final class CommunicationPreferenceEntry extends SomNode {
-    public CommunicationPreferenceEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 8.6. Communication Requirements.
   public static final class CommunicationRequirements extends SomNode {
     public CommunicationRequirements(SpecDocument doc, String path) {
@@ -5441,27 +5357,6 @@ public final class TomSomV0 {
   // across @ContentHelp strings into an explicit section.
   public static final class ComplianceFramework extends SomNode {
     public ComplianceFramework(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
-  // A single compliance measure entry.
-  public static final class ComplianceMeasureEntry extends SomNode {
-    public ComplianceMeasureEntry(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -6753,27 +6648,6 @@ public final class TomSomV0 {
     // (skipped: credentialRecoveryDetails has no target type)
   }
 
-  // A single critical knowledge area entry.
-  public static final class CriticalKnowledgeAreaEntry extends SomNode {
-    public CriticalKnowledgeAreaEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 4.5.10. Cross-Boundary Error Handling.
   //
   // Failure-propagation policy that applies across system boundaries.
@@ -6912,27 +6786,6 @@ public final class TomSomV0 {
     // (skipped: crossTenantAccessPolicyDetails has no target type)
   }
 
-  // A single cultural consideration entry.
-  public static final class CulturalConsiderationEntry extends SomNode {
-    public CulturalConsiderationEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 1.1.2. Current Architecture.
   //
   // Description of the current system architecture including deployment
@@ -6977,13 +6830,13 @@ public final class TomSomV0 {
     }
 
     // Integration patterns used.
-    public SomList<IntegrationPatternEntry> integrationPatterns() {
-      return new SomList<>(doc, path + "/IPE-INTE-LST", (d, p) -> new IntegrationPatternEntry(d, p), "IPE-INTE-xxx");
+    public SomList<SomScalar> integrationPatterns() {
+      return new SomList<>(doc, path + "/IPE-INTE-LST", (d, p) -> new SomScalar(d, p), "IPE-INTE-xxx");
     }
 
     // Shared services inventory.
-    public SomList<SharedServiceEntry> sharedServices() {
-      return new SomList<>(doc, path + "/SHARE-SHAR-LST", (d, p) -> new SharedServiceEntry(d, p), "SHARE-SHAR-xxx");
+    public SomList<SomScalar> sharedServices() {
+      return new SomList<>(doc, path + "/SHARE-SHAR-LST", (d, p) -> new SomScalar(d, p), "SHARE-SHAR-xxx");
     }
   }
 
@@ -10653,27 +10506,6 @@ public final class TomSomV0 {
     // (skipped: databaseEncryptionDetails has no target type)
   }
 
-  // A single datacenter entry.
-  public static final class DatacenterEntry extends SomNode {
-    public DatacenterEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // Debugging configuration.
   public static final class DebuggingConfiguration extends SomNode {
     public DebuggingConfiguration(SpecDocument doc, String path) {
@@ -11213,27 +11045,6 @@ public final class TomSomV0 {
     // 1.1.3.5. Integration Health Summary.
     public IntegrationHealthSummary healthSummary() {
       return new IntegrationHealthSummary(doc, path + "/healthSummary");
-    }
-  }
-
-  // A single dependency entry.
-  public static final class DependencyEntry extends SomNode {
-    public DependencyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -12114,27 +11925,6 @@ public final class TomSomV0 {
     // Performance checks.
     public DevelopmentQualityGatesPerformanceForm performance() {
       return new DevelopmentQualityGatesPerformanceForm(doc, path + "/DQGP");
-    }
-  }
-
-  // A single devops standard entry.
-  public static final class DevopsStandardEntry extends SomNode {
-    public DevopsStandardEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -13735,48 +13525,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single error page design entry.
-  public static final class ErrorPageDesignEntry extends SomNode {
-    public ErrorPageDesignEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
-  // A single error procedure entry.
-  public static final class ErrorProcedureEntry extends SomNode {
-    public ErrorProcedureEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 10.7.3. Error Recovery.
   //
   // Error recovery flows including data preservation, retry mechanisms,
@@ -13819,34 +13567,13 @@ public final class TomSomV0 {
     // (skipped: recoveryNarrative has no target type)
 
     // Recovery flow diagrams.
-    public SomList<RecoveryFlowEntry> recoveryFlows() {
-      return new SomList<>(doc, path + "/RECOV-RECO-LST", (d, p) -> new RecoveryFlowEntry(d, p), "RECOV-RECO-xxx");
+    public SomList<SomScalar> recoveryFlows() {
+      return new SomList<>(doc, path + "/RECOV-RECO-LST", (d, p) -> new SomScalar(d, p), "RECOV-RECO-xxx");
     }
 
     // Common recovery scenarios.
     public SomList<RecoveryScenarioEntry> recoveryScenarios() {
       return new SomList<>(doc, path + "/RCVSCN-RECO-LST", (d, p) -> new RecoveryScenarioEntry(d, p), "RCVSCN-RECO-xxx");
-    }
-  }
-
-  // A single escalation procedure entry.
-  public static final class EscalationProcedureEntry extends SomNode {
-    public EscalationProcedureEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -14329,8 +14056,8 @@ public final class TomSomV0 {
     }
 
     // Interaction scenarios for this actor.
-    public SomList<InteractionScenarioEntry> interactionScenarios() {
-      return new SomList<>(doc, path + "/INTER-INTE-LST", (d, p) -> new InteractionScenarioEntry(d, p), "INTER-INTE-xxx");
+    public SomList<SomScalar> interactionScenarios() {
+      return new SomList<>(doc, path + "/INTER-INTE-LST", (d, p) -> new SomScalar(d, p), "INTER-INTE-xxx");
     }
   }
 
@@ -15048,27 +14775,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single field validation rule entry.
-  public static final class FieldValidationRuleEntry extends SomNode {
-    public FieldValidationRuleEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // File access control policy — who can access, modify, share, and delete
   // files, and how access decisions are enforced.
   //
@@ -15327,27 +15033,6 @@ public final class TomSomV0 {
     // 11.9.2. Portability.
     public Portability portability() {
       return new Portability(doc, path + "/portability");
-    }
-  }
-
-  // A single fragile point entry.
-  public static final class FragilePointEntry extends SomNode {
-    public FragilePointEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -15774,27 +15459,6 @@ public final class TomSomV0 {
     // Performance considerations.
     public GeographicDistributionRequirementsPerformanceForm performance() {
       return new GeographicDistributionRequirementsPerformanceForm(doc, path + "/GDRP");
-    }
-  }
-
-  // A single global entry point entry.
-  public static final class GlobalEntryPointEntry extends SomNode {
-    public GlobalEntryPointEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -16770,8 +16434,8 @@ public final class TomSomV0 {
     // (skipped: navigationStructure has no target type)
 
     // Global entry points.
-    public SomList<GlobalEntryPointEntry> globalEntryPoints() {
-      return new SomList<>(doc, path + "/GLOBA-GLOB-LST", (d, p) -> new GlobalEntryPointEntry(d, p), "GLOBA-GLOB-xxx");
+    public SomList<SomScalar> globalEntryPoints() {
+      return new SomList<>(doc, path + "/GLOBA-GLOB-LST", (d, p) -> new SomScalar(d, p), "GLOBA-GLOB-xxx");
     }
 
     // 10.2.2.5. Information Architecture Diagram.
@@ -17129,29 +16793,8 @@ public final class TomSomV0 {
     }
 
     // Fragile integration points requiring attention.
-    public SomList<FragilePointEntry> fragilePoints() {
-      return new SomList<>(doc, path + "/FRAGI-FRAG-LST", (d, p) -> new FragilePointEntry(d, p), "FRAGI-FRAG-xxx");
-    }
-  }
-
-  // A single integration pattern entry.
-  public static final class IntegrationPatternEntry extends SomNode {
-    public IntegrationPatternEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> fragilePoints() {
+      return new SomList<>(doc, path + "/FRAGI-FRAG-LST", (d, p) -> new SomScalar(d, p), "FRAGI-FRAG-xxx");
     }
   }
 
@@ -17516,27 +17159,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single interaction scenario entry.
-  public static final class InteractionScenarioEntry extends SomNode {
-    public InteractionScenarioEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 4.5.6. Interaction Testing Strategy.
   //
   // Contract / integration / failure-mode testing for system boundaries.
@@ -17615,13 +17237,13 @@ public final class TomSomV0 {
     }
 
     // Data mapping and transformation rules.
-    public SomList<MappingRuleEntry> mappingRules() {
-      return new SomList<>(doc, path + "/MAPPI-MAPP-LST", (d, p) -> new MappingRuleEntry(d, p), "MAPPI-MAPP-xxx");
+    public SomList<SomScalar> mappingRules() {
+      return new SomList<>(doc, path + "/MAPPI-MAPP-LST", (d, p) -> new SomScalar(d, p), "MAPPI-MAPP-xxx");
     }
 
     // Data validation rules.
-    public SomList<ValidationRuleEntry> validationRules() {
-      return new SomList<>(doc, path + "/VALID-VALI-LST", (d, p) -> new ValidationRuleEntry(d, p), "VALID-VALI-xxx");
+    public SomList<SomScalar> validationRules() {
+      return new SomList<>(doc, path + "/VALID-VALI-LST", (d, p) -> new SomScalar(d, p), "VALID-VALI-xxx");
     }
   }
 
@@ -17651,8 +17273,8 @@ public final class TomSomV0 {
     }
 
     // Error handling procedures.
-    public SomList<ErrorProcedureEntry> errorProcedures() {
-      return new SomList<>(doc, path + "/ERROR-ERRO-LST", (d, p) -> new ErrorProcedureEntry(d, p), "ERROR-ERRO-xxx");
+    public SomList<SomScalar> errorProcedures() {
+      return new SomList<>(doc, path + "/ERROR-ERRO-LST", (d, p) -> new SomScalar(d, p), "ERROR-ERRO-xxx");
     }
   }
 
@@ -17717,8 +17339,8 @@ public final class TomSomV0 {
     }
 
     // Operational dependencies.
-    public SomList<DependencyEntry> dependencies() {
-      return new SomList<>(doc, path + "/DEPEN-DEPE-LST", (d, p) -> new DependencyEntry(d, p), "DEPEN-DEPE-xxx");
+    public SomList<SomScalar> dependencies() {
+      return new SomList<>(doc, path + "/DEPEN-DEPE-LST", (d, p) -> new SomScalar(d, p), "DEPEN-DEPE-xxx");
     }
   }
 
@@ -18276,27 +17898,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single key assumption entry.
-  public static final class KeyAssumptionEntry extends SomNode {
-    public KeyAssumptionEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // A key attribute entry (form).
   //
   // Specification for primary, foreign, alternate, and composite keys.
@@ -18579,96 +18180,12 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // A single key touchpoint entry.
-  public static final class KeyTouchpointEntry extends SomNode {
-    public KeyTouchpointEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 15.7. Knowledge Transfer.
   //
   // Handover from delivery team to operations. Covers handover-agreement
   // content.
   public static final class KnowledgeTransfer extends SomNode {
     public KnowledgeTransfer(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
-  // A single known issue entry.
-  public static final class KnownIssueEntry extends SomNode {
-    public KnownIssueEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
-  // A single known quality issue entry.
-  public static final class KnownQualityIssueEntry extends SomNode {
-    public KnownQualityIssueEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
-  // A single kpi entry.
-  public static final class KpiEntry extends SomNode {
-    public KpiEntry(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -19476,27 +18993,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single maintenance procedure entry.
-  public static final class MaintenanceProcedureEntry extends SomNode {
-    public MaintenanceProcedureEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // User impact and communication.
   public static final class MaintenanceUserImpact extends SomNode {
     public MaintenanceUserImpact(SpecDocument doc, String path) {
@@ -19608,27 +19104,6 @@ public final class TomSomV0 {
     // Post-maintenance validation.
     public PostMaintenanceValidation postMaintenance() {
       return new PostMaintenanceValidation(doc, path + "/postMaintenance");
-    }
-  }
-
-  // A single mapping rule entry.
-  public static final class MappingRuleEntry extends SomNode {
-    public MappingRuleEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -19897,29 +19372,8 @@ public final class TomSomV0 {
     }
 
     // MFA Implementation Details (text).
-    public SomList<MfaDetailEntry> mfaDetails() {
-      return new SomList<>(doc, path + "/MFADE-MFAD-LST", (d, p) -> new MfaDetailEntry(d, p), "MFADE-MFAD-xxx");
-    }
-  }
-
-  // A single mfa detail entry.
-  public static final class MfaDetailEntry extends SomNode {
-    public MfaDetailEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> mfaDetails() {
+      return new SomList<>(doc, path + "/MFADE-MFAD-LST", (d, p) -> new SomScalar(d, p), "MFADE-MFAD-xxx");
     }
   }
 
@@ -19974,8 +19428,8 @@ public final class TomSomV0 {
     // (skipped: communicationPlan has no target type)
 
     // Escalation procedures during migration.
-    public SomList<EscalationProcedureEntry> escalationProcedures() {
-      return new SomList<>(doc, path + "/ESCAL-ESCA-LST", (d, p) -> new EscalationProcedureEntry(d, p), "ESCAL-ESCA-xxx");
+    public SomList<SomScalar> escalationProcedures() {
+      return new SomList<>(doc, path + "/ESCAL-ESCA-LST", (d, p) -> new SomScalar(d, p), "ESCAL-ESCA-xxx");
     }
   }
 
@@ -20325,23 +19779,23 @@ public final class TomSomV0 {
     // (skipped: assessmentMethodology has no target type)
 
     // Risk categories and taxonomy.
-    public SomList<RiskCategoryEntry> riskCategories() {
-      return new SomList<>(doc, path + "/RISKC-RISK-LST", (d, p) -> new RiskCategoryEntry(d, p), "RISKC-RISK-xxx");
+    public SomList<SomScalar> riskCategories() {
+      return new SomList<>(doc, path + "/RISKC-RISK-LST", (d, p) -> new SomScalar(d, p), "RISKC-RISK-xxx");
     }
 
     // Risk-based decision making criteria.
-    public SomList<RiskBasedDecisionEntry> riskBasedDecisions() {
-      return new SomList<>(doc, path + "/RISKB-RISK-LST", (d, p) -> new RiskBasedDecisionEntry(d, p), "RISKB-RISK-xxx");
+    public SomList<SomScalar> riskBasedDecisions() {
+      return new SomList<>(doc, path + "/RISKB-RISK-LST", (d, p) -> new SomScalar(d, p), "RISKB-RISK-xxx");
     }
 
     // Risk monitoring and control procedures.
-    public SomList<MonitoringProcedureEntry> monitoringProcedures() {
-      return new SomList<>(doc, path + "/MONIT-MONI-LST", (d, p) -> new MonitoringProcedureEntry(d, p), "MONIT-MONI-xxx");
+    public SomList<SomScalar> monitoringProcedures() {
+      return new SomList<>(doc, path + "/MONIT-MONI-LST", (d, p) -> new SomScalar(d, p), "MONIT-MONI-xxx");
     }
 
     // Risk response strategies by category.
-    public SomList<ResponseStrategyEntry> responseStrategies() {
-      return new SomList<>(doc, path + "/RESPO-RESP-LST", (d, p) -> new ResponseStrategyEntry(d, p), "RESPO-RESP-xxx");
+    public SomList<SomScalar> responseStrategies() {
+      return new SomList<>(doc, path + "/RESPO-RESP-LST", (d, p) -> new SomScalar(d, p), "RESPO-RESP-xxx");
     }
 
     // Risk aggregation and portfolio view.
@@ -20699,27 +20153,6 @@ public final class TomSomV0 {
     // Access and privacy controls.
     public MonitoringInfrastructureAccessForm access() {
       return new MonitoringInfrastructureAccessForm(doc, path + "/MOINAC");
-    }
-  }
-
-  // A single monitoring procedure entry.
-  public static final class MonitoringProcedureEntry extends SomNode {
-    public MonitoringProcedureEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -21546,27 +20979,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single non financial benefit entry.
-  public static final class NonFinancialBenefitEntry extends SomNode {
-    public NonFinancialBenefitEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // A notification channel entry.
   public static final class NotificationChannelEntry extends SomNode {
     public NotificationChannelEntry(SpecDocument doc, String path) {
@@ -21679,27 +21091,6 @@ public final class TomSomV0 {
 
     public ObjectStateEntryContentForm content() {
       return new ObjectStateEntryContentForm(doc, path + "/content");
-    }
-  }
-
-  // A single observability requirement entry.
-  public static final class ObservabilityRequirementEntry extends SomNode {
-    public ObservabilityRequirementEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -22217,21 +21608,21 @@ public final class TomSomV0 {
     }
 
     // Cultural considerations and organizational dynamics.
-    public SomList<CulturalConsiderationEntry> culturalConsiderations() {
-      return new SomList<>(doc, path + "/CULTU-CULT-LST", (d, p) -> new CulturalConsiderationEntry(d, p), "CULTU-CULT-xxx");
+    public SomList<SomScalar> culturalConsiderations() {
+      return new SomList<>(doc, path + "/CULTU-CULT-LST", (d, p) -> new SomScalar(d, p), "CULTU-CULT-xxx");
     }
 
     // Stakeholder communication preferences.
-    public SomList<CommunicationPreferenceEntry> communicationPreferences() {
-      return new SomList<>(doc, path + "/COMMU-COMM-LST", (d, p) -> new CommunicationPreferenceEntry(d, p), "COMMU-COMM-xxx");
+    public SomList<SomScalar> communicationPreferences() {
+      return new SomList<>(doc, path + "/COMMU-COMM-LST", (d, p) -> new SomScalar(d, p), "COMMU-COMM-xxx");
     }
 
     // Political dynamics and influence patterns.
     // (skipped: politicalLandscape has no target type)
 
     // Change champions and sponsors.
-    public SomList<ChangeAdvocateEntry> changeAdvocates() {
-      return new SomList<>(doc, path + "/CHANG-CHAN-LST", (d, p) -> new ChangeAdvocateEntry(d, p), "CHANG-CHAN-xxx");
+    public SomList<SomScalar> changeAdvocates() {
+      return new SomList<>(doc, path + "/CHANG-CHAN-LST", (d, p) -> new SomScalar(d, p), "CHANG-CHAN-xxx");
     }
   }
 
@@ -23532,27 +22923,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single predecessor dependency entry.
-  public static final class PredecessorDependencyEntry extends SomNode {
-    public PredecessorDependencyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 10.3.1.3. Primary Navigation.
   //
   // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -23738,8 +23108,8 @@ public final class TomSomV0 {
     }
 
     // Related pain points from Current State Analysis.
-    public SomList<RelatedPainPointEntry> relatedPainPoints() {
-      return new SomList<>(doc, path + "/RPPE-RELA-LST", (d, p) -> new RelatedPainPointEntry(d, p), "RPPE-RELA-xxx");
+    public SomList<SomScalar> relatedPainPoints() {
+      return new SomList<>(doc, path + "/RPPE-RELA-LST", (d, p) -> new SomScalar(d, p), "RPPE-RELA-xxx");
     }
   }
 
@@ -25277,8 +24647,8 @@ public final class TomSomV0 {
     }
 
     // Quality dependencies map.
-    public SomList<CategoryDependencyEntry> categoryDependencies() {
-      return new SomList<>(doc, path + "/CATEG-CATE-LST", (d, p) -> new CategoryDependencyEntry(d, p), "CATEG-CATE-xxx");
+    public SomList<SomScalar> categoryDependencies() {
+      return new SomList<>(doc, path + "/CATEG-CATE-LST", (d, p) -> new SomScalar(d, p), "CATEG-CATE-xxx");
     }
   }
 
@@ -25610,27 +24980,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single recovery flow entry.
-  public static final class RecoveryFlowEntry extends SomNode {
-    public RecoveryFlowEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // Recovery procedures.
   public static final class RecoveryProcedures extends SomNode {
     public RecoveryProcedures(SpecDocument doc, String path) {
@@ -25900,27 +25249,6 @@ public final class TomSomV0 {
 
     public RelatedDocumentEntryContentForm content() {
       return new RelatedDocumentEntryContentForm(doc, path + "/content");
-    }
-  }
-
-  // A single related pain point entry.
-  public static final class RelatedPainPointEntry extends SomNode {
-    public RelatedPainPointEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -26477,27 +25805,6 @@ public final class TomSomV0 {
     // Contains 0+× Report Chart.
     public SomList<ReportChartEntry> charts() {
       return new SomList<>(doc, path + "/RECHEN-CHAR-LST", (d, p) -> new ReportChartEntry(d, p), "RECHEN-CHAR-xxx");
-    }
-  }
-
-  // A single representative quote entry.
-  public static final class RepresentativeQuoteEntry extends SomNode {
-    public RepresentativeQuoteEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -27093,27 +26400,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single response strategy entry.
-  public static final class ResponseStrategyEntry extends SomNode {
-    public ResponseStrategyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // Responsibility change entry (form).
   public static final class ResponsibilityChangeEntry extends SomNode {
     public ResponsibilityChangeEntry(SpecDocument doc, String path) {
@@ -27591,27 +26877,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single risk based decision entry.
-  public static final class RiskBasedDecisionEntry extends SomNode {
-    public RiskBasedDecisionEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // Business impact assessment for the risk.
   public static final class RiskBusinessImpact extends SomNode {
     public RiskBusinessImpact(SpecDocument doc, String path) {
@@ -27630,27 +26895,6 @@ public final class TomSomV0 {
     // Operational and delivery consequences.
     public RiskBusinessImpactDeliveryForm delivery() {
       return new RiskBusinessImpactDeliveryForm(doc, path + "/RBID");
-    }
-  }
-
-  // A single risk category entry.
-  public static final class RiskCategoryEntry extends SomNode {
-    public RiskCategoryEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -28589,27 +27833,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single scope assumption entry.
-  public static final class ScopeAssumptionEntry extends SomNode {
-    public ScopeAssumptionEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 4.1.1.6. Scope Boundaries.
   //
   // Clear definition of what is in scope and out of scope for this system.
@@ -28649,8 +27872,8 @@ public final class TomSomV0 {
     }
 
     // Scope Assumptions.
-    public SomList<ScopeAssumptionEntry> scopeAssumptions() {
-      return new SomList<>(doc, path + "/SCOPE-SCOP-LST", (d, p) -> new ScopeAssumptionEntry(d, p), "SCOPE-SCOP-xxx");
+    public SomList<SomScalar> scopeAssumptions() {
+      return new SomList<>(doc, path + "/SCOPE-SCOP-LST", (d, p) -> new SomScalar(d, p), "SCOPE-SCOP-xxx");
     }
   }
 
@@ -29487,27 +28710,6 @@ public final class TomSomV0 {
     // Finding management and residual risk handling.
     public SecurityCodeReviewPolicyFindingsForm findings() {
       return new SecurityCodeReviewPolicyFindingsForm(doc, path + "/SCRPF");
-    }
-  }
-
-  // A single security concern entry.
-  public static final class SecurityConcernEntry extends SomNode {
-    public SecurityConcernEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -30672,27 +29874,6 @@ public final class TomSomV0 {
     }
   }
 
-  // A single shared service entry.
-  public static final class SharedServiceEntry extends SomNode {
-    public SharedServiceEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-  }
-
   // 14.2.5. Sign-off Process.
   //
   // Formal sign-off process: who signs off (business acceptance board,
@@ -31692,34 +30873,13 @@ public final class TomSomV0 {
     // (skipped: rationaleNarrative has no target type)
 
     // 13.1.3. Key Assumptions.
-    public SomList<KeyAssumptionEntry> keyAssumptions() {
-      return new SomList<>(doc, path + "/KEYAS-KEYA-LST", (d, p) -> new KeyAssumptionEntry(d, p), "KEYAS-KEYA-xxx");
+    public SomList<SomScalar> keyAssumptions() {
+      return new SomList<>(doc, path + "/KEYAS-KEYA-LST", (d, p) -> new SomScalar(d, p), "KEYAS-KEYA-xxx");
     }
 
     // 13.1.4. Constraints.
-    public SomList<StagingStrategyConstraintEntry> constraints() {
-      return new SomList<>(doc, path + "/STAGI-CONS-LST", (d, p) -> new StagingStrategyConstraintEntry(d, p), "STAGI-CONS-xxx");
-    }
-  }
-
-  // A single constraint entry.
-  public static final class StagingStrategyConstraintEntry extends SomNode {
-    public StagingStrategyConstraintEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> constraints() {
+      return new SomList<>(doc, path + "/STAGI-CONS-LST", (d, p) -> new SomScalar(d, p), "STAGI-CONS-xxx");
     }
   }
 
@@ -32064,29 +31224,8 @@ public final class TomSomV0 {
     }
 
     // Step-Up Authentication Details (text).
-    public SomList<StepUpDetailEntry> stepUpDetails() {
-      return new SomList<>(doc, path + "/STEPU-STEP-LST", (d, p) -> new StepUpDetailEntry(d, p), "STEPU-STEP-xxx");
-    }
-  }
-
-  // A single step up detail entry.
-  public static final class StepUpDetailEntry extends SomNode {
-    public StepUpDetailEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> stepUpDetails() {
+      return new SomList<>(doc, path + "/STEPU-STEP-LST", (d, p) -> new SomScalar(d, p), "STEPU-STEP-xxx");
     }
   }
 
@@ -32752,8 +31891,8 @@ public final class TomSomV0 {
     // (skipped: costBreakdown has no target type)
 
     // Non-financial benefits to include in ROI.
-    public SomList<NonFinancialBenefitEntry> nonFinancialBenefits() {
-      return new SomList<>(doc, path + "/NONFI-NONF-LST", (d, p) -> new NonFinancialBenefitEntry(d, p), "NONFI-NONF-xxx");
+    public SomList<SomScalar> nonFinancialBenefits() {
+      return new SomList<>(doc, path + "/NONFI-NONF-LST", (d, p) -> new SomScalar(d, p), "NONFI-NONF-xxx");
     }
   }
 
@@ -32783,8 +31922,8 @@ public final class TomSomV0 {
     }
 
     // Data quality issues to address.
-    public SomList<KnownQualityIssueEntry> knownQualityIssues() {
-      return new SomList<>(doc, path + "/KNOWN-KNOW-LST", (d, p) -> new KnownQualityIssueEntry(d, p), "KNOWN-KNOW-xxx");
+    public SomList<SomScalar> knownQualityIssues() {
+      return new SomList<>(doc, path + "/KNOWN-KNOW-LST", (d, p) -> new SomScalar(d, p), "KNOWN-KNOW-xxx");
     }
   }
 
@@ -32970,8 +32109,8 @@ public final class TomSomV0 {
     // (skipped: systemErrorNarrative has no target type)
 
     // Error page designs.
-    public SomList<ErrorPageDesignEntry> errorPageDesigns() {
-      return new SomList<>(doc, path + "/EPDE-ERRO-LST", (d, p) -> new ErrorPageDesignEntry(d, p), "EPDE-ERRO-xxx");
+    public SomList<SomScalar> errorPageDesigns() {
+      return new SomList<>(doc, path + "/EPDE-ERRO-LST", (d, p) -> new SomScalar(d, p), "EPDE-ERRO-xxx");
     }
 
     // Error codes catalog.
@@ -33073,8 +32212,8 @@ public final class TomSomV0 {
     }
 
     // Critical knowledge areas to preserve.
-    public SomList<CriticalKnowledgeAreaEntry> criticalKnowledgeAreas() {
-      return new SomList<>(doc, path + "/CRITI-CRIT-LST", (d, p) -> new CriticalKnowledgeAreaEntry(d, p), "CRITI-CRIT-xxx");
+    public SomList<SomScalar> criticalKnowledgeAreas() {
+      return new SomList<>(doc, path + "/CRITI-CRIT-LST", (d, p) -> new SomScalar(d, p), "CRITI-CRIT-xxx");
     }
 
     // Knowledge transfer plan if SME risk is high.
@@ -33173,8 +32312,8 @@ public final class TomSomV0 {
     }
 
     // Maintenance Procedures.
-    public SomList<MaintenanceProcedureEntry> maintenanceProcedures() {
-      return new SomList<>(doc, path + "/MAINT-MAIN-LST", (d, p) -> new MaintenanceProcedureEntry(d, p), "MAINT-MAIN-xxx");
+    public SomList<SomScalar> maintenanceProcedures() {
+      return new SomList<>(doc, path + "/MAINT-MAIN-LST", (d, p) -> new SomScalar(d, p), "MAINT-MAIN-xxx");
     }
   }
 
@@ -33325,8 +32464,8 @@ public final class TomSomV0 {
     // (skipped: qaStrategy has no target type)
 
     // Quality attribute interdependencies.
-    public SomList<AttributeInterdependencyEntry> attributeInterdependencies() {
-      return new SomList<>(doc, path + "/ATTRI-ATTR-LST", (d, p) -> new AttributeInterdependencyEntry(d, p), "ATTRI-ATTR-xxx");
+    public SomList<SomScalar> attributeInterdependencies() {
+      return new SomList<>(doc, path + "/ATTRI-ATTR-LST", (d, p) -> new SomScalar(d, p), "ATTRI-ATTR-xxx");
     }
 
     // Quality attribute priority radar.
@@ -33426,8 +32565,8 @@ public final class TomSomV0 {
     }
 
     // Predecessor systems that must be addressed first.
-    public SomList<PredecessorDependencyEntry> predecessorDependencies() {
-      return new SomList<>(doc, path + "/PREDE-PRED-LST", (d, p) -> new PredecessorDependencyEntry(d, p), "PREDE-PRED-xxx");
+    public SomList<SomScalar> predecessorDependencies() {
+      return new SomList<>(doc, path + "/PREDE-PRED-LST", (d, p) -> new SomScalar(d, p), "PREDE-PRED-xxx");
     }
 
     // Success criteria for replacement completion.
@@ -33647,34 +32786,13 @@ public final class TomSomV0 {
     }
 
     // Task workflow steps.
-    public SomList<SystemTaskWorkflowStepEntry> workflowSteps() {
-      return new SomList<>(doc, path + "/SYSTE-WORK-LST", (d, p) -> new SystemTaskWorkflowStepEntry(d, p), "SYSTE-WORK-xxx");
+    public SomList<SomScalar> workflowSteps() {
+      return new SomList<>(doc, path + "/SYSTE-WORK-LST", (d, p) -> new SomScalar(d, p), "SYSTE-WORK-xxx");
     }
 
     // Variations and exceptions.
-    public SomList<VariationsAndExceptionEntry> variationsAndExceptions() {
-      return new SomList<>(doc, path + "/VARIA-VARI-LST", (d, p) -> new VariationsAndExceptionEntry(d, p), "VARIA-VARI-xxx");
-    }
-  }
-
-  // A single workflow step entry.
-  public static final class SystemTaskWorkflowStepEntry extends SomNode {
-    public SystemTaskWorkflowStepEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> variationsAndExceptions() {
+      return new SomList<>(doc, path + "/VARIA-VARI-LST", (d, p) -> new SomScalar(d, p), "VARIA-VARI-xxx");
     }
   }
 
@@ -33704,13 +32822,13 @@ public final class TomSomV0 {
     }
 
     // Known technical issues and deficiencies.
-    public SomList<KnownIssueEntry> knownIssues() {
-      return new SomList<>(doc, path + "/KIE-KNOW-LST", (d, p) -> new KnownIssueEntry(d, p), "KIE-KNOW-xxx");
+    public SomList<SomScalar> knownIssues() {
+      return new SomList<>(doc, path + "/KIE-KNOW-LST", (d, p) -> new SomScalar(d, p), "KIE-KNOW-xxx");
     }
 
     // Security vulnerabilities and compliance gaps.
-    public SomList<SecurityConcernEntry> securityConcerns() {
-      return new SomList<>(doc, path + "/SECUR-SECU-LST", (d, p) -> new SecurityConcernEntry(d, p), "SECUR-SECU-xxx");
+    public SomList<SomScalar> securityConcerns() {
+      return new SomList<>(doc, path + "/SECUR-SECU-LST", (d, p) -> new SomScalar(d, p), "SECUR-SECU-xxx");
     }
   }
 
@@ -34168,8 +33286,8 @@ public final class TomSomV0 {
     // (skipped: existingInfrastructure has no target type)
 
     // Data center and hosting environment details.
-    public SomList<DatacenterEntry> datacenters() {
-      return new SomList<>(doc, path + "/DATAC-DATA-LST", (d, p) -> new DatacenterEntry(d, p), "DATAC-DATA-xxx");
+    public SomList<SomScalar> datacenters() {
+      return new SomList<>(doc, path + "/DATAC-DATA-LST", (d, p) -> new SomScalar(d, p), "DATAC-DATA-xxx");
     }
 
     // Network topology and connectivity constraints.
@@ -34203,13 +33321,13 @@ public final class TomSomV0 {
     }
 
     // DevOps and deployment standards.
-    public SomList<DevopsStandardEntry> devopsStandards() {
-      return new SomList<>(doc, path + "/DEVOP-DEVO-LST", (d, p) -> new DevopsStandardEntry(d, p), "DEVOP-DEVO-xxx");
+    public SomList<SomScalar> devopsStandards() {
+      return new SomList<>(doc, path + "/DEVOP-DEVO-LST", (d, p) -> new SomScalar(d, p), "DEVOP-DEVO-xxx");
     }
 
     // Monitoring and observability requirements.
-    public SomList<ObservabilityRequirementEntry> observabilityRequirements() {
-      return new SomList<>(doc, path + "/OBSER-OBSE-LST", (d, p) -> new ObservabilityRequirementEntry(d, p), "OBSER-OBSE-xxx");
+    public SomList<SomScalar> observabilityRequirements() {
+      return new SomList<>(doc, path + "/OBSER-OBSE-LST", (d, p) -> new SomScalar(d, p), "OBSER-OBSE-xxx");
     }
 
     // Disaster recovery and business continuity requirements.
@@ -37016,13 +36134,13 @@ public final class TomSomV0 {
     }
 
     // Key touchpoints.
-    public SomList<KeyTouchpointEntry> keyTouchpoints() {
-      return new SomList<>(doc, path + "/KEYTO-KEYT-LST", (d, p) -> new KeyTouchpointEntry(d, p), "KEYTO-KEYT-xxx");
+    public SomList<SomScalar> keyTouchpoints() {
+      return new SomList<>(doc, path + "/KEYTO-KEYT-LST", (d, p) -> new SomScalar(d, p), "KEYTO-KEYT-xxx");
     }
 
     // Pain points in the journey.
-    public SomList<UserJourneyPainPointEntry> painPoints() {
-      return new SomList<>(doc, path + "/USERJ-PAIN-LST", (d, p) -> new UserJourneyPainPointEntry(d, p), "USERJ-PAIN-xxx");
+    public SomList<SomScalar> painPoints() {
+      return new SomList<>(doc, path + "/USERJ-PAIN-LST", (d, p) -> new SomScalar(d, p), "USERJ-PAIN-xxx");
     }
 
     // Opportunities for delight.
@@ -37033,27 +36151,6 @@ public final class TomSomV0 {
 
     public void opportunitiesForDelight(String value) {
       doc.setContent(path + "/UJ-OPPO", value);
-    }
-  }
-
-  // A single pain point entry.
-  public static final class UserJourneyPainPointEntry extends SomNode {
-    public UserJourneyPainPointEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -37335,8 +36432,8 @@ public final class TomSomV0 {
     }
 
     // Key quotes that represent this persona's mindset.
-    public SomList<RepresentativeQuoteEntry> representativeQuotes() {
-      return new SomList<>(doc, path + "/REPRE-REPR-LST", (d, p) -> new RepresentativeQuoteEntry(d, p), "REPRE-REPR-xxx");
+    public SomList<SomScalar> representativeQuotes() {
+      return new SomList<>(doc, path + "/REPRE-REPR-LST", (d, p) -> new SomScalar(d, p), "REPRE-REPR-xxx");
     }
   }
 
@@ -37607,8 +36704,8 @@ public final class TomSomV0 {
     }
 
     // Field validation rules by type.
-    public SomList<FieldValidationRuleEntry> fieldValidationRules() {
-      return new SomList<>(doc, path + "/FIELD-FIEL-LST", (d, p) -> new FieldValidationRuleEntry(d, p), "FIELD-FIEL-xxx");
+    public SomList<SomScalar> fieldValidationRules() {
+      return new SomList<>(doc, path + "/FIELD-FIEL-LST", (d, p) -> new SomScalar(d, p), "FIELD-FIEL-xxx");
     }
   }
 
@@ -37620,27 +36717,6 @@ public final class TomSomV0 {
 
     public ValidationMessageTemplateContentForm content() {
       return new ValidationMessageTemplateContentForm(doc, path + "/content");
-    }
-  }
-
-  // A single validation rule entry.
-  public static final class ValidationRuleEntry extends SomNode {
-    public ValidationRuleEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
     }
   }
 
@@ -37683,29 +36759,8 @@ public final class TomSomV0 {
     }
 
     // Key Performance Indicators for value measurement.
-    public SomList<KpiEntry> kpis() {
-      return new SomList<>(doc, path + "/KPIEN-KPIS-LST", (d, p) -> new KpiEntry(d, p), "KPIEN-KPIS-xxx");
-    }
-  }
-
-  // A single variations and exception entry.
-  public static final class VariationsAndExceptionEntry extends SomNode {
-    public VariationsAndExceptionEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SomList<SomScalar> kpis() {
+      return new SomList<>(doc, path + "/KPIEN-KPIS-LST", (d, p) -> new SomScalar(d, p), "KPIEN-KPIS-xxx");
     }
   }
 

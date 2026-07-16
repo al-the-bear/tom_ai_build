@@ -1487,7 +1487,7 @@ class ApplicableRegulationEntry(SomNode):
     # Specific compliance measures for this regulation.
     @property
     def complianceMeasures(self):
-        return SomList(self.doc, f"{self.path}/COMPL-COMP-LST", lambda d, p: ComplianceMeasureEntry(d, p), pattern="COMPL-COMP-xxx")
+        return SomList(self.doc, f"{self.path}/COMPL-COMP-LST", lambda d, p: SomScalar(d, p), pattern="COMPL-COMP-xxx")
 
 class ApplicationDiagnostics(SomNode):
     """Application diagnostics."""
@@ -1849,23 +1849,6 @@ class AssumptionsConstraintsDependencies(SomNode):
     @property
     def register(self):
         return AssumptionConstraintDependencyRegister(self.doc, f"{self.path}/register")
-
-class AttributeInterdependencyEntry(SomNode):
-    """A single attribute interdependency entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class AuditAndLogging(SomNode):
     """9.6. Audit and Logging.
@@ -3683,23 +3666,6 @@ class CapacityReviewProcess(SomNode):
     def planning(self):
         return CapacityReviewProcessPlanningForm(self.doc, f"{self.path}/CRPP")
 
-class CategoryDependencyEntry(SomNode):
-    """A single category dependency entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class CcbMemberEntry(SomNode):
     """A CCB member entry."""
     def __init__(self, doc, path):
@@ -3853,23 +3819,6 @@ class CertificationRequirementsSection(SomNode):
     @property
     def marketing(self):
         return CertificationRequirementsSectionMarketingForm(self.doc, f"{self.path}/CRSM")
-
-class ChangeAdvocateEntry(SomNode):
-    """A single change advocate entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class ChangeCategoryEntry(SomNode):
     """A change category entry.
@@ -4908,23 +4857,6 @@ class CommunicationPatterns(SomNode):
     def observability(self):
         return CommunicationPatternsObservabilityForm(self.doc, f"{self.path}/COPAOB")
 
-class CommunicationPreferenceEntry(SomNode):
-    """A single communication preference entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class CommunicationRequirements(SomNode):
     """8.6. Communication Requirements."""
     def __init__(self, doc, path):
@@ -5145,23 +5077,6 @@ class ComplianceFramework(SomNode):
     authorization. Pulls the compliance references currently scattered
     across @ContentHelp strings into an explicit section.
     """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-class ComplianceMeasureEntry(SomNode):
-    """A single compliance measure entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -6404,23 +6319,6 @@ class CredentialRecoveryPolicy(SomNode):
     def credentialRecoveryDetails(self):
         return None  # (skipped: no target type)
 
-class CriticalKnowledgeAreaEntry(SomNode):
-    """A single critical knowledge area entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class CrossBoundaryErrorHandling(SomNode):
     """4.5.10. Cross-Boundary Error Handling.
     
@@ -6547,23 +6445,6 @@ class CrossTenantAccessPolicy(SomNode):
     def crossTenantAccessPolicyDetails(self):
         return None  # (skipped: no target type)
 
-class CulturalConsiderationEntry(SomNode):
-    """A single cultural consideration entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class CurrentArchitecture(SomNode):
     """1.1.2. Current Architecture.
     
@@ -6606,12 +6487,12 @@ class CurrentArchitecture(SomNode):
     # Integration patterns used.
     @property
     def integrationPatterns(self):
-        return SomList(self.doc, f"{self.path}/IPE-INTE-LST", lambda d, p: IntegrationPatternEntry(d, p), pattern="IPE-INTE-xxx")
+        return SomList(self.doc, f"{self.path}/IPE-INTE-LST", lambda d, p: SomScalar(d, p), pattern="IPE-INTE-xxx")
 
     # Shared services inventory.
     @property
     def sharedServices(self):
-        return SomList(self.doc, f"{self.path}/SHARE-SHAR-LST", lambda d, p: SharedServiceEntry(d, p), pattern="SHARE-SHAR-xxx")
+        return SomList(self.doc, f"{self.path}/SHARE-SHAR-LST", lambda d, p: SomScalar(d, p), pattern="SHARE-SHAR-xxx")
 
 class CurrentBusinessProcess(SomNode):
     """A current business process.
@@ -10011,23 +9892,6 @@ class DatabaseEncryptionPolicy(SomNode):
     def databaseEncryptionDetails(self):
         return None  # (skipped: no target type)
 
-class DatacenterEntry(SomNode):
-    """A single datacenter entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class DebuggingConfiguration(SomNode):
     """Debugging configuration."""
     def __init__(self, doc, path):
@@ -10538,23 +10402,6 @@ class DependenciesAndIntegrations(SomNode):
     @property
     def healthSummary(self):
         return IntegrationHealthSummary(self.doc, f"{self.path}/healthSummary")
-
-class DependencyEntry(SomNode):
-    """A single dependency entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class DependencyHealthMonitoring(SomNode):
     """Dependency health monitoring."""
@@ -11388,23 +11235,6 @@ class DevelopmentQualityGates(SomNode):
     @property
     def performance(self):
         return DevelopmentQualityGatesPerformanceForm(self.doc, f"{self.path}/DQGP")
-
-class DevopsStandardEntry(SomNode):
-    """A single devops standard entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class DisasterRecoveryRequirements(SomNode):
     """Disaster recovery requirements."""
@@ -12902,40 +12732,6 @@ class ErrorHandlingStandards(SomNode):
     def recovery(self):
         return ErrorHandlingStandardsRecoveryForm(self.doc, f"{self.path}/ERHASTRE")
 
-class ErrorPageDesignEntry(SomNode):
-    """A single error page design entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-class ErrorProcedureEntry(SomNode):
-    """A single error procedure entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class ErrorRecovery(SomNode):
     """10.7.3. Error Recovery.
     
@@ -12982,29 +12778,12 @@ class ErrorRecovery(SomNode):
     # Recovery flow diagrams.
     @property
     def recoveryFlows(self):
-        return SomList(self.doc, f"{self.path}/RECOV-RECO-LST", lambda d, p: RecoveryFlowEntry(d, p), pattern="RECOV-RECO-xxx")
+        return SomList(self.doc, f"{self.path}/RECOV-RECO-LST", lambda d, p: SomScalar(d, p), pattern="RECOV-RECO-xxx")
 
     # Common recovery scenarios.
     @property
     def recoveryScenarios(self):
         return SomList(self.doc, f"{self.path}/RCVSCN-RECO-LST", lambda d, p: RecoveryScenarioEntry(d, p), pattern="RCVSCN-RECO-xxx")
-
-class EscalationProcedureEntry(SomNode):
-    """A single escalation procedure entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class EvaluationCriteria(SomNode):
     """12.1.2. Evaluation Criteria.
@@ -13462,7 +13241,7 @@ class ExternalActorEntry(SomNode):
     # Interaction scenarios for this actor.
     @property
     def interactionScenarios(self):
-        return SomList(self.doc, f"{self.path}/INTER-INTE-LST", lambda d, p: InteractionScenarioEntry(d, p), pattern="INTER-INTE-xxx")
+        return SomList(self.doc, f"{self.path}/INTER-INTE-LST", lambda d, p: SomScalar(d, p), pattern="INTER-INTE-xxx")
 
 class ExternalActors(SomNode):
     """4.1.2.3. External Actors.
@@ -14148,23 +13927,6 @@ class FieldValidationRule(SomNode):
     def content(self):
         return FieldValidationRuleContentForm(self.doc, f"{self.path}/content")
 
-class FieldValidationRuleEntry(SomNode):
-    """A single field validation rule entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class FileAccessControlPolicy(SomNode):
     """File access control policy — who can access, modify, share, and delete
     files, and how access decisions are enforced.
@@ -14419,23 +14181,6 @@ class FlexibilityCharacteristic(SomNode):
     @property
     def portability(self):
         return Portability(self.doc, f"{self.path}/portability")
-
-class FragilePointEntry(SomNode):
-    """A single fragile point entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class FrameworkRequirementEntry(SomNode):
     """Framework or library requirement entry."""
@@ -14845,23 +14590,6 @@ class GeographicDistributionRequirements(SomNode):
     @property
     def performance(self):
         return GeographicDistributionRequirementsPerformanceForm(self.doc, f"{self.path}/GDRP")
-
-class GlobalEntryPointEntry(SomNode):
-    """A single global entry point entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class GlobalRoleExclusionEntry(SomNode):
     """A global role exclusion entry (form).
@@ -15764,7 +15492,7 @@ class InformationArchitecture(SomNode):
     # Global entry points.
     @property
     def globalEntryPoints(self):
-        return SomList(self.doc, f"{self.path}/GLOBA-GLOB-LST", lambda d, p: GlobalEntryPointEntry(d, p), pattern="GLOBA-GLOB-xxx")
+        return SomList(self.doc, f"{self.path}/GLOBA-GLOB-LST", lambda d, p: SomScalar(d, p), pattern="GLOBA-GLOB-xxx")
 
     # 10.2.2.5. Information Architecture Diagram.
     @property
@@ -16098,24 +15826,7 @@ class IntegrationHealthSummary(SomNode):
     # Fragile integration points requiring attention.
     @property
     def fragilePoints(self):
-        return SomList(self.doc, f"{self.path}/FRAGI-FRAG-LST", lambda d, p: FragilePointEntry(d, p), pattern="FRAGI-FRAG-xxx")
-
-class IntegrationPatternEntry(SomNode):
-    """A single integration pattern entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/FRAGI-FRAG-LST", lambda d, p: SomScalar(d, p), pattern="FRAGI-FRAG-xxx")
 
 class IntegrationPointEntry(SomNode):
     """A single integration point entry."""
@@ -16456,23 +16167,6 @@ class InteractionPatterns(SomNode):
     def patterns(self):
         return SomList(self.doc, f"{self.path}/INPTN-PATT-LST", lambda d, p: InteractionPatternEntry(d, p), pattern="INPTN-PATT-xxx")
 
-class InteractionScenarioEntry(SomNode):
-    """A single interaction scenario entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class InteractionTestingStrategy(SomNode):
     """4.5.6. Interaction Testing Strategy.
     
@@ -16543,12 +16237,12 @@ class InterfaceDataSpec(SomNode):
     # Data mapping and transformation rules.
     @property
     def mappingRules(self):
-        return SomList(self.doc, f"{self.path}/MAPPI-MAPP-LST", lambda d, p: MappingRuleEntry(d, p), pattern="MAPPI-MAPP-xxx")
+        return SomList(self.doc, f"{self.path}/MAPPI-MAPP-LST", lambda d, p: SomScalar(d, p), pattern="MAPPI-MAPP-xxx")
 
     # Data validation rules.
     @property
     def validationRules(self):
-        return SomList(self.doc, f"{self.path}/VALID-VALI-LST", lambda d, p: ValidationRuleEntry(d, p), pattern="VALID-VALI-xxx")
+        return SomList(self.doc, f"{self.path}/VALID-VALI-LST", lambda d, p: SomScalar(d, p), pattern="VALID-VALI-xxx")
 
 class InterfaceErrorHandling(SomNode):
     """Error handling specification."""
@@ -16577,7 +16271,7 @@ class InterfaceErrorHandling(SomNode):
     # Error handling procedures.
     @property
     def errorProcedures(self):
-        return SomList(self.doc, f"{self.path}/ERROR-ERRO-LST", lambda d, p: ErrorProcedureEntry(d, p), pattern="ERROR-ERRO-xxx")
+        return SomList(self.doc, f"{self.path}/ERROR-ERRO-LST", lambda d, p: SomScalar(d, p), pattern="ERROR-ERRO-xxx")
 
 class InterfaceGovernance(SomNode):
     """Governance and contracts."""
@@ -16639,7 +16333,7 @@ class InterfaceOperational(SomNode):
     # Operational dependencies.
     @property
     def dependencies(self):
-        return SomList(self.doc, f"{self.path}/DEPEN-DEPE-LST", lambda d, p: DependencyEntry(d, p), pattern="DEPEN-DEPE-xxx")
+        return SomList(self.doc, f"{self.path}/DEPEN-DEPE-LST", lambda d, p: SomScalar(d, p), pattern="DEPEN-DEPE-xxx")
 
 class InterfaceSecurity(SomNode):
     """Security specification for an interface."""
@@ -17159,23 +16853,6 @@ class JourneyStageEntry(SomNode):
     def content(self):
         return JourneyStageEntryContentForm(self.doc, f"{self.path}/content")
 
-class KeyAssumptionEntry(SomNode):
-    """A single key assumption entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class KeyAttributeEntry(SomNode):
     """A key attribute entry (form).
     
@@ -17453,80 +17130,12 @@ class KeyStoragePolicy(SomNode):
     def notes(self):
         return None  # (skipped: no target type)
 
-class KeyTouchpointEntry(SomNode):
-    """A single key touchpoint entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class KnowledgeTransfer(SomNode):
     """15.7. Knowledge Transfer.
     
     Handover from delivery team to operations. Covers handover-agreement
     content.
     """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-class KnownIssueEntry(SomNode):
-    """A single known issue entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-class KnownQualityIssueEntry(SomNode):
-    """A single known quality issue entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-class KpiEntry(SomNode):
-    """A single kpi entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -18300,23 +17909,6 @@ class MaintenanceDependencyEntry(SomNode):
     def risk(self):
         return MaintenanceDependencyEntryRiskForm(self.doc, f"{self.path}/MDER")
 
-class MaintenanceProcedureEntry(SomNode):
-    """A single maintenance procedure entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class MaintenanceUserImpact(SomNode):
     """User impact and communication."""
     def __init__(self, doc, path):
@@ -18425,23 +18017,6 @@ class MaintenanceWindowsSection(SomNode):
     @property
     def postMaintenance(self):
         return PostMaintenanceValidation(self.doc, f"{self.path}/postMaintenance")
-
-class MappingRuleEntry(SomNode):
-    """A single mapping rule entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class MasterDataDomainEntry(SomNode):
     """Master data domain entry."""
@@ -18691,24 +18266,7 @@ class MfaConfiguration(SomNode):
     # MFA Implementation Details (text).
     @property
     def mfaDetails(self):
-        return SomList(self.doc, f"{self.path}/MFADE-MFAD-LST", lambda d, p: MfaDetailEntry(d, p), pattern="MFADE-MFAD-xxx")
-
-class MfaDetailEntry(SomNode):
-    """A single mfa detail entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/MFADE-MFAD-LST", lambda d, p: SomScalar(d, p), pattern="MFADE-MFAD-xxx")
 
 class MigrationConsiderations(SomNode):
     """4.4.2. Migration Considerations (global).
@@ -18777,7 +18335,7 @@ class MigrationConsiderations(SomNode):
     # Escalation procedures during migration.
     @property
     def escalationProcedures(self):
-        return SomList(self.doc, f"{self.path}/ESCAL-ESCA-LST", lambda d, p: EscalationProcedureEntry(d, p), pattern="ESCAL-ESCA-xxx")
+        return SomList(self.doc, f"{self.path}/ESCAL-ESCA-LST", lambda d, p: SomScalar(d, p), pattern="ESCAL-ESCA-xxx")
 
 class MigrationEnvironments(SomNode):
     """Environment strategy for migration."""
@@ -19117,22 +18675,22 @@ class MigrationRisks(SomNode):
     # Risk categories and taxonomy.
     @property
     def riskCategories(self):
-        return SomList(self.doc, f"{self.path}/RISKC-RISK-LST", lambda d, p: RiskCategoryEntry(d, p), pattern="RISKC-RISK-xxx")
+        return SomList(self.doc, f"{self.path}/RISKC-RISK-LST", lambda d, p: SomScalar(d, p), pattern="RISKC-RISK-xxx")
 
     # Risk-based decision making criteria.
     @property
     def riskBasedDecisions(self):
-        return SomList(self.doc, f"{self.path}/RISKB-RISK-LST", lambda d, p: RiskBasedDecisionEntry(d, p), pattern="RISKB-RISK-xxx")
+        return SomList(self.doc, f"{self.path}/RISKB-RISK-LST", lambda d, p: SomScalar(d, p), pattern="RISKB-RISK-xxx")
 
     # Risk monitoring and control procedures.
     @property
     def monitoringProcedures(self):
-        return SomList(self.doc, f"{self.path}/MONIT-MONI-LST", lambda d, p: MonitoringProcedureEntry(d, p), pattern="MONIT-MONI-xxx")
+        return SomList(self.doc, f"{self.path}/MONIT-MONI-LST", lambda d, p: SomScalar(d, p), pattern="MONIT-MONI-xxx")
 
     # Risk response strategies by category.
     @property
     def responseStrategies(self):
-        return SomList(self.doc, f"{self.path}/RESPO-RESP-LST", lambda d, p: ResponseStrategyEntry(d, p), pattern="RESPO-RESP-xxx")
+        return SomList(self.doc, f"{self.path}/RESPO-RESP-LST", lambda d, p: SomScalar(d, p), pattern="RESPO-RESP-xxx")
 
     # Risk aggregation and portfolio view.
     @property
@@ -19481,23 +19039,6 @@ class MonitoringInfrastructure(SomNode):
     @property
     def access(self):
         return MonitoringInfrastructureAccessForm(self.doc, f"{self.path}/MOINAC")
-
-class MonitoringProcedureEntry(SomNode):
-    """A single monitoring procedure entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class MoscowAnalysis(SomNode):
     """13.4.1. MoSCoW Analysis.
@@ -20295,23 +19836,6 @@ class NewRoleResponsibilities(SomNode):
     def decisionAuthority(self):
         return NewRoleResponsibilitiesDecisionAuthorityForm(self.doc, f"{self.path}/RODEAU")
 
-class NonFinancialBenefitEntry(SomNode):
-    """A single non financial benefit entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class NotificationChannelEntry(SomNode):
     """A notification channel entry."""
     def __init__(self, doc, path):
@@ -20416,23 +19940,6 @@ class ObjectStateEntry(SomNode):
     @property
     def content(self):
         return ObjectStateEntryContentForm(self.doc, f"{self.path}/content")
-
-class ObservabilityRequirementEntry(SomNode):
-    """A single observability requirement entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class OnCallProcedures(SomNode):
     """On-call procedures."""
@@ -20924,12 +20431,12 @@ class OrganizationalEnvironment(SomNode):
     # Cultural considerations and organizational dynamics.
     @property
     def culturalConsiderations(self):
-        return SomList(self.doc, f"{self.path}/CULTU-CULT-LST", lambda d, p: CulturalConsiderationEntry(d, p), pattern="CULTU-CULT-xxx")
+        return SomList(self.doc, f"{self.path}/CULTU-CULT-LST", lambda d, p: SomScalar(d, p), pattern="CULTU-CULT-xxx")
 
     # Stakeholder communication preferences.
     @property
     def communicationPreferences(self):
-        return SomList(self.doc, f"{self.path}/COMMU-COMM-LST", lambda d, p: CommunicationPreferenceEntry(d, p), pattern="COMMU-COMM-xxx")
+        return SomList(self.doc, f"{self.path}/COMMU-COMM-LST", lambda d, p: SomScalar(d, p), pattern="COMMU-COMM-xxx")
 
     # Political dynamics and influence patterns.
     @property
@@ -20939,7 +20446,7 @@ class OrganizationalEnvironment(SomNode):
     # Change champions and sponsors.
     @property
     def changeAdvocates(self):
-        return SomList(self.doc, f"{self.path}/CHANG-CHAN-LST", lambda d, p: ChangeAdvocateEntry(d, p), pattern="CHANG-CHAN-xxx")
+        return SomList(self.doc, f"{self.path}/CHANG-CHAN-LST", lambda d, p: SomScalar(d, p), pattern="CHANG-CHAN-xxx")
 
 class OrganizationalFramework(SomNode):
     """5. Organizational Framework.
@@ -22163,23 +21670,6 @@ class PreconditionsAndTriggers(SomNode):
     def content(self):
         return PreconditionsAndTriggersContentForm(self.doc, f"{self.path}/content")
 
-class PredecessorDependencyEntry(SomNode):
-    """A single predecessor dependency entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class PrimaryNavigation(SomNode):
     """10.3.1.3. Primary Navigation.
     
@@ -22361,7 +21851,7 @@ class ProblemStatement(SomNode):
     # Related pain points from Current State Analysis.
     @property
     def relatedPainPoints(self):
-        return SomList(self.doc, f"{self.path}/RPPE-RELA-LST", lambda d, p: RelatedPainPointEntry(d, p), pattern="RPPE-RELA-xxx")
+        return SomList(self.doc, f"{self.path}/RPPE-RELA-LST", lambda d, p: SomScalar(d, p), pattern="RPPE-RELA-xxx")
 
 class ProcessAdjustmentDetails(SomNode):
     """Details for process adjustment."""
@@ -23793,7 +23283,7 @@ class QualityFramework(SomNode):
     # Quality dependencies map.
     @property
     def categoryDependencies(self):
-        return SomList(self.doc, f"{self.path}/CATEG-CATE-LST", lambda d, p: CategoryDependencyEntry(d, p), pattern="CATEG-CATE-xxx")
+        return SomList(self.doc, f"{self.path}/CATEG-CATE-LST", lambda d, p: SomScalar(d, p), pattern="CATEG-CATE-xxx")
 
 class QualityGateAdjustmentDetails(SomNode):
     """Gate details."""
@@ -24103,23 +23593,6 @@ class ReadinessCriteriaEntry(SomNode):
     def content(self):
         return ReadinessCriteriaEntryContentForm(self.doc, f"{self.path}/content")
 
-class RecoveryFlowEntry(SomNode):
-    """A single recovery flow entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class RecoveryProcedures(SomNode):
     """Recovery procedures."""
     def __init__(self, doc, path):
@@ -24373,23 +23846,6 @@ class RelatedDocumentEntry(SomNode):
     @property
     def content(self):
         return RelatedDocumentEntryContentForm(self.doc, f"{self.path}/content")
-
-class RelatedPainPointEntry(SomNode):
-    """A single related pain point entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class RelationshipAttributeEntry(SomNode):
     """A single relationship attribute entry."""
@@ -24925,23 +24381,6 @@ class ReportSectionEntry(SomNode):
     def charts(self):
         return SomList(self.doc, f"{self.path}/RECHEN-CHAR-LST", lambda d, p: ReportChartEntry(d, p), pattern="RECHEN-CHAR-xxx")
 
-class RepresentativeQuoteEntry(SomNode):
-    """A single representative quote entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class RequirementAcceptanceCriteria(SomNode):
     """4.3.1.n.1. Acceptance Criteria.
     
@@ -25475,23 +24914,6 @@ class ResourceRequirementEntry(SomNode):
     def content(self):
         return ResourceRequirementEntryContentForm(self.doc, f"{self.path}/content")
 
-class ResponseStrategyEntry(SomNode):
-    """A single response strategy entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class ResponsibilityChangeEntry(SomNode):
     """Responsibility change entry (form)."""
     def __init__(self, doc, path):
@@ -25940,23 +25362,6 @@ class RevisionHistory(SomNode):
     def revisions(self):
         return SomList(self.doc, f"{self.path}/RVHST-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVHST-REVS-xxx")
 
-class RiskBasedDecisionEntry(SomNode):
-    """A single risk based decision entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class RiskBusinessImpact(SomNode):
     """Business impact assessment for the risk."""
     def __init__(self, doc, path):
@@ -25975,23 +25380,6 @@ class RiskBusinessImpact(SomNode):
     @property
     def delivery(self):
         return RiskBusinessImpactDeliveryForm(self.doc, f"{self.path}/RBID")
-
-class RiskCategoryEntry(SomNode):
-    """A single risk category entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class RiskEntry(SomNode):
     """A risk entry (form).
@@ -26866,23 +26254,6 @@ class ScheduledMaintenancePolicy(SomNode):
     def approval(self):
         return ScheduledMaintenancePolicyApprovalForm(self.doc, f"{self.path}/SMPA")
 
-class ScopeAssumptionEntry(SomNode):
-    """A single scope assumption entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class ScopeBoundaries(SomNode):
     """4.1.1.6. Scope Boundaries.
     
@@ -26922,7 +26293,7 @@ class ScopeBoundaries(SomNode):
     # Scope Assumptions.
     @property
     def scopeAssumptions(self):
-        return SomList(self.doc, f"{self.path}/SCOPE-SCOP-LST", lambda d, p: ScopeAssumptionEntry(d, p), pattern="SCOPE-SCOP-xxx")
+        return SomList(self.doc, f"{self.path}/SCOPE-SCOP-LST", lambda d, p: SomScalar(d, p), pattern="SCOPE-SCOP-xxx")
 
 class ScopeItemEntry(SomNode):
     """A scope item entry (in-scope or out-of-scope)."""
@@ -27720,23 +27091,6 @@ class SecurityCodeReviewPolicy(SomNode):
     @property
     def findings(self):
         return SecurityCodeReviewPolicyFindingsForm(self.doc, f"{self.path}/SCRPF")
-
-class SecurityConcernEntry(SomNode):
-    """A single security concern entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class SecurityControlEntry(SomNode):
     """A security control entry (form)."""
@@ -28842,23 +28196,6 @@ class SharedLibraryEntry(SomNode):
     def lifecycle(self):
         return SharedLibraryEntryLifecycleForm(self.doc, f"{self.path}/SLEL")
 
-class SharedServiceEntry(SomNode):
-    """A single shared service entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
 class SignOffProcess(SomNode):
     """14.2.5. Sign-off Process.
     
@@ -29838,29 +29175,12 @@ class StagingStrategy(SomNode):
     # 13.1.3. Key Assumptions.
     @property
     def keyAssumptions(self):
-        return SomList(self.doc, f"{self.path}/KEYAS-KEYA-LST", lambda d, p: KeyAssumptionEntry(d, p), pattern="KEYAS-KEYA-xxx")
+        return SomList(self.doc, f"{self.path}/KEYAS-KEYA-LST", lambda d, p: SomScalar(d, p), pattern="KEYAS-KEYA-xxx")
 
     # 13.1.4. Constraints.
     @property
     def constraints(self):
-        return SomList(self.doc, f"{self.path}/STAGI-CONS-LST", lambda d, p: StagingStrategyConstraintEntry(d, p), pattern="STAGI-CONS-xxx")
-
-class StagingStrategyConstraintEntry(SomNode):
-    """A single constraint entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/STAGI-CONS-LST", lambda d, p: SomScalar(d, p), pattern="STAGI-CONS-xxx")
 
 class StakeholderEntry(SomNode):
     """A stakeholder or beneficiary entry — benefits lens (form).
@@ -30181,24 +29501,7 @@ class StepUpAuthenticationPolicy(SomNode):
     # Step-Up Authentication Details (text).
     @property
     def stepUpDetails(self):
-        return SomList(self.doc, f"{self.path}/STEPU-STEP-LST", lambda d, p: StepUpDetailEntry(d, p), pattern="STEPU-STEP-xxx")
-
-class StepUpDetailEntry(SomNode):
-    """A single step up detail entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/STEPU-STEP-LST", lambda d, p: SomScalar(d, p), pattern="STEPU-STEP-xxx")
 
 class StorageEncryptionPolicy(SomNode):
     """Storage encryption policy — how files and storage volumes are encrypted
@@ -30825,7 +30128,7 @@ class SystemCostAnalysis(SomNode):
     # Non-financial benefits to include in ROI.
     @property
     def nonFinancialBenefits(self):
-        return SomList(self.doc, f"{self.path}/NONFI-NONF-LST", lambda d, p: NonFinancialBenefitEntry(d, p), pattern="NONFI-NONF-xxx")
+        return SomList(self.doc, f"{self.path}/NONFI-NONF-LST", lambda d, p: SomScalar(d, p), pattern="NONFI-NONF-xxx")
 
 class SystemDataScope(SomNode):
     """Data scope and migration assessment."""
@@ -30854,7 +30157,7 @@ class SystemDataScope(SomNode):
     # Data quality issues to address.
     @property
     def knownQualityIssues(self):
-        return SomList(self.doc, f"{self.path}/KNOWN-KNOW-LST", lambda d, p: KnownQualityIssueEntry(d, p), pattern="KNOWN-KNOW-xxx")
+        return SomList(self.doc, f"{self.path}/KNOWN-KNOW-LST", lambda d, p: SomScalar(d, p), pattern="KNOWN-KNOW-xxx")
 
 class SystemDependencyEntry(SomNode):
     """A system dependency entry (form).
@@ -31034,7 +30337,7 @@ class SystemErrorDisplay(SomNode):
     # Error page designs.
     @property
     def errorPageDesigns(self):
-        return SomList(self.doc, f"{self.path}/EPDE-ERRO-LST", lambda d, p: ErrorPageDesignEntry(d, p), pattern="EPDE-ERRO-xxx")
+        return SomList(self.doc, f"{self.path}/EPDE-ERRO-LST", lambda d, p: SomScalar(d, p), pattern="EPDE-ERRO-xxx")
 
     # Error codes catalog.
     @property
@@ -31131,7 +30434,7 @@ class SystemKnowledgeTransfer(SomNode):
     # Critical knowledge areas to preserve.
     @property
     def criticalKnowledgeAreas(self):
-        return SomList(self.doc, f"{self.path}/CRITI-CRIT-LST", lambda d, p: CriticalKnowledgeAreaEntry(d, p), pattern="CRITI-CRIT-xxx")
+        return SomList(self.doc, f"{self.path}/CRITI-CRIT-LST", lambda d, p: SomScalar(d, p), pattern="CRITI-CRIT-xxx")
 
     # Knowledge transfer plan if SME risk is high.
     @property
@@ -31226,7 +30529,7 @@ class SystemOperation(SomNode):
     # Maintenance Procedures.
     @property
     def maintenanceProcedures(self):
-        return SomList(self.doc, f"{self.path}/MAINT-MAIN-LST", lambda d, p: MaintenanceProcedureEntry(d, p), pattern="MAINT-MAIN-xxx")
+        return SomList(self.doc, f"{self.path}/MAINT-MAIN-LST", lambda d, p: SomScalar(d, p), pattern="MAINT-MAIN-xxx")
 
 class SystemOperationAndMonitoring(SomNode):
     """8.7. System Operation and Monitoring."""
@@ -31375,7 +30678,7 @@ class SystemQualityGoals(SomNode):
     # Quality attribute interdependencies.
     @property
     def attributeInterdependencies(self):
-        return SomList(self.doc, f"{self.path}/ATTRI-ATTR-LST", lambda d, p: AttributeInterdependencyEntry(d, p), pattern="ATTRI-ATTR-xxx")
+        return SomList(self.doc, f"{self.path}/ATTRI-ATTR-LST", lambda d, p: SomScalar(d, p), pattern="ATTRI-ATTR-xxx")
 
     # Quality attribute priority radar.
     @property
@@ -31476,7 +30779,7 @@ class SystemReplacementStrategy(SomNode):
     # Predecessor systems that must be addressed first.
     @property
     def predecessorDependencies(self):
-        return SomList(self.doc, f"{self.path}/PREDE-PRED-LST", lambda d, p: PredecessorDependencyEntry(d, p), pattern="PREDE-PRED-xxx")
+        return SomList(self.doc, f"{self.path}/PREDE-PRED-LST", lambda d, p: SomScalar(d, p), pattern="PREDE-PRED-xxx")
 
     # Success criteria for replacement completion.
     @property
@@ -31690,29 +30993,12 @@ class SystemTaskEntry(SomNode):
     # Task workflow steps.
     @property
     def workflowSteps(self):
-        return SomList(self.doc, f"{self.path}/SYSTE-WORK-LST", lambda d, p: SystemTaskWorkflowStepEntry(d, p), pattern="SYSTE-WORK-xxx")
+        return SomList(self.doc, f"{self.path}/SYSTE-WORK-LST", lambda d, p: SomScalar(d, p), pattern="SYSTE-WORK-xxx")
 
     # Variations and exceptions.
     @property
     def variationsAndExceptions(self):
-        return SomList(self.doc, f"{self.path}/VARIA-VARI-LST", lambda d, p: VariationsAndExceptionEntry(d, p), pattern="VARIA-VARI-xxx")
-
-class SystemTaskWorkflowStepEntry(SomNode):
-    """A single workflow step entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/VARIA-VARI-LST", lambda d, p: SomScalar(d, p), pattern="VARIA-VARI-xxx")
 
 class SystemTechnicalAssessment(SomNode):
     """Technical assessment for a system to replace."""
@@ -31741,12 +31027,12 @@ class SystemTechnicalAssessment(SomNode):
     # Known technical issues and deficiencies.
     @property
     def knownIssues(self):
-        return SomList(self.doc, f"{self.path}/KIE-KNOW-LST", lambda d, p: KnownIssueEntry(d, p), pattern="KIE-KNOW-xxx")
+        return SomList(self.doc, f"{self.path}/KIE-KNOW-LST", lambda d, p: SomScalar(d, p), pattern="KIE-KNOW-xxx")
 
     # Security vulnerabilities and compliance gaps.
     @property
     def securityConcerns(self):
-        return SomList(self.doc, f"{self.path}/SECUR-SECU-LST", lambda d, p: SecurityConcernEntry(d, p), pattern="SECUR-SECU-xxx")
+        return SomList(self.doc, f"{self.path}/SECUR-SECU-LST", lambda d, p: SomScalar(d, p), pattern="SECUR-SECU-xxx")
 
 class SystemToReplaceEntry(SomNode):
     """A system to replace entry (form).
@@ -32176,7 +31462,7 @@ class TechnicalEnvironment(SomNode):
     # Data center and hosting environment details.
     @property
     def datacenters(self):
-        return SomList(self.doc, f"{self.path}/DATAC-DATA-LST", lambda d, p: DatacenterEntry(d, p), pattern="DATAC-DATA-xxx")
+        return SomList(self.doc, f"{self.path}/DATAC-DATA-LST", lambda d, p: SomScalar(d, p), pattern="DATAC-DATA-xxx")
 
     # Network topology and connectivity constraints.
     @property
@@ -32215,12 +31501,12 @@ class TechnicalEnvironmentNetwork(SomNode):
     # DevOps and deployment standards.
     @property
     def devopsStandards(self):
-        return SomList(self.doc, f"{self.path}/DEVOP-DEVO-LST", lambda d, p: DevopsStandardEntry(d, p), pattern="DEVOP-DEVO-xxx")
+        return SomList(self.doc, f"{self.path}/DEVOP-DEVO-LST", lambda d, p: SomScalar(d, p), pattern="DEVOP-DEVO-xxx")
 
     # Monitoring and observability requirements.
     @property
     def observabilityRequirements(self):
-        return SomList(self.doc, f"{self.path}/OBSER-OBSE-LST", lambda d, p: ObservabilityRequirementEntry(d, p), pattern="OBSER-OBSE-xxx")
+        return SomList(self.doc, f"{self.path}/OBSER-OBSE-LST", lambda d, p: SomScalar(d, p), pattern="OBSER-OBSE-xxx")
 
     # Disaster recovery and business continuity requirements.
     @property
@@ -34883,12 +34169,12 @@ class UserJourney(SomNode):
     # Key touchpoints.
     @property
     def keyTouchpoints(self):
-        return SomList(self.doc, f"{self.path}/KEYTO-KEYT-LST", lambda d, p: KeyTouchpointEntry(d, p), pattern="KEYTO-KEYT-xxx")
+        return SomList(self.doc, f"{self.path}/KEYTO-KEYT-LST", lambda d, p: SomScalar(d, p), pattern="KEYTO-KEYT-xxx")
 
     # Pain points in the journey.
     @property
     def painPoints(self):
-        return SomList(self.doc, f"{self.path}/USERJ-PAIN-LST", lambda d, p: UserJourneyPainPointEntry(d, p), pattern="USERJ-PAIN-xxx")
+        return SomList(self.doc, f"{self.path}/USERJ-PAIN-LST", lambda d, p: SomScalar(d, p), pattern="USERJ-PAIN-xxx")
 
     # Opportunities for delight.
     @property
@@ -34898,23 +34184,6 @@ class UserJourney(SomNode):
     @opportunitiesForDelight.setter
     def opportunitiesForDelight(self, value):
         self.doc.set_content(f"{self.path}/UJ-OPPO", value)
-
-class UserJourneyPainPointEntry(SomNode):
-    """A single pain point entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class UserLifecycle(SomNode):
     """9.1.2. User Lifecycle.
@@ -35181,7 +34450,7 @@ class UserPersonaDetails(SomNode):
     # Key quotes that represent this persona's mindset.
     @property
     def representativeQuotes(self):
-        return SomList(self.doc, f"{self.path}/REPRE-REPR-LST", lambda d, p: RepresentativeQuoteEntry(d, p), pattern="REPRE-REPR-xxx")
+        return SomList(self.doc, f"{self.path}/REPRE-REPR-LST", lambda d, p: SomScalar(d, p), pattern="REPRE-REPR-xxx")
 
 class UserPersonas(SomNode):
     """10.1.3. User Personas.
@@ -35441,7 +34710,7 @@ class ValidationFeedback(SomNode):
     # Field validation rules by type.
     @property
     def fieldValidationRules(self):
-        return SomList(self.doc, f"{self.path}/FIELD-FIEL-LST", lambda d, p: FieldValidationRuleEntry(d, p), pattern="FIELD-FIEL-xxx")
+        return SomList(self.doc, f"{self.path}/FIELD-FIEL-LST", lambda d, p: SomScalar(d, p), pattern="FIELD-FIEL-xxx")
 
 class ValidationMessageTemplate(SomNode):
     """A validation message template."""
@@ -35451,23 +34720,6 @@ class ValidationMessageTemplate(SomNode):
     @property
     def content(self):
         return ValidationMessageTemplateContentForm(self.doc, f"{self.path}/content")
-
-class ValidationRuleEntry(SomNode):
-    """A single validation rule entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
 
 class ValueProposition(SomNode):
     """4.1.1.4. Value Proposition.
@@ -35508,24 +34760,7 @@ class ValueProposition(SomNode):
     # Key Performance Indicators for value measurement.
     @property
     def kpis(self):
-        return SomList(self.doc, f"{self.path}/KPIEN-KPIS-LST", lambda d, p: KpiEntry(d, p), pattern="KPIEN-KPIS-xxx")
-
-class VariationsAndExceptionEntry(SomNode):
-    """A single variations and exception entry."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SomList(self.doc, f"{self.path}/KPIEN-KPIS-LST", lambda d, p: SomScalar(d, p), pattern="KPIEN-KPIS-xxx")
 
 class VersionControlConfiguration(SomNode):
     """Version control configuration."""

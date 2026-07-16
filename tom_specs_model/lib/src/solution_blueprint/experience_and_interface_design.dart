@@ -2623,7 +2623,7 @@ Overall content organization and navigation structure.
   @SectionIdPattern('GLOBA-GLOB-xxx')
   @ContentHelp('Add one entry per global entry point.')
   @SerializationOrder(4)
-  List<GlobalEntryPointEntry> globalEntryPoints = [];
+  List<String> globalEntryPoints = [];
 
   /// 10.2.2.5. Information Architecture Diagram.
   @SerializationOrder(5)
@@ -7640,7 +7640,7 @@ class ValidationFeedback {
   @SectionIdPattern('FIELD-FIEL-xxx')
   @ContentHelp('Add one entry per field validation rule.')
   @SerializationOrder(7)
-  List<FieldValidationRuleEntry> fieldValidationRules = [];
+  List<String> fieldValidationRules = [];
 }
 
 /// A validation message template.
@@ -7945,7 +7945,7 @@ class SystemErrorDisplay {
   @SectionIdPattern('EPDE-ERRO-xxx')
   @ContentHelp('Add one entry per error page design.')
   @SerializationOrder(6)
-  List<ErrorPageDesignEntry> errorPageDesigns = [];
+  List<String> errorPageDesigns = [];
 
   /// Error codes catalog.
   @StandardReferences([
@@ -8304,7 +8304,7 @@ class ErrorRecovery {
   @SectionIdPattern('RECOV-RECO-xxx')
   @ContentHelp('Add one entry per recovery flow.')
   @SerializationOrder(7)
-  List<RecoveryFlowEntry> recoveryFlows = [];
+  List<String> recoveryFlows = [];
 
   /// Common recovery scenarios.
   @StandardReferences([
@@ -14751,70 +14751,6 @@ class DesignFoundationEntry {
   String? content;
 }
 
-/// A single recovery flow entry.
-@StandardReferences(
-  [
-    'ISO 9241-110:2020 — the dialogue supports error recovery so users can correct problems and continue their task',
-  ],
-  'A single recovery-flow entry describing how users regain access or recover from an interrupted task.',
-)
-@SectionId('RECOV')
-class RecoveryFlowEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single global entry point entry.
-@StandardReferences(
-  [
-    'ISO 9241-110:2020 — the dialogue is self-descriptive so users can orient themselves and reach functions from a known starting point',
-  ],
-  'A single global entry-point entry describing a top-level way users enter the system.',
-)
-@SectionId('GLOBA')
-class GlobalEntryPointEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single error page design entry.
-@StandardReferences(
-  [
-    'ISO 9241-110:2020 — the dialogue tolerates errors so a failure state is presented helpfully rather than abruptly',
-  ],
-  'A single error-page design entry describing how an error state is presented to the user.',
-)
-@SectionId('EPDE')
-class ErrorPageDesignEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}
 
-/// A single field validation rule entry.
-@StandardReferences(
-  [
-    'ISO 9241-110:2020 — error tolerance is supported so invalid input is detected and explained at the point of entry',
-  ],
-  'A single field-validation rule entry describing how one input field is checked and corrected.',
-)
-@SectionId('FIELD')
-class FieldValidationRuleEntry {
-  @ContentType(
-    'text',
-    'The description for the content is provided by the doc-comment on the field declaration of this type',
-  )
-  @SerializationOrder(0)
-  String? content;
-}

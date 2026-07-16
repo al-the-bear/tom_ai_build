@@ -978,7 +978,7 @@ class ApplicableRegulationEntry extends SomNode {
   ApplicableRegulationEntryContentForm get content => ApplicableRegulationEntryContentForm(doc, '$path/content');
 
   /// Specific compliance measures for this regulation.
-  SomList<ComplianceMeasureEntry> get complianceMeasures => SomList<ComplianceMeasureEntry>(doc, '$path/COMPL-COMP-LST', (d, p) => ComplianceMeasureEntry(d, p), pattern: 'COMPL-COMP-xxx');
+  SomList<SomScalar> get complianceMeasures => SomList<SomScalar>(doc, '$path/COMPL-COMP-LST', (d, p) => SomScalar(d, p), pattern: 'COMPL-COMP-xxx');
 }
 
 /// Application diagnostics.
@@ -1216,17 +1216,6 @@ class AssumptionsConstraintsDependencies extends SomNode {
 
   /// The consolidated assumption / constraint register.
   AssumptionConstraintDependencyRegister get register => AssumptionConstraintDependencyRegister(doc, '$path/register');
-}
-
-/// A single attribute interdependency entry.
-class AttributeInterdependencyEntry extends SomNode {
-  AttributeInterdependencyEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// 9.6. Audit and Logging.
@@ -2407,17 +2396,6 @@ class CapacityReviewProcess extends SomNode {
   CapacityReviewProcessPlanningForm get planning => CapacityReviewProcessPlanningForm(doc, '$path/CRPP');
 }
 
-/// A single category dependency entry.
-class CategoryDependencyEntry extends SomNode {
-  CategoryDependencyEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// A CCB member entry.
 class CcbMemberEntry extends SomNode {
   CcbMemberEntry(super.doc, super.path);
@@ -2518,17 +2496,6 @@ class CertificationRequirementsSection extends SomNode {
 
   /// Marketing and notes.
   CertificationRequirementsSectionMarketingForm get marketing => CertificationRequirementsSectionMarketingForm(doc, '$path/CRSM');
-}
-
-/// A single change advocate entry.
-class ChangeAdvocateEntry extends SomNode {
-  ChangeAdvocateEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A change category entry.
@@ -3220,17 +3187,6 @@ class CommunicationPatterns extends SomNode {
   CommunicationPatternsObservabilityForm get observability => CommunicationPatternsObservabilityForm(doc, '$path/COPAOB');
 }
 
-/// A single communication preference entry.
-class CommunicationPreferenceEntry extends SomNode {
-  CommunicationPreferenceEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 8.6. Communication Requirements.
 class CommunicationRequirements extends SomNode {
   CommunicationRequirements(super.doc, super.path);
@@ -3381,17 +3337,6 @@ class ComplianceAuditSchedule extends SomNode {
 /// across @ContentHelp strings into an explicit section.
 class ComplianceFramework extends SomNode {
   ComplianceFramework(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// A single compliance measure entry.
-class ComplianceMeasureEntry extends SomNode {
-  ComplianceMeasureEntry(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -4205,17 +4150,6 @@ class CredentialRecoveryPolicy extends SomNode {
   // (skipped: credentialRecoveryDetails has no target type)
 }
 
-/// A single critical knowledge area entry.
-class CriticalKnowledgeAreaEntry extends SomNode {
-  CriticalKnowledgeAreaEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 4.5.10. Cross-Boundary Error Handling.
 /// 
 /// Failure-propagation policy that applies across system boundaries.
@@ -4300,17 +4234,6 @@ class CrossTenantAccessPolicy extends SomNode {
   // (skipped: crossTenantAccessPolicyDetails has no target type)
 }
 
-/// A single cultural consideration entry.
-class CulturalConsiderationEntry extends SomNode {
-  CulturalConsiderationEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 1.1.2. Current Architecture.
 /// 
 /// Description of the current system architecture including deployment
@@ -4333,10 +4256,10 @@ class CurrentArchitecture extends SomNode {
   set deploymentTopology(String value) => doc.setContent('$path/CARCH-DEPL', value);
 
   /// Integration patterns used.
-  SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/IPE-INTE-LST', (d, p) => IntegrationPatternEntry(d, p), pattern: 'IPE-INTE-xxx');
+  SomList<SomScalar> get integrationPatterns => SomList<SomScalar>(doc, '$path/IPE-INTE-LST', (d, p) => SomScalar(d, p), pattern: 'IPE-INTE-xxx');
 
   /// Shared services inventory.
-  SomList<SharedServiceEntry> get sharedServices => SomList<SharedServiceEntry>(doc, '$path/SHARE-SHAR-LST', (d, p) => SharedServiceEntry(d, p), pattern: 'SHARE-SHAR-xxx');
+  SomList<SomScalar> get sharedServices => SomList<SomScalar>(doc, '$path/SHARE-SHAR-LST', (d, p) => SomScalar(d, p), pattern: 'SHARE-SHAR-xxx');
 }
 
 /// A current business process.
@@ -6670,17 +6593,6 @@ class DatabaseEncryptionPolicy extends SomNode {
   // (skipped: databaseEncryptionDetails has no target type)
 }
 
-/// A single datacenter entry.
-class DatacenterEntry extends SomNode {
-  DatacenterEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// Debugging configuration.
 class DebuggingConfiguration extends SomNode {
   DebuggingConfiguration(super.doc, super.path);
@@ -7017,17 +6929,6 @@ class DependenciesAndIntegrations extends SomNode {
 
   /// 1.1.3.5. Integration Health Summary.
   IntegrationHealthSummary get healthSummary => IntegrationHealthSummary(doc, '$path/healthSummary');
-}
-
-/// A single dependency entry.
-class DependencyEntry extends SomNode {
-  DependencyEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// Dependency health monitoring.
@@ -7570,17 +7471,6 @@ class DevelopmentQualityGates extends SomNode {
 
   /// Performance checks.
   DevelopmentQualityGatesPerformanceForm get performance => DevelopmentQualityGatesPerformanceForm(doc, '$path/DQGP');
-}
-
-/// A single devops standard entry.
-class DevopsStandardEntry extends SomNode {
-  DevopsStandardEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// Disaster recovery requirements.
@@ -8570,28 +8460,6 @@ class ErrorHandlingStandards extends SomNode {
   ErrorHandlingStandardsRecoveryForm get recovery => ErrorHandlingStandardsRecoveryForm(doc, '$path/ERHASTRE');
 }
 
-/// A single error page design entry.
-class ErrorPageDesignEntry extends SomNode {
-  ErrorPageDesignEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// A single error procedure entry.
-class ErrorProcedureEntry extends SomNode {
-  ErrorProcedureEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 10.7.3. Error Recovery.
 /// 
 /// Error recovery flows including data preservation, retry mechanisms,
@@ -8620,21 +8488,10 @@ class ErrorRecovery extends SomNode {
   // (skipped: recoveryNarrative has no target type)
 
   /// Recovery flow diagrams.
-  SomList<RecoveryFlowEntry> get recoveryFlows => SomList<RecoveryFlowEntry>(doc, '$path/RECOV-RECO-LST', (d, p) => RecoveryFlowEntry(d, p), pattern: 'RECOV-RECO-xxx');
+  SomList<SomScalar> get recoveryFlows => SomList<SomScalar>(doc, '$path/RECOV-RECO-LST', (d, p) => SomScalar(d, p), pattern: 'RECOV-RECO-xxx');
 
   /// Common recovery scenarios.
   SomList<RecoveryScenarioEntry> get recoveryScenarios => SomList<RecoveryScenarioEntry>(doc, '$path/RCVSCN-RECO-LST', (d, p) => RecoveryScenarioEntry(d, p), pattern: 'RCVSCN-RECO-xxx');
-}
-
-/// A single escalation procedure entry.
-class EscalationProcedureEntry extends SomNode {
-  EscalationProcedureEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// 12.1.2. Evaluation Criteria.
@@ -8934,7 +8791,7 @@ class ExternalActorEntry extends SomNode {
   ExternalActorEntryContextForm get context => ExternalActorEntryContextForm(doc, '$path/EAEC');
 
   /// Interaction scenarios for this actor.
-  SomList<InteractionScenarioEntry> get interactionScenarios => SomList<InteractionScenarioEntry>(doc, '$path/INTER-INTE-LST', (d, p) => InteractionScenarioEntry(d, p), pattern: 'INTER-INTE-xxx');
+  SomList<SomScalar> get interactionScenarios => SomList<SomScalar>(doc, '$path/INTER-INTE-LST', (d, p) => SomScalar(d, p), pattern: 'INTER-INTE-xxx');
 }
 
 /// 4.1.2.3. External Actors.
@@ -9393,17 +9250,6 @@ class FieldValidationRule extends SomNode {
   FieldValidationRuleContentForm get content => FieldValidationRuleContentForm(doc, '$path/content');
 }
 
-/// A single field validation rule entry.
-class FieldValidationRuleEntry extends SomNode {
-  FieldValidationRuleEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// File access control policy — who can access, modify, share, and delete
 /// files, and how access decisions are enforced.
 /// 
@@ -9571,17 +9417,6 @@ class FlexibilityCharacteristic extends SomNode {
 
   /// 11.9.2. Portability.
   Portability get portability => Portability(doc, '$path/portability');
-}
-
-/// A single fragile point entry.
-class FragilePointEntry extends SomNode {
-  FragilePointEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// Framework or library requirement entry.
@@ -9852,17 +9687,6 @@ class GeographicDistributionRequirements extends SomNode {
 
   /// Performance considerations.
   GeographicDistributionRequirementsPerformanceForm get performance => GeographicDistributionRequirementsPerformanceForm(doc, '$path/GDRP');
-}
-
-/// A single global entry point entry.
-class GlobalEntryPointEntry extends SomNode {
-  GlobalEntryPointEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A global role exclusion entry (form).
@@ -10455,7 +10279,7 @@ class InformationArchitecture extends SomNode {
   // (skipped: navigationStructure has no target type)
 
   /// Global entry points.
-  SomList<GlobalEntryPointEntry> get globalEntryPoints => SomList<GlobalEntryPointEntry>(doc, '$path/GLOBA-GLOB-LST', (d, p) => GlobalEntryPointEntry(d, p), pattern: 'GLOBA-GLOB-xxx');
+  SomList<SomScalar> get globalEntryPoints => SomList<SomScalar>(doc, '$path/GLOBA-GLOB-LST', (d, p) => SomScalar(d, p), pattern: 'GLOBA-GLOB-xxx');
 
   /// 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
@@ -10678,18 +10502,7 @@ class IntegrationHealthSummary extends SomNode {
   IntegrationHealthSummaryContentForm get content => IntegrationHealthSummaryContentForm(doc, '$path/content');
 
   /// Fragile integration points requiring attention.
-  SomList<FragilePointEntry> get fragilePoints => SomList<FragilePointEntry>(doc, '$path/FRAGI-FRAG-LST', (d, p) => FragilePointEntry(d, p), pattern: 'FRAGI-FRAG-xxx');
-}
-
-/// A single integration pattern entry.
-class IntegrationPatternEntry extends SomNode {
-  IntegrationPatternEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get fragilePoints => SomList<SomScalar>(doc, '$path/FRAGI-FRAG-LST', (d, p) => SomScalar(d, p), pattern: 'FRAGI-FRAG-xxx');
 }
 
 /// A single integration point entry.
@@ -10917,17 +10730,6 @@ class InteractionPatterns extends SomNode {
   SomList<InteractionPatternEntry> get patterns => SomList<InteractionPatternEntry>(doc, '$path/INPTN-PATT-LST', (d, p) => InteractionPatternEntry(d, p), pattern: 'INPTN-PATT-xxx');
 }
 
-/// A single interaction scenario entry.
-class InteractionScenarioEntry extends SomNode {
-  InteractionScenarioEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 4.5.6. Interaction Testing Strategy.
 /// 
 /// Contract / integration / failure-mode testing for system boundaries.
@@ -10976,10 +10778,10 @@ class InterfaceDataSpec extends SomNode {
   SomList<InterfaceDataEntityEntry> get dataEntities => SomList<InterfaceDataEntityEntry>(doc, '$path/IDEE-DATA-LST', (d, p) => InterfaceDataEntityEntry(d, p), pattern: 'IDEE-DATA-xxx');
 
   /// Data mapping and transformation rules.
-  SomList<MappingRuleEntry> get mappingRules => SomList<MappingRuleEntry>(doc, '$path/MAPPI-MAPP-LST', (d, p) => MappingRuleEntry(d, p), pattern: 'MAPPI-MAPP-xxx');
+  SomList<SomScalar> get mappingRules => SomList<SomScalar>(doc, '$path/MAPPI-MAPP-LST', (d, p) => SomScalar(d, p), pattern: 'MAPPI-MAPP-xxx');
 
   /// Data validation rules.
-  SomList<ValidationRuleEntry> get validationRules => SomList<ValidationRuleEntry>(doc, '$path/VALID-VALI-LST', (d, p) => ValidationRuleEntry(d, p), pattern: 'VALID-VALI-xxx');
+  SomList<SomScalar> get validationRules => SomList<SomScalar>(doc, '$path/VALID-VALI-LST', (d, p) => SomScalar(d, p), pattern: 'VALID-VALI-xxx');
 }
 
 /// Error handling specification.
@@ -10998,7 +10800,7 @@ class InterfaceErrorHandling extends SomNode {
   InterfaceErrorHandlingTimeoutForm get timeout => InterfaceErrorHandlingTimeoutForm(doc, '$path/IEHT');
 
   /// Error handling procedures.
-  SomList<ErrorProcedureEntry> get errorProcedures => SomList<ErrorProcedureEntry>(doc, '$path/ERROR-ERRO-LST', (d, p) => ErrorProcedureEntry(d, p), pattern: 'ERROR-ERRO-xxx');
+  SomList<SomScalar> get errorProcedures => SomList<SomScalar>(doc, '$path/ERROR-ERRO-LST', (d, p) => SomScalar(d, p), pattern: 'ERROR-ERRO-xxx');
 }
 
 /// Governance and contracts.
@@ -11040,7 +10842,7 @@ class InterfaceOperational extends SomNode {
   InterfaceOperationalSupportForm get support => InterfaceOperationalSupportForm(doc, '$path/INOPSU');
 
   /// Operational dependencies.
-  SomList<DependencyEntry> get dependencies => SomList<DependencyEntry>(doc, '$path/DEPEN-DEPE-LST', (d, p) => DependencyEntry(d, p), pattern: 'DEPEN-DEPE-xxx');
+  SomList<SomScalar> get dependencies => SomList<SomScalar>(doc, '$path/DEPEN-DEPE-LST', (d, p) => SomScalar(d, p), pattern: 'DEPEN-DEPE-xxx');
 }
 
 /// Security specification for an interface.
@@ -11383,17 +11185,6 @@ class JourneyStageEntry extends SomNode {
   JourneyStageEntryContentForm get content => JourneyStageEntryContentForm(doc, '$path/content');
 }
 
-/// A single key assumption entry.
-class KeyAssumptionEntry extends SomNode {
-  KeyAssumptionEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// A key attribute entry (form).
 /// 
 /// Specification for primary, foreign, alternate, and composite keys.
@@ -11580,56 +11371,12 @@ class KeyStoragePolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// A single key touchpoint entry.
-class KeyTouchpointEntry extends SomNode {
-  KeyTouchpointEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 15.7. Knowledge Transfer.
 /// 
 /// Handover from delivery team to operations. Covers handover-agreement
 /// content.
 class KnowledgeTransfer extends SomNode {
   KnowledgeTransfer(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// A single known issue entry.
-class KnownIssueEntry extends SomNode {
-  KnownIssueEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// A single known quality issue entry.
-class KnownQualityIssueEntry extends SomNode {
-  KnownQualityIssueEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// A single kpi entry.
-class KpiEntry extends SomNode {
-  KpiEntry(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -12141,17 +11888,6 @@ class MaintenanceDependencyEntry extends SomNode {
   MaintenanceDependencyEntryRiskForm get risk => MaintenanceDependencyEntryRiskForm(doc, '$path/MDER');
 }
 
-/// A single maintenance procedure entry.
-class MaintenanceProcedureEntry extends SomNode {
-  MaintenanceProcedureEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// User impact and communication.
 class MaintenanceUserImpact extends SomNode {
   MaintenanceUserImpact(super.doc, super.path);
@@ -12220,17 +11956,6 @@ class MaintenanceWindowsSection extends SomNode {
 
   /// Post-maintenance validation.
   PostMaintenanceValidation get postMaintenance => PostMaintenanceValidation(doc, '$path/postMaintenance');
-}
-
-/// A single mapping rule entry.
-class MappingRuleEntry extends SomNode {
-  MappingRuleEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// Master data domain entry.
@@ -12396,18 +12121,7 @@ class MfaConfiguration extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// MFA Implementation Details (text).
-  SomList<MfaDetailEntry> get mfaDetails => SomList<MfaDetailEntry>(doc, '$path/MFADE-MFAD-LST', (d, p) => MfaDetailEntry(d, p), pattern: 'MFADE-MFAD-xxx');
-}
-
-/// A single mfa detail entry.
-class MfaDetailEntry extends SomNode {
-  MfaDetailEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get mfaDetails => SomList<SomScalar>(doc, '$path/MFADE-MFAD-LST', (d, p) => SomScalar(d, p), pattern: 'MFADE-MFAD-xxx');
 }
 
 /// 4.4.2. Migration Considerations (global).
@@ -12451,7 +12165,7 @@ class MigrationConsiderations extends SomNode {
   // (skipped: communicationPlan has no target type)
 
   /// Escalation procedures during migration.
-  SomList<EscalationProcedureEntry> get escalationProcedures => SomList<EscalationProcedureEntry>(doc, '$path/ESCAL-ESCA-LST', (d, p) => EscalationProcedureEntry(d, p), pattern: 'ESCAL-ESCA-xxx');
+  SomList<SomScalar> get escalationProcedures => SomList<SomScalar>(doc, '$path/ESCAL-ESCA-LST', (d, p) => SomScalar(d, p), pattern: 'ESCAL-ESCA-xxx');
 }
 
 /// Environment strategy for migration.
@@ -12684,16 +12398,16 @@ class MigrationRisks extends SomNode {
   // (skipped: assessmentMethodology has no target type)
 
   /// Risk categories and taxonomy.
-  SomList<RiskCategoryEntry> get riskCategories => SomList<RiskCategoryEntry>(doc, '$path/RISKC-RISK-LST', (d, p) => RiskCategoryEntry(d, p), pattern: 'RISKC-RISK-xxx');
+  SomList<SomScalar> get riskCategories => SomList<SomScalar>(doc, '$path/RISKC-RISK-LST', (d, p) => SomScalar(d, p), pattern: 'RISKC-RISK-xxx');
 
   /// Risk-based decision making criteria.
-  SomList<RiskBasedDecisionEntry> get riskBasedDecisions => SomList<RiskBasedDecisionEntry>(doc, '$path/RISKB-RISK-LST', (d, p) => RiskBasedDecisionEntry(d, p), pattern: 'RISKB-RISK-xxx');
+  SomList<SomScalar> get riskBasedDecisions => SomList<SomScalar>(doc, '$path/RISKB-RISK-LST', (d, p) => SomScalar(d, p), pattern: 'RISKB-RISK-xxx');
 
   /// Risk monitoring and control procedures.
-  SomList<MonitoringProcedureEntry> get monitoringProcedures => SomList<MonitoringProcedureEntry>(doc, '$path/MONIT-MONI-LST', (d, p) => MonitoringProcedureEntry(d, p), pattern: 'MONIT-MONI-xxx');
+  SomList<SomScalar> get monitoringProcedures => SomList<SomScalar>(doc, '$path/MONIT-MONI-LST', (d, p) => SomScalar(d, p), pattern: 'MONIT-MONI-xxx');
 
   /// Risk response strategies by category.
-  SomList<ResponseStrategyEntry> get responseStrategies => SomList<ResponseStrategyEntry>(doc, '$path/RESPO-RESP-LST', (d, p) => ResponseStrategyEntry(d, p), pattern: 'RESPO-RESP-xxx');
+  SomList<SomScalar> get responseStrategies => SomList<SomScalar>(doc, '$path/RESPO-RESP-LST', (d, p) => SomScalar(d, p), pattern: 'RESPO-RESP-xxx');
 
   /// Risk aggregation and portfolio view.
   // (skipped: riskAggregation has no target type)
@@ -12921,17 +12635,6 @@ class MonitoringInfrastructure extends SomNode {
 
   /// Access and privacy controls.
   MonitoringInfrastructureAccessForm get access => MonitoringInfrastructureAccessForm(doc, '$path/MOINAC');
-}
-
-/// A single monitoring procedure entry.
-class MonitoringProcedureEntry extends SomNode {
-  MonitoringProcedureEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// 13.4.1. MoSCoW Analysis.
@@ -13457,17 +13160,6 @@ class NewRoleResponsibilities extends SomNode {
   NewRoleResponsibilitiesDecisionAuthorityForm get decisionAuthority => NewRoleResponsibilitiesDecisionAuthorityForm(doc, '$path/RODEAU');
 }
 
-/// A single non financial benefit entry.
-class NonFinancialBenefitEntry extends SomNode {
-  NonFinancialBenefitEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// A notification channel entry.
 class NotificationChannelEntry extends SomNode {
   NotificationChannelEntry(super.doc, super.path);
@@ -13539,17 +13231,6 @@ class ObjectStateEntry extends SomNode {
   ObjectStateEntry(super.doc, super.path);
 
   ObjectStateEntryContentForm get content => ObjectStateEntryContentForm(doc, '$path/content');
-}
-
-/// A single observability requirement entry.
-class ObservabilityRequirementEntry extends SomNode {
-  ObservabilityRequirementEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// On-call procedures.
@@ -13868,16 +13549,16 @@ class OrganizationalEnvironment extends SomNode {
   SomList<DecisionMakerEntry> get decisionMakers => SomList<DecisionMakerEntry>(doc, '$path/DEMAEN-DECI-LST', (d, p) => DecisionMakerEntry(d, p), pattern: 'DEMAEN-DECI-xxx');
 
   /// Cultural considerations and organizational dynamics.
-  SomList<CulturalConsiderationEntry> get culturalConsiderations => SomList<CulturalConsiderationEntry>(doc, '$path/CULTU-CULT-LST', (d, p) => CulturalConsiderationEntry(d, p), pattern: 'CULTU-CULT-xxx');
+  SomList<SomScalar> get culturalConsiderations => SomList<SomScalar>(doc, '$path/CULTU-CULT-LST', (d, p) => SomScalar(d, p), pattern: 'CULTU-CULT-xxx');
 
   /// Stakeholder communication preferences.
-  SomList<CommunicationPreferenceEntry> get communicationPreferences => SomList<CommunicationPreferenceEntry>(doc, '$path/COMMU-COMM-LST', (d, p) => CommunicationPreferenceEntry(d, p), pattern: 'COMMU-COMM-xxx');
+  SomList<SomScalar> get communicationPreferences => SomList<SomScalar>(doc, '$path/COMMU-COMM-LST', (d, p) => SomScalar(d, p), pattern: 'COMMU-COMM-xxx');
 
   /// Political dynamics and influence patterns.
   // (skipped: politicalLandscape has no target type)
 
   /// Change champions and sponsors.
-  SomList<ChangeAdvocateEntry> get changeAdvocates => SomList<ChangeAdvocateEntry>(doc, '$path/CHANG-CHAN-LST', (d, p) => ChangeAdvocateEntry(d, p), pattern: 'CHANG-CHAN-xxx');
+  SomList<SomScalar> get changeAdvocates => SomList<SomScalar>(doc, '$path/CHANG-CHAN-LST', (d, p) => SomScalar(d, p), pattern: 'CHANG-CHAN-xxx');
 }
 
 /// 5. Organizational Framework.
@@ -14693,17 +14374,6 @@ class PreconditionsAndTriggers extends SomNode {
   PreconditionsAndTriggersContentForm get content => PreconditionsAndTriggersContentForm(doc, '$path/content');
 }
 
-/// A single predecessor dependency entry.
-class PredecessorDependencyEntry extends SomNode {
-  PredecessorDependencyEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 10.3.1.3. Primary Navigation.
 /// 
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
@@ -14821,7 +14491,7 @@ class ProblemStatement extends SomNode {
   ProblemStatementProblemDetailsForm get problemDetails => ProblemStatementProblemDetailsForm(doc, '$path/problemDetails');
 
   /// Related pain points from Current State Analysis.
-  SomList<RelatedPainPointEntry> get relatedPainPoints => SomList<RelatedPainPointEntry>(doc, '$path/RPPE-RELA-LST', (d, p) => RelatedPainPointEntry(d, p), pattern: 'RPPE-RELA-xxx');
+  SomList<SomScalar> get relatedPainPoints => SomList<SomScalar>(doc, '$path/RPPE-RELA-LST', (d, p) => SomScalar(d, p), pattern: 'RPPE-RELA-xxx');
 }
 
 /// Details for process adjustment.
@@ -15774,7 +15444,7 @@ class QualityFramework extends SomNode {
   SomList<QualityCategoryEntry> get qualityCategories => SomList<QualityCategoryEntry>(doc, '$path/QCATE-QUAL-LST', (d, p) => QualityCategoryEntry(d, p), pattern: 'QCATE-QUAL-xxx');
 
   /// Quality dependencies map.
-  SomList<CategoryDependencyEntry> get categoryDependencies => SomList<CategoryDependencyEntry>(doc, '$path/CATEG-CATE-LST', (d, p) => CategoryDependencyEntry(d, p), pattern: 'CATEG-CATE-xxx');
+  SomList<SomScalar> get categoryDependencies => SomList<SomScalar>(doc, '$path/CATEG-CATE-LST', (d, p) => SomScalar(d, p), pattern: 'CATEG-CATE-xxx');
 }
 
 /// Gate details.
@@ -15983,17 +15653,6 @@ class ReadinessCriteriaEntry extends SomNode {
   ReadinessCriteriaEntryContentForm get content => ReadinessCriteriaEntryContentForm(doc, '$path/content');
 }
 
-/// A single recovery flow entry.
-class RecoveryFlowEntry extends SomNode {
-  RecoveryFlowEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// Recovery procedures.
 class RecoveryProcedures extends SomNode {
   RecoveryProcedures(super.doc, super.path);
@@ -16162,17 +15821,6 @@ class RelatedDocumentEntry extends SomNode {
   RelatedDocumentEntry(super.doc, super.path);
 
   RelatedDocumentEntryContentForm get content => RelatedDocumentEntryContentForm(doc, '$path/content');
-}
-
-/// A single related pain point entry.
-class RelatedPainPointEntry extends SomNode {
-  RelatedPainPointEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A single relationship attribute entry.
@@ -16529,17 +16177,6 @@ class ReportSectionEntry extends SomNode {
   SomList<ReportChartEntry> get charts => SomList<ReportChartEntry>(doc, '$path/RECHEN-CHAR-LST', (d, p) => ReportChartEntry(d, p), pattern: 'RECHEN-CHAR-xxx');
 }
 
-/// A single representative quote entry.
-class RepresentativeQuoteEntry extends SomNode {
-  RepresentativeQuoteEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 4.3.1.n.1. Acceptance Criteria.
 /// 
 /// Testable conditions that must be met for the requirement to be accepted.
@@ -16882,17 +16519,6 @@ class ResourceRequirementEntry extends SomNode {
   ResourceRequirementEntryContentForm get content => ResourceRequirementEntryContentForm(doc, '$path/content');
 }
 
-/// A single response strategy entry.
-class ResponseStrategyEntry extends SomNode {
-  ResponseStrategyEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// Responsibility change entry (form).
 class ResponsibilityChangeEntry extends SomNode {
   ResponsibilityChangeEntry(super.doc, super.path);
@@ -17196,17 +16822,6 @@ class RevisionHistory extends SomNode {
   SomList<RevisionEntry> get revisions => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p), pattern: 'RVHST-REVS-xxx');
 }
 
-/// A single risk based decision entry.
-class RiskBasedDecisionEntry extends SomNode {
-  RiskBasedDecisionEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// Business impact assessment for the risk.
 class RiskBusinessImpact extends SomNode {
   RiskBusinessImpact(super.doc, super.path);
@@ -17218,17 +16833,6 @@ class RiskBusinessImpact extends SomNode {
 
   /// Operational and delivery consequences.
   RiskBusinessImpactDeliveryForm get delivery => RiskBusinessImpactDeliveryForm(doc, '$path/RBID');
-}
-
-/// A single risk category entry.
-class RiskCategoryEntry extends SomNode {
-  RiskCategoryEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A risk entry (form).
@@ -17822,17 +17426,6 @@ class ScheduledMaintenancePolicy extends SomNode {
   ScheduledMaintenancePolicyApprovalForm get approval => ScheduledMaintenancePolicyApprovalForm(doc, '$path/SMPA');
 }
 
-/// A single scope assumption entry.
-class ScopeAssumptionEntry extends SomNode {
-  ScopeAssumptionEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 4.1.1.6. Scope Boundaries.
 /// 
 /// Clear definition of what is in scope and out of scope for this system.
@@ -17856,7 +17449,7 @@ class ScopeBoundaries extends SomNode {
   SomList<DeferredScopeItemEntry> get deferredItems => SomList<DeferredScopeItemEntry>(doc, '$path/DFSCP-DEFE-LST', (d, p) => DeferredScopeItemEntry(d, p), pattern: 'DFSCP-DEFE-xxx');
 
   /// Scope Assumptions.
-  SomList<ScopeAssumptionEntry> get scopeAssumptions => SomList<ScopeAssumptionEntry>(doc, '$path/SCOPE-SCOP-LST', (d, p) => ScopeAssumptionEntry(d, p), pattern: 'SCOPE-SCOP-xxx');
+  SomList<SomScalar> get scopeAssumptions => SomList<SomScalar>(doc, '$path/SCOPE-SCOP-LST', (d, p) => SomScalar(d, p), pattern: 'SCOPE-SCOP-xxx');
 }
 
 /// A scope item entry (in-scope or out-of-scope).
@@ -18379,17 +17972,6 @@ class SecurityCodeReviewPolicy extends SomNode {
 
   /// Finding management and residual risk handling.
   SecurityCodeReviewPolicyFindingsForm get findings => SecurityCodeReviewPolicyFindingsForm(doc, '$path/SCRPF');
-}
-
-/// A single security concern entry.
-class SecurityConcernEntry extends SomNode {
-  SecurityConcernEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// A security control entry (form).
@@ -19115,17 +18697,6 @@ class SharedLibraryEntry extends SomNode {
   SharedLibraryEntryLifecycleForm get lifecycle => SharedLibraryEntryLifecycleForm(doc, '$path/SLEL');
 }
 
-/// A single shared service entry.
-class SharedServiceEntry extends SomNode {
-  SharedServiceEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-}
-
 /// 14.2.5. Sign-off Process.
 /// 
 /// Formal sign-off process: who signs off (business acceptance board,
@@ -19775,21 +19346,10 @@ class StagingStrategy extends SomNode {
   // (skipped: rationaleNarrative has no target type)
 
   /// 13.1.3. Key Assumptions.
-  SomList<KeyAssumptionEntry> get keyAssumptions => SomList<KeyAssumptionEntry>(doc, '$path/KEYAS-KEYA-LST', (d, p) => KeyAssumptionEntry(d, p), pattern: 'KEYAS-KEYA-xxx');
+  SomList<SomScalar> get keyAssumptions => SomList<SomScalar>(doc, '$path/KEYAS-KEYA-LST', (d, p) => SomScalar(d, p), pattern: 'KEYAS-KEYA-xxx');
 
   /// 13.1.4. Constraints.
-  SomList<StagingStrategyConstraintEntry> get constraints => SomList<StagingStrategyConstraintEntry>(doc, '$path/STAGI-CONS-LST', (d, p) => StagingStrategyConstraintEntry(d, p), pattern: 'STAGI-CONS-xxx');
-}
-
-/// A single constraint entry.
-class StagingStrategyConstraintEntry extends SomNode {
-  StagingStrategyConstraintEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get constraints => SomList<SomScalar>(doc, '$path/STAGI-CONS-LST', (d, p) => SomScalar(d, p), pattern: 'STAGI-CONS-xxx');
 }
 
 /// A stakeholder or beneficiary entry — benefits lens (form).
@@ -19999,18 +19559,7 @@ class StepUpAuthenticationPolicy extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// Step-Up Authentication Details (text).
-  SomList<StepUpDetailEntry> get stepUpDetails => SomList<StepUpDetailEntry>(doc, '$path/STEPU-STEP-LST', (d, p) => StepUpDetailEntry(d, p), pattern: 'STEPU-STEP-xxx');
-}
-
-/// A single step up detail entry.
-class StepUpDetailEntry extends SomNode {
-  StepUpDetailEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get stepUpDetails => SomList<SomScalar>(doc, '$path/STEPU-STEP-LST', (d, p) => SomScalar(d, p), pattern: 'STEPU-STEP-xxx');
 }
 
 /// Storage encryption policy — how files and storage volumes are encrypted
@@ -20415,7 +19964,7 @@ class SystemCostAnalysis extends SomNode {
   // (skipped: costBreakdown has no target type)
 
   /// Non-financial benefits to include in ROI.
-  SomList<NonFinancialBenefitEntry> get nonFinancialBenefits => SomList<NonFinancialBenefitEntry>(doc, '$path/NONFI-NONF-LST', (d, p) => NonFinancialBenefitEntry(d, p), pattern: 'NONFI-NONF-xxx');
+  SomList<SomScalar> get nonFinancialBenefits => SomList<SomScalar>(doc, '$path/NONFI-NONF-LST', (d, p) => SomScalar(d, p), pattern: 'NONFI-NONF-xxx');
 }
 
 /// Data scope and migration assessment.
@@ -20434,7 +19983,7 @@ class SystemDataScope extends SomNode {
   SomList<DataEntityMigrationEntry> get entities => SomList<DataEntityMigrationEntry>(doc, '$path/DEME-ENTI-LST', (d, p) => DataEntityMigrationEntry(d, p), pattern: 'DEME-ENTI-xxx');
 
   /// Data quality issues to address.
-  SomList<KnownQualityIssueEntry> get knownQualityIssues => SomList<KnownQualityIssueEntry>(doc, '$path/KNOWN-KNOW-LST', (d, p) => KnownQualityIssueEntry(d, p), pattern: 'KNOWN-KNOW-xxx');
+  SomList<SomScalar> get knownQualityIssues => SomList<SomScalar>(doc, '$path/KNOWN-KNOW-LST', (d, p) => SomScalar(d, p), pattern: 'KNOWN-KNOW-xxx');
 }
 
 /// A system dependency entry (form).
@@ -20551,7 +20100,7 @@ class SystemErrorDisplay extends SomNode {
   // (skipped: systemErrorNarrative has no target type)
 
   /// Error page designs.
-  SomList<ErrorPageDesignEntry> get errorPageDesigns => SomList<ErrorPageDesignEntry>(doc, '$path/EPDE-ERRO-LST', (d, p) => ErrorPageDesignEntry(d, p), pattern: 'EPDE-ERRO-xxx');
+  SomList<SomScalar> get errorPageDesigns => SomList<SomScalar>(doc, '$path/EPDE-ERRO-LST', (d, p) => SomScalar(d, p), pattern: 'EPDE-ERRO-xxx');
 
   /// Error codes catalog.
   SomList<SystemErrorCodeEntry> get errorCodes => SomList<SystemErrorCodeEntry>(doc, '$path/SECE-ERRO-LST', (d, p) => SystemErrorCodeEntry(d, p), pattern: 'SECE-ERRO-xxx');
@@ -20614,7 +20163,7 @@ class SystemKnowledgeTransfer extends SomNode {
   SystemKnowledgeTransferContentForm get content => SystemKnowledgeTransferContentForm(doc, '$path/content');
 
   /// Critical knowledge areas to preserve.
-  SomList<CriticalKnowledgeAreaEntry> get criticalKnowledgeAreas => SomList<CriticalKnowledgeAreaEntry>(doc, '$path/CRITI-CRIT-LST', (d, p) => CriticalKnowledgeAreaEntry(d, p), pattern: 'CRITI-CRIT-xxx');
+  SomList<SomScalar> get criticalKnowledgeAreas => SomList<SomScalar>(doc, '$path/CRITI-CRIT-LST', (d, p) => SomScalar(d, p), pattern: 'CRITI-CRIT-xxx');
 
   /// Knowledge transfer plan if SME risk is high.
   // (skipped: knowledgeTransferPlan has no target type)
@@ -20676,7 +20225,7 @@ class SystemOperation extends SomNode {
   AdministrationRequirementsSection get administrationRequirements => AdministrationRequirementsSection(doc, '$path/administrationRequirements');
 
   /// Maintenance Procedures.
-  SomList<MaintenanceProcedureEntry> get maintenanceProcedures => SomList<MaintenanceProcedureEntry>(doc, '$path/MAINT-MAIN-LST', (d, p) => MaintenanceProcedureEntry(d, p), pattern: 'MAINT-MAIN-xxx');
+  SomList<SomScalar> get maintenanceProcedures => SomList<SomScalar>(doc, '$path/MAINT-MAIN-LST', (d, p) => SomScalar(d, p), pattern: 'MAINT-MAIN-xxx');
 }
 
 /// 8.7. System Operation and Monitoring.
@@ -20770,7 +20319,7 @@ class SystemQualityGoals extends SomNode {
   // (skipped: qaStrategy has no target type)
 
   /// Quality attribute interdependencies.
-  SomList<AttributeInterdependencyEntry> get attributeInterdependencies => SomList<AttributeInterdependencyEntry>(doc, '$path/ATTRI-ATTR-LST', (d, p) => AttributeInterdependencyEntry(d, p), pattern: 'ATTRI-ATTR-xxx');
+  SomList<SomScalar> get attributeInterdependencies => SomList<SomScalar>(doc, '$path/ATTRI-ATTR-LST', (d, p) => SomScalar(d, p), pattern: 'ATTRI-ATTR-xxx');
 
   /// Quality attribute priority radar.
   // (skipped: qualityRadar has no target type)
@@ -20833,7 +20382,7 @@ class SystemReplacementStrategy extends SomNode {
   SomList<ReplacementPhaseEntry> get phases => SomList<ReplacementPhaseEntry>(doc, '$path/REPPHS-PHAS-LST', (d, p) => ReplacementPhaseEntry(d, p), pattern: 'REPPHS-PHAS-xxx');
 
   /// Predecessor systems that must be addressed first.
-  SomList<PredecessorDependencyEntry> get predecessorDependencies => SomList<PredecessorDependencyEntry>(doc, '$path/PREDE-PRED-LST', (d, p) => PredecessorDependencyEntry(d, p), pattern: 'PREDE-PRED-xxx');
+  SomList<SomScalar> get predecessorDependencies => SomList<SomScalar>(doc, '$path/PREDE-PRED-LST', (d, p) => SomScalar(d, p), pattern: 'PREDE-PRED-xxx');
 
   /// Success criteria for replacement completion.
   // (skipped: successCriteria has no target type)
@@ -20972,21 +20521,10 @@ class SystemTaskEntry extends SomNode {
   set relatedUseCase(String value) => doc.setContent('$path/SYTS-RELA-REF', value);
 
   /// Task workflow steps.
-  SomList<SystemTaskWorkflowStepEntry> get workflowSteps => SomList<SystemTaskWorkflowStepEntry>(doc, '$path/SYSTE-WORK-LST', (d, p) => SystemTaskWorkflowStepEntry(d, p), pattern: 'SYSTE-WORK-xxx');
+  SomList<SomScalar> get workflowSteps => SomList<SomScalar>(doc, '$path/SYSTE-WORK-LST', (d, p) => SomScalar(d, p), pattern: 'SYSTE-WORK-xxx');
 
   /// Variations and exceptions.
-  SomList<VariationsAndExceptionEntry> get variationsAndExceptions => SomList<VariationsAndExceptionEntry>(doc, '$path/VARIA-VARI-LST', (d, p) => VariationsAndExceptionEntry(d, p), pattern: 'VARIA-VARI-xxx');
-}
-
-/// A single workflow step entry.
-class SystemTaskWorkflowStepEntry extends SomNode {
-  SystemTaskWorkflowStepEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get variationsAndExceptions => SomList<SomScalar>(doc, '$path/VARIA-VARI-LST', (d, p) => SomScalar(d, p), pattern: 'VARIA-VARI-xxx');
 }
 
 /// Technical assessment for a system to replace.
@@ -21005,10 +20543,10 @@ class SystemTechnicalAssessment extends SomNode {
   SystemTechnicalAssessmentQualityForm get quality => SystemTechnicalAssessmentQualityForm(doc, '$path/STAQ');
 
   /// Known technical issues and deficiencies.
-  SomList<KnownIssueEntry> get knownIssues => SomList<KnownIssueEntry>(doc, '$path/KIE-KNOW-LST', (d, p) => KnownIssueEntry(d, p), pattern: 'KIE-KNOW-xxx');
+  SomList<SomScalar> get knownIssues => SomList<SomScalar>(doc, '$path/KIE-KNOW-LST', (d, p) => SomScalar(d, p), pattern: 'KIE-KNOW-xxx');
 
   /// Security vulnerabilities and compliance gaps.
-  SomList<SecurityConcernEntry> get securityConcerns => SomList<SecurityConcernEntry>(doc, '$path/SECUR-SECU-LST', (d, p) => SecurityConcernEntry(d, p), pattern: 'SECUR-SECU-xxx');
+  SomList<SomScalar> get securityConcerns => SomList<SomScalar>(doc, '$path/SECUR-SECU-LST', (d, p) => SomScalar(d, p), pattern: 'SECUR-SECU-xxx');
 }
 
 /// A system to replace entry (form).
@@ -21299,7 +20837,7 @@ class TechnicalEnvironment extends SomNode {
   // (skipped: existingInfrastructure has no target type)
 
   /// Data center and hosting environment details.
-  SomList<DatacenterEntry> get datacenters => SomList<DatacenterEntry>(doc, '$path/DATAC-DATA-LST', (d, p) => DatacenterEntry(d, p), pattern: 'DATAC-DATA-xxx');
+  SomList<SomScalar> get datacenters => SomList<SomScalar>(doc, '$path/DATAC-DATA-LST', (d, p) => SomScalar(d, p), pattern: 'DATAC-DATA-xxx');
 
   /// Network topology and connectivity constraints.
   // (skipped: networkTopology has no target type)
@@ -21324,10 +20862,10 @@ class TechnicalEnvironmentNetwork extends SomNode {
   TechnicalEnvironmentNetworkContentForm get content => TechnicalEnvironmentNetworkContentForm(doc, '$path/content');
 
   /// DevOps and deployment standards.
-  SomList<DevopsStandardEntry> get devopsStandards => SomList<DevopsStandardEntry>(doc, '$path/DEVOP-DEVO-LST', (d, p) => DevopsStandardEntry(d, p), pattern: 'DEVOP-DEVO-xxx');
+  SomList<SomScalar> get devopsStandards => SomList<SomScalar>(doc, '$path/DEVOP-DEVO-LST', (d, p) => SomScalar(d, p), pattern: 'DEVOP-DEVO-xxx');
 
   /// Monitoring and observability requirements.
-  SomList<ObservabilityRequirementEntry> get observabilityRequirements => SomList<ObservabilityRequirementEntry>(doc, '$path/OBSER-OBSE-LST', (d, p) => ObservabilityRequirementEntry(d, p), pattern: 'OBSER-OBSE-xxx');
+  SomList<SomScalar> get observabilityRequirements => SomList<SomScalar>(doc, '$path/OBSER-OBSE-LST', (d, p) => SomScalar(d, p), pattern: 'OBSER-OBSE-xxx');
 
   /// Disaster recovery and business continuity requirements.
   // (skipped: disasterRecovery has no target type)
@@ -23089,25 +22627,14 @@ class UserJourney extends SomNode {
   SomList<JourneyStageEntry> get stages => SomList<JourneyStageEntry>(doc, '$path/JRNST-STAG-LST', (d, p) => JourneyStageEntry(d, p), pattern: 'JRNST-STAG-xxx');
 
   /// Key touchpoints.
-  SomList<KeyTouchpointEntry> get keyTouchpoints => SomList<KeyTouchpointEntry>(doc, '$path/KEYTO-KEYT-LST', (d, p) => KeyTouchpointEntry(d, p), pattern: 'KEYTO-KEYT-xxx');
+  SomList<SomScalar> get keyTouchpoints => SomList<SomScalar>(doc, '$path/KEYTO-KEYT-LST', (d, p) => SomScalar(d, p), pattern: 'KEYTO-KEYT-xxx');
 
   /// Pain points in the journey.
-  SomList<UserJourneyPainPointEntry> get painPoints => SomList<UserJourneyPainPointEntry>(doc, '$path/USERJ-PAIN-LST', (d, p) => UserJourneyPainPointEntry(d, p), pattern: 'USERJ-PAIN-xxx');
+  SomList<SomScalar> get painPoints => SomList<SomScalar>(doc, '$path/USERJ-PAIN-LST', (d, p) => SomScalar(d, p), pattern: 'USERJ-PAIN-xxx');
 
   /// Opportunities for delight.
   String get opportunitiesForDelight => doc.content('$path/UJ-OPPO') ?? '';
   set opportunitiesForDelight(String value) => doc.setContent('$path/UJ-OPPO', value);
-}
-
-/// A single pain point entry.
-class UserJourneyPainPointEntry extends SomNode {
-  UserJourneyPainPointEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// 9.1.2. User Lifecycle.
@@ -23278,7 +22805,7 @@ class UserPersonaDetails extends SomNode {
   set visualRepresentation(String value) => doc.setContent('$path/UPD-VISU', value);
 
   /// Key quotes that represent this persona's mindset.
-  SomList<RepresentativeQuoteEntry> get representativeQuotes => SomList<RepresentativeQuoteEntry>(doc, '$path/REPRE-REPR-LST', (d, p) => RepresentativeQuoteEntry(d, p), pattern: 'REPRE-REPR-xxx');
+  SomList<SomScalar> get representativeQuotes => SomList<SomScalar>(doc, '$path/REPRE-REPR-LST', (d, p) => SomScalar(d, p), pattern: 'REPRE-REPR-xxx');
 }
 
 /// 10.1.3. User Personas.
@@ -23448,7 +22975,7 @@ class ValidationFeedback extends SomNode {
   SomList<ValidationMessageTemplate> get messageTemplates => SomList<ValidationMessageTemplate>(doc, '$path/VAMETE-MESS-LST', (d, p) => ValidationMessageTemplate(d, p), pattern: 'VAMETE-MESS-xxx');
 
   /// Field validation rules by type.
-  SomList<FieldValidationRuleEntry> get fieldValidationRules => SomList<FieldValidationRuleEntry>(doc, '$path/FIELD-FIEL-LST', (d, p) => FieldValidationRuleEntry(d, p), pattern: 'FIELD-FIEL-xxx');
+  SomList<SomScalar> get fieldValidationRules => SomList<SomScalar>(doc, '$path/FIELD-FIEL-LST', (d, p) => SomScalar(d, p), pattern: 'FIELD-FIEL-xxx');
 }
 
 /// A validation message template.
@@ -23456,17 +22983,6 @@ class ValidationMessageTemplate extends SomNode {
   ValidationMessageTemplate(super.doc, super.path);
 
   ValidationMessageTemplateContentForm get content => ValidationMessageTemplateContentForm(doc, '$path/content');
-}
-
-/// A single validation rule entry.
-class ValidationRuleEntry extends SomNode {
-  ValidationRuleEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// 4.1.1.4. Value Proposition.
@@ -23492,18 +23008,7 @@ class ValueProposition extends SomNode {
   ValuePropositionReturnProfileForm get returnProfile => ValuePropositionReturnProfileForm(doc, '$path/VALRP');
 
   /// Key Performance Indicators for value measurement.
-  SomList<KpiEntry> get kpis => SomList<KpiEntry>(doc, '$path/KPIEN-KPIS-LST', (d, p) => KpiEntry(d, p), pattern: 'KPIEN-KPIS-xxx');
-}
-
-/// A single variations and exception entry.
-class VariationsAndExceptionEntry extends SomNode {
-  VariationsAndExceptionEntry(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SomList<SomScalar> get kpis => SomList<SomScalar>(doc, '$path/KPIEN-KPIS-LST', (d, p) => SomScalar(d, p), pattern: 'KPIEN-KPIS-xxx');
 }
 
 /// Version control configuration.
