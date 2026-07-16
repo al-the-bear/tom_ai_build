@@ -721,10 +721,18 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   // The container heading: its id is the list's `-LST` @SectionId (else the
   // member segment for a pattern-less list); its title is the member name.
   mdWriteHeading(b, depth, headingIdOf(c, node), mdTitleOf(node));
+  // Item heading stem. Complex lists derive it from the element class name
+  // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
+  // its element typeName is literally `String`, which would render "String 1",
+  // "String 2". Derive the stem from the list FIELD instead (its member name,
+  // Title-Cased like the container heading) so a populated scalar list gets
+  // meaningful per-item headings (YRC5).
   const SomMetaNode* element = node.elementNode.get();
-  std::string stemSource =
-      element != nullptr ? element->className : node.typeName;
-  std::string stem = itemTitleStem(stemSource);
+  std::string stem =
+      element != nullptr
+          ? itemTitleStem(element->className)
+          : titleCase(!node.memberName.empty() ? node.memberName
+                                               : node.segment());
   std::string pattern = node.sectionIdPattern;
   if (pattern.empty() && element != nullptr) {
     pattern = element->sectionIdPattern;

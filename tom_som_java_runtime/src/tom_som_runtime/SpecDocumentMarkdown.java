@@ -406,9 +406,23 @@ public final class SpecDocumentMarkdown {
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name.
     writeHeading(b, depth, headingIdOf(node), titleOf(node));
+    // Item heading stem. Complex lists derive it from the element class name
+    // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
+    // — its element typeName is literally `String`, which would render
+    // "String 1", "String 2". Derive the stem from the list FIELD instead (its
+    // member name, Title-Cased like the container heading) so a populated
+    // scalar list gets meaningful per-item headings (YRC5).
     SomMetaNode element = node.elementNode;
-    String stemSource = element != null ? element.className : node.typeName;
-    String stem = itemTitleStem(stemSource);
+    String stem;
+    if (element != null) {
+      stem = itemTitleStem(element.className);
+    } else {
+      String stemMember = node.memberName;
+      if (stemMember == null || stemMember.isEmpty()) {
+        stemMember = node.segment();
+      }
+      stem = titleCase(stemMember);
+    }
     String pattern = node.sectionIdPattern;
     if ((pattern == null || pattern.isEmpty()) && element != null) {
       pattern = element.sectionIdPattern;

@@ -32,6 +32,29 @@ document:
         - general-ledger posting (delegated to the existing finance ERP via a
           published interface)
         - CRM lead management
+      SYDSC systemDescription:
+        USCA-USER-LST userCategories:
+          USCA-USER-1:
+            content:
+              categoryName: |2-
+                Order Operations Clerk
+              description: |2-
+                Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
+              userType: |2-
+                Internal
+            SYTS-SYST-LST systemTasks:
+              SYTS-SYST-1:
+                content:
+                  taskId: |2-
+                    TSK-01
+                  taskName: |2-
+                    Clear the order work list
+                  description: |2-
+                    Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
+                SYSTE-WORK-LST workflowSteps:
+                  SYSTE-WORK-1: Open the work list filtered to the Captured and Hold states.
+                  SYSTE-WORK-2: Select an order and review its lifecycle timeline.
+                  SYSTE-WORK-3: Release holds, amend lines, or confirm as the order allows.
       GOALS goals:
         content: |2-
           Primary goals:

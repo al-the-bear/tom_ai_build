@@ -517,12 +517,17 @@ class SpecDocumentMarkdown {
       this._headingIdOf(node),
       SpecDocumentMarkdown._titleOf(node),
     );
+    // Item heading stem. Complex lists derive it from the element class name
+    // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class
+    // — its element `typeName` is literally `String`, which would render
+    // "String 1", "String 2". Derive the stem from the list FIELD instead (its
+    // member name, Title-Cased like the container heading) so a populated
+    // scalar list gets meaningful per-item headings (YRC5).
     const element = node.elementNode;
-    const stem = SpecDocumentMarkdown.itemTitleStem(
+    const stem =
       element !== null && element !== undefined
-        ? element.className
-        : node.typeName,
-    );
+        ? SpecDocumentMarkdown.itemTitleStem(element.className)
+        : SpecDocumentMarkdown.titleCase(node.memberName || node.segment);
     const pattern =
       node.sectionIdPattern ||
       (element !== null && element !== undefined

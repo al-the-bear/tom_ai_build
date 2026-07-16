@@ -46,11 +46,11 @@ done
 
 ## <!--[REF-LST]--> Refs
 
-### <!--[REF-1]--> String 1
+### <!--[REF-1]--> Refs 1
 
 spec §1.2
 
-### <!--[REF-2]--> String 2
+### <!--[REF-2]--> Refs 2
 
 DR1
 
@@ -62,19 +62,19 @@ alice
 
 ### <!--[tags]--> Tags
 
-#### <!--[tags-1]--> String 1
+#### <!--[tags-1]--> Tags 1
 
 on
 
-#### <!--[tags-2]--> String 2
+#### <!--[tags-2]--> Tags 2
 
 no
 
-#### <!--[tags-3]--> String 3
+#### <!--[tags-3]--> Tags 3
 
 1:30
 
-#### <!--[tags-4]--> String 4
+#### <!--[tags-4]--> Tags 4
 
 plain
 

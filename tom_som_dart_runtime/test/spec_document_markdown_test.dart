@@ -61,6 +61,17 @@ Map<String, dynamic> _sampleJson() => {
               'elementIsComplex': true,
               'sectionId': 'D00-ITM',
             },
+            // A scalar sub-section list (`List<String>`, model shape 6): no
+            // element class, so its item heading stem must be derived from the
+            // field (member name) rather than the `String` element type (YRC5).
+            {
+              'name': 'tags',
+              'kind': 'list',
+              'elementType': 'String',
+              'elementIsComplex': false,
+              'sectionId': 'D00-TAG-LST',
+              'sectionIdPattern': 'D00-TAG-xxx',
+            },
           ],
         },
         'DemoMeta': {
@@ -116,6 +127,12 @@ SpecDocument _populated() {
   doc.setContent('$item/D01-BODY', _d4rtBody);
   final item2 = doc.addListItem('D00/D00-ITM');
   doc.setContent('$item2/D01-LBL', 'Second item');
+  // Populated scalar list: each item's value is its body (content at the item
+  // path); heading identity is positional.
+  final tag1 = doc.addListItem('D00/D00-TAG-LST');
+  doc.setContent(tag1, 'first tag');
+  final tag2 = doc.addListItem('D00/D00-TAG-LST');
+  doc.setContent(tag2, 'second tag');
   return doc;
 }
 
@@ -185,6 +202,22 @@ void main() {
       expect(md, contains('### <!--[items-1]--> Demo Item 1'));
       expect(md, contains('### <!--[items-2]--> Demo Item 2'));
       expect(md, contains('#### <!--[D01-LBL]--> Label'));
+    });
+
+    test('a populated scalar list derives item headings from the field, not '
+        'the String element type (YRC5)', () {
+      final md = _export(_populated());
+      // The `-LST` container heading uses the Title-Cased member name.
+      expect(md, contains('## <!--[D00-TAG-LST]--> Tags'));
+      // Item stem is the field name ("Tags N"), never the element `typeName`
+      // ("String N") — the shape-6 heading defect this change fixes.
+      expect(md, contains('### <!--[D00-TAG-1]--> Tags 1'));
+      expect(md, contains('### <!--[D00-TAG-2]--> Tags 2'));
+      expect(md, isNot(contains('String 1')));
+      expect(md, isNot(contains('String 2')));
+      // The scalar item values render as the item body.
+      expect(md, contains('first tag'));
+      expect(md, contains('second tag'));
     });
 
     test('the root schema description is not emitted (only stored content)',

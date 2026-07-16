@@ -539,12 +539,23 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
 	mdWriteHeading(b, depth, c.headingIdOf(node), mdTitleOf(node))
+	// Item heading stem. Complex lists derive it from the element class name
+	// (DR1 §1.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
+	// element class — its element type name is literally `String`, which would
+	// render "String 1", "String 2". Derive the stem from the list FIELD
+	// instead (its member name, Title-Cased like the container heading) so a
+	// populated scalar list gets meaningful per-item headings (YRC5).
 	element := node.ElementNode
-	stemSource := node.TypeName
+	var stem string
 	if element != nil {
-		stemSource = element.ClassName
+		stem = SpecMarkdownItemTitleStem(element.ClassName)
+	} else {
+		member := node.MemberName
+		if member == "" {
+			member = node.Segment()
+		}
+		stem = SpecMarkdownTitleCase(member)
 	}
-	stem := SpecMarkdownItemTitleStem(stemSource)
 	pattern := node.SectionIDPattern
 	if pattern == "" && element != nil {
 		pattern = element.SectionIDPattern

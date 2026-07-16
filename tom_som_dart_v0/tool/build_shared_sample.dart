@@ -74,6 +74,18 @@ Three legacy systems are decommissioned:
 - "PriceCalc" — a spreadsheet-derived pricing service
 - "BatchSync" — the nightly file exchange with the warehouse''');
 
+  // SBP.4.1 System Description -> User Categories -> System Tasks. This block
+  // is the one place the shared sample exercises a *populated scalar
+  // sub-section list* (`List<String>`, model shape 6 — an inline content list
+  // carrying both `@SectionId` and `@SectionIdPattern`): the system task's
+  // `workflowSteps`. The runtimes render a scalar list's per-item heading stem
+  // from the list FIELD ("Workflow Steps 1", "Workflow Steps 2", …) rather than
+  // the element type name (which for `List<String>` would read "String 1"); see
+  // YRC5. Populating `userCategories` makes SystemDescription (SYDSC) present,
+  // so its @Min(1) user-category list — and each entry's @Min(1) systemTasks —
+  // are satisfied here; that is the shortest cascade that reaches a shape-6 list.
+  _authorUserCategories(sbp);
+
   // SBP.3 Glossary & Abbreviations.
   sbp.glossaryAndAbbreviations.content = _md('''
 - **MOM** — Meridian Order Management.
@@ -641,6 +653,39 @@ systems daily until the < 0.1% variance gate passes.''');
     ..changeType = 'Temporary dual-running'
     ..changeComplexity = 'Medium'
     ..resistance = 'Medium';
+}
+
+// ---------------------------------------------------------------------------
+// User categories (SBP.4.1 System Description -> User Categories). Populates a
+// single representative user category with one system task whose `workflowSteps`
+// is a *non-empty scalar sub-section list* (`List<String>`, model shape 6) — the
+// sample's coverage for the YRC5 field-derived item-heading behaviour.
+// ---------------------------------------------------------------------------
+void _authorUserCategories(D00SolutionBlueprint sbp) {
+  final clerk =
+      sbp.introductionAndScope.systemDescription.userCategories.add();
+  clerk.content
+    ..categoryName = 'Order Operations Clerk'
+    ..description = _p('''
+Back-office staff who clear the order work list, amend lines, and cancel orders
+before dispatch across the wholesale and e-commerce channels.''')
+    ..userType = 'Internal';
+
+  final task = clerk.systemTasks.add();
+  task.content
+    ..taskId = 'TSK-01'
+    ..taskName = 'Clear the order work list'
+    ..description = _p('''
+Work the state-filtered order queue from capture through to confirmation,
+handling holds and amendments as they arise.''');
+  // Populated shape-6 scalar list: the runtimes derive each item's heading stem
+  // from the list field ("Workflow Steps 1", …), not the `String` element type.
+  task.workflowSteps.add().value =
+      'Open the work list filtered to the Captured and Hold states.';
+  task.workflowSteps.add().value =
+      'Select an order and review its lifecycle timeline.';
+  task.workflowSteps.add().value =
+      'Release holds, amend lines, or confirm as the order allows.';
 }
 
 /// Fills one acceptance-criterion form (Given/When/Then).

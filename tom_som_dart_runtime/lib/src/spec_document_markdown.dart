@@ -359,7 +359,16 @@ class SpecDocumentMarkdown {
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name.
     _writeHeading(b, depth, _headingIdOf(node), _titleOf(node));
-    final stem = itemTitleStem(node.elementNode?.className ?? node.typeName);
+    // Item heading stem. Complex lists derive it from the element class name
+    // (DR1 §1.5, `Entry` dropped). A scalar list (`List<String>`, shape 6) has
+    // no element class — its element `typeName` is literally `String`, which
+    // would render "String 1", "String 2". Derive the stem from the list FIELD
+    // instead (its member name, Title-Cased like the container heading) so a
+    // populated scalar list gets meaningful per-item headings (YRC5).
+    final element0 = node.elementNode;
+    final stem = element0 != null
+        ? itemTitleStem(element0.className)
+        : titleCase(node.memberName ?? node.segment);
     final pattern = node.sectionIdPattern ?? node.elementNode?.sectionIdPattern;
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];

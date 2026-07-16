@@ -704,12 +704,24 @@ impl<'a> SpecDocumentMarkdown<'a> {
         // the member segment for a pattern-less list); its title is the member
         // name.
         md_write_heading(b, depth, &self.heading_id_of(node), &md_title_of(node));
+        // Item heading stem. Complex lists derive it from the element class
+        // name (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no
+        // element class - its element `type_name` is literally `String`, which
+        // would render "String 1", "String 2". Derive the stem from the list
+        // FIELD instead (its member name, Title-Cased like the container
+        // heading) so a populated scalar list gets meaningful headings (YRC5).
         let element = node.element_node.as_ref();
-        let stem_source = match element {
-            Some(e) => e.class_name.clone(),
-            None => node.type_name.clone(),
+        let stem = match element {
+            Some(e) => spec_markdown_item_title_stem(&e.class_name),
+            None => {
+                let member = if node.member_name.is_empty() {
+                    node.segment().to_string()
+                } else {
+                    node.member_name.clone()
+                };
+                spec_markdown_title_case(&member)
+            }
         };
-        let stem = spec_markdown_item_title_stem(&stem_source);
         let mut pattern = node.section_id_pattern.clone();
         if pattern.is_empty() {
             if let Some(e) = element {

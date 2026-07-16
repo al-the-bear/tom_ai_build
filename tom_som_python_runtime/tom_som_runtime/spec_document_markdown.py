@@ -443,9 +443,17 @@ class SpecDocumentMarkdown:
         self._write_heading(
             b, depth, self._heading_id_of(node), self._title_of(node)
         )
+        # Item heading stem. Complex lists derive it from the element class name
+        # (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element
+        # class - its element ``type_name`` is literally ``String``, which would
+        # render "String 1", "String 2". Derive the stem from the list FIELD
+        # instead (its member name, Title-Cased like the container heading) so a
+        # populated scalar list gets meaningful per-item headings (YRC5).
         element = node.element_node
-        stem = self.item_title_stem(
-            element.class_name if element is not None else node.type_name
+        stem = (
+            self.item_title_stem(element.class_name)
+            if element is not None
+            else self.title_case(node.member_name or node.segment)
         )
         pattern = node.section_id_pattern or (
             element.section_id_pattern if element is not None else None

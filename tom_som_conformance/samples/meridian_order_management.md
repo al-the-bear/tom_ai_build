@@ -32,6 +32,38 @@ Out of scope:
   published interface)
 - CRM lead management
 
+### <!--[SYDSC]--> System Description
+
+#### <!--[USCA-USER-LST]--> User Categories
+
+##### <!--[USCA-USER-1]--> User Category 1
+
+CategoryName: Order Operations Clerk
+Description: Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
+UserType: Internal
+
+###### <!--[SYTS-SYST-LST]--> System Tasks
+
+####### <!--[SYTS-SYST-1]--> System Task 1
+
+TaskId: TSK-01
+TaskName: Clear the order work list
+Description: Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
+
+######## <!--[SYSTE-WORK-LST]--> Workflow Steps
+
+######### <!--[SYSTE-WORK-1]--> Workflow Steps 1
+
+Open the work list filtered to the Captured and Hold states.
+
+######### <!--[SYSTE-WORK-2]--> Workflow Steps 2
+
+Select an order and review its lifecycle timeline.
+
+######### <!--[SYSTE-WORK-3]--> Workflow Steps 3
+
+Release holds, amend lines, or confirm as the order allows.
+
 ### <!--[GOALS]--> Goals
 
 Primary goals:

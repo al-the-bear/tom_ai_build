@@ -911,10 +911,23 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     free(chid);
     free(ctitle);
   }
+  /* Item heading stem. Complex lists derive it from the element class name
+     (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
+     its element type_name is literally `String`, which would render
+     "String 1", "String 2". Derive the stem from the list FIELD instead (its
+     member name, Title-Cased like the container heading) so a populated scalar
+     list gets meaningful per-item headings (YRC5). Both branches return an
+     owned buffer freed once below. */
   const SomMetaNode *element = node->element_node;
-  const char *stem_source =
-      element != NULL ? element->class_name : node->type_name;
-  char *stem = spec_markdown_item_title_stem(stem_source);
+  char *stem;
+  if (element != NULL) {
+    stem = spec_markdown_item_title_stem(element->class_name);
+  } else {
+    const char *stem_member = node->member_name[0] != '\0'
+                                  ? node->member_name
+                                  : som_meta_node_segment(node);
+    stem = spec_markdown_title_case(stem_member);
+  }
   const char *pattern = node->section_id_pattern;
   if (pattern[0] == '\0' && element != NULL) {
     pattern = element->section_id_pattern;
