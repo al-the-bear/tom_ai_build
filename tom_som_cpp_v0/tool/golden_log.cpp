@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t2");
+  out.push_back("FORMAT\t3");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -126,7 +126,20 @@ int main(int argc, char** argv) {
       out.push_back("L\t" + p + "\t" + std::to_string(items.size()));
       for (const std::string& item : items) {
         out.push_back("I\t" + item);
+        const std::string* sid = doc.itemSectionIdOpt(item);
+        if (sid != nullptr) {
+          out.push_back("ID\t" + item + "\t" + esc(*sid));
+        }
       }
+    }
+  }
+
+  // --- Generic: every stored headline, sorted by path (FORMAT 3 / YRD3). ---
+  out.push_back("SECTION\tgeneric-headlines");
+  {
+    std::vector<std::string> paths = doc.headlinePaths();  // byte-sorted
+    for (const std::string& p : paths) {
+      out.push_back("H\t" + p + "\t" + esc(doc.headline(p)));
     }
   }
 

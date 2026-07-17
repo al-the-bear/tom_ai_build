@@ -248,6 +248,13 @@ static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
   std::string actual = som::markdownExportRoot(model, applied, model.roots[0]);
   c.check("md.parse.reexport", actual == expected,
           byte_diff("md.parse.reexport", actual, expected));
+
+  /* YRD3: the shared sample's stored list-item id and headline round-trip
+   * through md. */
+  std::string sid = applied.itemSectionId("DEMO/REF-LST-1");
+  c.check("md.parse.storedId", sid == "REF-SPEC", sid);
+  std::string hl = applied.headline("DEMO/REF-LST-1");
+  c.check("md.parse.headline", hl == "Reference to the Spec", hl);
 }
 
 static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model) {
@@ -405,6 +412,16 @@ static void test_operations(Checker& c) {
     } else if (op_name == "removeListItem") {
       bool exp = som::jsonBoolOr(op, "expect");
       c.check(tag, doc.removeListItem(som::jsonStrOr(op, "itemPath")) == exp, "");
+    } else if (op_name == "setHeadline") {
+      doc.setHeadline(som::jsonStrOr(op, "path"), som::jsonStrOr(op, "value"));
+    } else if (op_name == "headline") {
+      const std::string* val = doc.headlineOpt(som::jsonStrOr(op, "path"));
+      const std::string* exp = som::jsonAsStr(som::jsonGet(op, "expect"));
+      if (exp == nullptr) {
+        c.check(tag, val == nullptr, "expected unset");
+      } else {
+        c.check(tag, val != nullptr && *val == *exp, val ? *val : "");
+      }
     } else {
       c.check(tag + ".unknown", false, op_name);
     }

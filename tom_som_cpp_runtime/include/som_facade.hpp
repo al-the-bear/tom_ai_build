@@ -71,6 +71,16 @@ class SomNode {
     doc_.setItemSectionId(path_, id);
   }
 
+  /* The stored headline override at this node's path, or "" when the section
+   * renders its derived default title (YRD3). */
+  std::string headline() const { return doc_.headline(path_); }
+
+  /* Stores a headline override for this node; an empty value clears it back to
+   * the derived default (YRD3). */
+  void setHeadline(const std::string& value) {
+    doc_.setHeadline(path_, value);
+  }
+
  private:
   SpecDocument& doc_;  // borrowed; the document this node edits
   std::string path_;   // owned; the node's globally-unique section path

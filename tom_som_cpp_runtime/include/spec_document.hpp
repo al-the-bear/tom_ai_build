@@ -44,9 +44,13 @@ struct DocumentJson {
   std::map<std::string, std::string> content;             // path -> value
   std::map<std::string, std::map<std::string, std::string>> forms;  // path -> fields
   std::map<std::string, DocListEntry> lists;              // listPath -> entry
+  /* path -> stored headline (YRD3). Emitted in canonical JSON only when
+   * non-empty, after `lists`. */
+  std::map<std::string, std::string> headlines;
 
   bool empty() const {
-    return content.empty() && forms.empty() && lists.empty();
+    return content.empty() && forms.empty() && lists.empty() &&
+           headlines.empty();
   }
 };
 
@@ -148,6 +152,16 @@ class SpecDocument {
    * assigned id are skipped). */
   std::vector<std::string> listItemSectionIds(const std::string& listPath) const;
 
+  // stored headlines (YRD3)
+  /* The stored headline at `path`, or "" when unset. */
+  std::string headline(const std::string& path) const;
+  /* NULL-aware companion: nullptr when no headline is stored at `path`. */
+  const std::string* headlineOpt(const std::string& path) const;
+  /* Stores a headline override at `path`; an empty value clears it. */
+  void setHeadline(const std::string& path, const std::string& value);
+  /* All paths carrying a stored headline, byte-sorted. */
+  std::vector<std::string> headlinePaths() const;
+
   bool isEmpty() const;
   bool hasValuesUnder(const std::string& prefix) const;
 
@@ -167,6 +181,7 @@ class SpecDocument {
   std::map<std::string, std::vector<std::string>> listItems_;
   std::map<std::string, long long> listSeq_;
   std::map<std::string, std::string> itemSectionId_;  // item path -> section id
+  std::map<std::string, std::string> headline_;       // path -> stored headline
 
   void purgeUnder(const std::string& prefix);
 

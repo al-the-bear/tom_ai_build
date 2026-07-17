@@ -292,13 +292,13 @@ void testMarkdownExportStoredItemId() {
   doc.setContent(item + "/D01-LBL", "Custom-id item");
 
   std::string md = mdExport(*m, doc);
-  // DRC5: md list identity is purely positional. The stored id (`D01-CUSTOM`)
-  // is not surfaced in md; the anonymous positional id is emitted instead.
+  // YRD3: the STORED id is the item's md heading id; the positional id is only
+  // the fallback for an item without one (supersedes DRC5).
   mdCheck("export.storedId.container",
           contains(md, "## <!--[D00-ITM]--> Items"), md);
-  mdCheck("export.storedId.positional",
-          contains(md, "### <!--[items-1]--> Demo Item 1"), md);
-  mdCheck("export.storedId.noStored", !contains(md, "D01-CUSTOM"), md);
+  mdCheck("export.storedId.heading",
+          contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md);
+  mdCheck("export.storedId.noPositional", !contains(md, "items-1"), md);
 }
 
 void testMarkdownExportUntermFenceErrors() {
@@ -456,8 +456,8 @@ void testMarkdownRoundTripStoredItemId() {
       doc.addListItemWithSectionId("D00/D00-ITM", "D01-CUSTOM");
   doc.setContent(item + "/D01-LBL", "Custom-id item");
   std::string md1 = mdExport(*m, doc);
-  // DRC5: a stored id does not round-trip through md; the item reloads anonymous.
-  mdCheck("storedId.noStored", !contains(md1, "D01-CUSTOM"), md1);
+  // YRD3: the stored id IS the md heading id and round-trips (supersedes DRC5).
+  mdCheck("storedId.inMd", contains(md1, "<!--[D01-CUSTOM]-->"), md1);
 
   som::SpecMarkdownResult report;
   som::SpecDocument reloaded = mdReload(*m, md1, report);
@@ -467,7 +467,7 @@ void testMarkdownRoundTripStoredItemId() {
   mdCheck("storedId.itemCount", items.size() == 1);
   if (items.size() == 1) {
     mdCheck("storedId.sectionId",
-            itemSectionIdOr(reloaded, items[0]).empty(),
+            itemSectionIdOr(reloaded, items[0]) == "D01-CUSTOM",
             itemSectionIdOr(reloaded, items[0]));
     mdCheck("storedId.label",
             contentOr(reloaded, items[0] + "/D01-LBL") == "Custom-id item");

@@ -141,7 +141,8 @@ bool matchHeadingLine(const std::string& s, int* level, std::string* rest) {
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]-->\s*(.*)$`. `s` should already be
  * TrimSpace'd. */
-bool matchHeadlineComment(const std::string& s, std::string* id) {
+bool matchHeadlineComment(const std::string& s, std::string* id,
+                          std::string* title) {
   if (s.compare(0, 5, "<!--[") != 0) {
     return false;
   }
@@ -154,6 +155,14 @@ bool matchHeadlineComment(const std::string& s, std::string* id) {
     return false;
   }
   *id = s.substr(p, close - p);
+  if (title != nullptr) {
+    // `\s*(.*)$` — skip leading whitespace after `]-->`, then TrimSpace.
+    std::size_t t = close + 4;
+    while (t < s.size() && isWs(s[t])) {
+      t++;
+    }
+    *title = trimSpace(s.substr(t));
+  }
   return true;
 }
 
@@ -568,6 +577,17 @@ std::string mdTitleOf(const SomMetaNode& node) {
   return titleCase(name);
 }
 
+/* headingTitle resolves the heading title for a node at `path`: the document's
+ * STORED headline when present, else the derived title (YRD3). */
+std::string headingTitle(MdCodec& c, const std::string& path,
+                         const SomMetaNode& node) {
+  std::string h = c.document()->headline(path);
+  if (!h.empty()) {
+    return h;
+  }
+  return mdTitleOf(node);
+}
+
 void mdWriteHeading(std::string& b, int depth, const std::string& id,
                     const std::string& title) {
   for (int i = 0; i < depth; i++) {
@@ -720,7 +740,8 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   }
   // The container heading: its id is the list's `-LST` @SectionId (else the
   // member segment for a pattern-less list); its title is the member name.
-  mdWriteHeading(b, depth, headingIdOf(c, node), mdTitleOf(node));
+  mdWriteHeading(b, depth, headingIdOf(c, node),
+                 headingTitle(c, listPath, node));
   // Item heading stem. Complex lists derive it from the element class name
   // (DR1 §1.5, `Entry` dropped). A scalar list (shape 6) has no element class —
   // its element typeName is literally `String`, which would render "String 1",
@@ -741,10 +762,15 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
     std::string itemId;
-    // DRC5: md list identity is purely positional. A stored @SectionId is
-    // never surfaced in md; it is preserved losslessly only in the yaml
-    // format.
-    if (!pattern.empty()) {
+    // YRD3 (supersedes DRC5): an item's STORED section id IS its md heading
+    // id — stored ids round-trip through Markdown too. Only anonymous items
+    // fall back to the positional derivation: the `@SectionIdPattern`
+    // resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
+    // else `<member>-<pos>` for a pattern-less list.
+    const std::string* storedId = doc.itemSectionIdOpt(itemPath);
+    if (storedId != nullptr) {
+      itemId = *storedId;
+    } else if (!pattern.empty()) {
       std::string num = formatI64(pos);
       std::size_t p = 0, xxx;
       while ((xxx = pattern.find("xxx", p)) != std::string::npos) {
@@ -758,8 +784,12 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
           !node.memberName.empty() ? node.memberName : node.segment();
       itemId = member + "-" + formatI64(pos);
     }
-    std::string title = stem + " " + formatI64(pos);
-    // Items sit one level below the container heading.
+    // Items sit one level below the container. A stored headline overrides
+    // the derived `<stem> <pos>` title (YRD3).
+    std::string title = doc.headline(itemPath);
+    if (title.empty()) {
+      title = stem + " " + formatI64(pos);
+    }
     mdWriteHeading(b, depth + 1, itemId, title);
     if (element == nullptr) {
       bool present = false;
@@ -793,17 +823,20 @@ void writeChildren(MdCodec& c, std::string& b, const SomMetaNode& node,
       if (!present) {
         continue;
       }
-      mdWriteHeading(b, depth, headingIdOf(c, *child), mdTitleOf(*child));
+      mdWriteHeading(b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child));
       writeBody(b, value, path);
     } else if (kindEq(kind, kSomMetaKindForm)) {
       if (!formHasValues(doc, *child, path)) {
         continue;
       }
-      mdWriteHeading(b, depth, headingIdOf(c, *child), mdTitleOf(*child));
+      mdWriteHeading(b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child));
       writeForm(b, doc, *child, path);
     } else if (kindEq(kind, kSomMetaKindSection) ||
                kindEq(kind, kSomMetaKindComplex)) {
-      mdWriteHeading(b, depth, headingIdOf(c, *child), mdTitleOf(*child));
+      mdWriteHeading(b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child));
       writeSectionBody(c, b, *child, path);
       writeChildren(c, b, *child, path, depth + 1);
     } else if (kindEq(kind, kSomMetaKindList)) {
@@ -830,7 +863,12 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
   b += version;
   b += " -->\n";
   std::string rootSeg = node->segment();
-  mdWriteHeading(b, 1, rootSeg, root.title);
+  // YRD3: a stored headline overrides the derived title at every heading.
+  std::string rootTitle = c.document()->headline(rootSeg);
+  if (rootTitle.empty()) {
+    rootTitle = root.title;
+  }
+  mdWriteHeading(b, 1, rootSeg, rootTitle);
   writeSectionBody(c, b, *node, rootSeg);
   writeChildren(c, b, *node, rootSeg, 2);
   return b;
@@ -954,12 +992,14 @@ class MdParser {
   void closeTo(int level);
   void openItem(int level, const std::string& listPath,
                 const SomMetaNode& listNode, long long n,
-                const std::string& storedId, bool hasN, std::size_t line);
+                const std::string& storedId, bool hasN,
+                const std::string& title, std::size_t line);
   void openItemHeading(int level, const std::string& listPath,
                        const SomMetaNode& listNode, const std::string& id,
-                       std::size_t line);
+                       const std::string& title, std::size_t line);
   void openHeading(int level, const std::string& rest, std::size_t line);
-  void openRoot(int level, const std::string& id, std::size_t line);
+  void openRoot(int level, const std::string& id, const std::string& title,
+                std::size_t line);
   void emitLists();
 };
 
@@ -1190,7 +1230,7 @@ void MdParser::closeTo(int level) {
 void MdParser::openItem(int level, const std::string& listPath,
                         const SomMetaNode& listNode, long long n,
                         const std::string& storedId, bool hasN,
-                        std::size_t line) {
+                        const std::string& title, std::size_t line) {
   MdListState& state = listState(listPath);
   long long number = n;
   if (!hasN) {
@@ -1203,6 +1243,17 @@ void MdParser::openItem(int level, const std::string& listPath,
   state.items.push_back(itemPath);
   if (!hasN) {
     state.ids.push_back({itemPath, storedId});
+  }
+  // YRD3 §8.7: stage a non-default item heading text against the derived
+  // `<stem> <pos>` default.
+  const SomMetaNode* element = listNode.elementNode.get();
+  std::string stem =
+      element != nullptr
+          ? itemTitleStem(element->className)
+          : titleCase(!listNode.memberName.empty() ? listNode.memberName
+                                                   : listNode.segment());
+  if (!title.empty() && title != stem + " " + formatI64(number)) {
+    staged_.headlines[itemPath] = title;
   }
   MdFrame f;
   f.level = level;
@@ -1331,12 +1382,13 @@ bool numberedPatternMatch(const std::string& pattern, const std::string& id,
 // for any other id — an anonymous next item carrying the stored id.
 void MdParser::openItemHeading(int level, const std::string& listPath,
                                const SomMetaNode& listNode,
-                               const std::string& id, std::size_t line) {
+                               const std::string& id, const std::string& title,
+                               std::size_t line) {
   std::string member =
       !listNode.memberName.empty() ? listNode.memberName : listNode.segment();
   long long n = 0;
   if (anonMemberMatch(member, id, &n)) {
-    openItem(level, listPath, listNode, n, "", true, line);
+    openItem(level, listPath, listNode, n, "", true, title, line);
     return;
   }
   const SomMetaNode* element = listNode.elementNode.get();
@@ -1347,24 +1399,25 @@ void MdParser::openItemHeading(int level, const std::string& listPath,
   if (!pattern.empty()) {
     long long num = 0;
     if (numberedPatternMatch(pattern, id, &num)) {
-      openItem(level, listPath, listNode, num, "", true, line);
+      openItem(level, listPath, listNode, num, "", true, title, line);
       return;
     }
     if (patternMatches(pattern, id)) {
-      openItem(level, listPath, listNode, 0, id, false, line);
+      openItem(level, listPath, listNode, 0, id, false, title, line);
       return;
     }
   }
-  // Any other id under the container is an anonymous next item; a genuine
-  // stored id is kept (it survives only through the yaml format, DR1 §2).
-  openItem(level, listPath, listNode, 0, id, false, line);
+  // Any other id under the container is an anonymous next item carrying the
+  // stored id — stored ids round-trip through Markdown too (YRD3).
+  openItem(level, listPath, listNode, 0, id, false, title, line);
 }
 
 void MdParser::openHeading(int level, const std::string& rest,
                            std::size_t line) {
   std::string trimmed = trimSpace(rest);
   std::string id;
-  if (!matchHeadlineComment(trimmed, &id)) {
+  std::string title;
+  if (!matchHeadlineComment(trimmed, &id, &title)) {
     pushRejection(line, kSpecMarkdownRejectMalformedHeading,
                   "heading carries no <!--[SECTION-ID]--> headline comment",
                   trimmed);
@@ -1373,7 +1426,7 @@ void MdParser::openHeading(int level, const std::string& rest,
   }
 
   if (stack_.empty()) {
-    openRoot(level, id, line);
+    openRoot(level, id, title, line);
     return;
   }
 
@@ -1396,7 +1449,7 @@ void MdParser::openHeading(int level, const std::string& rest,
   // 1. Under a `-LST` container frame (DR1 §1.2), every child heading is one of
   //    that list's items — resolved positionally, not by the schema tree.
   if (kindEq(pNode->kind, kSomMetaKindList)) {
-    openItemHeading(level, parentPath, *pNode, id, line);
+    openItemHeading(level, parentPath, *pNode, id, title, line);
     return;
   }
 
@@ -1409,6 +1462,11 @@ void MdParser::openHeading(int level, const std::string& rest,
     const SomMetaNode* en = nr.node;
     if (headingIdOf(codec_, *en) == id) {
       std::string path = specPathJoin(parentPath, nr.rel);
+      // YRD3 §8.7: stage the heading text as a stored headline ONLY when it
+      // differs from the derived default (byte-stability).
+      if (!title.empty() && title != mdTitleOf(*en)) {
+        staged_.headlines[path] = title;
+      }
       MdFrame f;
       f.level = level;
       f.node = en;
@@ -1434,7 +1492,8 @@ void MdParser::openHeading(int level, const std::string& rest,
   }
 }
 
-void MdParser::openRoot(int level, const std::string& id, std::size_t line) {
+void MdParser::openRoot(int level, const std::string& id,
+                        const std::string& title, std::size_t line) {
   const SpecModel& model = codec_.model();
   for (const auto& root : model.roots) {
     std::string seg = !root.sectionId.empty() ? root.sectionId : root.type;
@@ -1443,6 +1502,10 @@ void MdParser::openRoot(int level, const std::string& id, std::size_t line) {
       SomMetaTree* tree = codec_.treeFor(root.type, &err);
       if (tree == nullptr) {
         break;
+      }
+      // YRD3 §8.7: stage a non-default root heading text.
+      if (!title.empty() && title != root.title) {
+        staged_.headlines[seg] = title;
       }
       rootPrefixes_.insert(seg);
       MdFrame f;

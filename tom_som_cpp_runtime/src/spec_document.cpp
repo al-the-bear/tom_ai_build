@@ -149,6 +149,16 @@ DocumentJson documentJsonFromJson(const JsonRef& v) {
     }
   }
 
+  JsonRef headlines = jsonGet(v, "headlines");
+  if (headlines != nullptr && headlines->type == JsonType::Object) {
+    for (const auto& m : headlines->object) {
+      const std::string* s = jsonAsStr(m.second);
+      if (s != nullptr) {
+        out.headlines[m.first] = *s;
+      }
+    }
+  }
+
   return out;
 }
 
@@ -206,6 +216,7 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d) {
     if (!first) {
       b.push_back(',');
     }
+    first = false;
     b += "\"lists\":{";
     bool inner = true;
     for (const auto& kv : d.lists) {
@@ -241,6 +252,25 @@ std::string documentJsonToCanonicalJson(const DocumentJson& d) {
         b.push_back('}');
       }
       b.push_back('}');
+    }
+    b.push_back('}');
+  }
+
+  if (!d.headlines.empty()) {
+    if (!first) {
+      b.push_back(',');
+    }
+    first = false;
+    b += "\"headlines\":{";
+    bool inner = true;
+    for (const auto& kv : d.headlines) {
+      if (!inner) {
+        b.push_back(',');
+      }
+      inner = false;
+      b += jsonEncodeStr(kv.first);
+      b.push_back(':');
+      b += jsonEncodeStr(kv.second);
     }
     b.push_back('}');
   }
@@ -421,6 +451,35 @@ std::vector<std::string> SpecDocument::listItemSectionIds(
   return out;
 }
 
+/* --- stored headlines (YRD3) --- */
+
+const std::string* SpecDocument::headlineOpt(const std::string& path) const {
+  auto it = headline_.find(path);
+  return it != headline_.end() ? &it->second : nullptr;
+}
+
+std::string SpecDocument::headline(const std::string& path) const {
+  const std::string* v = headlineOpt(path);
+  return v != nullptr ? *v : std::string();
+}
+
+void SpecDocument::setHeadline(const std::string& path,
+                               const std::string& value) {
+  if (value.empty()) {
+    headline_.erase(path);
+  } else {
+    headline_[path] = value;
+  }
+}
+
+std::vector<std::string> SpecDocument::headlinePaths() const {
+  std::vector<std::string> out;
+  for (const auto& kv : headline_) {
+    out.push_back(kv.first);
+  }
+  return out;
+}
+
 void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = content_.begin(); it != content_.end();) {
     if (isUnder(it->first, prefix)) {
@@ -453,6 +512,13 @@ void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = itemSectionId_.begin(); it != itemSectionId_.end();) {
     if (isUnder(it->first, prefix)) {
       it = itemSectionId_.erase(it);
+    } else {
+      ++it;
+    }
+  }
+  for (auto it = headline_.begin(); it != headline_.end();) {
+    if (isUnder(it->first, prefix)) {
+      it = headline_.erase(it);
     } else {
       ++it;
     }
@@ -494,7 +560,8 @@ bool SpecDocument::removeListItem(const std::string& itemPath) {
 /* --- queries --- */
 
 bool SpecDocument::isEmpty() const {
-  return content_.empty() && forms_.empty() && listItems_.empty();
+  return content_.empty() && forms_.empty() && listItems_.empty() &&
+         headline_.empty();
 }
 
 bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
@@ -509,6 +576,11 @@ bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
     }
   }
   for (const auto& kv : listItems_) {
+    if (isUnder(kv.first, prefix)) {
+      return true;
+    }
+  }
+  for (const auto& kv : headline_) {
     if (isUnder(kv.first, prefix)) {
       return true;
     }
@@ -581,6 +653,7 @@ DocumentJson SpecDocument::toJson() const {
     }
     out.lists[kv.first] = std::move(e);
   }
+  out.headlines = headline_;
   return out;
 }
 
@@ -590,6 +663,7 @@ void SpecDocument::loadJson(const DocumentJson& j) {
   listItems_.clear();
   listSeq_.clear();
   itemSectionId_.clear();
+  headline_.clear();
 
   content_ = j.content;
   for (const auto& kv : j.forms) {
@@ -610,6 +684,12 @@ void SpecDocument::loadJson(const DocumentJson& j) {
     for (const auto& idkv : kv.second.ids) {
       itemSectionId_[idkv.first] = idkv.second;
     }
+  }
+  for (const auto& kv : j.headlines) {
+    if (kv.second.empty()) {
+      continue;
+    }
+    headline_[kv.first] = kv.second;
   }
 }
 
