@@ -410,15 +410,26 @@ class SomJavaMetaEmitter {
       final fields = <String>[];
       for (var i = 0; i < f.formFields.length; i++) {
         final ff = f.formFields[i];
-        // YRD6: role/initial fields use the extended constructor; ordinary
-        // fields keep the compact one.
-        final roleArgs = ff.role != null || ff.initial != null
-            ? '${ff.role != null ? _str(ff.role!) : 'null'}, '
-                '${ff.initial != null ? _str(ff.initial!) : 'null'}, '
-            : '';
-        fields.add('new SomFormFieldMeta(${_str(ff.name)}, ${_str(ff.type)}, '
+        final head = 'new SomFormFieldMeta(${_str(ff.name)}, ${_str(ff.type)}, '
             '${_str(ff.label)}, ${ff.required ? 'true' : 'false'}, '
-            '${ff.hint != null ? _str(ff.hint!) : 'null'}, $roleArgs$i)');
+            '${ff.hint != null ? _str(ff.hint!) : 'null'}, ';
+        if (ff.enumValues.isNotEmpty) {
+          // YRD7: enum-typed fields use the 9-arg constructor, which carries
+          // role/initial (null when absent) plus the enum value domain.
+          final role = ff.role != null ? _str(ff.role!) : 'null';
+          final initial = ff.initial != null ? _str(ff.initial!) : 'null';
+          final enums = ff.enumValues.map(_str).join(', ');
+          fields.add('$head$role, $initial, $i, '
+              'java.util.List.of($enums))');
+        } else {
+          // YRD6: role/initial fields use the extended constructor; ordinary
+          // fields keep the compact one.
+          final roleArgs = ff.role != null || ff.initial != null
+              ? '${ff.role != null ? _str(ff.role!) : 'null'}, '
+                  '${ff.initial != null ? _str(ff.initial!) : 'null'}, '
+              : '';
+          fields.add('$head$roleArgs$i)');
+        }
       }
       add('form',
           'new SomFormMeta(Arrays.asList(\n'

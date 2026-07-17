@@ -35,6 +35,14 @@ public final class SomFormFieldMeta {
   /** The declaration order within the form. */
   public final int order;
 
+  /**
+   * Enum constant names when {@link #typeName} is a model enum (YRD7); empty
+   * for non-enum field types. The complete value domain of an enum-typed form
+   * field, so editors and the generic modification API can validate and
+   * convert without generated code.
+   */
+  public final java.util.List<String> enumValues;
+
   public SomFormFieldMeta(
       String name,
       String typeName,
@@ -54,6 +62,20 @@ public final class SomFormFieldMeta {
       String role,
       String initial,
       int order) {
+    this(name, typeName, description, required, hint, role, initial, order,
+        java.util.List.of());
+  }
+
+  public SomFormFieldMeta(
+      String name,
+      String typeName,
+      String description,
+      boolean required,
+      String hint,
+      String role,
+      String initial,
+      int order,
+      java.util.List<String> enumValues) {
     this.name = name;
     this.typeName = typeName;
     this.description = description;
@@ -62,5 +84,6 @@ public final class SomFormFieldMeta {
     this.role = role;
     this.initial = initial;
     this.order = order;
+    this.enumValues = enumValues;
   }
 }

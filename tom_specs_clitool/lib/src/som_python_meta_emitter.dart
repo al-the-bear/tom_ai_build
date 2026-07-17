@@ -305,6 +305,8 @@ class SomPythonMetaEmitter {
           if (ff.role != null) 'role=${_str(ff.role!)}',
           if (ff.initial != null) 'initial=${_str(ff.initial!)}',
           'order=$i',
+          if (ff.enumValues.isNotEmpty)
+            'enum_values=[${ff.enumValues.map(_str).join(', ')}]',
         ];
         fields.add('SomFormFieldMeta(${ffArgs.join(', ')})');
       }

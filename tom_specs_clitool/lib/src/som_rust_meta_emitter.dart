@@ -397,7 +397,8 @@ class SomRustMetaEmitter {
             'hint: ${_strLit(ff.hint ?? '')}, '
             'role: ${_strLit(ff.role ?? '')}, '
             'initial: ${_strLit(ff.initial ?? '')}, '
-            'order: $i }');
+            'order: $i, '
+            'enum_values: vec![${ff.enumValues.map(_strLit).join(', ')}] }');
       }
       add('form',
           'Some(som::SomFormMeta { fields: vec![${fields.join(', ')}] })');

@@ -114,6 +114,10 @@ static void free_node_contents(SomMetaNode *n) {
       free(f->hint);
       free(f->role);
       free(f->initial);
+      for (size_t j = 0; j < f->enum_values_len; j++) {
+        free(f->enum_values[j]);
+      }
+      free(f->enum_values);
     }
     free(n->form->fields);
     free(n->form);

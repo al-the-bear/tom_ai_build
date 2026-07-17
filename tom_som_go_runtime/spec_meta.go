@@ -89,6 +89,11 @@ type SomFormFieldMeta struct {
 	Initial string
 	// Order is the declaration order within the form.
 	Order int
+	// EnumValues holds the enum constant names when TypeName is a model enum
+	// (YRD7); empty for non-enum field types. The complete value domain of an
+	// enum-typed form field, so editors and the generic modification API can
+	// validate and convert without generated code.
+	EnumValues []string
 }
 
 // SomFormMeta is the form metadata of a @Form node (DR1 §3.1 FormMeta).

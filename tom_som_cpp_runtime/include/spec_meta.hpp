@@ -71,6 +71,12 @@ struct SomFormFieldMeta {
                             // value once — as the heading text / id comment.
   std::string initial;      // predefined initial content (YRD6, meta-only
                             // editor prefill), "" when absent
+  std::vector<std::string> enumValues;  // enum constant names when typeName is
+                            // a model enum (YRD7); empty for non-enum field
+                            // types. The complete value domain of an enum-typed
+                            // form field, so editors and the generic
+                            // modification API can validate and convert
+                            // without generated code.
 };
 
 /* The form metadata of a @Form node (DR1 §3.1 FormMeta). */

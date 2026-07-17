@@ -85,6 +85,11 @@ pub struct SomFormFieldMeta {
     pub initial: String,
     /// The declaration order within the form.
     pub order: i64,
+    /// Enum constant names when `type_name` is a model enum (YRD7); empty for
+    /// non-enum field types. The complete value domain of an enum-typed form
+    /// field, so editors and the generic modification API can validate and
+    /// convert without generated code.
+    pub enum_values: Vec<String>,
 }
 
 /// The form metadata of a `@Form` node (DR1 §3.1 FormMeta).

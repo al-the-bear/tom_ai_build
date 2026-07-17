@@ -41858,7 +41858,7 @@ void buildIso25010CoverageEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, "", 0, "", ""});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, "", 0, "", "", std::vector<std::string>{"functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"addressedBy", "String", "Addressed By (which quality goals / NFRs)", false, "", 1, "", ""});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetMetric", "String", "Target Metric", false, "", 2, "", ""});
     parent.addChild(std::move(n));

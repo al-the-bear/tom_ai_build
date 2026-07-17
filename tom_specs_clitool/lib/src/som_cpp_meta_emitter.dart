@@ -579,11 +579,18 @@ class SomCppMetaEmitter {
     b.writeln('$indent$recv.form = som::SomFormMeta{};');
     for (var i = 0; i < fields.length; i++) {
       final ff = fields[i];
+      // YRD7: enum-typed fields append their value domain as the final
+      // aggregate member; non-enum fields let it default to an empty vector.
+      final enumArg = ff.enumValues.isEmpty
+          ? ''
+          : ', std::vector<std::string>{'
+              '${ff.enumValues.map((e) => '"${_cppStr(e)}"').join(', ')}}';
       b.writeln('$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
           '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
           '"${_cppStr(ff.label)}", ${ff.required}, '
           '"${_cppStr(ff.hint ?? '')}", $i, '
-          '"${_cppStr(ff.role ?? '')}", "${_cppStr(ff.initial ?? '')}"});');
+          '"${_cppStr(ff.role ?? '')}", "${_cppStr(ff.initial ?? '')}"'
+          '$enumArg});');
     }
   }
 

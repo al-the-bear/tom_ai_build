@@ -80,6 +80,7 @@ class SomFormFieldMeta:
         hint: Optional[str] = None,
         role: Optional[str] = None,
         initial: Optional[str] = None,
+        enum_values: Optional[list[str]] = None,
     ) -> None:
         #: The exact model field name (``approvedBy``).
         self.name = name
@@ -102,6 +103,11 @@ class SomFormFieldMeta:
         self.initial = initial
         #: Declaration order within the form.
         self.order = order
+        #: Enum constant names when ``type_name`` is a model enum (YRD7);
+        #: empty for non-enum field types. The complete value domain of an
+        #: enum-typed form field, so editors and the generic modification API
+        #: can validate and convert without generated code.
+        self.enum_values = list(enum_values) if enum_values else []
 
 
 class SomFormMeta:

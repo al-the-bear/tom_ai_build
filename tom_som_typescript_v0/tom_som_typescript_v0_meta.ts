@@ -25381,7 +25381,7 @@ function _mc_Iso25010CoverageEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "characteristic", typeName: "Iso25010Characteristic", description: "ISO/IEC 25010:2023 Characteristic", required: true, order: 0}), new SomFormFieldMeta({name: "addressedBy", typeName: "String", description: "Addressed By (which quality goals / NFRs)", order: 1}), new SomFormFieldMeta({name: "targetMetric", typeName: "String", description: "Target Metric", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "characteristic", typeName: "Iso25010Characteristic", description: "ISO/IEC 25010:2023 Characteristic", required: true, order: 0, enumValues: ["functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"]}), new SomFormFieldMeta({name: "addressedBy", typeName: "String", description: "Addressed By (which quality goals / NFRs)", order: 1}), new SomFormFieldMeta({name: "targetMetric", typeName: "String", description: "Target Metric", order: 2})])}),
   ];
 }
 
@@ -37354,7 +37354,7 @@ function _mc_Requirement(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "requirementId", typeName: "String", description: "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", required: true, order: 0}), new SomFormFieldMeta({name: "title", typeName: "String", description: "Title", required: true, order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 2}), new SomFormFieldMeta({name: "priority", typeName: "Priority", description: "Priority level", order: 3}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", order: 4}), new SomFormFieldMeta({name: "rationale", typeName: "String", description: "Rationale", order: 5}), new SomFormFieldMeta({name: "acceptanceCriteria", typeName: "String", description: "Acceptance Criteria", order: 6}), new SomFormFieldMeta({name: "status", typeName: "Status", description: "Current status", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "requirementId", typeName: "String", description: "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", required: true, order: 0}), new SomFormFieldMeta({name: "title", typeName: "String", description: "Title", required: true, order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 2}), new SomFormFieldMeta({name: "priority", typeName: "Priority", description: "Priority level", order: 3, enumValues: ["must", "should", "could", "wontThisTime"]}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", order: 4}), new SomFormFieldMeta({name: "rationale", typeName: "String", description: "Rationale", order: 5}), new SomFormFieldMeta({name: "acceptanceCriteria", typeName: "String", description: "Acceptance Criteria", order: 6}), new SomFormFieldMeta({name: "status", typeName: "Status", description: "Current status", order: 7, enumValues: ["draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"]})])}),
   ];
 }
 
@@ -38728,7 +38728,7 @@ function _mc_Risk(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "riskId", typeName: "String", description: "Risk ID (RISK-NNN)", required: true, order: 0}), new SomFormFieldMeta({name: "name", typeName: "String", description: "Name", required: true, order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 2}), new SomFormFieldMeta({name: "probability", typeName: "Probability", description: "Probability", order: 3}), new SomFormFieldMeta({name: "impact", typeName: "Impact", description: "Impact assessment", order: 4}), new SomFormFieldMeta({name: "mitigation", typeName: "String", description: "Mitigation strategy", order: 5}), new SomFormFieldMeta({name: "riskOwner", typeName: "String", description: "Risk Owner", order: 6}), new SomFormFieldMeta({name: "reviewFrequency", typeName: "String", description: "Review Frequency", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "riskId", typeName: "String", description: "Risk ID (RISK-NNN)", required: true, order: 0}), new SomFormFieldMeta({name: "name", typeName: "String", description: "Name", required: true, order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 2}), new SomFormFieldMeta({name: "probability", typeName: "Probability", description: "Probability", order: 3, enumValues: ["veryLow", "low", "medium", "high", "veryHigh"]}), new SomFormFieldMeta({name: "impact", typeName: "Impact", description: "Impact assessment", order: 4, enumValues: ["negligible", "minor", "moderate", "major", "critical"]}), new SomFormFieldMeta({name: "mitigation", typeName: "String", description: "Mitigation strategy", order: 5}), new SomFormFieldMeta({name: "riskOwner", typeName: "String", description: "Risk Owner", order: 6}), new SomFormFieldMeta({name: "reviewFrequency", typeName: "String", description: "Review Frequency", order: 7})])}),
   ];
 }
 
@@ -40841,7 +40841,7 @@ function _mc_SectionMeta(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "sectionId", typeName: "String", description: "Section Id", order: 0}), new SomFormFieldMeta({name: "type", typeName: "SectionType", description: "Type", order: 1}), new SomFormFieldMeta({name: "seeds", typeName: "String", description: "Seeds", order: 2})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "sectionId", typeName: "String", description: "Section Id", order: 0}), new SomFormFieldMeta({name: "type", typeName: "SectionType", description: "Type", order: 1, enumValues: ["description", "form", "code"]}), new SomFormFieldMeta({name: "seeds", typeName: "String", description: "Seeds", order: 2})])}),
   ];
 }
 

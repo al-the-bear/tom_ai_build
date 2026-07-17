@@ -84345,6 +84345,16 @@ static void meta_build_iso25010_coverage_entry_content(SomMetaNode *n) {
   n->form->fields[0].role = som_strdup("");
   n->form->fields[0].initial = som_strdup("");
   n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 8;
+  n->form->fields[0].enum_values = (char **)calloc(8, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("functionalSuitability");
+  n->form->fields[0].enum_values[1] = som_strdup("performanceEfficiency");
+  n->form->fields[0].enum_values[2] = som_strdup("compatibility");
+  n->form->fields[0].enum_values[3] = som_strdup("interactionCapability");
+  n->form->fields[0].enum_values[4] = som_strdup("reliability");
+  n->form->fields[0].enum_values[5] = som_strdup("security");
+  n->form->fields[0].enum_values[6] = som_strdup("maintainability");
+  n->form->fields[0].enum_values[7] = som_strdup("flexibility");
   n->form->fields[1].name = som_strdup("addressedBy");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Addressed By (which quality goals / NFRs)");

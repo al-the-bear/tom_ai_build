@@ -437,6 +437,8 @@ class SomGoMetaEmitter {
           if (ff.role != null) 'Role: ${_str(ff.role!)}',
           if (ff.initial != null) 'Initial: ${_str(ff.initial!)}',
           'Order: $i',
+          if (ff.enumValues.isNotEmpty)
+            'EnumValues: []string{${ff.enumValues.map(_str).join(', ')}}',
         ];
         fields.add('{${ffArgs.join(', ')}}');
       }

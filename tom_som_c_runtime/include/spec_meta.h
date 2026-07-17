@@ -79,6 +79,12 @@ typedef struct {
   char *initial;     /* predefined initial content (YRD6, meta-only editor
                       * prefill), "" when absent */
   long long order;   /* declaration order within the form */
+  char **enum_values;     /* enum constant names when type_name is a model enum
+                           * (YRD7); NULL/empty for non-enum field types. The
+                           * complete value domain of an enum-typed form field,
+                           * so editors and the generic modification API can
+                           * validate and convert without generated code */
+  size_t enum_values_len; /* number of entries in enum_values */
 } SomFormFieldMeta;
 
 /* SomFormMeta is the form metadata of a @Form node (DR1 §3.1 FormMeta). */

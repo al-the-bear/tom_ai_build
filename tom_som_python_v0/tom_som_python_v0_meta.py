@@ -25371,7 +25371,7 @@ def _mc_Iso25010CoverageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="characteristic", type_name="Iso25010Characteristic", description="ISO/IEC 25010:2023 Characteristic", required=True, order=0), SomFormFieldMeta(name="addressedBy", type_name="String", description="Addressed By (which quality goals / NFRs)", order=1), SomFormFieldMeta(name="targetMetric", type_name="String", description="Target Metric", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="characteristic", type_name="Iso25010Characteristic", description="ISO/IEC 25010:2023 Characteristic", required=True, order=0, enum_values=["functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"]), SomFormFieldMeta(name="addressedBy", type_name="String", description="Addressed By (which quality goals / NFRs)", order=1), SomFormFieldMeta(name="targetMetric", type_name="String", description="Target Metric", order=2)])),
     ]
 
 
@@ -37344,7 +37344,7 @@ def _mc_Requirement(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementId", type_name="String", description="Requirement ID (REQ-NNN; NFR-NNN for non-functional)", required=True, order=0), SomFormFieldMeta(name="title", type_name="String", description="Title", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Short description", order=2), SomFormFieldMeta(name="priority", type_name="Priority", description="Priority level", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source", order=4), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", order=5), SomFormFieldMeta(name="acceptanceCriteria", type_name="String", description="Acceptance Criteria", order=6), SomFormFieldMeta(name="status", type_name="Status", description="Current status", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementId", type_name="String", description="Requirement ID (REQ-NNN; NFR-NNN for non-functional)", required=True, order=0), SomFormFieldMeta(name="title", type_name="String", description="Title", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Short description", order=2), SomFormFieldMeta(name="priority", type_name="Priority", description="Priority level", order=3, enum_values=["must", "should", "could", "wontThisTime"]), SomFormFieldMeta(name="source", type_name="String", description="Source", order=4), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", order=5), SomFormFieldMeta(name="acceptanceCriteria", type_name="String", description="Acceptance Criteria", order=6), SomFormFieldMeta(name="status", type_name="Status", description="Current status", order=7, enum_values=["draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"])])),
     ]
 
 
@@ -38718,7 +38718,7 @@ def _mc_Risk(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID (RISK-NNN)", required=True, order=0), SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Short description", order=2), SomFormFieldMeta(name="probability", type_name="Probability", description="Probability", order=3), SomFormFieldMeta(name="impact", type_name="Impact", description="Impact assessment", order=4), SomFormFieldMeta(name="mitigation", type_name="String", description="Mitigation strategy", order=5), SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner", order=6), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID (RISK-NNN)", required=True, order=0), SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Short description", order=2), SomFormFieldMeta(name="probability", type_name="Probability", description="Probability", order=3, enum_values=["veryLow", "low", "medium", "high", "veryHigh"]), SomFormFieldMeta(name="impact", type_name="Impact", description="Impact assessment", order=4, enum_values=["negligible", "minor", "moderate", "major", "critical"]), SomFormFieldMeta(name="mitigation", type_name="String", description="Mitigation strategy", order=5), SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner", order=6), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency", order=7)])),
     ]
 
 
@@ -40831,7 +40831,7 @@ def _mc_SectionMeta(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section Id", order=0), SomFormFieldMeta(name="type", type_name="SectionType", description="Type", order=1), SomFormFieldMeta(name="seeds", type_name="String", description="Seeds", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section Id", order=0), SomFormFieldMeta(name="type", type_name="SectionType", description="Type", order=1, enum_values=["description", "form", "code"]), SomFormFieldMeta(name="seeds", type_name="String", description="Seeds", order=2)])),
     ]
 
 

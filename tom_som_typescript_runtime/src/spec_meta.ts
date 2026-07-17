@@ -73,6 +73,7 @@ export interface SomFormFieldMetaInit {
   hint?: string | null;
   role?: string | null;
   initial?: string | null;
+  enumValues?: string[] | null;
 }
 
 /** One field of a `@Form` section (DR1 §3.1 `FormMeta.fields`). */
@@ -99,6 +100,13 @@ export class SomFormFieldMeta {
   initial: string | null;
   /** Declaration order within the form. */
   order: number;
+  /**
+   * Enum constant names when `typeName` is a model enum (YRD7); empty for
+   * non-enum field types. The complete value domain of an enum-typed form
+   * field, so editors and the generic modification API can validate and
+   * convert without generated code.
+   */
+  enumValues: string[];
 
   constructor(init: SomFormFieldMetaInit) {
     this.name = init.name;
@@ -109,6 +117,7 @@ export class SomFormFieldMeta {
     this.role = init.role != null ? init.role : null;
     this.initial = init.initial != null ? init.initial : null;
     this.order = init.order;
+    this.enumValues = init.enumValues != null ? init.enumValues : [];
   }
 }
 

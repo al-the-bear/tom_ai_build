@@ -7406,7 +7406,7 @@ func metaChildrenIso25010Coverage(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenIso25010CoverageEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Iso25010CoverageEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "characteristic", TypeName: "Iso25010Characteristic", Description: "ISO/IEC 25010:2023 Characteristic", Required: true, Order: 0}, {Name: "addressedBy", TypeName: "String", Description: "Addressed By (which quality goals / NFRs)", Order: 1}, {Name: "targetMetric", TypeName: "String", Description: "Target Metric", Order: 2}}}},
+		{ClassName: "Iso25010CoverageEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "characteristic", TypeName: "Iso25010Characteristic", Description: "ISO/IEC 25010:2023 Characteristic", Required: true, Order: 0, EnumValues: []string{"functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"}}, {Name: "addressedBy", TypeName: "String", Description: "Addressed By (which quality goals / NFRs)", Order: 1}, {Name: "targetMetric", TypeName: "String", Description: "Target Metric", Order: 2}}}},
 	}
 }
 
@@ -10982,7 +10982,7 @@ func metaChildrenReportSectionEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRequirement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Requirement", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "requirementId", TypeName: "String", Description: "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", Required: true, Order: 0}, {Name: "title", TypeName: "String", Description: "Title", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "priority", TypeName: "Priority", Description: "Priority level", Order: 3}, {Name: "source", TypeName: "String", Description: "Source", Order: 4}, {Name: "rationale", TypeName: "String", Description: "Rationale", Order: 5}, {Name: "acceptanceCriteria", TypeName: "String", Description: "Acceptance Criteria", Order: 6}, {Name: "status", TypeName: "Status", Description: "Current status", Order: 7}}}},
+		{ClassName: "Requirement", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "requirementId", TypeName: "String", Description: "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", Required: true, Order: 0}, {Name: "title", TypeName: "String", Description: "Title", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "priority", TypeName: "Priority", Description: "Priority level", Order: 3, EnumValues: []string{"must", "should", "could", "wontThisTime"}}, {Name: "source", TypeName: "String", Description: "Source", Order: 4}, {Name: "rationale", TypeName: "String", Description: "Rationale", Order: 5}, {Name: "acceptanceCriteria", TypeName: "String", Description: "Acceptance Criteria", Order: 6}, {Name: "status", TypeName: "Status", Description: "Current status", Order: 7, EnumValues: []string{"draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"}}}}},
 	}
 }
 
@@ -11457,7 +11457,7 @@ func metaChildrenRevisionEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRisk(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Risk", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskId", TypeName: "String", Description: "Risk ID (RISK-NNN)", Required: true, Order: 0}, {Name: "name", TypeName: "String", Description: "Name", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "probability", TypeName: "Probability", Description: "Probability", Order: 3}, {Name: "impact", TypeName: "Impact", Description: "Impact assessment", Order: 4}, {Name: "mitigation", TypeName: "String", Description: "Mitigation strategy", Order: 5}, {Name: "riskOwner", TypeName: "String", Description: "Risk Owner", Order: 6}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Order: 7}}}},
+		{ClassName: "Risk", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskId", TypeName: "String", Description: "Risk ID (RISK-NNN)", Required: true, Order: 0}, {Name: "name", TypeName: "String", Description: "Name", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "probability", TypeName: "Probability", Description: "Probability", Order: 3, EnumValues: []string{"veryLow", "low", "medium", "high", "veryHigh"}}, {Name: "impact", TypeName: "Impact", Description: "Impact assessment", Order: 4, EnumValues: []string{"negligible", "minor", "moderate", "major", "critical"}}, {Name: "mitigation", TypeName: "String", Description: "Mitigation strategy", Order: 5}, {Name: "riskOwner", TypeName: "String", Description: "Risk Owner", Order: 6}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Order: 7}}}},
 	}
 }
 
@@ -12111,7 +12111,7 @@ func metaChildrenSecondaryNavigation(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSectionMeta(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SectionMeta", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sectionId", TypeName: "String", Description: "Section Id", Order: 0}, {Name: "type", TypeName: "SectionType", Description: "Type", Order: 1}, {Name: "seeds", TypeName: "String", Description: "Seeds", Order: 2}}}},
+		{ClassName: "SectionMeta", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sectionId", TypeName: "String", Description: "Section Id", Order: 0}, {Name: "type", TypeName: "SectionType", Description: "Type", Order: 1, EnumValues: []string{"description", "form", "code"}}, {Name: "seeds", TypeName: "String", Description: "Seeds", Order: 2}}}},
 	}
 }
 

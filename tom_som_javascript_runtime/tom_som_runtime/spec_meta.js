@@ -76,6 +76,7 @@ class SomFormFieldMeta {
     hint = null,
     role = null,
     initial = null,
+    enumValues = null,
   }) {
     /** The exact model field name (`approvedBy`). */
     this.name = name;
@@ -100,6 +101,13 @@ class SomFormFieldMeta {
     this.initial = initial;
     /** Declaration order within the form. */
     this.order = order;
+    /**
+     * Enum constant names when `typeName` is a model enum (YRD7); empty for
+     * non-enum field types. The complete value domain of an enum-typed form
+     * field, so editors and the generic modification API can validate and
+     * convert without generated code.
+     */
+    this.enumValues = enumValues || [];
   }
 }
 

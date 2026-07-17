@@ -694,6 +694,19 @@ class SomCMetaEmitter {
         ..writeln('\tn->form->fields[$i].initial = som_strdup('
             '"${_cStr(ff.initial ?? '')}");')
         ..writeln('\tn->form->fields[$i].order = $i;');
+      // YRD7: enum-typed fields carry their value domain; calloc already
+      // zero-inits enum_values/enum_values_len for the non-enum case.
+      if (ff.enumValues.isNotEmpty) {
+        b
+          ..writeln('\tn->form->fields[$i].enum_values_len = '
+              '${ff.enumValues.length};')
+          ..writeln('\tn->form->fields[$i].enum_values = (char **)calloc('
+              '${ff.enumValues.length}, sizeof(char *));');
+        for (var j = 0; j < ff.enumValues.length; j++) {
+          b.writeln('\tn->form->fields[$i].enum_values[$j] = som_strdup('
+              '"${_cStr(ff.enumValues[j])}");');
+        }
+      }
     }
   }
 

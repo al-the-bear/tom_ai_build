@@ -47362,7 +47362,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, null, 0),
+            new SomFormFieldMeta("characteristic", "Iso25010Characteristic", "ISO/IEC 25010:2023 Characteristic", true, null, null, null, 0, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
             new SomFormFieldMeta("addressedBy", "String", "Addressed By (which quality goals / NFRs)", false, null, 1),
             new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, null, 2)));
         out.add(n);
@@ -70787,11 +70787,11 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("requirementId", "String", "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", true, null, 0),
             new SomFormFieldMeta("title", "String", "Title", true, null, 1),
             new SomFormFieldMeta("description", "String", "Short description", false, null, 2),
-            new SomFormFieldMeta("priority", "Priority", "Priority level", false, null, 3),
+            new SomFormFieldMeta("priority", "Priority", "Priority level", false, null, null, null, 3, java.util.List.of("must", "should", "could", "wontThisTime")),
             new SomFormFieldMeta("source", "String", "Source", false, null, 4),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, null, 5),
             new SomFormFieldMeta("acceptanceCriteria", "String", "Acceptance Criteria", false, null, 6),
-            new SomFormFieldMeta("status", "Status", "Current status", false, null, 7)));
+            new SomFormFieldMeta("status", "Status", "Current status", false, null, null, null, 7, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
         out.add(n);
       }
       return out;
@@ -73557,8 +73557,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskId", "String", "Risk ID (RISK-NNN)", true, null, 0),
             new SomFormFieldMeta("name", "String", "Name", true, null, 1),
             new SomFormFieldMeta("description", "String", "Short description", false, null, 2),
-            new SomFormFieldMeta("probability", "Probability", "Probability", false, null, 3),
-            new SomFormFieldMeta("impact", "Impact", "Impact assessment", false, null, 4),
+            new SomFormFieldMeta("probability", "Probability", "Probability", false, null, null, null, 3, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
+            new SomFormFieldMeta("impact", "Impact", "Impact assessment", false, null, null, null, 4, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
             new SomFormFieldMeta("mitigation", "String", "Mitigation strategy", false, null, 5),
             new SomFormFieldMeta("riskOwner", "String", "Risk Owner", false, null, 6),
             new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency", false, null, 7)));
@@ -77827,7 +77827,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section Id", false, null, 0),
-            new SomFormFieldMeta("type", "SectionType", "Type", false, null, 1),
+            new SomFormFieldMeta("type", "SectionType", "Type", false, null, null, null, 1, java.util.List.of("description", "form", "code")),
             new SomFormFieldMeta("seeds", "String", "Seeds", false, null, 2)));
         out.add(n);
       }
