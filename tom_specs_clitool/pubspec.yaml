@@ -19,7 +19,10 @@ dependencies:
   # packages.sum builder (GroupedPackageBundleBuilder) and the package-config
   # helpers (readPackageRoots / mergePackageRootsForDirs / SummaryConfigException)
   # consumed by bin/summaries.dart. Published — version constraint, not a path.
-  tom_analyzer_shared: ">=0.6.0"
+  # Floor 0.7.1: the summary cache is partitioned by Dart SDK version, not just
+  # analyzer major, so a point-SDK bundle-format drift can't crash the cached
+  # `.sum` reader (RCJ3).
+  tom_analyzer_shared: ">=0.7.1"
   # publish_to: none package — consumed by path per the workspace convention for
   # unpublished sibling tooling (NOT a pubspec override of a published dep).
   tom_doc_specs:
