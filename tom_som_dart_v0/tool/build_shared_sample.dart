@@ -243,6 +243,7 @@ parallel-run gate passes.''');
   _authorActorsAndUseCases(sbp);
   _authorDataModel(sbp);
   _authorScreens(sbp);
+  _authorTypedFormValues(sbp);
 
   // DR9: renumber every patterned list item to the deterministic anonymous
   // 1-based id form (`FRE-REQU-1`, …) before serialising. The AA1-generated
@@ -1317,4 +1318,38 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..messageResource = 'screen.order.amend.error'
     ..primaryActionLabel = 'Retry'
     ..primaryActionTarget = 'SCR-02-ACT-1';
+}
+
+/// YRD7: native-typed form values authored through the typed facade, so the
+/// committed sample carries `int`/`bool`/enum form fields in the plain-text
+/// `FieldName: value` wire format. The golden log's `typed-form` section (and
+/// its eight per-language mirrors) reads these back through both the typed
+/// accessors and the generic string-path API and asserts they agree.
+void _authorTypedFormValues(D00SolutionBlueprint sbp) {
+  // int form fields — the actor overview's headcount summary.
+  sbp.targetOperatingModelConcept.targetBusinessProcess
+      .processStepsAndActorInteractions.actorOverview.overview
+    ..totalActorCount = 4
+    ..humanActorCount = 3
+    ..systemActorCount = 1
+    ..externalActorCount = 0;
+
+  // bool form field — the accessibility overview statement flag.
+  sbp.experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent
+      .accessibilityStatement = true;
+
+  // enum form field — ISO 25010 coverage entries with a natively-typed
+  // characteristic (stored as the constant name, e.g.
+  // `performanceEfficiency`).
+  final coverage = sbp.qualityAndAcceptanceModel.iso25010Coverage;
+  final c1 = coverage.characteristics.add();
+  c1.content
+    ..characteristic = Iso25010Characteristic.performanceEfficiency
+    ..addressedBy = 'NFR load test at 3x peak-hour order volume'
+    ..targetMetric = 'p95 order-capture latency within budget at 3x peak';
+  final c2 = coverage.characteristics.add();
+  c2.content
+    ..characteristic = Iso25010Characteristic.reliability
+    ..addressedBy = 'Two-week parallel run against OrderDesk'
+    ..targetMetric = '< 0.1% reconciliation variance over the parallel run';
 }

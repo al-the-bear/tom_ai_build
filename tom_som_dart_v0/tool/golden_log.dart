@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t5');
+  out.add('FORMAT\t6');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -192,6 +192,46 @@ void main(List<String> args) {
     out.add('TR\t$itemPath\ttitle\t${esc(typedTitle)}');
   }
 
+  // --- Typed non-String form fields (FORMAT 6, YRD7): native `int`/`bool`/
+  // enum members read through the typed facade and asserted against the
+  // generic form store, canonicalised through the SAME shared boundary
+  // helpers (`somFormat*` / enum constant name) the facade setters used to
+  // write them. The emitted value is the raw stored string, so the lines are
+  // byte-identical across languages regardless of native value types. ---
+  out.add('SECTION\ttyped-form');
+  void typedForm(String formPath, String field, String? canonical) {
+    final generic = doc.formField(formPath, field) ?? '';
+    if ((canonical ?? '') != generic) {
+      stderr.writeln('TYPED FORM MISMATCH at $formPath.$field: '
+          'typed="${canonical ?? ''}" generic="$generic"');
+      exit(2);
+    }
+    out.add('TF\t$formPath\t$field\t${esc(generic)}');
+  }
+
+  final actorOverview = sbp.targetOperatingModelConcept.targetBusinessProcess
+      .processStepsAndActorInteractions.actorOverview.overview;
+  typedForm(actorOverview.path, 'totalActorCount',
+      somFormatInt(actorOverview.totalActorCount));
+  typedForm(actorOverview.path, 'humanActorCount',
+      somFormatInt(actorOverview.humanActorCount));
+  typedForm(actorOverview.path, 'systemActorCount',
+      somFormatInt(actorOverview.systemActorCount));
+  typedForm(actorOverview.path, 'externalActorCount',
+      somFormatInt(actorOverview.externalActorCount));
+
+  final accessibilityOverview = sbp
+      .experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent;
+  typedForm(accessibilityOverview.path, 'accessibilityStatement',
+      somFormatBool(accessibilityOverview.accessibilityStatement));
+
+  final coverage = sbp.qualityAndAcceptanceModel.iso25010Coverage.characteristics;
+  out.add('TL\t${coverage.listPath}\t${coverage.length}');
+  for (var i = 0; i < coverage.length; i++) {
+    final form = coverage[i].content;
+    typedForm(form.path, 'characteristic', form.characteristic?.name ?? '');
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
   // path and every emitted field is model-derived, so the lines are byte-
   // identical across all nine languages even though the accessor *names* and
@@ -226,34 +266,42 @@ void main(List<String> args) {
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
 
-  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
-  // read through the metadata tree — one MF line per field (declaration
-  // order) with type/required/role/initial, plus one MT summary line naming
-  // the form's title-role and id-role fields via the titleField/idField
-  // accessors. All values are model-derived. ---
+  // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
+  // content form read through the metadata tree — one MF line per field
+  // (declaration order) with type/required/role/initial plus the FORMAT 6
+  // enumValues column (comma-joined constant names, empty for non-enum
+  // fields), plus one MT summary line naming the form's title-role and
+  // id-role fields via the titleField/idField accessors. Emitted for the FRE
+  // requirement form (role fields, no enums) and the ISO 25010 coverage form
+  // (an enum-typed field). All values are model-derived. ---
   out.add('SECTION\tmeta-form');
-  const freListPath =
-      'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST';
-  final freListNode = metaTree.byPath(freListPath);
-  final freElement = freListNode?.elementNode;
-  SomMetaNode? freContentNode;
-  for (final child in freElement?.children ?? const <SomMetaNode>[]) {
-    if (child.memberName == 'content') freContentNode = child;
-  }
-  final freForm = freContentNode?.form;
-  if (freForm == null) {
-    stderr.writeln('META FORM MISSING at $freListPath element content');
-    exit(3);
-  }
   // Element subtrees have no static document path; use an ASCII marker
   // segment so the log path stays ASCII (mirrored verbatim per language).
-  const freFormPath = '$freListPath/#element/content';
-  for (final f in freForm.fields) {
-    out.add('MF\t$freFormPath\t${esc(f.name)}\t${esc(f.typeName)}\t'
-        '${f.required ? 1 : 0}\t${esc(f.role ?? '')}\t${esc(f.initial ?? '')}');
+  void metaForm(String listPath) {
+    final listNode = metaTree.byPath(listPath);
+    final element = listNode?.elementNode;
+    SomMetaNode? contentNode;
+    for (final child in element?.children ?? const <SomMetaNode>[]) {
+      if (child.memberName == 'content') contentNode = child;
+    }
+    final form = contentNode?.form;
+    if (form == null) {
+      stderr.writeln('META FORM MISSING at $listPath element content');
+      exit(3);
+    }
+    final formPath = '$listPath/#element/content';
+    for (final f in form.fields) {
+      out.add('MF\t$formPath\t${esc(f.name)}\t${esc(f.typeName)}\t'
+          '${f.required ? 1 : 0}\t${esc(f.role ?? '')}\t${esc(f.initial ?? '')}'
+          '\t${esc(f.enumValues.join(','))}');
+    }
+    out.add('MT\t$formPath\t${esc(form.titleField?.name ?? '')}\t'
+        '${esc(form.idField?.name ?? '')}');
   }
-  out.add('MT\t$freFormPath\t${esc(freForm.titleField?.name ?? '')}\t'
-      '${esc(freForm.idField?.name ?? '')}');
+
+  metaForm(
+      'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
+  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance. The emitted line

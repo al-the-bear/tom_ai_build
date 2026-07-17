@@ -125777,7 +125777,17 @@
               "name": "characteristic",
               "label": "ISO/IEC 25010:2023 Characteristic",
               "type": "Iso25010Characteristic",
-              "required": true
+              "required": true,
+              "enumValues": [
+                "functionalSuitability",
+                "performanceEfficiency",
+                "compatibility",
+                "interactionCapability",
+                "reliability",
+                "security",
+                "maintainability",
+                "flexibility"
+              ]
             },
             {
               "name": "addressedBy",
@@ -191320,7 +191330,13 @@
               "name": "priority",
               "label": "Priority level",
               "type": "Priority",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "must",
+                "should",
+                "could",
+                "wontThisTime"
+              ]
             },
             {
               "name": "source",
@@ -191344,7 +191360,16 @@
               "name": "status",
               "label": "Current status",
               "type": "Status",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "draft",
+                "proposed",
+                "approved",
+                "implemented",
+                "verified",
+                "deferred",
+                "rejected"
+              ]
             }
           ]
         }
@@ -198669,13 +198694,27 @@
               "name": "probability",
               "label": "Probability",
               "type": "Probability",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ]
             },
             {
               "name": "impact",
               "label": "Impact assessment",
               "type": "Impact",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ]
             },
             {
               "name": "mitigation",
@@ -211056,7 +211095,12 @@
               "name": "type",
               "label": "Type",
               "type": "SectionType",
-              "required": false
+              "required": false,
+              "enumValues": [
+                "description",
+                "form",
+                "code"
+              ]
             },
             {
               "name": "seeds",

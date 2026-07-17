@@ -592,6 +592,13 @@ Pricing becomes a synchronous call, eliminating the batch window.
 
 ##### <!--[ACOV]--> Actor Overview
 
+###### <!--[ACOVNA]--> Overview
+
+TotalActorCount: 4
+HumanActorCount: 3
+SystemActorCount: 1
+ExternalActorCount: 0
+
 ###### <!--[ACEN-ACTO-LST]--> Actors
 
 ####### <!--[ACEN-ACTO-1]--> Actor 1
@@ -1727,6 +1734,12 @@ MessageResource: screen.order.amend.error
 PrimaryActionLabel: Retry
 PrimaryActionTarget: SCR-02-ACT-1
 
+### <!--[ACCESS]--> Accessibility
+
+#### <!--[ACCESS-ACCE]--> Accessibility Overview Content
+
+AccessibilityStatement: true
+
 ## <!--[QACM]--> Quality And Acceptance Model
 
 Acceptance is gated on:
@@ -1739,6 +1752,22 @@ Acceptance is gated on:
 
 Business sign-off requires the operations desk to clear a full day's orders on
 MOM alone.
+
+### <!--[I25CV]--> Iso25010 Coverage
+
+#### <!--[I25CV-CHAR-LST]--> Characteristics
+
+##### <!--[I25CV-CHAR-1]--> Iso25010 Coverage 1
+
+Characteristic: performanceEfficiency
+AddressedBy: NFR load test at 3x peak-hour order volume
+TargetMetric: p95 order-capture latency within budget at 3x peak
+
+##### <!--[I25CV-CHAR-2]--> Iso25010 Coverage 2
+
+Characteristic: reliability
+AddressedBy: Two-week parallel run against OrderDesk
+TargetMetric: < 0.1% reconciliation variance over the parallel run
 
 ## <!--[DTRO]--> Delivery Transition And Rollout
 

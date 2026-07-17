@@ -23816,7 +23816,7 @@ List<SomMetaNode> _mc$Iso25010CoverageEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'characteristic', typeName: 'Iso25010Characteristic', description: 'ISO/IEC 25010:2023 Characteristic', required: true, order: 0), SomFormFieldMeta(name: 'addressedBy', typeName: 'String', description: 'Addressed By (which quality goals / NFRs)', order: 1), SomFormFieldMeta(name: 'targetMetric', typeName: 'String', description: 'Target Metric', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'characteristic', typeName: 'Iso25010Characteristic', description: 'ISO/IEC 25010:2023 Characteristic', required: true, order: 0, enumValues: ['functionalSuitability', 'performanceEfficiency', 'compatibility', 'interactionCapability', 'reliability', 'security', 'maintainability', 'flexibility']), SomFormFieldMeta(name: 'addressedBy', typeName: 'String', description: 'Addressed By (which quality goals / NFRs)', order: 1), SomFormFieldMeta(name: 'targetMetric', typeName: 'String', description: 'Target Metric', order: 2)])),
     ];
 
 List<SomMetaNode> _mc$ItLandscapePosition(Set<String> s) => [
@@ -35056,7 +35056,7 @@ List<SomMetaNode> _mc$Requirement(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementId', typeName: 'String', description: 'Requirement ID (REQ-NNN; NFR-NNN for non-functional)', required: true, order: 0), SomFormFieldMeta(name: 'title', typeName: 'String', description: 'Title', required: true, order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Short description', order: 2), SomFormFieldMeta(name: 'priority', typeName: 'Priority', description: 'Priority level', order: 3), SomFormFieldMeta(name: 'source', typeName: 'String', description: 'Source', order: 4), SomFormFieldMeta(name: 'rationale', typeName: 'String', description: 'Rationale', order: 5), SomFormFieldMeta(name: 'acceptanceCriteria', typeName: 'String', description: 'Acceptance Criteria', order: 6), SomFormFieldMeta(name: 'status', typeName: 'Status', description: 'Current status', order: 7)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementId', typeName: 'String', description: 'Requirement ID (REQ-NNN; NFR-NNN for non-functional)', required: true, order: 0), SomFormFieldMeta(name: 'title', typeName: 'String', description: 'Title', required: true, order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Short description', order: 2), SomFormFieldMeta(name: 'priority', typeName: 'Priority', description: 'Priority level', order: 3, enumValues: ['must', 'should', 'could', 'wontThisTime']), SomFormFieldMeta(name: 'source', typeName: 'String', description: 'Source', order: 4), SomFormFieldMeta(name: 'rationale', typeName: 'String', description: 'Rationale', order: 5), SomFormFieldMeta(name: 'acceptanceCriteria', typeName: 'String', description: 'Acceptance Criteria', order: 6), SomFormFieldMeta(name: 'status', typeName: 'Status', description: 'Current status', order: 7, enumValues: ['draft', 'proposed', 'approved', 'implemented', 'verified', 'deferred', 'rejected'])])),
     ];
 
 List<SomMetaNode> _mc$RequirementAcceptanceCriteria(Set<String> s) => [
@@ -36331,7 +36331,7 @@ List<SomMetaNode> _mc$Risk(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'riskId', typeName: 'String', description: 'Risk ID (RISK-NNN)', required: true, order: 0), SomFormFieldMeta(name: 'name', typeName: 'String', description: 'Name', required: true, order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Short description', order: 2), SomFormFieldMeta(name: 'probability', typeName: 'Probability', description: 'Probability', order: 3), SomFormFieldMeta(name: 'impact', typeName: 'Impact', description: 'Impact assessment', order: 4), SomFormFieldMeta(name: 'mitigation', typeName: 'String', description: 'Mitigation strategy', order: 5), SomFormFieldMeta(name: 'riskOwner', typeName: 'String', description: 'Risk Owner', order: 6), SomFormFieldMeta(name: 'reviewFrequency', typeName: 'String', description: 'Review Frequency', order: 7)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'riskId', typeName: 'String', description: 'Risk ID (RISK-NNN)', required: true, order: 0), SomFormFieldMeta(name: 'name', typeName: 'String', description: 'Name', required: true, order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Short description', order: 2), SomFormFieldMeta(name: 'probability', typeName: 'Probability', description: 'Probability', order: 3, enumValues: ['veryLow', 'low', 'medium', 'high', 'veryHigh']), SomFormFieldMeta(name: 'impact', typeName: 'Impact', description: 'Impact assessment', order: 4, enumValues: ['negligible', 'minor', 'moderate', 'major', 'critical']), SomFormFieldMeta(name: 'mitigation', typeName: 'String', description: 'Mitigation strategy', order: 5), SomFormFieldMeta(name: 'riskOwner', typeName: 'String', description: 'Risk Owner', order: 6), SomFormFieldMeta(name: 'reviewFrequency', typeName: 'String', description: 'Review Frequency', order: 7)])),
     ];
 
 List<SomMetaNode> _mc$RiskBusinessImpact(Set<String> s) => [
@@ -38311,7 +38311,7 @@ List<SomMetaNode> _mc$SectionMeta(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sectionId', typeName: 'String', description: 'Section Id', order: 0), SomFormFieldMeta(name: 'type', typeName: 'SectionType', description: 'Type', order: 1), SomFormFieldMeta(name: 'seeds', typeName: 'String', description: 'Seeds', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sectionId', typeName: 'String', description: 'Section Id', order: 0), SomFormFieldMeta(name: 'type', typeName: 'SectionType', description: 'Type', order: 1, enumValues: ['description', 'form', 'code']), SomFormFieldMeta(name: 'seeds', typeName: 'String', description: 'Seeds', order: 2)])),
     ];
 
 List<SomMetaNode> _mc$Security(Set<String> s) => [

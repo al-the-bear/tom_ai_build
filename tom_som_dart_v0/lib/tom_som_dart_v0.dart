@@ -6,6 +6,27 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'tom_som_dart_v0_meta.dart';
 export 'tom_som_dart_v0_meta.dart';
 
+/// Generated enum for `Iso25010Characteristic` values.
+enum Iso25010Characteristic {
+  functionalSuitability,
+  performanceEfficiency,
+  compatibility,
+  interactionCapability,
+  reliability,
+  security,
+  maintainability,
+  flexibility;
+}
+
+/// Parses a stored token into a [Iso25010Characteristic], or `null`.
+Iso25010Characteristic? _parseIso25010Characteristic(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in Iso25010Characteristic.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// 14.2.1. Acceptance Criteria.
 class AcceptanceCriteriaList extends SomNode {
   AcceptanceCriteriaList(super.doc, super.path);
@@ -23689,8 +23710,8 @@ class AccessLevelEntryContentForm extends SomNode {
   String get levelId => doc.formField(path, 'levelId') ?? '';
   set levelId(String value) => doc.setFormField(path, 'levelId', value);
 
-  int? get levelRank { final v = doc.formField(path, 'levelRank'); return v == null ? null : int.tryParse(v); }
-  set levelRank(int? value) => doc.setFormField(path, 'levelRank', value?.toString() ?? '');
+  int? get levelRank => somParseInt(doc.formField(path, 'levelRank'));
+  set levelRank(int? value) => doc.setFormField(path, 'levelRank', somFormatInt(value));
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -23817,8 +23838,8 @@ class AccessibilityAccessibilityOverviewContentForm extends SomNode {
   String get additionalStandards => doc.formField(path, 'additionalStandards') ?? '';
   set additionalStandards(String value) => doc.setFormField(path, 'additionalStandards', value);
 
-  bool? get accessibilityStatement { final v = doc.formField(path, 'accessibilityStatement'); return v == null ? null : v == 'true'; }
-  set accessibilityStatement(bool? value) => doc.setFormField(path, 'accessibilityStatement', value?.toString() ?? '');
+  bool? get accessibilityStatement => somParseBool(doc.formField(path, 'accessibilityStatement'));
+  set accessibilityStatement(bool? value) => doc.setFormField(path, 'accessibilityStatement', somFormatBool(value));
 }
 
 /// Generated section facade for the `compliance` `@Form` section:
@@ -24130,8 +24151,8 @@ class AccessibilityTestingForm extends SomNode {
   String get assistiveTechTesting => doc.formField(path, 'assistiveTechTesting') ?? '';
   set assistiveTechTesting(String value) => doc.setFormField(path, 'assistiveTechTesting', value);
 
-  bool? get userTestingWithDisabilities { final v = doc.formField(path, 'userTestingWithDisabilities'); return v == null ? null : v == 'true'; }
-  set userTestingWithDisabilities(bool? value) => doc.setFormField(path, 'userTestingWithDisabilities', value?.toString() ?? '');
+  bool? get userTestingWithDisabilities => somParseBool(doc.formField(path, 'userTestingWithDisabilities'));
+  set userTestingWithDisabilities(bool? value) => doc.setFormField(path, 'userTestingWithDisabilities', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -24425,17 +24446,17 @@ class ActorOverviewOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalActorCount { final v = doc.formField(path, 'totalActorCount'); return v == null ? null : int.tryParse(v); }
-  set totalActorCount(int? value) => doc.setFormField(path, 'totalActorCount', value?.toString() ?? '');
+  int? get totalActorCount => somParseInt(doc.formField(path, 'totalActorCount'));
+  set totalActorCount(int? value) => doc.setFormField(path, 'totalActorCount', somFormatInt(value));
 
-  int? get humanActorCount { final v = doc.formField(path, 'humanActorCount'); return v == null ? null : int.tryParse(v); }
-  set humanActorCount(int? value) => doc.setFormField(path, 'humanActorCount', value?.toString() ?? '');
+  int? get humanActorCount => somParseInt(doc.formField(path, 'humanActorCount'));
+  set humanActorCount(int? value) => doc.setFormField(path, 'humanActorCount', somFormatInt(value));
 
-  int? get systemActorCount { final v = doc.formField(path, 'systemActorCount'); return v == null ? null : int.tryParse(v); }
-  set systemActorCount(int? value) => doc.setFormField(path, 'systemActorCount', value?.toString() ?? '');
+  int? get systemActorCount => somParseInt(doc.formField(path, 'systemActorCount'));
+  set systemActorCount(int? value) => doc.setFormField(path, 'systemActorCount', somFormatInt(value));
 
-  int? get externalActorCount { final v = doc.formField(path, 'externalActorCount'); return v == null ? null : int.tryParse(v); }
-  set externalActorCount(int? value) => doc.setFormField(path, 'externalActorCount', value?.toString() ?? '');
+  int? get externalActorCount => somParseInt(doc.formField(path, 'externalActorCount'));
+  set externalActorCount(int? value) => doc.setFormField(path, 'externalActorCount', somFormatInt(value));
 
   String get actorIdentificationApproach => doc.formField(path, 'actorIdentificationApproach') ?? '';
   set actorIdentificationApproach(String value) => doc.setFormField(path, 'actorIdentificationApproach', value);
@@ -24549,17 +24570,17 @@ class AdminInterfaceRequirementsDashboardForm extends SomNode {
   String get dashboardOverview => doc.formField(path, 'dashboardOverview') ?? '';
   set dashboardOverview(String value) => doc.setFormField(path, 'dashboardOverview', value);
 
-  bool? get systemHealthWidget { final v = doc.formField(path, 'systemHealthWidget'); return v == null ? null : v == 'true'; }
-  set systemHealthWidget(bool? value) => doc.setFormField(path, 'systemHealthWidget', value?.toString() ?? '');
+  bool? get systemHealthWidget => somParseBool(doc.formField(path, 'systemHealthWidget'));
+  set systemHealthWidget(bool? value) => doc.setFormField(path, 'systemHealthWidget', somFormatBool(value));
 
-  bool? get activeUsersWidget { final v = doc.formField(path, 'activeUsersWidget'); return v == null ? null : v == 'true'; }
-  set activeUsersWidget(bool? value) => doc.setFormField(path, 'activeUsersWidget', value?.toString() ?? '');
+  bool? get activeUsersWidget => somParseBool(doc.formField(path, 'activeUsersWidget'));
+  set activeUsersWidget(bool? value) => doc.setFormField(path, 'activeUsersWidget', somFormatBool(value));
 
-  bool? get alertsSummaryWidget { final v = doc.formField(path, 'alertsSummaryWidget'); return v == null ? null : v == 'true'; }
-  set alertsSummaryWidget(bool? value) => doc.setFormField(path, 'alertsSummaryWidget', value?.toString() ?? '');
+  bool? get alertsSummaryWidget => somParseBool(doc.formField(path, 'alertsSummaryWidget'));
+  set alertsSummaryWidget(bool? value) => doc.setFormField(path, 'alertsSummaryWidget', somFormatBool(value));
 
-  bool? get resourceUsageWidget { final v = doc.formField(path, 'resourceUsageWidget'); return v == null ? null : v == 'true'; }
-  set resourceUsageWidget(bool? value) => doc.setFormField(path, 'resourceUsageWidget', value?.toString() ?? '');
+  bool? get resourceUsageWidget => somParseBool(doc.formField(path, 'resourceUsageWidget'));
+  set resourceUsageWidget(bool? value) => doc.setFormField(path, 'resourceUsageWidget', somFormatBool(value));
 }
 
 /// Generated section facade for the `data` `@Form` section:
@@ -24583,8 +24604,8 @@ class AdminInterfaceRequirementsDataForm extends SomNode {
   String get searchAndFiltering => doc.formField(path, 'searchAndFiltering') ?? '';
   set searchAndFiltering(String value) => doc.setFormField(path, 'searchAndFiltering', value);
 
-  bool? get auditLogViewer { final v = doc.formField(path, 'auditLogViewer'); return v == null ? null : v == 'true'; }
-  set auditLogViewer(bool? value) => doc.setFormField(path, 'auditLogViewer', value?.toString() ?? '');
+  bool? get auditLogViewer => somParseBool(doc.formField(path, 'auditLogViewer'));
+  set auditLogViewer(bool? value) => doc.setFormField(path, 'auditLogViewer', somFormatBool(value));
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -24599,14 +24620,14 @@ class AdminInterfaceRequirementsOperationsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get maintenanceModeToggle { final v = doc.formField(path, 'maintenanceModeToggle'); return v == null ? null : v == 'true'; }
-  set maintenanceModeToggle(bool? value) => doc.setFormField(path, 'maintenanceModeToggle', value?.toString() ?? '');
+  bool? get maintenanceModeToggle => somParseBool(doc.formField(path, 'maintenanceModeToggle'));
+  set maintenanceModeToggle(bool? value) => doc.setFormField(path, 'maintenanceModeToggle', somFormatBool(value));
 
-  bool? get featureFlagManagement { final v = doc.formField(path, 'featureFlagManagement'); return v == null ? null : v == 'true'; }
-  set featureFlagManagement(bool? value) => doc.setFormField(path, 'featureFlagManagement', value?.toString() ?? '');
+  bool? get featureFlagManagement => somParseBool(doc.formField(path, 'featureFlagManagement'));
+  set featureFlagManagement(bool? value) => doc.setFormField(path, 'featureFlagManagement', somFormatBool(value));
 
-  bool? get cacheManagement { final v = doc.formField(path, 'cacheManagement'); return v == null ? null : v == 'true'; }
-  set cacheManagement(bool? value) => doc.setFormField(path, 'cacheManagement', value?.toString() ?? '');
+  bool? get cacheManagement => somParseBool(doc.formField(path, 'cacheManagement'));
+  set cacheManagement(bool? value) => doc.setFormField(path, 'cacheManagement', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -24630,14 +24651,14 @@ class AdministrationRequirementsSectionEnvironmentManagementForm extends SomNode
   String get environmentProvisioning => doc.formField(path, 'environmentProvisioning') ?? '';
   set environmentProvisioning(String value) => doc.setFormField(path, 'environmentProvisioning', value);
 
-  bool? get environmentCloning { final v = doc.formField(path, 'environmentCloning'); return v == null ? null : v == 'true'; }
-  set environmentCloning(bool? value) => doc.setFormField(path, 'environmentCloning', value?.toString() ?? '');
+  bool? get environmentCloning => somParseBool(doc.formField(path, 'environmentCloning'));
+  set environmentCloning(bool? value) => doc.setFormField(path, 'environmentCloning', somFormatBool(value));
 
   String get dataSeeding => doc.formField(path, 'dataSeeding') ?? '';
   set dataSeeding(String value) => doc.setFormField(path, 'dataSeeding', value);
 
-  bool? get dataAnonymization { final v = doc.formField(path, 'dataAnonymization'); return v == null ? null : v == 'true'; }
-  set dataAnonymization(bool? value) => doc.setFormField(path, 'dataAnonymization', value?.toString() ?? '');
+  bool? get dataAnonymization => somParseBool(doc.formField(path, 'dataAnonymization'));
+  set dataAnonymization(bool? value) => doc.setFormField(path, 'dataAnonymization', somFormatBool(value));
 
   String get dataSyncBetweenEnvs => doc.formField(path, 'dataSyncBetweenEnvs') ?? '';
   set dataSyncBetweenEnvs(String value) => doc.setFormField(path, 'dataSyncBetweenEnvs', value);
@@ -24707,8 +24728,8 @@ class AffectedDepartmentEntryContentForm extends SomNode {
   String get departmentHead => doc.formField(path, 'departmentHead') ?? '';
   set departmentHead(String value) => doc.setFormField(path, 'departmentHead', value);
 
-  int? get employeeCount { final v = doc.formField(path, 'employeeCount'); return v == null ? null : int.tryParse(v); }
-  set employeeCount(int? value) => doc.setFormField(path, 'employeeCount', value?.toString() ?? '');
+  int? get employeeCount => somParseInt(doc.formField(path, 'employeeCount'));
+  set employeeCount(int? value) => doc.setFormField(path, 'employeeCount', somFormatInt(value));
 
   String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
   set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
@@ -24875,8 +24896,8 @@ class AlertDefinitionEntryRecoveryForm extends SomNode {
   String get recoveryDuration => doc.formField(path, 'recoveryDuration') ?? '';
   set recoveryDuration(String value) => doc.setFormField(path, 'recoveryDuration', value);
 
-  bool? get autoResolve { final v = doc.formField(path, 'autoResolve'); return v == null ? null : v == 'true'; }
-  set autoResolve(bool? value) => doc.setFormField(path, 'autoResolve', value?.toString() ?? '');
+  bool? get autoResolve => somParseBool(doc.formField(path, 'autoResolve'));
+  set autoResolve(bool? value) => doc.setFormField(path, 'autoResolve', somFormatBool(value));
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -24891,11 +24912,11 @@ class AlertEscalationPoliciesBehaviorForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get acknowledgeStopsEscalation { final v = doc.formField(path, 'acknowledgeStopsEscalation'); return v == null ? null : v == 'true'; }
-  set acknowledgeStopsEscalation(bool? value) => doc.setFormField(path, 'acknowledgeStopsEscalation', value?.toString() ?? '');
+  bool? get acknowledgeStopsEscalation => somParseBool(doc.formField(path, 'acknowledgeStopsEscalation'));
+  set acknowledgeStopsEscalation(bool? value) => doc.setFormField(path, 'acknowledgeStopsEscalation', somFormatBool(value));
 
-  bool? get resolveStopsEscalation { final v = doc.formField(path, 'resolveStopsEscalation'); return v == null ? null : v == 'true'; }
-  set resolveStopsEscalation(bool? value) => doc.setFormField(path, 'resolveStopsEscalation', value?.toString() ?? '');
+  bool? get resolveStopsEscalation => somParseBool(doc.formField(path, 'resolveStopsEscalation'));
+  set resolveStopsEscalation(bool? value) => doc.setFormField(path, 'resolveStopsEscalation', somFormatBool(value));
 
   String get repeatNotification => doc.formField(path, 'repeatNotification') ?? '';
   set repeatNotification(String value) => doc.setFormField(path, 'repeatNotification', value);
@@ -25188,11 +25209,11 @@ class AlertSuppressionRulesContentForm extends SomNode {
   String get maintenanceNotification => doc.formField(path, 'maintenanceNotification') ?? '';
   set maintenanceNotification(String value) => doc.setFormField(path, 'maintenanceNotification', value);
 
-  bool? get dependentAlertSuppression { final v = doc.formField(path, 'dependentAlertSuppression'); return v == null ? null : v == 'true'; }
-  set dependentAlertSuppression(bool? value) => doc.setFormField(path, 'dependentAlertSuppression', value?.toString() ?? '');
+  bool? get dependentAlertSuppression => somParseBool(doc.formField(path, 'dependentAlertSuppression'));
+  set dependentAlertSuppression(bool? value) => doc.setFormField(path, 'dependentAlertSuppression', somFormatBool(value));
 
-  bool? get flappingDetection { final v = doc.formField(path, 'flappingDetection'); return v == null ? null : v == 'true'; }
-  set flappingDetection(bool? value) => doc.setFormField(path, 'flappingDetection', value?.toString() ?? '');
+  bool? get flappingDetection => somParseBool(doc.formField(path, 'flappingDetection'));
+  set flappingDetection(bool? value) => doc.setFormField(path, 'flappingDetection', somFormatBool(value));
 
   String get silenceRules => doc.formField(path, 'silenceRules') ?? '';
   set silenceRules(String value) => doc.setFormField(path, 'silenceRules', value);
@@ -25200,8 +25221,8 @@ class AlertSuppressionRulesContentForm extends SomNode {
   String get inhibitRules => doc.formField(path, 'inhibitRules') ?? '';
   set inhibitRules(String value) => doc.setFormField(path, 'inhibitRules', value);
 
-  bool? get suppressionAuditLog { final v = doc.formField(path, 'suppressionAuditLog'); return v == null ? null : v == 'true'; }
-  set suppressionAuditLog(bool? value) => doc.setFormField(path, 'suppressionAuditLog', value?.toString() ?? '');
+  bool? get suppressionAuditLog => somParseBool(doc.formField(path, 'suppressionAuditLog'));
+  set suppressionAuditLog(bool? value) => doc.setFormField(path, 'suppressionAuditLog', somFormatBool(value));
 
   String get suppressionReview => doc.formField(path, 'suppressionReview') ?? '';
   set suppressionReview(String value) => doc.setFormField(path, 'suppressionReview', value);
@@ -25290,8 +25311,8 @@ class AlertingRequirementsDeduplicationForm extends SomNode {
   String get alertGrouping => doc.formField(path, 'alertGrouping') ?? '';
   set alertGrouping(String value) => doc.setFormField(path, 'alertGrouping', value);
 
-  bool? get flappingDetection { final v = doc.formField(path, 'flappingDetection'); return v == null ? null : v == 'true'; }
-  set flappingDetection(bool? value) => doc.setFormField(path, 'flappingDetection', value?.toString() ?? '');
+  bool? get flappingDetection => somParseBool(doc.formField(path, 'flappingDetection'));
+  set flappingDetection(bool? value) => doc.setFormField(path, 'flappingDetection', somFormatBool(value));
 }
 
 /// Generated section facade for the `response` `@Form` section:
@@ -25306,14 +25327,14 @@ class AlertingRequirementsResponseForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get autoRemediation { final v = doc.formField(path, 'autoRemediation'); return v == null ? null : v == 'true'; }
-  set autoRemediation(bool? value) => doc.setFormField(path, 'autoRemediation', value?.toString() ?? '');
+  bool? get autoRemediation => somParseBool(doc.formField(path, 'autoRemediation'));
+  set autoRemediation(bool? value) => doc.setFormField(path, 'autoRemediation', somFormatBool(value));
 
-  bool? get runbookLinks { final v = doc.formField(path, 'runbookLinks'); return v == null ? null : v == 'true'; }
-  set runbookLinks(bool? value) => doc.setFormField(path, 'runbookLinks', value?.toString() ?? '');
+  bool? get runbookLinks => somParseBool(doc.formField(path, 'runbookLinks'));
+  set runbookLinks(bool? value) => doc.setFormField(path, 'runbookLinks', somFormatBool(value));
 
-  bool? get acknowledgeRequired { final v = doc.formField(path, 'acknowledgeRequired'); return v == null ? null : v == 'true'; }
-  set acknowledgeRequired(bool? value) => doc.setFormField(path, 'acknowledgeRequired', value?.toString() ?? '');
+  bool? get acknowledgeRequired => somParseBool(doc.formField(path, 'acknowledgeRequired'));
+  set acknowledgeRequired(bool? value) => doc.setFormField(path, 'acknowledgeRequired', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -25362,8 +25383,8 @@ class AlertingRequirementsSuppressionForm extends SomNode {
   String get dependencyAlerts => doc.formField(path, 'dependencyAlerts') ?? '';
   set dependencyAlerts(String value) => doc.setFormField(path, 'dependencyAlerts', value);
 
-  bool? get manualSuppression { final v = doc.formField(path, 'manualSuppression'); return v == null ? null : v == 'true'; }
-  set manualSuppression(bool? value) => doc.setFormField(path, 'manualSuppression', value?.toString() ?? '');
+  bool? get manualSuppression => somParseBool(doc.formField(path, 'manualSuppression'));
+  set manualSuppression(bool? value) => doc.setFormField(path, 'manualSuppression', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -25596,8 +25617,8 @@ class ApiVersioningStrategyCompatibilityForm extends SomNode {
   String get breakingChangePolicy => doc.formField(path, 'breakingChangePolicy') ?? '';
   set breakingChangePolicy(String value) => doc.setFormField(path, 'breakingChangePolicy', value);
 
-  bool? get migrationGuidance { final v = doc.formField(path, 'migrationGuidance'); return v == null ? null : v == 'true'; }
-  set migrationGuidance(bool? value) => doc.setFormField(path, 'migrationGuidance', value?.toString() ?? '');
+  bool? get migrationGuidance => somParseBool(doc.formField(path, 'migrationGuidance'));
+  set migrationGuidance(bool? value) => doc.setFormField(path, 'migrationGuidance', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -25640,8 +25661,8 @@ class ApiVersioningStrategyDocumentationForm extends SomNode {
   String get changelogFormat => doc.formField(path, 'changelogFormat') ?? '';
   set changelogFormat(String value) => doc.setFormField(path, 'changelogFormat', value);
 
-  bool? get clientSdkGeneration { final v = doc.formField(path, 'clientSdkGeneration'); return v == null ? null : v == 'true'; }
-  set clientSdkGeneration(bool? value) => doc.setFormField(path, 'clientSdkGeneration', value?.toString() ?? '');
+  bool? get clientSdkGeneration => somParseBool(doc.formField(path, 'clientSdkGeneration'));
+  set clientSdkGeneration(bool? value) => doc.setFormField(path, 'clientSdkGeneration', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -25749,14 +25770,14 @@ class ApplicationDiagnosticsFeatureStatusForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get featureFlagStatus { final v = doc.formField(path, 'featureFlagStatus'); return v == null ? null : v == 'true'; }
-  set featureFlagStatus(bool? value) => doc.setFormField(path, 'featureFlagStatus', value?.toString() ?? '');
+  bool? get featureFlagStatus => somParseBool(doc.formField(path, 'featureFlagStatus'));
+  set featureFlagStatus(bool? value) => doc.setFormField(path, 'featureFlagStatus', somFormatBool(value));
 
-  bool? get circuitBreakerStatus { final v = doc.formField(path, 'circuitBreakerStatus'); return v == null ? null : v == 'true'; }
-  set circuitBreakerStatus(bool? value) => doc.setFormField(path, 'circuitBreakerStatus', value?.toString() ?? '');
+  bool? get circuitBreakerStatus => somParseBool(doc.formField(path, 'circuitBreakerStatus'));
+  set circuitBreakerStatus(bool? value) => doc.setFormField(path, 'circuitBreakerStatus', somFormatBool(value));
 
-  bool? get cacheHitRatio { final v = doc.formField(path, 'cacheHitRatio'); return v == null ? null : v == 'true'; }
-  set cacheHitRatio(bool? value) => doc.setFormField(path, 'cacheHitRatio', value?.toString() ?? '');
+  bool? get cacheHitRatio => somParseBool(doc.formField(path, 'cacheHitRatio'));
+  set cacheHitRatio(bool? value) => doc.setFormField(path, 'cacheHitRatio', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -25774,14 +25795,14 @@ class ApplicationDiagnosticsPerformanceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cpuProfiling { final v = doc.formField(path, 'cpuProfiling'); return v == null ? null : v == 'true'; }
-  set cpuProfiling(bool? value) => doc.setFormField(path, 'cpuProfiling', value?.toString() ?? '');
+  bool? get cpuProfiling => somParseBool(doc.formField(path, 'cpuProfiling'));
+  set cpuProfiling(bool? value) => doc.setFormField(path, 'cpuProfiling', somFormatBool(value));
 
-  bool? get memoryProfiling { final v = doc.formField(path, 'memoryProfiling'); return v == null ? null : v == 'true'; }
-  set memoryProfiling(bool? value) => doc.setFormField(path, 'memoryProfiling', value?.toString() ?? '');
+  bool? get memoryProfiling => somParseBool(doc.formField(path, 'memoryProfiling'));
+  set memoryProfiling(bool? value) => doc.setFormField(path, 'memoryProfiling', somFormatBool(value));
 
-  bool? get requestTracing { final v = doc.formField(path, 'requestTracing'); return v == null ? null : v == 'true'; }
-  set requestTracing(bool? value) => doc.setFormField(path, 'requestTracing', value?.toString() ?? '');
+  bool? get requestTracing => somParseBool(doc.formField(path, 'requestTracing'));
+  set requestTracing(bool? value) => doc.setFormField(path, 'requestTracing', somFormatBool(value));
 
   String get slowRequestDetection => doc.formField(path, 'slowRequestDetection') ?? '';
   set slowRequestDetection(String value) => doc.setFormField(path, 'slowRequestDetection', value);
@@ -25799,14 +25820,14 @@ class ApplicationDiagnosticsRuntimeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get connectionPoolStatus { final v = doc.formField(path, 'connectionPoolStatus'); return v == null ? null : v == 'true'; }
-  set connectionPoolStatus(bool? value) => doc.setFormField(path, 'connectionPoolStatus', value?.toString() ?? '');
+  bool? get connectionPoolStatus => somParseBool(doc.formField(path, 'connectionPoolStatus'));
+  set connectionPoolStatus(bool? value) => doc.setFormField(path, 'connectionPoolStatus', somFormatBool(value));
 
-  bool? get threadPoolStatus { final v = doc.formField(path, 'threadPoolStatus'); return v == null ? null : v == 'true'; }
-  set threadPoolStatus(bool? value) => doc.setFormField(path, 'threadPoolStatus', value?.toString() ?? '');
+  bool? get threadPoolStatus => somParseBool(doc.formField(path, 'threadPoolStatus'));
+  set threadPoolStatus(bool? value) => doc.setFormField(path, 'threadPoolStatus', somFormatBool(value));
 
-  bool? get queueDepthMonitoring { final v = doc.formField(path, 'queueDepthMonitoring'); return v == null ? null : v == 'true'; }
-  set queueDepthMonitoring(bool? value) => doc.setFormField(path, 'queueDepthMonitoring', value?.toString() ?? '');
+  bool? get queueDepthMonitoring => somParseBool(doc.formField(path, 'queueDepthMonitoring'));
+  set queueDepthMonitoring(bool? value) => doc.setFormField(path, 'queueDepthMonitoring', somFormatBool(value));
 }
 
 /// Generated section facade for the `application` `@Form` section:
@@ -25821,20 +25842,20 @@ class ApplicationMetricsSpecApplicationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cacheMetrics { final v = doc.formField(path, 'cacheMetrics'); return v == null ? null : v == 'true'; }
-  set cacheMetrics(bool? value) => doc.setFormField(path, 'cacheMetrics', value?.toString() ?? '');
+  bool? get cacheMetrics => somParseBool(doc.formField(path, 'cacheMetrics'));
+  set cacheMetrics(bool? value) => doc.setFormField(path, 'cacheMetrics', somFormatBool(value));
 
-  bool? get databaseMetrics { final v = doc.formField(path, 'databaseMetrics'); return v == null ? null : v == 'true'; }
-  set databaseMetrics(bool? value) => doc.setFormField(path, 'databaseMetrics', value?.toString() ?? '');
+  bool? get databaseMetrics => somParseBool(doc.formField(path, 'databaseMetrics'));
+  set databaseMetrics(bool? value) => doc.setFormField(path, 'databaseMetrics', somFormatBool(value));
 
-  bool? get httpClientMetrics { final v = doc.formField(path, 'httpClientMetrics'); return v == null ? null : v == 'true'; }
-  set httpClientMetrics(bool? value) => doc.setFormField(path, 'httpClientMetrics', value?.toString() ?? '');
+  bool? get httpClientMetrics => somParseBool(doc.formField(path, 'httpClientMetrics'));
+  set httpClientMetrics(bool? value) => doc.setFormField(path, 'httpClientMetrics', somFormatBool(value));
 
-  bool? get grpcMetrics { final v = doc.formField(path, 'grpcMetrics'); return v == null ? null : v == 'true'; }
-  set grpcMetrics(bool? value) => doc.setFormField(path, 'grpcMetrics', value?.toString() ?? '');
+  bool? get grpcMetrics => somParseBool(doc.formField(path, 'grpcMetrics'));
+  set grpcMetrics(bool? value) => doc.setFormField(path, 'grpcMetrics', somFormatBool(value));
 
-  bool? get messageQueueMetrics { final v = doc.formField(path, 'messageQueueMetrics'); return v == null ? null : v == 'true'; }
-  set messageQueueMetrics(bool? value) => doc.setFormField(path, 'messageQueueMetrics', value?.toString() ?? '');
+  bool? get messageQueueMetrics => somParseBool(doc.formField(path, 'messageQueueMetrics'));
+  set messageQueueMetrics(bool? value) => doc.setFormField(path, 'messageQueueMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -25849,14 +25870,14 @@ class ApplicationMetricsSpecContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get requestRate { final v = doc.formField(path, 'requestRate'); return v == null ? null : v == 'true'; }
-  set requestRate(bool? value) => doc.setFormField(path, 'requestRate', value?.toString() ?? '');
+  bool? get requestRate => somParseBool(doc.formField(path, 'requestRate'));
+  set requestRate(bool? value) => doc.setFormField(path, 'requestRate', somFormatBool(value));
 
-  bool? get errorRate { final v = doc.formField(path, 'errorRate'); return v == null ? null : v == 'true'; }
-  set errorRate(bool? value) => doc.setFormField(path, 'errorRate', value?.toString() ?? '');
+  bool? get errorRate => somParseBool(doc.formField(path, 'errorRate'));
+  set errorRate(bool? value) => doc.setFormField(path, 'errorRate', somFormatBool(value));
 
-  bool? get requestDuration { final v = doc.formField(path, 'requestDuration'); return v == null ? null : v == 'true'; }
-  set requestDuration(bool? value) => doc.setFormField(path, 'requestDuration', value?.toString() ?? '');
+  bool? get requestDuration => somParseBool(doc.formField(path, 'requestDuration'));
+  set requestDuration(bool? value) => doc.setFormField(path, 'requestDuration', somFormatBool(value));
 }
 
 /// Generated section facade for the `labels` `@Form` section:
@@ -25896,14 +25917,14 @@ class ApplicationMetricsSpecResourcesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get resourceUtilization { final v = doc.formField(path, 'resourceUtilization'); return v == null ? null : v == 'true'; }
-  set resourceUtilization(bool? value) => doc.setFormField(path, 'resourceUtilization', value?.toString() ?? '');
+  bool? get resourceUtilization => somParseBool(doc.formField(path, 'resourceUtilization'));
+  set resourceUtilization(bool? value) => doc.setFormField(path, 'resourceUtilization', somFormatBool(value));
 
-  bool? get resourceSaturation { final v = doc.formField(path, 'resourceSaturation'); return v == null ? null : v == 'true'; }
-  set resourceSaturation(bool? value) => doc.setFormField(path, 'resourceSaturation', value?.toString() ?? '');
+  bool? get resourceSaturation => somParseBool(doc.formField(path, 'resourceSaturation'));
+  set resourceSaturation(bool? value) => doc.setFormField(path, 'resourceSaturation', somFormatBool(value));
 
-  bool? get resourceErrors { final v = doc.formField(path, 'resourceErrors'); return v == null ? null : v == 'true'; }
-  set resourceErrors(bool? value) => doc.setFormField(path, 'resourceErrors', value?.toString() ?? '');
+  bool? get resourceErrors => somParseBool(doc.formField(path, 'resourceErrors'));
+  set resourceErrors(bool? value) => doc.setFormField(path, 'resourceErrors', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -25940,14 +25961,14 @@ class ApplicationPerformanceMonitoringErrorsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get errorTracking { final v = doc.formField(path, 'errorTracking'); return v == null ? null : v == 'true'; }
-  set errorTracking(bool? value) => doc.setFormField(path, 'errorTracking', value?.toString() ?? '');
+  bool? get errorTracking => somParseBool(doc.formField(path, 'errorTracking'));
+  set errorTracking(bool? value) => doc.setFormField(path, 'errorTracking', somFormatBool(value));
 
   String get errorGrouping => doc.formField(path, 'errorGrouping') ?? '';
   set errorGrouping(String value) => doc.setFormField(path, 'errorGrouping', value);
 
-  bool? get sourceMapping { final v = doc.formField(path, 'sourceMapping'); return v == null ? null : v == 'true'; }
-  set sourceMapping(bool? value) => doc.setFormField(path, 'sourceMapping', value?.toString() ?? '');
+  bool? get sourceMapping => somParseBool(doc.formField(path, 'sourceMapping'));
+  set sourceMapping(bool? value) => doc.setFormField(path, 'sourceMapping', somFormatBool(value));
 
   String get errorContext => doc.formField(path, 'errorContext') ?? '';
   set errorContext(String value) => doc.setFormField(path, 'errorContext', value);
@@ -25965,14 +25986,14 @@ class ApplicationPerformanceMonitoringProfilingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get continuousProfiling { final v = doc.formField(path, 'continuousProfiling'); return v == null ? null : v == 'true'; }
-  set continuousProfiling(bool? value) => doc.setFormField(path, 'continuousProfiling', value?.toString() ?? '');
+  bool? get continuousProfiling => somParseBool(doc.formField(path, 'continuousProfiling'));
+  set continuousProfiling(bool? value) => doc.setFormField(path, 'continuousProfiling', somFormatBool(value));
 
-  bool? get cpuProfiling { final v = doc.formField(path, 'cpuProfiling'); return v == null ? null : v == 'true'; }
-  set cpuProfiling(bool? value) => doc.setFormField(path, 'cpuProfiling', value?.toString() ?? '');
+  bool? get cpuProfiling => somParseBool(doc.formField(path, 'cpuProfiling'));
+  set cpuProfiling(bool? value) => doc.setFormField(path, 'cpuProfiling', somFormatBool(value));
 
-  bool? get memoryProfiling { final v = doc.formField(path, 'memoryProfiling'); return v == null ? null : v == 'true'; }
-  set memoryProfiling(bool? value) => doc.setFormField(path, 'memoryProfiling', value?.toString() ?? '');
+  bool? get memoryProfiling => somParseBool(doc.formField(path, 'memoryProfiling'));
+  set memoryProfiling(bool? value) => doc.setFormField(path, 'memoryProfiling', somFormatBool(value));
 
   String get profilingOverhead => doc.formField(path, 'profilingOverhead') ?? '';
   set profilingOverhead(String value) => doc.setFormField(path, 'profilingOverhead', value);
@@ -25990,8 +26011,8 @@ class ApplicationPerformanceMonitoringTracingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get distributedTracing { final v = doc.formField(path, 'distributedTracing'); return v == null ? null : v == 'true'; }
-  set distributedTracing(bool? value) => doc.setFormField(path, 'distributedTracing', value?.toString() ?? '');
+  bool? get distributedTracing => somParseBool(doc.formField(path, 'distributedTracing'));
+  set distributedTracing(bool? value) => doc.setFormField(path, 'distributedTracing', somFormatBool(value));
 
   String get traceContext => doc.formField(path, 'traceContext') ?? '';
   set traceContext(String value) => doc.setFormField(path, 'traceContext', value);
@@ -26015,11 +26036,11 @@ class ApplicationPerformanceMonitoringUserSignalsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get realUserMonitoring { final v = doc.formField(path, 'realUserMonitoring'); return v == null ? null : v == 'true'; }
-  set realUserMonitoring(bool? value) => doc.setFormField(path, 'realUserMonitoring', value?.toString() ?? '');
+  bool? get realUserMonitoring => somParseBool(doc.formField(path, 'realUserMonitoring'));
+  set realUserMonitoring(bool? value) => doc.setFormField(path, 'realUserMonitoring', somFormatBool(value));
 
-  bool? get syntheticMonitoring { final v = doc.formField(path, 'syntheticMonitoring'); return v == null ? null : v == 'true'; }
-  set syntheticMonitoring(bool? value) => doc.setFormField(path, 'syntheticMonitoring', value?.toString() ?? '');
+  bool? get syntheticMonitoring => somParseBool(doc.formField(path, 'syntheticMonitoring'));
+  set syntheticMonitoring(bool? value) => doc.setFormField(path, 'syntheticMonitoring', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -26947,8 +26968,8 @@ class AuthorizationRoleEntryGovernanceForm extends SomNode {
   String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
   set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
 
-  int? get maxHolders { final v = doc.formField(path, 'maxHolders'); return v == null ? null : int.tryParse(v); }
-  set maxHolders(int? value) => doc.setFormField(path, 'maxHolders', value?.toString() ?? '');
+  int? get maxHolders => somParseInt(doc.formField(path, 'maxHolders'));
+  set maxHolders(int? value) => doc.setFormField(path, 'maxHolders', somFormatInt(value));
 
   String get activationType => doc.formField(path, 'activationType') ?? '';
   set activationType(String value) => doc.setFormField(path, 'activationType', value);
@@ -26956,8 +26977,8 @@ class AuthorizationRoleEntryGovernanceForm extends SomNode {
   String get activationDuration => doc.formField(path, 'activationDuration') ?? '';
   set activationDuration(String value) => doc.setFormField(path, 'activationDuration', value);
 
-  bool? get approvalRequired { final v = doc.formField(path, 'approvalRequired'); return v == null ? null : v == 'true'; }
-  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', value?.toString() ?? '');
+  bool? get approvalRequired => somParseBool(doc.formField(path, 'approvalRequired'));
+  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', somFormatBool(value));
 
   String get approver => doc.formField(path, 'approver') ?? '';
   set approver(String value) => doc.setFormField(path, 'approver', value);
@@ -26997,11 +27018,11 @@ class AuthorizationRoleEntryStatusForm extends SomNode {
   String get dataAccessScope => doc.formField(path, 'dataAccessScope') ?? '';
   set dataAccessScope(String value) => doc.setFormField(path, 'dataAccessScope', value);
 
-  bool? get isDefault { final v = doc.formField(path, 'isDefault'); return v == null ? null : v == 'true'; }
-  set isDefault(bool? value) => doc.setFormField(path, 'isDefault', value?.toString() ?? '');
+  bool? get isDefault => somParseBool(doc.formField(path, 'isDefault'));
+  set isDefault(bool? value) => doc.setFormField(path, 'isDefault', somFormatBool(value));
 
-  bool? get isSystem { final v = doc.formField(path, 'isSystem'); return v == null ? null : v == 'true'; }
-  set isSystem(bool? value) => doc.setFormField(path, 'isSystem', value?.toString() ?? '');
+  bool? get isSystem => somParseBool(doc.formField(path, 'isSystem'));
+  set isSystem(bool? value) => doc.setFormField(path, 'isSystem', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -27151,11 +27172,11 @@ class BackupComplianceAuditForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get auditTrail { final v = doc.formField(path, 'auditTrail'); return v == null ? null : v == 'true'; }
-  set auditTrail(bool? value) => doc.setFormField(path, 'auditTrail', value?.toString() ?? '');
+  bool? get auditTrail => somParseBool(doc.formField(path, 'auditTrail'));
+  set auditTrail(bool? value) => doc.setFormField(path, 'auditTrail', somFormatBool(value));
 
-  bool? get accessLogging { final v = doc.formField(path, 'accessLogging'); return v == null ? null : v == 'true'; }
-  set accessLogging(bool? value) => doc.setFormField(path, 'accessLogging', value?.toString() ?? '');
+  bool? get accessLogging => somParseBool(doc.formField(path, 'accessLogging'));
+  set accessLogging(bool? value) => doc.setFormField(path, 'accessLogging', somFormatBool(value));
 
   String get changeManagement => doc.formField(path, 'changeManagement') ?? '';
   set changeManagement(String value) => doc.setFormField(path, 'changeManagement', value);
@@ -27185,8 +27206,8 @@ class BackupComplianceContentForm extends SomNode {
   String get dataResidency => doc.formField(path, 'dataResidency') ?? '';
   set dataResidency(String value) => doc.setFormField(path, 'dataResidency', value);
 
-  bool? get crossBorderTransfer { final v = doc.formField(path, 'crossBorderTransfer'); return v == null ? null : v == 'true'; }
-  set crossBorderTransfer(bool? value) => doc.setFormField(path, 'crossBorderTransfer', value?.toString() ?? '');
+  bool? get crossBorderTransfer => somParseBool(doc.formField(path, 'crossBorderTransfer'));
+  set crossBorderTransfer(bool? value) => doc.setFormField(path, 'crossBorderTransfer', somFormatBool(value));
 }
 
 /// Generated section facade for the `legalHold` `@Form` section:
@@ -27201,8 +27222,8 @@ class BackupComplianceLegalHoldForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get legalHoldCapability { final v = doc.formField(path, 'legalHoldCapability'); return v == null ? null : v == 'true'; }
-  set legalHoldCapability(bool? value) => doc.setFormField(path, 'legalHoldCapability', value?.toString() ?? '');
+  bool? get legalHoldCapability => somParseBool(doc.formField(path, 'legalHoldCapability'));
+  set legalHoldCapability(bool? value) => doc.setFormField(path, 'legalHoldCapability', somFormatBool(value));
 
   String get legalHoldProcess => doc.formField(path, 'legalHoldProcess') ?? '';
   set legalHoldProcess(String value) => doc.setFormField(path, 'legalHoldProcess', value);
@@ -27354,8 +27375,8 @@ class BackupInfrastructureNetworkForm extends SomNode {
   String get bandwidthRequired => doc.formField(path, 'bandwidthRequired') ?? '';
   set bandwidthRequired(String value) => doc.setFormField(path, 'bandwidthRequired', value);
 
-  bool? get encryptionInTransit { final v = doc.formField(path, 'encryptionInTransit'); return v == null ? null : v == 'true'; }
-  set encryptionInTransit(bool? value) => doc.setFormField(path, 'encryptionInTransit', value?.toString() ?? '');
+  bool? get encryptionInTransit => somParseBool(doc.formField(path, 'encryptionInTransit'));
+  set encryptionInTransit(bool? value) => doc.setFormField(path, 'encryptionInTransit', somFormatBool(value));
 }
 
 /// Generated section facade for the `security` `@Form` section:
@@ -27379,8 +27400,8 @@ class BackupInfrastructureSecurityForm extends SomNode {
   String get keyManagement => doc.formField(path, 'keyManagement') ?? '';
   set keyManagement(String value) => doc.setFormField(path, 'keyManagement', value);
 
-  bool? get immutableBackups { final v = doc.formField(path, 'immutableBackups'); return v == null ? null : v == 'true'; }
-  set immutableBackups(bool? value) => doc.setFormField(path, 'immutableBackups', value?.toString() ?? '');
+  bool? get immutableBackups => somParseBool(doc.formField(path, 'immutableBackups'));
+  set immutableBackups(bool? value) => doc.setFormField(path, 'immutableBackups', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -27401,14 +27422,14 @@ class BackupInfrastructureSoftwareForm extends SomNode {
   String get backupSoftware => doc.formField(path, 'backupSoftware') ?? '';
   set backupSoftware(String value) => doc.setFormField(path, 'backupSoftware', value);
 
-  bool? get agentBased { final v = doc.formField(path, 'agentBased'); return v == null ? null : v == 'true'; }
-  set agentBased(bool? value) => doc.setFormField(path, 'agentBased', value?.toString() ?? '');
+  bool? get agentBased => somParseBool(doc.formField(path, 'agentBased'));
+  set agentBased(bool? value) => doc.setFormField(path, 'agentBased', somFormatBool(value));
 
-  bool? get agentlessBackup { final v = doc.formField(path, 'agentlessBackup'); return v == null ? null : v == 'true'; }
-  set agentlessBackup(bool? value) => doc.setFormField(path, 'agentlessBackup', value?.toString() ?? '');
+  bool? get agentlessBackup => somParseBool(doc.formField(path, 'agentlessBackup'));
+  set agentlessBackup(bool? value) => doc.setFormField(path, 'agentlessBackup', somFormatBool(value));
 
-  bool? get deduplication { final v = doc.formField(path, 'deduplication'); return v == null ? null : v == 'true'; }
-  set deduplication(bool? value) => doc.setFormField(path, 'deduplication', value?.toString() ?? '');
+  bool? get deduplication => somParseBool(doc.formField(path, 'deduplication'));
+  set deduplication(bool? value) => doc.setFormField(path, 'deduplication', somFormatBool(value));
 }
 
 /// Generated section facade for the `storage` `@Form` section:
@@ -27435,8 +27456,8 @@ class BackupInfrastructureStorageForm extends SomNode {
   String get cloudBackupProvider => doc.formField(path, 'cloudBackupProvider') ?? '';
   set cloudBackupProvider(String value) => doc.setFormField(path, 'cloudBackupProvider', value);
 
-  bool? get crossRegionReplication { final v = doc.formField(path, 'crossRegionReplication'); return v == null ? null : v == 'true'; }
-  set crossRegionReplication(bool? value) => doc.setFormField(path, 'crossRegionReplication', value?.toString() ?? '');
+  bool? get crossRegionReplication => somParseBool(doc.formField(path, 'crossRegionReplication'));
+  set crossRegionReplication(bool? value) => doc.setFormField(path, 'crossRegionReplication', somFormatBool(value));
 }
 
 /// Generated section facade for the `backupType` `@Form` section:
@@ -27551,17 +27572,17 @@ class BackupPolicyEntryStorageForm extends SomNode {
   String get storageLocation => doc.formField(path, 'storageLocation') ?? '';
   set storageLocation(String value) => doc.setFormField(path, 'storageLocation', value);
 
-  bool? get offSiteReplication { final v = doc.formField(path, 'offSiteReplication'); return v == null ? null : v == 'true'; }
-  set offSiteReplication(bool? value) => doc.setFormField(path, 'offSiteReplication', value?.toString() ?? '');
+  bool? get offSiteReplication => somParseBool(doc.formField(path, 'offSiteReplication'));
+  set offSiteReplication(bool? value) => doc.setFormField(path, 'offSiteReplication', somFormatBool(value));
 
-  bool? get encryptionRequired { final v = doc.formField(path, 'encryptionRequired'); return v == null ? null : v == 'true'; }
-  set encryptionRequired(bool? value) => doc.setFormField(path, 'encryptionRequired', value?.toString() ?? '');
+  bool? get encryptionRequired => somParseBool(doc.formField(path, 'encryptionRequired'));
+  set encryptionRequired(bool? value) => doc.setFormField(path, 'encryptionRequired', somFormatBool(value));
 
-  bool? get compressionEnabled { final v = doc.formField(path, 'compressionEnabled'); return v == null ? null : v == 'true'; }
-  set compressionEnabled(bool? value) => doc.setFormField(path, 'compressionEnabled', value?.toString() ?? '');
+  bool? get compressionEnabled => somParseBool(doc.formField(path, 'compressionEnabled'));
+  set compressionEnabled(bool? value) => doc.setFormField(path, 'compressionEnabled', somFormatBool(value));
 
-  bool? get verificationRequired { final v = doc.formField(path, 'verificationRequired'); return v == null ? null : v == 'true'; }
-  set verificationRequired(bool? value) => doc.setFormField(path, 'verificationRequired', value?.toString() ?? '');
+  bool? get verificationRequired => somParseBool(doc.formField(path, 'verificationRequired'));
+  set verificationRequired(bool? value) => doc.setFormField(path, 'verificationRequired', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -27585,11 +27606,11 @@ class BackupVerificationContentForm extends SomNode {
   String get verificationMethod => doc.formField(path, 'verificationMethod') ?? '';
   set verificationMethod(String value) => doc.setFormField(path, 'verificationMethod', value);
 
-  bool? get integrityChecks { final v = doc.formField(path, 'integrityChecks'); return v == null ? null : v == 'true'; }
-  set integrityChecks(bool? value) => doc.setFormField(path, 'integrityChecks', value?.toString() ?? '');
+  bool? get integrityChecks => somParseBool(doc.formField(path, 'integrityChecks'));
+  set integrityChecks(bool? value) => doc.setFormField(path, 'integrityChecks', somFormatBool(value));
 
-  bool? get alertOnFailure { final v = doc.formField(path, 'alertOnFailure'); return v == null ? null : v == 'true'; }
-  set alertOnFailure(bool? value) => doc.setFormField(path, 'alertOnFailure', value?.toString() ?? '');
+  bool? get alertOnFailure => somParseBool(doc.formField(path, 'alertOnFailure'));
+  set alertOnFailure(bool? value) => doc.setFormField(path, 'alertOnFailure', somFormatBool(value));
 }
 
 /// Generated section facade for the `documentation` `@Form` section:
@@ -27635,8 +27656,8 @@ class BackupVerificationEnvironmentForm extends SomNode {
   String get testDataHandling => doc.formField(path, 'testDataHandling') ?? '';
   set testDataHandling(String value) => doc.setFormField(path, 'testDataHandling', value);
 
-  bool? get productionIsolation { final v = doc.formField(path, 'productionIsolation'); return v == null ? null : v == 'true'; }
-  set productionIsolation(bool? value) => doc.setFormField(path, 'productionIsolation', value?.toString() ?? '');
+  bool? get productionIsolation => somParseBool(doc.formField(path, 'productionIsolation'));
+  set productionIsolation(bool? value) => doc.setFormField(path, 'productionIsolation', somFormatBool(value));
 }
 
 /// Generated section facade for the `recovery` `@Form` section:
@@ -27933,8 +27954,8 @@ class BatchJobManagementExecutionForm extends SomNode {
   String get retryPolicy => doc.formField(path, 'retryPolicy') ?? '';
   set retryPolicy(String value) => doc.setFormField(path, 'retryPolicy', value);
 
-  bool? get idempotency { final v = doc.formField(path, 'idempotency'); return v == null ? null : v == 'true'; }
-  set idempotency(bool? value) => doc.setFormField(path, 'idempotency', value?.toString() ?? '');
+  bool? get idempotency => somParseBool(doc.formField(path, 'idempotency'));
+  set idempotency(bool? value) => doc.setFormField(path, 'idempotency', somFormatBool(value));
 
   String get timeout => doc.formField(path, 'timeout') ?? '';
   set timeout(String value) => doc.setFormField(path, 'timeout', value);
@@ -27980,11 +28001,11 @@ class BatchJobManagementMonitoringForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get jobDashboard { final v = doc.formField(path, 'jobDashboard'); return v == null ? null : v == 'true'; }
-  set jobDashboard(bool? value) => doc.setFormField(path, 'jobDashboard', value?.toString() ?? '');
+  bool? get jobDashboard => somParseBool(doc.formField(path, 'jobDashboard'));
+  set jobDashboard(bool? value) => doc.setFormField(path, 'jobDashboard', somFormatBool(value));
 
-  bool? get executionHistory { final v = doc.formField(path, 'executionHistory'); return v == null ? null : v == 'true'; }
-  set executionHistory(bool? value) => doc.setFormField(path, 'executionHistory', value?.toString() ?? '');
+  bool? get executionHistory => somParseBool(doc.formField(path, 'executionHistory'));
+  set executionHistory(bool? value) => doc.setFormField(path, 'executionHistory', somFormatBool(value));
 
   String get failureAlerts => doc.formField(path, 'failureAlerts') ?? '';
   set failureAlerts(String value) => doc.setFormField(path, 'failureAlerts', value);
@@ -27992,8 +28013,8 @@ class BatchJobManagementMonitoringForm extends SomNode {
   String get slaMonitoring => doc.formField(path, 'slaMonitoring') ?? '';
   set slaMonitoring(String value) => doc.setFormField(path, 'slaMonitoring', value);
 
-  bool? get manualTrigger { final v = doc.formField(path, 'manualTrigger'); return v == null ? null : v == 'true'; }
-  set manualTrigger(bool? value) => doc.setFormField(path, 'manualTrigger', value?.toString() ?? '');
+  bool? get manualTrigger => somParseBool(doc.formField(path, 'manualTrigger'));
+  set manualTrigger(bool? value) => doc.setFormField(path, 'manualTrigger', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -28304,8 +28325,8 @@ class BreakpointEntryLayoutForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get columns { final v = doc.formField(path, 'columns'); return v == null ? null : int.tryParse(v); }
-  set columns(int? value) => doc.setFormField(path, 'columns', value?.toString() ?? '');
+  int? get columns => somParseInt(doc.formField(path, 'columns'));
+  set columns(int? value) => doc.setFormField(path, 'columns', somFormatInt(value));
 
   String get gutterWidth => doc.formField(path, 'gutterWidth') ?? '';
   set gutterWidth(String value) => doc.setFormField(path, 'gutterWidth', value);
@@ -28567,8 +28588,8 @@ class BrowserRequirementEntryTestingForm extends SomNode {
   String get testPlatform => doc.formField(path, 'testPlatform') ?? '';
   set testPlatform(String value) => doc.setFormField(path, 'testPlatform', value);
 
-  bool? get automatedTesting { final v = doc.formField(path, 'automatedTesting'); return v == null ? null : v == 'true'; }
-  set automatedTesting(bool? value) => doc.setFormField(path, 'automatedTesting', value?.toString() ?? '');
+  bool? get automatedTesting => somParseBool(doc.formField(path, 'automatedTesting'));
+  set automatedTesting(bool? value) => doc.setFormField(path, 'automatedTesting', somFormatBool(value));
 
   String get manualTestingFrequency => doc.formField(path, 'manualTestingFrequency') ?? '';
   set manualTestingFrequency(String value) => doc.setFormField(path, 'manualTestingFrequency', value);
@@ -29104,14 +29125,14 @@ class BusinessMetricsSpecContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get activeUsers { final v = doc.formField(path, 'activeUsers'); return v == null ? null : v == 'true'; }
-  set activeUsers(bool? value) => doc.setFormField(path, 'activeUsers', value?.toString() ?? '');
+  bool? get activeUsers => somParseBool(doc.formField(path, 'activeUsers'));
+  set activeUsers(bool? value) => doc.setFormField(path, 'activeUsers', somFormatBool(value));
 
-  bool? get sessionMetrics { final v = doc.formField(path, 'sessionMetrics'); return v == null ? null : v == 'true'; }
-  set sessionMetrics(bool? value) => doc.setFormField(path, 'sessionMetrics', value?.toString() ?? '');
+  bool? get sessionMetrics => somParseBool(doc.formField(path, 'sessionMetrics'));
+  set sessionMetrics(bool? value) => doc.setFormField(path, 'sessionMetrics', somFormatBool(value));
 
-  bool? get userJourneyMetrics { final v = doc.formField(path, 'userJourneyMetrics'); return v == null ? null : v == 'true'; }
-  set userJourneyMetrics(bool? value) => doc.setFormField(path, 'userJourneyMetrics', value?.toString() ?? '');
+  bool? get userJourneyMetrics => somParseBool(doc.formField(path, 'userJourneyMetrics'));
+  set userJourneyMetrics(bool? value) => doc.setFormField(path, 'userJourneyMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `featureUsage` `@Form` section:
@@ -29126,11 +29147,11 @@ class BusinessMetricsSpecFeatureUsageForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get featureAdoption { final v = doc.formField(path, 'featureAdoption'); return v == null ? null : v == 'true'; }
-  set featureAdoption(bool? value) => doc.setFormField(path, 'featureAdoption', value?.toString() ?? '');
+  bool? get featureAdoption => somParseBool(doc.formField(path, 'featureAdoption'));
+  set featureAdoption(bool? value) => doc.setFormField(path, 'featureAdoption', somFormatBool(value));
 
-  bool? get featureEngagement { final v = doc.formField(path, 'featureEngagement'); return v == null ? null : v == 'true'; }
-  set featureEngagement(bool? value) => doc.setFormField(path, 'featureEngagement', value?.toString() ?? '');
+  bool? get featureEngagement => somParseBool(doc.formField(path, 'featureEngagement'));
+  set featureEngagement(bool? value) => doc.setFormField(path, 'featureEngagement', somFormatBool(value));
 }
 
 /// Generated section facade for the `kpis` `@Form` section:
@@ -29145,17 +29166,17 @@ class BusinessMetricsSpecKpisForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get conversionRate { final v = doc.formField(path, 'conversionRate'); return v == null ? null : v == 'true'; }
-  set conversionRate(bool? value) => doc.setFormField(path, 'conversionRate', value?.toString() ?? '');
+  bool? get conversionRate => somParseBool(doc.formField(path, 'conversionRate'));
+  set conversionRate(bool? value) => doc.setFormField(path, 'conversionRate', somFormatBool(value));
 
-  bool? get churnRate { final v = doc.formField(path, 'churnRate'); return v == null ? null : v == 'true'; }
-  set churnRate(bool? value) => doc.setFormField(path, 'churnRate', value?.toString() ?? '');
+  bool? get churnRate => somParseBool(doc.formField(path, 'churnRate'));
+  set churnRate(bool? value) => doc.setFormField(path, 'churnRate', somFormatBool(value));
 
-  bool? get customerSatisfaction { final v = doc.formField(path, 'customerSatisfaction'); return v == null ? null : v == 'true'; }
-  set customerSatisfaction(bool? value) => doc.setFormField(path, 'customerSatisfaction', value?.toString() ?? '');
+  bool? get customerSatisfaction => somParseBool(doc.formField(path, 'customerSatisfaction'));
+  set customerSatisfaction(bool? value) => doc.setFormField(path, 'customerSatisfaction', somFormatBool(value));
 
-  bool? get slaCompliance { final v = doc.formField(path, 'slaCompliance'); return v == null ? null : v == 'true'; }
-  set slaCompliance(bool? value) => doc.setFormField(path, 'slaCompliance', value?.toString() ?? '');
+  bool? get slaCompliance => somParseBool(doc.formField(path, 'slaCompliance'));
+  set slaCompliance(bool? value) => doc.setFormField(path, 'slaCompliance', somFormatBool(value));
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -29170,8 +29191,8 @@ class BusinessMetricsSpecOperationsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get realTimeBusinessDashboard { final v = doc.formField(path, 'realTimeBusinessDashboard'); return v == null ? null : v == 'true'; }
-  set realTimeBusinessDashboard(bool? value) => doc.setFormField(path, 'realTimeBusinessDashboard', value?.toString() ?? '');
+  bool? get realTimeBusinessDashboard => somParseBool(doc.formField(path, 'realTimeBusinessDashboard'));
+  set realTimeBusinessDashboard(bool? value) => doc.setFormField(path, 'realTimeBusinessDashboard', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -29189,14 +29210,14 @@ class BusinessMetricsSpecTransactionsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get transactionVolume { final v = doc.formField(path, 'transactionVolume'); return v == null ? null : v == 'true'; }
-  set transactionVolume(bool? value) => doc.setFormField(path, 'transactionVolume', value?.toString() ?? '');
+  bool? get transactionVolume => somParseBool(doc.formField(path, 'transactionVolume'));
+  set transactionVolume(bool? value) => doc.setFormField(path, 'transactionVolume', somFormatBool(value));
 
-  bool? get transactionValue { final v = doc.formField(path, 'transactionValue'); return v == null ? null : v == 'true'; }
-  set transactionValue(bool? value) => doc.setFormField(path, 'transactionValue', value?.toString() ?? '');
+  bool? get transactionValue => somParseBool(doc.formField(path, 'transactionValue'));
+  set transactionValue(bool? value) => doc.setFormField(path, 'transactionValue', somFormatBool(value));
 
-  bool? get transactionSuccess { final v = doc.formField(path, 'transactionSuccess'); return v == null ? null : v == 'true'; }
-  set transactionSuccess(bool? value) => doc.setFormField(path, 'transactionSuccess', value?.toString() ?? '');
+  bool? get transactionSuccess => somParseBool(doc.formField(path, 'transactionSuccess'));
+  set transactionSuccess(bool? value) => doc.setFormField(path, 'transactionSuccess', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -29688,11 +29709,11 @@ class CapacityReviewProcessMonitoringForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get capacityDashboard { final v = doc.formField(path, 'capacityDashboard'); return v == null ? null : v == 'true'; }
-  set capacityDashboard(bool? value) => doc.setFormField(path, 'capacityDashboard', value?.toString() ?? '');
+  bool? get capacityDashboard => somParseBool(doc.formField(path, 'capacityDashboard'));
+  set capacityDashboard(bool? value) => doc.setFormField(path, 'capacityDashboard', somFormatBool(value));
 
-  bool? get trendAnalysis { final v = doc.formField(path, 'trendAnalysis'); return v == null ? null : v == 'true'; }
-  set trendAnalysis(bool? value) => doc.setFormField(path, 'trendAnalysis', value?.toString() ?? '');
+  bool? get trendAnalysis => somParseBool(doc.formField(path, 'trendAnalysis'));
+  set trendAnalysis(bool? value) => doc.setFormField(path, 'trendAnalysis', somFormatBool(value));
 
   String get forecastingModel => doc.formField(path, 'forecastingModel') ?? '';
   set forecastingModel(String value) => doc.setFormField(path, 'forecastingModel', value);
@@ -29710,14 +29731,14 @@ class CapacityReviewProcessPlanningForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get budgetPlanningIntegration { final v = doc.formField(path, 'budgetPlanningIntegration'); return v == null ? null : v == 'true'; }
-  set budgetPlanningIntegration(bool? value) => doc.setFormField(path, 'budgetPlanningIntegration', value?.toString() ?? '');
+  bool? get budgetPlanningIntegration => somParseBool(doc.formField(path, 'budgetPlanningIntegration'));
+  set budgetPlanningIntegration(bool? value) => doc.setFormField(path, 'budgetPlanningIntegration', somFormatBool(value));
 
   String get procurementLeadTime => doc.formField(path, 'procurementLeadTime') ?? '';
   set procurementLeadTime(String value) => doc.setFormField(path, 'procurementLeadTime', value);
 
-  bool? get rightsizingReview { final v = doc.formField(path, 'rightsizingReview'); return v == null ? null : v == 'true'; }
-  set rightsizingReview(bool? value) => doc.setFormField(path, 'rightsizingReview', value?.toString() ?? '');
+  bool? get rightsizingReview => somParseBool(doc.formField(path, 'rightsizingReview'));
+  set rightsizingReview(bool? value) => doc.setFormField(path, 'rightsizingReview', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -29816,8 +29837,8 @@ class CertificateManagementLifecycleForm extends SomNode {
   String get renewalWindow => doc.formField(path, 'renewalWindow') ?? '';
   set renewalWindow(String value) => doc.setFormField(path, 'renewalWindow', value);
 
-  bool? get automaticRenewal { final v = doc.formField(path, 'automaticRenewal'); return v == null ? null : v == 'true'; }
-  set automaticRenewal(bool? value) => doc.setFormField(path, 'automaticRenewal', value?.toString() ?? '');
+  bool? get automaticRenewal => somParseBool(doc.formField(path, 'automaticRenewal'));
+  set automaticRenewal(bool? value) => doc.setFormField(path, 'automaticRenewal', somFormatBool(value));
 
   String get rotationPolicy => doc.formField(path, 'rotationPolicy') ?? '';
   set rotationPolicy(String value) => doc.setFormField(path, 'rotationPolicy', value);
@@ -29838,8 +29859,8 @@ class CertificateManagementMonitoringForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get expiryMonitoring { final v = doc.formField(path, 'expiryMonitoring'); return v == null ? null : v == 'true'; }
-  set expiryMonitoring(bool? value) => doc.setFormField(path, 'expiryMonitoring', value?.toString() ?? '');
+  bool? get expiryMonitoring => somParseBool(doc.formField(path, 'expiryMonitoring'));
+  set expiryMonitoring(bool? value) => doc.setFormField(path, 'expiryMonitoring', somFormatBool(value));
 
   String get expiryAlertThreshold => doc.formField(path, 'expiryAlertThreshold') ?? '';
   set expiryAlertThreshold(String value) => doc.setFormField(path, 'expiryAlertThreshold', value);
@@ -30347,8 +30368,8 @@ class ChangeImpactCriterionEntryGovernanceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get weight { final v = doc.formField(path, 'weight'); return v == null ? null : int.tryParse(v); }
-  set weight(int? value) => doc.setFormField(path, 'weight', value?.toString() ?? '');
+  int? get weight => somParseInt(doc.formField(path, 'weight'));
+  set weight(int? value) => doc.setFormField(path, 'weight', somFormatInt(value));
 
   String get mandatory => doc.formField(path, 'mandatory') ?? '';
   set mandatory(String value) => doc.setFormField(path, 'mandatory', value);
@@ -30518,20 +30539,20 @@ class ChangeProcessDecisionCriteriaForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get scopeImpactWeight { final v = doc.formField(path, 'scopeImpactWeight'); return v == null ? null : int.tryParse(v); }
-  set scopeImpactWeight(int? value) => doc.setFormField(path, 'scopeImpactWeight', value?.toString() ?? '');
+  int? get scopeImpactWeight => somParseInt(doc.formField(path, 'scopeImpactWeight'));
+  set scopeImpactWeight(int? value) => doc.setFormField(path, 'scopeImpactWeight', somFormatInt(value));
 
-  int? get scheduleImpactWeight { final v = doc.formField(path, 'scheduleImpactWeight'); return v == null ? null : int.tryParse(v); }
-  set scheduleImpactWeight(int? value) => doc.setFormField(path, 'scheduleImpactWeight', value?.toString() ?? '');
+  int? get scheduleImpactWeight => somParseInt(doc.formField(path, 'scheduleImpactWeight'));
+  set scheduleImpactWeight(int? value) => doc.setFormField(path, 'scheduleImpactWeight', somFormatInt(value));
 
-  int? get budgetImpactWeight { final v = doc.formField(path, 'budgetImpactWeight'); return v == null ? null : int.tryParse(v); }
-  set budgetImpactWeight(int? value) => doc.setFormField(path, 'budgetImpactWeight', value?.toString() ?? '');
+  int? get budgetImpactWeight => somParseInt(doc.formField(path, 'budgetImpactWeight'));
+  set budgetImpactWeight(int? value) => doc.setFormField(path, 'budgetImpactWeight', somFormatInt(value));
 
-  int? get qualityImpactWeight { final v = doc.formField(path, 'qualityImpactWeight'); return v == null ? null : int.tryParse(v); }
-  set qualityImpactWeight(int? value) => doc.setFormField(path, 'qualityImpactWeight', value?.toString() ?? '');
+  int? get qualityImpactWeight => somParseInt(doc.formField(path, 'qualityImpactWeight'));
+  set qualityImpactWeight(int? value) => doc.setFormField(path, 'qualityImpactWeight', somFormatInt(value));
 
-  int? get riskImpactWeight { final v = doc.formField(path, 'riskImpactWeight'); return v == null ? null : int.tryParse(v); }
-  set riskImpactWeight(int? value) => doc.setFormField(path, 'riskImpactWeight', value?.toString() ?? '');
+  int? get riskImpactWeight => somParseInt(doc.formField(path, 'riskImpactWeight'));
+  set riskImpactWeight(int? value) => doc.setFormField(path, 'riskImpactWeight', somFormatInt(value));
 
   String get approvalThreshold => doc.formField(path, 'approvalThreshold') ?? '';
   set approvalThreshold(String value) => doc.setFormField(path, 'approvalThreshold', value);
@@ -30642,8 +30663,8 @@ class ChangeStepEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get stepNumber { final v = doc.formField(path, 'stepNumber'); return v == null ? null : int.tryParse(v); }
-  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', value?.toString() ?? '');
+  int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
+  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
 
   String get stepName => doc.formField(path, 'stepName') ?? '';
   set stepName(String value) => doc.setFormField(path, 'stepName', value);
@@ -30773,8 +30794,8 @@ class ChangedRoleEntryIncumbentImpactForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get incumbentCount { final v = doc.formField(path, 'incumbentCount'); return v == null ? null : int.tryParse(v); }
-  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', value?.toString() ?? '');
+  int? get incumbentCount => somParseInt(doc.formField(path, 'incumbentCount'));
+  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', somFormatInt(value));
 
   String get impactAssessment => doc.formField(path, 'impactAssessment') ?? '';
   set impactAssessment(String value) => doc.setFormField(path, 'impactAssessment', value);
@@ -30909,8 +30930,8 @@ class ChangedRoleIdentificationTransitionForm extends SomNode {
   String get changeStatus => doc.formField(path, 'changeStatus') ?? '';
   set changeStatus(String value) => doc.setFormField(path, 'changeStatus', value);
 
-  int? get incumbentCount { final v = doc.formField(path, 'incumbentCount'); return v == null ? null : int.tryParse(v); }
-  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', value?.toString() ?? '');
+  int? get incumbentCount => somParseInt(doc.formField(path, 'incumbentCount'));
+  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `impactSummary` `@Form` section:
@@ -31115,8 +31136,8 @@ class CiCdPipelineRequirementsContentForm extends SomNode {
   String get cicdPlatform => doc.formField(path, 'cicdPlatform') ?? '';
   set cicdPlatform(String value) => doc.setFormField(path, 'cicdPlatform', value);
 
-  bool? get pipelineAsCode { final v = doc.formField(path, 'pipelineAsCode'); return v == null ? null : v == 'true'; }
-  set pipelineAsCode(bool? value) => doc.setFormField(path, 'pipelineAsCode', value?.toString() ?? '');
+  bool? get pipelineAsCode => somParseBool(doc.formField(path, 'pipelineAsCode'));
+  set pipelineAsCode(bool? value) => doc.setFormField(path, 'pipelineAsCode', somFormatBool(value));
 
   String get pipelineLocation => doc.formField(path, 'pipelineLocation') ?? '';
   set pipelineLocation(String value) => doc.setFormField(path, 'pipelineLocation', value);
@@ -31137,11 +31158,11 @@ class CiCdPipelineRequirementsDeploymentForm extends SomNode {
   String get deploymentStages => doc.formField(path, 'deploymentStages') ?? '';
   set deploymentStages(String value) => doc.setFormField(path, 'deploymentStages', value);
 
-  bool? get autoDeployDev { final v = doc.formField(path, 'autoDeployDev'); return v == null ? null : v == 'true'; }
-  set autoDeployDev(bool? value) => doc.setFormField(path, 'autoDeployDev', value?.toString() ?? '');
+  bool? get autoDeployDev => somParseBool(doc.formField(path, 'autoDeployDev'));
+  set autoDeployDev(bool? value) => doc.setFormField(path, 'autoDeployDev', somFormatBool(value));
 
-  bool? get autoDeployStaging { final v = doc.formField(path, 'autoDeployStaging'); return v == null ? null : v == 'true'; }
-  set autoDeployStaging(bool? value) => doc.setFormField(path, 'autoDeployStaging', value?.toString() ?? '');
+  bool? get autoDeployStaging => somParseBool(doc.formField(path, 'autoDeployStaging'));
+  set autoDeployStaging(bool? value) => doc.setFormField(path, 'autoDeployStaging', somFormatBool(value));
 
   String get productionGate => doc.formField(path, 'productionGate') ?? '';
   set productionGate(String value) => doc.setFormField(path, 'productionGate', value);
@@ -31187,11 +31208,11 @@ class CiCdPipelineRequirementsQualityForm extends SomNode {
   String get testCoverageThreshold => doc.formField(path, 'testCoverageThreshold') ?? '';
   set testCoverageThreshold(String value) => doc.setFormField(path, 'testCoverageThreshold', value);
 
-  bool? get securityScanRequired { final v = doc.formField(path, 'securityScanRequired'); return v == null ? null : v == 'true'; }
-  set securityScanRequired(bool? value) => doc.setFormField(path, 'securityScanRequired', value?.toString() ?? '');
+  bool? get securityScanRequired => somParseBool(doc.formField(path, 'securityScanRequired'));
+  set securityScanRequired(bool? value) => doc.setFormField(path, 'securityScanRequired', somFormatBool(value));
 
-  bool? get approvalRequired { final v = doc.formField(path, 'approvalRequired'); return v == null ? null : v == 'true'; }
-  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', value?.toString() ?? '');
+  bool? get approvalRequired => somParseBool(doc.formField(path, 'approvalRequired'));
+  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `cognitive` `@Form` section:
@@ -31206,14 +31227,14 @@ class ClientAccessibilityRequirementsCognitiveForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get simplifiedMode { final v = doc.formField(path, 'simplifiedMode'); return v == null ? null : v == 'true'; }
-  set simplifiedMode(bool? value) => doc.setFormField(path, 'simplifiedMode', value?.toString() ?? '');
+  bool? get simplifiedMode => somParseBool(doc.formField(path, 'simplifiedMode'));
+  set simplifiedMode(bool? value) => doc.setFormField(path, 'simplifiedMode', somFormatBool(value));
 
   String get readingLevel => doc.formField(path, 'readingLevel') ?? '';
   set readingLevel(String value) => doc.setFormField(path, 'readingLevel', value);
 
-  bool? get animationControls { final v = doc.formField(path, 'animationControls'); return v == null ? null : v == 'true'; }
-  set animationControls(bool? value) => doc.setFormField(path, 'animationControls', value?.toString() ?? '');
+  bool? get animationControls => somParseBool(doc.formField(path, 'animationControls'));
+  set animationControls(bool? value) => doc.setFormField(path, 'animationControls', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -31234,8 +31255,8 @@ class ClientAccessibilityRequirementsContentForm extends SomNode {
   String get ariaCompliance => doc.formField(path, 'ariaCompliance') ?? '';
   set ariaCompliance(String value) => doc.setFormField(path, 'ariaCompliance', value);
 
-  bool? get semanticHtml { final v = doc.formField(path, 'semanticHtml'); return v == null ? null : v == 'true'; }
-  set semanticHtml(bool? value) => doc.setFormField(path, 'semanticHtml', value?.toString() ?? '');
+  bool? get semanticHtml => somParseBool(doc.formField(path, 'semanticHtml'));
+  set semanticHtml(bool? value) => doc.setFormField(path, 'semanticHtml', somFormatBool(value));
 }
 
 /// Generated section facade for the `motor` `@Form` section:
@@ -31250,11 +31271,11 @@ class ClientAccessibilityRequirementsMotorForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get keyboardNavigation { final v = doc.formField(path, 'keyboardNavigation'); return v == null ? null : v == 'true'; }
-  set keyboardNavigation(bool? value) => doc.setFormField(path, 'keyboardNavigation', value?.toString() ?? '');
+  bool? get keyboardNavigation => somParseBool(doc.formField(path, 'keyboardNavigation'));
+  set keyboardNavigation(bool? value) => doc.setFormField(path, 'keyboardNavigation', somFormatBool(value));
 
-  bool? get focusIndicators { final v = doc.formField(path, 'focusIndicators'); return v == null ? null : v == 'true'; }
-  set focusIndicators(bool? value) => doc.setFormField(path, 'focusIndicators', value?.toString() ?? '');
+  bool? get focusIndicators => somParseBool(doc.formField(path, 'focusIndicators'));
+  set focusIndicators(bool? value) => doc.setFormField(path, 'focusIndicators', somFormatBool(value));
 
   String get touchTargetSize => doc.formField(path, 'touchTargetSize') ?? '';
   set touchTargetSize(String value) => doc.setFormField(path, 'touchTargetSize', value);
@@ -31297,11 +31318,11 @@ class ClientAccessibilityRequirementsVisualForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get colorBlindSupport { final v = doc.formField(path, 'colorBlindSupport'); return v == null ? null : v == 'true'; }
-  set colorBlindSupport(bool? value) => doc.setFormField(path, 'colorBlindSupport', value?.toString() ?? '');
+  bool? get colorBlindSupport => somParseBool(doc.formField(path, 'colorBlindSupport'));
+  set colorBlindSupport(bool? value) => doc.setFormField(path, 'colorBlindSupport', somFormatBool(value));
 
-  bool? get highContrastMode { final v = doc.formField(path, 'highContrastMode'); return v == null ? null : v == 'true'; }
-  set highContrastMode(bool? value) => doc.setFormField(path, 'highContrastMode', value?.toString() ?? '');
+  bool? get highContrastMode => somParseBool(doc.formField(path, 'highContrastMode'));
+  set highContrastMode(bool? value) => doc.setFormField(path, 'highContrastMode', somFormatBool(value));
 
   String get zoomSupport => doc.formField(path, 'zoomSupport') ?? '';
   set zoomSupport(String value) => doc.setFormField(path, 'zoomSupport', value);
@@ -31347,8 +31368,8 @@ class ClientHardwareRequirementsGraphicsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get gpuRequired { final v = doc.formField(path, 'gpuRequired'); return v == null ? null : v == 'true'; }
-  set gpuRequired(bool? value) => doc.setFormField(path, 'gpuRequired', value?.toString() ?? '');
+  bool? get gpuRequired => somParseBool(doc.formField(path, 'gpuRequired'));
+  set gpuRequired(bool? value) => doc.setFormField(path, 'gpuRequired', somFormatBool(value));
 
   String get gpuAcceleration => doc.formField(path, 'gpuAcceleration') ?? '';
   set gpuAcceleration(String value) => doc.setFormField(path, 'gpuAcceleration', value);
@@ -31513,8 +31534,8 @@ class ClientNetworkRequirementsProtocolsForm extends SomNode {
   String get tlsVersion => doc.formField(path, 'tlsVersion') ?? '';
   set tlsVersion(String value) => doc.setFormField(path, 'tlsVersion', value);
 
-  bool? get webRtcRequired { final v = doc.formField(path, 'webRtcRequired'); return v == null ? null : v == 'true'; }
-  set webRtcRequired(bool? value) => doc.setFormField(path, 'webRtcRequired', value?.toString() ?? '');
+  bool? get webRtcRequired => somParseBool(doc.formField(path, 'webRtcRequired'));
+  set webRtcRequired(bool? value) => doc.setFormField(path, 'webRtcRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `proxy` `@Form` section:
@@ -31551,11 +31572,11 @@ class ClientSecurityRequirementsAuthenticationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get biometricAuth { final v = doc.formField(path, 'biometricAuth'); return v == null ? null : v == 'true'; }
-  set biometricAuth(bool? value) => doc.setFormField(path, 'biometricAuth', value?.toString() ?? '');
+  bool? get biometricAuth => somParseBool(doc.formField(path, 'biometricAuth'));
+  set biometricAuth(bool? value) => doc.setFormField(path, 'biometricAuth', somFormatBool(value));
 
-  bool? get devicePasscode { final v = doc.formField(path, 'devicePasscode'); return v == null ? null : v == 'true'; }
-  set devicePasscode(bool? value) => doc.setFormField(path, 'devicePasscode', value?.toString() ?? '');
+  bool? get devicePasscode => somParseBool(doc.formField(path, 'devicePasscode'));
+  set devicePasscode(bool? value) => doc.setFormField(path, 'devicePasscode', somFormatBool(value));
 
   String get rememberCredentials => doc.formField(path, 'rememberCredentials') ?? '';
   set rememberCredentials(String value) => doc.setFormField(path, 'rememberCredentials', value);
@@ -31576,11 +31597,11 @@ class ClientSecurityRequirementsCodeProtectionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get codeObfuscation { final v = doc.formField(path, 'codeObfuscation'); return v == null ? null : v == 'true'; }
-  set codeObfuscation(bool? value) => doc.setFormField(path, 'codeObfuscation', value?.toString() ?? '');
+  bool? get codeObfuscation => somParseBool(doc.formField(path, 'codeObfuscation'));
+  set codeObfuscation(bool? value) => doc.setFormField(path, 'codeObfuscation', somFormatBool(value));
 
-  bool? get tamperDetection { final v = doc.formField(path, 'tamperDetection'); return v == null ? null : v == 'true'; }
-  set tamperDetection(bool? value) => doc.setFormField(path, 'tamperDetection', value?.toString() ?? '');
+  bool? get tamperDetection => somParseBool(doc.formField(path, 'tamperDetection'));
+  set tamperDetection(bool? value) => doc.setFormField(path, 'tamperDetection', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -31598,8 +31619,8 @@ class ClientSecurityRequirementsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get localDataEncryption { final v = doc.formField(path, 'localDataEncryption'); return v == null ? null : v == 'true'; }
-  set localDataEncryption(bool? value) => doc.setFormField(path, 'localDataEncryption', value?.toString() ?? '');
+  bool? get localDataEncryption => somParseBool(doc.formField(path, 'localDataEncryption'));
+  set localDataEncryption(bool? value) => doc.setFormField(path, 'localDataEncryption', somFormatBool(value));
 
   String get secureStorage => doc.formField(path, 'secureStorage') ?? '';
   set secureStorage(String value) => doc.setFormField(path, 'secureStorage', value);
@@ -31620,14 +31641,14 @@ class ClientSecurityRequirementsDeviceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get jailbreakDetection { final v = doc.formField(path, 'jailbreakDetection'); return v == null ? null : v == 'true'; }
-  set jailbreakDetection(bool? value) => doc.setFormField(path, 'jailbreakDetection', value?.toString() ?? '');
+  bool? get jailbreakDetection => somParseBool(doc.formField(path, 'jailbreakDetection'));
+  set jailbreakDetection(bool? value) => doc.setFormField(path, 'jailbreakDetection', somFormatBool(value));
 
-  bool? get debugDetection { final v = doc.formField(path, 'debugDetection'); return v == null ? null : v == 'true'; }
-  set debugDetection(bool? value) => doc.setFormField(path, 'debugDetection', value?.toString() ?? '');
+  bool? get debugDetection => somParseBool(doc.formField(path, 'debugDetection'));
+  set debugDetection(bool? value) => doc.setFormField(path, 'debugDetection', somFormatBool(value));
 
-  bool? get certificatePinning { final v = doc.formField(path, 'certificatePinning'); return v == null ? null : v == 'true'; }
-  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', value?.toString() ?? '');
+  bool? get certificatePinning => somParseBool(doc.formField(path, 'certificatePinning'));
+  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', somFormatBool(value));
 
   String get vpnDetection => doc.formField(path, 'vpnDetection') ?? '';
   set vpnDetection(String value) => doc.setFormField(path, 'vpnDetection', value);
@@ -31645,14 +31666,14 @@ class ClientSecurityRequirementsNetworkForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get httpsOnly { final v = doc.formField(path, 'httpsOnly'); return v == null ? null : v == 'true'; }
-  set httpsOnly(bool? value) => doc.setFormField(path, 'httpsOnly', value?.toString() ?? '');
+  bool? get httpsOnly => somParseBool(doc.formField(path, 'httpsOnly'));
+  set httpsOnly(bool? value) => doc.setFormField(path, 'httpsOnly', somFormatBool(value));
 
   String get minTlsVersion => doc.formField(path, 'minTlsVersion') ?? '';
   set minTlsVersion(String value) => doc.setFormField(path, 'minTlsVersion', value);
 
-  bool? get insecureConnectionBlocking { final v = doc.formField(path, 'insecureConnectionBlocking'); return v == null ? null : v == 'true'; }
-  set insecureConnectionBlocking(bool? value) => doc.setFormField(path, 'insecureConnectionBlocking', value?.toString() ?? '');
+  bool? get insecureConnectionBlocking => somParseBool(doc.formField(path, 'insecureConnectionBlocking'));
+  set insecureConnectionBlocking(bool? value) => doc.setFormField(path, 'insecureConnectionBlocking', somFormatBool(value));
 }
 
 /// Generated section facade for the `accounts` `@Form` section:
@@ -32015,11 +32036,11 @@ class CodeReviewProcessAutomationForm extends SomNode {
   String get automatedChecks => doc.formField(path, 'automatedChecks') ?? '';
   set automatedChecks(String value) => doc.setFormField(path, 'automatedChecks', value);
 
-  bool? get lintingRequired { final v = doc.formField(path, 'lintingRequired'); return v == null ? null : v == 'true'; }
-  set lintingRequired(bool? value) => doc.setFormField(path, 'lintingRequired', value?.toString() ?? '');
+  bool? get lintingRequired => somParseBool(doc.formField(path, 'lintingRequired'));
+  set lintingRequired(bool? value) => doc.setFormField(path, 'lintingRequired', somFormatBool(value));
 
-  bool? get testsRequired { final v = doc.formField(path, 'testsRequired'); return v == null ? null : v == 'true'; }
-  set testsRequired(bool? value) => doc.setFormField(path, 'testsRequired', value?.toString() ?? '');
+  bool? get testsRequired => somParseBool(doc.formField(path, 'testsRequired'));
+  set testsRequired(bool? value) => doc.setFormField(path, 'testsRequired', somFormatBool(value));
 
   String get coverageThreshold => doc.formField(path, 'coverageThreshold') ?? '';
   set coverageThreshold(String value) => doc.setFormField(path, 'coverageThreshold', value);
@@ -32037,8 +32058,8 @@ class CodeReviewProcessContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get prRequired { final v = doc.formField(path, 'prRequired'); return v == null ? null : v == 'true'; }
-  set prRequired(bool? value) => doc.setFormField(path, 'prRequired', value?.toString() ?? '');
+  bool? get prRequired => somParseBool(doc.formField(path, 'prRequired'));
+  set prRequired(bool? value) => doc.setFormField(path, 'prRequired', somFormatBool(value));
 
   String get prTemplate => doc.formField(path, 'prTemplate') ?? '';
   set prTemplate(String value) => doc.setFormField(path, 'prTemplate', value);
@@ -32046,8 +32067,8 @@ class CodeReviewProcessContentForm extends SomNode {
   String get prNamingConvention => doc.formField(path, 'prNamingConvention') ?? '';
   set prNamingConvention(String value) => doc.setFormField(path, 'prNamingConvention', value);
 
-  bool? get draftPrSupport { final v = doc.formField(path, 'draftPrSupport'); return v == null ? null : v == 'true'; }
-  set draftPrSupport(bool? value) => doc.setFormField(path, 'draftPrSupport', value?.toString() ?? '');
+  bool? get draftPrSupport => somParseBool(doc.formField(path, 'draftPrSupport'));
+  set draftPrSupport(bool? value) => doc.setFormField(path, 'draftPrSupport', somFormatBool(value));
 }
 
 /// Generated section facade for the `merge` `@Form` section:
@@ -32065,8 +32086,8 @@ class CodeReviewProcessMergeForm extends SomNode {
   String get mergeStrategy => doc.formField(path, 'mergeStrategy') ?? '';
   set mergeStrategy(String value) => doc.setFormField(path, 'mergeStrategy', value);
 
-  bool? get deleteSourceBranch { final v = doc.formField(path, 'deleteSourceBranch'); return v == null ? null : v == 'true'; }
-  set deleteSourceBranch(bool? value) => doc.setFormField(path, 'deleteSourceBranch', value?.toString() ?? '');
+  bool? get deleteSourceBranch => somParseBool(doc.formField(path, 'deleteSourceBranch'));
+  set deleteSourceBranch(bool? value) => doc.setFormField(path, 'deleteSourceBranch', somFormatBool(value));
 
   String get requiredStatusChecks => doc.formField(path, 'requiredStatusChecks') ?? '';
   set requiredStatusChecks(String value) => doc.setFormField(path, 'requiredStatusChecks', value);
@@ -32112,8 +32133,8 @@ class CodeReviewProcessWorkflowForm extends SomNode {
   String get reviewChecklist => doc.formField(path, 'reviewChecklist') ?? '';
   set reviewChecklist(String value) => doc.setFormField(path, 'reviewChecklist', value);
 
-  bool? get inlineComments { final v = doc.formField(path, 'inlineComments'); return v == null ? null : v == 'true'; }
-  set inlineComments(bool? value) => doc.setFormField(path, 'inlineComments', value?.toString() ?? '');
+  bool? get inlineComments => somParseBool(doc.formField(path, 'inlineComments'));
+  set inlineComments(bool? value) => doc.setFormField(path, 'inlineComments', somFormatBool(value));
 
   String get suggestionFormat => doc.formField(path, 'suggestionFormat') ?? '';
   set suggestionFormat(String value) => doc.setFormField(path, 'suggestionFormat', value);
@@ -32165,8 +32186,8 @@ class CodingStandardEntryEnforcementForm extends SomNode {
   String get enforcementMethod => doc.formField(path, 'enforcementMethod') ?? '';
   set enforcementMethod(String value) => doc.setFormField(path, 'enforcementMethod', value);
 
-  bool? get autoFixable { final v = doc.formField(path, 'autoFixable'); return v == null ? null : v == 'true'; }
-  set autoFixable(bool? value) => doc.setFormField(path, 'autoFixable', value?.toString() ?? '');
+  bool? get autoFixable => somParseBool(doc.formField(path, 'autoFixable'));
+  set autoFixable(bool? value) => doc.setFormField(path, 'autoFixable', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -32385,8 +32406,8 @@ class ColorPaletteEntryContentForm extends SomNode {
   String get paletteRole => doc.formField(path, 'paletteRole') ?? '';
   set paletteRole(String value) => doc.setFormField(path, 'paletteRole', value);
 
-  int? get colorCount { final v = doc.formField(path, 'colorCount'); return v == null ? null : int.tryParse(v); }
-  set colorCount(int? value) => doc.setFormField(path, 'colorCount', value?.toString() ?? '');
+  int? get colorCount => somParseInt(doc.formField(path, 'colorCount'));
+  set colorCount(int? value) => doc.setFormField(path, 'colorCount', somFormatInt(value));
 
   String get baseColor => doc.formField(path, 'baseColor') ?? '';
   set baseColor(String value) => doc.setFormField(path, 'baseColor', value);
@@ -32515,17 +32536,17 @@ class CommunicationChannelEncryptionEntryContentForm extends SomNode {
   String get channelType => doc.formField(path, 'channelType') ?? '';
   set channelType(String value) => doc.setFormField(path, 'channelType', value);
 
-  bool? get tlsRequired { final v = doc.formField(path, 'tlsRequired'); return v == null ? null : v == 'true'; }
-  set tlsRequired(bool? value) => doc.setFormField(path, 'tlsRequired', value?.toString() ?? '');
+  bool? get tlsRequired => somParseBool(doc.formField(path, 'tlsRequired'));
+  set tlsRequired(bool? value) => doc.setFormField(path, 'tlsRequired', somFormatBool(value));
 
   String get minimumTlsVersionOverride => doc.formField(path, 'minimumTlsVersionOverride') ?? '';
   set minimumTlsVersionOverride(String value) => doc.setFormField(path, 'minimumTlsVersionOverride', value);
 
-  bool? get mutualTlsRequired { final v = doc.formField(path, 'mutualTlsRequired'); return v == null ? null : v == 'true'; }
-  set mutualTlsRequired(bool? value) => doc.setFormField(path, 'mutualTlsRequired', value?.toString() ?? '');
+  bool? get mutualTlsRequired => somParseBool(doc.formField(path, 'mutualTlsRequired'));
+  set mutualTlsRequired(bool? value) => doc.setFormField(path, 'mutualTlsRequired', somFormatBool(value));
 
-  bool? get certificatePinning { final v = doc.formField(path, 'certificatePinning'); return v == null ? null : v == 'true'; }
-  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', value?.toString() ?? '');
+  bool? get certificatePinning => somParseBool(doc.formField(path, 'certificatePinning'));
+  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', somFormatBool(value));
 
   String get pinningStrategy => doc.formField(path, 'pinningStrategy') ?? '';
   set pinningStrategy(String value) => doc.setFormField(path, 'pinningStrategy', value);
@@ -33335,14 +33356,14 @@ class ComponentActionEntryGovernanceForm extends SomNode {
   String get actionResult => doc.formField(path, 'actionResult') ?? '';
   set actionResult(String value) => doc.setFormField(path, 'actionResult', value);
 
-  bool? get authRequired { final v = doc.formField(path, 'authRequired'); return v == null ? null : v == 'true'; }
-  set authRequired(bool? value) => doc.setFormField(path, 'authRequired', value?.toString() ?? '');
+  bool? get authRequired => somParseBool(doc.formField(path, 'authRequired'));
+  set authRequired(bool? value) => doc.setFormField(path, 'authRequired', somFormatBool(value));
 
   String get authPermission => doc.formField(path, 'authPermission') ?? '';
   set authPermission(String value) => doc.setFormField(path, 'authPermission', value);
 
-  bool? get confirmationRequired { final v = doc.formField(path, 'confirmationRequired'); return v == null ? null : v == 'true'; }
-  set confirmationRequired(bool? value) => doc.setFormField(path, 'confirmationRequired', value?.toString() ?? '');
+  bool? get confirmationRequired => somParseBool(doc.formField(path, 'confirmationRequired'));
+  set confirmationRequired(bool? value) => doc.setFormField(path, 'confirmationRequired', somFormatBool(value));
 
   String get confirmationMessage => doc.formField(path, 'confirmationMessage') ?? '';
   set confirmationMessage(String value) => doc.setFormField(path, 'confirmationMessage', value);
@@ -33583,8 +33604,8 @@ class ComponentFamilyEntryContentForm extends SomNode {
   String get familyDescription => doc.formField(path, 'familyDescription') ?? '';
   set familyDescription(String value) => doc.setFormField(path, 'familyDescription', value);
 
-  int? get componentCount { final v = doc.formField(path, 'componentCount'); return v == null ? null : int.tryParse(v); }
-  set componentCount(int? value) => doc.setFormField(path, 'componentCount', value?.toString() ?? '');
+  int? get componentCount => somParseInt(doc.formField(path, 'componentCount'));
+  set componentCount(int? value) => doc.setFormField(path, 'componentCount', somFormatInt(value));
 
   String get sharedPatterns => doc.formField(path, 'sharedPatterns') ?? '';
   set sharedPatterns(String value) => doc.setFormField(path, 'sharedPatterns', value);
@@ -33768,14 +33789,14 @@ class ComponentInterfaceEntryNetworkForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get port { final v = doc.formField(path, 'port'); return v == null ? null : int.tryParse(v); }
-  set port(int? value) => doc.setFormField(path, 'port', value?.toString() ?? '');
+  int? get port => somParseInt(doc.formField(path, 'port'));
+  set port(int? value) => doc.setFormField(path, 'port', somFormatInt(value));
 
   String get basePath => doc.formField(path, 'basePath') ?? '';
   set basePath(String value) => doc.setFormField(path, 'basePath', value);
 
-  int? get rateLimitRequests { final v = doc.formField(path, 'rateLimitRequests'); return v == null ? null : int.tryParse(v); }
-  set rateLimitRequests(int? value) => doc.setFormField(path, 'rateLimitRequests', value?.toString() ?? '');
+  int? get rateLimitRequests => somParseInt(doc.formField(path, 'rateLimitRequests'));
+  set rateLimitRequests(int? value) => doc.setFormField(path, 'rateLimitRequests', somFormatInt(value));
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -34247,17 +34268,17 @@ class ComponentPropertyEntryContentForm extends SomNode {
   String get propertyDescription => doc.formField(path, 'propertyDescription') ?? '';
   set propertyDescription(String value) => doc.setFormField(path, 'propertyDescription', value);
 
-  bool? get affectsAppearance { final v = doc.formField(path, 'affectsAppearance'); return v == null ? null : v == 'true'; }
-  set affectsAppearance(bool? value) => doc.setFormField(path, 'affectsAppearance', value?.toString() ?? '');
+  bool? get affectsAppearance => somParseBool(doc.formField(path, 'affectsAppearance'));
+  set affectsAppearance(bool? value) => doc.setFormField(path, 'affectsAppearance', somFormatBool(value));
 
-  bool? get affectsBehavior { final v = doc.formField(path, 'affectsBehavior'); return v == null ? null : v == 'true'; }
-  set affectsBehavior(bool? value) => doc.setFormField(path, 'affectsBehavior', value?.toString() ?? '');
+  bool? get affectsBehavior => somParseBool(doc.formField(path, 'affectsBehavior'));
+  set affectsBehavior(bool? value) => doc.setFormField(path, 'affectsBehavior', somFormatBool(value));
 
-  bool? get resourceResolvable { final v = doc.formField(path, 'resourceResolvable'); return v == null ? null : v == 'true'; }
-  set resourceResolvable(bool? value) => doc.setFormField(path, 'resourceResolvable', value?.toString() ?? '');
+  bool? get resourceResolvable => somParseBool(doc.formField(path, 'resourceResolvable'));
+  set resourceResolvable(bool? value) => doc.setFormField(path, 'resourceResolvable', somFormatBool(value));
 
-  bool? get authControlled { final v = doc.formField(path, 'authControlled'); return v == null ? null : v == 'true'; }
-  set authControlled(bool? value) => doc.setFormField(path, 'authControlled', value?.toString() ?? '');
+  bool? get authControlled => somParseBool(doc.formField(path, 'authControlled'));
+  set authControlled(bool? value) => doc.setFormField(path, 'authControlled', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -34510,8 +34531,8 @@ class ComponentRiskEntryAssessmentForm extends SomNode {
   String get impact => doc.formField(path, 'impact') ?? '';
   set impact(String value) => doc.setFormField(path, 'impact', value);
 
-  int? get riskScore { final v = doc.formField(path, 'riskScore'); return v == null ? null : int.tryParse(v); }
-  set riskScore(int? value) => doc.setFormField(path, 'riskScore', value?.toString() ?? '');
+  int? get riskScore => somParseInt(doc.formField(path, 'riskScore'));
+  set riskScore(int? value) => doc.setFormField(path, 'riskScore', somFormatInt(value));
 
   String get riskTrend => doc.formField(path, 'riskTrend') ?? '';
   set riskTrend(String value) => doc.setFormField(path, 'riskTrend', value);
@@ -34654,8 +34675,8 @@ class ComponentSlotEntryContentForm extends SomNode {
   String get slotDescription => doc.formField(path, 'slotDescription') ?? '';
   set slotDescription(String value) => doc.setFormField(path, 'slotDescription', value);
 
-  bool? get slotRequired { final v = doc.formField(path, 'slotRequired'); return v == null ? null : v == 'true'; }
-  set slotRequired(bool? value) => doc.setFormField(path, 'slotRequired', value?.toString() ?? '');
+  bool? get slotRequired => somParseBool(doc.formField(path, 'slotRequired'));
+  set slotRequired(bool? value) => doc.setFormField(path, 'slotRequired', somFormatBool(value));
 
   String get acceptedWidgets => doc.formField(path, 'acceptedWidgets') ?? '';
   set acceptedWidgets(String value) => doc.setFormField(path, 'acceptedWidgets', value);
@@ -34870,8 +34891,8 @@ class ComponentStrategyPortfolioForm extends SomNode {
   String get componentRegistryUrl => doc.formField(path, 'componentRegistryUrl') ?? '';
   set componentRegistryUrl(String value) => doc.setFormField(path, 'componentRegistryUrl', value);
 
-  int? get maxComponentOverlap { final v = doc.formField(path, 'maxComponentOverlap'); return v == null ? null : int.tryParse(v); }
-  set maxComponentOverlap(int? value) => doc.setFormField(path, 'maxComponentOverlap', value?.toString() ?? '');
+  int? get maxComponentOverlap => somParseInt(doc.formField(path, 'maxComponentOverlap'));
+  set maxComponentOverlap(int? value) => doc.setFormField(path, 'maxComponentOverlap', somFormatInt(value));
 
   String get consolidationTargets => doc.formField(path, 'consolidationTargets') ?? '';
   set consolidationTargets(String value) => doc.setFormField(path, 'consolidationTargets', value);
@@ -35011,17 +35032,17 @@ class ComputeResourceRequirementsGpuForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get gpuRequired { final v = doc.formField(path, 'gpuRequired'); return v == null ? null : v == 'true'; }
-  set gpuRequired(bool? value) => doc.setFormField(path, 'gpuRequired', value?.toString() ?? '');
+  bool? get gpuRequired => somParseBool(doc.formField(path, 'gpuRequired'));
+  set gpuRequired(bool? value) => doc.setFormField(path, 'gpuRequired', somFormatBool(value));
 
   String get gpuType => doc.formField(path, 'gpuType') ?? '';
   set gpuType(String value) => doc.setFormField(path, 'gpuType', value);
 
-  int? get gpuMemoryGb { final v = doc.formField(path, 'gpuMemoryGb'); return v == null ? null : int.tryParse(v); }
-  set gpuMemoryGb(int? value) => doc.setFormField(path, 'gpuMemoryGb', value?.toString() ?? '');
+  int? get gpuMemoryGb => somParseInt(doc.formField(path, 'gpuMemoryGb'));
+  set gpuMemoryGb(int? value) => doc.setFormField(path, 'gpuMemoryGb', somFormatInt(value));
 
-  int? get gpuCount { final v = doc.formField(path, 'gpuCount'); return v == null ? null : int.tryParse(v); }
-  set gpuCount(int? value) => doc.setFormField(path, 'gpuCount', value?.toString() ?? '');
+  int? get gpuCount => somParseInt(doc.formField(path, 'gpuCount'));
+  set gpuCount(int? value) => doc.setFormField(path, 'gpuCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `memory` `@Form` section:
@@ -35045,8 +35066,8 @@ class ComputeResourceRequirementsMemoryForm extends SomNode {
   String get memoryType => doc.formField(path, 'memoryType') ?? '';
   set memoryType(String value) => doc.setFormField(path, 'memoryType', value);
 
-  bool? get eccRequired { final v = doc.formField(path, 'eccRequired'); return v == null ? null : v == 'true'; }
-  set eccRequired(bool? value) => doc.setFormField(path, 'eccRequired', value?.toString() ?? '');
+  bool? get eccRequired => somParseBool(doc.formField(path, 'eccRequired'));
+  set eccRequired(bool? value) => doc.setFormField(path, 'eccRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `special` `@Form` section:
@@ -35061,11 +35082,11 @@ class ComputeResourceRequirementsSpecialForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get tpmRequired { final v = doc.formField(path, 'tpmRequired'); return v == null ? null : v == 'true'; }
-  set tpmRequired(bool? value) => doc.setFormField(path, 'tpmRequired', value?.toString() ?? '');
+  bool? get tpmRequired => somParseBool(doc.formField(path, 'tpmRequired'));
+  set tpmRequired(bool? value) => doc.setFormField(path, 'tpmRequired', somFormatBool(value));
 
-  bool? get secureEnclaveRequired { final v = doc.formField(path, 'secureEnclaveRequired'); return v == null ? null : v == 'true'; }
-  set secureEnclaveRequired(bool? value) => doc.setFormField(path, 'secureEnclaveRequired', value?.toString() ?? '');
+  bool? get secureEnclaveRequired => somParseBool(doc.formField(path, 'secureEnclaveRequired'));
+  set secureEnclaveRequired(bool? value) => doc.setFormField(path, 'secureEnclaveRequired', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -35133,8 +35154,8 @@ class ComputingEquipmentEntryPlanningForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get quantityNeeded { final v = doc.formField(path, 'quantityNeeded'); return v == null ? null : int.tryParse(v); }
-  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', value?.toString() ?? '');
+  int? get quantityNeeded => somParseInt(doc.formField(path, 'quantityNeeded'));
+  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', somFormatInt(value));
 
   String get priorityLevel => doc.formField(path, 'priorityLevel') ?? '';
   set priorityLevel(String value) => doc.setFormField(path, 'priorityLevel', value);
@@ -35264,11 +35285,11 @@ class ConfigurationManagementContentForm extends SomNode {
   String get secretsManagement => doc.formField(path, 'secretsManagement') ?? '';
   set secretsManagement(String value) => doc.setFormField(path, 'secretsManagement', value);
 
-  bool? get configVersioning { final v = doc.formField(path, 'configVersioning'); return v == null ? null : v == 'true'; }
-  set configVersioning(bool? value) => doc.setFormField(path, 'configVersioning', value?.toString() ?? '');
+  bool? get configVersioning => somParseBool(doc.formField(path, 'configVersioning'));
+  set configVersioning(bool? value) => doc.setFormField(path, 'configVersioning', somFormatBool(value));
 
-  bool? get configAudit { final v = doc.formField(path, 'configAudit'); return v == null ? null : v == 'true'; }
-  set configAudit(bool? value) => doc.setFormField(path, 'configAudit', value?.toString() ?? '');
+  bool? get configAudit => somParseBool(doc.formField(path, 'configAudit'));
+  set configAudit(bool? value) => doc.setFormField(path, 'configAudit', somFormatBool(value));
 }
 
 /// Generated section facade for the `environment` `@Form` section:
@@ -35330,8 +35351,8 @@ class ConfigurationManagementInjectionForm extends SomNode {
   String get configInjectionMethod => doc.formField(path, 'configInjectionMethod') ?? '';
   set configInjectionMethod(String value) => doc.setFormField(path, 'configInjectionMethod', value);
 
-  bool? get dynamicConfig { final v = doc.formField(path, 'dynamicConfig'); return v == null ? null : v == 'true'; }
-  set dynamicConfig(bool? value) => doc.setFormField(path, 'dynamicConfig', value?.toString() ?? '');
+  bool? get dynamicConfig => somParseBool(doc.formField(path, 'dynamicConfig'));
+  set dynamicConfig(bool? value) => doc.setFormField(path, 'dynamicConfig', somFormatBool(value));
 
   String get configReload => doc.formField(path, 'configReload') ?? '';
   set configReload(String value) => doc.setFormField(path, 'configReload', value);
@@ -35374,8 +35395,8 @@ class ConnectivityResilienceContentForm extends SomNode {
   String get failoverStrategy => doc.formField(path, 'failoverStrategy') ?? '';
   set failoverStrategy(String value) => doc.setFormField(path, 'failoverStrategy', value);
 
-  bool? get redundantConnections { final v = doc.formField(path, 'redundantConnections'); return v == null ? null : v == 'true'; }
-  set redundantConnections(bool? value) => doc.setFormField(path, 'redundantConnections', value?.toString() ?? '');
+  bool? get redundantConnections => somParseBool(doc.formField(path, 'redundantConnections'));
+  set redundantConnections(bool? value) => doc.setFormField(path, 'redundantConnections', somFormatBool(value));
 
   String get geographicRedundancy => doc.formField(path, 'geographicRedundancy') ?? '';
   set geographicRedundancy(String value) => doc.setFormField(path, 'geographicRedundancy', value);
@@ -35399,8 +35420,8 @@ class ConnectivityResilienceOfflineForm extends SomNode {
   String get reconnectionStrategy => doc.formField(path, 'reconnectionStrategy') ?? '';
   set reconnectionStrategy(String value) => doc.setFormField(path, 'reconnectionStrategy', value);
 
-  bool? get queuedOperations { final v = doc.formField(path, 'queuedOperations'); return v == null ? null : v == 'true'; }
-  set queuedOperations(bool? value) => doc.setFormField(path, 'queuedOperations', value?.toString() ?? '');
+  bool? get queuedOperations => somParseBool(doc.formField(path, 'queuedOperations'));
+  set queuedOperations(bool? value) => doc.setFormField(path, 'queuedOperations', somFormatBool(value));
 }
 
 /// Generated section facade for the `operations` `@Form` section:
@@ -35669,8 +35690,8 @@ class ContextualHelpPanelsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get helpPanelAvailable { final v = doc.formField(path, 'helpPanelAvailable'); return v == null ? null : v == 'true'; }
-  set helpPanelAvailable(bool? value) => doc.setFormField(path, 'helpPanelAvailable', value?.toString() ?? '');
+  bool? get helpPanelAvailable => somParseBool(doc.formField(path, 'helpPanelAvailable'));
+  set helpPanelAvailable(bool? value) => doc.setFormField(path, 'helpPanelAvailable', somFormatBool(value));
 
   String get helpPanelPosition => doc.formField(path, 'helpPanelPosition') ?? '';
   set helpPanelPosition(String value) => doc.setFormField(path, 'helpPanelPosition', value);
@@ -35691,14 +35712,14 @@ class ContextualHelpRichForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get helpScreenshots { final v = doc.formField(path, 'helpScreenshots'); return v == null ? null : v == 'true'; }
-  set helpScreenshots(bool? value) => doc.setFormField(path, 'helpScreenshots', value?.toString() ?? '');
+  bool? get helpScreenshots => somParseBool(doc.formField(path, 'helpScreenshots'));
+  set helpScreenshots(bool? value) => doc.setFormField(path, 'helpScreenshots', somFormatBool(value));
 
-  bool? get helpVideos { final v = doc.formField(path, 'helpVideos'); return v == null ? null : v == 'true'; }
-  set helpVideos(bool? value) => doc.setFormField(path, 'helpVideos', value?.toString() ?? '');
+  bool? get helpVideos => somParseBool(doc.formField(path, 'helpVideos'));
+  set helpVideos(bool? value) => doc.setFormField(path, 'helpVideos', somFormatBool(value));
 
-  bool? get helpAnimations { final v = doc.formField(path, 'helpAnimations'); return v == null ? null : v == 'true'; }
-  set helpAnimations(bool? value) => doc.setFormField(path, 'helpAnimations', value?.toString() ?? '');
+  bool? get helpAnimations => somParseBool(doc.formField(path, 'helpAnimations'));
+  set helpAnimations(bool? value) => doc.setFormField(path, 'helpAnimations', somFormatBool(value));
 }
 
 /// Generated section facade for the `whatsThis` `@Form` section:
@@ -35713,8 +35734,8 @@ class ContextualHelpWhatsThisForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get whatsThisMode { final v = doc.formField(path, 'whatsThisMode'); return v == null ? null : v == 'true'; }
-  set whatsThisMode(bool? value) => doc.setFormField(path, 'whatsThisMode', value?.toString() ?? '');
+  bool? get whatsThisMode => somParseBool(doc.formField(path, 'whatsThisMode'));
+  set whatsThisMode(bool? value) => doc.setFormField(path, 'whatsThisMode', somFormatBool(value));
 
   String get whatsThisActivation => doc.formField(path, 'whatsThisActivation') ?? '';
   set whatsThisActivation(String value) => doc.setFormField(path, 'whatsThisActivation', value);
@@ -35738,8 +35759,8 @@ class ContextualNavigationBreadcrumbsForm extends SomNode {
   String get platformVisibility => doc.formField(path, 'platformVisibility') ?? '';
   set platformVisibility(String value) => doc.setFormField(path, 'platformVisibility', value);
 
-  int? get maxVisibleItems { final v = doc.formField(path, 'maxVisibleItems'); return v == null ? null : int.tryParse(v); }
-  set maxVisibleItems(int? value) => doc.setFormField(path, 'maxVisibleItems', value?.toString() ?? '');
+  int? get maxVisibleItems => somParseInt(doc.formField(path, 'maxVisibleItems'));
+  set maxVisibleItems(int? value) => doc.setFormField(path, 'maxVisibleItems', somFormatInt(value));
 
   String get collapseBehavior => doc.formField(path, 'collapseBehavior') ?? '';
   set collapseBehavior(String value) => doc.setFormField(path, 'collapseBehavior', value);
@@ -36204,8 +36225,8 @@ class CurrentDataClassificationClassificationSummaryForm extends SomNode {
   String get frameworkName => doc.formField(path, 'frameworkName') ?? '';
   set frameworkName(String value) => doc.setFormField(path, 'frameworkName', value);
 
-  int? get numberOfLevels { final v = doc.formField(path, 'numberOfLevels'); return v == null ? null : int.tryParse(v); }
-  set numberOfLevels(int? value) => doc.setFormField(path, 'numberOfLevels', value?.toString() ?? '');
+  int? get numberOfLevels => somParseInt(doc.formField(path, 'numberOfLevels'));
+  set numberOfLevels(int? value) => doc.setFormField(path, 'numberOfLevels', somFormatInt(value));
 
   String get classificationCoverage => doc.formField(path, 'classificationCoverage') ?? '';
   set classificationCoverage(String value) => doc.setFormField(path, 'classificationCoverage', value);
@@ -36238,8 +36259,8 @@ class CurrentDataLandscapeDataLandscapeSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalDataSources { final v = doc.formField(path, 'totalDataSources'); return v == null ? null : int.tryParse(v); }
-  set totalDataSources(int? value) => doc.setFormField(path, 'totalDataSources', value?.toString() ?? '');
+  int? get totalDataSources => somParseInt(doc.formField(path, 'totalDataSources'));
+  set totalDataSources(int? value) => doc.setFormField(path, 'totalDataSources', somFormatInt(value));
 
   String get totalDataVolume => doc.formField(path, 'totalDataVolume') ?? '';
   set totalDataVolume(String value) => doc.setFormField(path, 'totalDataVolume', value);
@@ -36247,8 +36268,8 @@ class CurrentDataLandscapeDataLandscapeSummaryForm extends SomNode {
   String get overallDataQualityScore => doc.formField(path, 'overallDataQualityScore') ?? '';
   set overallDataQualityScore(String value) => doc.setFormField(path, 'overallDataQualityScore', value);
 
-  int? get criticalDataAssets { final v = doc.formField(path, 'criticalDataAssets'); return v == null ? null : int.tryParse(v); }
-  set criticalDataAssets(int? value) => doc.setFormField(path, 'criticalDataAssets', value?.toString() ?? '');
+  int? get criticalDataAssets => somParseInt(doc.formField(path, 'criticalDataAssets'));
+  set criticalDataAssets(int? value) => doc.setFormField(path, 'criticalDataAssets', somFormatInt(value));
 
   String get dataGovernanceMaturity => doc.formField(path, 'dataGovernanceMaturity') ?? '';
   set dataGovernanceMaturity(String value) => doc.setFormField(path, 'dataGovernanceMaturity', value);
@@ -36423,8 +36444,8 @@ class CustomMetricEntryContentForm extends SomNode {
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
 
-  bool? get alertOnMetric { final v = doc.formField(path, 'alertOnMetric'); return v == null ? null : v == 'true'; }
-  set alertOnMetric(bool? value) => doc.setFormField(path, 'alertOnMetric', value?.toString() ?? '');
+  bool? get alertOnMetric => somParseBool(doc.formField(path, 'alertOnMetric'));
+  set alertOnMetric(bool? value) => doc.setFormField(path, 'alertOnMetric', somFormatBool(value));
 
   String get dashboardInclusion => doc.formField(path, 'dashboardInclusion') ?? '';
   set dashboardInclusion(String value) => doc.setFormField(path, 'dashboardInclusion', value);
@@ -36542,8 +36563,8 @@ class DashboardRequirementsContentForm extends SomNode {
   String get dashboardPlatform => doc.formField(path, 'dashboardPlatform') ?? '';
   set dashboardPlatform(String value) => doc.setFormField(path, 'dashboardPlatform', value);
 
-  bool? get dashboardAsCode { final v = doc.formField(path, 'dashboardAsCode'); return v == null ? null : v == 'true'; }
-  set dashboardAsCode(bool? value) => doc.setFormField(path, 'dashboardAsCode', value?.toString() ?? '');
+  bool? get dashboardAsCode => somParseBool(doc.formField(path, 'dashboardAsCode'));
+  set dashboardAsCode(bool? value) => doc.setFormField(path, 'dashboardAsCode', somFormatBool(value));
 
   String get dashboardLocation => doc.formField(path, 'dashboardLocation') ?? '';
   set dashboardLocation(String value) => doc.setFormField(path, 'dashboardLocation', value);
@@ -36561,17 +36582,17 @@ class DashboardRequirementsFeaturesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get drillDown { final v = doc.formField(path, 'drillDown'); return v == null ? null : v == 'true'; }
-  set drillDown(bool? value) => doc.setFormField(path, 'drillDown', value?.toString() ?? '');
+  bool? get drillDown => somParseBool(doc.formField(path, 'drillDown'));
+  set drillDown(bool? value) => doc.setFormField(path, 'drillDown', somFormatBool(value));
 
-  bool? get annotations { final v = doc.formField(path, 'annotations'); return v == null ? null : v == 'true'; }
-  set annotations(bool? value) => doc.setFormField(path, 'annotations', value?.toString() ?? '');
+  bool? get annotations => somParseBool(doc.formField(path, 'annotations'));
+  set annotations(bool? value) => doc.setFormField(path, 'annotations', somFormatBool(value));
 
-  bool? get templating { final v = doc.formField(path, 'templating'); return v == null ? null : v == 'true'; }
-  set templating(bool? value) => doc.setFormField(path, 'templating', value?.toString() ?? '');
+  bool? get templating => somParseBool(doc.formField(path, 'templating'));
+  set templating(bool? value) => doc.setFormField(path, 'templating', somFormatBool(value));
 
-  bool? get alertIntegration { final v = doc.formField(path, 'alertIntegration'); return v == null ? null : v == 'true'; }
-  set alertIntegration(bool? value) => doc.setFormField(path, 'alertIntegration', value?.toString() ?? '');
+  bool? get alertIntegration => somParseBool(doc.formField(path, 'alertIntegration'));
+  set alertIntegration(bool? value) => doc.setFormField(path, 'alertIntegration', somFormatBool(value));
 }
 
 /// Generated section facade for the `mobile` `@Form` section:
@@ -36586,8 +36607,8 @@ class DashboardRequirementsMobileForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get mobileAccess { final v = doc.formField(path, 'mobileAccess'); return v == null ? null : v == 'true'; }
-  set mobileAccess(bool? value) => doc.setFormField(path, 'mobileAccess', value?.toString() ?? '');
+  bool? get mobileAccess => somParseBool(doc.formField(path, 'mobileAccess'));
+  set mobileAccess(bool? value) => doc.setFormField(path, 'mobileAccess', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -36605,17 +36626,17 @@ class DashboardRequirementsStandardForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get systemOverview { final v = doc.formField(path, 'systemOverview'); return v == null ? null : v == 'true'; }
-  set systemOverview(bool? value) => doc.setFormField(path, 'systemOverview', value?.toString() ?? '');
+  bool? get systemOverview => somParseBool(doc.formField(path, 'systemOverview'));
+  set systemOverview(bool? value) => doc.setFormField(path, 'systemOverview', somFormatBool(value));
 
-  bool? get serviceDashboards { final v = doc.formField(path, 'serviceDashboards'); return v == null ? null : v == 'true'; }
-  set serviceDashboards(bool? value) => doc.setFormField(path, 'serviceDashboards', value?.toString() ?? '');
+  bool? get serviceDashboards => somParseBool(doc.formField(path, 'serviceDashboards'));
+  set serviceDashboards(bool? value) => doc.setFormField(path, 'serviceDashboards', somFormatBool(value));
 
-  bool? get infrastructureDashboard { final v = doc.formField(path, 'infrastructureDashboard'); return v == null ? null : v == 'true'; }
-  set infrastructureDashboard(bool? value) => doc.setFormField(path, 'infrastructureDashboard', value?.toString() ?? '');
+  bool? get infrastructureDashboard => somParseBool(doc.formField(path, 'infrastructureDashboard'));
+  set infrastructureDashboard(bool? value) => doc.setFormField(path, 'infrastructureDashboard', somFormatBool(value));
 
-  bool? get businessDashboard { final v = doc.formField(path, 'businessDashboard'); return v == null ? null : v == 'true'; }
-  set businessDashboard(bool? value) => doc.setFormField(path, 'businessDashboard', value?.toString() ?? '');
+  bool? get businessDashboard => somParseBool(doc.formField(path, 'businessDashboard'));
+  set businessDashboard(bool? value) => doc.setFormField(path, 'businessDashboard', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -37159,8 +37180,8 @@ class DataClassificationLevelEntryContentForm extends SomNode {
   String get levelName => doc.formField(path, 'levelName') ?? '';
   set levelName(String value) => doc.setFormField(path, 'levelName', value);
 
-  int? get levelOrder { final v = doc.formField(path, 'levelOrder'); return v == null ? null : int.tryParse(v); }
-  set levelOrder(int? value) => doc.setFormField(path, 'levelOrder', value?.toString() ?? '');
+  int? get levelOrder => somParseInt(doc.formField(path, 'levelOrder'));
+  set levelOrder(int? value) => doc.setFormField(path, 'levelOrder', somFormatInt(value));
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -37261,20 +37282,20 @@ class DataDuplicationAnalysisDuplicationSummaryForm extends SomNode {
   String get duplicateDataVolume => doc.formField(path, 'duplicateDataVolume') ?? '';
   set duplicateDataVolume(String value) => doc.setFormField(path, 'duplicateDataVolume', value);
 
-  int? get numberOfDuplicationInstances { final v = doc.formField(path, 'numberOfDuplicationInstances'); return v == null ? null : int.tryParse(v); }
-  set numberOfDuplicationInstances(int? value) => doc.setFormField(path, 'numberOfDuplicationInstances', value?.toString() ?? '');
+  int? get numberOfDuplicationInstances => somParseInt(doc.formField(path, 'numberOfDuplicationInstances'));
+  set numberOfDuplicationInstances(int? value) => doc.setFormField(path, 'numberOfDuplicationInstances', somFormatInt(value));
 
   String get storageWasteEstimate => doc.formField(path, 'storageWasteEstimate') ?? '';
   set storageWasteEstimate(String value) => doc.setFormField(path, 'storageWasteEstimate', value);
 
-  int? get synchronizationChallenges { final v = doc.formField(path, 'synchronizationChallenges'); return v == null ? null : int.tryParse(v); }
-  set synchronizationChallenges(int? value) => doc.setFormField(path, 'synchronizationChallenges', value?.toString() ?? '');
+  int? get synchronizationChallenges => somParseInt(doc.formField(path, 'synchronizationChallenges'));
+  set synchronizationChallenges(int? value) => doc.setFormField(path, 'synchronizationChallenges', somFormatInt(value));
 
   String get dataInconsistencyRisk => doc.formField(path, 'dataInconsistencyRisk') ?? '';
   set dataInconsistencyRisk(String value) => doc.setFormField(path, 'dataInconsistencyRisk', value);
 
-  int? get consolidationOpportunities { final v = doc.formField(path, 'consolidationOpportunities'); return v == null ? null : int.tryParse(v); }
-  set consolidationOpportunities(int? value) => doc.setFormField(path, 'consolidationOpportunities', value?.toString() ?? '');
+  int? get consolidationOpportunities => somParseInt(doc.formField(path, 'consolidationOpportunities'));
+  set consolidationOpportunities(int? value) => doc.setFormField(path, 'consolidationOpportunities', somFormatInt(value));
 
   String get deduplicationPriority => doc.formField(path, 'deduplicationPriority') ?? '';
   set deduplicationPriority(String value) => doc.setFormField(path, 'deduplicationPriority', value);
@@ -37635,8 +37656,8 @@ class DataFormatCompatibilityLocaleForm extends SomNode {
   String get localeSupport => doc.formField(path, 'localeSupport') ?? '';
   set localeSupport(String value) => doc.setFormField(path, 'localeSupport', value);
 
-  bool? get rtlSupport { final v = doc.formField(path, 'rtlSupport'); return v == null ? null : v == 'true'; }
-  set rtlSupport(bool? value) => doc.setFormField(path, 'rtlSupport', value?.toString() ?? '');
+  bool? get rtlSupport => somParseBool(doc.formField(path, 'rtlSupport'));
+  set rtlSupport(bool? value) => doc.setFormField(path, 'rtlSupport', somFormatBool(value));
 
   String get unicodeSupport => doc.formField(path, 'unicodeSupport') ?? '';
   set unicodeSupport(String value) => doc.setFormField(path, 'unicodeSupport', value);
@@ -38032,8 +38053,8 @@ class DataIntegrationPointsIntegrationSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalIntegrationPoints { final v = doc.formField(path, 'totalIntegrationPoints'); return v == null ? null : int.tryParse(v); }
-  set totalIntegrationPoints(int? value) => doc.setFormField(path, 'totalIntegrationPoints', value?.toString() ?? '');
+  int? get totalIntegrationPoints => somParseInt(doc.formField(path, 'totalIntegrationPoints'));
+  set totalIntegrationPoints(int? value) => doc.setFormField(path, 'totalIntegrationPoints', somFormatInt(value));
 
   String get integrationArchitecture => doc.formField(path, 'integrationArchitecture') ?? '';
   set integrationArchitecture(String value) => doc.setFormField(path, 'integrationArchitecture', value);
@@ -38041,14 +38062,14 @@ class DataIntegrationPointsIntegrationSummaryForm extends SomNode {
   String get primaryIntegrationTool => doc.formField(path, 'primaryIntegrationTool') ?? '';
   set primaryIntegrationTool(String value) => doc.setFormField(path, 'primaryIntegrationTool', value);
 
-  int? get realtimeIntegrations { final v = doc.formField(path, 'realtimeIntegrations'); return v == null ? null : int.tryParse(v); }
-  set realtimeIntegrations(int? value) => doc.setFormField(path, 'realtimeIntegrations', value?.toString() ?? '');
+  int? get realtimeIntegrations => somParseInt(doc.formField(path, 'realtimeIntegrations'));
+  set realtimeIntegrations(int? value) => doc.setFormField(path, 'realtimeIntegrations', somFormatInt(value));
 
-  int? get batchIntegrations { final v = doc.formField(path, 'batchIntegrations'); return v == null ? null : int.tryParse(v); }
-  set batchIntegrations(int? value) => doc.setFormField(path, 'batchIntegrations', value?.toString() ?? '');
+  int? get batchIntegrations => somParseInt(doc.formField(path, 'batchIntegrations'));
+  set batchIntegrations(int? value) => doc.setFormField(path, 'batchIntegrations', somFormatInt(value));
 
-  int? get apiIntegrations { final v = doc.formField(path, 'apiIntegrations'); return v == null ? null : int.tryParse(v); }
-  set apiIntegrations(int? value) => doc.setFormField(path, 'apiIntegrations', value?.toString() ?? '');
+  int? get apiIntegrations => somParseInt(doc.formField(path, 'apiIntegrations'));
+  set apiIntegrations(int? value) => doc.setFormField(path, 'apiIntegrations', somFormatInt(value));
 
   String get integrationReliability => doc.formField(path, 'integrationReliability') ?? '';
   set integrationReliability(String value) => doc.setFormField(path, 'integrationReliability', value);
@@ -38056,8 +38077,8 @@ class DataIntegrationPointsIntegrationSummaryForm extends SomNode {
   String get averageLatency => doc.formField(path, 'averageLatency') ?? '';
   set averageLatency(String value) => doc.setFormField(path, 'averageLatency', value);
 
-  int? get knownBottlenecks { final v = doc.formField(path, 'knownBottlenecks'); return v == null ? null : int.tryParse(v); }
-  set knownBottlenecks(int? value) => doc.setFormField(path, 'knownBottlenecks', value?.toString() ?? '');
+  int? get knownBottlenecks => somParseInt(doc.formField(path, 'knownBottlenecks'));
+  set knownBottlenecks(int? value) => doc.setFormField(path, 'knownBottlenecks', somFormatInt(value));
 
   String get integrationDebt => doc.formField(path, 'integrationDebt') ?? '';
   set integrationDebt(String value) => doc.setFormField(path, 'integrationDebt', value);
@@ -38430,17 +38451,17 @@ class DataOwnershipOwnershipSummaryForm extends SomNode {
   String get ownershipModel => doc.formField(path, 'ownershipModel') ?? '';
   set ownershipModel(String value) => doc.setFormField(path, 'ownershipModel', value);
 
-  int? get totalDataDomains { final v = doc.formField(path, 'totalDataDomains'); return v == null ? null : int.tryParse(v); }
-  set totalDataDomains(int? value) => doc.setFormField(path, 'totalDataDomains', value?.toString() ?? '');
+  int? get totalDataDomains => somParseInt(doc.formField(path, 'totalDataDomains'));
+  set totalDataDomains(int? value) => doc.setFormField(path, 'totalDataDomains', somFormatInt(value));
 
   String get assignedOwnershipPercentage => doc.formField(path, 'assignedOwnershipPercentage') ?? '';
   set assignedOwnershipPercentage(String value) => doc.setFormField(path, 'assignedOwnershipPercentage', value);
 
-  int? get activeStewards { final v = doc.formField(path, 'activeStewards'); return v == null ? null : int.tryParse(v); }
-  set activeStewards(int? value) => doc.setFormField(path, 'activeStewards', value?.toString() ?? '');
+  int? get activeStewards => somParseInt(doc.formField(path, 'activeStewards'));
+  set activeStewards(int? value) => doc.setFormField(path, 'activeStewards', somFormatInt(value));
 
-  int? get ownershipGaps { final v = doc.formField(path, 'ownershipGaps'); return v == null ? null : int.tryParse(v); }
-  set ownershipGaps(int? value) => doc.setFormField(path, 'ownershipGaps', value?.toString() ?? '');
+  int? get ownershipGaps => somParseInt(doc.formField(path, 'ownershipGaps'));
+  set ownershipGaps(int? value) => doc.setFormField(path, 'ownershipGaps', somFormatInt(value));
 
   String get stewardshipMaturity => doc.formField(path, 'stewardshipMaturity') ?? '';
   set stewardshipMaturity(String value) => doc.setFormField(path, 'stewardshipMaturity', value);
@@ -39727,8 +39748,8 @@ class DebuggingConfigurationFlutterForm extends SomNode {
   String get devToolsFeatures => doc.formField(path, 'devToolsFeatures') ?? '';
   set devToolsFeatures(String value) => doc.setFormField(path, 'devToolsFeatures', value);
 
-  bool? get repaintRainbow { final v = doc.formField(path, 'repaintRainbow'); return v == null ? null : v == 'true'; }
-  set repaintRainbow(bool? value) => doc.setFormField(path, 'repaintRainbow', value?.toString() ?? '');
+  bool? get repaintRainbow => somParseBool(doc.formField(path, 'repaintRainbow'));
+  set repaintRainbow(bool? value) => doc.setFormField(path, 'repaintRainbow', somFormatBool(value));
 }
 
 /// Generated section facade for the `inspection` `@Form` section:
@@ -39771,8 +39792,8 @@ class DebuggingConfigurationLoggingForm extends SomNode {
   String get logLevels => doc.formField(path, 'logLevels') ?? '';
   set logLevels(String value) => doc.setFormField(path, 'logLevels', value);
 
-  bool? get structuredLogging { final v = doc.formField(path, 'structuredLogging'); return v == null ? null : v == 'true'; }
-  set structuredLogging(bool? value) => doc.setFormField(path, 'structuredLogging', value?.toString() ?? '');
+  bool? get structuredLogging => somParseBool(doc.formField(path, 'structuredLogging'));
+  set structuredLogging(bool? value) => doc.setFormField(path, 'structuredLogging', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -40696,8 +40717,8 @@ class DependencyHealthMonitoringCacheForm extends SomNode {
   String get cacheHealthCheck => doc.formField(path, 'cacheHealthCheck') ?? '';
   set cacheHealthCheck(String value) => doc.setFormField(path, 'cacheHealthCheck', value);
 
-  bool? get cacheEvictionMonitoring { final v = doc.formField(path, 'cacheEvictionMonitoring'); return v == null ? null : v == 'true'; }
-  set cacheEvictionMonitoring(bool? value) => doc.setFormField(path, 'cacheEvictionMonitoring', value?.toString() ?? '');
+  bool? get cacheEvictionMonitoring => somParseBool(doc.formField(path, 'cacheEvictionMonitoring'));
+  set cacheEvictionMonitoring(bool? value) => doc.setFormField(path, 'cacheEvictionMonitoring', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -40718,8 +40739,8 @@ class DependencyHealthMonitoringContentForm extends SomNode {
   String get databaseLatencyThreshold => doc.formField(path, 'databaseLatencyThreshold') ?? '';
   set databaseLatencyThreshold(String value) => doc.setFormField(path, 'databaseLatencyThreshold', value);
 
-  bool? get databaseConnectionPoolHealth { final v = doc.formField(path, 'databaseConnectionPoolHealth'); return v == null ? null : v == 'true'; }
-  set databaseConnectionPoolHealth(bool? value) => doc.setFormField(path, 'databaseConnectionPoolHealth', value?.toString() ?? '');
+  bool? get databaseConnectionPoolHealth => somParseBool(doc.formField(path, 'databaseConnectionPoolHealth'));
+  set databaseConnectionPoolHealth(bool? value) => doc.setFormField(path, 'databaseConnectionPoolHealth', somFormatBool(value));
 }
 
 /// Generated section facade for the `external` `@Form` section:
@@ -40734,14 +40755,14 @@ class DependencyHealthMonitoringExternalForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get externalServicePing { final v = doc.formField(path, 'externalServicePing'); return v == null ? null : v == 'true'; }
-  set externalServicePing(bool? value) => doc.setFormField(path, 'externalServicePing', value?.toString() ?? '');
+  bool? get externalServicePing => somParseBool(doc.formField(path, 'externalServicePing'));
+  set externalServicePing(bool? value) => doc.setFormField(path, 'externalServicePing', somFormatBool(value));
 
-  bool? get certificateExpiryCheck { final v = doc.formField(path, 'certificateExpiryCheck'); return v == null ? null : v == 'true'; }
-  set certificateExpiryCheck(bool? value) => doc.setFormField(path, 'certificateExpiryCheck', value?.toString() ?? '');
+  bool? get certificateExpiryCheck => somParseBool(doc.formField(path, 'certificateExpiryCheck'));
+  set certificateExpiryCheck(bool? value) => doc.setFormField(path, 'certificateExpiryCheck', somFormatBool(value));
 
-  bool? get dnsResolutionCheck { final v = doc.formField(path, 'dnsResolutionCheck'); return v == null ? null : v == 'true'; }
-  set dnsResolutionCheck(bool? value) => doc.setFormField(path, 'dnsResolutionCheck', value?.toString() ?? '');
+  bool? get dnsResolutionCheck => somParseBool(doc.formField(path, 'dnsResolutionCheck'));
+  set dnsResolutionCheck(bool? value) => doc.setFormField(path, 'dnsResolutionCheck', somFormatBool(value));
 }
 
 /// Generated section facade for the `queue` `@Form` section:
@@ -40759,8 +40780,8 @@ class DependencyHealthMonitoringQueueForm extends SomNode {
   String get messageQueueHealth => doc.formField(path, 'messageQueueHealth') ?? '';
   set messageQueueHealth(String value) => doc.setFormField(path, 'messageQueueHealth', value);
 
-  bool? get dlqMonitoring { final v = doc.formField(path, 'dlqMonitoring'); return v == null ? null : v == 'true'; }
-  set dlqMonitoring(bool? value) => doc.setFormField(path, 'dlqMonitoring', value?.toString() ?? '');
+  bool? get dlqMonitoring => somParseBool(doc.formField(path, 'dlqMonitoring'));
+  set dlqMonitoring(bool? value) => doc.setFormField(path, 'dlqMonitoring', somFormatBool(value));
 }
 
 /// Generated section facade for the `thresholds` `@Form` section:
@@ -41295,8 +41316,8 @@ class DeploymentEnvironmentEntryProtectionForm extends SomNode {
   String get requiredApprovers => doc.formField(path, 'requiredApprovers') ?? '';
   set requiredApprovers(String value) => doc.setFormField(path, 'requiredApprovers', value);
 
-  bool? get preventSelfApproval { final v = doc.formField(path, 'preventSelfApproval'); return v == null ? null : v == 'true'; }
-  set preventSelfApproval(bool? value) => doc.setFormField(path, 'preventSelfApproval', value?.toString() ?? '');
+  bool? get preventSelfApproval => somParseBool(doc.formField(path, 'preventSelfApproval'));
+  set preventSelfApproval(bool? value) => doc.setFormField(path, 'preventSelfApproval', somFormatBool(value));
 }
 
 /// Generated section facade for the `container` `@Form` section:
@@ -41314,8 +41335,8 @@ class DeploymentModelRequirementsContainerForm extends SomNode {
   String get containerRegistry => doc.formField(path, 'containerRegistry') ?? '';
   set containerRegistry(String value) => doc.setFormField(path, 'containerRegistry', value);
 
-  bool? get imageScanningRequired { final v = doc.formField(path, 'imageScanningRequired'); return v == null ? null : v == 'true'; }
-  set imageScanningRequired(bool? value) => doc.setFormField(path, 'imageScanningRequired', value?.toString() ?? '');
+  bool? get imageScanningRequired => somParseBool(doc.formField(path, 'imageScanningRequired'));
+  set imageScanningRequired(bool? value) => doc.setFormField(path, 'imageScanningRequired', somFormatBool(value));
 
   String get imageTaggingStrategy => doc.formField(path, 'imageTaggingStrategy') ?? '';
   set imageTaggingStrategy(String value) => doc.setFormField(path, 'imageTaggingStrategy', value);
@@ -41433,8 +41454,8 @@ class DeploymentSecurityAccessForm extends SomNode {
   String get emergencyAccess => doc.formField(path, 'emergencyAccess') ?? '';
   set emergencyAccess(String value) => doc.setFormField(path, 'emergencyAccess', value);
 
-  bool? get auditLogging { final v = doc.formField(path, 'auditLogging'); return v == null ? null : v == 'true'; }
-  set auditLogging(bool? value) => doc.setFormField(path, 'auditLogging', value?.toString() ?? '');
+  bool? get auditLogging => somParseBool(doc.formField(path, 'auditLogging'));
+  set auditLogging(bool? value) => doc.setFormField(path, 'auditLogging', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -41461,8 +41482,8 @@ class DeploymentSecurityContentForm extends SomNode {
   String get roleBindings => doc.formField(path, 'roleBindings') ?? '';
   set roleBindings(String value) => doc.setFormField(path, 'roleBindings', value);
 
-  bool? get leastPrivilege { final v = doc.formField(path, 'leastPrivilege'); return v == null ? null : v == 'true'; }
-  set leastPrivilege(bool? value) => doc.setFormField(path, 'leastPrivilege', value?.toString() ?? '');
+  bool? get leastPrivilege => somParseBool(doc.formField(path, 'leastPrivilege'));
+  set leastPrivilege(bool? value) => doc.setFormField(path, 'leastPrivilege', somFormatBool(value));
 }
 
 /// Generated section facade for the `runtime` `@Form` section:
@@ -41486,8 +41507,8 @@ class DeploymentSecurityRuntimeForm extends SomNode {
   String get seccompProfile => doc.formField(path, 'seccompProfile') ?? '';
   set seccompProfile(String value) => doc.setFormField(path, 'seccompProfile', value);
 
-  bool? get readOnlyRootFilesystem { final v = doc.formField(path, 'readOnlyRootFilesystem'); return v == null ? null : v == 'true'; }
-  set readOnlyRootFilesystem(bool? value) => doc.setFormField(path, 'readOnlyRootFilesystem', value?.toString() ?? '');
+  bool? get readOnlyRootFilesystem => somParseBool(doc.formField(path, 'readOnlyRootFilesystem'));
+  set readOnlyRootFilesystem(bool? value) => doc.setFormField(path, 'readOnlyRootFilesystem', somFormatBool(value));
 }
 
 /// Generated section facade for the `supplyChain` `@Form` section:
@@ -41502,14 +41523,14 @@ class DeploymentSecuritySupplyChainForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get signedArtifacts { final v = doc.formField(path, 'signedArtifacts'); return v == null ? null : v == 'true'; }
-  set signedArtifacts(bool? value) => doc.setFormField(path, 'signedArtifacts', value?.toString() ?? '');
+  bool? get signedArtifacts => somParseBool(doc.formField(path, 'signedArtifacts'));
+  set signedArtifacts(bool? value) => doc.setFormField(path, 'signedArtifacts', somFormatBool(value));
 
   String get imageSignature => doc.formField(path, 'imageSignature') ?? '';
   set imageSignature(String value) => doc.setFormField(path, 'imageSignature', value);
 
-  bool? get sbomGeneration { final v = doc.formField(path, 'sbomGeneration'); return v == null ? null : v == 'true'; }
-  set sbomGeneration(bool? value) => doc.setFormField(path, 'sbomGeneration', value?.toString() ?? '');
+  bool? get sbomGeneration => somParseBool(doc.formField(path, 'sbomGeneration'));
+  set sbomGeneration(bool? value) => doc.setFormField(path, 'sbomGeneration', somFormatBool(value));
 
   String get supplyChainAttestation => doc.formField(path, 'supplyChainAttestation') ?? '';
   set supplyChainAttestation(String value) => doc.setFormField(path, 'supplyChainAttestation', value);
@@ -42122,8 +42143,8 @@ class DesktopOsRequirementEntryTestingForm extends SomNode {
   String get testEnvironment => doc.formField(path, 'testEnvironment') ?? '';
   set testEnvironment(String value) => doc.setFormField(path, 'testEnvironment', value);
 
-  bool? get automatedTesting { final v = doc.formField(path, 'automatedTesting'); return v == null ? null : v == 'true'; }
-  set automatedTesting(bool? value) => doc.setFormField(path, 'automatedTesting', value?.toString() ?? '');
+  bool? get automatedTesting => somParseBool(doc.formField(path, 'automatedTesting'));
+  set automatedTesting(bool? value) => doc.setFormField(path, 'automatedTesting', somFormatBool(value));
 
   String get knownIssues => doc.formField(path, 'knownIssues') ?? '';
   set knownIssues(String value) => doc.setFormField(path, 'knownIssues', value);
@@ -42216,8 +42237,8 @@ class DeveloperOnboardingLearningForm extends SomNode {
   String get codeWalkthrough => doc.formField(path, 'codeWalkthrough') ?? '';
   set codeWalkthrough(String value) => doc.setFormField(path, 'codeWalkthrough', value);
 
-  bool? get pairProgrammingBuddy { final v = doc.formField(path, 'pairProgrammingBuddy'); return v == null ? null : v == 'true'; }
-  set pairProgrammingBuddy(bool? value) => doc.setFormField(path, 'pairProgrammingBuddy', value?.toString() ?? '');
+  bool? get pairProgrammingBuddy => somParseBool(doc.formField(path, 'pairProgrammingBuddy'));
+  set pairProgrammingBuddy(bool? value) => doc.setFormField(path, 'pairProgrammingBuddy', somFormatBool(value));
 }
 
 /// Generated section facade for the `setup` `@Form` section:
@@ -42235,8 +42256,8 @@ class DeveloperOnboardingSetupForm extends SomNode {
   String get estimatedSetupTime => doc.formField(path, 'estimatedSetupTime') ?? '';
   set estimatedSetupTime(String value) => doc.setFormField(path, 'estimatedSetupTime', value);
 
-  bool? get automatedSetup { final v = doc.formField(path, 'automatedSetup'); return v == null ? null : v == 'true'; }
-  set automatedSetup(bool? value) => doc.setFormField(path, 'automatedSetup', value?.toString() ?? '');
+  bool? get automatedSetup => somParseBool(doc.formField(path, 'automatedSetup'));
+  set automatedSetup(bool? value) => doc.setFormField(path, 'automatedSetup', somFormatBool(value));
 
   String get setupVideoGuide => doc.formField(path, 'setupVideoGuide') ?? '';
   set setupVideoGuide(String value) => doc.setFormField(path, 'setupVideoGuide', value);
@@ -42474,11 +42495,11 @@ class DevelopmentQualityGatesDocumentationForm extends SomNode {
   String get apiDocumentation => doc.formField(path, 'apiDocumentation') ?? '';
   set apiDocumentation(String value) => doc.setFormField(path, 'apiDocumentation', value);
 
-  bool? get changelogRequired { final v = doc.formField(path, 'changelogRequired'); return v == null ? null : v == 'true'; }
-  set changelogRequired(bool? value) => doc.setFormField(path, 'changelogRequired', value?.toString() ?? '');
+  bool? get changelogRequired => somParseBool(doc.formField(path, 'changelogRequired'));
+  set changelogRequired(bool? value) => doc.setFormField(path, 'changelogRequired', somFormatBool(value));
 
-  bool? get readmeRequired { final v = doc.formField(path, 'readmeRequired'); return v == null ? null : v == 'true'; }
-  set readmeRequired(bool? value) => doc.setFormField(path, 'readmeRequired', value?.toString() ?? '');
+  bool? get readmeRequired => somParseBool(doc.formField(path, 'readmeRequired'));
+  set readmeRequired(bool? value) => doc.setFormField(path, 'readmeRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `performance` `@Form` section:
@@ -42521,8 +42542,8 @@ class DevelopmentQualityGatesSecurityForm extends SomNode {
   String get dependencyScanning => doc.formField(path, 'dependencyScanning') ?? '';
   set dependencyScanning(String value) => doc.setFormField(path, 'dependencyScanning', value);
 
-  bool? get secretsScanning { final v = doc.formField(path, 'secretsScanning'); return v == null ? null : v == 'true'; }
-  set secretsScanning(bool? value) => doc.setFormField(path, 'secretsScanning', value?.toString() ?? '');
+  bool? get secretsScanning => somParseBool(doc.formField(path, 'secretsScanning'));
+  set secretsScanning(bool? value) => doc.setFormField(path, 'secretsScanning', somFormatBool(value));
 
   String get licenseCompliance => doc.formField(path, 'licenseCompliance') ?? '';
   set licenseCompliance(String value) => doc.setFormField(path, 'licenseCompliance', value);
@@ -42703,8 +42724,8 @@ class DisplayEquipmentEntryPlanningForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get quantityPerUser { final v = doc.formField(path, 'quantityPerUser'); return v == null ? null : int.tryParse(v); }
-  set quantityPerUser(int? value) => doc.setFormField(path, 'quantityPerUser', value?.toString() ?? '');
+  int? get quantityPerUser => somParseInt(doc.formField(path, 'quantityPerUser'));
+  set quantityPerUser(int? value) => doc.setFormField(path, 'quantityPerUser', somFormatInt(value));
 
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
@@ -42778,11 +42799,11 @@ class DisplayRequirementsColorForm extends SomNode {
   String get colorSpaceSupport => doc.formField(path, 'colorSpaceSupport') ?? '';
   set colorSpaceSupport(String value) => doc.setFormField(path, 'colorSpaceSupport', value);
 
-  bool? get darkModeSupport { final v = doc.formField(path, 'darkModeSupport'); return v == null ? null : v == 'true'; }
-  set darkModeSupport(bool? value) => doc.setFormField(path, 'darkModeSupport', value?.toString() ?? '');
+  bool? get darkModeSupport => somParseBool(doc.formField(path, 'darkModeSupport'));
+  set darkModeSupport(bool? value) => doc.setFormField(path, 'darkModeSupport', somFormatBool(value));
 
-  bool? get highContrastSupport { final v = doc.formField(path, 'highContrastSupport'); return v == null ? null : v == 'true'; }
-  set highContrastSupport(bool? value) => doc.setFormField(path, 'highContrastSupport', value?.toString() ?? '');
+  bool? get highContrastSupport => somParseBool(doc.formField(path, 'highContrastSupport'));
+  set highContrastSupport(bool? value) => doc.setFormField(path, 'highContrastSupport', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -42825,8 +42846,8 @@ class DisplayRequirementsLayoutForm extends SomNode {
   String get responsiveBreakpoints => doc.formField(path, 'responsiveBreakpoints') ?? '';
   set responsiveBreakpoints(String value) => doc.setFormField(path, 'responsiveBreakpoints', value);
 
-  bool? get fluidLayout { final v = doc.formField(path, 'fluidLayout'); return v == null ? null : v == 'true'; }
-  set fluidLayout(bool? value) => doc.setFormField(path, 'fluidLayout', value?.toString() ?? '');
+  bool? get fluidLayout => somParseBool(doc.formField(path, 'fluidLayout'));
+  set fluidLayout(bool? value) => doc.setFormField(path, 'fluidLayout', somFormatBool(value));
 }
 
 /// Generated section facade for the `multiDisplay` `@Form` section:
@@ -42841,8 +42862,8 @@ class DisplayRequirementsMultiDisplayForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get multiMonitorSupport { final v = doc.formField(path, 'multiMonitorSupport'); return v == null ? null : v == 'true'; }
-  set multiMonitorSupport(bool? value) => doc.setFormField(path, 'multiMonitorSupport', value?.toString() ?? '');
+  bool? get multiMonitorSupport => somParseBool(doc.formField(path, 'multiMonitorSupport'));
+  set multiMonitorSupport(bool? value) => doc.setFormField(path, 'multiMonitorSupport', somFormatBool(value));
 
   String get projectorMode => doc.formField(path, 'projectorMode') ?? '';
   set projectorMode(String value) => doc.setFormField(path, 'projectorMode', value);
@@ -42866,14 +42887,14 @@ class DisplayRequirementsScalingForm extends SomNode {
   String get minDpi => doc.formField(path, 'minDpi') ?? '';
   set minDpi(String value) => doc.setFormField(path, 'minDpi', value);
 
-  bool? get hiDpiSupport { final v = doc.formField(path, 'hiDpiSupport'); return v == null ? null : v == 'true'; }
-  set hiDpiSupport(bool? value) => doc.setFormField(path, 'hiDpiSupport', value?.toString() ?? '');
+  bool? get hiDpiSupport => somParseBool(doc.formField(path, 'hiDpiSupport'));
+  set hiDpiSupport(bool? value) => doc.setFormField(path, 'hiDpiSupport', somFormatBool(value));
 
   String get scalingFactors => doc.formField(path, 'scalingFactors') ?? '';
   set scalingFactors(String value) => doc.setFormField(path, 'scalingFactors', value);
 
-  bool? get vectorGraphics { final v = doc.formField(path, 'vectorGraphics'); return v == null ? null : v == 'true'; }
-  set vectorGraphics(bool? value) => doc.setFormField(path, 'vectorGraphics', value?.toString() ?? '');
+  bool? get vectorGraphics => somParseBool(doc.formField(path, 'vectorGraphics'));
+  set vectorGraphics(bool? value) => doc.setFormField(path, 'vectorGraphics', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -42910,11 +42931,11 @@ class DistributedTracingSpecOperationsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get logTraceCorrelation { final v = doc.formField(path, 'logTraceCorrelation'); return v == null ? null : v == 'true'; }
-  set logTraceCorrelation(bool? value) => doc.setFormField(path, 'logTraceCorrelation', value?.toString() ?? '');
+  bool? get logTraceCorrelation => somParseBool(doc.formField(path, 'logTraceCorrelation'));
+  set logTraceCorrelation(bool? value) => doc.setFormField(path, 'logTraceCorrelation', somFormatBool(value));
 
-  bool? get metricsTraceCorrelation { final v = doc.formField(path, 'metricsTraceCorrelation'); return v == null ? null : v == 'true'; }
-  set metricsTraceCorrelation(bool? value) => doc.setFormField(path, 'metricsTraceCorrelation', value?.toString() ?? '');
+  bool? get metricsTraceCorrelation => somParseBool(doc.formField(path, 'metricsTraceCorrelation'));
+  set metricsTraceCorrelation(bool? value) => doc.setFormField(path, 'metricsTraceCorrelation', somFormatBool(value));
 
   String get baggagePropagation => doc.formField(path, 'baggagePropagation') ?? '';
   set baggagePropagation(String value) => doc.setFormField(path, 'baggagePropagation', value);
@@ -42985,14 +43006,14 @@ class DistributionGroupSummaryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get recipientCount { final v = doc.formField(path, 'recipientCount'); return v == null ? null : int.tryParse(v); }
-  set recipientCount(int? value) => doc.setFormField(path, 'recipientCount', value?.toString() ?? '');
+  int? get recipientCount => somParseInt(doc.formField(path, 'recipientCount'));
+  set recipientCount(int? value) => doc.setFormField(path, 'recipientCount', somFormatInt(value));
 
-  int? get internalCount { final v = doc.formField(path, 'internalCount'); return v == null ? null : int.tryParse(v); }
-  set internalCount(int? value) => doc.setFormField(path, 'internalCount', value?.toString() ?? '');
+  int? get internalCount => somParseInt(doc.formField(path, 'internalCount'));
+  set internalCount(int? value) => doc.setFormField(path, 'internalCount', somFormatInt(value));
 
-  int? get externalCount { final v = doc.formField(path, 'externalCount'); return v == null ? null : int.tryParse(v); }
-  set externalCount(int? value) => doc.setFormField(path, 'externalCount', value?.toString() ?? '');
+  int? get externalCount => somParseInt(doc.formField(path, 'externalCount'));
+  set externalCount(int? value) => doc.setFormField(path, 'externalCount', somFormatInt(value));
 
   String get primaryLanguage => doc.formField(path, 'primaryLanguage') ?? '';
   set primaryLanguage(String value) => doc.setFormField(path, 'primaryLanguage', value);
@@ -43194,8 +43215,8 @@ class DnsRequirementsContentForm extends SomNode {
   String get dnsHosting => doc.formField(path, 'dnsHosting') ?? '';
   set dnsHosting(String value) => doc.setFormField(path, 'dnsHosting', value);
 
-  bool? get dnsSecEnabled { final v = doc.formField(path, 'dnsSecEnabled'); return v == null ? null : v == 'true'; }
-  set dnsSecEnabled(bool? value) => doc.setFormField(path, 'dnsSecEnabled', value?.toString() ?? '');
+  bool? get dnsSecEnabled => somParseBool(doc.formField(path, 'dnsSecEnabled'));
+  set dnsSecEnabled(bool? value) => doc.setFormField(path, 'dnsSecEnabled', somFormatBool(value));
 }
 
 /// Generated section facade for the `healthChecks` `@Form` section:
@@ -43210,8 +43231,8 @@ class DnsRequirementsHealthChecksForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get healthChecks { final v = doc.formField(path, 'healthChecks'); return v == null ? null : v == 'true'; }
-  set healthChecks(bool? value) => doc.setFormField(path, 'healthChecks', value?.toString() ?? '');
+  bool? get healthChecks => somParseBool(doc.formField(path, 'healthChecks'));
+  set healthChecks(bool? value) => doc.setFormField(path, 'healthChecks', somFormatBool(value));
 
   String get healthCheckEndpoints => doc.formField(path, 'healthCheckEndpoints') ?? '';
   set healthCheckEndpoints(String value) => doc.setFormField(path, 'healthCheckEndpoints', value);
@@ -43241,8 +43262,8 @@ class DnsRequirementsRecordsForm extends SomNode {
   String get ttlPolicy => doc.formField(path, 'ttlPolicy') ?? '';
   set ttlPolicy(String value) => doc.setFormField(path, 'ttlPolicy', value);
 
-  bool? get dynamicDns { final v = doc.formField(path, 'dynamicDns'); return v == null ? null : v == 'true'; }
-  set dynamicDns(bool? value) => doc.setFormField(path, 'dynamicDns', value?.toString() ?? '');
+  bool? get dynamicDns => somParseBool(doc.formField(path, 'dynamicDns'));
+  set dynamicDns(bool? value) => doc.setFormField(path, 'dynamicDns', somFormatBool(value));
 }
 
 /// Generated section facade for the `zones` `@Form` section:
@@ -43263,8 +43284,8 @@ class DnsRequirementsZonesForm extends SomNode {
   String get privateZones => doc.formField(path, 'privateZones') ?? '';
   set privateZones(String value) => doc.setFormField(path, 'privateZones', value);
 
-  bool? get splitHorizon { final v = doc.formField(path, 'splitHorizon'); return v == null ? null : v == 'true'; }
-  set splitHorizon(bool? value) => doc.setFormField(path, 'splitHorizon', value?.toString() ?? '');
+  bool? get splitHorizon => somParseBool(doc.formField(path, 'splitHorizon'));
+  set splitHorizon(bool? value) => doc.setFormField(path, 'splitHorizon', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -43569,14 +43590,14 @@ class DocumentationStandardsArchitectureForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get architectureDocRequired { final v = doc.formField(path, 'architectureDocRequired'); return v == null ? null : v == 'true'; }
-  set architectureDocRequired(bool? value) => doc.setFormField(path, 'architectureDocRequired', value?.toString() ?? '');
+  bool? get architectureDocRequired => somParseBool(doc.formField(path, 'architectureDocRequired'));
+  set architectureDocRequired(bool? value) => doc.setFormField(path, 'architectureDocRequired', somFormatBool(value));
 
   String get diagramsRequired => doc.formField(path, 'diagramsRequired') ?? '';
   set diagramsRequired(String value) => doc.setFormField(path, 'diagramsRequired', value);
 
-  bool? get readmeRequired { final v = doc.formField(path, 'readmeRequired'); return v == null ? null : v == 'true'; }
-  set readmeRequired(bool? value) => doc.setFormField(path, 'readmeRequired', value?.toString() ?? '');
+  bool? get readmeRequired => somParseBool(doc.formField(path, 'readmeRequired'));
+  set readmeRequired(bool? value) => doc.setFormField(path, 'readmeRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `codeDocs` `@Form` section:
@@ -43591,11 +43612,11 @@ class DocumentationStandardsCodeDocsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get returnDocRequired { final v = doc.formField(path, 'returnDocRequired'); return v == null ? null : v == 'true'; }
-  set returnDocRequired(bool? value) => doc.setFormField(path, 'returnDocRequired', value?.toString() ?? '');
+  bool? get returnDocRequired => somParseBool(doc.formField(path, 'returnDocRequired'));
+  set returnDocRequired(bool? value) => doc.setFormField(path, 'returnDocRequired', somFormatBool(value));
 
-  bool? get exampleRequired { final v = doc.formField(path, 'exampleRequired'); return v == null ? null : v == 'true'; }
-  set exampleRequired(bool? value) => doc.setFormField(path, 'exampleRequired', value?.toString() ?? '');
+  bool? get exampleRequired => somParseBool(doc.formField(path, 'exampleRequired'));
+  set exampleRequired(bool? value) => doc.setFormField(path, 'exampleRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -43610,14 +43631,14 @@ class DocumentationStandardsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get publicApiDocRequired { final v = doc.formField(path, 'publicApiDocRequired'); return v == null ? null : v == 'true'; }
-  set publicApiDocRequired(bool? value) => doc.setFormField(path, 'publicApiDocRequired', value?.toString() ?? '');
+  bool? get publicApiDocRequired => somParseBool(doc.formField(path, 'publicApiDocRequired'));
+  set publicApiDocRequired(bool? value) => doc.setFormField(path, 'publicApiDocRequired', somFormatBool(value));
 
   String get docCommentFormat => doc.formField(path, 'docCommentFormat') ?? '';
   set docCommentFormat(String value) => doc.setFormField(path, 'docCommentFormat', value);
 
-  bool? get parameterDocRequired { final v = doc.formField(path, 'parameterDocRequired'); return v == null ? null : v == 'true'; }
-  set parameterDocRequired(bool? value) => doc.setFormField(path, 'parameterDocRequired', value?.toString() ?? '');
+  bool? get parameterDocRequired => somParseBool(doc.formField(path, 'parameterDocRequired'));
+  set parameterDocRequired(bool? value) => doc.setFormField(path, 'parameterDocRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `contentRequirements` `@Form` section:
@@ -43635,8 +43656,8 @@ class DocumentationStandardsContentRequirementsForm extends SomNode {
   String get minimumDescription => doc.formField(path, 'minimumDescription') ?? '';
   set minimumDescription(String value) => doc.setFormField(path, 'minimumDescription', value);
 
-  bool? get crossReferenceRequired { final v = doc.formField(path, 'crossReferenceRequired'); return v == null ? null : v == 'true'; }
-  set crossReferenceRequired(bool? value) => doc.setFormField(path, 'crossReferenceRequired', value?.toString() ?? '');
+  bool? get crossReferenceRequired => somParseBool(doc.formField(path, 'crossReferenceRequired'));
+  set crossReferenceRequired(bool? value) => doc.setFormField(path, 'crossReferenceRequired', somFormatBool(value));
 
   String get deprecationNotice => doc.formField(path, 'deprecationNotice') ?? '';
   set deprecationNotice(String value) => doc.setFormField(path, 'deprecationNotice', value);
@@ -43654,11 +43675,11 @@ class DocumentationStandardsProcessForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get docReviewRequired { final v = doc.formField(path, 'docReviewRequired'); return v == null ? null : v == 'true'; }
-  set docReviewRequired(bool? value) => doc.setFormField(path, 'docReviewRequired', value?.toString() ?? '');
+  bool? get docReviewRequired => somParseBool(doc.formField(path, 'docReviewRequired'));
+  set docReviewRequired(bool? value) => doc.setFormField(path, 'docReviewRequired', somFormatBool(value));
 
-  bool? get technicalWriterReview { final v = doc.formField(path, 'technicalWriterReview'); return v == null ? null : v == 'true'; }
-  set technicalWriterReview(bool? value) => doc.setFormField(path, 'technicalWriterReview', value?.toString() ?? '');
+  bool? get technicalWriterReview => somParseBool(doc.formField(path, 'technicalWriterReview'));
+  set technicalWriterReview(bool? value) => doc.setFormField(path, 'technicalWriterReview', somFormatBool(value));
 
   String get docGenerationTool => doc.formField(path, 'docGenerationTool') ?? '';
   set docGenerationTool(String value) => doc.setFormField(path, 'docGenerationTool', value);
@@ -43729,11 +43750,11 @@ class DocumentationStandardsSectionQualityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get spellCheckRequired { final v = doc.formField(path, 'spellCheckRequired'); return v == null ? null : v == 'true'; }
-  set spellCheckRequired(bool? value) => doc.setFormField(path, 'spellCheckRequired', value?.toString() ?? '');
+  bool? get spellCheckRequired => somParseBool(doc.formField(path, 'spellCheckRequired'));
+  set spellCheckRequired(bool? value) => doc.setFormField(path, 'spellCheckRequired', somFormatBool(value));
 
-  bool? get accessibilityRequired { final v = doc.formField(path, 'accessibilityRequired'); return v == null ? null : v == 'true'; }
-  set accessibilityRequired(bool? value) => doc.setFormField(path, 'accessibilityRequired', value?.toString() ?? '');
+  bool? get accessibilityRequired => somParseBool(doc.formField(path, 'accessibilityRequired'));
+  set accessibilityRequired(bool? value) => doc.setFormField(path, 'accessibilityRequired', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -43798,8 +43819,8 @@ class DocumentationStandardsVersioningForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get changelogRequired { final v = doc.formField(path, 'changelogRequired'); return v == null ? null : v == 'true'; }
-  set changelogRequired(bool? value) => doc.setFormField(path, 'changelogRequired', value?.toString() ?? '');
+  bool? get changelogRequired => somParseBool(doc.formField(path, 'changelogRequired'));
+  set changelogRequired(bool? value) => doc.setFormField(path, 'changelogRequired', somFormatBool(value));
 
   String get changelogFormat => doc.formField(path, 'changelogFormat') ?? '';
   set changelogFormat(String value) => doc.setFormField(path, 'changelogFormat', value);
@@ -44299,8 +44320,8 @@ class EmergencyMaintenanceProceduresExecutionForm extends SomNode {
   String get maxEmergencyDuration => doc.formField(path, 'maxEmergencyDuration') ?? '';
   set maxEmergencyDuration(String value) => doc.setFormField(path, 'maxEmergencyDuration', value);
 
-  bool? get postEmergencyReview { final v = doc.formField(path, 'postEmergencyReview'); return v == null ? null : v == 'true'; }
-  set postEmergencyReview(bool? value) => doc.setFormField(path, 'postEmergencyReview', value?.toString() ?? '');
+  bool? get postEmergencyReview => somParseBool(doc.formField(path, 'postEmergencyReview'));
+  set postEmergencyReview(bool? value) => doc.setFormField(path, 'postEmergencyReview', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -44355,11 +44376,11 @@ class EncryptedDataCategoryEntryContentForm extends SomNode {
   String get encryptedFields => doc.formField(path, 'encryptedFields') ?? '';
   set encryptedFields(String value) => doc.setFormField(path, 'encryptedFields', value);
 
-  bool? get tokenizationUsed { final v = doc.formField(path, 'tokenizationUsed'); return v == null ? null : v == 'true'; }
-  set tokenizationUsed(bool? value) => doc.setFormField(path, 'tokenizationUsed', value?.toString() ?? '');
+  bool? get tokenizationUsed => somParseBool(doc.formField(path, 'tokenizationUsed'));
+  set tokenizationUsed(bool? value) => doc.setFormField(path, 'tokenizationUsed', somFormatBool(value));
 
-  int? get dataRetentionDays { final v = doc.formField(path, 'dataRetentionDays'); return v == null ? null : int.tryParse(v); }
-  set dataRetentionDays(int? value) => doc.setFormField(path, 'dataRetentionDays', value?.toString() ?? '');
+  int? get dataRetentionDays => somParseInt(doc.formField(path, 'dataRetentionDays'));
+  set dataRetentionDays(int? value) => doc.setFormField(path, 'dataRetentionDays', somFormatInt(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -45230,8 +45251,8 @@ class EnvironmentManagementSwitchingForm extends SomNode {
   String get flavorSupport => doc.formField(path, 'flavorSupport') ?? '';
   set flavorSupport(String value) => doc.setFormField(path, 'flavorSupport', value);
 
-  bool? get runtimeSwitching { final v = doc.formField(path, 'runtimeSwitching'); return v == null ? null : v == 'true'; }
-  set runtimeSwitching(bool? value) => doc.setFormField(path, 'runtimeSwitching', value?.toString() ?? '');
+  bool? get runtimeSwitching => somParseBool(doc.formField(path, 'runtimeSwitching'));
+  set runtimeSwitching(bool? value) => doc.setFormField(path, 'runtimeSwitching', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -45290,8 +45311,8 @@ class EnvironmentStrategyEphemeralForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get ephemeralEnvironments { final v = doc.formField(path, 'ephemeralEnvironments'); return v == null ? null : v == 'true'; }
-  set ephemeralEnvironments(bool? value) => doc.setFormField(path, 'ephemeralEnvironments', value?.toString() ?? '');
+  bool? get ephemeralEnvironments => somParseBool(doc.formField(path, 'ephemeralEnvironments'));
+  set ephemeralEnvironments(bool? value) => doc.setFormField(path, 'ephemeralEnvironments', somFormatBool(value));
 
   String get environmentLifecycle => doc.formField(path, 'environmentLifecycle') ?? '';
   set environmentLifecycle(String value) => doc.setFormField(path, 'environmentLifecycle', value);
@@ -45315,11 +45336,11 @@ class EnvironmentStrategyProductionForm extends SomNode {
   String get productionEnvironment => doc.formField(path, 'productionEnvironment') ?? '';
   set productionEnvironment(String value) => doc.setFormField(path, 'productionEnvironment', value);
 
-  bool? get multiRegion { final v = doc.formField(path, 'multiRegion'); return v == null ? null : v == 'true'; }
-  set multiRegion(bool? value) => doc.setFormField(path, 'multiRegion', value?.toString() ?? '');
+  bool? get multiRegion => somParseBool(doc.formField(path, 'multiRegion'));
+  set multiRegion(bool? value) => doc.setFormField(path, 'multiRegion', somFormatBool(value));
 
-  bool? get activeActive { final v = doc.formField(path, 'activeActive'); return v == null ? null : v == 'true'; }
-  set activeActive(bool? value) => doc.setFormField(path, 'activeActive', value?.toString() ?? '');
+  bool? get activeActive => somParseBool(doc.formField(path, 'activeActive'));
+  set activeActive(bool? value) => doc.setFormField(path, 'activeActive', somFormatBool(value));
 }
 
 /// Generated section facade for the `staging` `@Form` section:
@@ -45337,8 +45358,8 @@ class EnvironmentStrategyStagingForm extends SomNode {
   String get stagingEnvironment => doc.formField(path, 'stagingEnvironment') ?? '';
   set stagingEnvironment(String value) => doc.setFormField(path, 'stagingEnvironment', value);
 
-  bool? get stagingProdParity { final v = doc.formField(path, 'stagingProdParity'); return v == null ? null : v == 'true'; }
-  set stagingProdParity(bool? value) => doc.setFormField(path, 'stagingProdParity', value?.toString() ?? '');
+  bool? get stagingProdParity => somParseBool(doc.formField(path, 'stagingProdParity'));
+  set stagingProdParity(bool? value) => doc.setFormField(path, 'stagingProdParity', somFormatBool(value));
 
   String get stagingDataRefresh => doc.formField(path, 'stagingDataRefresh') ?? '';
   set stagingDataRefresh(String value) => doc.setFormField(path, 'stagingDataRefresh', value);
@@ -45455,8 +45476,8 @@ class ErrorBudgetTrackingContentForm extends SomNode {
   String get budgetResetPolicy => doc.formField(path, 'budgetResetPolicy') ?? '';
   set budgetResetPolicy(String value) => doc.setFormField(path, 'budgetResetPolicy', value);
 
-  bool? get budgetBurnRateDashboard { final v = doc.formField(path, 'budgetBurnRateDashboard'); return v == null ? null : v == 'true'; }
-  set budgetBurnRateDashboard(bool? value) => doc.setFormField(path, 'budgetBurnRateDashboard', value?.toString() ?? '');
+  bool? get budgetBurnRateDashboard => somParseBool(doc.formField(path, 'budgetBurnRateDashboard'));
+  set budgetBurnRateDashboard(bool? value) => doc.setFormField(path, 'budgetBurnRateDashboard', somFormatBool(value));
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -45744,8 +45765,8 @@ class ErrorRecoveryDataPreservationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get draftAutoSave { final v = doc.formField(path, 'draftAutoSave'); return v == null ? null : v == 'true'; }
-  set draftAutoSave(bool? value) => doc.setFormField(path, 'draftAutoSave', value?.toString() ?? '');
+  bool? get draftAutoSave => somParseBool(doc.formField(path, 'draftAutoSave'));
+  set draftAutoSave(bool? value) => doc.setFormField(path, 'draftAutoSave', somFormatBool(value));
 
   String get draftSaveInterval => doc.formField(path, 'draftSaveInterval') ?? '';
   set draftSaveInterval(String value) => doc.setFormField(path, 'draftSaveInterval', value);
@@ -45772,17 +45793,17 @@ class ErrorRecoveryGuidedRecoveryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get stepByStepRecovery { final v = doc.formField(path, 'stepByStepRecovery'); return v == null ? null : v == 'true'; }
-  set stepByStepRecovery(bool? value) => doc.setFormField(path, 'stepByStepRecovery', value?.toString() ?? '');
+  bool? get stepByStepRecovery => somParseBool(doc.formField(path, 'stepByStepRecovery'));
+  set stepByStepRecovery(bool? value) => doc.setFormField(path, 'stepByStepRecovery', somFormatBool(value));
 
   String get alternativeActions => doc.formField(path, 'alternativeActions') ?? '';
   set alternativeActions(String value) => doc.setFormField(path, 'alternativeActions', value);
 
-  bool? get skipOption { final v = doc.formField(path, 'skipOption'); return v == null ? null : v == 'true'; }
-  set skipOption(bool? value) => doc.setFormField(path, 'skipOption', value?.toString() ?? '');
+  bool? get skipOption => somParseBool(doc.formField(path, 'skipOption'));
+  set skipOption(bool? value) => doc.setFormField(path, 'skipOption', somFormatBool(value));
 
-  bool? get cancelOption { final v = doc.formField(path, 'cancelOption'); return v == null ? null : v == 'true'; }
-  set cancelOption(bool? value) => doc.setFormField(path, 'cancelOption', value?.toString() ?? '');
+  bool? get cancelOption => somParseBool(doc.formField(path, 'cancelOption'));
+  set cancelOption(bool? value) => doc.setFormField(path, 'cancelOption', somFormatBool(value));
 }
 
 /// Generated section facade for the `recoveryMechanismsContent` `@Form` section:
@@ -45819,17 +45840,17 @@ class ErrorRecoveryRetryMechanismsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get automaticRetryEnabled { final v = doc.formField(path, 'automaticRetryEnabled'); return v == null ? null : v == 'true'; }
-  set automaticRetryEnabled(bool? value) => doc.setFormField(path, 'automaticRetryEnabled', value?.toString() ?? '');
+  bool? get automaticRetryEnabled => somParseBool(doc.formField(path, 'automaticRetryEnabled'));
+  set automaticRetryEnabled(bool? value) => doc.setFormField(path, 'automaticRetryEnabled', somFormatBool(value));
 
   String get retryBackoffStrategy => doc.formField(path, 'retryBackoffStrategy') ?? '';
   set retryBackoffStrategy(String value) => doc.setFormField(path, 'retryBackoffStrategy', value);
 
-  int? get maxAutomaticRetries { final v = doc.formField(path, 'maxAutomaticRetries'); return v == null ? null : int.tryParse(v); }
-  set maxAutomaticRetries(int? value) => doc.setFormField(path, 'maxAutomaticRetries', value?.toString() ?? '');
+  int? get maxAutomaticRetries => somParseInt(doc.formField(path, 'maxAutomaticRetries'));
+  set maxAutomaticRetries(int? value) => doc.setFormField(path, 'maxAutomaticRetries', somFormatInt(value));
 
-  bool? get manualRetryButton { final v = doc.formField(path, 'manualRetryButton'); return v == null ? null : v == 'true'; }
-  set manualRetryButton(bool? value) => doc.setFormField(path, 'manualRetryButton', value?.toString() ?? '');
+  bool? get manualRetryButton => somParseBool(doc.formField(path, 'manualRetryButton'));
+  set manualRetryButton(bool? value) => doc.setFormField(path, 'manualRetryButton', somFormatBool(value));
 
   String get retryButtonLabel => doc.formField(path, 'retryButtonLabel') ?? '';
   set retryButtonLabel(String value) => doc.setFormField(path, 'retryButtonLabel', value);
@@ -45853,8 +45874,8 @@ class ErrorRecoverySessionHandlingForm extends SomNode {
   String get reauthenticationFlow => doc.formField(path, 'reauthenticationFlow') ?? '';
   set reauthenticationFlow(String value) => doc.setFormField(path, 'reauthenticationFlow', value);
 
-  bool? get preserveContextOnReauth { final v = doc.formField(path, 'preserveContextOnReauth'); return v == null ? null : v == 'true'; }
-  set preserveContextOnReauth(bool? value) => doc.setFormField(path, 'preserveContextOnReauth', value?.toString() ?? '');
+  bool? get preserveContextOnReauth => somParseBool(doc.formField(path, 'preserveContextOnReauth'));
+  set preserveContextOnReauth(bool? value) => doc.setFormField(path, 'preserveContextOnReauth', somFormatBool(value));
 }
 
 /// Generated section facade for the `supportContact` `@Form` section:
@@ -45872,11 +45893,11 @@ class ErrorRecoverySupportContactForm extends SomNode {
   String get supportAvailability => doc.formField(path, 'supportAvailability') ?? '';
   set supportAvailability(String value) => doc.setFormField(path, 'supportAvailability', value);
 
-  bool? get errorReportSubmission { final v = doc.formField(path, 'errorReportSubmission'); return v == null ? null : v == 'true'; }
-  set errorReportSubmission(bool? value) => doc.setFormField(path, 'errorReportSubmission', value?.toString() ?? '');
+  bool? get errorReportSubmission => somParseBool(doc.formField(path, 'errorReportSubmission'));
+  set errorReportSubmission(bool? value) => doc.setFormField(path, 'errorReportSubmission', somFormatBool(value));
 
-  bool? get includeDebugInfo { final v = doc.formField(path, 'includeDebugInfo'); return v == null ? null : v == 'true'; }
-  set includeDebugInfo(bool? value) => doc.setFormField(path, 'includeDebugInfo', value?.toString() ?? '');
+  bool? get includeDebugInfo => somParseBool(doc.formField(path, 'includeDebugInfo'));
+  set includeDebugInfo(bool? value) => doc.setFormField(path, 'includeDebugInfo', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -45966,8 +45987,8 @@ class EvaluationCriterionEntryScoringForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get weight { final v = doc.formField(path, 'weight'); return v == null ? null : int.tryParse(v); }
-  set weight(int? value) => doc.setFormField(path, 'weight', value?.toString() ?? '');
+  int? get weight => somParseInt(doc.formField(path, 'weight'));
+  set weight(int? value) => doc.setFormField(path, 'weight', somFormatInt(value));
 
   String get scoringScale => doc.formField(path, 'scoringScale') ?? '';
   set scoringScale(String value) => doc.setFormField(path, 'scoringScale', value);
@@ -46099,8 +46120,8 @@ class ExistingSystemEntryInfrastructureForm extends SomNode {
   String get cloudProvider => doc.formField(path, 'cloudProvider') ?? '';
   set cloudProvider(String value) => doc.setFormField(path, 'cloudProvider', value);
 
-  int? get environmentCount { final v = doc.formField(path, 'environmentCount'); return v == null ? null : int.tryParse(v); }
-  set environmentCount(int? value) => doc.setFormField(path, 'environmentCount', value?.toString() ?? '');
+  int? get environmentCount => somParseInt(doc.formField(path, 'environmentCount'));
+  set environmentCount(int? value) => doc.setFormField(path, 'environmentCount', somFormatInt(value));
 
   String get geographicDeployment => doc.formField(path, 'geographicDeployment') ?? '';
   set geographicDeployment(String value) => doc.setFormField(path, 'geographicDeployment', value);
@@ -46133,17 +46154,17 @@ class ExistingSystemEntryIntegrationProfileForm extends SomNode {
   String get dataFormats => doc.formField(path, 'dataFormats') ?? '';
   set dataFormats(String value) => doc.setFormField(path, 'dataFormats', value);
 
-  bool? get realTimeCapable { final v = doc.formField(path, 'realTimeCapable'); return v == null ? null : v == 'true'; }
-  set realTimeCapable(bool? value) => doc.setFormField(path, 'realTimeCapable', value?.toString() ?? '');
+  bool? get realTimeCapable => somParseBool(doc.formField(path, 'realTimeCapable'));
+  set realTimeCapable(bool? value) => doc.setFormField(path, 'realTimeCapable', somFormatBool(value));
 
   String get batchProcessingWindows => doc.formField(path, 'batchProcessingWindows') ?? '';
   set batchProcessingWindows(String value) => doc.setFormField(path, 'batchProcessingWindows', value);
 
-  int? get externalInterfaceCount { final v = doc.formField(path, 'externalInterfaceCount'); return v == null ? null : int.tryParse(v); }
-  set externalInterfaceCount(int? value) => doc.setFormField(path, 'externalInterfaceCount', value?.toString() ?? '');
+  int? get externalInterfaceCount => somParseInt(doc.formField(path, 'externalInterfaceCount'));
+  set externalInterfaceCount(int? value) => doc.setFormField(path, 'externalInterfaceCount', somFormatInt(value));
 
-  int? get internalInterfaceCount { final v = doc.formField(path, 'internalInterfaceCount'); return v == null ? null : int.tryParse(v); }
-  set internalInterfaceCount(int? value) => doc.setFormField(path, 'internalInterfaceCount', value?.toString() ?? '');
+  int? get internalInterfaceCount => somParseInt(doc.formField(path, 'internalInterfaceCount'));
+  set internalInterfaceCount(int? value) => doc.setFormField(path, 'internalInterfaceCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `lifecycle` `@Form` section:
@@ -46260,14 +46281,14 @@ class ExistingSystemEntryUsageForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get activeUsers { final v = doc.formField(path, 'activeUsers'); return v == null ? null : int.tryParse(v); }
-  set activeUsers(int? value) => doc.setFormField(path, 'activeUsers', value?.toString() ?? '');
+  int? get activeUsers => somParseInt(doc.formField(path, 'activeUsers'));
+  set activeUsers(int? value) => doc.setFormField(path, 'activeUsers', somFormatInt(value));
 
-  int? get dailyActiveUsers { final v = doc.formField(path, 'dailyActiveUsers'); return v == null ? null : int.tryParse(v); }
-  set dailyActiveUsers(int? value) => doc.setFormField(path, 'dailyActiveUsers', value?.toString() ?? '');
+  int? get dailyActiveUsers => somParseInt(doc.formField(path, 'dailyActiveUsers'));
+  set dailyActiveUsers(int? value) => doc.setFormField(path, 'dailyActiveUsers', somFormatInt(value));
 
-  int? get peakConcurrentUsers { final v = doc.formField(path, 'peakConcurrentUsers'); return v == null ? null : int.tryParse(v); }
-  set peakConcurrentUsers(int? value) => doc.setFormField(path, 'peakConcurrentUsers', value?.toString() ?? '');
+  int? get peakConcurrentUsers => somParseInt(doc.formField(path, 'peakConcurrentUsers'));
+  set peakConcurrentUsers(int? value) => doc.setFormField(path, 'peakConcurrentUsers', somFormatInt(value));
 
   String get transactionVolumeDaily => doc.formField(path, 'transactionVolumeDaily') ?? '';
   set transactionVolumeDaily(String value) => doc.setFormField(path, 'transactionVolumeDaily', value);
@@ -46359,8 +46380,8 @@ class ExportFieldMappingEntryFormattingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get dataType => doc.formField(path, 'dataType') ?? '';
   set dataType(String value) => doc.setFormField(path, 'dataType', value);
@@ -46390,8 +46411,8 @@ class ExportFieldMappingEntryInclusionForm extends SomNode {
   String get inclusionCondition => doc.formField(path, 'inclusionCondition') ?? '';
   set inclusionCondition(String value) => doc.setFormField(path, 'inclusionCondition', value);
 
-  int? get maxLength { final v = doc.formField(path, 'maxLength'); return v == null ? null : int.tryParse(v); }
-  set maxLength(int? value) => doc.setFormField(path, 'maxLength', value?.toString() ?? '');
+  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
+  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
 }
 
 /// Generated section facade for the `layout` `@Form` section:
@@ -46412,8 +46433,8 @@ class ExportFieldMappingEntryLayoutForm extends SomNode {
   String get paddingDirection => doc.formField(path, 'paddingDirection') ?? '';
   set paddingDirection(String value) => doc.setFormField(path, 'paddingDirection', value);
 
-  int? get fixedWidth { final v = doc.formField(path, 'fixedWidth'); return v == null ? null : int.tryParse(v); }
-  set fixedWidth(int? value) => doc.setFormField(path, 'fixedWidth', value?.toString() ?? '');
+  int? get fixedWidth => somParseInt(doc.formField(path, 'fixedWidth'));
+  set fixedWidth(int? value) => doc.setFormField(path, 'fixedWidth', somFormatInt(value));
 
   String get quoteAlways => doc.formField(path, 'quoteAlways') ?? '';
   set quoteAlways(String value) => doc.setFormField(path, 'quoteAlways', value);
@@ -46659,8 +46680,8 @@ class ExportSizeSettingsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get maxRows { final v = doc.formField(path, 'maxRows'); return v == null ? null : int.tryParse(v); }
-  set maxRows(int? value) => doc.setFormField(path, 'maxRows', value?.toString() ?? '');
+  int? get maxRows => somParseInt(doc.formField(path, 'maxRows'));
+  set maxRows(int? value) => doc.setFormField(path, 'maxRows', somFormatInt(value));
 
   String get splitLargeFiles => doc.formField(path, 'splitLargeFiles') ?? '';
   set splitLargeFiles(String value) => doc.setFormField(path, 'splitLargeFiles', value);
@@ -47055,8 +47076,8 @@ class ExternalNetworkRequirementsPublicEndpointsConfigForm extends SomNode {
   String get staticIps => doc.formField(path, 'staticIps') ?? '';
   set staticIps(String value) => doc.setFormField(path, 'staticIps', value);
 
-  bool? get ipv6Support { final v = doc.formField(path, 'ipv6Support'); return v == null ? null : v == 'true'; }
-  set ipv6Support(bool? value) => doc.setFormField(path, 'ipv6Support', value?.toString() ?? '');
+  bool? get ipv6Support => somParseBool(doc.formField(path, 'ipv6Support'));
+  set ipv6Support(bool? value) => doc.setFormField(path, 'ipv6Support', somFormatBool(value));
 
   String get dnscname => doc.formField(path, 'dnscname') ?? '';
   set dnscname(String value) => doc.setFormField(path, 'dnscname', value);
@@ -47165,8 +47186,8 @@ class ExternalPartnerConnectionEntryNetworkForm extends SomNode {
   String get networkRoute => doc.formField(path, 'networkRoute') ?? '';
   set networkRoute(String value) => doc.setFormField(path, 'networkRoute', value);
 
-  bool? get ipWhitelisting { final v = doc.formField(path, 'ipWhitelisting'); return v == null ? null : v == 'true'; }
-  set ipWhitelisting(bool? value) => doc.setFormField(path, 'ipWhitelisting', value?.toString() ?? '');
+  bool? get ipWhitelisting => somParseBool(doc.formField(path, 'ipWhitelisting'));
+  set ipWhitelisting(bool? value) => doc.setFormField(path, 'ipWhitelisting', somFormatBool(value));
 
   String get whitelistedIps => doc.formField(path, 'whitelistedIps') ?? '';
   set whitelistedIps(String value) => doc.setFormField(path, 'whitelistedIps', value);
@@ -47227,8 +47248,8 @@ class ExternalPartnerConnectionEntryReliabilityForm extends SomNode {
   String get retryStrategy => doc.formField(path, 'retryStrategy') ?? '';
   set retryStrategy(String value) => doc.setFormField(path, 'retryStrategy', value);
 
-  bool? get circuitBreakerEnabled { final v = doc.formField(path, 'circuitBreakerEnabled'); return v == null ? null : v == 'true'; }
-  set circuitBreakerEnabled(bool? value) => doc.setFormField(path, 'circuitBreakerEnabled', value?.toString() ?? '');
+  bool? get circuitBreakerEnabled => somParseBool(doc.formField(path, 'circuitBreakerEnabled'));
+  set circuitBreakerEnabled(bool? value) => doc.setFormField(path, 'circuitBreakerEnabled', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -48344,14 +48365,14 @@ class FeatureTourEntryContentForm extends SomNode {
   String get triggerCondition => doc.formField(path, 'triggerCondition') ?? '';
   set triggerCondition(String value) => doc.setFormField(path, 'triggerCondition', value);
 
-  int? get stepCount { final v = doc.formField(path, 'stepCount'); return v == null ? null : int.tryParse(v); }
-  set stepCount(int? value) => doc.setFormField(path, 'stepCount', value?.toString() ?? '');
+  int? get stepCount => somParseInt(doc.formField(path, 'stepCount'));
+  set stepCount(int? value) => doc.setFormField(path, 'stepCount', somFormatInt(value));
 
   String get estimatedDuration => doc.formField(path, 'estimatedDuration') ?? '';
   set estimatedDuration(String value) => doc.setFormField(path, 'estimatedDuration', value);
 
-  bool? get skippable { final v = doc.formField(path, 'skippable'); return v == null ? null : v == 'true'; }
-  set skippable(bool? value) => doc.setFormField(path, 'skippable', value?.toString() ?? '');
+  bool? get skippable => somParseBool(doc.formField(path, 'skippable'));
+  set skippable(bool? value) => doc.setFormField(path, 'skippable', somFormatBool(value));
 
   String get repeatPolicy => doc.formField(path, 'repeatPolicy') ?? '';
   set repeatPolicy(String value) => doc.setFormField(path, 'repeatPolicy', value);
@@ -48434,14 +48455,14 @@ class FirewallRequirementsAdvancedForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get intrusionDetection { final v = doc.formField(path, 'intrusionDetection'); return v == null ? null : v == 'true'; }
-  set intrusionDetection(bool? value) => doc.setFormField(path, 'intrusionDetection', value?.toString() ?? '');
+  bool? get intrusionDetection => somParseBool(doc.formField(path, 'intrusionDetection'));
+  set intrusionDetection(bool? value) => doc.setFormField(path, 'intrusionDetection', somFormatBool(value));
 
-  bool? get deepPacketInspection { final v = doc.formField(path, 'deepPacketInspection'); return v == null ? null : v == 'true'; }
-  set deepPacketInspection(bool? value) => doc.setFormField(path, 'deepPacketInspection', value?.toString() ?? '');
+  bool? get deepPacketInspection => somParseBool(doc.formField(path, 'deepPacketInspection'));
+  set deepPacketInspection(bool? value) => doc.setFormField(path, 'deepPacketInspection', somFormatBool(value));
 
-  bool? get applicationAwareness { final v = doc.formField(path, 'applicationAwareness'); return v == null ? null : v == 'true'; }
-  set applicationAwareness(bool? value) => doc.setFormField(path, 'applicationAwareness', value?.toString() ?? '');
+  bool? get applicationAwareness => somParseBool(doc.formField(path, 'applicationAwareness'));
+  set applicationAwareness(bool? value) => doc.setFormField(path, 'applicationAwareness', somFormatBool(value));
 
   String get threatIntelligence => doc.formField(path, 'threatIntelligence') ?? '';
   set threatIntelligence(String value) => doc.setFormField(path, 'threatIntelligence', value);
@@ -49232,8 +49253,8 @@ class FunctionalResponsibilitiesContentForm extends SomNode {
   String get reviewCadence => doc.formField(path, 'reviewCadence') ?? '';
   set reviewCadence(String value) => doc.setFormField(path, 'reviewCadence', value);
 
-  int? get totalFunctionCount { final v = doc.formField(path, 'totalFunctionCount'); return v == null ? null : int.tryParse(v); }
-  set totalFunctionCount(int? value) => doc.setFormField(path, 'totalFunctionCount', value?.toString() ?? '');
+  int? get totalFunctionCount => somParseInt(doc.formField(path, 'totalFunctionCount'));
+  set totalFunctionCount(int? value) => doc.setFormField(path, 'totalFunctionCount', somFormatInt(value));
 
   String get unassignedAreas => doc.formField(path, 'unassignedAreas') ?? '';
   set unassignedAreas(String value) => doc.setFormField(path, 'unassignedAreas', value);
@@ -49401,8 +49422,8 @@ class GeographicDistributionRequirementsAnycastForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get anycastIp { final v = doc.formField(path, 'anycastIp'); return v == null ? null : v == 'true'; }
-  set anycastIp(bool? value) => doc.setFormField(path, 'anycastIp', value?.toString() ?? '');
+  bool? get anycastIp => somParseBool(doc.formField(path, 'anycastIp'));
+  set anycastIp(bool? value) => doc.setFormField(path, 'anycastIp', somFormatBool(value));
 
   String get globalLoadBalancing => doc.formField(path, 'globalLoadBalancing') ?? '';
   set globalLoadBalancing(String value) => doc.setFormField(path, 'globalLoadBalancing', value);
@@ -49420,8 +49441,8 @@ class GeographicDistributionRequirementsCdnForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cdnRequired { final v = doc.formField(path, 'cdnRequired'); return v == null ? null : v == 'true'; }
-  set cdnRequired(bool? value) => doc.setFormField(path, 'cdnRequired', value?.toString() ?? '');
+  bool? get cdnRequired => somParseBool(doc.formField(path, 'cdnRequired'));
+  set cdnRequired(bool? value) => doc.setFormField(path, 'cdnRequired', somFormatBool(value));
 
   String get cdnProvider => doc.formField(path, 'cdnProvider') ?? '';
   set cdnProvider(String value) => doc.setFormField(path, 'cdnProvider', value);
@@ -49812,17 +49833,17 @@ class HealthCheckEndpointsConfigurationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get healthCheckPort { final v = doc.formField(path, 'healthCheckPort'); return v == null ? null : int.tryParse(v); }
-  set healthCheckPort(int? value) => doc.setFormField(path, 'healthCheckPort', value?.toString() ?? '');
+  int? get healthCheckPort => somParseInt(doc.formField(path, 'healthCheckPort'));
+  set healthCheckPort(int? value) => doc.setFormField(path, 'healthCheckPort', somFormatInt(value));
 
   String get responseFormat => doc.formField(path, 'responseFormat') ?? '';
   set responseFormat(String value) => doc.setFormField(path, 'responseFormat', value);
 
-  int? get successStatusCode { final v = doc.formField(path, 'successStatusCode'); return v == null ? null : int.tryParse(v); }
-  set successStatusCode(int? value) => doc.setFormField(path, 'successStatusCode', value?.toString() ?? '');
+  int? get successStatusCode => somParseInt(doc.formField(path, 'successStatusCode'));
+  set successStatusCode(int? value) => doc.setFormField(path, 'successStatusCode', somFormatInt(value));
 
-  int? get failureStatusCode { final v = doc.formField(path, 'failureStatusCode'); return v == null ? null : int.tryParse(v); }
-  set failureStatusCode(int? value) => doc.setFormField(path, 'failureStatusCode', value?.toString() ?? '');
+  int? get failureStatusCode => somParseInt(doc.formField(path, 'failureStatusCode'));
+  set failureStatusCode(int? value) => doc.setFormField(path, 'failureStatusCode', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -49865,20 +49886,20 @@ class HealthCheckEndpointsContentSettingsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get includeComponentStatus { final v = doc.formField(path, 'includeComponentStatus'); return v == null ? null : v == 'true'; }
-  set includeComponentStatus(bool? value) => doc.setFormField(path, 'includeComponentStatus', value?.toString() ?? '');
+  bool? get includeComponentStatus => somParseBool(doc.formField(path, 'includeComponentStatus'));
+  set includeComponentStatus(bool? value) => doc.setFormField(path, 'includeComponentStatus', somFormatBool(value));
 
-  bool? get includeVersion { final v = doc.formField(path, 'includeVersion'); return v == null ? null : v == 'true'; }
-  set includeVersion(bool? value) => doc.setFormField(path, 'includeVersion', value?.toString() ?? '');
+  bool? get includeVersion => somParseBool(doc.formField(path, 'includeVersion'));
+  set includeVersion(bool? value) => doc.setFormField(path, 'includeVersion', somFormatBool(value));
 
-  bool? get includeUptime { final v = doc.formField(path, 'includeUptime'); return v == null ? null : v == 'true'; }
-  set includeUptime(bool? value) => doc.setFormField(path, 'includeUptime', value?.toString() ?? '');
+  bool? get includeUptime => somParseBool(doc.formField(path, 'includeUptime'));
+  set includeUptime(bool? value) => doc.setFormField(path, 'includeUptime', somFormatBool(value));
 
-  bool? get includeMetrics { final v = doc.formField(path, 'includeMetrics'); return v == null ? null : v == 'true'; }
-  set includeMetrics(bool? value) => doc.setFormField(path, 'includeMetrics', value?.toString() ?? '');
+  bool? get includeMetrics => somParseBool(doc.formField(path, 'includeMetrics'));
+  set includeMetrics(bool? value) => doc.setFormField(path, 'includeMetrics', somFormatBool(value));
 
-  bool? get sensitiveDataRedaction { final v = doc.formField(path, 'sensitiveDataRedaction'); return v == null ? null : v == 'true'; }
-  set sensitiveDataRedaction(bool? value) => doc.setFormField(path, 'sensitiveDataRedaction', value?.toString() ?? '');
+  bool? get sensitiveDataRedaction => somParseBool(doc.formField(path, 'sensitiveDataRedaction'));
+  set sensitiveDataRedaction(bool? value) => doc.setFormField(path, 'sensitiveDataRedaction', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -49902,11 +49923,11 @@ class HealthCheckEndpointsTimingForm extends SomNode {
   String get checkTimeout => doc.formField(path, 'checkTimeout') ?? '';
   set checkTimeout(String value) => doc.setFormField(path, 'checkTimeout', value);
 
-  int? get failureThreshold { final v = doc.formField(path, 'failureThreshold'); return v == null ? null : int.tryParse(v); }
-  set failureThreshold(int? value) => doc.setFormField(path, 'failureThreshold', value?.toString() ?? '');
+  int? get failureThreshold => somParseInt(doc.formField(path, 'failureThreshold'));
+  set failureThreshold(int? value) => doc.setFormField(path, 'failureThreshold', somFormatInt(value));
 
-  int? get successThreshold { final v = doc.formField(path, 'successThreshold'); return v == null ? null : int.tryParse(v); }
-  set successThreshold(int? value) => doc.setFormField(path, 'successThreshold', value?.toString() ?? '');
+  int? get successThreshold => somParseInt(doc.formField(path, 'successThreshold'));
+  set successThreshold(int? value) => doc.setFormField(path, 'successThreshold', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -50018,11 +50039,11 @@ class HighAvailabilityRequirementsRedundancyForm extends SomNode {
   String get redundancyScope => doc.formField(path, 'redundancyScope') ?? '';
   set redundancyScope(String value) => doc.setFormField(path, 'redundancyScope', value);
 
-  bool? get geographicRedundancy { final v = doc.formField(path, 'geographicRedundancy'); return v == null ? null : v == 'true'; }
-  set geographicRedundancy(bool? value) => doc.setFormField(path, 'geographicRedundancy', value?.toString() ?? '');
+  bool? get geographicRedundancy => somParseBool(doc.formField(path, 'geographicRedundancy'));
+  set geographicRedundancy(bool? value) => doc.setFormField(path, 'geographicRedundancy', somFormatBool(value));
 
-  bool? get activeActiveMode { final v = doc.formField(path, 'activeActiveMode'); return v == null ? null : v == 'true'; }
-  set activeActiveMode(bool? value) => doc.setFormField(path, 'activeActiveMode', value?.toString() ?? '');
+  bool? get activeActiveMode => somParseBool(doc.formField(path, 'activeActiveMode'));
+  set activeActiveMode(bool? value) => doc.setFormField(path, 'activeActiveMode', somFormatBool(value));
 }
 
 /// Generated section facade for the `configuration` `@Form` section:
@@ -50090,8 +50111,8 @@ class IdeRequirementEntryIntegrationForm extends SomNode {
   String get linterIntegration => doc.formField(path, 'linterIntegration') ?? '';
   set linterIntegration(String value) => doc.setFormField(path, 'linterIntegration', value);
 
-  bool? get formatOnSave { final v = doc.formField(path, 'formatOnSave'); return v == null ? null : v == 'true'; }
-  set formatOnSave(bool? value) => doc.setFormField(path, 'formatOnSave', value?.toString() ?? '');
+  bool? get formatOnSave => somParseBool(doc.formField(path, 'formatOnSave'));
+  set formatOnSave(bool? value) => doc.setFormField(path, 'formatOnSave', somFormatBool(value));
 
   String get gitIntegration => doc.formField(path, 'gitIntegration') ?? '';
   set gitIntegration(String value) => doc.setFormField(path, 'gitIntegration', value);
@@ -50578,8 +50599,8 @@ class IdentityVerificationPolicyFailureForm extends SomNode {
   String get failedVerificationPolicy => doc.formField(path, 'failedVerificationPolicy') ?? '';
   set failedVerificationPolicy(String value) => doc.setFormField(path, 'failedVerificationPolicy', value);
 
-  int? get maxVerificationAttempts { final v = doc.formField(path, 'maxVerificationAttempts'); return v == null ? null : int.tryParse(v); }
-  set maxVerificationAttempts(int? value) => doc.setFormField(path, 'maxVerificationAttempts', value?.toString() ?? '');
+  int? get maxVerificationAttempts => somParseInt(doc.formField(path, 'maxVerificationAttempts'));
+  set maxVerificationAttempts(int? value) => doc.setFormField(path, 'maxVerificationAttempts', somFormatInt(value));
 }
 
 /// Generated section facade for the `lifecycle` `@Form` section:
@@ -50766,14 +50787,14 @@ class IncidentManagementRequirementsPostIncidentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get postMortemRequired { final v = doc.formField(path, 'postMortemRequired'); return v == null ? null : v == 'true'; }
-  set postMortemRequired(bool? value) => doc.setFormField(path, 'postMortemRequired', value?.toString() ?? '');
+  bool? get postMortemRequired => somParseBool(doc.formField(path, 'postMortemRequired'));
+  set postMortemRequired(bool? value) => doc.setFormField(path, 'postMortemRequired', somFormatBool(value));
 
   String get postMortemTimeline => doc.formField(path, 'postMortemTimeline') ?? '';
   set postMortemTimeline(String value) => doc.setFormField(path, 'postMortemTimeline', value);
 
-  bool? get blamelessCulture { final v = doc.formField(path, 'blamelessCulture'); return v == null ? null : v == 'true'; }
-  set blamelessCulture(bool? value) => doc.setFormField(path, 'blamelessCulture', value?.toString() ?? '');
+  bool? get blamelessCulture => somParseBool(doc.formField(path, 'blamelessCulture'));
+  set blamelessCulture(bool? value) => doc.setFormField(path, 'blamelessCulture', somFormatBool(value));
 
   String get actionItemTracking => doc.formField(path, 'actionItemTracking') ?? '';
   set actionItemTracking(String value) => doc.setFormField(path, 'actionItemTracking', value);
@@ -51026,8 +51047,8 @@ class IndustryStandardEntryCertificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get certificationRequired { final v = doc.formField(path, 'certificationRequired'); return v == null ? null : v == 'true'; }
-  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', value?.toString() ?? '');
+  bool? get certificationRequired => somParseBool(doc.formField(path, 'certificationRequired'));
+  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', somFormatBool(value));
 
   String get certificationBody => doc.formField(path, 'certificationBody') ?? '';
   set certificationBody(String value) => doc.setFormField(path, 'certificationBody', value);
@@ -51183,8 +51204,8 @@ class InfrastructureAsCodeDriftForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get driftDetection { final v = doc.formField(path, 'driftDetection'); return v == null ? null : v == 'true'; }
-  set driftDetection(bool? value) => doc.setFormField(path, 'driftDetection', value?.toString() ?? '');
+  bool? get driftDetection => somParseBool(doc.formField(path, 'driftDetection'));
+  set driftDetection(bool? value) => doc.setFormField(path, 'driftDetection', somFormatBool(value));
 
   String get driftRemediation => doc.formField(path, 'driftRemediation') ?? '';
   set driftRemediation(String value) => doc.setFormField(path, 'driftRemediation', value);
@@ -51255,8 +51276,8 @@ class InfrastructureAsCodeStateForm extends SomNode {
   String get stateStorage => doc.formField(path, 'stateStorage') ?? '';
   set stateStorage(String value) => doc.setFormField(path, 'stateStorage', value);
 
-  bool? get stateLocking { final v = doc.formField(path, 'stateLocking'); return v == null ? null : v == 'true'; }
-  set stateLocking(bool? value) => doc.setFormField(path, 'stateLocking', value?.toString() ?? '');
+  bool? get stateLocking => somParseBool(doc.formField(path, 'stateLocking'));
+  set stateLocking(bool? value) => doc.setFormField(path, 'stateLocking', somFormatBool(value));
 
   String get stateEnvironmentSeparation => doc.formField(path, 'stateEnvironmentSeparation') ?? '';
   set stateEnvironmentSeparation(String value) => doc.setFormField(path, 'stateEnvironmentSeparation', value);
@@ -51409,17 +51430,17 @@ class InfrastructureMetricsSpecCloudForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cloudProviderMetrics { final v = doc.formField(path, 'cloudProviderMetrics'); return v == null ? null : v == 'true'; }
-  set cloudProviderMetrics(bool? value) => doc.setFormField(path, 'cloudProviderMetrics', value?.toString() ?? '');
+  bool? get cloudProviderMetrics => somParseBool(doc.formField(path, 'cloudProviderMetrics'));
+  set cloudProviderMetrics(bool? value) => doc.setFormField(path, 'cloudProviderMetrics', somFormatBool(value));
 
-  bool? get managedServiceMetrics { final v = doc.formField(path, 'managedServiceMetrics'); return v == null ? null : v == 'true'; }
-  set managedServiceMetrics(bool? value) => doc.setFormField(path, 'managedServiceMetrics', value?.toString() ?? '');
+  bool? get managedServiceMetrics => somParseBool(doc.formField(path, 'managedServiceMetrics'));
+  set managedServiceMetrics(bool? value) => doc.setFormField(path, 'managedServiceMetrics', somFormatBool(value));
 
-  bool? get loadBalancerMetrics { final v = doc.formField(path, 'loadBalancerMetrics'); return v == null ? null : v == 'true'; }
-  set loadBalancerMetrics(bool? value) => doc.setFormField(path, 'loadBalancerMetrics', value?.toString() ?? '');
+  bool? get loadBalancerMetrics => somParseBool(doc.formField(path, 'loadBalancerMetrics'));
+  set loadBalancerMetrics(bool? value) => doc.setFormField(path, 'loadBalancerMetrics', somFormatBool(value));
 
-  bool? get cdnMetrics { final v = doc.formField(path, 'cdnMetrics'); return v == null ? null : v == 'true'; }
-  set cdnMetrics(bool? value) => doc.setFormField(path, 'cdnMetrics', value?.toString() ?? '');
+  bool? get cdnMetrics => somParseBool(doc.formField(path, 'cdnMetrics'));
+  set cdnMetrics(bool? value) => doc.setFormField(path, 'cdnMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51434,17 +51455,17 @@ class InfrastructureMetricsSpecContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cpuMetrics { final v = doc.formField(path, 'cpuMetrics'); return v == null ? null : v == 'true'; }
-  set cpuMetrics(bool? value) => doc.setFormField(path, 'cpuMetrics', value?.toString() ?? '');
+  bool? get cpuMetrics => somParseBool(doc.formField(path, 'cpuMetrics'));
+  set cpuMetrics(bool? value) => doc.setFormField(path, 'cpuMetrics', somFormatBool(value));
 
-  bool? get memoryMetrics { final v = doc.formField(path, 'memoryMetrics'); return v == null ? null : v == 'true'; }
-  set memoryMetrics(bool? value) => doc.setFormField(path, 'memoryMetrics', value?.toString() ?? '');
+  bool? get memoryMetrics => somParseBool(doc.formField(path, 'memoryMetrics'));
+  set memoryMetrics(bool? value) => doc.setFormField(path, 'memoryMetrics', somFormatBool(value));
 
-  bool? get diskMetrics { final v = doc.formField(path, 'diskMetrics'); return v == null ? null : v == 'true'; }
-  set diskMetrics(bool? value) => doc.setFormField(path, 'diskMetrics', value?.toString() ?? '');
+  bool? get diskMetrics => somParseBool(doc.formField(path, 'diskMetrics'));
+  set diskMetrics(bool? value) => doc.setFormField(path, 'diskMetrics', somFormatBool(value));
 
-  bool? get networkMetrics { final v = doc.formField(path, 'networkMetrics'); return v == null ? null : v == 'true'; }
-  set networkMetrics(bool? value) => doc.setFormField(path, 'networkMetrics', value?.toString() ?? '');
+  bool? get networkMetrics => somParseBool(doc.formField(path, 'networkMetrics'));
+  set networkMetrics(bool? value) => doc.setFormField(path, 'networkMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `cost` `@Form` section:
@@ -51459,8 +51480,8 @@ class InfrastructureMetricsSpecCostForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get costMetrics { final v = doc.formField(path, 'costMetrics'); return v == null ? null : v == 'true'; }
-  set costMetrics(bool? value) => doc.setFormField(path, 'costMetrics', value?.toString() ?? '');
+  bool? get costMetrics => somParseBool(doc.formField(path, 'costMetrics'));
+  set costMetrics(bool? value) => doc.setFormField(path, 'costMetrics', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -51478,17 +51499,17 @@ class InfrastructureMetricsSpecKubernetesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get containerMetrics { final v = doc.formField(path, 'containerMetrics'); return v == null ? null : v == 'true'; }
-  set containerMetrics(bool? value) => doc.setFormField(path, 'containerMetrics', value?.toString() ?? '');
+  bool? get containerMetrics => somParseBool(doc.formField(path, 'containerMetrics'));
+  set containerMetrics(bool? value) => doc.setFormField(path, 'containerMetrics', somFormatBool(value));
 
-  bool? get podMetrics { final v = doc.formField(path, 'podMetrics'); return v == null ? null : v == 'true'; }
-  set podMetrics(bool? value) => doc.setFormField(path, 'podMetrics', value?.toString() ?? '');
+  bool? get podMetrics => somParseBool(doc.formField(path, 'podMetrics'));
+  set podMetrics(bool? value) => doc.setFormField(path, 'podMetrics', somFormatBool(value));
 
-  bool? get nodeMetrics { final v = doc.formField(path, 'nodeMetrics'); return v == null ? null : v == 'true'; }
-  set nodeMetrics(bool? value) => doc.setFormField(path, 'nodeMetrics', value?.toString() ?? '');
+  bool? get nodeMetrics => somParseBool(doc.formField(path, 'nodeMetrics'));
+  set nodeMetrics(bool? value) => doc.setFormField(path, 'nodeMetrics', somFormatBool(value));
 
-  bool? get deploymentMetrics { final v = doc.formField(path, 'deploymentMetrics'); return v == null ? null : v == 'true'; }
-  set deploymentMetrics(bool? value) => doc.setFormField(path, 'deploymentMetrics', value?.toString() ?? '');
+  bool? get deploymentMetrics => somParseBool(doc.formField(path, 'deploymentMetrics'));
+  set deploymentMetrics(bool? value) => doc.setFormField(path, 'deploymentMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -51559,8 +51580,8 @@ class InfrastructureSecurityHardeningContentForm extends SomNode {
   String get patchManagementPolicy => doc.formField(path, 'patchManagementPolicy') ?? '';
   set patchManagementPolicy(String value) => doc.setFormField(path, 'patchManagementPolicy', value);
 
-  bool? get minimumInstallation { final v = doc.formField(path, 'minimumInstallation'); return v == null ? null : v == 'true'; }
-  set minimumInstallation(bool? value) => doc.setFormField(path, 'minimumInstallation', value?.toString() ?? '');
+  bool? get minimumInstallation => somParseBool(doc.formField(path, 'minimumInstallation'));
+  set minimumInstallation(bool? value) => doc.setFormField(path, 'minimumInstallation', somFormatBool(value));
 
   String get firewallRules => doc.formField(path, 'firewallRules') ?? '';
   set firewallRules(String value) => doc.setFormField(path, 'firewallRules', value);
@@ -51581,8 +51602,8 @@ class InfrastructureSecurityHardeningNetworkForm extends SomNode {
   String get networkSegmentation => doc.formField(path, 'networkSegmentation') ?? '';
   set networkSegmentation(String value) => doc.setFormField(path, 'networkSegmentation', value);
 
-  bool? get internalTlsCommunication { final v = doc.formField(path, 'internalTlsCommunication'); return v == null ? null : v == 'true'; }
-  set internalTlsCommunication(bool? value) => doc.setFormField(path, 'internalTlsCommunication', value?.toString() ?? '');
+  bool? get internalTlsCommunication => somParseBool(doc.formField(path, 'internalTlsCommunication'));
+  set internalTlsCommunication(bool? value) => doc.setFormField(path, 'internalTlsCommunication', somFormatBool(value));
 
   String get dnsSecurityPolicy => doc.formField(path, 'dnsSecurityPolicy') ?? '';
   set dnsSecurityPolicy(String value) => doc.setFormField(path, 'dnsSecurityPolicy', value);
@@ -51684,8 +51705,8 @@ class InitialTrainingEntryDeliveryForm extends SomNode {
   String get deliveryMethod => doc.formField(path, 'deliveryMethod') ?? '';
   set deliveryMethod(String value) => doc.setFormField(path, 'deliveryMethod', value);
 
-  int? get classSize { final v = doc.formField(path, 'classSize'); return v == null ? null : int.tryParse(v); }
-  set classSize(int? value) => doc.setFormField(path, 'classSize', value?.toString() ?? '');
+  int? get classSize => somParseInt(doc.formField(path, 'classSize'));
+  set classSize(int? value) => doc.setFormField(path, 'classSize', somFormatInt(value));
 
   String get location => doc.formField(path, 'location') ?? '';
   set location(String value) => doc.setFormField(path, 'location', value);
@@ -51768,8 +51789,8 @@ class InputDeviceEntryContentForm extends SomNode {
   String get accessibilityFeatures => doc.formField(path, 'accessibilityFeatures') ?? '';
   set accessibilityFeatures(String value) => doc.setFormField(path, 'accessibilityFeatures', value);
 
-  int? get quantityPerUser { final v = doc.formField(path, 'quantityPerUser'); return v == null ? null : int.tryParse(v); }
-  set quantityPerUser(int? value) => doc.setFormField(path, 'quantityPerUser', value?.toString() ?? '');
+  int? get quantityPerUser => somParseInt(doc.formField(path, 'quantityPerUser'));
+  set quantityPerUser(int? value) => doc.setFormField(path, 'quantityPerUser', somFormatInt(value));
 
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
@@ -51802,8 +51823,8 @@ class InsuranceEntryContentForm extends SomNode {
   String get validityPeriod => doc.formField(path, 'validityPeriod') ?? '';
   set validityPeriod(String value) => doc.setFormField(path, 'validityPeriod', value);
 
-  bool? get certificateRequired { final v = doc.formField(path, 'certificateRequired'); return v == null ? null : v == 'true'; }
-  set certificateRequired(bool? value) => doc.setFormField(path, 'certificateRequired', value?.toString() ?? '');
+  bool? get certificateRequired => somParseBool(doc.formField(path, 'certificateRequired'));
+  set certificateRequired(bool? value) => doc.setFormField(path, 'certificateRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51950,8 +51971,8 @@ class IntegrationConstraintEntryComplianceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get complianceRequired { final v = doc.formField(path, 'complianceRequired'); return v == null ? null : v == 'true'; }
-  set complianceRequired(bool? value) => doc.setFormField(path, 'complianceRequired', value?.toString() ?? '');
+  bool? get complianceRequired => somParseBool(doc.formField(path, 'complianceRequired'));
+  set complianceRequired(bool? value) => doc.setFormField(path, 'complianceRequired', somFormatBool(value));
 
   String get validationMethod => doc.formField(path, 'validationMethod') ?? '';
   set validationMethod(String value) => doc.setFormField(path, 'validationMethod', value);
@@ -52063,20 +52084,20 @@ class IntegrationHealthSummaryContentForm extends SomNode {
   String get overallHealthRating => doc.formField(path, 'overallHealthRating') ?? '';
   set overallHealthRating(String value) => doc.setFormField(path, 'overallHealthRating', value);
 
-  int? get totalDependencies { final v = doc.formField(path, 'totalDependencies'); return v == null ? null : int.tryParse(v); }
-  set totalDependencies(int? value) => doc.setFormField(path, 'totalDependencies', value?.toString() ?? '');
+  int? get totalDependencies => somParseInt(doc.formField(path, 'totalDependencies'));
+  set totalDependencies(int? value) => doc.setFormField(path, 'totalDependencies', somFormatInt(value));
 
-  int? get criticalDependencies { final v = doc.formField(path, 'criticalDependencies'); return v == null ? null : int.tryParse(v); }
-  set criticalDependencies(int? value) => doc.setFormField(path, 'criticalDependencies', value?.toString() ?? '');
+  int? get criticalDependencies => somParseInt(doc.formField(path, 'criticalDependencies'));
+  set criticalDependencies(int? value) => doc.setFormField(path, 'criticalDependencies', somFormatInt(value));
 
-  int? get highRiskDependencies { final v = doc.formField(path, 'highRiskDependencies'); return v == null ? null : int.tryParse(v); }
-  set highRiskDependencies(int? value) => doc.setFormField(path, 'highRiskDependencies', value?.toString() ?? '');
+  int? get highRiskDependencies => somParseInt(doc.formField(path, 'highRiskDependencies'));
+  set highRiskDependencies(int? value) => doc.setFormField(path, 'highRiskDependencies', somFormatInt(value));
 
-  int? get singlePointsOfFailure { final v = doc.formField(path, 'singlePointsOfFailure'); return v == null ? null : int.tryParse(v); }
-  set singlePointsOfFailure(int? value) => doc.setFormField(path, 'singlePointsOfFailure', value?.toString() ?? '');
+  int? get singlePointsOfFailure => somParseInt(doc.formField(path, 'singlePointsOfFailure'));
+  set singlePointsOfFailure(int? value) => doc.setFormField(path, 'singlePointsOfFailure', somFormatInt(value));
 
-  int? get undocumentedIntegrations { final v = doc.formField(path, 'undocumentedIntegrations'); return v == null ? null : int.tryParse(v); }
-  set undocumentedIntegrations(int? value) => doc.setFormField(path, 'undocumentedIntegrations', value?.toString() ?? '');
+  int? get undocumentedIntegrations => somParseInt(doc.formField(path, 'undocumentedIntegrations'));
+  set undocumentedIntegrations(int? value) => doc.setFormField(path, 'undocumentedIntegrations', somFormatInt(value));
 
   String get technicalDebtSummary => doc.formField(path, 'technicalDebtSummary') ?? '';
   set technicalDebtSummary(String value) => doc.setFormField(path, 'technicalDebtSummary', value);
@@ -52212,17 +52233,17 @@ class InteractionCatalogOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalInteractionCount { final v = doc.formField(path, 'totalInteractionCount'); return v == null ? null : int.tryParse(v); }
-  set totalInteractionCount(int? value) => doc.setFormField(path, 'totalInteractionCount', value?.toString() ?? '');
+  int? get totalInteractionCount => somParseInt(doc.formField(path, 'totalInteractionCount'));
+  set totalInteractionCount(int? value) => doc.setFormField(path, 'totalInteractionCount', somFormatInt(value));
 
-  int? get highPriorityCount { final v = doc.formField(path, 'highPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set highPriorityCount(int? value) => doc.setFormField(path, 'highPriorityCount', value?.toString() ?? '');
+  int? get highPriorityCount => somParseInt(doc.formField(path, 'highPriorityCount'));
+  set highPriorityCount(int? value) => doc.setFormField(path, 'highPriorityCount', somFormatInt(value));
 
-  int? get mediumPriorityCount { final v = doc.formField(path, 'mediumPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set mediumPriorityCount(int? value) => doc.setFormField(path, 'mediumPriorityCount', value?.toString() ?? '');
+  int? get mediumPriorityCount => somParseInt(doc.formField(path, 'mediumPriorityCount'));
+  set mediumPriorityCount(int? value) => doc.setFormField(path, 'mediumPriorityCount', somFormatInt(value));
 
-  int? get lowPriorityCount { final v = doc.formField(path, 'lowPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set lowPriorityCount(int? value) => doc.setFormField(path, 'lowPriorityCount', value?.toString() ?? '');
+  int? get lowPriorityCount => somParseInt(doc.formField(path, 'lowPriorityCount'));
+  set lowPriorityCount(int? value) => doc.setFormField(path, 'lowPriorityCount', somFormatInt(value));
 
   String get coverageStatement => doc.formField(path, 'coverageStatement') ?? '';
   set coverageStatement(String value) => doc.setFormField(path, 'coverageStatement', value);
@@ -52802,8 +52823,8 @@ class InterfaceDataEntityEntryContentForm extends SomNode {
   String get direction => doc.formField(path, 'direction') ?? '';
   set direction(String value) => doc.setFormField(path, 'direction', value);
 
-  int? get fieldCount { final v = doc.formField(path, 'fieldCount'); return v == null ? null : int.tryParse(v); }
-  set fieldCount(int? value) => doc.setFormField(path, 'fieldCount', value?.toString() ?? '');
+  int? get fieldCount => somParseInt(doc.formField(path, 'fieldCount'));
+  set fieldCount(int? value) => doc.setFormField(path, 'fieldCount', somFormatInt(value));
 
   String get requiredFields => doc.formField(path, 'requiredFields') ?? '';
   set requiredFields(String value) => doc.setFormField(path, 'requiredFields', value);
@@ -52923,8 +52944,8 @@ class InterfaceErrorHandlingRetryForm extends SomNode {
   String get retryStrategy => doc.formField(path, 'retryStrategy') ?? '';
   set retryStrategy(String value) => doc.setFormField(path, 'retryStrategy', value);
 
-  int? get maxRetries { final v = doc.formField(path, 'maxRetries'); return v == null ? null : int.tryParse(v); }
-  set maxRetries(int? value) => doc.setFormField(path, 'maxRetries', value?.toString() ?? '');
+  int? get maxRetries => somParseInt(doc.formField(path, 'maxRetries'));
+  set maxRetries(int? value) => doc.setFormField(path, 'maxRetries', somFormatInt(value));
 
   String get retryInterval => doc.formField(path, 'retryInterval') ?? '';
   set retryInterval(String value) => doc.setFormField(path, 'retryInterval', value);
@@ -53060,8 +53081,8 @@ class InterfaceOperationEntryContentForm extends SomNode {
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
-  bool? get idempotent { final v = doc.formField(path, 'idempotent'); return v == null ? null : v == 'true'; }
-  set idempotent(bool? value) => doc.setFormField(path, 'idempotent', value?.toString() ?? '');
+  bool? get idempotent => somParseBool(doc.formField(path, 'idempotent'));
+  set idempotent(bool? value) => doc.setFormField(path, 'idempotent', somFormatBool(value));
 
   String get requestFormat => doc.formField(path, 'requestFormat') ?? '';
   set requestFormat(String value) => doc.setFormField(path, 'requestFormat', value);
@@ -53069,8 +53090,8 @@ class InterfaceOperationEntryContentForm extends SomNode {
   String get responseFormat => doc.formField(path, 'responseFormat') ?? '';
   set responseFormat(String value) => doc.setFormField(path, 'responseFormat', value);
 
-  bool? get paginationSupport { final v = doc.formField(path, 'paginationSupport'); return v == null ? null : v == 'true'; }
-  set paginationSupport(bool? value) => doc.setFormField(path, 'paginationSupport', value?.toString() ?? '');
+  bool? get paginationSupport => somParseBool(doc.formField(path, 'paginationSupport'));
+  set paginationSupport(bool? value) => doc.setFormField(path, 'paginationSupport', somFormatBool(value));
 
   String get filteringSupport => doc.formField(path, 'filteringSupport') ?? '';
   set filteringSupport(String value) => doc.setFormField(path, 'filteringSupport', value);
@@ -53348,11 +53369,11 @@ class InterfaceSpecificationEntryDocumentationForm extends SomNode {
   String get documentationFormat => doc.formField(path, 'documentationFormat') ?? '';
   set documentationFormat(String value) => doc.setFormField(path, 'documentationFormat', value);
 
-  bool? get examplesRequired { final v = doc.formField(path, 'examplesRequired'); return v == null ? null : v == 'true'; }
-  set examplesRequired(bool? value) => doc.setFormField(path, 'examplesRequired', value?.toString() ?? '');
+  bool? get examplesRequired => somParseBool(doc.formField(path, 'examplesRequired'));
+  set examplesRequired(bool? value) => doc.setFormField(path, 'examplesRequired', somFormatBool(value));
 
-  bool? get changelogMaintained { final v = doc.formField(path, 'changelogMaintained'); return v == null ? null : v == 'true'; }
-  set changelogMaintained(bool? value) => doc.setFormField(path, 'changelogMaintained', value?.toString() ?? '');
+  bool? get changelogMaintained => somParseBool(doc.formField(path, 'changelogMaintained'));
+  set changelogMaintained(bool? value) => doc.setFormField(path, 'changelogMaintained', somFormatBool(value));
 }
 
 /// Generated section facade for the `tooling` `@Form` section:
@@ -53467,8 +53488,8 @@ class InterfaceTechnicalSpecWebhookSpecForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get webhooksUsed { final v = doc.formField(path, 'webhooksUsed'); return v == null ? null : v == 'true'; }
-  set webhooksUsed(bool? value) => doc.setFormField(path, 'webhooksUsed', value?.toString() ?? '');
+  bool? get webhooksUsed => somParseBool(doc.formField(path, 'webhooksUsed'));
+  set webhooksUsed(bool? value) => doc.setFormField(path, 'webhooksUsed', somFormatBool(value));
 
   String get webhookEndpoint => doc.formField(path, 'webhookEndpoint') ?? '';
   set webhookEndpoint(String value) => doc.setFormField(path, 'webhookEndpoint', value);
@@ -53516,8 +53537,8 @@ class InterfaceTestScenarioEntryContentForm extends SomNode {
   String get expectedResult => doc.formField(path, 'expectedResult') ?? '';
   set expectedResult(String value) => doc.setFormField(path, 'expectedResult', value);
 
-  bool? get automated { final v = doc.formField(path, 'automated'); return v == null ? null : v == 'true'; }
-  set automated(bool? value) => doc.setFormField(path, 'automated', value?.toString() ?? '');
+  bool? get automated => somParseBool(doc.formField(path, 'automated'));
+  set automated(bool? value) => doc.setFormField(path, 'automated', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -53532,8 +53553,8 @@ class InterfaceTestingContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get sandboxAvailable { final v = doc.formField(path, 'sandboxAvailable'); return v == null ? null : v == 'true'; }
-  set sandboxAvailable(bool? value) => doc.setFormField(path, 'sandboxAvailable', value?.toString() ?? '');
+  bool? get sandboxAvailable => somParseBool(doc.formField(path, 'sandboxAvailable'));
+  set sandboxAvailable(bool? value) => doc.setFormField(path, 'sandboxAvailable', somFormatBool(value));
 
   String get sandboxUrl => doc.formField(path, 'sandboxUrl') ?? '';
   set sandboxUrl(String value) => doc.setFormField(path, 'sandboxUrl', value);
@@ -53541,8 +53562,8 @@ class InterfaceTestingContentForm extends SomNode {
   String get testCredentials => doc.formField(path, 'testCredentials') ?? '';
   set testCredentials(String value) => doc.setFormField(path, 'testCredentials', value);
 
-  bool? get mockAvailable { final v = doc.formField(path, 'mockAvailable'); return v == null ? null : v == 'true'; }
-  set mockAvailable(bool? value) => doc.setFormField(path, 'mockAvailable', value?.toString() ?? '');
+  bool? get mockAvailable => somParseBool(doc.formField(path, 'mockAvailable'));
+  set mockAvailable(bool? value) => doc.setFormField(path, 'mockAvailable', somFormatBool(value));
 }
 
 /// Generated section facade for the `data` `@Form` section:
@@ -53560,11 +53581,11 @@ class InterfaceTestingDataForm extends SomNode {
   String get testDataApproach => doc.formField(path, 'testDataApproach') ?? '';
   set testDataApproach(String value) => doc.setFormField(path, 'testDataApproach', value);
 
-  bool? get syntheticDataSupport { final v = doc.formField(path, 'syntheticDataSupport'); return v == null ? null : v == 'true'; }
-  set syntheticDataSupport(bool? value) => doc.setFormField(path, 'syntheticDataSupport', value?.toString() ?? '');
+  bool? get syntheticDataSupport => somParseBool(doc.formField(path, 'syntheticDataSupport'));
+  set syntheticDataSupport(bool? value) => doc.setFormField(path, 'syntheticDataSupport', somFormatBool(value));
 
-  bool? get productionMirror { final v = doc.formField(path, 'productionMirror'); return v == null ? null : v == 'true'; }
-  set productionMirror(bool? value) => doc.setFormField(path, 'productionMirror', value?.toString() ?? '');
+  bool? get productionMirror => somParseBool(doc.formField(path, 'productionMirror'));
+  set productionMirror(bool? value) => doc.setFormField(path, 'productionMirror', somFormatBool(value));
 }
 
 /// Generated section facade for the `strategy` `@Form` section:
@@ -53635,8 +53656,8 @@ class InternalNetworkRequirementsInterServiceForm extends SomNode {
   String get interServiceCommunication => doc.formField(path, 'interServiceCommunication') ?? '';
   set interServiceCommunication(String value) => doc.setFormField(path, 'interServiceCommunication', value);
 
-  bool? get encryptionInTransit { final v = doc.formField(path, 'encryptionInTransit'); return v == null ? null : v == 'true'; }
-  set encryptionInTransit(bool? value) => doc.setFormField(path, 'encryptionInTransit', value?.toString() ?? '');
+  bool? get encryptionInTransit => somParseBool(doc.formField(path, 'encryptionInTransit'));
+  set encryptionInTransit(bool? value) => doc.setFormField(path, 'encryptionInTransit', somFormatBool(value));
 
   String get certificateManagement => doc.formField(path, 'certificateManagement') ?? '';
   set certificateManagement(String value) => doc.setFormField(path, 'certificateManagement', value);
@@ -53657,8 +53678,8 @@ class InternalNetworkRequirementsMonitoringForm extends SomNode {
   String get networkMonitoring => doc.formField(path, 'networkMonitoring') ?? '';
   set networkMonitoring(String value) => doc.setFormField(path, 'networkMonitoring', value);
 
-  bool? get flowLogging { final v = doc.formField(path, 'flowLogging'); return v == null ? null : v == 'true'; }
-  set flowLogging(bool? value) => doc.setFormField(path, 'flowLogging', value?.toString() ?? '');
+  bool? get flowLogging => somParseBool(doc.formField(path, 'flowLogging'));
+  set flowLogging(bool? value) => doc.setFormField(path, 'flowLogging', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -53861,8 +53882,8 @@ class Iso25010CoverageEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get characteristic => doc.formField(path, 'characteristic') ?? '';
-  set characteristic(String value) => doc.setFormField(path, 'characteristic', value);
+  Iso25010Characteristic? get characteristic => _parseIso25010Characteristic(doc.formField(path, 'characteristic'));
+  set characteristic(Iso25010Characteristic? value) => doc.setFormField(path, 'characteristic', value?.name ?? '');
 
   String get addressedBy => doc.formField(path, 'addressedBy') ?? '';
   set addressedBy(String value) => doc.setFormField(path, 'addressedBy', value);
@@ -53948,8 +53969,8 @@ class ItSecurityOperationsContentForm extends SomNode {
   String get accessControlModel => doc.formField(path, 'accessControlModel') ?? '';
   set accessControlModel(String value) => doc.setFormField(path, 'accessControlModel', value);
 
-  bool? get drPlanRequired { final v = doc.formField(path, 'drPlanRequired'); return v == null ? null : v == 'true'; }
-  set drPlanRequired(bool? value) => doc.setFormField(path, 'drPlanRequired', value?.toString() ?? '');
+  bool? get drPlanRequired => somParseBool(doc.formField(path, 'drPlanRequired'));
+  set drPlanRequired(bool? value) => doc.setFormField(path, 'drPlanRequired', somFormatBool(value));
 
   String get incidentResponsePlan => doc.formField(path, 'incidentResponsePlan') ?? '';
   set incidentResponsePlan(String value) => doc.setFormField(path, 'incidentResponsePlan', value);
@@ -54026,8 +54047,8 @@ class ItSecurityOperationsTestingForm extends SomNode {
   String get vulnerabilitySlaResolution => doc.formField(path, 'vulnerabilitySlaResolution') ?? '';
   set vulnerabilitySlaResolution(String value) => doc.setFormField(path, 'vulnerabilitySlaResolution', value);
 
-  bool? get bugBountyProgram { final v = doc.formField(path, 'bugBountyProgram'); return v == null ? null : v == 'true'; }
-  set bugBountyProgram(bool? value) => doc.setFormField(path, 'bugBountyProgram', value?.toString() ?? '');
+  bool? get bugBountyProgram => somParseBool(doc.formField(path, 'bugBountyProgram'));
+  set bugBountyProgram(bool? value) => doc.setFormField(path, 'bugBountyProgram', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -54558,8 +54579,8 @@ class KeyScenariosOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalScenarioCount { final v = doc.formField(path, 'totalScenarioCount'); return v == null ? null : int.tryParse(v); }
-  set totalScenarioCount(int? value) => doc.setFormField(path, 'totalScenarioCount', value?.toString() ?? '');
+  int? get totalScenarioCount => somParseInt(doc.formField(path, 'totalScenarioCount'));
+  set totalScenarioCount(int? value) => doc.setFormField(path, 'totalScenarioCount', somFormatInt(value));
 
   String get scenarioCoverage => doc.formField(path, 'scenarioCoverage') ?? '';
   set scenarioCoverage(String value) => doc.setFormField(path, 'scenarioCoverage', value);
@@ -54676,8 +54697,8 @@ class LanguageCountrySelectionLanguageSelectionContentForm extends SomNode {
   String get countryDisplay => doc.formField(path, 'countryDisplay') ?? '';
   set countryDisplay(String value) => doc.setFormField(path, 'countryDisplay', value);
 
-  bool? get searchable { final v = doc.formField(path, 'searchable'); return v == null ? null : v == 'true'; }
-  set searchable(bool? value) => doc.setFormField(path, 'searchable', value?.toString() ?? '');
+  bool? get searchable => somParseBool(doc.formField(path, 'searchable'));
+  set searchable(bool? value) => doc.setFormField(path, 'searchable', somFormatBool(value));
 }
 
 /// Generated section facade for the `persistence` `@Form` section:
@@ -54695,8 +54716,8 @@ class LanguageCountrySelectionPersistenceForm extends SomNode {
   String get persistenceMethod => doc.formField(path, 'persistenceMethod') ?? '';
   set persistenceMethod(String value) => doc.setFormField(path, 'persistenceMethod', value);
 
-  bool? get crossDeviceSync { final v = doc.formField(path, 'crossDeviceSync'); return v == null ? null : v == 'true'; }
-  set crossDeviceSync(bool? value) => doc.setFormField(path, 'crossDeviceSync', value?.toString() ?? '');
+  bool? get crossDeviceSync => somParseBool(doc.formField(path, 'crossDeviceSync'));
+  set crossDeviceSync(bool? value) => doc.setFormField(path, 'crossDeviceSync', somFormatBool(value));
 
   String get anonymousPersistence => doc.formField(path, 'anonymousPersistence') ?? '';
   set anonymousPersistence(String value) => doc.setFormField(path, 'anonymousPersistence', value);
@@ -54717,8 +54738,8 @@ class LanguageCountrySelectionUxForm extends SomNode {
   String get languageSwitchBehavior => doc.formField(path, 'languageSwitchBehavior') ?? '';
   set languageSwitchBehavior(String value) => doc.setFormField(path, 'languageSwitchBehavior', value);
 
-  bool? get confirmationRequired { final v = doc.formField(path, 'confirmationRequired'); return v == null ? null : v == 'true'; }
-  set confirmationRequired(bool? value) => doc.setFormField(path, 'confirmationRequired', value?.toString() ?? '');
+  bool? get confirmationRequired => somParseBool(doc.formField(path, 'confirmationRequired'));
+  set confirmationRequired(bool? value) => doc.setFormField(path, 'confirmationRequired', somFormatBool(value));
 
   String get contentRetention => doc.formField(path, 'contentRetention') ?? '';
   set contentRetention(String value) => doc.setFormField(path, 'contentRetention', value);
@@ -54877,8 +54898,8 @@ class LegacyCompatibilityEntryIntegrationForm extends SomNode {
   String get dataAccess => doc.formField(path, 'dataAccess') ?? '';
   set dataAccess(String value) => doc.setFormField(path, 'dataAccess', value);
 
-  bool? get bidirectional { final v = doc.formField(path, 'bidirectional'); return v == null ? null : v == 'true'; }
-  set bidirectional(bool? value) => doc.setFormField(path, 'bidirectional', value?.toString() ?? '');
+  bool? get bidirectional => somParseBool(doc.formField(path, 'bidirectional'));
+  set bidirectional(bool? value) => doc.setFormField(path, 'bidirectional', somFormatBool(value));
 }
 
 /// Generated section facade for the `migration` `@Form` section:
@@ -55219,8 +55240,8 @@ class LocalDevelopmentSetupRunningForm extends SomNode {
   String get runCommands => doc.formField(path, 'runCommands') ?? '';
   set runCommands(String value) => doc.setFormField(path, 'runCommands', value);
 
-  bool? get hotReload { final v = doc.formField(path, 'hotReload'); return v == null ? null : v == 'true'; }
-  set hotReload(bool? value) => doc.setFormField(path, 'hotReload', value?.toString() ?? '');
+  bool? get hotReload => somParseBool(doc.formField(path, 'hotReload'));
+  set hotReload(bool? value) => doc.setFormField(path, 'hotReload', somFormatBool(value));
 
   String get watchMode => doc.formField(path, 'watchMode') ?? '';
   set watchMode(String value) => doc.setFormField(path, 'watchMode', value);
@@ -55429,20 +55450,20 @@ class LogAggregationRequirementsAnalysisForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get fullTextSearch { final v = doc.formField(path, 'fullTextSearch'); return v == null ? null : v == 'true'; }
-  set fullTextSearch(bool? value) => doc.setFormField(path, 'fullTextSearch', value?.toString() ?? '');
+  bool? get fullTextSearch => somParseBool(doc.formField(path, 'fullTextSearch'));
+  set fullTextSearch(bool? value) => doc.setFormField(path, 'fullTextSearch', somFormatBool(value));
 
-  bool? get correlationByTraceId { final v = doc.formField(path, 'correlationByTraceId'); return v == null ? null : v == 'true'; }
-  set correlationByTraceId(bool? value) => doc.setFormField(path, 'correlationByTraceId', value?.toString() ?? '');
+  bool? get correlationByTraceId => somParseBool(doc.formField(path, 'correlationByTraceId'));
+  set correlationByTraceId(bool? value) => doc.setFormField(path, 'correlationByTraceId', somFormatBool(value));
 
-  bool? get savedQueries { final v = doc.formField(path, 'savedQueries'); return v == null ? null : v == 'true'; }
-  set savedQueries(bool? value) => doc.setFormField(path, 'savedQueries', value?.toString() ?? '');
+  bool? get savedQueries => somParseBool(doc.formField(path, 'savedQueries'));
+  set savedQueries(bool? value) => doc.setFormField(path, 'savedQueries', somFormatBool(value));
 
-  bool? get logBasedAlerts { final v = doc.formField(path, 'logBasedAlerts'); return v == null ? null : v == 'true'; }
-  set logBasedAlerts(bool? value) => doc.setFormField(path, 'logBasedAlerts', value?.toString() ?? '');
+  bool? get logBasedAlerts => somParseBool(doc.formField(path, 'logBasedAlerts'));
+  set logBasedAlerts(bool? value) => doc.setFormField(path, 'logBasedAlerts', somFormatBool(value));
 
-  bool? get piiRedaction { final v = doc.formField(path, 'piiRedaction'); return v == null ? null : v == 'true'; }
-  set piiRedaction(bool? value) => doc.setFormField(path, 'piiRedaction', value?.toString() ?? '');
+  bool? get piiRedaction => somParseBool(doc.formField(path, 'piiRedaction'));
+  set piiRedaction(bool? value) => doc.setFormField(path, 'piiRedaction', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -55460,8 +55481,8 @@ class LogAggregationRequirementsCollectionForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get dynamicLogLevelChange { final v = doc.formField(path, 'dynamicLogLevelChange'); return v == null ? null : v == 'true'; }
-  set dynamicLogLevelChange(bool? value) => doc.setFormField(path, 'dynamicLogLevelChange', value?.toString() ?? '');
+  bool? get dynamicLogLevelChange => somParseBool(doc.formField(path, 'dynamicLogLevelChange'));
+  set dynamicLogLevelChange(bool? value) => doc.setFormField(path, 'dynamicLogLevelChange', somFormatBool(value));
 
   String get logCollectionMethod => doc.formField(path, 'logCollectionMethod') ?? '';
   set logCollectionMethod(String value) => doc.setFormField(path, 'logCollectionMethod', value);
@@ -55535,14 +55556,14 @@ class LogManagementRequirementsAnalysisForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get fullTextSearch { final v = doc.formField(path, 'fullTextSearch'); return v == null ? null : v == 'true'; }
-  set fullTextSearch(bool? value) => doc.setFormField(path, 'fullTextSearch', value?.toString() ?? '');
+  bool? get fullTextSearch => somParseBool(doc.formField(path, 'fullTextSearch'));
+  set fullTextSearch(bool? value) => doc.setFormField(path, 'fullTextSearch', somFormatBool(value));
 
   String get logAnalytics => doc.formField(path, 'logAnalytics') ?? '';
   set logAnalytics(String value) => doc.setFormField(path, 'logAnalytics', value);
 
-  bool? get anomalyDetection { final v = doc.formField(path, 'anomalyDetection'); return v == null ? null : v == 'true'; }
-  set anomalyDetection(bool? value) => doc.setFormField(path, 'anomalyDetection', value?.toString() ?? '');
+  bool? get anomalyDetection => somParseBool(doc.formField(path, 'anomalyDetection'));
+  set anomalyDetection(bool? value) => doc.setFormField(path, 'anomalyDetection', somFormatBool(value));
 }
 
 /// Generated section facade for the `collection` `@Form` section:
@@ -55582,11 +55603,11 @@ class LogManagementRequirementsComplianceForm extends SomNode {
   String get piiHandling => doc.formField(path, 'piiHandling') ?? '';
   set piiHandling(String value) => doc.setFormField(path, 'piiHandling', value);
 
-  bool? get auditLogs { final v = doc.formField(path, 'auditLogs'); return v == null ? null : v == 'true'; }
-  set auditLogs(bool? value) => doc.setFormField(path, 'auditLogs', value?.toString() ?? '');
+  bool? get auditLogs => somParseBool(doc.formField(path, 'auditLogs'));
+  set auditLogs(bool? value) => doc.setFormField(path, 'auditLogs', somFormatBool(value));
 
-  bool? get logImmutability { final v = doc.formField(path, 'logImmutability'); return v == null ? null : v == 'true'; }
-  set logImmutability(bool? value) => doc.setFormField(path, 'logImmutability', value?.toString() ?? '');
+  bool? get logImmutability => somParseBool(doc.formField(path, 'logImmutability'));
+  set logImmutability(bool? value) => doc.setFormField(path, 'logImmutability', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -55635,8 +55656,8 @@ class LogManagementRequirementsStorageForm extends SomNode {
   String get coldStorage => doc.formField(path, 'coldStorage') ?? '';
   set coldStorage(String value) => doc.setFormField(path, 'coldStorage', value);
 
-  bool? get compressionEnabled { final v = doc.formField(path, 'compressionEnabled'); return v == null ? null : v == 'true'; }
-  set compressionEnabled(bool? value) => doc.setFormField(path, 'compressionEnabled', value?.toString() ?? '');
+  bool? get compressionEnabled => somParseBool(doc.formField(path, 'compressionEnabled'));
+  set compressionEnabled(bool? value) => doc.setFormField(path, 'compressionEnabled', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -55835,8 +55856,8 @@ class MainScenarioStepEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get stepNumber { final v = doc.formField(path, 'stepNumber'); return v == null ? null : int.tryParse(v); }
-  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', value?.toString() ?? '');
+  int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
+  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
 
   String get actorAction => doc.formField(path, 'actorAction') ?? '';
   set actorAction(String value) => doc.setFormField(path, 'actorAction', value);
@@ -55878,8 +55899,8 @@ class MainSuccessScenarioContentForm extends SomNode {
   String get estimatedDuration => doc.formField(path, 'estimatedDuration') ?? '';
   set estimatedDuration(String value) => doc.setFormField(path, 'estimatedDuration', value);
 
-  int? get stepCount { final v = doc.formField(path, 'stepCount'); return v == null ? null : int.tryParse(v); }
-  set stepCount(int? value) => doc.setFormField(path, 'stepCount', value?.toString() ?? '');
+  int? get stepCount => somParseInt(doc.formField(path, 'stepCount'));
+  set stepCount(int? value) => doc.setFormField(path, 'stepCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `analyzability` `@Form` section:
@@ -56026,8 +56047,8 @@ class MaintenanceChangeManagementAuditForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get changeLogging { final v = doc.formField(path, 'changeLogging'); return v == null ? null : v == 'true'; }
-  set changeLogging(bool? value) => doc.setFormField(path, 'changeLogging', value?.toString() ?? '');
+  bool? get changeLogging => somParseBool(doc.formField(path, 'changeLogging'));
+  set changeLogging(bool? value) => doc.setFormField(path, 'changeLogging', somFormatBool(value));
 
   String get changeHistory => doc.formField(path, 'changeHistory') ?? '';
   set changeHistory(String value) => doc.setFormField(path, 'changeHistory', value);
@@ -56070,17 +56091,17 @@ class MaintenanceChangeManagementDocumentationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get changeRequestRequired { final v = doc.formField(path, 'changeRequestRequired'); return v == null ? null : v == 'true'; }
-  set changeRequestRequired(bool? value) => doc.setFormField(path, 'changeRequestRequired', value?.toString() ?? '');
+  bool? get changeRequestRequired => somParseBool(doc.formField(path, 'changeRequestRequired'));
+  set changeRequestRequired(bool? value) => doc.setFormField(path, 'changeRequestRequired', somFormatBool(value));
 
-  bool? get impactAssessment { final v = doc.formField(path, 'impactAssessment'); return v == null ? null : v == 'true'; }
-  set impactAssessment(bool? value) => doc.setFormField(path, 'impactAssessment', value?.toString() ?? '');
+  bool? get impactAssessment => somParseBool(doc.formField(path, 'impactAssessment'));
+  set impactAssessment(bool? value) => doc.setFormField(path, 'impactAssessment', somFormatBool(value));
 
-  bool? get riskAssessment { final v = doc.formField(path, 'riskAssessment'); return v == null ? null : v == 'true'; }
-  set riskAssessment(bool? value) => doc.setFormField(path, 'riskAssessment', value?.toString() ?? '');
+  bool? get riskAssessment => somParseBool(doc.formField(path, 'riskAssessment'));
+  set riskAssessment(bool? value) => doc.setFormField(path, 'riskAssessment', somFormatBool(value));
 
-  bool? get rollbackPlanRequired { final v = doc.formField(path, 'rollbackPlanRequired'); return v == null ? null : v == 'true'; }
-  set rollbackPlanRequired(bool? value) => doc.setFormField(path, 'rollbackPlanRequired', value?.toString() ?? '');
+  bool? get rollbackPlanRequired => somParseBool(doc.formField(path, 'rollbackPlanRequired'));
+  set rollbackPlanRequired(bool? value) => doc.setFormField(path, 'rollbackPlanRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -56111,14 +56132,14 @@ class MaintenanceChangeManagementTestingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get preProdTesting { final v = doc.formField(path, 'preProdTesting'); return v == null ? null : v == 'true'; }
-  set preProdTesting(bool? value) => doc.setFormField(path, 'preProdTesting', value?.toString() ?? '');
+  bool? get preProdTesting => somParseBool(doc.formField(path, 'preProdTesting'));
+  set preProdTesting(bool? value) => doc.setFormField(path, 'preProdTesting', somFormatBool(value));
 
-  bool? get testPlanRequired { final v = doc.formField(path, 'testPlanRequired'); return v == null ? null : v == 'true'; }
-  set testPlanRequired(bool? value) => doc.setFormField(path, 'testPlanRequired', value?.toString() ?? '');
+  bool? get testPlanRequired => somParseBool(doc.formField(path, 'testPlanRequired'));
+  set testPlanRequired(bool? value) => doc.setFormField(path, 'testPlanRequired', somFormatBool(value));
 
-  bool? get signOffRequired { final v = doc.formField(path, 'signOffRequired'); return v == null ? null : v == 'true'; }
-  set signOffRequired(bool? value) => doc.setFormField(path, 'signOffRequired', value?.toString() ?? '');
+  bool? get signOffRequired => somParseBool(doc.formField(path, 'signOffRequired'));
+  set signOffRequired(bool? value) => doc.setFormField(path, 'signOffRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `classification` `@Form` section:
@@ -56233,17 +56254,17 @@ class MaintenanceUserImpactContentForm extends SomNode {
   String get advanceNotification => doc.formField(path, 'advanceNotification') ?? '';
   set advanceNotification(String value) => doc.setFormField(path, 'advanceNotification', value);
 
-  bool? get inAppNotification { final v = doc.formField(path, 'inAppNotification'); return v == null ? null : v == 'true'; }
-  set inAppNotification(bool? value) => doc.setFormField(path, 'inAppNotification', value?.toString() ?? '');
+  bool? get inAppNotification => somParseBool(doc.formField(path, 'inAppNotification'));
+  set inAppNotification(bool? value) => doc.setFormField(path, 'inAppNotification', somFormatBool(value));
 
-  bool? get emailNotification { final v = doc.formField(path, 'emailNotification'); return v == null ? null : v == 'true'; }
-  set emailNotification(bool? value) => doc.setFormField(path, 'emailNotification', value?.toString() ?? '');
+  bool? get emailNotification => somParseBool(doc.formField(path, 'emailNotification'));
+  set emailNotification(bool? value) => doc.setFormField(path, 'emailNotification', somFormatBool(value));
 
-  bool? get statusPageUpdate { final v = doc.formField(path, 'statusPageUpdate'); return v == null ? null : v == 'true'; }
-  set statusPageUpdate(bool? value) => doc.setFormField(path, 'statusPageUpdate', value?.toString() ?? '');
+  bool? get statusPageUpdate => somParseBool(doc.formField(path, 'statusPageUpdate'));
+  set statusPageUpdate(bool? value) => doc.setFormField(path, 'statusPageUpdate', somFormatBool(value));
 
-  bool? get socialMediaNotice { final v = doc.formField(path, 'socialMediaNotice'); return v == null ? null : v == 'true'; }
-  set socialMediaNotice(bool? value) => doc.setFormField(path, 'socialMediaNotice', value?.toString() ?? '');
+  bool? get socialMediaNotice => somParseBool(doc.formField(path, 'socialMediaNotice'));
+  set socialMediaNotice(bool? value) => doc.setFormField(path, 'socialMediaNotice', somFormatBool(value));
 }
 
 /// Generated section facade for the `during` `@Form` section:
@@ -56264,11 +56285,11 @@ class MaintenanceUserImpactDuringForm extends SomNode {
   String get maintenanceMessage => doc.formField(path, 'maintenanceMessage') ?? '';
   set maintenanceMessage(String value) => doc.setFormField(path, 'maintenanceMessage', value);
 
-  bool? get estimatedCompletion { final v = doc.formField(path, 'estimatedCompletion'); return v == null ? null : v == 'true'; }
-  set estimatedCompletion(bool? value) => doc.setFormField(path, 'estimatedCompletion', value?.toString() ?? '');
+  bool? get estimatedCompletion => somParseBool(doc.formField(path, 'estimatedCompletion'));
+  set estimatedCompletion(bool? value) => doc.setFormField(path, 'estimatedCompletion', somFormatBool(value));
 
-  bool? get progressUpdates { final v = doc.formField(path, 'progressUpdates'); return v == null ? null : v == 'true'; }
-  set progressUpdates(bool? value) => doc.setFormField(path, 'progressUpdates', value?.toString() ?? '');
+  bool? get progressUpdates => somParseBool(doc.formField(path, 'progressUpdates'));
+  set progressUpdates(bool? value) => doc.setFormField(path, 'progressUpdates', somFormatBool(value));
 }
 
 /// Generated section facade for the `gracefulDegradation` `@Form` section:
@@ -56286,11 +56307,11 @@ class MaintenanceUserImpactGracefulDegradationForm extends SomNode {
   String get gracefulDegradation => doc.formField(path, 'gracefulDegradation') ?? '';
   set gracefulDegradation(String value) => doc.setFormField(path, 'gracefulDegradation', value);
 
-  bool? get readOnlyMode { final v = doc.formField(path, 'readOnlyMode'); return v == null ? null : v == 'true'; }
-  set readOnlyMode(bool? value) => doc.setFormField(path, 'readOnlyMode', value?.toString() ?? '');
+  bool? get readOnlyMode => somParseBool(doc.formField(path, 'readOnlyMode'));
+  set readOnlyMode(bool? value) => doc.setFormField(path, 'readOnlyMode', somFormatBool(value));
 
-  bool? get queuedOperations { final v = doc.formField(path, 'queuedOperations'); return v == null ? null : v == 'true'; }
-  set queuedOperations(bool? value) => doc.setFormField(path, 'queuedOperations', value?.toString() ?? '');
+  bool? get queuedOperations => somParseBool(doc.formField(path, 'queuedOperations'));
+  set queuedOperations(bool? value) => doc.setFormField(path, 'queuedOperations', somFormatBool(value));
 }
 
 /// Generated section facade for the `post` `@Form` section:
@@ -56305,14 +56326,14 @@ class MaintenanceUserImpactPostForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get completionNotice { final v = doc.formField(path, 'completionNotice'); return v == null ? null : v == 'true'; }
-  set completionNotice(bool? value) => doc.setFormField(path, 'completionNotice', value?.toString() ?? '');
+  bool? get completionNotice => somParseBool(doc.formField(path, 'completionNotice'));
+  set completionNotice(bool? value) => doc.setFormField(path, 'completionNotice', somFormatBool(value));
 
-  bool? get changelogPublished { final v = doc.formField(path, 'changelogPublished'); return v == null ? null : v == 'true'; }
-  set changelogPublished(bool? value) => doc.setFormField(path, 'changelogPublished', value?.toString() ?? '');
+  bool? get changelogPublished => somParseBool(doc.formField(path, 'changelogPublished'));
+  set changelogPublished(bool? value) => doc.setFormField(path, 'changelogPublished', somFormatBool(value));
 
-  bool? get feedbackCollection { final v = doc.formField(path, 'feedbackCollection'); return v == null ? null : v == 'true'; }
-  set feedbackCollection(bool? value) => doc.setFormField(path, 'feedbackCollection', value?.toString() ?? '');
+  bool? get feedbackCollection => somParseBool(doc.formField(path, 'feedbackCollection'));
+  set feedbackCollection(bool? value) => doc.setFormField(path, 'feedbackCollection', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -56552,8 +56573,8 @@ class MasterDataManagementMdmSummaryForm extends SomNode {
   String get mdmPlatform => doc.formField(path, 'mdmPlatform') ?? '';
   set mdmPlatform(String value) => doc.setFormField(path, 'mdmPlatform', value);
 
-  int? get totalMasterDataDomains { final v = doc.formField(path, 'totalMasterDataDomains'); return v == null ? null : int.tryParse(v); }
-  set totalMasterDataDomains(int? value) => doc.setFormField(path, 'totalMasterDataDomains', value?.toString() ?? '');
+  int? get totalMasterDataDomains => somParseInt(doc.formField(path, 'totalMasterDataDomains'));
+  set totalMasterDataDomains(int? value) => doc.setFormField(path, 'totalMasterDataDomains', somFormatInt(value));
 
   String get goldenRecordCoverage => doc.formField(path, 'goldenRecordCoverage') ?? '';
   set goldenRecordCoverage(String value) => doc.setFormField(path, 'goldenRecordCoverage', value);
@@ -56683,8 +56704,8 @@ class MessageFormatStandardsTransportForm extends SomNode {
   String get compressionAlgorithm => doc.formField(path, 'compressionAlgorithm') ?? '';
   set compressionAlgorithm(String value) => doc.setFormField(path, 'compressionAlgorithm', value);
 
-  bool? get contentNegotiation { final v = doc.formField(path, 'contentNegotiation'); return v == null ? null : v == 'true'; }
-  set contentNegotiation(bool? value) => doc.setFormField(path, 'contentNegotiation', value?.toString() ?? '');
+  bool? get contentNegotiation => somParseBool(doc.formField(path, 'contentNegotiation'));
+  set contentNegotiation(bool? value) => doc.setFormField(path, 'contentNegotiation', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -56702,17 +56723,17 @@ class MetricsAndObservabilityMetricsOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get metricsEnabled { final v = doc.formField(path, 'metricsEnabled'); return v == null ? null : v == 'true'; }
-  set metricsEnabled(bool? value) => doc.setFormField(path, 'metricsEnabled', value?.toString() ?? '');
+  bool? get metricsEnabled => somParseBool(doc.formField(path, 'metricsEnabled'));
+  set metricsEnabled(bool? value) => doc.setFormField(path, 'metricsEnabled', somFormatBool(value));
 
-  bool? get logsEnabled { final v = doc.formField(path, 'logsEnabled'); return v == null ? null : v == 'true'; }
-  set logsEnabled(bool? value) => doc.setFormField(path, 'logsEnabled', value?.toString() ?? '');
+  bool? get logsEnabled => somParseBool(doc.formField(path, 'logsEnabled'));
+  set logsEnabled(bool? value) => doc.setFormField(path, 'logsEnabled', somFormatBool(value));
 
-  bool? get tracesEnabled { final v = doc.formField(path, 'tracesEnabled'); return v == null ? null : v == 'true'; }
-  set tracesEnabled(bool? value) => doc.setFormField(path, 'tracesEnabled', value?.toString() ?? '');
+  bool? get tracesEnabled => somParseBool(doc.formField(path, 'tracesEnabled'));
+  set tracesEnabled(bool? value) => doc.setFormField(path, 'tracesEnabled', somFormatBool(value));
 
-  bool? get profilesEnabled { final v = doc.formField(path, 'profilesEnabled'); return v == null ? null : v == 'true'; }
-  set profilesEnabled(bool? value) => doc.setFormField(path, 'profilesEnabled', value?.toString() ?? '');
+  bool? get profilesEnabled => somParseBool(doc.formField(path, 'profilesEnabled'));
+  set profilesEnabled(bool? value) => doc.setFormField(path, 'profilesEnabled', somFormatBool(value));
 
   String get metricsFormat => doc.formField(path, 'metricsFormat') ?? '';
   set metricsFormat(String value) => doc.setFormField(path, 'metricsFormat', value);
@@ -56779,14 +56800,14 @@ class MetricsCollectionRequirementsApplicationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get requestMetrics { final v = doc.formField(path, 'requestMetrics'); return v == null ? null : v == 'true'; }
-  set requestMetrics(bool? value) => doc.setFormField(path, 'requestMetrics', value?.toString() ?? '');
+  bool? get requestMetrics => somParseBool(doc.formField(path, 'requestMetrics'));
+  set requestMetrics(bool? value) => doc.setFormField(path, 'requestMetrics', somFormatBool(value));
 
-  bool? get errorMetrics { final v = doc.formField(path, 'errorMetrics'); return v == null ? null : v == 'true'; }
-  set errorMetrics(bool? value) => doc.setFormField(path, 'errorMetrics', value?.toString() ?? '');
+  bool? get errorMetrics => somParseBool(doc.formField(path, 'errorMetrics'));
+  set errorMetrics(bool? value) => doc.setFormField(path, 'errorMetrics', somFormatBool(value));
 
-  bool? get saturationMetrics { final v = doc.formField(path, 'saturationMetrics'); return v == null ? null : v == 'true'; }
-  set saturationMetrics(bool? value) => doc.setFormField(path, 'saturationMetrics', value?.toString() ?? '');
+  bool? get saturationMetrics => somParseBool(doc.formField(path, 'saturationMetrics'));
+  set saturationMetrics(bool? value) => doc.setFormField(path, 'saturationMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `business` `@Form` section:
@@ -56823,17 +56844,17 @@ class MetricsCollectionRequirementsContainerForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get containerMetrics { final v = doc.formField(path, 'containerMetrics'); return v == null ? null : v == 'true'; }
-  set containerMetrics(bool? value) => doc.setFormField(path, 'containerMetrics', value?.toString() ?? '');
+  bool? get containerMetrics => somParseBool(doc.formField(path, 'containerMetrics'));
+  set containerMetrics(bool? value) => doc.setFormField(path, 'containerMetrics', somFormatBool(value));
 
-  bool? get podMetrics { final v = doc.formField(path, 'podMetrics'); return v == null ? null : v == 'true'; }
-  set podMetrics(bool? value) => doc.setFormField(path, 'podMetrics', value?.toString() ?? '');
+  bool? get podMetrics => somParseBool(doc.formField(path, 'podMetrics'));
+  set podMetrics(bool? value) => doc.setFormField(path, 'podMetrics', somFormatBool(value));
 
-  bool? get nodeMetrics { final v = doc.formField(path, 'nodeMetrics'); return v == null ? null : v == 'true'; }
-  set nodeMetrics(bool? value) => doc.setFormField(path, 'nodeMetrics', value?.toString() ?? '');
+  bool? get nodeMetrics => somParseBool(doc.formField(path, 'nodeMetrics'));
+  set nodeMetrics(bool? value) => doc.setFormField(path, 'nodeMetrics', somFormatBool(value));
 
-  bool? get clusterMetrics { final v = doc.formField(path, 'clusterMetrics'); return v == null ? null : v == 'true'; }
-  set clusterMetrics(bool? value) => doc.setFormField(path, 'clusterMetrics', value?.toString() ?? '');
+  bool? get clusterMetrics => somParseBool(doc.formField(path, 'clusterMetrics'));
+  set clusterMetrics(bool? value) => doc.setFormField(path, 'clusterMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -56848,17 +56869,17 @@ class MetricsCollectionRequirementsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get cpuMetrics { final v = doc.formField(path, 'cpuMetrics'); return v == null ? null : v == 'true'; }
-  set cpuMetrics(bool? value) => doc.setFormField(path, 'cpuMetrics', value?.toString() ?? '');
+  bool? get cpuMetrics => somParseBool(doc.formField(path, 'cpuMetrics'));
+  set cpuMetrics(bool? value) => doc.setFormField(path, 'cpuMetrics', somFormatBool(value));
 
-  bool? get memoryMetrics { final v = doc.formField(path, 'memoryMetrics'); return v == null ? null : v == 'true'; }
-  set memoryMetrics(bool? value) => doc.setFormField(path, 'memoryMetrics', value?.toString() ?? '');
+  bool? get memoryMetrics => somParseBool(doc.formField(path, 'memoryMetrics'));
+  set memoryMetrics(bool? value) => doc.setFormField(path, 'memoryMetrics', somFormatBool(value));
 
-  bool? get diskMetrics { final v = doc.formField(path, 'diskMetrics'); return v == null ? null : v == 'true'; }
-  set diskMetrics(bool? value) => doc.setFormField(path, 'diskMetrics', value?.toString() ?? '');
+  bool? get diskMetrics => somParseBool(doc.formField(path, 'diskMetrics'));
+  set diskMetrics(bool? value) => doc.setFormField(path, 'diskMetrics', somFormatBool(value));
 
-  bool? get networkMetrics { final v = doc.formField(path, 'networkMetrics'); return v == null ? null : v == 'true'; }
-  set networkMetrics(bool? value) => doc.setFormField(path, 'networkMetrics', value?.toString() ?? '');
+  bool? get networkMetrics => somParseBool(doc.formField(path, 'networkMetrics'));
+  set networkMetrics(bool? value) => doc.setFormField(path, 'networkMetrics', somFormatBool(value));
 }
 
 /// Generated section facade for the `custom` `@Form` section:
@@ -56873,8 +56894,8 @@ class MetricsCollectionRequirementsCustomForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get customMetricsRequired { final v = doc.formField(path, 'customMetricsRequired'); return v == null ? null : v == 'true'; }
-  set customMetricsRequired(bool? value) => doc.setFormField(path, 'customMetricsRequired', value?.toString() ?? '');
+  bool? get customMetricsRequired => somParseBool(doc.formField(path, 'customMetricsRequired'));
+  set customMetricsRequired(bool? value) => doc.setFormField(path, 'customMetricsRequired', somFormatBool(value));
 
   String get metricNamingConvention => doc.formField(path, 'metricNamingConvention') ?? '';
   set metricNamingConvention(String value) => doc.setFormField(path, 'metricNamingConvention', value);
@@ -57705,26 +57726,26 @@ class MigrationRiskEntryImpactForm extends SomNode {
   String get overallImpactRating => doc.formField(path, 'overallImpactRating') ?? '';
   set overallImpactRating(String value) => doc.setFormField(path, 'overallImpactRating', value);
 
-  int? get overallImpactScore { final v = doc.formField(path, 'overallImpactScore'); return v == null ? null : int.tryParse(v); }
-  set overallImpactScore(int? value) => doc.setFormField(path, 'overallImpactScore', value?.toString() ?? '');
+  int? get overallImpactScore => somParseInt(doc.formField(path, 'overallImpactScore'));
+  set overallImpactScore(int? value) => doc.setFormField(path, 'overallImpactScore', somFormatInt(value));
 
   String get scheduleImpact => doc.formField(path, 'scheduleImpact') ?? '';
   set scheduleImpact(String value) => doc.setFormField(path, 'scheduleImpact', value);
 
-  int? get scheduleImpactScore { final v = doc.formField(path, 'scheduleImpactScore'); return v == null ? null : int.tryParse(v); }
-  set scheduleImpactScore(int? value) => doc.setFormField(path, 'scheduleImpactScore', value?.toString() ?? '');
+  int? get scheduleImpactScore => somParseInt(doc.formField(path, 'scheduleImpactScore'));
+  set scheduleImpactScore(int? value) => doc.setFormField(path, 'scheduleImpactScore', somFormatInt(value));
 
   String get costImpact => doc.formField(path, 'costImpact') ?? '';
   set costImpact(String value) => doc.setFormField(path, 'costImpact', value);
 
-  int? get costImpactScore { final v = doc.formField(path, 'costImpactScore'); return v == null ? null : int.tryParse(v); }
-  set costImpactScore(int? value) => doc.setFormField(path, 'costImpactScore', value?.toString() ?? '');
+  int? get costImpactScore => somParseInt(doc.formField(path, 'costImpactScore'));
+  set costImpactScore(int? value) => doc.setFormField(path, 'costImpactScore', somFormatInt(value));
 
   String get businessImpact => doc.formField(path, 'businessImpact') ?? '';
   set businessImpact(String value) => doc.setFormField(path, 'businessImpact', value);
 
-  int? get businessImpactScore { final v = doc.formField(path, 'businessImpactScore'); return v == null ? null : int.tryParse(v); }
-  set businessImpactScore(int? value) => doc.setFormField(path, 'businessImpactScore', value?.toString() ?? '');
+  int? get businessImpactScore => somParseInt(doc.formField(path, 'businessImpactScore'));
+  set businessImpactScore(int? value) => doc.setFormField(path, 'businessImpactScore', somFormatInt(value));
 
   String get reputationImpact => doc.formField(path, 'reputationImpact') ?? '';
   set reputationImpact(String value) => doc.setFormField(path, 'reputationImpact', value);
@@ -57778,8 +57799,8 @@ class MigrationRiskEntryMitigationForm extends SomNode {
   String get residualImpact => doc.formField(path, 'residualImpact') ?? '';
   set residualImpact(String value) => doc.setFormField(path, 'residualImpact', value);
 
-  int? get residualRiskScore { final v = doc.formField(path, 'residualRiskScore'); return v == null ? null : int.tryParse(v); }
-  set residualRiskScore(int? value) => doc.setFormField(path, 'residualRiskScore', value?.toString() ?? '');
+  int? get residualRiskScore => somParseInt(doc.formField(path, 'residualRiskScore'));
+  set residualRiskScore(int? value) => doc.setFormField(path, 'residualRiskScore', somFormatInt(value));
 }
 
 /// Generated section facade for the `probability` `@Form` section:
@@ -57797,8 +57818,8 @@ class MigrationRiskEntryProbabilityForm extends SomNode {
   String get probabilityRating => doc.formField(path, 'probabilityRating') ?? '';
   set probabilityRating(String value) => doc.setFormField(path, 'probabilityRating', value);
 
-  int? get probabilityScore { final v = doc.formField(path, 'probabilityScore'); return v == null ? null : int.tryParse(v); }
-  set probabilityScore(int? value) => doc.setFormField(path, 'probabilityScore', value?.toString() ?? '');
+  int? get probabilityScore => somParseInt(doc.formField(path, 'probabilityScore'));
+  set probabilityScore(int? value) => doc.setFormField(path, 'probabilityScore', somFormatInt(value));
 
   String get probabilityRationale => doc.formField(path, 'probabilityRationale') ?? '';
   set probabilityRationale(String value) => doc.setFormField(path, 'probabilityRationale', value);
@@ -57819,8 +57840,8 @@ class MigrationRiskEntryQuantificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get riskScore { final v = doc.formField(path, 'riskScore'); return v == null ? null : int.tryParse(v); }
-  set riskScore(int? value) => doc.setFormField(path, 'riskScore', value?.toString() ?? '');
+  int? get riskScore => somParseInt(doc.formField(path, 'riskScore'));
+  set riskScore(int? value) => doc.setFormField(path, 'riskScore', somFormatInt(value));
 
   String get riskPriority => doc.formField(path, 'riskPriority') ?? '';
   set riskPriority(String value) => doc.setFormField(path, 'riskPriority', value);
@@ -58281,8 +58302,8 @@ class MobileDeviceEntryPlanningForm extends SomNode {
   String get accessories => doc.formField(path, 'accessories') ?? '';
   set accessories(String value) => doc.setFormField(path, 'accessories', value);
 
-  int? get quantityNeeded { final v = doc.formField(path, 'quantityNeeded'); return v == null ? null : int.tryParse(v); }
-  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', value?.toString() ?? '');
+  int? get quantityNeeded => somParseInt(doc.formField(path, 'quantityNeeded'));
+  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', somFormatInt(value));
 
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
@@ -58306,8 +58327,8 @@ class MobileDeviceRequirementEntryCapabilitiesForm extends SomNode {
   String get backgroundExecution => doc.formField(path, 'backgroundExecution') ?? '';
   set backgroundExecution(String value) => doc.setFormField(path, 'backgroundExecution', value);
 
-  bool? get pushNotifications { final v = doc.formField(path, 'pushNotifications'); return v == null ? null : v == 'true'; }
-  set pushNotifications(bool? value) => doc.setFormField(path, 'pushNotifications', value?.toString() ?? '');
+  bool? get pushNotifications => somParseBool(doc.formField(path, 'pushNotifications'));
+  set pushNotifications(bool? value) => doc.setFormField(path, 'pushNotifications', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -58378,8 +58399,8 @@ class MobileDeviceRequirementEntryHardwareForm extends SomNode {
   String get requiredSensors => doc.formField(path, 'requiredSensors') ?? '';
   set requiredSensors(String value) => doc.setFormField(path, 'requiredSensors', value);
 
-  bool? get hardwareAcceleration { final v = doc.formField(path, 'hardwareAcceleration'); return v == null ? null : v == 'true'; }
-  set hardwareAcceleration(bool? value) => doc.setFormField(path, 'hardwareAcceleration', value?.toString() ?? '');
+  bool? get hardwareAcceleration => somParseBool(doc.formField(path, 'hardwareAcceleration'));
+  set hardwareAcceleration(bool? value) => doc.setFormField(path, 'hardwareAcceleration', somFormatBool(value));
 }
 
 /// Generated section facade for the `support` `@Form` section:
@@ -58673,8 +58694,8 @@ class MonitoringDashboardsDashboardOverviewForm extends SomNode {
   String get dashboardAccessControl => doc.formField(path, 'dashboardAccessControl') ?? '';
   set dashboardAccessControl(String value) => doc.setFormField(path, 'dashboardAccessControl', value);
 
-  bool? get dashboardVersioning { final v = doc.formField(path, 'dashboardVersioning'); return v == null ? null : v == 'true'; }
-  set dashboardVersioning(bool? value) => doc.setFormField(path, 'dashboardVersioning', value?.toString() ?? '');
+  bool? get dashboardVersioning => somParseBool(doc.formField(path, 'dashboardVersioning'));
+  set dashboardVersioning(bool? value) => doc.setFormField(path, 'dashboardVersioning', somFormatBool(value));
 
   String get dashboardNamingConvention => doc.formField(path, 'dashboardNamingConvention') ?? '';
   set dashboardNamingConvention(String value) => doc.setFormField(path, 'dashboardNamingConvention', value);
@@ -58685,17 +58706,17 @@ class MonitoringDashboardsDashboardOverviewForm extends SomNode {
   String get colorCodingStandards => doc.formField(path, 'colorCodingStandards') ?? '';
   set colorCodingStandards(String value) => doc.setFormField(path, 'colorCodingStandards', value);
 
-  bool? get executiveDashboards { final v = doc.formField(path, 'executiveDashboards'); return v == null ? null : v == 'true'; }
-  set executiveDashboards(bool? value) => doc.setFormField(path, 'executiveDashboards', value?.toString() ?? '');
+  bool? get executiveDashboards => somParseBool(doc.formField(path, 'executiveDashboards'));
+  set executiveDashboards(bool? value) => doc.setFormField(path, 'executiveDashboards', somFormatBool(value));
 
-  bool? get operationalDashboards { final v = doc.formField(path, 'operationalDashboards'); return v == null ? null : v == 'true'; }
-  set operationalDashboards(bool? value) => doc.setFormField(path, 'operationalDashboards', value?.toString() ?? '');
+  bool? get operationalDashboards => somParseBool(doc.formField(path, 'operationalDashboards'));
+  set operationalDashboards(bool? value) => doc.setFormField(path, 'operationalDashboards', somFormatBool(value));
 
-  bool? get serviceDashboards { final v = doc.formField(path, 'serviceDashboards'); return v == null ? null : v == 'true'; }
-  set serviceDashboards(bool? value) => doc.setFormField(path, 'serviceDashboards', value?.toString() ?? '');
+  bool? get serviceDashboards => somParseBool(doc.formField(path, 'serviceDashboards'));
+  set serviceDashboards(bool? value) => doc.setFormField(path, 'serviceDashboards', somFormatBool(value));
 
-  bool? get infrastructureDashboards { final v = doc.formField(path, 'infrastructureDashboards'); return v == null ? null : v == 'true'; }
-  set infrastructureDashboards(bool? value) => doc.setFormField(path, 'infrastructureDashboards', value?.toString() ?? '');
+  bool? get infrastructureDashboards => somParseBool(doc.formField(path, 'infrastructureDashboards'));
+  set infrastructureDashboards(bool? value) => doc.setFormField(path, 'infrastructureDashboards', somFormatBool(value));
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -58716,8 +58737,8 @@ class MonitoringInfrastructureAccessForm extends SomNode {
   String get dataPrivacy => doc.formField(path, 'dataPrivacy') ?? '';
   set dataPrivacy(String value) => doc.setFormField(path, 'dataPrivacy', value);
 
-  bool? get multiTenant { final v = doc.formField(path, 'multiTenant'); return v == null ? null : v == 'true'; }
-  set multiTenant(bool? value) => doc.setFormField(path, 'multiTenant', value?.toString() ?? '');
+  bool? get multiTenant => somParseBool(doc.formField(path, 'multiTenant'));
+  set multiTenant(bool? value) => doc.setFormField(path, 'multiTenant', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -58738,11 +58759,11 @@ class MonitoringInfrastructureCollectionForm extends SomNode {
   String get collectionFrequency => doc.formField(path, 'collectionFrequency') ?? '';
   set collectionFrequency(String value) => doc.setFormField(path, 'collectionFrequency', value);
 
-  bool? get agentBased { final v = doc.formField(path, 'agentBased'); return v == null ? null : v == 'true'; }
-  set agentBased(bool? value) => doc.setFormField(path, 'agentBased', value?.toString() ?? '');
+  bool? get agentBased => somParseBool(doc.formField(path, 'agentBased'));
+  set agentBased(bool? value) => doc.setFormField(path, 'agentBased', somFormatBool(value));
 
-  bool? get agentlessCollection { final v = doc.formField(path, 'agentlessCollection'); return v == null ? null : v == 'true'; }
-  set agentlessCollection(bool? value) => doc.setFormField(path, 'agentlessCollection', value?.toString() ?? '');
+  bool? get agentlessCollection => somParseBool(doc.formField(path, 'agentlessCollection'));
+  set agentlessCollection(bool? value) => doc.setFormField(path, 'agentlessCollection', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -58791,8 +58812,8 @@ class MonitoringInfrastructureDeploymentForm extends SomNode {
   String get storageRequirements => doc.formField(path, 'storageRequirements') ?? '';
   set storageRequirements(String value) => doc.setFormField(path, 'storageRequirements', value);
 
-  bool? get highAvailability { final v = doc.formField(path, 'highAvailability'); return v == null ? null : v == 'true'; }
-  set highAvailability(bool? value) => doc.setFormField(path, 'highAvailability', value?.toString() ?? '');
+  bool? get highAvailability => somParseBool(doc.formField(path, 'highAvailability'));
+  set highAvailability(bool? value) => doc.setFormField(path, 'highAvailability', somFormatBool(value));
 }
 
 /// Generated section facade for the `monitoringOverview` `@Form` section:
@@ -59068,8 +59089,8 @@ class MustPassCriteriaMustPassOverviewContentForm extends SomNode {
   String get mustPassPhilosophy => doc.formField(path, 'mustPassPhilosophy') ?? '';
   set mustPassPhilosophy(String value) => doc.setFormField(path, 'mustPassPhilosophy', value);
 
-  int? get mustPassCount { final v = doc.formField(path, 'mustPassCount'); return v == null ? null : int.tryParse(v); }
-  set mustPassCount(int? value) => doc.setFormField(path, 'mustPassCount', value?.toString() ?? '');
+  int? get mustPassCount => somParseInt(doc.formField(path, 'mustPassCount'));
+  set mustPassCount(int? value) => doc.setFormField(path, 'mustPassCount', somFormatInt(value));
 
   String get criticalityDefinition => doc.formField(path, 'criticalityDefinition') ?? '';
   set criticalityDefinition(String value) => doc.setFormField(path, 'criticalityDefinition', value);
@@ -59218,14 +59239,14 @@ class NativeAppRequirementsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get appStoreDistribution { final v = doc.formField(path, 'appStoreDistribution'); return v == null ? null : v == 'true'; }
-  set appStoreDistribution(bool? value) => doc.setFormField(path, 'appStoreDistribution', value?.toString() ?? '');
+  bool? get appStoreDistribution => somParseBool(doc.formField(path, 'appStoreDistribution'));
+  set appStoreDistribution(bool? value) => doc.setFormField(path, 'appStoreDistribution', somFormatBool(value));
 
-  bool? get enterpriseDistribution { final v = doc.formField(path, 'enterpriseDistribution'); return v == null ? null : v == 'true'; }
-  set enterpriseDistribution(bool? value) => doc.setFormField(path, 'enterpriseDistribution', value?.toString() ?? '');
+  bool? get enterpriseDistribution => somParseBool(doc.formField(path, 'enterpriseDistribution'));
+  set enterpriseDistribution(bool? value) => doc.setFormField(path, 'enterpriseDistribution', somFormatBool(value));
 
-  bool? get sideloading { final v = doc.formField(path, 'sideloading'); return v == null ? null : v == 'true'; }
-  set sideloading(bool? value) => doc.setFormField(path, 'sideloading', value?.toString() ?? '');
+  bool? get sideloading => somParseBool(doc.formField(path, 'sideloading'));
+  set sideloading(bool? value) => doc.setFormField(path, 'sideloading', somFormatBool(value));
 }
 
 /// Generated section facade for the `linking` `@Form` section:
@@ -59240,11 +59261,11 @@ class NativeAppRequirementsLinkingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get deepLinking { final v = doc.formField(path, 'deepLinking'); return v == null ? null : v == 'true'; }
-  set deepLinking(bool? value) => doc.setFormField(path, 'deepLinking', value?.toString() ?? '');
+  bool? get deepLinking => somParseBool(doc.formField(path, 'deepLinking'));
+  set deepLinking(bool? value) => doc.setFormField(path, 'deepLinking', somFormatBool(value));
 
-  bool? get universalLinks { final v = doc.formField(path, 'universalLinks'); return v == null ? null : v == 'true'; }
-  set universalLinks(bool? value) => doc.setFormField(path, 'universalLinks', value?.toString() ?? '');
+  bool? get universalLinks => somParseBool(doc.formField(path, 'universalLinks'));
+  set universalLinks(bool? value) => doc.setFormField(path, 'universalLinks', somFormatBool(value));
 
   String get customScheme => doc.formField(path, 'customScheme') ?? '';
   set customScheme(String value) => doc.setFormField(path, 'customScheme', value);
@@ -59287,11 +59308,11 @@ class NativeAppRequirementsStoresForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get appleAppStore { final v = doc.formField(path, 'appleAppStore'); return v == null ? null : v == 'true'; }
-  set appleAppStore(bool? value) => doc.setFormField(path, 'appleAppStore', value?.toString() ?? '');
+  bool? get appleAppStore => somParseBool(doc.formField(path, 'appleAppStore'));
+  set appleAppStore(bool? value) => doc.setFormField(path, 'appleAppStore', somFormatBool(value));
 
-  bool? get googlePlayStore { final v = doc.formField(path, 'googlePlayStore'); return v == null ? null : v == 'true'; }
-  set googlePlayStore(bool? value) => doc.setFormField(path, 'googlePlayStore', value?.toString() ?? '');
+  bool? get googlePlayStore => somParseBool(doc.formField(path, 'googlePlayStore'));
+  set googlePlayStore(bool? value) => doc.setFormField(path, 'googlePlayStore', somFormatBool(value));
 
   String get otherStores => doc.formField(path, 'otherStores') ?? '';
   set otherStores(String value) => doc.setFormField(path, 'otherStores', value);
@@ -59378,8 +59399,8 @@ class NavigationGroupEntryDisplayForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get collapsible => doc.formField(path, 'collapsible') ?? '';
   set collapsible(String value) => doc.setFormField(path, 'collapsible', value);
@@ -59487,8 +59508,8 @@ class NavigationGuardEntryRoutingForm extends SomNode {
   String get redirectTo => doc.formField(path, 'redirectTo') ?? '';
   set redirectTo(String value) => doc.setFormField(path, 'redirectTo', value);
 
-  int? get priority { final v = doc.formField(path, 'priority'); return v == null ? null : int.tryParse(v); }
-  set priority(int? value) => doc.setFormField(path, 'priority', value?.toString() ?? '');
+  int? get priority => somParseInt(doc.formField(path, 'priority'));
+  set priority(int? value) => doc.setFormField(path, 'priority', somFormatInt(value));
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -59631,8 +59652,8 @@ class NavigationItemEntryRoutingForm extends SomNode {
   String get targetRouteParams => doc.formField(path, 'targetRouteParams') ?? '';
   set targetRouteParams(String value) => doc.setFormField(path, 'targetRouteParams', value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get isDefault => doc.formField(path, 'isDefault') ?? '';
   set isDefault(String value) => doc.setFormField(path, 'isDefault', value);
@@ -59653,8 +59674,8 @@ class NavigationOverviewContentForm extends SomNode {
   String get navigationStrategy => doc.formField(path, 'navigationStrategy') ?? '';
   set navigationStrategy(String value) => doc.setFormField(path, 'navigationStrategy', value);
 
-  int? get maxNavigationDepth { final v = doc.formField(path, 'maxNavigationDepth'); return v == null ? null : int.tryParse(v); }
-  set maxNavigationDepth(int? value) => doc.setFormField(path, 'maxNavigationDepth', value?.toString() ?? '');
+  int? get maxNavigationDepth => somParseInt(doc.formField(path, 'maxNavigationDepth'));
+  set maxNavigationDepth(int? value) => doc.setFormField(path, 'maxNavigationDepth', somFormatInt(value));
 
   String get defaultLandingScreen => doc.formField(path, 'defaultLandingScreen') ?? '';
   set defaultLandingScreen(String value) => doc.setFormField(path, 'defaultLandingScreen', value);
@@ -59715,8 +59736,8 @@ class NetworkAvailabilityRequirementsFailoverForm extends SomNode {
   String get healthChecks => doc.formField(path, 'healthChecks') ?? '';
   set healthChecks(String value) => doc.setFormField(path, 'healthChecks', value);
 
-  bool? get automaticRerouting { final v = doc.formField(path, 'automaticRerouting'); return v == null ? null : v == 'true'; }
-  set automaticRerouting(bool? value) => doc.setFormField(path, 'automaticRerouting', value?.toString() ?? '');
+  bool? get automaticRerouting => somParseBool(doc.formField(path, 'automaticRerouting'));
+  set automaticRerouting(bool? value) => doc.setFormField(path, 'automaticRerouting', somFormatBool(value));
 }
 
 /// Generated section facade for the `recovery` `@Form` section:
@@ -59913,8 +59934,8 @@ class NetworkLoadBalancingRequirementsAvailabilityForm extends SomNode {
   String get lbRedundancy => doc.formField(path, 'lbRedundancy') ?? '';
   set lbRedundancy(String value) => doc.setFormField(path, 'lbRedundancy', value);
 
-  bool? get crossZoneBalancing { final v = doc.formField(path, 'crossZoneBalancing'); return v == null ? null : v == 'true'; }
-  set crossZoneBalancing(bool? value) => doc.setFormField(path, 'crossZoneBalancing', value?.toString() ?? '');
+  bool? get crossZoneBalancing => somParseBool(doc.formField(path, 'crossZoneBalancing'));
+  set crossZoneBalancing(bool? value) => doc.setFormField(path, 'crossZoneBalancing', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -59963,11 +59984,11 @@ class NetworkLoadBalancingRequirementsHealthChecksForm extends SomNode {
   String get healthCheckInterval => doc.formField(path, 'healthCheckInterval') ?? '';
   set healthCheckInterval(String value) => doc.setFormField(path, 'healthCheckInterval', value);
 
-  int? get unhealthyThreshold { final v = doc.formField(path, 'unhealthyThreshold'); return v == null ? null : int.tryParse(v); }
-  set unhealthyThreshold(int? value) => doc.setFormField(path, 'unhealthyThreshold', value?.toString() ?? '');
+  int? get unhealthyThreshold => somParseInt(doc.formField(path, 'unhealthyThreshold'));
+  set unhealthyThreshold(int? value) => doc.setFormField(path, 'unhealthyThreshold', somFormatInt(value));
 
-  int? get healthyThreshold { final v = doc.formField(path, 'healthyThreshold'); return v == null ? null : int.tryParse(v); }
-  set healthyThreshold(int? value) => doc.setFormField(path, 'healthyThreshold', value?.toString() ?? '');
+  int? get healthyThreshold => somParseInt(doc.formField(path, 'healthyThreshold'));
+  set healthyThreshold(int? value) => doc.setFormField(path, 'healthyThreshold', somFormatInt(value));
 }
 
 /// Generated section facade for the `routing` `@Form` section:
@@ -59988,8 +60009,8 @@ class NetworkLoadBalancingRequirementsRoutingForm extends SomNode {
   String get sessionPersistence => doc.formField(path, 'sessionPersistence') ?? '';
   set sessionPersistence(String value) => doc.setFormField(path, 'sessionPersistence', value);
 
-  bool? get weightedRouting { final v = doc.formField(path, 'weightedRouting'); return v == null ? null : v == 'true'; }
-  set weightedRouting(bool? value) => doc.setFormField(path, 'weightedRouting', value?.toString() ?? '');
+  bool? get weightedRouting => somParseBool(doc.formField(path, 'weightedRouting'));
+  set weightedRouting(bool? value) => doc.setFormField(path, 'weightedRouting', somFormatBool(value));
 }
 
 /// Generated section facade for the `tls` `@Form` section:
@@ -60010,8 +60031,8 @@ class NetworkLoadBalancingRequirementsTlsForm extends SomNode {
   String get sslCertificate => doc.formField(path, 'sslCertificate') ?? '';
   set sslCertificate(String value) => doc.setFormField(path, 'sslCertificate', value);
 
-  bool? get http2Support { final v = doc.formField(path, 'http2Support'); return v == null ? null : v == 'true'; }
-  set http2Support(bool? value) => doc.setFormField(path, 'http2Support', value?.toString() ?? '');
+  bool? get http2Support => somParseBool(doc.formField(path, 'http2Support'));
+  set http2Support(bool? value) => doc.setFormField(path, 'http2Support', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -60032,8 +60053,8 @@ class NetworkSecurityPolicyContentForm extends SomNode {
   String get wafProvider => doc.formField(path, 'wafProvider') ?? '';
   set wafProvider(String value) => doc.setFormField(path, 'wafProvider', value);
 
-  bool? get defaultDenyPolicy { final v = doc.formField(path, 'defaultDenyPolicy'); return v == null ? null : v == 'true'; }
-  set defaultDenyPolicy(bool? value) => doc.setFormField(path, 'defaultDenyPolicy', value?.toString() ?? '');
+  bool? get defaultDenyPolicy => somParseBool(doc.formField(path, 'defaultDenyPolicy'));
+  set defaultDenyPolicy(bool? value) => doc.setFormField(path, 'defaultDenyPolicy', somFormatBool(value));
 }
 
 /// Generated section facade for the `ddos` `@Form` section:
@@ -60070,8 +60091,8 @@ class NetworkSecurityPolicyDnsForm extends SomNode {
   String get dnsProvider => doc.formField(path, 'dnsProvider') ?? '';
   set dnsProvider(String value) => doc.setFormField(path, 'dnsProvider', value);
 
-  bool? get dnssecEnabled { final v = doc.formField(path, 'dnssecEnabled'); return v == null ? null : v == 'true'; }
-  set dnssecEnabled(bool? value) => doc.setFormField(path, 'dnssecEnabled', value?.toString() ?? '');
+  bool? get dnssecEnabled => somParseBool(doc.formField(path, 'dnssecEnabled'));
+  set dnssecEnabled(bool? value) => doc.setFormField(path, 'dnssecEnabled', somFormatBool(value));
 
   String get privateDns => doc.formField(path, 'privateDns') ?? '';
   set privateDns(String value) => doc.setFormField(path, 'privateDns', value);
@@ -60111,8 +60132,8 @@ class NetworkSecurityPolicyIpManagementForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get staticIpRequired { final v = doc.formField(path, 'staticIpRequired'); return v == null ? null : v == 'true'; }
-  set staticIpRequired(bool? value) => doc.setFormField(path, 'staticIpRequired', value?.toString() ?? '');
+  bool? get staticIpRequired => somParseBool(doc.formField(path, 'staticIpRequired'));
+  set staticIpRequired(bool? value) => doc.setFormField(path, 'staticIpRequired', somFormatBool(value));
 
   String get ipAllowListing => doc.formField(path, 'ipAllowListing') ?? '';
   set ipAllowListing(String value) => doc.setFormField(path, 'ipAllowListing', value);
@@ -60136,8 +60157,8 @@ class NetworkSecurityPolicyVpnForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get vpnRequired { final v = doc.formField(path, 'vpnRequired'); return v == null ? null : v == 'true'; }
-  set vpnRequired(bool? value) => doc.setFormField(path, 'vpnRequired', value?.toString() ?? '');
+  bool? get vpnRequired => somParseBool(doc.formField(path, 'vpnRequired'));
+  set vpnRequired(bool? value) => doc.setFormField(path, 'vpnRequired', somFormatBool(value));
 
   String get vpnType => doc.formField(path, 'vpnType') ?? '';
   set vpnType(String value) => doc.setFormField(path, 'vpnType', value);
@@ -60145,8 +60166,8 @@ class NetworkSecurityPolicyVpnForm extends SomNode {
   String get vpnTopology => doc.formField(path, 'vpnTopology') ?? '';
   set vpnTopology(String value) => doc.setFormField(path, 'vpnTopology', value);
 
-  bool? get vpnHighAvailability { final v = doc.formField(path, 'vpnHighAvailability'); return v == null ? null : v == 'true'; }
-  set vpnHighAvailability(bool? value) => doc.setFormField(path, 'vpnHighAvailability', value?.toString() ?? '');
+  bool? get vpnHighAvailability => somParseBool(doc.formField(path, 'vpnHighAvailability'));
+  set vpnHighAvailability(bool? value) => doc.setFormField(path, 'vpnHighAvailability', somFormatBool(value));
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -60261,8 +60282,8 @@ class NetworkSecurityRequirementsMonitoringForm extends SomNode {
   String get trafficAnalysis => doc.formField(path, 'trafficAnalysis') ?? '';
   set trafficAnalysis(String value) => doc.setFormField(path, 'trafficAnalysis', value);
 
-  bool? get anomalyDetection { final v = doc.formField(path, 'anomalyDetection'); return v == null ? null : v == 'true'; }
-  set anomalyDetection(bool? value) => doc.setFormField(path, 'anomalyDetection', value?.toString() ?? '');
+  bool? get anomalyDetection => somParseBool(doc.formField(path, 'anomalyDetection'));
+  set anomalyDetection(bool? value) => doc.setFormField(path, 'anomalyDetection', somFormatBool(value));
 }
 
 /// Generated section facade for the `identification` `@Form` section:
@@ -60840,8 +60861,8 @@ class OnCallProceduresContentForm extends SomNode {
   String get coverageHours => doc.formField(path, 'coverageHours') ?? '';
   set coverageHours(String value) => doc.setFormField(path, 'coverageHours', value);
 
-  bool? get primarySecondary { final v = doc.formField(path, 'primarySecondary'); return v == null ? null : v == 'true'; }
-  set primarySecondary(bool? value) => doc.setFormField(path, 'primarySecondary', value?.toString() ?? '');
+  bool? get primarySecondary => somParseBool(doc.formField(path, 'primarySecondary'));
+  set primarySecondary(bool? value) => doc.setFormField(path, 'primarySecondary', somFormatBool(value));
 }
 
 /// Generated section facade for the `documentation` `@Form` section:
@@ -61022,8 +61043,8 @@ class OnboardingHelpChecklistForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get gettingStartedChecklist { final v = doc.formField(path, 'gettingStartedChecklist'); return v == null ? null : v == 'true'; }
-  set gettingStartedChecklist(bool? value) => doc.setFormField(path, 'gettingStartedChecklist', value?.toString() ?? '');
+  bool? get gettingStartedChecklist => somParseBool(doc.formField(path, 'gettingStartedChecklist'));
+  set gettingStartedChecklist(bool? value) => doc.setFormField(path, 'gettingStartedChecklist', somFormatBool(value));
 
   String get checklistItems => doc.formField(path, 'checklistItems') ?? '';
   set checklistItems(String value) => doc.setFormField(path, 'checklistItems', value);
@@ -61066,14 +61087,14 @@ class OnboardingHelpOnboardingContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get welcomeFlowEnabled { final v = doc.formField(path, 'welcomeFlowEnabled'); return v == null ? null : v == 'true'; }
-  set welcomeFlowEnabled(bool? value) => doc.setFormField(path, 'welcomeFlowEnabled', value?.toString() ?? '');
+  bool? get welcomeFlowEnabled => somParseBool(doc.formField(path, 'welcomeFlowEnabled'));
+  set welcomeFlowEnabled(bool? value) => doc.setFormField(path, 'welcomeFlowEnabled', somFormatBool(value));
 
   String get welcomeFlowStyle => doc.formField(path, 'welcomeFlowStyle') ?? '';
   set welcomeFlowStyle(String value) => doc.setFormField(path, 'welcomeFlowStyle', value);
 
-  bool? get welcomeFlowSkippable { final v = doc.formField(path, 'welcomeFlowSkippable'); return v == null ? null : v == 'true'; }
-  set welcomeFlowSkippable(bool? value) => doc.setFormField(path, 'welcomeFlowSkippable', value?.toString() ?? '');
+  bool? get welcomeFlowSkippable => somParseBool(doc.formField(path, 'welcomeFlowSkippable'));
+  set welcomeFlowSkippable(bool? value) => doc.setFormField(path, 'welcomeFlowSkippable', somFormatBool(value));
 
   String get welcomeFlowDuration => doc.formField(path, 'welcomeFlowDuration') ?? '';
   set welcomeFlowDuration(String value) => doc.setFormField(path, 'welcomeFlowDuration', value);
@@ -61094,8 +61115,8 @@ class OnboardingHelpReengagementForm extends SomNode {
   String get returnUserWelcome => doc.formField(path, 'returnUserWelcome') ?? '';
   set returnUserWelcome(String value) => doc.setFormField(path, 'returnUserWelcome', value);
 
-  bool? get whatsNewFeature { final v = doc.formField(path, 'whatsNewFeature'); return v == null ? null : v == 'true'; }
-  set whatsNewFeature(bool? value) => doc.setFormField(path, 'whatsNewFeature', value?.toString() ?? '');
+  bool? get whatsNewFeature => somParseBool(doc.formField(path, 'whatsNewFeature'));
+  set whatsNewFeature(bool? value) => doc.setFormField(path, 'whatsNewFeature', somFormatBool(value));
 }
 
 /// Generated section facade for the `sampleData` `@Form` section:
@@ -61110,8 +61131,8 @@ class OnboardingHelpSampleDataForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get sampleDataAvailable { final v = doc.formField(path, 'sampleDataAvailable'); return v == null ? null : v == 'true'; }
-  set sampleDataAvailable(bool? value) => doc.setFormField(path, 'sampleDataAvailable', value?.toString() ?? '');
+  bool? get sampleDataAvailable => somParseBool(doc.formField(path, 'sampleDataAvailable'));
+  set sampleDataAvailable(bool? value) => doc.setFormField(path, 'sampleDataAvailable', somFormatBool(value));
 
   String get sampleDataScope => doc.formField(path, 'sampleDataScope') ?? '';
   set sampleDataScope(String value) => doc.setFormField(path, 'sampleDataScope', value);
@@ -61132,8 +61153,8 @@ class OnboardingHelpToursForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get featureToursEnabled { final v = doc.formField(path, 'featureToursEnabled'); return v == null ? null : v == 'true'; }
-  set featureToursEnabled(bool? value) => doc.setFormField(path, 'featureToursEnabled', value?.toString() ?? '');
+  bool? get featureToursEnabled => somParseBool(doc.formField(path, 'featureToursEnabled'));
+  set featureToursEnabled(bool? value) => doc.setFormField(path, 'featureToursEnabled', somFormatBool(value));
 
   String get featureTourStyle => doc.formField(path, 'featureTourStyle') ?? '';
   set featureTourStyle(String value) => doc.setFormField(path, 'featureTourStyle', value);
@@ -61141,8 +61162,8 @@ class OnboardingHelpToursForm extends SomNode {
   String get featureTourTrigger => doc.formField(path, 'featureTourTrigger') ?? '';
   set featureTourTrigger(String value) => doc.setFormField(path, 'featureTourTrigger', value);
 
-  bool? get featureTourProgress { final v = doc.formField(path, 'featureTourProgress'); return v == null ? null : v == 'true'; }
-  set featureTourProgress(bool? value) => doc.setFormField(path, 'featureTourProgress', value?.toString() ?? '');
+  bool? get featureTourProgress => somParseBool(doc.formField(path, 'featureTourProgress'));
+  set featureTourProgress(bool? value) => doc.setFormField(path, 'featureTourProgress', somFormatBool(value));
 }
 
 /// Generated section facade for the `compliance` `@Form` section:
@@ -61382,14 +61403,14 @@ class OperationalPainPointsCategorySummaryForm extends SomNode {
   String get averageDowntimePerMonth => doc.formField(path, 'averageDowntimePerMonth') ?? '';
   set averageDowntimePerMonth(String value) => doc.setFormField(path, 'averageDowntimePerMonth', value);
 
-  int? get manualWorkaroundsCount { final v = doc.formField(path, 'manualWorkaroundsCount'); return v == null ? null : int.tryParse(v); }
-  set manualWorkaroundsCount(int? value) => doc.setFormField(path, 'manualWorkaroundsCount', value?.toString() ?? '');
+  int? get manualWorkaroundsCount => somParseInt(doc.formField(path, 'manualWorkaroundsCount'));
+  set manualWorkaroundsCount(int? value) => doc.setFormField(path, 'manualWorkaroundsCount', somFormatInt(value));
 
   String get dataInconsistencyFrequency => doc.formField(path, 'dataInconsistencyFrequency') ?? '';
   set dataInconsistencyFrequency(String value) => doc.setFormField(path, 'dataInconsistencyFrequency', value);
 
-  int? get criticalProcessesAffected { final v = doc.formField(path, 'criticalProcessesAffected'); return v == null ? null : int.tryParse(v); }
-  set criticalProcessesAffected(int? value) => doc.setFormField(path, 'criticalProcessesAffected', value?.toString() ?? '');
+  int? get criticalProcessesAffected => somParseInt(doc.formField(path, 'criticalProcessesAffected'));
+  set criticalProcessesAffected(int? value) => doc.setFormField(path, 'criticalProcessesAffected', somFormatInt(value));
 
   String get staffOverhead => doc.formField(path, 'staffOverhead') ?? '';
   set staffOverhead(String value) => doc.setFormField(path, 'staffOverhead', value);
@@ -61658,14 +61679,14 @@ class OrganizationalChangeEntryScopeForm extends SomNode {
   String get targetState => doc.formField(path, 'targetState') ?? '';
   set targetState(String value) => doc.setFormField(path, 'targetState', value);
 
-  int? get currentHeadcount { final v = doc.formField(path, 'currentHeadcount'); return v == null ? null : int.tryParse(v); }
-  set currentHeadcount(int? value) => doc.setFormField(path, 'currentHeadcount', value?.toString() ?? '');
+  int? get currentHeadcount => somParseInt(doc.formField(path, 'currentHeadcount'));
+  set currentHeadcount(int? value) => doc.setFormField(path, 'currentHeadcount', somFormatInt(value));
 
-  int? get targetHeadcount { final v = doc.formField(path, 'targetHeadcount'); return v == null ? null : int.tryParse(v); }
-  set targetHeadcount(int? value) => doc.setFormField(path, 'targetHeadcount', value?.toString() ?? '');
+  int? get targetHeadcount => somParseInt(doc.formField(path, 'targetHeadcount'));
+  set targetHeadcount(int? value) => doc.setFormField(path, 'targetHeadcount', somFormatInt(value));
 
-  int? get headcountDelta { final v = doc.formField(path, 'headcountDelta'); return v == null ? null : int.tryParse(v); }
-  set headcountDelta(int? value) => doc.setFormField(path, 'headcountDelta', value?.toString() ?? '');
+  int? get headcountDelta => somParseInt(doc.formField(path, 'headcountDelta'));
+  set headcountDelta(int? value) => doc.setFormField(path, 'headcountDelta', somFormatInt(value));
 }
 
 /// Generated section facade for the `status` `@Form` section:
@@ -62434,8 +62455,8 @@ class PainPointEntryImpactForm extends SomNode {
   String get affectedStakeholders => doc.formField(path, 'affectedStakeholders') ?? '';
   set affectedStakeholders(String value) => doc.setFormField(path, 'affectedStakeholders', value);
 
-  int? get userCount { final v = doc.formField(path, 'userCount'); return v == null ? null : int.tryParse(v); }
-  set userCount(int? value) => doc.setFormField(path, 'userCount', value?.toString() ?? '');
+  int? get userCount => somParseInt(doc.formField(path, 'userCount'));
+  set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
 
   String get frequency => doc.formField(path, 'frequency') ?? '';
   set frequency(String value) => doc.setFormField(path, 'frequency', value);
@@ -62587,20 +62608,20 @@ class PainPointsAndGapsPainPointsSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalPainPoints { final v = doc.formField(path, 'totalPainPoints'); return v == null ? null : int.tryParse(v); }
-  set totalPainPoints(int? value) => doc.setFormField(path, 'totalPainPoints', value?.toString() ?? '');
+  int? get totalPainPoints => somParseInt(doc.formField(path, 'totalPainPoints'));
+  set totalPainPoints(int? value) => doc.setFormField(path, 'totalPainPoints', somFormatInt(value));
 
-  int? get criticalCount { final v = doc.formField(path, 'criticalCount'); return v == null ? null : int.tryParse(v); }
-  set criticalCount(int? value) => doc.setFormField(path, 'criticalCount', value?.toString() ?? '');
+  int? get criticalCount => somParseInt(doc.formField(path, 'criticalCount'));
+  set criticalCount(int? value) => doc.setFormField(path, 'criticalCount', somFormatInt(value));
 
-  int? get highCount { final v = doc.formField(path, 'highCount'); return v == null ? null : int.tryParse(v); }
-  set highCount(int? value) => doc.setFormField(path, 'highCount', value?.toString() ?? '');
+  int? get highCount => somParseInt(doc.formField(path, 'highCount'));
+  set highCount(int? value) => doc.setFormField(path, 'highCount', somFormatInt(value));
 
-  int? get mediumCount { final v = doc.formField(path, 'mediumCount'); return v == null ? null : int.tryParse(v); }
-  set mediumCount(int? value) => doc.setFormField(path, 'mediumCount', value?.toString() ?? '');
+  int? get mediumCount => somParseInt(doc.formField(path, 'mediumCount'));
+  set mediumCount(int? value) => doc.setFormField(path, 'mediumCount', somFormatInt(value));
 
-  int? get lowCount { final v = doc.formField(path, 'lowCount'); return v == null ? null : int.tryParse(v); }
-  set lowCount(int? value) => doc.setFormField(path, 'lowCount', value?.toString() ?? '');
+  int? get lowCount => somParseInt(doc.formField(path, 'lowCount'));
+  set lowCount(int? value) => doc.setFormField(path, 'lowCount', somFormatInt(value));
 
   String get totalEstimatedAnnualCost => doc.formField(path, 'totalEstimatedAnnualCost') ?? '';
   set totalEstimatedAnnualCost(String value) => doc.setFormField(path, 'totalEstimatedAnnualCost', value);
@@ -62702,11 +62723,11 @@ class PeakLoadPatternsMetricsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get peakRequestsPerSecond { final v = doc.formField(path, 'peakRequestsPerSecond'); return v == null ? null : int.tryParse(v); }
-  set peakRequestsPerSecond(int? value) => doc.setFormField(path, 'peakRequestsPerSecond', value?.toString() ?? '');
+  int? get peakRequestsPerSecond => somParseInt(doc.formField(path, 'peakRequestsPerSecond'));
+  set peakRequestsPerSecond(int? value) => doc.setFormField(path, 'peakRequestsPerSecond', somFormatInt(value));
 
-  int? get peakConcurrentSessions { final v = doc.formField(path, 'peakConcurrentSessions'); return v == null ? null : int.tryParse(v); }
-  set peakConcurrentSessions(int? value) => doc.setFormField(path, 'peakConcurrentSessions', value?.toString() ?? '');
+  int? get peakConcurrentSessions => somParseInt(doc.formField(path, 'peakConcurrentSessions'));
+  set peakConcurrentSessions(int? value) => doc.setFormField(path, 'peakConcurrentSessions', somFormatInt(value));
 
   String get averageResponseTimeTarget => doc.formField(path, 'averageResponseTimeTarget') ?? '';
   set averageResponseTimeTarget(String value) => doc.setFormField(path, 'averageResponseTimeTarget', value);
@@ -62935,8 +62956,8 @@ class PeripheralEquipmentEntryContentForm extends SomNode {
   String get location => doc.formField(path, 'location') ?? '';
   set location(String value) => doc.setFormField(path, 'location', value);
 
-  int? get quantityNeeded { final v = doc.formField(path, 'quantityNeeded'); return v == null ? null : int.tryParse(v); }
-  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', value?.toString() ?? '');
+  int? get quantityNeeded => somParseInt(doc.formField(path, 'quantityNeeded'));
+  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', somFormatInt(value));
 
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
@@ -63642,8 +63663,8 @@ class PipelineStageEntryExecutionForm extends SomNode {
   String get timeoutMinutes => doc.formField(path, 'timeoutMinutes') ?? '';
   set timeoutMinutes(String value) => doc.setFormField(path, 'timeoutMinutes', value);
 
-  bool? get parallelJobs { final v = doc.formField(path, 'parallelJobs'); return v == null ? null : v == 'true'; }
-  set parallelJobs(bool? value) => doc.setFormField(path, 'parallelJobs', value?.toString() ?? '');
+  bool? get parallelJobs => somParseBool(doc.formField(path, 'parallelJobs'));
+  set parallelJobs(bool? value) => doc.setFormField(path, 'parallelJobs', somFormatBool(value));
 }
 
 /// Generated section facade for the `failure` `@Form` section:
@@ -63686,8 +63707,8 @@ class PipelineStageEntryTriggerForm extends SomNode {
   String get conditions => doc.formField(path, 'conditions') ?? '';
   set conditions(String value) => doc.setFormField(path, 'conditions', value);
 
-  bool? get manualApproval { final v = doc.formField(path, 'manualApproval'); return v == null ? null : v == 'true'; }
-  set manualApproval(bool? value) => doc.setFormField(path, 'manualApproval', value?.toString() ?? '');
+  bool? get manualApproval => somParseBool(doc.formField(path, 'manualApproval'));
+  set manualApproval(bool? value) => doc.setFormField(path, 'manualApproval', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -63748,11 +63769,11 @@ class PostMaintenanceValidationClosureForm extends SomNode {
   String get validateSignoff => doc.formField(path, 'validateSignoff') ?? '';
   set validateSignoff(String value) => doc.setFormField(path, 'validateSignoff', value);
 
-  bool? get maintenanceReport { final v = doc.formField(path, 'maintenanceReport'); return v == null ? null : v == 'true'; }
-  set maintenanceReport(bool? value) => doc.setFormField(path, 'maintenanceReport', value?.toString() ?? '');
+  bool? get maintenanceReport => somParseBool(doc.formField(path, 'maintenanceReport'));
+  set maintenanceReport(bool? value) => doc.setFormField(path, 'maintenanceReport', somFormatBool(value));
 
-  bool? get lessonsLearned { final v = doc.formField(path, 'lessonsLearned'); return v == null ? null : v == 'true'; }
-  set lessonsLearned(bool? value) => doc.setFormField(path, 'lessonsLearned', value?.toString() ?? '');
+  bool? get lessonsLearned => somParseBool(doc.formField(path, 'lessonsLearned'));
+  set lessonsLearned(bool? value) => doc.setFormField(path, 'lessonsLearned', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -63770,17 +63791,17 @@ class PostMaintenanceValidationContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get smokeTests { final v = doc.formField(path, 'smokeTests'); return v == null ? null : v == 'true'; }
-  set smokeTests(bool? value) => doc.setFormField(path, 'smokeTests', value?.toString() ?? '');
+  bool? get smokeTests => somParseBool(doc.formField(path, 'smokeTests'));
+  set smokeTests(bool? value) => doc.setFormField(path, 'smokeTests', somFormatBool(value));
 
-  bool? get functionalTests { final v = doc.formField(path, 'functionalTests'); return v == null ? null : v == 'true'; }
-  set functionalTests(bool? value) => doc.setFormField(path, 'functionalTests', value?.toString() ?? '');
+  bool? get functionalTests => somParseBool(doc.formField(path, 'functionalTests'));
+  set functionalTests(bool? value) => doc.setFormField(path, 'functionalTests', somFormatBool(value));
 
-  bool? get performanceTests { final v = doc.formField(path, 'performanceTests'); return v == null ? null : v == 'true'; }
-  set performanceTests(bool? value) => doc.setFormField(path, 'performanceTests', value?.toString() ?? '');
+  bool? get performanceTests => somParseBool(doc.formField(path, 'performanceTests'));
+  set performanceTests(bool? value) => doc.setFormField(path, 'performanceTests', somFormatBool(value));
 
-  bool? get healthChecks { final v = doc.formField(path, 'healthChecks'); return v == null ? null : v == 'true'; }
-  set healthChecks(bool? value) => doc.setFormField(path, 'healthChecks', value?.toString() ?? '');
+  bool? get healthChecks => somParseBool(doc.formField(path, 'healthChecks'));
+  set healthChecks(bool? value) => doc.setFormField(path, 'healthChecks', somFormatBool(value));
 }
 
 /// Generated section facade for the `monitoring` `@Form` section:
@@ -63804,8 +63825,8 @@ class PostMaintenanceValidationMonitoringForm extends SomNode {
   String get keyMetrics => doc.formField(path, 'keyMetrics') ?? '';
   set keyMetrics(String value) => doc.setFormField(path, 'keyMetrics', value);
 
-  bool? get baselineComparison { final v = doc.formField(path, 'baselineComparison'); return v == null ? null : v == 'true'; }
-  set baselineComparison(bool? value) => doc.setFormField(path, 'baselineComparison', value?.toString() ?? '');
+  bool? get baselineComparison => somParseBool(doc.formField(path, 'baselineComparison'));
+  set baselineComparison(bool? value) => doc.setFormField(path, 'baselineComparison', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -63888,8 +63909,8 @@ class PrimaryNavigationBottomNavForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get bottomNavMaxItems { final v = doc.formField(path, 'bottomNavMaxItems'); return v == null ? null : int.tryParse(v); }
-  set bottomNavMaxItems(int? value) => doc.setFormField(path, 'bottomNavMaxItems', value?.toString() ?? '');
+  int? get bottomNavMaxItems => somParseInt(doc.formField(path, 'bottomNavMaxItems'));
+  set bottomNavMaxItems(int? value) => doc.setFormField(path, 'bottomNavMaxItems', somFormatInt(value));
 
   String get bottomNavStyle => doc.formField(path, 'bottomNavStyle') ?? '';
   set bottomNavStyle(String value) => doc.setFormField(path, 'bottomNavStyle', value);
@@ -63991,8 +64012,8 @@ class PrintAndExportLayoutArchiveForm extends SomNode {
   String get batchGenerationSupport => doc.formField(path, 'batchGenerationSupport') ?? '';
   set batchGenerationSupport(String value) => doc.setFormField(path, 'batchGenerationSupport', value);
 
-  int? get maxConcurrentReports { final v = doc.formField(path, 'maxConcurrentReports'); return v == null ? null : int.tryParse(v); }
-  set maxConcurrentReports(int? value) => doc.setFormField(path, 'maxConcurrentReports', value?.toString() ?? '');
+  int? get maxConcurrentReports => somParseInt(doc.formField(path, 'maxConcurrentReports'));
+  set maxConcurrentReports(int? value) => doc.setFormField(path, 'maxConcurrentReports', somFormatInt(value));
 }
 
 /// Generated section facade for the `branding` `@Form` section:
@@ -64621,23 +64642,23 @@ class ProcessAdjustmentsAdjustmentSummaryForm extends SomNode {
   String get baseProcessVersion => doc.formField(path, 'baseProcessVersion') ?? '';
   set baseProcessVersion(String value) => doc.setFormField(path, 'baseProcessVersion', value);
 
-  int? get totalStepsInBase { final v = doc.formField(path, 'totalStepsInBase'); return v == null ? null : int.tryParse(v); }
-  set totalStepsInBase(int? value) => doc.setFormField(path, 'totalStepsInBase', value?.toString() ?? '');
+  int? get totalStepsInBase => somParseInt(doc.formField(path, 'totalStepsInBase'));
+  set totalStepsInBase(int? value) => doc.setFormField(path, 'totalStepsInBase', somFormatInt(value));
 
-  int? get adjustedStepsCount { final v = doc.formField(path, 'adjustedStepsCount'); return v == null ? null : int.tryParse(v); }
-  set adjustedStepsCount(int? value) => doc.setFormField(path, 'adjustedStepsCount', value?.toString() ?? '');
+  int? get adjustedStepsCount => somParseInt(doc.formField(path, 'adjustedStepsCount'));
+  set adjustedStepsCount(int? value) => doc.setFormField(path, 'adjustedStepsCount', somFormatInt(value));
 
-  int? get skippedStepsCount { final v = doc.formField(path, 'skippedStepsCount'); return v == null ? null : int.tryParse(v); }
-  set skippedStepsCount(int? value) => doc.setFormField(path, 'skippedStepsCount', value?.toString() ?? '');
+  int? get skippedStepsCount => somParseInt(doc.formField(path, 'skippedStepsCount'));
+  set skippedStepsCount(int? value) => doc.setFormField(path, 'skippedStepsCount', somFormatInt(value));
 
-  int? get addedStepsCount { final v = doc.formField(path, 'addedStepsCount'); return v == null ? null : int.tryParse(v); }
-  set addedStepsCount(int? value) => doc.setFormField(path, 'addedStepsCount', value?.toString() ?? '');
+  int? get addedStepsCount => somParseInt(doc.formField(path, 'addedStepsCount'));
+  set addedStepsCount(int? value) => doc.setFormField(path, 'addedStepsCount', somFormatInt(value));
 
-  int? get reorderedStepsCount { final v = doc.formField(path, 'reorderedStepsCount'); return v == null ? null : int.tryParse(v); }
-  set reorderedStepsCount(int? value) => doc.setFormField(path, 'reorderedStepsCount', value?.toString() ?? '');
+  int? get reorderedStepsCount => somParseInt(doc.formField(path, 'reorderedStepsCount'));
+  set reorderedStepsCount(int? value) => doc.setFormField(path, 'reorderedStepsCount', somFormatInt(value));
 
-  int? get parallelizedStepsCount { final v = doc.formField(path, 'parallelizedStepsCount'); return v == null ? null : int.tryParse(v); }
-  set parallelizedStepsCount(int? value) => doc.setFormField(path, 'parallelizedStepsCount', value?.toString() ?? '');
+  int? get parallelizedStepsCount => somParseInt(doc.formField(path, 'parallelizedStepsCount'));
+  set parallelizedStepsCount(int? value) => doc.setFormField(path, 'parallelizedStepsCount', somFormatInt(value));
 
   String get processRiskLevel => doc.formField(path, 'processRiskLevel') ?? '';
   set processRiskLevel(String value) => doc.setFormField(path, 'processRiskLevel', value);
@@ -64695,8 +64716,8 @@ class ProcessCatalogOverviewForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalProcessCount { final v = doc.formField(path, 'totalProcessCount'); return v == null ? null : int.tryParse(v); }
-  set totalProcessCount(int? value) => doc.setFormField(path, 'totalProcessCount', value?.toString() ?? '');
+  int? get totalProcessCount => somParseInt(doc.formField(path, 'totalProcessCount'));
+  set totalProcessCount(int? value) => doc.setFormField(path, 'totalProcessCount', somFormatInt(value));
 
   String get scopeStatement => doc.formField(path, 'scopeStatement') ?? '';
   set scopeStatement(String value) => doc.setFormField(path, 'scopeStatement', value);
@@ -65727,20 +65748,20 @@ class ProcessPerformanceSummaryContentForm extends SomNode {
   String get automationLevel => doc.formField(path, 'automationLevel') ?? '';
   set automationLevel(String value) => doc.setFormField(path, 'automationLevel', value);
 
-  int? get manualStepsCount { final v = doc.formField(path, 'manualStepsCount'); return v == null ? null : int.tryParse(v); }
-  set manualStepsCount(int? value) => doc.setFormField(path, 'manualStepsCount', value?.toString() ?? '');
+  int? get manualStepsCount => somParseInt(doc.formField(path, 'manualStepsCount'));
+  set manualStepsCount(int? value) => doc.setFormField(path, 'manualStepsCount', somFormatInt(value));
 
-  int? get errorProneStepsCount { final v = doc.formField(path, 'errorProneStepsCount'); return v == null ? null : int.tryParse(v); }
-  set errorProneStepsCount(int? value) => doc.setFormField(path, 'errorProneStepsCount', value?.toString() ?? '');
+  int? get errorProneStepsCount => somParseInt(doc.formField(path, 'errorProneStepsCount'));
+  set errorProneStepsCount(int? value) => doc.setFormField(path, 'errorProneStepsCount', somFormatInt(value));
 
-  int? get bottleneckCount { final v = doc.formField(path, 'bottleneckCount'); return v == null ? null : int.tryParse(v); }
-  set bottleneckCount(int? value) => doc.setFormField(path, 'bottleneckCount', value?.toString() ?? '');
+  int? get bottleneckCount => somParseInt(doc.formField(path, 'bottleneckCount'));
+  set bottleneckCount(int? value) => doc.setFormField(path, 'bottleneckCount', somFormatInt(value));
 
   String get duplicatedEffortAreas => doc.formField(path, 'duplicatedEffortAreas') ?? '';
   set duplicatedEffortAreas(String value) => doc.setFormField(path, 'duplicatedEffortAreas', value);
 
-  int? get complianceGaps { final v = doc.formField(path, 'complianceGaps'); return v == null ? null : int.tryParse(v); }
-  set complianceGaps(int? value) => doc.setFormField(path, 'complianceGaps', value?.toString() ?? '');
+  int? get complianceGaps => somParseInt(doc.formField(path, 'complianceGaps'));
+  set complianceGaps(int? value) => doc.setFormField(path, 'complianceGaps', somFormatInt(value));
 
   String get estimatedAnnualWaste => doc.formField(path, 'estimatedAnnualWaste') ?? '';
   set estimatedAnnualWaste(String value) => doc.setFormField(path, 'estimatedAnnualWaste', value);
@@ -65926,14 +65947,14 @@ class ProcessScopeSummaryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalProcessesIdentified { final v = doc.formField(path, 'totalProcessesIdentified'); return v == null ? null : int.tryParse(v); }
-  set totalProcessesIdentified(int? value) => doc.setFormField(path, 'totalProcessesIdentified', value?.toString() ?? '');
+  int? get totalProcessesIdentified => somParseInt(doc.formField(path, 'totalProcessesIdentified'));
+  set totalProcessesIdentified(int? value) => doc.setFormField(path, 'totalProcessesIdentified', somFormatInt(value));
 
-  int? get processesInScope { final v = doc.formField(path, 'processesInScope'); return v == null ? null : int.tryParse(v); }
-  set processesInScope(int? value) => doc.setFormField(path, 'processesInScope', value?.toString() ?? '');
+  int? get processesInScope => somParseInt(doc.formField(path, 'processesInScope'));
+  set processesInScope(int? value) => doc.setFormField(path, 'processesInScope', somFormatInt(value));
 
-  int? get processesOutOfScope { final v = doc.formField(path, 'processesOutOfScope'); return v == null ? null : int.tryParse(v); }
-  set processesOutOfScope(int? value) => doc.setFormField(path, 'processesOutOfScope', value?.toString() ?? '');
+  int? get processesOutOfScope => somParseInt(doc.formField(path, 'processesOutOfScope'));
+  set processesOutOfScope(int? value) => doc.setFormField(path, 'processesOutOfScope', somFormatInt(value));
 
   String get scopeRationale => doc.formField(path, 'scopeRationale') ?? '';
   set scopeRationale(String value) => doc.setFormField(path, 'scopeRationale', value);
@@ -66345,8 +66366,8 @@ class ProgrammingLanguageEntryUsageForm extends SomNode {
   String get codebasePercentage => doc.formField(path, 'codebasePercentage') ?? '';
   set codebasePercentage(String value) => doc.setFormField(path, 'codebasePercentage', value);
 
-  bool? get isPrimaryLanguage { final v = doc.formField(path, 'isPrimaryLanguage'); return v == null ? null : v == 'true'; }
-  set isPrimaryLanguage(bool? value) => doc.setFormField(path, 'isPrimaryLanguage', value?.toString() ?? '');
+  bool? get isPrimaryLanguage => somParseBool(doc.formField(path, 'isPrimaryLanguage'));
+  set isPrimaryLanguage(bool? value) => doc.setFormField(path, 'isPrimaryLanguage', somFormatBool(value));
 
   String get requiredFeatures => doc.formField(path, 'requiredFeatures') ?? '';
   set requiredFeatures(String value) => doc.setFormField(path, 'requiredFeatures', value);
@@ -66389,14 +66410,14 @@ class ProjectOrganizationAndProcessDeviationSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalRoleAdjustments { final v = doc.formField(path, 'totalRoleAdjustments'); return v == null ? null : int.tryParse(v); }
-  set totalRoleAdjustments(int? value) => doc.setFormField(path, 'totalRoleAdjustments', value?.toString() ?? '');
+  int? get totalRoleAdjustments => somParseInt(doc.formField(path, 'totalRoleAdjustments'));
+  set totalRoleAdjustments(int? value) => doc.setFormField(path, 'totalRoleAdjustments', somFormatInt(value));
 
-  int? get totalQualityGateAdjustments { final v = doc.formField(path, 'totalQualityGateAdjustments'); return v == null ? null : int.tryParse(v); }
-  set totalQualityGateAdjustments(int? value) => doc.setFormField(path, 'totalQualityGateAdjustments', value?.toString() ?? '');
+  int? get totalQualityGateAdjustments => somParseInt(doc.formField(path, 'totalQualityGateAdjustments'));
+  set totalQualityGateAdjustments(int? value) => doc.setFormField(path, 'totalQualityGateAdjustments', somFormatInt(value));
 
-  int? get totalProcessAdjustments { final v = doc.formField(path, 'totalProcessAdjustments'); return v == null ? null : int.tryParse(v); }
-  set totalProcessAdjustments(int? value) => doc.setFormField(path, 'totalProcessAdjustments', value?.toString() ?? '');
+  int? get totalProcessAdjustments => somParseInt(doc.formField(path, 'totalProcessAdjustments'));
+  set totalProcessAdjustments(int? value) => doc.setFormField(path, 'totalProcessAdjustments', somFormatInt(value));
 
   String get deviationRiskLevel => doc.formField(path, 'deviationRiskLevel') ?? '';
   set deviationRiskLevel(String value) => doc.setFormField(path, 'deviationRiskLevel', value);
@@ -66722,20 +66743,20 @@ class PrototypeGoalsGoalsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get usabilityValidation { final v = doc.formField(path, 'usabilityValidation'); return v == null ? null : v == 'true'; }
-  set usabilityValidation(bool? value) => doc.setFormField(path, 'usabilityValidation', value?.toString() ?? '');
+  bool? get usabilityValidation => somParseBool(doc.formField(path, 'usabilityValidation'));
+  set usabilityValidation(bool? value) => doc.setFormField(path, 'usabilityValidation', somFormatBool(value));
 
-  bool? get stakeholderAlignment { final v = doc.formField(path, 'stakeholderAlignment'); return v == null ? null : v == 'true'; }
-  set stakeholderAlignment(bool? value) => doc.setFormField(path, 'stakeholderAlignment', value?.toString() ?? '');
+  bool? get stakeholderAlignment => somParseBool(doc.formField(path, 'stakeholderAlignment'));
+  set stakeholderAlignment(bool? value) => doc.setFormField(path, 'stakeholderAlignment', somFormatBool(value));
 
-  bool? get technicalFeasibility { final v = doc.formField(path, 'technicalFeasibility'); return v == null ? null : v == 'true'; }
-  set technicalFeasibility(bool? value) => doc.setFormField(path, 'technicalFeasibility', value?.toString() ?? '');
+  bool? get technicalFeasibility => somParseBool(doc.formField(path, 'technicalFeasibility'));
+  set technicalFeasibility(bool? value) => doc.setFormField(path, 'technicalFeasibility', somFormatBool(value));
 
-  bool? get performanceValidation { final v = doc.formField(path, 'performanceValidation'); return v == null ? null : v == 'true'; }
-  set performanceValidation(bool? value) => doc.setFormField(path, 'performanceValidation', value?.toString() ?? '');
+  bool? get performanceValidation => somParseBool(doc.formField(path, 'performanceValidation'));
+  set performanceValidation(bool? value) => doc.setFormField(path, 'performanceValidation', somFormatBool(value));
 
-  bool? get integrationValidation { final v = doc.formField(path, 'integrationValidation'); return v == null ? null : v == 'true'; }
-  set integrationValidation(bool? value) => doc.setFormField(path, 'integrationValidation', value?.toString() ?? '');
+  bool? get integrationValidation => somParseBool(doc.formField(path, 'integrationValidation'));
+  set integrationValidation(bool? value) => doc.setFormField(path, 'integrationValidation', somFormatBool(value));
 }
 
 /// Generated section facade for the `riskProfile` `@Form` section:
@@ -66891,8 +66912,8 @@ class PwaRequirementsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get pwaEnabled { final v = doc.formField(path, 'pwaEnabled'); return v == null ? null : v == 'true'; }
-  set pwaEnabled(bool? value) => doc.setFormField(path, 'pwaEnabled', value?.toString() ?? '');
+  bool? get pwaEnabled => somParseBool(doc.formField(path, 'pwaEnabled'));
+  set pwaEnabled(bool? value) => doc.setFormField(path, 'pwaEnabled', somFormatBool(value));
 
   String get appName => doc.formField(path, 'appName') ?? '';
   set appName(String value) => doc.setFormField(path, 'appName', value);
@@ -66922,8 +66943,8 @@ class PwaRequirementsIconsForm extends SomNode {
   String get iconSizes => doc.formField(path, 'iconSizes') ?? '';
   set iconSizes(String value) => doc.setFormField(path, 'iconSizes', value);
 
-  bool? get maskableIcon { final v = doc.formField(path, 'maskableIcon'); return v == null ? null : v == 'true'; }
-  set maskableIcon(bool? value) => doc.setFormField(path, 'maskableIcon', value?.toString() ?? '');
+  bool? get maskableIcon => somParseBool(doc.formField(path, 'maskableIcon'));
+  set maskableIcon(bool? value) => doc.setFormField(path, 'maskableIcon', somFormatBool(value));
 
   String get splashScreen => doc.formField(path, 'splashScreen') ?? '';
   set splashScreen(String value) => doc.setFormField(path, 'splashScreen', value);
@@ -66944,8 +66965,8 @@ class PwaRequirementsInstallationForm extends SomNode {
   String get installPrompt => doc.formField(path, 'installPrompt') ?? '';
   set installPrompt(String value) => doc.setFormField(path, 'installPrompt', value);
 
-  bool? get standaloneMode { final v = doc.formField(path, 'standaloneMode'); return v == null ? null : v == 'true'; }
-  set standaloneMode(bool? value) => doc.setFormField(path, 'standaloneMode', value?.toString() ?? '');
+  bool? get standaloneMode => somParseBool(doc.formField(path, 'standaloneMode'));
+  set standaloneMode(bool? value) => doc.setFormField(path, 'standaloneMode', somFormatBool(value));
 
   String get startUrl => doc.formField(path, 'startUrl') ?? '';
   set startUrl(String value) => doc.setFormField(path, 'startUrl', value);
@@ -66969,8 +66990,8 @@ class PwaRequirementsOfflineForm extends SomNode {
   String get offlinePages => doc.formField(path, 'offlinePages') ?? '';
   set offlinePages(String value) => doc.setFormField(path, 'offlinePages', value);
 
-  bool? get backgroundSync { final v = doc.formField(path, 'backgroundSync'); return v == null ? null : v == 'true'; }
-  set backgroundSync(bool? value) => doc.setFormField(path, 'backgroundSync', value?.toString() ?? '');
+  bool? get backgroundSync => somParseBool(doc.formField(path, 'backgroundSync'));
+  set backgroundSync(bool? value) => doc.setFormField(path, 'backgroundSync', somFormatBool(value));
 }
 
 /// Generated section facade for the `updates` `@Form` section:
@@ -67013,8 +67034,8 @@ class QualityCategoryEntryContentForm extends SomNode {
   String get categoryName => doc.formField(path, 'categoryName') ?? '';
   set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
 
-  int? get categoryWeight { final v = doc.formField(path, 'categoryWeight'); return v == null ? null : int.tryParse(v); }
-  set categoryWeight(int? value) => doc.setFormField(path, 'categoryWeight', value?.toString() ?? '');
+  int? get categoryWeight => somParseInt(doc.formField(path, 'categoryWeight'));
+  set categoryWeight(int? value) => doc.setFormField(path, 'categoryWeight', somFormatInt(value));
 }
 
 /// Generated section facade for the `definition` `@Form` section:
@@ -67351,20 +67372,20 @@ class QualityGateAdjustmentsAdjustmentSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get standardGatesCount { final v = doc.formField(path, 'standardGatesCount'); return v == null ? null : int.tryParse(v); }
-  set standardGatesCount(int? value) => doc.setFormField(path, 'standardGatesCount', value?.toString() ?? '');
+  int? get standardGatesCount => somParseInt(doc.formField(path, 'standardGatesCount'));
+  set standardGatesCount(int? value) => doc.setFormField(path, 'standardGatesCount', somFormatInt(value));
 
-  int? get adjustedGatesCount { final v = doc.formField(path, 'adjustedGatesCount'); return v == null ? null : int.tryParse(v); }
-  set adjustedGatesCount(int? value) => doc.setFormField(path, 'adjustedGatesCount', value?.toString() ?? '');
+  int? get adjustedGatesCount => somParseInt(doc.formField(path, 'adjustedGatesCount'));
+  set adjustedGatesCount(int? value) => doc.setFormField(path, 'adjustedGatesCount', somFormatInt(value));
 
-  int? get skippedGatesCount { final v = doc.formField(path, 'skippedGatesCount'); return v == null ? null : int.tryParse(v); }
-  set skippedGatesCount(int? value) => doc.setFormField(path, 'skippedGatesCount', value?.toString() ?? '');
+  int? get skippedGatesCount => somParseInt(doc.formField(path, 'skippedGatesCount'));
+  set skippedGatesCount(int? value) => doc.setFormField(path, 'skippedGatesCount', somFormatInt(value));
 
-  int? get addedGatesCount { final v = doc.formField(path, 'addedGatesCount'); return v == null ? null : int.tryParse(v); }
-  set addedGatesCount(int? value) => doc.setFormField(path, 'addedGatesCount', value?.toString() ?? '');
+  int? get addedGatesCount => somParseInt(doc.formField(path, 'addedGatesCount'));
+  set addedGatesCount(int? value) => doc.setFormField(path, 'addedGatesCount', somFormatInt(value));
 
-  int? get modifiedCriteriaCount { final v = doc.formField(path, 'modifiedCriteriaCount'); return v == null ? null : int.tryParse(v); }
-  set modifiedCriteriaCount(int? value) => doc.setFormField(path, 'modifiedCriteriaCount', value?.toString() ?? '');
+  int? get modifiedCriteriaCount => somParseInt(doc.formField(path, 'modifiedCriteriaCount'));
+  set modifiedCriteriaCount(int? value) => doc.setFormField(path, 'modifiedCriteriaCount', somFormatInt(value));
 
   String get qualityRiskLevel => doc.formField(path, 'qualityRiskLevel') ?? '';
   set qualityRiskLevel(String value) => doc.setFormField(path, 'qualityRiskLevel', value);
@@ -67388,8 +67409,8 @@ class QualityGateCheckEntryBlockingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get isBlocking { final v = doc.formField(path, 'isBlocking'); return v == null ? null : v == 'true'; }
-  set isBlocking(bool? value) => doc.setFormField(path, 'isBlocking', value?.toString() ?? '');
+  bool? get isBlocking => somParseBool(doc.formField(path, 'isBlocking'));
+  set isBlocking(bool? value) => doc.setFormField(path, 'isBlocking', somFormatBool(value));
 
   String get blockingRationale => doc.formField(path, 'blockingRationale') ?? '';
   set blockingRationale(String value) => doc.setFormField(path, 'blockingRationale', value);
@@ -67510,8 +67531,8 @@ class QualityGateCheckEntryVerificationForm extends SomNode {
   String get evidenceRequired => doc.formField(path, 'evidenceRequired') ?? '';
   set evidenceRequired(String value) => doc.setFormField(path, 'evidenceRequired', value);
 
-  bool? get automatedCheck { final v = doc.formField(path, 'automatedCheck'); return v == null ? null : v == 'true'; }
-  set automatedCheck(bool? value) => doc.setFormField(path, 'automatedCheck', value?.toString() ?? '');
+  bool? get automatedCheck => somParseBool(doc.formField(path, 'automatedCheck'));
+  set automatedCheck(bool? value) => doc.setFormField(path, 'automatedCheck', somFormatBool(value));
 }
 
 /// Generated section facade for the `checklistOverviewContent` `@Form` section:
@@ -67750,8 +67771,8 @@ class QualityWeightEntryContentForm extends SomNode {
   String get qualityCategory => doc.formField(path, 'qualityCategory') ?? '';
   set qualityCategory(String value) => doc.setFormField(path, 'qualityCategory', value);
 
-  int? get weight { final v = doc.formField(path, 'weight'); return v == null ? null : int.tryParse(v); }
-  set weight(int? value) => doc.setFormField(path, 'weight', value?.toString() ?? '');
+  int? get weight => somParseInt(doc.formField(path, 'weight'));
+  set weight(int? value) => doc.setFormField(path, 'weight', somFormatInt(value));
 
   String get priority => doc.formField(path, 'priority') ?? '';
   set priority(String value) => doc.setFormField(path, 'priority', value);
@@ -67781,11 +67802,11 @@ class RateLimitingPolicyBehaviorForm extends SomNode {
   String get throttlingBehavior => doc.formField(path, 'throttlingBehavior') ?? '';
   set throttlingBehavior(String value) => doc.setFormField(path, 'throttlingBehavior', value);
 
-  bool? get retryAfterHeader { final v = doc.formField(path, 'retryAfterHeader'); return v == null ? null : v == 'true'; }
-  set retryAfterHeader(bool? value) => doc.setFormField(path, 'retryAfterHeader', value?.toString() ?? '');
+  bool? get retryAfterHeader => somParseBool(doc.formField(path, 'retryAfterHeader'));
+  set retryAfterHeader(bool? value) => doc.setFormField(path, 'retryAfterHeader', somFormatBool(value));
 
-  bool? get rateLimitHeaders { final v = doc.formField(path, 'rateLimitHeaders'); return v == null ? null : v == 'true'; }
-  set rateLimitHeaders(bool? value) => doc.setFormField(path, 'rateLimitHeaders', value?.toString() ?? '');
+  bool? get rateLimitHeaders => somParseBool(doc.formField(path, 'rateLimitHeaders'));
+  set rateLimitHeaders(bool? value) => doc.setFormField(path, 'rateLimitHeaders', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -68044,8 +68065,8 @@ class RecoveryProceduresAutomationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get automatedRecovery { final v = doc.formField(path, 'automatedRecovery'); return v == null ? null : v == 'true'; }
-  set automatedRecovery(bool? value) => doc.setFormField(path, 'automatedRecovery', value?.toString() ?? '');
+  bool? get automatedRecovery => somParseBool(doc.formField(path, 'automatedRecovery'));
+  set automatedRecovery(bool? value) => doc.setFormField(path, 'automatedRecovery', somFormatBool(value));
 
   String get recoveryScripts => doc.formField(path, 'recoveryScripts') ?? '';
   set recoveryScripts(String value) => doc.setFormField(path, 'recoveryScripts', value);
@@ -68075,8 +68096,8 @@ class RecoveryProceduresContentForm extends SomNode {
   String get systemRecovery => doc.formField(path, 'systemRecovery') ?? '';
   set systemRecovery(String value) => doc.setFormField(path, 'systemRecovery', value);
 
-  bool? get bareMetalRecovery { final v = doc.formField(path, 'bareMetalRecovery'); return v == null ? null : v == 'true'; }
-  set bareMetalRecovery(bool? value) => doc.setFormField(path, 'bareMetalRecovery', value?.toString() ?? '');
+  bool? get bareMetalRecovery => somParseBool(doc.formField(path, 'bareMetalRecovery'));
+  set bareMetalRecovery(bool? value) => doc.setFormField(path, 'bareMetalRecovery', somFormatBool(value));
 }
 
 /// Generated section facade for the `database` `@Form` section:
@@ -68094,11 +68115,11 @@ class RecoveryProceduresDatabaseForm extends SomNode {
   String get databaseRecovery => doc.formField(path, 'databaseRecovery') ?? '';
   set databaseRecovery(String value) => doc.setFormField(path, 'databaseRecovery', value);
 
-  bool? get pointInTimeRecovery { final v = doc.formField(path, 'pointInTimeRecovery'); return v == null ? null : v == 'true'; }
-  set pointInTimeRecovery(bool? value) => doc.setFormField(path, 'pointInTimeRecovery', value?.toString() ?? '');
+  bool? get pointInTimeRecovery => somParseBool(doc.formField(path, 'pointInTimeRecovery'));
+  set pointInTimeRecovery(bool? value) => doc.setFormField(path, 'pointInTimeRecovery', somFormatBool(value));
 
-  bool? get transactionLogRecovery { final v = doc.formField(path, 'transactionLogRecovery'); return v == null ? null : v == 'true'; }
-  set transactionLogRecovery(bool? value) => doc.setFormField(path, 'transactionLogRecovery', value?.toString() ?? '');
+  bool? get transactionLogRecovery => somParseBool(doc.formField(path, 'transactionLogRecovery'));
+  set transactionLogRecovery(bool? value) => doc.setFormField(path, 'transactionLogRecovery', somFormatBool(value));
 }
 
 /// Generated section facade for the `validation` `@Form` section:
@@ -68521,8 +68542,8 @@ class ReleaseStrategyBlueGreenForm extends SomNode {
   String get releaseWindow => doc.formField(path, 'releaseWindow') ?? '';
   set releaseWindow(String value) => doc.setFormField(path, 'releaseWindow', value);
 
-  bool? get blueGreenEnabled { final v = doc.formField(path, 'blueGreenEnabled'); return v == null ? null : v == 'true'; }
-  set blueGreenEnabled(bool? value) => doc.setFormField(path, 'blueGreenEnabled', value?.toString() ?? '');
+  bool? get blueGreenEnabled => somParseBool(doc.formField(path, 'blueGreenEnabled'));
+  set blueGreenEnabled(bool? value) => doc.setFormField(path, 'blueGreenEnabled', somFormatBool(value));
 
   String get trafficSwitching => doc.formField(path, 'trafficSwitching') ?? '';
   set trafficSwitching(String value) => doc.setFormField(path, 'trafficSwitching', value);
@@ -68546,8 +68567,8 @@ class ReleaseStrategyCanaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get canaryEnabled { final v = doc.formField(path, 'canaryEnabled'); return v == null ? null : v == 'true'; }
-  set canaryEnabled(bool? value) => doc.setFormField(path, 'canaryEnabled', value?.toString() ?? '');
+  bool? get canaryEnabled => somParseBool(doc.formField(path, 'canaryEnabled'));
+  set canaryEnabled(bool? value) => doc.setFormField(path, 'canaryEnabled', somFormatBool(value));
 
   String get canaryPercentage => doc.formField(path, 'canaryPercentage') ?? '';
   set canaryPercentage(String value) => doc.setFormField(path, 'canaryPercentage', value);
@@ -68599,8 +68620,8 @@ class ReleaseStrategyFeatureFlagsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get featureFlagsEnabled { final v = doc.formField(path, 'featureFlagsEnabled'); return v == null ? null : v == 'true'; }
-  set featureFlagsEnabled(bool? value) => doc.setFormField(path, 'featureFlagsEnabled', value?.toString() ?? '');
+  bool? get featureFlagsEnabled => somParseBool(doc.formField(path, 'featureFlagsEnabled'));
+  set featureFlagsEnabled(bool? value) => doc.setFormField(path, 'featureFlagsEnabled', somFormatBool(value));
 
   String get featureFlagProvider => doc.formField(path, 'featureFlagProvider') ?? '';
   set featureFlagProvider(String value) => doc.setFormField(path, 'featureFlagProvider', value);
@@ -68658,8 +68679,8 @@ class RelevantSectionEntryContentForm extends SomNode {
   String get extractSummary => doc.formField(path, 'extractSummary') ?? '';
   set extractSummary(String value) => doc.setFormField(path, 'extractSummary', value);
 
-  bool? get complianceRequired { final v = doc.formField(path, 'complianceRequired'); return v == null ? null : v == 'true'; }
-  set complianceRequired(bool? value) => doc.setFormField(path, 'complianceRequired', value?.toString() ?? '');
+  bool? get complianceRequired => somParseBool(doc.formField(path, 'complianceRequired'));
+  set complianceRequired(bool? value) => doc.setFormField(path, 'complianceRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `reliabilityContent` `@Form` section:
@@ -68833,8 +68854,8 @@ class RemovedRoleEntryContentForm extends SomNode {
   String get effectiveDate => doc.formField(path, 'effectiveDate') ?? '';
   set effectiveDate(String value) => doc.setFormField(path, 'effectiveDate', value);
 
-  int? get incumbentCount { final v = doc.formField(path, 'incumbentCount'); return v == null ? null : int.tryParse(v); }
-  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', value?.toString() ?? '');
+  int? get incumbentCount => somParseInt(doc.formField(path, 'incumbentCount'));
+  set incumbentCount(int? value) => doc.setFormField(path, 'incumbentCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `continuity` `@Form` section:
@@ -68912,8 +68933,8 @@ class ReplacementPhaseEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get phaseNumber { final v = doc.formField(path, 'phaseNumber'); return v == null ? null : int.tryParse(v); }
-  set phaseNumber(int? value) => doc.setFormField(path, 'phaseNumber', value?.toString() ?? '');
+  int? get phaseNumber => somParseInt(doc.formField(path, 'phaseNumber'));
+  set phaseNumber(int? value) => doc.setFormField(path, 'phaseNumber', somFormatInt(value));
 
   String get phaseName => doc.formField(path, 'phaseName') ?? '';
   set phaseName(String value) => doc.setFormField(path, 'phaseName', value);
@@ -69229,8 +69250,8 @@ class ReportColumnEntryFormattingForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get width => doc.formField(path, 'width') ?? '';
   set width(String value) => doc.setFormField(path, 'width', value);
@@ -69297,8 +69318,8 @@ class ReportColumnEntryLayoutForm extends SomNode {
   String get wordWrap => doc.formField(path, 'wordWrap') ?? '';
   set wordWrap(String value) => doc.setFormField(path, 'wordWrap', value);
 
-  int? get truncateAt { final v = doc.formField(path, 'truncateAt'); return v == null ? null : int.tryParse(v); }
-  set truncateAt(int? value) => doc.setFormField(path, 'truncateAt', value?.toString() ?? '');
+  int? get truncateAt => somParseInt(doc.formField(path, 'truncateAt'));
+  set truncateAt(int? value) => doc.setFormField(path, 'truncateAt', somFormatInt(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -69678,14 +69699,14 @@ class ReportEntryPaginationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get maxRows { final v = doc.formField(path, 'maxRows'); return v == null ? null : int.tryParse(v); }
-  set maxRows(int? value) => doc.setFormField(path, 'maxRows', value?.toString() ?? '');
+  int? get maxRows => somParseInt(doc.formField(path, 'maxRows'));
+  set maxRows(int? value) => doc.setFormField(path, 'maxRows', somFormatInt(value));
 
   String get paginationStyle => doc.formField(path, 'paginationStyle') ?? '';
   set paginationStyle(String value) => doc.setFormField(path, 'paginationStyle', value);
 
-  int? get rowsPerPage { final v = doc.formField(path, 'rowsPerPage'); return v == null ? null : int.tryParse(v); }
-  set rowsPerPage(int? value) => doc.setFormField(path, 'rowsPerPage', value?.toString() ?? '');
+  int? get rowsPerPage => somParseInt(doc.formField(path, 'rowsPerPage'));
+  set rowsPerPage(int? value) => doc.setFormField(path, 'rowsPerPage', somFormatInt(value));
 }
 
 /// Generated section facade for the `security` `@Form` section:
@@ -69734,8 +69755,8 @@ class ReportFilterEntryBehaviorForm extends SomNode {
   String get appliedScope => doc.formField(path, 'appliedScope') ?? '';
   set appliedScope(String value) => doc.setFormField(path, 'appliedScope', value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get groupName => doc.formField(path, 'groupName') ?? '';
   set groupName(String value) => doc.setFormField(path, 'groupName', value);
@@ -70018,8 +70039,8 @@ class ReportScheduleEntryRetryForm extends SomNode {
   String get retryOnFailure => doc.formField(path, 'retryOnFailure') ?? '';
   set retryOnFailure(String value) => doc.setFormField(path, 'retryOnFailure', value);
 
-  int? get maxRetries { final v = doc.formField(path, 'maxRetries'); return v == null ? null : int.tryParse(v); }
-  set maxRetries(int? value) => doc.setFormField(path, 'maxRetries', value?.toString() ?? '');
+  int? get maxRetries => somParseInt(doc.formField(path, 'maxRetries'));
+  set maxRetries(int? value) => doc.setFormField(path, 'maxRetries', somFormatInt(value));
 
   String get retryDelay => doc.formField(path, 'retryDelay') ?? '';
   set retryDelay(String value) => doc.setFormField(path, 'retryDelay', value);
@@ -70074,8 +70095,8 @@ class ReportSectionEntryAggregationForm extends SomNode {
   String get aggregationFields => doc.formField(path, 'aggregationFields') ?? '';
   set aggregationFields(String value) => doc.setFormField(path, 'aggregationFields', value);
 
-  int? get maxRows { final v = doc.formField(path, 'maxRows'); return v == null ? null : int.tryParse(v); }
-  set maxRows(int? value) => doc.setFormField(path, 'maxRows', value?.toString() ?? '');
+  int? get maxRows => somParseInt(doc.formField(path, 'maxRows'));
+  set maxRows(int? value) => doc.setFormField(path, 'maxRows', somFormatInt(value));
 
   String get overflowBehavior => doc.formField(path, 'overflowBehavior') ?? '';
   set overflowBehavior(String value) => doc.setFormField(path, 'overflowBehavior', value);
@@ -70143,8 +70164,8 @@ class ReportSectionEntryLayoutForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get pageBreakBefore => doc.formField(path, 'pageBreakBefore') ?? '';
   set pageBreakBefore(String value) => doc.setFormField(path, 'pageBreakBefore', value);
@@ -71461,11 +71482,11 @@ class ReusablePrototypeReusableContentForm extends SomNode {
   String get testCoverageRequirement => doc.formField(path, 'testCoverageRequirement') ?? '';
   set testCoverageRequirement(String value) => doc.setFormField(path, 'testCoverageRequirement', value);
 
-  bool? get codeReviewRequired { final v = doc.formField(path, 'codeReviewRequired'); return v == null ? null : v == 'true'; }
-  set codeReviewRequired(bool? value) => doc.setFormField(path, 'codeReviewRequired', value?.toString() ?? '');
+  bool? get codeReviewRequired => somParseBool(doc.formField(path, 'codeReviewRequired'));
+  set codeReviewRequired(bool? value) => doc.setFormField(path, 'codeReviewRequired', somFormatBool(value));
 
-  bool? get documentationRequired { final v = doc.formField(path, 'documentationRequired'); return v == null ? null : v == 'true'; }
-  set documentationRequired(bool? value) => doc.setFormField(path, 'documentationRequired', value?.toString() ?? '');
+  bool? get documentationRequired => somParseBool(doc.formField(path, 'documentationRequired'));
+  set documentationRequired(bool? value) => doc.setFormField(path, 'documentationRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `transition` `@Form` section:
@@ -71715,11 +71736,11 @@ class ReuseGoalEntryMeasurementForm extends SomNode {
   String get scope => doc.formField(path, 'scope') ?? '';
   set scope(String value) => doc.setFormField(path, 'scope', value);
 
-  int? get targetPercentage { final v = doc.formField(path, 'targetPercentage'); return v == null ? null : int.tryParse(v); }
-  set targetPercentage(int? value) => doc.setFormField(path, 'targetPercentage', value?.toString() ?? '');
+  int? get targetPercentage => somParseInt(doc.formField(path, 'targetPercentage'));
+  set targetPercentage(int? value) => doc.setFormField(path, 'targetPercentage', somFormatInt(value));
 
-  int? get currentPercentage { final v = doc.formField(path, 'currentPercentage'); return v == null ? null : int.tryParse(v); }
-  set currentPercentage(int? value) => doc.setFormField(path, 'currentPercentage', value?.toString() ?? '');
+  int? get currentPercentage => somParseInt(doc.formField(path, 'currentPercentage'));
+  set currentPercentage(int? value) => doc.setFormField(path, 'currentPercentage', somFormatInt(value));
 
   String get measurementMethod => doc.formField(path, 'measurementMethod') ?? '';
   set measurementMethod(String value) => doc.setFormField(path, 'measurementMethod', value);
@@ -71918,23 +71939,23 @@ class RiskEntryAnalysisForm extends SomNode {
   String get probability => doc.formField(path, 'probability') ?? '';
   set probability(String value) => doc.setFormField(path, 'probability', value);
 
-  double? get probabilityValue { final v = doc.formField(path, 'probabilityValue'); return v == null ? null : double.tryParse(v); }
-  set probabilityValue(double? value) => doc.setFormField(path, 'probabilityValue', value?.toString() ?? '');
+  double? get probabilityValue => somParseDouble(doc.formField(path, 'probabilityValue'));
+  set probabilityValue(double? value) => doc.setFormField(path, 'probabilityValue', somFormatDouble(value));
 
   String get impact => doc.formField(path, 'impact') ?? '';
   set impact(String value) => doc.setFormField(path, 'impact', value);
 
-  double? get impactValue { final v = doc.formField(path, 'impactValue'); return v == null ? null : double.tryParse(v); }
-  set impactValue(double? value) => doc.setFormField(path, 'impactValue', value?.toString() ?? '');
+  double? get impactValue => somParseDouble(doc.formField(path, 'impactValue'));
+  set impactValue(double? value) => doc.setFormField(path, 'impactValue', somFormatDouble(value));
 
-  double? get riskScore { final v = doc.formField(path, 'riskScore'); return v == null ? null : double.tryParse(v); }
-  set riskScore(double? value) => doc.setFormField(path, 'riskScore', value?.toString() ?? '');
+  double? get riskScore => somParseDouble(doc.formField(path, 'riskScore'));
+  set riskScore(double? value) => doc.setFormField(path, 'riskScore', somFormatDouble(value));
 
   String get riskLevel => doc.formField(path, 'riskLevel') ?? '';
   set riskLevel(String value) => doc.setFormField(path, 'riskLevel', value);
 
-  int? get riskRanking { final v = doc.formField(path, 'riskRanking'); return v == null ? null : int.tryParse(v); }
-  set riskRanking(int? value) => doc.setFormField(path, 'riskRanking', value?.toString() ?? '');
+  int? get riskRanking => somParseInt(doc.formField(path, 'riskRanking'));
+  set riskRanking(int? value) => doc.setFormField(path, 'riskRanking', somFormatInt(value));
 
   String get analysisMethod => doc.formField(path, 'analysisMethod') ?? '';
   set analysisMethod(String value) => doc.setFormField(path, 'analysisMethod', value);
@@ -71973,8 +71994,8 @@ class RiskEntryOwnershipForm extends SomNode {
   String get stakeholdersInformed => doc.formField(path, 'stakeholdersInformed') ?? '';
   set stakeholdersInformed(String value) => doc.setFormField(path, 'stakeholdersInformed', value);
 
-  bool? get approvalRequired { final v = doc.formField(path, 'approvalRequired'); return v == null ? null : v == 'true'; }
-  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', value?.toString() ?? '');
+  bool? get approvalRequired => somParseBool(doc.formField(path, 'approvalRequired'));
+  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', somFormatBool(value));
 
   String get approver => doc.formField(path, 'approver') ?? '';
   set approver(String value) => doc.setFormField(path, 'approver', value);
@@ -72432,23 +72453,23 @@ class RoleAdjustmentsAdjustmentSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get standardRolesCount { final v = doc.formField(path, 'standardRolesCount'); return v == null ? null : int.tryParse(v); }
-  set standardRolesCount(int? value) => doc.setFormField(path, 'standardRolesCount', value?.toString() ?? '');
+  int? get standardRolesCount => somParseInt(doc.formField(path, 'standardRolesCount'));
+  set standardRolesCount(int? value) => doc.setFormField(path, 'standardRolesCount', somFormatInt(value));
 
-  int? get adjustedRolesCount { final v = doc.formField(path, 'adjustedRolesCount'); return v == null ? null : int.tryParse(v); }
-  set adjustedRolesCount(int? value) => doc.setFormField(path, 'adjustedRolesCount', value?.toString() ?? '');
+  int? get adjustedRolesCount => somParseInt(doc.formField(path, 'adjustedRolesCount'));
+  set adjustedRolesCount(int? value) => doc.setFormField(path, 'adjustedRolesCount', somFormatInt(value));
 
-  int? get mergedRolesCount { final v = doc.formField(path, 'mergedRolesCount'); return v == null ? null : int.tryParse(v); }
-  set mergedRolesCount(int? value) => doc.setFormField(path, 'mergedRolesCount', value?.toString() ?? '');
+  int? get mergedRolesCount => somParseInt(doc.formField(path, 'mergedRolesCount'));
+  set mergedRolesCount(int? value) => doc.setFormField(path, 'mergedRolesCount', somFormatInt(value));
 
-  int? get splitRolesCount { final v = doc.formField(path, 'splitRolesCount'); return v == null ? null : int.tryParse(v); }
-  set splitRolesCount(int? value) => doc.setFormField(path, 'splitRolesCount', value?.toString() ?? '');
+  int? get splitRolesCount => somParseInt(doc.formField(path, 'splitRolesCount'));
+  set splitRolesCount(int? value) => doc.setFormField(path, 'splitRolesCount', somFormatInt(value));
 
-  int? get omittedRolesCount { final v = doc.formField(path, 'omittedRolesCount'); return v == null ? null : int.tryParse(v); }
-  set omittedRolesCount(int? value) => doc.setFormField(path, 'omittedRolesCount', value?.toString() ?? '');
+  int? get omittedRolesCount => somParseInt(doc.formField(path, 'omittedRolesCount'));
+  set omittedRolesCount(int? value) => doc.setFormField(path, 'omittedRolesCount', somFormatInt(value));
 
-  int? get addedRolesCount { final v = doc.formField(path, 'addedRolesCount'); return v == null ? null : int.tryParse(v); }
-  set addedRolesCount(int? value) => doc.setFormField(path, 'addedRolesCount', value?.toString() ?? '');
+  int? get addedRolesCount => somParseInt(doc.formField(path, 'addedRolesCount'));
+  set addedRolesCount(int? value) => doc.setFormField(path, 'addedRolesCount', somFormatInt(value));
 
   String get raciMatrixCompliance => doc.formField(path, 'raciMatrixCompliance') ?? '';
   set raciMatrixCompliance(String value) => doc.setFormField(path, 'raciMatrixCompliance', value);
@@ -72596,8 +72617,8 @@ class RoleHolderEntryContentForm extends SomNode {
   String get organizationalUnit => doc.formField(path, 'organizationalUnit') ?? '';
   set organizationalUnit(String value) => doc.setFormField(path, 'organizationalUnit', value);
 
-  int? get estimatedCount { final v = doc.formField(path, 'estimatedCount'); return v == null ? null : int.tryParse(v); }
-  set estimatedCount(int? value) => doc.setFormField(path, 'estimatedCount', value?.toString() ?? '');
+  int? get estimatedCount => somParseInt(doc.formField(path, 'estimatedCount'));
+  set estimatedCount(int? value) => doc.setFormField(path, 'estimatedCount', somFormatInt(value));
 
   String get assignmentBasis => doc.formField(path, 'assignmentBasis') ?? '';
   set assignmentBasis(String value) => doc.setFormField(path, 'assignmentBasis', value);
@@ -72630,8 +72651,8 @@ class RoleInheritanceRuleEntryContentForm extends SomNode {
   String get additionalConditions => doc.formField(path, 'additionalConditions') ?? '';
   set additionalConditions(String value) => doc.setFormField(path, 'additionalConditions', value);
 
-  bool? get overridable { final v = doc.formField(path, 'overridable'); return v == null ? null : v == 'true'; }
-  set overridable(bool? value) => doc.setFormField(path, 'overridable', value?.toString() ?? '');
+  bool? get overridable => somParseBool(doc.formField(path, 'overridable'));
+  set overridable(bool? value) => doc.setFormField(path, 'overridable', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -72690,8 +72711,8 @@ class RollbackStrategyContentForm extends SomNode {
   String get rollbackMethod => doc.formField(path, 'rollbackMethod') ?? '';
   set rollbackMethod(String value) => doc.setFormField(path, 'rollbackMethod', value);
 
-  bool? get autoRollbackEnabled { final v = doc.formField(path, 'autoRollbackEnabled'); return v == null ? null : v == 'true'; }
-  set autoRollbackEnabled(bool? value) => doc.setFormField(path, 'autoRollbackEnabled', value?.toString() ?? '');
+  bool? get autoRollbackEnabled => somParseBool(doc.formField(path, 'autoRollbackEnabled'));
+  set autoRollbackEnabled(bool? value) => doc.setFormField(path, 'autoRollbackEnabled', somFormatBool(value));
 }
 
 /// Generated section facade for the `data` `@Form` section:
@@ -72875,8 +72896,8 @@ class RpoRtoRequirementsDegradedForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get degradedOperationAllowed { final v = doc.formField(path, 'degradedOperationAllowed'); return v == null ? null : v == 'true'; }
-  set degradedOperationAllowed(bool? value) => doc.setFormField(path, 'degradedOperationAllowed', value?.toString() ?? '');
+  bool? get degradedOperationAllowed => somParseBool(doc.formField(path, 'degradedOperationAllowed'));
+  set degradedOperationAllowed(bool? value) => doc.setFormField(path, 'degradedOperationAllowed', somFormatBool(value));
 
   String get minimalFunctionality => doc.formField(path, 'minimalFunctionality') ?? '';
   set minimalFunctionality(String value) => doc.setFormField(path, 'minimalFunctionality', value);
@@ -73060,8 +73081,8 @@ class RuntimeDependencyEntryStartupForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get startupOrder { final v = doc.formField(path, 'startupOrder'); return v == null ? null : int.tryParse(v); }
-  set startupOrder(int? value) => doc.setFormField(path, 'startupOrder', value?.toString() ?? '');
+  int? get startupOrder => somParseInt(doc.formField(path, 'startupOrder'));
+  set startupOrder(int? value) => doc.setFormField(path, 'startupOrder', somFormatInt(value));
 
   String get startupTimeout => doc.formField(path, 'startupTimeout') ?? '';
   set startupTimeout(String value) => doc.setFormField(path, 'startupTimeout', value);
@@ -73466,11 +73487,11 @@ class ScalingRequirementsHorizontalForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get minInstances { final v = doc.formField(path, 'minInstances'); return v == null ? null : int.tryParse(v); }
-  set minInstances(int? value) => doc.setFormField(path, 'minInstances', value?.toString() ?? '');
+  int? get minInstances => somParseInt(doc.formField(path, 'minInstances'));
+  set minInstances(int? value) => doc.setFormField(path, 'minInstances', somFormatInt(value));
 
-  int? get maxInstances { final v = doc.formField(path, 'maxInstances'); return v == null ? null : int.tryParse(v); }
-  set maxInstances(int? value) => doc.setFormField(path, 'maxInstances', value?.toString() ?? '');
+  int? get maxInstances => somParseInt(doc.formField(path, 'maxInstances'));
+  set maxInstances(int? value) => doc.setFormField(path, 'maxInstances', somFormatInt(value));
 
   String get instanceStartupTime => doc.formField(path, 'instanceStartupTime') ?? '';
   set instanceStartupTime(String value) => doc.setFormField(path, 'instanceStartupTime', value);
@@ -73491,14 +73512,14 @@ class ScalingRequirementsVerticalForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get canVerticallyScale { final v = doc.formField(path, 'canVerticallyScale'); return v == null ? null : v == 'true'; }
-  set canVerticallyScale(bool? value) => doc.setFormField(path, 'canVerticallyScale', value?.toString() ?? '');
+  bool? get canVerticallyScale => somParseBool(doc.formField(path, 'canVerticallyScale'));
+  set canVerticallyScale(bool? value) => doc.setFormField(path, 'canVerticallyScale', somFormatBool(value));
 
-  int? get maxCpuCores { final v = doc.formField(path, 'maxCpuCores'); return v == null ? null : int.tryParse(v); }
-  set maxCpuCores(int? value) => doc.setFormField(path, 'maxCpuCores', value?.toString() ?? '');
+  int? get maxCpuCores => somParseInt(doc.formField(path, 'maxCpuCores'));
+  set maxCpuCores(int? value) => doc.setFormField(path, 'maxCpuCores', somFormatInt(value));
 
-  int? get maxMemoryGb { final v = doc.formField(path, 'maxMemoryGb'); return v == null ? null : int.tryParse(v); }
-  set maxMemoryGb(int? value) => doc.setFormField(path, 'maxMemoryGb', value?.toString() ?? '');
+  int? get maxMemoryGb => somParseInt(doc.formField(path, 'maxMemoryGb'));
+  set maxMemoryGb(int? value) => doc.setFormField(path, 'maxMemoryGb', somFormatInt(value));
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -73516,11 +73537,11 @@ class ScalingTriggersAndThresholdsBehaviorForm extends SomNode {
   String get scalingCooldownPeriod => doc.formField(path, 'scalingCooldownPeriod') ?? '';
   set scalingCooldownPeriod(String value) => doc.setFormField(path, 'scalingCooldownPeriod', value);
 
-  int? get minInstances { final v = doc.formField(path, 'minInstances'); return v == null ? null : int.tryParse(v); }
-  set minInstances(int? value) => doc.setFormField(path, 'minInstances', value?.toString() ?? '');
+  int? get minInstances => somParseInt(doc.formField(path, 'minInstances'));
+  set minInstances(int? value) => doc.setFormField(path, 'minInstances', somFormatInt(value));
 
-  int? get maxInstances { final v = doc.formField(path, 'maxInstances'); return v == null ? null : int.tryParse(v); }
-  set maxInstances(int? value) => doc.setFormField(path, 'maxInstances', value?.toString() ?? '');
+  int? get maxInstances => somParseInt(doc.formField(path, 'maxInstances'));
+  set maxInstances(int? value) => doc.setFormField(path, 'maxInstances', somFormatInt(value));
 
   String get scalingStepSize => doc.formField(path, 'scalingStepSize') ?? '';
   set scalingStepSize(String value) => doc.setFormField(path, 'scalingStepSize', value);
@@ -73598,11 +73619,11 @@ class ScalingTriggersAndThresholdsTypeForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get horizontalScaling { final v = doc.formField(path, 'horizontalScaling'); return v == null ? null : v == 'true'; }
-  set horizontalScaling(bool? value) => doc.setFormField(path, 'horizontalScaling', value?.toString() ?? '');
+  bool? get horizontalScaling => somParseBool(doc.formField(path, 'horizontalScaling'));
+  set horizontalScaling(bool? value) => doc.setFormField(path, 'horizontalScaling', somFormatBool(value));
 
-  bool? get verticalScaling { final v = doc.formField(path, 'verticalScaling'); return v == null ? null : v == 'true'; }
-  set verticalScaling(bool? value) => doc.setFormField(path, 'verticalScaling', value?.toString() ?? '');
+  bool? get verticalScaling => somParseBool(doc.formField(path, 'verticalScaling'));
+  set verticalScaling(bool? value) => doc.setFormField(path, 'verticalScaling', somFormatBool(value));
 
   String get autoScalingProvider => doc.formField(path, 'autoScalingProvider') ?? '';
   set autoScalingProvider(String value) => doc.setFormField(path, 'autoScalingProvider', value);
@@ -73793,8 +73814,8 @@ class ScenarioStepEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get stepNumber { final v = doc.formField(path, 'stepNumber'); return v == null ? null : int.tryParse(v); }
-  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', value?.toString() ?? '');
+  int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
+  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
 
   String get actor => doc.formField(path, 'actor') ?? '';
   set actor(String value) => doc.setFormField(path, 'actor', value);
@@ -73865,8 +73886,8 @@ class ScheduledMaintenancePolicyApprovalForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get approvalRequired { final v = doc.formField(path, 'approvalRequired'); return v == null ? null : v == 'true'; }
-  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', value?.toString() ?? '');
+  bool? get approvalRequired => somParseBool(doc.formField(path, 'approvalRequired'));
+  set approvalRequired(bool? value) => doc.setFormField(path, 'approvalRequired', somFormatBool(value));
 
   String get approvalAuthority => doc.formField(path, 'approvalAuthority') ?? '';
   set approvalAuthority(String value) => doc.setFormField(path, 'approvalAuthority', value);
@@ -73890,8 +73911,8 @@ class ScheduledMaintenancePolicyContentForm extends SomNode {
   String get maintenancePolicy => doc.formField(path, 'maintenancePolicy') ?? '';
   set maintenancePolicy(String value) => doc.setFormField(path, 'maintenancePolicy', value);
 
-  bool? get zeroDowntimeGoal { final v = doc.formField(path, 'zeroDowntimeGoal'); return v == null ? null : v == 'true'; }
-  set zeroDowntimeGoal(bool? value) => doc.setFormField(path, 'zeroDowntimeGoal', value?.toString() ?? '');
+  bool? get zeroDowntimeGoal => somParseBool(doc.formField(path, 'zeroDowntimeGoal'));
+  set zeroDowntimeGoal(bool? value) => doc.setFormField(path, 'zeroDowntimeGoal', somFormatBool(value));
 
   String get maintenanceAgreement => doc.formField(path, 'maintenanceAgreement') ?? '';
   set maintenanceAgreement(String value) => doc.setFormField(path, 'maintenanceAgreement', value);
@@ -74280,8 +74301,8 @@ class ScreenElementDataDisplayOptionsForm extends SomNode {
   String get paginated => doc.formField(path, 'paginated') ?? '';
   set paginated(String value) => doc.setFormField(path, 'paginated', value);
 
-  int? get pageSize { final v = doc.formField(path, 'pageSize'); return v == null ? null : int.tryParse(v); }
-  set pageSize(int? value) => doc.setFormField(path, 'pageSize', value?.toString() ?? '');
+  int? get pageSize => somParseInt(doc.formField(path, 'pageSize'));
+  set pageSize(int? value) => doc.setFormField(path, 'pageSize', somFormatInt(value));
 
   String get selectable => doc.formField(path, 'selectable') ?? '';
   set selectable(String value) => doc.setFormField(path, 'selectable', value);
@@ -74349,8 +74370,8 @@ class ScreenElementEntryLayoutForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get placementOrder { final v = doc.formField(path, 'placementOrder'); return v == null ? null : int.tryParse(v); }
-  set placementOrder(int? value) => doc.setFormField(path, 'placementOrder', value?.toString() ?? '');
+  int? get placementOrder => somParseInt(doc.formField(path, 'placementOrder'));
+  set placementOrder(int? value) => doc.setFormField(path, 'placementOrder', somFormatInt(value));
 
   String get width => doc.formField(path, 'width') ?? '';
   set width(String value) => doc.setFormField(path, 'width', value);
@@ -74427,11 +74448,11 @@ class ScreenElementFieldSpecConstraintsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get maxLength { final v = doc.formField(path, 'maxLength'); return v == null ? null : int.tryParse(v); }
-  set maxLength(int? value) => doc.setFormField(path, 'maxLength', value?.toString() ?? '');
+  int? get maxLength => somParseInt(doc.formField(path, 'maxLength'));
+  set maxLength(int? value) => doc.setFormField(path, 'maxLength', somFormatInt(value));
 
-  int? get minLength { final v = doc.formField(path, 'minLength'); return v == null ? null : int.tryParse(v); }
-  set minLength(int? value) => doc.setFormField(path, 'minLength', value?.toString() ?? '');
+  int? get minLength => somParseInt(doc.formField(path, 'minLength'));
+  set minLength(int? value) => doc.setFormField(path, 'minLength', somFormatInt(value));
 
   String get minValue => doc.formField(path, 'minValue') ?? '';
   set minValue(String value) => doc.setFormField(path, 'minValue', value);
@@ -74439,8 +74460,8 @@ class ScreenElementFieldSpecConstraintsForm extends SomNode {
   String get maxValue => doc.formField(path, 'maxValue') ?? '';
   set maxValue(String value) => doc.setFormField(path, 'maxValue', value);
 
-  int? get decimalPlaces { final v = doc.formField(path, 'decimalPlaces'); return v == null ? null : int.tryParse(v); }
-  set decimalPlaces(int? value) => doc.setFormField(path, 'decimalPlaces', value?.toString() ?? '');
+  int? get decimalPlaces => somParseInt(doc.formField(path, 'decimalPlaces'));
+  set decimalPlaces(int? value) => doc.setFormField(path, 'decimalPlaces', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -74895,8 +74916,8 @@ class ScreenSectionEntryLayoutForm extends SomNode {
   String get layoutDirection => doc.formField(path, 'layoutDirection') ?? '';
   set layoutDirection(String value) => doc.setFormField(path, 'layoutDirection', value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get titleResource => doc.formField(path, 'titleResource') ?? '';
   set titleResource(String value) => doc.setFormField(path, 'titleResource', value);
@@ -75465,8 +75486,8 @@ class SecurityDevelopmentLifecycleContentForm extends SomNode {
   String get threatModelingFrequency => doc.formField(path, 'threatModelingFrequency') ?? '';
   set threatModelingFrequency(String value) => doc.setFormField(path, 'threatModelingFrequency', value);
 
-  bool? get securityDesignReview { final v = doc.formField(path, 'securityDesignReview'); return v == null ? null : v == 'true'; }
-  set securityDesignReview(bool? value) => doc.setFormField(path, 'securityDesignReview', value?.toString() ?? '');
+  bool? get securityDesignReview => somParseBool(doc.formField(path, 'securityDesignReview'));
+  set securityDesignReview(bool? value) => doc.setFormField(path, 'securityDesignReview', somFormatBool(value));
 
   String get securityRequirementsProcess => doc.formField(path, 'securityRequirementsProcess') ?? '';
   set securityRequirementsProcess(String value) => doc.setFormField(path, 'securityRequirementsProcess', value);
@@ -75512,11 +75533,11 @@ class SecurityDevelopmentLifecycleReleaseForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get preReleaseSecurityGate { final v = doc.formField(path, 'preReleaseSecurityGate'); return v == null ? null : v == 'true'; }
-  set preReleaseSecurityGate(bool? value) => doc.setFormField(path, 'preReleaseSecurityGate', value?.toString() ?? '');
+  bool? get preReleaseSecurityGate => somParseBool(doc.formField(path, 'preReleaseSecurityGate'));
+  set preReleaseSecurityGate(bool? value) => doc.setFormField(path, 'preReleaseSecurityGate', somFormatBool(value));
 
-  bool? get securityChangeLog { final v = doc.formField(path, 'securityChangeLog'); return v == null ? null : v == 'true'; }
-  set securityChangeLog(bool? value) => doc.setFormField(path, 'securityChangeLog', value?.toString() ?? '');
+  bool? get securityChangeLog => somParseBool(doc.formField(path, 'securityChangeLog'));
+  set securityChangeLog(bool? value) => doc.setFormField(path, 'securityChangeLog', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -75540,8 +75561,8 @@ class SecurityDevelopmentLifecycleTestingForm extends SomNode {
   String get interactiveAnalysis => doc.formField(path, 'interactiveAnalysis') ?? '';
   set interactiveAnalysis(String value) => doc.setFormField(path, 'interactiveAnalysis', value);
 
-  bool? get securityTestingInCi { final v = doc.formField(path, 'securityTestingInCi'); return v == null ? null : v == 'true'; }
-  set securityTestingInCi(bool? value) => doc.setFormField(path, 'securityTestingInCi', value?.toString() ?? '');
+  bool? get securityTestingInCi => somParseBool(doc.formField(path, 'securityTestingInCi'));
+  set securityTestingInCi(bool? value) => doc.setFormField(path, 'securityTestingInCi', somFormatBool(value));
 
   String get manualCodeReview => doc.formField(path, 'manualCodeReview') ?? '';
   set manualCodeReview(String value) => doc.setFormField(path, 'manualCodeReview', value);
@@ -75974,8 +75995,8 @@ class SecurityStandardEntryVerificationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get certificationRequired { final v = doc.formField(path, 'certificationRequired'); return v == null ? null : v == 'true'; }
-  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', value?.toString() ?? '');
+  bool? get certificationRequired => somParseBool(doc.formField(path, 'certificationRequired'));
+  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', somFormatBool(value));
 
   String get assessmentFrequency => doc.formField(path, 'assessmentFrequency') ?? '';
   set assessmentFrequency(String value) => doc.setFormField(path, 'assessmentFrequency', value);
@@ -76300,8 +76321,8 @@ class ServerEnvironmentEntryAccessForm extends SomNode {
   String get networkSegment => doc.formField(path, 'networkSegment') ?? '';
   set networkSegment(String value) => doc.setFormField(path, 'networkSegment', value);
 
-  bool? get vpnRequired { final v = doc.formField(path, 'vpnRequired'); return v == null ? null : v == 'true'; }
-  set vpnRequired(bool? value) => doc.setFormField(path, 'vpnRequired', value?.toString() ?? '');
+  bool? get vpnRequired => somParseBool(doc.formField(path, 'vpnRequired'));
+  set vpnRequired(bool? value) => doc.setFormField(path, 'vpnRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -76388,8 +76409,8 @@ class ServerEnvironmentEntryScaleForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get serverCount { final v = doc.formField(path, 'serverCount'); return v == null ? null : int.tryParse(v); }
-  set serverCount(int? value) => doc.setFormField(path, 'serverCount', value?.toString() ?? '');
+  int? get serverCount => somParseInt(doc.formField(path, 'serverCount'));
+  set serverCount(int? value) => doc.setFormField(path, 'serverCount', somFormatInt(value));
 
   String get expectedUsers => doc.formField(path, 'expectedUsers') ?? '';
   set expectedUsers(String value) => doc.setFormField(path, 'expectedUsers', value);
@@ -76510,8 +76531,8 @@ class ServerOsRequirementsSecurityForm extends SomNode {
   String get auditdConfiguration => doc.formField(path, 'auditdConfiguration') ?? '';
   set auditdConfiguration(String value) => doc.setFormField(path, 'auditdConfiguration', value);
 
-  bool? get antivirusRequired { final v = doc.formField(path, 'antivirusRequired'); return v == null ? null : v == 'true'; }
-  set antivirusRequired(bool? value) => doc.setFormField(path, 'antivirusRequired', value?.toString() ?? '');
+  bool? get antivirusRequired => somParseBool(doc.formField(path, 'antivirusRequired'));
+  set antivirusRequired(bool? value) => doc.setFormField(path, 'antivirusRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `capacity` `@Form` section:
@@ -76529,11 +76550,11 @@ class ServerRoleEntryCapacityForm extends SomNode {
   String get cpuArchitecture => doc.formField(path, 'cpuArchitecture') ?? '';
   set cpuArchitecture(String value) => doc.setFormField(path, 'cpuArchitecture', value);
 
-  int? get minMemoryGb { final v = doc.formField(path, 'minMemoryGb'); return v == null ? null : int.tryParse(v); }
-  set minMemoryGb(int? value) => doc.setFormField(path, 'minMemoryGb', value?.toString() ?? '');
+  int? get minMemoryGb => somParseInt(doc.formField(path, 'minMemoryGb'));
+  set minMemoryGb(int? value) => doc.setFormField(path, 'minMemoryGb', somFormatInt(value));
 
-  int? get recommendedMemoryGb { final v = doc.formField(path, 'recommendedMemoryGb'); return v == null ? null : int.tryParse(v); }
-  set recommendedMemoryGb(int? value) => doc.setFormField(path, 'recommendedMemoryGb', value?.toString() ?? '');
+  int? get recommendedMemoryGb => somParseInt(doc.formField(path, 'recommendedMemoryGb'));
+  set recommendedMemoryGb(int? value) => doc.setFormField(path, 'recommendedMemoryGb', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -76617,11 +76638,11 @@ class ServerRoleEntryStorageForm extends SomNode {
   String get storageType => doc.formField(path, 'storageType') ?? '';
   set storageType(String value) => doc.setFormField(path, 'storageType', value);
 
-  int? get storageCapacityGb { final v = doc.formField(path, 'storageCapacityGb'); return v == null ? null : int.tryParse(v); }
-  set storageCapacityGb(int? value) => doc.setFormField(path, 'storageCapacityGb', value?.toString() ?? '');
+  int? get storageCapacityGb => somParseInt(doc.formField(path, 'storageCapacityGb'));
+  set storageCapacityGb(int? value) => doc.setFormField(path, 'storageCapacityGb', somFormatInt(value));
 
-  int? get iopsRequired { final v = doc.formField(path, 'iopsRequired'); return v == null ? null : int.tryParse(v); }
-  set iopsRequired(int? value) => doc.setFormField(path, 'iopsRequired', value?.toString() ?? '');
+  int? get iopsRequired => somParseInt(doc.formField(path, 'iopsRequired'));
+  set iopsRequired(int? value) => doc.setFormField(path, 'iopsRequired', somFormatInt(value));
 }
 
 /// Generated section facade for the `backup` `@Form` section:
@@ -77012,8 +77033,8 @@ class ServiceMeshAndGatewayContentForm extends SomNode {
   String get gatewayFeatures => doc.formField(path, 'gatewayFeatures') ?? '';
   set gatewayFeatures(String value) => doc.setFormField(path, 'gatewayFeatures', value);
 
-  bool? get gatewayHighAvailability { final v = doc.formField(path, 'gatewayHighAvailability'); return v == null ? null : v == 'true'; }
-  set gatewayHighAvailability(bool? value) => doc.setFormField(path, 'gatewayHighAvailability', value?.toString() ?? '');
+  bool? get gatewayHighAvailability => somParseBool(doc.formField(path, 'gatewayHighAvailability'));
+  set gatewayHighAvailability(bool? value) => doc.setFormField(path, 'gatewayHighAvailability', somFormatBool(value));
 
   String get apiKeyManagement => doc.formField(path, 'apiKeyManagement') ?? '';
   set apiKeyManagement(String value) => doc.setFormField(path, 'apiKeyManagement', value);
@@ -77068,8 +77089,8 @@ class ServiceMeshAndGatewayMeshForm extends SomNode {
   String get trafficPolicy => doc.formField(path, 'trafficPolicy') ?? '';
   set trafficPolicy(String value) => doc.setFormField(path, 'trafficPolicy', value);
 
-  bool? get mtlsEnabled { final v = doc.formField(path, 'mtlsEnabled'); return v == null ? null : v == 'true'; }
-  set mtlsEnabled(bool? value) => doc.setFormField(path, 'mtlsEnabled', value?.toString() ?? '');
+  bool? get mtlsEnabled => somParseBool(doc.formField(path, 'mtlsEnabled'));
+  set mtlsEnabled(bool? value) => doc.setFormField(path, 'mtlsEnabled', somFormatBool(value));
 }
 
 /// Generated section facade for the `lifecycle` `@Form` section:
@@ -77090,8 +77111,8 @@ class SessionModelLifecycleForm extends SomNode {
   String get multiDevicePolicy => doc.formField(path, 'multiDevicePolicy') ?? '';
   set multiDevicePolicy(String value) => doc.setFormField(path, 'multiDevicePolicy', value);
 
-  int? get concurrentSessionLimit { final v = doc.formField(path, 'concurrentSessionLimit'); return v == null ? null : int.tryParse(v); }
-  set concurrentSessionLimit(int? value) => doc.setFormField(path, 'concurrentSessionLimit', value?.toString() ?? '');
+  int? get concurrentSessionLimit => somParseInt(doc.formField(path, 'concurrentSessionLimit'));
+  set concurrentSessionLimit(int? value) => doc.setFormField(path, 'concurrentSessionLimit', somFormatInt(value));
 
   String get sessionTermination => doc.formField(path, 'sessionTermination') ?? '';
   set sessionTermination(String value) => doc.setFormField(path, 'sessionTermination', value);
@@ -77184,8 +77205,8 @@ class SharedInfrastructureEntryContentForm extends SomNode {
   String get componentType => doc.formField(path, 'componentType') ?? '';
   set componentType(String value) => doc.setFormField(path, 'componentType', value);
 
-  int? get dependentSystemCount { final v = doc.formField(path, 'dependentSystemCount'); return v == null ? null : int.tryParse(v); }
-  set dependentSystemCount(int? value) => doc.setFormField(path, 'dependentSystemCount', value?.toString() ?? '');
+  int? get dependentSystemCount => somParseInt(doc.formField(path, 'dependentSystemCount'));
+  set dependentSystemCount(int? value) => doc.setFormField(path, 'dependentSystemCount', somFormatInt(value));
 
   String get dependentSystemList => doc.formField(path, 'dependentSystemList') ?? '';
   set dependentSystemList(String value) => doc.setFormField(path, 'dependentSystemList', value);
@@ -77228,8 +77249,8 @@ class SharedInfrastructureEntryResilienceForm extends SomNode {
   String get criticality => doc.formField(path, 'criticality') ?? '';
   set criticality(String value) => doc.setFormField(path, 'criticality', value);
 
-  bool? get singlePointOfFailure { final v = doc.formField(path, 'singlePointOfFailure'); return v == null ? null : v == 'true'; }
-  set singlePointOfFailure(bool? value) => doc.setFormField(path, 'singlePointOfFailure', value?.toString() ?? '');
+  bool? get singlePointOfFailure => somParseBool(doc.formField(path, 'singlePointOfFailure'));
+  set singlePointOfFailure(bool? value) => doc.setFormField(path, 'singlePointOfFailure', somFormatBool(value));
 
   String get redundancyLevel => doc.formField(path, 'redundancyLevel') ?? '';
   set redundancyLevel(String value) => doc.setFormField(path, 'redundancyLevel', value);
@@ -77750,8 +77771,8 @@ class SlaAndSloMonitoringSlaOverviewForm extends SomNode {
   String get slaBreachProcess => doc.formField(path, 'slaBreachProcess') ?? '';
   set slaBreachProcess(String value) => doc.setFormField(path, 'slaBreachProcess', value);
 
-  bool? get customerFacingSLAs { final v = doc.formField(path, 'customerFacingSLAs'); return v == null ? null : v == 'true'; }
-  set customerFacingSLAs(bool? value) => doc.setFormField(path, 'customerFacingSLAs', value?.toString() ?? '');
+  bool? get customerFacingSLAs => somParseBool(doc.formField(path, 'customerFacingSLAs'));
+  set customerFacingSLAs(bool? value) => doc.setFormField(path, 'customerFacingSLAs', somFormatBool(value));
 
   String get slaCredits => doc.formField(path, 'slaCredits') ?? '';
   set slaCredits(String value) => doc.setFormField(path, 'slaCredits', value);
@@ -77844,11 +77865,11 @@ class SlaMonitoringRequirementsMonitoringForm extends SomNode {
   String get slaReporting => doc.formField(path, 'slaReporting') ?? '';
   set slaReporting(String value) => doc.setFormField(path, 'slaReporting', value);
 
-  bool? get slaBreachAlerts { final v = doc.formField(path, 'slaBreachAlerts'); return v == null ? null : v == 'true'; }
-  set slaBreachAlerts(bool? value) => doc.setFormField(path, 'slaBreachAlerts', value?.toString() ?? '');
+  bool? get slaBreachAlerts => somParseBool(doc.formField(path, 'slaBreachAlerts'));
+  set slaBreachAlerts(bool? value) => doc.setFormField(path, 'slaBreachAlerts', somFormatBool(value));
 
-  bool? get slaBurnRate { final v = doc.formField(path, 'slaBurnRate'); return v == null ? null : v == 'true'; }
-  set slaBurnRate(bool? value) => doc.setFormField(path, 'slaBurnRate', value?.toString() ?? '');
+  bool? get slaBurnRate => somParseBool(doc.formField(path, 'slaBurnRate'));
+  set slaBurnRate(bool? value) => doc.setFormField(path, 'slaBurnRate', somFormatBool(value));
 }
 
 /// Generated section facade for the `reporting` `@Form` section:
@@ -78101,8 +78122,8 @@ class SpecializedEquipmentEntryPlanningForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get quantityNeeded { final v = doc.formField(path, 'quantityNeeded'); return v == null ? null : int.tryParse(v); }
-  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', value?.toString() ?? '');
+  int? get quantityNeeded => somParseInt(doc.formField(path, 'quantityNeeded'));
+  set quantityNeeded(int? value) => doc.setFormField(path, 'quantityNeeded', somFormatInt(value));
 
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
@@ -78217,11 +78238,11 @@ class StaffingEntryCapacityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  double? get fteCount { final v = doc.formField(path, 'fteCount'); return v == null ? null : double.tryParse(v); }
-  set fteCount(double? value) => doc.setFormField(path, 'fteCount', value?.toString() ?? '');
+  double? get fteCount => somParseDouble(doc.formField(path, 'fteCount'));
+  set fteCount(double? value) => doc.setFormField(path, 'fteCount', somFormatDouble(value));
 
-  int? get headcount { final v = doc.formField(path, 'headcount'); return v == null ? null : int.tryParse(v); }
-  set headcount(int? value) => doc.setFormField(path, 'headcount', value?.toString() ?? '');
+  int? get headcount => somParseInt(doc.formField(path, 'headcount'));
+  set headcount(int? value) => doc.setFormField(path, 'headcount', somFormatInt(value));
 
   String get requiredSkills => doc.formField(path, 'requiredSkills') ?? '';
   set requiredSkills(String value) => doc.setFormField(path, 'requiredSkills', value);
@@ -80297,23 +80318,23 @@ class StakeholdersAndGovernanceSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalTeamMembers { final v = doc.formField(path, 'totalTeamMembers'); return v == null ? null : int.tryParse(v); }
-  set totalTeamMembers(int? value) => doc.setFormField(path, 'totalTeamMembers', value?.toString() ?? '');
+  int? get totalTeamMembers => somParseInt(doc.formField(path, 'totalTeamMembers'));
+  set totalTeamMembers(int? value) => doc.setFormField(path, 'totalTeamMembers', somFormatInt(value));
 
-  int? get internalResources { final v = doc.formField(path, 'internalResources'); return v == null ? null : int.tryParse(v); }
-  set internalResources(int? value) => doc.setFormField(path, 'internalResources', value?.toString() ?? '');
+  int? get internalResources => somParseInt(doc.formField(path, 'internalResources'));
+  set internalResources(int? value) => doc.setFormField(path, 'internalResources', somFormatInt(value));
 
-  int? get externalResources { final v = doc.formField(path, 'externalResources'); return v == null ? null : int.tryParse(v); }
-  set externalResources(int? value) => doc.setFormField(path, 'externalResources', value?.toString() ?? '');
+  int? get externalResources => somParseInt(doc.formField(path, 'externalResources'));
+  set externalResources(int? value) => doc.setFormField(path, 'externalResources', somFormatInt(value));
 
-  int? get steeringCommitteeSize { final v = doc.formField(path, 'steeringCommitteeSize'); return v == null ? null : int.tryParse(v); }
-  set steeringCommitteeSize(int? value) => doc.setFormField(path, 'steeringCommitteeSize', value?.toString() ?? '');
+  int? get steeringCommitteeSize => somParseInt(doc.formField(path, 'steeringCommitteeSize'));
+  set steeringCommitteeSize(int? value) => doc.setFormField(path, 'steeringCommitteeSize', somFormatInt(value));
 
-  int? get distributionListSize { final v = doc.formField(path, 'distributionListSize'); return v == null ? null : int.tryParse(v); }
-  set distributionListSize(int? value) => doc.setFormField(path, 'distributionListSize', value?.toString() ?? '');
+  int? get distributionListSize => somParseInt(doc.formField(path, 'distributionListSize'));
+  set distributionListSize(int? value) => doc.setFormField(path, 'distributionListSize', somFormatInt(value));
 
-  int? get referenceDocumentsCount { final v = doc.formField(path, 'referenceDocumentsCount'); return v == null ? null : int.tryParse(v); }
-  set referenceDocumentsCount(int? value) => doc.setFormField(path, 'referenceDocumentsCount', value?.toString() ?? '');
+  int? get referenceDocumentsCount => somParseInt(doc.formField(path, 'referenceDocumentsCount'));
+  set referenceDocumentsCount(int? value) => doc.setFormField(path, 'referenceDocumentsCount', somFormatInt(value));
 
   String get keyDecisionMaker => doc.formField(path, 'keyDecisionMaker') ?? '';
   set keyDecisionMaker(String value) => doc.setFormField(path, 'keyDecisionMaker', value);
@@ -80651,32 +80672,32 @@ class SuccessCriteriaSummaryForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalCriteria { final v = doc.formField(path, 'totalCriteria'); return v == null ? null : int.tryParse(v); }
-  set totalCriteria(int? value) => doc.setFormField(path, 'totalCriteria', value?.toString() ?? '');
+  int? get totalCriteria => somParseInt(doc.formField(path, 'totalCriteria'));
+  set totalCriteria(int? value) => doc.setFormField(path, 'totalCriteria', somFormatInt(value));
 
-  int? get criticalCount { final v = doc.formField(path, 'criticalCount'); return v == null ? null : int.tryParse(v); }
-  set criticalCount(int? value) => doc.setFormField(path, 'criticalCount', value?.toString() ?? '');
+  int? get criticalCount => somParseInt(doc.formField(path, 'criticalCount'));
+  set criticalCount(int? value) => doc.setFormField(path, 'criticalCount', somFormatInt(value));
 
-  int? get highPriorityCount { final v = doc.formField(path, 'highPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set highPriorityCount(int? value) => doc.setFormField(path, 'highPriorityCount', value?.toString() ?? '');
+  int? get highPriorityCount => somParseInt(doc.formField(path, 'highPriorityCount'));
+  set highPriorityCount(int? value) => doc.setFormField(path, 'highPriorityCount', somFormatInt(value));
 
-  int? get mediumPriorityCount { final v = doc.formField(path, 'mediumPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set mediumPriorityCount(int? value) => doc.setFormField(path, 'mediumPriorityCount', value?.toString() ?? '');
+  int? get mediumPriorityCount => somParseInt(doc.formField(path, 'mediumPriorityCount'));
+  set mediumPriorityCount(int? value) => doc.setFormField(path, 'mediumPriorityCount', somFormatInt(value));
 
-  int? get lowPriorityCount { final v = doc.formField(path, 'lowPriorityCount'); return v == null ? null : int.tryParse(v); }
-  set lowPriorityCount(int? value) => doc.setFormField(path, 'lowPriorityCount', value?.toString() ?? '');
+  int? get lowPriorityCount => somParseInt(doc.formField(path, 'lowPriorityCount'));
+  set lowPriorityCount(int? value) => doc.setFormField(path, 'lowPriorityCount', somFormatInt(value));
 
-  int? get businessCriteriaCount { final v = doc.formField(path, 'businessCriteriaCount'); return v == null ? null : int.tryParse(v); }
-  set businessCriteriaCount(int? value) => doc.setFormField(path, 'businessCriteriaCount', value?.toString() ?? '');
+  int? get businessCriteriaCount => somParseInt(doc.formField(path, 'businessCriteriaCount'));
+  set businessCriteriaCount(int? value) => doc.setFormField(path, 'businessCriteriaCount', somFormatInt(value));
 
-  int? get technicalCriteriaCount { final v = doc.formField(path, 'technicalCriteriaCount'); return v == null ? null : int.tryParse(v); }
-  set technicalCriteriaCount(int? value) => doc.setFormField(path, 'technicalCriteriaCount', value?.toString() ?? '');
+  int? get technicalCriteriaCount => somParseInt(doc.formField(path, 'technicalCriteriaCount'));
+  set technicalCriteriaCount(int? value) => doc.setFormField(path, 'technicalCriteriaCount', somFormatInt(value));
 
-  int? get userCriteriaCount { final v = doc.formField(path, 'userCriteriaCount'); return v == null ? null : int.tryParse(v); }
-  set userCriteriaCount(int? value) => doc.setFormField(path, 'userCriteriaCount', value?.toString() ?? '');
+  int? get userCriteriaCount => somParseInt(doc.formField(path, 'userCriteriaCount'));
+  set userCriteriaCount(int? value) => doc.setFormField(path, 'userCriteriaCount', somFormatInt(value));
 
-  int? get complianceCriteriaCount { final v = doc.formField(path, 'complianceCriteriaCount'); return v == null ? null : int.tryParse(v); }
-  set complianceCriteriaCount(int? value) => doc.setFormField(path, 'complianceCriteriaCount', value?.toString() ?? '');
+  int? get complianceCriteriaCount => somParseInt(doc.formField(path, 'complianceCriteriaCount'));
+  set complianceCriteriaCount(int? value) => doc.setFormField(path, 'complianceCriteriaCount', somFormatInt(value));
 
   String get minCriteriaMet => doc.formField(path, 'minCriteriaMet') ?? '';
   set minCriteriaMet(String value) => doc.setFormField(path, 'minCriteriaMet', value);
@@ -80875,17 +80896,17 @@ class SupportAccessContactMethodsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get emailSupport { final v = doc.formField(path, 'emailSupport'); return v == null ? null : v == 'true'; }
-  set emailSupport(bool? value) => doc.setFormField(path, 'emailSupport', value?.toString() ?? '');
+  bool? get emailSupport => somParseBool(doc.formField(path, 'emailSupport'));
+  set emailSupport(bool? value) => doc.setFormField(path, 'emailSupport', somFormatBool(value));
 
-  bool? get phoneSupport { final v = doc.formField(path, 'phoneSupport'); return v == null ? null : v == 'true'; }
-  set phoneSupport(bool? value) => doc.setFormField(path, 'phoneSupport', value?.toString() ?? '');
+  bool? get phoneSupport => somParseBool(doc.formField(path, 'phoneSupport'));
+  set phoneSupport(bool? value) => doc.setFormField(path, 'phoneSupport', somFormatBool(value));
 
   String get phoneNumber => doc.formField(path, 'phoneNumber') ?? '';
   set phoneNumber(String value) => doc.setFormField(path, 'phoneNumber', value);
 
-  bool? get communityForum { final v = doc.formField(path, 'communityForum'); return v == null ? null : v == 'true'; }
-  set communityForum(bool? value) => doc.setFormField(path, 'communityForum', value?.toString() ?? '');
+  bool? get communityForum => somParseBool(doc.formField(path, 'communityForum'));
+  set communityForum(bool? value) => doc.setFormField(path, 'communityForum', somFormatBool(value));
 }
 
 /// Generated section facade for the `helpCenter` `@Form` section:
@@ -80903,8 +80924,8 @@ class SupportAccessHelpCenterForm extends SomNode {
   String get helpCenterLocation => doc.formField(path, 'helpCenterLocation') ?? '';
   set helpCenterLocation(String value) => doc.setFormField(path, 'helpCenterLocation', value);
 
-  bool? get helpCenterSearch { final v = doc.formField(path, 'helpCenterSearch'); return v == null ? null : v == 'true'; }
-  set helpCenterSearch(bool? value) => doc.setFormField(path, 'helpCenterSearch', value?.toString() ?? '');
+  bool? get helpCenterSearch => somParseBool(doc.formField(path, 'helpCenterSearch'));
+  set helpCenterSearch(bool? value) => doc.setFormField(path, 'helpCenterSearch', somFormatBool(value));
 
   String get helpArticleCategories => doc.formField(path, 'helpArticleCategories') ?? '';
   set helpArticleCategories(String value) => doc.setFormField(path, 'helpArticleCategories', value);
@@ -80925,8 +80946,8 @@ class SupportAccessLiveSupportForm extends SomNode {
   String get liveChatHours => doc.formField(path, 'liveChatHours') ?? '';
   set liveChatHours(String value) => doc.setFormField(path, 'liveChatHours', value);
 
-  bool? get chatbotFirstLine { final v = doc.formField(path, 'chatbotFirstLine'); return v == null ? null : v == 'true'; }
-  set chatbotFirstLine(bool? value) => doc.setFormField(path, 'chatbotFirstLine', value?.toString() ?? '');
+  bool? get chatbotFirstLine => somParseBool(doc.formField(path, 'chatbotFirstLine'));
+  set chatbotFirstLine(bool? value) => doc.setFormField(path, 'chatbotFirstLine', somFormatBool(value));
 
   String get chatbotCapabilities => doc.formField(path, 'chatbotCapabilities') ?? '';
   set chatbotCapabilities(String value) => doc.setFormField(path, 'chatbotCapabilities', value);
@@ -80944,26 +80965,26 @@ class SupportAccessSelfServiceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get faqSection { final v = doc.formField(path, 'faqSection'); return v == null ? null : v == 'true'; }
-  set faqSection(bool? value) => doc.setFormField(path, 'faqSection', value?.toString() ?? '');
+  bool? get faqSection => somParseBool(doc.formField(path, 'faqSection'));
+  set faqSection(bool? value) => doc.setFormField(path, 'faqSection', somFormatBool(value));
 
-  bool? get troubleshootingGuides { final v = doc.formField(path, 'troubleshootingGuides'); return v == null ? null : v == 'true'; }
-  set troubleshootingGuides(bool? value) => doc.setFormField(path, 'troubleshootingGuides', value?.toString() ?? '');
+  bool? get troubleshootingGuides => somParseBool(doc.formField(path, 'troubleshootingGuides'));
+  set troubleshootingGuides(bool? value) => doc.setFormField(path, 'troubleshootingGuides', somFormatBool(value));
 
-  bool? get videoTutorials { final v = doc.formField(path, 'videoTutorials'); return v == null ? null : v == 'true'; }
-  set videoTutorials(bool? value) => doc.setFormField(path, 'videoTutorials', value?.toString() ?? '');
+  bool? get videoTutorials => somParseBool(doc.formField(path, 'videoTutorials'));
+  set videoTutorials(bool? value) => doc.setFormField(path, 'videoTutorials', somFormatBool(value));
 
-  bool? get releaseNotes { final v = doc.formField(path, 'releaseNotes'); return v == null ? null : v == 'true'; }
-  set releaseNotes(bool? value) => doc.setFormField(path, 'releaseNotes', value?.toString() ?? '');
+  bool? get releaseNotes => somParseBool(doc.formField(path, 'releaseNotes'));
+  set releaseNotes(bool? value) => doc.setFormField(path, 'releaseNotes', somFormatBool(value));
 
-  bool? get feedbackButton { final v = doc.formField(path, 'feedbackButton'); return v == null ? null : v == 'true'; }
-  set feedbackButton(bool? value) => doc.setFormField(path, 'feedbackButton', value?.toString() ?? '');
+  bool? get feedbackButton => somParseBool(doc.formField(path, 'feedbackButton'));
+  set feedbackButton(bool? value) => doc.setFormField(path, 'feedbackButton', somFormatBool(value));
 
-  bool? get featureRequests { final v = doc.formField(path, 'featureRequests'); return v == null ? null : v == 'true'; }
-  set featureRequests(bool? value) => doc.setFormField(path, 'featureRequests', value?.toString() ?? '');
+  bool? get featureRequests => somParseBool(doc.formField(path, 'featureRequests'));
+  set featureRequests(bool? value) => doc.setFormField(path, 'featureRequests', somFormatBool(value));
 
-  bool? get bugReporting { final v = doc.formField(path, 'bugReporting'); return v == null ? null : v == 'true'; }
-  set bugReporting(bool? value) => doc.setFormField(path, 'bugReporting', value?.toString() ?? '');
+  bool? get bugReporting => somParseBool(doc.formField(path, 'bugReporting'));
+  set bugReporting(bool? value) => doc.setFormField(path, 'bugReporting', somFormatBool(value));
 }
 
 /// Generated section facade for the `supportAccessContent` `@Form` section:
@@ -80978,14 +80999,14 @@ class SupportAccessSupportAccessContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get helpCenterAvailable { final v = doc.formField(path, 'helpCenterAvailable'); return v == null ? null : v == 'true'; }
-  set helpCenterAvailable(bool? value) => doc.setFormField(path, 'helpCenterAvailable', value?.toString() ?? '');
+  bool? get helpCenterAvailable => somParseBool(doc.formField(path, 'helpCenterAvailable'));
+  set helpCenterAvailable(bool? value) => doc.setFormField(path, 'helpCenterAvailable', somFormatBool(value));
 
-  bool? get liveChatAvailable { final v = doc.formField(path, 'liveChatAvailable'); return v == null ? null : v == 'true'; }
-  set liveChatAvailable(bool? value) => doc.setFormField(path, 'liveChatAvailable', value?.toString() ?? '');
+  bool? get liveChatAvailable => somParseBool(doc.formField(path, 'liveChatAvailable'));
+  set liveChatAvailable(bool? value) => doc.setFormField(path, 'liveChatAvailable', somFormatBool(value));
 
-  bool? get ticketSubmission { final v = doc.formField(path, 'ticketSubmission'); return v == null ? null : v == 'true'; }
-  set ticketSubmission(bool? value) => doc.setFormField(path, 'ticketSubmission', value?.toString() ?? '');
+  bool? get ticketSubmission => somParseBool(doc.formField(path, 'ticketSubmission'));
+  set ticketSubmission(bool? value) => doc.setFormField(path, 'ticketSubmission', somFormatBool(value));
 }
 
 /// Generated section facade for the `tickets` `@Form` section:
@@ -81003,8 +81024,8 @@ class SupportAccessTicketsForm extends SomNode {
   String get ticketFormFields => doc.formField(path, 'ticketFormFields') ?? '';
   set ticketFormFields(String value) => doc.setFormField(path, 'ticketFormFields', value);
 
-  bool? get ticketAttachments { final v = doc.formField(path, 'ticketAttachments'); return v == null ? null : v == 'true'; }
-  set ticketAttachments(bool? value) => doc.setFormField(path, 'ticketAttachments', value?.toString() ?? '');
+  bool? get ticketAttachments => somParseBool(doc.formField(path, 'ticketAttachments'));
+  set ticketAttachments(bool? value) => doc.setFormField(path, 'ticketAttachments', somFormatBool(value));
 
   String get ticketResponseSla => doc.formField(path, 'ticketResponseSla') ?? '';
   set ticketResponseSla(String value) => doc.setFormField(path, 'ticketResponseSla', value);
@@ -81097,14 +81118,14 @@ class SystemBusinessCriticalityContentForm extends SomNode {
   String get criticalityRating => doc.formField(path, 'criticalityRating') ?? '';
   set criticalityRating(String value) => doc.setFormField(path, 'criticalityRating', value);
 
-  int? get businessValueScore { final v = doc.formField(path, 'businessValueScore'); return v == null ? null : int.tryParse(v); }
-  set businessValueScore(int? value) => doc.setFormField(path, 'businessValueScore', value?.toString() ?? '');
+  int? get businessValueScore => somParseInt(doc.formField(path, 'businessValueScore'));
+  set businessValueScore(int? value) => doc.setFormField(path, 'businessValueScore', somFormatInt(value));
 
   String get timeModelClassification => doc.formField(path, 'timeModelClassification') ?? '';
   set timeModelClassification(String value) => doc.setFormField(path, 'timeModelClassification', value);
 
-  int? get activeUsers { final v = doc.formField(path, 'activeUsers'); return v == null ? null : int.tryParse(v); }
-  set activeUsers(int? value) => doc.setFormField(path, 'activeUsers', value?.toString() ?? '');
+  int? get activeUsers => somParseInt(doc.formField(path, 'activeUsers'));
+  set activeUsers(int? value) => doc.setFormField(path, 'activeUsers', somFormatInt(value));
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -81141,8 +81162,8 @@ class SystemBusinessCriticalityOperationsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get peakConcurrentUsers { final v = doc.formField(path, 'peakConcurrentUsers'); return v == null ? null : int.tryParse(v); }
-  set peakConcurrentUsers(int? value) => doc.setFormField(path, 'peakConcurrentUsers', value?.toString() ?? '');
+  int? get peakConcurrentUsers => somParseInt(doc.formField(path, 'peakConcurrentUsers'));
+  set peakConcurrentUsers(int? value) => doc.setFormField(path, 'peakConcurrentUsers', somFormatInt(value));
 
   String get transactionVolume => doc.formField(path, 'transactionVolume') ?? '';
   set transactionVolume(String value) => doc.setFormField(path, 'transactionVolume', value);
@@ -81197,8 +81218,8 @@ class SystemBusinessUnitEntryContentForm extends SomNode {
   String get unitName => doc.formField(path, 'unitName') ?? '';
   set unitName(String value) => doc.setFormField(path, 'unitName', value);
 
-  int? get userCount { final v = doc.formField(path, 'userCount'); return v == null ? null : int.tryParse(v); }
-  set userCount(int? value) => doc.setFormField(path, 'userCount', value?.toString() ?? '');
+  int? get userCount => somParseInt(doc.formField(path, 'userCount'));
+  set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
 
   String get usagePattern => doc.formField(path, 'usagePattern') ?? '';
   set usagePattern(String value) => doc.setFormField(path, 'usagePattern', value);
@@ -81244,17 +81265,17 @@ class SystemConfigurationManagementDynamicForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get dynamicConfiguration { final v = doc.formField(path, 'dynamicConfiguration'); return v == null ? null : v == 'true'; }
-  set dynamicConfiguration(bool? value) => doc.setFormField(path, 'dynamicConfiguration', value?.toString() ?? '');
+  bool? get dynamicConfiguration => somParseBool(doc.formField(path, 'dynamicConfiguration'));
+  set dynamicConfiguration(bool? value) => doc.setFormField(path, 'dynamicConfiguration', somFormatBool(value));
 
-  bool? get hotReloadSupport { final v = doc.formField(path, 'hotReloadSupport'); return v == null ? null : v == 'true'; }
-  set hotReloadSupport(bool? value) => doc.setFormField(path, 'hotReloadSupport', value?.toString() ?? '');
+  bool? get hotReloadSupport => somParseBool(doc.formField(path, 'hotReloadSupport'));
+  set hotReloadSupport(bool? value) => doc.setFormField(path, 'hotReloadSupport', somFormatBool(value));
 
-  bool? get configVersioning { final v = doc.formField(path, 'configVersioning'); return v == null ? null : v == 'true'; }
-  set configVersioning(bool? value) => doc.setFormField(path, 'configVersioning', value?.toString() ?? '');
+  bool? get configVersioning => somParseBool(doc.formField(path, 'configVersioning'));
+  set configVersioning(bool? value) => doc.setFormField(path, 'configVersioning', somFormatBool(value));
 
-  bool? get configRollback { final v = doc.formField(path, 'configRollback'); return v == null ? null : v == 'true'; }
-  set configRollback(bool? value) => doc.setFormField(path, 'configRollback', value?.toString() ?? '');
+  bool? get configRollback => somParseBool(doc.formField(path, 'configRollback'));
+  set configRollback(bool? value) => doc.setFormField(path, 'configRollback', somFormatBool(value));
 }
 
 /// Generated section facade for the `environment` `@Form` section:
@@ -81275,8 +81296,8 @@ class SystemConfigurationManagementEnvironmentForm extends SomNode {
   String get secretsManagement => doc.formField(path, 'secretsManagement') ?? '';
   set secretsManagement(String value) => doc.setFormField(path, 'secretsManagement', value);
 
-  bool? get secretRotation { final v = doc.formField(path, 'secretRotation'); return v == null ? null : v == 'true'; }
-  set secretRotation(bool? value) => doc.setFormField(path, 'secretRotation', value?.toString() ?? '');
+  bool? get secretRotation => somParseBool(doc.formField(path, 'secretRotation'));
+  set secretRotation(bool? value) => doc.setFormField(path, 'secretRotation', somFormatBool(value));
 }
 
 /// Generated section facade for the `governance` `@Form` section:
@@ -81294,11 +81315,11 @@ class SystemConfigurationManagementGovernanceForm extends SomNode {
   String get configValidation => doc.formField(path, 'configValidation') ?? '';
   set configValidation(String value) => doc.setFormField(path, 'configValidation', value);
 
-  bool? get configDiffing { final v = doc.formField(path, 'configDiffing'); return v == null ? null : v == 'true'; }
-  set configDiffing(bool? value) => doc.setFormField(path, 'configDiffing', value?.toString() ?? '');
+  bool? get configDiffing => somParseBool(doc.formField(path, 'configDiffing'));
+  set configDiffing(bool? value) => doc.setFormField(path, 'configDiffing', somFormatBool(value));
 
-  bool? get configAuditTrail { final v = doc.formField(path, 'configAuditTrail'); return v == null ? null : v == 'true'; }
-  set configAuditTrail(bool? value) => doc.setFormField(path, 'configAuditTrail', value?.toString() ?? '');
+  bool? get configAuditTrail => somParseBool(doc.formField(path, 'configAuditTrail'));
+  set configAuditTrail(bool? value) => doc.setFormField(path, 'configAuditTrail', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -81460,8 +81481,8 @@ class SystemDataScopeMigrationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get deduplicationNeeded { final v = doc.formField(path, 'deduplicationNeeded'); return v == null ? null : v == 'true'; }
-  set deduplicationNeeded(bool? value) => doc.setFormField(path, 'deduplicationNeeded', value?.toString() ?? '');
+  bool? get deduplicationNeeded => somParseBool(doc.formField(path, 'deduplicationNeeded'));
+  set deduplicationNeeded(bool? value) => doc.setFormField(path, 'deduplicationNeeded', somFormatBool(value));
 
   String get transformationComplexity => doc.formField(path, 'transformationComplexity') ?? '';
   set transformationComplexity(String value) => doc.setFormField(path, 'transformationComplexity', value);
@@ -81668,17 +81689,17 @@ class SystemDiagnosticToolsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get remoteDebugging { final v = doc.formField(path, 'remoteDebugging'); return v == null ? null : v == 'true'; }
-  set remoteDebugging(bool? value) => doc.setFormField(path, 'remoteDebugging', value?.toString() ?? '');
+  bool? get remoteDebugging => somParseBool(doc.formField(path, 'remoteDebugging'));
+  set remoteDebugging(bool? value) => doc.setFormField(path, 'remoteDebugging', somFormatBool(value));
 
   String get profiling => doc.formField(path, 'profiling') ?? '';
   set profiling(String value) => doc.setFormField(path, 'profiling', value);
 
-  bool? get threadDumpCapability { final v = doc.formField(path, 'threadDumpCapability'); return v == null ? null : v == 'true'; }
-  set threadDumpCapability(bool? value) => doc.setFormField(path, 'threadDumpCapability', value?.toString() ?? '');
+  bool? get threadDumpCapability => somParseBool(doc.formField(path, 'threadDumpCapability'));
+  set threadDumpCapability(bool? value) => doc.setFormField(path, 'threadDumpCapability', somFormatBool(value));
 
-  bool? get heapDumpCapability { final v = doc.formField(path, 'heapDumpCapability'); return v == null ? null : v == 'true'; }
-  set heapDumpCapability(bool? value) => doc.setFormField(path, 'heapDumpCapability', value?.toString() ?? '');
+  bool? get heapDumpCapability => somParseBool(doc.formField(path, 'heapDumpCapability'));
+  set heapDumpCapability(bool? value) => doc.setFormField(path, 'heapDumpCapability', somFormatBool(value));
 }
 
 /// Generated section facade for the `logs` `@Form` section:
@@ -81699,8 +81720,8 @@ class SystemDiagnosticToolsLogsForm extends SomNode {
   String get logSearchCapability => doc.formField(path, 'logSearchCapability') ?? '';
   set logSearchCapability(String value) => doc.setFormField(path, 'logSearchCapability', value);
 
-  bool? get correlatedLogView { final v = doc.formField(path, 'correlatedLogView'); return v == null ? null : v == 'true'; }
-  set correlatedLogView(bool? value) => doc.setFormField(path, 'correlatedLogView', value?.toString() ?? '');
+  bool? get correlatedLogView => somParseBool(doc.formField(path, 'correlatedLogView'));
+  set correlatedLogView(bool? value) => doc.setFormField(path, 'correlatedLogView', somFormatBool(value));
 }
 
 /// Generated section facade for the `selfService` `@Form` section:
@@ -81718,8 +81739,8 @@ class SystemDiagnosticToolsSelfServiceForm extends SomNode {
   String get adminDiagnosticEndpoints => doc.formField(path, 'adminDiagnosticEndpoints') ?? '';
   set adminDiagnosticEndpoints(String value) => doc.setFormField(path, 'adminDiagnosticEndpoints', value);
 
-  bool? get databaseQueryConsole { final v = doc.formField(path, 'databaseQueryConsole'); return v == null ? null : v == 'true'; }
-  set databaseQueryConsole(bool? value) => doc.setFormField(path, 'databaseQueryConsole', value?.toString() ?? '');
+  bool? get databaseQueryConsole => somParseBool(doc.formField(path, 'databaseQueryConsole'));
+  set databaseQueryConsole(bool? value) => doc.setFormField(path, 'databaseQueryConsole', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -81740,11 +81761,11 @@ class SystemDiagnosticToolsTracingForm extends SomNode {
   String get requestTracing => doc.formField(path, 'requestTracing') ?? '';
   set requestTracing(String value) => doc.setFormField(path, 'requestTracing', value);
 
-  bool? get slowQueryAnalysis { final v = doc.formField(path, 'slowQueryAnalysis'); return v == null ? null : v == 'true'; }
-  set slowQueryAnalysis(bool? value) => doc.setFormField(path, 'slowQueryAnalysis', value?.toString() ?? '');
+  bool? get slowQueryAnalysis => somParseBool(doc.formField(path, 'slowQueryAnalysis'));
+  set slowQueryAnalysis(bool? value) => doc.setFormField(path, 'slowQueryAnalysis', somFormatBool(value));
 
-  bool? get dependencyMapping { final v = doc.formField(path, 'dependencyMapping'); return v == null ? null : v == 'true'; }
-  set dependencyMapping(bool? value) => doc.setFormField(path, 'dependencyMapping', value?.toString() ?? '');
+  bool? get dependencyMapping => somParseBool(doc.formField(path, 'dependencyMapping'));
+  set dependencyMapping(bool? value) => doc.setFormField(path, 'dependencyMapping', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -81762,8 +81783,8 @@ class SystemErrorCodeEntryContentForm extends SomNode {
   String get errorCode => doc.formField(path, 'errorCode') ?? '';
   set errorCode(String value) => doc.setFormField(path, 'errorCode', value);
 
-  int? get httpStatus { final v = doc.formField(path, 'httpStatus'); return v == null ? null : int.tryParse(v); }
-  set httpStatus(int? value) => doc.setFormField(path, 'httpStatus', value?.toString() ?? '');
+  int? get httpStatus => somParseInt(doc.formField(path, 'httpStatus'));
+  set httpStatus(int? value) => doc.setFormField(path, 'httpStatus', somFormatInt(value));
 
   String get errorCategory => doc.formField(path, 'errorCategory') ?? '';
   set errorCategory(String value) => doc.setFormField(path, 'errorCategory', value);
@@ -81790,11 +81811,11 @@ class SystemErrorCodeEntryHandlingForm extends SomNode {
   String get suggestedAction => doc.formField(path, 'suggestedAction') ?? '';
   set suggestedAction(String value) => doc.setFormField(path, 'suggestedAction', value);
 
-  bool? get retryable { final v = doc.formField(path, 'retryable'); return v == null ? null : v == 'true'; }
-  set retryable(bool? value) => doc.setFormField(path, 'retryable', value?.toString() ?? '');
+  bool? get retryable => somParseBool(doc.formField(path, 'retryable'));
+  set retryable(bool? value) => doc.setFormField(path, 'retryable', somFormatBool(value));
 
-  bool? get autoRetry { final v = doc.formField(path, 'autoRetry'); return v == null ? null : v == 'true'; }
-  set autoRetry(bool? value) => doc.setFormField(path, 'autoRetry', value?.toString() ?? '');
+  bool? get autoRetry => somParseBool(doc.formField(path, 'autoRetry'));
+  set autoRetry(bool? value) => doc.setFormField(path, 'autoRetry', somFormatBool(value));
 
   String get displayMethod => doc.formField(path, 'displayMethod') ?? '';
   set displayMethod(String value) => doc.setFormField(path, 'displayMethod', value);
@@ -81812,8 +81833,8 @@ class SystemErrorCodeEntryOperationsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get notifySupport { final v = doc.formField(path, 'notifySupport'); return v == null ? null : v == 'true'; }
-  set notifySupport(bool? value) => doc.setFormField(path, 'notifySupport', value?.toString() ?? '');
+  bool? get notifySupport => somParseBool(doc.formField(path, 'notifySupport'));
+  set notifySupport(bool? value) => doc.setFormField(path, 'notifySupport', somFormatBool(value));
 
   String get logLevel => doc.formField(path, 'logLevel') ?? '';
   set logLevel(String value) => doc.setFormField(path, 'logLevel', value);
@@ -81831,17 +81852,17 @@ class SystemErrorDisplayDisplayContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get showTechnicalDetails { final v = doc.formField(path, 'showTechnicalDetails'); return v == null ? null : v == 'true'; }
-  set showTechnicalDetails(bool? value) => doc.setFormField(path, 'showTechnicalDetails', value?.toString() ?? '');
+  bool? get showTechnicalDetails => somParseBool(doc.formField(path, 'showTechnicalDetails'));
+  set showTechnicalDetails(bool? value) => doc.setFormField(path, 'showTechnicalDetails', somFormatBool(value));
 
-  bool? get showRetryOption { final v = doc.formField(path, 'showRetryOption'); return v == null ? null : v == 'true'; }
-  set showRetryOption(bool? value) => doc.setFormField(path, 'showRetryOption', value?.toString() ?? '');
+  bool? get showRetryOption => somParseBool(doc.formField(path, 'showRetryOption'));
+  set showRetryOption(bool? value) => doc.setFormField(path, 'showRetryOption', somFormatBool(value));
 
-  bool? get showContactSupport { final v = doc.formField(path, 'showContactSupport'); return v == null ? null : v == 'true'; }
-  set showContactSupport(bool? value) => doc.setFormField(path, 'showContactSupport', value?.toString() ?? '');
+  bool? get showContactSupport => somParseBool(doc.formField(path, 'showContactSupport'));
+  set showContactSupport(bool? value) => doc.setFormField(path, 'showContactSupport', somFormatBool(value));
 
-  bool? get showStatusPageLink { final v = doc.formField(path, 'showStatusPageLink'); return v == null ? null : v == 'true'; }
-  set showStatusPageLink(bool? value) => doc.setFormField(path, 'showStatusPageLink', value?.toString() ?? '');
+  bool? get showStatusPageLink => somParseBool(doc.formField(path, 'showStatusPageLink'));
+  set showStatusPageLink(bool? value) => doc.setFormField(path, 'showStatusPageLink', somFormatBool(value));
 
   String get offlineModeMessage => doc.formField(path, 'offlineModeMessage') ?? '';
   set offlineModeMessage(String value) => doc.setFormField(path, 'offlineModeMessage', value);
@@ -81921,11 +81942,11 @@ class SystemErrorDisplayFallbackForm extends SomNode {
   String get retryStrategy => doc.formField(path, 'retryStrategy') ?? '';
   set retryStrategy(String value) => doc.setFormField(path, 'retryStrategy', value);
 
-  int? get maxRetryAttempts { final v = doc.formField(path, 'maxRetryAttempts'); return v == null ? null : int.tryParse(v); }
-  set maxRetryAttempts(int? value) => doc.setFormField(path, 'maxRetryAttempts', value?.toString() ?? '');
+  int? get maxRetryAttempts => somParseInt(doc.formField(path, 'maxRetryAttempts'));
+  set maxRetryAttempts(int? value) => doc.setFormField(path, 'maxRetryAttempts', somFormatInt(value));
 
-  int? get retryDelaySeconds { final v = doc.formField(path, 'retryDelaySeconds'); return v == null ? null : int.tryParse(v); }
-  set retryDelaySeconds(int? value) => doc.setFormField(path, 'retryDelaySeconds', value?.toString() ?? '');
+  int? get retryDelaySeconds => somParseInt(doc.formField(path, 'retryDelaySeconds'));
+  set retryDelaySeconds(int? value) => doc.setFormField(path, 'retryDelaySeconds', somFormatInt(value));
 }
 
 /// Generated section facade for the `systemErrorContent` `@Form` section:
@@ -82152,8 +82173,8 @@ class SystemKnowledgeTransferContentForm extends SomNode {
   String get backupSme => doc.formField(path, 'backupSme') ?? '';
   set backupSme(String value) => doc.setFormField(path, 'backupSme', value);
 
-  bool? get knowledgeCaptureNeeded { final v = doc.formField(path, 'knowledgeCaptureNeeded'); return v == null ? null : v == 'true'; }
-  set knowledgeCaptureNeeded(bool? value) => doc.setFormField(path, 'knowledgeCaptureNeeded', value?.toString() ?? '');
+  bool? get knowledgeCaptureNeeded => somParseBool(doc.formField(path, 'knowledgeCaptureNeeded'));
+  set knowledgeCaptureNeeded(bool? value) => doc.setFormField(path, 'knowledgeCaptureNeeded', somFormatBool(value));
 
   String get captureApproach => doc.formField(path, 'captureApproach') ?? '';
   set captureApproach(String value) => doc.setFormField(path, 'captureApproach', value);
@@ -82640,20 +82661,20 @@ class SystemSummaryScaleForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get estimatedUserCount { final v = doc.formField(path, 'estimatedUserCount'); return v == null ? null : int.tryParse(v); }
-  set estimatedUserCount(int? value) => doc.setFormField(path, 'estimatedUserCount', value?.toString() ?? '');
+  int? get estimatedUserCount => somParseInt(doc.formField(path, 'estimatedUserCount'));
+  set estimatedUserCount(int? value) => doc.setFormField(path, 'estimatedUserCount', somFormatInt(value));
 
-  int? get userCategoryCount { final v = doc.formField(path, 'userCategoryCount'); return v == null ? null : int.tryParse(v); }
-  set userCategoryCount(int? value) => doc.setFormField(path, 'userCategoryCount', value?.toString() ?? '');
+  int? get userCategoryCount => somParseInt(doc.formField(path, 'userCategoryCount'));
+  set userCategoryCount(int? value) => doc.setFormField(path, 'userCategoryCount', somFormatInt(value));
 
-  int? get externalInterfaceCount { final v = doc.formField(path, 'externalInterfaceCount'); return v == null ? null : int.tryParse(v); }
-  set externalInterfaceCount(int? value) => doc.setFormField(path, 'externalInterfaceCount', value?.toString() ?? '');
+  int? get externalInterfaceCount => somParseInt(doc.formField(path, 'externalInterfaceCount'));
+  set externalInterfaceCount(int? value) => doc.setFormField(path, 'externalInterfaceCount', somFormatInt(value));
 
-  int? get functionalRequirementCount { final v = doc.formField(path, 'functionalRequirementCount'); return v == null ? null : int.tryParse(v); }
-  set functionalRequirementCount(int? value) => doc.setFormField(path, 'functionalRequirementCount', value?.toString() ?? '');
+  int? get functionalRequirementCount => somParseInt(doc.formField(path, 'functionalRequirementCount'));
+  set functionalRequirementCount(int? value) => doc.setFormField(path, 'functionalRequirementCount', somFormatInt(value));
 
-  int? get nonFunctionalRequirementCount { final v = doc.formField(path, 'nonFunctionalRequirementCount'); return v == null ? null : int.tryParse(v); }
-  set nonFunctionalRequirementCount(int? value) => doc.setFormField(path, 'nonFunctionalRequirementCount', value?.toString() ?? '');
+  int? get nonFunctionalRequirementCount => somParseInt(doc.formField(path, 'nonFunctionalRequirementCount'));
+  set nonFunctionalRequirementCount(int? value) => doc.setFormField(path, 'nonFunctionalRequirementCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `status` `@Form` section:
@@ -82837,8 +82858,8 @@ class SystemTechnicalAssessmentPlatformForm extends SomNode {
   String get deploymentDate => doc.formField(path, 'deploymentDate') ?? '';
   set deploymentDate(String value) => doc.setFormField(path, 'deploymentDate', value);
 
-  int? get systemAge { final v = doc.formField(path, 'systemAge'); return v == null ? null : int.tryParse(v); }
-  set systemAge(int? value) => doc.setFormField(path, 'systemAge', value?.toString() ?? '');
+  int? get systemAge => somParseInt(doc.formField(path, 'systemAge'));
+  set systemAge(int? value) => doc.setFormField(path, 'systemAge', somFormatInt(value));
 
   String get lastMajorUpgrade => doc.formField(path, 'lastMajorUpgrade') ?? '';
   set lastMajorUpgrade(String value) => doc.setFormField(path, 'lastMajorUpgrade', value);
@@ -83097,14 +83118,14 @@ class SystemUserImpactContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalUserCount { final v = doc.formField(path, 'totalUserCount'); return v == null ? null : int.tryParse(v); }
-  set totalUserCount(int? value) => doc.setFormField(path, 'totalUserCount', value?.toString() ?? '');
+  int? get totalUserCount => somParseInt(doc.formField(path, 'totalUserCount'));
+  set totalUserCount(int? value) => doc.setFormField(path, 'totalUserCount', somFormatInt(value));
 
-  int? get activeUserCount { final v = doc.formField(path, 'activeUserCount'); return v == null ? null : int.tryParse(v); }
-  set activeUserCount(int? value) => doc.setFormField(path, 'activeUserCount', value?.toString() ?? '');
+  int? get activeUserCount => somParseInt(doc.formField(path, 'activeUserCount'));
+  set activeUserCount(int? value) => doc.setFormField(path, 'activeUserCount', somFormatInt(value));
 
-  int? get powerUsers { final v = doc.formField(path, 'powerUsers'); return v == null ? null : int.tryParse(v); }
-  set powerUsers(int? value) => doc.setFormField(path, 'powerUsers', value?.toString() ?? '');
+  int? get powerUsers => somParseInt(doc.formField(path, 'powerUsers'));
+  set powerUsers(int? value) => doc.setFormField(path, 'powerUsers', somFormatInt(value));
 
   String get userLocations => doc.formField(path, 'userLocations') ?? '';
   set userLocations(String value) => doc.setFormField(path, 'userLocations', value);
@@ -83125,8 +83146,8 @@ class SystemUserImpactEnablementForm extends SomNode {
   String get trainingRequired => doc.formField(path, 'trainingRequired') ?? '';
   set trainingRequired(String value) => doc.setFormField(path, 'trainingRequired', value);
 
-  int? get estimatedTrainingHours { final v = doc.formField(path, 'estimatedTrainingHours'); return v == null ? null : int.tryParse(v); }
-  set estimatedTrainingHours(int? value) => doc.setFormField(path, 'estimatedTrainingHours', value?.toString() ?? '');
+  int? get estimatedTrainingHours => somParseInt(doc.formField(path, 'estimatedTrainingHours'));
+  set estimatedTrainingHours(int? value) => doc.setFormField(path, 'estimatedTrainingHours', somFormatInt(value));
 
   String get trainingApproach => doc.formField(path, 'trainingApproach') ?? '';
   set trainingApproach(String value) => doc.setFormField(path, 'trainingApproach', value);
@@ -83153,8 +83174,8 @@ class TabBarDefinitionEntryBehaviorForm extends SomNode {
   String get isScrollable => doc.formField(path, 'isScrollable') ?? '';
   set isScrollable(String value) => doc.setFormField(path, 'isScrollable', value);
 
-  int? get defaultTabIndex { final v = doc.formField(path, 'defaultTabIndex'); return v == null ? null : int.tryParse(v); }
-  set defaultTabIndex(int? value) => doc.setFormField(path, 'defaultTabIndex', value?.toString() ?? '');
+  int? get defaultTabIndex => somParseInt(doc.formField(path, 'defaultTabIndex'));
+  set defaultTabIndex(int? value) => doc.setFormField(path, 'defaultTabIndex', somFormatInt(value));
 
   String get persistSelection => doc.formField(path, 'persistSelection') ?? '';
   set persistSelection(String value) => doc.setFormField(path, 'persistSelection', value);
@@ -83228,8 +83249,8 @@ class TabItemEntryContentForm extends SomNode {
   String get icon => doc.formField(path, 'icon') ?? '';
   set icon(String value) => doc.setFormField(path, 'icon', value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get contentScreenId => doc.formField(path, 'contentScreenId') ?? '';
   set contentScreenId(String value) => doc.setFormField(path, 'contentScreenId', value);
@@ -83528,8 +83549,8 @@ class TeamMemberSkillEntryContentForm extends SomNode {
   String get proficiencyLevel => doc.formField(path, 'proficiencyLevel') ?? '';
   set proficiencyLevel(String value) => doc.setFormField(path, 'proficiencyLevel', value);
 
-  int? get yearsUsing { final v = doc.formField(path, 'yearsUsing'); return v == null ? null : int.tryParse(v); }
-  set yearsUsing(int? value) => doc.setFormField(path, 'yearsUsing', value?.toString() ?? '');
+  int? get yearsUsing => somParseInt(doc.formField(path, 'yearsUsing'));
+  set yearsUsing(int? value) => doc.setFormField(path, 'yearsUsing', somFormatInt(value));
 
   String get lastUsed => doc.formField(path, 'lastUsed') ?? '';
   set lastUsed(String value) => doc.setFormField(path, 'lastUsed', value);
@@ -83559,8 +83580,8 @@ class TeamMemberSkillsContentForm extends SomNode {
   String get domainExpertise => doc.formField(path, 'domainExpertise') ?? '';
   set domainExpertise(String value) => doc.setFormField(path, 'domainExpertise', value);
 
-  int? get yearsExperience { final v = doc.formField(path, 'yearsExperience'); return v == null ? null : int.tryParse(v); }
-  set yearsExperience(int? value) => doc.setFormField(path, 'yearsExperience', value?.toString() ?? '');
+  int? get yearsExperience => somParseInt(doc.formField(path, 'yearsExperience'));
+  set yearsExperience(int? value) => doc.setFormField(path, 'yearsExperience', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -83575,14 +83596,14 @@ class TeamStructureOverviewContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get teamSize { final v = doc.formField(path, 'teamSize'); return v == null ? null : int.tryParse(v); }
-  set teamSize(int? value) => doc.setFormField(path, 'teamSize', value?.toString() ?? '');
+  int? get teamSize => somParseInt(doc.formField(path, 'teamSize'));
+  set teamSize(int? value) => doc.setFormField(path, 'teamSize', somFormatInt(value));
 
-  int? get internalResources { final v = doc.formField(path, 'internalResources'); return v == null ? null : int.tryParse(v); }
-  set internalResources(int? value) => doc.setFormField(path, 'internalResources', value?.toString() ?? '');
+  int? get internalResources => somParseInt(doc.formField(path, 'internalResources'));
+  set internalResources(int? value) => doc.setFormField(path, 'internalResources', somFormatInt(value));
 
-  int? get externalResources { final v = doc.formField(path, 'externalResources'); return v == null ? null : int.tryParse(v); }
-  set externalResources(int? value) => doc.setFormField(path, 'externalResources', value?.toString() ?? '');
+  int? get externalResources => somParseInt(doc.formField(path, 'externalResources'));
+  set externalResources(int? value) => doc.setFormField(path, 'externalResources', somFormatInt(value));
 
   String get teamLocationModel => doc.formField(path, 'teamLocationModel') ?? '';
   set teamLocationModel(String value) => doc.setFormField(path, 'teamLocationModel', value);
@@ -84083,17 +84104,17 @@ class TechnicalPainPointsCategorySummaryForm extends SomNode {
   String get technicalDebtEstimate => doc.formField(path, 'technicalDebtEstimate') ?? '';
   set technicalDebtEstimate(String value) => doc.setFormField(path, 'technicalDebtEstimate', value);
 
-  int? get securityVulnerabilityCount { final v = doc.formField(path, 'securityVulnerabilityCount'); return v == null ? null : int.tryParse(v); }
-  set securityVulnerabilityCount(int? value) => doc.setFormField(path, 'securityVulnerabilityCount', value?.toString() ?? '');
+  int? get securityVulnerabilityCount => somParseInt(doc.formField(path, 'securityVulnerabilityCount'));
+  set securityVulnerabilityCount(int? value) => doc.setFormField(path, 'securityVulnerabilityCount', somFormatInt(value));
 
-  int? get criticalSecurityIssues { final v = doc.formField(path, 'criticalSecurityIssues'); return v == null ? null : int.tryParse(v); }
-  set criticalSecurityIssues(int? value) => doc.setFormField(path, 'criticalSecurityIssues', value?.toString() ?? '');
+  int? get criticalSecurityIssues => somParseInt(doc.formField(path, 'criticalSecurityIssues'));
+  set criticalSecurityIssues(int? value) => doc.setFormField(path, 'criticalSecurityIssues', somFormatInt(value));
 
-  int? get systemsAtEndOfLife { final v = doc.formField(path, 'systemsAtEndOfLife'); return v == null ? null : int.tryParse(v); }
-  set systemsAtEndOfLife(int? value) => doc.setFormField(path, 'systemsAtEndOfLife', value?.toString() ?? '');
+  int? get systemsAtEndOfLife => somParseInt(doc.formField(path, 'systemsAtEndOfLife'));
+  set systemsAtEndOfLife(int? value) => doc.setFormField(path, 'systemsAtEndOfLife', somFormatInt(value));
 
-  int? get undocumentedSystems { final v = doc.formField(path, 'undocumentedSystems'); return v == null ? null : int.tryParse(v); }
-  set undocumentedSystems(int? value) => doc.setFormField(path, 'undocumentedSystems', value?.toString() ?? '');
+  int? get undocumentedSystems => somParseInt(doc.formField(path, 'undocumentedSystems'));
+  set undocumentedSystems(int? value) => doc.setFormField(path, 'undocumentedSystems', somFormatInt(value));
 
   String get vendorLockInRisk => doc.formField(path, 'vendorLockInRisk') ?? '';
   set vendorLockInRisk(String value) => doc.setFormField(path, 'vendorLockInRisk', value);
@@ -84448,23 +84469,23 @@ class TenantCustomizationEntryContentForm extends SomNode {
   String get scopingMechanism => doc.formField(path, 'scopingMechanism') ?? '';
   set scopingMechanism(String value) => doc.setFormField(path, 'scopingMechanism', value);
 
-  bool? get customRolesAllowed { final v = doc.formField(path, 'customRolesAllowed'); return v == null ? null : v == 'true'; }
-  set customRolesAllowed(bool? value) => doc.setFormField(path, 'customRolesAllowed', value?.toString() ?? '');
+  bool? get customRolesAllowed => somParseBool(doc.formField(path, 'customRolesAllowed'));
+  set customRolesAllowed(bool? value) => doc.setFormField(path, 'customRolesAllowed', somFormatBool(value));
 
-  bool? get customPermissionsAllowed { final v = doc.formField(path, 'customPermissionsAllowed'); return v == null ? null : v == 'true'; }
-  set customPermissionsAllowed(bool? value) => doc.setFormField(path, 'customPermissionsAllowed', value?.toString() ?? '');
+  bool? get customPermissionsAllowed => somParseBool(doc.formField(path, 'customPermissionsAllowed'));
+  set customPermissionsAllowed(bool? value) => doc.setFormField(path, 'customPermissionsAllowed', somFormatBool(value));
 
-  bool? get customPoliciesAllowed { final v = doc.formField(path, 'customPoliciesAllowed'); return v == null ? null : v == 'true'; }
-  set customPoliciesAllowed(bool? value) => doc.setFormField(path, 'customPoliciesAllowed', value?.toString() ?? '');
+  bool? get customPoliciesAllowed => somParseBool(doc.formField(path, 'customPoliciesAllowed'));
+  set customPoliciesAllowed(bool? value) => doc.setFormField(path, 'customPoliciesAllowed', somFormatBool(value));
 
-  bool? get inheritFromGlobal { final v = doc.formField(path, 'inheritFromGlobal'); return v == null ? null : v == 'true'; }
-  set inheritFromGlobal(bool? value) => doc.setFormField(path, 'inheritFromGlobal', value?.toString() ?? '');
+  bool? get inheritFromGlobal => somParseBool(doc.formField(path, 'inheritFromGlobal'));
+  set inheritFromGlobal(bool? value) => doc.setFormField(path, 'inheritFromGlobal', somFormatBool(value));
 
   String get customizationApproval => doc.formField(path, 'customizationApproval') ?? '';
   set customizationApproval(String value) => doc.setFormField(path, 'customizationApproval', value);
 
-  bool? get customizationAudit { final v = doc.formField(path, 'customizationAudit'); return v == null ? null : v == 'true'; }
-  set customizationAudit(bool? value) => doc.setFormField(path, 'customizationAudit', value?.toString() ?? '');
+  bool? get customizationAudit => somParseBool(doc.formField(path, 'customizationAudit'));
+  set customizationAudit(bool? value) => doc.setFormField(path, 'customizationAudit', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -84673,14 +84694,14 @@ class TestingStandardsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get unitTestRequired { final v = doc.formField(path, 'unitTestRequired'); return v == null ? null : v == 'true'; }
-  set unitTestRequired(bool? value) => doc.setFormField(path, 'unitTestRequired', value?.toString() ?? '');
+  bool? get unitTestRequired => somParseBool(doc.formField(path, 'unitTestRequired'));
+  set unitTestRequired(bool? value) => doc.setFormField(path, 'unitTestRequired', somFormatBool(value));
 
-  bool? get integrationTestRequired { final v = doc.formField(path, 'integrationTestRequired'); return v == null ? null : v == 'true'; }
-  set integrationTestRequired(bool? value) => doc.setFormField(path, 'integrationTestRequired', value?.toString() ?? '');
+  bool? get integrationTestRequired => somParseBool(doc.formField(path, 'integrationTestRequired'));
+  set integrationTestRequired(bool? value) => doc.setFormField(path, 'integrationTestRequired', somFormatBool(value));
 
-  bool? get e2eTestRequired { final v = doc.formField(path, 'e2eTestRequired'); return v == null ? null : v == 'true'; }
-  set e2eTestRequired(bool? value) => doc.setFormField(path, 'e2eTestRequired', value?.toString() ?? '');
+  bool? get e2eTestRequired => somParseBool(doc.formField(path, 'e2eTestRequired'));
+  set e2eTestRequired(bool? value) => doc.setFormField(path, 'e2eTestRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `organization` `@Form` section:
@@ -84695,8 +84716,8 @@ class TestingStandardsOrganizationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get performanceTestRequired { final v = doc.formField(path, 'performanceTestRequired'); return v == null ? null : v == 'true'; }
-  set performanceTestRequired(bool? value) => doc.setFormField(path, 'performanceTestRequired', value?.toString() ?? '');
+  bool? get performanceTestRequired => somParseBool(doc.formField(path, 'performanceTestRequired'));
+  set performanceTestRequired(bool? value) => doc.setFormField(path, 'performanceTestRequired', somFormatBool(value));
 
   String get testNamingConvention => doc.formField(path, 'testNamingConvention') ?? '';
   set testNamingConvention(String value) => doc.setFormField(path, 'testNamingConvention', value);
@@ -84720,11 +84741,11 @@ class TestingStandardsPatternsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get arrangActAssert { final v = doc.formField(path, 'arrangActAssert'); return v == null ? null : v == 'true'; }
-  set arrangActAssert(bool? value) => doc.setFormField(path, 'arrangActAssert', value?.toString() ?? '');
+  bool? get arrangActAssert => somParseBool(doc.formField(path, 'arrangActAssert'));
+  set arrangActAssert(bool? value) => doc.setFormField(path, 'arrangActAssert', somFormatBool(value));
 
-  bool? get givenWhenThen { final v = doc.formField(path, 'givenWhenThen'); return v == null ? null : v == 'true'; }
-  set givenWhenThen(bool? value) => doc.setFormField(path, 'givenWhenThen', value?.toString() ?? '');
+  bool? get givenWhenThen => somParseBool(doc.formField(path, 'givenWhenThen'));
+  set givenWhenThen(bool? value) => doc.setFormField(path, 'givenWhenThen', somFormatBool(value));
 
   String get mockingStrategy => doc.formField(path, 'mockingStrategy') ?? '';
   set mockingStrategy(String value) => doc.setFormField(path, 'mockingStrategy', value);
@@ -84748,8 +84769,8 @@ class TestingStandardsQualityForm extends SomNode {
   String get testIsolation => doc.formField(path, 'testIsolation') ?? '';
   set testIsolation(String value) => doc.setFormField(path, 'testIsolation', value);
 
-  bool? get deterministicTests { final v = doc.formField(path, 'deterministicTests'); return v == null ? null : v == 'true'; }
-  set deterministicTests(bool? value) => doc.setFormField(path, 'deterministicTests', value?.toString() ?? '');
+  bool? get deterministicTests => somParseBool(doc.formField(path, 'deterministicTests'));
+  set deterministicTests(bool? value) => doc.setFormField(path, 'deterministicTests', somFormatBool(value));
 
   String get flakyTestPolicy => doc.formField(path, 'flakyTestPolicy') ?? '';
   set flakyTestPolicy(String value) => doc.setFormField(path, 'flakyTestPolicy', value);
@@ -85112,8 +85133,8 @@ class ThirdPartyLibraryEntryLicenseInfoForm extends SomNode {
   String get licenseCompliance => doc.formField(path, 'licenseCompliance') ?? '';
   set licenseCompliance(String value) => doc.setFormField(path, 'licenseCompliance', value);
 
-  bool? get attributionRequired { final v = doc.formField(path, 'attributionRequired'); return v == null ? null : v == 'true'; }
-  set attributionRequired(bool? value) => doc.setFormField(path, 'attributionRequired', value?.toString() ?? '');
+  bool? get attributionRequired => somParseBool(doc.formField(path, 'attributionRequired'));
+  set attributionRequired(bool? value) => doc.setFormField(path, 'attributionRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `monitoring` `@Form` section:
@@ -85178,8 +85199,8 @@ class ThirdPartyLibraryEntryUsageForm extends SomNode {
   String get usageScope => doc.formField(path, 'usageScope') ?? '';
   set usageScope(String value) => doc.setFormField(path, 'usageScope', value);
 
-  bool? get wrapperRequired { final v = doc.formField(path, 'wrapperRequired'); return v == null ? null : v == 'true'; }
-  set wrapperRequired(bool? value) => doc.setFormField(path, 'wrapperRequired', value?.toString() ?? '');
+  bool? get wrapperRequired => somParseBool(doc.formField(path, 'wrapperRequired'));
+  set wrapperRequired(bool? value) => doc.setFormField(path, 'wrapperRequired', somFormatBool(value));
 
   String get upgradeStrategy => doc.formField(path, 'upgradeStrategy') ?? '';
   set upgradeStrategy(String value) => doc.setFormField(path, 'upgradeStrategy', value);
@@ -85285,14 +85306,14 @@ class TlsRequirementsCertificateValidationForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get certificatePinning { final v = doc.formField(path, 'certificatePinning'); return v == null ? null : v == 'true'; }
-  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', value?.toString() ?? '');
+  bool? get certificatePinning => somParseBool(doc.formField(path, 'certificatePinning'));
+  set certificatePinning(bool? value) => doc.setFormField(path, 'certificatePinning', somFormatBool(value));
 
-  bool? get ocspStapling { final v = doc.formField(path, 'ocspStapling'); return v == null ? null : v == 'true'; }
-  set ocspStapling(bool? value) => doc.setFormField(path, 'ocspStapling', value?.toString() ?? '');
+  bool? get ocspStapling => somParseBool(doc.formField(path, 'ocspStapling'));
+  set ocspStapling(bool? value) => doc.setFormField(path, 'ocspStapling', somFormatBool(value));
 
-  bool? get mutualTls { final v = doc.formField(path, 'mutualTls'); return v == null ? null : v == 'true'; }
-  set mutualTls(bool? value) => doc.setFormField(path, 'mutualTls', value?.toString() ?? '');
+  bool? get mutualTls => somParseBool(doc.formField(path, 'mutualTls'));
+  set mutualTls(bool? value) => doc.setFormField(path, 'mutualTls', somFormatBool(value));
 }
 
 /// Generated section facade for the `cipherSuites` `@Form` section:
@@ -85332,14 +85353,14 @@ class TlsRequirementsComplianceForm extends SomNode {
   String get sslLabsTargetGrade => doc.formField(path, 'sslLabsTargetGrade') ?? '';
   set sslLabsTargetGrade(String value) => doc.setFormField(path, 'sslLabsTargetGrade', value);
 
-  bool? get hstsEnabled { final v = doc.formField(path, 'hstsEnabled'); return v == null ? null : v == 'true'; }
-  set hstsEnabled(bool? value) => doc.setFormField(path, 'hstsEnabled', value?.toString() ?? '');
+  bool? get hstsEnabled => somParseBool(doc.formField(path, 'hstsEnabled'));
+  set hstsEnabled(bool? value) => doc.setFormField(path, 'hstsEnabled', somFormatBool(value));
 
   String get hstsMaxAge => doc.formField(path, 'hstsMaxAge') ?? '';
   set hstsMaxAge(String value) => doc.setFormField(path, 'hstsMaxAge', value);
 
-  bool? get hstsIncludeSubdomains { final v = doc.formField(path, 'hstsIncludeSubdomains'); return v == null ? null : v == 'true'; }
-  set hstsIncludeSubdomains(bool? value) => doc.setFormField(path, 'hstsIncludeSubdomains', value?.toString() ?? '');
+  bool? get hstsIncludeSubdomains => somParseBool(doc.formField(path, 'hstsIncludeSubdomains'));
+  set hstsIncludeSubdomains(bool? value) => doc.setFormField(path, 'hstsIncludeSubdomains', somFormatBool(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -85382,8 +85403,8 @@ class TlsRequirementsTerminationForm extends SomNode {
   String get tlsTermination => doc.formField(path, 'tlsTermination') ?? '';
   set tlsTermination(String value) => doc.setFormField(path, 'tlsTermination', value);
 
-  bool? get internalTls { final v = doc.formField(path, 'internalTls'); return v == null ? null : v == 'true'; }
-  set internalTls(bool? value) => doc.setFormField(path, 'internalTls', value?.toString() ?? '');
+  bool? get internalTls => somParseBool(doc.formField(path, 'internalTls'));
+  set internalTls(bool? value) => doc.setFormField(path, 'internalTls', somFormatBool(value));
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -86077,8 +86098,8 @@ class TourStepEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get stepOrder { final v = doc.formField(path, 'stepOrder'); return v == null ? null : int.tryParse(v); }
-  set stepOrder(int? value) => doc.setFormField(path, 'stepOrder', value?.toString() ?? '');
+  int? get stepOrder => somParseInt(doc.formField(path, 'stepOrder'));
+  set stepOrder(int? value) => doc.setFormField(path, 'stepOrder', somFormatInt(value));
 
   String get targetElement => doc.formField(path, 'targetElement') ?? '';
   set targetElement(String value) => doc.setFormField(path, 'targetElement', value);
@@ -86389,8 +86410,8 @@ class TrainingDeliverableRequirementsTrainingContentForm extends SomNode {
   String get trainingSchedule => doc.formField(path, 'trainingSchedule') ?? '';
   set trainingSchedule(String value) => doc.setFormField(path, 'trainingSchedule', value);
 
-  bool? get trainTheTrainer { final v = doc.formField(path, 'trainTheTrainer'); return v == null ? null : v == 'true'; }
-  set trainTheTrainer(bool? value) => doc.setFormField(path, 'trainTheTrainer', value?.toString() ?? '');
+  bool? get trainTheTrainer => somParseBool(doc.formField(path, 'trainTheTrainer'));
+  set trainTheTrainer(bool? value) => doc.setFormField(path, 'trainTheTrainer', somFormatBool(value));
 
   String get refresherTraining => doc.formField(path, 'refresherTraining') ?? '';
   set refresherTraining(String value) => doc.setFormField(path, 'refresherTraining', value);
@@ -86423,8 +86444,8 @@ class TrainingEnablementRequirementsContentForm extends SomNode {
   String get competencyOutcomes => doc.formField(path, 'competencyOutcomes') ?? '';
   set competencyOutcomes(String value) => doc.setFormField(path, 'competencyOutcomes', value);
 
-  bool? get certificationRequired { final v = doc.formField(path, 'certificationRequired'); return v == null ? null : v == 'true'; }
-  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', value?.toString() ?? '');
+  bool? get certificationRequired => somParseBool(doc.formField(path, 'certificationRequired'));
+  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', somFormatBool(value));
 
   String get ongoingEnablement => doc.formField(path, 'ongoingEnablement') ?? '';
   set ongoingEnablement(String value) => doc.setFormField(path, 'ongoingEnablement', value);
@@ -87167,8 +87188,8 @@ class TransitionPhaseIdentificationScopeForm extends SomNode {
   String get affectedDepartments => doc.formField(path, 'affectedDepartments') ?? '';
   set affectedDepartments(String value) => doc.setFormField(path, 'affectedDepartments', value);
 
-  int? get affectedUserCount { final v = doc.formField(path, 'affectedUserCount'); return v == null ? null : int.tryParse(v); }
-  set affectedUserCount(int? value) => doc.setFormField(path, 'affectedUserCount', value?.toString() ?? '');
+  int? get affectedUserCount => somParseInt(doc.formField(path, 'affectedUserCount'));
+  set affectedUserCount(int? value) => doc.setFormField(path, 'affectedUserCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `timeline` `@Form` section:
@@ -87563,8 +87584,8 @@ class TranslationRequirementsRtlForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get rtlSupport { final v = doc.formField(path, 'rtlSupport'); return v == null ? null : v == 'true'; }
-  set rtlSupport(bool? value) => doc.setFormField(path, 'rtlSupport', value?.toString() ?? '');
+  bool? get rtlSupport => somParseBool(doc.formField(path, 'rtlSupport'));
+  set rtlSupport(bool? value) => doc.setFormField(path, 'rtlSupport', somFormatBool(value));
 
   String get rtlImplementation => doc.formField(path, 'rtlImplementation') ?? '';
   set rtlImplementation(String value) => doc.setFormField(path, 'rtlImplementation', value);
@@ -87697,8 +87718,8 @@ class TroubleshootingCapabilitiesAccessForm extends SomNode {
   String get databaseReadAccess => doc.formField(path, 'databaseReadAccess') ?? '';
   set databaseReadAccess(String value) => doc.setFormField(path, 'databaseReadAccess', value);
 
-  bool? get networkDiagnostics { final v = doc.formField(path, 'networkDiagnostics'); return v == null ? null : v == 'true'; }
-  set networkDiagnostics(bool? value) => doc.setFormField(path, 'networkDiagnostics', value?.toString() ?? '');
+  bool? get networkDiagnostics => somParseBool(doc.formField(path, 'networkDiagnostics'));
+  set networkDiagnostics(bool? value) => doc.setFormField(path, 'networkDiagnostics', somFormatBool(value));
 }
 
 /// Generated section facade for the `communication` `@Form` section:
@@ -87741,11 +87762,11 @@ class TroubleshootingCapabilitiesContentForm extends SomNode {
   String get debugMode => doc.formField(path, 'debugMode') ?? '';
   set debugMode(String value) => doc.setFormField(path, 'debugMode', value);
 
-  bool? get diagnosticDump { final v = doc.formField(path, 'diagnosticDump'); return v == null ? null : v == 'true'; }
-  set diagnosticDump(bool? value) => doc.setFormField(path, 'diagnosticDump', value?.toString() ?? '');
+  bool? get diagnosticDump => somParseBool(doc.formField(path, 'diagnosticDump'));
+  set diagnosticDump(bool? value) => doc.setFormField(path, 'diagnosticDump', somFormatBool(value));
 
-  bool? get replayCapability { final v = doc.formField(path, 'replayCapability'); return v == null ? null : v == 'true'; }
-  set replayCapability(bool? value) => doc.setFormField(path, 'replayCapability', value?.toString() ?? '');
+  bool? get replayCapability => somParseBool(doc.formField(path, 'replayCapability'));
+  set replayCapability(bool? value) => doc.setFormField(path, 'replayCapability', somFormatBool(value));
 }
 
 /// Generated section facade for the `runbooks` `@Form` section:
@@ -87760,14 +87781,14 @@ class TroubleshootingCapabilitiesRunbooksForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get runbookIntegration { final v = doc.formField(path, 'runbookIntegration'); return v == null ? null : v == 'true'; }
-  set runbookIntegration(bool? value) => doc.setFormField(path, 'runbookIntegration', value?.toString() ?? '');
+  bool? get runbookIntegration => somParseBool(doc.formField(path, 'runbookIntegration'));
+  set runbookIntegration(bool? value) => doc.setFormField(path, 'runbookIntegration', somFormatBool(value));
 
   String get automatedRemediation => doc.formField(path, 'automatedRemediation') ?? '';
   set automatedRemediation(String value) => doc.setFormField(path, 'automatedRemediation', value);
 
-  bool? get incidentTimeline { final v = doc.formField(path, 'incidentTimeline'); return v == null ? null : v == 'true'; }
-  set incidentTimeline(bool? value) => doc.setFormField(path, 'incidentTimeline', value?.toString() ?? '');
+  bool? get incidentTimeline => somParseBool(doc.formField(path, 'incidentTimeline'));
+  set incidentTimeline(bool? value) => doc.setFormField(path, 'incidentTimeline', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -88472,8 +88493,8 @@ class UiComponentsComponentLibraryOverviewForm extends SomNode {
   String get basedOnFramework => doc.formField(path, 'basedOnFramework') ?? '';
   set basedOnFramework(String value) => doc.setFormField(path, 'basedOnFramework', value);
 
-  bool? get tomFlutterUiIntegration { final v = doc.formField(path, 'tomFlutterUiIntegration'); return v == null ? null : v == 'true'; }
-  set tomFlutterUiIntegration(bool? value) => doc.setFormField(path, 'tomFlutterUiIntegration', value?.toString() ?? '');
+  bool? get tomFlutterUiIntegration => somParseBool(doc.formField(path, 'tomFlutterUiIntegration'));
+  set tomFlutterUiIntegration(bool? value) => doc.setFormField(path, 'tomFlutterUiIntegration', somFormatBool(value));
 }
 
 /// Generated section facade for the `customization` `@Form` section:
@@ -88667,8 +88688,8 @@ class UseCaseExtensionsContentForm extends SomNode {
   String get extensionSummary => doc.formField(path, 'extensionSummary') ?? '';
   set extensionSummary(String value) => doc.setFormField(path, 'extensionSummary', value);
 
-  int? get extensionCount { final v = doc.formField(path, 'extensionCount'); return v == null ? null : int.tryParse(v); }
-  set extensionCount(int? value) => doc.setFormField(path, 'extensionCount', value?.toString() ?? '');
+  int? get extensionCount => somParseInt(doc.formField(path, 'extensionCount'));
+  set extensionCount(int? value) => doc.setFormField(path, 'extensionCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -89332,26 +89353,26 @@ class UserDocumentationRequirementsDeliverablesForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get userGuide { final v = doc.formField(path, 'userGuide'); return v == null ? null : v == 'true'; }
-  set userGuide(bool? value) => doc.setFormField(path, 'userGuide', value?.toString() ?? '');
+  bool? get userGuide => somParseBool(doc.formField(path, 'userGuide'));
+  set userGuide(bool? value) => doc.setFormField(path, 'userGuide', somFormatBool(value));
 
-  bool? get quickStartGuide { final v = doc.formField(path, 'quickStartGuide'); return v == null ? null : v == 'true'; }
-  set quickStartGuide(bool? value) => doc.setFormField(path, 'quickStartGuide', value?.toString() ?? '');
+  bool? get quickStartGuide => somParseBool(doc.formField(path, 'quickStartGuide'));
+  set quickStartGuide(bool? value) => doc.setFormField(path, 'quickStartGuide', somFormatBool(value));
 
-  bool? get onlineHelp { final v = doc.formField(path, 'onlineHelp'); return v == null ? null : v == 'true'; }
-  set onlineHelp(bool? value) => doc.setFormField(path, 'onlineHelp', value?.toString() ?? '');
+  bool? get onlineHelp => somParseBool(doc.formField(path, 'onlineHelp'));
+  set onlineHelp(bool? value) => doc.setFormField(path, 'onlineHelp', somFormatBool(value));
 
-  bool? get videoTutorials { final v = doc.formField(path, 'videoTutorials'); return v == null ? null : v == 'true'; }
-  set videoTutorials(bool? value) => doc.setFormField(path, 'videoTutorials', value?.toString() ?? '');
+  bool? get videoTutorials => somParseBool(doc.formField(path, 'videoTutorials'));
+  set videoTutorials(bool? value) => doc.setFormField(path, 'videoTutorials', somFormatBool(value));
 
-  bool? get contextualHelp { final v = doc.formField(path, 'contextualHelp'); return v == null ? null : v == 'true'; }
-  set contextualHelp(bool? value) => doc.setFormField(path, 'contextualHelp', value?.toString() ?? '');
+  bool? get contextualHelp => somParseBool(doc.formField(path, 'contextualHelp'));
+  set contextualHelp(bool? value) => doc.setFormField(path, 'contextualHelp', somFormatBool(value));
 
-  bool? get faq { final v = doc.formField(path, 'faq'); return v == null ? null : v == 'true'; }
-  set faq(bool? value) => doc.setFormField(path, 'faq', value?.toString() ?? '');
+  bool? get faq => somParseBool(doc.formField(path, 'faq'));
+  set faq(bool? value) => doc.setFormField(path, 'faq', somFormatBool(value));
 
-  bool? get releaseNotes { final v = doc.formField(path, 'releaseNotes'); return v == null ? null : v == 'true'; }
-  set releaseNotes(bool? value) => doc.setFormField(path, 'releaseNotes', value?.toString() ?? '');
+  bool? get releaseNotes => somParseBool(doc.formField(path, 'releaseNotes'));
+  set releaseNotes(bool? value) => doc.setFormField(path, 'releaseNotes', somFormatBool(value));
 }
 
 /// Generated section facade for the `documentationContent` `@Form` section:
@@ -89410,8 +89431,8 @@ class UserGroupImpactEntryContentForm extends SomNode {
   String get groupName => doc.formField(path, 'groupName') ?? '';
   set groupName(String value) => doc.setFormField(path, 'groupName', value);
 
-  int? get userCount { final v = doc.formField(path, 'userCount'); return v == null ? null : int.tryParse(v); }
-  set userCount(int? value) => doc.setFormField(path, 'userCount', value?.toString() ?? '');
+  int? get userCount => somParseInt(doc.formField(path, 'userCount'));
+  set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
 
   String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
   set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
@@ -89435,14 +89456,14 @@ class UserGrowthProjectionsContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get currentActiveUsers { final v = doc.formField(path, 'currentActiveUsers'); return v == null ? null : int.tryParse(v); }
-  set currentActiveUsers(int? value) => doc.setFormField(path, 'currentActiveUsers', value?.toString() ?? '');
+  int? get currentActiveUsers => somParseInt(doc.formField(path, 'currentActiveUsers'));
+  set currentActiveUsers(int? value) => doc.setFormField(path, 'currentActiveUsers', somFormatInt(value));
 
-  int? get currentRegisteredUsers { final v = doc.formField(path, 'currentRegisteredUsers'); return v == null ? null : int.tryParse(v); }
-  set currentRegisteredUsers(int? value) => doc.setFormField(path, 'currentRegisteredUsers', value?.toString() ?? '');
+  int? get currentRegisteredUsers => somParseInt(doc.formField(path, 'currentRegisteredUsers'));
+  set currentRegisteredUsers(int? value) => doc.setFormField(path, 'currentRegisteredUsers', somFormatInt(value));
 
-  int? get currentConcurrentUsers { final v = doc.formField(path, 'currentConcurrentUsers'); return v == null ? null : int.tryParse(v); }
-  set currentConcurrentUsers(int? value) => doc.setFormField(path, 'currentConcurrentUsers', value?.toString() ?? '');
+  int? get currentConcurrentUsers => somParseInt(doc.formField(path, 'currentConcurrentUsers'));
+  set currentConcurrentUsers(int? value) => doc.setFormField(path, 'currentConcurrentUsers', somFormatInt(value));
 }
 
 /// Generated section facade for the `forecast` `@Form` section:
@@ -89460,17 +89481,17 @@ class UserGrowthProjectionsForecastForm extends SomNode {
   String get projectedGrowthRate => doc.formField(path, 'projectedGrowthRate') ?? '';
   set projectedGrowthRate(String value) => doc.setFormField(path, 'projectedGrowthRate', value);
 
-  int? get users6Months { final v = doc.formField(path, 'users6Months'); return v == null ? null : int.tryParse(v); }
-  set users6Months(int? value) => doc.setFormField(path, 'users6Months', value?.toString() ?? '');
+  int? get users6Months => somParseInt(doc.formField(path, 'users6Months'));
+  set users6Months(int? value) => doc.setFormField(path, 'users6Months', somFormatInt(value));
 
-  int? get users12Months { final v = doc.formField(path, 'users12Months'); return v == null ? null : int.tryParse(v); }
-  set users12Months(int? value) => doc.setFormField(path, 'users12Months', value?.toString() ?? '');
+  int? get users12Months => somParseInt(doc.formField(path, 'users12Months'));
+  set users12Months(int? value) => doc.setFormField(path, 'users12Months', somFormatInt(value));
 
-  int? get users24Months { final v = doc.formField(path, 'users24Months'); return v == null ? null : int.tryParse(v); }
-  set users24Months(int? value) => doc.setFormField(path, 'users24Months', value?.toString() ?? '');
+  int? get users24Months => somParseInt(doc.formField(path, 'users24Months'));
+  set users24Months(int? value) => doc.setFormField(path, 'users24Months', somFormatInt(value));
 
-  int? get users36Months { final v = doc.formField(path, 'users36Months'); return v == null ? null : int.tryParse(v); }
-  set users36Months(int? value) => doc.setFormField(path, 'users36Months', value?.toString() ?? '');
+  int? get users36Months => somParseInt(doc.formField(path, 'users36Months'));
+  set users36Months(int? value) => doc.setFormField(path, 'users36Months', somFormatInt(value));
 }
 
 /// Generated section facade for the `segmentation` `@Form` section:
@@ -89507,11 +89528,11 @@ class UserGrowthProjectionsThresholdsForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get softCapacityLimit { final v = doc.formField(path, 'softCapacityLimit'); return v == null ? null : int.tryParse(v); }
-  set softCapacityLimit(int? value) => doc.setFormField(path, 'softCapacityLimit', value?.toString() ?? '');
+  int? get softCapacityLimit => somParseInt(doc.formField(path, 'softCapacityLimit'));
+  set softCapacityLimit(int? value) => doc.setFormField(path, 'softCapacityLimit', somFormatInt(value));
 
-  int? get hardCapacityLimit { final v = doc.formField(path, 'hardCapacityLimit'); return v == null ? null : int.tryParse(v); }
-  set hardCapacityLimit(int? value) => doc.setFormField(path, 'hardCapacityLimit', value?.toString() ?? '');
+  int? get hardCapacityLimit => somParseInt(doc.formField(path, 'hardCapacityLimit'));
+  set hardCapacityLimit(int? value) => doc.setFormField(path, 'hardCapacityLimit', somFormatInt(value));
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -89723,14 +89744,14 @@ class UserProvisioningToolsContentForm extends SomNode {
   String get provisioningMethod => doc.formField(path, 'provisioningMethod') ?? '';
   set provisioningMethod(String value) => doc.setFormField(path, 'provisioningMethod', value);
 
-  bool? get bulkProvisioning { final v = doc.formField(path, 'bulkProvisioning'); return v == null ? null : v == 'true'; }
-  set bulkProvisioning(bool? value) => doc.setFormField(path, 'bulkProvisioning', value?.toString() ?? '');
+  bool? get bulkProvisioning => somParseBool(doc.formField(path, 'bulkProvisioning'));
+  set bulkProvisioning(bool? value) => doc.setFormField(path, 'bulkProvisioning', somFormatBool(value));
 
-  bool? get selfServiceRegistration { final v = doc.formField(path, 'selfServiceRegistration'); return v == null ? null : v == 'true'; }
-  set selfServiceRegistration(bool? value) => doc.setFormField(path, 'selfServiceRegistration', value?.toString() ?? '');
+  bool? get selfServiceRegistration => somParseBool(doc.formField(path, 'selfServiceRegistration'));
+  set selfServiceRegistration(bool? value) => doc.setFormField(path, 'selfServiceRegistration', somFormatBool(value));
 
-  bool? get invitationWorkflow { final v = doc.formField(path, 'invitationWorkflow'); return v == null ? null : v == 'true'; }
-  set invitationWorkflow(bool? value) => doc.setFormField(path, 'invitationWorkflow', value?.toString() ?? '');
+  bool? get invitationWorkflow => somParseBool(doc.formField(path, 'invitationWorkflow'));
+  set invitationWorkflow(bool? value) => doc.setFormField(path, 'invitationWorkflow', somFormatBool(value));
 }
 
 /// Generated section facade for the `directoryIntegration` `@Form` section:
@@ -89776,8 +89797,8 @@ class UserProvisioningToolsLifecycleForm extends SomNode {
   String get accountDeactivation => doc.formField(path, 'accountDeactivation') ?? '';
   set accountDeactivation(String value) => doc.setFormField(path, 'accountDeactivation', value);
 
-  bool? get accountSuspension { final v = doc.formField(path, 'accountSuspension'); return v == null ? null : v == 'true'; }
-  set accountSuspension(bool? value) => doc.setFormField(path, 'accountSuspension', value?.toString() ?? '');
+  bool? get accountSuspension => somParseBool(doc.formField(path, 'accountSuspension'));
+  set accountSuspension(bool? value) => doc.setFormField(path, 'accountSuspension', somFormatBool(value));
 
   String get inactivityPolicy => doc.formField(path, 'inactivityPolicy') ?? '';
   set inactivityPolicy(String value) => doc.setFormField(path, 'inactivityPolicy', value);
@@ -89801,8 +89822,8 @@ class UserProvisioningToolsRoleManagementForm extends SomNode {
   String get roleAssignment => doc.formField(path, 'roleAssignment') ?? '';
   set roleAssignment(String value) => doc.setFormField(path, 'roleAssignment', value);
 
-  bool? get delegatedAdministration { final v = doc.formField(path, 'delegatedAdministration'); return v == null ? null : v == 'true'; }
-  set delegatedAdministration(bool? value) => doc.setFormField(path, 'delegatedAdministration', value?.toString() ?? '');
+  bool? get delegatedAdministration => somParseBool(doc.formField(path, 'delegatedAdministration'));
+  set delegatedAdministration(bool? value) => doc.setFormField(path, 'delegatedAdministration', somFormatBool(value));
 
   String get accessReviewProcess => doc.formField(path, 'accessReviewProcess') ?? '';
   set accessReviewProcess(String value) => doc.setFormField(path, 'accessReviewProcess', value);
@@ -89820,8 +89841,8 @@ class UserTrainingRequirementsTrainingFormForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get initialTrainingRequired { final v = doc.formField(path, 'initialTrainingRequired'); return v == null ? null : v == 'true'; }
-  set initialTrainingRequired(bool? value) => doc.setFormField(path, 'initialTrainingRequired', value?.toString() ?? '');
+  bool? get initialTrainingRequired => somParseBool(doc.formField(path, 'initialTrainingRequired'));
+  set initialTrainingRequired(bool? value) => doc.setFormField(path, 'initialTrainingRequired', somFormatBool(value));
 
   String get trainingFormat => doc.formField(path, 'trainingFormat') ?? '';
   set trainingFormat(String value) => doc.setFormField(path, 'trainingFormat', value);
@@ -89829,8 +89850,8 @@ class UserTrainingRequirementsTrainingFormForm extends SomNode {
   String get estimatedTrainingDuration => doc.formField(path, 'estimatedTrainingDuration') ?? '';
   set estimatedTrainingDuration(String value) => doc.setFormField(path, 'estimatedTrainingDuration', value);
 
-  bool? get certificationRequired { final v = doc.formField(path, 'certificationRequired'); return v == null ? null : v == 'true'; }
-  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', value?.toString() ?? '');
+  bool? get certificationRequired => somParseBool(doc.formField(path, 'certificationRequired'));
+  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', somFormatBool(value));
 
   String get refresherFrequency => doc.formField(path, 'refresherFrequency') ?? '';
   set refresherFrequency(String value) => doc.setFormField(path, 'refresherFrequency', value);
@@ -89844,8 +89865,8 @@ class UserTrainingRequirementsTrainingFormForm extends SomNode {
   String get onboardingProcess => doc.formField(path, 'onboardingProcess') ?? '';
   set onboardingProcess(String value) => doc.setFormField(path, 'onboardingProcess', value);
 
-  bool? get mentoringRequired { final v = doc.formField(path, 'mentoringRequired'); return v == null ? null : v == 'true'; }
-  set mentoringRequired(bool? value) => doc.setFormField(path, 'mentoringRequired', value?.toString() ?? '');
+  bool? get mentoringRequired => somParseBool(doc.formField(path, 'mentoringRequired'));
+  set mentoringRequired(bool? value) => doc.setFormField(path, 'mentoringRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `action` `@Form` section:
@@ -89916,8 +89937,8 @@ class UtilityMenuItemEntryContentForm extends SomNode {
   String get icon => doc.formField(path, 'icon') ?? '';
   set icon(String value) => doc.setFormField(path, 'icon', value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -89982,8 +90003,8 @@ class UtilityNavigationItemEntryDisplayForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get displayOrder { final v = doc.formField(path, 'displayOrder'); return v == null ? null : int.tryParse(v); }
-  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', value?.toString() ?? '');
+  int? get displayOrder => somParseInt(doc.formField(path, 'displayOrder'));
+  set displayOrder(int? value) => doc.setFormField(path, 'displayOrder', somFormatInt(value));
 
   String get widgetType => doc.formField(path, 'widgetType') ?? '';
   set widgetType(String value) => doc.setFormField(path, 'widgetType', value);
@@ -90013,11 +90034,11 @@ class ValidationFeedbackBehaviorForm extends SomNode {
   String get clearAnimation => doc.formField(path, 'clearAnimation') ?? '';
   set clearAnimation(String value) => doc.setFormField(path, 'clearAnimation', value);
 
-  bool? get scrollToError { final v = doc.formField(path, 'scrollToError'); return v == null ? null : v == 'true'; }
-  set scrollToError(bool? value) => doc.setFormField(path, 'scrollToError', value?.toString() ?? '');
+  bool? get scrollToError => somParseBool(doc.formField(path, 'scrollToError'));
+  set scrollToError(bool? value) => doc.setFormField(path, 'scrollToError', somFormatBool(value));
 
-  bool? get focusOnError { final v = doc.formField(path, 'focusOnError'); return v == null ? null : v == 'true'; }
-  set focusOnError(bool? value) => doc.setFormField(path, 'focusOnError', value?.toString() ?? '');
+  bool? get focusOnError => somParseBool(doc.formField(path, 'focusOnError'));
+  set focusOnError(bool? value) => doc.setFormField(path, 'focusOnError', somFormatBool(value));
 }
 
 /// Generated section facade for the `guidance` `@Form` section:
@@ -90032,14 +90053,14 @@ class ValidationFeedbackGuidanceForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  bool? get showRequirements { final v = doc.formField(path, 'showRequirements'); return v == null ? null : v == 'true'; }
-  set showRequirements(bool? value) => doc.setFormField(path, 'showRequirements', value?.toString() ?? '');
+  bool? get showRequirements => somParseBool(doc.formField(path, 'showRequirements'));
+  set showRequirements(bool? value) => doc.setFormField(path, 'showRequirements', somFormatBool(value));
 
-  bool? get showSuggestions { final v = doc.formField(path, 'showSuggestions'); return v == null ? null : v == 'true'; }
-  set showSuggestions(bool? value) => doc.setFormField(path, 'showSuggestions', value?.toString() ?? '');
+  bool? get showSuggestions => somParseBool(doc.formField(path, 'showSuggestions'));
+  set showSuggestions(bool? value) => doc.setFormField(path, 'showSuggestions', somFormatBool(value));
 
-  bool? get showExamples { final v = doc.formField(path, 'showExamples'); return v == null ? null : v == 'true'; }
-  set showExamples(bool? value) => doc.setFormField(path, 'showExamples', value?.toString() ?? '');
+  bool? get showExamples => somParseBool(doc.formField(path, 'showExamples'));
+  set showExamples(bool? value) => doc.setFormField(path, 'showExamples', somFormatBool(value));
 }
 
 /// Generated section facade for the `messages` `@Form` section:
@@ -90275,8 +90296,8 @@ class VersionControlConfigurationCommitsForm extends SomNode {
   String get commitMessageFormat => doc.formField(path, 'commitMessageFormat') ?? '';
   set commitMessageFormat(String value) => doc.setFormField(path, 'commitMessageFormat', value);
 
-  bool? get commitSigningRequired { final v = doc.formField(path, 'commitSigningRequired'); return v == null ? null : v == 'true'; }
-  set commitSigningRequired(bool? value) => doc.setFormField(path, 'commitSigningRequired', value?.toString() ?? '');
+  bool? get commitSigningRequired => somParseBool(doc.formField(path, 'commitSigningRequired'));
+  set commitSigningRequired(bool? value) => doc.setFormField(path, 'commitSigningRequired', somFormatBool(value));
 
   String get squashMergePolicy => doc.formField(path, 'squashMergePolicy') ?? '';
   set squashMergePolicy(String value) => doc.setFormField(path, 'squashMergePolicy', value);
@@ -90319,8 +90340,8 @@ class VersionControlConfigurationMetadataForm extends SomNode {
   String get tagNamingConvention => doc.formField(path, 'tagNamingConvention') ?? '';
   set tagNamingConvention(String value) => doc.setFormField(path, 'tagNamingConvention', value);
 
-  bool? get tagSigningRequired { final v = doc.formField(path, 'tagSigningRequired'); return v == null ? null : v == 'true'; }
-  set tagSigningRequired(bool? value) => doc.setFormField(path, 'tagSigningRequired', value?.toString() ?? '');
+  bool? get tagSigningRequired => somParseBool(doc.formField(path, 'tagSigningRequired'));
+  set tagSigningRequired(bool? value) => doc.setFormField(path, 'tagSigningRequired', somFormatBool(value));
 
   String get gitignoreTemplate => doc.formField(path, 'gitignoreTemplate') ?? '';
   set gitignoreTemplate(String value) => doc.setFormField(path, 'gitignoreTemplate', value);
@@ -90375,8 +90396,8 @@ class VirtualizationRequirementsContainerForm extends SomNode {
   String get registryUrl => doc.formField(path, 'registryUrl') ?? '';
   set registryUrl(String value) => doc.setFormField(path, 'registryUrl', value);
 
-  bool? get imageScanningRequired { final v = doc.formField(path, 'imageScanningRequired'); return v == null ? null : v == 'true'; }
-  set imageScanningRequired(bool? value) => doc.setFormField(path, 'imageScanningRequired', value?.toString() ?? '');
+  bool? get imageScanningRequired => somParseBool(doc.formField(path, 'imageScanningRequired'));
+  set imageScanningRequired(bool? value) => doc.setFormField(path, 'imageScanningRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -90466,8 +90487,8 @@ class VirtualizationRequirementsVmForm extends SomNode {
   String get vmImageFormat => doc.formField(path, 'vmImageFormat') ?? '';
   set vmImageFormat(String value) => doc.setFormField(path, 'vmImageFormat', value);
 
-  bool? get vmTemplateRequired { final v = doc.formField(path, 'vmTemplateRequired'); return v == null ? null : v == 'true'; }
-  set vmTemplateRequired(bool? value) => doc.setFormField(path, 'vmTemplateRequired', value?.toString() ?? '');
+  bool? get vmTemplateRequired => somParseBool(doc.formField(path, 'vmTemplateRequired'));
+  set vmTemplateRequired(bool? value) => doc.setFormField(path, 'vmTemplateRequired', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -90582,11 +90603,11 @@ class VpnRequirementEntryPerformanceForm extends SomNode {
   String get bandwidth => doc.formField(path, 'bandwidth') ?? '';
   set bandwidth(String value) => doc.setFormField(path, 'bandwidth', value);
 
-  int? get maxConnections { final v = doc.formField(path, 'maxConnections'); return v == null ? null : int.tryParse(v); }
-  set maxConnections(int? value) => doc.setFormField(path, 'maxConnections', value?.toString() ?? '');
+  int? get maxConnections => somParseInt(doc.formField(path, 'maxConnections'));
+  set maxConnections(int? value) => doc.setFormField(path, 'maxConnections', somFormatInt(value));
 
-  bool? get splitTunneling { final v = doc.formField(path, 'splitTunneling'); return v == null ? null : v == 'true'; }
-  set splitTunneling(bool? value) => doc.setFormField(path, 'splitTunneling', value?.toString() ?? '');
+  bool? get splitTunneling => somParseBool(doc.formField(path, 'splitTunneling'));
+  set splitTunneling(bool? value) => doc.setFormField(path, 'splitTunneling', somFormatBool(value));
 }
 
 /// Generated section facade for the `protocolDetails` `@Form` section:
@@ -90610,8 +90631,8 @@ class VpnRequirementEntryProtocolDetailsForm extends SomNode {
   String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
   set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
 
-  bool? get perfectForwardSecrecy { final v = doc.formField(path, 'perfectForwardSecrecy'); return v == null ? null : v == 'true'; }
-  set perfectForwardSecrecy(bool? value) => doc.setFormField(path, 'perfectForwardSecrecy', value?.toString() ?? '');
+  bool? get perfectForwardSecrecy => somParseBool(doc.formField(path, 'perfectForwardSecrecy'));
+  set perfectForwardSecrecy(bool? value) => doc.setFormField(path, 'perfectForwardSecrecy', somFormatBool(value));
 }
 
 /// Generated section facade for the `classification` `@Form` section:
@@ -91023,8 +91044,8 @@ class WeightedQualityMatrixMatrixConfigContentForm extends SomNode {
   String get totalWeightRequirement => doc.formField(path, 'totalWeightRequirement') ?? '';
   set totalWeightRequirement(String value) => doc.setFormField(path, 'totalWeightRequirement', value);
 
-  bool? get weightJustificationRequired { final v = doc.formField(path, 'weightJustificationRequired'); return v == null ? null : v == 'true'; }
-  set weightJustificationRequired(bool? value) => doc.setFormField(path, 'weightJustificationRequired', value?.toString() ?? '');
+  bool? get weightJustificationRequired => somParseBool(doc.formField(path, 'weightJustificationRequired'));
+  set weightJustificationRequired(bool? value) => doc.setFormField(path, 'weightJustificationRequired', somFormatBool(value));
 
   String get matrixUpdateProcess => doc.formField(path, 'matrixUpdateProcess') ?? '';
   set matrixUpdateProcess(String value) => doc.setFormField(path, 'matrixUpdateProcess', value);
@@ -91063,8 +91084,8 @@ class WorkflowActorEntryContentForm extends SomNode {
   String get skillRequirements => doc.formField(path, 'skillRequirements') ?? '';
   set skillRequirements(String value) => doc.setFormField(path, 'skillRequirements', value);
 
-  int? get headcount { final v = doc.formField(path, 'headcount'); return v == null ? null : int.tryParse(v); }
-  set headcount(int? value) => doc.setFormField(path, 'headcount', value?.toString() ?? '');
+  int? get headcount => somParseInt(doc.formField(path, 'headcount'));
+  set headcount(int? value) => doc.setFormField(path, 'headcount', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -91181,8 +91202,8 @@ class WorkflowInputEntryContentForm extends SomNode {
   String get format => doc.formField(path, 'format') ?? '';
   set format(String value) => doc.setFormField(path, 'format', value);
 
-  bool? get isRequired { final v = doc.formField(path, 'isRequired'); return v == null ? null : v == 'true'; }
-  set isRequired(bool? value) => doc.setFormField(path, 'isRequired', value?.toString() ?? '');
+  bool? get isRequired => somParseBool(doc.formField(path, 'isRequired'));
+  set isRequired(bool? value) => doc.setFormField(path, 'isRequired', somFormatBool(value));
 
   String get validationRules => doc.formField(path, 'validationRules') ?? '';
   set validationRules(String value) => doc.setFormField(path, 'validationRules', value);
@@ -91231,8 +91252,8 @@ class WorkflowStepEntryContentForm extends SomNode {
   String get stepName => doc.formField(path, 'stepName') ?? '';
   set stepName(String value) => doc.setFormField(path, 'stepName', value);
 
-  int? get stepNumber { final v = doc.formField(path, 'stepNumber'); return v == null ? null : int.tryParse(v); }
-  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', value?.toString() ?? '');
+  int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
+  set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -91243,11 +91264,11 @@ class WorkflowStepEntryContentForm extends SomNode {
   String get stepType => doc.formField(path, 'stepType') ?? '';
   set stepType(String value) => doc.setFormField(path, 'stepType', value);
 
-  bool? get isManual { final v = doc.formField(path, 'isManual'); return v == null ? null : v == 'true'; }
-  set isManual(bool? value) => doc.setFormField(path, 'isManual', value?.toString() ?? '');
+  bool? get isManual => somParseBool(doc.formField(path, 'isManual'));
+  set isManual(bool? value) => doc.setFormField(path, 'isManual', somFormatBool(value));
 
-  bool? get isAutomatable { final v = doc.formField(path, 'isAutomatable'); return v == null ? null : v == 'true'; }
-  set isAutomatable(bool? value) => doc.setFormField(path, 'isAutomatable', value?.toString() ?? '');
+  bool? get isAutomatable => somParseBool(doc.formField(path, 'isAutomatable'));
+  set isAutomatable(bool? value) => doc.setFormField(path, 'isAutomatable', somFormatBool(value));
 
   String get averageDuration => doc.formField(path, 'averageDuration') ?? '';
   set averageDuration(String value) => doc.setFormField(path, 'averageDuration', value);
@@ -91305,14 +91326,14 @@ class WorkflowSummaryEntryContentForm extends SomNode {
   String get averageCycleTime => doc.formField(path, 'averageCycleTime') ?? '';
   set averageCycleTime(String value) => doc.setFormField(path, 'averageCycleTime', value);
 
-  int? get stepCount { final v = doc.formField(path, 'stepCount'); return v == null ? null : int.tryParse(v); }
-  set stepCount(int? value) => doc.setFormField(path, 'stepCount', value?.toString() ?? '');
+  int? get stepCount => somParseInt(doc.formField(path, 'stepCount'));
+  set stepCount(int? value) => doc.setFormField(path, 'stepCount', somFormatInt(value));
 
-  int? get manualStepCount { final v = doc.formField(path, 'manualStepCount'); return v == null ? null : int.tryParse(v); }
-  set manualStepCount(int? value) => doc.setFormField(path, 'manualStepCount', value?.toString() ?? '');
+  int? get manualStepCount => somParseInt(doc.formField(path, 'manualStepCount'));
+  set manualStepCount(int? value) => doc.setFormField(path, 'manualStepCount', somFormatInt(value));
 
-  int? get errorProneStepCount { final v = doc.formField(path, 'errorProneStepCount'); return v == null ? null : int.tryParse(v); }
-  set errorProneStepCount(int? value) => doc.setFormField(path, 'errorProneStepCount', value?.toString() ?? '');
+  int? get errorProneStepCount => somParseInt(doc.formField(path, 'errorProneStepCount'));
+  set errorProneStepCount(int? value) => doc.setFormField(path, 'errorProneStepCount', somFormatInt(value));
 
   String get primaryActors => doc.formField(path, 'primaryActors') ?? '';
   set primaryActors(String value) => doc.setFormField(path, 'primaryActors', value);
@@ -91333,14 +91354,14 @@ class WorkflowSummaryTableContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  int? get totalWorkflows { final v = doc.formField(path, 'totalWorkflows'); return v == null ? null : int.tryParse(v); }
-  set totalWorkflows(int? value) => doc.setFormField(path, 'totalWorkflows', value?.toString() ?? '');
+  int? get totalWorkflows => somParseInt(doc.formField(path, 'totalWorkflows'));
+  set totalWorkflows(int? value) => doc.setFormField(path, 'totalWorkflows', somFormatInt(value));
 
-  int? get primaryWorkflows { final v = doc.formField(path, 'primaryWorkflows'); return v == null ? null : int.tryParse(v); }
-  set primaryWorkflows(int? value) => doc.setFormField(path, 'primaryWorkflows', value?.toString() ?? '');
+  int? get primaryWorkflows => somParseInt(doc.formField(path, 'primaryWorkflows'));
+  set primaryWorkflows(int? value) => doc.setFormField(path, 'primaryWorkflows', somFormatInt(value));
 
-  int? get exceptionWorkflows { final v = doc.formField(path, 'exceptionWorkflows'); return v == null ? null : int.tryParse(v); }
-  set exceptionWorkflows(int? value) => doc.setFormField(path, 'exceptionWorkflows', value?.toString() ?? '');
+  int? get exceptionWorkflows => somParseInt(doc.formField(path, 'exceptionWorkflows'));
+  set exceptionWorkflows(int? value) => doc.setFormField(path, 'exceptionWorkflows', somFormatInt(value));
 
   String get averageCycleTime => doc.formField(path, 'averageCycleTime') ?? '';
   set averageCycleTime(String value) => doc.setFormField(path, 'averageCycleTime', value);
@@ -91398,8 +91419,8 @@ class WorkplaceDescriptionEntryUserCategoryForm extends SomNode {
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
-  int? get headcount { final v = doc.formField(path, 'headcount'); return v == null ? null : int.tryParse(v); }
-  set headcount(int? value) => doc.setFormField(path, 'headcount', value?.toString() ?? '');
+  int? get headcount => somParseInt(doc.formField(path, 'headcount'));
+  set headcount(int? value) => doc.setFormField(path, 'headcount', somFormatInt(value));
 
   String get roles => doc.formField(path, 'roles') ?? '';
   set roles(String value) => doc.setFormField(path, 'roles', value);

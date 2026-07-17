@@ -717,6 +717,11 @@ document:
       TBPM targetBusinessProcess:
         PSAAI processStepsAndActorInteractions:
           ACOV actorOverview:
+            ACOVNA overview:
+              totalActorCount: 4
+              humanActorCount: 3
+              systemActorCount: 1
+              externalActorCount: 0
             ACEN-ACTO-LST actors:
               ACEN-ACTO-1:
                 ACID identification:
@@ -1975,6 +1980,9 @@ document:
                         Retry
                       primaryActionTarget: |2-
                         SCR-02-ACT-1
+      ACCESS accessibility:
+        ACCESS-ACCE accessibilityOverviewContent:
+          accessibilityStatement: true
     QACM qualityAndAcceptanceModel:
       content: |2-
         Acceptance is gated on:
@@ -1987,6 +1995,24 @@ document:
 
         Business sign-off requires the operations desk to clear a full day's orders on
         MOM alone.
+      I25CV iso25010Coverage:
+        I25CV-CHAR-LST characteristics:
+          I25CV-CHAR-1:
+            content:
+              characteristic: |2-
+                performanceEfficiency
+              addressedBy: |2-
+                NFR load test at 3x peak-hour order volume
+              targetMetric: |2-
+                p95 order-capture latency within budget at 3x peak
+          I25CV-CHAR-2:
+            content:
+              characteristic: |2-
+                reliability
+              addressedBy: |2-
+                Two-week parallel run against OrderDesk
+              targetMetric: |2-
+                < 0.1% reconciliation variance over the parallel run
     DTRO deliveryTransitionAndRollout:
       content: |2-
         Five increments:
