@@ -713,7 +713,7 @@ handling holds and amendments as they arise.''');
 }
 
 /// Fills one acceptance-criterion form (Given/When/Then).
-void _acceptance(dynamic ac, String id, String title,
+void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
     {required String given, required String when, required String then}) {
   ac.content
     ..criterionId = id
@@ -920,7 +920,7 @@ audit trail.''')
       'Order moves to Fulfilled and the public tracking page updates.');
 }
 
-void _actor(dynamic a, String id, String name, String type, String category,
+void _actor(ActorEntry a, String id, String name, String type, String category,
     String description,
     {required String unit, required String count}) {
   a.identification
@@ -934,7 +934,7 @@ void _actor(dynamic a, String id, String name, String type, String category,
     ..geographicDistribution = 'Single distribution centre';
 }
 
-void _step(dynamic s, String number, String actorAction, String systemResponse,
+void _step(MainScenarioStepEntry s, String number, String actorAction, String systemResponse,
     {String data = '', String rule = '', String ui = ''}) {
   s.content
     ..stepNumber = int.tryParse(number)
@@ -945,14 +945,14 @@ void _step(dynamic s, String number, String actorAction, String systemResponse,
     ..uiElementUsed = ui;
 }
 
-void _extStep(dynamic s, String number, String action, String response) {
+void _extStep(ExtensionStepEntry s, String number, String action, String response) {
   s.content
     ..stepNumber = number
     ..action = action
     ..response = response;
 }
 
-void _scnStep(dynamic s, String number, String actor, String action,
+void _scnStep(ScenarioStepEntry s, String number, String actor, String action,
     String systemResponse) {
   s.content
     ..stepNumber = int.tryParse(number)
@@ -1105,7 +1105,7 @@ historical orders remain reproducible.''');
       source: '*', target: '1', fk: 'mom_order_line.product_id');
 }
 
-void _attr(dynamic a, String name, String column, String description,
+void _attr(DataAttributeEntry a, String name, String column, String description,
     String dataType, String physicalType,
     {required bool pii, required String sensitivity}) {
   a.identity
@@ -1120,7 +1120,7 @@ void _attr(dynamic a, String name, String column, String description,
     ..isPii = pii ? 'true' : 'false';
 }
 
-void _key(dynamic k, String name, String type, String columns,
+void _key(KeyAttributeEntry k, String name, String type, String columns,
     String description) {
   k.content
     ..keyName = name
@@ -1129,7 +1129,7 @@ void _key(dynamic k, String name, String type, String columns,
     ..description = description;
 }
 
-void _rel(dynamic r, String name, String type, String description,
+void _rel(EntityRelationshipEntry r, String name, String type, String description,
     String sourceEntity, String targetEntity,
     {required String source, required String target, required String fk}) {
   r.identity
