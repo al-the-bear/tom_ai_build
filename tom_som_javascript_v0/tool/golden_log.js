@@ -73,7 +73,7 @@ function main() {
   const out = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t5');
+  out.push('FORMAT\t6');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   // Generic: content leaves, sorted by path.
@@ -195,6 +195,49 @@ function main() {
     out.push('TR\t' + itemPath + '\ttitle\t' + esc(typedTitle));
   }
 
+  // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+  // members read through the typed facade and asserted against the generic
+  // form store, canonicalised through the SAME boundary rules the facade
+  // setters used to write them (int -> String, bool -> "true"/"false", enum ->
+  // constant name). The emitted value is the raw stored string, so the lines
+  // are byte-identical across languages regardless of native value types. ---
+  out.push('SECTION\ttyped-form');
+  const somFormatInt = (v) => (v == null ? '' : String(v));
+  const somFormatBool = (v) => (v == null ? '' : (v ? 'true' : 'false'));
+  function typedForm(formPath, field, canonical) {
+    const generic = doc.formField(formPath, field) || '';
+    if ((canonical || '') !== generic) {
+      process.stderr.write('TYPED FORM MISMATCH at ' + formPath + '.' + field +
+        ': typed="' + (canonical || '') + '" generic="' + generic + '"\n');
+      process.exit(2);
+    }
+    out.push('TF\t' + formPath + '\t' + field + '\t' + esc(generic));
+  }
+
+  const actorOverview = sbp.targetOperatingModelConcept.targetBusinessProcess
+    .processStepsAndActorInteractions.actorOverview.overview;
+  typedForm(actorOverview.path, 'totalActorCount',
+    somFormatInt(actorOverview.totalActorCount));
+  typedForm(actorOverview.path, 'humanActorCount',
+    somFormatInt(actorOverview.humanActorCount));
+  typedForm(actorOverview.path, 'systemActorCount',
+    somFormatInt(actorOverview.systemActorCount));
+  typedForm(actorOverview.path, 'externalActorCount',
+    somFormatInt(actorOverview.externalActorCount));
+
+  const accessibilityOverview =
+    sbp.experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent;
+  typedForm(accessibilityOverview.path, 'accessibilityStatement',
+    somFormatBool(accessibilityOverview.accessibilityStatement));
+
+  const coverage =
+    sbp.qualityAndAcceptanceModel.iso25010Coverage.characteristics;
+  out.push('TL\t' + coverage.listPath + '\t' + coverage.length);
+  for (let i = 0; i < coverage.length; i++) {
+    const cform = coverage.at(i).content;
+    typedForm(cform.path, 'characteristic', cform.characteristic || '');
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
   const metaTree = m.d00SolutionBlueprintMetaTree;
 
@@ -224,39 +267,47 @@ function main() {
   metaNode('SBP/requirements');
   metaNode('SBP/requirements/content');
 
-  // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
-  // read through the metadata tree — one MF line per field (declaration
-  // order) with type/required/role/initial, plus one MT summary line naming
-  // the form's title-role and id-role fields via the titleField/idField
-  // accessors. All values are model-derived. ---
+  // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
+  // content form read through the metadata tree — one MF line per field
+  // (declaration order) with type/required/role/initial plus the FORMAT 6
+  // enumValues column (comma-joined constant names, empty for non-enum
+  // fields), plus one MT summary line naming the form's title-role and id-role
+  // fields via the titleField/idField accessors. Emitted for the FRE
+  // requirement form (role fields, no enums) and the ISO 25010 coverage form
+  // (an enum-typed field). All values are model-derived. ---
   out.push('SECTION\tmeta-form');
-  const freListPath =
-    'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST';
-  const freListNode = metaTree.byPath(freListPath);
-  const freElement = freListNode != null ? freListNode.elementNode : null;
-  let freContentNode = null;
-  for (const child of freElement != null ? freElement.children : []) {
-    if (child.memberName === 'content') {
-      freContentNode = child;
+  function metaForm(listPath) {
+    const listNode = metaTree.byPath(listPath);
+    const element = listNode != null ? listNode.elementNode : null;
+    let contentNode = null;
+    for (const child of element != null ? element.children : []) {
+      if (child.memberName === 'content') {
+        contentNode = child;
+      }
     }
+    const form = contentNode != null ? contentNode.form : null;
+    if (form == null) {
+      process.stderr.write('META FORM MISSING at ' + listPath +
+        ' element content\n');
+      process.exit(3);
+    }
+    // Element subtrees have no static document path; use an ASCII marker
+    // segment so the log path stays ASCII (mirrored verbatim per language).
+    const formPath = listPath + '/#element/content';
+    for (const f of form.fields) {
+      out.push('MF\t' + formPath + '\t' + esc(f.name) + '\t' +
+        esc(f.typeName) + '\t' + (f.required ? 1 : 0) + '\t' +
+        esc(f.role || '') + '\t' + esc(f.initial || '') + '\t' +
+        esc((f.enumValues || []).join(',')));
+    }
+    out.push('MT\t' + formPath + '\t' +
+      esc(form.titleField != null ? form.titleField.name : '') + '\t' +
+      esc(form.idField != null ? form.idField.name : ''));
   }
-  const freForm = freContentNode != null ? freContentNode.form : null;
-  if (freForm == null) {
-    process.stderr.write('META FORM MISSING at ' + freListPath +
-      ' element content\n');
-    process.exit(3);
-  }
-  // Element subtrees have no static document path; use an ASCII marker
-  // segment so the log path stays ASCII (mirrored verbatim per language).
-  const freFormPath = freListPath + '/#element/content';
-  for (const f of freForm.fields) {
-    out.push('MF\t' + freFormPath + '\t' + esc(f.name) + '\t' +
-      esc(f.typeName) + '\t' + (f.required ? 1 : 0) + '\t' +
-      esc(f.role || '') + '\t' + esc(f.initial || ''));
-  }
-  out.push('MT\t' + freFormPath + '\t' +
-    esc(freForm.titleField != null ? freForm.titleField.name : '') + '\t' +
-    esc(freForm.idField != null ? freForm.idField.name : ''));
+
+  metaForm(
+    'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
+  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
 
   out.push('SECTION\tmeta-nav');
   function metaNav(ref, expectedPath) {

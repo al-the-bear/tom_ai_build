@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t5".to_string());
+    out.push("FORMAT\t6".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -197,6 +197,66 @@ fn main() {
         out.push(format!("TR\t{}\ttitle\t{}", item_path, esc(&typed_title)));
     }
 
+    // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    // members read through the typed facade and asserted against the generic
+    // form store, canonicalised through the SAME boundary rules the facade
+    // setters used to write them (int -> decimal, bool -> "true"/"false", enum
+    // -> constant name). The emitted value is the raw stored string, so the
+    // lines are byte-identical across languages regardless of native types. ---
+    out.push("SECTION\ttyped-form".to_string());
+    let som_format_int = |v: Option<i64>| -> String {
+        v.map(|x| x.to_string()).unwrap_or_default()
+    };
+    let som_format_bool = |v: Option<bool>| -> String {
+        v.map(|x| if x { "true" } else { "false" }.to_string())
+            .unwrap_or_default()
+    };
+    let typed_form = |form_path: &str, field: &str, canonical: &str| -> String {
+        let generic = doc.form_field_or(form_path, field);
+        if canonical != generic {
+            die(&format!(
+                "TYPED FORM MISMATCH at {}.{}: typed=\"{}\" generic=\"{}\"",
+                form_path, field, canonical, generic
+            ));
+        }
+        format!("TF\t{}\t{}\t{}", form_path, field, esc(&generic))
+    };
+
+    let actor_overview = sbp
+        .target_operating_model_concept()
+        .target_business_process()
+        .process_steps_and_actor_interactions()
+        .actor_overview()
+        .overview();
+    let ao_path = actor_overview.node.path().to_string();
+    out.push(typed_form(&ao_path, "totalActorCount",
+        &som_format_int(actor_overview.total_actor_count())));
+    out.push(typed_form(&ao_path, "humanActorCount",
+        &som_format_int(actor_overview.human_actor_count())));
+    out.push(typed_form(&ao_path, "systemActorCount",
+        &som_format_int(actor_overview.system_actor_count())));
+    out.push(typed_form(&ao_path, "externalActorCount",
+        &som_format_int(actor_overview.external_actor_count())));
+
+    let accessibility_overview = sbp
+        .experience_and_interface_design()
+        .accessibility()
+        .accessibility_overview_content();
+    let acc_path = accessibility_overview.node.path().to_string();
+    out.push(typed_form(&acc_path, "accessibilityStatement",
+        &som_format_bool(accessibility_overview.accessibility_statement())));
+
+    let coverage = sbp
+        .quality_and_acceptance_model()
+        .iso25010_coverage()
+        .characteristics();
+    out.push(format!("TL\t{}\t{}", coverage.list_path(), coverage.length()));
+    for i in 0..coverage.length() {
+        let cform = coverage.at(i).content();
+        let cpath = cform.node.path().to_string();
+        out.push(typed_form(&cpath, "characteristic", &cform.characteristic()));
+    }
+
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
     // emitted path/field is model-derived so the lines match across languages.
     let dot = meta::d00_solution_blueprint_meta(&tree);
@@ -251,46 +311,53 @@ fn main() {
     // the form's title-role and id-role fields via the title_field/id_field
     // accessors. All values are model-derived. ---
     out.push("SECTION\tmeta-form".to_string());
-    const FRE_LIST_PATH: &str =
-        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
-    let fre_element = tree
-        .by_path(FRE_LIST_PATH)
-        .and_then(|n| n.element_node.clone());
-    let mut fre_content_node: Option<std::rc::Rc<som::SomMetaNode>> = None;
-    if let Some(element) = &fre_element {
-        for child in &element.children {
-            if child.member_name == "content" {
-                fre_content_node = Some(child.clone());
+    // Generalized over any list path whose element content is a form: emit one
+    // MF line per field (declaration order) with type/required/role/initial and
+    // the enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty
+    // for non-enum fields), plus one MT summary line naming the title/id roles.
+    let mut meta_form = |list_path: &str| {
+        let element = tree
+            .by_path(list_path)
+            .and_then(|n| n.element_node.clone());
+        let mut content_node: Option<std::rc::Rc<som::SomMetaNode>> = None;
+        if let Some(element) = &element {
+            for child in &element.children {
+                if child.member_name == "content" {
+                    content_node = Some(child.clone());
+                }
             }
         }
-    }
-    let fre_form = match fre_content_node.as_ref().and_then(|n| n.form.clone()) {
-        Some(f) => f,
-        None => {
-            eprintln!("META FORM MISSING at {} element content", FRE_LIST_PATH);
-            exit(3);
+        let form = match content_node.as_ref().and_then(|n| n.form.clone()) {
+            Some(f) => f,
+            None => {
+                eprintln!("META FORM MISSING at {} element content", list_path);
+                exit(3);
+            }
+        };
+        // Element subtrees have no static document path; use an ASCII marker
+        // segment so the log path stays ASCII (mirrored verbatim per language).
+        let form_path = format!("{}/#element/content", list_path);
+        for f in &form.fields {
+            out.push(format!(
+                "MF\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+                form_path,
+                esc(&f.name),
+                esc(&f.type_name),
+                if f.required { 1 } else { 0 },
+                esc(&f.role),
+                esc(&f.initial),
+                esc(&f.enum_values.join(",")),
+            ));
         }
-    };
-    // Element subtrees have no static document path; use an ASCII marker
-    // segment so the log path stays ASCII (mirrored verbatim per language).
-    let fre_form_path = format!("{}/#element/content", FRE_LIST_PATH);
-    for f in &fre_form.fields {
         out.push(format!(
-            "MF\t{}\t{}\t{}\t{}\t{}\t{}",
-            fre_form_path,
-            esc(&f.name),
-            esc(&f.type_name),
-            if f.required { 1 } else { 0 },
-            esc(&f.role),
-            esc(&f.initial),
+            "MT\t{}\t{}\t{}",
+            form_path,
+            esc(form.title_field().map(|f| f.name.as_str()).unwrap_or("")),
+            esc(form.id_field().map(|f| f.name.as_str()).unwrap_or("")),
         ));
-    }
-    out.push(format!(
-        "MT\t{}\t{}\t{}",
-        fre_form_path,
-        esc(fre_form.title_field().map(|f| f.name.as_str()).unwrap_or("")),
-        esc(fre_form.id_field().map(|f| f.name.as_str()).unwrap_or("")),
-    ));
+    };
+    meta_form("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
+    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
 
     // Dot-notation navigation: the typed accessor must resolve to the same path
     // and the same node instance as by_path.

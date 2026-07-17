@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t5");
+  out.push_back("FORMAT\t6");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -233,6 +233,62 @@ int main(int argc, char** argv) {
     }
   }
 
+  // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+  // members read through the typed facade and asserted against the generic form
+  // store, canonicalised through the SAME boundary rules the facade setters used
+  // to write them (int -> decimal, bool -> "true"/"false", enum -> constant
+  // name). The emitted value is the raw stored string, so the lines are byte-
+  // identical across languages regardless of native member types. ---
+  out.push_back("SECTION\ttyped-form");
+  {
+    auto somFormatInt = [](std::optional<long> v) -> std::string {
+      return v.has_value() ? std::to_string(*v) : "";
+    };
+    auto somFormatBool = [](std::optional<bool> v) -> std::string {
+      return v.has_value() ? (*v ? "true" : "false") : "";
+    };
+    auto typedForm = [&](const std::string& formPath, const std::string& field,
+                         const std::string& canonical) {
+      const std::string generic = doc.formField(formPath, field);
+      if (canonical != generic) {
+        die("TYPED FORM MISMATCH at " + formPath + "." + field + ": typed=\"" +
+            canonical + "\" generic=\"" + generic + "\"");
+      }
+      out.push_back("TF\t" + formPath + "\t" + field + "\t" + esc(generic));
+    };
+
+    auto actorOverview = sbp.targetOperatingModelConcept()
+                             .targetBusinessProcess()
+                             .processStepsAndActorInteractions()
+                             .actorOverview()
+                             .overview();
+    const std::string aoPath = actorOverview.path();
+    typedForm(aoPath, "totalActorCount",
+              somFormatInt(actorOverview.totalActorCount()));
+    typedForm(aoPath, "humanActorCount",
+              somFormatInt(actorOverview.humanActorCount()));
+    typedForm(aoPath, "systemActorCount",
+              somFormatInt(actorOverview.systemActorCount()));
+    typedForm(aoPath, "externalActorCount",
+              somFormatInt(actorOverview.externalActorCount()));
+
+    auto accForm = sbp.experienceAndInterfaceDesign()
+                       .accessibility()
+                       .accessibilityOverviewContent();
+    typedForm(accForm.path(), "accessibilityStatement",
+              somFormatBool(accForm.accessibilityStatement()));
+
+    som::SomList coverage =
+        sbp.qualityAndAcceptanceModel().iso25010Coverage().characteristics();
+    out.push_back("TL\t" + coverage.path() + "\t" +
+                  std::to_string(coverage.length()));
+    for (std::size_t i = 0; i < coverage.length(); i++) {
+      tom_som_v0::Iso25010CoverageEntry entry(typedDoc, coverage.itemPathAt(i));
+      auto cform = entry.content();
+      typedForm(cform.path(), "characteristic", cform.characteristic());
+    }
+  }
+
   // --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
   // path and every emitted field is model-derived, so the lines are byte-
   // identical across all nine languages even though the accessor *names* and
@@ -269,42 +325,49 @@ int main(int argc, char** argv) {
   // the form's title-role and id-role fields via the titleField/idField
   // accessors. All values are model-derived. ---
   out.push_back("SECTION\tmeta-form");
-  {
-    const std::string freListPath =
-        "SBP/introductionAndScope/requirements/functionalRequirements/"
-        "FRE-REQU-LST";
-    const som::SomMetaNode* freListNode = metaTree.byPath(freListPath);
-    const som::SomMetaNode* freElement =
-        freListNode != nullptr ? freListNode->elementNode.get() : nullptr;
-    const som::SomMetaNode* freContentNode = nullptr;
-    if (freElement != nullptr) {
-      for (const auto& child : freElement->children) {
-        if (child->memberName == "content") freContentNode = child.get();
+  // Generalized over any list path whose element content is a form: emit one MF
+  // line per field (declaration order) with type/required/role/initial and the
+  // enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty for
+  // non-enum fields), plus one MT summary line naming the title/id roles.
+  auto metaForm = [&](const std::string& listPath) {
+    const som::SomMetaNode* listNode = metaTree.byPath(listPath);
+    const som::SomMetaNode* element =
+        listNode != nullptr ? listNode->elementNode.get() : nullptr;
+    const som::SomMetaNode* contentNode = nullptr;
+    if (element != nullptr) {
+      for (const auto& child : element->children) {
+        if (child->memberName == "content") contentNode = child.get();
       }
     }
-    const som::SomFormMeta* freForm =
-        (freContentNode != nullptr && freContentNode->form.has_value())
-            ? &*freContentNode->form
+    const som::SomFormMeta* form =
+        (contentNode != nullptr && contentNode->form.has_value())
+            ? &*contentNode->form
             : nullptr;
-    if (freForm == nullptr) {
-      std::cerr << "META FORM MISSING at " << freListPath
-                << " element content\n";
+    if (form == nullptr) {
+      std::cerr << "META FORM MISSING at " << listPath << " element content\n";
       std::exit(3);
     }
     // Element subtrees have no static document path; use an ASCII marker
     // segment so the log path stays ASCII (mirrored verbatim per language).
-    const std::string freFormPath = freListPath + "/#element/content";
-    for (const som::SomFormFieldMeta& f : freForm->fields) {
-      out.push_back("MF\t" + freFormPath + "\t" + esc(f.name) + "\t" +
+    const std::string formPath = listPath + "/#element/content";
+    for (const som::SomFormFieldMeta& f : form->fields) {
+      std::string joined;
+      for (std::size_t j = 0; j < f.enumValues.size(); j++) {
+        if (j > 0) joined += ",";
+        joined += f.enumValues[j];
+      }
+      out.push_back("MF\t" + formPath + "\t" + esc(f.name) + "\t" +
                     esc(f.typeName) + "\t" + (f.required ? "1" : "0") + "\t" +
-                    esc(f.role) + "\t" + esc(f.initial));
+                    esc(f.role) + "\t" + esc(f.initial) + "\t" + esc(joined));
     }
-    const som::SomFormFieldMeta* titleField = freForm->titleField();
-    const som::SomFormFieldMeta* idField = freForm->idField();
-    out.push_back("MT\t" + freFormPath + "\t" +
+    const som::SomFormFieldMeta* titleField = form->titleField();
+    const som::SomFormFieldMeta* idField = form->idField();
+    out.push_back("MT\t" + formPath + "\t" +
                   esc(titleField != nullptr ? titleField->name : "") + "\t" +
                   esc(idField != nullptr ? idField->name : ""));
-  }
+  };
+  metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
+  metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance.

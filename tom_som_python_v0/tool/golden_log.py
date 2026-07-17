@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t5")
+    out.append("FORMAT\t6")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -191,6 +191,51 @@ def main() -> None:
         out.append("TR\t%s\trequirementId\t%s" % (item_path, esc(typed_id)))
         out.append("TR\t%s\ttitle\t%s" % (item_path, esc(typed_title)))
 
+    # --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    # members read through the typed facade and asserted against the generic
+    # form store, canonicalised through the SAME boundary rules the facade
+    # setters used to write them (int -> str, bool -> "true"/"false", enum ->
+    # constant name). The emitted value is the raw stored string, so the lines
+    # are byte-identical across languages regardless of native value types. ---
+    out.append("SECTION\ttyped-form")
+
+    def som_format_int(v):
+        return "" if v is None else str(v)
+
+    def som_format_bool(v):
+        return "" if v is None else ("true" if v else "false")
+
+    def typed_form(form_path: str, field: str, canonical) -> None:
+        generic = doc.form_field(form_path, field) or ""
+        if (canonical or "") != generic:
+            sys.stderr.write(
+                'TYPED FORM MISMATCH at %s.%s: typed="%s" generic="%s"\n'
+                % (form_path, field, canonical or "", generic))
+            sys.exit(2)
+        out.append("TF\t%s\t%s\t%s" % (form_path, field, esc(generic)))
+
+    actor_overview = (sbp.targetOperatingModelConcept.targetBusinessProcess
+                      .processStepsAndActorInteractions.actorOverview.overview)
+    typed_form(actor_overview.path, "totalActorCount",
+               som_format_int(actor_overview.totalActorCount))
+    typed_form(actor_overview.path, "humanActorCount",
+               som_format_int(actor_overview.humanActorCount))
+    typed_form(actor_overview.path, "systemActorCount",
+               som_format_int(actor_overview.systemActorCount))
+    typed_form(actor_overview.path, "externalActorCount",
+               som_format_int(actor_overview.externalActorCount))
+
+    accessibility_overview = (sbp.experienceAndInterfaceDesign
+                              .accessibility.accessibilityOverviewContent)
+    typed_form(accessibility_overview.path, "accessibilityStatement",
+               som_format_bool(accessibility_overview.accessibilityStatement))
+
+    coverage = sbp.qualityAndAcceptanceModel.iso25010Coverage.characteristics
+    out.append("TL\t%s\t%d" % (coverage.list_path, coverage.length))
+    for i in range(coverage.length):
+        cform = coverage[i].content
+        typed_form(cform.path, "characteristic", cform.characteristic or "")
+
     # --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
     meta_tree = m.d00SolutionBlueprintMetaTree
 
@@ -222,42 +267,50 @@ def main() -> None:
     meta_node("SBP/requirements")
     meta_node("SBP/requirements/content")
 
-    # --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
-    # read through the metadata tree — one MF line per field (declaration
-    # order) with type/required/role/initial, plus one MT summary line naming
-    # the form's title-role and id-role fields via the title_field/id_field
-    # accessors. All values are model-derived. ---
+    # --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
+    # content form read through the metadata tree — one MF line per field
+    # (declaration order) with type/required/role/initial plus the FORMAT 6
+    # enumValues column (comma-joined constant names, empty for non-enum
+    # fields), plus one MT summary line naming the form's title-role and
+    # id-role fields via the title_field/id_field accessors. Emitted for the
+    # FRE requirement form (role fields, no enums) and the ISO 25010 coverage
+    # form (an enum-typed field). All values are model-derived. ---
     out.append("SECTION\tmeta-form")
-    fre_list_path = ("SBP/introductionAndScope/requirements/"
-                     "functionalRequirements/FRE-REQU-LST")
-    fre_list_node = meta_tree.by_path(fre_list_path)
-    fre_element = fre_list_node.element_node if fre_list_node else None
-    fre_content_node = None
-    for child in (fre_element.children if fre_element else []):
-        if child.member_name == "content":
-            fre_content_node = child
-    fre_form = fre_content_node.form if fre_content_node else None
-    if fre_form is None:
-        sys.stderr.write(
-            "META FORM MISSING at %s element content\n" % fre_list_path)
-        sys.exit(3)
-    # Element subtrees have no static document path; use an ASCII marker
-    # segment so the log path stays ASCII (mirrored verbatim per language).
-    fre_form_path = fre_list_path + "/#element/content"
-    for f in fre_form.fields:
-        out.append("MF\t%s\t%s\t%s\t%d\t%s\t%s" % (
-            fre_form_path,
-            esc(f.name),
-            esc(f.type_name),
-            1 if f.required else 0,
-            esc(f.role or ""),
-            esc(f.initial or ""),
+
+    def meta_form(list_path: str) -> None:
+        list_node = meta_tree.by_path(list_path)
+        element = list_node.element_node if list_node else None
+        content_node = None
+        for child in (element.children if element else []):
+            if child.member_name == "content":
+                content_node = child
+        form = content_node.form if content_node else None
+        if form is None:
+            sys.stderr.write(
+                "META FORM MISSING at %s element content\n" % list_path)
+            sys.exit(3)
+        # Element subtrees have no static document path; use an ASCII marker
+        # segment so the log path stays ASCII (mirrored verbatim per language).
+        form_path = list_path + "/#element/content"
+        for f in form.fields:
+            out.append("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s" % (
+                form_path,
+                esc(f.name),
+                esc(f.type_name),
+                1 if f.required else 0,
+                esc(f.role or ""),
+                esc(f.initial or ""),
+                esc(",".join(f.enum_values or [])),
+            ))
+        out.append("MT\t%s\t%s\t%s" % (
+            form_path,
+            esc(form.title_field.name if form.title_field else ""),
+            esc(form.id_field.name if form.id_field else ""),
         ))
-    out.append("MT\t%s\t%s\t%s" % (
-        fre_form_path,
-        esc(fre_form.title_field.name if fre_form.title_field else ""),
-        esc(fre_form.id_field.name if fre_form.id_field else ""),
-    ))
+
+    meta_form("SBP/introductionAndScope/requirements/"
+              "functionalRequirements/FRE-REQU-LST")
+    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
 
     out.append("SECTION\tmeta-nav")
 

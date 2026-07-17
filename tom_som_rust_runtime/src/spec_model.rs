@@ -69,6 +69,9 @@ pub struct FormFieldSpec {
     /// Predefined initial content (YRD6, meta-only editor prefill), `""` when
     /// absent.
     pub initial: String,
+    /// Enum constant names when the field's value type is an enum (FORMAT 6,
+    /// YRD7), empty for non-enum fields.
+    pub enum_values: Vec<String>,
 }
 
 /// A single field of a [`SpecClass`].
@@ -309,6 +312,14 @@ fn field_from_json(f: &Json) -> SpecField {
             if label.is_empty() {
                 label = fname.clone();
             }
+            let mut ff_enum_values = Vec::new();
+            if let Some(arr) = ff.get("enumValues").and_then(|v| v.as_array()) {
+                for v in arr {
+                    if let Some(s) = v.as_str() {
+                        ff_enum_values.push(s.to_string());
+                    }
+                }
+            }
             form_fields.push(FormFieldSpec {
                 name: fname,
                 label,
@@ -317,6 +328,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 required: ff.bool_or("required"),
                 role: ff.str_or("role"),
                 initial: ff.str_or("initial"),
+                enum_values: ff_enum_values,
             });
         }
     }

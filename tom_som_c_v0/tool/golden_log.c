@@ -90,6 +90,29 @@ static void typed_content(SpecDocument *doc, SomStrList *out,
   free(value);
 }
 
+/* Boundary canonicalisation for typed non-String form fields (FORMAT 6): an
+ * int renders as its decimal string, a bool as "true"/"false". Returns an owned
+ * buffer the caller frees. The sample values are always present, matching the
+ * Dart reference which emits the raw stored string for these fields. */
+static char *som_format_int(long v) { return fmt("%ld", v); }
+static char *som_format_bool(int v) { return fmt("%s", v ? "true" : "false"); }
+
+/* Asserts the canonical typed value equals the generic form-store read at
+ * <form_path>.<field>, appends the `TF` line, and frees `canonical` (owned). */
+static void typed_form(SpecDocument *doc, SomStrList *out, const char *form_path,
+                       const char *field, char *canonical) {
+  const char *generic = spec_document_form_field(doc, form_path, field);
+  if (generic == NULL) generic = "";
+  if (strcmp(canonical, generic) != 0) {
+    die(fmt("TYPED FORM MISMATCH at %s.%s: typed=\"%s\" generic=\"%s\"",
+            form_path, field, canonical, generic));
+  }
+  char *e = esc(generic);
+  som_strlist_push(out, fmt("TF\t%s\t%s\t%s", form_path, field, e));
+  free(e);
+  free(canonical);
+}
+
 /* Maps a runtime kind literal (SOM_META_KIND_*) to the canonical DART enum
  * spelling used in the cross-language golden log. The runtime spells the
  * enum-value kind "enum"; the Dart reference spells it "enumValue". Every other
@@ -131,6 +154,68 @@ static void meta_node(const SomMetaTree *tree, SomStrList *out,
   free(comment);
   free(doc);
   free(headline);
+}
+
+/* Emits the meta-form lines for any list path whose element content is a form:
+ * one `MF` line per field (declaration order) with type/required/role/initial
+ * and the enumValues column (FORMAT 6, YRD7 — comma-joined constant names, empty
+ * for non-enum fields), plus one `MT` summary line naming the title/id roles.
+ * All values are model-derived, so the lines match across every language. */
+static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
+                           const char *list_path) {
+  const SomMetaNode *list_node = som_meta_tree_by_path(tree, list_path);
+  const SomMetaNode *element = list_node != NULL ? list_node->element_node : NULL;
+  const SomMetaNode *content_node = NULL;
+  if (element != NULL) {
+    for (size_t i = 0; i < element->children_len; i++) {
+      if (strcmp(element->children[i]->member_name, "content") == 0) {
+        content_node = element->children[i];
+      }
+    }
+  }
+  const SomFormMeta *form = content_node != NULL ? content_node->form : NULL;
+  if (form == NULL) {
+    fprintf(stderr, "META FORM MISSING at %s element content\n", list_path);
+    exit(3);
+  }
+  /* Element subtrees have no static document path; use an ASCII marker segment
+   * so the log path stays ASCII (mirrored verbatim per language). */
+  char *form_path = fmt("%s/#element/content", list_path);
+  for (size_t i = 0; i < form->fields_len; i++) {
+    const SomFormFieldMeta *f = &form->fields[i];
+    char *en = esc(f->name);
+    char *et = esc(f->type_name);
+    char *er = esc(f->role);
+    char *ei = esc(f->initial);
+    /* Join the enum constant names with commas, then escape as one field. */
+    size_t joined_len = 0;
+    for (size_t j = 0; j < f->enum_values_len; j++) {
+      joined_len += strlen(f->enum_values[j]) + 1;
+    }
+    char *joined = malloc(joined_len + 1);
+    joined[0] = '\0';
+    for (size_t j = 0; j < f->enum_values_len; j++) {
+      if (j > 0) strcat(joined, ",");
+      strcat(joined, f->enum_values[j]);
+    }
+    char *ev = esc(joined);
+    som_strlist_push(out, fmt("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s", form_path, en, et,
+                              f->required ? 1 : 0, er, ei, ev));
+    free(ev);
+    free(joined);
+    free(ei);
+    free(er);
+    free(et);
+    free(en);
+  }
+  const SomFormFieldMeta *title_field = som_form_meta_title_field(form);
+  const SomFormFieldMeta *id_field = som_form_meta_id_field(form);
+  char *etf = esc(title_field != NULL ? title_field->name : "");
+  char *eif = esc(id_field != NULL ? id_field->name : "");
+  som_strlist_push(out, fmt("MT\t%s\t%s\t%s", form_path, etf, eif));
+  free(eif);
+  free(etf);
+  free(form_path);
 }
 
 /* Emits one `N` line: asserts the nav ref resolves to `expected_path` and to
@@ -197,7 +282,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t5");
+  som_strlist_push_copy(&out, "FORMAT\t6");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -423,6 +508,66 @@ int main(int argc, char **argv) {
   }
   som_list_free(&fre_reqs);
 
+  /* --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+   * members read through the typed facade and asserted against the generic form
+   * store, canonicalised through the SAME boundary rules the facade setters used
+   * to write them (int -> decimal, bool -> "true"/"false", enum -> constant
+   * name). The emitted value is the raw stored string, so the lines are
+   * byte-identical across languages regardless of native member types. --- */
+  som_strlist_push_copy(&out, "SECTION\ttyped-form");
+  {
+    TargetOperatingModel s_tomc =
+        d00_solution_blueprint_target_operating_model_concept(&sbp);
+    TargetBusinessProcessModel s_tbp =
+        target_operating_model_target_business_process(&s_tomc);
+    ProcessStepsAndActorInteractions s_psai =
+        target_business_process_model_process_steps_and_actor_interactions(&s_tbp);
+    ActorOverview s_ao = process_steps_and_actor_interactions_actor_overview(&s_psai);
+    ActorOverviewOverviewForm ao_form = actor_overview_overview(&s_ao);
+    const char *ao_path = som_node_path(&ao_form.node);
+    typed_form(doc, &out, ao_path, "totalActorCount",
+               som_format_int(actor_overview_overview_form_total_actor_count(&ao_form)));
+    typed_form(doc, &out, ao_path, "humanActorCount",
+               som_format_int(actor_overview_overview_form_human_actor_count(&ao_form)));
+    typed_form(doc, &out, ao_path, "systemActorCount",
+               som_format_int(actor_overview_overview_form_system_actor_count(&ao_form)));
+    typed_form(doc, &out, ao_path, "externalActorCount",
+               som_format_int(actor_overview_overview_form_external_actor_count(&ao_form)));
+    actor_overview_overview_form_free(&ao_form);
+
+    ExperienceAndInterfaceDesign s_xdsf =
+        d00_solution_blueprint_experience_and_interface_design(&sbp);
+    Accessibility s_acc = experience_and_interface_design_accessibility(&s_xdsf);
+    AccessibilityAccessibilityOverviewContentForm acc_form =
+        accessibility_accessibility_overview_content(&s_acc);
+    const char *acc_path = som_node_path(&acc_form.node);
+    typed_form(doc, &out, acc_path, "accessibilityStatement",
+               som_format_bool(accessibility_accessibility_overview_content_form_accessibility_statement(&acc_form)));
+    accessibility_accessibility_overview_content_form_free(&acc_form);
+
+    QualityAndAcceptanceModel s_qamf =
+        d00_solution_blueprint_quality_and_acceptance_model(&sbp);
+    Iso25010Coverage s_cov = quality_and_acceptance_model_iso25010_coverage(&s_qamf);
+    SomList cov_list = iso25010_coverage_characteristics(&s_cov);
+    som_strlist_push(&out, fmt("TL\t%s\t%zu", cov_list.list_path,
+                               som_list_length(&cov_list)));
+    for (size_t i = 0; i < som_list_length(&cov_list); i++) {
+      const char *ip = som_list_item_path_at(&cov_list, i);
+      Iso25010CoverageEntry entry;
+      iso25010_coverage_entry_init(&entry, typed_doc, ip);
+      Iso25010CoverageEntryContentForm cform =
+          iso25010_coverage_entry_content(&entry);
+      char *characteristic =
+          iso25010_coverage_entry_content_form_characteristic(&cform);
+      typed_form(doc, &out, som_node_path(&cform.node), "characteristic",
+                 fmt("%s", characteristic));
+      free(characteristic);
+      iso25010_coverage_entry_content_form_free(&cform);
+      iso25010_coverage_entry_free(&entry);
+    }
+    som_list_free(&cov_list);
+  }
+
   /* --- Meta (FORMAT 2): the generated metadata tree read three ways. The SBP
    * root's static tree is the one the sample is decoded against. Every emitted
    * path/field is model-derived, so the lines are byte-identical across all
@@ -447,53 +592,10 @@ int main(int argc, char **argv) {
    * the form's title-role and id-role fields via the titleField/idField
    * accessors. All values are model-derived. --- */
   som_strlist_push_copy(&out, "SECTION\tmeta-form");
-  {
-    const char *fre_list_path =
-        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
-    const SomMetaNode *fre_list_node =
-        som_meta_tree_by_path(meta_tree, fre_list_path);
-    const SomMetaNode *fre_element =
-        fre_list_node != NULL ? fre_list_node->element_node : NULL;
-    const SomMetaNode *fre_content_node = NULL;
-    if (fre_element != NULL) {
-      for (size_t i = 0; i < fre_element->children_len; i++) {
-        if (strcmp(fre_element->children[i]->member_name, "content") == 0) {
-          fre_content_node = fre_element->children[i];
-        }
-      }
-    }
-    const SomFormMeta *fre_form =
-        fre_content_node != NULL ? fre_content_node->form : NULL;
-    if (fre_form == NULL) {
-      fprintf(stderr, "META FORM MISSING at %s element content\n",
-              fre_list_path);
-      exit(3);
-    }
-    /* Element subtrees have no static document path; use an ASCII marker
-     * segment so the log path stays ASCII (mirrored verbatim per language). */
-    char *fre_form_path = fmt("%s/#element/content", fre_list_path);
-    for (size_t i = 0; i < fre_form->fields_len; i++) {
-      const SomFormFieldMeta *f = &fre_form->fields[i];
-      char *en = esc(f->name);
-      char *et = esc(f->type_name);
-      char *er = esc(f->role);
-      char *ei = esc(f->initial);
-      som_strlist_push(&out, fmt("MF\t%s\t%s\t%s\t%d\t%s\t%s", fre_form_path,
-                                 en, et, f->required ? 1 : 0, er, ei));
-      free(ei);
-      free(er);
-      free(et);
-      free(en);
-    }
-    const SomFormFieldMeta *title_field = som_form_meta_title_field(fre_form);
-    const SomFormFieldMeta *id_field = som_form_meta_id_field(fre_form);
-    char *etf = esc(title_field != NULL ? title_field->name : "");
-    char *eif = esc(id_field != NULL ? id_field->name : "");
-    som_strlist_push(&out, fmt("MT\t%s\t%s\t%s", fre_form_path, etf, eif));
-    free(eif);
-    free(etf);
-    free(fre_form_path);
-  }
+  emit_meta_form(meta_tree, &out,
+                 "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
+  emit_meta_form(meta_tree, &out,
+                 "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
 
   /* Dot-notation navigation: the typed nav accessors must resolve to exactly
    * the path byPath finds, and to the *same* node instance. */

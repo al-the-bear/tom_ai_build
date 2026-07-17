@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t5")
+	out = append(out, "FORMAT\t6")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -206,6 +206,60 @@ func main() {
 		out = append(out, "TR\t"+itemPath+"\ttitle\t"+esc(typedTitle))
 	}
 
+	// --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+	// members read through the typed facade and asserted against the generic
+	// form store, canonicalised through the SAME boundary rules the facade
+	// setters used to write them (int -> decimal, bool -> "true"/"false", enum
+	// -> constant name). The emitted value is the raw stored string, so the
+	// lines are byte-identical across languages regardless of native types. ---
+	out = append(out, "SECTION\ttyped-form")
+	somFormatInt := func(v *int) string {
+		if v == nil {
+			return ""
+		}
+		return fmt.Sprintf("%d", *v)
+	}
+	somFormatBool := func(v *bool) string {
+		if v == nil {
+			return ""
+		}
+		if *v {
+			return "true"
+		}
+		return "false"
+	}
+	typedForm := func(formPath, field, canonical string) {
+		generic := doc.FormFieldOr(formPath, field)
+		if canonical != generic {
+			die("TYPED FORM MISMATCH at " + formPath + "." + field + ": " +
+				"typed=\"" + canonical + "\" generic=\"" + generic + "\"")
+		}
+		out = append(out, "TF\t"+formPath+"\t"+field+"\t"+esc(generic))
+	}
+
+	actorOverview := sbp.TargetOperatingModelConcept().TargetBusinessProcess().
+		ProcessStepsAndActorInteractions().ActorOverview().Overview()
+	typedForm(actorOverview.Path(), "totalActorCount",
+		somFormatInt(actorOverview.TotalActorCount()))
+	typedForm(actorOverview.Path(), "humanActorCount",
+		somFormatInt(actorOverview.HumanActorCount()))
+	typedForm(actorOverview.Path(), "systemActorCount",
+		somFormatInt(actorOverview.SystemActorCount()))
+	typedForm(actorOverview.Path(), "externalActorCount",
+		somFormatInt(actorOverview.ExternalActorCount()))
+
+	accessibilityOverview := sbp.ExperienceAndInterfaceDesign().
+		Accessibility().AccessibilityOverviewContent()
+	typedForm(accessibilityOverview.Path(), "accessibilityStatement",
+		somFormatBool(accessibilityOverview.AccessibilityStatement()))
+
+	coverage := sbp.QualityAndAcceptanceModel().Iso25010Coverage().Characteristics()
+	out = append(out, fmt.Sprintf("TL\t%s\t%d", coverage.ListPath(), coverage.Length()))
+	for i := 0; i < coverage.Length(); i++ {
+		cform := coverage.At(i).Content()
+		typedForm(cform.Path(), "characteristic", cform.Characteristic())
+	}
+
 	// --- Meta (FORMAT 2): the generated metadata tree read three ways. Every
 	// path and every emitted field is model-derived, so the lines are byte-
 	// identical across all nine languages even though the accessor names and
@@ -237,53 +291,61 @@ func main() {
 	metaNode("SBP/requirements")
 	metaNode("SBP/requirements/content")
 
-	// --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
-	// read through the metadata tree — one MF line per field (declaration
-	// order) with type/required/role/initial, plus one MT summary line naming
-	// the form's title-role and id-role fields via the TitleField/IdField
-	// accessors. All values are model-derived. ---
+	// --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
+	// content form read through the metadata tree — one MF line per field
+	// (declaration order) with type/required/role/initial plus the FORMAT 6
+	// enumValues column (comma-joined constant names, empty for non-enum
+	// fields), plus one MT summary line naming the form's title-role and
+	// id-role fields via the TitleField/IdField accessors. Emitted for the FRE
+	// requirement form (role fields, no enums) and the ISO 25010 coverage form
+	// (an enum-typed field). All values are model-derived. ---
 	out = append(out, "SECTION\tmeta-form")
-	const freListPath = "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST"
-	freListNode := metaTree.ByPath(freListPath)
-	var freElement *som.SomMetaNode
-	if freListNode != nil {
-		freElement = freListNode.ElementNode
-	}
-	var freContentNode *som.SomMetaNode
-	if freElement != nil {
-		for _, child := range freElement.Children {
-			if child.MemberName == "content" {
-				freContentNode = child
+	metaForm := func(listPath string) {
+		listNode := metaTree.ByPath(listPath)
+		var element *som.SomMetaNode
+		if listNode != nil {
+			element = listNode.ElementNode
+		}
+		var contentNode *som.SomMetaNode
+		if element != nil {
+			for _, child := range element.Children {
+				if child.MemberName == "content" {
+					contentNode = child
+				}
 			}
 		}
-	}
-	var freForm *som.SomFormMeta
-	if freContentNode != nil {
-		freForm = freContentNode.Form
-	}
-	if freForm == nil {
-		fmt.Fprintln(os.Stderr, "META FORM MISSING at "+freListPath+" element content")
-		os.Exit(3)
-	}
-	// Element subtrees have no static document path; use an ASCII marker
-	// segment so the log path stays ASCII (mirrored verbatim per language).
-	freFormPath := freListPath + "/#element/content"
-	for _, f := range freForm.Fields {
-		required := 0
-		if f.Required {
-			required = 1
+		var form *som.SomFormMeta
+		if contentNode != nil {
+			form = contentNode.Form
 		}
-		out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s\t%s",
-			freFormPath, esc(f.Name), esc(f.TypeName), required, esc(f.Role), esc(f.Initial)))
+		if form == nil {
+			fmt.Fprintln(os.Stderr, "META FORM MISSING at "+listPath+" element content")
+			os.Exit(3)
+		}
+		// Element subtrees have no static document path; use an ASCII marker
+		// segment so the log path stays ASCII (mirrored verbatim per language).
+		formPath := listPath + "/#element/content"
+		for _, f := range form.Fields {
+			required := 0
+			if f.Required {
+				required = 1
+			}
+			out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s\t%s\t%s",
+				formPath, esc(f.Name), esc(f.TypeName), required, esc(f.Role),
+				esc(f.Initial), esc(strings.Join(f.EnumValues, ","))))
+		}
+		titleName, idName := "", ""
+		if tf := form.TitleField(); tf != nil {
+			titleName = tf.Name
+		}
+		if idf := form.IdField(); idf != nil {
+			idName = idf.Name
+		}
+		out = append(out, "MT\t"+formPath+"\t"+esc(titleName)+"\t"+esc(idName))
 	}
-	titleName, idName := "", ""
-	if tf := freForm.TitleField(); tf != nil {
-		titleName = tf.Name
-	}
-	if idf := freForm.IdField(); idf != nil {
-		idName = idf.Name
-	}
-	out = append(out, "MT\t"+freFormPath+"\t"+esc(titleName)+"\t"+esc(idName))
+
+	metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST")
+	metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
 
 	// Dot-notation navigation: the typed nav accessors must resolve to exactly
 	// the path ByPath finds, and to the same node instance.

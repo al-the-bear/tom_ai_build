@@ -32,6 +32,10 @@ import tom_som_runtime.SomList;
 import tom_som_java_v0.TomSomV0.D00SolutionBlueprint;
 import tom_som_java_v0.TomSomV0.CurrentOperationalMetric;
 import tom_som_java_v0.TomSomV0.FunctionalRequirementEntry;
+import tom_som_java_v0.TomSomV0.ActorOverviewOverviewForm;
+import tom_som_java_v0.TomSomV0.AccessibilityAccessibilityOverviewContentForm;
+import tom_som_java_v0.TomSomV0.Iso25010CoverageEntry;
+import tom_som_java_v0.TomSomV0.Iso25010CoverageEntryContentForm;
 import tom_som_java_v0.TomSomV0Meta;
 
 public final class GoldenLog {
@@ -60,7 +64,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t5");
+    out.add("FORMAT\t6");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -182,6 +186,39 @@ public final class GoldenLog {
       out.add("TR\t" + itemPath + "\ttitle\t" + esc(typedTitle));
     }
 
+    // --- Typed non-String form fields (FORMAT 6, YRD7): native int/bool/enum
+    // members read through the typed facade and asserted against the generic
+    // form store, canonicalised through the SAME boundary rules the facade
+    // setters used to write them (int -> decimal, bool -> "true"/"false", enum
+    // -> constant name). The emitted value is the raw stored string, so the
+    // lines are byte-identical across languages regardless of native types. ---
+    out.add("SECTION\ttyped-form");
+    ActorOverviewOverviewForm actorOverview = sbp.targetOperatingModelConcept()
+        .targetBusinessProcess().processStepsAndActorInteractions()
+        .actorOverview().overview();
+    typedForm(doc, out, actorOverview.path, "totalActorCount",
+        somFormatInt(actorOverview.totalActorCount()));
+    typedForm(doc, out, actorOverview.path, "humanActorCount",
+        somFormatInt(actorOverview.humanActorCount()));
+    typedForm(doc, out, actorOverview.path, "systemActorCount",
+        somFormatInt(actorOverview.systemActorCount()));
+    typedForm(doc, out, actorOverview.path, "externalActorCount",
+        somFormatInt(actorOverview.externalActorCount()));
+
+    AccessibilityAccessibilityOverviewContentForm accessibilityOverview =
+        sbp.experienceAndInterfaceDesign().accessibility()
+            .accessibilityOverviewContent();
+    typedForm(doc, out, accessibilityOverview.path, "accessibilityStatement",
+        somFormatBool(accessibilityOverview.accessibilityStatement()));
+
+    SomList<Iso25010CoverageEntry> coverage =
+        sbp.qualityAndAcceptanceModel().iso25010Coverage().characteristics();
+    out.add("TL\t" + coverage.listPath + "\t" + coverage.length());
+    for (int i = 0; i < coverage.length(); i++) {
+      Iso25010CoverageEntryContentForm cform = coverage.get(i).content();
+      typedForm(doc, out, cform.path, "characteristic", cform.characteristic());
+    }
+
     // --- Meta (FORMAT 2): the generated metadata tree read three ways. ---
     SomMetaTree metaTree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
 
@@ -197,43 +234,19 @@ public final class GoldenLog {
     metaNode(out, metaTree, "SBP/requirements");
     metaNode(out, metaTree, "SBP/requirements/content");
 
-    // --- Meta form fields (FORMAT 5, YRD6): the FRE list-element content form
-    // read through the metadata tree — one MF line per field (declaration
-    // order) with type/required/role/initial, plus one MT summary line naming
-    // the form's title-role and id-role fields via the titleField/idField
-    // accessors. All values are model-derived. ---
+    // --- Meta form fields (FORMAT 5, YRD6; FORMAT 6, YRD7): a list-element
+    // content form read through the metadata tree — one MF line per field
+    // (declaration order) with type/required/role/initial plus the FORMAT 6
+    // enumValues column (comma-joined constant names, empty for non-enum
+    // fields), plus one MT summary line naming the form's title-role and
+    // id-role fields via the titleField/idField accessors. Emitted for the FRE
+    // requirement form (role fields, no enums) and the ISO 25010 coverage form
+    // (an enum-typed field). All values are model-derived. ---
     out.add("SECTION\tmeta-form");
-    final String freListPath =
-        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST";
-    SomMetaNode freListNode = metaTree.byPath(freListPath);
-    SomMetaNode freElement = freListNode != null ? freListNode.elementNode : null;
-    SomMetaNode freContentNode = null;
-    if (freElement != null) {
-      for (SomMetaNode child : freElement.children) {
-        if ("content".equals(child.memberName)) {
-          freContentNode = child;
-        }
-      }
-    }
-    SomFormMeta freForm = freContentNode != null ? freContentNode.form : null;
-    if (freForm == null) {
-      System.err.println("META FORM MISSING at " + freListPath + " element content");
-      System.exit(3);
-      return;
-    }
-    // Element subtrees have no static document path; use an ASCII marker
-    // segment so the log path stays ASCII (mirrored verbatim per language).
-    final String freFormPath = freListPath + "/#element/content";
-    for (SomFormFieldMeta f : freForm.fields) {
-      out.add("MF\t" + freFormPath + "\t" + esc(f.name) + "\t" + esc(f.typeName) + "\t"
-          + (f.required ? 1 : 0) + "\t" + esc(f.role == null ? "" : f.role) + "\t"
-          + esc(f.initial == null ? "" : f.initial));
-    }
-    SomFormFieldMeta freTitleField = freForm.titleField();
-    SomFormFieldMeta freIdField = freForm.idField();
-    out.add("MT\t" + freFormPath + "\t"
-        + esc(freTitleField == null ? "" : freTitleField.name) + "\t"
-        + esc(freIdField == null ? "" : freIdField.name));
+    metaForm(out, metaTree,
+        "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
+    metaForm(out, metaTree,
+        "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
 
     out.add("SECTION\tmeta-nav");
     metaNav(out, metaTree, TomSomV0Meta.D00SolutionBlueprintMeta, "SBP");
@@ -313,6 +326,69 @@ public final class GoldenLog {
         + esc(n.comment == null ? "" : n.comment) + "\t"
         + esc(n.docComment == null ? "" : n.docComment) + "\t"
         + esc(n.headline == null ? "" : n.headline));
+  }
+
+  /** Canonicalises a nullable native int the same way the facade setter does. */
+  static String somFormatInt(Integer v) {
+    return v == null ? "" : String.valueOf(v);
+  }
+
+  /** Canonicalises a nullable native bool the same way the facade setter does. */
+  static String somFormatBool(Boolean v) {
+    return v == null ? "" : (v ? "true" : "false");
+  }
+
+  /**
+   * Reads a typed non-String form field's canonical string through the facade
+   * and asserts it against the generic form store before emitting the TF line.
+   */
+  static void typedForm(SpecDocument doc, List<String> out, String formPath,
+      String field, String canonical) {
+    String generic = doc.formField(formPath, field);
+    generic = generic == null ? "" : generic;
+    if (!canonical.equals(generic)) {
+      die("TYPED FORM MISMATCH at " + formPath + "." + field + ": "
+          + "typed=\"" + canonical + "\" generic=\"" + generic + "\"");
+    }
+    out.add("TF\t" + formPath + "\t" + field + "\t" + esc(generic));
+  }
+
+  /**
+   * Emits the MF field lines and MT summary line for a list-element content
+   * form resolved through the metadata tree, including the FORMAT 6 enumValues
+   * column (comma-joined constant names, empty for non-enum fields).
+   */
+  static void metaForm(List<String> out, SomMetaTree metaTree, String listPath) {
+    SomMetaNode listNode = metaTree.byPath(listPath);
+    SomMetaNode element = listNode != null ? listNode.elementNode : null;
+    SomMetaNode contentNode = null;
+    if (element != null) {
+      for (SomMetaNode child : element.children) {
+        if ("content".equals(child.memberName)) {
+          contentNode = child;
+        }
+      }
+    }
+    SomFormMeta form = contentNode != null ? contentNode.form : null;
+    if (form == null) {
+      System.err.println("META FORM MISSING at " + listPath + " element content");
+      System.exit(3);
+      return;
+    }
+    // Element subtrees have no static document path; use an ASCII marker
+    // segment so the log path stays ASCII (mirrored verbatim per language).
+    final String formPath = listPath + "/#element/content";
+    for (SomFormFieldMeta f : form.fields) {
+      out.add("MF\t" + formPath + "\t" + esc(f.name) + "\t" + esc(f.typeName) + "\t"
+          + (f.required ? 1 : 0) + "\t" + esc(f.role == null ? "" : f.role) + "\t"
+          + esc(f.initial == null ? "" : f.initial) + "\t"
+          + esc(String.join(",", f.enumValues)));
+    }
+    SomFormFieldMeta titleField = form.titleField();
+    SomFormFieldMeta idField = form.idField();
+    out.add("MT\t" + formPath + "\t"
+        + esc(titleField == null ? "" : titleField.name) + "\t"
+        + esc(idField == null ? "" : idField.name));
   }
 
   static void metaNav(List<String> out, SomMetaTree metaTree, SomMetaRef ref, String expectedPath) {

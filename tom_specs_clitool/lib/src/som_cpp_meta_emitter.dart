@@ -579,12 +579,12 @@ class SomCppMetaEmitter {
     b.writeln('$indent$recv.form = som::SomFormMeta{};');
     for (var i = 0; i < fields.length; i++) {
       final ff = fields[i];
-      // YRD7: enum-typed fields append their value domain as the final
-      // aggregate member; non-enum fields let it default to an empty vector.
-      final enumArg = ff.enumValues.isEmpty
-          ? ''
-          : ', std::vector<std::string>{'
-              '${ff.enumValues.map((e) => '"${_cppStr(e)}"').join(', ')}}';
+      // YRD7: every field emits the enumValues aggregate member explicitly so
+      // the initializer stays complete under -Werror=missing-field-initializers;
+      // enum-typed fields carry their value domain, non-enum fields an empty
+      // vector.
+      final enumArg = ', std::vector<std::string>{'
+          '${ff.enumValues.map((e) => '"${_cppStr(e)}"').join(', ')}}';
       b.writeln('$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
           '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
           '"${_cppStr(ff.label)}", ${ff.required}, '

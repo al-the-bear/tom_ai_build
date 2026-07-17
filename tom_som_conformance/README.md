@@ -40,17 +40,18 @@ LF-terminated, ASCII-path, and value-escaped so it compares byte-for-byte
 across languages regardless of their native string/collection types. The format
 is versioned by a `FORMAT <n>` marker and has grown additively — `FORMAT 3`
 added stored headlines (YRD3), `FORMAT 5` typed role fields (YRD6), `FORMAT 6`
-typed non-String form fields + the meta-form `enumValues` column (YRD7). The
-Dart reference is currently at **FORMAT 6**; the eight non-Dart generators are
-one revision behind at **FORMAT 5**, so the harness is expected to fail today —
-see [Known format lag](#known-format-lag-dart-format-6-vs-non-dart-format-5-tracked-yre4)
-below. Each log carries these sections, all model-derived so the lines are
-byte-identical across languages even though the accessor *names* differ:
+typed non-String form fields + the meta-form `enumValues` column (YRD7). **All
+nine generators are at FORMAT 6** and the harness is byte-identity green (YRE4
+propagated the `enumValues` meta capability to the eight non-Dart runtimes and
+lifted their generators). Each log carries these sections, all model-derived so
+the lines are byte-identical across languages even though the accessor *names*
+differ:
 
 | Section | Content |
 | ------- | ------- |
 | `generic-content` / `generic-forms` / `generic-lists` | Every content leaf, form field, and list container read through the generic string-path API (`SpecDocument`). |
 | `typed` | A curated facade traversal (`.path` / `.content`), each read asserted equal to the generic read. |
+| `typed-form` | Typed non-String form members (int / bool / enum, FORMAT 6) read through the facade and asserted against the generic form store after boundary canonicalisation (int → decimal, bool → `true`/`false`, enum → constant name). |
 | `meta` | The generated metadata tree resolved by path (`metaTree.byPath`), emitting each node's `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
 | `meta-nav` | Dot-notation navigation accessors (`d00SolutionBlueprint.introductionAndScope.goals`), asserted to resolve to the same node instance `byPath` finds. |
 | `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVHST_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
@@ -76,23 +77,17 @@ or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
 all nine language APIs yield exactly the same reading of the same specification.
 
-#### Known format lag: Dart FORMAT 6 vs non-Dart FORMAT 5 (tracked: YRE4)
+#### Format convergence at FORMAT 6 (YRE4, closed)
 
-The harness is **expected to fail today**, and the failure is understood — it is
-not silent drift. The Dart reference generator emits **FORMAT 6** (YRD7: typed
-non-String form fields plus the meta-form `enumValues` column), while the eight
-non-Dart generators still emit **FORMAT 5** (YRD6). So `compare_golden.dart`
-reports 8 of 9 languages mismatching against the Dart reference.
-
-| Aspect | Detail |
-| ------ | ------ |
-| **Symptom** | `compare_golden.dart` fails for all eight non-Dart logs. Each diverges from the Dart reference on the `FORMAT` header line (line 3), where the Dart log reads `FORMAT 6` and every non-Dart log reads `FORMAT 5`; the total byte count differs accordingly (~152 KB Dart vs ~149 KB non-Dart). |
-| **Root cause** | The FORMAT 6 delta is the meta-form `enumValues` column, which is sourced from `SomFormFieldMeta.enumValues`. That field currently exists **only in `tom_som_dart_runtime`** — the other eight `tom_som_<lang>_runtime` packages do not yet carry the enum-values meta capability. Re-running `regenerate_golden.sh` therefore re-emits FORMAT 5 for the eight non-Dart languages: **regeneration alone does not close the gap** — the eight runtimes must first gain the FORMAT 6 capability. |
-| **Tracked fix** | Adding the `enumValues` meta capability to the eight non-Dart runtimes and lifting their generators to FORMAT 6 is tracked as **YRE4**. When that lands, the eight generators emit FORMAT 6 and the harness returns to byte-identity green. |
-
-Until YRE4 lands, treat an 8/9 failure with a line-3 `FORMAT 5` vs `FORMAT 6`
-mismatch as the *known* state — not a regression. A regression is any *other*
-differing line, or a Dart-vs-Dart mismatch.
+The eight non-Dart generators once lagged the Dart reference by one revision
+(FORMAT 5 vs FORMAT 6). YRE4 closed that gap: the `enumValues` meta capability
+(`SomFormFieldMeta.enumValues`) was added to all eight `tom_som_<lang>_runtime`
+packages, the eight meta-emitters were taught to emit it, and the eight golden
+generators were lifted to FORMAT 6 (typed non-String form fields + the meta-form
+`enumValues` column). All nine logs are now byte-identical (~152 KB each), so a
+green `compare_golden.dart` run again proves every language API yields exactly
+the same reading of the same specification. Any mismatch today is a genuine
+regression, not a known lag.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 
