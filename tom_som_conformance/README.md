@@ -34,11 +34,17 @@ facade's generated DocSpecs schema:
 | C | `tom_som_c_v0/tool/golden_log.c` |
 | C++ | `tom_som_cpp_v0/tool/golden_log.cpp` |
 
-The log format (`FORMAT 2`) is defined once in the Dart generator (the
-reference) and mirrored verbatim by the other eight. It is intentionally
-line-oriented, LF-terminated, ASCII-path, and value-escaped so it compares
-byte-for-byte across languages regardless of their native string/collection
-types. Each log carries these sections, all model-derived so the lines are
+The log format is defined once in the Dart generator (the reference) and
+mirrored verbatim by the other eight. It is intentionally line-oriented,
+LF-terminated, ASCII-path, and value-escaped so it compares byte-for-byte
+across languages regardless of their native string/collection types. The format
+is versioned by a `FORMAT <n>` marker and has grown additively — `FORMAT 3`
+added stored headlines (YRD3), `FORMAT 5` typed role fields (YRD6), `FORMAT 6`
+typed non-String form fields + the meta-form `enumValues` column (YRD7). The
+Dart reference is currently at **FORMAT 6**; the eight non-Dart generators are
+one revision behind at **FORMAT 5**, so the harness is expected to fail today —
+see [Known format lag](#known-format-lag-dart-format-6-vs-non-dart-format-5-tracked-yre4)
+below. Each log carries these sections, all model-derived so the lines are
 byte-identical across languages even though the accessor *names* differ:
 
 | Section | Content |
@@ -69,6 +75,24 @@ dart run tool/compare_golden.dart
 or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
 all nine language APIs yield exactly the same reading of the same specification.
+
+#### Known format lag: Dart FORMAT 6 vs non-Dart FORMAT 5 (tracked: YRE4)
+
+The harness is **expected to fail today**, and the failure is understood — it is
+not silent drift. The Dart reference generator emits **FORMAT 6** (YRD7: typed
+non-String form fields plus the meta-form `enumValues` column), while the eight
+non-Dart generators still emit **FORMAT 5** (YRD6). So `compare_golden.dart`
+reports 8 of 9 languages mismatching against the Dart reference.
+
+| Aspect | Detail |
+| ------ | ------ |
+| **Symptom** | `compare_golden.dart` fails for all eight non-Dart logs. Each diverges from the Dart reference on the `FORMAT` header line (line 3), where the Dart log reads `FORMAT 6` and every non-Dart log reads `FORMAT 5`; the total byte count differs accordingly (~152 KB Dart vs ~149 KB non-Dart). |
+| **Root cause** | The FORMAT 6 delta is the meta-form `enumValues` column, which is sourced from `SomFormFieldMeta.enumValues`. That field currently exists **only in `tom_som_dart_runtime`** — the other eight `tom_som_<lang>_runtime` packages do not yet carry the enum-values meta capability. Re-running `regenerate_golden.sh` therefore re-emits FORMAT 5 for the eight non-Dart languages: **regeneration alone does not close the gap** — the eight runtimes must first gain the FORMAT 6 capability. |
+| **Tracked fix** | Adding the `enumValues` meta capability to the eight non-Dart runtimes and lifting their generators to FORMAT 6 is tracked as **YRE4**. When that lands, the eight generators emit FORMAT 6 and the harness returns to byte-identity green. |
+
+Until YRE4 lands, treat an 8/9 failure with a line-3 `FORMAT 5` vs `FORMAT 6`
+mismatch as the *known* state — not a regression. A regression is any *other*
+differing line, or a Dart-vs-Dart mismatch.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 
